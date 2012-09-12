@@ -15,6 +15,7 @@ import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Field;
+import org.collectionspace.chain.csp.schema.Relationship;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
@@ -319,7 +320,6 @@ public class RecordRead implements WebMethod {
 				JSONObject fields=storage.retrieveJSON(base+"/"+csid,restrictions);
 				fields.put("csid",csid); // XXX remove this, subject to UI team approval?
 				out.put("csid",csid);
-				out.put("fields",fields);
 				if(base.equals("role")){
 					if(authorization_type){
 						JSONObject permissions = storage.retrieveJSON(base+"/"+csid+"/"+"permroles/",restrictions);
@@ -333,13 +333,14 @@ public class RecordRead implements WebMethod {
 						}
 						fields.put("usedBy",usedby);
 					}
-				}
-				else if(base.equals("termlist")){
+				} else if(base.equals("termlist")){
 					String shortname = fields.getString("shortIdentifier");
 					JSONArray allUsed = getUsedBy(shortname);
 					fields.put("usedBys", allUsed);
-				}
-				else{
+				} else{
+					fields = getHierarchy(storage,fields);
+					//fields.put("csid",csid);
+					//JSONObject relations=createRelations(storage,csid);
 					if(!showbasicinfoonly){
 						JSONObject tusd = this.termsused.getTermsUsed(storage, base+"/"+csid, new JSONObject());
 						out.put("termsUsed",tusd.getJSONArray("results"));
@@ -347,6 +348,7 @@ public class RecordRead implements WebMethod {
 						out.put("relations",relations);
 					}
 				}
+				out.put("fields",fields);
 				
 			} else {
 				out=storage.retrieveJSON(base+"/"+csid,restrictions);
@@ -369,6 +371,61 @@ public class RecordRead implements WebMethod {
 		}
 		return out;
 	}
+	
+	private JSONObject getHierarchy(Storage storage, JSONObject fields) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
+		for(Relationship r: record.getSpec().getAllRelations()){
+			if(r.showSiblings()){
+				JSONObject temp = new JSONObject();
+				temp.put("_primary", true);
+				JSONArray children = new JSONArray();
+				children.put(temp);
+				fields.put(r.getSiblingParent(), children);
+				if(fields.has(r.getID())){
+					//String broadterm = fields.getString(r.getID());
+					String child = r.getSiblingChild();
+					if(fields.has(child)){
+						String broader = fields.getString(child);
+						
+						JSONObject restrict=new JSONObject();
+						restrict.put("dst",broader);	
+						restrict.put("type","hasBroader");	
+						JSONObject reldata = storage.getPathsJSON("relations/hierarchical",restrict);
+						
+						fields.remove(child);
+						for(int i=0;i<reldata.getJSONObject("moredata").length();i++){
+
+							String[] reld = (String[])reldata.get("listItems");
+							String hcsid = reld[i];
+							JSONObject mored = reldata.getJSONObject("moredata").getJSONObject(hcsid);
+							//it's name is
+							JSONObject siblings = new JSONObject();
+							if(!fields.getString("csid").equals(mored.getString("subjectcsid"))){
+								siblings.put(child,mored.getString("subjectname"));
+								children.put(siblings);
+							}
+						}
+					}
+					fields.put(r.getSiblingParent(), children);
+				}
+			}
+			//add empty array if necessary
+			if(!fields.has(r.getID()) && r.mustExistInSpec()){
+				if(r.getObject().equals("n")){
+					JSONObject temp = new JSONObject();
+					temp.put("_primary", true);
+					JSONArray at = new JSONArray();
+					at.put(temp);
+					fields.put(r.getID(),at);
+				}
+				else{
+					fields.put(r.getID(),"");
+				}
+			}
+		}
+		return fields;
+	}
+	
+
 	
 	private void store_get(Storage storage,UIRequest request,String path) throws UIException {
 		// Get the data

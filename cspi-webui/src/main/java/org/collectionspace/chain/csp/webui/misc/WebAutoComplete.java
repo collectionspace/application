@@ -184,17 +184,23 @@ public class WebAutoComplete implements WebMethod {
 		JSONObject results = storage.getPathsJSON(path,restriction);
 		String[] paths = (String[]) results.get("listItems");
 		for(String csid : paths) {
-			JSONObject data=storage.retrieveJSON(path+"/"+csid+"/view", new JSONObject());
+			// Appending the "list" to the path will glean the "list" marked fields, into a "summarylist"
+			JSONObject data=storage.retrieveJSON(path+"/"+csid+"/view/list", new JSONObject());
 			JSONObject entry=new JSONObject();
-			String displayNameString = data.getString(displayNameFieldID);
-			String refName = data.getString("refName");
+			JSONObject summarylist=data.getJSONObject("summarylist");
+			String displayNameString = summarylist.getString(displayNameFieldID);
+			String refName = summarylist.getString("refName");
 			// Build a base refName without trailing displayName suffix
 			if(refName.endsWith("'"+displayNameString+"'"))
 				refName = refName.substring(0,refName.length()-(displayNameString.length()+2));
 			entry.put("baseUrn",refName);
-			entry.put("csid",data.getString("csid"));
+			entry.put("csid",summarylist.getString("csid"));
 			entry.put("type",r.getWebURL());
-			entry.put("displayName", displayNameString);
+			// Standard temCompletion widget handles arrays of alternate terms, so 
+			// we pass an array for consistency.
+			JSONArray displayNames = new JSONArray();
+			displayNames.put(displayNameString);
+			entry.put("displayNames", displayNames);
 			out.put(entry);
 		}
 		

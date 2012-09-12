@@ -316,6 +316,7 @@ public class GenericStorage  implements ContextualisedStorage {
 		Set<String> to_get=new HashSet<String>(view_good.keySet());
 		// Try to fullfil from gleaned info
 		//gleaned is info that everytime we read a record we cache certain parts of it
+		
 		for(String fieldname : view_good.keySet()) {
 			//only get the info that is needed
 			String name = fieldname;
@@ -454,6 +455,7 @@ public class GenericStorage  implements ContextualisedStorage {
 				}
 			}
 		}
+
 		if(summarylist.length()>0){
 			out.put("summarylist", summarylist);
 		}
@@ -1033,6 +1035,10 @@ public class GenericStorage  implements ContextualisedStorage {
 				//	log.info(doc.asXML());
 				}
 			}
+			
+			// This checks for hierarchy support, and does nothing if not appropriate. 
+			handleHierarchyPayloadSend(thisr, parts, jsonObject, filePath);
+			
 			int status = 0;
 			if(thisr.isMultipart()){
 				ReturnedMultipartDocument docm = conn.getMultipartXMLDocument(RequestMethod.PUT,serviceurl+filePath,parts,creds,cache);
@@ -1434,11 +1440,12 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws JSONException
 	 * @throws UnderlyingStorageException
 	 * @throws ConnectionException
+	 * @throws ExistException 
 	 */
 	protected ReturnedURL autoCreateSub(CSPRequestCredentials creds,
 			CSPRequestCache cache, JSONObject jsonObject, Document doc, String savePrefix, Record r)
 			throws JSONException, UnderlyingStorageException,
-			ConnectionException {
+			ConnectionException, ExistException {
 		ReturnedURL url;
 		Map<String,Document> parts=new HashMap<String,Document>();
 		Document doc2 = doc;
@@ -1453,6 +1460,10 @@ public class GenericStorage  implements ContextualisedStorage {
 				//log.info(savePrefix);
 			}
 		}
+		
+		// This checks for hierarchy support, and does nothing if not appropriate. 
+		handleHierarchyPayloadSend(r, parts, jsonObject, null);
+
 		//some records are accepted as multipart in the service layers, others arent, that's why we split up here
 		if(r.isMultipart())
 			url = conn.getMultipartURL(RequestMethod.POST,savePrefix,parts,creds,cache);
@@ -2012,6 +2023,7 @@ public class GenericStorage  implements ContextualisedStorage {
 					if(node.selectSingleNode(csidfield)!=null){
 						csid=node.selectSingleNode(csidfield).getText();
 						urlPlusCSID = r.getServicesURL()+"/"+csid;
+						setGleanedValue(cache,urlPlusCSID,"csid",csid);
 					}
 					for(Node field : fields) {
 						if(csidfield.equals(field.getName())) {
@@ -2232,8 +2244,10 @@ public class GenericStorage  implements ContextualisedStorage {
 			//probably should put empty array in if no data
 		}
 	}
+	// NOTE that this is building XML Doc, and not JSON as is typical!
 	protected static Element createRelationship(Relationship rel, Object data, String csid, String subjtype, 
-						Boolean reverseIt, Spec spec) throws ExistException, UnderlyingStorageException{
+						Boolean reverseIt, Spec spec)
+					throws ExistException, UnderlyingStorageException, JSONException{
 
 		Document doc=DocumentFactory.getInstance().createDocument();
 		Element subroot = doc.addElement("relation-list-item");
@@ -2256,22 +2270,35 @@ public class GenericStorage  implements ContextualisedStorage {
 		}
 		
 		//find out record type from urn 
-		String associatedtest = (String)data;
+		String refName = (String)data;
 		Element object=subroot.addElement(objectName);
 
-        RefName.AuthorityItem itemParsed = RefName.AuthorityItem.parse(associatedtest);
-        String serviceurl = itemParsed.inAuthority.resource;
-		Record myr = spec.getRecordByServicesUrl(serviceurl);
-        if(myr.isType("authority")){
-
-    		Element objcsid = object.addElement("refName");
-    		objcsid.addText(associatedtest);
-        }
-        else{
-
-			//not implemented yet - but I bet I will have to - assume /chain/intake/csid
-    		Element objcsid = object.addElement("csid");
-    		objcsid.addText(associatedtest);
+		// We may or may not be dealing with a sub-resource like AuthItems.
+		// TODO - this may all be unneccessary, as the services should fill in
+		// doc types, etc. now automatically.
+		// OTOH, not a bad idea to validate the refName...
+        RefName.AuthorityItem itemParsed = RefName.AuthorityItem.parse(refName);
+        if(itemParsed != null) {
+	        String serviceurl = itemParsed.inAuthority.resource;
+			Record myr = spec.getRecordByServicesUrl(serviceurl);
+	        if(myr.isType("authority")){
+	
+	    		Element objRefName = object.addElement("refName");
+	    		objRefName.addText(refName);
+	        }
+	        else{
+	        	throw new JSONException(
+	        	"Relation object refName is for sub-resources other than authority item - NYI!");
+	        }
+        } else {
+        	RefName.Authority resourceParsed = RefName.Authority.parse(refName);
+        	if(resourceParsed != null) {
+        		Element objRefName = object.addElement("refName");
+        		objRefName.addText(refName);
+        	} else {
+	        	throw new JSONException(
+	        			"Relation object refName does not appear to be valid!");
+        	}
         }
 		
 		//log.info(subroot.asXML());

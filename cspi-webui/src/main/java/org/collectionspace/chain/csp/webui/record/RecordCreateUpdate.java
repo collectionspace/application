@@ -463,9 +463,10 @@ public class RecordCreateUpdate implements WebMethod {
 				String displayNameFieldName = (displayNameFS!=null)?displayNameFS.getID():null;
 				boolean remapDisplayName = false;
 				String remapDisplayNameValue = null;
+				boolean quickie = false;
 				if(create) {
-					remapDisplayName = !"displayName".equals(displayNameFieldName) &&
-							(data.has("_view") && data.getString("_view").equals("autocomplete"));
+					quickie = (data.has("_view") && data.getString("_view").equals("autocomplete"));
+					remapDisplayName = quickie && !"displayName".equals(displayNameFieldName);
 					// Check to see if displayName field needs remapping from UI
 					if(remapDisplayName) {
 						// Need to map the field for displayName, and put it into a proper structure
@@ -514,6 +515,16 @@ public class RecordCreateUpdate implements WebMethod {
 				}
 				
 				data=reader.getJSON(storage,path); // We do a GET now to read back what we created.
+				if(quickie){
+					JSONObject newdata = new JSONObject();
+					JSONObject fields = data.getJSONObject("fields");
+					String displayName = fields.getString(remapDisplayName?displayNameFieldName:"displayName");
+					newdata.put("displayName",remapDisplayNameValue);
+					String refName = fields.getString("refName");
+					newdata.put("urn", refName);
+					data = newdata;
+				}
+
 				request.sendJSONResponse(data);
 				request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
 				if(create)

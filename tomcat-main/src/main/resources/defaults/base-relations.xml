@@ -7,8 +7,11 @@
         <object>1</object>
         <showsiblings>equivalentContexts:equivalentContext</showsiblings>
         <directional>false</directional>
-        <sourceTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities,collectionobjects</sourceTypes>
-        <destinationTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities,collectionobjects</destinationTypes>
+				<!-- Groan - the code that handles generic relations uses services-url 
+						 as the types against which it checks, while the hierarchy code 
+						 uses the record id. Ugh. -->
+        <sourceTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities,collection-object</sourceTypes>
+        <destinationTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities,collection-object</destinationTypes>
         <showinui>true</showinui>
     </relation>
     <relation id="narrowerContexts">
@@ -19,8 +22,11 @@
         <object>n</object>
         <childname>narrowerContext</childname>
         <directional>false</directional>
-        <sourceTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities,collectionobjects</sourceTypes>
-        <destinationTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities,collectionobjects</destinationTypes>
+				<!-- Groan - the code that handles generic relations uses services-url 
+						 as the types against which it checks, while the hierarchy code 
+						 uses the record id. Ugh. -->
+        <sourceTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities,collection-object</sourceTypes>
+        <destinationTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities,collection-object</destinationTypes>
         <showinui>true</showinui>
     </relation>
     <relation id="broader">
@@ -33,6 +39,9 @@
     <relation id="affects">
         <displayName>affects</displayName>
         <directional>false</directional>
+				<!-- Groan - the code that handles generic relations uses services-url 
+						 as the types against which it checks, while the hierarchy code 
+						 uses the record id. Ugh. -->
         <sourceTypes>collectionobjects,intakes,acquisitions,groups,loansin,loansout,movements,objectexit,media</sourceTypes>
         <destinationTypes>collectionobjects,intakes,acquisitions,groups,loansin,loansout,movements,objectexit,media</destinationTypes>
     </relation>

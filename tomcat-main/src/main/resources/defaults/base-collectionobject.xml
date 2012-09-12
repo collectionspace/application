@@ -54,7 +54,9 @@
   <include src="domain-collectionobject.xml" strip-root="yes"/>
 
   <section id="coreInformation">
-    <field id="tenantID" section="collectionspace_core" attributes="GET"/>
+    <field id="tenantId" section="collectionspace_core" attributes="GET"/>
+		<!-- Need to glean csid for termCompletion -->
+    <field id="csid" mini="search,list" attributes="GET"></field>
     <field id="refName" section="collectionspace_core" mini="search,list,relate" attributes="GET"></field>
     <field id="createdAt" section="collectionspace_core" attributes="GET"/>
     <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core"

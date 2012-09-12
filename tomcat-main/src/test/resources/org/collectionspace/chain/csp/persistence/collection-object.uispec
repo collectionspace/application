@@ -169,6 +169,7 @@
             ],
             "selection": "${fields.ownershipExchangeMethod}"
         },
+        ".csc-collection-object-tenantId": "${fields.tenantId}",
         ".csc-collection-object-technicalAttributeMeasurement-label": {"messagekey": "collection-object-technicalAttributeMeasurementLabel"},
         ".csc-collection-object-contentOtherType-label": {"messagekey": "collection-object-contentOtherTypeLabel"},
         ".csc-collection-object-fieldCollectionPlace-label": {"messagekey": "collection-object-fieldCollectionPlaceLabel"},
@@ -433,7 +434,6 @@
         ".csc-collection-object-assocPlaceNote-label": {"messagekey": "collection-object-assocPlaceNoteLabel"},
         ".csc-collection-object-fieldCollectionNumber-label": {"messagekey": "collection-object-fieldCollectionNumberLabel"},
         ".csc-collection-object-titleTranslation-label": {"messagekey": "collection-object-titleTranslationLabel"},
-        ".csc-collection-object-tenantID": "${fields.tenantID}",
         ".csc-collection-object-inscriptionContentInscriber-label": {"messagekey": "collection-object-inscriptionContentInscriberLabel"},
         ".csc-collection-object-textualInscriptionGroup": {"decorators": [{
             "func": "cspace.makeRepeatable",
@@ -1131,6 +1131,7 @@
         ".csc-collection-object-objectProductionPerson-label": {"messagekey": "collection-object-objectProductionPersonLabel"},
         ".csc-collection-object-objectProductionPeopleRole-label": {"messagekey": "collection-object-objectProductionPeopleRoleLabel"},
         ".csc-collection-object-assocConceptType-label": {"messagekey": "collection-object-assocConceptTypeLabel"},
+        ".csc-collection-object-tenantId-label": {"messagekey": "collection-object-tenantIdLabel"},
         ".csc-collection-object-colors-label": {"messagekey": "collection-object-colorsLabel"},
         ".csc-collection-object-objectProductionPeople-label": {"messagekey": "collection-object-objectProductionPeopleLabel"},
         ".csc-collection-object-fieldCollector-label": {"messagekey": "collection-object-fieldCollectorLabel"},
@@ -1426,6 +1427,7 @@
         ".csc-collection-object-assocEventOrganization-label": {"messagekey": "collection-object-assocEventOrganizationLabel"},
         ".csc-object-owner-experience": "${fields.ownersPersonalExperience}",
         ".csc-collection-object-owner-label": {"messagekey": "collection-object-ownerLabel"},
+        ".csc-collection-object-csid": "${fields.csid}",
         ".csc-collection-object-physicalDescription-label": {"messagekey": "collection-object-physicalDescriptionLabel"},
         ".csc-collection-object-color-label": {"messagekey": "collection-object-colorLabel"},
         ".csc-collection-object-contentObjectGroup": {"decorators": [{
@@ -1607,6 +1609,7 @@
         }]},
         ".csc-collection-object-refName-label": {"messagekey": "collection-object-refNameLabel"},
         ".csc-collection-object-number-label": {"messagekey": "collection-object-numberLabel"},
+        ".csc-collection-object-csid-label": {"messagekey": "collection-object-csidLabel"},
         ".csc-object-identification-record-status": {
             "default": "new",
             "optionnames": [
@@ -1831,7 +1834,6 @@
         ".csc-object-description-edition-number": "${fields.editionNumber}",
         ".csc-collection-object-objectProductionNote-label": {"messagekey": "collection-object-objectProductionNoteLabel"},
         ".csc-collection-object-viewersReference-label": {"messagekey": "collection-object-viewersReferenceLabel"},
-        ".csc-collection-object-tenantID-label": {"messagekey": "collection-object-tenantIDLabel"},
         ".csc-object-description-content-language": {"decorators": [{
             "func": "cspace.makeRepeatable",
             "type": "fluid",
