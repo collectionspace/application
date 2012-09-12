@@ -22,6 +22,13 @@
     <structure id="screen">
       <view>
         <label-section id="messagekeys" show="true"/>
+        <hierarchy-section show="true">
+          <options>
+						<!-- The values here may not be used, but are here for completeness -->
+            <option id="narrowerContext">collection-object</option>
+            <option id="broaderContext">collection-object</option>
+          </options>
+        </hierarchy-section>
       </view>
     </structure>
     <structure id="tab">
@@ -44,10 +51,13 @@
     </structure>
   </structures>
 
-  <include src="domain-collectionobject.xml"  strip-root="yes"/>
+  <include src="domain-collectionobject.xml" strip-root="yes"/>
 
   <section id="coreInformation">
-    <field id="tenantID" section="collectionspace_core" attributes="GET"/>
+    <field id="tenantId" section="collectionspace_core" attributes="GET"/>
+		<!-- Need to glean csid for termCompletion -->
+    <field id="csid" mini="search,list" attributes="GET"></field>
+    <field id="refName" section="collectionspace_core" mini="search,list,relate" attributes="GET"></field>
     <field id="createdAt" section="collectionspace_core" attributes="GET"/>
     <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core"
       attributes="GET" mini="search,list,relate"/>
@@ -63,7 +73,7 @@
   </section>
   <section id="identificationInformation">
     <field id="objectNumber" ui-search="repeatable" chooser="yes" in-title="yes" in-tab="yes"
-      mini="number,search,list,relate" seperate_ui_container="true">
+      display-name="yes" mini="number,search,list,relate" seperate_ui_container="true">
       <selector>object-identification-object-number</selector>
       <title-selector>titleBar-object-identification-object-number</title-selector>
       <options>
@@ -473,7 +483,8 @@
         </field>
       </repeat>
       <repeat id="contentOrganizations">
-        <field id="contentOrganization" autocomplete="organization-organization,organization-ulan_oa">
+        <field id="contentOrganization"
+          autocomplete="organization-organization,organization-ulan_oa">
           <selector>object-description-content-organization</selector>
         </field>
       </repeat>

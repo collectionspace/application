@@ -43,9 +43,9 @@ public class WebAutoComplete implements WebMethod {
 	
 	public WebAutoComplete(Record r) { this.r=r; }
 	
-	private JSONArray doAutocomplete(CSPRequestCache cache,Storage storage,String fieldname,
+	private JSONArray doAuthorityAutocomplete(CSPRequestCache cache,Storage storage,String fieldname,
 			String start, String vocabConstraint, String pageSize, String pageNum) 
-			throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
+			throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException, ConfigException {
 		FieldSet fs=r.getFieldFullList(fieldname);
 		JSONArray out = new JSONArray();
 		Instance[] allInstances = null;
@@ -95,7 +95,12 @@ public class WebAutoComplete implements WebMethod {
 					if(pageNum!=null) {
 						restriction.put("pageNum",pageNum);
 					}
-					restriction.put(n.getRecord().getDisplayNameField().getID(),start); // May be something other than display name
+					FieldSet dispNameFS = n.getRecord().getDisplayNameField(); 
+					if(dispNameFS==null) {
+						throw new ConfigException("WebAutoComplete for Instance has no displayName configured: "+n.getID());
+					}
+					String displayNameFieldID = dispNameFS.getID(); 
+					restriction.put(displayNameFieldID,start); // May be something other than display name
 					
 					JSONObject results = storage.getPathsJSON(path,restriction);
 					String[] paths = (String[]) results.get("listItems");
@@ -103,7 +108,7 @@ public class WebAutoComplete implements WebMethod {
 						JSONObject data=storage.retrieveJSON(path+"/"+csid+"/view", new JSONObject());
 						JSONObject entry=new JSONObject();
 						// TODO - handle multiple name matches
-						String displayNameString = data.getString(n.getRecord().getDisplayNameField().getID());
+						String displayNameString = data.getString(displayNameFieldID);
 						JSONArray displayNames = JSONUtils.createJSONArrayFromSeparatedString(displayNameString);
 						String primaryDN = displayNames.getString(0);
 						String refid = data.getString("refid");
@@ -136,24 +141,109 @@ public class WebAutoComplete implements WebMethod {
 		return out;
 	}
 	
+	/**
+	 * Handles autocomplete for non-authority records. Simpler model that does not involve
+	 * multiple namespaces (a.k.a., vocabs, a.k.a., Instances).
+	 * @param cache
+	 * @param storage
+	 * @param fieldname Should generally only be one of broader* or narrower*
+	 * @param start The partial string to match
+	 * @param pageSize
+	 * @param pageNum
+	 * @return the JSON output payload of results.
+	 * @throws JSONException
+	 * @throws ExistException
+	 * @throws UnimplementedException
+	 * @throws UnderlyingStorageException
+	 * @throws ConfigException 
+	 */
+	private JSONArray doRecordAutocomplete(CSPRequestCache cache,Storage storage,String fieldname,
+			String start, String pageSize, String pageNum) 
+			throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException, ConfigException {
+
+		// FieldSet fs=r.getFieldFullList(fieldname); we do not really care, frankly
+		
+		JSONArray out = new JSONArray();
+		
+		JSONObject restriction=new JSONObject();
+		if(pageSize!=null) {
+			restriction.put("pageSize",pageSize);
+		}
+		if(pageNum!=null) {
+			restriction.put("pageNum",pageNum);
+		}
+		
+		FieldSet dispNameFS = r.getDisplayNameField(); 
+		if(dispNameFS==null) {
+			throw new ConfigException("WebAutoComplete for record has no displayName configured: "+r.getID());
+		}
+		String displayNameFieldID = dispNameFS.getID(); 
+		restriction.put(displayNameFieldID,start); // May be something other than display name
+
+		String path = r.getID();
+		JSONObject results = storage.getPathsJSON(path,restriction);
+		String[] paths = (String[]) results.get("listItems");
+		for(String csid : paths) {
+			// Appending the "list" to the path will glean the "list" marked fields, into a "summarylist"
+			JSONObject data=storage.retrieveJSON(path+"/"+csid+"/view/list", new JSONObject());
+			JSONObject entry=new JSONObject();
+			JSONObject summarylist=data.getJSONObject("summarylist");
+			String displayNameString = summarylist.getString(displayNameFieldID);
+			String refName = summarylist.getString("refName");
+			// Build a base refName without trailing displayName suffix
+			if(refName.endsWith("'"+displayNameString+"'"))
+				refName = refName.substring(0,refName.length()-(displayNameString.length()+2));
+			entry.put("baseUrn",refName);
+			entry.put("csid",summarylist.getString("csid"));
+			entry.put("type",r.getWebURL());
+			// Standard temCompletion widget handles arrays of alternate terms, so 
+			// we pass an array for consistency.
+			JSONArray displayNames = new JSONArray();
+			displayNames.put(displayNameString);
+			entry.put("displayNames", displayNames);
+			out.put(entry);
+		}
+		
+		return out;
+	}
+	
 	private void autocomplete(CSPRequestCache cache,Storage storage,UIRequest request) throws UIException {
 		try {
 
 			String[] path=request.getPrincipalPath();
-			JSONArray out = doAutocomplete(cache,storage,path[path.length-1],
+			String fieldName = path[path.length-1];	// Last path element is the field on which user is querying.
+			JSONArray out = new JSONArray();
+			boolean hasHierarchy = r.hasHierarchyUsed("screen");
+			boolean isHierarchyAutoComplete = false;
+			if(hasHierarchy){
+				Structure s = r.getStructure("screen");	// Configures the hierarchy section.
+				if(s.hasOption(fieldName)){				// This is one of the hierarchy fields
+					isHierarchyAutoComplete = true;
+				}
+			}
+			if(r.isType("authority") || !isHierarchyAutoComplete){
+				out = doAuthorityAutocomplete(cache, storage, fieldName,
 					request.getRequestArgument(AUTO_COMPLETE_QUERY_PARAM), 
 					request.getRequestArgument(CONSTRAIN_VOCAB_PARAM),
 					request.getRequestArgument(PAGE_SIZE_PARAM),
 					request.getRequestArgument(PAGE_NUM_PARAM));
-			
+			} else if(isHierarchyAutoComplete) {
+				out = doRecordAutocomplete(cache, storage, fieldName,
+						request.getRequestArgument(AUTO_COMPLETE_QUERY_PARAM), 
+						request.getRequestArgument(PAGE_SIZE_PARAM),
+						request.getRequestArgument(PAGE_NUM_PARAM));
+			} else {
+				throw new ConfigException("WebAutoComplete called for record that does not support autocomplete!: "+r.getID());
+			}
 			request.sendJSONResponse(out);
-			
 		} catch (JSONException e) {
 			throw new UIException("JSONException during autocompletion",e);
 		} catch (ExistException e) {
 			throw new UIException("ExistException during autocompletion",e);
 		} catch (UnimplementedException e) {
 			throw new UIException("UnimplementedException during autocompletion",e);
+		} catch (ConfigException e) {
+			throw new UIException("ConfigException during autocompletion",e);
 		} catch (UnderlyingStorageException x) {
 			throw new UIException("UnderlyingStorageException during autocompletion"+x.getLocalizedMessage(),x.getStatus(),x.getUrl(),x);
 		}

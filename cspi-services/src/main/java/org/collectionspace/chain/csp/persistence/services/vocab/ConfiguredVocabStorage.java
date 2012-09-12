@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.collectionspace.chain.csp.persistence.services.GenericStorage;
+import org.collectionspace.chain.csp.persistence.services.RefName;
 import org.collectionspace.chain.csp.persistence.services.XmlJsonConversion;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
@@ -215,59 +216,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				}
 			}
 	
-
-			if(r.hasHierarchyUsed("screen")){
-				ArrayList<Element> alleles = new ArrayList<Element>();
-				for(Relationship rel : r.getSpec().getAllRelations()){
-					Relationship newrel=rel;
-					Boolean inverse = false;
-					if(rel.hasInverse()){
-						newrel = r.getSpec().getRelation(rel.getInverse());
-						inverse = true;
-					}
-					//does this relationship apply to this record
-					if(rel.hasSourceType(r.getID())){
-						
-						//does this record have the data in the json
-						if(jsonObject.has(rel.getID())){
-							if(rel.getObject().equals("1")){
-								if(jsonObject.has(rel.getID()) && !jsonObject.get(rel.getID()).equals("")){
-									Element bit = createRelationship(newrel,jsonObject.get(rel.getID()),null,r.getServicesURL(),null, inverse);
-									if(bit != null){
-										alleles.add(bit);
-									}
-								}
-							}
-							else if(rel.getObject().equals("n")){
-								JSONArray temp = jsonObject.getJSONArray(rel.getID());
-								for(int i=0; i<temp.length();i++){
-									String argh = rel.getChildName();
-									JSONObject brgh = temp.getJSONObject(i);
-									if(brgh.has(argh) && !brgh.getString(argh).equals("")){
-										String uri = brgh.getString(argh);
-										Element bit = createRelationship(newrel,uri,null,r.getServicesURL(),null, inverse);
-										if(bit != null){
-											alleles.add(bit);
-										}
-									}
-								}
-							}
-						}
-					}
-				
-				}
-				//add relationships section
-				if(!alleles.isEmpty()){
-					Element[] array = alleles.toArray(new Element[0]);
-					Document out=XmlJsonConversion.getXMLRelationship(array);
-
-					body.put("relations-common-list",out);
-				}
-				else{
-					Document out=XmlJsonConversion.getXMLRelationship(null);
-					body.put("relations-common-list",out);
-				}
-			}
+			handleHierarchyPayloadSend(r, body, jsonObject, null);
 
 			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,pathurl,body,creds,cache);		
 			if(out.getStatus()>299)
@@ -456,99 +405,9 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				}
 			}
 			
-
-	        //RefName.AuthorityItem itemParsed = RefName.AuthorityItem.parse(refid);
-	        //String thisShortid = itemParsed.getShortIdentifier();
-	        String thiscsid = csid;
-	        //String thisparent = itemParsed.getParentShortIdentifier();
-
-			
-			if(r.hasHierarchyUsed("screen")){
-				//lets do relationship stuff...
-				Document list = doc.getDocument("relations-common-list");
-				//loop over all the relationship types
-
-				//List<String> listitems=new ArrayList<String>();
-//persons-common-list/person_list_item
-				List<Node> nodes=list.selectNodes("/relations-common-list/*");
-
-				for(Node node : nodes) {
-					if(node.matches("/relations-common-list/relation-list-item")){
-						//String test = node.asXML();
-						String relationshipType = node.selectSingleNode("relationshipType").getText();
-						//String subjCSID = node.selectSingleNode("subjectCsid").getText();
-						String objCSID = node.selectSingleNode("objectCsid").getText();
-						String suri="";
-						String scsid="";
-						String sser="";
-						if(node.selectSingleNode("subject/uri")!=null){
-							//String surl = node.selectSingleNode("subject/uri").getText();
-							scsid=node.selectSingleNode("subject/csid").getText();
-							//String sname=node.selectSingleNode("subject/name").getText();
-							sser=node.selectSingleNode("subject/documentType").getText();
-							suri = node.selectSingleNode("subject/refName").getText();
-					//		suri=urn_processor.constructURN("id",urnbits[2],"id",urnbits[4],sname);
-					//		RefName.Authority authority2 = RefName.Authority.parse(RefName.AUTHORITY_EXAMPLE2);
-					//        RefName.AuthorityItem item3 = RefName.buildAuthorityItem(authority2,
-					//                                                                RefName.EX_itemShortIdentifier,
-					//                                                                RefName.EX_itemDisplayName);
-						}
-						String ouri="";
-						String oser="";
-						String ocsid="";
-						if(node.selectSingleNode("object/uri")!=null){
-							//String ourl=node.selectSingleNode("object/uri").getText();
-							ocsid=node.selectSingleNode("object/csid").getText();
-							//String oname=node.selectSingleNode("object/name").getText();
-							oser=node.selectSingleNode("object/documentType").getText();
-							//String[] urnbits = ourl.split("/");
-							ouri = node.selectSingleNode("object/refName").getText();
-					//		ouri=urn_processor.constructURN("id",urnbits[2],"id",urnbits[4],oname);
-						}
-
-						String relateduri = ouri;
-						String relatedcsid = ocsid;
-						String relatedser = oser;
-						
-						if(r.getSpec().hasRelationshipByPredicate(relationshipType)){
-							Relationship rel = r.getSpec().getRelationshipByPredicate(relationshipType);
-							Relationship newrel = rel;
-							//is this subject or object
-							if(thiscsid.equals(objCSID)){
-								//should we invert
-								if(r.getSpec().hasRelationshipInverse(rel.getID())){
-									newrel = r.getSpec().getInverseRelationship(rel.getID());
-									relateduri = suri;
-									relatedcsid = scsid;
-									relatedser = sser;
-								}
-							}
-							
-
-							if(newrel.getObject().equals("n")){ //array
-								JSONObject subdata = new JSONObject();
-								subdata.put(newrel.getChildName(),relateduri);
-								if(out.has(newrel.getID())){
-									out.getJSONArray(newrel.getID()).put(subdata);
-								}
-								else{
-									JSONArray bob = new JSONArray();
-									bob.put(subdata);
-									out.put(newrel.getID(), bob);
-								}
-							}
-							else{//string
-								out.put(newrel.getID(), relateduri);
-								if(newrel.showSiblings()){
-									out.put(newrel.getSiblingChild(), relatedser+"/"+relatedcsid);
-									//out.put(newrel.getSiblingChild(), relateduri);
-								}
-							}
-						}
-					}
-				}
-			}
-			
+			// If this record has hierarchy, will pull out the relations section and map it to the hierarchy
+			// fields (special case handling of XML-JSON
+			handleHierarchyPayloadRetrieve(r, doc, out, csid);
 
 			// get related sub records?
 			for(FieldSet fs : r.getAllSubRecords("GET")){
@@ -591,7 +450,6 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			return out;
 	}
 	
-
 	/**
 	 * Returns JSON containing pagenumber, pagesize, itemsinpage, totalitems and the list of items itself 
 	 */
@@ -757,63 +615,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				
 			}
 
-			if(thisr.hasHierarchyUsed("screen")){
-				ArrayList<Element> alleles = new ArrayList<Element>();
-				for(Relationship rel : r.getSpec().getAllRelations()){
-					Relationship newrel=rel;
-					Boolean inverse = false;
-					if(rel.hasInverse()){
-						newrel = thisr.getSpec().getRelation(rel.getInverse());
-						inverse = true;
-					}
-					//does this relationship apply to this record
-					if(rel.hasSourceType(r.getID())){
-						
-						//does this record have the data in the json
-						if(jsonObject.has(rel.getID())){
-							if(rel.getObject().equals("1")){
-								if(jsonObject.has(rel.getID()) && !jsonObject.get(rel.getID()).equals("")){
-									Element bit = createRelationship(newrel,jsonObject.get(rel.getID()),csid,r.getServicesURL(),savePath, inverse);
-									if(bit != null){
-										alleles.add(bit);
-									}
-								}
-							}
-							else if(rel.getObject().equals("n")){
-								//if()
-								JSONArray temp = jsonObject.getJSONArray(rel.getID());
-								for(int i=0; i<temp.length();i++){
-									String argh = rel.getChildName();
-									JSONObject brgh = temp.getJSONObject(i);
-									if(brgh.has(argh) && !brgh.getString(argh).equals("")){
-										String uri = brgh.getString(argh);
-										Element bit = createRelationship(newrel,uri,csid,r.getServicesURL(),savePath, inverse);
-										if(bit != null){
-											alleles.add(bit);
-										}
-									}
-								}
-								
-							}
-						}
-					}
-				}
-				//add relationships section
-				if(!alleles.isEmpty()){
-					Element[] array = alleles.toArray(new Element[0]);
-					Document out=XmlJsonConversion.getXMLRelationship(array);
-					body.put("relations-common-list",out);
-					//log.info(out.asXML());
-				}
-				else{
-
-					Document out=XmlJsonConversion.getXMLRelationship(null);
-					body.put("relations-common-list",out);
-					//log.info(out.asXML());
-				}
-				//probably should put empty array in if no data
-			}
-			
+			handleHierarchyPayloadSend(thisr, body, jsonObject, csid);
 			
 			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,savePath,body,creds,cache);
 			if(out.getStatus()>299){
@@ -1097,48 +899,4 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		}
 	}
 
-	protected Element createRelationship(Relationship rel, Object data, String csid, String subjtype, String subjuri, Boolean reverseIt) throws ExistException, UnderlyingStorageException{
-
-		Document doc=DocumentFactory.getInstance().createDocument();
-		Element subroot = doc.addElement("relation-list-item");
-
-		Element predicate=subroot.addElement("predicate");
-		predicate.addText(rel.getPredicate());
-		String subjectName = "subject";
-		String objectName = "object";
-		if(reverseIt){
-			subjectName = "object";
-			objectName = "subject";
-		}
-		Element subject=subroot.addElement(subjectName);
-		Element subjcsid = subject.addElement("csid");
-		if(csid != null){
-			subjcsid.addText(csid);
-		}
-		else{
-			subjcsid.addText("${itemCSID}");
-		}
-		
-		//find out record type from urn 
-		String associatedtest = (String)data;
-		Element object=subroot.addElement(objectName);
-
-        RefName.AuthorityItem itemParsed = RefName.AuthorityItem.parse(associatedtest);
-        String serviceurl = itemParsed.inAuthority.resource;
-		Record myr = this.r.getSpec().getRecordByServicesUrl(serviceurl);
-        if(myr.isType("authority")){
-
-    		Element objcsid = object.addElement("refName");
-    		objcsid.addText(associatedtest);
-        }
-        else{
-
-			//not implemented yet - but I bet I will have to - assume /chain/intake/csid
-    		Element objcsid = object.addElement("csid");
-    		objcsid.addText(associatedtest);
-        }
-		
-		//log.info(subroot.asXML());
-		return subroot;
-	}
 }

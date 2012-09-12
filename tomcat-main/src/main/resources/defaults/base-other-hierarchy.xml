@@ -1,39 +1,63 @@
 
-            <record id="hierarchy" in-recordlist="no">
-            	
-                <structures>
-                    <structure id="screen">
-                        <view>
-                            <titlebar show="false"></titlebar>
-                            <sidebar show="false"></sidebar>
-                            <edit-section id="hierarchy" show="true"></edit-section>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                    </structure>
-                </structures>
-				
-				<include src="domain-other-hierarchy.xml" strip-root="yes"/>
-				
-				
-            	<section id="hierarchyInformation">
-            		<field id="broaderContext"  autocomplete="person-person,organization-organization,taxon-taxon,location-location"></field>
-            		<repeat id="narrowerContexts">
-            			<field id="narrowerContext" autocomplete="person-person,organization-organization,taxon-taxon,location-location">
-            				<autocomplete-options>
-            					<strings>
-            						narrowerChange|Warning: %narrower currently has broader term %broader. Change broader term?
-                                </strings>
-                                <funcName>selectMatch|cspace.autocomplete.selectMatchConfirm</funcName>
-                            </autocomplete-options>
-                        </field>
-                    </repeat>
-                    <repeat id="relatedTerms">
-                        <field id="relatedTerm" autocomplete="person-person,organization-organization,taxon-taxon,"></field>
-                    </repeat>
-                </section>
-                <section id="equivalentInformation">
-                    <repeat id="equivalentContexts" as-expander="true">
-                        <field id="equivalentContext" ui-type="hierarchy" attributes="GET"></field>
-                    </repeat>
-                </section>
-            </record>
+<record id="hierarchy" in-recordlist="no">
+
+    <structures>
+        <structure id="screen">
+            <view>
+                <titlebar show="false"/>
+                <sidebar show="false"/>
+                <edit-section id="hierarchy" show="true"/>
+                <label-section id="messagekeys" show="true"/>
+            </view>
+        </structure>
+    </structures>
+
+    <include src="domain-other-hierarchy.xml" strip-root="yes"/>
+
+
+    <section id="hierarchyInformation">
+        <field id="broaderContext"
+            autocomplete="person-person,organization-organization,taxon-taxon,location-location"/>
+        <field id="broaderContextType">
+            <!-- This could be moved to a common enum, but then we'd have to use merged labels -->
+            <options>
+                <option id="set">Set</option>
+                <option id="derivative">Work (derivative)</option>
+                <option id="separable-part">Work (separable part)</option>
+                <option id="non-separable-part">Work (non-separable part)</option>
+                <option id="recto">Work (recto)</option>
+                <option id="verso">Work (verso)</option>
+            </options>
+        </field>
+        <repeat id="narrowerContexts">
+            <field id="narrowerContext"
+                autocomplete="person-person,organization-organization,taxon-taxon,location-location">
+                <autocomplete-options>
+                    <strings> narrowerChange|Warning: %narrower currently has broader term %broader.
+                        Change broader term? </strings>
+                    <funcName>selectMatch|cspace.autocomplete.selectMatchConfirm</funcName>
+                </autocomplete-options>
+            </field>
+            <field id="narrowerContextType">
+                <!-- This could be moved to a common enum, but then we'd have to use merged labels -->
+                <options>
+                    <option id="set">Item in a set</option>
+                    <option id="derivative">Derivative</option>
+                    <option id="separable-part">Separable part</option>
+                    <option id="non-separable-part">Non-separable part</option>
+                    <option id="recto">Recto</option>
+                    <option id="verso">Verso</option>
+                </options>
+            </field>
+        </repeat>
+        <repeat id="relatedTerms">
+            <field id="relatedTerm"
+                autocomplete="person-person,organization-organization,taxon-taxon,"/>
+        </repeat>
+    </section>
+    <section id="equivalentInformation">
+        <repeat id="equivalentContexts" as-expander="true">
+            <field id="equivalentContext" ui-type="hierarchy" attributes="GET"/>
+        </repeat>
+    </section>
+</record>

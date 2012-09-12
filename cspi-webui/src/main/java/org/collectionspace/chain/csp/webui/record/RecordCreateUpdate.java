@@ -11,6 +11,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
+import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
@@ -458,10 +459,49 @@ public class RecordCreateUpdate implements WebMethod {
 				request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
 			}
 			else{
+				FieldSet displayNameFS = this.record.getDisplayNameField();
+				String displayNameFieldName = (displayNameFS!=null)?displayNameFS.getID():null;
+				boolean remapDisplayName = false;
+				String remapDisplayNameValue = null;
+				boolean quickie = false;
 				if(create) {
+					quickie = (data.has("_view") && data.getString("_view").equals("autocomplete"));
+					remapDisplayName = quickie && !"displayName".equals(displayNameFieldName);
+					// Check to see if displayName field needs remapping from UI
+					if(remapDisplayName) {
+						// Need to map the field for displayName, and put it into a proper structure
+						JSONObject fields = data.getJSONObject("fields");
+						remapDisplayNameValue = fields.getString("displayName");
+						if(remapDisplayNameValue != null) {
+							// This needs generalizing, in case the remapped name is nested
+							/*
+							 * From vocab handling where we know where the termDisplayName is
+							FieldSet parentTermGroup = (FieldSet)displayNameFS.getParent();
+							JSONArray parentTermInfoArray = new JSONArray();
+							JSONObject termInfo = new JSONObject();
+							termInfo.put(displayNameFieldName, remapDisplayNameValue);
+							parentTermInfoArray.put(termInfo);
+							*/
+							fields.put(displayNameFieldName, remapDisplayNameValue);
+							fields.remove("displayName");
+						}
+					}
 					path=sendJSON(storage, null, data, restrictions); // REM - We needed a way to send query params, so I'm adding "restrictions" here
 					data.put("csid",path);
 					data.getJSONObject("fields").put("csid",path);
+					// Is this needed???
+					/*
+					String refName = data.getJSONObject("fields").getString("refName");
+					data.put("urn", refName);
+					data.getJSONObject("fields").put("urn", refName);
+					// This seems wrong - especially when we create from existing.
+					if(remapDisplayName){
+						JSONObject newdata = new JSONObject();
+						newdata.put("urn", refName);
+						newdata.put("displayName",quickieDisplayName);
+						data = newdata;
+					}
+					 */
 				} else
 					path=sendJSON(storage,path,data,null);
 				if(path==null)
@@ -475,6 +515,16 @@ public class RecordCreateUpdate implements WebMethod {
 				}
 				
 				data=reader.getJSON(storage,path); // We do a GET now to read back what we created.
+				if(quickie){
+					JSONObject newdata = new JSONObject();
+					JSONObject fields = data.getJSONObject("fields");
+					String displayName = fields.getString(remapDisplayName?displayNameFieldName:"displayName");
+					newdata.put("displayName",remapDisplayNameValue);
+					String refName = fields.getString("refName");
+					newdata.put("urn", refName);
+					data = newdata;
+				}
+
 				request.sendJSONResponse(data);
 				request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
 				if(create)
