@@ -77,7 +77,7 @@
                             <option id="propagation" sample="LI2010.1">Loan In</option>
                         </options> -->
                     <!-- </field> -->
-                    <field id="propDate" ui-type="date" />
+                    <field id="propDate" ui-type="date" ui-search="range"/>
                     <field id="propReason" ui-search="repeatable" >
                         <options>
                             <option id="" default="yes">Please select a value</option>
