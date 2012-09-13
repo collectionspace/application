@@ -102,7 +102,6 @@ public class GenericSearch {
 				// Replace user wildcards with service-legal wildcards
 				if(value.contains("*")){
 					value = value.replace("*", "%");
-					// comparator = ILIKE_COMPARATOR;
 				}
 				String fieldSpecifier = getSchemaQualifiedSearchSpecifierForField(r, fieldname, fieldSet);
 				log.debug("Built XPath specifier for field: " + fieldname + " is: "+fieldSpecifier);

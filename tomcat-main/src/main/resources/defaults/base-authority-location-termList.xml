@@ -10,10 +10,10 @@
                 <title-selector>titleBar-termDisplayName</title-selector>
             </field>
             <!-- FIXME: Add 'ui-search="repeatable"' back to this field when CSPACE-5184/CSPACE-5185 is fixed -->
-            <field id="termName" mini="summary,list,search,relate,terms">
+            <field id="termName">
                 <selector>locationAuthority-termName</selector>
             </field>
-            <field id="termType" mini="summary,search,list,relate">
+            <field id="termType">
                 <selector>locationAuthority-termType</selector>
                 <options>
                     <option id="">Please select a value</option>
