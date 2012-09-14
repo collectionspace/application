@@ -84,7 +84,7 @@
                         <field id="addressMunicipality"></field>
                         <field id="addressStateOrProvince"></field>
                         <field id="addressPostCode"></field>
-                        <field id="addressCountry"></field>
+                        <field id="addressCountry" autocomplete="vocab-country" ui-type="enum"></field>
                         <field id="addressType">
                         	<options>
                                 <option id="">Please select a value</option>
