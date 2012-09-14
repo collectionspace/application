@@ -31,16 +31,22 @@
                 "repeatTree": {"expander": {
                     "tree": {
                         ".csc-hierarchy-narrowerContext": {
-                            "decorators": [{
-                                "func": "cspace.autocomplete",
-                                "type": "fluid",
-                                "options": {
-                                    "queryUrl": "../../../tenant/core/vocabularies/concept/autocomplete/narrowerContext",
-                                    "vocabUrl": "../../../tenant/core/vocabularies/concept/source-vocab/narrowerContext",
-                                    "invokers": {"selectMatch": {"funcName": "cspace.autocomplete.selectMatchConfirm"}},
-                                    "strings": {"narrowerChange": "Warning: %narrower currently has broader term %broader."}
+                            "decorators": [
+                                {
+                                    "func": "cspace.autocomplete",
+                                    "type": "fluid",
+                                    "options": {
+                                        "queryUrl": "../../../tenant/core/vocabularies/concept/autocomplete/narrowerContext",
+                                        "vocabUrl": "../../../tenant/core/vocabularies/concept/source-vocab/narrowerContext",
+                                        "invokers": {"selectMatch": {"funcName": "cspace.autocomplete.selectMatchConfirm"}},
+                                        "strings": {"narrowerChange": "Warning: %narrower currently has broader term %broader."}
+                                    }
+                                },
+                                {
+                                    "func": "cspace.externalURL",
+                                    "type": "fluid"
                                 }
-                            }],
+                            ],
                             "value": "${{row}.narrowerContext}"
                         },
                         ".csc-hierarchy-narrowerContextType": {
@@ -69,14 +75,20 @@
             }
         }]},
         ".csc-hierarchy-broaderContext": {
-            "decorators": [{
-                "func": "cspace.autocomplete",
-                "type": "fluid",
-                "options": {
-                    "queryUrl": "../../../tenant/core/vocabularies/concept/autocomplete/broaderContext",
-                    "vocabUrl": "../../../tenant/core/vocabularies/concept/source-vocab/broaderContext"
+            "decorators": [
+                {
+                    "func": "cspace.autocomplete",
+                    "type": "fluid",
+                    "options": {
+                        "queryUrl": "../../../tenant/core/vocabularies/concept/autocomplete/broaderContext",
+                        "vocabUrl": "../../../tenant/core/vocabularies/concept/source-vocab/broaderContext"
+                    }
+                },
+                {
+                    "func": "cspace.externalURL",
+                    "type": "fluid"
                 }
-            }],
+            ],
             "value": "${fields.broaderContext}"
         },
         ".csc-hierarchy-broaderContext-label": {"messagekey": "hierarchy-broaderContextLabel"},
