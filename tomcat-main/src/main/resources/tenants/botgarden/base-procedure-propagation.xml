@@ -68,15 +68,14 @@
                     <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section id="propagationInformation">
-                    <field id="propNumber" ui-search="repeatable" in-title="yes" mini="number,search,list,terms,relate" />
-                        <!-- chooser="yes" seperate_ui_container="true"
-                        <title-selector>titleBar-loanInNumber</title-selector>
-                        <selector>loanIn-loanInNumber</selector>
-                        <container-selector>loanIn-loanInNumber-patternChooserContainer</container-selector>
-                        <options>
-                            <option id="propagation" sample="LI2010.1">Loan In</option>
-                        </options> -->
-                    <!-- </field> -->
+                    <field id="propNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,terms,relate" seperate_ui_container="true">
+                        <title-selector>titleBar-propNumber</title-selector>
+                        <selector>propagation-propNumber</selector>
+                        <container-selector>propagation-propNumber-patternChooserContainer</container-selector>
+            			<options>
+            				<option id="prop-number" sample="UCBG1000">Propagation Number</option>
+            			</options>
+            		</field>
                     <field id="propDate" ui-type="date" ui-search="range"/>
                     <field id="propReason" ui-search="repeatable" >
                         <options>
