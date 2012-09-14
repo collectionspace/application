@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
  */
 public class SchemaStructure {
 	private static final Logger log=LoggerFactory.getLogger(SchemaStructure.class);
+	protected static final String DECORATORS_KEY = "decorators";
 
 	protected Spec spec;
 	protected String structureview;
@@ -85,6 +86,28 @@ public class SchemaStructure {
 		}
 		return out;
 	}
+	
+	protected JSONArray getExistingDecoratorsArray(JSONObject out, String fieldSelector) throws JSONException {
+		JSONArray decorators = null; 
+		if(out.has(fieldSelector)) {
+			Object value = out.get(fieldSelector);
+			if(value instanceof JSONObject) {
+				JSONObject entry = out.getJSONObject(fieldSelector);
+				decorators = getExistingDecoratorsArray(entry);
+			}
+		}
+		return decorators;
+	}
+	
+	protected JSONArray getExistingDecoratorsArray(JSONObject fieldInfo) throws JSONException {
+		JSONArray decorators = null; 
+		if(fieldInfo.has(DECORATORS_KEY)) {
+			decorators = fieldInfo.getJSONArray(DECORATORS_KEY);
+		}
+		return decorators;
+	}
+	
+
 	
 	/**
 	 * Find out what this fieldset is and so what we should do with it.
@@ -156,25 +179,24 @@ public class SchemaStructure {
 	 * @throws JSONException 
 	 */
 	protected void actualFieldRefactored(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+		String uiType = fs.getUIType();
 		if(fs.hasAutocompleteInstance()) {
 			actualAuthorities(out, fs, context);
-		}
-		else if("chooser".equals(fs.getUIType()) && !this.spectype.equals("search")) {
+			// Allow dual behaviors here
+			if("externalURL".equals(uiType)){
+				actualExternalURLField(out, fs, context);
+			}
+		} else if("chooser".equals(uiType) && !this.spectype.equals("search")) {
 			actualChooserField(out, fs,context, false);
-		}
-		else if("date".equals(fs.getUIType())) {
+		} else if("date".equals(uiType)) {
 			actualDateField(out, fs, context);
-		}
-		else if("validated".equals(fs.getUIType())){
+		} else if("validated".equals(uiType)){
 			actualValidatedField(out, fs, context);
-		}
-		else if("externalURL".equals(fs.getUIType())){
+		} else if("externalURL".equals(uiType)){
 			actualExternalURLField(out, fs, context);
-		}
-		else if(fs.isASelfRenderer()){
+		} else if(fs.isASelfRenderer()){	// also based upon uiType
 			actualSelfRendererField(out, fs, context);
-		}
-		else{
+		} else{
 			actualField(out, fs, context);
 		}
 	}
@@ -256,27 +278,31 @@ public class SchemaStructure {
 		if(fs.hasAutocompleteInstance()) {
 			actualAuthorities(out, fs, context);
 		}
-		if("chooser".equals(fs.getUIType()) && !this.spectype.equals("search")) {
+		String uiType = fs.getUIType();
+		if("chooser".equals(uiType) && !this.spectype.equals("search")) {
 			actualChooserField(out, fs,context, true);
-		}
-		if("date".equals(fs.getUIType())) {
+		} else if("date".equals(uiType)) {
 			actualDateField(out, fs, context);
-		}
-		if("validated".equals(fs.getUIType())){
+		} else if("validated".equals(uiType)){
 			actualValidatedField(out, fs, context);
-		}
-		else if("externalURL".equals(fs.getUIType())){
+		} else if("externalURL".equals(uiType)){
 			actualExternalURLField(out, fs, context);
 		}
 	}
+
+	protected Object actualFieldEntry(FieldSet fs, UISpecRunContext context ) throws JSONException {
+		return actualFieldEntry(fs, context, null);
+	}
+
 	/**
-	 * Overwrite with output you need for this thing you are doing
-	 * @param fs
-	 * @param context
+	 * Generates field entries in Schema or Spec for simple field types.
+	 * @param fs The field we are working on
+	 * @param context Information about the kind of spec we are producing.
+	 * @param decorators the decorators array object, if we have to handle multiple ui behaviors.
 	 * @return
 	 * @throws JSONException
 	 */
-	protected Object actualFieldEntry(FieldSet fs,UISpecRunContext context) throws JSONException {
+	protected Object actualFieldEntry(FieldSet fs,UISpecRunContext context, JSONArray decorators) throws JSONException {
 		Field f = (Field)fs;
 		if("plain".equals(f.getUIType())) {
 			if("boolean".equals(f.getDataType())){
@@ -367,6 +393,10 @@ public class SchemaStructure {
 	 * @throws JSONException
 	 */
 	protected Object actualENUMField(Field f,UISpecRunContext context) throws JSONException {
+		return actualENUMField(f, context, null);
+	}
+
+	protected Object actualENUMField(Field f,UISpecRunContext context, JSONArray decorators) throws JSONException {
 		return null;
 	}
 	
@@ -701,8 +731,9 @@ public class SchemaStructure {
 	 * @param options
 	 * @throws JSONException
 	 */
-	protected void actualAddDecorator(FieldSet fs, JSONObject out, UISpecRunContext sub,  JSONObject options) throws JSONException{}
-	
+	protected void actualAddDecorator(FieldSet fs, JSONObject out, UISpecRunContext sub,  JSONObject options) throws JSONException{
+	}
+
 	/**
 	 * render the mark up needed by the UISpec for self renderers
 	 * @param fs
