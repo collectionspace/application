@@ -196,12 +196,29 @@ public class Generic {
 		perms.put(ensure);
 		return perms;
 	}
+		
+	/*
+	 * Merge a new list of permissions with an existing list of permissions
+	 */
+	public static JSONArray PermissionLevelArrayEnsure(JSONArray prevPermsList, JSONArray newPermsList) {
+		JSONArray result = prevPermsList;
+		
+		for (int i = 0; i < newPermsList.length(); i++) {
+			try {
+				String newPerm = newPermsList.getString(i);
+				PermissionLevelArrayEnsure(prevPermsList, newPerm);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				log.debug("Could not extract a permission from a permission list.", e);
+			}
+		}
+		
+		return result;
+	}
 	
 	public static boolean PermissionIncludesWritable(String actGrp){
 		return actGrp.contains("U");
 	}
-	
-
 
 	public static String PermissionLevelString(String actGrp){
 		String level = NONE_PERMISSION;
