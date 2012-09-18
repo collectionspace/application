@@ -69,7 +69,7 @@ public class WebLoginStatus  implements WebMethod {
 			for(int j=0;j<active.length();j++){
 				JSONObject perm = active.getJSONObject(j); 
 				if(perm.has("resourceName") && perm.has("actionGroup")){
-					JSONArray permissions = null;
+					JSONArray newPermissionsList = null;
 					String resourceName = perm.getString("resourceName");
 					String resourceNameUI = null;
 					// Check and filter the workflow resources
@@ -85,10 +85,10 @@ public class WebLoginStatus  implements WebMethod {
 							resourceNameUI = Generic.ResourceNameUI(spec, baseResource);
 							// Workflow delete means we have CRUDL permissions
 							if(!perms.has(resourceNameUI)) {
-								permissions = Generic.PermissionLevelArray("CRUDL");
+								newPermissionsList = Generic.PermissionLevelArray("CRUDL");
 							} else {
-								JSONArray prevPermissions = (JSONArray) perms.get(resourceNameUI);
-								permissions = Generic.PermissionLevelArrayEnsure(prevPermissions, Generic.DELETE_PERMISSION);
+								JSONArray prevPermsList = (JSONArray) perms.get(resourceNameUI);
+								newPermissionsList = Generic.PermissionLevelArrayEnsure(prevPermsList, Generic.DELETE_PERMISSION);
 							}
 						}
 					} else if(resourceName.endsWith(WORKFLOW_LOCK_RESOURCE_TAIL)) {
@@ -104,10 +104,10 @@ public class WebLoginStatus  implements WebMethod {
 							resourceNameUI = Generic.ResourceNameUI(spec, baseResource);
 							// Workflow lock means we have CRUDL permissions too
 							if(!perms.has(resourceNameUI)) {
-								permissions = Generic.PermissionLevelArray("CRUDLK");
+								newPermissionsList = Generic.PermissionLevelArray("CRUDLK");
 							} else {
-								JSONArray prevPermissions = (JSONArray) perms.get(resourceNameUI);
-								permissions = Generic.PermissionLevelArrayEnsure(prevPermissions, Generic.LOCK_PERMISSION);
+								JSONArray prevPermsList = (JSONArray) perms.get(resourceNameUI);
+								newPermissionsList = Generic.PermissionLevelArrayEnsure(prevPermsList, Generic.LOCK_PERMISSION);
 							}
 						}
 					} else if(resourceName.endsWith(WORKFLOW_SIMPLE_SUB_RESOURCE)) {
@@ -116,17 +116,19 @@ public class WebLoginStatus  implements WebMethod {
 						log.debug("WebLoginStatus.getPerms: Ignoring resource for unrecognized workflow transition: "
 								+ resourceName);
 					} else {
-						resourceNameUI = Generic.ResourceNameUI(spec,resourceName);
-						// If we already set perms entry for resource, it is a workflow and so
-						// subsumes any permissions on the actual resource
-						if(!perms.has(resourceNameUI)) {
-							// TODO - If the associated record is configured with soft-Delete, should we
-							// filter 'D' from the actionGroup here?
-							permissions = Generic.PermissionLevelArray(perm.getString("actionGroup"));
+						// TODO - If the associated record is configured with soft-Delete, should we
+						// filter 'D' from the actionGroup here?
+						resourceNameUI = Generic.ResourceNameUI(spec, resourceName);
+						newPermissionsList = Generic.PermissionLevelArray(perm.getString("actionGroup")); // Converts the "actionGroup" from the Services into a list of permission verbs
+						if (perms.has(resourceNameUI) == true) {
+							// Merge the existing permissions list with another.
+							JSONArray prevPermsList = (JSONArray) perms.get(resourceNameUI);
+							newPermissionsList = Generic.PermissionLevelArrayEnsure(prevPermsList, newPermissionsList);							
 						}
 					}
-					if(permissions!=null) {
-						perms.put(resourceNameUI, permissions);
+					
+					if (newPermissionsList!=null) {
+						perms.put(resourceNameUI, newPermissionsList);
 					}
 				}
 			}
