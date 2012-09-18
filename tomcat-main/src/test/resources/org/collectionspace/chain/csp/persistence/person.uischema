@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
   "person": {
     "properties": {
@@ -101,6 +100,10 @@
             "type": "string"
           }, 
           "broaderContext": {
+            "type": "string"
+          }, 
+          "broaderContextType": {
+            "default": "", 
             "type": "string"
           }, 
           "contact": {
@@ -378,6 +381,10 @@
                   "type": "boolean"
                 }, 
                 "narrowerContext": {
+                  "type": "string"
+                }, 
+                "narrowerContextType": {
+                  "default": "", 
                   "type": "string"
                 }
               }, 

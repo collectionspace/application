@@ -9,12 +9,38 @@
             "vocabUrl": "../../../tenant/core/vocabularies/organization/source-vocab/broaderContext"
           }, 
           "type": "fluid"
+        }, 
+        {
+          "func": "cspace.externalURL", 
+          "type": "fluid"
         }
       ], 
       "value": "${fields.broaderContext}"
     }, 
     ".csc-hierarchy-broaderContext-label": {
       "messagekey": "hierarchy-broaderContextLabel"
+    }, 
+    ".csc-hierarchy-broaderContextType": {
+      "optionlist": [
+        "set", 
+        "derivative", 
+        "separable-part", 
+        "non-separable-part", 
+        "recto", 
+        "verso"
+      ], 
+      "optionnames": [
+        "Set", 
+        "Work (derivative)", 
+        "Work (separable part)", 
+        "Work (non-separable part)", 
+        "Work (recto)", 
+        "Work (verso)"
+      ], 
+      "selection": "${fields.broaderContextType}"
+    }, 
+    ".csc-hierarchy-broaderContextType-label": {
+      "messagekey": "hierarchy-broaderContextTypeLabel"
     }, 
     ".csc-hierarchy-domaindata-label": {
       "messagekey": "hierarchy-domaindataLabel"
@@ -31,7 +57,13 @@
     ".csc-hierarchy-hierarchyInformation-label": {
       "messagekey": "hierarchy-hierarchyInformationLabel"
     }, 
-    ".csc-hierarchy-narrowerContext": {
+    ".csc-hierarchy-narrowerContext-label": {
+      "messagekey": "hierarchy-narrowerContextLabel"
+    }, 
+    ".csc-hierarchy-narrowerContextType-label": {
+      "messagekey": "hierarchy-narrowerContextTypeLabel"
+    }, 
+    ".csc-hierarchy-narrowerContexts": {
       "decorators": [
         {
           "func": "cspace.makeRepeatable", 
@@ -52,14 +84,37 @@
                           }, 
                           "queryUrl": "../../../tenant/core/vocabularies/organization/autocomplete/narrowerContext", 
                           "strings": {
-                            "narrowerChange": "Warning: %narrower currently has broader term %broader. Change broader term?"
+                            "narrowerChange": "Warning: %narrower currently has broader term %broader."
                           }, 
                           "vocabUrl": "../../../tenant/core/vocabularies/organization/source-vocab/narrowerContext"
                         }, 
                         "type": "fluid"
+                      }, 
+                      {
+                        "func": "cspace.externalURL", 
+                        "type": "fluid"
                       }
                     ], 
                     "value": "${{row}.narrowerContext}"
+                  }, 
+                  ".csc-hierarchy-narrowerContextType": {
+                    "optionlist": [
+                      "set", 
+                      "derivative", 
+                      "separable-part", 
+                      "non-separable-part", 
+                      "recto", 
+                      "verso"
+                    ], 
+                    "optionnames": [
+                      "Item in a set", 
+                      "Derivative", 
+                      "Separable part", 
+                      "Non-separable part", 
+                      "Recto", 
+                      "Verso"
+                    ], 
+                    "selection": "${{row}.narrowerContextType}"
                   }
                 }, 
                 "type": "fluid.noexpand"
@@ -69,9 +124,6 @@
           "type": "fluid"
         }
       ]
-    }, 
-    ".csc-hierarchy-narrowerContext-label": {
-      "messagekey": "hierarchy-narrowerContextLabel"
     }, 
     ".csc-hierarchy-narrowerContexts-label": {
       "messagekey": "hierarchy-narrowerContextsLabel"
