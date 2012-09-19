@@ -924,4 +924,7 @@
       <selector>date-information-date-period</selector>
     </field>
   </section>
+  <section id="accessionUseInformation">
+  </section>
+
 </record>
