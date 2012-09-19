@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
@@ -2165,21 +2166,28 @@ public class GenericStorage  implements ContextualisedStorage {
 							}
 						}
 
+						String metaTypeField = newrel.getMetaTypeField();
 
 						if(newrel.getObject().equals("n")){ //array
 							JSONObject subdata = new JSONObject();
 							subdata.put(newrel.getChildName(),relateduri);
+							if(!StringUtils.isEmpty(metaTypeField)) {
+								subdata.put(metaTypeField,relationshipMetaType);
+							}
 							if(out.has(newrel.getID())){
 								out.getJSONArray(newrel.getID()).put(subdata);
 							}
 							else{
-								JSONArray bob = new JSONArray();
-								bob.put(subdata);
-								out.put(newrel.getID(), bob);
+								JSONArray relList = new JSONArray();
+								relList.put(subdata);
+								out.put(newrel.getID(), relList);
 							}
 						}
 						else{//string
 							out.put(newrel.getID(), relateduri);
+							if(!StringUtils.isEmpty(metaTypeField)) {
+								out.put(metaTypeField,relationshipMetaType);
+							}
 							if(newrel.showSiblings()){
 								out.put(newrel.getSiblingChild(), relatedser+"/"+relatedcsid);
 								//out.put(newrel.getSiblingChild(), relateduri);
@@ -2208,10 +2216,17 @@ public class GenericStorage  implements ContextualisedStorage {
 					
 					//does this record have the data in the json
 					if(jsonObject.has(rel.getID())){
+						String metaTypeField = rel.getMetaTypeField();
 						if(rel.getObject().equals("1")){
 							if(jsonObject.has(rel.getID()) && !jsonObject.get(rel.getID()).equals("")){
+								// Look for a metatype
+								String metaType = "";
+								if(!StringUtils.isEmpty(metaTypeField)) {
+									metaType = jsonObject.getString(metaTypeField);
+								}
 								Element bit = createRelationship(newrel,jsonObject.get(rel.getID()), 
-														thiscsid, r.getServicesURL(), inverse, spec);
+														thiscsid, r.getServicesURL(), 
+														metaType, inverse, spec);
 								if(bit != null){
 									alleles.add(bit);
 								}
@@ -2221,12 +2236,18 @@ public class GenericStorage  implements ContextualisedStorage {
 							//if()
 							JSONArray temp = jsonObject.getJSONArray(rel.getID());
 							for(int i=0; i<temp.length();i++){
-								String argh = rel.getChildName();
-								JSONObject brgh = temp.getJSONObject(i);
-								if(brgh.has(argh) && !brgh.getString(argh).equals("")){
-									String uri = brgh.getString(argh);
+								String relFieldName = rel.getChildName();
+								JSONObject relItem = temp.getJSONObject(i);
+								if(relItem.has(relFieldName) && !relItem.getString(relFieldName).equals("")){
+									String uri = relItem.getString(relFieldName);
+									// Look for a metatype
+									String metaType = "";
+									if(!StringUtils.isEmpty(metaTypeField)) {
+										metaType = jsonObject.getString(metaTypeField);
+									}
 									Element bit = createRelationship(newrel, uri, 
-														thiscsid, r.getServicesURL(), inverse, spec);
+														thiscsid, r.getServicesURL(), 
+														metaType, inverse, spec);
 									if(bit != null){
 										alleles.add(bit);
 									}
@@ -2254,7 +2275,8 @@ public class GenericStorage  implements ContextualisedStorage {
 		}
 	}
 	// NOTE that this is building XML Doc, and not JSON as is typical!
-	protected static Element createRelationship(Relationship rel, Object data, String csid, String subjtype, 
+	protected static Element createRelationship(Relationship rel, Object data, String csid, 
+						String subjtype, String metaType,
 						Boolean reverseIt, Spec spec)
 					throws ExistException, UnderlyingStorageException, JSONException{
 
@@ -2263,6 +2285,8 @@ public class GenericStorage  implements ContextualisedStorage {
 
 		Element predicate=subroot.addElement("predicate");
 		predicate.addText(rel.getPredicate());
+		Element relMetaType=subroot.addElement("relationshipMetaType");
+		relMetaType.addText(metaType);
 		String subjectName = "subject";
 		String objectName = "object";
 		if(reverseIt){

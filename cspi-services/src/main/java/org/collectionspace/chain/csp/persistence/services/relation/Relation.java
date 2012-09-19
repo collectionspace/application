@@ -14,17 +14,24 @@ import org.jaxen.JaxenException;
 import org.jaxen.dom4j.Dom4jXPath;
 
 class Relation {
-	private String src,dst,src_type,dst_type,type,id;
+	private String src,dst,src_type,dst_type,type,metatype,id;
 	private RelationFactory factory;
 	
 	Relation(RelationFactory factory,String id,Document in) throws JaxenException {
 		this.factory=factory;
 		fromDocument(id,in);
 	}
-	Relation(RelationFactory factory,String id,String src_type,String src,String type,String dst_type,String dst) {
+	Relation(RelationFactory factory, String id, String src_type, String src,
+			String type, String dst_type, String dst) {
+		this(factory, id, src_type, src,
+			type, "", dst_type, dst);
+	}
+	Relation(RelationFactory factory, String id, String src_type, String src,
+			String type, String metatype, String dst_type, String dst) {
 		this.src_type=src_type;
 		this.src=src;
 		this.type=type;
+		this.metatype=metatype;
 		this.dst_type=dst_type;
 		this.dst=dst;
 		this.factory=factory;
@@ -36,6 +43,7 @@ class Relation {
 		doc.setText("src-type",src_type);
 		doc.setText("src",src);
 		doc.setText("type",type);
+		doc.setText("metatype",metatype);
 		doc.setText("dst-type",dst_type);
 		doc.setText("dst",dst);
 		return doc.getDocument();
@@ -48,6 +56,7 @@ class Relation {
 		src=deplate.get("src").stringValueOf(in);
 		dst=deplate.get("dst").stringValueOf(in);
 		type=deplate.get("type").stringValueOf(in);
+		metatype=deplate.get("metatype").stringValueOf(in);
 		this.id=id;
 	}
 	
@@ -57,4 +66,5 @@ class Relation {
 	public String getSourceId() { return src; }
 	public String getDestinationId() { return dst; }
 	public String getRelationshipType() { return type; }
+	public String getRelationshipMetaType() { return metatype; }
 }
