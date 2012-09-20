@@ -239,4 +239,9 @@ public class RefName {
     public static String shortIdToPath(String shortId) {
         return URN_NAME_PREFIX + '(' + shortId + ')';
     }
+    
+    public static String getDisplayName(String refName) {
+    	Authority authority = Authority.parse(refName);
+    	return authority==null?null:authority.displayName;
+    }
 }

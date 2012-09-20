@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.collectionspace.chain.csp.persistence.services.RefName;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
@@ -313,22 +314,16 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 						list.add(node.selectSingleNode("csid").getText());
 						if(isHierarchical){
 							JSONObject hdata = new JSONObject();
-							hdata.put("subjecturi", node.selectSingleNode("subject").selectSingleNode("uri").getText());
-							hdata.put("objecturi", node.selectSingleNode("object").selectSingleNode("uri").getText());
-							hdata.put("subjectcsid", node.selectSingleNode("subject").selectSingleNode("csid").getText());
-							hdata.put("objectcsid", node.selectSingleNode("object").selectSingleNode("csid").getText());
-							if(node.selectSingleNode("subject").selectSingleNode("name") !=null){
-								hdata.put("subjectname", node.selectSingleNode("subject").selectSingleNode("name").getText());
-							}
-							else{
-								hdata.put("subjectname","MISSING DATA");
-							}
-							if(node.selectSingleNode("object").selectSingleNode("name")!=null){
-								hdata.put("objectname", node.selectSingleNode("object").selectSingleNode("name").getText());
-							}
-							else{
-								hdata.put("objectname","MISSING DATA");
-							}
+							Node subjectNode = node.selectSingleNode("subject");
+							Node objectNode = node.selectSingleNode("object");
+							hdata.put("subjecturi", subjectNode.selectSingleNode("uri").getText());
+							hdata.put("objecturi", objectNode.selectSingleNode("uri").getText());
+							hdata.put("subjectcsid", subjectNode.selectSingleNode("csid").getText());
+							hdata.put("objectcsid", objectNode.selectSingleNode("csid").getText());
+							
+							hdata.put("subjectname",findNameUnderNode(subjectNode));
+							hdata.put("objectname",findNameUnderNode(objectNode));
+							
 							hdata.put("type", node.selectSingleNode("predicate").getText());
 							hdata.put("csid", node.selectSingleNode("csid").getText());
 							moredata.put(node.selectSingleNode("csid").getText(), hdata);
@@ -347,6 +342,35 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		} catch (JSONException e) {
 			throw new UnderlyingStorageException("Could not retrieve relation",e);
 		}
+	}
+	
+	private String findNameUnderNode(Node itemNode) {
+		// Look for something to put into the subjectname. Start with refName,
+		// then name, then number
+		Node itemRefName = itemNode.selectSingleNode("refName");
+		String returnName = null;
+		if(itemRefName!=null) {
+			String refNameVal = itemRefName.getText();
+			returnName = RefName.getDisplayName(refNameVal);
+		}
+		// If no displayName from refName, then try name element
+		if(returnName==null) {
+			Node itemNameNode = itemNode.selectSingleNode("name");
+			if(itemNameNode!=null) {
+				returnName = itemNameNode.getText();
+			}
+		}
+		// Still nothing? try number element
+		if(returnName==null) {
+			Node itemNumberNode = itemNode.selectSingleNode("number");
+			if(itemNumberNode!=null) {
+				returnName = itemNumberNode.getText();
+			}
+		}
+		if(returnName==null) {
+			returnName = "MISSING DATA";
+		} 
+		return returnName;
 	}
 
 	@SuppressWarnings("unchecked")
