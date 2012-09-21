@@ -321,8 +321,8 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 							hdata.put("subjectcsid", subjectNode.selectSingleNode("csid").getText());
 							hdata.put("objectcsid", objectNode.selectSingleNode("csid").getText());
 							
-							hdata.put("subjectname",findNameUnderNode(subjectNode));
-							hdata.put("objectname",findNameUnderNode(objectNode));
+							findNameUnderNode(hdata, "subjectname", "subjectrefname",subjectNode);
+							findNameUnderNode(hdata, "objectname", "objectrefname",objectNode);
 							
 							hdata.put("type", node.selectSingleNode("predicate").getText());
 							hdata.put("csid", node.selectSingleNode("csid").getText());
@@ -344,33 +344,35 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		}
 	}
 	
-	private String findNameUnderNode(Node itemNode) {
+	private void findNameUnderNode(JSONObject out, String nameKey, String refNameKey,
+						Node itemNode) throws JSONException {
 		// Look for something to put into the subjectname. Start with refName,
 		// then name, then number
 		Node itemRefName = itemNode.selectSingleNode("refName");
-		String returnName = null;
+		String nameValue = null;
 		if(itemRefName!=null) {
-			String refNameVal = itemRefName.getText();
-			returnName = RefName.getDisplayName(refNameVal);
+			String refNameValue = itemRefName.getText();
+			out.put(refNameKey, refNameValue);
+			nameValue = RefName.getDisplayName(refNameValue);
 		}
 		// If no displayName from refName, then try name element
-		if(returnName==null) {
+		if(nameValue==null) {
 			Node itemNameNode = itemNode.selectSingleNode("name");
 			if(itemNameNode!=null) {
-				returnName = itemNameNode.getText();
+				nameValue = itemNameNode.getText();
 			}
 		}
 		// Still nothing? try number element
-		if(returnName==null) {
+		if(nameValue==null) {
 			Node itemNumberNode = itemNode.selectSingleNode("number");
 			if(itemNumberNode!=null) {
-				returnName = itemNumberNode.getText();
+				nameValue = itemNumberNode.getText();
 			}
 		}
-		if(returnName==null) {
-			returnName = "MISSING DATA";
+		if(nameValue==null) {
+			nameValue = "MISSING DATA";
 		} 
-		return returnName;
+		out.put(nameKey, nameValue);
 	}
 
 	@SuppressWarnings("unchecked")

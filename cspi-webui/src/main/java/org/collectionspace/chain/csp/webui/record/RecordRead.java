@@ -400,7 +400,7 @@ public class RecordRead implements WebMethod {
 							//it's name is
 							JSONObject siblings = new JSONObject();
 							if(!fields.getString("csid").equals(mored.getString("subjectcsid"))){
-								siblings.put(child,mored.getString("subjectname"));
+								siblings.put(child,mored.getString("subjectrefname"));
 								children.put(siblings);
 							}
 						}
