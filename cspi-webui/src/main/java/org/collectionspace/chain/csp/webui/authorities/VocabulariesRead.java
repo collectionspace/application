@@ -221,10 +221,10 @@ public class VocabulariesRead implements WebMethod {
 	private JSONObject getHierarchy(Storage storage, JSONObject fields) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
 		for(Relationship r: n.getRecord().getSpec().getAllRelations()){
 			if(r.showSiblings()){
-				JSONObject temp = new JSONObject();
-				temp.put("_primary", true);
+				//JSONObject temp = new JSONObject();
+				//temp.put("_primary", true);
 				JSONArray children = new JSONArray();
-				children.put(temp);
+				//children.put(temp);
 				fields.put(r.getSiblingParent(), children);
 				if(fields.has(r.getID())){
 					//String broadterm = fields.getString(r.getID());
