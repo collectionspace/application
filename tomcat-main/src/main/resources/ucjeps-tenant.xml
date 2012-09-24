@@ -54,6 +54,9 @@
 			<include src="base-other-termlistitem.xml"/>
 			<include src="base-other-reporting.xml"/>
 			<include src="base-other-reportingoutput.xml"/>
+			<include src="base-other-batch.xml"/>
+			<include src="base-other-batchoutput.xml"/>
+			<include src="base-other-invocationresults.xml"/>
 			<include src="base-other-searchall.xml"/>
 		</records>
 	</spec>
