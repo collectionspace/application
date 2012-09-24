@@ -2244,8 +2244,8 @@ public class GenericStorage  implements ContextualisedStorage {
 									// Look for a metatype
 									String metaType = "";
 									if(!StringUtils.isEmpty(metaTypeField)
-											&& jsonObject.has(metaTypeField)) {
-										metaType = jsonObject.getString(metaTypeField);
+											&& relItem.has(metaTypeField)) {
+										metaType = relItem.getString(metaTypeField);
 									}
 									Element bit = createRelationship(newrel, uri, 
 														thiscsid, r.getServicesURL(), 
