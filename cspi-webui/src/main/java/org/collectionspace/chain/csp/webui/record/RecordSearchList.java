@@ -246,6 +246,34 @@ public class RecordSearchList implements WebMethod {
 					results.put("reporting", reporting);
 				}
 			}				
+			else if(r.getID().equals("batch")){
+				String type= "";
+				if(path!=null && !path.equals("")){
+					restriction.put("queryTerm", "doctype");
+					restriction.put("queryString", spec.getRecordByWebUrl(path).getServicesTenantSg());
+				}
+				
+				if(restriction.has("queryTerm") && restriction.getString("queryTerm").equals("doctype")){
+					type = restriction.getString("queryString");
+					results = getJSON(storage,restriction,key,base);
+					results = showBatches(results, type, key);
+				}
+				else{
+					JSONObject batch = new JSONObject();
+					for(Record r2 : spec.getAllRecords()) {
+						if(r2.isInRecordList()){
+							type = r2.getServicesTenantSg();
+							restriction.put("queryTerm","doctype");
+							restriction.put("queryString",type);
+						
+							JSONObject rdata = getJSON(storage,restriction,key,base);
+							JSONObject procedurebatches = showBatches(rdata, type, key);
+							batch.put(r2.getWebURL(), procedurebatches);
+						}
+					}
+					results.put("batch", batch);
+				}
+			}
 			else{
 				results = getJSON(storage,restriction,key,base);
 			}
@@ -284,6 +312,25 @@ public class RecordSearchList implements WebMethod {
 		}
 		return results;
 	}				
+
+	private JSONObject showBatches(JSONObject data, String type, String key) throws JSONException{
+		JSONObject results = new JSONObject();
+		JSONArray list = new JSONArray();
+		JSONArray names = new JSONArray();
+		
+		if(data.has(key)){
+			JSONArray ja = data.getJSONArray(key);
+	
+			for(int j=0;j<ja.length();j++){
+				list.put(ja.getJSONObject(j).getString("csid"));
+				names.put(ja.getJSONObject(j).getString("number"));
+			}
+			results.put("batchlist", list);
+			results.put("batchnames", names);
+		}
+		return results;
+	}
+	
 	private void advancedSearch(Storage storage,UIRequest ui,String path, JSONObject params) throws UIException{
 
 		try {
