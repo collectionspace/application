@@ -105,6 +105,33 @@ public class BlobStorage extends GenericStorage {
 				out.put("contenttype", doc2.getContentType());
 				return out;
 			}
+			else if(r.isType("batch")){
+				Document doc = null;
+				Map<String,Document> parts=new HashMap<String,Document>();
+				for(String section : r.getServicesRecordPaths()) {
+					String path=r.getServicesRecordPath(section);
+					String[] record_path=path.split(":",2);
+					doc=XmlJsonConversion.convertToXml(r,restrictions,section,"POST");
+					if(doc!=null){
+						parts.put(record_path[0],doc);
+					}
+				}
+				ReturnedDocument doc2 = null;
+				if(filePath.contains("/output")){
+					doc2 = conn.getBatchDocument(RequestMethod.GET, "batch/"+filePath, null, creds, cache);
+					
+				}
+				else{
+					doc2 = conn.getBatchDocument(RequestMethod.POST, "batch/"+filePath, doc, creds, cache);
+					
+				}
+				if(doc2.getStatus()>299 || doc2.getStatus()<200)
+					throw new UnderlyingStorageException("Bad response ", doc2.getStatus(), r.getServicesURL()+"/");
+				
+				JSONObject out = new JSONObject();
+				this.convertToJson(out, doc2.getDocument(), r.getSpec().getRecord("invocationresults"), "", "invocationResults", filePath);
+				return out;
+			}
 			else{
 				String[] parts=filePath.split("/");
 				if(parts.length>=2) {
