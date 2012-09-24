@@ -1,0 +1,47 @@
+<record id="batch" in-recordlist="no" type="authorizationdata">
+	<services-url>batch</services-url>
+	<services-tenant-singular>Batch</services-tenant-singular>
+	<services-list-path>abstract-common-list/list-item</services-list-path>
+	<services-record-path>batch_common:http://collectionspace.org/services/batch,batch_common</services-record-path>
+	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+	<web-url>batch</web-url>
+	<authorization-view>false</authorization-view>
+	<terms-used>false</terms-used>
+	<refobj-used>false</refobj-used>
+
+	<structures>
+		<structure id="screen">
+			<view>
+				<label-section id="messagekeys" show="true"/>
+				<titlebar show="false"/>
+				<sidebar show="false"/>
+				<edit-section id="details" show="true"/>
+				<list-section id="list" show="true"/>
+			</view>
+		</structure>
+	</structures>
+
+	<include src="domain-other-batch.xml" strip-root="yes"/>
+
+	<section id="coreinfo">
+		<field id="tenantID" section="collectionspace_core" attributes="GET"/>
+		<field id="createdBy" section="collectionspace_core" attributes="GET"/>
+		<field id="updatedBy" section="collectionspace_core" attributes="GET"/>
+		<field id="createdAt" section="collectionspace_core" attributes="GET"/>
+		<field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"/>
+	</section>
+
+	<section id="batch">
+		<field id="name" mini="number,search,list,relate"/>
+		<field id="notes"/>
+		<repeat id="forDocTypes">
+			<field id="forDocType"/>
+		</repeat>
+		<field id="supportsNoContext" datatype="boolean"/>
+		<field id="supportsSingleDoc" datatype="boolean"/>
+		<field id="supportsDocList" datatype="boolean"/>
+		<field id="supportsGroup" datatype="boolean"/>
+		<field id="createsNewFocus" datatype="boolean"/>
+		<field id="className"/>
+	</section>
+</record>
