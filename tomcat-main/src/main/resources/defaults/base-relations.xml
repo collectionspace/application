@@ -3,6 +3,7 @@
     <relation id="broaderContext">
         <displayName>has broader term</displayName>
         <predicate>hasBroader</predicate>
+				<metaTypeField>broaderContextType</metaTypeField>
         <subject>n</subject>
         <object>1</object>
         <showsiblings>equivalentContexts:equivalentContext</showsiblings>
@@ -18,6 +19,7 @@
         <inverseOf>broaderContext</inverseOf>
         <displayName>has narrower term</displayName>
         <predicate>hasNarrower</predicate>
+				<metaTypeField>narrowerContextType</metaTypeField>
         <subject>1</subject>
         <object>n</object>
         <childname>narrowerContext</childname>

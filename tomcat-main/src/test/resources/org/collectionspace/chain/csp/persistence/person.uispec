@@ -137,22 +137,21 @@
             "repeatTree": {
               "expander": {
                 "tree": {
-                  ".csc-hierarchy-relatedTerm": {
                     "decorators": [
-                      {
-                        "func": "cspace.autocomplete", 
-                        "options": {
-                          "queryUrl": "../../../tenant/core/vocabularies/person/autocomplete/relatedTerm", 
-                          "vocabUrl": "../../../tenant/core/vocabularies/person/source-vocab/relatedTerm"
-                        }, 
-                        "type": "fluid"
-                      }
-                    ], 
-                    "value": "${{row}.relatedTerm}"
-                  }
-                }, 
-                "type": "fluid.noexpand"
-              }
+                        {
+                            "classes": "cs-hierarchy-equivalentContext",
+                            "type": "addClass"
+                        },
+                        {
+                            "func": "cspace.externalURL",
+                            "type": "fluid"
+                        }
+                    ],
+                    "value": "${{row}.equivalentContext}"
+                },
+                "type": "fluid.renderer.repeat",
+                "pathAs": "row",
+                "controlledBy": "fields.equivalentContexts"
             }
           }, 
           "type": "fluid"

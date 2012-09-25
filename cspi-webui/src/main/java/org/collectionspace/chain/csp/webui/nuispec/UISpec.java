@@ -473,8 +473,9 @@ public class UISpec extends SchemaStructure implements WebMethod {
 		JSONObject ttree = new JSONObject();
 		actualMessageKey(ttree, thisr.getUILabelSelector(f.getID()), f.getLabel());
 
-		// TODO - this looks wrong - a single decorator is being set as the value of the
+		// This looks wrong - a single decorator is being set as the value of the
 		// plural decorators key, which usually holds an array of decorators.
+		// However, it turns out that UI is forgiving, and handles either Object or Array
 		JSONObject decorator = getDecorator("addClass","hidden",null,null,f.isReadOnly());
 		JSONObject decorators = new JSONObject();
 		decorators.put(DECORATORS_KEY, decorator);
@@ -778,7 +779,11 @@ public class UISpec extends SchemaStructure implements WebMethod {
 							String classes = getDecoratorSelector(child,context);
 							JSONObject decorator = getDecorator("addClass",classes,null,null,child.isReadOnly());
 							tree.put("value", actualFieldEntry((Field)child,context));
-							tree.put(DECORATORS_KEY, decorator);
+							JSONArray decorators = new JSONArray();
+							decorators.put(decorator);
+							decorator=getDecorator("fluid",null,"cspace.externalURL",null,child.isReadOnly());
+							decorators.put(decorator);
+							tree.put(DECORATORS_KEY, decorators);
 						}
 					}
 					else if(child.getUIType().equals("decorated")){

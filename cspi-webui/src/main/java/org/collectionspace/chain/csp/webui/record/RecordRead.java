@@ -375,10 +375,10 @@ public class RecordRead implements WebMethod {
 	private JSONObject getHierarchy(Storage storage, JSONObject fields) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
 		for(Relationship r: record.getSpec().getAllRelations()){
 			if(r.showSiblings()){
-				JSONObject temp = new JSONObject();
-				temp.put("_primary", true);
+				//JSONObject temp = new JSONObject();
+				//temp.put("_primary", true);
 				JSONArray children = new JSONArray();
-				children.put(temp);
+				//children.put(temp);
 				fields.put(r.getSiblingParent(), children);
 				if(fields.has(r.getID())){
 					//String broadterm = fields.getString(r.getID());
@@ -400,7 +400,7 @@ public class RecordRead implements WebMethod {
 							//it's name is
 							JSONObject siblings = new JSONObject();
 							if(!fields.getString("csid").equals(mored.getString("subjectcsid"))){
-								siblings.put(child,mored.getString("subjectname"));
+								siblings.put(child,mored.getString("subjectrefname"));
 								children.put(siblings);
 							}
 						}

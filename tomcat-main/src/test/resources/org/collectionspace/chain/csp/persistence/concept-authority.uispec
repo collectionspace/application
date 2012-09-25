@@ -108,10 +108,16 @@
             {
                 "repeatID": ".csc-hierarchy-equivalentContext:",
                 "tree": {
-                    "decorators": {
-                        "classes": "cs-hierarchy-equivalentContext",
-                        "type": "addClass"
-                    },
+                    "decorators": [
+                        {
+                            "classes": "cs-hierarchy-equivalentContext",
+                            "type": "addClass"
+                        },
+                        {
+                            "func": "cspace.externalURL",
+                            "type": "fluid"
+                        }
+                    ],
                     "value": "${{row}.equivalentContext}"
                 },
                 "type": "fluid.renderer.repeat",
