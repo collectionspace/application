@@ -72,39 +72,14 @@
             "repeatTree": {
               "expander": {
                 "tree": {
+                  ".csc-hierarchy-narrowerContext": {
                     "decorators": [
-                        {
-                            "classes": "cs-hierarchy-equivalentContext",
-                            "type": "addClass"
-                        },
-                        {
-                            "func": "cspace.externalURL",
-                            "type": "fluid"
-                        }
-                    ],
-                    "value": "${{row}.equivalentContext}"
-                },
-                "type": "fluid.renderer.repeat",
-                "pathAs": "row",
-                "controlledBy": "fields.equivalentContexts"
-            }
-        ],
-        ".csc-hierarchy-domaindata-label": {"messagekey": "hierarchy-domaindataLabel"},
-        ".csc-hierarchy-relatedTerms-label": {"messagekey": "hierarchy-relatedTermsLabel"},
-        ".csc-hierarchy-narrowerContexts-label": {"messagekey": "hierarchy-narrowerContextsLabel"},
-        ".csc-hierarchy-hierarchyInformation-label": {"messagekey": "hierarchy-hierarchyInformationLabel"},
-        ".csc-hierarchy-relatedTerm": {"decorators": [{
-            "func": "cspace.makeRepeatable",
-            "type": "fluid",
-            "options": {
-                "repeatTree": {"expander": {
-                    "tree": {".csc-hierarchy-relatedTerm": {
-                        "decorators": [{
-                            "func": "cspace.autocomplete",
-                            "type": "fluid",
-                            "options": {
-                                "queryUrl": "../../../tenant/core/vocabularies/organization/autocomplete/relatedTerm",
-                                "vocabUrl": "../../../tenant/core/vocabularies/organization/source-vocab/relatedTerm"
+                      {
+                        "func": "cspace.autocomplete", 
+                        "options": {
+                          "invokers": {
+                            "selectMatch": {
+                              "funcName": "cspace.autocomplete.selectMatchConfirm"
                             }
                           }, 
                           "queryUrl": "../../../tenant/core/vocabularies/organization/autocomplete/narrowerContext", 
@@ -218,10 +193,16 @@
         "pathAs": "row", 
         "repeatID": ".csc-hierarchy-equivalentContext:", 
         "tree": {
-          "decorators": {
-            "classes": "cs-hierarchy-equivalentContext", 
-            "type": "addClass"
-          }, 
+          "decorators": [
+            {
+              "classes": "cs-hierarchy-equivalentContext", 
+              "type": "addClass"
+            }, 
+            {
+              "func": "cspace.externalURL", 
+              "type": "fluid"
+            }
+          ], 
           "value": "${{row}.equivalentContext}"
         }, 
         "type": "fluid.renderer.repeat"
