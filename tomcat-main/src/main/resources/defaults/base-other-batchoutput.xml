@@ -1,0 +1,30 @@
+<record id="batchoutput" in-recordlist="no" type="authorizationdata,batch">
+	<web-url>invokebatch</web-url>
+	<services-url>batch</services-url>
+	<services-record-path>invocationContext:http://collectionspace.org/services/common/invocable,invocationContext</services-record-path>
+	<authorization-view>false</authorization-view>
+	<terms-used>false</terms-used>
+	<refobj-used>false</refobj-used>
+
+	<structures>
+		<structure id="screen">
+			<view>
+				<titlebar show="false"/>
+				<sidebar show="false"/>
+				<label-section id="messagekeys" show="true"/>
+			</view>
+		</structure>
+	</structures>
+
+	<include src="domain-other-batchoutput.xml" strip-root="yes"/>
+
+	<section id="batchOutputInformation">
+		<field id="docType"/>
+		<field id="mode"/>
+		<field id="singleCSID"/>
+		<field id="groupCSID"/>
+		<repeat id="listCSIDs">
+			<field id="csid"/>
+		</repeat>
+	</section>
+</record>

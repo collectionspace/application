@@ -233,6 +233,12 @@ public class ServicesConnection {
 		return out;
 	}
 
+	public ReturnedDocument getBatchDocument(RequestMethod method_type,String uri,Document body,CSPRequestCredentials creds,CSPRequestCache cache) throws ConnectionException {
+		ReturnedDocument out=new ReturnedDocument();
+		doRequest(out,method_type,uri,makeDocumentSource(body),creds,cache);
+		return out;
+	}
+	
 	public ReturnedMultipartDocument getMultipartXMLDocument(RequestMethod method_type,String uri,Map<String,Document> body,CSPRequestCredentials creds,CSPRequestCache cache) throws ConnectionException {
 		ReturnedMultipartDocument out=new ReturnedMultipartDocument();
 		doRequest(out,method_type,uri,makeMultipartSource(body),creds,cache);
