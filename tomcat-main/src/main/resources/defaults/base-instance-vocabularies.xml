@@ -190,5 +190,6 @@
                                 <option id="donor">Donor</option>
                                 <option id="employee">Employee</option>
                         </options>
-                    </instance>
+                    </instance>                    
+
 </instances>
