@@ -96,30 +96,30 @@
 			<field id="notes" section="naturalhistory">
 				<selector>taxonomic-identification-notes</selector>
 			</field>
-            <repeat id="taxonomicIdentHybridParentGroupList/hybridParentGroup" section="naturalhistory">
-                <field id="hybridParent" section="naturalhistory" autocomplete="taxon-taxon"/>
-    			<field id="hybridParentQualifier" section="naturalhistory">
-    				<options>
-    					<option id="">Please select a value</option>
-    					<option id="unknown">unknown</option>
-    					<option id="cf.">cf.</option>
-    					<option id="fide">fide</option>
-    					<option id="forsan">forsan</option>
-    					<option id="group">group</option>
-    					<option id="hybrid (X)">hybrid (X)</option>
-    					<option id="sensu">sensu</option>
-    					<option id="sensu lato">sensu lato</option>
-    					<option id="sensu stricto">sensu stricto</option>
-    					<option id="series">series</option>
-    					<option id="vide">vide</option>
-    					<option id="intermediate">intermediate</option>
-    					<option id="?">?</option>
-    				</options>
-    			</field>
-            </repeat>
-            <field id="taxonomicIdentHybridName" section="naturalhistory"/>
-            <field id="affinityTaxon" section="naturalhistory" autocomplete="taxon-taxon"/>
-            <field id="hybridFlag" section="naturalhistory" datatype="boolean"/>
+			<repeat id="taxonomicIdentHybridParentGroupList/taxonomicIdentHybridParentGroup" section="naturalhistory">
+			    <field id="taxonomicIdentHybridParent" section="naturalhistory" autocomplete="taxon-taxon"/>
+				<field id="taxonomicIdentHybridParentQualifier" section="naturalhistory">
+					<options>
+						<option id="">Please select a value</option>
+						<option id="unknown">unknown</option>
+						<option id="cf.">cf.</option>
+						<option id="fide">fide</option>
+						<option id="forsan">forsan</option>
+						<option id="group">group</option>
+						<option id="hybrid (X)">hybrid (X)</option>
+						<option id="sensu">sensu</option>
+						<option id="sensu lato">sensu lato</option>
+						<option id="sensu stricto">sensu stricto</option>
+						<option id="series">series</option>
+						<option id="vide">vide</option>
+						<option id="intermediate">intermediate</option>
+						<option id="?">?</option>
+					</options>
+				</field>
+			</repeat>
+			<field id="taxonomicIdentHybridName" section="naturalhistory"/>
+			<field id="affinityTaxon" section="naturalhistory" autocomplete="taxon-taxon"/>
+			<field id="hybridFlag" section="naturalhistory" datatype="boolean"/>
 		</repeat>
 
 		<repeat id="localNameGroupList/localNameGroup" section="naturalhistory">
