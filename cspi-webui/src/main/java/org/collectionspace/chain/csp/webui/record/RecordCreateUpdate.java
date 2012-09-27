@@ -420,7 +420,7 @@ public class RecordCreateUpdate implements WebMethod {
 				}
 			}
 
-			if(this.record.getID().equals("output")){
+			if(this.record.getID().equals("output") || this.record.getID().equals("batchoutput")){
 				//do a read instead of a create as reports are special and evil
 
 				JSONObject fields=data.optJSONObject("fields");
