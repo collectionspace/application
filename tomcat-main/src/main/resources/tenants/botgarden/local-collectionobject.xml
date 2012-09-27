@@ -71,6 +71,7 @@
 		<field id="deadDate" ui-type="date" section="botgarden"/>
 		<!-- change autocomplete, this is a placeholder -->
 		<field id="requestedBy" autocomplete="person-person" section="botgarden"/>
+		<field id="source" section="botgarden"/>
 	</section>
 	
 	<section id="descriptionInformation">
