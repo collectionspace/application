@@ -138,7 +138,7 @@ public class TestRelations extends ServicesBaseClass {
 		data.put("dst","collection-object/"+obj2);
 		data.put("type","affects");
 		// udpate
-		ss.updateJSON("relations/main/"+path, data);
+		ss.updateJSON("relations/main/"+path, data, new JSONObject());
 	}
 	
 }

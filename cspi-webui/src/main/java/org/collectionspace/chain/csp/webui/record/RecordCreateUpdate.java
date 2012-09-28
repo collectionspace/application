@@ -45,6 +45,8 @@ public class RecordCreateUpdate implements WebMethod {
 	protected RecordSearchList searcher;
 	protected CacheTermList ctl;
 	
+	protected static final String BLOBS_SERVICE_URL_PATTERN = "/cspace-services/blobs/";
+	
 	public RecordCreateUpdate(Record r,boolean create) { 
 		this.spec=r.getSpec();
 		this.record = r;
@@ -95,7 +97,7 @@ public class RecordCreateUpdate implements WebMethod {
 		if(path!=null) {
 			// Update
 			if(fields!=null)
-				storage.updateJSON(base+"/"+path, fields);
+				storage.updateJSON(base+"/"+path, fields, restrictions);
 		} else {
 			// Create
 			if(fields!=null)
@@ -401,18 +403,21 @@ public class RecordCreateUpdate implements WebMethod {
 			}
 			if (this.record.getID().equals("media")) {
 				JSONObject fields=data.optJSONObject("fields");
-				
+				/*
 				if (fields.has("externalUrl")) {
 					String url = fields.getString("externalUrl");
 					restrictions.put(Record.BLOB_SOURCE_URL, url);
 					restrictions.put(Record.BLOB_PURGE_ORIGINAL, Boolean.toString(true)); // Tells the Services to delete the original after creating derivatives
 				}
+				*/
 				
+				/*
 				if (fields.has("srcUri")){
 					//is this internal or external?
 					//XXX HACK as ervice layer having issues with external urls
 					String uri = fields.getString("srcUri");
-					/*
+					*/
+					/* Commented out in previous version
 					String baseurl = "http://nightly.collectionspace.org:8180/cspace-services/blobs/";
 					if(uri.startsWith(baseurl)){
 						uri = uri.replace(baseurl, "");
@@ -421,11 +426,36 @@ public class RecordCreateUpdate implements WebMethod {
 						fields.remove("srcUri");
 					}
 					*/
+				/*
 					String[] parts = uri.split("/blobs/");
 					String[] bits = parts[1].split("/");
 					fields.put("blobCsid",bits[0]);
 					fields.remove("srcUri");
 					data.put("fields", fields);
+				}
+				*/
+				// Handle linked media references
+				if (!fields.has("blobCsid") || StringUtils.isEmpty(fields.getString("blobCsid"))){	// If has blobCsid, already has media link so do nothing more
+					// No media, so consider the source
+					// "sourceUrl" is not a declared field in the app layer config, but the UI passes it in
+					// Can consider mapping srcUri to this if want to clean that up
+					if (fields.has("sourceUrl")){
+						// We have a source - see where it is from
+						String uri = fields.getString("sourceUrl");
+						if(uri.contains(BLOBS_SERVICE_URL_PATTERN)) {
+							// This is an uploaded blob, so just pull the csid and set into blobCsid
+							String[] parts = uri.split(BLOBS_SERVICE_URL_PATTERN);	// Split to get CSID
+							String[] bits = parts[1].split("/"); // Strip off anything trailing the CSID
+							fields.put("blobCsid",bits[0]);
+						} else { // This must be an external Url source
+							// External Source is handled as params to the CREATE/UPDATE of the media record
+							restrictions.put(Record.BLOB_SOURCE_URL, uri);
+							// Tell the Services to delete the original after creating derivatives
+							restrictions.put(Record.BLOB_PURGE_ORIGINAL, Boolean.toString(true));
+						}
+						fields.remove("sourceUrl");
+						data.put("fields", fields);
+					}
 				}
 			}
 
@@ -502,8 +532,9 @@ public class RecordCreateUpdate implements WebMethod {
 						data = newdata;
 					}
 					 */
-				} else
-					path=sendJSON(storage,path,data,null);
+				} else {
+					path=sendJSON(storage,path,data,restrictions);
+				}
 				if(path==null)
 					throw new UIException("Insufficient data for create (no fields?)");
 

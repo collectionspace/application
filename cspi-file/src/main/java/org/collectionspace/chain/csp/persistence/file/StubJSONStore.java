@@ -141,9 +141,9 @@ public class StubJSONStore implements Storage {
 		throw new UnderlyingStorageException("Cannot post to path");
 	}
 
-	public void updateJSON(String filePath, JSONObject jsonObject) throws ExistException, UnderlyingStorageException, UnimplementedException {
+	public void updateJSON(String filePath, JSONObject jsonObject, JSONObject restrictions) throws ExistException, UnderlyingStorageException, UnimplementedException {
 		if(idRequest(filePath))
-			id.updateJSON(filePath,jsonObject);
+			id.updateJSON(filePath,jsonObject, restrictions);
 		set(filePath,jsonObject,false);
 	}
 

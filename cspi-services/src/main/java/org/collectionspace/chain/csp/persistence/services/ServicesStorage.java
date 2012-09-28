@@ -66,9 +66,9 @@ public class ServicesStorage extends SplittingStorage implements Storage {
 		return storage.retrieveJSON(storage,creds,cache,filePath, restrictions);
 	}
 
-	public void updateJSON(String filePath, JSONObject jsonObject)
+	public void updateJSON(String filePath, JSONObject jsonObject, JSONObject restrictions)
 			throws ExistException, UnimplementedException, UnderlyingStorageException {
-		storage.updateJSON(storage,creds,cache, filePath, jsonObject);
+		storage.updateJSON(storage,creds,cache, filePath, jsonObject, restrictions);
 	}
 	
 	public void transitionWorkflowJSON(String filePath, String workflowTransition) 

@@ -63,7 +63,7 @@ public class TestVocab extends ServicesBaseClass {
 		data.remove(testField);
 		data.put(testField,"TEST2");
 		data.put("termStatus","Provisional2");
-		ss.updateJSON(path + "/"+id,data);
+		ss.updateJSON(path + "/"+id,data, new JSONObject());
 		out=ss.retrieveJSON(path + "/"+id, new JSONObject());
 		assertEquals("TEST2",out.getString(testField));
 		assertEquals("Provisional2",out.getString("termStatus"));
