@@ -403,37 +403,6 @@ public class RecordCreateUpdate implements WebMethod {
 			}
 			if (this.record.getID().equals("media")) {
 				JSONObject fields=data.optJSONObject("fields");
-				/*
-				if (fields.has("externalUrl")) {
-					String url = fields.getString("externalUrl");
-					restrictions.put(Record.BLOB_SOURCE_URL, url);
-					restrictions.put(Record.BLOB_PURGE_ORIGINAL, Boolean.toString(true)); // Tells the Services to delete the original after creating derivatives
-				}
-				*/
-				
-				/*
-				if (fields.has("srcUri")){
-					//is this internal or external?
-					//XXX HACK as ervice layer having issues with external urls
-					String uri = fields.getString("srcUri");
-					*/
-					/* Commented out in previous version
-					String baseurl = "http://nightly.collectionspace.org:8180/cspace-services/blobs/";
-					if(uri.startsWith(baseurl)){
-						uri = uri.replace(baseurl, "");
-						String[] parts = uri.split("/");
-						fields.put("blobCsid",parts[0]);
-						fields.remove("srcUri");
-					}
-					*/
-				/*
-					String[] parts = uri.split("/blobs/");
-					String[] bits = parts[1].split("/");
-					fields.put("blobCsid",bits[0]);
-					fields.remove("srcUri");
-					data.put("fields", fields);
-				}
-				*/
 				// Handle linked media references
 				if (!fields.has("blobCsid") || StringUtils.isEmpty(fields.getString("blobCsid"))){	// If has blobCsid, already has media link so do nothing more
 					// No media, so consider the source
