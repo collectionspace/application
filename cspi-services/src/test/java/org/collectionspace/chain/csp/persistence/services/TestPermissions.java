@@ -248,7 +248,7 @@ public class TestPermissions  extends ServicesBaseClass  {
 			String path=ss.autocreateJSON("users/",u1,null);
 			assertNotNull(path);
 			JSONObject u2=getJSON(jsonFile);
-			ss.updateJSON("users/"+path,u2);
+			ss.updateJSON("users/"+path,u2, new JSONObject());
 			JSONObject u3=ss.retrieveJSON("users/"+path, new JSONObject());
 			assertNotNull(u3);
 

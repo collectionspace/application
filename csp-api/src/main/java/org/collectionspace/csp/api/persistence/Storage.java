@@ -28,7 +28,7 @@ public interface Storage {
 	 * @param filePath - path to file for storage
 	 * @param jsonObject - the JSONObject to be parsed and stored
 	 */
-	public void updateJSON(String filePath, JSONObject jsonObject)
+	public void updateJSON(String filePath, JSONObject jsonObject, JSONObject restrictions)
 		throws ExistException, UnimplementedException, UnderlyingStorageException;
 
 	/**

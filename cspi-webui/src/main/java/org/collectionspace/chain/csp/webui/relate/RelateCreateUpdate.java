@@ -64,7 +64,7 @@ public class RelateCreateUpdate implements WebMethod {
 		if(path!=null) {
 			// Update
 			if(fields!=null)
-				storage.updateJSON("/relations/main/"+path,fields);
+				storage.updateJSON("/relations/main/"+path,fields, new JSONObject());
 		} else {
 			// Create
 			if(fields!=null)

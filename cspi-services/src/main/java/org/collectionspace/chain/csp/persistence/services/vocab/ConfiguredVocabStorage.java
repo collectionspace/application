@@ -583,20 +583,24 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		}	
 	}
 	
-	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject,Record thisr, String serviceurl)
+	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,
+			String filePath, JSONObject jsonObject, JSONObject restrictions,
+			Record thisr, String serviceurl)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		String vocab = RefName.shortIdToPath(filePath.split("/")[0]);
 		String csid = filePath.split("/")[1];
 		String savePath;
 		try {
 			savePath = generateURL(vocab,csid,"",thisr);
-			updateJSON(root,creds,cache,jsonObject, thisr, savePath);
+			updateJSON(root,creds,cache,jsonObject, restrictions, thisr, savePath);
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Connection exception "+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		}
 	}
 	
-	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, JSONObject jsonObject,Record thisr, String savePath)
+	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, 
+			JSONObject jsonObject, JSONObject restrictions,
+			Record thisr, String savePath)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			String csid = savePath.split("/")[3];
@@ -657,11 +661,11 @@ public class ConfiguredVocabStorage extends GenericStorage {
 						Integer pn = Integer.valueOf(data.getJSONObject("pagination").getString("pageNum"));
 						Integer ti = Integer.valueOf(data.getJSONObject("pagination").getString("totalItems"));
 						if(ti > (ps * (pn +1))){
-							JSONObject restrictions = new JSONObject();
-							restrictions.put("pageSize", Integer.toString(ps));
-							restrictions.put("pageNum", Integer.toString(pn + 1));
+							JSONObject pgRestrictions = new JSONObject();
+							pgRestrictions.put("pageSize", Integer.toString(ps));
+							pgRestrictions.put("pageNum", Integer.toString(pn + 1));
 
-							getPath = getRestrictedPath(getPath, restrictions, sr.getServicesSearchKeyword(), "", false, "");
+							getPath = getRestrictedPath(getPath, pgRestrictions, sr.getServicesSearchKeyword(), "", false, "");
 							//need more values
 						}
 						else{
@@ -767,7 +771,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 						JSONObject value = updatecsid.getJSONObject(key);
 						String thissave = savePathSr + key;
 
-						updateJSON(root,creds,cache,value, sr, thissave);
+						updateJSON(root,creds,cache,value, new JSONObject(), sr, thissave);
 						//updateJSON( root, creds, cache, key,  value, sr, savePathSr);
 					}
 					

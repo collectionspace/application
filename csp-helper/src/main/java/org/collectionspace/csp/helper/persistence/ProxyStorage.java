@@ -54,9 +54,9 @@ public abstract class ProxyStorage implements Storage {
 		return proxed.retrieveJSON(filePath,restrictions);
 	}
 
-	public void updateJSON(String filePath, JSONObject jsonObject)
+	public void updateJSON(String filePath, JSONObject jsonObject, JSONObject restrictions)
 			throws ExistException, UnimplementedException, UnderlyingStorageException {
-		proxed.updateJSON(filePath,jsonObject);
+		proxed.updateJSON(filePath,jsonObject, restrictions);
 	}
 
 	public void transitionWorkflowJSON(String filePath, String workflowTransition) 

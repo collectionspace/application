@@ -328,7 +328,7 @@ public class UserStorage extends GenericStorage {
 
 	public void updateJSON(ContextualisedStorage root,
 			CSPRequestCredentials creds, CSPRequestCache cache,
-			String filePath, JSONObject jsonObject) throws ExistException,
+			String filePath, JSONObject jsonObject, JSONObject restrictions) throws ExistException,
 			UnimplementedException, UnderlyingStorageException {
 		try {
 			// XXX when CSPACE-1458 is fixed, remove the call to

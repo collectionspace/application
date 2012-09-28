@@ -1022,7 +1022,10 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws UnimplementedException
 	 * @throws UnderlyingStorageException
 	 */
-	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject,Record thisr, String serviceurl)
+	public void updateJSON(
+			ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache,
+			String filePath, JSONObject jsonObject, JSONObject restrictions,
+			Record thisr, String serviceurl)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			Map<String,Document> parts=new HashMap<String,Document>();
@@ -1042,7 +1045,8 @@ public class GenericStorage  implements ContextualisedStorage {
 			
 			int status = 0;
 			if(thisr.isMultipart()){
-				ReturnedMultipartDocument docm = conn.getMultipartXMLDocument(RequestMethod.PUT,serviceurl+filePath,parts,creds,cache);
+				String restrictedPath = getRestrictedPath(serviceurl, filePath, restrictions, null);
+				ReturnedMultipartDocument docm = conn.getMultipartXMLDocument(RequestMethod.PUT,restrictedPath,parts,creds,cache);
 				status = docm.getStatus();
 			}
 			else{ 
@@ -1084,11 +1088,11 @@ public class GenericStorage  implements ContextualisedStorage {
 							Integer pn = Integer.valueOf(data.getJSONObject("pagination").getString("pageNum"));
 							Integer ti = Integer.valueOf(data.getJSONObject("pagination").getString("totalItems"));
 							if(ti > (ps * (pn +1))){
-								JSONObject restrictions = new JSONObject();
-								restrictions.put("pageSize", Integer.toString(ps));
-								restrictions.put("pageNum", Integer.toString(pn + 1));
+								JSONObject pgRestrictions = new JSONObject();
+								pgRestrictions.put("pageSize", Integer.toString(ps));
+								pgRestrictions.put("pageNum", Integer.toString(pn + 1));
 
-								getPath = getRestrictedPath(getPath, restrictions, sr.getServicesSearchKeyword(), "", false, "");
+								getPath = getRestrictedPath(getPath, pgRestrictions, sr.getServicesSearchKeyword(), "", false, "");
 								//need more values
 							}
 							else{
@@ -1202,7 +1206,8 @@ public class GenericStorage  implements ContextualisedStorage {
 						while(keys.hasNext()) {
 							String key=keys.next();
 							JSONObject value = updatecsid.getJSONObject(key);
-							updateJSON( root, creds, cache, key,  value, sr, savePath);
+							JSONObject subrRestrictions = new JSONObject();
+							updateJSON( root, creds, cache, key,  value, subrRestrictions, sr, savePath);
 						}
 						
 						
@@ -1241,9 +1246,9 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws UnimplementedException
 	 * @throws UnderlyingStorageException
 	 */
-	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject,Record thisr)
+	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject, JSONObject restrictions,Record thisr)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
-		updateJSON( root, creds, cache, filePath,  jsonObject, thisr, thisr.getServicesURL()+"/");
+		updateJSON( root, creds, cache, filePath,  jsonObject, restrictions, thisr, thisr.getServicesURL()+"/");
 	}
 
 	/**
@@ -1251,9 +1256,9 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * I allowed the specification of record types as sub records caused issues
 	 * possibly should rework to keep record purity and think of a better way of calling the sub record info
 	 */
-	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject)
+	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject, JSONObject restrictions)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
-		updateJSON( root, creds, cache, filePath,  jsonObject, r);
+		updateJSON( root, creds, cache, filePath,  jsonObject, restrictions, r);
 	}
 	
 	/** 
@@ -1610,9 +1615,22 @@ public class GenericStorage  implements ContextualisedStorage {
 	 */
 	protected String getRestrictedPath(String basepath, JSONObject restrictions, String tail)
 			throws UnsupportedEncodingException, JSONException {
-		return getRestrictedPath(basepath, restrictions, null, tail, false, "");
+		return getRestrictedPath(basepath, null, restrictions, null, tail, false, "");
 	}
 	
+	/*
+	 * A wrapper call to getRestrictedPath() with some common defaults
+	 */
+	protected String getRestrictedPath(String basepath, String filepath, JSONObject restrictions, String tail)
+			throws UnsupportedEncodingException, JSONException {
+		return getRestrictedPath(basepath, filepath, restrictions, null, tail, false, "");
+	}
+	
+	protected String getRestrictedPath(String basepath, JSONObject restrictions, String keywordparam, 
+					String tail, Boolean supportTermCompletion, String displayNameID)
+		throws UnsupportedEncodingException, JSONException {
+	return getRestrictedPath(basepath, null, restrictions, keywordparam, tail, supportTermCompletion, displayNameID);
+}
 	/**
 	 * One stop shop to work out what the restricted path is that should be sent to the service layer
 	 * @param basepath
@@ -1625,23 +1643,30 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws UnsupportedEncodingException
 	 * @throws JSONException
 	 */
-	protected String getRestrictedPath(String basepath, JSONObject restrictions, String keywordparam, String tail, Boolean supportTermCompletion, String displayNameID) throws UnsupportedEncodingException, JSONException{
-		
-                // Separator between the base part (scheme/authority/path) of the URL
-                // and its query parameters (aka query or query string) part
+	protected String getRestrictedPath(String basepath, String filepath, JSONObject restrictions, String keywordparam, String tail, Boolean supportTermCompletion, String displayNameID) throws UnsupportedEncodingException, JSONException{
+
+		// Separator between the base part (scheme/authority/path) of the URL
+		// and its query parameters (aka query or query string) part
+		// TODO rewrite to use StringBuilder
 		String postfix = "?";
-                
-                if (basepath != null && basepath.contains(postfix)) {
-                    // FIXME: Hack for CSPACE-5431: If the basepath already includes
-                    // query parameters ("restrictions"), remove them first, before
-                    // appending new query parameters to the basepath.
-                    basepath = basepath.substring(0,basepath.lastIndexOf(postfix));
-                }
+
+		if (basepath != null && basepath.contains(postfix)) {
+			// FIXME: Hack for CSPACE-5431: If the basepath already includes
+			// query parameters ("restrictions"), remove them first, before
+			// appending new query parameters to the basepath.
+			basepath = basepath.substring(0,basepath.lastIndexOf(postfix));
+		}
+		
+		if(filepath == null) {
+			filepath = "";
+		} else if(filepath.length()>1 && !filepath.startsWith("/") && !basepath.endsWith("/")) {
+			filepath = "/" + filepath;
+		}
 
 		if (tail != null && tail.length() > 0) {
 			postfix += tail.substring(1) + "&";
 		}
-		
+
 		String prefix=null;
 		Boolean queryadded = false;
 		if(restrictions!=null){
@@ -1692,7 +1717,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			}
 			if(restrictions.has(SEARCH_RELATED_TO_CSID_AS_SUBJECT)){
 				postfix += SEARCH_RELATED_TO_CSID_AS_SUBJECT+"="
-							+restrictions.getString(SEARCH_RELATED_TO_CSID_AS_SUBJECT)+"&";
+						+restrictions.getString(SEARCH_RELATED_TO_CSID_AS_SUBJECT)+"&";
 			}
 			if(restrictions.has(SEARCH_ALL_GROUP)){
 				// Have to replace the "common" part of the URL with the passed group.
@@ -1718,11 +1743,11 @@ public class GenericStorage  implements ContextualisedStorage {
 
 		postfix = postfix.substring(0, postfix.length()-1); // Remove the last character (probably the '&' character)
 		if (postfix.length() == 0) {
-			postfix +="/";
+			// postfix +="/";	// Trailing slash does nothing.
 		}
-		
+
 		//log.info(postfix);
-		String path = basepath+postfix;
+		String path = basepath+filepath+postfix;
 		return path;
 	}
 
