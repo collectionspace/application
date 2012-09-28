@@ -51,7 +51,7 @@ public class UserDetailsCreateUpdate implements WebMethod {
 		if(path!=null) {
 			// Update
 			if(fields!=null){
-				storage.updateJSON(base+"/"+path,fields);
+				storage.updateJSON(base+"/"+path,fields, new JSONObject());
 			}
 		} else {
 			// Create

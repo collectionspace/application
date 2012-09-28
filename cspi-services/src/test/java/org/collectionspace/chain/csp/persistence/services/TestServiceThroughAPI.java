@@ -67,7 +67,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		
 		assertEquals(jsc.get(testfield),jsoncreate.get(testfield));
 		//UPDATE & Test
-		ss.updateJSON(objtype+path,jsonupdate);
+		ss.updateJSON(objtype+path,jsonupdate, new JSONObject());
 		JSONObject js=ss.retrieveJSON(objtype+path, new JSONObject());
 		assertEquals(js.get(testfield),jsonupdate.get(testfield));
 		if(testDelete){

@@ -466,7 +466,8 @@ public class AuthorizationStorage extends GenericStorage {
 	}
 
 	@Override
-	public void updateJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, String filePath, JSONObject jsonObject) 
+	public void updateJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, 
+			String filePath, JSONObject jsonObject, JSONObject restrictions) 
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			Map<String,Document> parts=new HashMap<String,Document>();

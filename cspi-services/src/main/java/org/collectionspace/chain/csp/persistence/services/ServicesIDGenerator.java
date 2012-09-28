@@ -52,7 +52,7 @@ public class ServicesIDGenerator implements ContextualisedStorage {
 		throw new UnimplementedException("Invalid method for ids");
 	}
 
-	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject, JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("Invalid method for ids");
 	}
 

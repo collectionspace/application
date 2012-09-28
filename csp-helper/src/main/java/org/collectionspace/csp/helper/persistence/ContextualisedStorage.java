@@ -36,7 +36,7 @@ public interface ContextualisedStorage {
 	 * @param filePath - path to file for storage
 	 * @param jsonObject - the JSONObject to be parsed and stored
 	 */
-	public abstract void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject)
+	public abstract void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject, JSONObject restrictions)
 		throws ExistException, UnimplementedException, UnderlyingStorageException;
 
 	/**

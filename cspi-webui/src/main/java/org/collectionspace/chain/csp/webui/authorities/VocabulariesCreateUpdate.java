@@ -54,7 +54,7 @@ public class VocabulariesCreateUpdate implements WebMethod {
 		if(path!=null) {
 			// Update
 			if(fields!=null)
-				storage.updateJSON(pathstart+"/"+path,fields);
+				storage.updateJSON(pathstart+"/"+path,fields, new JSONObject());
 		} else {
 			// Create
 			if(fields!=null)
@@ -87,7 +87,7 @@ public class VocabulariesCreateUpdate implements WebMethod {
 		JSONObject fields=data.optJSONObject("fields");
 		if(path!=null && !path.equals("")) {
 			if(fields!=null)
-				storage.updateJSON(base+"/"+path,fields);
+				storage.updateJSON(base+"/"+path,fields, new JSONObject());
 		} else {
 		// Create
 			if(fields!=null)
