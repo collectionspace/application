@@ -74,6 +74,7 @@ public class GenericStorage  implements ContextualisedStorage {
 	protected Set<String> xxx_view_deurn=new HashSet<String>();
 	protected Set<String> view_search_optional=new HashSet<String>();
 	protected Map<String,List<String>> view_merge = new HashMap<String, List<String>>();
+	protected Map<String,List<String>> view_useCsid=new HashMap<String,List<String>>(); // tracks list fields marked use-csid 
 
 	/**
 	 * Constructor
@@ -99,6 +100,7 @@ public class GenericStorage  implements ContextualisedStorage {
 		xxx_view_deurn=new HashSet<String>();
 		view_search_optional=new HashSet<String>();
 		view_merge = new HashMap<String, List<String>>();
+		view_useCsid=new HashMap<String,List<String>>();
 		initializeGlean(r);
 	}
 	/**
@@ -119,12 +121,14 @@ public class GenericStorage  implements ContextualisedStorage {
 			Set<String>				reset_deurn, 
 			Set<String>				reset_search_optional, 
 			Map<String,List<String>> reset_merge, 
+			Map<String,List<String>> reset_useCsid, 
 			Boolean 				init){
 		view_good=reset_good;
 		view_map=reset_map;
 		xxx_view_deurn=reset_deurn;
 		view_search_optional=reset_search_optional;
 		view_merge = reset_merge;
+		view_useCsid = reset_useCsid;
 		if(init){
 			initializeGlean(r);
 		}
@@ -177,23 +181,43 @@ public class GenericStorage  implements ContextualisedStorage {
 				String prefix = setName;
 				if(r.getMiniDataSetByName(prefix).length>0 && !prefix.equals("")){
 					for(FieldSet fs : r.getMiniDataSetByName(prefix)){
-						view_good.put(prefix+"_"+ fs.getID(),fs.getID());
 						view_map.put(fs.getServicesTag(),fs.getID());
+						view_good.put(prefix+"_"+ fs.getID(),fs.getID());
 						if(fs instanceof Field) {
 							Field f=(Field)fs;
+							String fsID = f.getID();
+							// If the field is actually based upon another, marked use-csid,
+							// then put the name of that field in the view map instead.
+							// We need to glean that from the list results, so we can build
+							// the field from it.
+							String use_csid=f.useCsid();
+							if(use_csid!=null && f.useCsidField()!=null){
+								String useID = f.useCsidField();
+								List<String> useStrings = new ArrayList<String>();
+								useStrings.add(useID);
+								useStrings.add(use_csid);
+								view_useCsid.put(prefix+"_"+ fsID,useStrings);
+								// Need to ensure that we glean the useId value as well
+								view_good.put(prefix+"_"+ useID,useID);
+								// Strictly speaking we should get the services tag for
+								// the field, but we'll cheat for simplicity, since it is
+								// almost always the ID, and we'll just insist that for
+								// useCsid that it must be. Sigh.
+								view_map.put(useID,useID);
+							}
 							// Single field
 							if(f.hasMergeData()){
-								view_merge.put(prefix+"_"+f.getID(),f.getAllMerge());
+								view_merge.put(prefix+"_"+fsID,f.getAllMerge());
 								for(String fm : f.getAllMerge()){
 									if(fm!=null){
 										if(r.getFieldFullList(fm).hasAutocompleteInstance()){
-											xxx_view_deurn.add(f.getID());
+											xxx_view_deurn.add(fsID);
 										}
 									}
 								}
 							}
 							if(f.hasAutocompleteInstance()){
-								xxx_view_deurn.add(f.getID());
+								xxx_view_deurn.add(fsID);
 							}
 						}
 						
@@ -340,8 +364,14 @@ public class GenericStorage  implements ContextualisedStorage {
 						break;
 					}
 				}
-			}
-			else{
+			} else if(view_useCsid.containsKey(fieldname)){
+				List<String> useStrings = view_useCsid.get(fieldname);
+				String useField = useStrings.get(0);
+				String useCsidPattern = useStrings.get(1);
+				String useCsid = getGleanedValue(cache,cachelistitem,useField);
+				if(useCsid!=null)
+					gleaned = XmlJsonConversion.csid_value(useCsid,useCsidPattern,conn.getIMSBase());
+			} else {
 				gleaned=getGleanedValue(cache,cachelistitem,good);
 			}
 			
@@ -426,8 +456,15 @@ public class GenericStorage  implements ContextualisedStorage {
 							break;
 						}
 					}
-				}
-				else{
+				} else if(view_useCsid.containsKey(fieldname)){
+					List<String> useStrings = view_useCsid.get(fieldname);
+					String useField = useStrings.get(0);
+					String useCsidPattern = useStrings.get(1);
+					String useCsid = JSONUtils.checkKey(data, useField);
+					if(useCsid!=null) {
+						value = XmlJsonConversion.csid_value(useCsid,useCsidPattern,conn.getIMSBase());
+					}
+				} else {
 					value = JSONUtils.checkKey(data, good);
 				}
 				//this might work with repeat objects
@@ -867,6 +904,7 @@ public class GenericStorage  implements ContextualisedStorage {
 		Set<String> old_deurn=xxx_view_deurn;
 		Set<String> old_search_optional=view_search_optional;
 		Map<String,List<String>>old_merge =view_merge;
+		Map<String,List<String>> old_useCsid=view_useCsid;
 
 		try{
 
@@ -875,6 +913,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			Set<String> reset_deurn=new HashSet<String>();
 			Set<String> reset_search_optional=new HashSet<String>();
 			Map<String,List<String>> reset_merge = new HashMap<String, List<String>>();
+			Map<String,List<String>> reset_useCsid=new HashMap<String,List<String>>();
 			if(vr.hasRefObjUsed()){
 				path =  getRestrictedPath(path, restrictions,"kw", "", false, "");
 				//XXX need a way to append the data needed from the field,
@@ -896,6 +935,7 @@ public class GenericStorage  implements ContextualisedStorage {
 				xxx_view_deurn = reset_deurn;
 				view_search_optional = reset_search_optional;
 				view_merge = reset_merge;
+				view_useCsid = reset_useCsid;
 				
 				//String nodeName = "authority-ref-doc-list/authority-ref-doc-item";
 				// Need to pick up pagination, etc. 
@@ -907,6 +947,7 @@ public class GenericStorage  implements ContextualisedStorage {
 				reset_deurn = xxx_view_deurn;
 				reset_search_optional = view_search_optional;
 				reset_merge = view_merge;
+				reset_useCsid = view_useCsid;
 				
 				JSONArray recs = data.getJSONArray("listItems");
 				if(data.has("pagination")) {
@@ -927,7 +968,7 @@ public class GenericStorage  implements ContextualisedStorage {
 					Record thisr = vr.getSpec().getRecordByServicesUrl(recordurl);
 					// what glean info required for this one..
 					resetGlean(thisr, reset_good, reset_map, reset_deurn,
-							reset_search_optional, reset_merge, true);
+							reset_search_optional, reset_merge, reset_useCsid, true);
 					String csid = parts[parts.length-1];
 					JSONObject dataitem = null;
 					dataitem =  miniViewRetrieveJSON(cache,creds,csid, "terms", uri, thisr);
@@ -989,6 +1030,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			xxx_view_deurn = old_deurn;
 			view_search_optional  = old_search_optional;
 			view_merge = old_merge;
+			view_useCsid = old_useCsid;
 		}
 	}
 	/**
