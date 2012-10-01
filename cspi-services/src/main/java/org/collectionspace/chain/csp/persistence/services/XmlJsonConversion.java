@@ -345,7 +345,7 @@ public class XmlJsonConversion {
 		return el;
 	}
 
-	private static String csid_value(String csid,String spec,String ims_url) {
+	public static String csid_value(String csid,String spec,String ims_url) {
 		String[] parts = spec.split(";");
 		if(parts.length<2)
 			parts = new String[]{spec,""};
