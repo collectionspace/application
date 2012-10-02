@@ -132,9 +132,10 @@ public class WebLoginStatus  implements WebMethod {
 					}
 				}
 			}
-			//currently you can't assign authority vocabulary permissions uniquely so they are munged here for the UI 
-			//eventually you will need to pivot from /personauthorities/{csid} to the vocab instance
-			//this currently sets the perms of the instance to that of the auth
+			// Services do not support permissions for individual namespaces within an authority,
+			// e.g., to "Local Persons" vs. "ULAN Persons". 
+			// This sets up permissions to each namespace (a.k.a. "instance" in this code) 
+			// to match that of the parent authority.
 			for (Record r: spec.getAllRecords()){
 				if(r.isType("authority")){
 					for(Instance ins: r.getAllInstances()){
