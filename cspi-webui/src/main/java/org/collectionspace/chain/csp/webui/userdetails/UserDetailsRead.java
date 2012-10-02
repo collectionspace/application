@@ -107,5 +107,6 @@ public class UserDetailsRead  implements WebMethod {
 		for(Record r : spec.getAllRecords()) {
 			type_to_url.put(r.getID(),r.getWebURL());
 		}
+		this.searcher.configure(spec);
 	}
 }

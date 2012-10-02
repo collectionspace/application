@@ -483,10 +483,10 @@ public class RecordRead implements WebMethod {
 		for(Record r : spec.getAllRecords()) {
 			type_to_url.put(r.getID(),r.getWebURL());
 		}
+		this.searcher.configure(spec);
 	}
+	
 	public void configure(Spec spec) {
-		for(Record r : spec.getAllRecords()) {
-			type_to_url.put(r.getID(),r.getWebURL());
-		}
+		configure(null, spec);
 	}
 }

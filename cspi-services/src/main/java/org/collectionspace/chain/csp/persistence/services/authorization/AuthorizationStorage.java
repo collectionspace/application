@@ -149,6 +149,7 @@ public class AuthorizationStorage extends GenericStorage {
 		try {
 			JSONObject out = new JSONObject();
 
+			// PLS: why on earth would reports be routed through AuthStorage?!?!
 			if(r.getID().equals("reports")){
 
 				String path = getRestrictedPath(r.getServicesURL(), restrictions, r.getServicesSearchKeyword(), "", false, "");

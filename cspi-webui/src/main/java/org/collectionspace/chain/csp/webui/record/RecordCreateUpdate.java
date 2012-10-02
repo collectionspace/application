@@ -554,5 +554,7 @@ public class RecordCreateUpdate implements WebMethod {
 
 	public void configure() throws ConfigException {}
 	
-	public void configure(WebUI ui,Spec spec) {}
+	public void configure(WebUI ui,Spec spec) {
+		this.searcher.configure(spec);
+	}
 }
