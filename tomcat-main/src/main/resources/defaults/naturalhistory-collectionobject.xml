@@ -273,6 +273,7 @@
 	<section id="localityInformation">
 		<repeat id="localityGroupList/localityGroup" section="naturalhistory">
 			<field id="fieldLocVerbatim" ui-search="repeatable" section="naturalhistory"/>
+			<field id="taxonomicRange" section="naturalhistory"/>
 			<field id="fieldLocPlace" autocomplete="place-place" section="naturalhistory"/>
 			<field id="fieldLocCounty" ui-search="repeatable" section="naturalhistory">
 				<options>
