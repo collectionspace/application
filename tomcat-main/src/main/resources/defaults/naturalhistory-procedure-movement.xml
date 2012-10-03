@@ -1,0 +1,10 @@
+<record id="movement">
+	<services-record-path id="naturalhistory">movements_naturalhistory:http://collectionspace.org/services/movement/domain/naturalhistory,movements_naturalhistory</services-record-path>
+
+	<section id="labelInformation">
+		<field name="labelRequested" ui-search="repeatable" datatype="boolean"/>
+		<field name="labelSize"/>
+		<field name="labelStandType"/>
+		<field name="labelCount" ui-type="validated" datatype="integer"/>
+	</section>
+</record>
