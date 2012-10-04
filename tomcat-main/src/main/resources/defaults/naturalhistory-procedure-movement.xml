@@ -2,9 +2,26 @@
 	<services-record-path id="naturalhistory">movements_naturalhistory:http://collectionspace.org/services/movement/domain/naturalhistory,movements_naturalhistory</services-record-path>
 
 	<section id="labelInformation">
-		<field name="labelRequested" ui-search="repeatable" datatype="boolean"/>
-		<field name="labelSize"/>
-		<field name="labelStandType"/>
-		<field name="labelCount" ui-type="validated" datatype="integer"/>
+		<field id="labelRequested" ui-search="repeatable" datatype="boolean" section="naturalhistory"/>
+
+		<field id="labelSize" section="naturalhistory">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="size1">Size 1</option>
+				<option id="size2">Size 2</option>
+				<option id="size3">Size 3</option>
+			</options>
+		</field>
+
+		<field id="labelStandType" section="naturalhistory">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="stand1">Stand 1</option>
+				<option id="stand2">Stand 2</option>
+				<option id="stand3">Stand 3</option>
+			</options>
+		</field>
+
+		<field id="labelCount" ui-type="validated" datatype="integer" section="naturalhistory"/>
 	</section>
 </record>
