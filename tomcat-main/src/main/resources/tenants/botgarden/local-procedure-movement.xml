@@ -1,6 +1,24 @@
 <record id="movement">
 	<section id="locationMovementInformation">
-		<!-- Change organization-organization to organization-institution in autocomplete -->
-		<field id="currentLocation" autocomplete="location-location,organization-institution"/>
+		<!-- Change mini summary to number, and change organization-organization to organization-institution in autocomplete -->
+		<field id="currentLocation" mini="number,search,list,relate,terms" autocomplete="location-location,organization-institution"/>
+	</section>
+	<section id="movementControlInformation">
+		<!--  Remove ui-search and mini -->
+		<field id="movementReferenceNumber" ui-search="" mini=""/>
+		
+		<!-- Add mini=summary and change options -->
+		<field id="reasonForMove" mini="summary">
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="Dead">Dead</option>
+				<option id="Planted Out">Planted Out</option>
+				<option id="Moved">Moved</option>
+				<option id="Label Request">Label Request</option>
+				<option id="Theft">Theft</option>
+				<option id="Other">Other</option>
+				<option id="Revived">Revived</option>
+			</options>
+		</field>
 	</section>
 </record>
