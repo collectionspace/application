@@ -298,4 +298,34 @@
 							<option>woody brushland</option>
                         </options>
                     </instance>
+					<instance id="vocab-taxonomyAuthorityHabitat">
+						<web-url>habitat</web-url>
+						<title-ref>habitat</title-ref>
+						<title>habitat</title>
+						<options>
+							<option>habitat1</option>
+							<option>habitat2</option>
+							<option>habitat3</option>
+						</options>
+					</instance>
+					<instance id="vocab-taxonomyAuthorityClimateRating">
+						<web-url>climateRating</web-url>
+						<title-ref>climateRating</title-ref>
+						<title>climateRating</title>
+						<options>
+							<option>climateRating1</option>
+							<option>climateRating2</option>
+							<option>climateRating3</option>
+						</options>
+					</instance>
+					<instance id="vocab-conservationCategory">
+						<web-url>conservationCategory</web-url>
+						<title-ref>conservationCategory</title-ref>
+						<title>conservationCategory</title>
+						<options>
+							<option>conservationCategory1</option>
+							<option>conservationCategory2</option>
+							<option>conservationCategory3</option>
+						</options>
+					</instance>
 </instances>
