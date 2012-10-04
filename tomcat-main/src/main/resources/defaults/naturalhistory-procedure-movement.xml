@@ -2,7 +2,13 @@
 	<services-record-path id="naturalhistory">movements_naturalhistory:http://collectionspace.org/services/movement/domain/naturalhistory,movements_naturalhistory</services-record-path>
 
 	<section id="labelInformation">
-		<field id="labelRequested" ui-search="repeatable" datatype="boolean" section="naturalhistory"/>
+		<field id="labelRequested" ui-search="repeatable" section="naturalhistory">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="no" default="yes">No</option>
+				<option id="yes">Yes</option>
+			</options>
+		</field>
 
 		<field id="labelSize" section="naturalhistory">
 			<options>
