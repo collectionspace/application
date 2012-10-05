@@ -215,6 +215,12 @@
 			<services-tag>donorDateGroup</services-tag>
 		</field>
 		<field id="donorNote" section="naturalhistory"/>
+		
+		<field id="accessionDate" ui-type="date" section="naturalhistory"/>
+		<field id="deadFlag" datatype="boolean" section="naturalhistory"/>
+		<field id="deadDate" ui-type="date" section="naturalhistory"/>
+		<field id="requestedBy" autocomplete="person-person" section="naturalhistory"/>
+		<field id="source" section="naturalhistory"/>
 	</section>
 
 	<section id="descriptionInformation">
@@ -245,6 +251,136 @@
 				<selector>collection-object-annotationAuthor</selector>
 			</field>
 		</repeat>
+		
+		<field id="cbdRestriction" datatype="boolean" section="naturalhistory"/>
+		<field id="rare" datatype="boolean" section="naturalhistory"/>
+
+	    <field id="flowerColor" section="naturalhistory"/>
+	    <field id="fruitColor" section="naturalhistory"/>
+	    <field id="provenanceType" section="naturalhistory">
+   		    <options>
+   		        <option id="" default="yes">Please select a value</option>
+   				<option id="wild source">wild source</option>
+   				<option id="cultivated from wild source">cultivated from wild source</option>
+   				<option id="not wild source">not wild source</option>
+   				<option id="unknown">unknown</option>
+   			</options>
+   		</field>
+   		<field id="propagationHistory" section="naturalhistory">
+   		    <options>
+   		        <option id="" default="yes">Please select a value</option>
+   		        <option id="individual wild plant">individual wild plant</option>
+   		        <option id="sexual reproduction">sexual reproduction</option>
+   		        <option id="open breeding">open breeding</option>
+   		        <option id="controlled breeding">controlled breeding</option>
+   		        <option id="isolated self-polinated">isolated self-polinated</option>
+   		        <option id="derived asexually">derived asexually</option>
+   		        <option id="vegetative reproduction">vegetative reproduction</option>
+   		        <option id="apomictic cloning">apomictic cloning</option>
+   		        <option id="unknown">unknown</option>
+   		    </options>
+   		</field>
+   		<field id="classUse" datatype="boolean" section="naturalhistory"/>
+   		<field id="researchUse" datatype="boolean" section="naturalhistory"/>
+   		<field id="distribution" datatype="boolean" section="naturalhistory"/>
+   		<field id="ignoreRedDot" datatype="boolean" section="naturalhistory"/>
+   		<field id="securityRisk" section="naturalhistory"/>
+   		<field id="flowersJan" section="naturalhistory">
+   		    <options>
+   		        <option id="No" default="yes">No</option>
+   		        <option id="Some">Some</option>
+   		        <option id="Many">Many</option>
+   		    </options>
+   		</field>
+   		<field id="flowersFeb" section="naturalhistory">
+   		    <options>
+   		        <option id="No" default="yes">No</option>
+   		        <option id="Some">Some</option>
+   		        <option id="Many">Many</option>
+   		    </options>
+   		</field>
+   		<field id="flowersMar" section="naturalhistory">
+   		    <options>
+   		        <option id="No" default="yes">No</option>
+   		        <option id="Some">Some</option>
+   		        <option id="Many">Many</option>
+   		    </options>
+   		</field>
+   		<field id="flowersApr" section="naturalhistory">
+   		    <options>
+   		        <option id="No" default="yes">No</option>
+   		        <option id="Some">Some</option>
+   		        <option id="Many">Many</option>
+   		    </options>
+   		</field>
+   		<field id="flowersMay" section="naturalhistory">
+   		    <options>
+   		        <option id="No" default="yes">No</option>
+   		        <option id="Some">Some</option>
+   		        <option id="Many">Many</option>
+   		    </options>
+   		</field>
+   		<field id="flowersJun" section="naturalhistory">
+   		    <options>
+   		        <option id="No" default="yes">No</option>
+   		        <option id="Some">Some</option>
+   		        <option id="Many">Many</option>
+   		    </options>
+   		</field>
+   		<field id="flowersJul" section="naturalhistory">
+   		    <options>
+   		        <option id="No" default="yes">No</option>
+   		        <option id="Some">Some</option>
+   		        <option id="Many">Many</option>
+   		    </options>
+   		</field>
+   		<field id="flowersAug" section="naturalhistory">
+   		    <options>
+   		        <option id="No" default="yes">No</option>
+   		        <option id="Some">Some</option>
+   		        <option id="Many">Many</option>
+   		    </options>
+   		</field>
+   		<field id="flowersSep" section="naturalhistory">
+   		    <options>
+   		        <option id="No" default="yes">No</option>
+   		        <option id="Some">Some</option>
+   		        <option id="Many">Many</option>
+   		    </options>
+   		</field>
+   		<field id="flowersOct" section="naturalhistory">
+   		    <options>
+   		        <option id="No" default="yes">No</option>
+   		        <option id="Some">Some</option>
+   		        <option id="Many">Many</option>
+   		    </options>
+   		</field>
+   		<field id="flowersNov" section="naturalhistory">
+   		    <options>
+   		        <option id="No" default="yes">No</option>
+   		        <option id="Some">Some</option>
+   		        <option id="Many">Many</option>
+   		    </options>
+   		</field>
+   		<field id="flowersDec" section="naturalhistory">
+   		    <options>
+   		        <option id="No" default="yes">No</option>
+   		        <option id="Some">Some</option>
+   		        <option id="Many">Many</option>
+   		    </options>
+   		</field>
+   		<field id="fruitsJan" datatype="boolean" section="naturalhistory"/>
+   		<field id="fruitsFeb" datatype="boolean" section="naturalhistory"/>
+   		<field id="fruitsMar" datatype="boolean" section="naturalhistory"/>
+   		<field id="fruitsApr" datatype="boolean" section="naturalhistory"/>
+   		<field id="fruitsMay" datatype="boolean" section="naturalhistory"/>
+   		<field id="fruitsJun" datatype="boolean" section="naturalhistory"/>
+   		<field id="fruitsJul" datatype="boolean" section="naturalhistory"/>
+   		<field id="fruitsAug" datatype="boolean" section="naturalhistory"/>
+   		<field id="fruitsSep" datatype="boolean" section="naturalhistory"/>
+   		<field id="fruitsOct" datatype="boolean" section="naturalhistory"/>
+   		<field id="fruitsNov" datatype="boolean" section="naturalhistory"/>
+   		<field id="fruitsDec" datatype="boolean" section="naturalhistory"/>
 	</section>
 
 	<section id="objectCollectionInformation">
@@ -1640,6 +1776,25 @@
 			<field id="geoRefRemarks" section="naturalhistory"/>
 			<field id="geoRefPlaceName" section="naturalhistory"/>
 		</repeat>
+		<field id="vegetationType" autocomplete="vocab-collectionobjectvegetationtype" ui-type="enum" section="naturalhistory"/>
+	</section>
+	
+	<section id="accessionUseInformation">
+	    <repeat id="accessionUseGroupList/accessionUseGroup" section="naturalhistory">
+	        <field id="useType" section="naturalhistory">
+	            <options>
+					<option id="" default="yes">Please select a value</option>
+	                <option id="class">Class</option>
+	                <option id="research">Research</option>
+	                <option id="other">Other</option>
+	            </options>
+	        </field>
+	        <field id="usedIn" autocomplete="concept-class_ca,concept-research_ca" section="naturalhistory"/>
+	        <field id="materialType" autocomplete="vocab-collectionobjectmaterialtype" ui-type="enum" section="naturalhistory"/>
+	        <field id="requestDate" ui-type="date" section="naturalhistory"/>
+	        <field id="filledDate" ui-type="date" section="naturalhistory"/>
+	        <field id="useNotes" section="naturalhistory"/>
+	    </repeat>
 	</section>
 	
 	<!-- These are only used to create labels for the groupings. -->
