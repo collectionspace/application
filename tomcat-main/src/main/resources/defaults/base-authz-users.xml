@@ -58,6 +58,8 @@
                         <selector>user-email</selector>
                     </field>
                     <field id="createdAt" />
+                    <field id="rolesProtection" />
+                    <field id="metadataProtection" />
                     <field id="status" seperate_ui_container="true">
                         <selector>user-status</selector>
                         <options>
