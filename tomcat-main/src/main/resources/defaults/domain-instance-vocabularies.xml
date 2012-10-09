@@ -1,4 +1,141 @@
 <root>
 	<section id="domaindata">
+		<instance id="vocab-collectionobjectmaterialtype">
+            <web-url>materialtype</web-url>
+            <title-ref>materialtype</title-ref>
+            <title>materialType</title>
+            <options>
+				<option>seed</option>
+				<option>cutting</option>
+				<option>spores</option>
+				<option>bulb</option>
+				<option>living plant</option>
+				<option>graft</option>
+				<option>bare root</option>
+				<option>leaf</option>
+				<option>flower</option>
+				<option>fruit</option>
+				<option>roots</option>
+            </options>
+        </instance>
+        <instance id="vocab-collectionobjectvegetationtype">
+            <web-url>vegetationtype</web-url>
+            <title-ref>vegetationtype</title-ref>
+            <title>vegetationType</title>
+            <options>
+				<option>Abies woodland</option>
+				<option>alpine</option>
+				<option>aquatic</option>
+				<option>bog</option>
+				<option>broad-leaved forest</option>
+				<option>broadleaf forest</option>
+				<option>broadleaf woodland</option>
+				<option>Calocedrus/Abies woodland</option>
+				<option>Calocedrus/Pine Wdld</option>
+				<option>chaparral</option>
+				<option>chaparral woodland</option>
+				<option>cloud forest</option>
+				<option>coastal</option>
+				<option>coastal dune</option>
+				<option>coastal matorral</option>
+				<option>coastal sage scrub</option>
+				<option>coastal scrub</option>
+				<option>coastal strand</option>
+				<option>coniferous forest </option>
+				<option>coniferous woodland</option>
+				<option>Cupressus Woodland</option>
+				<option>deciduous forest</option>
+				<option>desert scrub</option>
+				<option>desert woodland</option>
+				<option>dune</option>
+				<option>evergreen cloud forest</option>
+				<option>forest</option>
+				<option>grassland</option>
+				<option>juniper/rhododendron scrub</option>
+				<option>larch forest</option>
+				<option>laurel forest</option>
+				<option>mangrove forest</option>
+				<option>maritime desert scrub</option>
+				<option>marsh</option>
+				<option>meadow</option>
+				<option>Med. low scrub</option>
+				<option>mesic prairie</option>
+				<option>mesic southern forest</option>
+				<option>mixed conifer woodland</option>
+				<option>mixed deciduous forest</option>
+				<option>mixed evergreen forest</option>
+				<option>mixed forest</option>
+				<option>mixed woodland</option>
+				<option>montane forest</option>
+				<option>montane rain forest</option>
+				<option>oak forest</option>
+				<option>oak woodland</option>
+				<option>open forest</option>
+				<option>paramo</option>
+				<option>pine forest</option>
+				<option>pine/oak forest</option>
+				<option>pine/oak woodland</option>
+				<option>Pinus/Calocedrus woodland</option>
+				<option>pinyon juniper woodland</option>
+				<option>prairie</option>
+				<option>Pseudotsuga woodland</option>
+				<option>pygmy forest</option>
+				<option>rain forest</option>
+				<option>rainforest</option>
+				<option>redwood forest</option>
+				<option>riparian</option>
+				<option>riparian woodland</option>
+				<option>salt marsh</option>
+				<option>sand dune</option>
+				<option>sand prairie</option>
+				<option>scrub</option>
+				<option>serpentine chaparral</option>
+				<option>serpentine prairie</option>
+				<option>southern forest</option>
+				<option>spruce forest</option>
+				<option>sub-alpine</option>
+				<option>subtropical evergreen forest</option>
+				<option>subtropical rainforest</option>
+				<option>swamp</option>
+				<option>swamp forest</option>
+				<option>temperate rain forest</option>
+				<option>tropical rainforest</option>
+				<option>unknown</option>
+				<option>wetland</option>
+				<option>woodland</option>
+				<option>woodland and chaparral</option>
+				<option>woody brushland</option>
+            </options>
+        </instance>
+		<instance id="vocab-taxonomyAuthorityHabitat">
+			<web-url>habitat</web-url>
+			<title-ref>habitat</title-ref>
+			<title>habitat</title>
+			<options>
+				<option>habitat1</option>
+				<option>habitat2</option>
+				<option>habitat3</option>
+			</options>
+		</instance>
+		<instance id="vocab-taxonomyAuthorityClimateRating">
+			<web-url>climateRating</web-url>
+			<title-ref>climateRating</title-ref>
+			<title>climateRating</title>
+			<options>
+				<option>climateRating1</option>
+				<option>climateRating2</option>
+				<option>climateRating3</option>
+			</options>
+		</instance>
+		<instance id="vocab-conservationCategory">
+			<web-url>conservationCategory</web-url>
+			<title-ref>conservationCategory</title-ref>
+			<title>conservationCategory</title>
+			<options>
+				<option>conservationCategory1</option>
+				<option>conservationCategory2</option>
+				<option>conservationCategory3</option>
+			</options>
+		</instance>
 	</section>
 </root>
