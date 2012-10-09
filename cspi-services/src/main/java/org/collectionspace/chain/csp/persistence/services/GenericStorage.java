@@ -1470,6 +1470,8 @@ public class GenericStorage  implements ContextualisedStorage {
 				msg += " permissions error";
 			}
 			throw new UnderlyingStorageException(msg,e.getStatus(), e.getUrl(),e);
+		} catch (UnderlyingStorageException e) {
+			throw e; // REM - CSPACE-5632: Need to catch and rethrow this exception type to prevent throwing an "UnimplementedException" exception below.
 		} catch (Exception e) {
 			throw new UnimplementedException("JSONException",e);
 		}
