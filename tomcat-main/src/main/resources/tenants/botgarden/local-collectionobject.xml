@@ -12,10 +12,11 @@
 				<!-- Add UC and JEPS id generators -->
 				<option id="uc-accession" sample="UC100000">UC Accession</option>
 				<option id="jeps-accession" sample="JEPS100000">Jepson Accession</option>
-				<field id="deadFlag" datatype="boolean" section="botgarden"/>
-				<field id="deadDate" ui-type="date" section="botgarden"/>
 			</options>
 		</field>
+		
+		<field id="deadFlag" datatype="boolean" section="botgarden"/>
+		<field id="deadDate" ui-type="date" section="botgarden"/>
         
 		<repeat id="otherNumberList/otherNumber">
 			<field id="numberType">
@@ -112,6 +113,7 @@
 				<option id="yes">Yes</option>
 			</options>
 		</field>
+		
 		<field id="cbdRestriction" datatype="boolean" section="botgarden"/>
 
 	    <field id="flowerColor" section="botgarden"/>
