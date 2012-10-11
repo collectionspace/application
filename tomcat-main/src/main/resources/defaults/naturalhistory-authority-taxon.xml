@@ -16,6 +16,9 @@
 		<repeat id="plantAttributesGroupList/plantAttributesGroup" section="naturalhistory">
 			<field id="attributeDate" section="naturalhistory" ui-type="date"/>
 			<field id="recordedBy" section="naturalhistory" autocomplete="person-person"/>
+			<field id="height" section="naturalhistory"/>
+			<field id="width" section="naturalhistory"/>
+			<field id="diameterBreastHeight" section="naturalhistory"/>
 			<field id="habitat" section="naturalhistory" autocomplete="vocab-taxonomyAuthorityHabitat" ui-type="enum"/>
 			<field id="climateRating" section="naturalhistory" autocomplete="vocab-taxonomyAuthorityClimateRating" ui-type="enum"/>
 			<field id="conservationCategory" section="naturalhistory" autocomplete="vocab-conservationCategory" ui-type="enum"/>
