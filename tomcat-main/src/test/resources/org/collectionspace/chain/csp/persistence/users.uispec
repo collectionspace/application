@@ -1,29 +1,25 @@
 {
     "details": {
-        ".csc-users-accountInformation-label": {
-            "messagekey": "users-accountInformationLabel"
-        },
-        ".csc-users-status-label": {
-            "messagekey": "users-statusLabel"
-        },
-        ".csc-users-role-label": {
-            "messagekey": "users-roleLabel"
-        },
-        ".csc-users-createdBy-label": {
-            "messagekey": "users-createdByLabel"
-        },
+        ".csc-users-accountInformation-label": {"messagekey": "users-accountInformationLabel"},
+        ".csc-users-role-label": {"messagekey": "users-roleLabel"},
+        ".csc-users-status-label": {"messagekey": "users-statusLabel"},
+        ".csc-users-createdBy-label": {"messagekey": "users-createdByLabel"},
         ".csc-users-tenantID": "${fields.tenantID}",
         ".csc-user-password": "${fields.password}",
-        ".csc-users-createdAt-label": {
-            "messagekey": "users-createdAtLabel"
-        },
+        ".csc-users-createdAt-label": {"messagekey": "users-createdAtLabel"},
+        ".csc-user-userName": "${fields.screenName}",
         ".csc-user-status": {
             "default": "active",
-            "optionnames": ["Active", "Inactive"],
-            "optionlist": ["active", "inactive"],
+            "optionnames": [
+                "Active",
+                "Inactive"
+            ],
+            "optionlist": [
+                "active",
+                "inactive"
+            ],
             "selection": "${fields.status}"
         },
-        ".csc-user-userName": "${fields.screenName}",
         "expander": {
             "repeatID": ".csc-accountrole-roles-row:",
             "tree": {
@@ -37,61 +33,33 @@
             "controlledBy": "fields.role"
         },
         ".csc-users-createdBy": "${fields.createdBy}",
+        ".csc-users-rolesProtection-label": {"messagekey": "users-rolesProtectionLabel"},
         ".csc-users-updatedBy": "${fields.updatedBy}",
-        ".csc-users-csid-label": {
-            "messagekey": "users-csidLabel"
-        },
-        ".csc-users-screenName-label": {
-            "messagekey": "users-screenNameLabel"
-        },
-        ".csc-users-updatedAt-label": {
-            "messagekey": "users-updatedAtLabel"
-        },
-        ".csc-users-tenantID-label": {
-            "messagekey": "users-tenantIDLabel"
-        },
-        ".csc-users-roleGroup-label": {
-            "messagekey": "users-roleGroupLabel"
-        },
-        ".csc-users-userId-label": {
-            "messagekey": "users-userIdLabel"
-        },
-        ".csc-users-coreInformation-label": {
-            "messagekey": "users-coreInformationLabel"
-        },
-        ".csc-users-roleSelected-label": {
-            "messagekey": "users-roleSelectedLabel"
-        },
-        ".csc-users-email-label": {
-            "messagekey": "users-emailLabel"
-        },
+        ".csc-users-screenName-label": {"messagekey": "users-screenNameLabel"},
+        ".csc-users-csid-label": {"messagekey": "users-csidLabel"},
+        ".csc-users-updatedAt-label": {"messagekey": "users-updatedAtLabel"},
+        ".csc-users-metadataProtection-label": {"messagekey": "users-metadataProtectionLabel"},
+        ".csc-users-tenantID-label": {"messagekey": "users-tenantIDLabel"},
+        ".csc-users-roleGroup-label": {"messagekey": "users-roleGroupLabel"},
+        ".csc-users-userId-label": {"messagekey": "users-userIdLabel"},
+        ".csc-users-coreInformation-label": {"messagekey": "users-coreInformationLabel"},
+        ".csc-users-roleSelected-label": {"messagekey": "users-roleSelectedLabel"},
+        ".csc-users-rolesProtection": "${fields.rolesProtection}",
+        ".csc-users-email-label": {"messagekey": "users-emailLabel"},
         ".csc-user-userID": "${fields.userId}",
-        ".csc-users-updatedBy-label": {
-            "messagekey": "users-updatedByLabel"
-        },
-        ".csc-users-domaindata-label": {
-            "messagekey": "users-domaindataLabel"
-        },
+        ".csc-users-updatedBy-label": {"messagekey": "users-updatedByLabel"},
+        ".csc-users-domaindata-label": {"messagekey": "users-domaindataLabel"},
+        ".csc-users-metadataProtection": "${fields.metadataProtection}",
         ".csc-users-createdAt": "${fields.createdAt}",
-        ".csc-users-password-label": {
-            "messagekey": "users-passwordLabel"
-        },
+        ".csc-users-password-label": {"messagekey": "users-passwordLabel"},
         ".csc-users-updatedAt": "${fields.updatedAt}",
-        ".csc-users-roleId-label": {
-            "messagekey": "users-roleIdLabel"
-        },
-        ".csc-users-roleName-label": {
-            "messagekey": "users-roleNameLabel"
-        },
+        ".csc-users-roleId-label": {"messagekey": "users-roleIdLabel"},
+        ".csc-users-roleName-label": {"messagekey": "users-roleNameLabel"},
         ".csc-user-email": "${fields.email}"
     },
-    "list": {
-        ".csc-recordList-row:": {
-            "children": [{
-                ".csc-user-userList-status": "${items.0.status}",
-                ".csc-user-userList-csid": "${items.0.csid}",
-                ".csc-user-userList-name": "${items.0.screenName}"
-            }]
-        }
-    }
+    "list": {".csc-recordList-row:": {"children": [{
+        ".csc-user-userList-status": "${items.0.status}",
+        ".csc-user-userList-csid": "${items.0.csid}",
+        ".csc-user-userList-name": "${items.0.screenName}"
+    }]}}
 }
