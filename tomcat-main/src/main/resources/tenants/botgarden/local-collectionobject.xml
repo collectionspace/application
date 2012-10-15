@@ -14,7 +14,7 @@
 				<option id="jeps-accession" sample="JEPS100000">Jepson Accession</option>
 			</options>
 		</field>
-		
+				
 		<field id="deadFlag" datatype="boolean" section="botgarden"/>
 		<field id="deadDate" ui-type="date" section="botgarden"/>
         
@@ -44,6 +44,13 @@
 				<option id="DHN">DHN</option>
 			</options>
 		</field>
+		<field id="recordStatus">
+	      <options>
+			<option id="none" default="yes">None</option>
+			<option id="partial">Partial</option>
+			<option id="complete">Complete</option>
+	      </options>
+	    </field>
 		<repeat id="taxonomicIdentGroupList/taxonomicIdentGroup">
 			<field id="taxon" autocomplete="taxon-taxon,taxon-unverified"/>
 			<field id="identBy" autocomplete="person-person,organization-determination"/>
