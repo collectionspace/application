@@ -1,8 +1,7 @@
-<record id="preferredTA" in-recordlist="no" separate-record="false">
-    <section>
+<record id="preferredTA">
+    <section id="termInformation">
         <repeat id="taxonTermGroupList/taxonTermGroup">
             <field id="termSource">
-                <selector>taxonAuthority-termSource</selector>
                 <options>
                 	<option id="" default="yes">Please select a value</option>
                 	<option id="unknown">unknown</option>
@@ -59,18 +58,17 @@
                 	<option id="USGS Geographic Names Information System">USGS Geographic Names Information System</option>
                 </options>
             </field>
+	        <field id="taxonomicStatus">
+	            <options>
+	    			<option id="" default="yes">Please select a value</option>
+	    			<option id="valid">valid</option>
+	    			<option id="invalid">invalid</option>
+	    			<option id="misapplied">misapplied</option>
+	    			<option id="accepted">accepted</option>
+	    			<option id="synonym">synonym</option>
+	    			<option id="illegitimate">illegitimate</option>
+	    		</options>
+	        </field>
         </repeat>
-        <field id="taxonomicStatus">
-            <selector>taxonAuthority-taxonomicStatus</selector>
-            <options>
-    			<option id="" default="yes">Please select a value</option>
-    			<option id="valid">valid</option>
-    			<option id="invalid">invalid</option>
-    			<option id="misapplied">misapplied</option>
-    			<option id="accepted">accepted</option>
-    			<option id="synonym">synonym</option>
-    			<option id="illegitimate">illegitimate</option>
-    		</options>
-        </field>
     </section>
 </record>
