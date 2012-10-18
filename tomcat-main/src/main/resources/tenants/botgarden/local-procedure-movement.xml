@@ -1,7 +1,7 @@
 <record id="movement">
 	<section id="locationMovementInformation">
-		<!-- Change mini summary to number, and change organization-organization to organization-institution in autocomplete -->
-		<field id="currentLocation" mini="number,search,list,relate,terms" autocomplete="location-location,organization-institution"/>
+		<!-- Change mini summary to number, and remove organization from autocomplete -->
+		<field id="currentLocation" mini="number,search,list,relate,terms" autocomplete="location-location"/>
 	</section>
 	<section id="movementControlInformation">
 		<!--  Remove ui-search and mini -->
