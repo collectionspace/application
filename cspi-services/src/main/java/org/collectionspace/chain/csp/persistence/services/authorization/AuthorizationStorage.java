@@ -149,7 +149,7 @@ public class AuthorizationStorage extends GenericStorage {
 		try {
 			JSONObject out = new JSONObject();
 
-			if(r.getID().equals("reports")){
+			if(r.getID().equals("reports") || r.getID().equals("batch")){
 
 				String path = getRestrictedPath(r.getServicesURL(), restrictions, r.getServicesSearchKeyword(), "", false, "");
 				
