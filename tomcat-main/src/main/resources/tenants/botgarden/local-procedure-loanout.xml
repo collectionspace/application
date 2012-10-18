@@ -1,4 +1,6 @@
 <record id="loanout">
+	<services-record-path id="botgarden">loansout_botgarden:http://collectionspace.org/services/loanout/local/botgarden,loansout_botgarden</services-record-path>
+
 	<section id="loanoutInformation">
 		<field id="loanOutNumber">
 			<!-- Change options -->
@@ -9,50 +11,35 @@
 			</options>
 		</field>
 		
-		<!-- Add organization-institution to autocomplete -->
-		<field id="borrower" autocomplete="person-person,organization-organization,organization-institution"/>
+		<!-- Add organization-institution to autocomplete, and remove person-person -->
+		<field id="borrower" autocomplete="organization-organization,organization-institution"/>
 
-		<field id="collection">
-			<!-- Customize the option list -->
-			<options>
-				<option id="">Please select a value</option>
-				<option id="UC">UC</option>
-				<option id="JEPS">JEPS</option>
-			</options>
+		<field id="loanPurpose">
+			<!-- Remove options -->
+			<options/>
 		</field>
-
+	
 		<repeat id="taxonomyList">
 			<!-- Add taxon-unverified to autocomplete -->
 			<field id="taxonomy" autocomplete="taxon-taxon,taxon-unverified"/>
 		</repeat>
 		
-		<repeat id="objKindList">
-			<field id="objKind">
-				<!-- Customize the option list -->
-				<options>
-					<option id="">Please select a value</option>
-					<option id="Unknown">Unknown</option>
-					<option id="Sheet">Sheet</option>
-					<option id="Specimens">Specimens</option>
-					<option id="Box">Box</option>
-					<option id="Bag">Bag</option>
-					<option id="Sealed Bag">Sealed Bag</option>
-					<option id="Jar">Jar</option>
-					<option id="Packet">Packet</option>
-					<option id="Slide">Slide</option>
-					<option id="Unmounted">Unmounted</option>
-					<option id="Photograph">Photograph</option>
-					<option id="Photocopy">Photocopy</option>
-					<option id="Illustration">Illustration</option>
-				</options>
-			</field>
+		<!-- Local fields -->
+		
+		<repeat id="collectorList" section="botgarden">
+			<field id="collector" autocomplete="organization-organization" section="botgarden"/>
 		</repeat>
+		<field id="collectionNote" section="botgarden"/>
+		<field id="gardenLocation" autocomplete="location-location" section="botgarden"/>
+		<field id="sheetAccessionNumber" section="botgarden"/>
+		<field id="reviewComplete" datatype="boolean" section="botgarden"/>
 	</section>
 
-	<section id="transferInformation">
-		<repeat id="transferGroupList/transferGroup">
-			<!-- Change autocomplete to organization-institution -->
-			<field id="transferOrg" autocomplete="organization-institution"/>
-		</repeat>
+	<section id="phenologyGroup">
+		<field id="sterile" datatype="boolean" section="botgarden"/>
+		<field id="fertile" datatype="boolean" section="botgarden"/>
+		<field id="flowering" datatype="boolean" section="botgarden"/>
+		<field id="fruiting" datatype="boolean" section="botgarden"/>
+		<field id="inSpore" datatype="boolean" section="botgarden"/>
 	</section>
 </record>
