@@ -146,9 +146,7 @@
             <title-selector>titleBar-conditioncheck-reference-number</title-selector>
             <container-selector>conditioncheck-reference-number-patternChooserContainer</container-selector>
             <options>
-                <option id="accession" sample="2009.1">Accession</option>
-                <option id="archive" sample="AR2009.42">Archives</option>
-                <option id="library" sample="LIB2009.1">Library</option>
+                <option id="conditioncheck" sample="CD2012.1.1">Condition Check</option>
             </options>
         </field>
         <repeat id="conditionCheckers">
