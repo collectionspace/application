@@ -180,9 +180,6 @@
             "messagekey": "conditioncheck-summaryLabel"
         },
         ".csc-conditioncheck-createdAt": "${fields.createdAt}",
-        ".csc-conditioncheck-salvagePriorityCodeNote-label": {
-            "messagekey": "conditioncheck-salvagePriorityCodeNoteLabel"
-        },
         ".csc-conditioncheck-conditionCheckGroup-label": {
             "messagekey": "conditioncheck-conditionCheckGroupLabel"
         },
@@ -285,15 +282,6 @@
             "messagekey": "conditioncheck-conditionLabel"
         },
         ".csc-conditioncheck-conditionCheckNote": "${fields.conditionCheckNote}",
-        ".csc-conditioncheck-conditionCheckDate": {
-            "decorators": [
-                {
-                    "func": "cspace.datePicker",
-                    "type": "fluid"
-                }
-            ],
-            "value": "${fields.conditionCheckDate}"
-        },
         ".csc-conditioncheck-hazardGroup": {
             "decorators": [
                 {
@@ -357,7 +345,15 @@
         ".csc-conditioncheck-completenessNote-label": {
             "messagekey": "conditioncheck-completenessNoteLabel"
         },
-        ".csc-conditioncheck-salvagePriorityCodeDate": "${fields.salvagePriorityCodeDate}",
+        ".csc-conditioncheck-salvagePriorityCodeDate": {
+            "decorators": [
+                {
+                    "func": "cspace.datePicker",
+                    "type": "fluid"
+                }
+            ],
+            "value": "${fields.salvagePriorityCodeDate}"
+        },
         ".csc-conditioncheck-legalReqsHeldGroup": {
             "decorators": [
                 {
@@ -405,7 +401,6 @@
                 }
             ]
         },
-        ".csc-conditioncheck-salvagePriorityCodeNote": "${fields.salvagePriorityCodeNote}",
         ".csc-conditioncheck-legalReqsHeldBeginDate-label": {
             "messagekey": "conditioncheck-legalReqsHeldBeginDateLabel"
         },
@@ -414,6 +409,15 @@
         },
         ".csc-conditioncheck-techAssessment-label": {
             "messagekey": "conditioncheck-techAssessmentLabel"
+        },
+        ".csc-conditioncheck-conditionCheckAssessmentDate": {
+            "decorators": [
+                {
+                    "func": "cspace.datePicker",
+                    "type": "fluid"
+                }
+            ],
+            "value": "${fields.conditionCheckAssessmentDate}"
         },
         ".csc-conditioncheck-hazardGroup-label": {
             "messagekey": "conditioncheck-hazardGroupLabel"
@@ -443,9 +447,6 @@
             "selection": "${fields.salvagePriorityCode}"
         },
         ".csc-conditioncheck-updatedBy": "${fields.updatedBy}",
-        ".csc-conditioncheck-conditionCheckDate-label": {
-            "messagekey": "conditioncheck-conditionCheckDateLabel"
-        },
         ".csc-conditioncheck-hazardNote-label": {
             "messagekey": "conditioncheck-hazardNoteLabel"
         },
@@ -625,6 +626,9 @@
         },
         ".csc-conditioncheck-hazard-label": {
             "messagekey": "conditioncheck-hazardLabel"
+        },
+        ".csc-conditioncheck-conditionCheckAssessmentDate-label": {
+            "messagekey": "conditioncheck-conditionCheckAssessmentDateLabel"
         },
         ".csc-conditioncheck-specialRecommendations": "${fields.specialRecommendations}",
         ".csc-conditioncheck-conditionChecker-label": {

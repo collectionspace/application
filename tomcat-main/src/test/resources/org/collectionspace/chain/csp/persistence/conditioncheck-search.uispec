@@ -108,6 +108,34 @@
     ".csc-conditioncheck-conditionDate-label": {
         "messagekey": "conditioncheck-conditionDateLabel"
     },
+    ".csc-conditioncheck-conditionCheckAssessmentDate": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conditioncheck-conditionCheckAssessmentDate": {
+                                    "decorators": [
+                                        {
+                                            "func": "cspace.datePicker",
+                                            "type": "fluid"
+                                        }
+                                    ],
+                                    "value": "${{row}.conditionCheckAssessmentDate}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "conditionCheckAssessmentDates",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
     ".csc-conditioncheck-completenessGroup": {
         "decorators": [
             {
@@ -146,9 +174,6 @@
                 }
             }
         ]
-    },
-    ".csc-conditioncheck-conditionCheckDate-label": {
-        "messagekey": "conditioncheck-conditionCheckDateLabel"
     },
     ".csc-conditioncheck-updatedBy": {
         "decorators": [
@@ -317,14 +342,14 @@
             }
         ]
     },
+    ".csc-conditioncheck-conditionCheckReason-label": {
+        "messagekey": "conditioncheck-conditionCheckReasonLabel"
+    },
     ".csc-conditioncheck-conditionNote-label": {
         "messagekey": "conditioncheck-conditionNoteLabel"
     },
     ".csc-conditioncheck-conditionCheckRefNumber-label": {
         "messagekey": "conditioncheck-conditionCheckRefNumberLabel"
-    },
-    ".csc-conditioncheck-conditionCheckReason-label": {
-        "messagekey": "conditioncheck-conditionCheckReasonLabel"
     },
     ".csc-conditioncheck-hazardDate-label": {
         "messagekey": "conditioncheck-hazardDateLabel"
@@ -335,6 +360,9 @@
     ".csc-conditioncheck-hazard-label": {
         "messagekey": "conditioncheck-hazardLabel"
     },
+    ".csc-conditioncheck-conditionCheckAssessmentDate-label": {
+        "messagekey": "conditioncheck-conditionCheckAssessmentDateLabel"
+    },
     ".csc-conditioncheck-updatedBy-label": {
         "messagekey": "conditioncheck-updatedByLabel"
     },
@@ -343,34 +371,6 @@
     },
     ".csc-conditioncheck-condition-label": {
         "messagekey": "conditioncheck-conditionLabel"
-    },
-    ".csc-conditioncheck-conditionCheckDate": {
-        "decorators": [
-            {
-                "func": "cspace.makeRepeatable",
-                "type": "fluid",
-                "options": {
-                    "repeatTree": {
-                        "expander": {
-                            "tree": {
-                                ".csc-conditioncheck-conditionCheckDate": {
-                                    "decorators": [
-                                        {
-                                            "func": "cspace.datePicker",
-                                            "type": "fluid"
-                                        }
-                                    ],
-                                    "value": "${{row}.conditionCheckDate}"
-                                }
-                            },
-                            "type": "fluid.noexpand"
-                        }
-                    },
-                    "elPath": "conditionCheckDates",
-                    "hidePrimary": true
-                }
-            }
-        ]
     },
     ".csc-conditioncheck-hazardGroup": {
         "decorators": [

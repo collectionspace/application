@@ -115,7 +115,7 @@
         </repeat>
     </section>
     <section id="conditionCheckInformation">
-        <field id="conditionCheckDate" ui-type="date" mini="summary,search,list,relate" in-title="yes" ui-search="repeatable"></field>
+        <field id="conditionCheckAssessmentDate" ui-type="date" mini="summary,search,list,relate" in-title="yes" ui-search="repeatable"></field>
         <repeat id="conditionCheckMethods">
             <field id="conditionCheckMethod" ui-search="repeatable" seperate_ui_container="true">
                 <selector>conditioncheck-conditionCheckMethod</selector>
@@ -173,8 +173,7 @@
                 <option id="fifth">Fifth</option>
             </options>
         </field>
-        <field id="salvagePriorityCodeNote"></field>
-        <field id="salvagePriorityCodeDate"></field>
+        <field id="salvagePriorityCodeDate" ui-type="date"></field>
         <field id="legalRequirements"></field>
         <repeat id="legalReqsHeldGroupList/legalReqsHeldGroup">
             <field id="legalReqsHeld"></field>

@@ -38,7 +38,7 @@
             <hazardNote>Object needs to be extinguished occasionally.</hazardNote>
         </hazardGroup>
     </hazardGroupList>
-    <conditionCheckDate>2010-08-19T22:38:43Z</conditionCheckDate>
+    <conditionCheckAssessmentDate>2010-08-19T22:38:43Z</conditionCheckDate>
     <conditionCheckMethods>
       <conditionCheckMethod>urn:cspace:core.collectionspace.org:vocabularies:name(TestTermList):item:name(method1)'method 1'</conditionCheckMethod>
     </conditionCheckMethods>

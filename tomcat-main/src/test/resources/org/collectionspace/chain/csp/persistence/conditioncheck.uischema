@@ -61,6 +61,9 @@
                     "packingRecommendations": {
                         "type": "string"
                     },
+                    "conditionCheckAssessmentDate": {
+                        "type": "date"
+                    },
                     "legalRequirements": {
                         "type": "string"
                     },
@@ -187,9 +190,6 @@
                         },
                         "type": "array"
                     },
-                    "conditionCheckDate": {
-                        "type": "date"
-                    },
                     "legalReqsHeldGroup": {
                         "items": {
                             "properties": {
@@ -221,7 +221,7 @@
                         "type": "string"
                     },
                     "salvagePriorityCodeDate": {
-                        "type": "string"
+                        "type": "date"
                     },
                     "updatedAt": {
                         "type": "date"
@@ -243,9 +243,6 @@
                         "type": "array"
                     },
                     "createdBy": {
-                        "type": "string"
-                    },
-                    "salvagePriorityCodeNote": {
                         "type": "string"
                     },
                     "conditionCheckMethods": {

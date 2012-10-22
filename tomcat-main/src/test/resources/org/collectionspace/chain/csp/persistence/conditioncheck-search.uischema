@@ -51,6 +51,21 @@
             "updatedAtEnd": {
                 "type": "date"
             },
+            "conditionCheckAssessmentDates": {
+                "items": {
+                    "properties": {
+                        "_primary": {
+                            "default": true,
+                            "type": "boolean"
+                        },
+                        "conditionCheckAssessmentDate": {
+                            "type": "date"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
             "conditionCheckers": {
                 "items": {
                     "properties": {
@@ -126,21 +141,6 @@
                         "conditionCheckMethod": {
                             "default": "",
                             "type": "string"
-                        }
-                    },
-                    "type": "object"
-                },
-                "type": "array"
-            },
-            "conditionCheckDates": {
-                "items": {
-                    "properties": {
-                        "conditionCheckDate": {
-                            "type": "date"
-                        },
-                        "_primary": {
-                            "default": true,
-                            "type": "boolean"
                         }
                     },
                     "type": "object"
