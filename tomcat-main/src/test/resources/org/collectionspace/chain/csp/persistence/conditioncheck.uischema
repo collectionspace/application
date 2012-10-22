@@ -1,0 +1,279 @@
+{
+    "conditioncheck": {
+        "properties": {
+            "relations": {
+                "default": {},
+                "type": "object"
+            },
+            "termsUsed": {
+                "default": [],
+                "type": "array"
+            },
+            "csid": {
+                "type": "string"
+            },
+            "fields": {
+                "properties": {
+                    "hazardGroup": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "hazardNote": {
+                                    "type": "string"
+                                },
+                                "hazard": {
+                                    "default": "first",
+                                    "type": "string"
+                                },
+                                "hazardDate": {
+                                    "type": "date"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "conditionCheckGroup": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "condition": {
+                                    "default": "first",
+                                    "type": "string"
+                                },
+                                "conditionNote": {
+                                    "type": "string"
+                                },
+                                "conditionDate": {
+                                    "type": "date"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "packingRecommendations": {
+                        "type": "string"
+                    },
+                    "legalRequirements": {
+                        "type": "string"
+                    },
+                    "specialRecommendations": {
+                        "type": "string"
+                    },
+                    "securityRecommendations": {
+                        "type": "string"
+                    },
+                    "conditionCheckers": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "conditionChecker": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "envRecommendations": {
+                        "type": "string"
+                    },
+                    "updatedBy": {
+                        "type": "string"
+                    },
+                    "techAssessmentGroup": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "techAssessment": {
+                                    "type": "string"
+                                },
+                                "techAssessmentDate": {
+                                    "type": "date"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "salvagePriorityCode": {
+                        "default": "first",
+                        "type": "string"
+                    },
+                    "conditionCheckNote": {
+                        "type": "string"
+                    },
+                    "conservationTreatmentPriority": {
+                        "type": "string"
+                    },
+                    "objectAuditCategories": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "objectAuditCategory": {
+                                    "default": "first",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "createdAt": {
+                        "type": "string"
+                    },
+                    "storageRequirements": {
+                        "type": "string"
+                    },
+                    "conditionCheckRefNumber": {
+                        "type": "string"
+                    },
+                    "displayRecommendations": {
+                        "type": "string"
+                    },
+                    "completenessGroup": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "completeness": {
+                                    "default": "first",
+                                    "type": "string"
+                                },
+                                "completenessDate": {
+                                    "type": "date"
+                                },
+                                "completenessNote": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "envConditionNoteGroup": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "envConditionNoteDate": {
+                                    "type": "date"
+                                },
+                                "envConditionNote": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "conditionCheckDate": {
+                        "type": "date"
+                    },
+                    "legalReqsHeldGroup": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "legalReqsHeldBeginDate": {
+                                    "type": "date"
+                                },
+                                "legalReqsHeldRenewDate": {
+                                    "type": "date"
+                                },
+                                "legalReqsHeldEndDate": {
+                                    "type": "date"
+                                },
+                                "legalReqsHeld": {
+                                    "type": "string"
+                                },
+                                "legalReqsHeldNumber": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "tenantID": {
+                        "type": "string"
+                    },
+                    "salvagePriorityCodeDate": {
+                        "type": "string"
+                    },
+                    "updatedAt": {
+                        "type": "date"
+                    },
+                    "conditionCheckReasons": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "conditionCheckReason": {
+                                    "default": "first",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "createdBy": {
+                        "type": "string"
+                    },
+                    "salvagePriorityCodeNote": {
+                        "type": "string"
+                    },
+                    "conditionCheckMethods": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "conditionCheckMethod": {
+                                    "default": "first",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "nextConditionCheckDate": {
+                        "type": "date"
+                    },
+                    "handlingRecommendations": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "type": "object"
+    }
+}

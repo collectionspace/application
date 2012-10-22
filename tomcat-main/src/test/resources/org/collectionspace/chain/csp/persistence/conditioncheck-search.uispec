@@ -1,0 +1,434 @@
+{
+    ".csc-conditioncheck-completenessDate-label": {
+        "messagekey": "conditioncheck-completenessDateLabel"
+    },
+    ".csc-conditioncheck-updatedAtEnd-label": {
+        "messagekey": "conditioncheck-updatedAtEndLabel"
+    },
+    ".csc-conditioncheck-objectAuditCategory-label": {
+        "messagekey": "conditioncheck-objectAuditCategoryLabel"
+    },
+    ".csc-conditioncheck-updatedAt-label": {
+        "messagekey": "conditioncheck-updatedAtLabel"
+    },
+    ".csc-conditioncheck-createdBy": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conditioncheck-createdBy": "${{row}.createdBy}"
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "createdBys",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-conditioncheck-completenessNote-label": {
+        "messagekey": "conditioncheck-completenessNoteLabel"
+    },
+    ".csc-conditioncheck-conditionCheckMethod": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conditioncheck-conditionCheckMethod": {
+                                    "default": "",
+                                    "optionnames": [
+                                        "First",
+                                        "Second",
+                                        "Third",
+                                        "Fourth",
+                                        "Fifth",
+                                        "Please select a value"
+                                    ],
+                                    "optionlist": [
+                                        "first",
+                                        "second",
+                                        "third",
+                                        "fourth",
+                                        "fifth",
+                                        ""
+                                    ],
+                                    "selection": "${{row}.conditionCheckMethod}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "conditionCheckMethods",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-conditioncheck-conditionChecker": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conditioncheck-conditionChecker": {
+                                    "decorators": [
+                                        {
+                                            "func": "cspace.autocomplete",
+                                            "type": "fluid",
+                                            "options": {
+                                                "queryUrl": "../../../tenant/core/conditioncheck/autocomplete/conditionChecker",
+                                                "vocabUrl": "../../../tenant/core/conditioncheck/source-vocab/conditionChecker"
+                                            }
+                                        }
+                                    ],
+                                    "value": "${{row}.conditionChecker}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "conditionCheckers",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-conditioncheck-conditionDate-label": {
+        "messagekey": "conditioncheck-conditionDateLabel"
+    },
+    ".csc-conditioncheck-completenessGroup": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conditioncheck-completeness": {
+                                    "default": "",
+                                    "optionnames": [
+                                        "First",
+                                        "Second",
+                                        "Third",
+                                        "Fourth",
+                                        "Fifth",
+                                        "Please select a value"
+                                    ],
+                                    "optionlist": [
+                                        "first",
+                                        "second",
+                                        "third",
+                                        "fourth",
+                                        "fifth",
+                                        ""
+                                    ],
+                                    "selection": "${{row}.completeness}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "completenessGroup",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-conditioncheck-conditionCheckDate-label": {
+        "messagekey": "conditioncheck-conditionCheckDateLabel"
+    },
+    ".csc-conditioncheck-updatedBy": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conditioncheck-updatedBy": "${{row}.updatedBy}"
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "updatedBys",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-conditioncheck-hazardNote-label": {
+        "messagekey": "conditioncheck-hazardNoteLabel"
+    },
+    ".csc-conditioncheck-updatedAtStart-label": {
+        "messagekey": "conditioncheck-updatedAtStartLabel"
+    },
+    ".csc-conditioncheck-updatedAtEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${updatedAtEnd}"
+    },
+    ".csc-conditioncheck-conditionCheckMethod-label": {
+        "messagekey": "conditioncheck-conditionCheckMethodLabel"
+    },
+    ".csc-conditioncheck-conditionCheckGroup": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conditioncheck-condition": {
+                                    "default": "",
+                                    "optionnames": [
+                                        "First",
+                                        "Second",
+                                        "Third",
+                                        "Fourth",
+                                        "Fifth",
+                                        "Please select a value"
+                                    ],
+                                    "optionlist": [
+                                        "first",
+                                        "second",
+                                        "third",
+                                        "fourth",
+                                        "fifth",
+                                        ""
+                                    ],
+                                    "selection": "${{row}.condition}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "conditionCheckGroup",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-conditioncheck-objectAuditCategory": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conditioncheck-objectAuditCategory": {
+                                    "default": "",
+                                    "optionnames": [
+                                        "First",
+                                        "Second",
+                                        "Third",
+                                        "Fourth",
+                                        "Fifth",
+                                        "Please select a value"
+                                    ],
+                                    "optionlist": [
+                                        "first",
+                                        "second",
+                                        "third",
+                                        "fourth",
+                                        "fifth",
+                                        ""
+                                    ],
+                                    "selection": "${{row}.objectAuditCategory}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "objectAuditCategories",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-conditioncheck-completeness-label": {
+        "messagekey": "conditioncheck-completenessLabel"
+    },
+    ".csc-conditioncheck-updatedAtStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${updatedAtStart}"
+    },
+    ".csc-conditioncheck-conditionCheckReason": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conditioncheck-conditionCheckReason": {
+                                    "default": "",
+                                    "optionnames": [
+                                        "First",
+                                        "Second",
+                                        "Third",
+                                        "Fourth",
+                                        "Fifth",
+                                        "Please select a value"
+                                    ],
+                                    "optionlist": [
+                                        "first",
+                                        "second",
+                                        "third",
+                                        "fourth",
+                                        "fifth",
+                                        ""
+                                    ],
+                                    "selection": "${{row}.conditionCheckReason}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "conditionCheckReasons",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-conditioncheck-conditionNote-label": {
+        "messagekey": "conditioncheck-conditionNoteLabel"
+    },
+    ".csc-conditioncheck-conditionCheckRefNumber-label": {
+        "messagekey": "conditioncheck-conditionCheckRefNumberLabel"
+    },
+    ".csc-conditioncheck-conditionCheckReason-label": {
+        "messagekey": "conditioncheck-conditionCheckReasonLabel"
+    },
+    ".csc-conditioncheck-hazardDate-label": {
+        "messagekey": "conditioncheck-hazardDateLabel"
+    },
+    ".csc-conditioncheck-createdBy-label": {
+        "messagekey": "conditioncheck-createdByLabel"
+    },
+    ".csc-conditioncheck-hazard-label": {
+        "messagekey": "conditioncheck-hazardLabel"
+    },
+    ".csc-conditioncheck-updatedBy-label": {
+        "messagekey": "conditioncheck-updatedByLabel"
+    },
+    ".csc-conditioncheck-conditionChecker-label": {
+        "messagekey": "conditioncheck-conditionCheckerLabel"
+    },
+    ".csc-conditioncheck-condition-label": {
+        "messagekey": "conditioncheck-conditionLabel"
+    },
+    ".csc-conditioncheck-conditionCheckDate": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conditioncheck-conditionCheckDate": {
+                                    "decorators": [
+                                        {
+                                            "func": "cspace.datePicker",
+                                            "type": "fluid"
+                                        }
+                                    ],
+                                    "value": "${{row}.conditionCheckDate}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "conditionCheckDates",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-conditioncheck-hazardGroup": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conditioncheck-hazard": {
+                                    "default": "",
+                                    "optionnames": [
+                                        "First",
+                                        "Second",
+                                        "Third",
+                                        "Fourth",
+                                        "Fifth",
+                                        "Please select a value"
+                                    ],
+                                    "optionlist": [
+                                        "first",
+                                        "second",
+                                        "third",
+                                        "fourth",
+                                        "fifth",
+                                        ""
+                                    ],
+                                    "selection": "${{row}.hazard}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "hazardGroup",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-conditioncheck-numberPatternChooser-reference-number": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conditioncheck-numberPatternChooser-reference-number": "${{row}.conditionCheckRefNumber}"
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "conditionCheckRefNumbers",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    }
+}

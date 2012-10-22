@@ -219,9 +219,11 @@ public class TestUIRecords {
 		
 		tester.testUIspec(jetty, "/acquisition-search/uischema", "acquisition-search.uischema");
 		tester.testUIspec(jetty, "/intake-search/uischema", "intake-search.uischema");
+		tester.testUIspec(jetty, "/conditioncheck-search/uischema", "conditioncheck-search.uischema");
 		
 		tester.testUIspec(jetty, "/cataloging/uischema", "collection-object.uischema");
 		tester.testUIspec(jetty, "/acquisition/uischema", "acquisition.uischema");
+		tester.testUIspec(jetty, "/conditioncheck/uischema", "conditioncheck.uischema");
 		
 		tester.testUIspec(jetty, "/cataloging/uispec", "collection-object.uispec");
 		tester.testUIspec(jetty, "/intake/uispec", "intake.uispec");
@@ -229,6 +231,8 @@ public class TestUIRecords {
 		tester.testUIspec(jetty, "/loanin/uispec", "loanin.uispec");
 		tester.testUIspec(jetty, "/acquisition/uispec", "acquisition.uispec");
 		tester.testUIspec(jetty, "/acquisition-search/uispec", "acquisition-search.uispec");
+		tester.testUIspec(jetty, "/conditioncheck/uispec", "conditioncheck.uispec");
+		tester.testUIspec(jetty, "/conditioncheck-search/uispec", "conditioncheck-search.uispec");
 
 	}
 
@@ -255,6 +259,23 @@ public class TestUIRecords {
 		tester.testUIspec(jetty, "/loanin/uispec", "loanin.uispec");
 	}
 
+
+	/**
+	 * Test Conditioncheck Procedure CRUDL
+	 */
+	@Test public void testProcedureConditioncheck() throws Exception {
+		log.info("Testing conditioncheck Procedure");
+		tester.testPostGetDelete(jetty, "/conditioncheck/", tester.conditioncheckCreate(), "conditionCheckNote");
+		tester.testLists(jetty, "/conditioncheck/", tester.conditioncheckCreate(), "items");
+		log.info("Testing UISCHEMA");
+		tester.testUIspec(jetty, "/conditioncheck/uischema", "conditioncheck.uischema");
+		log.info("Testing UISPEC");
+		tester.testUIspec(jetty, "/conditioncheck/uispec", "conditioncheck.uispec");
+		log.info("Testing Search UISPEC");
+		tester.testUIspec(jetty, "/conditioncheck-search/uispec", "conditioncheck-search.uispec");
+		log.info("Testing Search UISCHEMA");
+		tester.testUIspec(jetty, "/conditioncheck-search/uischema", "conditioncheck-search.uischema");
+	}
 
 	/**
 	 * Test Acquisition Procedure CRUDL
@@ -408,13 +429,14 @@ public class TestUIRecords {
 	 */
 	@Test public void testSearch() throws Exception {
 		log.info("Testing Search ordering");
-		String[] allRecords = {"acquisition","loanin","loanout","cataloging","objectexit","intake","group","movement"};
+		String[] allRecords = {"acquisition","loanin","loanout","conditioncheck","cataloging","objectexit","intake","group","movement"};
 		
 		for(String r : allRecords) {
 			log.info("Testing Search ordering: "+r);
 			String url = "/"+r+"/search?query=&pageSize=10&sortDir=1&sortKey=summary";
 			HttpTester out = tester.GETData(url,  jetty);
 			JSONObject test = new JSONObject(out.getContent());
+			log.info("JSON received: " + test.toString());
 			if(test.has("isError")){
 				assertFalse(test.getBoolean("isError"));
 			}
