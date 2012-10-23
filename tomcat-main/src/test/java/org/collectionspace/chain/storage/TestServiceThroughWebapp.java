@@ -137,6 +137,11 @@ public class TestServiceThroughWebapp {
 		jo=new JSONObject(out.getContent());
 		assertTrue(jo.getString("next").startsWith("LO" + tester.getCurrentYear() + "."));
 
+		//test the conditionchecks generated id
+		out=tester.jettyDoUTF8(jetty,"GET","/tenant/core/id/conditioncheck",null);
+		jo=new JSONObject(out.getContent());
+		assertTrue(jo.getString("next").startsWith("CC" + tester.getCurrentYear() + "."));
+
 		//test the study generated id
 		out=tester.jettyDoUTF8(jetty,"GET","/tenant/core/id/study",null);
 		jo=new JSONObject(out.getContent());

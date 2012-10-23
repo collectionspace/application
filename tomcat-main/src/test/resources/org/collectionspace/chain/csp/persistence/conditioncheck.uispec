@@ -256,19 +256,13 @@
                     "options": {
                         "model": {
                             "names": [
-                                "Accession",
-                                "Archives",
-                                "Library"
+                                "Condition Check"
                             ],
                             "list": [
-                                "accession",
-                                "archive",
-                                "library"
+                                "conditioncheck"
                             ],
                             "samples": [
-                                "2009.1",
-                                "AR2009.42",
-                                "LIB2009.1"
+                                "CD2012.1.1"
                             ]
                         },
                         "selectors": {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<ns2:conditionchecks_common xmlns:ns2="http://collectionspace.org/services/conditioncheck">
+
+<ns2:conditionchecks_common xmlns:ns2="http://collectionspace.org/services/conditioncheck" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://collectionspace.org/services/conditioncheck http://services.collectionspace.org/conditioncheck/conditionchecks_common.xsd">
     <objectAuditCategories>
       <objectAuditCategory>urn:cspace:core.collectionspace.org:vocabularies:name(TestTermList):item:name(category1)'object audit category 1'</objectAuditCategory>
     </objectAuditCategories>
