@@ -267,6 +267,9 @@
 
 	<section id="localityInformation">
 		<repeat id="localityGroupList/localityGroup">
+		    <field id="fieldLocCounty" ui-search="repeatable" section="naturalhistory" autocomplete="vocab-county" ui-type="enum"/>
+			<field id="fieldLocState" ui-search="repeatable" section="naturalhistory" autocomplete="vocab-state" ui-type="enum"/>
+			<field id="fieldLocCountry" ui-search="repeatable" section="naturalhistory" autocomplete="vocab-country" ui-type="enum"/>
 			<!-- Configure decimalLatitude and decimalLongitude to be computed -->
 			<field id="decimalLatitude" ui-type="computed" ui-func="cspace.georef.dms2decimal" ui-args="vLatitude" ui-readonly="true"/>
 			<field id="decimalLongitude" ui-type="computed" ui-func="cspace.georef.dms2decimal" ui-args="vLongitude" ui-readonly="true"/>
