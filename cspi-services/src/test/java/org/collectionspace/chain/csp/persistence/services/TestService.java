@@ -653,7 +653,7 @@ public class TestService extends ServicesBaseClass {
 		testPostGetDelete("loansout/", "loansout_common", "loanout.xml",
 				"loansout_common/loanOutNumber", "LO2010.117");
 		testPostGetDelete("conditionchecks/", "conditionchecks_common", "conditioncheck.xml",
-				"conditionchecks_common/conditionCheckRefNumber", "CD2012.001");
+				"conditionchecks_common/conditionCheckRefNumber", "CC2012.001");
 		testPostGetDelete("movements/", "movements_common", "movement.xml",
 				"movements_common/movementReferenceNumber", "MV2010.99");
 		testPostGetDelete("objectexit/", "objectexit_common", "objectexit.xml",
