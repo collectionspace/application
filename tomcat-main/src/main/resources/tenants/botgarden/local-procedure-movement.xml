@@ -1,8 +1,11 @@
 <record id="movement">
+	<services-record-path id="botgarden">movements_botgarden:http://collectionspace.org/services/movement/local/botgarden,movements_botgarden</services-record-path>
+
 	<section id="locationMovementInformation">
 		<!-- Change mini summary to number, and remove organization from autocomplete -->
 		<field id="currentLocation" mini="number,search,list,relate,terms" autocomplete="location-location"/>
 	</section>
+	
 	<section id="movementControlInformation">
 		<!--  Remove ui-search and mini -->
 		<field id="movementReferenceNumber" ui-search="" mini=""/>
@@ -20,5 +23,34 @@
 				<option id="Revived">Revived</option>
 			</options>
 		</field>
+	</section>
+	
+	<section id="labelInformation">
+		<field id="labelRequested" ui-search="repeatable" section="botgarden">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="No" default="yes">No</option>
+				<option id="Yes">Yes</option>
+			</options>
+		</field>
+
+		<field id="labelSize" section="botgarden">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="1x3">1x3</option>
+				<option id="1.5x5">1.5x5</option>
+				<option id="3x5">3x5</option>
+			</options>
+		</field>
+
+		<field id="labelStandType" section="botgarden">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="dowel">dowel</option>
+				<option id="stake">stake</option>
+			</options>
+		</field>
+
+		<field id="labelCount" ui-type="validated" datatype="integer" section="botgarden"/>
 	</section>
 </record>
