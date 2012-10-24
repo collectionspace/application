@@ -1,4 +1,3 @@
-<!-- vocab-state <option id="Eua">'Eua</option> -->
 <root>
 	<instance id="vocab-collectionobjectmaterialtype">
 	    <web-url>materialtype</web-url>
@@ -828,6 +827,7 @@
         <title>state</title>
         <options>
 			<option id="Unknown">Unknown</option>
+            <option id="Eua">’Eua</option>
 			<option id="Aamzonas">Aamzonas</option>
 			<option id="Acre">Acre</option>
 			<option id="AK">AK</option>
