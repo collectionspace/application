@@ -48,66 +48,67 @@
         <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
     </section>
     <section id="objectConditionInformation">
-        <repeat id="objectAuditCategories">
-            <field id="objectAuditCategory" ui-search="repeatable" seperate_ui_container="true">
-                <selector>conditioncheck-objectAuditCategory</selector>
-                <options>
-                    <option id="first" default="yes">First</option>
-                    <option id="second">Second</option>
-                    <option id="third">Third</option>
-                    <option id="fourth">Fourth</option>
-                    <option id="fifth">Fifth</option>
-                </options>
-            </field>
-        </repeat>
+        <field id="objectAuditCategory" ui-search="repeatable">
+            <selector>conditioncheck-objectAuditCategory</selector>
+            <options>
+                <option id="" default="yes">Please select a value</option>
+                <option id="low">Low</option>
+                <option id="medium">Medium</option>
+                <option id="high">High</option>
+            </options>
+        </field>
         <repeat id="completenessGroupList/completenessGroup">
-            <!--field id="completeness" ui-search="repeatable" autocomplete="vocab-lostatus" ui-type="enum"></field-->
-            <field id="completeness" ui-search="repeatable" seperate_ui_container="true">
+            <field id="completeness">
                 <selector>conditioncheck-completeness</selector>
                 <options>
-                    <option id="first" default="yes">First</option>
-                    <option id="second">Second</option>
-                    <option id="third">Third</option>
-                    <option id="fourth">Fourth</option>
-                    <option id="fifth">Fifth</option>
+                    <option id="" default="yes">Please select a value</option>
+                    <option id="complete">Complete</option>
+                    <option id="fragmented">Fragmented</option>
+                    <option id="incomplete">Incomplete</option>
                 </options>
             </field>
             <field id="completenessDate" ui-type="date"></field>
             <field id="completenessNote"></field>
         </repeat>
         <repeat id="conditionCheckGroupList/conditionCheckGroup">
-            <field id="condition" ui-search="repeatable" seperate_ui_container="true">
+            <field id="condition" ui-search="repeatable" seperate_ui_container="true" mini="summary,search,list,relate">
                 <selector>conditioncheck-condition</selector>
                 <options>
-                    <option id="first" default="yes">First</option>
-                    <option id="second">Second</option>
-                    <option id="third">Third</option>
-                    <option id="fourth">Fourth</option>
-                    <option id="fifth">Fifth</option>
+                    <option id="" default="yes">Please select a value</option>
+                    <option id="needsnowork">Needs no work</option>
+                    <option id="exhibitableneedswork">Exhibitable / needs work</option>
+                    <option id="notexhibitablestable">Not exhibitable / stable</option>
+                    <option id="injeopardy">In jeopardy</option>
                 </options>
             </field>
             <field id="conditionDate" ui-type="date"></field>
             <field id="conditionNote"></field>
         </repeat>
-        <field id="conservationTreatmentPriority"></field>
+        <field id="conservationTreatmentPriority" ui-search="repeatable" seperate_ui_container="true">
+            <selector>conditioncheck-conservationTreatmentPriority</selector>
+            <options>
+                <option id="" default="yes">Please select a value</option>
+                <option id="low">Low</option>
+                <option id="medium">Medium</option>
+                <option id="high">High</option>
+            </options>
+        </field>
         <repeat id="envConditionNoteGroupList/envConditionNoteGroup">
             <field id="envConditionNote"></field>
             <field id="envConditionNoteDate" ui-type="date"></field>
         </repeat>
-        <field id="nextConditionCheckDate" ui-type="date"></field>
+        <field id="nextConditionCheckDate" ui-type="date" ui-search="range"></field>
         <repeat id="techAssessmentGroupList/techAssessmentGroup">
             <field id="techAssessment"></field>
             <field id="techAssessmentDate" ui-type="date"></field>
         </repeat>
         <repeat id="hazardGroupList/hazardGroup">
-            <field id="hazard" ui-search="repeatable" seperate_ui_container="true">
+            <field id="hazard">
                 <selector>conditioncheck-hazard</selector>
                 <options>
-                    <option id="first" default="yes">First</option>
-                    <option id="second">Second</option>
-                    <option id="third">Third</option>
-                    <option id="fourth">Fourth</option>
-                    <option id="fifth">Fifth</option>
+                    <option id="" default="yes">Please select a value</option>
+                    <option id="poisonous">Poisonous</option>
+                    <option id="radioactive">Radioactive</option>
                 </options>
             </field>
             <field id="hazardDate" ui-type="date"></field>
@@ -115,32 +116,28 @@
         </repeat>
     </section>
     <section id="conditionCheckInformation">
-        <field id="conditionCheckAssessmentDate" ui-type="date" mini="summary,search,list,relate" in-title="yes" ui-search="repeatable"></field>
-        <repeat id="conditionCheckMethods">
-            <field id="conditionCheckMethod" ui-search="repeatable" seperate_ui_container="true">
-                <selector>conditioncheck-conditionCheckMethod</selector>
-                <options>
-                    <option id="first" default="yes">First</option>
-                    <option id="second">Second</option>
-                    <option id="third">Third</option>
-                    <option id="fourth">Fourth</option>
-                    <option id="fifth">Fifth</option>
-                </options>
-            </field>
+        <repeat id="conditionCheckAssessmentDates">
+            <field id="conditionCheckAssessmentDate" ui-type="date" ui-search="range"></field>
         </repeat>
+        <field id="conditionCheckMethod">
+            <selector>conditioncheck-conditionCheckMethod</selector>
+            <options>
+                <option id="" default="yes">Please select a value</option>
+                <option id="observed">Observed</option>
+                <option id="xrayed">X-rayed</option>
+            </options>
+        </field>
         <field id="conditionCheckNote"></field>
-        <repeat id="conditionCheckReasons">
-            <field id="conditionCheckReason" ui-search="repeatable" seperate_ui_container="true">
-                <selector>conditioncheck-conditionCheckReason</selector>
-                <options>
-                    <option id="first" default="yes">First</option>
-                    <option id="second">Second</option>
-                    <option id="third">Third</option>
-                    <option id="fourth">Fourth</option>
-                    <option id="fifth">Fifth</option>
-                </options>
-            </field>
-        </repeat>
+        <field id="conditionCheckReason">
+            <selector>conditioncheck-conditionCheckReason</selector>
+            <options>
+                <option id="" default="yes">Please select a value</option>
+                <option id="conservation">Conservation</option>
+                <option id="damagedintransit">Damaged in transit</option>
+                <option id="loanin">Loan in</option>
+                <option id="newacquisition">New acquisition</option>
+            </options>
+        </field>
         <field id="conditionCheckRefNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate" seperate_ui_container="true">
             <selector>conditioncheck-numberPatternChooser-reference-number</selector>
             <title-selector>titleBar-conditioncheck-reference-number</title-selector>
@@ -149,9 +146,7 @@
                 <option id="conditioncheck" sample="CD2012.1.1">Condition Check</option>
             </options>
         </field>
-        <repeat id="conditionCheckers">
-            <field id="conditionChecker" ui-search="repeatable" autocomplete="person-person,organization-organization"></field>
-        </repeat>
+        <field id="conditionChecker" autocomplete="person-person,organization-organization"></field>
     </section>
     <section id="objectRequirementInformation">
         <field id="displayRecommendations"></field>
@@ -161,17 +156,18 @@
         <field id="securityRecommendations"></field>
         <field id="specialRecommendations"></field>
         <field id="storageRequirements"></field>
-        <field id="salvagePriorityCode">
-            <selector>conditioncheck-salvagePriorityCode</selector>
-            <options>
-                <option id="first" default="yes">First</option>
-                <option id="second">Second</option>
-                <option id="third">Third</option>
-                <option id="fourth">Fourth</option>
-                <option id="fifth">Fifth</option>
-            </options>
-        </field>
-        <field id="salvagePriorityCodeDate" ui-type="date"></field>
+        <repeat id="salvagePriorityCodeGroupList/salvagePriorityCodeGroup">
+            <field id="salvagePriorityCode">
+                <selector>conditioncheck-salvagePriorityCode</selector>
+                <options>
+                    <option id="" default="yes">Please select a value</option>
+                    <option id="low">Low</option>
+                    <option id="medium">Medium</option>
+                    <option id="high">High</option>
+                </options>
+            </field>
+            <field id="salvagePriorityCodeDate" ui-type="date"></field>
+        </repeat>
         <field id="legalRequirements"></field>
         <repeat id="legalReqsHeldGroupList/legalReqsHeldGroup">
             <field id="legalReqsHeld"></field>

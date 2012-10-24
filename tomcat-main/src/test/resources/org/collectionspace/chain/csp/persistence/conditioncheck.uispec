@@ -6,6 +6,49 @@
         ".csc-conditioncheck-completenessDate-label": {
             "messagekey": "conditioncheck-completenessDateLabel"
         },
+        ".csc-conditioncheck-salvagePriorityCodeGroup": {
+            "decorators": [
+                {
+                    "func": "cspace.makeRepeatable",
+                    "type": "fluid",
+                    "options": {
+                        "repeatTree": {
+                            "expander": {
+                                "tree": {
+                                    ".csc-conditioncheck-salvagePriorityCode": {
+                                        "default": "",
+                                        "optionnames": [
+                                            "Please select a value",
+                                            "Low",
+                                            "Medium",
+                                            "High"
+                                        ],
+                                        "optionlist": [
+                                            "",
+                                            "low",
+                                            "medium",
+                                            "high"
+                                        ],
+                                        "selection": "${{row}.salvagePriorityCode}"
+                                    },
+                                    ".csc-conditioncheck-salvagePriorityCodeDate": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.datePicker",
+                                                "type": "fluid"
+                                            }
+                                        ],
+                                        "value": "${{row}.salvagePriorityCodeDate}"
+                                    }
+                                },
+                                "type": "fluid.noexpand"
+                            }
+                        },
+                        "elPath": "fields.salvagePriorityCodeGroup"
+                    }
+                }
+            ]
+        },
         ".csc-conditioncheck-updatedAt-label": {
             "messagekey": "conditioncheck-updatedAtLabel"
         },
@@ -20,73 +63,33 @@
             "value": "${fields.nextConditionCheckDate}"
         },
         ".csc-conditioncheck-conditionCheckMethod": {
-            "decorators": [
-                {
-                    "func": "cspace.makeRepeatable",
-                    "type": "fluid",
-                    "options": {
-                        "repeatTree": {
-                            "expander": {
-                                "tree": {
-                                    ".csc-conditioncheck-conditionCheckMethod": {
-                                        "default": "first",
-                                        "optionnames": [
-                                            "First",
-                                            "Second",
-                                            "Third",
-                                            "Fourth",
-                                            "Fifth"
-                                        ],
-                                        "optionlist": [
-                                            "first",
-                                            "second",
-                                            "third",
-                                            "fourth",
-                                            "fifth"
-                                        ],
-                                        "selection": "${{row}.conditionCheckMethod}"
-                                    }
-                                },
-                                "type": "fluid.noexpand"
-                            }
-                        },
-                        "elPath": "fields.conditionCheckMethods"
-                    }
-                }
-            ]
+            "default": "",
+            "optionnames": [
+                "Please select a value",
+                "Observed",
+                "X-rayed"
+            ],
+            "optionlist": [
+                "",
+                "observed",
+                "xrayed"
+            ],
+            "selection": "${fields.conditionCheckMethod}"
         },
-        ".csc-conditioncheck-legalRequirements": "${fields.legalRequirements}",
         ".csc-conditioncheck-conditionChecker": {
             "decorators": [
                 {
-                    "func": "cspace.makeRepeatable",
+                    "func": "cspace.autocomplete",
                     "type": "fluid",
                     "options": {
-                        "repeatTree": {
-                            "expander": {
-                                "tree": {
-                                    ".csc-conditioncheck-conditionChecker": {
-                                        "decorators": [
-                                            {
-                                                "func": "cspace.autocomplete",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "queryUrl": "../../../tenant/core/conditioncheck/autocomplete/conditionChecker",
-                                                    "vocabUrl": "../../../tenant/core/conditioncheck/source-vocab/conditionChecker"
-                                                }
-                                            }
-                                        ],
-                                        "value": "${{row}.conditionChecker}"
-                                    }
-                                },
-                                "type": "fluid.noexpand"
-                            }
-                        },
-                        "elPath": "fields.conditionCheckers"
+                        "queryUrl": "../../../tenant/core/conditioncheck/autocomplete/conditionChecker",
+                        "vocabUrl": "../../../tenant/core/conditioncheck/source-vocab/conditionChecker"
                     }
                 }
-            ]
+            ],
+            "value": "${fields.conditionChecker}"
         },
+        ".csc-conditioncheck-legalRequirements": "${fields.legalRequirements}",
         ".csc-conditioncheck-conditionDate-label": {
             "messagekey": "conditioncheck-conditionDateLabel"
         },
@@ -121,20 +124,18 @@
                             "expander": {
                                 "tree": {
                                     ".csc-conditioncheck-completeness": {
-                                        "default": "first",
+                                        "default": "",
                                         "optionnames": [
-                                            "First",
-                                            "Second",
-                                            "Third",
-                                            "Fourth",
-                                            "Fifth"
+                                            "Please select a value",
+                                            "Complete",
+                                            "Fragmented",
+                                            "Incomplete"
                                         ],
                                         "optionlist": [
-                                            "first",
-                                            "second",
-                                            "third",
-                                            "fourth",
-                                            "fifth"
+                                            "",
+                                            "complete",
+                                            "fragmented",
+                                            "incomplete"
                                         ],
                                         "selection": "${{row}.completeness}"
                                     },
@@ -190,40 +191,22 @@
             "messagekey": "conditioncheck-coreInformationLabel"
         },
         ".csc-conditioncheck-conditionCheckReason": {
-            "decorators": [
-                {
-                    "func": "cspace.makeRepeatable",
-                    "type": "fluid",
-                    "options": {
-                        "repeatTree": {
-                            "expander": {
-                                "tree": {
-                                    ".csc-conditioncheck-conditionCheckReason": {
-                                        "default": "first",
-                                        "optionnames": [
-                                            "First",
-                                            "Second",
-                                            "Third",
-                                            "Fourth",
-                                            "Fifth"
-                                        ],
-                                        "optionlist": [
-                                            "first",
-                                            "second",
-                                            "third",
-                                            "fourth",
-                                            "fifth"
-                                        ],
-                                        "selection": "${{row}.conditionCheckReason}"
-                                    }
-                                },
-                                "type": "fluid.noexpand"
-                            }
-                        },
-                        "elPath": "fields.conditionCheckReasons"
-                    }
-                }
-            ]
+            "default": "",
+            "optionnames": [
+                "Please select a value",
+                "Conservation",
+                "Damaged in transit",
+                "Loan in",
+                "New acquisition"
+            ],
+            "optionlist": [
+                "",
+                "conservation",
+                "damagedintransit",
+                "loanin",
+                "newacquisition"
+            ],
+            "selection": "${fields.conditionCheckReason}"
         },
         ".csc-conditioncheck-conditionNote-label": {
             "messagekey": "conditioncheck-conditionNoteLabel"
@@ -287,20 +270,16 @@
                                 "tree": {
                                     ".csc-conditioncheck-hazardNote": "${{row}.hazardNote}",
                                     ".csc-conditioncheck-hazard": {
-                                        "default": "first",
+                                        "default": "",
                                         "optionnames": [
-                                            "First",
-                                            "Second",
-                                            "Third",
-                                            "Fourth",
-                                            "Fifth"
+                                            "Please select a value",
+                                            "Poisonous",
+                                            "Radioactive"
                                         ],
                                         "optionlist": [
-                                            "first",
-                                            "second",
-                                            "third",
-                                            "fourth",
-                                            "fifth"
+                                            "",
+                                            "poisonous",
+                                            "radioactive"
                                         ],
                                         "selection": "${{row}.hazard}"
                                     },
@@ -323,9 +302,6 @@
             ]
         },
         ".csc-conditioncheck-numberPatternChooser-reference-number": "${fields.conditionCheckRefNumber}",
-        ".csc-conditioncheck-conditionCheckers-label": {
-            "messagekey": "conditioncheck-conditionCheckersLabel"
-        },
         ".csc-conditioncheck-storageRequirements-label": {
             "messagekey": "conditioncheck-storageRequirementsLabel"
         },
@@ -338,15 +314,6 @@
         },
         ".csc-conditioncheck-completenessNote-label": {
             "messagekey": "conditioncheck-completenessNoteLabel"
-        },
-        ".csc-conditioncheck-salvagePriorityCodeDate": {
-            "decorators": [
-                {
-                    "func": "cspace.datePicker",
-                    "type": "fluid"
-                }
-            ],
-            "value": "${fields.salvagePriorityCodeDate}"
         },
         ".csc-conditioncheck-legalReqsHeldGroup": {
             "decorators": [
@@ -398,20 +365,38 @@
         ".csc-conditioncheck-legalReqsHeldBeginDate-label": {
             "messagekey": "conditioncheck-legalReqsHeldBeginDateLabel"
         },
-        ".csc-conditioncheck-envConditionNote-label": {
-            "messagekey": "conditioncheck-envConditionNoteLabel"
-        },
         ".csc-conditioncheck-techAssessment-label": {
             "messagekey": "conditioncheck-techAssessmentLabel"
+        },
+        ".csc-conditioncheck-envConditionNote-label": {
+            "messagekey": "conditioncheck-envConditionNoteLabel"
         },
         ".csc-conditioncheck-conditionCheckAssessmentDate": {
             "decorators": [
                 {
-                    "func": "cspace.datePicker",
-                    "type": "fluid"
+                    "func": "cspace.makeRepeatable",
+                    "type": "fluid",
+                    "options": {
+                        "repeatTree": {
+                            "expander": {
+                                "tree": {
+                                    ".csc-conditioncheck-conditionCheckAssessmentDate": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.datePicker",
+                                                "type": "fluid"
+                                            }
+                                        ],
+                                        "value": "${{row}.conditionCheckAssessmentDate}"
+                                    }
+                                },
+                                "type": "fluid.noexpand"
+                            }
+                        },
+                        "elPath": "fields.conditionCheckAssessmentDates"
+                    }
                 }
-            ],
-            "value": "${fields.conditionCheckAssessmentDate}"
+            ]
         },
         ".csc-conditioncheck-hazardGroup-label": {
             "messagekey": "conditioncheck-hazardGroupLabel"
@@ -422,30 +407,12 @@
         ".csc-conditioncheck-displayRecommendations-label": {
             "messagekey": "conditioncheck-displayRecommendationsLabel"
         },
-        ".csc-conditioncheck-salvagePriorityCode": {
-            "default": "first",
-            "optionnames": [
-                "First",
-                "Second",
-                "Third",
-                "Fourth",
-                "Fifth"
-            ],
-            "optionlist": [
-                "first",
-                "second",
-                "third",
-                "fourth",
-                "fifth"
-            ],
-            "selection": "${fields.salvagePriorityCode}"
-        },
         ".csc-conditioncheck-updatedBy": "${fields.updatedBy}",
         ".csc-conditioncheck-hazardNote-label": {
             "messagekey": "conditioncheck-hazardNoteLabel"
         },
-        ".csc-conditioncheck-conditionCheckMethods-label": {
-            "messagekey": "conditioncheck-conditionCheckMethodsLabel"
+        ".csc-conditioncheck-conditionCheckAssessmentDates-label": {
+            "messagekey": "conditioncheck-conditionCheckAssessmentDatesLabel"
         },
         ".csc-conditioncheck-conditionCheckGroup": {
             "decorators": [
@@ -467,20 +434,20 @@
                                     },
                                     ".csc-conditioncheck-conditionNote": "${{row}.conditionNote}",
                                     ".csc-conditioncheck-condition": {
-                                        "default": "first",
+                                        "default": "",
                                         "optionnames": [
-                                            "First",
-                                            "Second",
-                                            "Third",
-                                            "Fourth",
-                                            "Fifth"
+                                            "Please select a value",
+                                            "Needs no work",
+                                            "Exhibitable / needs work",
+                                            "Not exhibitable / stable",
+                                            "In jeopardy"
                                         ],
                                         "optionlist": [
-                                            "first",
-                                            "second",
-                                            "third",
-                                            "fourth",
-                                            "fifth"
+                                            "",
+                                            "needsnowork",
+                                            "exhibitableneedswork",
+                                            "notexhibitablestable",
+                                            "injeopardy"
                                         ],
                                         "selection": "${{row}.condition}"
                                     }
@@ -494,40 +461,20 @@
             ]
         },
         ".csc-conditioncheck-objectAuditCategory": {
-            "decorators": [
-                {
-                    "func": "cspace.makeRepeatable",
-                    "type": "fluid",
-                    "options": {
-                        "repeatTree": {
-                            "expander": {
-                                "tree": {
-                                    ".csc-conditioncheck-objectAuditCategory": {
-                                        "default": "first",
-                                        "optionnames": [
-                                            "First",
-                                            "Second",
-                                            "Third",
-                                            "Fourth",
-                                            "Fifth"
-                                        ],
-                                        "optionlist": [
-                                            "first",
-                                            "second",
-                                            "third",
-                                            "fourth",
-                                            "fifth"
-                                        ],
-                                        "selection": "${{row}.objectAuditCategory}"
-                                    }
-                                },
-                                "type": "fluid.noexpand"
-                            }
-                        },
-                        "elPath": "fields.objectAuditCategories"
-                    }
-                }
-            ]
+            "default": "",
+            "optionnames": [
+                "Please select a value",
+                "Low",
+                "Medium",
+                "High"
+            ],
+            "optionlist": [
+                "",
+                "low",
+                "medium",
+                "high"
+            ],
+            "selection": "${fields.objectAuditCategory}"
         },
         ".csc-conditioncheck-completeness-label": {
             "messagekey": "conditioncheck-completenessLabel"
@@ -546,9 +493,21 @@
         ".csc-conditioncheck-legalReqsHeldRenewDate-label": {
             "messagekey": "conditioncheck-legalReqsHeldRenewDateLabel"
         },
-        ".csc-conditioncheck-conservationTreatmentPriority": "${fields.conservationTreatmentPriority}",
-        ".csc-conditioncheck-objectAuditCategories-label": {
-            "messagekey": "conditioncheck-objectAuditCategoriesLabel"
+        ".csc-conditioncheck-conservationTreatmentPriority": {
+            "default": "",
+            "optionnames": [
+                "Please select a value",
+                "Low",
+                "Medium",
+                "High"
+            ],
+            "optionlist": [
+                "",
+                "low",
+                "medium",
+                "high"
+            ],
+            "selection": "${fields.conservationTreatmentPriority}"
         },
         ".csc-conditioncheck-legalReqsHeldEndDate-label": {
             "messagekey": "conditioncheck-legalReqsHeldEndDateLabel"
@@ -647,8 +606,8 @@
             "messagekey": "conditioncheck-salvagePriorityCodeDateLabel"
         },
         ".csc-conditioncheck-handlingRecommendations": "${fields.handlingRecommendations}",
-        ".csc-conditioncheck-conditionCheckReasons-label": {
-            "messagekey": "conditioncheck-conditionCheckReasonsLabel"
+        ".csc-conditioncheck-salvagePriorityCodeGroup-label": {
+            "messagekey": "conditioncheck-salvagePriorityCodeGroupLabel"
         }
     }
 }

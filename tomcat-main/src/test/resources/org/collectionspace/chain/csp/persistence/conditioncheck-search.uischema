@@ -1,15 +1,14 @@
 {
     "conditioncheck": {
         "properties": {
-            "hazardGroup": {
+            "conditionCheckRefNumbers": {
                 "items": {
                     "properties": {
                         "_primary": {
                             "default": true,
                             "type": "boolean"
                         },
-                        "hazard": {
-                            "default": "",
+                        "conditionCheckRefNumber": {
                             "type": "string"
                         }
                     },
@@ -25,6 +24,22 @@
                             "type": "boolean"
                         },
                         "createdBy": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
+            "objectAuditCategorys": {
+                "items": {
+                    "properties": {
+                        "_primary": {
+                            "default": true,
+                            "type": "boolean"
+                        },
+                        "objectAuditCategory": {
+                            "default": "",
                             "type": "string"
                         }
                     },
@@ -48,104 +63,33 @@
                 },
                 "type": "array"
             },
+            "conditionCheckAssessmentDateStart": {
+                "type": "date"
+            },
+            "conditionCheckAssessmentDateEnd": {
+                "type": "date"
+            },
+            "conservationTreatmentPrioritys": {
+                "items": {
+                    "properties": {
+                        "_primary": {
+                            "default": true,
+                            "type": "boolean"
+                        },
+                        "conservationTreatmentPriority": {
+                            "default": "",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
             "updatedAtEnd": {
                 "type": "date"
             },
-            "conditionCheckAssessmentDates": {
-                "items": {
-                    "properties": {
-                        "_primary": {
-                            "default": true,
-                            "type": "boolean"
-                        },
-                        "conditionCheckAssessmentDate": {
-                            "type": "date"
-                        }
-                    },
-                    "type": "object"
-                },
-                "type": "array"
-            },
-            "conditionCheckers": {
-                "items": {
-                    "properties": {
-                        "_primary": {
-                            "default": true,
-                            "type": "boolean"
-                        },
-                        "conditionChecker": {
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
-                },
-                "type": "array"
-            },
-            "updatedAtStart": {
+            "nextConditionCheckDateEnd": {
                 "type": "date"
-            },
-            "conditionCheckRefNumbers": {
-                "items": {
-                    "properties": {
-                        "_primary": {
-                            "default": true,
-                            "type": "boolean"
-                        },
-                        "conditionCheckRefNumber": {
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
-                },
-                "type": "array"
-            },
-            "conditionCheckReasons": {
-                "items": {
-                    "properties": {
-                        "_primary": {
-                            "default": true,
-                            "type": "boolean"
-                        },
-                        "conditionCheckReason": {
-                            "default": "",
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
-                },
-                "type": "array"
-            },
-            "objectAuditCategories": {
-                "items": {
-                    "properties": {
-                        "_primary": {
-                            "default": true,
-                            "type": "boolean"
-                        },
-                        "objectAuditCategory": {
-                            "default": "",
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
-                },
-                "type": "array"
-            },
-            "conditionCheckMethods": {
-                "items": {
-                    "properties": {
-                        "_primary": {
-                            "default": true,
-                            "type": "boolean"
-                        },
-                        "conditionCheckMethod": {
-                            "default": "",
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
-                },
-                "type": "array"
             },
             "updatedBys": {
                 "items": {
@@ -162,21 +106,11 @@
                 },
                 "type": "array"
             },
-            "completenessGroup": {
-                "items": {
-                    "properties": {
-                        "_primary": {
-                            "default": true,
-                            "type": "boolean"
-                        },
-                        "completeness": {
-                            "default": "",
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
-                },
-                "type": "array"
+            "updatedAtStart": {
+                "type": "date"
+            },
+            "nextConditionCheckDateStart": {
+                "type": "date"
             }
         },
         "type": "object"
