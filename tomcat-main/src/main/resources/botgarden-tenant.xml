@@ -14,8 +14,8 @@
 			<!-- <include src="base-procedure-acquisition.xml"/> -->
 			<include src="base-procedure-blobs.xml"/>
 			<include src="base-procedure-groups.xml"/>
-			<include src="base-procedure-intake.xml,local-procedure-intake.xml" merge="xmlmerge.properties"/>
-			<include src="base-procedure-loanin.xml,naturalhistory-procedure-loanin.xml,local-procedure-loanin.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-intake.xml"/>
+			<include src="base-procedure-loanin.xml,naturalhistory-procedure-loanin.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-loanout.xml,naturalhistory-procedure-loanout.xml,local-procedure-loanout.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-media.xml,local-procedure-media.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-movement.xml,local-procedure-movement.xml" merge="xmlmerge.properties"/>
@@ -25,7 +25,7 @@
 			<include src="base-authority-contact.xml,naturalhistory-authority-contact.xml" merge="xmlmerge.properties"/>
             
 			<include src="base-authority-location-termList.xml"/>
-			<include src="base-authority-location.xml"/>
+			<include src="base-authority-location.xml,local-authority-location.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-organization-termList.xml"/>
 			<include src="base-authority-organization.xml,naturalhistory-authority-organization.xml,local-authority-organization.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-person-termList.xml"/>
@@ -47,7 +47,7 @@
 			<include src="base-authz-userrole.xml"/>
 			<include src="base-authz-users.xml"/>
 			
-			<include src="base-other-dimension.xml,local-other-dimension.xml" merge="xmlmerge.properties"/>
+			<include src="base-other-dimension.xml"/>
 			<include src="base-other-hierarchy.xml"/>
 			<include src="base-other-idgenerator.xml,local-other-idgenerator.xml" merge="xmlmerge.properties"/>
 			<include src="base-other-structureddate.xml"/>

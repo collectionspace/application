@@ -4,11 +4,4 @@
             <title>Default Places</title>
         </instance>
     </instances>
-    
-	<section id="placeAuthorityInformation">
-		<repeat id ="placeOwnerGroupList/placeOwnerGroup">
-			<!-- Add organization-institution to autocomplete -->
-			<field id="owner" autocomplete="person-person,organization-organization,organization-institution"/>
-		</repeat>
-	</section>
 </record>

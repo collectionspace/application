@@ -48,16 +48,6 @@
             <title-ref>activity</title-ref>
             <title>Activity Concepts</title>
         </instance> -->
-        <instance id="concept-class_ca">
-            <web-url>class_ca</web-url>
-            <title-ref>class_ca</title-ref>
-            <title>Classes</title>
-        </instance>
-        <instance id="concept-research_ca">
-            <web-url>research_ca</web-url>
-            <title-ref>research_ca</title-ref>
-            <title>Research Projects</title>
-        </instance>
     </instances>
     <section id="coreInformation">
         <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
