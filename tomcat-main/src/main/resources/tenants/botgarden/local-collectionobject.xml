@@ -139,9 +139,23 @@
    		        <option id="unknown">unknown</option>
    		    </options>
    		</field>
+   		<field id="breedingSystem" section="botgarden">
+   		    <options>
+   		        <option id="" default="yes">Please select a value</option>
+   		        <option id="male">male</option>
+   		        <option id="female">female</option>
+   		        <option id="both">both</option>
+   		        <option id="dioecious and unknown sex">dioecious and unknown sex</option>
+   		        <option id="monoecious and self-compatible">monoecious and self-compatible</option>
+   		        <option id="monoecious and self-incompatible">monoecious and self-incompatible</option>
+   		        <option id="agamospermy">agamospermy</option>
+   		        <option id="unknown">unknown</option>
+   		    </options>
+   		</field>
    		<field id="classUse" datatype="boolean" section="botgarden"/>
    		<field id="researchUse" datatype="boolean" section="botgarden"/>
    		<field id="ignoreRedDot" datatype="boolean" section="botgarden"/>
+   		<field id="fragrance" datatype="boolean" section="botgarden"/>
    		<field id="flowersJan" section="botgarden">
    		    <options>
    		        <option id="No" default="yes">No</option>
