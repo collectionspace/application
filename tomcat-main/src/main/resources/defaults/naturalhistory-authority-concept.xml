@@ -3,6 +3,6 @@
 
     <section id="conceptAuthorityInformation">
 		<field id="associatedPerson" section="naturalhistory" autocomplete="person-person"/>
-		<field id="associatedOrganization" section="naturalhistory" autocomplete="organization-institution"/>
+		<field id="associatedOrganization" section="naturalhistory" autocomplete="organization-organization"/>
 	</section>
 </record>
