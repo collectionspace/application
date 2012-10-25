@@ -76,7 +76,8 @@
             				<option id="prop-number" sample="UCBG1000">Propagation Number</option>
             			</options>
             		</field>
-                    <field id="propDate" ui-type="date" ui-search="range"/>
+                    <field id="propDate" ui-type="groupfield/structureddate" 
+                        primarykey="propDate.dateDisplayDate" ui-func="cspace.structuredDate"/>
                     <field id="propReason" ui-search="repeatable" >
                         <options>
                             <option id="" default="yes">Please select a value</option>
@@ -124,7 +125,34 @@
                     
                     <repeat id="propActivityGroupList/propActivityGroup">
                         <field id="order"/>
-                        <field id="activityDate" ui-type="date"/>
+                        <!-- <field id="activityDate" ui-type="date"/> -->
+                        <group id="activityDate" ui-type="groupfield/structureddate" 
+                            primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
+                            <!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
+                            <field id="dateDisplayDate" section="anthropology"/>
+                            <field id="dateAssociation" section="anthropology"/>
+                            <field id="dateEarliestSingleYear" section="anthropology"/>
+                            <field id="dateEarliestSingleMonth" section="anthropology"/>
+                            <field id="dateEarliestSingleDay" section="anthropology"/>
+                            <field id="dateEarliestSingleEra" section="anthropology"/>
+                            <field id="dateEarliestSingleCertainty" section="anthropology"/>
+                            <field id="dateEarliestSingleQualifier" section="anthropology"/>
+                            <field id="dateEarliestSingleQualifierValue" section="anthropology"/>
+                            <field id="dateEarliestSingleQualifierUnit" section="anthropology"/>
+                            <field id="dateLatestYear" section="anthropology"/>
+                            <field id="dateLatestMonth" section="anthropology"/>
+                            <field id="dateLatestDay" section="anthropology"/>
+                            <field id="dateLatestEra" section="anthropology"/>
+                            <field id="dateLatestCertainty" section="anthropology"/>
+                            <field id="dateLatestQualifier" section="anthropology"/>
+                            <field id="dateLatestQualifierValue" section="anthropology"/>
+                            <field id="dateLatestQualifierUnit" section="anthropology"/>
+                            <field id="datePeriod" section="anthropology"/>
+                            <field id="dateNote" section="anthropology"/>
+                            <field id="dateEarliestScalarValue" section="anthropology"/>
+                            <field id="dateLatestScalarValue" section="anthropology"/>
+                            <field id="scalarValuesComputed" section="anthropology"/>
+                        </group>
                         <field id="activityType">
                             <options>
                                 <option id="" default="yes">Please select a value</option>
