@@ -8,11 +8,6 @@
             <title-ref>common</title-ref>
             <title>Common Taxonomy Authority</title>
         </instance>
-        <instance id="taxon-unverified">
-            <web-url>unverified</web-url>
-            <title-ref>unverified</title-ref>
-            <title>Unverified Taxonomy Authority</title>
-        </instance>
     </instances>
     
 	<section id="taxonNameAuthorityInformation">
@@ -65,8 +60,6 @@
 			</options>
 		</field>
 		<repeat id="taxonAuthorGroupList/taxonAuthorGroup">
-			<!-- Change autocomplete to organization-nomenclature -->
-			<field id="taxonAuthor" autocomplete="organization-nomenclature"></field>
 			<field id="taxonAuthorType">
 				<options>
 					<option id="" default="yes">Please select a value</option>

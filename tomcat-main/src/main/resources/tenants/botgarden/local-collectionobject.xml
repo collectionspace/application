@@ -51,23 +51,8 @@
 			<option id="complete">Complete</option>
 	      </options>
 	    </field>
-		<repeat id="taxonomicIdentGroupList/taxonomicIdentGroup">
-			<field id="taxon" autocomplete="taxon-taxon,taxon-unverified"/>
-			<field id="identBy" autocomplete="person-person,organization-determination"/>
-			<field id="institution" autocomplete="organization-institution"/>
-		</repeat>
-		<repeat id="hybridParentGroupList/hybridParentGroup">
-			<field id="hybridParent" autocomplete="taxon-taxon,taxon-unverified"/>
-		</repeat>
 		<field id="labelHeader" autocomplete="concept-concept"/>
 		<field id="labelFooter" autocomplete="concept-concept"/>
-		
-		<repeat id="typeSpecimenGroupList/typeSpecimenGroup">
-			<!-- Change autocomplete to organization-determination -->
-			<field id="typeSpecimenAssertionBy" autocomplete="organization-typeassertion"/>
-		</repeat>
-		
-		<field id="donor" autocomplete="organization-institution"/>		
 	</section>
 	
 	<section id="descriptionInformation">
@@ -253,25 +238,7 @@
    		<field id="fruitsNov" datatype="boolean" section="botgarden"/>
    		<field id="fruitsDec" datatype="boolean" section="botgarden"/>
 	</section>
-	
-	<section id="objectHistoryAssociationInformation">
-		<repeat id="owners">
-			<!-- Add organization-institution to autocomplete -->
-			<field id="owner" autocomplete="person-person,organization-organization,organization-institution"/>
-		</repeat>
 		
-		<section id="associationInformation">
-			<repeat id="assocOrganizationGroupList/assocOrganizationGroup">
-				<!-- Add institution authority to autocomplete -->
-				<field id="assocOrganization" autocomplete="organization-organization,organization-institution"/>
-			</repeat>
-			<repeat id="assocEventOrganizations">
-				<!-- Add institution authority to autocomplete -->
-				<field id="assocEventOrganization" autocomplete="organization-organization,organization-institution"/>
-			</repeat>
-		</section>
-	</section>
-	
 	<section id="objectCollectionInformation">
 		<repeat id="fieldCollectors">
 			<!-- Add ui-search, and remove person authority from autocomplete -->
