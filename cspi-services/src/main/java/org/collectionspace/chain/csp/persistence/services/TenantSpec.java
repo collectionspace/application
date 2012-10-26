@@ -1,5 +1,6 @@
 package org.collectionspace.chain.csp.persistence.services;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.collectionspace.chain.csp.config.ReadOnlySection;
@@ -37,10 +38,10 @@ public class TenantSpec {
 	private String tenant, tenantDisplay, tenantVersion;
 	private String repoDomain, repoClient;
 	private String defaultDomain;
-	private Set<String> languages = new HashSet<String>();
-	private Set<String> dateformats = new HashSet<String>();
-	private Set<String> defaultlanguages = new HashSet<String>();
-	private Set<String> defaultdateformats = new HashSet<String>();
+	private Set<String> languages = new LinkedHashSet<String>();
+	private Set<String> dateformats = new LinkedHashSet<String>();
+	private Set<String> defaultlanguages = new LinkedHashSet<String>();
+	private Set<String> defaultdateformats = new LinkedHashSet<String>();
 	
 	
 	public TenantSpec(ReadOnlySection section) {

@@ -8,6 +8,7 @@ package org.collectionspace.chain.csp.schema;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.collectionspace.chain.csp.config.ReadOnlySection;
@@ -44,7 +45,7 @@ public class Util {
 		String[] data=dfault;
 		if(values!=null)
 			data=values.split(",");
-		return new HashSet<String>(Arrays.asList(data));
+		return new LinkedHashSet<String>(Arrays.asList(data));
 	}
 	
 	

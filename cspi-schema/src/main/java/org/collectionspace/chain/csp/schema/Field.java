@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -30,7 +31,7 @@ public class Field implements FieldSet {
 	
 	private FieldParent parent;
 
-	private Map<String, Instance> instances = new HashMap<String, Instance>();
+	private Map<String, Instance> instances = new LinkedHashMap<String, Instance>();
 
 	/* UI */
 	private Boolean seperate_default = false;
