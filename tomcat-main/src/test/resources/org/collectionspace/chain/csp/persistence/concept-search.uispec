@@ -118,7 +118,39 @@
           "repeatTree": {
             "expander": {
               "tree": {
-                ".csc-conceptAuthority-termDisplayName": "${{row}.termDisplayName}"
+                ".csc-conceptAuthority-termDisplayName": "${{row}.termDisplayName}", 
+                ".csc-conceptAuthority-termLanguage": {
+                  "decorators": [
+                    {
+                      "func": "cspace.termList", 
+                      "options": {
+                        "elPath": "termLanguage", 
+                        "root": "{row}", 
+                        "termListType": "termLanguage"
+                      }, 
+                      "type": "fluid"
+                    }
+                  ]
+                }, 
+                ".csc-conceptAuthority-termName": "${{row}.termName}", 
+                ".csc-conceptAuthority-termStatus": {
+                  "default": "", 
+                  "optionlist": [
+                    "provisional", 
+                    "under review", 
+                    "accepted", 
+                    "rejected", 
+                    ""
+                  ], 
+                  "optionnames": [
+                    "Provisional", 
+                    "Under Review", 
+                    "Accepted", 
+                    "Rejected", 
+                    "Please select a value"
+                  ], 
+                  "selection": "${{row}.termStatus}"
+                }
               }, 
               "type": "fluid.noexpand"
             }
