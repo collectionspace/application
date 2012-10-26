@@ -361,6 +361,11 @@ public class Record implements FieldParent {
 		}
 		return null;
 	}
+	
+	public Map<String, String> getNestedFieldList() {
+		return this.nestedFieldList;
+	}
+	
 	public FieldSet getServiceFieldFullList(String id) {
 		return serviceFieldFullList.get(id);
 	}

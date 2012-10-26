@@ -7,9 +7,7 @@
 package org.collectionspace.chain.csp.schema;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -23,10 +21,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 // XXX unentangle UI and SVC parts
-public class Field implements FieldSet {
+public class Field extends FieldSetImpl {
 	
 	private static final Logger log = LoggerFactory.getLogger(Field.class);
-	protected SchemaUtils utils = new SchemaUtils();
 	
 	private FieldParent parent;
 
@@ -189,11 +186,13 @@ public class Field implements FieldSet {
 			}
 		}
 		
-	}
-
-
-	public String getID() {
-		return  utils.getString("@id");
+		if (section != null) {
+			String servicesType = (String)section.getValue("/@services-type");
+			if (servicesType != null && servicesType.isEmpty() == false) {
+				this.setServicesType(servicesType);
+			}		
+		}
+		
 	}
 
 	public SchemaUtils getUtils() {
@@ -302,7 +301,12 @@ public class Field implements FieldSet {
 	public boolean isRepeatSubRecord() {
 		return utils.getBoolean("@is-subrecord");
 	}
-
+	
+	@Override
+	public Boolean isAGroupField() {
+		return this.getUIType().startsWith("groupfield");
+	}
+	
 	public String useCsid() {
 		return utils.getString("use-csid");
 	}

@@ -15,10 +15,10 @@ import org.collectionspace.chain.installation.XsdGeneration;
 
 public class CommandLine {
 	public static final void main(String[] args) throws Exception {
-		String recordtype = args[0];
-		String domain = args[1];
-		String maketype = args[2];
-		String configfile = args[3];
+		String recordtype = "collectionobjects";//args[0];
+		String domain = "collectionspace_core"; //args[1];
+		String maketype = "core"; //args[2];
+		String configfile = "lifesci-tenant.xml"; //args[3];
 		XsdGeneration s = new XsdGeneration(configfile, recordtype, domain, maketype);
 		String xsdschema = s.getFile();
 		System.out.println(xsdschema);

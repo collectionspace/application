@@ -1,5 +1,6 @@
 package org.collectionspace.chain.installation;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -11,6 +12,8 @@ import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.ui.UIException;
+import org.collectionspace.chain.csp.schema.Spec;
+
 import org.dom4j.Document;
 import org.dom4j.DocumentFactory;
 import org.dom4j.Element;
@@ -25,21 +28,43 @@ public class MakeXsd {
 	protected TenantSpec tenantSpec;
 	protected Storage storage;
 	protected String section;
+	protected HashMap<String, Boolean> defineGroupFields = new HashMap<String, Boolean>();
 
 
 	public MakeXsd(TenantSpec td, String section) {
 		this.tenantSpec = td;
 		this.section = section;
 	}
+	
+	private String generateFieldGroup(FieldSet fieldSet, Element ele, Namespace ns,
+			Element root) {
+		String type = fieldSet.getServicesType();
+		Spec spec = fieldSet.getRecord().getSpec();
+		Record record = spec.getRecord(type);
+		String servicesType = record.getServicesURL();
+		
+		if (defineGroupFields.containsKey(servicesType) == false) {
+			Element complexElement = ele.addElement(new QName("complexType", ns));
+			complexElement.addAttribute("name", servicesType);
+			Element sequenced = complexElement.addElement(new QName("sequence", ns));
+			
+			for (FieldSet subRecordFieldSet : record.getAllFieldTopLevel("")) {
+				generateDataEntry(sequenced, subRecordFieldSet, ns, root, false);
+			}
+			defineGroupFields.put(servicesType, true); // We only need to define the complex type once.
+		}
+		
+		return servicesType;
+	}
 
 	private void generateRepeat(Repeat r, Element root, Namespace ns,
 			String listName) {
 
-		if (r.hasServicesParent()) {
+		if (r.hasServicesParent()) { // for example, something like this "assocPersonGroupList/assocPersonGroup" where the left side of the '/' char is the services parent
 			Element sequenced = null;
 			for (String path : r.getServicesParent()) {
 				if (path != null) {
-					if (null != sequenced) {
+					if (null != sequenced) { // How can "sequenced" be anything BUT null at this point?  Looks like dead code inside this "if" clause
 						Element dele = sequenced.addElement(new QName(
 								"element", ns));
 						dele.addAttribute("name", path);
@@ -54,37 +79,63 @@ public class MakeXsd {
 			}
 			if (sequenced != null) {
 				Element dele = sequenced.addElement(new QName("element", ns));
-				dele.addAttribute("name", r.getServicesTag());
-				dele.addAttribute("type", r.getServicesTag());
+				String servicesTag = r.getServicesTag();
+				dele.addAttribute("name", servicesTag);
+				
+				String servicesType = r.getServicesType();
+				if (servicesType == null) {
+					servicesType = servicesTag; // If the type was not explicitly set in the config, then use the servicesTag as the type
+				} else {
+					System.err.println();
+				}
+				dele.addAttribute("type", servicesType);
+				
 				dele.addAttribute("minOccurs", "0");
 				dele.addAttribute("maxOccurs", "unbounded");
 			}
 		}
 
-		Element ele = root.addElement(new QName("complexType", ns));
-		ele.addAttribute("name", listName);
-		Element sele = ele.addElement(new QName("sequence", ns));
-		for (FieldSet fs : r.getChildren("")) {
-			generateDataEntry(sele, fs, ns, root, true);
+		String servicesType = r.getServicesType();
+		if (servicesType == null) { // If there was no explicitly declared service type, then we need need to define the implied one
+			Element ele = root.addElement(new QName("complexType", ns));
+			ele.addAttribute("name", listName);
+			Element sele = ele.addElement(new QName("sequence", ns));
+			for (FieldSet fs : r.getChildren("")) {
+				generateDataEntry(sele, fs, ns, root, true);
+			}
 		}
 
 	}
 
 	private void generateDataEntry(Element ele, FieldSet fs, Namespace ns,
 			Element root, Boolean isRepeat) {
+		String listName = fs.getServicesTag();
+
+		// If we find a "GroupField" then we need to create a new complex type that corresponds
+		// to the "GroupField's" structured types -e.g., structuredData and dimension types.
+		if (fs.isAGroupField() == true) {
+			String groupFieldType = generateFieldGroup(fs, ele, ns, root);
+			fs.setServicesType(groupFieldType);
+		}
+		
 		if (fs instanceof Field) {
+			Field ffs = (Field)fs;
 			// <xs:element name="csid" type="xs:string"/>
 			Element field = ele.addElement(new QName("element", ns));
-			field.addAttribute("name", fs.getServicesTag());
-			field.addAttribute("type", "xs:string");
-			if(isRepeat){
+			field.addAttribute("name", ffs.getServicesTag());
+			String servicesType = ffs.getServicesType();
+			String fieldType = "xs:string";
+			if (servicesType != null) {
+				fieldType = servicesType;
+			}
+			field.addAttribute("type", fieldType);
+			if (isRepeat){
 				field.addAttribute("minOccurs", "0");
 				field.addAttribute("maxOccurs", "unbounded");
 			}
 		}
-		if (fs instanceof Repeat) {
+		if (fs instanceof Repeat) { // Group is an instance of Repeat
 			Repeat rfs = (Repeat) fs;
-			String listName = rfs.getServicesTag();
 			if (rfs.hasServicesParent()) {
 				// group repeatable
 				// <xs:element name="objectNameList" type="ns:objectNameList"/>
@@ -99,8 +150,19 @@ public class MakeXsd {
 				Element field = ele.addElement(new QName("element", ns));
 				field.addAttribute("name", rfs.getServicesTag());
 
-				listName = rfs.getChildren("")[0].getServicesTag() + "List";
-				field.addAttribute("type", listName);
+				FieldSet[] fieldSetArray = rfs.getChildren("");
+				if (fieldSetArray != null && fieldSetArray.length > 0) {
+					listName = rfs.getChildren("")[0].getServicesTag() + "List";
+					field.addAttribute("type", listName);
+				} else { // If there is no children to define the type, there better be an explicit services type declaration
+					String servicesType = rfs.getServicesType();
+					if (servicesType != null) {
+						field.addAttribute("type", servicesType);
+					} else {
+						log.error("Repeat/Group fieldset child array was null or the first element was null. Field attribute name: " 
+								+ field.toString());
+					}
+				}
 
 			}
 			generateRepeat(rfs, root, ns, listName);

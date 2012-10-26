@@ -4,14 +4,14 @@
 	<groupId>org.collectionspace</groupId>
 	<artifactId>war-entry</artifactId>
 	<packaging>war</packaging>
-	<version>1.0-SNAPSHOT</version>
+	<version>3.1-SNAPSHOT</version>
 	<name>Core</name>
 	<url>http://maven.apache.org</url>
 
 	<parent>
 		<groupId>org.collectionspace</groupId>
 		<artifactId>svcapp</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<version>3.1-SNAPSHOT</version>
 	</parent>
 
 	<profiles>
@@ -44,7 +44,7 @@
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>tomcat-main</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>3.1-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
 
@@ -81,8 +81,8 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
+					<source>1.6</source>
+					<target>1.6</target>
 					<optimize>true</optimize>
 				</configuration>
 			</plugin>

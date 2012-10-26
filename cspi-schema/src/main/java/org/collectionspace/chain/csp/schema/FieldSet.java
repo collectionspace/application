@@ -63,6 +63,7 @@ public interface FieldSet {
 	public Record getSelfRendererRecord();
 	
 	//
+	public Boolean isAGroupField();	
 	public Boolean hasAutocompleteInstance();
 	public Boolean hasMergeData();
 	public List<String> getAllMerge();
@@ -77,4 +78,8 @@ public interface FieldSet {
 	public String getUIFunc();
 	public String getWithCSID();
 	public String getSearchType();
+	
+	public void setServicesType(String servicesType);
+	public String getServicesType();
+	
 }

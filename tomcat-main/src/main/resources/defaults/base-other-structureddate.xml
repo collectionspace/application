@@ -1,6 +1,6 @@
 
 
-            <record id="structureddate" in-recordlist="no" separate-record="false">
+            <record id="structureddate" in-recordlist="no" separate-record="false" services-type="structuredDateGroup">
                 <section id="structuredDateInformation">
                     <field id="dateNote">
                         <selector>dateNote</selector>
