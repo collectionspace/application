@@ -94,7 +94,8 @@
                         </options>
                     </field>
                     <field id="propComments"/>
-                    <repeat id="scarStratList">
+                    <field id="numStarted"/>
+                    <repeat id="scarStratGroupList/scarStratGroup">
                         <field id="scarStrat">
                             <options>
                                 <option id="" default="yes">Please select a value</option>
@@ -102,8 +103,18 @@
                                 <option id="bar">bar</option>
                             </options>
                         </field>
+                        <field id="duration"/>
+                        <field id="durationUnit">
+                            <options>
+                                <option id="" default="yes">Please select a value</option>
+                                <option id="days">Days</option>
+                                <option id="weeks">Weeks</option>
+                                <option id="months">Months</option>
+                            </options>
+                        </field>
                     </repeat>                    
                     <field id="extraSeeds" datatype="boolean"/>
+                    <field id="spores" datatype="boolean"/>
                     <field id="cuttingType">
                         <options>
                             <option id="" default="yes">Please select a value</option>
@@ -120,6 +131,13 @@
                     </field>
                     <field id="concentration"/>
                     <field id="wounded" datatype="boolean"/>
+                    <field id="plantType">
+                        <options>
+                            <option id="" default="yes">Please select a value</option>
+                            <option id="foo">foo</option>
+                            <option id="bar">bar</option>
+                        </options>
+                    </field>
                     <field id="germinationDate" ui-type="date"/>
                     <field id="successRate"/>
                     
@@ -171,13 +189,14 @@
                         </field>
                         <field id="nurseryLocation" autocomplete="place-place"/>
                         <field id="conditions"/>
-                        <field id="fungicide">
+                        <field id="chemicalApplied">
                             <options>
                                 <option id="" default="yes">Please select a value</option>
                                 <option id="foo">foo</option>
                                 <option id="bar">bar</option>
                             </options>
                         </field>
+                        <field id="activityConcentration"/>
                         <field id="activityComments"/>
                     </repeat>
                 </section>
