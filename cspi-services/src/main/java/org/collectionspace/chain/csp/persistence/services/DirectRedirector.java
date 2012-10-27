@@ -6,7 +6,6 @@
  */
 package org.collectionspace.chain.csp.persistence.services;
 
-import org.collectionspace.chain.csp.persistence.services.RefName;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.core.CSPRequestCache;
@@ -15,6 +14,7 @@ import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
+import org.collectionspace.services.common.api.RefName;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
