@@ -60,6 +60,8 @@
 			</options>
 		</field>
 		<repeat id="taxonAuthorGroupList/taxonAuthorGroup">
+			<!-- Add group to autocomplete -->
+			<field id="taxonAuthor" autocomplete="person-person,organization-group_org"/>
 			<field id="taxonAuthorType">
 				<options>
 					<option id="" default="yes">Please select a value</option>
@@ -139,7 +141,12 @@
 			</options>
 		</field>
 		
-		<repeat id="commonNameGroupList/commonNameGroup" section="naturalhistory">
+		<repeat id="plantAttributesGroupList/plantAttributesGroup"> -->
+			<!-- Add autocomplete -->
+			<field id="conservationCategory" autocomplete="concept-conservation_ca"/>
+		</repeat>
+		
+		<repeat id="commonNameGroupList/commonNameGroup">
 			<!-- Change autocomplete to taxon-common -->
 			<field id="commonName" autocomplete="taxon-common"/>
 		</repeat>

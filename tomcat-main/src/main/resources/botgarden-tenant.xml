@@ -20,7 +20,7 @@
 			<include src="base-procedure-media.xml,local-procedure-media.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-movement.xml,local-procedure-movement.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-propagation.xml"/>
-			<include src="base-procedure-objectexit.xml,naturalhistory-procedure-objectexit.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-objectexit.xml,naturalhistory-procedure-objectexit.xml,local-procedure-objectexit.xml" merge="xmlmerge.properties"/>
 
 			<include src="base-authority-contact.xml,naturalhistory-authority-contact.xml" merge="xmlmerge.properties"/>
             

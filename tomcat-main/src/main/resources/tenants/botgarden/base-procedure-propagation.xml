@@ -187,7 +187,7 @@
                                 <option id="bar">bar</option>
                             </options>
                         </field>
-                        <field id="nurseryLocation" autocomplete="place-place"/>
+                        <field id="nurseryLocation" autocomplete="location-location"/>
                         <field id="conditions"/>
                         <field id="chemicalApplied">
                             <options>

@@ -14,10 +14,7 @@
 				<option id="jeps-accession" sample="JEPS100000">Jepson Accession</option>
 			</options>
 		</field>
-				
-		<field id="deadFlag" datatype="boolean" section="botgarden"/>
-		<field id="deadDate" ui-type="date" section="botgarden"/>
-        
+
 		<repeat id="otherNumberList/otherNumber">
 			<field id="numberType">
 				<options>
@@ -45,14 +42,28 @@
 			</options>
 		</field>
 		<field id="recordStatus">
-	      <options>
+		  <options>
 			<option id="none" default="yes">None</option>
 			<option id="partial">Partial</option>
 			<option id="complete">Complete</option>
-	      </options>
-	    </field>
+		  </options>
+		</field>
+		<repeat id="taxonomicIdentGroupList/taxonomicIdentGroup">
+			<!-- Change organization-organization to organization-group_org -->
+			<field id="identBy" autocomplete="person-person,organization-group_org"/>
+		</repeat>
 		<field id="labelHeader" autocomplete="concept-concept"/>
 		<field id="labelFooter" autocomplete="concept-concept"/>
+		
+		<repeat id="typeSpecimenGroupList/typeSpecimenGroup">
+			<!-- Change autocomplete -->
+			<field id="typeSpecimenAssertionBy" autocomplete="person-person,organization-group_org"/>
+		</repeat>
+	
+		<!-- Local fields -->
+		
+		<field id="deadFlag" datatype="boolean" section="botgarden"/>
+		<field id="deadDate" ui-type="date" section="botgarden"/>
 	</section>
 	
 	<section id="descriptionInformation">
@@ -90,6 +101,10 @@
 				</options>			
 			</field>
 		</repeat>
+		<repeat id="annotationGroupList/annotationGroup">
+			<!-- Add groups to autocomplete -->
+			<field id="annotationAuthor" autocomplete="person-person,organization-group_org"/>
+		</repeat>
 		<field id="handwritten" section="botgarden">
 			<options>
 				<option id="" default="yes">Please select a value</option>
@@ -108,153 +123,163 @@
 		
 		<field id="cbdRestriction" datatype="boolean" section="botgarden"/>
 
-	    <field id="flowerColor" section="botgarden"/>
-	    <field id="fruitColor" section="botgarden"/>
-   		<field id="propagationHistory" section="botgarden">
-   		    <options>
-   		        <option id="" default="yes">Please select a value</option>
-   		        <option id="individual wild plant">individual wild plant</option>
-   		        <option id="sexual reproduction">sexual reproduction</option>
-   		        <option id="open breeding">open breeding</option>
-   		        <option id="controlled breeding">controlled breeding</option>
-   		        <option id="isolated self-polinated">isolated self-polinated</option>
-   		        <option id="derived asexually">derived asexually</option>
-   		        <option id="vegetative reproduction">vegetative reproduction</option>
-   		        <option id="apomictic cloning">apomictic cloning</option>
-   		        <option id="unknown">unknown</option>
-   		    </options>
-   		</field>
-   		<field id="breedingSystem" section="botgarden">
-   		    <options>
-   		        <option id="" default="yes">Please select a value</option>
-   		        <option id="male">male</option>
-   		        <option id="female">female</option>
-   		        <option id="both">both</option>
-   		        <option id="dioecious and unknown sex">dioecious and unknown sex</option>
-   		        <option id="monoecious and self-compatible">monoecious and self-compatible</option>
-   		        <option id="monoecious and self-incompatible">monoecious and self-incompatible</option>
-   		        <option id="agamospermy">agamospermy</option>
-   		        <option id="unknown">unknown</option>
-   		    </options>
-   		</field>
-   		<field id="classUse" datatype="boolean" section="botgarden"/>
-   		<field id="researchUse" datatype="boolean" section="botgarden"/>
-   		<field id="ignoreRedDot" datatype="boolean" section="botgarden"/>
-   		<field id="fragrance" datatype="boolean" section="botgarden"/>
-   		<field id="flowersJan" section="botgarden">
-   		    <options>
-   		        <option id="No" default="yes">No</option>
-   		        <option id="Some">Some</option>
-   		        <option id="Many">Many</option>
-   		    </options>
-   		</field>
-   		<field id="flowersFeb" section="botgarden">
-   		    <options>
-   		        <option id="No" default="yes">No</option>
-   		        <option id="Some">Some</option>
-   		        <option id="Many">Many</option>
-   		    </options>
-   		</field>
-   		<field id="flowersMar" section="botgarden">
-   		    <options>
-   		        <option id="No" default="yes">No</option>
-   		        <option id="Some">Some</option>
-   		        <option id="Many">Many</option>
-   		    </options>
-   		</field>
-   		<field id="flowersApr" section="botgarden">
-   		    <options>
-   		        <option id="No" default="yes">No</option>
-   		        <option id="Some">Some</option>
-   		        <option id="Many">Many</option>
-   		    </options>
-   		</field>
-   		<field id="flowersMay" section="botgarden">
-   		    <options>
-   		        <option id="No" default="yes">No</option>
-   		        <option id="Some">Some</option>
-   		        <option id="Many">Many</option>
-   		    </options>
-   		</field>
-   		<field id="flowersJun" section="botgarden">
-   		    <options>
-   		        <option id="No" default="yes">No</option>
-   		        <option id="Some">Some</option>
-   		        <option id="Many">Many</option>
-   		    </options>
-   		</field>
-   		<field id="flowersJul" section="botgarden">
-   		    <options>
-   		        <option id="No" default="yes">No</option>
-   		        <option id="Some">Some</option>
-   		        <option id="Many">Many</option>
-   		    </options>
-   		</field>
-   		<field id="flowersAug" section="botgarden">
-   		    <options>
-   		        <option id="No" default="yes">No</option>
-   		        <option id="Some">Some</option>
-   		        <option id="Many">Many</option>
-   		    </options>
-   		</field>
-   		<field id="flowersSep" section="botgarden">
-   		    <options>
-   		        <option id="No" default="yes">No</option>
-   		        <option id="Some">Some</option>
-   		        <option id="Many">Many</option>
-   		    </options>
-   		</field>
-   		<field id="flowersOct" section="botgarden">
-   		    <options>
-   		        <option id="No" default="yes">No</option>
-   		        <option id="Some">Some</option>
-   		        <option id="Many">Many</option>
-   		    </options>
-   		</field>
-   		<field id="flowersNov" section="botgarden">
-   		    <options>
-   		        <option id="No" default="yes">No</option>
-   		        <option id="Some">Some</option>
-   		        <option id="Many">Many</option>
-   		    </options>
-   		</field>
-   		<field id="flowersDec" section="botgarden">
-   		    <options>
-   		        <option id="No" default="yes">No</option>
-   		        <option id="Some">Some</option>
-   		        <option id="Many">Many</option>
-   		    </options>
-   		</field>
-   		<field id="fruitsJan" datatype="boolean" section="botgarden"/>
-   		<field id="fruitsFeb" datatype="boolean" section="botgarden"/>
-   		<field id="fruitsMar" datatype="boolean" section="botgarden"/>
-   		<field id="fruitsApr" datatype="boolean" section="botgarden"/>
-   		<field id="fruitsMay" datatype="boolean" section="botgarden"/>
-   		<field id="fruitsJun" datatype="boolean" section="botgarden"/>
-   		<field id="fruitsJul" datatype="boolean" section="botgarden"/>
-   		<field id="fruitsAug" datatype="boolean" section="botgarden"/>
-   		<field id="fruitsSep" datatype="boolean" section="botgarden"/>
-   		<field id="fruitsOct" datatype="boolean" section="botgarden"/>
-   		<field id="fruitsNov" datatype="boolean" section="botgarden"/>
-   		<field id="fruitsDec" datatype="boolean" section="botgarden"/>
+		<field id="flowerColor" section="botgarden"/>
+		<field id="fruitColor" section="botgarden"/>
+		<field id="propagationHistory" section="botgarden">
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="individual wild plant">individual wild plant</option>
+				<option id="sexual reproduction">sexual reproduction</option>
+				<option id="open breeding">open breeding</option>
+				<option id="controlled breeding">controlled breeding</option>
+				<option id="isolated self-polinated">isolated self-polinated</option>
+				<option id="derived asexually">derived asexually</option>
+				<option id="vegetative reproduction">vegetative reproduction</option>
+				<option id="apomictic cloning">apomictic cloning</option>
+				<option id="unknown">unknown</option>
+			</options>
+		</field>
+		<field id="breedingSystem" section="botgarden">
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="male">male</option>
+				<option id="female">female</option>
+				<option id="both">both</option>
+				<option id="dioecious and unknown sex">dioecious and unknown sex</option>
+				<option id="monoecious and self-compatible">monoecious and self-compatible</option>
+				<option id="monoecious and self-incompatible">monoecious and self-incompatible</option>
+				<option id="agamospermy">agamospermy</option>
+				<option id="unknown">unknown</option>
+			</options>
+		</field>
+		<field id="classUse" datatype="boolean" section="botgarden"/>
+		<field id="researchUse" datatype="boolean" section="botgarden"/>
+		<field id="ignoreRedDot" datatype="boolean" section="botgarden"/>
+		<field id="fragrance" datatype="boolean" section="botgarden"/>
+		<field id="flowersJan" section="botgarden">
+			<options>
+				<option id="No" default="yes">No</option>
+				<option id="Some">Some</option>
+				<option id="Many">Many</option>
+			</options>
+		</field>
+		<field id="flowersFeb" section="botgarden">
+			<options>
+				<option id="No" default="yes">No</option>
+				<option id="Some">Some</option>
+				<option id="Many">Many</option>
+			</options>
+		</field>
+		<field id="flowersMar" section="botgarden">
+			<options>
+				<option id="No" default="yes">No</option>
+				<option id="Some">Some</option>
+				<option id="Many">Many</option>
+			</options>
+		</field>
+		<field id="flowersApr" section="botgarden">
+			<options>
+				<option id="No" default="yes">No</option>
+				<option id="Some">Some</option>
+				<option id="Many">Many</option>
+			</options>
+		</field>
+		<field id="flowersMay" section="botgarden">
+			<options>
+				<option id="No" default="yes">No</option>
+				<option id="Some">Some</option>
+				<option id="Many">Many</option>
+			</options>
+		</field>
+		<field id="flowersJun" section="botgarden">
+			<options>
+				<option id="No" default="yes">No</option>
+				<option id="Some">Some</option>
+				<option id="Many">Many</option>
+			</options>
+		</field>
+		<field id="flowersJul" section="botgarden">
+			<options>
+				<option id="No" default="yes">No</option>
+				<option id="Some">Some</option>
+				<option id="Many">Many</option>
+			</options>
+		</field>
+		<field id="flowersAug" section="botgarden">
+			<options>
+				<option id="No" default="yes">No</option>
+				<option id="Some">Some</option>
+				<option id="Many">Many</option>
+			</options>
+		</field>
+		<field id="flowersSep" section="botgarden">
+			<options>
+				<option id="No" default="yes">No</option>
+				<option id="Some">Some</option>
+				<option id="Many">Many</option>
+			</options>
+		</field>
+		<field id="flowersOct" section="botgarden">
+			<options>
+				<option id="No" default="yes">No</option>
+				<option id="Some">Some</option>
+				<option id="Many">Many</option>
+			</options>
+		</field>
+		<field id="flowersNov" section="botgarden">
+			<options>
+				<option id="No" default="yes">No</option>
+				<option id="Some">Some</option>
+				<option id="Many">Many</option>
+			</options>
+		</field>
+		<field id="flowersDec" section="botgarden">
+			<options>
+				<option id="No" default="yes">No</option>
+				<option id="Some">Some</option>
+				<option id="Many">Many</option>
+			</options>
+		</field>
+		<field id="fruitsJan" datatype="boolean" section="botgarden"/>
+		<field id="fruitsFeb" datatype="boolean" section="botgarden"/>
+		<field id="fruitsMar" datatype="boolean" section="botgarden"/>
+		<field id="fruitsApr" datatype="boolean" section="botgarden"/>
+		<field id="fruitsMay" datatype="boolean" section="botgarden"/>
+		<field id="fruitsJun" datatype="boolean" section="botgarden"/>
+		<field id="fruitsJul" datatype="boolean" section="botgarden"/>
+		<field id="fruitsAug" datatype="boolean" section="botgarden"/>
+		<field id="fruitsSep" datatype="boolean" section="botgarden"/>
+		<field id="fruitsOct" datatype="boolean" section="botgarden"/>
+		<field id="fruitsNov" datatype="boolean" section="botgarden"/>
+		<field id="fruitsDec" datatype="boolean" section="botgarden"/>
 	</section>
 		
 	<section id="objectCollectionInformation">
 		<repeat id="fieldCollectors">
-			<!-- Add ui-search, and remove person authority from autocomplete -->
-			<field id="fieldCollector" autocomplete="organization-organization" ui-search="repeatable"/>
+			<!-- Add ui-search, and change autocomplete to organization-collector -->
+			<field id="fieldCollector" autocomplete="organization-collector" ui-search="repeatable"/>
 		</repeat>
+		<!-- Change autocomplete -->
+		<field id="fieldCollectionNumberAssignor" autocomplete="person-person,organization-collector"/>
 	</section>
 
 	<section id="localityInformation">
 		<repeat id="localityGroupList/localityGroup">
-		    <field id="fieldLocCounty" ui-search="repeatable" section="naturalhistory" autocomplete="vocab-county" ui-type="enum"/>
-			<field id="fieldLocState" ui-search="repeatable" section="naturalhistory" autocomplete="vocab-state" ui-type="enum"/>
-			<field id="fieldLocCountry" ui-search="repeatable" section="naturalhistory" autocomplete="vocab-country" ui-type="enum"/>
+			<!-- Change to dynamic lists -->
+		    <field id="fieldLocCounty" autocomplete="vocab-county" ui-type="enum"><options/></field>
+			<field id="fieldLocState" autocomplete="vocab-state" ui-type="enum"><options/></field>
+			<field id="fieldLocCountry" autocomplete="vocab-country" ui-type="enum"><options/></field>
+			
 			<!-- Configure decimalLatitude and decimalLongitude to be computed -->
 			<field id="decimalLatitude" ui-type="computed" ui-func="cspace.georef.dms2decimal" ui-args="vLatitude" ui-readonly="true"/>
 			<field id="decimalLongitude" ui-type="computed" ui-func="cspace.georef.dms2decimal" ui-args="vLongitude" ui-readonly="true"/>
 		</repeat>
-	</section>	    
+	</section>
 
+	<section id="accessionUseInformation">
+		<repeat id="accessionUseGroupList/accessionUseGroup">
+			<!-- Add autocomplete -->
+			<field id="usedIn" autocomplete="concept-class_ca,concept-research_ca"/>
+		</repeat>
+	</section>
 </record>

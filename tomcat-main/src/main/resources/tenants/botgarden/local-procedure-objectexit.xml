@@ -1,0 +1,6 @@
+<record id="objectexit">
+	<section id="objectexitInformation">
+		<!-- Remove person-person from autocomplete -->
+		<field id="depositor" autocomplete="organization-organization"/>
+	</section>
+</record>

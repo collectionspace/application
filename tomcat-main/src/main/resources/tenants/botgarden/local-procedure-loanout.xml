@@ -20,7 +20,7 @@
 		<!-- Local fields -->
 		
 		<repeat id="collectorList" section="botgarden">
-			<field id="collector" autocomplete="organization-organization" section="botgarden"/>
+			<field id="collector" autocomplete="person-person" section="botgarden"/>
 		</repeat>
 		<field id="collectionNote" section="botgarden"/>
 		<field id="gardenLocation" autocomplete="location-location" section="botgarden"/>
