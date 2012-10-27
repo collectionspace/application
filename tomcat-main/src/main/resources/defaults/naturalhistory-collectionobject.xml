@@ -1651,21 +1651,21 @@
 	</section>
 	
 	<section id="accessionUseInformation">
-	    <repeat id="accessionUseGroupList/accessionUseGroup" section="naturalhistory">
-	        <field id="useType" section="naturalhistory">
-	            <options>
+		<repeat id="accessionUseGroupList/accessionUseGroup" section="naturalhistory">
+			<field id="useType" section="naturalhistory">
+				<options>
 					<option id="" default="yes">Please select a value</option>
-	                <option id="class">Class</option>
-	                <option id="research">Research</option>
-	                <option id="other">Other</option>
-	            </options>
-	        </field>
-	        <field id="usedIn" autocomplete="concept-class_ca,concept-research_ca" section="naturalhistory"/>
-	        <field id="materialType" autocomplete="vocab-collectionobjectmaterialtype" ui-type="enum" section="naturalhistory"/>
-	        <field id="requestDate" ui-type="date" section="naturalhistory"/>
-	        <field id="filledDate" ui-type="date" section="naturalhistory"/>
-	        <field id="useNotes" section="naturalhistory"/>
-	    </repeat>
+					<option id="class">Class</option>
+					<option id="research">Research</option>
+					<option id="other">Other</option>
+				</options>
+			</field>
+			<field id="usedIn" section="naturalhistory"/>
+			<field id="materialType" autocomplete="vocab-collectionobjectmaterialtype" ui-type="enum" section="naturalhistory"/>
+			<field id="requestDate" ui-type="date" section="naturalhistory"/>
+			<field id="filledDate" ui-type="date" section="naturalhistory"/>
+			<field id="useNotes" section="naturalhistory"/>
+		</repeat>
 	</section>
 	
 	<!-- These are only used to create labels for the groupings. -->
