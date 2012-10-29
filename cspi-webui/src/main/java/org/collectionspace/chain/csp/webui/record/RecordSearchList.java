@@ -203,7 +203,7 @@ public class RecordSearchList implements WebMethod {
 			JSONObject restriction = restrictedkey.getJSONObject("restriction");
 			String key = restrictedkey.getString("key");
 			
-			JSONObject results = getResults(storage, restriction, key, path);
+			JSONObject results = getResults(ui, storage, restriction, key, path);
 			//cache for record traverser
 			if(results.has("pagination") && results.getJSONObject("pagination").has("separatelists")){
 				GenericSearch.createTraverser(ui, this.r.getID(), "", results, restriction, key, 1);
@@ -235,7 +235,7 @@ public class RecordSearchList implements WebMethod {
 	 * @throws ExistException 
 	 * @throws JSONException 
 	 */
-	protected JSONObject getResults(Storage storage,JSONObject restriction, String key, String path) throws UIException, JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
+	protected JSONObject getResults(UIRequest request,Storage storage,JSONObject restriction, String key, String path) throws UIException, JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
 
 		JSONObject results = new JSONObject();
 
@@ -273,6 +273,10 @@ public class RecordSearchList implements WebMethod {
 				type = restriction.getString("queryString");
 				results = getJSON(storage,restriction,key,base);
 				results = showReports(results, type, key);
+				int cacheMaxAgeSeconds = spec.getAdminData().getReportListCacheAge();
+				if(cacheMaxAgeSeconds > 0) {
+					request.setCacheMaxAgeSeconds(cacheMaxAgeSeconds);
+				}
 			}
 			else{
 				JSONObject reporting = new JSONObject();

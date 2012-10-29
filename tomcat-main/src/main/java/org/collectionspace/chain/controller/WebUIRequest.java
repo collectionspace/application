@@ -54,6 +54,8 @@ public class WebUIRequest implements UIRequest {
 	private static final Logger log = LoggerFactory.getLogger(WebUIRequest.class);
 	private static final String COOKIENAME="CSPACESESSID";
 	private Integer lifeInMins = 45;
+	
+	private int cacheMaxAgeSeconds = 0;		// Default to no caching
 
 	private HttpServletRequest request;
 	private HttpServletResponse response;
@@ -280,6 +282,13 @@ public class WebUIRequest implements UIRequest {
 		}
 	}
 
+	public int getCacheMaxAgeSeconds() {
+		return cacheMaxAgeSeconds;
+	}
+	public void setCacheMaxAgeSeconds(int cacheMaxAgeSeconds) {
+		this.cacheMaxAgeSeconds = cacheMaxAgeSeconds;
+	}
+	
 	private String aWhileAgoAsExpectedByExpiresHeader() {
 		SimpleDateFormat format=new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss zzz");
 		Date a_while_ago=new Date(new Date().getTime()-24*60*60*1000);
@@ -315,11 +324,16 @@ public class WebUIRequest implements UIRequest {
 				return;
 			}
 			solidified=true;
-			/* We always disable cacheing for now (for IE). We probably want to be cleverer at some point. XXX */
-			response.addHeader("Pragma","no-cache");
-			response.addHeader("Last-Modified",aWhileAgoAsExpectedByExpiresHeader());
-			response.addHeader("Cache-Control","no-store, no-cache, must-revalidate");
-			response.addHeader("Cache-Control","post-check=0, pre-check=0");
+			if(cacheMaxAgeSeconds <= 0) {
+				/* By default, we disable caching for now (for IE). We probably want to be cleverer at some point. XXX */
+				response.addHeader("Pragma","no-cache");
+				response.addHeader("Last-Modified",aWhileAgoAsExpectedByExpiresHeader());
+				response.addHeader("Cache-Control","no-store, no-cache, must-revalidate");
+				response.addHeader("Cache-Control","post-check=0, pre-check=0");
+			} else {
+				// Create a cache header per the timeout requested (usu. by the individual request handler)
+				response.addHeader("Cache-Control","max-age="+Integer.toString(cacheMaxAgeSeconds));
+			}
 			/* End of cacheing stuff */
 			if(failure) {
 				// Failed

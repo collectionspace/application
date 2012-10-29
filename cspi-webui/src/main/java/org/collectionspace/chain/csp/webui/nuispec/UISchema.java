@@ -25,6 +25,7 @@ import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.ui.UIException;
+import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,7 +74,12 @@ public class UISchema extends SchemaStructure implements WebMethod {
 		else{
 			out = uiotherschema(q.getStorage(),StringUtils.join(tail,"/"));
 		}
-		q.getUIRequest().sendJSONResponse(out);
+		UIRequest uir = q.getUIRequest();
+		uir.sendJSONResponse(out);
+		int cacheMaxAgeSeconds = spec.getAdminData().getUiSpecSchemaCacheAge();
+		if(cacheMaxAgeSeconds > 0) {
+			uir.setCacheMaxAgeSeconds(cacheMaxAgeSeconds);
+		}
 	}
 
 	protected void actualValidatedField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{

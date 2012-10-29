@@ -1,7 +1,8 @@
 <cspace-config tenantname="lifesci">
 
 	<version>11</version>
-	<include src="local-settings.xml,settings.xml" strip-root="yes" />
+	<include src="settings.xml,local-lifesci-settings.xml" merge="xmlmerge.properties" 
+		strip-root="yes" />
 
 	<spec>
 		<include src="base-relations.xml" />
