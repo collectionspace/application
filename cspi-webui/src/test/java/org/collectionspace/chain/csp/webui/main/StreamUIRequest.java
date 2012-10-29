@@ -103,7 +103,8 @@ public class StreamUIRequest implements UIRequest {
 		return 0;
 	}
 	public void setCacheMaxAgeSeconds(int cacheMaxAgeSeconds) {
-		// Ignore this for now. Caching composite requests is not really clear.
+		// Ignore this for now. Need to figure out how to set cache for things like report outputs (probably never)
+		// and image blobs (perhaps aggressively?).
 	}
 
 	public void setFailure(boolean isit, Exception why) throws UIException {
