@@ -52,22 +52,18 @@
         <field id="createdAt" section="collectionspace_core" attributes="GET"/>
         <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core"
             attributes="GET" mini="search,list,relate"/>
-    </section>
+    </section>                 
     <section id="organizationNameAuthorityInformation">
         <field id="preferredOrganization" ui-type="groupfield/preferredOA/selfrenderer" ui-func="cspace.preferred">
             <selector>preferred-orgAuthority</selector>
         </field>
-		<!-- FIXME: Add 'ui-search="range"' or equivalent to this field when range search on structured date -->
-		<!-- start and end scalar values is working -->
         <field id="foundingDateGroup" in-title="yes" ui-type="groupfield/structureddate" 
-            primarykey="foundingDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
+            ui-search="range" primarykey="foundingDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
             <selector>organizationAuthority-foundingDate</selector>
             <title-selector>titleBar-foundationDate</title-selector>
         </field>
-		<!-- FIXME: Add 'ui-search="range"' or equivalent to this field when range search on structured date -->
-		<!-- start and end scalar values is working -->
         <field id="dissolutionDateGroup" in-title="yes" ui-type="groupfield/structureddate" 
-            primarykey="dissolutionDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
+            ui-search="range" primarykey="dissolutionDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
             <selector>organizationAuthority-dissolutionDate</selector>
             <title-selector>titleBar-birthDate</title-selector>
         </field>

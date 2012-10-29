@@ -1,4 +1,31 @@
 {
+  ".csc-acquisition-accessionDateGroup-label": {
+    "messagekey": "acquisition-accessionDateGroupLabel"
+  }, 
+  ".csc-acquisition-accessionDateGroupEnd": {
+    "decorators": [
+      {
+        "func": "cspace.datePicker", 
+        "type": "fluid"
+      }
+    ], 
+    "value": "${accessionDateGroupEnd}"
+  }, 
+  ".csc-acquisition-accessionDateGroupEnd-label": {
+    "messagekey": "acquisition-accessionDateGroupEndLabel"
+  }, 
+  ".csc-acquisition-accessionDateGroupStart": {
+    "decorators": [
+      {
+        "func": "cspace.datePicker", 
+        "type": "fluid"
+      }
+    ], 
+    "value": "${accessionDateGroupStart}"
+  }, 
+  ".csc-acquisition-accessionDateGroupStart-label": {
+    "messagekey": "acquisition-accessionDateGroupStartLabel"
+  }, 
   ".csc-acquisition-acquisition-method": {
     "decorators": [
       {
@@ -37,6 +64,33 @@
         "type": "fluid"
       }
     ]
+  }, 
+  ".csc-acquisition-acquisitionDateGroup-label": {
+    "messagekey": "acquisition-acquisitionDateGroupLabel"
+  }, 
+  ".csc-acquisition-acquisitionDateGroupEnd": {
+    "decorators": [
+      {
+        "func": "cspace.datePicker", 
+        "type": "fluid"
+      }
+    ], 
+    "value": "${acquisitionDateGroupEnd}"
+  }, 
+  ".csc-acquisition-acquisitionDateGroupEnd-label": {
+    "messagekey": "acquisition-acquisitionDateGroupEndLabel"
+  }, 
+  ".csc-acquisition-acquisitionDateGroupStart": {
+    "decorators": [
+      {
+        "func": "cspace.datePicker", 
+        "type": "fluid"
+      }
+    ], 
+    "value": "${acquisitionDateGroupStart}"
+  }, 
+  ".csc-acquisition-acquisitionDateGroupStart-label": {
+    "messagekey": "acquisition-acquisitionDateGroupStartLabel"
   }, 
   ".csc-acquisition-acquisitionFunding": {
     "decorators": [

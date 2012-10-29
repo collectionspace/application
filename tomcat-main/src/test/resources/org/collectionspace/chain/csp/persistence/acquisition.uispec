@@ -536,7 +536,7 @@
                       {
                         "func": "cspace.structuredDate", 
                         "options": {
-                          "elPath": "dateDisplayDate", 
+                          "elPath": "acquisitionDateGroup.dateDisplayDate", 
                           "elPaths": {
                             "dateAssociation": "dateAssociation", 
                             "dateDisplayDate": "dateDisplayDate", 
@@ -567,7 +567,7 @@
                         "type": "fluid"
                       }
                     ], 
-                    "value": "${{row}.dateDisplayDate}"
+                    "value": "${{row}.acquisitionDateGroup.dateDisplayDate}"
                   }
                 }, 
                 "type": "fluid.noexpand"
