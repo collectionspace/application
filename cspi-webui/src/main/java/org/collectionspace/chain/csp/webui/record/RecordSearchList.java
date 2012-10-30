@@ -273,9 +273,11 @@ public class RecordSearchList implements WebMethod {
 				type = restriction.getString("queryString");
 				results = getJSON(storage,restriction,key,base);
 				results = showReports(results, type, key);
-				int cacheMaxAgeSeconds = spec.getAdminData().getReportListCacheAge();
-				if(cacheMaxAgeSeconds > 0) {
-					request.setCacheMaxAgeSeconds(cacheMaxAgeSeconds);
+				if(request!=null) {
+					int cacheMaxAgeSeconds = spec.getAdminData().getReportListCacheAge();
+					if(cacheMaxAgeSeconds > 0) {
+						request.setCacheMaxAgeSeconds(cacheMaxAgeSeconds);
+					}
 				}
 			}
 			else{
