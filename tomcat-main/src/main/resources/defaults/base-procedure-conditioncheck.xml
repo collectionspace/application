@@ -143,7 +143,7 @@
             <title-selector>titleBar-conditioncheck-reference-number</title-selector>
             <container-selector>conditioncheck-reference-number-patternChooserContainer</container-selector>
             <options>
-                <option id="conditioncheck" sample="CD2012.1.1">Condition Check</option>
+                <option id="conditioncheck" sample="CC2012.1.1">Condition Check</option>
             </options>
         </field>
         <field id="conditionChecker" autocomplete="person-person,organization-organization"></field>
