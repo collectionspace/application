@@ -28,11 +28,19 @@
 			<field id="economicUse" section="naturalhistory" datatype="boolean"/>
 		</repeat>
 		
-		<repeat id="commonNameGroupList/commonNameGroup" section="naturalhistory">
-			<field id="commonName" section="naturalhistory" autocomplete="taxon-taxon"/>
-			<field id="commonNameLanguage" section="naturalhistory" autocomplete="vocab-languages" ui-type="enum"/>
-			<field id="commonNameSource" section="naturalhistory"/>
-			<field id="commonNameSourceDetail" section="naturalhistory"/>
+		<repeat id="naturalHistoryCommonNameGroupList/naturalHistoryCommonNameGroup" section="naturalhistory">
+			<field id="naturalHistoryCommonName" section="naturalhistory" autocomplete="taxon-taxon"/>
+			<field id="naturalHistoryCommonNameLanguage" section="naturalhistory" autocomplete="vocab-languages" ui-type="enum"/>
+			<field id="naturalHistoryCommonNameSource" section="naturalhistory"/>
+			<field id="naturalHistoryCommonNameSourceDetail" section="naturalhistory"/>
+			<field id="naturalHistoryCommonNameType" section="naturalhistory">
+			    <options>
+			        <option id="" default="yes">Please select a value</option>
+			        <option id="preferred">Preferred</option>
+			        <option id="secondary">Secondary</option>
+			        <option id="rejected">Rejected</option>
+			    </options>
+			</field>
 		</repeat>
 
 		<repeat id="relatedTermGroupList/relatedTermGroup" section="naturalhistory">

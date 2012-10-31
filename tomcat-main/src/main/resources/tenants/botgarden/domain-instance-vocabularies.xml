@@ -1364,15 +1364,4 @@
 			<option id="Zhonghua">Zhonghua</option>
         </options>
     </instance>
-    <instance id="vocab-persontermtype">
-        <web-url>persontermtype</web-url>
-        <title-ref>persontermtype</title-ref>
-        <title>personTermType</title>
-        <options>
-                <option id="kewabbr">kewabbr</option>
-                <option id="preferred">preferred</option>
-                <option id="alias">alias</option>
-                <option id="abbreviation">abbreviation</option>
-        </options>
-    </instance>
 </root>
