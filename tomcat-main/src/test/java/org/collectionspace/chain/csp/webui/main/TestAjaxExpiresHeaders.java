@@ -43,8 +43,10 @@ public class TestAjaxExpiresHeaders {
 	 * work well. Perhaps we should instead create something and verify that it does not
 	 * have cache headers. OTOH, we will likely move away from the pragma headers, since
 	 * that is no longer a major platform issue. At some point, we can revisit.
+	 */
 	@SuppressWarnings("unchecked")
 	@Test public void testNoCacheHeaders() throws Exception {
+		/*
 		HttpTester out = tester.GETData("/intake/uispec",jetty);
 		assertEquals("no-cache",out.getHeader("pragma"));
 		String last_modified=out.getHeader("Last-Modified");
@@ -61,6 +63,6 @@ public class TestAjaxExpiresHeaders {
 			else to_get|=4;
 		}
 		assertEquals(3,to_get);
-	}
 	 */
+	}
 }
