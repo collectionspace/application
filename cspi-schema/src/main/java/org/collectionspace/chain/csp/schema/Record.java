@@ -97,6 +97,12 @@ public class Record implements FieldParent {
 		// standard = singular form of the concept
 		utils.initStrings(section,"@id",null);
 		whoamI = utils.getString("@id");
+		
+		//
+		// The name for used to create the Services XML Schema.
+		//
+		utils.initStrings(section, "@services-type", null);
+		
 		// record,authority,compute-displayname can have multiple types using
 		// commas
 		utils.initSet(section,"@type",new String[] { "record" });
@@ -109,9 +115,7 @@ public class Record implements FieldParent {
 
 		//Record differentiates between things like structureddates and procedures
 		utils.initBoolean(section,"@separate-record",true);
-		
-		
-		
+				
 		// config whether service layer needs call as multipart or not - authorization is not currently multipart
 		utils.initBoolean(section,"is-multipart",true);
 
@@ -459,6 +463,10 @@ public class Record implements FieldParent {
 	public String getUILabel(String id){
 		return utils.getString("@id") + "-" + id + "Label";
 	}
+	public String getServicesType() {
+		String result = utils.getString("@services-type");
+		return result;
+	}	
 	public String getUILabelSelector(String id){
 		return getPreSelector()  + utils.getString("@id") + "-" +  id + "-label";
 	}

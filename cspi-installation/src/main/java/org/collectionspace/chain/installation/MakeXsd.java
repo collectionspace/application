@@ -28,7 +28,7 @@ public class MakeXsd {
 	protected TenantSpec tenantSpec;
 	protected Storage storage;
 	protected String section;
-	protected HashMap<String, Boolean> defineGroupFields = new HashMap<String, Boolean>();
+	protected HashMap<String, Boolean> definedGroupFields = new HashMap<String, Boolean>();
 
 
 	public MakeXsd(TenantSpec td, String section) {
@@ -36,14 +36,17 @@ public class MakeXsd {
 		this.section = section;
 	}
 	
+	/*
+	 * This method generates an XML Schema complex type definition for "ui-type" config attributes -e.g., "groupfield/structureddate"
+	 */
 	private String generateFieldGroup(FieldSet fieldSet, Element ele, Namespace ns,
 			Element root) {
 		String type = fieldSet.getServicesType();
 		Spec spec = fieldSet.getRecord().getSpec();
 		Record record = spec.getRecord(type);
-		String servicesType = record.getServicesURL();
+		String servicesType = record.getServicesType();
 		
-		if (defineGroupFields.containsKey(servicesType) == false) {
+		if (definedGroupFields.containsKey(servicesType) == false) {
 			Element complexElement = ele.addElement(new QName("complexType", ns));
 			complexElement.addAttribute("name", servicesType);
 			Element sequenced = complexElement.addElement(new QName("sequence", ns));
@@ -51,14 +54,14 @@ public class MakeXsd {
 			for (FieldSet subRecordFieldSet : record.getAllFieldTopLevel("")) {
 				generateDataEntry(sequenced, subRecordFieldSet, ns, root, false);
 			}
-			defineGroupFields.put(servicesType, true); // We only need to define the complex type once.
+			definedGroupFields.put(servicesType, true); // We only need to define the complex type once.
 		}
 		
 		return servicesType;
 	}
-
-	private void generateRepeat(Repeat r, Element root, Namespace ns,
-			String listName) {
+	
+	private void generateRepeat(Repeat r, Element fieldElement, String listName, Namespace ns,
+			Element root) {
 
 		if (r.hasServicesParent()) { // for example, something like this "assocPersonGroupList/assocPersonGroup" where the left side of the '/' char is the services parent
 			Element sequenced = null;
@@ -97,11 +100,16 @@ public class MakeXsd {
 
 		String servicesType = r.getServicesType();
 		if (servicesType == null) { // If there was no explicitly declared service type, then we need need to define the implied one
-			Element ele = root.addElement(new QName("complexType", ns));
-			ele.addAttribute("name", listName);
+			Element ele = fieldElement.addElement(new QName("complexType", ns));
+			if (r.hasServicesParent() == true) {
+				ele.addAttribute("name", listName);
+			}
 			Element sele = ele.addElement(new QName("sequence", ns));
 			for (FieldSet fs : r.getChildren("")) {
-				generateDataEntry(sele, fs, ns, root, true);
+				if (fs instanceof Repeat) {
+					System.err.println();
+				}
+				generateDataEntry(sele, fs, ns, root, fs instanceof Repeat);
 			}
 		}
 
@@ -111,8 +119,8 @@ public class MakeXsd {
 			Element root, Boolean isRepeat) {
 		String listName = fs.getServicesTag();
 
-		// If we find a "GroupField" then we need to create a new complex type that corresponds
-		// to the "GroupField's" structured types -e.g., structuredData and dimension types.
+		// If we find a "GroupField" (e.g., ui-type="groupfield/structureddate") then we need to create a new complex type that corresponds
+		// to the "GroupField's" structured types -e.g., structuredData and dimension types 
 		if (fs.isAGroupField() == true) {
 			String groupFieldType = generateFieldGroup(fs, ele, ns, root);
 			fs.setServicesType(groupFieldType);
@@ -135,37 +143,39 @@ public class MakeXsd {
 			}
 		}
 		if (fs instanceof Repeat) { // Group is an instance of Repeat
+			Element fieldElement = root;
 			Repeat rfs = (Repeat) fs;
 			if (rfs.hasServicesParent()) {
 				// group repeatable
 				// <xs:element name="objectNameList" type="ns:objectNameList"/>
-				Element field = ele.addElement(new QName("element", ns));
-				field.addAttribute("name", rfs.getServicesParent()[0]);
+				Element newField = ele.addElement(new QName("element", ns));
+				newField.addAttribute("name", rfs.getServicesParent()[0]);
 				Namespace groupns = new Namespace("ns", "");
-				field.addAttribute("type", "ns:" + rfs.getServicesParent()[0]);
+				newField.addAttribute("type", "ns:" + rfs.getServicesParent()[0]);
 			} else {
 				// single repeatable
 				// <xs:element name="responsibleDepartments"
 				// type="responsibleDepartmentList"/>
-				Element field = ele.addElement(new QName("element", ns));
-				field.addAttribute("name", rfs.getServicesTag());
+				fieldElement = ele.addElement(new QName("element", ns));
+				fieldElement.addAttribute("name", rfs.getServicesTag());
 
 				FieldSet[] fieldSetArray = rfs.getChildren("");
 				if (fieldSetArray != null && fieldSetArray.length > 0) {
-					listName = rfs.getChildren("")[0].getServicesTag() + "List";
-					field.addAttribute("type", listName);
+//					listName = rfs.getChildren("")[0].getServicesTag() + "List";
+//					fieldElement.addAttribute("type", listName);
+					System.out.println();
 				} else { // If there is no children to define the type, there better be an explicit services type declaration
 					String servicesType = rfs.getServicesType();
 					if (servicesType != null) {
-						field.addAttribute("type", servicesType);
+						fieldElement.addAttribute("type", servicesType);
 					} else {
 						log.error("Repeat/Group fieldset child array was null or the first element was null. Field attribute name: " 
-								+ field.toString());
+								+ fieldElement.toString());
 					}
 				}
 
 			}
-			generateRepeat(rfs, root, ns, listName);
+			generateRepeat(rfs, fieldElement, listName, ns, root);
 		}
 
 	}

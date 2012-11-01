@@ -71,7 +71,6 @@
       </merges>
     </field>
   </section>
-  
   <section id="identificationInformation">
     <field id="objectNumber" ui-search="repeatable" chooser="yes" in-title="yes" in-tab="yes"
       display-name="yes" mini="number,search,list,relate" seperate_ui_container="true">
@@ -244,11 +243,7 @@
         <selector>object-identification-object-name</selector>
       </field>
     </repeat>
-    
-    <include src="rem-include.xml" strip-root="yes"/>
-
   </section>
-  
   <section id="descriptionInformation">
     <field id="copyNumber" ui-search="repeatable">
       <selector>object-description-copy-number</selector>
