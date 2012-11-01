@@ -27,6 +27,7 @@ public class AdminData {
 	int termListCacheAge = 0;
 	int autocompleteListCacheAge = 0;
 	int reportListCacheAge = 0;
+	int uploadedMediaCacheAge = 0;
 	int uiSpecSchemaCacheAge = 0;
 	int uiStaticHTMLResourcesCacheAge = 0; 
 	int uiStaticCSSResourcesCacheAge = 0; 
@@ -58,6 +59,11 @@ public class AdminData {
 		stringMinutes = (String) section.getValue("/reportlist-cache-timeout");
 		if (!StringUtils.isEmpty(stringMinutes)) {
 			reportListCacheAge = Integer.parseInt(stringMinutes);
+		}
+
+		stringMinutes = (String) section.getValue("/uploaded-media-cache-timeout");
+		if (!StringUtils.isEmpty(stringMinutes)) {
+			uploadedMediaCacheAge = Integer.parseInt(stringMinutes);
 		}
 
 		stringMinutes = (String) section.getValue("/uispecschema-cache-timeout");
@@ -124,6 +130,10 @@ public class AdminData {
 
 	public int getReportListCacheAge() {
 		return reportListCacheAge;
+	}
+
+	public int getUploadedMediaCacheAge() {
+		return uploadedMediaCacheAge;
 	}
 
 	public int getUiSpecSchemaCacheAge() {

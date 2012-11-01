@@ -11,6 +11,8 @@
         <termlist-cache-timeout>2592000</termlist-cache-timeout>
         <autocompletelist-cache-timeout>2592000</autocompletelist-cache-timeout>
         <reportlist-cache-timeout>2592000</reportlist-cache-timeout>
+				<!-- This is for user-uploaded media, not static UI images -->
+        <uploaded-media-cache-timeout>2592000</uploaded-media-cache-timeout>
         <uispecschema-cache-timeout>2592000</uispecschema-cache-timeout>
         <ui-html-cache-timeout>2592000</ui-html-cache-timeout>
         <ui-css-cache-timeout>2592000</ui-css-cache-timeout>

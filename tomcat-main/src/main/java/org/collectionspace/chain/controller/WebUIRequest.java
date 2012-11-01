@@ -309,6 +309,19 @@ public class WebUIRequest implements UIRequest {
 	
 	public void solidify(boolean close) throws UIException {
 		try {
+			// Need to handle caching before we deal with the binary output. We have to add headers before
+			// we write all the data. 
+			if(cacheMaxAgeSeconds <= 0) {
+				/* By default, we disable caching for now (for IE). We probably want to be cleverer at some point. XXX */
+				response.addHeader("Pragma","no-cache");
+				response.addHeader("Last-Modified",aWhileAgoAsExpectedByExpiresHeader());
+				response.addHeader("Cache-Control","no-store, no-cache, must-revalidate");
+				response.addHeader("Cache-Control","post-check=0, pre-check=0");
+			} else {
+				// Create a cache header per the timeout requested (usu. by the individual request handler)
+				response.addHeader("Cache-Control","max-age="+Integer.toString(cacheMaxAgeSeconds));
+			}
+			/* End of cacheing stuff */
 			if(out_data!=null) {
 				out=response.getWriter();
 				out.print(out_data);
@@ -324,17 +337,6 @@ public class WebUIRequest implements UIRequest {
 				return;
 			}
 			solidified=true;
-			if(cacheMaxAgeSeconds <= 0) {
-				/* By default, we disable caching for now (for IE). We probably want to be cleverer at some point. XXX */
-				response.addHeader("Pragma","no-cache");
-				response.addHeader("Last-Modified",aWhileAgoAsExpectedByExpiresHeader());
-				response.addHeader("Cache-Control","no-store, no-cache, must-revalidate");
-				response.addHeader("Cache-Control","post-check=0, pre-check=0");
-			} else {
-				// Create a cache header per the timeout requested (usu. by the individual request handler)
-				response.addHeader("Cache-Control","max-age="+Integer.toString(cacheMaxAgeSeconds));
-			}
-			/* End of cacheing stuff */
 			if(failure) {
 				// Failed
 				response.setStatus(400);
