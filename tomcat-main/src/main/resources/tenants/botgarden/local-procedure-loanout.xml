@@ -33,7 +33,7 @@
 		</field>
 		<field id="gardenLocation" autocomplete="location-location" section="botgarden"/>
 		<field id="fieldCollectionNote" section="botgarden"/>
-		<field id="fieldCollectionPlaceNote" section="botgarden"/>
+		<!-- <field id="fieldCollectionPlaceNote" section="botgarden"/> --> <!-- This may be redundant with fieldCollectionNote. Remove it for now. -->
 		<field id="annotation" section="botgarden"/>
 		<field id="sheetAccessionNumber" section="botgarden"/>
 		<field id="reviewComplete" datatype="boolean" section="botgarden"/>
