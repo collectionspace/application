@@ -646,6 +646,7 @@
         ui-type="groupfield/structureddate" primarykey="dateDisplayDate"
         ui-func="cspace.structuredDate"/>
     </repeat>
+    
     <repeat id="techniqueGroupList/techniqueGroup">
       <!-- selector>csc-collection-object-techniqueGroup</selector -->
       <field id="technique" ui-search="repeatable">
@@ -707,8 +708,9 @@
       </field>
     </repeat>
     <repeat id="ownershipDateGroupList/ownershipDateGroup">
-      <group id="ownershipDate" xxx-services-no-repeat="true" ui-type="groupfield/structureddate"
-        primarykey="dateDisplayDate" ui-func="cspace.structuredDate"/>
+      <group id="ownershipDate" xxx-services-no-repeat="true"
+        ui-type="groupfield/structureddate" primarykey="dateDisplayDate"
+        ui-func="cspace.structuredDate"/>
     </repeat>
 
     <field id="ownershipAccess" seperate_ui_container="true">
@@ -897,35 +899,5 @@
     <repeat id="fieldColEventNames">
       <field id="fieldColEventName" ui-search="repeatable"/>
     </repeat>
-  </section>
-  <!-- ununsed -->
-  <section id="otherInformation">
-    <field id="dateAssociation">
-      <selector>date-information-date-association</selector>
-    </field>
-    <field id="dateText">
-      <selector>date-information-date-text</selector>
-    </field>
-    <field id="dateLatestCertainty">
-      <selector>date-information-date-latest-certainty</selector>
-    </field>
-    <field id="dateEarliestSingleCertainty">
-      <selector>date-information-date-earliest-single-certainty</selector>
-    </field>
-    <field id="dateLatestQualifier">
-      <selector>date-information-date-latest-qualifier</selector>
-    </field>
-    <field id="dateEarliestSingleQualifier">
-      <selector>date-information-date-earliest-single-qualifier</selector>
-    </field>
-    <field id="dateEarliestSingle" ui-type="date">
-      <selector>date-information-date-earliest-single-date</selector>
-    </field>
-    <field id="dateLatest" ui-type="date">
-      <selector>date-information-date-latest-date</selector>
-    </field>
-    <field id="datePeriod">
-      <selector>date-information-date-period</selector>
-    </field>
   </section>
 </record>

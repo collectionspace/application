@@ -1,5 +1,7 @@
 package org.collectionspace.chain.installation;
 
+import java.util.HashMap;
+
 import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorageGenerator;
@@ -19,10 +21,14 @@ import org.xml.sax.InputSource;
 
 public class XsdGeneration {
 	private static final Logger log = LoggerFactory.getLogger(XsdGeneration.class);
-	private String file = "";
+	private HashMap<String, String> serviceSchemas = new HashMap<String, String>();
+	private String tenantBindings = null;
 	
-
-	public XsdGeneration(String configfile, String record, String domain, String type) throws UIException {
+	public HashMap<String, String> getServiceSchemas() {
+		return serviceSchemas;
+	}
+	
+	public XsdGeneration(String configfile, String record, String domain, String type, String schemaVersion) throws UIException {
 
 		CSPManager cspm=getServiceManager(configfile);
 		Spec spec = getSpec(cspm);
@@ -32,19 +38,16 @@ public class XsdGeneration {
 			Record tryme = spec.getRecordByServicesUrl(record);
 			//log.info("TYPE"+type);
 			if(type.equals("core")){
-				MakeXsd catlog = new MakeXsd( getTenantData(cspm), domain);
-				file = catlog.serviceschema(domain, tryme);
+				MakeXsd catlog = new MakeXsd(getTenantData(cspm));
+				serviceSchemas = catlog.serviceschemas(domain, tryme, schemaVersion);
 			}
 			else if(type.equals("delta")){
 				Services tenantbob = new Services(getSpec(cspm), getTenantData(cspm),false);
-				file = tenantbob.doit();
+				tenantBindings = tenantbob.doit();
 			}
 		}
 	}
-	public String getFile(){
-		return file;
-	}
-
+	
 	private InputSource getSource(String fallbackFile) {
 		try {
 			return TestConfigFinder.getConfigStream(fallbackFile);

@@ -11,6 +11,8 @@ package org.collectionspace.chain.controller;
  * 
  */
 
+import java.util.HashMap;
+
 import org.collectionspace.chain.installation.XsdGeneration;
 
 public class CommandLine {
@@ -19,8 +21,11 @@ public class CommandLine {
 		String domain = "collectionspace_core"; //args[1];
 		String maketype = "core"; //args[2];
 		String configfile = "lifesci-tenant.xml"; //args[3];
-		XsdGeneration s = new XsdGeneration(configfile, recordtype, domain, maketype);
-		String xsdschema = s.getFile();
-		System.out.println(xsdschema);
+		XsdGeneration s = new XsdGeneration(configfile, recordtype, domain, maketype, "3.0");
+		HashMap<String, String> xsdschemas = s.getServiceSchemas();
+		
+		for (String schema : xsdschemas.values()) {
+			System.out.println(schema);
+		}
 	}
 }

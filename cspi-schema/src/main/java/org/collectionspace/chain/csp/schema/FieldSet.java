@@ -14,12 +14,14 @@ public interface FieldSet {
 	public static String DATATYPE_STRING = "string";
 	public static String DATATYPE_INT = "integer";
 	public static String DATATYPE_FLOAT = "float";
+	public static String DATATYPE_DECIMAL = "decimal";
 	public static String DATATYPE_BOOLEAN = "boolean";
 	public String getID();
 	public String[] getIDPath();
 
 	public SchemaUtils getUtils();
 	public FieldParent getParent();
+	public String getParentID();
 	public void setParent(FieldParent fp);
 	public Record getRecord();
 	public String getServicesTag();

@@ -1,5 +1,6 @@
 package org.collectionspace.chain.installation;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -7,7 +8,9 @@ import java.util.Set;
 
 import org.collectionspace.chain.csp.persistence.services.TenantSpec;
 import org.collectionspace.chain.csp.schema.Field;
+import org.collectionspace.chain.csp.schema.FieldParent;
 import org.collectionspace.chain.csp.schema.FieldSet;
+import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.csp.api.persistence.Storage;
@@ -27,13 +30,11 @@ public class MakeXsd {
 	protected Record record;
 	protected TenantSpec tenantSpec;
 	protected Storage storage;
-	protected String section;
 	protected HashMap<String, Boolean> definedGroupFields = new HashMap<String, Boolean>();
 
 
-	public MakeXsd(TenantSpec td, String section) {
+	public MakeXsd(TenantSpec td) {
 		this.tenantSpec = td;
-		this.section = section;
 	}
 	
 	/*
@@ -62,61 +63,117 @@ public class MakeXsd {
 	
 	private void generateRepeat(Repeat r, Element fieldElement, String listName, Namespace ns,
 			Element root) {
-
-		if (r.hasServicesParent()) { // for example, something like this "assocPersonGroupList/assocPersonGroup" where the left side of the '/' char is the services parent
+		if (r.hasServicesParent() && !r.hasOrphans()) { // for example, <repeat id="assocPersonGroupList/assocPersonGroup"> where the left side of the '/' is the services parent
 			Element sequenced = null;
+			int pathCount = 0;
 			for (String path : r.getServicesParent()) {
 				if (path != null) {
-					if (null != sequenced) { // How can "sequenced" be anything BUT null at this point?  Looks like dead code inside this "if" clause
-						Element dele = sequenced.addElement(new QName(
-								"element", ns));
-						dele.addAttribute("name", path);
-						dele.addAttribute("type", path);
-						dele.addAttribute("minOccurs", "0");
-						dele.addAttribute("maxOccurs", "unbounded");
-					}
 					Element ele = root.addElement(new QName("complexType", ns));
 					ele.addAttribute("name", path);
 					sequenced = ele.addElement(new QName("sequence", ns));
+					pathCount++;
+				}
+				if (log.isDebugEnabled() == true && pathCount > 1) {  // pathCount should never be > 1
+					log.error("Service parent path count is: " + pathCount);
 				}
 			}
+			
 			if (sequenced != null) {
 				Element dele = sequenced.addElement(new QName("element", ns));
 				String servicesTag = r.getServicesTag();
-				dele.addAttribute("name", servicesTag);
-				
+				dele.addAttribute("name", servicesTag);				
 				String servicesType = r.getServicesType();
 				if (servicesType == null) {
 					servicesType = servicesTag; // If the type was not explicitly set in the config, then use the servicesTag as the type
-				} else {
-					System.err.println();
 				}
-				dele.addAttribute("type", servicesType);
-				
+				dele.addAttribute("type", servicesType);				
 				dele.addAttribute("minOccurs", "0");
 				dele.addAttribute("maxOccurs", "unbounded");
 			}
 		}
-
+		//
+		// If there was no explicitly declared service type, then we need need to define one
+		//
 		String servicesType = r.getServicesType();
-		if (servicesType == null) { // If there was no explicitly declared service type, then we need need to define the implied one
+		if (servicesType == null) {
+			// Create the "complexType" node
 			Element ele = fieldElement.addElement(new QName("complexType", ns));
-			if (r.hasServicesParent() == true) {
-				ele.addAttribute("name", listName);
+			servicesType = listName;
+			if (r.hasServicesParent() == true && r.hasOrphans() == true) {
+				servicesType = r.getServicesParent()[0]; // If orphaned, we use the first half of the "foo/bar" id attribute tuple -i.e., the parent type
 			}
+			
+			if (servicesType != null) {
+				ele.addAttribute("name", servicesType);
+			} else {
+				System.out.println("Created an anonymous complex type for Repeat ID=" + r.getID());
+			}
+			
+			// Now create a "sequence" node and iterate over the children items of the Repeat instance
 			Element sele = ele.addElement(new QName("sequence", ns));
 			for (FieldSet fs : r.getChildren("")) {
-				if (fs instanceof Repeat) {
-					System.err.println();
-				}
-				generateDataEntry(sele, fs, ns, root, fs instanceof Repeat);
+				generateDataEntry(sele, fs, ns, root, isUnbounded(fs));
 			}
 		}
 
 	}
 
+	private Boolean isUnbounded(FieldSet fs) {
+		Boolean result = false;
+		
+		if (isRepeatType(fs) == true) {
+			result = true;
+		} else {
+			FieldParent parent = fs.getParent();
+			if (parent.getClass() == Repeat.class) {
+				Repeat repeat = (Repeat)parent;
+				if (repeat.hasServicesParent() == false) {
+					result = true;
+				}
+			}
+		}
+		
+		return result;
+	}
+	
+	private Boolean isRepeatType(FieldSet fs) {
+		return fs.getClass() == Repeat.class;
+	}
+	
+	/*
+	 * Returns 'true' if the FieldSet instance is a child of a "Repeat", is a "Group" instance and has an attribute
+	 * of "ui-type=groupfield/foo".
+	 */
+	private boolean isOrphaned(FieldSet fs) {
+		boolean result = false;
+		
+		if (fs instanceof Group && fs.isAGroupField()) {
+			FieldParent parent = fs.getParent();
+			if (parent instanceof Repeat) {
+				Repeat repeat = (Repeat) parent;
+				if (repeat.hasOrphans()) {
+					result = true;
+				}
+			}
+		}
+		
+		return result;
+	}
+	
+	
+	private Object[] getServiceSchemas(Record record) {
+		HashMap<String, String> serviceParts = new HashMap<String, String>();
+		
+		for (FieldSet fs : record.getAllFieldTopLevel("")) {
+			serviceParts.put(fs.getSection(), fs.getID());
+		}
+		
+		return serviceParts.keySet().toArray();
+	}	
+
 	private void generateDataEntry(Element ele, FieldSet fs, Namespace ns,
-			Element root, Boolean isRepeat) {
+			Element root, Boolean unbounded) {
+		String sectionName = fs.getSection();
 		String listName = fs.getServicesTag();
 
 		// If we find a "GroupField" (e.g., ui-type="groupfield/structureddate") then we need to create a new complex type that corresponds
@@ -126,23 +183,27 @@ public class MakeXsd {
 			fs.setServicesType(groupFieldType);
 		}
 		
-		if (fs instanceof Field) {
-			Field ffs = (Field)fs;
+		if (fs instanceof Field || fs instanceof Group) {
+			String servicesTag = fs.getServicesTag();
+			if (isOrphaned(fs) == true) { // If we have a Repeat with a single child that is a "Group" with a "ui-type=groupfield/foo" attribute.
+				servicesTag = fs.getParentID();
+				unbounded = true;
+			}
 			// <xs:element name="csid" type="xs:string"/>
 			Element field = ele.addElement(new QName("element", ns));
-			field.addAttribute("name", ffs.getServicesTag());
-			String servicesType = ffs.getServicesType();
+			field.addAttribute("name", servicesTag);
+			String servicesType = fs.getServicesType();
 			String fieldType = "xs:string";
 			if (servicesType != null) {
 				fieldType = servicesType;
 			}
 			field.addAttribute("type", fieldType);
-			if (isRepeat){
+			if (unbounded == true) {
 				field.addAttribute("minOccurs", "0");
 				field.addAttribute("maxOccurs", "unbounded");
 			}
 		}
-		if (fs instanceof Repeat) { // Group is an instance of Repeat
+		if (isRepeatType(fs) == true) { // Has to be a Repeat class instance and not any descendant (e.g. not a Group instance)
 			Element fieldElement = root;
 			Repeat rfs = (Repeat) fs;
 			if (rfs.hasServicesParent()) {
@@ -163,6 +224,7 @@ public class MakeXsd {
 				if (fieldSetArray != null && fieldSetArray.length > 0) {
 //					listName = rfs.getChildren("")[0].getServicesTag() + "List";
 //					fieldElement.addAttribute("type", listName);
+					listName = null;
 					System.out.println();
 				} else { // If there is no children to define the type, there better be an explicit services type declaration
 					String servicesType = rfs.getServicesType();
@@ -237,23 +299,32 @@ public class MakeXsd {
 		stfld2.addAttribute("type", "xs:string");
 		stfld2.addAttribute("minOccurs", "1");
 	}
-
-	public String serviceschema(String path, Record record) throws UIException {
-		if(path != null){
-			section = path;
+	
+	public HashMap<String, String> serviceschemas(String domain, Record record, String schemaVersion) throws UIException {
+		HashMap<String, String> result = new HashMap<String, String>();
+		
+		Object[] servicesSchemaList = this.getServiceSchemas(record);
+		for (Object schemaName : servicesSchemaList) {
+			String schema = serviceschema((String)schemaName, record, schemaVersion);
+			result.put((String)schemaName, schema);
 		}
-
+		
+		return result;
+	}
+	
+	private String serviceschema(String schemaName, Record record, String schemaVersion) throws UIException {
 		this.record = record;
 		Document doc = DocumentFactory.getInstance().createDocument();
+		
 		Namespace ns = new Namespace("xs", "http://www.w3.org/2001/XMLSchema");
-		String[] parts = record.getServicesRecordPath(section).split(":", 2);
+		String[] parts = record.getServicesRecordPath(schemaName).split(":", 2);
 		String[] rootel = parts[1].split(",");
 		Element root = doc.addElement(new QName("schema", new Namespace("xs",
 				"http://www.w3.org/2001/XMLSchema")));
 		root.addAttribute("xmlns:ns", rootel[0]);
 		root.addAttribute("xmlns", rootel[0]);
 		root.addAttribute("targetNamespace", rootel[0]);
-		root.addAttribute("version", "0.1");
+		root.addAttribute("version", schemaVersion);
 
 //		Element ele = root.addElement(new QName("element", ns));
 //		ele.addAttribute("name", rootel[1]);
@@ -262,15 +333,22 @@ public class MakeXsd {
 		// add toplevel items
 
 		for (FieldSet fs : record.getAllFieldTopLevel("")) {
-			generateDataEntry(root, fs, ns, root, false);
+			if (fs.getSection().equalsIgnoreCase(schemaName) == true) {
+				generateDataEntry(root, fs, ns, root, false);
+			} else {
+				//System.err.print(String.format("Ignoring fieldset %s:%s", fs.getSection(), fs.getID()));
+			}
 		}
 
+		/** Enable this code for creating the abstract common list elements.
 		generateSearchList(root, ns);
 		// log.info(doc.asXML());
 		// return doc.asXML();
-
-		return doc.asXML();
-
+		 */
+		
+		
+		String schemaResult = doc.asXML();
+		return schemaResult;		
 	}
 
 }

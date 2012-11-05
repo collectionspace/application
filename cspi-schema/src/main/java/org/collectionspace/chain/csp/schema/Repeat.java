@@ -168,7 +168,7 @@ public class Repeat extends FieldSetImpl implements FieldParent  {
 			String servicesType = (String)section.getValue("/@services-type");
 			if (servicesType != null && servicesType.isEmpty() == false) {
 				this.setServicesType(servicesType);
-			}		
+			}
 		}
 	}
 
@@ -195,6 +195,23 @@ public class Repeat extends FieldSetImpl implements FieldParent  {
 	public boolean hasServicesParent() {
 		return utils.getBoolean("has_services_parent");
 	}
+	
+	public boolean hasOrphans() {
+		Boolean result = utils.getBoolean("@hasOrphans");
+		if (result == null) {
+			FieldSet[] children = this.getChildren(null);
+			if (children.length == 1) {
+				if (children[0].isAGroupField() == true) {
+					result = true;
+					utils.setBoolean("@hasOrphans", result);
+				}
+			} else {
+				result = false;
+			}
+		}
+		
+		return result;
+	}
 
 	@Override
 	public String[] getServicesParent() {
@@ -216,10 +233,10 @@ public class Repeat extends FieldSetImpl implements FieldParent  {
 //		return children.toArray(new FieldSet[0]);
 //	}
 	public FieldSet[] getChildren(String perm) {
-		if(perm.equals("")){
+		if (perm == null || perm.equals("")) {
 			return children.toArray(new FieldSet[0]);
 		}
-		if(childrenperm.containsKey(perm)){
+		if (childrenperm.containsKey(perm)) {
 			return childrenperm.get(perm).toArray(new FieldSet[0]);
 		}
 		return new FieldSet[0];
@@ -364,11 +381,6 @@ public class Repeat extends FieldSetImpl implements FieldParent  {
 	public boolean isRepeatSubRecord() {
 		return utils.getBoolean("@is-subrecord");
 	}
-	
-	@Override
-	public Boolean isAGroupField() {
-		return this.getUIType().startsWith("groupfield");
-	}	
 	
 	@Override
 	public void setRepeatSubRecord(Boolean var) {

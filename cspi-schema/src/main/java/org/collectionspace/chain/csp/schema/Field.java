@@ -195,6 +195,7 @@ public class Field extends FieldSetImpl {
 		
 	}
 
+	@Override
 	public SchemaUtils getUtils() {
 		return utils;
 	}
@@ -208,22 +209,28 @@ public class Field extends FieldSetImpl {
 		return utils.getString("autocomplete-options/strings");
 	}
 
+	@Override
 	public String getContainerSelector() {
 		return utils.getString("container-selector");
 	}
+	@Override
 	public String getPreContainerSelector() {
 		return utils.getString("precontainer-selector");
 	}
 
+	@Override
 	public String getSelector() {
 		return utils.getString("selector");
 	}
+	@Override
 	public String getPreSelector() {
 		return utils.getString("preselector");
 	}
+	@Override
 	public String getDecoratorSelector() {
 		return utils.getString("decoratorselector");
 	}
+	@Override
 	public String getLabel() {
 		return utils.getString("label");
 	}
@@ -233,23 +240,28 @@ public class Field extends FieldSetImpl {
 	public String getUILabelSelector(String id){
 		return getUIprefix() +  id + "-label";
 	}
+	@Override
 	public String getUILabelSelector() {
 		return getUIprefix() +  utils.getString("@id") + "-label";
 	}
 
+	@Override
 	public String getUIType() {
 		return utils.getString("@ui-type");
 	}
+	@Override
 	public String getSearchType() {
 		return utils.getString("@ui-search");
 	}
 	public void setSearchType(String val) {
 		utils.setString("@ui-search",val);
 	}
+	@Override
 	public String getQueryBehavior() {
 		return utils.getString("@query-behavior");
 	}
 	
+	@Override
 	public String getUIFunc() {
 		return utils.getString("@ui-func");
 	}
@@ -263,6 +275,7 @@ public class Field extends FieldSetImpl {
 		return utils.getBoolean("@container");
 	}
 
+	@Override
 	public Boolean isInServices() {
 		return utils.getBoolean("@exists-in-services");
 	}
@@ -273,10 +286,12 @@ public class Field extends FieldSetImpl {
 	 * @param fs
 	 * @return
 	 */
+	@Override
 	public boolean isASelfRenderer(){
 		return getUIType().contains(SELFRENDERER);
 	}
 	
+	@Override
 	public Record getSelfRendererRecord() {
 		String parts[] = getUIType().split("/");
 		if(parts.length!=3 || !SELFRENDERER.equals(parts[2]))
@@ -285,28 +300,27 @@ public class Field extends FieldSetImpl {
 		return subrecord;
 	}
 	
+	@Override
 	public boolean isExpander() {
 		return utils.getBoolean("@as-expander");
 	}
 	public boolean isInTrueTree(){
 		return utils.getBoolean("@in-trueTree");
 	}
+	@Override
 	public boolean isConditionExpander(){
 		return utils.getBoolean("@as-conditional-expander");
 	}
+	@Override
 	public boolean isReadOnly(){
 		return utils.getBoolean("@ui-readonly");
 	}
 	
+	@Override
 	public boolean isRepeatSubRecord() {
 		return utils.getBoolean("@is-subrecord");
 	}
-	
-	@Override
-	public Boolean isAGroupField() {
-		return this.getUIType().startsWith("groupfield");
-	}
-	
+		
 	public String useCsid() {
 		return utils.getString("use-csid");
 	}
@@ -314,6 +328,7 @@ public class Field extends FieldSetImpl {
 		return utils.getString("use-csid/@id");
 	}
 	
+	@Override
 	public void setRepeatSubRecord(Boolean var) {
 		utils.setBoolean("@is-subrecord",var);
 	}
@@ -322,15 +337,18 @@ public class Field extends FieldSetImpl {
 		return !utils.getBoolean("@seperate_ui_container");
 	} // used until UI layer has moved all autocomplete to one container view
 
+	@Override
 	public String getTitleSelector() {
 		return utils.getString("title-selector");
 	}
 	
+	@Override
 	public String getPreTitleSelector() {
 		return utils.getString("pretitle-selector");
 	}
 	
 	//used in generateGroupField in uispec for elpaths
+	@Override
 	public String getPrimaryKey() {
 		return utils.getString("@primarykey");
 	}
@@ -339,10 +357,12 @@ public class Field extends FieldSetImpl {
 		return utils.getString("services-filter-param");
 	}
 
+	@Override
 	public String getServicesTag() {
 		return utils.getString("services-tag");
 	}
 	
+	@Override
 	public String getServicesUrl(){
 		return utils.getString("@serviceurl");
 	}
@@ -377,10 +397,12 @@ public class Field extends FieldSetImpl {
 		return merged.get(index);
 	}
 
+	@Override
 	public List<String> getAllMerge() {
 		return merged;
 	}
 
+	@Override
 	public Boolean hasMergeData() {
 		if (merged.isEmpty())
 			return false;
@@ -388,24 +410,30 @@ public class Field extends FieldSetImpl {
 		return true;
 	}
 
+	@Override
 	public String getLabelAffix() {
 		return utils.getString("@label-affix");
 	}
+	@Override
 	public String getSelectorAffix() {
 		return utils.getString("@selector-affix");
 	}
 
+	@Override
 	public String getUISpecPrefix() {
 		return utils.getString("@ui-spec-prefix");
 	}
+	@Override
 	public Boolean getUISpecInherit() {
 		return utils.getBoolean("@ui-spec-inherit");
 	}
 
+	@Override
 	public String getWithCSID() {
 		return utils.getString("@with-csid");
 	}
 	
+	@Override
 	public Boolean usesRecord() {
 		if (utils.getString("@userecord") != null && !utils.getString("@userecord").equals("")) {
 			return true;
@@ -413,6 +441,7 @@ public class Field extends FieldSetImpl {
 		return false;
 	}
 	
+	@Override
 	public String usesRecordValidator() {
 		if(utils.getString("@onlyifexists") !=null && !utils.getString("@onlyifexists").equals("")){
 			return utils.getString("@onlyifexists");
@@ -420,6 +449,7 @@ public class Field extends FieldSetImpl {
 		return null;
 	}
 	
+	@Override
 	public Record usesRecordId() {
 		if (usesRecord()) {
 			return this.getRecord().getSpec().getRecord(utils.getString("@userecord"));
@@ -448,10 +478,12 @@ public class Field extends FieldSetImpl {
 	}
 	
 	//getAllFieldPerms now getAllFieldOperations
+	@Override
 	public String[] getAllFieldOperations(){
 		return utils.getSet("@attributes").toArray(new String[0]);
 	}
 
+	@Override
 	public boolean hasFieldPerm(String perm){
 		return utils.getSet("@attributes").contains(perm);
 	}
@@ -461,24 +493,30 @@ public class Field extends FieldSetImpl {
 		return StringUtils.join(utils.getSet("@default"), ",");
 	}
 
+	@Override
 	public FieldParent getParent() {
 		return this.parent;
 	}
 
+	@Override
 	public boolean hasServicesParent(){
 		return false;
 	}
+	@Override
 	public String[] getServicesParent() {
 		return new String[0];
 	}
+	@Override
 	public void setParent(FieldParent fp) {
 		this.parent = fp;
 	}
 
+	@Override
 	public Record getRecord() {
 		return parent.getRecord();
 	}
 
+	@Override
 	public String[] getIDPath() {
 		if (parent instanceof Repeat && !((Repeat) parent).getSearchType().equals("repeator")) {
 			String[] pre = ((Repeat) parent).getIDPath();
@@ -491,6 +529,7 @@ public class Field extends FieldSetImpl {
 		}
 	}
 
+	@Override
 	public String getSection() { //
 		return utils.getString("@section");
 	}
@@ -508,6 +547,7 @@ public class Field extends FieldSetImpl {
 		return null;
 	}
 
+	@Override
 	public Boolean hasAutocompleteInstance() {
 		if (utils.getSet("@autocomplete").size() > 0) {
 			for (String autocomplete_instance_id : utils.getSet("@autocomplete")) {
@@ -554,6 +594,7 @@ public class Field extends FieldSetImpl {
 		return false;
 	}
 
+	@Override
 	public void config_finish(Spec spec) {
 		if (utils.getSet("@autocomplete").size() > 0) {
 			for (String autocomplete_instance_id : utils.getSet("@autocomplete")) {
