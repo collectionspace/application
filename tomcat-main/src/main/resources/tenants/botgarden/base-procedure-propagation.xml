@@ -88,9 +88,13 @@
                     <field id="propType" ui-search="repeatable">
                         <options>
                             <option id="" default="yes">Please select a value</option>
-                            <option id="seeds">Seeds</option>
+                            <option id="seed">Seed</option>
                             <option id="cutting">Cutting</option>
-                            <option id="plant">Plant</option>
+                            <option id="living plant">Living Plant</option>
+                            <option id="division">Division</option>
+                            <option id="bulb corm tuber">Bulb/Corm/Tuber</option>
+                            <option id="graft">Graft</option>
+                            <option id="tissue culture">Tissue Culture</option>
                         </options>
                     </field>
                     <field id="propComments"/>
