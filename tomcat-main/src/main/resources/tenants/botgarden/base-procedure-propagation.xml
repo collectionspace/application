@@ -135,8 +135,12 @@
                     <field id="cuttingType">
                         <options>
                             <option id="" default="yes">Please select a value</option>
-                            <option id="foo">foo</option>
-                            <option id="bar">bar</option>
+                            <option id="softwood">softwood</option>
+                            <option id="semi-hardwood">semi-hardwood</option>
+                            <option id="hardwood">hardwood</option>
+                            <option id="heel">heel</option>
+                            <option id="dormant">dormant</option>
+                            <option id="root">root</option>
                         </options>
                     </field>
                     <field id="hormone">
