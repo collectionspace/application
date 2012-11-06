@@ -40,7 +40,10 @@ public interface UIRequest {
 	public byte[] getbyteBody() throws UIException;
 	String getFileName() throws UIException;
 	Boolean isJSON() throws UIException;
-	
+
+	public int getCacheMaxAgeSeconds();
+	public void setCacheMaxAgeSeconds(int cacheMaxAgeSeconds);
+
 	public void setFailure(boolean isit,Exception why) throws UIException;
 	
 	public void setOperationPerformed(Operation op) throws UIException;

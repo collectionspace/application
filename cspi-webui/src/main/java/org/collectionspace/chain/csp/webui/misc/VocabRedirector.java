@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.collectionspace.chain.csp.schema.AdminData;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Instance;
@@ -33,10 +34,13 @@ import org.slf4j.LoggerFactory;
 public class VocabRedirector implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(VocabRedirector.class);
 	private Record r;
+	private AdminData adminData = null;
 	
 	public VocabRedirector(Record r) { this.r=r; }
 	
-	public void configure(WebUI ui, Spec spec) {}
+	public void configure(WebUI ui, Spec spec) {
+		adminData = spec.getAdminData();
+	}
 
 	//old style
 	private String pathFor(String in) {
@@ -108,6 +112,11 @@ public class VocabRedirector implements WebMethod {
 			String vocabConstraint = request.getRequestArgument(CONSTRAIN_VOCAB_PARAM);
 			out = pathForAll(tail[0], vocabConstraint);
 			request.sendJSONResponse(out);
+			int cacheMaxAgeSeconds = adminData.getAutocompleteListCacheAge();
+			if(cacheMaxAgeSeconds > 0) {
+				request.setCacheMaxAgeSeconds(cacheMaxAgeSeconds);
+			}
+			
 		} catch (JSONException e) {
 			throw new UIException("JSON building failed",e);
 		}

@@ -47,7 +47,10 @@ public class WebTermList implements WebMethod {
 			}
 			JSONObject out =  generateENUMField(storage, f, result, false);
 			request.sendJSONResponse(out);
-			
+			int cacheMaxAgeSeconds = spec.getAdminData().getTermListCacheAge();
+			if(cacheMaxAgeSeconds > 0) {
+				request.setCacheMaxAgeSeconds(cacheMaxAgeSeconds);
+			}
 		} catch (JSONException e) {
 			throw new UIException("JSONException during autocompletion",e);
 		} 

@@ -99,6 +99,14 @@ public class StreamUIRequest implements UIRequest {
 		}
 	}
 
+	public int getCacheMaxAgeSeconds() {
+		return 0;
+	}
+	public void setCacheMaxAgeSeconds(int cacheMaxAgeSeconds) {
+		// Ignore this for now. Need to figure out how to set cache for things like report outputs (probably never)
+		// and image blobs (perhaps aggressively?).
+	}
+
 	public void setFailure(boolean isit, Exception why) throws UIException {
 		if(!isit) {
 			/* Not a failure */

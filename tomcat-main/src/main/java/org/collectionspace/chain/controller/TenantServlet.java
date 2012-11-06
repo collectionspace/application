@@ -28,6 +28,7 @@ import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.persistence.file.FileStorage;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorageGenerator;
+import org.collectionspace.chain.csp.schema.AdminData;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.csp.api.core.CSPDependencyException;
@@ -83,6 +84,16 @@ public class TenantServlet extends HttpServlet {
 	protected Map<String, CSPManagerImpl> tenantCSPM = new HashMap<String, CSPManagerImpl>();
 	protected Map<String, Boolean> tenantInit = new HashMap<String, Boolean>();
 	protected Map<String, UIUmbrella> tenantUmbrella = new HashMap<String, UIUmbrella>();
+	
+	protected final String MIME_AUDIO = "audio/";
+	protected final String MIME_VIDIO = "vidio/";
+	protected final String MIME_IMAGE = "image/";
+	protected final String MIME_JSON = "text/javascript";
+	protected final String MIME_HTML = "text/html";
+	protected final String MIME_CSS = "text/css";
+	protected final String MIME_PLAIN = "text/plain";
+	protected final String SUFFIX_PROPS = ".properties";
+	protected final String SUFFIX_JSON = ".json";
 
 	protected String locked_down=null;
 	
@@ -389,6 +400,37 @@ public class TenantServlet extends HttpServlet {
 		return testpaths;
 	}
 	
+	protected void setCacheAge(String tenant, String mimetype, String path, HttpServletResponse servlet_response) {
+		ConfigRoot root=tenantCSPM.get(tenant).getConfigRoot();
+		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
+		AdminData adminData = spec.getAdminData();
+		int cacheAge = 0;	// The default value
+		if(MIME_HTML.equals(mimetype)) {
+			cacheAge = adminData.getUiStaticHTMLResourcesCacheAge();
+		} else if(MIME_CSS.equals(mimetype)) {
+			cacheAge = adminData.getUiStaticCSSResourcesCacheAge();
+		} else if(MIME_JSON.equals(mimetype)) {
+			cacheAge = adminData.getUiStaticJSResourcesCacheAge();
+		} else if(MIME_PLAIN.equals(mimetype) || mimetype==null) {
+			// try to refine from extension
+			if(path.endsWith(SUFFIX_PROPS)) {
+				cacheAge = adminData.getUiStaticPropertiesResourcesCacheAge();
+			} else if(path.endsWith(SUFFIX_JSON)) {
+				cacheAge = adminData.getUiStaticJSResourcesCacheAge();
+			}
+		} else if(mimetype!=null) {
+			if(mimetype.startsWith(MIME_IMAGE)
+				|| mimetype.startsWith(MIME_AUDIO)
+				|| mimetype.startsWith(MIME_VIDIO)) {
+				cacheAge = adminData.getUiStaticMediaResourcesCacheAge();
+			}
+		}
+		if(cacheAge>0) {
+			// Create a cache header per the timeout requested (usu. by the individual request handler)
+			servlet_response.addHeader("Cache-Control","max-age="+Integer.toString(cacheAge));
+		}
+	}
+	
 	/**
 	 * Output fixed content to the User
 	 * @param sc
@@ -401,17 +443,28 @@ public class TenantServlet extends HttpServlet {
 	protected boolean serveFixedContent(ServletContext sc,String path, String tenant, HttpServletResponse servlet_response) throws IOException{
 		List<String> testpaths =possiblepaths(path, tenant, true);
 		InputStream is = null;
+		String matchedPath = null;
+		String mimetype = null;
 		while( is == null && testpaths.size()> 0){
-			String path2 = testpaths.remove(0);
-			is=sc.getResourceAsStream(path2);
-			String mimetype = sc.getMimeType(path2);
-			if(mimetype == null && path2.endsWith(".appcache")){
-				mimetype = "text/cache-manifest";
+			String pathToTry = testpaths.remove(0);
+			is=sc.getResourceAsStream(pathToTry);
+			if(is!=null) {
+				matchedPath = pathToTry;
 			}
-			servlet_response.setContentType(mimetype);
 		}
 		if(is==null)
 			return false; // Not for us
+		mimetype = sc.getMimeType(matchedPath);
+		if(mimetype == null) {
+			if(matchedPath.endsWith(".appcache")){
+				mimetype = "text/cache-manifest";
+			} else if(matchedPath.endsWith(".json")){
+				mimetype = MIME_JSON;
+			} 
+		}
+		servlet_response.setContentType(mimetype);
+
+		setCacheAge(tenant, mimetype, matchedPath, servlet_response);
 		
 		ServletOutputStream out = servlet_response.getOutputStream();
 		IOUtils.copy(is,out);
@@ -455,15 +508,16 @@ public class TenantServlet extends HttpServlet {
 		List<String> testpaths_orig =possiblepaths(origfile, tenant, false);
 		InputStream is_default = null;
 		InputStream is = null;
-		String path2 = "";
+		String matchedPath = "";
 		String mimetype = "";
 		while( is == null && testpaths_orig.size()> 0){
-			path2 = testpaths_orig.remove(0);
-			is=sc.getResourceAsStream(path2);
+			matchedPath = testpaths_orig.remove(0);
+			is=sc.getResourceAsStream(matchedPath);
 		}
 		if(is != null){
-			mimetype = sc.getMimeType(path2);
+			mimetype = sc.getMimeType(matchedPath);
 			servlet_response.setContentType(mimetype);
+			setCacheAge(tenant, mimetype, matchedPath, servlet_response);
 			ServletOutputStream out = servlet_response.getOutputStream();
 			IOUtils.copy(is,out);
 			return true;
@@ -480,15 +534,16 @@ public class TenantServlet extends HttpServlet {
 			is=sc.getResourceAsStream(tenantpath);
 		}
 		
-
-		while( is_default == null && testpathswdefault.size()> 0){
-			String pt = testpathswdefault.remove(0);
-			is_default=sc.getResourceAsStream(pt);
+		{
+			String pt = null;
+			while( is_default == null && testpathswdefault.size()> 0){
+				pt = testpathswdefault.remove(0);
+				is_default=sc.getResourceAsStream(pt);
+			}
+			if(is_default == null)
+				return false; //no file to use at all
 			mimetype = sc.getMimeType(pt);
 		}
-		if(is_default == null)
-			return false; //no file to use at all
-		
 		if(is!=null){
 			//file to be written
 			tenantpath = tenantpath.substring(0, tenantpath.length() - overlayext.length());
@@ -552,9 +607,7 @@ public class TenantServlet extends HttpServlet {
 		ServletOutputStream out = servlet_response.getOutputStream();
 		servlet_response.setContentType(mimetype);
 		IOUtils.copy(is_default,out);
-		if(is_default==null)
-			return false; // Not for us
-		
+		setCacheAge(tenant, mimetype, tenantpath, servlet_response);
 			
 		return true;
 	}
