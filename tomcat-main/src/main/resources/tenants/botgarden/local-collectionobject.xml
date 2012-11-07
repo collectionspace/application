@@ -51,6 +51,18 @@
 		<repeat id="taxonomicIdentGroupList/taxonomicIdentGroup">
 			<!-- Change organization-organization to organization-group_org -->
 			<field id="identBy" autocomplete="person-person,organization-group_org"/>
+            <field id="identKind">
+				<options>
+					<option id="">Please select a value</option>
+					<option id="determination">determination</option>
+					<option id="received as">received as</option>
+					<option id="synonym">synonym</option>
+					<option id="valid term">valid term</option>
+					<option id="correction">correction</option>
+                    <option id="verification">verification</option>                                        
+					<option id="hybrid">hybrid</option>
+				</options>
+			</field>
 		</repeat>
 		<field id="labelHeader" autocomplete="concept-concept"/>
 		<field id="labelFooter" autocomplete="concept-concept"/>
