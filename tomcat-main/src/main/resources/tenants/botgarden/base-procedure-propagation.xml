@@ -180,13 +180,7 @@
                         </field>
                         <field id="propCount"/>
                         <field id="medium" autocomplete="concept-concept"/>
-                        <field id="potSize">
-                            <options>
-                                <option id="" default="yes">Please select a value</option>
-                                <option id="foo">foo</option>
-                                <option id="bar">bar</option>
-                            </options>
-                        </field>
+                        <field id="potSize" autocomplete="vocab-potSize" ui-type="enum"></field>
                         <field id="nurseryLocation" autocomplete="location-location"/>
                         <field id="conditions"/>
                         <field id="chemicalApplied">

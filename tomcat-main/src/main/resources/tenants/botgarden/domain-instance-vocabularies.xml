@@ -1364,4 +1364,80 @@
 			<option id="Zhonghua">Zhonghua</option>
         </options>
     </instance>
+    <instance id="vocab-potSize">
+        <web-url>potsize</web-url>
+        <title-ref>potsize</title-ref>
+        <title>potsize</title>
+        <options>
+            <option id="number100pot">#100 pot</option>
+            <option id="OneAndAHalfGal">1 1/2 gal.</option>
+            <option id="OneAndAHalfInches">1 1/2"</option>
+            <option id="OneAndAHalfInchPot">1 1/2" pot</option>
+            <option id="OneGalPot">1 gal. pot</option>
+            <option id="OneByFourCm">1 X 4 cm</option>
+            <option id="OneInchPot">1" pot</option>
+            <option id="TenInch">10"</option>
+            <option id="TenInchPot">10" pot</option>
+            <option id="TwelveInch">12"</option>
+            <option id="TwelveInchPot">12" pot</option>
+            <option id="TwelveInchByEighteenInch">12" x 18"</option>
+            <option id="FourteenInch">14"</option>
+            <option id="FourteenInchPot">14" pot</option>
+            <option id="SixteenInch">16"</option>
+            <option id="SixteenInchPot">16" pot</option>
+            <option id="TwoAndAHalfInch">2 1/2"</option>
+            <option id="TwoAndAHalfInchCup">2 1/2" cup</option>
+            <option id="TwoAndAHalfInchPot">2 1/2" pot</option>
+            <option id="TwoGalPot">2 gal. pot</option>
+            <option id="TwoInch">2" - Two Inch</option>
+            <option id="TwoInchCellPk">2" cell pk</option>
+            <option id="TwoInchPot">2" pot</option>
+            <option id="TwentyInchPot">20" pot</option>
+            <option id="ThreeAndAHalfInchPot">3 1/2" pot</option>
+            <option id="ThreeAndAQuarterInchPot">3 1/4" pot</option>
+            <option id="ThreeGallonPot">3 gallon pot</option>
+            <option id="ThreeInch">3" - Three Inch</option>
+            <option id="ThreeInchPot">3" pot</option>
+            <option id="ThreeInchT">3"t</option>
+            <option id="ThreeQuarterInchPot">3/4" pot</option>
+            <option id="FourAndAHalfInchPot">4 1/2" pot</option>
+            <option id="FourGalPot">4 gal. pot</option>
+            <option id="FourInch">4" - Four Inch</option>
+            <option id="FourInchPan">4" pan</option>
+            <option id="FourInchPot">4" pot</option>
+            <option id="FourInchByFourteenInch">4" X 14"</option>
+            <option id="FourInchT">4"t</option>
+            <option id="FiveAndAHalfInchPot">5 1/2" pot</option>
+            <option id="FiveGalPot">5 gal. pot</option>
+            <option id="FiveInch">5" - Five Inch</option>
+            <option id="FiveInchPot">5" pot</option>
+            <option id="FiveInchT">5"t</option>
+            <option id="FiftyOnePlugTray">51-plug tray</option>
+            <option id="SixInch">6" - Six Inch</option>
+            <option id="SixInchPan">6" pan</option>
+            <option id="SixInchPot">6" pot</option>
+            <option id="SixInchByFifteenInch">6" x 15"</option>
+            <option id="SixInchBySixteenInchPot">6" x 16" pot</option>
+            <option id="SevenAndAHalfInchPot">7 1/2" pot</option>
+            <option id="SevenAndAQuarterInchPot">7 1/4" pot</option>
+            <option id="SevenInch">7" - Seven Inch</option>
+            <option id="SevenInchPot">7" pot</option>
+            <option id="EightAndAHalfInch">8 1/2"</option>
+            <option id="EightAndAHalfInchPot">8 1/2" pot</option>
+            <option id="EightCmPot">8 cm pot</option>
+            <option id="EightInch">8" - Eight Inch</option>
+            <option id="EightInchPot">8" pot</option>
+            <option id="EightInchBySixteenInchPot">8" x 16" pot</option>
+            <option id="NineAndAHalfInch">9 1/2"</option>
+            <option id="NineAndAHalfInchPot">9 1/2" pot</option>
+            <option id="NineInch">9" - Nine Inch</option>
+            <option id="NineInchPan">9" pan</option>
+            <option id="NineInchPot">9" pot</option>
+            <option id="HalfGallon">half gallon</option>
+            <option id="NotApplicable">N/A</option>
+            <option id="Pot">pot</option>
+            <option id="TreeBand">tree band</option>
+            <option id="TreeTube">tree tube</option>
+        </options>
+    </instance>
 </root>
