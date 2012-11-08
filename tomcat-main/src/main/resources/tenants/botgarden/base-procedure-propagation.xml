@@ -165,13 +165,7 @@
                         <group id="activityDate" ui-type="groupfield/structureddate" 
                             primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
                         </group>
-                        <field id="activityType">
-                            <options>
-                                <option id="" default="yes">Please select a value</option>
-                                <option id="foo">foo</option>
-                                <option id="bar">bar</option>
-                            </options>
-                        </field>
+                        <field id="activityType" autocomplete="vocab-propActivityType" ui-type="enum"/>
                         <field id="propCount"/>
                         <field id="medium" autocomplete="concept-concept"/>
                         <field id="potSize" autocomplete="vocab-potSize" ui-type="enum"></field>
