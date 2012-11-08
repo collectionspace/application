@@ -146,13 +146,7 @@
                             <option id="root">root</option>
                         </options>
                     </field>
-                    <field id="hormone">
-                        <options>
-                            <option id="" default="yes">Please select a value</option>
-                            <option id="foo">foo</option>
-                            <option id="bar">bar</option>
-                        </options>
-                    </field>
+                    <field id="hormone" autocomplete="vocab-propHormones" ui-type="enum"/>
                     <field id="concentration"/>
                     <field id="wounded" datatype="boolean"/>
                     <field id="plantType" autocomplete="vocab-propPlantType" ui-type="enum"/>
@@ -168,16 +162,10 @@
                         <field id="activityType" autocomplete="vocab-propActivityType" ui-type="enum"/>
                         <field id="propCount"/>
                         <field id="medium" autocomplete="concept-concept"/>
-                        <field id="potSize" autocomplete="vocab-potSize" ui-type="enum"></field>
+                        <field id="potSize" autocomplete="vocab-potSize" ui-type="enum"/>
                         <field id="nurseryLocation" autocomplete="location-location"/>
                         <field id="conditions"/>
-                        <field id="chemicalApplied">
-                            <options>
-                                <option id="" default="yes">Please select a value</option>
-                                <option id="foo">foo</option>
-                                <option id="bar">bar</option>
-                            </options>
-                        </field>
+                        <field id="chemicalApplied" autocomplete="vocab-propChemicals" ui-type="enum"/>
                         <field id="activityConcentration"/>
                         <field id="activityComments"/>
                     </repeat>

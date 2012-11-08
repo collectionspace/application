@@ -1581,4 +1581,43 @@
             <option id="bleach">bleach</option>
         </options>
     </instance>
+    <instance id="vocab-propChemicals">
+        <web-url>propChemicals</web-url>
+        <title-ref>propChemicals</title-ref>
+        <title>propChemicals</title>
+        <options>
+            <option id="benlate">benlate</option>
+            <option id="dipAndGrow">dip and grow</option>
+            <option id="physan">physan</option>
+            <option id="IBA">IBA</option>
+            <option id="benlateAndCaptan">benlate and captan</option>
+            <option id="IBAtalc">IBA talc</option>
+            <option id="benlateAndLesan">benlate and lesan</option>
+            <option id="Hormex">Hormex</option>
+            <option id="lesan">lesan</option>
+            <option id="Truban">Truban</option>
+            <option id="Rootone">Rootone</option>
+            <option id="hormone">hormone</option>
+            <option id="benlateAndSubdue">benlate and subdue</option>
+            <option id="benlateAndPhysan">benlate and physan</option>
+            <option id="fungicide">fungicide</option>
+            <option id="captan">captan</option>
+            <option id="sulfur">sulfur</option>
+            <option id="NAA">NAA</option>
+        </options>
+    </instance>
+    <instance id="vocab-propHormones">
+        <web-url>propHormones</web-url>
+        <title-ref>propHormones</title-ref>
+        <title>propHormones</title>
+        <options>
+            <option id="dipAndGrow">dip and grow</option>
+            <option id="IBA">IBA</option>
+            <option id="IBAtalc">IBA talc</option>
+            <option id="Hormex">Hormex</option>
+            <option id="Rootone">Rootone</option>
+            <option id="hormone">hormone</option>
+            <option id="NAA">NAA</option>
+        </options>
+    </instance>
 </root>
