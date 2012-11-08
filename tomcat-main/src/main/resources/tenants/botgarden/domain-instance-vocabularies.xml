@@ -1440,4 +1440,26 @@
             <option id="TreeTube">tree tube</option>
         </options>
     </instance>
+    <instance id="vocab-propPlantType">
+        <web-url>propPlantType</web-url>
+        <title-ref>propPlantType</title-ref>
+        <title>propPlantType</title>
+        <options>
+            <option id="bulb">bulb</option>
+            <option id="rootedPieces">rooted pieces</option>
+            <option id="livingPlant">living plant</option>
+            <option id="bareRoot">bare root</option>
+            <option id="seedling">seedling</option>
+            <option id="division">division</option>
+            <option id="bulbs">bulbs</option>
+            <option id="corms">corms</option>
+            <option id="transplant">transplant</option>
+            <option id="seedlings">seedlings</option>
+            <option id="tuber">tuber</option>
+            <option id="bulblets">bulblets</option>
+            <option id="rootedCuttings">rooted cuttings</option>
+            <option id="bulbScales">bulb scales</option>
+            <option id="corm">corm</option>
+        </options>
+    </instance>
 </root>

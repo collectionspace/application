@@ -155,13 +155,7 @@
                     </field>
                     <field id="concentration"/>
                     <field id="wounded" datatype="boolean"/>
-                    <field id="plantType">
-                        <options>
-                            <option id="" default="yes">Please select a value</option>
-                            <option id="foo">foo</option>
-                            <option id="bar">bar</option>
-                        </options>
-                    </field>
+                    <field id="plantType" autocomplete="vocab-propPlantType" ui-type="enum"/>
                     <field id="germinationDate" ui-type="date"/>
                     <field id="successRate"/>
                     
