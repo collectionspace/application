@@ -7,10 +7,10 @@
       "accessionDateGroupStart": {
         "type": "string"
       }, 
-      "acquisitionDateGroupEnd": {
+      "acquisitionDateEnd": {
         "type": "string"
       }, 
-      "acquisitionDateGroupStart": {
+      "acquisitionDateStart": {
         "type": "string"
       }, 
       "acquisitionFunding": {

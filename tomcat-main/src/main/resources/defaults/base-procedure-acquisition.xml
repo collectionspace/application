@@ -78,8 +78,8 @@
                         <container-selector>acquisition-acquisitionAuthorizerDate-container</container-selector>
                     </field>
                     <repeat id="acquisitionDateGroupList/acquisitionDateGroup">
-                      <group id="acquisitionDateGroup" ui-type="groupfield/structureddate"
-                          ui-search="range" primarykey="acquisitionDateGroup.dateDisplayDate"
+                      <group id="acquisitionDate" ui-type="groupfield/structureddate"
+                          ui-search="range" primarykey="dateDisplayDate"
                           ui-func="cspace.structuredDate" xxx-services-no-repeat="true">
                       </group>
                     </repeat>

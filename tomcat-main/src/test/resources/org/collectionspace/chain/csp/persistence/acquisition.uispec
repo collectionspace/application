@@ -92,6 +92,9 @@
     ".csc-acquisition-acquisitionAuthorizerHeader-label": {
       "messagekey": "acquisition-acquisitionAuthorizerHeaderLabel"
     }, 
+    ".csc-acquisition-acquisitionDateGroup-label": {
+      "messagekey": "acquisition-acquisitionDateGroupLabel"
+    }, 
     ".csc-acquisition-acquisitionFunding": {
       "decorators": [
         {
@@ -522,7 +525,7 @@
     ".csc-acquisition-updatedBy-label": {
       "messagekey": "acquisition-updatedByLabel"
     }, 
-    ".csc-acquisitionDateGroup-acquisitionDateGroup": {
+    ".csc-acquisitionDateGroup-acquisitionDate": {
       "decorators": [
         {
           "func": "cspace.makeRepeatable", 
@@ -531,12 +534,12 @@
             "repeatTree": {
               "expander": {
                 "tree": {
-                  ".csc-acquisitionDateGroup-acquisitionDateGroup": {
+                  ".csc-acquisitionDateGroup-acquisitionDate": {
                     "decorators": [
                       {
                         "func": "cspace.structuredDate", 
                         "options": {
-                          "elPath": "acquisitionDateGroup.dateDisplayDate", 
+                          "elPath": "dateDisplayDate", 
                           "elPaths": {
                             "dateAssociation": "dateAssociation", 
                             "dateDisplayDate": "dateDisplayDate", 
@@ -567,7 +570,7 @@
                         "type": "fluid"
                       }
                     ], 
-                    "value": "${{row}.acquisitionDateGroup.dateDisplayDate}"
+                    "value": "${{row}.dateDisplayDate}"
                   }
                 }, 
                 "type": "fluid.noexpand"
@@ -578,8 +581,8 @@
         }
       ]
     }, 
-    ".csc-acquisitionDateGroup-acquisitionDateGroup-label": {
-      "messagekey": "acquisitionDateGroup-acquisitionDateGroupLabel"
+    ".csc-acquisitionDateGroup-acquisitionDate-label": {
+      "messagekey": "acquisitionDateGroup-acquisitionDateLabel"
     }, 
     ".csc-object-acquisition-ownersource": "${fields.ownersource}"
   }
