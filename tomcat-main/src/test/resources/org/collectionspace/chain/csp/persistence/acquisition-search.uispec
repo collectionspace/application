@@ -65,32 +65,32 @@
       }
     ]
   }, 
-  ".csc-acquisition-acquisitionDateGroup-label": {
-    "messagekey": "acquisition-acquisitionDateGroupLabel"
+  ".csc-acquisition-acquisitionDate-label": {
+    "messagekey": "acquisition-acquisitionDateLabel"
   }, 
-  ".csc-acquisition-acquisitionDateGroupEnd": {
+  ".csc-acquisition-acquisitionDateEnd": {
     "decorators": [
       {
         "func": "cspace.datePicker", 
         "type": "fluid"
       }
     ], 
-    "value": "${acquisitionDateGroupEnd}"
+    "value": "${acquisitionDateEnd}"
   }, 
-  ".csc-acquisition-acquisitionDateGroupEnd-label": {
-    "messagekey": "acquisition-acquisitionDateGroupEndLabel"
+  ".csc-acquisition-acquisitionDateEnd-label": {
+    "messagekey": "acquisition-acquisitionDateEndLabel"
   }, 
-  ".csc-acquisition-acquisitionDateGroupStart": {
+  ".csc-acquisition-acquisitionDateStart": {
     "decorators": [
       {
         "func": "cspace.datePicker", 
         "type": "fluid"
       }
     ], 
-    "value": "${acquisitionDateGroupStart}"
+    "value": "${acquisitionDateStart}"
   }, 
-  ".csc-acquisition-acquisitionDateGroupStart-label": {
-    "messagekey": "acquisition-acquisitionDateGroupStartLabel"
+  ".csc-acquisition-acquisitionDateStart-label": {
+    "messagekey": "acquisition-acquisitionDateStartLabel"
   }, 
   ".csc-acquisition-acquisitionFunding": {
     "decorators": [
