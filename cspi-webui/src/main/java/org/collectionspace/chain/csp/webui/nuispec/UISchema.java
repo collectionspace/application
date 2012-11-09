@@ -509,6 +509,7 @@ public class UISchema extends SchemaStructure implements WebMethod {
 					if (rc.isInRecordList()) {
 						if (rc.isShowType("authority")) {
 							JSONObject authInfoProps = new JSONObject();
+							int cardinal = 0;
 							for(Instance ins : rc.getAllInstances()){
 								JSONObject instanceInfo = new JSONObject();
 								JSONObject instanceProps = new JSONObject();
@@ -516,9 +517,15 @@ public class UISchema extends SchemaStructure implements WebMethod {
 								nptAllowed.put("type", "boolean");
 								nptAllowed.put("default", ins.getNPTAllowed());
 								instanceProps.put("nptAllowed", nptAllowed);
+								// Preserve the order of the namespaces
+								JSONObject orderProp = new JSONObject();
+								orderProp.put("type", "integer");
+								orderProp.put("default", cardinal);
+								instanceProps.put("order", orderProp);
 								instanceInfo.put("type", "object");
 								instanceInfo.put("properties", instanceProps);
 								authInfoProps.put(ins.getWebURL(), instanceInfo);
+								cardinal++;
 							}
 							JSONObject authorityInfo = new JSONObject();
 							authorityInfo.put("type", "object");
