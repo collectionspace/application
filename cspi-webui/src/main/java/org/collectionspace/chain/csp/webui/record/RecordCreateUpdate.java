@@ -28,6 +28,7 @@ import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.collectionspace.csp.helper.core.ResponseCache;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -399,6 +400,11 @@ public class RecordCreateUpdate implements WebMethod {
 					test.replaceAll("\\W", "_");
 					fields.put("roleName", "ROLE_"+test);
 					data.put("fields", fields);
+				}
+				// If we are updating a role, then we need to clear the userperms cache
+				// Note that creating a role does not impact things until we assign it
+				if(!create) {
+					ResponseCache.clearCache(ResponseCache.USER_PERMS_CACHE);
 				}
 			}
 			if (this.record.getID().equals("media")) {

@@ -22,15 +22,20 @@ import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.collectionspace.csp.api.ui.UISession;
+import org.collectionspace.csp.helper.core.ResponseCache;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import net.sf.ehcache.Ehcache;
+import net.sf.ehcache.CacheException;
+import net.sf.ehcache.Element;
 
 public class WebLoginStatus  implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(WebLoginStatus.class);
 	private Spec spec;
+	private Ehcache userPermsCache = ResponseCache.getCache(ResponseCache.USER_PERMS_CACHE);
 	
 	public WebLoginStatus(Spec spec) {
 		this.spec = spec;
@@ -175,6 +180,41 @@ public class WebLoginStatus  implements WebMethod {
 		return data;
 	}
 	
+
+	private String buildUserPermsCacheKey(String userId, String tenantId) {
+		return userId+":"+tenantId;
+	}
+	
+	private JSONObject findPermsInCache(String userId, String tenantId) {
+		JSONObject perms = null;
+		// See if there is a cache of the permissions for this user and tenant.
+		try {
+			Element cacheHit = userPermsCache.get(buildUserPermsCacheKey(userId, tenantId));
+			if(cacheHit != null) {
+				perms = (JSONObject) cacheHit.getObjectValue();
+			}
+		} catch (IllegalStateException ise) {
+			log.warn("WebLoginStatus - userperms cache not active: "+ise.getLocalizedMessage());
+		} catch (CacheException ce) {
+			log.warn("WebLoginStatus - userperms cache exception:"+ce.getLocalizedMessage());
+		}
+		return perms;
+	}
+	
+	private void addPermsToCache(String userId, String tenantId, JSONObject perms) {
+		// Update cache with the permissions for this user and tenant.
+		try {
+			userPermsCache.put(new Element(buildUserPermsCacheKey(userId, tenantId), perms));
+		} catch (IllegalStateException ise) {
+			log.warn("WebLoginStatus - userperms cache not active: "+ise.getLocalizedMessage());
+		} catch (CacheException ce) {
+			log.warn("WebLoginStatus - userperms cache exception:"+ce.getLocalizedMessage());
+		} catch (IllegalArgumentException iae) {
+			throw new RuntimeException("WebLoginStatus - tried to cache with null perms!:"
+											+ iae.getLocalizedMessage());
+		}
+	}
+	
 	public void testlogin(Request in) throws UIException {
 		UIRequest request=in.getUIRequest();
 		try{
@@ -186,8 +226,25 @@ public class WebLoginStatus  implements WebMethod {
 					output.put("login", false);
 				}				
 				else{
-					JSONObject perms = getPermissions(storage);
+					JSONObject perms = null;
+					// See if there is a cache of the permissions for this user and tenant.
+					String userId = (String) uiSession.getValue(UISession.USERID);
+					String tenantId = (String) uiSession.getValue(UISession.TENANT);
+					perms = findPermsInCache(userId, tenantId);
+					boolean fFoundInCache;
+					if(perms != null) {
+						fFoundInCache = true;
+					} else {
+						fFoundInCache = false;
+						perms = getPermissions(storage);
+					}
+					
 					if(perms.has("permissions")){
+						// Set the cache if did not find it there, and if it has perms
+						// Will only slow down edge case of user with no roles.
+						if(!fFoundInCache) {
+							addPermsToCache(userId, tenantId, perms);
+						}
 						output.put("permissions",perms.getJSONObject("permissions"));
 						output.put("csid",perms.getString("csid"));
 						output.put("screenName",perms.getString("screenName"));
