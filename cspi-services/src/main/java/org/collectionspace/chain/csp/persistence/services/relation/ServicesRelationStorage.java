@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.collectionspace.chain.csp.persistence.services.RefName;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
@@ -31,6 +30,7 @@ import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
+import org.collectionspace.services.common.api.RefName;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Node;
@@ -352,8 +352,8 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		String nameValue = null;
 		if(itemRefName!=null) {
 			String refNameValue = itemRefName.getText();
-			out.put(refNameKey, refNameValue);
-			nameValue = RefName.getDisplayName(refNameValue);
+                        RefName.AuthorityItem item = RefName.AuthorityItem.parse(refNameValue);
+                        nameValue = item.displayName; 
 		}
 		// If no displayName from refName, then try name element
 		if(nameValue==null) {

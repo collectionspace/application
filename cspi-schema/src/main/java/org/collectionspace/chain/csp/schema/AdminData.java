@@ -6,6 +6,7 @@
  */
 package org.collectionspace.chain.csp.schema;
 
+import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,6 +24,16 @@ import org.json.JSONObject;
 public class AdminData {
 	String username, password, tenant, tenantname;
 	Integer lifeInMinsOfCookie;
+	int termListCacheAge = 0;
+	int autocompleteListCacheAge = 0;
+	int reportListCacheAge = 0;
+	int uploadedMediaCacheAge = 0;
+	int uiSpecSchemaCacheAge = 0;
+	int uiStaticHTMLResourcesCacheAge = 0; 
+	int uiStaticCSSResourcesCacheAge = 0; 
+	int uiStaticJSResourcesCacheAge = 0; 
+	int uiStaticMediaResourcesCacheAge = 0; 
+	int uiStaticPropertiesResourcesCacheAge = 0; 
 
 	public AdminData(Spec spec, ReadOnlySection section) {
 		username = (String) section.getValue("/username");
@@ -34,6 +45,56 @@ public class AdminData {
 			stringMinutes = "30";
 		}
 		lifeInMinsOfCookie = Integer.parseInt(stringMinutes);
+		
+		stringMinutes = (String) section.getValue("/termlist-cache-timeout");
+		if (!StringUtils.isEmpty(stringMinutes)) {
+			termListCacheAge = Integer.parseInt(stringMinutes);
+		}
+
+		stringMinutes = (String) section.getValue("/autocompletelist-cache-timeout");
+		if (!StringUtils.isEmpty(stringMinutes)) {
+			autocompleteListCacheAge = Integer.parseInt(stringMinutes);
+		}
+
+		stringMinutes = (String) section.getValue("/reportlist-cache-timeout");
+		if (!StringUtils.isEmpty(stringMinutes)) {
+			reportListCacheAge = Integer.parseInt(stringMinutes);
+		}
+
+		stringMinutes = (String) section.getValue("/uploaded-media-cache-timeout");
+		if (!StringUtils.isEmpty(stringMinutes)) {
+			uploadedMediaCacheAge = Integer.parseInt(stringMinutes);
+		}
+
+		stringMinutes = (String) section.getValue("/uispecschema-cache-timeout");
+		if (!StringUtils.isEmpty(stringMinutes)) {
+			uiSpecSchemaCacheAge = Integer.parseInt(stringMinutes);
+		}
+
+		stringMinutes = (String) section.getValue("/ui-html-cache-timeout");
+		if (!StringUtils.isEmpty(stringMinutes)) {
+			uiStaticHTMLResourcesCacheAge = Integer.parseInt(stringMinutes);
+		}
+
+		stringMinutes = (String) section.getValue("/ui-css-cache-timeout");
+		if (!StringUtils.isEmpty(stringMinutes)) {
+			uiStaticCSSResourcesCacheAge = Integer.parseInt(stringMinutes);
+		}
+
+		stringMinutes = (String) section.getValue("/ui-js-cache-timeout");
+		if (!StringUtils.isEmpty(stringMinutes)) {
+			uiStaticJSResourcesCacheAge = Integer.parseInt(stringMinutes);
+		}
+
+		stringMinutes = (String) section.getValue("/ui-media-cache-timeout");
+		if (!StringUtils.isEmpty(stringMinutes)) {
+			uiStaticMediaResourcesCacheAge = Integer.parseInt(stringMinutes);
+		}
+
+		stringMinutes = (String) section.getValue("/ui-props-cache-timeout");
+		if (!StringUtils.isEmpty(stringMinutes)) {
+			uiStaticPropertiesResourcesCacheAge = Integer.parseInt(stringMinutes);
+		}
 	}
 
 	/*
@@ -57,6 +118,46 @@ public class AdminData {
 
 	public Integer getCookieLife() {
 		return lifeInMinsOfCookie;
+	}
+
+	public int getTermListCacheAge() {
+		return termListCacheAge;
+	}
+
+	public int getAutocompleteListCacheAge() {
+		return autocompleteListCacheAge;
+	}
+
+	public int getReportListCacheAge() {
+		return reportListCacheAge;
+	}
+
+	public int getUploadedMediaCacheAge() {
+		return uploadedMediaCacheAge;
+	}
+
+	public int getUiSpecSchemaCacheAge() {
+		return uiSpecSchemaCacheAge;
+	}
+
+	public int getUiStaticHTMLResourcesCacheAge() {
+		return uiStaticHTMLResourcesCacheAge;
+	}
+
+	public int getUiStaticCSSResourcesCacheAge() {
+		return uiStaticCSSResourcesCacheAge;
+	}
+
+	public int getUiStaticJSResourcesCacheAge() {
+		return uiStaticJSResourcesCacheAge;
+	}
+
+	public int getUiStaticMediaResourcesCacheAge() {
+		return uiStaticMediaResourcesCacheAge;
+	}
+
+	public int getUiStaticPropertiesResourcesCacheAge() {
+		return uiStaticPropertiesResourcesCacheAge;
 	}
 
 	public AdminData getAdminData() {

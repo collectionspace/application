@@ -95,8 +95,10 @@
                     </repeat>
                     <field id="coverage"></field>
                     <repeat id="dateGroupList/dateGroup">
-                        <group id="date" xxx-services-no-repeat="true" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate"></group>
-					</repeat>
+                        <group id="date" ui-search="range" xxx-services-no-repeat="true" ui-type="groupfield/structureddate"
+                               primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
+                        </group>
+                    </repeat>
                     <field id="source" ui-search="repeatable"></field>
                     <field id="externalUrl" ui-type="externalURL"></field>
                     <repeat id="subjects">

@@ -32,6 +32,7 @@ public class RecordDelete implements WebMethod {
 			if(base.equals("role")){
 				//business logic. Only delete role if no active users exists who have this role set
 				//CSPACE-3283
+				// Note that given this, we need not clear the userperms cache when deleting a role.
 
 				String url = base+"/"+path+"/"+"accountroles/";
 				JSONObject accounts = storage.retrieveJSON(url, new JSONObject());

@@ -33,9 +33,9 @@
         description="Copies host-specific settings files for the CollectionSpace project's Nightly host"
         depends="localhost_is_nightly" if="${is.nightly}">
         <copy file="${app_trunk}/tomcat-main/src/main/resources/tenants/core/nightly-settings.xml"
-            tofile="${config_destination}/tenants/core/local-settings.xml"/>
+            tofile="${config_destination}/tenants/core/local-core-settings.xml"/>
         <copy file="${app_trunk}/tomcat-main/src/main/resources/tenants/lifesci/nightly-settings.xml"
-            tofile="${config_destination}/tenants/lifesci/local-settings.xml"/>
+            tofile="${config_destination}/tenants/lifesci/local-lifesci-settings.xml"/>
     </target>
     
     <target name="localhost_is_nightly"

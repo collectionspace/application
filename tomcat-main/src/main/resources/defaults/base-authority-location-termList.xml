@@ -9,8 +9,7 @@
                 <selector>locationAuthority-termDisplayName</selector>
                 <title-selector>titleBar-termDisplayName</title-selector>
             </field>
-            <!-- FIXME: Add 'ui-search="repeatable"' back to this field when CSPACE-5184/CSPACE-5185 is fixed -->
-            <field id="termName">
+            <field id="termName" ui-search="repeatable">
                 <selector>locationAuthority-termName</selector>
             </field>
             <field id="termType">
@@ -22,8 +21,7 @@
                     <option id="used for term">used for term</option>
                 </options>
             </field>
-            <!-- FIXME: Add 'ui-search="repeatable"' back to this field when CSPACE-5184/CSPACE-5185 is fixed -->
-            <field id="termStatus" seperate_ui_container="true" mini="search,list,relate">
+            <field id="termStatus" ui-search="repeatable" seperate_ui_container="true" mini="search,list,relate">
                 <selector>locationAuthority-termStatus</selector>
                 <options>
                     <option id="provisional" default="yes">Provisional</option>
@@ -35,7 +33,7 @@
             <field id="termQualifier">
                 <selector>locationAuthority-termQualifier</selector>
             </field>
-            <field id="termLanguage" autocomplete="vocab-languages" ui-type="enum">
+            <field id="termLanguage" ui-search="repeatable" autocomplete="vocab-languages" ui-type="enum">
                 <selector>locationAuthority-termLanguage</selector>
             </field>
             <field id="termPrefForLang" datatype="boolean">

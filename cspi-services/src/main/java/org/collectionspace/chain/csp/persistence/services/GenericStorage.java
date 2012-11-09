@@ -40,7 +40,7 @@ import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
-import org.collectionspace.chain.csp.persistence.services.RefName;
+import org.collectionspace.services.common.api.RefName;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentFactory;
@@ -1470,6 +1470,8 @@ public class GenericStorage  implements ContextualisedStorage {
 				msg += " permissions error";
 			}
 			throw new UnderlyingStorageException(msg,e.getStatus(), e.getUrl(),e);
+		} catch (UnderlyingStorageException e) {
+			throw e; // REM - CSPACE-5632: Need to catch and rethrow this exception type to prevent throwing an "UnimplementedException" exception below.
 		} catch (Exception e) {
 			throw new UnimplementedException("JSONException",e);
 		}
