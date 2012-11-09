@@ -22,6 +22,7 @@ import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.collectionspace.csp.api.ui.UISession;
+import org.collectionspace.csp.helper.core.ResponseCache;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -74,6 +75,13 @@ public class UserDetailsCreateUpdate implements WebMethod {
 	 * @throws UnderlyingStorageException
 	 */
 	private void assignRole(Storage storage, String path, JSONObject data) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
+		// If we are updating a role, then we need to clear the userperms cache
+		// Note that creating a role does not impact things until we assign it
+		if(!create) {
+			ResponseCache.clearCache(ResponseCache.USER_PERMS_CACHE);
+		}
+
+		
 		JSONObject fields=data.optJSONObject("fields");
 		
 		JSONArray roledata = new JSONArray();
