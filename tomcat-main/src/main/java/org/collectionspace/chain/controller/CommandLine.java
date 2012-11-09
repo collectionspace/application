@@ -24,8 +24,9 @@ public class CommandLine {
 		XsdGeneration s = new XsdGeneration(configfile, recordtype, domain, maketype, "3.0");
 		HashMap<String, String> xsdschemas = s.getServiceSchemas();
 		
-		for (String schema : xsdschemas.values()) {
-			System.out.println(schema);
+		for (String schemaName : xsdschemas.keySet()) {
+			System.out.println(String.format("Schema file name:%s_%s.xsd", recordtype, schemaName));
+			System.out.println(xsdschemas.get(schemaName));
 		}
 	}
 }

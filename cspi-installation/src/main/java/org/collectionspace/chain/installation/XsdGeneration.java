@@ -1,5 +1,6 @@
 package org.collectionspace.chain.installation;
 
+import java.io.PrintStream;
 import java.util.HashMap;
 
 import org.collectionspace.chain.csp.config.ConfigRoot;
@@ -28,20 +29,66 @@ public class XsdGeneration {
 		return serviceSchemas;
 	}
 	
-	public XsdGeneration(String configfile, String record, String domain, String type, String schemaVersion) throws UIException {
+	public XsdGeneration(String configfile, String recordType, String domain, String type, String schemaVersion) throws UIException {
 
 		CSPManager cspm=getServiceManager(configfile);
 		Spec spec = getSpec(cspm);
+		PrintStream out = System.out;
+		for (Record record : spec.getAllRecords()) {
+			if (record.getServicesCmsType().equalsIgnoreCase("default") == true) {
+				out.println("++++++++++++++++++++++++++++++++++++++++++++++++++");
+				out.println(String.format("getID = %s", record.getID()));
+				out.println(String.format("getServicesCmsType = %s", record.getServicesCmsType()));
+				out.println(String.format("getServicesType = %s", record.getServicesType()));
+				out.println(String.format("getServicesURL = %s", record.getServicesURL()));
+				out.println(String.format("getServicesTenantSg = %s", record.getServicesTenantSg()));
+				out.println(String.format("getServicesTenantPl = %s", record.getServicesTenantPl()));
+				out.println(String.format("getServicesTenantAuthSg = %s", record.getServicesTenantAuthSg()));
+				out.println(String.format("getServicesTenantAuthPl = %s", record.getServicesTenantAuthPl()));
+				out.println(String.format("getServicesRecordPath = %s", record.getServicesRecordPath("")));
+				
+				out.println("getServicesRecordPaths =");
+				String[] recordPathList = record.getServicesRecordPaths();
+				for (String recordPath : recordPathList) {
+					out.println(String.format("\t%s", recordPath));
+				}
+				
+				out.println(String.format("getServicesInstancesPath = %s", record.getServicesInstancesPath()));
+				out.println(String.format("getServicesSingleInstancePath = %s", record.getServicesSingleInstancePath()));
+				
+				out.println("getServicesInstancesPaths =");			
+				String recordServicesInstancesPathList[] = record.getServicesInstancesPaths();
+				if (recordServicesInstancesPathList != null && recordServicesInstancesPathList.length > 0) {
+					for (String path : recordServicesInstancesPathList) {
+						out.println(String.format("\t%s", path));
+					}
+				} else {
+					out.println("\tnull");
+				}
+			
+				
+				out.println(String.format("getServicesAbstractCommonList = %s", record.getServicesAbstractCommonList()));
+				out.println(String.format("getServicesValidatorHandler = %s", record.getServicesValidatorHandler()));
+				out.println(String.format("getServicesCommonList = %s", record.getServicesCommonList()));
+				out.println(String.format("getServicesSchemaBaseLocation = %s", record.getServicesSchemaBaseLocation()));
+				out.println(String.format("getServicesDocHandler = %s", record.getServicesDocHandler()));
+				out.println(String.format("getServicesListPath = %s", record.getServicesListPath()));
+				out.println(String.format("getServicesFieldsPath = %s", record.getServicesFieldsPath()));
+				out.println(String.format("getServicesSearchKeyword = %s", record.getServicesSearchKeyword()));
+				
+				out.println("##################################################");
+			}
+		}
+		
 		//valid recordtype?
 		//log.info("record:"+record);
-		if(spec.hasRecordByServicesUrl(record)){
-			Record tryme = spec.getRecordByServicesUrl(record);
+		if(spec.hasRecordByServicesUrl(recordType)){
+			Record tryme = spec.getRecordByServicesUrl(recordType);
 			//log.info("TYPE"+type);
 			if(type.equals("core")){
 				MakeXsd catlog = new MakeXsd(getTenantData(cspm));
-				serviceSchemas = catlog.serviceschemas(domain, tryme, schemaVersion);
-			}
-			else if(type.equals("delta")){
+				serviceSchemas = catlog.serviceschemas(domain, tryme, recordType, schemaVersion);
+			} else if(type.equals("delta")){
 				Services tenantbob = new Services(getSpec(cspm), getTenantData(cspm),false);
 				tenantBindings = tenantbob.doit();
 			}

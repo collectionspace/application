@@ -98,6 +98,8 @@ public class Record implements FieldParent {
 		utils.initStrings(section,"@id",null);
 		whoamI = utils.getString("@id");
 		
+		utils.initStrings(section, "@cms-type", "none");
+		
 		//
 		// The name for used to create the Services XML Schema.
 		//
@@ -466,7 +468,11 @@ public class Record implements FieldParent {
 	public String getServicesType() {
 		String result = utils.getString("@services-type");
 		return result;
-	}	
+	}
+	public String getServicesCmsType() {
+		String result = utils.getString("@cms-type");
+		return result;
+	}
 	public String getUILabelSelector(String id){
 		return getPreSelector()  + utils.getString("@id") + "-" +  id + "-label";
 	}

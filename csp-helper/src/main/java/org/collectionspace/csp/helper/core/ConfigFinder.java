@@ -155,7 +155,7 @@ public class ConfigFinder implements EntityResolver {
 					return new InputSource(out);
 			
 			}
-//use config from tomcat-main/src/main/resources if this is a test run by mvn
+			// use config from tomcat-main/src/main/resources if this is a test run by mvn
 			if("-//CSPACE//TESTROOT".equals(publicId)){
 				out=getConfigStreamViaClassLoader(systemId);
 				if(out!=null)

@@ -337,11 +337,6 @@ public class Repeat extends FieldSetImpl implements FieldParent  {
 		return utils.getString("@serviceurl");
 	}
 
-	@Override
-	public Boolean isInServices() {
-		return utils.getBoolean("@exists-in-services");
-	}
-
 	public Boolean getXxxServicesNoRepeat() {
 		return utils.getBoolean("@xxx-services-no-repeat");
 	}

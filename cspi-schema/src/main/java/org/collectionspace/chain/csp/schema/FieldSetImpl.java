@@ -6,6 +6,11 @@ public abstract class FieldSetImpl implements FieldSet {
 	protected SchemaUtils utils = new SchemaUtils();
 	
 	@Override
+	public Boolean isInServices() {
+		return utils.getBoolean("@exists-in-services");
+	}
+	
+	@Override
 	public Boolean isAGroupField() {
 		return this.getUIType().startsWith("groupfield");
 	}	

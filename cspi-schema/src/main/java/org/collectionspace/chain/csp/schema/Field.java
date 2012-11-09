@@ -275,11 +275,6 @@ public class Field extends FieldSetImpl {
 		return utils.getBoolean("@container");
 	}
 
-	@Override
-	public Boolean isInServices() {
-		return utils.getBoolean("@exists-in-services");
-	}
-
 	/**
 	 * UI specific marking: YURA said: 
 	 * these are renderer decorators that do their own rendering so need some sub nesting

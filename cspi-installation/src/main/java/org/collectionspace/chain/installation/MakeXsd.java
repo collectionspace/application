@@ -27,6 +27,8 @@ import org.slf4j.LoggerFactory;
 
 public class MakeXsd {
 	private static final Logger log = LoggerFactory.getLogger(MakeXsd.class);
+	private static final String XSD_EXTENSION = ".xsd";
+	private static final CharSequence SERVICES_CORE_SCHEMA = "_core"; // Schema with "_core" in them are special
 	protected Record record;
 	protected TenantSpec tenantSpec;
 	protected Storage storage;
@@ -172,7 +174,15 @@ public class MakeXsd {
 	}	
 
 	private void generateDataEntry(Element ele, FieldSet fs, Namespace ns,
-			Element root, Boolean unbounded) {
+			Element root, Boolean unbounded) {		
+		//
+		// EXIT if the FieldSet instance is not defined in the Services
+		// 
+		if (fs.isInServices() == false) {
+			log.warn(String.format("Field set is not part of the Services schema %s:%s", fs.getSection(), fs.getID()));
+			return;
+		}
+		
 		String sectionName = fs.getSection();
 		String listName = fs.getServicesTag();
 
@@ -203,6 +213,7 @@ public class MakeXsd {
 				field.addAttribute("maxOccurs", "unbounded");
 			}
 		}
+		
 		if (isRepeatType(fs) == true) { // Has to be a Repeat class instance and not any descendant (e.g. not a Group instance)
 			Element fieldElement = root;
 			Repeat rfs = (Repeat) fs;
@@ -239,10 +250,8 @@ public class MakeXsd {
 			}
 			generateRepeat(rfs, fieldElement, listName, ns, root);
 		}
-
 	}
-
-	@SuppressWarnings("null")
+	
 	private void generateSearchList(Element root, Namespace ns) {
 
 		Element ele = root.addElement(new QName("complexType", ns));
@@ -300,13 +309,26 @@ public class MakeXsd {
 		stfld2.addAttribute("minOccurs", "1");
 	}
 	
-	public HashMap<String, String> serviceschemas(String domain, Record record, String schemaVersion) throws UIException {
+	private String generateXSDFilename(String recordType, String schemaName) {
+		String result = schemaName;
+		
+		if (schemaName.contains(SERVICES_CORE_SCHEMA) == false) {
+			result = recordType + "_" + schemaName;
+		}
+		
+		result = result + XSD_EXTENSION;
+		return result;
+	}
+	
+	public HashMap<String, String> serviceschemas(String domain, Record record, String recordType, String schemaVersion) throws UIException {
 		HashMap<String, String> result = new HashMap<String, String>();
 		
 		Object[] servicesSchemaList = this.getServiceSchemas(record);
-		for (Object schemaName : servicesSchemaList) {
-			String schema = serviceschema((String)schemaName, record, schemaVersion);
-			result.put((String)schemaName, schema);
+		for (Object name : servicesSchemaList) {
+			String schemaName = (String)name;
+			String schema = serviceschema(schemaName, record, schemaVersion);
+			String filename = generateXSDFilename(recordType, schemaName);
+			result.put(filename, schema);
 		}
 		
 		return result;
