@@ -1,6 +1,5 @@
 package org.collectionspace.chain.installation;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -29,11 +28,10 @@ public class MakeXsd {
 	private static final Logger log = LoggerFactory.getLogger(MakeXsd.class);
 	private static final String XSD_EXTENSION = ".xsd";
 	private static final CharSequence SERVICES_CORE_SCHEMA = "_core"; // Schema with "_core" in them are special
-	protected Record record;
+	protected Record xsdRecord;
 	protected TenantSpec tenantSpec;
 	protected Storage storage;
 	protected HashMap<String, Boolean> definedGroupFields = new HashMap<String, Boolean>();
-
 
 	public MakeXsd(TenantSpec td) {
 		this.tenantSpec = td;
@@ -143,8 +141,8 @@ public class MakeXsd {
 	}
 	
 	/*
-	 * Returns 'true' if the FieldSet instance is a child of a "Repeat", is a "Group" instance and has an attribute
-	 * of "ui-type=groupfield/foo".
+	 * Returns 'true' if the FieldSet instance is a child of a "Repeat" and is a "Group" instance and has an attribute
+	 * of "ui-type=groupfield/foo".  Orphans inherit their parent's ID value.
 	 */
 	private boolean isOrphaned(FieldSet fs) {
 		boolean result = false;
@@ -162,7 +160,9 @@ public class MakeXsd {
 		return result;
 	}
 	
-	
+	/*
+	 * Return a list of schemas defined in a given configuration record
+	 */
 	private Object[] getServiceSchemas(Record record) {
 		HashMap<String, String> serviceParts = new HashMap<String, String>();
 		
@@ -263,7 +263,7 @@ public class MakeXsd {
 		jxb.addAttribute("ref",
 				"org.collectionspace.services.jaxb.AbstractCommonList");
 
-		String[] listpath = record.getServicesListPath().split("/");
+		String[] listpath = xsdRecord.getServicesListPath().split("/");
 
 		Element lele = root.addElement(new QName("element", ns));
 		lele.addAttribute("name", listpath[0]);
@@ -279,9 +279,9 @@ public class MakeXsd {
 		Element scslele = cslele.addElement(new QName("sequence", ns));
 
 		Set<String> searchflds = new HashSet();
-		for (String minis : record.getAllMiniDataSets()) {
+		for (String minis : xsdRecord.getAllMiniDataSets()) {
 			if (minis != null && !minis.equals("")) {
-				for (FieldSet flds : record.getMiniDataSetByName(minis)) {
+				for (FieldSet flds : xsdRecord.getMiniDataSetByName(minis)) {
 					searchflds.add(flds.getServicesTag());
 					//log.info(flds.getServicesTag());
 				}
@@ -320,13 +320,13 @@ public class MakeXsd {
 		return result;
 	}
 	
-	public HashMap<String, String> serviceschemas(String domain, Record record, String recordType, String schemaVersion) throws UIException {
+	public HashMap<String, String> getDefinedSchemas(Record record, String recordType, String schemaVersion) throws UIException {
 		HashMap<String, String> result = new HashMap<String, String>();
 		
 		Object[] servicesSchemaList = this.getServiceSchemas(record);
 		for (Object name : servicesSchemaList) {
 			String schemaName = (String)name;
-			String schema = serviceschema(schemaName, record, schemaVersion);
+			String schema = getServiceSchema(schemaName, record, schemaVersion);
 			String filename = generateXSDFilename(recordType, schemaName);
 			result.put(filename, schema);
 		}
@@ -334,8 +334,8 @@ public class MakeXsd {
 		return result;
 	}
 	
-	private String serviceschema(String schemaName, Record record, String schemaVersion) throws UIException {
-		this.record = record;
+	private String getServiceSchema(String schemaName, Record record, String schemaVersion) throws UIException {
+		this.xsdRecord = record;
 		Document doc = DocumentFactory.getInstance().createDocument();
 		
 		Namespace ns = new Namespace("xs", "http://www.w3.org/2001/XMLSchema");

@@ -1,5 +1,6 @@
 package org.collectionspace.chain.installation;
 
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.HashMap;
 
@@ -31,6 +32,17 @@ public class XsdGeneration {
 	
 	public XsdGeneration(String configfile, String recordType, String domain, String type, String schemaVersion) throws UIException {
 
+		String current = null;
+		try {
+			current = new java.io.File( "." ).getCanonicalPath();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        System.out.println("Current dir:"+current);
+        String currentDir = System.getProperty("user.dir");
+        System.out.println("Current dir using System:" +currentDir);
+        
 		CSPManager cspm=getServiceManager(configfile);
 		Spec spec = getSpec(cspm);
 		PrintStream out = System.out;
@@ -80,18 +92,39 @@ public class XsdGeneration {
 			}
 		}
 		
-		//valid recordtype?
-		//log.info("record:"+record);
-		if(spec.hasRecordByServicesUrl(recordType)){
-			Record tryme = spec.getRecordByServicesUrl(recordType);
-			//log.info("TYPE"+type);
-			if(type.equals("core")){
+		// 1. Setup a hashmap to keep track of which records and bundles we've already processed.
+		// 2. Loop through all the known record types
+		// 3. We could create a Nuxeo bundle for each new schema type
+		// 4. We could then create a new Nuxeo bundle for each new document type
+		
+		if (spec.hasRecordByServicesUrl(recordType)) {
+			Record record = spec.getRecordByServicesUrl(recordType);
+
+			if (type.equals("core")) { // if 'true' then generate an XML Schema .xsd file
 				MakeXsd catlog = new MakeXsd(getTenantData(cspm));
-				serviceSchemas = catlog.serviceschemas(domain, tryme, recordType, schemaVersion);
-			} else if(type.equals("delta")){
+				HashMap<String, String> definedSchemaList = catlog.getDefinedSchemas(
+						record, recordType, schemaVersion);
+				// For each schema defined in the configuration record, check to see if it was already
+				// defined in another record.
+				for (String definedSchema : definedSchemaList.keySet()) {
+					if (serviceSchemas.containsKey(definedSchema) == false) {
+						// If the newly defined schema doesn't already exist in our master list then add it
+						serviceSchemas.put(definedSchema, definedSchemaList.get(definedSchema));
+						log.trace(String.format("New Services schema '%s' defined in configuration record '%s'.",
+								definedSchema, record.getID()));
+					} else {
+						// Otherwise, it already exists so emit a warning just in case it shouldn't have been redefined.
+						log.warn(String.format("Services schema '%s' defined in record '%s', but was previously defined in another record.",
+								definedSchema, record.getID()));
+						log.trace(String.format("Redefined services schema is: %s", definedSchemaList.get(definedSchema)));
+					}
+				}
+			} else if (type.equals("delta")) { // Create the service bindings.
 				Services tenantbob = new Services(getSpec(cspm), getTenantData(cspm),false);
 				tenantBindings = tenantbob.doit();
 			}
+		} else {
+			log.error(String.format("Record type '%s' is unknown in configuration file", configfile));
 		}
 	}
 	
