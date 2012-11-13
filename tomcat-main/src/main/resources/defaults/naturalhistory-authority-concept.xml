@@ -1,8 +1,8 @@
 <record id="concept">
 	<services-record-path id="naturalhistory">concepts_naturalhistory:http://collectionspace.org/services/concept/domain/naturalhistory,concepts_naturalhistory</services-record-path>
 
-    <section id="conceptAuthorityInformation">
+	<section id="conceptAuthorityInformation">
 		<field id="associatedPerson" section="naturalhistory" autocomplete="person-person"/>
-		<field id="associatedOrganization" section="naturalhistory" autocomplete="organization-institution"/>
+		<field id="associatedOrganization" section="naturalhistory" autocomplete="organization-organization"/>
 	</section>
 </record>

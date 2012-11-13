@@ -41,7 +41,7 @@
 		<field id="supportsSingleDoc" datatype="boolean"/>
 		<field id="supportsDocList" datatype="boolean"/>
 		<field id="supportsGroup" datatype="boolean"/>
-		<field id="createsNewFocus" datatype="boolean"/>
+		<field id="createsNewFocus" mini="search,list" datatype="boolean"/>
 		<field id="className"/>
 	</section>
 </record>
