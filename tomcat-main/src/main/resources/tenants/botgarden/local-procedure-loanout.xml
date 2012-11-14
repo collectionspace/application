@@ -26,8 +26,8 @@
 		</repeat>
 		<field id="hortWild" section="botgarden">
 			<options>
-				<option id="">Please select a value</option>
-				<option id="Horticultural" default="yes">Horticultural</option>
+				<option id="" default="yes">Please select a value</option>
+				<option id="Horticultural">Horticultural</option>
 				<option id="Wild">Wild</option>
 			</options>
 		</field>
