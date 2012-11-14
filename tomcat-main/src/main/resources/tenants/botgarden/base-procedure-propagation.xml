@@ -164,7 +164,7 @@
                         <field id="medium" autocomplete="concept-concept"/>
                         <field id="potSize" autocomplete="vocab-potSize" ui-type="enum"/>
                         <field id="nurseryLocation" autocomplete="location-location"/>
-                        <field id="conditions"/>
+                        <field id="conditions" autocomplete="vocab-propConditions" ui-type="enum"/>
                         <field id="chemicalApplied" autocomplete="vocab-propChemicals" ui-type="enum"/>
                         <field id="activityConcentration"/>
                         <field id="activityComments"/>

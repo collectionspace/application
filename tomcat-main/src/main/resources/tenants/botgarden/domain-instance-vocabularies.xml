@@ -1620,4 +1620,19 @@
             <option id="NAA">NAA</option>
         </options>
     </instance>
+    <instance id="vocab-propConditions">
+        <web-url>propConditions</web-url>
+        <title-ref>propConditions</title-ref>
+        <title>propConditions</title>
+        <options>
+            <option id="intermittentMist">intermittent mist</option>
+            <option id="bottomHeat">bottom heat</option>
+            <option id="lights">lights</option>
+            <option id="waterTray">water tray</option>
+            <option id="glassCover">glass cover</option>
+            <option id="metalPonds">metal ponds</option>
+            <option id="darkness">darkness</option>
+            <option id="brightLocation">bright location</option>
+        </options>
+    </instance>
 </root>
