@@ -317,6 +317,7 @@ public class RecordSearchList implements WebMethod {
 		JSONObject results = new JSONObject();
 		JSONArray list = new JSONArray();
 		JSONArray names = new JSONArray();
+		JSONArray newFocuses = new JSONArray();
 		
 		if(data.has(key)){
 			JSONArray ja = data.getJSONArray(key);
@@ -324,9 +325,13 @@ public class RecordSearchList implements WebMethod {
 			for(int j=0;j<ja.length();j++){
 				list.put(ja.getJSONObject(j).getString("csid"));
 				names.put(ja.getJSONObject(j).getString("number"));
+				
+				JSONObject summarylist = ja.getJSONObject(j).getJSONObject("summarylist");
+				newFocuses.put(summarylist.getBoolean("createsNewFocus"));
 			}
 			results.put("batchlist", list);
 			results.put("batchnames", names);
+			results.put("batchnewfocuses", newFocuses);
 		}
 		return results;
 	}
