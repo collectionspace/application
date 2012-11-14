@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public class Record implements FieldParent {
+	private static final Logger log = LoggerFactory.getLogger(Record.class);
 	
 	public final static String BLOB_SOURCE_URL = "blobUri"; // BlobClient.BLOB_URI_PARAM; // The 'blobUri' query param used to pass an external URL for the services to download data from
 	public final static String BLOB_PURGE_ORIGINAL = "blobPurgeOrig"; // BlobClient.BLOB_PURGE_ORIGINAL;
@@ -38,7 +39,6 @@ public class Record implements FieldParent {
 	public static final String RANGE_START_SUFFIX = "Start";
 	public static final String RANGE_END_SUFFIX = "End";
 	
-	private static final Logger log = LoggerFactory.getLogger(Record.class);
 	protected SchemaUtils utils = new SchemaUtils();
 	
 	private Map<String, Structure> structure = new HashMap<String, Structure>();
@@ -99,6 +99,7 @@ public class Record implements FieldParent {
 		whoamI = utils.getString("@id");
 		
 		utils.initStrings(section, "@cms-type", "none");
+		utils.initBoolean(section,"@is-extension", false);		
 		
 		//
 		// The name for used to create the Services XML Schema.
@@ -473,6 +474,10 @@ public class Record implements FieldParent {
 		String result = utils.getString("@cms-type");
 		return result;
 	}
+	public boolean isServicesExtension() {
+		boolean result = utils.getBoolean("@is-extension");		
+		return result;
+	}
 	public String getUILabelSelector(String id){
 		return getPreSelector()  + utils.getString("@id") + "-" +  id + "-label";
 	}
@@ -494,8 +499,6 @@ public class Record implements FieldParent {
 		}
 		return null;
 	}
-
-
 
 	public String enumBlankValue(){
 		return utils.getString("enum-blank");

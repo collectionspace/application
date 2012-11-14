@@ -56,10 +56,19 @@ public class Spec implements CSP, Configurable {
 	private Map<String, Set<Field>> termlist = new HashMap<String, Set<Field>>();
 	private Map<String, Structure> structure=new HashMap<String,Structure>();
 	private String version;
+	private String tenantid;
 	private EmailData ed;
 	private AdminData adminData;
 	
 	public String getName() { return "schema"; }
+	
+	public String getVersion() {
+		return version;
+	}
+	
+	public String getTenantID() {
+		return tenantid;
+	}
 
 	public void go(CSPContext ctx) throws CSPDependencyException {
 		ctx.addConfigRules(this);
@@ -69,13 +78,21 @@ public class Spec implements CSP, Configurable {
 
 		
 		
+		/* MAIN/tenantid -> string */
+		rules.addRule(SECTIONED,new String[]{"tenantid"},SECTION_PREFIX+"tenantid",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				tenantid=(String)section.getValue("");
+				return this;
+			}
+		});
+		
 		/* MAIN/version -> string */
 		rules.addRule(SECTIONED,new String[]{"version"},SECTION_PREFIX+"version",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
 				version=(String)section.getValue("");
 				return this;
 			}
-		});
+		});		
 
 		/* MAIN/email -> EmailData */
 		rules.addRule(SECTIONED,new String[]{"email"},SECTION_PREFIX+"email",null,new Target(){

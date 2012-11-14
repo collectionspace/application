@@ -1,8 +1,14 @@
 package org.collectionspace.chain.installation;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.HashMap;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.inner.CoreConfig;
@@ -23,6 +29,29 @@ import org.xml.sax.InputSource;
 
 public class XsdGeneration {
 	private static final Logger log = LoggerFactory.getLogger(XsdGeneration.class);
+	
+	private static final int MAX_CONFIG_FILE_SIZE = 100 * 1024;
+	
+	private static final String NUXEO_PLUGIN_TEMPLATES_DIR = "nx-plugin-templates";
+	private static final String NUXEO_SCHEMA_TYPE_TEMPLATES_DIR = NUXEO_PLUGIN_TEMPLATES_DIR + "/" + "schema-type-templates";
+	private static final String DOCTYPE_TEMPLATES_DIR = "doc-type-templates";
+	private static final String SCHEMATYPE_TEMPLATES_DIR = "schema-type-templates";
+	
+	private static final String SERVICE_NAME_VAR = "${ServiceName}";
+	private static final String SCHEMA_NAME_VAR = "${SchemaName}";
+	private static final String REQUIRE_BUNDLE_LIST_VAR = "${Require-Bundle-List}";
+	
+	private static final String META_INF_DIR = "META-INF";
+	private static final String MANIFEST_FILE = "MANIFEST.MF";
+	
+	private static final String OSGI_INF_DIR = "OSGI-INF";
+	private static final String SCHEMAS_DIR = "schemas";
+	private static final String JAR_EXT = ".jar";	
+
+	private static final String TENANT_QUALIFIER = "Tenant";
+
+	private static final String NX_PLUGIN_NAME = "nx_plugin_out";
+	
 	private HashMap<String, String> serviceSchemas = new HashMap<String, String>();
 	private String tenantBindings = null;
 	
@@ -33,16 +62,7 @@ public class XsdGeneration {
 	public XsdGeneration(String configfile, String recordType, String domain, String type, String schemaVersion) throws UIException {
 
 		String current = null;
-		try {
-			current = new java.io.File( "." ).getCanonicalPath();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        System.out.println("Current dir:"+current);
-        String currentDir = System.getProperty("user.dir");
-        System.out.println("Current dir using System:" +currentDir);
-        
+		        
 		CSPManager cspm=getServiceManager(configfile);
 		Spec spec = getSpec(cspm);
 		PrintStream out = System.out;
@@ -109,8 +129,14 @@ public class XsdGeneration {
 				for (String definedSchema : definedSchemaList.keySet()) {
 					if (serviceSchemas.containsKey(definedSchema) == false) {
 						// If the newly defined schema doesn't already exist in our master list then add it
+						try {
+							createSchemaBundle(record, definedSchema, definedSchemaList);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						serviceSchemas.put(definedSchema, definedSchemaList.get(definedSchema));
-						log.trace(String.format("New Services schema '%s' defined in configuration record '%s'.",
+						log.debug(String.format("New Services schema '%s' defined in Application configuration record '%s'.",
 								definedSchema, record.getID()));
 					} else {
 						// Otherwise, it already exists so emit a warning just in case it shouldn't have been redefined.
@@ -119,6 +145,10 @@ public class XsdGeneration {
 						log.trace(String.format("Redefined services schema is: %s", definedSchemaList.get(definedSchema)));
 					}
 				}
+				//
+				// Create the Nuxeo bundle document type
+				//
+				createDocumentTypeBundle(record, definedSchemaList);
 			} else if (type.equals("delta")) { // Create the service bindings.
 				Services tenantbob = new Services(getSpec(cspm), getTenantData(cspm),false);
 				tenantBindings = tenantbob.doit();
@@ -126,6 +156,110 @@ public class XsdGeneration {
 		} else {
 			log.error(String.format("Record type '%s' is unknown in configuration file", configfile));
 		}
+	}
+	
+	private void createDocumentTypeBundle(Record record, HashMap<String, String> definedSchemaList) {
+		// Create a new zip/jar for the doc type bundle
+		// Create the META-INF folder and manifest file
+		// Create the OSGI-INF folder and process the template files
+		String docTypeName = record.getServicesTenantSg();
+		if (record.isServicesExtension() == true) {
+			docTypeName = docTypeName + TENANT_QUALIFIER + record.getSpec().getTenantID();
+		}
+		log.debug(String.format("Creating Nuxeo document type bundle: ${NuxeoDocTypeName}='%s'",
+				docTypeName));
+	}
+
+	private void createSchemaBundle(Record record, String schemaName, HashMap<String, String>schemaList) throws Exception {
+		String serviceName = record.getServicesTenantSg();
+		String tenantName = record.getSpec().getAdminData().getTenantName();
+		String schemaNameNoFileExt = schemaName.split("\\.")[0]; // Assumes a single '.' in a file name like "foo.xsd"
+		String bundleName = tenantName + "." + serviceName + "." + schemaNameNoFileExt + JAR_EXT;
+		
+		//
+		// Before creating a new bundle, make sure we haven't already created a bundle for this schema extension.
+		//
+		if (this.getServiceSchemas().containsKey(schemaName) == false) {
+			File schemaTypeTemplatesDir = new File(NUXEO_SCHEMA_TYPE_TEMPLATES_DIR);
+			if (schemaTypeTemplatesDir.exists()) {
+				ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(
+						bundleName));
+				
+				// Check that the manifest template file exists
+				File metaInfTemplate = new File(NUXEO_SCHEMA_TYPE_TEMPLATES_DIR + "/" + META_INF_DIR + "/" + MANIFEST_FILE);
+				if (metaInfTemplate.exists() == false) {
+					throw new Exception(String.format("The manifest template file '%s' is missing:", metaInfTemplate.getAbsolutePath()));
+				}
+
+				// Create the "META-INF" directory in the output jar/bundle zip file
+				zos.putNextEntry(new ZipEntry(META_INF_DIR + "/"));
+				zos.closeEntry();
+
+				//
+				// Now create the MANIFEST.MF file
+				//
+				zos.putNextEntry(new ZipEntry(META_INF_DIR + "/" + MANIFEST_FILE));		
+				
+				// Process the template by performing the substitutions
+				HashMap<String, String> substitutionMap = new HashMap<String, String>();
+				substitutionMap.put(SERVICE_NAME_VAR, serviceName);
+				substitutionMap.put(SCHEMA_NAME_VAR, schemaNameNoFileExt);
+				processTemplateFile(metaInfTemplate, substitutionMap, zos);
+				
+				zos.closeEntry();
+				//
+				// We're finished adding entries so close the zip output stream
+				// 
+				zos.close();
+				
+			} else {
+				log.error(String.format("The '%s' directory is missing looking for it at '%s'.", NUXEO_SCHEMA_TYPE_TEMPLATES_DIR, schemaTypeTemplatesDir.getAbsolutePath()));
+			}
+		} else {
+			log.warn(String.format("Nuxeo schema '%s' is being redefined in record '%s'.  Ignoring redefinition and *not* creating a new extension point bundle for the schema.",
+					schemaName, record.getID()));
+		}
+	}
+
+	private static String processTemplateFile(File templateFile, HashMap<String, String> substitutionMap, ZipOutputStream zos) throws Exception {
+		String result = null;
+		//
+		// Read the entire template file into a memory buffer
+		//
+		byte[] buf = new byte[MAX_CONFIG_FILE_SIZE];		
+		FileInputStream fis = new FileInputStream(templateFile.getAbsoluteFile()); // Read in the template
+		int len = 0;
+		int fileSize = 0;
+		int bufferExceeded = 0;
+		while ((len = fis.read(buf)) > 0) {  // WARNING: The whole file needs to fit into our buffer or we fail.
+			bufferExceeded++;
+			fileSize = fileSize + len;
+		}
+		fis.close();
+		//
+		// Peform the variable substitution
+		//
+		if (bufferExceeded == 1) {
+			String contentString = new String(buf, 0, fileSize);
+			for (String key : substitutionMap.keySet()) {
+				contentString = contentString.replace(key, substitutionMap.get(key));
+				System.out.println(String.format("Replacing the string '%s' with '%s'", key, substitutionMap.get(key)));
+			}
+			// write the processed file out to the zip entry
+			zos.write(contentString.getBytes(), 0, contentString.getBytes().length);
+			result = contentString;
+		} else {
+			String errMsg = String.format("The file '%s' was empty or missing.", templateFile.getAbsoluteFile());
+			if (bufferExceeded > 1) {
+				errMsg = String.format("The file '%s' was too large to fit in our memory buffer.  It needs to be less than %d bytes, but was at least %d bytes in size.",
+						templateFile.getAbsoluteFile(), MAX_CONFIG_FILE_SIZE, fileSize);
+			}
+			throw new Exception(errMsg);
+		}
+		
+		log.debug(String.format("The processed file is:\n%s", result));
+		
+		return result;
 	}
 	
 	private InputSource getSource(String fallbackFile) {

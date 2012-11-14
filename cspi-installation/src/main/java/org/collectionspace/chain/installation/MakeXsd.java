@@ -326,7 +326,7 @@ public class MakeXsd {
 		Object[] servicesSchemaList = this.getServiceSchemas(record);
 		for (Object name : servicesSchemaList) {
 			String schemaName = (String)name;
-			String schema = getServiceSchema(schemaName, record, schemaVersion);
+			String schema = getServiceSchema(schemaName, record, schemaVersion); // Generates the XML Schema .xsd file -returns it as a String instance
 			String filename = generateXSDFilename(recordType, schemaName);
 			result.put(filename, schema);
 		}

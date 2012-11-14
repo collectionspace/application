@@ -1,5 +1,6 @@
 <cspace-config tenantname="lifesci">
 
+	<tenantid>2</tenantid>
 	<version>11</version>
 	<include src="local-settings.xml,settings.xml" strip-root="yes" />
 

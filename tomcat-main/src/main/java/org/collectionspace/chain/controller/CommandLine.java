@@ -21,6 +21,8 @@ public class CommandLine {
 		String domain = "collectionspace_core"; //args[1];
 		String maketype = "core"; //args[2];
 		String configfile = "lifesci-tenant.xml"; //args[3];
+		
+		// Generate all the Service schemas from the Application layer's configuration records
 		XsdGeneration s = new XsdGeneration(configfile, recordtype, domain, maketype, "3.0");
 		HashMap<String, String> xsdschemas = s.getServiceSchemas();
 		
