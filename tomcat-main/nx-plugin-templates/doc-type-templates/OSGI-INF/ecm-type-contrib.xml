@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<component name="org.collectionspace.${ServiceName}.ecm.types">
+<component name="org.collectionspace.${NuxeoDocTypeName_LowerCase}.ecm.types">
   <extension target="org.nuxeo.ecm.platform.types.TypeService" point="types">
     <type id="${NuxeoDocTypeName}" coretype="${NuxeoDocTypeName}">
-      <label>org.collectionspace.${ServiceName}</label>
+      <label>org.collectionspace.${NuxeoDocTypeName}</label>
       <default-view>view_documents</default-view>
 
       <layouts mode="any">

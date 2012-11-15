@@ -32,6 +32,7 @@ import org.xml.sax.InputSource;
 public class XsdGeneration {
 	private static final Logger log = LoggerFactory.getLogger(XsdGeneration.class);
 	
+	private static final String EOL = "\r\n"; // <CR><LF>
 	private static final int MAX_CONFIG_FILE_SIZE = 100 * 1024;
 	
 	private static final String NUXEO_PLUGIN_TEMPLATES_DIR = "nx-plugin-templates";
@@ -43,17 +44,25 @@ public class XsdGeneration {
 	private static final String DEFAULT_PARENT_TYPE = "CollectionSpaceDocument";
 	private static final String SCHEMA_PARENT_TYPE_VAR = "$SchemaParentType}";
 	private static final String COLLECTIONSPACE_CORE_SCHEMA_NAME = "collectionspace_core";
-	private static final String DEFAULT_SCHEMA_PREAMBLE = "collectionspace";
+	private static final String DEFAULT_BUNDLE_PREAMBLE = "collectionspace";
 	private static final String SCHEMA_BUNDLE_QUALIFIER = "schema";
 	private static final String DOCTYPE_BUNDLE_QUALIFIER = "doctype";
-	
+	private static final String SHARED_QUALIFIER = "shared";
+		
 	private static final String SCHEMA_NAME_VAR = "${SchemaName}";
-	private static final String SCHEMA_ELEMENT_TEMPLATE = "<schema name=\"" + SCHEMA_NAME_VAR + "\" />";
+	private static final String SCHEMA_NAME_LOWERCASE_VAR = "${SchemaName_LowerCase}";
+	
 	private static final String DOCTYPE_NAME_VAR = "${NuxeoDocTypeName}";
+	private static final String DOCTYPE_NAME_LOWERCASE_VAR = "${NuxeoDocTypeName_LowerCase}";
+
 	private static final String SERVICE_NAME_VAR = "${ServiceName}";
+	private static final String SERVICE_NAME_LOWERCASE_VAR = "${ServiceName_LowerCase}";
+	
 	private static final String REQUIRE_BUNDLE_LIST_VAR = "${Require-Bundle-List}";
 	private static final String SCHEMA_ELEMENTS_LIST_VAR = "${SchemaElements}";
-	
+	private static final String EMC_LAYOUT_LIST_VAR = "${LayoutList}";
+
+	private static final String SCHEMA_ELEMENT_TEMPLATE = "<schema name=\"" + SCHEMA_NAME_VAR + "\" />";	
 	private static final String META_INF_DIR = "META-INF";
 	private static final String MANIFEST_FILE = "MANIFEST.MF";
 	private static final String OSGI_INF_DIR = "OSGI-INF";
@@ -184,6 +193,7 @@ public class XsdGeneration {
 	private String getRequiredBundlesList(Record record, HashMap<String, String> definedSchemaList) throws Exception {
 		String result = null;
 		StringBuffer strBuf = new StringBuffer();
+		final String lineSeparator = "," + EOL;
 		
 		for (String schemaName : definedSchemaList.keySet()) {
 			String bundleName = getServiceSchemaBundles().get(schemaName);
@@ -191,19 +201,17 @@ public class XsdGeneration {
 				bundleName = FilenameUtils.removeExtension(bundleName); // strip off the .jar file extension
 				log.debug(String.format("Included in Require-Bundle list entry: '%s'", bundleName));
 				strBuf.append(bundleName);
-				strBuf.append(",\n");
+				strBuf.append(lineSeparator);
 			} else {
 				String errMsg = String.format("The bundle file definition for the schema '%s' could not be found.", schemaName);
 				log.error(errMsg);
 				throw new Exception(errMsg);
 			}			
 		}
-		//
-		// Remove the last extra comma and line-return
-		//
+
 		int len = strBuf.length();
 		if (len > 0) {
-			result = strBuf.substring(0, len - 2);
+			result = strBuf.substring(0, len - lineSeparator.length()); // Remove the last/extra line separator
 		}
 		
 		return result;
@@ -217,17 +225,17 @@ public class XsdGeneration {
 		for (String schemaNameWithExtension : definedSchemaList.keySet()) {
 			String schemaName =	FilenameUtils.removeExtension(schemaNameWithExtension);
 			String element = SCHEMA_ELEMENT_TEMPLATE.replace(SCHEMA_NAME_VAR, schemaName);
-			strBuf.append(tabs + element + "\n");
+			strBuf.append(tabs + element + EOL);
 			if (tabs.length() == 0) {
 				tabs = "\t\t\t";
 			}
 		}
 		//
-		// Remove the last extra line-return
+		// Remove the last/extra line-return
 		//
 		int len = strBuf.length();
 		if (len > 0) {
-			result = strBuf.substring(0, len - 1);
+			result = strBuf.substring(0, len - EOL.length());
 		}
 		
 		return result;
@@ -244,8 +252,8 @@ public class XsdGeneration {
 		if (record.isServicesExtension() == true) {
 			docTypeName = docTypeName + TENANT_QUALIFIER + record.getSpec().getTenantID();
 		}
-		String bundleName = tenantName + "." + serviceName
-			+ "." + DOCTYPE_BUNDLE_QUALIFIER + "." + docTypeName + JAR_EXT;
+		String bundleName = DEFAULT_BUNDLE_PREAMBLE + "." + serviceName.toLowerCase()
+			+ "." + DOCTYPE_BUNDLE_QUALIFIER + "." + tenantName + "." + docTypeName + JAR_EXT;
 		
 		if (getServiceDoctypeBundles().containsKey(docTypeName) == false) {
 			File doctypeTemplatesDir = new File(NUXEO_DOCTYPE_TEMPLATES_DIR);
@@ -261,15 +269,19 @@ public class XsdGeneration {
 				// Setup the hash map for the variable substitutions
 				HashMap<String, String> substitutionMap = new HashMap<String, String>();
 				substitutionMap.put(SERVICE_NAME_VAR, serviceName);
+				substitutionMap.put(SERVICE_NAME_LOWERCASE_VAR, serviceName.toLowerCase());
 				substitutionMap.put(DOCTYPE_NAME_VAR, docTypeName);
+				substitutionMap.put(DOCTYPE_NAME_LOWERCASE_VAR, docTypeName.toLowerCase());
+				substitutionMap.put(EMC_LAYOUT_LIST_VAR, ""); // Once we re-enable the Nuxeo DM webapp, this should be list of layout definitions
 				String requiredBundleList = getRequiredBundlesList(record, definedSchemaList);
 				substitutionMap.put(REQUIRE_BUNDLE_LIST_VAR, requiredBundleList);
 				createManifestFile(metaInfTemplate, substitutionMap, zos);
 				//
-				// Next, crate the META-INF files
+				// Next, crate the OSGI-INF files
 				//
 				String schemaElementsList = getSchemaElementsList(record, definedSchemaList);
 				substitutionMap.put(SCHEMA_ELEMENTS_LIST_VAR, schemaElementsList);
+				
 				String schemaParentType = DEFAULT_PARENT_TYPE;
 				if (record.isServicesExtension() == true) { // If we know this is an extension of a common base type, we need to set the parent type
 					schemaParentType = serviceName;
@@ -312,6 +324,33 @@ public class XsdGeneration {
 		}
 	}
 	
+	/*
+	 * Creates an entry in the zip/jar bundle for XML Schema (.xsd) files.
+	 */
+	private void createSchemaFiles(File osgiInfTemplatesDir,
+			HashMap<String, String> substitutionMap,
+			ZipOutputStream zos,
+			String schemaName, HashMap<String,
+			String>definedSchemaList) throws Exception {
+		String contentString = definedSchemaList.get(schemaName);
+		
+		if (contentString != null && contentString.isEmpty() == false) {
+			// Create the "schemas" directory in the output jar/zip file
+			zos.putNextEntry(new ZipEntry(SCHEMAS_DIR + "/"));
+			zos.closeEntry();
+			//
+			// Create an entry in the zip/jar for the schema file and write it out
+			//
+			zos.putNextEntry(new ZipEntry(SCHEMAS_DIR + "/" + schemaName));
+			zos.write(contentString.getBytes(), 0, contentString.getBytes().length);
+			zos.closeEntry();
+		} else {
+			String errMsg = String.format("The contents for the schema '%s' is empty or missing.", schemaName);
+			log.error(errMsg);
+			throw new Exception(errMsg);
+		}
+	}
+	
 	private void createManifestFile(File metaInfTemplate, HashMap<String, String> substitutionMap, ZipOutputStream zos) throws Exception {
 		if (metaInfTemplate.exists() == false) {
 			throw new Exception(String.format("The manifest template file '%s' is missing:", metaInfTemplate.getAbsolutePath()));
@@ -328,14 +367,15 @@ public class XsdGeneration {
 		zos.closeEntry();		
 	}
 	
-	private void createSchemaBundle(Record record, String schemaName, HashMap<String, String>schemaList) throws Exception {
+	private void createSchemaBundle(Record record, String schemaName, HashMap<String, String>definedSchemaList) throws Exception {
 		String serviceName = record.getServicesTenantSg();
 		String schemaNameNoFileExt = schemaName.split("\\.")[0]; // Assumes a single '.' in a file name like "foo.xsd"
 		String tenantName = record.getSpec().getAdminData().getTenantName();
 		// Figure out what the bundle name should be.
-		String bundleName = serviceName + "." + SCHEMA_BUNDLE_QUALIFIER + "." + schemaNameNoFileExt;
+		String bundleName = DEFAULT_BUNDLE_PREAMBLE + "." + serviceName.toLowerCase()
+				+ "." + SCHEMA_BUNDLE_QUALIFIER + "." + schemaNameNoFileExt;
 		if (isGlobalSchema(schemaNameNoFileExt) == true) {
-			bundleName = DEFAULT_SCHEMA_PREAMBLE + "." + SCHEMA_BUNDLE_QUALIFIER + "." + schemaNameNoFileExt;
+			bundleName = DEFAULT_BUNDLE_PREAMBLE + "." + SHARED_QUALIFIER + "." + SCHEMA_BUNDLE_QUALIFIER + "." + schemaNameNoFileExt;
 		}
 		bundleName = bundleName + JAR_EXT;
 		//
@@ -357,12 +397,18 @@ public class XsdGeneration {
 				}
 				HashMap<String, String> substitutionMap = new HashMap<String, String>();
 				substitutionMap.put(SERVICE_NAME_VAR, serviceNameVar);
+				substitutionMap.put(SERVICE_NAME_LOWERCASE_VAR, serviceNameVar.toLowerCase());
 				substitutionMap.put(SCHEMA_NAME_VAR, schemaNameNoFileExt);
+				substitutionMap.put(SCHEMA_NAME_LOWERCASE_VAR, schemaNameNoFileExt.toLowerCase());
 				createManifestFile(metaInfTemplate, substitutionMap, zos);
 				//
 				// Next, crate the OSGI-INF files
 				//
 				createOsgiInfFiles(schemaTypeTemplatesDir, substitutionMap, zos);
+				//
+				// Finally, create the "schemas" directory entry and add the schema file to it
+				//
+				createSchemaFiles(schemaTypeTemplatesDir, substitutionMap, zos, schemaName, definedSchemaList);
 				//
 				// We're finished adding entries so close the zip output stream
 				//
@@ -397,8 +443,10 @@ public class XsdGeneration {
 
 		return result;
 	}
-
-	private static String processTemplateFile(File templateFile, HashMap<String, String> substitutionMap, ZipOutputStream zos) throws Exception {
+	
+	private static String processTemplateFile(File templateFile,
+			HashMap<String, String> substitutionMap,
+			ZipOutputStream zos) throws Exception {
 		String result = null;
 		//
 		// Read the entire template file into a memory buffer
@@ -416,15 +464,16 @@ public class XsdGeneration {
 		//
 		// Peform the variable substitution
 		//
-		if (bufferExceeded == 1) {
-			String contentString = new String(buf, 0, fileSize);
+		if (bufferExceeded == 1) { // "== 1" means we fit the entire template file into memory.  "> 1" means the template file was too large. "== 0" means the file was missing or empty
+			String contentStr = new String(buf, 0, fileSize);
 			for (String key : substitutionMap.keySet()) {
-				contentString = contentString.replace(key, substitutionMap.get(key));
-				System.out.println(String.format("Replacing the string '%s' with '%s'", key, substitutionMap.get(key)));
+				String varReplacementStr = substitutionMap.get(key);
+				contentStr = contentStr.replace(key, varReplacementStr);
+				System.out.println(String.format("Replacing the string '%s' with '%s'", key, varReplacementStr));
 			}
 			// write the processed file out to the zip entry
-			zos.write(contentString.getBytes(), 0, contentString.getBytes().length);
-			result = contentString;
+			zos.write(contentStr.getBytes(), 0, contentStr.getBytes().length);
+			result = contentStr;
 		} else {
 			String errMsg = String.format("The file '%s' was empty or missing.", templateFile.getAbsoluteFile());
 			if (bufferExceeded > 1) {

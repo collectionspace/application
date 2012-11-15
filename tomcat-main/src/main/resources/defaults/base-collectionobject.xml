@@ -62,6 +62,7 @@
     <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core"
       attributes="GET" mini="search,list,relate"/>
     <field id="createdBy" section="collectionspace_core" attributes="GET"/>
+    <field id="uri" section="collectionspace_core" attributes="GET"/>
     <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"/>
     <field id="nametitle" mini="summary,search,list,relate" exists-in-services="false">
       <selector>object-identification-object-nametitle</selector>
