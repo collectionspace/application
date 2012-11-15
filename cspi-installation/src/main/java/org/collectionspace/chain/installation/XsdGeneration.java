@@ -7,9 +7,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import org.apache.commons.io.FilenameUtils;
 import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorageGenerator;
@@ -34,16 +36,26 @@ public class XsdGeneration {
 	
 	private static final String NUXEO_PLUGIN_TEMPLATES_DIR = "nx-plugin-templates";
 	private static final String NUXEO_SCHEMA_TYPE_TEMPLATES_DIR = NUXEO_PLUGIN_TEMPLATES_DIR + "/" + "schema-type-templates";
+	private static final String NUXEO_DOCTYPE_TEMPLATES_DIR = NUXEO_PLUGIN_TEMPLATES_DIR + "/" + "doc-type-templates";
 	private static final String DOCTYPE_TEMPLATES_DIR = "doc-type-templates";
 	private static final String SCHEMATYPE_TEMPLATES_DIR = "schema-type-templates";
 	
-	private static final String SERVICE_NAME_VAR = "${ServiceName}";
+	private static final String DEFAULT_PARENT_TYPE = "CollectionSpaceDocument";
+	private static final String SCHEMA_PARENT_TYPE_VAR = "$SchemaParentType}";
+	private static final String COLLECTIONSPACE_CORE_SCHEMA_NAME = "collectionspace_core";
+	private static final String DEFAULT_SCHEMA_PREAMBLE = "collectionspace";
+	private static final String SCHEMA_BUNDLE_QUALIFIER = "schema";
+	private static final String DOCTYPE_BUNDLE_QUALIFIER = "doctype";
+	
 	private static final String SCHEMA_NAME_VAR = "${SchemaName}";
+	private static final String SCHEMA_ELEMENT_TEMPLATE = "<schema name=\"" + SCHEMA_NAME_VAR + "\" />";
+	private static final String DOCTYPE_NAME_VAR = "${NuxeoDocTypeName}";
+	private static final String SERVICE_NAME_VAR = "${ServiceName}";
 	private static final String REQUIRE_BUNDLE_LIST_VAR = "${Require-Bundle-List}";
+	private static final String SCHEMA_ELEMENTS_LIST_VAR = "${SchemaElements}";
 	
 	private static final String META_INF_DIR = "META-INF";
 	private static final String MANIFEST_FILE = "MANIFEST.MF";
-	
 	private static final String OSGI_INF_DIR = "OSGI-INF";
 	private static final String SCHEMAS_DIR = "schemas";
 	private static final String JAR_EXT = ".jar";	
@@ -53,13 +65,24 @@ public class XsdGeneration {
 	private static final String NX_PLUGIN_NAME = "nx_plugin_out";
 	
 	private HashMap<String, String> serviceSchemas = new HashMap<String, String>();
+	private HashMap<String, String> serviceSchemaBundles = new HashMap<String, String>();
+	private HashMap<String, String> serviceDoctypeBundles = new HashMap<String, String>();
+	
 	private String tenantBindings = null;
 	
 	public HashMap<String, String> getServiceSchemas() {
 		return serviceSchemas;
 	}
 	
-	public XsdGeneration(String configfile, String recordType, String domain, String type, String schemaVersion) throws UIException {
+	public HashMap<String, String> getServiceSchemaBundles() {
+		return serviceSchemaBundles;
+	}
+	
+	public HashMap<String, String> getServiceDoctypeBundles() {
+		return serviceDoctypeBundles;
+	}
+	
+	public XsdGeneration(String configfile, String recordType, String domain, String type, String schemaVersion) throws Exception {
 
 		String current = null;
 		        
@@ -127,7 +150,7 @@ public class XsdGeneration {
 				// For each schema defined in the configuration record, check to see if it was already
 				// defined in another record.
 				for (String definedSchema : definedSchemaList.keySet()) {
-					if (serviceSchemas.containsKey(definedSchema) == false) {
+					if (getServiceSchemas().containsKey(definedSchema) == false) {
 						// If the newly defined schema doesn't already exist in our master list then add it
 						try {
 							createSchemaBundle(record, definedSchema, definedSchemaList);
@@ -135,7 +158,7 @@ public class XsdGeneration {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						serviceSchemas.put(definedSchema, definedSchemaList.get(definedSchema));
+						getServiceSchemas().put(definedSchema, definedSchemaList.get(definedSchema));
 						log.debug(String.format("New Services schema '%s' defined in Application configuration record '%s'.",
 								definedSchema, record.getID()));
 					} else {
@@ -158,60 +181,196 @@ public class XsdGeneration {
 		}
 	}
 	
-	private void createDocumentTypeBundle(Record record, HashMap<String, String> definedSchemaList) {
+	private String getRequiredBundlesList(Record record, HashMap<String, String> definedSchemaList) throws Exception {
+		String result = null;
+		StringBuffer strBuf = new StringBuffer();
+		
+		for (String schemaName : definedSchemaList.keySet()) {
+			String bundleName = getServiceSchemaBundles().get(schemaName);
+			if (bundleName != null && bundleName.isEmpty() == false) {
+				bundleName = FilenameUtils.removeExtension(bundleName); // strip off the .jar file extension
+				log.debug(String.format("Included in Require-Bundle list entry: '%s'", bundleName));
+				strBuf.append(bundleName);
+				strBuf.append(",\n");
+			} else {
+				String errMsg = String.format("The bundle file definition for the schema '%s' could not be found.", schemaName);
+				log.error(errMsg);
+				throw new Exception(errMsg);
+			}			
+		}
+		//
+		// Remove the last extra comma and line-return
+		//
+		int len = strBuf.length();
+		if (len > 0) {
+			result = strBuf.substring(0, len - 2);
+		}
+		
+		return result;
+	}
+	
+	private String getSchemaElementsList(Record record, HashMap<String, String> definedSchemaList) throws Exception {
+		String result = null;
+		StringBuffer strBuf = new StringBuffer();
+		
+		String tabs = "";
+		for (String schemaNameWithExtension : definedSchemaList.keySet()) {
+			String schemaName =	FilenameUtils.removeExtension(schemaNameWithExtension);
+			String element = SCHEMA_ELEMENT_TEMPLATE.replace(SCHEMA_NAME_VAR, schemaName);
+			strBuf.append(tabs + element + "\n");
+			if (tabs.length() == 0) {
+				tabs = "\t\t\t";
+			}
+		}
+		//
+		// Remove the last extra line-return
+		//
+		int len = strBuf.length();
+		if (len > 0) {
+			result = strBuf.substring(0, len - 1);
+		}
+		
+		return result;
+	}
+	
+	private void createDocumentTypeBundle(Record record, HashMap<String, String> definedSchemaList) throws Exception {
 		// Create a new zip/jar for the doc type bundle
 		// Create the META-INF folder and manifest file
 		// Create the OSGI-INF folder and process the template files
+		String serviceName = record.getServicesTenantSg();
+		String tenantName = record.getSpec().getAdminData().getTenantName();		
 		String docTypeName = record.getServicesTenantSg();
+
 		if (record.isServicesExtension() == true) {
 			docTypeName = docTypeName + TENANT_QUALIFIER + record.getSpec().getTenantID();
 		}
-		log.debug(String.format("Creating Nuxeo document type bundle: ${NuxeoDocTypeName}='%s'",
-				docTypeName));
-	}
-
-	private void createSchemaBundle(Record record, String schemaName, HashMap<String, String>schemaList) throws Exception {
-		String serviceName = record.getServicesTenantSg();
-		String tenantName = record.getSpec().getAdminData().getTenantName();
-		String schemaNameNoFileExt = schemaName.split("\\.")[0]; // Assumes a single '.' in a file name like "foo.xsd"
-		String bundleName = tenantName + "." + serviceName + "." + schemaNameNoFileExt + JAR_EXT;
+		String bundleName = tenantName + "." + serviceName
+			+ "." + DOCTYPE_BUNDLE_QUALIFIER + "." + docTypeName + JAR_EXT;
 		
-		//
-		// Before creating a new bundle, make sure we haven't already created a bundle for this schema extension.
-		//
-		if (this.getServiceSchemas().containsKey(schemaName) == false) {
-			File schemaTypeTemplatesDir = new File(NUXEO_SCHEMA_TYPE_TEMPLATES_DIR);
-			if (schemaTypeTemplatesDir.exists()) {
+		if (getServiceDoctypeBundles().containsKey(docTypeName) == false) {
+			File doctypeTemplatesDir = new File(NUXEO_DOCTYPE_TEMPLATES_DIR);
+			if (doctypeTemplatesDir.exists() == true) {
+				log.debug(String.format("### Creating Nuxeo document type ${NuxeoDocTypeName}='%s' in bundle: '%s'",
+						docTypeName, bundleName));
 				ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(
 						bundleName));
-				
-				// Check that the manifest template file exists
-				File metaInfTemplate = new File(NUXEO_SCHEMA_TYPE_TEMPLATES_DIR + "/" + META_INF_DIR + "/" + MANIFEST_FILE);
-				if (metaInfTemplate.exists() == false) {
-					throw new Exception(String.format("The manifest template file '%s' is missing:", metaInfTemplate.getAbsolutePath()));
-				}
-
-				// Create the "META-INF" directory in the output jar/bundle zip file
-				zos.putNextEntry(new ZipEntry(META_INF_DIR + "/"));
-				zos.closeEntry();
-
 				//
-				// Now create the MANIFEST.MF file
+				// Create the manifest file from the doctype template
 				//
-				zos.putNextEntry(new ZipEntry(META_INF_DIR + "/" + MANIFEST_FILE));		
-				
-				// Process the template by performing the substitutions
+				File metaInfTemplate = new File(NUXEO_DOCTYPE_TEMPLATES_DIR + "/" + META_INF_DIR + "/" + MANIFEST_FILE);				
+				// Setup the hash map for the variable substitutions
 				HashMap<String, String> substitutionMap = new HashMap<String, String>();
 				substitutionMap.put(SERVICE_NAME_VAR, serviceName);
-				substitutionMap.put(SCHEMA_NAME_VAR, schemaNameNoFileExt);
-				processTemplateFile(metaInfTemplate, substitutionMap, zos);
-				
-				zos.closeEntry();
+				substitutionMap.put(DOCTYPE_NAME_VAR, docTypeName);
+				String requiredBundleList = getRequiredBundlesList(record, definedSchemaList);
+				substitutionMap.put(REQUIRE_BUNDLE_LIST_VAR, requiredBundleList);
+				createManifestFile(metaInfTemplate, substitutionMap, zos);
+				//
+				// Next, crate the META-INF files
+				//
+				String schemaElementsList = getSchemaElementsList(record, definedSchemaList);
+				substitutionMap.put(SCHEMA_ELEMENTS_LIST_VAR, schemaElementsList);
+				String schemaParentType = DEFAULT_PARENT_TYPE;
+				if (record.isServicesExtension() == true) { // If we know this is an extension of a common base type, we need to set the parent type
+					schemaParentType = serviceName;
+				}
+				substitutionMap.put(SCHEMA_PARENT_TYPE_VAR, schemaParentType);
+				createOsgiInfFiles(doctypeTemplatesDir, substitutionMap, zos);
 				//
 				// We're finished adding entries so close the zip output stream
 				// 
 				zos.close();
-				
+				//
+				// Keep track of the doctype bundles we've created
+				//
+				getServiceDoctypeBundles().put(docTypeName, bundleName);
+			}
+		} else {
+			log.warn(String.format("Nuxeo document type '%s' already exists.  Skipping creation.", docTypeName));
+		}
+	}
+
+	private void createOsgiInfFiles(File osgiInfTemplatesDir, HashMap<String, String> substitutionMap, ZipOutputStream zos) throws Exception {
+		// Check that the OSGI-INF directory exists
+		File osgiDir = new File(osgiInfTemplatesDir.getAbsolutePath() + "/" + OSGI_INF_DIR);
+		if (osgiDir.exists() == false || osgiDir.isDirectory() == false) {
+			throw new Exception(String.format("The %s directory '%s' is missing.", OSGI_INF_DIR, osgiDir.getAbsolutePath()));
+		}
+		// Create the "OSGI-INF" directory in the output jar/zip file
+		zos.putNextEntry(new ZipEntry(OSGI_INF_DIR + "/"));
+		zos.closeEntry();
+		
+		// For each file in the OSGI-INF directory, process it and add a zip/jar entry
+		for (File osgiFile : osgiDir.listFiles()) {
+			if (osgiFile.isDirectory() == false) {
+				zos.putNextEntry(new ZipEntry(OSGI_INF_DIR + "/" + osgiFile.getName()));		
+				processTemplateFile(osgiFile, substitutionMap, zos);	
+				zos.closeEntry();
+			} else {
+				System.err.println(String.format("Ignoring directory '%s' while processing OSGI-INF files.", osgiFile.getAbsolutePath()));
+			}
+		}
+	}
+	
+	private void createManifestFile(File metaInfTemplate, HashMap<String, String> substitutionMap, ZipOutputStream zos) throws Exception {
+		if (metaInfTemplate.exists() == false) {
+			throw new Exception(String.format("The manifest template file '%s' is missing:", metaInfTemplate.getAbsolutePath()));
+		}
+		// Create the "META-INF" directory in the output jar/bundle zip file
+		zos.putNextEntry(new ZipEntry(META_INF_DIR + "/"));
+		zos.closeEntry();
+		//
+		// Now create the MANIFEST.MF file
+		//
+		zos.putNextEntry(new ZipEntry(META_INF_DIR + "/" + MANIFEST_FILE));		
+		// Process the template by performing the variable substitutions
+		processTemplateFile(metaInfTemplate, substitutionMap, zos);				
+		zos.closeEntry();		
+	}
+	
+	private void createSchemaBundle(Record record, String schemaName, HashMap<String, String>schemaList) throws Exception {
+		String serviceName = record.getServicesTenantSg();
+		String schemaNameNoFileExt = schemaName.split("\\.")[0]; // Assumes a single '.' in a file name like "foo.xsd"
+		String tenantName = record.getSpec().getAdminData().getTenantName();
+		// Figure out what the bundle name should be.
+		String bundleName = serviceName + "." + SCHEMA_BUNDLE_QUALIFIER + "." + schemaNameNoFileExt;
+		if (isGlobalSchema(schemaNameNoFileExt) == true) {
+			bundleName = DEFAULT_SCHEMA_PREAMBLE + "." + SCHEMA_BUNDLE_QUALIFIER + "." + schemaNameNoFileExt;
+		}
+		bundleName = bundleName + JAR_EXT;
+		//
+		// Before creating a new bundle, make sure we haven't already created a bundle for this schema extension.
+		//
+		if (getServiceSchemaBundles().containsKey(schemaName) == false) {
+			File schemaTypeTemplatesDir = new File(NUXEO_SCHEMA_TYPE_TEMPLATES_DIR);
+			if (schemaTypeTemplatesDir.exists()) {
+				ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(
+						bundleName));
+				//
+				// Create the manifest file from the schema type template
+				//
+				File metaInfTemplate = new File(NUXEO_SCHEMA_TYPE_TEMPLATES_DIR + "/" + META_INF_DIR + "/" + MANIFEST_FILE);
+				// Setup the hash map for the variable substitutions
+				String serviceNameVar = serviceName;				
+				if (isGlobalSchema(schemaNameNoFileExt) == true) {
+					serviceNameVar = SCHEMA_BUNDLE_QUALIFIER;
+				}
+				HashMap<String, String> substitutionMap = new HashMap<String, String>();
+				substitutionMap.put(SERVICE_NAME_VAR, serviceNameVar);
+				substitutionMap.put(SCHEMA_NAME_VAR, schemaNameNoFileExt);
+				createManifestFile(metaInfTemplate, substitutionMap, zos);
+				//
+				// Next, crate the OSGI-INF files
+				//
+				createOsgiInfFiles(schemaTypeTemplatesDir, substitutionMap, zos);
+				//
+				// We're finished adding entries so close the zip output stream
+				//
+				zos.close();
+				//
+				// Keep track of the schema bundles we've created
+				//
+				getServiceSchemaBundles().put(schemaName, bundleName);
 			} else {
 				log.error(String.format("The '%s' directory is missing looking for it at '%s'.", NUXEO_SCHEMA_TYPE_TEMPLATES_DIR, schemaTypeTemplatesDir.getAbsolutePath()));
 			}
@@ -219,6 +378,24 @@ public class XsdGeneration {
 			log.warn(String.format("Nuxeo schema '%s' is being redefined in record '%s'.  Ignoring redefinition and *not* creating a new extension point bundle for the schema.",
 					schemaName, record.getID()));
 		}
+	}
+
+
+	/*
+	 * Try to determine if the schema is global/shared across tenants.
+	 */
+	private boolean isGlobalSchema(String schemaName) {
+		boolean result = false;
+
+		/*
+		 * For now, just see if it is the "collectionspace_core" schema, but we'll need a more
+		 * general solution in the future.
+		 */
+		if (schemaName.equalsIgnoreCase(COLLECTIONSPACE_CORE_SCHEMA_NAME) == true) {
+			result = true;
+		}
+
+		return result;
 	}
 
 	private static String processTemplateFile(File templateFile, HashMap<String, String> substitutionMap, ZipOutputStream zos) throws Exception {
@@ -258,7 +435,6 @@ public class XsdGeneration {
 		}
 		
 		log.debug(String.format("The processed file is:\n%s", result));
-		
 		return result;
 	}
 	

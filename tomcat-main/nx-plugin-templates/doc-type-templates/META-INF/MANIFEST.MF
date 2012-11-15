@@ -9,7 +9,7 @@ Require-Bundle: org.nuxeo.runtime,
  org.nuxeo.ecm.core.api,
  org.nuxeo.ecm.core,
  org.nuxeo.ecm.webapp.core,
- org.collectionspace.collectionspace_core
+ ${Require-Bundle-List}
 Provide-Package: org.collectionspace.${ServiceName}.${NuxeoDocTypeName}
 Nuxeo-Component: OSGI-INF/life-cycle-contrib.xml,
  OSGI-INF/ecm-types-contrib.xml,
