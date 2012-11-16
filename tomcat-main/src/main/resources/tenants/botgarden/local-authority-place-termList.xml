@@ -1,0 +1,29 @@
+<record id="preferredPlace">
+	<section id="termInformation">
+		<repeat id="placeTermGroupList/placeTermGroup">
+			<field id="termType">
+				<!-- Change options -->
+				<options>
+					<option id="">Please select a value</option>
+					<option id="common">Common name</option>
+					<option id="technical-scientific">Technical or scientific name</option>
+					<option id="native">Native name</option>
+					<option id="non-native">Non-native name</option>
+					<option id="local">Local name</option>
+					<option id="descriptive">Descriptive name</option>
+					<option id="spelling-variant">Spelling variant</option>
+					<option id="reverse">Reverse qualified</option>
+				</options>
+			</field>
+			<field id="historicalStatus">
+				<!-- Change options -->
+				<options>
+					<option id="current" default="yes">Current</option>
+					<option id="historical">Historical</option>
+					<option id="both">Both</option>
+					<option id="unknown">Unknown</option>
+				</options>
+			</field>
+		</repeat>
+	</section>
+</record>
