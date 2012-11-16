@@ -1,7 +1,7 @@
 
 <record id="preferredSLA" in-recordlist="no" separate-record="false">
     <hassoftdelete>true</hassoftdelete>
-    <section>
+    <section id="termInformation">
         <repeat id="locTermGroupList/locTermGroup">
             <!-- Fields common across all authority items -->
             <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes"
