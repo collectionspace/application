@@ -58,8 +58,8 @@
 		<!-- Need to glean csid for termCompletion -->
     <field id="csid" mini="search,list" attributes="GET"></field>
     <field id="refName" section="collectionspace_core" mini="search,list,relate" attributes="GET"></field>
-    <field id="createdAt" section="collectionspace_core" attributes="GET"/>
-    <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core"
+    <field id="createdAt" section="collectionspace_core" ui-type="date" datatype="date" attributes="GET"/>
+    <field id="updatedAt" section="collectionspace_core" ui-search="range" ui-type="date" datatype="date" 
       attributes="GET" mini="search,list,relate"/>
     <field id="createdBy" section="collectionspace_core" attributes="GET"/>
     <field id="uri" section="collectionspace_core" attributes="GET"/>
@@ -517,7 +517,7 @@
           <selector>object-description-inscription-content</selector>
         </field>
         <field id="inscriptionContentInscriber"
-          autocomplete="person-person,organization-organization">
+          autocomplete="person-person,organization-organization" ui-search="repeatable">
           <selector>object-description-inscription-content-inscriber</selector>
         </field>
         <field id="inscriptionContentLanguage" autocomplete="vocab-languages" ui-type="enum">
@@ -643,9 +643,9 @@
   </section>
   <section id="objectProductionInformation">
     <repeat id="objectProductionDateGroupList/objectProductionDateGroup">
-      <group id="objectProductionDate" xxx-services-no-repeat="true"
-        ui-type="groupfield/structureddate" primarykey="dateDisplayDate"
-        ui-func="cspace.structuredDate"/>
+      <group id="objectProductionDate" ui-type="groupfield/structureddate"
+        ui-search="range" primarykey="dateDisplayDate"
+        ui-func="cspace.structuredDate" xxx-services-no-repeat="true"/>
     </repeat>
     
     <repeat id="techniqueGroupList/techniqueGroup">
