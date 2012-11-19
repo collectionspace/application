@@ -17,10 +17,10 @@ import org.collectionspace.chain.installation.XsdGeneration;
 
 public class CommandLine {
 	public static final void main(String[] args) throws Exception {
-		String recordtype = "collectionobjects";//args[0];
+		String recordtype = "intakes";//args[0];
 		String domain = "collectionspace_core"; //args[1];
 		String maketype = "core"; //args[2];
-		String configfile = "lifesci-tenant.xml"; //args[3];
+		String configfile = "core-tenant.xml"; //args[3];
 		
 		// Generate all the Service schemas from the Application layer's configuration records
 		XsdGeneration s = new XsdGeneration(configfile, recordtype, domain, maketype, "3.0");

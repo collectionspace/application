@@ -250,14 +250,16 @@ public class XsdGeneration {
 		// Create the META-INF folder and manifest file
 		// Create the OSGI-INF folder and process the template files
 		String serviceName = record.getServicesTenantSg();
-		String tenantName = record.getSpec().getAdminData().getTenantName();		
+		String tenantName = record.getSpec().getAdminData().getTenantName();
 		String docTypeName = record.getServicesTenantSg();
 
+		String tenantQualifier = SHARED_QUALIFIER;
 		if (record.isServicesExtension() == true) {
+			tenantQualifier = tenantName;
 			docTypeName = docTypeName + TENANT_QUALIFIER + record.getSpec().getTenantID();
 		}
 		String bundleName = DEFAULT_BUNDLE_PREAMBLE + "." + serviceName.toLowerCase()
-			+ "." + DOCTYPE_BUNDLE_QUALIFIER + "." + tenantName + "." + docTypeName + JAR_EXT;
+			+ "." + DOCTYPE_BUNDLE_QUALIFIER + "." + tenantQualifier + "." + docTypeName + JAR_EXT;
 		
 		if (getServiceDoctypeBundles().containsKey(docTypeName) == false) {
 			File doctypeTemplatesDir = new File(NUXEO_DOCTYPE_TEMPLATES_DIR);
