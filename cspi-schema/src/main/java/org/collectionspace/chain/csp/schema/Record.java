@@ -99,7 +99,8 @@ public class Record implements FieldParent {
 		whoamI = utils.getString("@id");
 		
 		utils.initStrings(section, "@cms-type", "none");
-		utils.initBoolean(section,"@is-extension", false);		
+		utils.initBoolean(section, "@generate-services-schema", true);
+		utils.initBoolean(section,"@is-extension", false);
 		
 		//
 		// The name for used to create the Services XML Schema.
@@ -476,6 +477,10 @@ public class Record implements FieldParent {
 	}
 	public boolean isServicesExtension() {
 		boolean result = utils.getBoolean("@is-extension");		
+		return result;
+	}
+	public boolean isGenerateServicesSchema() {
+		boolean result = utils.getBoolean("@generate-services-schema");		
 		return result;
 	}
 	public String getUILabelSelector(String id){
