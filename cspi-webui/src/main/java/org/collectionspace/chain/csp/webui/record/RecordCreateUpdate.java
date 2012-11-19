@@ -28,6 +28,7 @@ import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.collectionspace.csp.helper.core.ResponseCache;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -400,6 +401,11 @@ public class RecordCreateUpdate implements WebMethod {
 					fields.put("roleName", "ROLE_"+test);
 					data.put("fields", fields);
 				}
+				// If we are updating a role, then we need to clear the userperms cache
+				// Note that creating a role does not impact things until we assign it
+				if(!create) {
+					ResponseCache.clearCache(ResponseCache.USER_PERMS_CACHE);
+				}
 			}
 			if (this.record.getID().equals("media")) {
 				JSONObject fields=data.optJSONObject("fields");
@@ -453,7 +459,7 @@ public class RecordCreateUpdate implements WebMethod {
 
 				byte[] data_array = (byte[])out.get("getByteBody");
 				request.sendUnknown(data_array,out.getString("contenttype"));
-				
+				request.setCacheMaxAgeSeconds(0);	// Ensure we do not cache report output.
 				//request.sendJSONResponse(out);
 				request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
 			}

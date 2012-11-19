@@ -25,6 +25,7 @@ import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.ui.UIException;
+import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,7 +74,12 @@ public class UISchema extends SchemaStructure implements WebMethod {
 		else{
 			out = uiotherschema(q.getStorage(),StringUtils.join(tail,"/"));
 		}
-		q.getUIRequest().sendJSONResponse(out);
+		UIRequest uir = q.getUIRequest();
+		uir.sendJSONResponse(out);
+		int cacheMaxAgeSeconds = spec.getAdminData().getUiSpecSchemaCacheAge();
+		if(cacheMaxAgeSeconds > 0) {
+			uir.setCacheMaxAgeSeconds(cacheMaxAgeSeconds);
+		}
 	}
 
 	protected void actualValidatedField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
@@ -509,6 +515,7 @@ public class UISchema extends SchemaStructure implements WebMethod {
 					if (rc.isInRecordList()) {
 						if (rc.isShowType("authority")) {
 							JSONObject authInfoProps = new JSONObject();
+							int cardinal = 0;
 							for(Instance ins : rc.getAllInstances()){
 								JSONObject instanceInfo = new JSONObject();
 								JSONObject instanceProps = new JSONObject();
@@ -516,9 +523,15 @@ public class UISchema extends SchemaStructure implements WebMethod {
 								nptAllowed.put("type", "boolean");
 								nptAllowed.put("default", ins.getNPTAllowed());
 								instanceProps.put("nptAllowed", nptAllowed);
+								// Preserve the order of the namespaces
+								JSONObject orderProp = new JSONObject();
+								orderProp.put("type", "integer");
+								orderProp.put("default", cardinal);
+								instanceProps.put("order", orderProp);
 								instanceInfo.put("type", "object");
 								instanceInfo.put("properties", instanceProps);
 								authInfoProps.put(ins.getWebURL(), instanceInfo);
+								cardinal++;
 							}
 							JSONObject authorityInfo = new JSONObject();
 							authorityInfo.put("type", "object");

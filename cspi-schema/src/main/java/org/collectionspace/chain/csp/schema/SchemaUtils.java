@@ -3,6 +3,7 @@ package org.collectionspace.chain.csp.schema;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -27,12 +28,12 @@ public class SchemaUtils {
 	/** start generic functions **/
 	protected Set<String> initSet(ReadOnlySection section, String name, String[] defaultval){
 		Set<String> vard = Util.getSetOrDefault(section, "/"+name, defaultval);
-		allDefaultSets.put(name,new HashSet<String>(Arrays.asList(defaultval)));
+		allDefaultSets.put(name,new LinkedHashSet<String>(Arrays.asList(defaultval)));
 		allSets.put(name,vard);
 		return vard;
 	}
 	protected Set<String> initSet(Set<String> vard, String name, String[] defaultval){
-		allDefaultSets.put(name,new HashSet<String>(Arrays.asList(defaultval)));
+		allDefaultSets.put(name,new LinkedHashSet<String>(Arrays.asList(defaultval)));
 		allSets.put(name,vard);
 		return vard;
 	}

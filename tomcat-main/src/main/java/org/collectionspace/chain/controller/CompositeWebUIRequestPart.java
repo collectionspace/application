@@ -76,6 +76,13 @@ public class CompositeWebUIRequestPart implements UIRequest {
 		}
 	}
 	
+	public int getCacheMaxAgeSeconds() {
+		return 0;
+	}
+	public void setCacheMaxAgeSeconds(int cacheMaxAgeSeconds) {
+		// Ignore this for now. Caching composite requests is not really clear.
+	}
+	
 	public JSONObject solidify() throws JSONException, UIException {
 		JSONObject out=new JSONObject();
 		

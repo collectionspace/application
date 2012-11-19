@@ -10,6 +10,17 @@
             }, 
             "termDisplayName": {
               "type": "string"
+            }, 
+            "termLanguage": {
+              "default": "", 
+              "type": "string"
+            }, 
+            "termName": {
+              "type": "string"
+            }, 
+            "termStatus": {
+              "default": "", 
+              "type": "string"
             }
           }, 
           "type": "object"

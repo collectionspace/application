@@ -54,8 +54,9 @@
                         </merges>
                     </field>
                 </section>
-                <section id="acquisitionAuthorizerHeader"></section><!-- here until I can think of a better way of doing it -->
-                
+                <section id="acquisitionAuthorizerHeader">
+                      <!-- here until I can think of a better way of doing it -->
+                </section>
                 <section id="acquisitionInformation">
                     <field id="acquisitionReferenceNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate" seperate_ui_container="true">
                         <selector>acquisition-numberPatternChooser-reference-number</selector>
@@ -67,27 +68,21 @@
                             <option id="library" sample="LIB2009.1">Library</option>
                         </options>
                     </field>
-                    <!-- FIXME: Add 'ui-search="range"' or equivalent to this field when range search on structured date -->
-                    <!-- start and end scalar values is working -->
                     <field id="accessionDateGroup" ui-type="groupfield/structureddate" 
-                        primarykey="accessionDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
+                        ui-search="range" primarykey="accessionDateGroup.dateDisplayDate"
+                        ui-func="cspace.structuredDate">
                     </field>
-                    
-				<!--	<group id="acquisitionAuthorizerHeader" exists-in-services="false"> -->
                     <field id="acquisitionAuthorizer" autocomplete="person-person"></field>
                     <field id="acquisitionAuthorizerDate" ui-type="date">
                         <selector>acquisition-acquisitionAuthorizerDate</selector>
                         <container-selector>acquisition-acquisitionAuthorizerDate-container</container-selector>
                     </field>
-				<!--	</group> -->
                     <repeat id="acquisitionDateGroupList/acquisitionDateGroup">
-                      <!-- FIXME: Add 'ui-search="range"' or equivalent to this field when range search on structured date -->
-                      <!-- start and end scalar values is working -->
                       <group id="acquisitionDateGroup" ui-type="groupfield/structureddate"
-                          xxx-services-no-repeat="true" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
+                          ui-search="range" primarykey="dateDisplayDate"
+                          ui-func="cspace.structuredDate" xxx-services-no-repeat="true">
                       </group>
                     </repeat>
-                    
                     <field id="acquisitionMethod" ui-search="repeatable" seperate_ui_container="true">
                         <selector>acquisition-acquisition-method</selector>
                         <options>

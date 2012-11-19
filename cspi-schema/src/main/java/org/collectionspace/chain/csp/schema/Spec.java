@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -52,7 +53,7 @@ public class Spec implements CSP, Configurable {
 	private Map<String,Record> records_by_web_url=new HashMap<String,Record>();
 	private Map<String,Record> records_by_services_url=new HashMap<String,Record>();
 	private Map<String,Record> records_by_services_docType=new HashMap<String,Record>();
-	private Map<String,Instance> instances=new HashMap<String,Instance>();
+	private Map<String,Instance> instances=new LinkedHashMap<String,Instance>();
 	private Map<String, Set<Field>> termlist = new HashMap<String, Set<Field>>();
 	private Map<String, Structure> structure=new HashMap<String,Structure>();
 	private String version;

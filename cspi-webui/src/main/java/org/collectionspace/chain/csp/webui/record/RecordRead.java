@@ -87,7 +87,7 @@ public class RecordRead implements WebMethod {
 					this.relatedObjSearcher = new RecordSearchList(thisr,
 							RecordSearchList.MODE_SEARCH_RELATED);
 					this.relatedObjSearcher.configure(spec);
-					JSONObject temp = this.relatedObjSearcher.getResults(
+					JSONObject temp = this.relatedObjSearcher.getResults(null,
 							storage, restrictions, "results", csid);
 					JSONArray results = temp.getJSONArray("results");
 					if (results.length() > 0) {
