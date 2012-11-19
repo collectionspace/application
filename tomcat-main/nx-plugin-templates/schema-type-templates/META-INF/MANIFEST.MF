@@ -1,13 +1,17 @@
-Manifest-Version: 1.0 
-Bundle-ManifestVersion: 1 
-Bundle-Name: org.collectionspace.${ServiceName_LowerCase}.${SchemaName_LowerCase}
-Bundle-SymbolicName: org.collectionspace.${ServiceName_LowerCase}.${SchemaName_LowerCase};singleton:=true 
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 1
+Bundle-Name: 
+ org.collectionspace.${ServiceName_LowerCase}.${SchemaName_LowerCase}
+Bundle-SymbolicName: 
+ org.collectionspace.${ServiceName_LowerCase}.${SchemaName_LowerCase};singleton:=true 
 Bundle-Version: 1.0.0
 Bundle-Localization: plugin
-Bundle-Vendor: Nuxeo 
+Bundle-Vendor: Nuxeo
 Require-Bundle: org.nuxeo.runtime, 
  org.nuxeo.ecm.core.api,
  org.nuxeo.ecm.core,
  org.nuxeo.ecm.webapp.core
-Provide-Package: org.collectionspace.${ServiceName_LowerCase}.${SchemaName_LowerCase}
+Provide-Package: 
+ org.collectionspace.${ServiceName_LowerCase}.${SchemaName_LowerCase}
 Nuxeo-Component: OSGI-INF/core-schema-contrib.xml
+
