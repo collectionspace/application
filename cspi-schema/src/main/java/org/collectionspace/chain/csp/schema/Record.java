@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -76,7 +75,7 @@ public class Record implements FieldParent {
 	//list of all 'record' e.g. structuredDates, dimensions etc that are included
 	private Map<String, String> nestedFieldList = new HashMap<String, String>();
 	
-	private Map<String, Instance> instances = new LinkedHashMap<String, Instance>();
+	private Map<String, Instance> instances = new HashMap<String, Instance>();
 	private Map<String, FieldSet> summarylist = new HashMap<String, FieldSet>();
 	private Map<String, Map<String, FieldSet>> minidataset = new HashMap<String, Map<String, FieldSet>>();
 	private Spec spec;
@@ -100,7 +99,8 @@ public class Record implements FieldParent {
 		whoamI = utils.getString("@id");
 		
 		utils.initStrings(section, "@cms-type", "none");
-		utils.initBoolean(section,"@is-extension", false);		
+		utils.initBoolean(section, "@generate-services-schema", true);
+		utils.initBoolean(section,"@is-extension", false);
 		
 		//
 		// The name for used to create the Services XML Schema.
@@ -477,6 +477,10 @@ public class Record implements FieldParent {
 	}
 	public boolean isServicesExtension() {
 		boolean result = utils.getBoolean("@is-extension");		
+		return result;
+	}
+	public boolean isGenerateServicesSchema() {
+		boolean result = utils.getBoolean("@generate-services-schema");		
 		return result;
 	}
 	public String getUILabelSelector(String id){

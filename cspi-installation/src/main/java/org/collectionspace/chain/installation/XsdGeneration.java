@@ -149,38 +149,42 @@ public class XsdGeneration {
 		// 3. We could create a Nuxeo bundle for each new schema type
 		// 4. We could then create a new Nuxeo bundle for each new document type
 		
-		if (spec.hasRecordByServicesUrl(recordType)) {
+		if (spec.hasRecordByServicesUrl(recordType)) {			
 			Record record = spec.getRecordByServicesUrl(recordType);
-
 			if (type.equals("core")) { // if 'true' then generate an XML Schema .xsd file
-				MakeXsd catlog = new MakeXsd(getTenantData(cspm));
-				HashMap<String, String> definedSchemaList = catlog.getDefinedSchemas(
-						record, recordType, schemaVersion);
-				// For each schema defined in the configuration record, check to see if it was already
-				// defined in another record.
-				for (String definedSchema : definedSchemaList.keySet()) {
-					if (getServiceSchemas().containsKey(definedSchema) == false) {
-						// If the newly defined schema doesn't already exist in our master list then add it
-						try {
-							createSchemaBundle(record, definedSchema, definedSchemaList);
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+				if (record.isGenerateServicesSchema() == false) {
+					log.debug(String.format("The application config record '%s' is already configured in the Services layer and will be skipped.",
+							record.getID()));
+				} else {
+					MakeXsd catlog = new MakeXsd(getTenantData(cspm));
+					HashMap<String, String> definedSchemaList = catlog.getDefinedSchemas(
+							record, recordType, schemaVersion);
+					// For each schema defined in the configuration record, check to see if it was already
+					// defined in another record.
+					for (String definedSchema : definedSchemaList.keySet()) {
+						if (getServiceSchemas().containsKey(definedSchema) == false) {
+							// If the newly defined schema doesn't already exist in our master list then add it
+							try {
+								createSchemaBundle(record, definedSchema, definedSchemaList);
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							getServiceSchemas().put(definedSchema, definedSchemaList.get(definedSchema));
+							log.debug(String.format("New Services schema '%s' defined in Application configuration record '%s'.",
+									definedSchema, record.getID()));
+						} else {
+							// Otherwise, it already exists so emit a warning just in case it shouldn't have been redefined.
+							log.warn(String.format("Services schema '%s' defined in record '%s', but was previously defined in another record.",
+									definedSchema, record.getID()));
+							log.trace(String.format("Redefined services schema is: %s", definedSchemaList.get(definedSchema)));
 						}
-						getServiceSchemas().put(definedSchema, definedSchemaList.get(definedSchema));
-						log.debug(String.format("New Services schema '%s' defined in Application configuration record '%s'.",
-								definedSchema, record.getID()));
-					} else {
-						// Otherwise, it already exists so emit a warning just in case it shouldn't have been redefined.
-						log.warn(String.format("Services schema '%s' defined in record '%s', but was previously defined in another record.",
-								definedSchema, record.getID()));
-						log.trace(String.format("Redefined services schema is: %s", definedSchemaList.get(definedSchema)));
 					}
+					//
+					// Create the Nuxeo bundle document type
+					//
+					createDocumentTypeBundle(record, definedSchemaList);
 				}
-				//
-				// Create the Nuxeo bundle document type
-				//
-				createDocumentTypeBundle(record, definedSchemaList);
 			} else if (type.equals("delta")) { // Create the service bindings.
 				Services tenantbob = new Services(getSpec(cspm), getTenantData(cspm),false);
 				tenantBindings = tenantbob.doit();
