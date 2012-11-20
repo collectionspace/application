@@ -91,71 +91,83 @@ public class XsdGeneration {
 		return serviceDoctypeBundles;
 	}
 	
-	public XsdGeneration(String configfile, String recordType, String domain, String type, String schemaVersion) throws Exception {
-
-		String current = null;
-		        
-		CSPManager cspm=getServiceManager(configfile);
-		Spec spec = getSpec(cspm);
+	private void dumpRecordServiceInfo(Record record) {
 		PrintStream out = System.out;
-		for (Record record : spec.getAllRecords()) {
-			if (record.getServicesCmsType().equalsIgnoreCase("default") == true) {
-				out.println("++++++++++++++++++++++++++++++++++++++++++++++++++");
-				out.println(String.format("getID = %s", record.getID()));
-				out.println(String.format("getServicesCmsType = %s", record.getServicesCmsType()));
-				out.println(String.format("getServicesType = %s", record.getServicesType()));
-				out.println(String.format("getServicesURL = %s", record.getServicesURL()));
-				out.println(String.format("getServicesTenantSg = %s", record.getServicesTenantSg()));
-				out.println(String.format("getServicesTenantPl = %s", record.getServicesTenantPl()));
-				out.println(String.format("getServicesTenantAuthSg = %s", record.getServicesTenantAuthSg()));
-				out.println(String.format("getServicesTenantAuthPl = %s", record.getServicesTenantAuthPl()));
-				out.println(String.format("getServicesRecordPath = %s", record.getServicesRecordPath("")));
-				
-				out.println("getServicesRecordPaths =");
-				String[] recordPathList = record.getServicesRecordPaths();
-				for (String recordPath : recordPathList) {
-					out.println(String.format("\t%s", recordPath));
-				}
-				
-				out.println(String.format("getServicesInstancesPath = %s", record.getServicesInstancesPath()));
-				out.println(String.format("getServicesSingleInstancePath = %s", record.getServicesSingleInstancePath()));
-				
-				out.println("getServicesInstancesPaths =");			
-				String recordServicesInstancesPathList[] = record.getServicesInstancesPaths();
-				if (recordServicesInstancesPathList != null && recordServicesInstancesPathList.length > 0) {
-					for (String path : recordServicesInstancesPathList) {
-						out.println(String.format("\t%s", path));
-					}
-				} else {
-					out.println("\tnull");
-				}
+
+		if (record.getServicesCmsType().equalsIgnoreCase("default") == true) {
+			out.println("++++++++++++++++++++++++++++++++++++++++++++++++++");
+			out.println(String.format("getID = %s", record.getID()));
+			out.println(String.format("getServicesCmsType = %s", record.getServicesCmsType()));
+			out.println(String.format("getServicesType = %s", record.getServicesType()));
+			out.println(String.format("getServicesURL = %s", record.getServicesURL()));
+			out.println(String.format("getServicesTenantSg = %s", record.getServicesTenantSg()));
+			out.println(String.format("getServicesTenantPl = %s", record.getServicesTenantPl()));
+			out.println(String.format("getServicesTenantAuthSg = %s", record.getServicesTenantAuthSg()));
+			out.println(String.format("getServicesTenantAuthPl = %s", record.getServicesTenantAuthPl()));
+			out.println(String.format("getServicesRecordPath = %s", record.getServicesRecordPath("")));
 			
-				
-				out.println(String.format("getServicesAbstractCommonList = %s", record.getServicesAbstractCommonList()));
-				out.println(String.format("getServicesValidatorHandler = %s", record.getServicesValidatorHandler()));
-				out.println(String.format("getServicesCommonList = %s", record.getServicesCommonList()));
-				out.println(String.format("getServicesSchemaBaseLocation = %s", record.getServicesSchemaBaseLocation()));
-				out.println(String.format("getServicesDocHandler = %s", record.getServicesDocHandler()));
-				out.println(String.format("getServicesListPath = %s", record.getServicesListPath()));
-				out.println(String.format("getServicesFieldsPath = %s", record.getServicesFieldsPath()));
-				out.println(String.format("getServicesSearchKeyword = %s", record.getServicesSearchKeyword()));
-				
-				out.println("##################################################");
+			out.println("getServicesRecordPaths =");
+			String[] recordPathList = record.getServicesRecordPaths();
+			for (String recordPath : recordPathList) {
+				out.println(String.format("\t%s", recordPath));
 			}
+			
+			out.println(String.format("getServicesInstancesPath = %s", record.getServicesInstancesPath()));
+			out.println(String.format("getServicesSingleInstancePath = %s", record.getServicesSingleInstancePath()));
+			
+			out.println("getServicesInstancesPaths =");			
+			String recordServicesInstancesPathList[] = record.getServicesInstancesPaths();
+			if (recordServicesInstancesPathList != null && recordServicesInstancesPathList.length > 0) {
+				for (String path : recordServicesInstancesPathList) {
+					out.println(String.format("\t%s", path));
+				}
+			} else {
+				out.println("\tnull");
+			}
+		
+			
+			out.println(String.format("getServicesAbstractCommonList = %s", record.getServicesAbstractCommonList()));
+			out.println(String.format("getServicesValidatorHandler = %s", record.getServicesValidatorHandler()));
+			out.println(String.format("getServicesCommonList = %s", record.getServicesCommonList()));
+			out.println(String.format("getServicesSchemaBaseLocation = %s", record.getServicesSchemaBaseLocation()));
+			out.println(String.format("getServicesDocHandler = %s", record.getServicesDocHandler()));
+			out.println(String.format("getServicesListPath = %s", record.getServicesListPath()));
+			out.println(String.format("getServicesFieldsPath = %s", record.getServicesFieldsPath()));
+			out.println(String.format("getServicesSearchKeyword = %s", record.getServicesSearchKeyword()));
+			
+			out.println("##################################################");
+		}
+	}
+	
+	private boolean shouldGenerateBundles(Record record) {
+		boolean result = true;
+		
+		if (record.isGenerateServicesSchema() == false) {
+			result = false;
+			log.debug(String.format("The application config record '%s' is already configured in the Services layer and will be skipped.",
+					record.getID()));
 		}
 		
+		String cmsType = record.getServicesCmsType();
+		if (cmsType.equalsIgnoreCase("default") == false) {
+			result = false;
+			log.debug(String.format("The application config record '%s' declared an unkown cms-type '%s' for the Services layer and will be skipped.",
+					record.getID(), cmsType));			
+		}
+		
+		return result;
+	}
+	
+	public XsdGeneration(String configfile, String recordType, String domain, String type, String schemaVersion) throws Exception {
+		CSPManager cspm=getServiceManager(configfile);
+		Spec spec = getSpec(cspm);
+
 		// 1. Setup a hashmap to keep track of which records and bundles we've already processed.
 		// 2. Loop through all the known record types
-		// 3. We could create a Nuxeo bundle for each new schema type
-		// 4. We could then create a new Nuxeo bundle for each new document type
-		
-		if (spec.hasRecordByServicesUrl(recordType)) {			
-			Record record = spec.getRecordByServicesUrl(recordType);
+		for (Record record : spec.getAllRecords()) {
+			dumpRecordServiceInfo(record);
 			if (type.equals("core")) { // if 'true' then generate an XML Schema .xsd file
-				if (record.isGenerateServicesSchema() == false) {
-					log.debug(String.format("The application config record '%s' is already configured in the Services layer and will be skipped.",
-							record.getID()));
-				} else {
+				if (shouldGenerateBundles(record) == true) {
 					MakeXsd catlog = new MakeXsd(getTenantData(cspm));
 					HashMap<String, String> definedSchemaList = catlog.getDefinedSchemas(
 							record, recordType, schemaVersion);
@@ -184,13 +196,15 @@ public class XsdGeneration {
 					// Create the Nuxeo bundle document type
 					//
 					createDocumentTypeBundle(record, definedSchemaList);
+				} else {
+					//
+					// Skipping schema and doctype bundle creation
+					//
 				}
 			} else if (type.equals("delta")) { // Create the service bindings.
 				Services tenantbob = new Services(getSpec(cspm), getTenantData(cspm),false);
 				tenantBindings = tenantbob.doit();
 			}
-		} else {
-			log.error(String.format("Record type '%s' is unknown in configuration file", configfile));
 		}
 	}
 	
