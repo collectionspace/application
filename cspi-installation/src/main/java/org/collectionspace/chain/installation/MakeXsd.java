@@ -320,11 +320,12 @@ public class MakeXsd {
 		return result;
 	}
 	
-	public HashMap<String, String> getDefinedSchemas(Record record, String recordType, String schemaVersion) throws UIException {
+	public HashMap<String, String> getDefinedSchemas(Record record, String schemaVersion) throws UIException {
 		HashMap<String, String> result = new HashMap<String, String>();
 		
 		Object[] servicesSchemaList = this.getServiceSchemas(record);
 		for (Object name : servicesSchemaList) {
+			String recordType = record.getServicesURL(); record.getServicesType();
 			String schemaName = (String)name;
 			String schema = getServiceSchema(schemaName, record, schemaVersion); // Generates the XML Schema .xsd file -returns it as a String instance
 			String filename = generateXSDFilename(recordType, schemaName);

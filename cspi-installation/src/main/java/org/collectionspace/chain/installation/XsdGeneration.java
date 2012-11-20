@@ -158,19 +158,19 @@ public class XsdGeneration {
 		return result;
 	}
 	
-	public XsdGeneration(String configfile, String recordType, String domain, String type, String schemaVersion) throws Exception {
+	public XsdGeneration(String configfile, String domain, String type, String schemaVersion) throws Exception {
 		CSPManager cspm=getServiceManager(configfile);
 		Spec spec = getSpec(cspm);
 
 		// 1. Setup a hashmap to keep track of which records and bundles we've already processed.
 		// 2. Loop through all the known record types
-		for (Record record : spec.getAllRecords()) {
-			dumpRecordServiceInfo(record);
-			if (type.equals("core")) { // if 'true' then generate an XML Schema .xsd file
+		if (type.equals("core")) { // if 'true' then generate the schema and doctype bundles
+			for (Record record : spec.getAllRecords()) {
+				dumpRecordServiceInfo(record);
 				if (shouldGenerateBundles(record) == true) {
 					MakeXsd catlog = new MakeXsd(getTenantData(cspm));
 					HashMap<String, String> definedSchemaList = catlog.getDefinedSchemas(
-							record, recordType, schemaVersion);
+							record, schemaVersion);
 					// For each schema defined in the configuration record, check to see if it was already
 					// defined in another record.
 					for (String definedSchema : definedSchemaList.keySet()) {
@@ -196,15 +196,11 @@ public class XsdGeneration {
 					// Create the Nuxeo bundle document type
 					//
 					createDocumentTypeBundle(record, definedSchemaList);
-				} else {
-					//
-					// Skipping schema and doctype bundle creation
-					//
 				}
-			} else if (type.equals("delta")) { // Create the service bindings.
-				Services tenantbob = new Services(getSpec(cspm), getTenantData(cspm),false);
-				tenantBindings = tenantbob.doit();
 			}
+		} else if (type.equals("delta")) { // Create the service bindings.
+			Services tenantbob = new Services(getSpec(cspm), getTenantData(cspm),false);
+			tenantBindings = tenantbob.doit();
 		}
 	}
 	

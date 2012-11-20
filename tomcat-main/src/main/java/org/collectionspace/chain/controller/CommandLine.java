@@ -23,7 +23,7 @@ public class CommandLine {
 		String configfile = "core-tenant.xml"; //args[3];
 		
 		// Generate all the Service schemas from the Application layer's configuration records
-		XsdGeneration s = new XsdGeneration(configfile, recordtype, domain, maketype, "3.0");
+		XsdGeneration s = new XsdGeneration(configfile, domain, maketype, "3.0");
 		HashMap<String, String> xsdschemas = s.getServiceSchemas();
 		
 		System.out.println(String.format("Record type: %s", recordtype));
