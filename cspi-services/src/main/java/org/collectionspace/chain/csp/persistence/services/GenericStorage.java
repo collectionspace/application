@@ -924,11 +924,13 @@ public class GenericStorage  implements ContextualisedStorage {
 				reset_map.put("docNumber", "docNumber");
 				reset_map.put("sourceField", "sourceField");
 				reset_map.put("uri", "uri");
+				reset_map.put("refName", "refName");
 				reset_good.put("terms_docType", "docType");
 				reset_good.put("terms_docId", "docId");
 				reset_good.put("terms_docName", "docName");
 				reset_good.put("terms_docNumber", "docNumber");
 				reset_good.put("terms_sourceField", "sourceField");
+				reset_good.put("terms_refName", "refName");
 
 				view_good = reset_good;
 				view_map = reset_map;
@@ -958,8 +960,8 @@ public class GenericStorage  implements ContextualisedStorage {
 				//String[] filepaths = (String[]) data.get("listItems");
 				for (int i = 0; i < recs.length(); ++i) {
 
-					String uri = recs.getJSONObject(i).getString("csid");
-					String filePath = recs.getJSONObject(i).getString("csid");
+					String uri      = recs.getJSONObject(i).getString("csid");
+					String filePath = uri; // recs.getJSONObject(i).getString("csid");
 					if(filePath!=null && filePath.startsWith("/"))
 						filePath=filePath.substring(1);
 					

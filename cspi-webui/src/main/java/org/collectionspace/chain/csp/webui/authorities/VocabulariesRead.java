@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import org.collectionspace.services.common.api.RefName;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
@@ -142,9 +143,27 @@ public class VocabulariesRead implements WebMethod {
 						JSONObject in = ritems.getJSONObject(i);
 						//JSONObject in=ritems.getJSONObject(field);
 						String rt = in.getString("sourceFieldType");
-						String uiname = rt;
-						if(this.spec.hasRecordByServicesDocType(rt)){
-							uiname = this.spec.getRecordByServicesDocType(rt).getWebURL();
+						Record rec = this.spec.getRecordByServicesDocType(rt);
+						String uiname;
+						if(rec != null) {
+							uiname = rec.getWebURL();
+							if(rec.isType("authority")) {	// Need to add namespace for authorities
+								String refName = null;
+								if(in.has("refName")) {
+									refName = in.getString("refName");
+								} else if(in.has("summarylist")) {
+									JSONObject summList = in.getJSONObject("summarylist");
+									if(summList.has("refName")) {
+										refName = summList.getString("refName");
+									}
+								}
+								if(refName!=null) {
+									RefName.AuthorityItem item = RefName.AuthorityItem.parse(refName); 
+									in.put("namespace",item.getParentShortIdentifier());
+								}
+							}
+						} else {
+							uiname = rt;
 						}
 						in.put("recordtype", uiname);
 						/*
