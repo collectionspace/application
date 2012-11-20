@@ -33,6 +33,13 @@
     </structure>
     <structure id="tab">
       <view>
+        <hierarchy-section show="true">
+          <options>
+            <!-- The values here may not be used, but are here for completeness -->
+            <option id="narrowerContext">collection-object</option>
+            <option id="broaderContext">collection-object</option>
+          </options>
+        </hierarchy-section>
         <titlebar show="false"/>
         <sidebar show="false"/>
         <edit-section id="details" show="true"/>
