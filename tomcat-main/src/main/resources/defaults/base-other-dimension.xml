@@ -1,5 +1,5 @@
 
-            <record id="dimension" in-recordlist="no" separate-record="false">
+            <record id="dimension" in-recordlist="no" separate-record="false" services-type="measuredPartGroupList">
                 <hassoftdelete>true</hassoftdelete>
 				<section id="dimensionInformation">
 					<repeat id="measuredPartGroupList/measuredPartGroup">

@@ -13,6 +13,11 @@ public abstract class FieldSetImpl implements FieldSet {
 	@Override
 	public Boolean isAGroupField() {
 		return this.getUIType().startsWith("groupfield");
+	}
+	
+	@Override
+	public Boolean isAStructureDate() {
+		return this.getUIType().startsWith("groupfield") && this.getUIType().contains("structureddate");
 	}	
 		
 	@Override
@@ -26,8 +31,9 @@ public abstract class FieldSetImpl implements FieldSet {
 	}
 	
 	@Override
-	public String getServicesType() {
+	public String getServicesType(boolean namespaceQualified) {
 		String result = utils.getString("services-type");
+		String nsPrefix = NS;
 
 		if (result == null) {
 			if (this.isAGroupField() == true) {
@@ -35,15 +41,27 @@ public abstract class FieldSetImpl implements FieldSet {
 			} else {
 				String datatype = utils.getString("@datatype");
 				if (datatype != null && !datatype.isEmpty()) {
+					nsPrefix = XS;
 					if (datatype.equalsIgnoreCase(DATATYPE_FLOAT)) {
 						datatype = DATATYPE_DECIMAL;
+					} else if (datatype.equalsIgnoreCase(DATATYPE_LARGETEXT)) {
+						datatype = DATATYPE_STRING;
 					}
-					result = "xs:" + datatype;
+					result = datatype;
 				}
 			}
 		}
 		
+		if (result != null && namespaceQualified == true) {
+			result = nsPrefix + result;
+		}
+		
 		return result;
+	}
+	
+	@Override
+	public String getServicesType() {
+		return getServicesType(true /* default to getting namespace qualified */);
 	}
 	
 	@Override

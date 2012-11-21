@@ -42,18 +42,25 @@ public class MakeXsd {
 	 */
 	private String generateFieldGroup(FieldSet fieldSet, Element ele, Namespace ns,
 			Element root) {
-		String type = fieldSet.getServicesType();
+		String type = fieldSet.getServicesType(false /* not NS qualified */);
 		Spec spec = fieldSet.getRecord().getSpec();
 		Record record = spec.getRecord(type);
 		String servicesType = record.getServicesType();
 		
 		if (definedGroupFields.containsKey(servicesType) == false) {
-			Element complexElement = ele.addElement(new QName("complexType", ns));
-			complexElement.addAttribute("name", servicesType);
-			Element sequenced = complexElement.addElement(new QName("sequence", ns));
+			Element currentElement = ele;
+			//
+			// structuredDates are a special case and we need to define the complex type first.
+			//
+			if (fieldSet.isAStructureDate() == true) {
+				Element complexElement = ele.addElement(new QName("complexType", ns));
+				complexElement.addAttribute("name", servicesType);
+				Element sequenced = complexElement.addElement(new QName("sequence", ns));
+				currentElement = sequenced;
+			}
 			
 			for (FieldSet subRecordFieldSet : record.getAllFieldTopLevel("")) {
-				generateDataEntry(sequenced, subRecordFieldSet, ns, root, false);
+				generateDataEntry(currentElement, subRecordFieldSet, ns, root, false);
 			}
 			definedGroupFields.put(servicesType, true); // We only need to define the complex type once.
 		}
@@ -86,7 +93,7 @@ public class MakeXsd {
 				if (servicesType == null) {
 					servicesType = servicesTag; // If the type was not explicitly set in the config, then use the servicesTag as the type
 				}
-				dele.addAttribute("type", servicesType);				
+				dele.addAttribute("type", FieldSet.NS + servicesType);				
 				dele.addAttribute("minOccurs", "0");
 				dele.addAttribute("maxOccurs", "unbounded");
 			}
@@ -185,12 +192,19 @@ public class MakeXsd {
 		
 		String sectionName = fs.getSection();
 		String listName = fs.getServicesTag();
-
+		
 		// If we find a "GroupField" (e.g., ui-type="groupfield/structureddate") then we need to create a new complex type that corresponds
 		// to the "GroupField's" structured types -e.g., structuredData and dimension types 
 		if (fs.isAGroupField() == true) {
 			String groupFieldType = generateFieldGroup(fs, ele, ns, root);
 			fs.setServicesType(groupFieldType);
+		}
+		
+		if (fs.isAGroupField() && fs.isAStructureDate() == false) {
+			//
+			// We're finished if we're a non-structuredDate "GroupField."
+			//
+			return;
 		}
 		
 		if (fs instanceof Field || fs instanceof Group) {
@@ -201,7 +215,11 @@ public class MakeXsd {
 			}
 			// <xs:element name="csid" type="xs:string"/>
 			Element field = ele.addElement(new QName("element", ns));
+			if (fs.isAGroupField() && fs.isAStructureDate() == false) {
+				servicesTag = fs.getServicesType();
+			}
 			field.addAttribute("name", servicesTag);
+			
 			String servicesType = fs.getServicesType();
 			String fieldType = "xs:string";
 			if (servicesType != null) {
@@ -222,8 +240,8 @@ public class MakeXsd {
 				// <xs:element name="objectNameList" type="ns:objectNameList"/>
 				Element newField = ele.addElement(new QName("element", ns));
 				newField.addAttribute("name", rfs.getServicesParent()[0]);
-				Namespace groupns = new Namespace("ns", "");
-				newField.addAttribute("type", "ns:" + rfs.getServicesParent()[0]);
+				String fieldType = rfs.getServicesParent()[0];
+				newField.addAttribute("type", FieldSet.NS + fieldType );
 			} else {
 				// single repeatable
 				// <xs:element name="responsibleDepartments"

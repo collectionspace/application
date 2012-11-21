@@ -9,13 +9,18 @@ package org.collectionspace.chain.csp.schema;
 import java.util.List;
 
 public interface FieldSet {
-	public static String QUERY_BEHAVIOR_NORMAL = "normal";
-	public static String QUERY_BEHAVIOR_IGNORE = "ignore";
-	public static String DATATYPE_STRING = "string";
-	public static String DATATYPE_INT = "integer";
-	public static String DATATYPE_FLOAT = "float";
-	public static String DATATYPE_DECIMAL = "decimal";
-	public static String DATATYPE_BOOLEAN = "boolean";
+	public static final String NS = "ns:"; // Namespace prefix for all XML Schema .xsd files
+	public static final String XS = "xs:";
+	
+	public static final String QUERY_BEHAVIOR_NORMAL = "normal";
+	public static final String QUERY_BEHAVIOR_IGNORE = "ignore";
+	public static final String DATATYPE_STRING = "string";
+	public static final String DATATYPE_LARGETEXT = "largetext";	
+	public static final String DATATYPE_INT = "integer";
+	public static final String DATATYPE_FLOAT = "float";
+	public static final String DATATYPE_DECIMAL = "decimal";
+	public static final String DATATYPE_BOOLEAN = "boolean";
+	
 	public String getID();
 	public String[] getIDPath();
 
@@ -65,7 +70,8 @@ public interface FieldSet {
 	public Record getSelfRendererRecord();
 	
 	//
-	public Boolean isAGroupField();	
+	public Boolean isAGroupField();
+	public Boolean isAStructureDate();	
 	public Boolean hasAutocompleteInstance();
 	public Boolean hasMergeData();
 	public List<String> getAllMerge();
@@ -83,5 +89,5 @@ public interface FieldSet {
 	
 	public void setServicesType(String servicesType);
 	public String getServicesType();
-	
+	public String getServicesType(boolean namespaceQualified);	
 }
