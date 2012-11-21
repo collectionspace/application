@@ -5,7 +5,7 @@
         <repeat id="locTermGroupList/locTermGroup">
             <!-- Fields common across all authority items -->
             <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes"
-                mini="summary,number,search,list,relate,terms">
+                mini="summary,number,search,list,relate">
                 <selector>locationAuthority-termDisplayName</selector>
                 <title-selector>titleBar-termDisplayName</title-selector>
             </field>

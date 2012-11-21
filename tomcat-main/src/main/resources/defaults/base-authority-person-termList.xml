@@ -74,13 +74,13 @@
                     <option id="Lady">Lady</option>
                 </options>
             </field>
-            <field id="foreName" mini="list,search,relate,terms">
+            <field id="foreName" mini="list,search,relate">
                 <selector>personAuthority-foreName</selector>
             </field>
             <field id="middleName">
                 <selector>personAuthority-middleName</selector>
             </field>
-            <field id="surName" mini="list,search,relate,terms">
+            <field id="surName" mini="list,search,relate">
                 <selector>personAuthority-surName</selector>
             </field>
             <field id="nameAdditions">

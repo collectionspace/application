@@ -972,9 +972,7 @@ public class GenericStorage  implements ContextualisedStorage {
 					resetGlean(thisr, reset_good, reset_map, reset_deurn,
 							reset_search_optional, reset_merge, reset_useCsid, true);
 					String csid = parts[parts.length-1];
-					JSONObject dataitem = null;
-					dataitem =  miniViewRetrieveJSON(cache,creds,csid, "terms", uri, thisr);
-					//JSONObject 
+					JSONObject dataitem = miniViewRetrieveJSON(cache,creds,csid, "terms", uri, thisr);
 					dataitem.getJSONObject("summarylist").put("uri",filePath);
 					
 					
