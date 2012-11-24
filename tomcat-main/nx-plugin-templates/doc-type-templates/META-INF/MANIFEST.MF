@@ -3,10 +3,10 @@ Bundle-ManifestVersion: 1
 Bundle-Name: 
  org.collectionspace.${ServiceName_LowerCase}.${NuxeoDocTypeName_LowerCase}
 Bundle-SymbolicName: 
- org.collectionspace.${ServiceName_LowerCase}.${NuxeoDocTypeName_LowerCase};singleton:=true 
+ org.collectionspace.${ServiceName_LowerCase}.${NuxeoDocTypeName_LowerCase};singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Localization: plugin
-Bundle-Vendor: Nuxeo
+Bundle-Vendor: Nuxeo 
 Require-Bundle: org.nuxeo.runtime, 
  org.nuxeo.ecm.core.api,
  org.nuxeo.ecm.core,
@@ -17,5 +17,4 @@ Provide-Package:
 Nuxeo-Component: OSGI-INF/life-cycle-contrib.xml,
  OSGI-INF/doc-type-contrib.xml,
  OSGI-INF/ecm-type-contrib.xml
- 
- 
+

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<component name="org.collectionspace.${ServiceName_LowerCase}.coreTypes">
+<component name="org.collectionspace.${ServiceName_LowerCase}.${SchemaName_LowerCase}.coreTypes">
 	<extension target="org.nuxeo.ecm.core.schema.TypeService"
 		point="schema">
 		<schema name="${SchemaName}" prefix="${SchemaName}"

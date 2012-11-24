@@ -45,6 +45,7 @@ public class XsdGeneration {
 	private static final String SCHEMA_PARENT_TYPE_VAR = "$SchemaParentType}";
 	private static final String COLLECTIONSPACE_CORE_SCHEMA_NAME = "collectionspace_core";
 	private static final String DEFAULT_BUNDLE_PREAMBLE = "collectionspace";
+	private static final String DEFAULT_SYM_BUNDLE_PREAMBLE = "org" + "." + DEFAULT_BUNDLE_PREAMBLE;
 	private static final String SCHEMA_BUNDLE_QUALIFIER = "schema";
 	private static final String DOCTYPE_BUNDLE_QUALIFIER = "doctype";
 	private static final String SHARED_QUALIFIER = "shared";
@@ -57,6 +58,8 @@ public class XsdGeneration {
 
 	private static final String SERVICE_NAME_VAR = "${ServiceName}";
 	private static final String SERVICE_NAME_LOWERCASE_VAR = "${ServiceName_LowerCase}";
+	
+	private static final String BUNDLE_SYM_NAME = "${BundleSymbolicName}";
 	
 	private static final String REQUIRE_BUNDLE_LIST_VAR = "${Require-Bundle-List}";
 	private static final String SCHEMA_ELEMENTS_LIST_VAR = "${SchemaElements}";
@@ -72,6 +75,8 @@ public class XsdGeneration {
 	private static final String TENANT_QUALIFIER = "Tenant";
 
 	private static final String NX_PLUGIN_NAME = "nx_plugin_out";
+
+	private static final int MAX_OSGI_LINE_LEN = 72;
 	
 	private HashMap<String, String> serviceSchemas = new HashMap<String, String>();
 	private HashMap<String, String> serviceSchemaBundles = new HashMap<String, String>();
@@ -207,12 +212,11 @@ public class XsdGeneration {
 	private String getRequiredBundlesList(Record record, HashMap<String, String> definedSchemaList) throws Exception {
 		String result = null;
 		StringBuffer strBuf = new StringBuffer();
-		final String lineSeparator = "," + EOL;
+		final String lineSeparator = "," + EOL + " "; // Need to start a new line with a <space> char
 		
 		for (String schemaName : definedSchemaList.keySet()) {
 			String bundleName = getServiceSchemaBundles().get(schemaName);
 			if (bundleName != null && bundleName.isEmpty() == false) {
-				bundleName = FilenameUtils.removeExtension(bundleName); // strip off the .jar file extension
 				log.debug(String.format("Included in Require-Bundle list entry: '%s'", bundleName));
 				strBuf.append(bundleName);
 				strBuf.append(lineSeparator);
@@ -293,7 +297,7 @@ public class XsdGeneration {
 				substitutionMap.put(REQUIRE_BUNDLE_LIST_VAR, requiredBundleList);
 				createManifestFile(metaInfTemplate, substitutionMap, zos);
 				//
-				// Next, crate the OSGI-INF files
+				// Next, create the OSGI-INF files
 				//
 				String schemaElementsList = getSchemaElementsList(record, definedSchemaList);
 				substitutionMap.put(SCHEMA_ELEMENTS_LIST_VAR, schemaElementsList);
@@ -412,6 +416,11 @@ public class XsdGeneration {
 					serviceNameVar = SCHEMA_BUNDLE_QUALIFIER;
 				}
 				HashMap<String, String> substitutionMap = new HashMap<String, String>();
+				// Symbolic bundle name
+				// org.collectionspace.${ServiceName_LowerCase}.${SchemaName_LowerCase}
+				String bundleSymbolicName = DEFAULT_SYM_BUNDLE_PREAMBLE + "." + serviceNameVar.toLowerCase()  + "." +
+						schemaNameNoFileExt.toLowerCase();
+				substitutionMap.put(BUNDLE_SYM_NAME, bundleSymbolicName);
 				substitutionMap.put(SERVICE_NAME_VAR, serviceNameVar);
 				substitutionMap.put(SERVICE_NAME_LOWERCASE_VAR, serviceNameVar.toLowerCase());
 				substitutionMap.put(SCHEMA_NAME_VAR, schemaNameNoFileExt);
@@ -432,7 +441,7 @@ public class XsdGeneration {
 				//
 				// Keep track of the schema bundles we've created
 				//
-				getServiceSchemaBundles().put(schemaName, bundleName);
+				getServiceSchemaBundles().put(schemaName, bundleSymbolicName);
 			} else {
 				log.error(String.format("The '%s' directory is missing looking for it at '%s'.", NUXEO_SCHEMA_TYPE_TEMPLATES_DIR, schemaTypeTemplatesDir.getAbsolutePath()));
 			}
@@ -488,8 +497,8 @@ public class XsdGeneration {
 				System.out.println(String.format("Replacing the string '%s' with '%s'", key, varReplacementStr));
 			}
 			// write the processed file out to the zip entry
-			zos.write(contentStr.getBytes(), 0, contentStr.getBytes().length);
-			result = contentStr;
+			result = osgiManifestFormat(contentStr);
+			zos.write(result.getBytes(), 0, result.getBytes().length);
 		} else {
 			String errMsg = String.format("The file '%s' was empty or missing.", templateFile.getAbsoluteFile());
 			if (bufferExceeded > 1) {
@@ -503,6 +512,44 @@ public class XsdGeneration {
 		return result;
 	}
 	
+	private static boolean isEOLChar(char c) {
+		boolean result = false;
+		
+		if (c == '\n' || c == '\r') {
+			result = true;
+		}
+		
+		return result;
+	}
+	
+	/*
+	 * OSGI manifest files cannot have lines that are more than 71 characters.  Also, continuation lines must begin with a <space> character
+	 */
+	private static String osgiManifestFormat(String srcStr) {
+		StringBuffer srcBuf = new StringBuffer(srcStr);
+		StringBuffer destBuf = new StringBuffer();
+		String result = null;
+		
+		int total = srcStr.length();
+		int currentLineLen = 1;
+		int offset = 0;
+		for (int i = 0; i < total; i++) {
+			char currentChar = srcBuf.charAt(i);
+			if (currentChar == '\n') {
+				currentLineLen = 1;
+			}
+			if (currentLineLen++ % MAX_OSGI_LINE_LEN == 0 && isEOLChar(currentChar) == false) {
+				destBuf.insert(offset, EOL + " ");
+				offset += EOL.length() + 1;
+				currentLineLen = 1;
+			}
+			destBuf.insert(offset++, currentChar);
+		}
+		
+		result = destBuf.toString();
+		return result;
+	}
+
 	private InputSource getSource(String fallbackFile) {
 		try {
 			return TestConfigFinder.getConfigStream(fallbackFile);
