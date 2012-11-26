@@ -106,7 +106,7 @@
                         <selector>dateLatestScalarValue</selector>
                         <preselector></preselector>
                     </field>
-                    <field id="scalarValuesComputed" ui-search="false">
+                    <field id="scalarValuesComputed" ui-search="false" datatype="boolean">
                         <options>
                             <option id="true" default="yes">true</option>
                             <option id="false">false</option>

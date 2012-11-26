@@ -1,7 +1,7 @@
 
 			
             <!-- CSPACE-3209 added objectexit record. -->
-            <record id="objectexit" in-findedit="yes" type="record,procedure">
+            <record id="objectexit" in-findedit="yes" type="record,procedure" cms-type="default">
                 <!-- Added this tag because services path is currently singular for Object Exit. -->
                 <services-url>objectexit</services-url>
                 <services-tenant-plural>ObjectExit</services-tenant-plural>

@@ -59,6 +59,9 @@ public class XsdGeneration {
 	private static final String SERVICE_NAME_VAR = "${ServiceName}";
 	private static final String SERVICE_NAME_LOWERCASE_VAR = "${ServiceName_LowerCase}";
 	
+	private static final String DOCTYPE_DEFAULT_LIFECYCLE = "cs_default";
+	private static final String DOCTYPE_LIFECYCLE_VAR = "${Lifecycle}";
+	
 	private static final String BUNDLE_SYM_NAME = "${BundleSymbolicName}";
 	
 	private static final String REQUIRE_BUNDLE_LIST_VAR = "${Require-Bundle-List}";
@@ -290,6 +293,7 @@ public class XsdGeneration {
 				HashMap<String, String> substitutionMap = new HashMap<String, String>();
 				substitutionMap.put(SERVICE_NAME_VAR, serviceName);
 				substitutionMap.put(SERVICE_NAME_LOWERCASE_VAR, serviceName.toLowerCase());
+				substitutionMap.put(DOCTYPE_LIFECYCLE_VAR, DOCTYPE_DEFAULT_LIFECYCLE);
 				substitutionMap.put(DOCTYPE_NAME_VAR, docTypeName);
 				substitutionMap.put(DOCTYPE_NAME_LOWERCASE_VAR, docTypeName.toLowerCase());
 				substitutionMap.put(EMC_LAYOUT_LIST_VAR, ""); // Once we re-enable the Nuxeo DM webapp, this should be list of layout definitions
@@ -336,7 +340,7 @@ public class XsdGeneration {
 		for (File osgiFile : osgiDir.listFiles()) {
 			if (osgiFile.isDirectory() == false) {
 				zos.putNextEntry(new ZipEntry(OSGI_INF_DIR + "/" + osgiFile.getName()));		
-				processTemplateFile(osgiFile, substitutionMap, zos);	
+				processTemplateFile(osgiFile, substitutionMap, zos, false);	
 				zos.closeEntry();
 			} else {
 				System.err.println(String.format("Ignoring directory '%s' while processing OSGI-INF files.", osgiFile.getAbsolutePath()));
@@ -383,7 +387,7 @@ public class XsdGeneration {
 		//
 		zos.putNextEntry(new ZipEntry(META_INF_DIR + "/" + MANIFEST_FILE));		
 		// Process the template by performing the variable substitutions
-		processTemplateFile(metaInfTemplate, substitutionMap, zos);				
+		processTemplateFile(metaInfTemplate, substitutionMap, zos, true);				
 		zos.closeEntry();		
 	}
 	
@@ -471,7 +475,8 @@ public class XsdGeneration {
 	
 	private static String processTemplateFile(File templateFile,
 			HashMap<String, String> substitutionMap,
-			ZipOutputStream zos) throws Exception {
+			ZipOutputStream zos,
+			boolean isOSGIManifest) throws Exception {
 		String result = null;
 		//
 		// Read the entire template file into a memory buffer
@@ -497,7 +502,7 @@ public class XsdGeneration {
 				System.out.println(String.format("Replacing the string '%s' with '%s'", key, varReplacementStr));
 			}
 			// write the processed file out to the zip entry
-			result = osgiManifestFormat(contentStr);
+			result = isOSGIManifest ? osgiManifestFormat(contentStr) : contentStr;
 			zos.write(result.getBytes(), 0, result.getBytes().length);
 		} else {
 			String errMsg = String.format("The file '%s' was empty or missing.", templateFile.getAbsoluteFile());
