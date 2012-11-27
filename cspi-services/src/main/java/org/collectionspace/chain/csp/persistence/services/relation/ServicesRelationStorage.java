@@ -352,8 +352,16 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		String nameValue = null;
 		if(itemRefName!=null) {
 			String refNameValue = itemRefName.getText();
+                        out.put(refNameKey, refNameValue);
                         RefName.AuthorityItem item = RefName.AuthorityItem.parse(refNameValue);
-                        nameValue = item.displayName; 
+                        if(item !=null) {
+                                nameValue = item.displayName;
+                        }else {
+                                RefName.Authority authority = RefName.Authority.parse(refNameValue);
+                                if(authority !=null) {
+                                        nameValue = authority.displayName;
+                                }  
+                        }
 		}
 		// If no displayName from refName, then try name element
 		if(nameValue==null) {
