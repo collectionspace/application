@@ -8,8 +8,10 @@ package org.collectionspace.csp.helper.core;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -41,7 +43,9 @@ import org.collectionspace.csp.api.core.CSPDependencyException;
  */
 public class ConfigFinder implements EntityResolver {
 	private static final Logger log=LoggerFactory.getLogger(ConfigFinder.class);
-	private static final String classNearDefaultXml = "org.collectionspace.chain.controller.ChainServlet"; 
+	private static final String classNearDefaultXml = "org.collectionspace.chain.controller.ChainServlet";
+	private static final String TEST_CONFIG = "TEST_CONFIG"; 
+	public static final String CSPACE_JEESERVER_HOME = "CSPACE_JEESERVER_HOME";
 
 	private ServletContext ctx;
 
@@ -56,22 +60,65 @@ public class ConfigFinder implements EntityResolver {
 		return IOUtils.toInputStream(out);
 	}
 
+	private File getDataFromAttributePathAsFile() throws IOException {
+		File result = null;
+		
+		String out = (String)ctx.getAttribute("config-path");
+		if (out != null) {
+			File file = new File(out);
+			if (file.exists() == true) {
+				result = file;
+			}
+		}
+		
+		return result;
+	}
+
 	private InputStream getDataFromAttributePath() throws IOException {
-		String out=(String)ctx.getAttribute("config-path");
-		if(out==null)
-			return null;
-		File file=new File(out);
-		if(!file.exists())
-			return null;
-		return new FileInputStream(file);
+		InputStream result = null;
+		
+		File file = getDataFromAttributePathAsFile();
+		result = new FileInputStream(file);
+		
+		return result;
 	}
 
 	private InputStream getDataFromName() {
-		String path=(String)ctx.getAttribute("config-filename");
+		String path = (String) ctx.getAttribute("config-filename");
 
 		try {
-			return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
-		} catch(Exception x) { return null; }
+			return Thread.currentThread().getContextClassLoader()
+					.getResourceAsStream(path);
+		} catch (Exception x) {
+			log.trace(String.format("Could not find App config file from context attribute name '%s'", "config-filename"),
+					x);
+			return null;
+		}
+	}
+
+	private File getDataFromNameAsFile() {
+		File result = null;
+
+		String path = (String) ctx.getAttribute("config-filename");
+		try {
+			URL fileURL = Thread.currentThread().getContextClassLoader()
+					.getResource(path);
+			String fileName = fileURL.getFile();
+			if (fileName != null) {
+				File file = new File(fileName);
+				if (file.exists() == true) {
+					result = file;
+				} else {
+					log.error(String.format("File with name '%s' from URL '%s' does not exist.", fileName, fileURL.toString()));
+				}
+			} else {
+				log.error(String.format("File from URL '%s' does not exist.", fileURL.toString()));
+			}
+		} catch (Exception x) {
+			log.error(x.toString());
+		}
+
+		return result;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -89,22 +136,95 @@ public class ConfigFinder implements EntityResolver {
 		} catch(Exception x) { return null; }
 	}
 
-	private static InputStream getDataFromEnvironmentVariable() {
+	@SuppressWarnings("unchecked")
+	private static File getDataFromJBossPathAsFile(String filename) {
+		File result = null;
+
 		try {
-			String filename=System.getenv("TEST_CONFIG");
-			if(filename==null)
-				return null;
-			File file=new File(filename);
-			if(!file.exists())
-				return null;
-			return new FileInputStream(file);			
-		} catch(Exception x) { return null; }
+			File file = new File(System.getProperty("jboss.home.dir")
+					+ "/server/cspace/conf/" + filename);
+			Properties p = System.getProperties();
+			for (Entry k : p.entrySet()) {
+				log.debug(" property " + k.getKey() + " = " + k.getValue());
+			}
+			log.debug("A Looking in " + System.getProperty("jboss.home.dir")
+					+ "/server/cspace/conf/" + filename);
+			if (file.exists() == true) {
+				result = file;
+			} else {
+				log.error(String.format("App config file '%s' could not be found.", filename));
+			}
+		} catch (Exception x) {
+			log.error(String.format("App config file '%s' could not be found.", filename));
+		}
+
+		return result;
+	}
+
+	private static InputStream getDataFromEnvironmentVariable() {
+		InputStream result = null;
+		
+		File file = getDataFromEnvironmentVariableAsFile();
+		if (file != null) {
+			try {
+				result = new FileInputStream(file);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+			
+		return result;
+	}
+
+	private static File getDataFromEnvironmentVariableAsFile() {
+		File result = null;
+
+		try {
+			String filename = System.getenv(TEST_CONFIG);
+			if (filename != null) {
+				File file = new File(filename);
+				if (file.exists() == true) {
+					result = file;
+				}
+			}
+		} catch (Exception x) {
+			log.trace(String.format("Encountered an exception trying to find environment variable '%s'.", TEST_CONFIG));
+		}
+
+		return result;
 	}
 
 	private static InputStream getDataFromClasspath(String filename) {
 		try {
 			return Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
 		} catch(Exception x) { return null; }
+	}
+
+	private static File getDataFromClasspathAsFile(String configFileName) {
+		File result = null;
+		
+		try {
+			URL fileURL = Thread.currentThread().getContextClassLoader()
+					.getResource(configFileName);
+			if (fileURL != null) {
+				String fileName = fileURL.getFile();
+				if (fileName != null) {
+					File file = new File(fileName);
+					if (file.exists() == true) {
+						result = file;
+					} else {
+						log.error(String.format("App config file '%s' from URL '%s' could not be found.", fileName, fileURL));
+					}
+				} else {
+					log.error(String.format("App config file '%s' could not be found.", fileName, fileURL));
+				}
+			}
+		} catch (Exception x) {
+			log.error(String.format("App config file '%s' could not be found.", configFileName), x);
+		}
+		
+		return result;
 	}
 
 	private static InputStream getConfigStreamViaClassLoader(String configFilename) throws CSPDependencyException {
@@ -126,6 +246,9 @@ public class ConfigFinder implements EntityResolver {
 			InputStream result = loader.getResourceAsStream(configFilename);
 			if(result!=null) {
 				log.debug("Found config for testing: "+configFilename);
+				URL configFileURL = loader.getResource(configFilename);
+				log.debug(String.format("Config file URL: '%s'", configFileURL.toString()));
+				log.debug(String.format("URL file: '%s'", configFileURL.getFile()));
 				return result;
 			} else {
 				throw new CSPDependencyException("Failed to open config file at "+configFilename);
@@ -134,6 +257,41 @@ public class ConfigFinder implements EntityResolver {
 			return null;
 		}
 	}
+	
+	private static File getConfigFileViaClassLoader(String configFilename) throws CSPDependencyException {
+		File result = null;
+		ClassLoader loader;
+		try {
+			// In Eclipse all classes are still visible so we can jump across via a known class name
+			loader = Class.forName(classNearDefaultXml).getClassLoader();
+		} catch (ClassNotFoundException e) {
+			// In Maven we can only see stuff in target/test-classes
+			// so this relies on top-level pom.xml copying the file in for us 
+			log.debug("Falling back to current thread ClassLoader");
+			loader = Thread.currentThread().getContextClassLoader();
+		}
+		try {
+			URL fileURL = loader.getResource(configFilename);
+			if (fileURL != null) {
+				log.debug("Found config for testing: " + configFilename);
+				log.debug(String.format("Config file URL: '%s'", fileURL.toString()));
+				String filename = fileURL.getFile();
+				log.debug(String.format("URL file: '%s'", filename));
+				File file = new File(filename);
+				if (file.exists() == true) {
+					result = file;
+				} else {
+					log.error(String.format("App config file '%s' from URL '%s' does not exist.", filename, fileURL));
+				}
+			} else {
+				throw new CSPDependencyException("Failed to open config file at " + configFilename);
+			}
+		} catch (Exception e) {
+			log.error(String.format("Could not load config file '%s'", configFilename), e);
+		}
+		
+		return result;
+	}	
 
 	@Override
 	public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
@@ -142,17 +300,20 @@ public class ConfigFinder implements EntityResolver {
 			if(out!=null)
 				return new InputSource(out);
 			if(ctx!=null && "-//CSPACE//ROOT".equals(publicId)) {
-				if(out!=null)
-					return new InputSource(out);		
 				out=getDataFromAttribute();
-				if(out!=null)
+				if(out!=null) {
 					return new InputSource(out);
+				}
+				
 				out=getDataFromAttributePath();
-				if(out!=null)
+				if(out!=null) {
 					return new InputSource(out);
+				}
+				
 				out=getDataFromName();
-				if(out!=null)
+				if(out!=null) {
 					return new InputSource(out);
+				}
 			
 			}
 			// use config from tomcat-main/src/main/resources if this is a test run by mvn
@@ -173,6 +334,63 @@ public class ConfigFinder implements EntityResolver {
 			throw new SAXException("No such file "+systemId);
 		} catch(CSPDependencyException e) {
 			throw new SAXException("Error parsing",e);		
+		}
+	}
+
+	public File resolveEntityAsFile(String publicId, String systemId)
+			throws SAXException, IOException {
+		try {
+			File out = getDataFromEnvironmentVariableAsFile();
+			if (out != null) {
+				return out;
+			}
+
+			if (ctx != null && "-//CSPACE//ROOT".equals(publicId)) {
+				InputStream outStream = getDataFromAttribute();
+				if (outStream != null) {
+					log.warn(String.format("Configuration not found as a file but as a string in the environment: %s",
+							outStream.toString()));
+					return null;
+				}
+
+				out = getDataFromAttributePathAsFile();
+				if (out != null) {
+					return out;
+				}
+
+				out = getDataFromNameAsFile();
+				if (out != null) {
+					return out;
+				}
+			}
+
+			// use config from tomcat-main/src/main/resources if this is a test
+			// run by mvn
+			if ("-//CSPACE//TESTROOT".equals(publicId)) {
+				out = getConfigFileViaClassLoader(systemId);
+				if (out != null) {
+					return out;
+				}
+			}
+
+			out = getDataFromJBossPathAsFile(systemId);
+			if (out != null) {
+				return out;
+			}
+			
+			out = getDataFromClasspathAsFile(systemId); // running tests find the resource/entity here
+			if (out != null) {
+				return out;
+			}
+			
+			out = getConfigFileViaClassLoader(systemId);
+			if (out != null) {
+				return out;
+			}
+			
+			throw new SAXException("No such file " + systemId);
+		} catch (CSPDependencyException e) {
+			throw new SAXException("Error parsing", e);
 		}
 	}
 }

@@ -6,6 +6,7 @@
  */
 package org.collectionspace.csp.container.impl;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -30,20 +31,27 @@ public class CSPManagerImpl implements CSPManager {
 	private Map<String,StorageGenerator> storage=new HashMap<String,StorageGenerator>();
 	private Map<String,UI> ui=new HashMap<String,UI>();
 	private ConfigRoot config_root;
+	private File configFile;
 	
+	@Override
 	public void addStorageType(String name, StorageGenerator store) { storage.put(name,store); }
 	
+	@Override
 	public void register(final CSP in) { 
 		csps.addRunnable(new Dependable(){
+			@Override
 			public void run() throws CSPDependencyException { in.go(CSPManagerImpl.this); }
+			@Override
 			public String getName() { return in.getName(); }
 		});
 	}
 
+	@Override
 	public void go() throws CSPDependencyException {
 		csps.go();
 	}
 
+	@Override
 	public void configure(InputSource in,EntityResolver er) throws CSPDependencyException {
 		RulesImpl rules=new RulesImpl();
 		for(Configurable config : config_csps) {
@@ -65,18 +73,34 @@ public class CSPManagerImpl implements CSPManager {
 		}
 	}
 	
+	@Override
+	public void setConfigFile(File file) {
+		configFile = file;
+	}
+	
+	@Override	
+	public File getConfigFile() {
+		return configFile;
+	}
+	
+	@Override
 	public StorageGenerator getStorage(String name) { return storage.get(name); }
 	
+	@Override
 	public void addUI(String name,UI impl) {
 		ui.put(name,impl);
 	}
 	
+	@Override
 	public UI getUI(String name) {
 		return ui.get(name);
 	}
+	@Override
 	public void addConfigRules(Configurable cfg) {
 		config_csps.add(cfg);
 	}
+	@Override
 	public void setConfigRoot(ConfigRoot cfg) { config_root=cfg; }
+	@Override
 	public ConfigRoot getConfigRoot() { return config_root; }
 }

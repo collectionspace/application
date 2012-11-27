@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.zip.ZipEntry;
@@ -166,8 +167,8 @@ public class XsdGeneration {
 		return result;
 	}
 	
-	public XsdGeneration(String configfile, String domain, String type, String schemaVersion) throws Exception {
-		CSPManager cspm=getServiceManager(configfile);
+	public XsdGeneration(String configfileName, String domain, String type, String schemaVersion) throws Exception {		
+		CSPManager cspm=getServiceManager(configfileName);
 		Spec spec = getSpec(cspm);
 
 		// 1. Setup a hashmap to keep track of which records and bundles we've already processed.
@@ -557,11 +558,42 @@ public class XsdGeneration {
 
 	private InputSource getSource(String fallbackFile) {
 		try {
-			return TestConfigFinder.getConfigStream(fallbackFile);
+			return TestConfigFinder.getConfigStream(fallbackFile, isFromBuild());
 		} catch (CSPDependencyException e) {
 			String name=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+fallbackFile;
 			return new InputSource(Thread.currentThread().getContextClassLoader().getResourceAsStream(name));
 		}
+	}
+	
+	private File getSourceAsFile(String fallbackFile) {
+		File result = null;
+
+		try {
+			result = TestConfigFinder.getConfigFile(fallbackFile);
+		} catch (CSPDependencyException e) {
+			String name = getClass().getPackage().getName()
+					.replaceAll("\\.", "/")
+					+ "/" + fallbackFile;
+			URL fileURL = Thread.currentThread().getContextClassLoader()
+					.getResource(name);
+			if (fileURL != null) {
+				String fileName = fileURL.getFile();
+				if (fileName != null) {
+					File file = new File(fileName);
+					if (file.exists() == true) {
+						result = file;
+					} else {
+						log.error(String.format("Could not find App config file '%s' from URL '%s'", fileName, fileURL));
+					}
+				} else {
+					log.error(String.format("Could not find App config file '%s' from URL '%s'", name, fileURL));
+				}
+			} else {
+				log.error(String.format("Could not find App config file '%s'", name));
+			}
+		}
+
+		return result;
 	}
 	
 	private Spec getSpec(CSPManager cspm){
@@ -585,6 +617,7 @@ public class XsdGeneration {
 		try {
 			cspm.go();
 			cspm.configure(getSource(filename),new ConfigFinder(null));
+			cspm.setConfigFile(getSourceAsFile(filename)); // Saves a copy of the file reference to the config file
 		} catch (CSPDependencyException e) {
 			log.error("CSPManagerImpl failed");
 			log.error(e.getLocalizedMessage() );
