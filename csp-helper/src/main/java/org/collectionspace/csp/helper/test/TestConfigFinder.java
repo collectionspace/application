@@ -19,7 +19,7 @@ public class TestConfigFinder {
 	//used to test multi tenancy
 	public static InputSource getConfigStream(String filename) throws CSPDependencyException {
 		try {
-			ConfigFinder cfg=new ConfigFinder(null);
+			ConfigFinder cfg=new ConfigFinder(null, "horse");
 			//InputSource out=cfg.resolveEntity("-//CSPACE//ROOT",filename);
 			InputSource out=cfg.resolveEntity("-//CSPACE//TESTROOT",filename);
 			if(out!=null)

@@ -44,9 +44,11 @@ public class ConfigFinder implements EntityResolver {
 	private static final String classNearDefaultXml = "org.collectionspace.chain.controller.ChainServlet"; 
 
 	private ServletContext ctx;
+	private String configBase;
 
-	public ConfigFinder(ServletContext ctx) {
+	public ConfigFinder(ServletContext ctx, String configBase) {
 		this.ctx=ctx;
+		this.setConfigBase(configBase);
 	}
 
 	private InputStream getDataFromAttribute() {
@@ -137,6 +139,8 @@ public class ConfigFinder implements EntityResolver {
 
 	@Override
 	public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
+		String configBase = this.getConfigBase();
+		
 		try {
 			InputStream out=getDataFromEnvironmentVariable();
 			if(out!=null)
@@ -174,5 +178,13 @@ public class ConfigFinder implements EntityResolver {
 		} catch(CSPDependencyException e) {
 			throw new SAXException("Error parsing",e);		
 		}
+	}
+
+	public String getConfigBase() {
+		return configBase;
+	}
+
+	public void setConfigBase(String configBase) {
+		this.configBase = configBase;
 	}
 }
