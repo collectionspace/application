@@ -62,6 +62,9 @@
                 <selector>taxonAuthority-termSourceNote</selector>
             </field>
             <!-- Fields specific to Taxon terms -->
+            <field id="termFormattedDisplayName">
+                <selector>taxonAuthority-termFormattedDisplayName</selector>
+            </field>
             <field id="taxonomicStatus">
                 <selector>taxonAuthority-taxonomicStatus</selector>
                 <options>
