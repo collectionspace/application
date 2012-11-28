@@ -167,8 +167,8 @@ public class XsdGeneration {
 		return result;
 	}
 	
-	public XsdGeneration(String configfileName, String domain, String type, String schemaVersion) throws Exception {		
-		CSPManager cspm=getServiceManager(configfileName);
+	public XsdGeneration(File configfile, String type, String schemaVersion) throws Exception {		
+		CSPManager cspm=getServiceManager(configfile);
 		Spec spec = getSpec(cspm);
 
 		// 1. Setup a hashmap to keep track of which records and bundles we've already processed.
@@ -556,6 +556,7 @@ public class XsdGeneration {
 		return result;
 	}
 
+	/*
 	private InputSource getSource(String fallbackFile) {
 		try {
 			return TestConfigFinder.getConfigStream(fallbackFile, isFromBuild());
@@ -564,6 +565,21 @@ public class XsdGeneration {
 			return new InputSource(Thread.currentThread().getContextClassLoader().getResourceAsStream(name));
 		}
 	}
+	*/
+	
+	private InputSource getSource(File file) {
+		InputSource result = null;
+		
+		FileInputStream inputStream;
+		try {
+			inputStream = new FileInputStream(file);
+			result = new InputSource(inputStream);
+		} catch (FileNotFoundException e) {
+			log.error(String.format("Could not create an InputSource instance from file '%s'.", file.getAbsolutePath()), e);
+		}
+		
+		return result;
+	}	
 	
 	private File getSourceAsFile(String fallbackFile) {
 		File result = null;
@@ -609,15 +625,16 @@ public class XsdGeneration {
 		return td;
 	}
 	
-	private CSPManager getServiceManager(String filename) {
+	private CSPManager getServiceManager(File configFile) {
 		CSPManager cspm=new CSPManagerImpl();
 		cspm.register(new CoreConfig());
 		cspm.register(new Spec());
 		cspm.register(new ServicesStorageGenerator());
 		try {
 			cspm.go();
-			cspm.configure(getSource(filename),new ConfigFinder(null));
-			cspm.setConfigFile(getSourceAsFile(filename)); // Saves a copy of the file reference to the config file
+			File configBase = configFile.getParentFile();
+			cspm.setConfigBase(configBase); // Saves a copy of the base config directory
+			cspm.configure(getSource(configFile), new ConfigFinder(null, configBase));
 		} catch (CSPDependencyException e) {
 			log.error("CSPManagerImpl failed");
 			log.error(e.getLocalizedMessage() );

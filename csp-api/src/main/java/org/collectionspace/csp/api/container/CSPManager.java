@@ -18,6 +18,6 @@ public interface CSPManager extends CSPContext {
 	public void register(CSP in);
 	public void go() throws CSPDependencyException;
 	public void configure(InputSource in,EntityResolver er) throws CSPDependencyException;
-	public void setConfigFile(File file);
-	public File getConfigFile();
+	public void setConfigBase(File file);
+	public File getConfigBase();
 }

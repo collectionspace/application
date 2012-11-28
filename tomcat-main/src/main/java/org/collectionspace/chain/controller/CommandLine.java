@@ -13,6 +13,7 @@ package org.collectionspace.chain.controller;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,29 +58,35 @@ public class CommandLine {
 	}
 	
 	
-	private static final String getTenantConfigDir(String[] args) {
-		String result = null;
+	private static final File getTenantConfigDir(String[] args) {
+		File result = null;
+		String errMsg = null;
 		
 		String configDirName = null;
 		if (args != null && args.length > 0 && args[0].trim().isEmpty() == false) {
 			configDirName = args[0];
 		} else {
+			// Look for the JEE server path in the environment vars
 			Map<String, String> env = System.getenv();
 			String jeeHomeDir = env.get(ConfigFinder.CSPACE_JEESERVER_HOME);
 			if (jeeHomeDir != null && jeeHomeDir.trim().isEmpty() == false) {
 				configDirName = jeeHomeDir + "/" + TENANT_CONFIG_DIR;
 			}
-			log.info(String.format("No command line arguments specified.  Using system environment variable '%s'='%s' to location tenant config files.",
+			log.info(String.format("No command line arguments specified.  Using system environment variable '%s'='%s' to locate tenant config files.",
 					ConfigFinder.CSPACE_JEESERVER_HOME, jeeHomeDir));
 		}
 		
 		if (configDirName != null) {
 			File dir = new File(configDirName);
-			if (dir.exists() == true) {
-				result = configDirName;
+			if (dir.exists() == true && dir.isDirectory() == true) {
+				result = dir;
 			} else {
-				log.error(String.format("The App config directory '%s' does not exist.", dir.getAbsolutePath()));
+				errMsg = String.format("The App config directory '%s' does not exist.", dir.getAbsolutePath());
 			}
+		}
+		
+		if (errMsg != null) {
+			log.error(errMsg);
 		}
 		
 		return result;
@@ -88,23 +95,24 @@ public class CommandLine {
 	/*
 	 * Returns the list of tenant configuration files.
 	 */
-	private static final String[] getListOfTenantConfigFiles(String configDirName) {
-		String[] result = null;
+	private static final File[] getListOfTenantConfigFiles(File configDir) {
+		File[] result = {new File("")};
 		
-		File configDir = new File(configDirName);
 		if (configDir.exists() && configDir.isDirectory()) {
 			System.out.println(String.format("The App config directory: '%s'", configDir.getAbsolutePath()));
 			String[] fileNameList = configDir.list(getConfigFileFilter(configDir));
 			if (fileNameList != null && fileNameList.length > 0) {
-				result = fileNameList;
-				for (String tenantConfigFile : fileNameList) {
-					System.out.println(String.format("Found tenant config file: '%s'", tenantConfigFile));
+				ArrayList<File> fileList = new ArrayList<File>();
+				for (String fileName : fileNameList) {
+					fileList.add(new File(configDir.getAbsolutePath() + "/" + fileName));
+					log.debug(String.format("Found tenant config file: '%s'", fileName));
 				}
+				result = fileList.toArray(result);
 			} else {
 				System.err.println(String.format("No App tenant config files exist in '%s'", configDir.getAbsolutePath()));
 			}
 		} else {
-			System.err.println(String.format("The App config argument '%s' does not exist or is not a directory.", configDirName));
+			System.err.println(String.format("The App config argument '%s' does not exist or is not a directory.", configDir.getAbsolutePath()));
 		}
 		
 		return result;
@@ -116,24 +124,29 @@ public class CommandLine {
 		String maketype = "core"; //args[2];
 		String configfile = "core-tenant.xml"; //args[3];
 		
-		String tenantConfigDir = getTenantConfigDir(args);
-		if (tenantConfigDir != null && tenantConfigDir.trim().isEmpty() == false) {
-			String[] tenantConfigFiles = getListOfTenantConfigFiles(tenantConfigDir);
-			// Generate all the Service schemas from the Application layer's configuration records
-			XsdGeneration s = new XsdGeneration(configfile, domain, maketype, "3.0");
-			HashMap<String, String> xsdschemas = s.getServiceSchemas();
-			
-			System.out.println(String.format("Record type: %s", recordtype));
-			for (String schemaName : xsdschemas.keySet()) {
-				System.out.println(String.format("\tSchema file name: %s", schemaName));
-				//System.out.println(xsdschemas.get(schemaName));
+		File tenantConfigDir = getTenantConfigDir(args);
+		if (tenantConfigDir != null && tenantConfigDir.exists() == true) {
+			File[] tenantConfigFileList = getListOfTenantConfigFiles(tenantConfigDir);
+			for (File tenantConfigFile : tenantConfigFileList) {
+				//
+				// Generate all the Service schemas from the Application layer's configuration records
+				//
+				XsdGeneration s = new XsdGeneration(tenantConfigFile, maketype, "3.0");
+				HashMap<String, String> xsdschemas = s.getServiceSchemas();
+				
+				System.out.println(String.format("Record type: %s", recordtype));
+				for (String schemaName : xsdschemas.keySet()) {
+					System.out.println(String.format("\tSchema file name: %s", schemaName));
+					//System.out.println(xsdschemas.get(schemaName));
+				}
 			}
 		} else {
 			String errMsg = String.format("Either a command line argument specifying the Application layer's tenant config directory needs to be supplied or a" +
 					" system environment variable '%s' needs to be set and pointing to the CollectionSpace JEE server installation directory.",
 					ConfigFinder.CSPACE_JEESERVER_HOME);
-			if (tenantConfigDir != null && tenantConfigDir.trim().isEmpty() == false) {
-				errMsg = String.format("The command line argument '%s' specifying the Application layer's tenant config directory is incorrect.", tenantConfigDir);
+			if (tenantConfigDir != null && tenantConfigDir.exists() == false) {
+				errMsg = String.format("The command line argument '%s' specifying the Application layer's tenant config directory is incorrect.",
+						tenantConfigDir != null ? tenantConfigDir.getAbsolutePath() : "<unspecified>");
 			}
 			log.error(errMsg);
 			return; // exits with error message to log

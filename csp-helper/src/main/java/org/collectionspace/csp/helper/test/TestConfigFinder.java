@@ -49,7 +49,7 @@ public class TestConfigFinder {
 		try {
 			ConfigFinder cfg=new ConfigFinder(null);
 			//InputSource out=cfg.resolveEntity("-//CSPACE//ROOT",filename);
-			File out = cfg.resolveEntityAsFile("-//CSPACE//TESTROOT",filename);
+			File out = cfg.resolveEntityAsFile("-//CSPACE//TESTROOT", filename);
 			if (out != null) {
 				return out;
 			}
@@ -63,6 +63,6 @@ public class TestConfigFinder {
 	
 
 	public static InputSource getConfigStream() throws CSPDependencyException {
-		return getConfigStream("default.xml");
+		return getConfigStream("default.xml", true);
 	}
 }

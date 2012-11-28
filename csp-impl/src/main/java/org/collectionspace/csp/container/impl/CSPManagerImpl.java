@@ -31,7 +31,7 @@ public class CSPManagerImpl implements CSPManager {
 	private Map<String,StorageGenerator> storage=new HashMap<String,StorageGenerator>();
 	private Map<String,UI> ui=new HashMap<String,UI>();
 	private ConfigRoot config_root;
-	private File configFile;
+	private File configBase;
 	
 	@Override
 	public void addStorageType(String name, StorageGenerator store) { storage.put(name,store); }
@@ -74,13 +74,13 @@ public class CSPManagerImpl implements CSPManager {
 	}
 	
 	@Override
-	public void setConfigFile(File file) {
-		configFile = file;
+	public void setConfigBase(File file) {
+		configBase = file;
 	}
 	
 	@Override	
-	public File getConfigFile() {
-		return configFile;
+	public File getConfigBase() {
+		return configBase;
 	}
 	
 	@Override

@@ -48,9 +48,20 @@ public class ConfigFinder implements EntityResolver {
 	public static final String CSPACE_JEESERVER_HOME = "CSPACE_JEESERVER_HOME";
 
 	private ServletContext ctx;
+	private File configBase;
 
 	public ConfigFinder(ServletContext ctx) {
+		this(ctx, null);
+	}
+
+	public ConfigFinder(ServletContext ctx, File configBase) {
 		this.ctx=ctx;
+		if (configBase != null) {
+			this.setConfigBase(configBase);
+			if (log.isDebugEnabled() == true) {
+				log.debug(String.format("App configuration base directory is: '%s'", configBase.getAbsolutePath()));
+			}
+		}
 	}
 
 	private InputStream getDataFromAttribute() {
@@ -127,7 +138,7 @@ public class ConfigFinder implements EntityResolver {
 			File file=new File(System.getProperty("jboss.home.dir")+"/server/cspace/conf/"+filename);
 			Properties p=System.getProperties();
 			for(Entry k : p.entrySet()) {
-				log.debug(" property "+k.getKey()+" = "+k.getValue());
+				log.trace(" property "+k.getKey()+" = "+k.getValue());
 			}
 			log.debug("A Looking in "+System.getProperty("jboss.home.dir")+"/server/cspace/conf/"+filename);
 			if(!file.exists())
@@ -145,7 +156,7 @@ public class ConfigFinder implements EntityResolver {
 					+ "/server/cspace/conf/" + filename);
 			Properties p = System.getProperties();
 			for (Entry k : p.entrySet()) {
-				log.debug(" property " + k.getKey() + " = " + k.getValue());
+				log.trace(" property " + k.getKey() + " = " + k.getValue());
 			}
 			log.debug("A Looking in " + System.getProperty("jboss.home.dir")
 					+ "/server/cspace/conf/" + filename);
@@ -293,48 +304,85 @@ public class ConfigFinder implements EntityResolver {
 		return result;
 	}	
 
+	/*
+	 * Try to resolve/find and load a resource/entity/file.  Uses a variety of method and locations to resolve the resource/entity/file
+	 * (non-Javadoc)
+	 * @see org.xml.sax.EntityResolver#resolveEntity(java.lang.String, java.lang.String)
+	 */
 	@Override
-	public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
+	public InputSource resolveEntity(String publicId, String systemId)
+			throws SAXException, IOException {
 		try {
-			InputStream out=getDataFromEnvironmentVariable();
-			if(out!=null)
-				return new InputSource(out);
-			if(ctx!=null && "-//CSPACE//ROOT".equals(publicId)) {
-				out=getDataFromAttribute();
-				if(out!=null) {
-					return new InputSource(out);
-				}
-				
-				out=getDataFromAttributePath();
-				if(out!=null) {
-					return new InputSource(out);
-				}
-				
-				out=getDataFromName();
-				if(out!=null) {
-					return new InputSource(out);
-				}
+			InputStream out = null;
 			
+			// If there is a conf base directory, look for it there first			
+			File configBase = this.getConfigBase();
+			if (configBase != null && configBase.exists()) {
+				String fileEntityName = configBase.getAbsolutePath() + "/" + systemId;
+				log.info(String.format("Looking to resolve publicId:%s systemId:%s in '%s'.", publicId, systemId,
+						fileEntityName));
+				File fileEntity = new File(fileEntityName);
+				if (fileEntity.exists() == true) {
+					log.info(String.format("Resolved '%s'.\r\n", publicId, systemId, fileEntityName));
+					out = new FileInputStream(fileEntity);
+					return new InputSource(out);
+				}
 			}
-			// use config from tomcat-main/src/main/resources if this is a test run by mvn
-			if("-//CSPACE//TESTROOT".equals(publicId)){
-				out=getConfigStreamViaClassLoader(systemId);
-				if(out!=null)
-					return new InputSource(out);		
+			
+			// Look for it in the env vars
+			out = getDataFromEnvironmentVariable();
+			if (out != null) {
+				return new InputSource(out);
 			}
-			out=getDataFromJBossPath(systemId);
-			if(out!=null)
+
+			// Look for it as a servlet container attribute
+			if (ctx != null && "-//CSPACE//ROOT".equals(publicId)) {
+				out = getDataFromAttribute();
+				if (out != null) {
+					return new InputSource(out);
+				}
+
+				out = getDataFromAttributePath();
+				if (out != null) {
+					return new InputSource(out);
+				}
+
+				out = getDataFromName();
+				if (out != null) {
+					return new InputSource(out);
+				}
+
+			}
+
+			// use config from tomcat-main/src/main/resources if this is a test
+			// run by mvn
+			if ("-//CSPACE//TESTROOT".equals(publicId)) {
+				out = getConfigStreamViaClassLoader(systemId);
+				if (out != null)
+					return new InputSource(out);
+			}
+			out = getDataFromJBossPath(systemId);
+			if (out != null)
 				return new InputSource(out);
-			out=getDataFromClasspath(systemId); // running tests find the resource/entity here
-			if(out!=null)
+			out = getDataFromClasspath(systemId); // running tests find the
+													// resource/entity here
+			if (out != null)
 				return new InputSource(out);
-			out=getConfigStreamViaClassLoader(systemId);
-			if(out!=null)
-				return new InputSource(out);		
-			throw new SAXException("No such file "+systemId);
-		} catch(CSPDependencyException e) {
-			throw new SAXException("Error parsing",e);		
+			out = getConfigStreamViaClassLoader(systemId);
+			if (out != null)
+				return new InputSource(out);
+			throw new SAXException("No such file " + systemId);
+		} catch (CSPDependencyException e) {
+			throw new SAXException("Error parsing", e);
 		}
+	}
+
+	public File getConfigBase() {
+		return configBase;
+	}
+
+	public void setConfigBase(File configBase) {
+		this.configBase = configBase;
 	}
 
 	public File resolveEntityAsFile(String publicId, String systemId)
