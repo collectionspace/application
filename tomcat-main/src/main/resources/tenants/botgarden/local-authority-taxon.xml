@@ -141,14 +141,14 @@
 			</options>
 		</field>
 		
-		<repeat id="plantAttributesGroupList/plantAttributesGroup"> -->
-			<!-- Add autocomplete -->
-			<field id="conservationCategory" autocomplete="concept-conservation_ca"/>
-		</repeat>
-		
 		<repeat id="commonNameGroupList/commonNameGroup">
 			<!-- Change autocomplete to taxon-common -->
 			<field id="commonName" autocomplete="taxon-common"/>
+		</repeat>
+		
+		<repeat id="plantAttributesGroupList/plantAttributesGroup" section="naturalhistory">
+			<!-- Add autocomplete -->
+			<field id="conservationCategory" autocomplete="concept-conservation_ca"/>
 		</repeat>
 	</section>
 </record>
