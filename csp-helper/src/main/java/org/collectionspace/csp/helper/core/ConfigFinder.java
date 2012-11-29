@@ -323,7 +323,7 @@ public class ConfigFinder implements EntityResolver {
 						fileEntityName));
 				File fileEntity = new File(fileEntityName);
 				if (fileEntity.exists() == true) {
-					log.info(String.format("Resolved '%s'.\r\n", publicId, systemId, fileEntityName));
+					log.info(String.format("Resolved '%s'.\r\n", fileEntityName));
 					out = new FileInputStream(fileEntity);
 					return new InputSource(out);
 				}

@@ -39,8 +39,6 @@ public class XsdGeneration {
 	private static final String NUXEO_PLUGIN_TEMPLATES_DIR = "nx-plugin-templates";
 	private static final String NUXEO_SCHEMA_TYPE_TEMPLATES_DIR = NUXEO_PLUGIN_TEMPLATES_DIR + "/" + "schema-type-templates";
 	private static final String NUXEO_DOCTYPE_TEMPLATES_DIR = NUXEO_PLUGIN_TEMPLATES_DIR + "/" + "doc-type-templates";
-	private static final String DOCTYPE_TEMPLATES_DIR = "doc-type-templates";
-	private static final String SCHEMATYPE_TEMPLATES_DIR = "schema-type-templates";
 	
 	private static final String DEFAULT_PARENT_TYPE = "CollectionSpaceDocument";
 	private static final String SCHEMA_PARENT_TYPE_VAR = "$SchemaParentType}";
@@ -87,6 +85,7 @@ public class XsdGeneration {
 	private HashMap<String, String> serviceDoctypeBundles = new HashMap<String, String>();
 	
 	private String tenantBindings = null;
+	private File configBase = null;
 	
 	public HashMap<String, String> getServiceSchemas() {
 		return serviceSchemas;
@@ -174,6 +173,7 @@ public class XsdGeneration {
 		// 1. Setup a hashmap to keep track of which records and bundles we've already processed.
 		// 2. Loop through all the known record types
 		if (type.equals("core")) { // if 'true' then generate the schema and doctype bundles
+			boolean docTypesCreated = true;
 			for (Record record : spec.getAllRecords()) {
 				dumpRecordServiceInfo(record);
 				if (shouldGenerateBundles(record) == true) {
@@ -182,18 +182,20 @@ public class XsdGeneration {
 							record, schemaVersion);
 					// For each schema defined in the configuration record, check to see if it was already
 					// defined in another record.
+					boolean schemasCreated = true;
 					for (String definedSchema : definedSchemaList.keySet()) {
 						if (getServiceSchemas().containsKey(definedSchema) == false) {
 							// If the newly defined schema doesn't already exist in our master list then add it
 							try {
 								createSchemaBundle(record, definedSchema, definedSchemaList);
+								getServiceSchemas().put(definedSchema, definedSchemaList.get(definedSchema));
+								log.debug(String.format("New Services schema '%s' defined in Application configuration record '%s'.",
+										definedSchema, record.getID()));
 							} catch (Exception e) {
+								schemasCreated = false;
 								// TODO Auto-generated catch block
-								e.printStackTrace();
+								log.error(String.format("Could not create schema bundle for '%s'.", definedSchema), e);
 							}
-							getServiceSchemas().put(definedSchema, definedSchemaList.get(definedSchema));
-							log.debug(String.format("New Services schema '%s' defined in Application configuration record '%s'.",
-									definedSchema, record.getID()));
 						} else {
 							// Otherwise, it already exists so emit a warning just in case it shouldn't have been redefined.
 							log.warn(String.format("Services schema '%s' defined in record '%s', but was previously defined in another record.",
@@ -204,8 +206,19 @@ public class XsdGeneration {
 					//
 					// Create the Nuxeo bundle document type
 					//
-					createDocumentTypeBundle(record, definedSchemaList);
+					if (schemasCreated == true) {
+						createDocumentTypeBundle(record, definedSchemaList);
+					} else {
+						docTypesCreated = false;
+						log.error(String.format("Failed to create all the required schema bundles for App record ID='%s'.", record.getID()));
+					}
 				}
+			}
+			
+			if (docTypesCreated == false) {
+				String errMsg = String.format("Not all required document and schema bundles were created for the App config file '%s'.  See the log file for details.",
+						configfile.getAbsolutePath());
+				throw new Exception(errMsg);
 			}
 		} else if (type.equals("delta")) { // Create the service bindings.
 			Services tenantbob = new Services(getSpec(cspm), getTenantData(cspm),false);
@@ -280,7 +293,7 @@ public class XsdGeneration {
 			+ "." + DOCTYPE_BUNDLE_QUALIFIER + "." + tenantQualifier + "." + docTypeName + JAR_EXT;
 		
 		if (getServiceDoctypeBundles().containsKey(docTypeName) == false) {
-			File doctypeTemplatesDir = new File(NUXEO_DOCTYPE_TEMPLATES_DIR);
+			File doctypeTemplatesDir = new File(this.getConfigBase() + "/" + NUXEO_DOCTYPE_TEMPLATES_DIR);
 			if (doctypeTemplatesDir.exists() == true) {
 				log.debug(String.format("### Creating Nuxeo document type ${NuxeoDocTypeName}='%s' in bundle: '%s'",
 						docTypeName, bundleName));
@@ -289,7 +302,8 @@ public class XsdGeneration {
 				//
 				// Create the manifest file from the doctype template
 				//
-				File metaInfTemplate = new File(NUXEO_DOCTYPE_TEMPLATES_DIR + "/" + META_INF_DIR + "/" + MANIFEST_FILE);				
+				File metaInfTemplate = new File(this.getConfigBase() + "/"
+						+ NUXEO_DOCTYPE_TEMPLATES_DIR + "/" + META_INF_DIR + "/" + MANIFEST_FILE);				
 				// Setup the hash map for the variable substitutions
 				HashMap<String, String> substitutionMap = new HashMap<String, String>();
 				substitutionMap.put(SERVICE_NAME_VAR, serviceName);
@@ -323,7 +337,8 @@ public class XsdGeneration {
 				getServiceDoctypeBundles().put(docTypeName, bundleName);
 			}
 		} else {
-			log.warn(String.format("Nuxeo document type '%s' already exists.  Skipping creation.", docTypeName));
+			String errMsg = String.format("Nuxeo document type '%s' already exists.  Skipping creation.", docTypeName);
+			throw new Exception(errMsg);
 		}
 	}
 
@@ -407,14 +422,19 @@ public class XsdGeneration {
 		// Before creating a new bundle, make sure we haven't already created a bundle for this schema extension.
 		//
 		if (getServiceSchemaBundles().containsKey(schemaName) == false) {
-			File schemaTypeTemplatesDir = new File(NUXEO_SCHEMA_TYPE_TEMPLATES_DIR);
-			if (schemaTypeTemplatesDir.exists()) {
+			File schemaTypeTemplatesDir = new File(this.getConfigBase() + "/" + NUXEO_SCHEMA_TYPE_TEMPLATES_DIR);
+			if (schemaTypeTemplatesDir.exists() == true) {
+				File outputFile = new File(bundleName);
+				if (log.isDebugEnabled() == true) {
+					log.debug(String.format("Creating new jar file: '%s'", outputFile.getAbsolutePath()));
+				}
 				ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(
-						bundleName));
+						outputFile));
 				//
 				// Create the manifest file from the schema type template
 				//
-				File metaInfTemplate = new File(NUXEO_SCHEMA_TYPE_TEMPLATES_DIR + "/" + META_INF_DIR + "/" + MANIFEST_FILE);
+				File metaInfTemplate = new File(this.getConfigBase() + "/"
+						+ NUXEO_SCHEMA_TYPE_TEMPLATES_DIR + "/" + META_INF_DIR + "/" + MANIFEST_FILE);
 				// Setup the hash map for the variable substitutions
 				String serviceNameVar = serviceName;				
 				if (isGlobalSchema(schemaNameNoFileExt) == true) {
@@ -448,7 +468,9 @@ public class XsdGeneration {
 				//
 				getServiceSchemaBundles().put(schemaName, bundleSymbolicName);
 			} else {
-				log.error(String.format("The '%s' directory is missing looking for it at '%s'.", NUXEO_SCHEMA_TYPE_TEMPLATES_DIR, schemaTypeTemplatesDir.getAbsolutePath()));
+				String errMsg = String.format("The '%s' directory is missing looging for it at '%s'.", NUXEO_SCHEMA_TYPE_TEMPLATES_DIR,
+						schemaTypeTemplatesDir.getAbsolutePath());
+				throw new Exception(errMsg);
 			}
 		} else {
 			log.warn(String.format("Nuxeo schema '%s' is being redefined in record '%s'.  Ignoring redefinition and *not* creating a new extension point bundle for the schema.",
@@ -633,6 +655,7 @@ public class XsdGeneration {
 		try {
 			cspm.go();
 			File configBase = configFile.getParentFile();
+			this.setConfigBase(configBase);
 			cspm.setConfigBase(configBase); // Saves a copy of the base config directory
 			cspm.configure(getSource(configFile), new ConfigFinder(null, configBase));
 		} catch (CSPDependencyException e) {
@@ -641,5 +664,13 @@ public class XsdGeneration {
 		}
 		return cspm;
 		
+	}
+
+	private void setConfigBase(File configBase) {
+		this.configBase = configBase;
+	}
+	
+	private File getConfigBase() {
+		return this.configBase;
 	}
 }

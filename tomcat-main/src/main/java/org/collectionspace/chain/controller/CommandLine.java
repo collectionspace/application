@@ -57,7 +57,6 @@ public class CommandLine {
 		return result;
 	}
 	
-	
 	private static final File getTenantConfigDir(String[] args) {
 		File result = null;
 		String errMsg = null;
@@ -127,18 +126,32 @@ public class CommandLine {
 		File tenantConfigDir = getTenantConfigDir(args);
 		if (tenantConfigDir != null && tenantConfigDir.exists() == true) {
 			File[] tenantConfigFileList = getListOfTenantConfigFiles(tenantConfigDir);
+			String errMsg = null;
 			for (File tenantConfigFile : tenantConfigFileList) {
 				//
 				// Generate all the Service schemas from the Application layer's configuration records
 				//
-				XsdGeneration s = new XsdGeneration(tenantConfigFile, maketype, "3.0");
-				HashMap<String, String> xsdschemas = s.getServiceSchemas();
-				
-				System.out.println(String.format("Record type: %s", recordtype));
-				for (String schemaName : xsdschemas.keySet()) {
-					System.out.println(String.format("\tSchema file name: %s", schemaName));
-					//System.out.println(xsdschemas.get(schemaName));
+				try {
+					XsdGeneration s = new XsdGeneration(tenantConfigFile, maketype, "3.0");
+					HashMap<String, String> xsdschemas = s.getServiceSchemas();
+					
+					System.out.println(String.format("Record type: %s", recordtype));
+					for (String schemaName : xsdschemas.keySet()) {
+						System.out.println(String.format("\tSchema file name: %s", schemaName));
+						//System.out.println(xsdschemas.get(schemaName));
+					}
+				} catch (Exception e) {
+					String exceptionMsg = e.getMessage();
+					if (errMsg != null) {
+						errMsg = errMsg + "\r\n" + exceptionMsg;
+					} else {
+						errMsg = exceptionMsg;
+					}
 				}
+			}
+			
+			if (errMsg != null) {
+				System.err.println(errMsg);
 			}
 		} else {
 			String errMsg = String.format("Either a command line argument specifying the Application layer's tenant config directory needs to be supplied or a" +
@@ -149,6 +162,7 @@ public class CommandLine {
 						tenantConfigDir != null ? tenantConfigDir.getAbsolutePath() : "<unspecified>");
 			}
 			log.error(errMsg);
+			System.exit(-1);
 			return; // exits with error message to log
 		}
 	}
