@@ -1,33 +1,36 @@
 {
-    "details": {
-        ".csc-all-uri": "${fields.uri}",
-        ".csc-all-docType-label": {
-            "messagekey": "all-docTypeLabel"
-        },
-        ".csc-all-docNumber": "${fields.docNumber}",
-        ".csc-all-updatedAt": {
-            "decorators": [
-                {
-                    "func": "cspace.datePicker",
-                    "type": "fluid"
-                }
-            ],
-            "value": "${fields.updatedAt}"
-        },
-        ".csc-all-docName-label": {
-            "messagekey": "all-docNameLabel"
-        },
-        ".csc-all-updatedAt-label": {
-            "messagekey": "all-updatedAtLabel"
-        },
-        ".csc-all-docName": "${fields.docName}",
-        ".csc-all-docNumber-label": {
-            "messagekey": "all-docNumberLabel"
-        },
-        ".csc-all-docType": "${fields.docType}",
-        ".csc-all-uri-label": {
-            "messagekey": "all-uriLabel"
+  "details": {
+    ".csc-all-docName": "${fields.docName}", 
+    ".csc-all-docName-label": {
+      "messagekey": "all-docNameLabel"
+    }, 
+    ".csc-all-docNumber": "${fields.docNumber}", 
+    ".csc-all-docNumber-label": {
+      "messagekey": "all-docNumberLabel"
+    }, 
+    ".csc-all-docType": "${fields.docType}", 
+    ".csc-all-docType-label": {
+      "messagekey": "all-docTypeLabel"
+    }, 
+    ".csc-all-refName": "${fields.refName}", 
+    ".csc-all-refName-label": {
+      "messagekey": "all-refNameLabel"
+    }, 
+    ".csc-all-updatedAt": {
+      "decorators": [
+        {
+          "func": "cspace.datePicker", 
+          "type": "fluid"
         }
+      ], 
+      "value": "${fields.updatedAt}"
+    }, 
+    ".csc-all-updatedAt-label": {
+      "messagekey": "all-updatedAtLabel"
+    }, 
+    ".csc-all-uri": "${fields.uri}", 
+    ".csc-all-uri-label": {
+      "messagekey": "all-uriLabel"
     }
+  }
 }
-
