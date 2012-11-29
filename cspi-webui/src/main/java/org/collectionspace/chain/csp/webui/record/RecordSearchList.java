@@ -98,9 +98,9 @@ public class RecordSearchList implements WebMethod {
 				
 				String[] parts=uri.split("/");
 				String recordurl = parts[0];
-				Record itemr = r.getSpec().getRecordByServicesUrl(recordurl);
+                                Record itemr = r.getSpec().getRecordByServicesUrl(recordurl);
                                 if (itemr == null) {
-				    String docType = summarylist.getString("docType");
+                                String docType = summarylist.getString("docType");
                                     itemr = r.getSpec().getRecordByServicesDocType(docType);
                                 }
                                 if (itemr == null) {
@@ -114,7 +114,7 @@ public class RecordSearchList implements WebMethod {
                                     if(summarylist.has("refName")) {
                                         refName = summarylist.getString("refName");
                                     }
- 	 	 	 	    if(refName!=null) {
+                                    if(refName!=null) {
                                         item = RefName.AuthorityItem.parse(refName);
                                     }
                                     if(item!=null) {
@@ -123,7 +123,7 @@ public class RecordSearchList implements WebMethod {
                                         log.warn("Could not get vocabulary namespace for record with services URL " + recordurl);
                                     }
                                 }
-			}
+            }
 			out.put("recordtype", recordtype);
 			// CSPACE-2894
 			if(this.r.getID().equals("permission")){
