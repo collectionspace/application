@@ -29,6 +29,7 @@ import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.collectionspace.csp.api.ui.UISession;
+import org.collectionspace.services.common.api.RefName;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,7 +49,7 @@ public class RecordSearchList implements WebMethod {
 	private Map<String,String> type_to_url=new HashMap<String,String>();
 	private String searchAllGroup;
         
-        private final static String UNKNOWN_RECORD_TYPE = "Unknown"; // FIXME: Temporary for debugging, CSPACE-5733
+        private final static String UNKNOWN_RECORD_TYPE = "UNKNOWN";
 	
 	public RecordSearchList(Record r, int mode) {
 		this(r, mode, null);
@@ -103,9 +104,24 @@ public class RecordSearchList implements WebMethod {
                                     itemr = r.getSpec().getRecordByServicesDocType(docType);
                                 }
                                 if (itemr == null) {
-                                    recordtype = UNKNOWN_RECORD_TYPE; // FIXME: Temporary for debugging, CSPACE-5733
+                                    recordtype = UNKNOWN_RECORD_TYPE;
+                                    log.warn("Could not get record type for record with services URL " + recordurl);
                                 } else {
-				    recordtype = type_to_url.get(itemr.getID());
+                                    recordtype = type_to_url.get(itemr.getID());
+                                    // Include the vocabulary name ("namespace") value for each authority item record in the list
+                                    String refName = null;
+                                    RefName.AuthorityItem item = null;
+                                    if(summarylist.has("refName")) {
+                                        refName = summarylist.getString("refName");
+                                    }
+ 	 	 	 	    if(refName!=null) {
+                                        item = RefName.AuthorityItem.parse(refName);
+                                    }
+                                    if(item!=null) {
+                                        out.put("namespace",item.getParentShortIdentifier());
+                                    } else {
+                                        log.warn("Could not get vocabulary namespace for record with services URL " + recordurl);
+                                    }
                                 }
 			}
 			out.put("recordtype", recordtype);
