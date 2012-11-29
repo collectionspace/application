@@ -29,6 +29,7 @@ import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.collectionspace.csp.api.ui.UISession;
+import org.collectionspace.services.common.api.RefName;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,6 +48,8 @@ public class RecordSearchList implements WebMethod {
 	private Record r;
 	private Map<String,String> type_to_url=new HashMap<String,String>();
 	private String searchAllGroup;
+        
+        private final static String UNKNOWN_RECORD_TYPE = "UNKNOWN";
 	
 	public RecordSearchList(Record r, int mode) {
 		this(r, mode, null);
@@ -95,9 +98,32 @@ public class RecordSearchList implements WebMethod {
 				
 				String[] parts=uri.split("/");
 				String recordurl = parts[0];
-				Record itemr = r.getSpec().getRecordByServicesUrl(recordurl); // This may return null so we should add a check for null
-				recordtype = type_to_url.get(itemr.getID());
-			}
+                                Record itemr = r.getSpec().getRecordByServicesUrl(recordurl);
+                                if (itemr == null) {
+                                String docType = summarylist.getString("docType");
+                                    itemr = r.getSpec().getRecordByServicesDocType(docType);
+                                }
+                                if (itemr == null) {
+                                    recordtype = UNKNOWN_RECORD_TYPE;
+                                    log.warn("Could not get record type for record with services URL " + recordurl);
+                                } else {
+                                    recordtype = type_to_url.get(itemr.getID());
+                                    // Include the vocabulary name ("namespace") value for each authority item record in the list
+                                    String refName = null;
+                                    RefName.AuthorityItem item = null;
+                                    if(summarylist.has("refName")) {
+                                        refName = summarylist.getString("refName");
+                                    }
+                                    if(refName!=null) {
+                                        item = RefName.AuthorityItem.parse(refName);
+                                    }
+                                    if(item!=null) {
+                                        out.put("namespace",item.getParentShortIdentifier());
+                                    } else {
+                                        log.warn("Could not get vocabulary namespace for record with services URL " + recordurl);
+                                    }
+                                }
+            }
 			out.put("recordtype", recordtype);
 			// CSPACE-2894
 			if(this.r.getID().equals("permission")){
