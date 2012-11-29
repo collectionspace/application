@@ -299,10 +299,25 @@ public class GenericStorage  implements ContextualisedStorage {
 		return in;
 	    if(!in.endsWith("'"))
 		return in;
+            String deurned = "";
+            // Try first parsing the URN using the format for an authority item
+            // reference.  If that fails, then fallback to trying to parse the URN
+            // using the format for an authority reference (which is also used
+            // for references to object and procedural records).
             RefName.AuthorityItem item = RefName.AuthorityItem.parse(in);
-            in = item.displayName;       
+            if (item!=null) {
+                deurned = item.displayName;
+            } else {
+                RefName.Authority authority = RefName.Authority.parse(in);
+                if (authority!=null) {
+                    deurned = authority.displayName;
+                }
+            }
+            if (deurned.isEmpty()) {
+                return in;
+            }
             try {
-                 return URLDecoder.decode(in, "UTF8");  
+                 return URLDecoder.decode(deurned, "UTF8");  
             } catch (UnsupportedEncodingException e) {
                  throw new UnderlyingStorageException("Could not de-urn Display Name because UTF8 decoding is not supported");
             }
