@@ -15,6 +15,14 @@
 			</options>
 		</field>
 
+		<!-- 
+			Create an app-layer-only field for use on advanced search to do range search on objectNumber,
+			in addition to wildcard search.
+		-->
+		<field id="objectNumberRangeSearch" ui-search="range">
+			<services-tag>objectNumber</services-tag>
+		</field>
+
 		<repeat id="otherNumberList/otherNumber">
 			<field id="numberType">
 				<options>
