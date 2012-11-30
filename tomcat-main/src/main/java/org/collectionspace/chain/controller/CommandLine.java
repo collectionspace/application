@@ -242,20 +242,11 @@ public class CommandLine {
 					throw new Exception("Found unexpected command line arugments.");
 				}
 				
-		    	if(cmd.hasOption(ARG_HELP)) {
+		    	if (cmd.hasOption(ARG_HELP)) {
 		    	    showHelp();
 		    	    return false;
 		    	}
 						    	
-		    	if(cmd.hasOption(ARG_CONFIG_BASE_DIR)) {
-		    		String configBaseDirName = cmd.getOptionValue(ARG_CONFIG_BASE_DIR);
-		    	}
-		    	
-		    	String outputDirName = System.getProperty("user.dir");
-		    	if(cmd.hasOption(ARG_OUTPUT_DIR)) {
-		    		outputDirName = cmd.getOptionValue(ARG_OUTPUT_DIR);
-		    	}
-	    	    
 	    	    result = true;
 			} catch (Exception e) {
 				showHelp(e);
@@ -346,10 +337,12 @@ public class CommandLine {
 			String jeeHomeDir = env.get(ConfigFinder.CSPACE_JEESERVER_HOME);
 			if (jeeHomeDir != null && jeeHomeDir.trim().isEmpty() == false) {
 				outputDirName = jeeHomeDir + "/" + JEEServerDeployment.NUXEO_SERVER_PLUGINS_DIR;
+				log.info(String.format("No command line directory argument for the output of the schema and doctype bundles was specified so we're using "
+						+ "the system environment variable '%s'='%s' to locate the output directory.",
+						ConfigFinder.CSPACE_JEESERVER_HOME, jeeHomeDir));
+			} else {
+				outputDirName = System.getProperty("user.dir");
 			}
-			log.info(String.format("No command line directory argument for the output of the schema and doctype bundles was specified so we're using "
-					+ "the system environment variable '%s'='%s' to locate the output directory.",
-					ConfigFinder.CSPACE_JEESERVER_HOME, jeeHomeDir));
 		}
 		
 		if (outputDirName != null) {
