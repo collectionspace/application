@@ -32,7 +32,7 @@ public class ReturnedMultipartDocument implements Returned {
 	
 	ReturnedMultipartDocument() {}
         
-        // Start of HTTP status code values that signify error status
+        // Start of a range of HTTP status code values that signify error status
         final static int ERROR_STATUS_START_VALUE = 400;
         
         // Custom HTTP status code used by CollectionSpace's Services layer
@@ -44,6 +44,7 @@ public class ReturnedMultipartDocument implements Returned {
 
 	public String[] listDocuments() { return docs.keySet().toArray(new String[0]); }
 	public Document getDocument(String name) { return docs.get(name); }
+	private void setStatus(int status) { this.status = status; }
 	public int getStatus() { return status; }
         public boolean isErrorStatus() {
            return ((getStatus() >= ERROR_STATUS_START_VALUE)? true : false);
@@ -56,10 +57,10 @@ public class ReturnedMultipartDocument implements Returned {
 	
 	
 	public void setResponse(HttpMethod method, int status) throws Exception  {
-		this.status=status;
+		setStatus(status);
 		InputStream stream=method.getResponseBodyAsStream();
 		SAXReader reader=new SAXReader();
-		if(status>=400) {
+		if(isErrorStatus()) {
 			log.info("Got error : "+IOUtils.toString(stream));
 		}
 		// TODO errorhandling
