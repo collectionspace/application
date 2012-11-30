@@ -187,7 +187,7 @@ public class XsdGeneration {
 						if (getServiceSchemas().containsKey(definedSchema) == false) {
 							// If the newly defined schema doesn't already exist in our master list then add it
 							try {
-								createSchemaBundle(record, definedSchema, definedSchemaList);
+								createSchemaBundle(record, definedSchema, definedSchemaList, outputDir);
 								getServiceSchemas().put(definedSchema, definedSchemaList.get(definedSchema));
 								log.debug(String.format("New Services schema '%s' defined in Application configuration record '%s'.",
 										definedSchema, record.getID()));
@@ -207,7 +207,7 @@ public class XsdGeneration {
 					// Create the Nuxeo bundle document type
 					//
 					if (schemasCreated == true) {
-						createDocumentTypeBundle(record, definedSchemaList);
+						createDocumentTypeBundle(record, definedSchemaList, outputDir);
 					} else {
 						docTypesCreated = false;
 						log.error(String.format("Failed to create all the required schema bundles for App record ID='%s'.", record.getID()));
@@ -276,7 +276,9 @@ public class XsdGeneration {
 		return result;
 	}
 	
-	private void createDocumentTypeBundle(Record record, HashMap<String, String> definedSchemaList) throws Exception {
+	private void createDocumentTypeBundle(Record record,
+			HashMap<String, String> definedSchemaList,
+			File outputDir) throws Exception {
 		// Create a new zip/jar for the doc type bundle
 		// Create the META-INF folder and manifest file
 		// Create the OSGI-INF folder and process the template files
@@ -291,13 +293,14 @@ public class XsdGeneration {
 		}
 		String bundleName = DEFAULT_BUNDLE_PREAMBLE + "." + serviceName.toLowerCase()
 			+ "." + DOCTYPE_BUNDLE_QUALIFIER + "." + tenantQualifier + "." + docTypeName + JAR_EXT;
+		bundleName = outputDir.getAbsolutePath() + "/" + bundleName;
 		
 		if (getServiceDoctypeBundles().containsKey(docTypeName) == false) {
 			File doctypeTemplatesDir = new File(this.getConfigBase() + "/" + NUXEO_DOCTYPE_TEMPLATES_DIR);
 			if (doctypeTemplatesDir.exists() == true) {
 				log.debug(String.format("### Creating Nuxeo document type ${NuxeoDocTypeName}='%s' in bundle: '%s'",
 						docTypeName, bundleName));
-				ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(
+				ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(outputDir.getAbsolutePath() + "/" +
 						bundleName));
 				//
 				// Create the manifest file from the doctype template
@@ -420,7 +423,7 @@ public class XsdGeneration {
 		if (isGlobalSchema(schemaNameNoFileExt) == true) {
 			bundleName = DEFAULT_BUNDLE_PREAMBLE + "." + SHARED_QUALIFIER + "." + SCHEMA_BUNDLE_QUALIFIER + "." + schemaNameNoFileExt;
 		}
-		bundleName = bundleName + JAR_EXT;
+		bundleName = outputDir.getAbsolutePath() + "/" + bundleName + JAR_EXT;
 		//
 		// Before creating a new bundle, make sure we haven't already created a bundle for this schema extension.
 		//
@@ -431,8 +434,7 @@ public class XsdGeneration {
 				if (log.isDebugEnabled() == true) {
 					log.debug(String.format("Creating new jar file: '%s'", outputFile.getAbsolutePath()));
 				}
-				ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(outputDir.getAbsolutePath() + "/" +
-						outputFile));
+				ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(outputFile));
 				//
 				// Create the manifest file from the schema type template
 				//

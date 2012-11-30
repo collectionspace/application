@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
@@ -292,33 +291,36 @@ public class CommandLine {
 				//
 				// Generate all the Service schemas from the Application layer's configuration records
 				//
+				XsdGeneration xsdMetadata = null;
 				try {
-					XsdGeneration s = new XsdGeneration(tenantConfigFile, maketype, "3.0");
-					HashMap<String, String> xsdschemas = s.getServiceSchemas();
+					xsdMetadata = new XsdGeneration(tenantConfigFile, maketype, "3.0", bundleOutputDir);
 					
-					System.out.println(String.format("Record type: %s", recordtype));
+					System.out.println(String.format("Schema types defined in config: %s", tenantConfigFile.getAbsolutePath()));
+					HashMap<String, String> xsdschemas = xsdMetadata.getServiceSchemas();					
 					for (String schemaName : xsdschemas.keySet()) {
 						System.out.println(String.format("\tSchema file name: %s", schemaName));
-						//System.out.println(xsdschemas.get(schemaName));
+					}
+					
+					HashMap<String, String> doctypes = xsdMetadata.getServiceDoctypeBundles();
+					System.out.println(String.format("Document types defined in config: %s", tenantConfigFile.getAbsolutePath()));
+					for (String doctypeName : doctypes.keySet()) {
+						System.out.println(String.format("\tDocument type file name: %s", doctypeName));
 					}
 				} catch (Exception e) {
 					String exceptionMsg = e.getMessage();
 					if (errMsg != null) {
-						errMsg = errMsg + "\r\n" + exceptionMsg;
+						errMsg = errMsg + "\r\n" + exceptionMsg; // Append the error message (if any) from each attempt
 					} else {
 						errMsg = exceptionMsg;
 					}
 				}
-				
-				HashMap<String, String> doctypes = s.getServiceDoctypeBundles();
-				System.out.println(String.format("Document types defined in config: %s", tenantConfigFile.getAbsolutePath()));
-				for (String doctypeName : doctypes.keySet()) {
-					System.out.println(String.format("\tDocument type file name: %s", doctypeName));
-				}
 			}
-			
+			//
+			// Check to see if we encountered any errors.  If so, exist with a negative status.
+			//
 			if (errMsg != null) {
 				System.err.println(errMsg);
+				System.exit(-1);
 			}
 		} else {
 			String errMsg = String.format("Could not locate the Application layer's base config directory. See the log file and previous error messages for details.");
