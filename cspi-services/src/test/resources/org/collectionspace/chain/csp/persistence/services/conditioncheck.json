@@ -56,7 +56,7 @@
     "handlingRecommendations": "use angel hair",
     "packingRecommendations": "use the finest cork",
     "securityRecommendations": "can you get superman?",
-    "specialRecommendations": "none",
+    "specialRequirements": "none",
     "storageRequirements": "place inside the fortress of solitude",
     "salvagePriorityCodeGroup": [
             {

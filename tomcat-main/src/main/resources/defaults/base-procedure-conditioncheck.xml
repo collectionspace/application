@@ -154,7 +154,7 @@
         <field id="handlingRecommendations"></field>
         <field id="packingRecommendations"></field>
         <field id="securityRecommendations"></field>
-        <field id="specialRecommendations"></field>
+        <field id="specialRequirements"></field>
         <field id="storageRequirements"></field>
         <repeat id="salvagePriorityCodeGroupList/salvagePriorityCodeGroup">
             <field id="salvagePriorityCode">

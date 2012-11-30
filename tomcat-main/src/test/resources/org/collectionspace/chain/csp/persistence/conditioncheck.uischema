@@ -64,7 +64,7 @@
                     "legalRequirements": {
                         "type": "string"
                     },
-                    "specialRecommendations": {
+                    "specialRequirements": {
                         "type": "string"
                     },
                     "securityRecommendations": {

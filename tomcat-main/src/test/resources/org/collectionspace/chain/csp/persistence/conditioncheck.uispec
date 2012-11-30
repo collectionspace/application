@@ -174,8 +174,8 @@
         ".csc-conditioncheck-conditionCheckMethod-label": {
             "messagekey": "conditioncheck-conditionCheckMethodLabel"
         },
-        ".csc-conditioncheck-specialRecommendations-label": {
-            "messagekey": "conditioncheck-specialRecommendationsLabel"
+        ".csc-conditioncheck-specialRequirements-label": {
+            "messagekey": "conditioncheck-specialRequirementsLabel"
         },
         ".csc-conditioncheck-summary-label": {
             "messagekey": "conditioncheck-summaryLabel"
@@ -583,7 +583,7 @@
         ".csc-conditioncheck-conditionCheckAssessmentDate-label": {
             "messagekey": "conditioncheck-conditionCheckAssessmentDateLabel"
         },
-        ".csc-conditioncheck-specialRecommendations": "${fields.specialRecommendations}",
+        ".csc-conditioncheck-specialRequirements": "${fields.specialRequirements}",
         ".csc-conditioncheck-conditionChecker-label": {
             "messagekey": "conditioncheck-conditionCheckerLabel"
         },
