@@ -166,7 +166,7 @@ public class XsdGeneration {
 		return result;
 	}
 	
-	public XsdGeneration(File configfile, String type, String schemaVersion) throws Exception {		
+	public XsdGeneration(File configfile, String type, String schemaVersion, File outputDir) throws Exception {		
 		CSPManager cspm=getServiceManager(configfile);
 		Spec spec = getSpec(cspm);
 
@@ -407,7 +407,10 @@ public class XsdGeneration {
 		zos.closeEntry();		
 	}
 	
-	private void createSchemaBundle(Record record, String schemaName, HashMap<String, String>definedSchemaList) throws Exception {
+	private void createSchemaBundle(Record record,
+			String schemaName,
+			HashMap<String, String>definedSchemaList,
+			File outputDir) throws Exception {
 		String serviceName = record.getServicesTenantSg();
 		String schemaNameNoFileExt = schemaName.split("\\.")[0]; // Assumes a single '.' in a file name like "foo.xsd"
 		String tenantName = record.getSpec().getAdminData().getTenantName();
@@ -428,7 +431,7 @@ public class XsdGeneration {
 				if (log.isDebugEnabled() == true) {
 					log.debug(String.format("Creating new jar file: '%s'", outputFile.getAbsolutePath()));
 				}
-				ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(
+				ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(outputDir.getAbsolutePath() + "/" +
 						outputFile));
 				//
 				// Create the manifest file from the schema type template

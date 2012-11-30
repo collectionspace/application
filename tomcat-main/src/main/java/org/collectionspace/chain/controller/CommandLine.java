@@ -15,10 +15,18 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.PosixParser;
 import org.collectionspace.chain.installation.XsdGeneration;
 import org.collectionspace.csp.helper.core.ConfigFinder;
+import org.collectionspace.services.common.api.JEEServerDeployment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,8 +46,53 @@ class AppConfigBuildFileFilter implements FilenameFilter {
 
 public class CommandLine {
 	private static final Logger log = LoggerFactory.getLogger(CommandLine.class);
+	
+	private static final String SCHEMA_AND_DOCTYPES_DIR = JEEServerDeployment.NUXEO_SERVER_DIR;
 	private static final String TENANT_CONFIG_DIR = "lib";
+	
+	private static Options options;
+	private static org.apache.commons.cli.CommandLine cmd;
+	
+	private static final boolean kVALUE_NEEDED = true;
+	private static final boolean kNO_VALUE_NEEDED = false;
+	
+	private static final String ARG_CONFIG_BASE_DIR = "c";
+	private static final String ARG_OUTPUT_DIR = "o";
+	private static final String ARG_HELP = "h";
+
 	private static boolean fromBuild;
+	private static File cspaceHomeDir;
+	private static File appConfigDir;
+	private static File bundlesOutputDir;
+	
+	
+	private static File getCspaceHomeDir() {
+		return cspaceHomeDir;
+	}
+
+	private static void setCspaceHomeDir(File dir) {
+		cspaceHomeDir = dir;
+	}
+
+
+	private static File getAppConfigDir() {
+		return appConfigDir;
+	}
+
+
+	private static void setAppConfigDir(File dir) {
+		appConfigDir = dir;
+	}
+
+
+	private static File getBundlesOutputDir() {
+		return bundlesOutputDir;
+	}
+
+
+	private static void setBundlesOutputDir(File dir) {
+		bundlesOutputDir = dir;
+	}
 
 	private static final FilenameFilter getConfigFileFilter(File configDir) {
 		FilenameFilter result = new AppConfigBuildFileFilter();
@@ -57,31 +110,34 @@ public class CommandLine {
 		return result;
 	}
 	
-	private static final File getTenantConfigDir(String[] args) {
+	private static final File resolveTenantConfigDir() {
 		File result = null;
 		String errMsg = null;
 		
-		String configDirName = null;
-		if (args != null && args.length > 0 && args[0].trim().isEmpty() == false) {
-			configDirName = args[0];
-		} else {
-			// Look for the JEE server path in the environment vars
+		String configDirName = cmd.getOptionValue(ARG_CONFIG_BASE_DIR);
+		if (configDirName == null || configDirName.isEmpty() == true) {
+			// If they didn't specify the config dir as a command line argument
+			// then look for the JEE server path in the environment vars and derive the config dir from it
 			Map<String, String> env = System.getenv();
 			String jeeHomeDir = env.get(ConfigFinder.CSPACE_JEESERVER_HOME);
 			if (jeeHomeDir != null && jeeHomeDir.trim().isEmpty() == false) {
 				configDirName = jeeHomeDir + "/" + TENANT_CONFIG_DIR;
 			}
-			log.info(String.format("No command line arguments specified.  Using system environment variable '%s'='%s' to locate tenant config files.",
+			log.info(String.format("No command line argument for the App config directory was specified so we're using the system environment variable '%s'='%s' to locate the config files.",
 					ConfigFinder.CSPACE_JEESERVER_HOME, jeeHomeDir));
 		}
 		
 		if (configDirName != null) {
 			File dir = new File(configDirName);
 			if (dir.exists() == true && dir.isDirectory() == true) {
+				setAppConfigDir(dir);
 				result = dir;
 			} else {
 				errMsg = String.format("The App config directory '%s' does not exist.", dir.getAbsolutePath());
 			}
+		} else {
+			errMsg = String.format("No command line argument for the App config directory was specified and the system environment variable '%s' is missing.",
+					ConfigFinder.CSPACE_JEESERVER_HOME);
 		}
 		
 		if (errMsg != null) {
@@ -116,15 +172,120 @@ public class CommandLine {
 		
 		return result;
 	}
+		
+	private static void showHelp() {
+    	// automatically generate the help statement
+    	HelpFormatter formatter = new HelpFormatter();
+    	formatter.printHelp("options", getOptions());
+	}
+
+	private static void showHelp(Exception e) {
+		String errMsg = e.getMessage();
+		if (errMsg != null) {
+			System.err.println(errMsg);
+		}
+		showHelp();
+	}
+	
+	private static void setCmd(org.apache.commons.cli.CommandLine cmd) {
+		CommandLine.cmd = cmd;
+	}
+	
+	private static org.apache.commons.cli.CommandLine getCmd() {
+		return CommandLine.cmd;
+	}
+	
+	private static Options getOptions() {
+		if (options == null) {
+			setOptions();
+		}
+		
+		return options;
+	}
+	
+	private static void setOptions() {
+    	// create Options object
+    	Options options = new Options();
+    	
+    	Option newOption;
+    	// add option for specifying the Application layer's config base/root directory
+    	newOption = new Option(ARG_CONFIG_BASE_DIR, kVALUE_NEEDED, "App base config directory");
+    	options.addOption(newOption);
+
+    	// add option for specifying the output directory for the bundles
+    	newOption = new Option(ARG_OUTPUT_DIR, kVALUE_NEEDED, "Output directory - current directory is the default");
+    	options.addOption(newOption);
+    	
+    	// add option for help
+    	newOption = new Option(ARG_HELP, kNO_VALUE_NEEDED, "Shows help");
+    	options.addOption(newOption);
+    	
+    	CommandLine.options = options;
+    	
+    	return;
+	}
+	
+	/*
+	 * Uses the org.apache.commons.cli package for parsing and handling command line arguments.
+	 * See http://commons.apache.org/cli/index.html
+	 */
+	private static boolean parseArgs(String[] args) {
+		boolean result = false;
+    	setOptions();
+    	CommandLineParser parser = new PosixParser();
+    	if (args.length > 0) {
+			try {
+				cmd = parser.parse(options, args);
+				
+				@SuppressWarnings("unchecked")
+				List<String> unparsedArgs = (List<String>)cmd.getArgList();
+				if (unparsedArgs.isEmpty() == false) {
+					throw new Exception("Found unexpected command line arugments.");
+				}
+				
+		    	if(cmd.hasOption(ARG_HELP)) {
+		    	    showHelp();
+		    	    return false;
+		    	}
+						    	
+		    	if(cmd.hasOption(ARG_CONFIG_BASE_DIR)) {
+		    		String configBaseDirName = cmd.getOptionValue(ARG_CONFIG_BASE_DIR);
+		    	}
+		    	
+		    	String outputDirName = System.getProperty("user.dir");
+		    	if(cmd.hasOption(ARG_OUTPUT_DIR)) {
+		    		outputDirName = cmd.getOptionValue(ARG_OUTPUT_DIR);
+		    	}
+	    	    
+	    	    result = true;
+			} catch (Exception e) {
+				showHelp(e);
+			}
+    	} else {
+    		showHelp(new Exception("No arguments specified."));
+    	}
+    	
+    	return result;
+    }
 	
 	public static final void main(String[] args) throws Exception {
-		String recordtype = "intakes";//args[0];
-		String domain = "collectionspace_core"; //args[1];
-		String maketype = "core"; //args[2];
-		String configfile = "core-tenant.xml"; //args[3];
-		
-		File tenantConfigDir = getTenantConfigDir(args);
+		//
+		// Parse the commandline arguments.
+		//
+		boolean parseSuccessful = parseArgs(args);
+		if (parseSuccessful == false) {
+			System.exit(-1);
+		}
+		//
+		// Make sure we have a place to output the schema and doctype bundles
+		//
+		File bundleOutputDir = resolveBundleOutputDir();
+		//
+		// Find the App config base directory and start processing.
+		//
+		File tenantConfigDir = resolveTenantConfigDir();
 		if (tenantConfigDir != null && tenantConfigDir.exists() == true) {
+			String maketype = "core"; //args[2];		
 			File[] tenantConfigFileList = getListOfTenantConfigFiles(tenantConfigDir);
 			String errMsg = null;
 			for (File tenantConfigFile : tenantConfigFileList) {
@@ -148,25 +309,66 @@ public class CommandLine {
 						errMsg = exceptionMsg;
 					}
 				}
+				
+				HashMap<String, String> doctypes = s.getServiceDoctypeBundles();
+				System.out.println(String.format("Document types defined in config: %s", tenantConfigFile.getAbsolutePath()));
+				for (String doctypeName : doctypes.keySet()) {
+					System.out.println(String.format("\tDocument type file name: %s", doctypeName));
+				}
 			}
 			
 			if (errMsg != null) {
 				System.err.println(errMsg);
 			}
 		} else {
-			String errMsg = String.format("Either a command line argument specifying the Application layer's tenant config directory needs to be supplied or a" +
-					" system environment variable '%s' needs to be set and pointing to the CollectionSpace JEE server installation directory.",
-					ConfigFinder.CSPACE_JEESERVER_HOME);
+			String errMsg = String.format("Could not locate the Application layer's base config directory. See the log file and previous error messages for details.");
 			if (tenantConfigDir != null && tenantConfigDir.exists() == false) {
 				errMsg = String.format("The command line argument '%s' specifying the Application layer's tenant config directory is incorrect.",
 						tenantConfigDir != null ? tenantConfigDir.getAbsolutePath() : "<unspecified>");
 			}
 			log.error(errMsg);
 			System.exit(-1);
-			return; // exits with error message to log
 		}
 	}
 
+
+	private static File resolveBundleOutputDir() {
+		File result = null;
+		String errMsg = null;
+		
+		String outputDirName = cmd.getOptionValue(ARG_OUTPUT_DIR);
+		if (outputDirName == null || outputDirName.isEmpty() == true) {
+			// If they didn't specify the output dir as a command line argument
+			// then look for the JEE server path in the environment vars and derive the output dir from it
+			Map<String, String> env = System.getenv();
+			String jeeHomeDir = env.get(ConfigFinder.CSPACE_JEESERVER_HOME);
+			if (jeeHomeDir != null && jeeHomeDir.trim().isEmpty() == false) {
+				outputDirName = jeeHomeDir + "/" + JEEServerDeployment.NUXEO_SERVER_PLUGINS_DIR;
+			}
+			log.info(String.format("No command line directory argument for the output of the schema and doctype bundles was specified so we're using "
+					+ "the system environment variable '%s'='%s' to locate the output directory.",
+					ConfigFinder.CSPACE_JEESERVER_HOME, jeeHomeDir));
+		}
+		
+		if (outputDirName != null) {
+			File dir = new File(outputDirName);
+			if (dir.exists() == true && dir.isDirectory() == true) {
+				setBundlesOutputDir(dir);
+				result = dir;
+			} else {
+				errMsg = String.format("The App config directory '%s' does not exist.", dir.getAbsolutePath());
+			}
+		} else {
+			errMsg = String.format("No command line argument for the App config directory was specified and the system environment variable '%s' is missing.",
+					ConfigFinder.CSPACE_JEESERVER_HOME);
+		}
+		
+		if (errMsg != null) {
+			log.error(errMsg);
+		}
+		
+		return result;
+	}
 
 	public static boolean isFromBuild() {
 		return fromBuild;
