@@ -1,0 +1,180 @@
+<record id="conditioncheck" in-findedit="yes" type="record,procedure">
+    <services-url>conditionchecks</services-url>
+    <services-tenant-plural>Conditionchecks</services-tenant-plural>
+    <services-tenant-singular>Conditioncheck</services-tenant-singular>
+    <services-list-path>abstract-common-list/list-item</services-list-path>
+    <services-record-path>conditionchecks_common:http://collectionspace.org/services/conditioncheck,conditionchecks_common</services-record-path>
+    <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+    <hassoftdelete>true</hassoftdelete>
+    <structures>
+        <structure id="screen">
+            <view>
+                <label-section id="messagekeys" show="true"></label-section>
+            </view>
+        </structure>
+        <structure id="search">
+            <view>
+                <label-section id="messagekeys" show="true"></label-section>
+            </view>
+        </structure>
+        <structure id="tab">
+            <view>
+                <titlebar show="false"></titlebar>
+                <sidebar show="false"></sidebar>
+                <edit-section id="details" show="true"></edit-section>
+                <list-section id="list" show="false"></list-section>
+                <label-section id="messagekeys" show="true"></label-section>
+            </view>
+            <repeat id="list" asSibling="true">
+                <selector>recordList-row:</selector>
+                <field id="summary" ui-type="list">
+                    <selector>related-summary</selector>
+                </field>
+                <field id="number" ui-type="list">
+                    <selector>related-number</selector>
+                </field>
+            </repeat>
+        </structure>
+    </structures>
+    
+    <include src="domain-procedure-conditioncheck.xml" strip-root="yes"/>
+
+    <row-selector>.csc-recordList-row:</row-selector>
+    <section id="coreInformation">
+        <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+        <field id="createdBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
+        <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
+        <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+        <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+    </section>
+    <section id="objectConditionInformation">
+        <field id="objectAuditCategory" ui-search="repeatable">
+            <selector>conditioncheck-objectAuditCategory</selector>
+            <options>
+                <option id="" default="yes">Please select a value</option>
+                <option id="low">Low</option>
+                <option id="medium">Medium</option>
+                <option id="high">High</option>
+            </options>
+        </field>
+        <repeat id="completenessGroupList/completenessGroup">
+            <field id="completeness">
+                <selector>conditioncheck-completeness</selector>
+                <options>
+                    <option id="" default="yes">Please select a value</option>
+                    <option id="complete">Complete</option>
+                    <option id="fragmented">Fragmented</option>
+                    <option id="incomplete">Incomplete</option>
+                </options>
+            </field>
+            <field id="completenessDate" ui-type="date"></field>
+            <field id="completenessNote"></field>
+        </repeat>
+        <repeat id="conditionCheckGroupList/conditionCheckGroup">
+            <field id="condition" ui-search="repeatable" seperate_ui_container="true" mini="summary,search,list,relate">
+                <selector>conditioncheck-condition</selector>
+                <options>
+                    <option id="" default="yes">Please select a value</option>
+                    <option id="needsnowork">Needs no work</option>
+                    <option id="exhibitableneedswork">Exhibitable / needs work</option>
+                    <option id="notexhibitablestable">Not exhibitable / stable</option>
+                    <option id="injeopardy">In jeopardy</option>
+                </options>
+            </field>
+            <field id="conditionDate" ui-type="date"></field>
+            <field id="conditionNote"></field>
+        </repeat>
+        <field id="conservationTreatmentPriority" ui-search="repeatable" seperate_ui_container="true">
+            <selector>conditioncheck-conservationTreatmentPriority</selector>
+            <options>
+                <option id="" default="yes">Please select a value</option>
+                <option id="low">Low</option>
+                <option id="medium">Medium</option>
+                <option id="high">High</option>
+            </options>
+        </field>
+        <repeat id="envConditionNoteGroupList/envConditionNoteGroup">
+            <field id="envConditionNote"></field>
+            <field id="envConditionNoteDate" ui-type="date"></field>
+        </repeat>
+        <field id="nextConditionCheckDate" ui-type="date" ui-search="range"></field>
+        <repeat id="techAssessmentGroupList/techAssessmentGroup">
+            <field id="techAssessment"></field>
+            <field id="techAssessmentDate" ui-type="date"></field>
+        </repeat>
+        <repeat id="hazardGroupList/hazardGroup">
+            <field id="hazard">
+                <selector>conditioncheck-hazard</selector>
+                <options>
+                    <option id="" default="yes">Please select a value</option>
+                    <option id="poisonous">Poisonous</option>
+                    <option id="radioactive">Radioactive</option>
+                </options>
+            </field>
+            <field id="hazardDate" ui-type="date"></field>
+            <field id="hazardNote"></field>
+        </repeat>
+    </section>
+    <section id="conditionCheckInformation">
+        <repeat id="conditionCheckAssessmentDates">
+            <field id="conditionCheckAssessmentDate" ui-type="date" ui-search="range"></field>
+        </repeat>
+        <field id="conditionCheckMethod">
+            <selector>conditioncheck-conditionCheckMethod</selector>
+            <options>
+                <option id="" default="yes">Please select a value</option>
+                <option id="observed">Observed</option>
+                <option id="xrayed">X-rayed</option>
+            </options>
+        </field>
+        <field id="conditionCheckNote"></field>
+        <field id="conditionCheckReason">
+            <selector>conditioncheck-conditionCheckReason</selector>
+            <options>
+                <option id="" default="yes">Please select a value</option>
+                <option id="conservation">Conservation</option>
+                <option id="damagedintransit">Damaged in transit</option>
+                <option id="loanin">Loan in</option>
+                <option id="newacquisition">New acquisition</option>
+            </options>
+        </field>
+        <field id="conditionCheckRefNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate" seperate_ui_container="true">
+            <selector>conditioncheck-numberPatternChooser-reference-number</selector>
+            <title-selector>titleBar-conditioncheck-reference-number</title-selector>
+            <container-selector>conditioncheck-reference-number-patternChooserContainer</container-selector>
+            <options>
+                <option id="conditioncheck" sample="CC2012.1.1">Condition Check</option>
+            </options>
+        </field>
+        <field id="conditionChecker" autocomplete="person-person,organization-organization"></field>
+    </section>
+    <section id="objectRequirementInformation">
+        <field id="displayRecommendations"></field>
+        <field id="envRecommendations"></field>
+        <field id="handlingRecommendations"></field>
+        <field id="packingRecommendations"></field>
+        <field id="securityRecommendations"></field>
+        <field id="specialRequirements"></field>
+        <field id="storageRequirements"></field>
+        <repeat id="salvagePriorityCodeGroupList/salvagePriorityCodeGroup">
+            <field id="salvagePriorityCode">
+                <selector>conditioncheck-salvagePriorityCode</selector>
+                <options>
+                    <option id="" default="yes">Please select a value</option>
+                    <option id="low">Low</option>
+                    <option id="medium">Medium</option>
+                    <option id="high">High</option>
+                </options>
+            </field>
+            <field id="salvagePriorityCodeDate" ui-type="date"></field>
+        </repeat>
+        <field id="legalRequirements"></field>
+        <repeat id="legalReqsHeldGroupList/legalReqsHeldGroup">
+            <field id="legalReqsHeld"></field>
+            <field id="legalReqsHeldBeginDate" ui-type="date"></field>
+            <field id="legalReqsHeldEndDate" ui-type="date"></field>
+            <field id="legalReqsHeldNumber" datatype="number"></field>
+            <field id="legalReqsHeldRenewDate" ui-type="date"></field>
+        </repeat>
+    </section>
+</record>

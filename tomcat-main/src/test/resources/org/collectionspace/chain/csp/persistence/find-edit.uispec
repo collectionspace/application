@@ -55,6 +55,17 @@
             }]
         }
     },
+    "conditioncheck": {
+        ".csc-recordList-row:": {
+            "children": [{
+                ".csc-summary": "${items.0.summary}",
+                ".csc-entry-number": {
+                    "linktext": "${items.0.number}",
+                    "target": "conditioncheck.html?csid=${items.0.csid}"
+                }
+            }]
+        }
+    },
     "group": {
         ".csc-recordList-row:": {
             "children": [{

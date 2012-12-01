@@ -27,13 +27,13 @@
         <displayName>has broader term</displayName>
         <directional>true</directional>
         <type>hierarchical</type>    
-        <sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media</sourceTypes>
-        <destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media</destinationTypes>
+        <sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout,conditionchecks,movements,objectexit,media</sourceTypes>
+        <destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout,conditionchecks,movements,objectexit,media</destinationTypes>
     </relation>
     <relation id="affects">
         <displayName>affects</displayName>
         <directional>false</directional>
-        <sourceTypes>collectionobjects,intakes,acquisitions,groups,loansin,loansout,movements,objectexit,media</sourceTypes>
-        <destinationTypes>collectionobjects,intakes,acquisitions,groups,loansin,loansout,movements,objectexit,media</destinationTypes>
+        <sourceTypes>collectionobjects,intakes,acquisitions,groups,loansin,loansout,conditionchecks,movements,objectexit,media</sourceTypes>
+        <destinationTypes>collectionobjects,intakes,acquisitions,groups,loansin,loansout,conditionchecks,movements,objectexit,media</destinationTypes>
     </relation>
 </relationships>

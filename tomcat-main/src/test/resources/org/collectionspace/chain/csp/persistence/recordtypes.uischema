@@ -25,6 +25,7 @@
         "default": [
           "loanin", 
           "loanout", 
+          "conditioncheck",
           "acquisition", 
           "movement", 
           "objectexit", 
