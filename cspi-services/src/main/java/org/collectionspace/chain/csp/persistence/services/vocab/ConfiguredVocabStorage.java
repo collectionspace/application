@@ -59,6 +59,8 @@ public class ConfiguredVocabStorage extends GenericStorage {
 	final static String ITEMS_SUFFIX = "/items";
 	final static String VOCAB_WILDCARD = "_ALL_";
 	final static String ALL_VOCAB_ITEMS = "/"+VOCAB_WILDCARD+ITEMS_SUFFIX;
+        
+        final static String VOCABULARY_UPDATE_FAILED_MESSAGE = "Could not update vocabulary";
 
 	public ConfiguredVocabStorage(Record r,ServicesConnection conn) throws  DocumentException, IOException {
 		super(r,conn);
@@ -622,9 +624,14 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			handleHierarchyPayloadSend(thisr, body, jsonObject, csid);
 			
 			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,savePath,body,creds,cache);
-			if(out.getStatus()>299){
-				throw new UnderlyingStorageException("Could not update vocabulary",out.getStatus(),savePath);
-			}
+			if(out.isErrorStatus()){
+                            if(out.isTransactionFailedStatus()){
+				throw new UnderlyingStorageException(VOCABULARY_UPDATE_FAILED_MESSAGE + ": " + out.TRANSACTION_FAILED_MESSAGE,out.getStatus(),savePath);
+			    } else {
+				throw new UnderlyingStorageException(VOCABULARY_UPDATE_FAILED_MESSAGE,out.getStatus(),savePath);
+                            }
+                        }
+
 			//cache.setCached(getClass(),new String[]{"namefor",vocab,filePath.split("/")[1]},name);
 			//cache.setCached(getClass(),new String[]{"reffor",vocab,filePath.split("/")[1]},refname);
 			
