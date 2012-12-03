@@ -93,9 +93,9 @@ public class RecordSearchList implements WebMethod {
 			} else {
 				JSONObject summarylist = out.getJSONObject("summarylist");
 				String uri = summarylist.getString("uri");
-				if(uri!=null && uri.startsWith("/"))
+				if(uri!=null && uri.startsWith("/")) {
 					uri=uri.substring(1);
-				
+                                }
 				String[] parts=uri.split("/");
 				String recordurl = parts[0];
                                 Record itemr = r.getSpec().getRecordByServicesUrl(recordurl);
@@ -105,7 +105,7 @@ public class RecordSearchList implements WebMethod {
                                 }
                                 if (itemr == null) {
                                     recordtype = UNKNOWN_RECORD_TYPE;
-                                    log.warn("Could not get record type for record with services URL " + recordurl);
+                                    log.warn("Could not get record type for record with services URI " + uri);
                                 } else {
                                     recordtype = type_to_url.get(itemr.getID());
                                     // Include the vocabulary name ("namespace") value for each authority item record in the list
@@ -123,12 +123,15 @@ public class RecordSearchList implements WebMethod {
                                         item = RefName.AuthorityItem.parse(refName);
                                     }
                                     if(item!=null) {
-                                        out.put("namespace",item.getParentShortIdentifier());
-                                    } else {
-                                        log.warn("Could not get vocabulary namespace for record with services URL " + recordurl);
+                                        String namespace = item.getParentShortIdentifier();
+                                        if (namespace!=null) {
+                                            out.put("namespace", namespace);
+                                        } else {
+                                            log.warn("Could not get vocabulary namespace for record with services URI " + uri);
+                                        }
                                     }
                                 }
-            }
+                        }
 			out.put("recordtype", recordtype);
 			// CSPACE-2894
 			if(this.r.getID().equals("permission")){
