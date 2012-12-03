@@ -47,6 +47,8 @@
           "organization", 
           "place", 
           "tgn_place",
+          "cona_work",
+          "work",
           "common_ta",
           "taxon"
         ], 

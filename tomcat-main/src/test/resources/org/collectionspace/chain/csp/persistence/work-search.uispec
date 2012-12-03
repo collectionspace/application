@@ -1,0 +1,140 @@
+{
+    ".csc-work-termSourceNote-label": {
+        "messagekey": "preferredWork-termSourceNoteLabel"
+    },
+    ".csc-work-termLanguage-label": {
+        "messagekey": "preferredWork-termLanguageLabel"
+    },
+    ".csc-work-termSourceDetail-label": {
+        "messagekey": "preferredWork-termSourceDetailLabel"
+    },
+    ".csc-work-termSource-label": {
+        "messagekey": "preferredWork-termSourceLabel"
+    },
+    ".csc-work-termName-label": {
+        "messagekey": "preferredWork-termNameLabel"
+    },
+    ".csc-work-workAuthType-label": {
+        "messagekey": "work-workAuthTypeLabel"
+    },
+    ".csc-preferredWork-workTermGroup": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-workAuthority-termDisplayName": "${{row}.termDisplayName}"
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "workTermGroup",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-work-updatedAtStart-label": {
+        "messagekey": "work-updatedAtStartLabel"
+    },
+    ".csc-work-updatedBy-label": {
+        "messagekey": "work-updatedByLabel"
+    },
+    ".csc-work-termPrefForLang-label": {
+        "messagekey": "preferredWork-termPrefForLangLabel"
+    },
+    ".csc-work-updatedAtStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${updatedAtStart}"
+    },
+    ".csc-work-updatedAtEnd-label": {
+        "messagekey": "work-updatedAtEndLabel"
+    },
+    ".csc-work-termStatus-label": {
+        "messagekey": "preferredWork-termStatusLabel"
+    },
+    ".csc-work-updatedBy": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-work-updatedBy": "${{row}.updatedBy}"
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "updatedBys",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-work-termSourceID-label": {
+        "messagekey": "preferredWork-termSourceIDLabel"
+    },
+    ".csc-work-updatedAt-label": {
+        "messagekey": "work-updatedAtLabel"
+    },
+    ".csc-work-workAuthType": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-work-workAuthType": {
+                                    "decorators": [
+                                        {
+                                            "func": "cspace.termList",
+                                            "type": "fluid",
+                                            "options": {
+                                                "root": "{row}",
+                                                "elPath": "workAuthType",
+                                                "termListType": "workAuthType"
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "workAuthTypes",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-work-termQualifier-label": {
+        "messagekey": "preferredWork-termQualifierLabel"
+    },
+    ".csc-work-updatedAtEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${updatedAtEnd}"
+    },
+    ".csc-work-termDisplayName-label": {
+        "messagekey": "preferredWork-termDisplayNameLabel"
+    },
+    ".csc-work-termType-label": {
+        "messagekey": "preferredWork-termTypeLabel"
+    }
+}

@@ -1,0 +1,10 @@
+<record id="work" type="authority">
+    <instances id="work">
+        <instance id="work-work">
+                <nptAllowed>false</nptAllowed>
+        </instance>
+        <instance id="work-local_work">
+                <nptAllowed>false</nptAllowed>
+        </instance>
+    </instances>
+</record>
