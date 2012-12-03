@@ -114,6 +114,11 @@ public class RecordSearchList implements WebMethod {
                                     if(summarylist.has("refName")) {
                                         refName = summarylist.getString("refName");
                                     }
+                                    // If this record's refName, from its entry in the summary list,
+                                    // can be successfully parsed as an authority item refName, then
+                                    // this record can be presumed to be an authority item record.
+                                    //
+                                    // In this case, return the name ("namespace") of its parent vocabulary.
                                     if(refName!=null) {
                                         item = RefName.AuthorityItem.parse(refName);
                                     }
