@@ -113,7 +113,7 @@ public class CommandLine {
 		File result = null;
 		String errMsg = null;
 		
-		String configDirName = cmd.getOptionValue(ARG_CONFIG_BASE_DIR);
+		String configDirName = cmd != null ? cmd.getOptionValue(ARG_CONFIG_BASE_DIR) : null;
 		if (configDirName == null || configDirName.isEmpty() == true) {
 			// If they didn't specify the config dir as a command line argument
 			// then look for the JEE server path in the environment vars and derive the config dir from it
@@ -212,7 +212,8 @@ public class CommandLine {
     	options.addOption(newOption);
 
     	// add option for specifying the output directory for the bundles
-    	newOption = new Option(ARG_OUTPUT_DIR, kVALUE_NEEDED, "Output directory - current directory is the default");
+    	newOption = new Option(ARG_OUTPUT_DIR, kVALUE_NEEDED, "Output directory - <optional> current directory is the default ouput directory");
+    	newOption.setRequired(false);
     	options.addOption(newOption);
     	
     	// add option for help
@@ -230,10 +231,11 @@ public class CommandLine {
 	 */
 	private static boolean parseArgs(String[] args) {
 		boolean result = false;
-    	setOptions();
-    	CommandLineParser parser = new PosixParser();
+		
     	if (args.length > 0) {
 			try {
+		    	setOptions();
+		    	CommandLineParser parser = new PosixParser();
 				cmd = parser.parse(options, args);
 				
 				@SuppressWarnings("unchecked")
@@ -252,7 +254,23 @@ public class CommandLine {
 				showHelp(e);
 			}
     	} else {
-    		showHelp(new Exception("No arguments specified."));
+    		//
+    		// There were no commandline arugments, so look in system environ for the cspace deployment folder
+    		//
+    		String jeeHomeDir = System.getenv().get(ConfigFinder.CSPACE_JEESERVER_HOME);
+    		if (jeeHomeDir != null && jeeHomeDir.trim().isEmpty() == false) {
+    			File dir = new File(jeeHomeDir);
+    			if (dir.exists() == true) {
+    				result = true;
+    			} else {
+    				log.error(String.format("Missing directory '%s' from system environment variable '%s'.",
+    						dir.getAbsoluteFile(), jeeHomeDir));
+    			}
+    		} else {
+    			log.error(String.format("Too run this command you must either supply some command line arguments or set the system environment variable '%s'.",
+    					ConfigFinder.CSPACE_JEESERVER_HOME));
+        		showHelp(new Exception("No arguments specified."));
+    		}
     	}
     	
     	return result;
@@ -270,6 +288,9 @@ public class CommandLine {
 		// Make sure we have a place to output the schema and doctype bundles
 		//
 		File bundleOutputDir = resolveBundleOutputDir();
+		if (bundleOutputDir == null) {
+			System.exit(-1);
+		}
 		//
 		// Find the App config base directory and start processing.
 		//
@@ -329,7 +350,7 @@ public class CommandLine {
 		File result = null;
 		String errMsg = null;
 		
-		String outputDirName = cmd.getOptionValue(ARG_OUTPUT_DIR);
+		String outputDirName = cmd != null ? cmd.getOptionValue(ARG_OUTPUT_DIR) : null;
 		if (outputDirName == null || outputDirName.isEmpty() == true) {
 			// If they didn't specify the output dir as a command line argument
 			// then look for the JEE server path in the environment vars and derive the output dir from it
@@ -351,7 +372,25 @@ public class CommandLine {
 				setBundlesOutputDir(dir);
 				result = dir;
 			} else {
-				errMsg = String.format("The App config directory '%s' does not exist.", dir.getAbsolutePath());
+				//
+				// The output directory does not exist, so try to create it
+				//
+				boolean createdDir = false;
+				try {
+					createdDir = dir.mkdir();
+				} catch (SecurityException Se) {
+					log.trace(Se.getMessage(), Se);
+				}
+				if (createdDir == true) {
+					setBundlesOutputDir(dir);
+					result = dir;
+					log.debug(String.format("Creatd directory '%s' for schema and doctype bundles.",
+									dir.getAbsolutePath()));
+				} else {
+					errMsg = String
+							.format("Could not create output directory '%s' for schema and doctype bundles.",
+									dir.getAbsolutePath());
+				}
 			}
 		} else {
 			errMsg = String.format("No command line argument for the App config directory was specified and the system environment variable '%s' is missing.",

@@ -300,8 +300,7 @@ public class XsdGeneration {
 			if (doctypeTemplatesDir.exists() == true) {
 				log.debug(String.format("### Creating Nuxeo document type ${NuxeoDocTypeName}='%s' in bundle: '%s'",
 						docTypeName, bundleName));
-				ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(outputDir.getAbsolutePath() + "/" +
-						bundleName));
+				ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(bundleName));
 				//
 				// Create the manifest file from the doctype template
 				//
