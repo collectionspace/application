@@ -191,28 +191,6 @@
                                 <option id="employee">Employee</option>
                         </options>
                     </instance>
-                    <instance id="vocab-worktermtype">
-                        <web-url>worktermtype</web-url>
-                        <title-ref>worktermtype</title-ref>
-                        <title>Work Term Type</title>
-                        <options>
-                            <option id="artist">Artist</option>
-                            <option id="donor">Donor</option>
-                            <option id="employee">Employee</option>
-                        </options>
-                    </instance>
-                    <instance id="vocab-worktermsource">
-                        <web-url>worktermsource</web-url>
-                        <title-ref>worktermsource</title-ref>
-                        <title>Work Term Source</title>
-                        <options>
-                            <option id="afi">AFI Catalog</option>
-                            <option id="amc">AllMovie.com</option>
-                            <option id="ascap">ASCAP</option>
-                            <option id="loc">Library of Congress</option>
-                            <option id="oth">Other</option>
-                        </options>
-                    </instance>
                     <instance id="vocab-workcreatortype">
                         <web-url>workcreatortype</web-url>
                         <title-ref>workcreatortype</title-ref>
