@@ -103,20 +103,19 @@ public class RecordSearchList implements WebMethod {
                     log.warn("Could not get record type for record with services URI " + uri);
                 } else {
                     recordtype = type_to_url.get(itemr.getID());
-                    // Include the vocabulary name ("namespace") value for each authority item record in the list
                     String refName = null;
-                    RefName.AuthorityItem item = null;
                     if (summarylist.has("refName")) {
                         refName = summarylist.getString("refName");
                     }
-                    // If this record's refName, from its entry in the summary list,
-                    // can be successfully parsed as an authority item refName, then
-                    // this record can be presumed to be an authority item record.
-                    //
-                    // In this case, return the name ("namespace") of its parent vocabulary.
+                    // For an authority item (i.e. an item in a vocabulary),
+                    // include the name of its parent vocabulary in a
+                    // "namespace" value within the mini summary.
+                    RefName.AuthorityItem item = null;
                     if (refName != null) {
                         item = RefName.AuthorityItem.parse(refName);
                     }
+                    // If this refName could be successfully parsed (above) as an
+                    // authority item refName, then include the "namespace" value.
                     if (item != null) {
                         String namespace = item.getParentShortIdentifier();
                         if (namespace != null) {
