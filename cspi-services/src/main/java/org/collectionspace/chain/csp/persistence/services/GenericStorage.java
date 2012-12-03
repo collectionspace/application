@@ -1672,7 +1672,7 @@ public class GenericStorage  implements ContextualisedStorage {
 				// searchall variants: one for each group we are interested in.
 				basepath = basepath.replace("/common/","/"+restrictions.getString(SEARCH_ALL_GROUP)+"/");
 			}
-			if (restrictions.has(Record.BLOB_SOURCE_URL)) {
+			if(restrictions.has(Record.BLOB_SOURCE_URL)) {
 				String blobUri = restrictions.getString(Record.BLOB_SOURCE_URL);
 				postfix += Record.BLOB_SOURCE_URL + "=" + URLEncoder.encode(blobUri, "UTF-8") + "&"; // REM - The Services seems to have problems with the syntax of some URLs.
 				if (restrictions.has(Record.BLOB_PURGE_ORIGINAL)) {

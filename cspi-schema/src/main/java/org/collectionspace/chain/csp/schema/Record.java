@@ -184,7 +184,7 @@ public class Record implements FieldParent {
 		utils.initBoolean(section,"hassoftdelete",false);
 		utils.initBoolean(section,SUPPORTS_LOCKING,false);
 		
-//(17:06) The services singular tag should probably be "ServicesDocumentType"
+//(17:06) The services singular tag should probably be "ServicesDocumentType"
 
 
 		utils.initStrings(section,"services-tenant-singular", utils.getString("services-url"));

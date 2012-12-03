@@ -1,6 +1,29 @@
 {
   "namespaces": {
     "properties": {
+      "work": {
+        "properties": {
+          "work": {
+            "properties": {
+              "nptAllowed": {
+                "default": true,
+                "type": "boolean"
+              }
+            },
+            "type": "object"
+          },
+          "cona_work": {
+            "properties": {
+              "nptAllowed": {
+                "default": true,
+                "type": "boolean"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
       "concept": {
         "properties": {
           "activity": {
