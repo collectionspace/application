@@ -17,12 +17,14 @@
 
 		<!-- 
 			Create an app-layer-only field for use on advanced search to do range search on objectNumber,
-			in addition to wildcard search.
+			in addition to wildcard search. We need to make this computed, so that it takes on the value of
+			objectNumber when collectionobjects are edited. Otherwise, the empty objectNumberRangeSearch value
+			could get saved to objectNumber, since both fields will be serialized to the services layer.
 		-->
-		<field id="objectNumberRangeSearch" ui-search="range">
+		<field id="objectNumberRangeSearch" ui-search="range" ui-type="computed" ui-args="objectNumber" ui-readonly="true">
 			<services-tag>objectNumber</services-tag>
 		</field>
-
+		
 		<repeat id="otherNumberList/otherNumber">
 			<field id="numberType">
 				<options>
