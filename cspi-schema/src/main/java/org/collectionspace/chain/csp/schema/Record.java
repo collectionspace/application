@@ -35,6 +35,8 @@ public class Record implements FieldParent {
 	public final static String BLOB_SOURCE_URL = "blobUri"; // BlobClient.BLOB_URI_PARAM; // The 'blobUri' query param used to pass an external URL for the services to download data from
 	public final static String BLOB_PURGE_ORIGINAL = "blobPurgeOrig"; // BlobClient.BLOB_PURGE_ORIGINAL;
 
+	private static final String TYPE_AUTHORITY = "authority";
+	
 	public static final String SUPPORTS_LOCKING = "supportslocking";
 	public static final String RANGE_START_SUFFIX = "Start";
 	public static final String RANGE_END_SUFFIX = "End";
@@ -445,6 +447,11 @@ public class Record implements FieldParent {
 			return utils.getString("showin").equals(k);
 		}
 	}
+	
+	public boolean isAuthorityItemType() {
+		return isType(TYPE_AUTHORITY);
+	}
+	
 	public boolean isType(String k) {
 		return utils.getSet("@type").contains(k);
 	}

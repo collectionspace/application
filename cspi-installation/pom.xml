@@ -2,10 +2,8 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <!--  -->
-  <groupId>org.collectionspace</groupId>
   <artifactId>cspi-installation</artifactId>
   <packaging>jar</packaging>
-  <version>3.1-SNAPSHOT</version>
   <name>JXUtils</name>
   
     <parent>
@@ -17,6 +15,11 @@
 
   
   <dependencies>
+    <dependency>
+       	<groupId>org.collectionspace.services</groupId>
+    	<artifactId>org.collectionspace.services.client</artifactId>
+       	<version>3.2-SNAPSHOT</version>
+   	</dependency>  
     <dependency>
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>

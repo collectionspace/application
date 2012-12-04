@@ -13,9 +13,9 @@
 
 <xs:schema 
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  xmlns:ns="http://collectionspace.org/services/${AuthorityItemName}"
-  xmlns="http://collectionspace.org/services/${AuthorityItemName}"
-  targetNamespace="http://collectionspace.org/services/${AuthorityItemName}"
+  xmlns:ns="http://collectionspace.org/services/${AuthorityItemNameSingular}"
+  xmlns="http://collectionspace.org/services/${AuthorityItemNameSingular}"
+  targetNamespace="http://collectionspace.org/services/${AuthorityItemNameSingular}"
   version="${Version}"
 >
 		<xs:element name="displayName" type="xs:string"/>

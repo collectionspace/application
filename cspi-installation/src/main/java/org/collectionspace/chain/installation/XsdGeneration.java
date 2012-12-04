@@ -4,11 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -21,10 +19,10 @@ import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSPDependencyException;
-import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.container.impl.CSPManagerImpl;
 import org.collectionspace.csp.helper.core.ConfigFinder;
 import org.collectionspace.csp.helper.test.TestConfigFinder;
+import org.collectionspace.services.client.AbstractServiceClientImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
@@ -36,9 +34,13 @@ public class XsdGeneration {
 	private static final String EOL = "\r\n"; // <CR><LF>
 	private static final int MAX_CONFIG_FILE_SIZE = 100 * 1024;
 	
+	private static final boolean kIS_OSGI_MANIFEST = true;
+	private static final boolean kNOT_AN_OSGI_MANIFEST = false;
+	
 	private static final String NUXEO_PLUGIN_TEMPLATES_DIR = "nx-plugin-templates";
 	private static final String NUXEO_SCHEMA_TYPE_TEMPLATES_DIR = NUXEO_PLUGIN_TEMPLATES_DIR + "/" + "schema-type-templates";
 	private static final String NUXEO_DOCTYPE_TEMPLATES_DIR = NUXEO_PLUGIN_TEMPLATES_DIR + "/" + "doc-type-templates";
+	private static final String NUXEO_PARENT_AUTHORITY_TEMPLATE = "authorities_common.xsd";
 	
 	private static final String DEFAULT_PARENT_TYPE = "CollectionSpaceDocument";
 	private static final String SCHEMA_PARENT_TYPE_VAR = "$SchemaParentType}";
@@ -57,6 +59,9 @@ public class XsdGeneration {
 
 	private static final String SERVICE_NAME_VAR = "${ServiceName}";
 	private static final String SERVICE_NAME_LOWERCASE_VAR = "${ServiceName_LowerCase}";
+	
+	private static final String SERVICE_AUTHORITY_NAME_SINGULAR_VAR = "${AuthorityNameSingular}";
+	private static final String SERVICE_AUTHORITYITEM_NAME_SINGULAR_VAR = "${AuthorityItemNameSingular}";
 	
 	private static final String DOCTYPE_DEFAULT_LIFECYCLE = "cs_default";
 	private static final String DOCTYPE_LIFECYCLE_VAR = "${Lifecycle}";
@@ -358,7 +363,7 @@ public class XsdGeneration {
 		for (File osgiFile : osgiDir.listFiles()) {
 			if (osgiFile.isDirectory() == false) {
 				zos.putNextEntry(new ZipEntry(OSGI_INF_DIR + "/" + osgiFile.getName()));		
-				processTemplateFile(osgiFile, substitutionMap, zos, false);	
+				processTemplateFile(osgiFile, substitutionMap, zos, kNOT_AN_OSGI_MANIFEST);	
 				zos.closeEntry();
 			} else {
 				System.err.println(String.format("Ignoring directory '%s' while processing OSGI-INF files.", osgiFile.getAbsolutePath()));
@@ -366,10 +371,31 @@ public class XsdGeneration {
 		}
 	}
 	
+	private void createParentAuthority(Record record, 
+			File schemaTypeTemplatesDir,
+			HashMap<String, String> substitutionMap,
+			ZipOutputStream zos) throws Exception {
+		// Check that the parent authority template exists in the "schemas' directory
+		File parentAuthorityTemplate = new File(schemaTypeTemplatesDir.getAbsolutePath() + "/" + SCHEMAS_DIR +
+				NUXEO_PARENT_AUTHORITY_TEMPLATE);
+		if (parentAuthorityTemplate.exists() == false) {
+			throw new Exception(String.format("The %s template '%s' is missing.", NUXEO_PARENT_AUTHORITY_TEMPLATE, 
+					parentAuthorityTemplate.getAbsolutePath()));
+		}
+		
+		String authoritieCommonName = record.getServicesTenantAuthPl() + AbstractServiceClientImpl.PART_LABEL_SEPARATOR +
+				AbstractServiceClientImpl.PART_COMMON_LABEL;
+		zos.putNextEntry(new ZipEntry(SCHEMAS_DIR + "/" + authoritieCommonName));
+		substitutionMap.put(SERVICE_AUTHORITY_NAME_SINGULAR_VAR, record.getServicesTenantAuthSg());		
+		substitutionMap.put(SERVICE_AUTHORITYITEM_NAME_SINGULAR_VAR, record.getServicesTenantSg());		
+		processTemplateFile(parentAuthorityTemplate, substitutionMap, zos, kNOT_AN_OSGI_MANIFEST);
+	}
+	
 	/*
 	 * Creates an entry in the zip/jar bundle for XML Schema (.xsd) files.
 	 */
-	private void createSchemaFiles(File osgiInfTemplatesDir,
+	private void createSchemaFiles(Record record,
+			File schemaTypeTemplatesDir,
 			HashMap<String, String> substitutionMap,
 			ZipOutputStream zos,
 			String schemaName, HashMap<String,
@@ -385,7 +411,13 @@ public class XsdGeneration {
 			//
 			zos.putNextEntry(new ZipEntry(SCHEMAS_DIR + "/" + schemaName));
 			zos.write(contentString.getBytes(), 0, contentString.getBytes().length);
-			zos.closeEntry();
+			//
+			// If the record type is an authority item then we need to create the corresponding parent authority type
+			//
+			if (record.isAuthorityItemType() == true) {
+				createParentAuthority(record, schemaTypeTemplatesDir, substitutionMap, zos);
+			}
+			zos.closeEntry(); // flush and close the "schemas" entry in the zip/jar file
 		} else {
 			String errMsg = String.format("The contents for the schema '%s' is empty or missing.", schemaName);
 			log.error(errMsg);
@@ -405,7 +437,7 @@ public class XsdGeneration {
 		//
 		zos.putNextEntry(new ZipEntry(META_INF_DIR + "/" + MANIFEST_FILE));		
 		// Process the template by performing the variable substitutions
-		processTemplateFile(metaInfTemplate, substitutionMap, zos, true);				
+		processTemplateFile(metaInfTemplate, substitutionMap, zos, kIS_OSGI_MANIFEST);				
 		zos.closeEntry();		
 	}
 	
@@ -462,7 +494,7 @@ public class XsdGeneration {
 				//
 				// Finally, create the "schemas" directory entry and add the schema file to it
 				//
-				createSchemaFiles(schemaTypeTemplatesDir, substitutionMap, zos, schemaName, definedSchemaList);
+				createSchemaFiles(record, schemaTypeTemplatesDir, substitutionMap, zos, schemaName, definedSchemaList);
 				//
 				// We're finished adding entries so close the zip output stream
 				//
