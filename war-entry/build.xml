@@ -6,6 +6,7 @@
     <property name="config_destination" value="${env.CSPACE_JEESERVER_HOME}/lib" />
     <property name="app_trunk" location=".." />
     <property name="app_resources_dir" location="${app_trunk}/tomcat-main/src/main/resources"/>
+	<property name="cspace.tool.csmake" value="csmake" />
     
     <target name="post_build_tasks"
         description="Various post-build tasks"
@@ -52,8 +53,8 @@
     </target>
     
     <target name="retrieve_jar" description="Retrieves the JAR for command-line use">
-        <copy file="${app_trunk}/tomcat-main/target/tomcat-main.one-jar.jar"
-            tofile="${config_destination}/cspace.jar"/>
+        <copy file="${app_trunk}/tomcat-main/target/${cspace.tool.csmake}.jar"
+            tofile="${config_destination}/${cspace.tool.csmake}.jar"/>
     </target>
     
 </project>

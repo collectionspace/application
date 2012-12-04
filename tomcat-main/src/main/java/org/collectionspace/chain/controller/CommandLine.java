@@ -7,7 +7,7 @@ package org.collectionspace.chain.controller;
  * domain is the section of the XML to generate the XSD for (eg "collectionspace_core")
  * maketype should be core. The other value, delta, is experimental.
  * 
- * eg java -jar cspace/conf/cspace.jar collectionobjects collectionspace_core core lifesci-tenant.xml
+ * eg java -jar cspace/conf/csmake.jar -c /src/main/resources -o /target/plugins
  * 
  */
 

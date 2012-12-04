@@ -27,6 +27,7 @@
   
   	<properties>
 		<maven.tomcat.home>/tmp</maven.tomcat.home>
+		<cspace.tool.csmake>csmake</cspace.tool.csmake>
   	</properties>
   
   <!-- The CollectionSpace public Maven repository for "snapshot" artifacts 

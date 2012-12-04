@@ -221,7 +221,7 @@
                             <mainClass>org.collectionspace.chain.controller.CommandLine</mainClass>
                             <attachToBuild>true</attachToBuild>
                             <classifier>onejar</classifier>
-                            <filename>csmake.jar</filename>
+                            <filename>${cspace.tool.csmake}.jar</filename>
                         </configuration>
                         <goals>
                             <goal>one-jar</goal>
