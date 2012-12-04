@@ -17,11 +17,11 @@
 
 		<!-- 
 			Create an app-layer-only field for use on advanced search to do range search on objectNumber,
-			in addition to wildcard search. We need to make this computed, so that it takes on the value of
-			objectNumber when collectionobjects are edited. Otherwise, the empty objectNumberRangeSearch value
-			could get saved to objectNumber, since both fields will be serialized to the services layer.
+			in addition to wildcard search. The exists-in-services="false" attribute prevents the field
+			from being saved in the record editor, but still allows it to be used as a search filter.
+			(Adding query-behavior="ignore" would prevent it from being used as a search filter.)
 		-->
-		<field id="objectNumberRangeSearch" ui-search="range" ui-type="computed" ui-args="objectNumber" ui-readonly="true">
+		<field id="objectNumberRangeSearch" ui-search="range" exists-in-services="false">
 			<services-tag>objectNumber</services-tag>
 		</field>
 		
