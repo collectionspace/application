@@ -88,7 +88,7 @@
                             <option id="conservation">conservation</option>
                         </options>
                     </field>
-                    <field id="propType" ui-search="repeatable">
+                    <field id="propType" ui-search="repeatable" mini="summary,search,list,terms,relate">
                         <options>
                             <option id="" default="yes">Please select a value</option>
                             <option id="seed">Seed</option>
