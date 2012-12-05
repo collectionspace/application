@@ -38,35 +38,41 @@ public class XsdGeneration {
 	private static final boolean kNOT_AN_OSGI_MANIFEST = false;
 	
 	private static final String NUXEO_PLUGIN_TEMPLATES_DIR = "nx-plugin-templates";
+	private static final String NUXEO_AUTH_TEMPLATES_PREFIX = "auth-";
 	private static final String NUXEO_SCHEMA_TYPE_TEMPLATES_DIR = NUXEO_PLUGIN_TEMPLATES_DIR + "/" + "schema-type-templates";
 	private static final String NUXEO_DOCTYPE_TEMPLATES_DIR = NUXEO_PLUGIN_TEMPLATES_DIR + "/" + "doc-type-templates";
 	private static final String NUXEO_PARENT_AUTHORITY_TEMPLATE = "authorities_common.xsd";
 	
 	private static final String DEFAULT_PARENT_TYPE = "CollectionSpaceDocument";
 	private static final String SCHEMA_PARENT_TYPE_VAR = "$SchemaParentType}";
+	private static final String COLLECTIONSPACE_CORE_SCHEMA_NAME_VAR = "${collectionspace_core}";	
 	private static final String COLLECTIONSPACE_CORE_SCHEMA_NAME = "collectionspace_core";
 	private static final String DEFAULT_BUNDLE_PREAMBLE = "collectionspace";
 	private static final String DEFAULT_SYM_BUNDLE_PREAMBLE = "org" + "." + DEFAULT_BUNDLE_PREAMBLE;
+	private static final String DEFAULT_AUTH_SYM_BUNDLE_PREAMBLE = "org" + "." + DEFAULT_BUNDLE_PREAMBLE + "." + "authority";
 	private static final String SCHEMA_BUNDLE_QUALIFIER = "schema";
 	private static final String DOCTYPE_BUNDLE_QUALIFIER = "doctype";
 	private static final String SHARED_QUALIFIER = "shared";
 		
 	private static final String SCHEMA_NAME_VAR = "${SchemaName}";
 	private static final String SCHEMA_NAME_LOWERCASE_VAR = "${SchemaName_LowerCase}";
+	private static final String AUTHORITY_SCHEMA_NAME_VAR = "${AuthoritySchemaName}";	
+//	private static final String SERVICE_AUTHORITY_NAME_SINGULAR_VAR = "${AuthorityNameSingular}";
+	private static final String SERVICE_AUTHORITYITEM_NAME_SINGULAR_VAR = "${AuthorityItemNameSingular}";
 	
 	private static final String DOCTYPE_NAME_VAR = "${NuxeoDocTypeName}";
 	private static final String DOCTYPE_NAME_LOWERCASE_VAR = "${NuxeoDocTypeName_LowerCase}";
+	private static final String AUTHORITY_DOCTYPE_NAME_VAR = "${AuthorityNuxeoDocTypeName}";
+	
 
 	private static final String SERVICE_NAME_VAR = "${ServiceName}";
-	private static final String SERVICE_NAME_LOWERCASE_VAR = "${ServiceName_LowerCase}";
-	
-	private static final String SERVICE_AUTHORITY_NAME_SINGULAR_VAR = "${AuthorityNameSingular}";
-	private static final String SERVICE_AUTHORITYITEM_NAME_SINGULAR_VAR = "${AuthorityItemNameSingular}";
+	private static final String SERVICE_NAME_LOWERCASE_VAR = "${ServiceName_LowerCase}";	
 	
 	private static final String DOCTYPE_DEFAULT_LIFECYCLE = "cs_default";
 	private static final String DOCTYPE_LIFECYCLE_VAR = "${Lifecycle}";
 	
 	private static final String BUNDLE_SYM_NAME = "${BundleSymbolicName}";
+	private static final String AUTH_BUNDLE_SYM_NAME = "${AuthBundleSymbolicName}";
 	
 	private static final String REQUIRE_BUNDLE_LIST_VAR = "${Require-Bundle-List}";
 	private static final String SCHEMA_ELEMENTS_LIST_VAR = "${SchemaElements}";
@@ -193,7 +199,7 @@ public class XsdGeneration {
 							// If the newly defined schema doesn't already exist in our master list then add it
 							try {
 								createSchemaBundle(record, definedSchema, definedSchemaList, outputDir);
-								getServiceSchemas().put(definedSchema, definedSchemaList.get(definedSchema));
+								getServiceSchemas().put(definedSchema, definedSchemaList.get(definedSchema)); // Store a copy of the schema that was generated
 								log.debug(String.format("New Services schema '%s' defined in Application configuration record '%s'.",
 										definedSchema, record.getID()));
 							} catch (Exception e) {
@@ -284,13 +290,13 @@ public class XsdGeneration {
 	private void createDocumentTypeBundle(Record record,
 			HashMap<String, String> definedSchemaList,
 			File outputDir) throws Exception {
-		// Create a new zip/jar for the doc type bundle
-		// Create the META-INF folder and manifest file
-		// Create the OSGI-INF folder and process the template files
+		boolean isAuthorityItemType = record.isAuthorityItemType();
 		String serviceName = record.getServicesTenantSg();
 		String tenantName = record.getSpec().getAdminData().getTenantName();
 		String docTypeName = record.getServicesTenantSg();
-
+		//
+		// Compute what the doctype name should be based on tenancy and doctype extensions
+		//
 		String tenantQualifier = SHARED_QUALIFIER;
 		if (record.isServicesExtension() == true) {
 			tenantQualifier = tenantName;
@@ -300,8 +306,12 @@ public class XsdGeneration {
 			+ "." + DOCTYPE_BUNDLE_QUALIFIER + "." + tenantQualifier + "." + docTypeName + JAR_EXT;
 		bundleName = outputDir.getAbsolutePath() + "/" + bundleName;
 		
+		String templateDirPrefix = "";
+		if (isAuthorityItemType == true) {
+			templateDirPrefix = NUXEO_AUTH_TEMPLATES_PREFIX; // use the Authority based templates
+		}		
 		if (getServiceDoctypeBundles().containsKey(docTypeName) == false) {
-			File doctypeTemplatesDir = new File(this.getConfigBase() + "/" + NUXEO_DOCTYPE_TEMPLATES_DIR);
+			File doctypeTemplatesDir = new File(this.getConfigBase() + "/" + templateDirPrefix + NUXEO_DOCTYPE_TEMPLATES_DIR);
 			if (doctypeTemplatesDir.exists() == true) {
 				log.debug(String.format("### Creating Nuxeo document type ${NuxeoDocTypeName}='%s' in bundle: '%s'",
 						docTypeName, bundleName));
@@ -309,8 +319,7 @@ public class XsdGeneration {
 				//
 				// Create the manifest file from the doctype template
 				//
-				File metaInfTemplate = new File(this.getConfigBase() + "/"
-						+ NUXEO_DOCTYPE_TEMPLATES_DIR + "/" + META_INF_DIR + "/" + MANIFEST_FILE);				
+				File metaInfTemplate = new File(doctypeTemplatesDir + "/" + META_INF_DIR + "/" + MANIFEST_FILE);				
 				// Setup the hash map for the variable substitutions
 				HashMap<String, String> substitutionMap = new HashMap<String, String>();
 				substitutionMap.put(SERVICE_NAME_VAR, serviceName);
@@ -318,6 +327,14 @@ public class XsdGeneration {
 				substitutionMap.put(DOCTYPE_LIFECYCLE_VAR, DOCTYPE_DEFAULT_LIFECYCLE);
 				substitutionMap.put(DOCTYPE_NAME_VAR, docTypeName);
 				substitutionMap.put(DOCTYPE_NAME_LOWERCASE_VAR, docTypeName.toLowerCase());
+				if (isAuthorityItemType == true) {
+					String authoritySchemaName = FilenameUtils.removeExtension(getAuthoritiesCommonName(record));
+					substitutionMap.put(AUTHORITY_SCHEMA_NAME_VAR, authoritySchemaName.toLowerCase());		
+					substitutionMap.put(AUTHORITY_DOCTYPE_NAME_VAR, record.getServicesTenantAuthSg());
+					substitutionMap.put(COLLECTIONSPACE_CORE_SCHEMA_NAME_VAR, COLLECTIONSPACE_CORE_SCHEMA_NAME);
+//					substitutionMap.put(SERVICE_AUTHORITY_NAME_SINGULAR_VAR, record.getServicesTenantAuthSg().toLowerCase());
+//					substitutionMap.put(SERVICE_AUTHORITYITEM_NAME_SINGULAR_VAR, record.getServicesTenantSg().toLowerCase());	
+				}
 				substitutionMap.put(EMC_LAYOUT_LIST_VAR, ""); // Once we re-enable the Nuxeo DM webapp, this should be list of layout definitions
 				String requiredBundleList = getRequiredBundlesList(record, definedSchemaList);
 				substitutionMap.put(REQUIRE_BUNDLE_LIST_VAR, requiredBundleList);
@@ -371,23 +388,55 @@ public class XsdGeneration {
 		}
 	}
 	
-	private void createParentAuthority(Record record, 
+	private String getAuthoritiesCommonName(Record record) {
+		String result = null;
+		
+		try {
+			String authoritieCommonName = record.getServicesTenantAuthPl() + AbstractServiceClientImpl.PART_LABEL_SEPARATOR +
+					AbstractServiceClientImpl.PART_COMMON_LABEL + ".xsd" ;
+			result = authoritieCommonName;
+		} catch (NullPointerException e) {
+			log.error(e.getMessage(), e);
+		}
+		
+		return result;
+	}
+	
+	private String getAuthorityItemsCommonName(Record record) {
+		String result = null;
+		
+		try {
+			String authoritieCommonName = record.getServicesTenantPl() + AbstractServiceClientImpl.PART_LABEL_SEPARATOR +
+					AbstractServiceClientImpl.PART_COMMON_LABEL + ".xsd" ;
+			result = authoritieCommonName.toLowerCase();
+		} catch (NullPointerException e) {
+			log.error(e.getMessage(), e);
+		}
+		
+		return result;
+	}
+	
+	
+	/*
+	 * This method uses a template file to create the parent authority schema for the record type
+	 * that is being passed in.  All CollectionSpace authorities use the same set of fields in their schema.
+	 */
+	private void createParentAuthorityEntry(Record record, 
 			File schemaTypeTemplatesDir,
 			HashMap<String, String> substitutionMap,
 			ZipOutputStream zos) throws Exception {
-		// Check that the parent authority template exists in the "schemas' directory
-		File parentAuthorityTemplate = new File(schemaTypeTemplatesDir.getAbsolutePath() + "/" + SCHEMAS_DIR +
+		//
+		// Ensure that the parent authority template exists in the "schemas' directory
+		//
+		File parentAuthorityTemplate = new File(schemaTypeTemplatesDir.getAbsolutePath() + "/" + SCHEMAS_DIR + "/" +
 				NUXEO_PARENT_AUTHORITY_TEMPLATE);
 		if (parentAuthorityTemplate.exists() == false) {
 			throw new Exception(String.format("The %s template '%s' is missing.", NUXEO_PARENT_AUTHORITY_TEMPLATE, 
 					parentAuthorityTemplate.getAbsolutePath()));
 		}
 		
-		String authoritieCommonName = record.getServicesTenantAuthPl() + AbstractServiceClientImpl.PART_LABEL_SEPARATOR +
-				AbstractServiceClientImpl.PART_COMMON_LABEL;
+		String authoritieCommonName = getAuthoritiesCommonName(record).toLowerCase();
 		zos.putNextEntry(new ZipEntry(SCHEMAS_DIR + "/" + authoritieCommonName));
-		substitutionMap.put(SERVICE_AUTHORITY_NAME_SINGULAR_VAR, record.getServicesTenantAuthSg());		
-		substitutionMap.put(SERVICE_AUTHORITYITEM_NAME_SINGULAR_VAR, record.getServicesTenantSg());		
 		processTemplateFile(parentAuthorityTemplate, substitutionMap, zos, kNOT_AN_OSGI_MANIFEST);
 	}
 	
@@ -398,8 +447,8 @@ public class XsdGeneration {
 			File schemaTypeTemplatesDir,
 			HashMap<String, String> substitutionMap,
 			ZipOutputStream zos,
-			String schemaName, HashMap<String,
-			String>definedSchemaList) throws Exception {
+			String schemaName,
+			HashMap<String, String>definedSchemaList) throws Exception {
 		String contentString = definedSchemaList.get(schemaName);
 		
 		if (contentString != null && contentString.isEmpty() == false) {
@@ -414,8 +463,8 @@ public class XsdGeneration {
 			//
 			// If the record type is an authority item then we need to create the corresponding parent authority type
 			//
-			if (record.isAuthorityItemType() == true) {
-				createParentAuthority(record, schemaTypeTemplatesDir, substitutionMap, zos);
+			if (shouldCreateAuthoritySchema(record, schemaName) == true) {
+				createParentAuthorityEntry(record, schemaTypeTemplatesDir, substitutionMap, zos);
 			}
 			zos.closeEntry(); // flush and close the "schemas" entry in the zip/jar file
 		} else {
@@ -441,25 +490,51 @@ public class XsdGeneration {
 		zos.closeEntry();		
 	}
 	
+	boolean shouldCreateAuthoritySchema(Record record, String schemaName) {
+		boolean result = false;
+		
+		//
+		// Return true if the record is an authority item and the schema name passed in matches the record's primary name.
+		// Use this method to determine if we need to create an Authority schema
+		//
+		String authItemsCommonName = getAuthorityItemsCommonName(record);
+		if (record.isAuthorityItemType() && schemaName.equalsIgnoreCase(authItemsCommonName)) {
+			result = true;
+		}
+		
+		return result;
+	}
+	
 	private void createSchemaBundle(Record record,
 			String schemaName,
 			HashMap<String, String>definedSchemaList,
 			File outputDir) throws Exception {
 		String serviceName = record.getServicesTenantSg();
-		String schemaNameNoFileExt = schemaName.split("\\.")[0]; // Assumes a single '.' in a file name like "foo.xsd"
+		String schemaNameNoFileExt = FilenameUtils.removeExtension(schemaName);
 		String tenantName = record.getSpec().getAdminData().getTenantName();
+		//
 		// Figure out what the bundle name should be.
+		//
 		String bundleName = DEFAULT_BUNDLE_PREAMBLE + "." + serviceName.toLowerCase()
 				+ "." + SCHEMA_BUNDLE_QUALIFIER + "." + schemaNameNoFileExt;
 		if (isGlobalSchema(schemaNameNoFileExt) == true) {
 			bundleName = DEFAULT_BUNDLE_PREAMBLE + "." + SHARED_QUALIFIER + "." + SCHEMA_BUNDLE_QUALIFIER + "." + schemaNameNoFileExt;
 		}
 		bundleName = outputDir.getAbsolutePath() + "/" + bundleName + JAR_EXT;
+		
 		//
 		// Before creating a new bundle, make sure we haven't already created a bundle for this schema extension.
 		//
 		if (getServiceSchemaBundles().containsKey(schemaName) == false) {
-			File schemaTypeTemplatesDir = new File(this.getConfigBase() + "/" + NUXEO_SCHEMA_TYPE_TEMPLATES_DIR);
+			//
+			// Find the correct templates directory to use
+			//
+			String templateDirPrefix = "";
+			if (shouldCreateAuthoritySchema(record, schemaName) == true) {
+				templateDirPrefix = NUXEO_AUTH_TEMPLATES_PREFIX; // use the Authority based templates variant
+			}
+			File schemaTypeTemplatesDir = new File(this.getConfigBase() + "/" + templateDirPrefix + NUXEO_SCHEMA_TYPE_TEMPLATES_DIR);
+			
 			if (schemaTypeTemplatesDir.exists() == true) {
 				File outputFile = new File(bundleName);
 				if (log.isDebugEnabled() == true) {
@@ -469,8 +544,7 @@ public class XsdGeneration {
 				//
 				// Create the manifest file from the schema type template
 				//
-				File metaInfTemplate = new File(this.getConfigBase() + "/"
-						+ NUXEO_SCHEMA_TYPE_TEMPLATES_DIR + "/" + META_INF_DIR + "/" + MANIFEST_FILE);
+				File metaInfTemplate = new File(schemaTypeTemplatesDir + "/" + META_INF_DIR + "/" + MANIFEST_FILE);
 				// Setup the hash map for the variable substitutions
 				String serviceNameVar = serviceName;				
 				if (isGlobalSchema(schemaNameNoFileExt) == true) {
@@ -486,6 +560,16 @@ public class XsdGeneration {
 				substitutionMap.put(SERVICE_NAME_LOWERCASE_VAR, serviceNameVar.toLowerCase());
 				substitutionMap.put(SCHEMA_NAME_VAR, schemaNameNoFileExt);
 				substitutionMap.put(SCHEMA_NAME_LOWERCASE_VAR, schemaNameNoFileExt.toLowerCase());
+				if (shouldCreateAuthoritySchema(record, schemaName) == true) {
+					String authoritySchemaName = FilenameUtils.removeExtension(getAuthoritiesCommonName(record));
+					substitutionMap.put(AUTHORITY_SCHEMA_NAME_VAR, authoritySchemaName.toLowerCase());		
+					substitutionMap.put(SERVICE_AUTHORITYITEM_NAME_SINGULAR_VAR, record.getServicesTenantSg().toLowerCase());
+					bundleSymbolicName = DEFAULT_AUTH_SYM_BUNDLE_PREAMBLE + "." + serviceNameVar.toLowerCase();					
+					substitutionMap.put(AUTH_BUNDLE_SYM_NAME, bundleSymbolicName);
+				}
+				//
+				// Create the manifest file
+				//
 				createManifestFile(metaInfTemplate, substitutionMap, zos);
 				//
 				// Next, crate the OSGI-INF files
@@ -502,7 +586,7 @@ public class XsdGeneration {
 				//
 				// Keep track of the schema bundles we've created
 				//
-				getServiceSchemaBundles().put(schemaName, bundleSymbolicName);
+				getServiceSchemaBundles().put(schemaName, bundleSymbolicName); // keep track of the bundles we've created
 			} else {
 				String errMsg = String.format("The '%s' directory is missing looging for it at '%s'.", NUXEO_SCHEMA_TYPE_TEMPLATES_DIR,
 						schemaTypeTemplatesDir.getAbsolutePath());
@@ -560,9 +644,11 @@ public class XsdGeneration {
 				contentStr = contentStr.replace(key, varReplacementStr);
 				System.out.println(String.format("Replacing the string '%s' with '%s'", key, varReplacementStr));
 			}
-			// write the processed file out to the zip entry
+			// write the processed file out to the zip entry if they passed one in
 			result = isOSGIManifest ? osgiManifestFormat(contentStr) : contentStr;
-			zos.write(result.getBytes(), 0, result.getBytes().length);
+			if (zos != null) {
+				zos.write(result.getBytes(), 0, result.getBytes().length);
+			}
 		} else {
 			String errMsg = String.format("The file '%s' was empty or missing.", templateFile.getAbsoluteFile());
 			if (bufferExceeded > 1) {

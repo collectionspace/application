@@ -325,6 +325,9 @@ public class CommandLine {
 					} else {
 						errMsg = exceptionMsg;
 					}
+					if (log.isDebugEnabled() == true) {
+						log.debug(errMsg, e);
+					}
 				}
 			}
 			//
