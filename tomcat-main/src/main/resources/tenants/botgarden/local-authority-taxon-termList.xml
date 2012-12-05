@@ -1,6 +1,15 @@
 <record id="preferredTA">
     <section id="termInformation">
         <repeat id="taxonTermGroupList/taxonTermGroup">
+	        <field id="termType">
+                <options>
+                    <option id="">Please select a value</option>
+                    <option id="Verified Taxonomic Name">Verified Taxonomic Name</option>
+                    <option id="Taxon No Author Name">Taxon No Author Name</option>
+                    <option id="Unverified Name">Unverified Name</option>
+					<option id="Grex Name">Grex Name</option>
+                </options>
+            </field>
             <field id="termSource">
                 <options>
                 	<option id="" default="yes">Please select a value</option>
