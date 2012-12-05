@@ -15,7 +15,7 @@
 			<include src="base-procedure-blobs.xml"/>
 			<include src="base-procedure-groups.xml"/>
 			<include src="base-procedure-intake.xml"/>
-			<include src="base-procedure-loanin.xml,naturalhistory-procedure-loanin.xml" merge="xmlmerge.properties"/>
+			<!-- <include src="base-procedure-loanin.xml,naturalhistory-procedure-loanin.xml" merge="xmlmerge.properties"/> -->
 			<include src="base-procedure-loanout.xml,naturalhistory-procedure-loanout.xml,local-procedure-loanout.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-media.xml,local-procedure-media.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-movement.xml,local-procedure-movement.xml" merge="xmlmerge.properties"/>
