@@ -162,6 +162,8 @@
         <selector>object-identification-comments</selector>
       </field>
     </repeat>
+    <field id="computedCurrentLocation">
+    </field>
     <repeat id="titleGroupList/titleGroup">
       <!-- selector>collection-object-titleGroup</selector -->
       <field id="title" ui-search="repeatable" in-title="yes" mini="search">
