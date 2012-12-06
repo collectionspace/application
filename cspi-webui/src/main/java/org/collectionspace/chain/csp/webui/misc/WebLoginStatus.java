@@ -258,6 +258,12 @@ public class WebLoginStatus  implements WebMethod {
 								maxInterval = httpSession.getMaxInactiveInterval();
 							}
 						}
+						// Need to consider the shorter of session timeout and cookie expiry.
+						// cookie life is in minutes, so convert to seconds.
+						int cookieLife = 60 * spec.getAdminData().getCookieLife();
+						if(maxInterval == 0 || maxInterval >= cookieLife) {
+							maxInterval = cookieLife;
+						}
 						output.put("maxInactive", maxInterval);
 					}
 					else{
