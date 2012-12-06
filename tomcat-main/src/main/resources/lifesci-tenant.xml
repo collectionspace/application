@@ -1,6 +1,6 @@
 <cspace-config tenantname="lifesci">
 
-	<tenantid>2</tenantid>
+	<tenantId>2</tenantId>
 	<version>11</version>
 	<include src="settings.xml,local-lifesci-settings.xml" merge="xmlmerge.properties" 
 		strip-root="yes" />

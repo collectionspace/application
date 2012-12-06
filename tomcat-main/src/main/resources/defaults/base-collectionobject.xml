@@ -54,16 +54,8 @@
   <include src="domain-collectionobject.xml" strip-root="yes"/>
 
   <section id="coreInformation">
-    <field id="tenantId" section="collectionspace_core" attributes="GET"/>
-		<!-- Need to glean csid for termCompletion -->
-    <field id="csid" mini="search,list" attributes="GET"></field>
-    <field id="refName" section="collectionspace_core" mini="search,list,relate" attributes="GET"></field>
-    <field id="createdAt" section="collectionspace_core" ui-type="date" datatype="date" attributes="GET"/>
-    <field id="updatedAt" section="collectionspace_core" ui-search="range" ui-type="date" datatype="date" 
-      attributes="GET" mini="search,list,relate"/>
-    <field id="createdBy" section="collectionspace_core" attributes="GET"/>
-    <field id="uri" section="collectionspace_core" attributes="GET"/>
-    <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"/>
+    <include src="core-fields.xml"  strip-root="yes" />
+    <field id="csid" exists-in-services="false" mini="search,list" attributes="GET"></field>
     <field id="nametitle" mini="summary,search,list,relate" exists-in-services="false">
       <selector>object-identification-object-nametitle</selector>
       <merges>
