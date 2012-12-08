@@ -77,7 +77,7 @@
 				</options>
 			</field>
 		</repeat>
-		<repeat id="commonNameGroupList/commonNameGroup" section="naturalhistory">
+		<repeat id="commonNameGroupList/commonNameGroup">
 			<!-- Change autocomplete to taxon-common -->
 			<field id="commonName" autocomplete="taxon-common"/>
 		</repeat>
