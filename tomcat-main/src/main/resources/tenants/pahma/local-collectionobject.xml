@@ -527,7 +527,7 @@
 			</options>
 		</field>
 
-		<field id="isComponent" section="pahma">
+		<field id="isComponent" ui-search="single" section="pahma">
 			<options>
 				<option id="no" default="yes">No</option>
 				<option id="yes">Yes</option>
