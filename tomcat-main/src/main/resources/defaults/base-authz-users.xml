@@ -35,12 +35,9 @@
 				<include src="domain-authz-users.xml" strip-root="yes"/>
 				
                 <section id="coreInformation">
-                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
-			        <field id="createdBy" section="collectionspace_core" attributes="GET"></field>
-			        <field id="updatedBy" section="collectionspace_core" attributes="GET"></field>
-                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                    <include src="core-fields.xml"  strip-root="yes" />
                 </section>
+
                 <section id="accountInformation">
                     <field id="userId">
                         <services-filter-param>uid</services-filter-param>

@@ -49,13 +49,11 @@
             <title>Activity Concepts</title>
         </instance>
     </instances>
-    <section id="coreInformation">
-        <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
-        <field id="createdBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
-        <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
-        <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-        <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
-    </section>
+	
+	<section id="coreInformation">
+		<include src="core-fields.xml"  strip-root="yes" />
+	</section>
+	
     <section id="conceptAuthorityInformation">
         <field id="preferredConcept" ui-type="groupfield/preferredCA/selfrenderer" ui-func="cspace.preferred">
             <selector>preferred-conceptAuthority</selector>
@@ -88,9 +86,7 @@
     <!-- not used in UI except in autocompletes -->
     <section id="otherInformation">
         <field id="shortIdentifier" mini="search,list,relate" attributes="GET"></field>
-        <field id="csid" mini="search,list,relate" attributes="GET"></field>
-        <field id="refName" mini="search,list,relate" attributes="GET"></field>
-        <field id="uri" mini="search,list,relate" attributes="GET"></field>
+        <field id="csid" exists-in-services="false" mini="search,list,relate" attributes="GET"></field>
         <field id="termStatus" mini="search,list,relate"></field>
     </section>
 </record>

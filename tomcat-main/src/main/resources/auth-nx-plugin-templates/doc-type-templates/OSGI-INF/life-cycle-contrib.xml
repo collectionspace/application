@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<component name="org.collectionspace.ecm.platform.${ServiceName_LowerCase}.LifeCycleManagerExtensions">
+  <extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService"
+             point="types">
+    <types>
+      <type name="${NuxeoDocTypeName}">${Lifecycle}</type>
+    </types>
+  </extension>
+  <extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService"
+             point="types">
+    <types>
+      <type name="${AuthorityNuxeoDocTypeName}">${Lifecycle}</type>
+    </types>
+  </extension>
+</component>

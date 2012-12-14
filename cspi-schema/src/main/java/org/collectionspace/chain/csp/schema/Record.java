@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -31,15 +30,17 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public class Record implements FieldParent {
+	private static final Logger log = LoggerFactory.getLogger(Record.class);
 	
 	public final static String BLOB_SOURCE_URL = "blobUri"; // BlobClient.BLOB_URI_PARAM; // The 'blobUri' query param used to pass an external URL for the services to download data from
 	public final static String BLOB_PURGE_ORIGINAL = "blobPurgeOrig"; // BlobClient.BLOB_PURGE_ORIGINAL;
 
+	private static final String TYPE_AUTHORITY = "authority";
+	
 	public static final String SUPPORTS_LOCKING = "supportslocking";
 	public static final String RANGE_START_SUFFIX = "Start";
 	public static final String RANGE_END_SUFFIX = "End";
 	
-	private static final Logger log = LoggerFactory.getLogger(Record.class);
 	protected SchemaUtils utils = new SchemaUtils();
 	
 	private Map<String, Structure> structure = new HashMap<String, Structure>();
@@ -76,7 +77,7 @@ public class Record implements FieldParent {
 	//list of all 'record' e.g. structuredDates, dimensions etc that are included
 	private Map<String, String> nestedFieldList = new HashMap<String, String>();
 	
-	private Map<String, Instance> instances = new LinkedHashMap<String, Instance>();
+	private Map<String, Instance> instances = new HashMap<String, Instance>();
 	private Map<String, FieldSet> summarylist = new HashMap<String, FieldSet>();
 	private Map<String, Map<String, FieldSet>> minidataset = new HashMap<String, Map<String, FieldSet>>();
 	private Spec spec;
@@ -98,6 +99,16 @@ public class Record implements FieldParent {
 		// standard = singular form of the concept
 		utils.initStrings(section,"@id",null);
 		whoamI = utils.getString("@id");
+		
+		utils.initStrings(section, "@cms-type", "none");
+		utils.initBoolean(section, "@generate-services-schema", true);
+		utils.initBoolean(section,"@is-extension", false);
+		
+		//
+		// The name for used to create the Services XML Schema.
+		//
+		utils.initStrings(section, "@services-type", null);
+		
 		// record,authority,compute-displayname can have multiple types using
 		// commas
 		utils.initSet(section,"@type",new String[] { "record" });
@@ -110,9 +121,7 @@ public class Record implements FieldParent {
 
 		//Record differentiates between things like structureddates and procedures
 		utils.initBoolean(section,"@separate-record",true);
-		
-		
-		
+				
 		// config whether service layer needs call as multipart or not - authorization is not currently multipart
 		utils.initBoolean(section,"is-multipart",true);
 
@@ -362,6 +371,11 @@ public class Record implements FieldParent {
 		}
 		return null;
 	}
+	
+	public Map<String, String> getNestedFieldList() {
+		return this.nestedFieldList;
+	}
+	
 	public FieldSet getServiceFieldFullList(String id) {
 		return serviceFieldFullList.get(id);
 	}
@@ -433,6 +447,11 @@ public class Record implements FieldParent {
 			return utils.getString("showin").equals(k);
 		}
 	}
+	
+	public boolean isAuthorityItemType() {
+		return isType(TYPE_AUTHORITY);
+	}
+	
 	public boolean isType(String k) {
 		return utils.getSet("@type").contains(k);
 	}
@@ -455,6 +474,22 @@ public class Record implements FieldParent {
 	public String getUILabel(String id){
 		return utils.getString("@id") + "-" + id + "Label";
 	}
+	public String getServicesType() {
+		String result = utils.getString("@services-type");
+		return result;
+	}
+	public String getServicesCmsType() {
+		String result = utils.getString("@cms-type");
+		return result;
+	}
+	public boolean isServicesExtension() {
+		boolean result = utils.getBoolean("@is-extension");		
+		return result;
+	}
+	public boolean isGenerateServicesSchema() {
+		boolean result = utils.getBoolean("@generate-services-schema");		
+		return result;
+	}
 	public String getUILabelSelector(String id){
 		return getPreSelector()  + utils.getString("@id") + "-" +  id + "-label";
 	}
@@ -476,8 +511,6 @@ public class Record implements FieldParent {
 		}
 		return null;
 	}
-
-
 
 	public String enumBlankValue(){
 		return utils.getString("enum-blank");

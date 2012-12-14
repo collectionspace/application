@@ -47,14 +47,11 @@
             <title>Local Taxa</title>
         </instance>
     </instances>
-    <section id="coreInformation">
-        <field id="tenantID" section="collectionspace_core" attributes="GET"/>
-        <field id="createdBy" section="collectionspace_core" attributes="GET"/>
-        <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"/>
-        <field id="createdAt" section="collectionspace_core" attributes="GET"/>
-        <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core"
-            attributes="GET" mini="search,list,relate"/>
-    </section>
+	
+	<section id="coreInformation">
+		<include src="core-fields.xml"  strip-root="yes" />
+	</section>
+	
     <section id="taxonNameAuthorityInformation">
         <!-- Is the shortIdentifier field needed here? It isn't present in all other authority record configs - ADR 2012-05-10 -->
         <field id="shortIdentifier"/>
@@ -110,8 +107,6 @@
     <!-- not used in UI except in autocompletes -->
     <section id="otherInformation">
         <field id="shortIdentifier" mini="search,list,relate" attributes="GET"/>
-        <field id="csid" mini="search,list,relate" attributes="GET"/>
-        <field id="refName" mini="search,list,relate" attributes="GET"/>
-        <field id="uri" mini="search,list,relate" attributes="GET"/>
+        <field id="csid" exists-in-services="false" mini="search,list,relate" attributes="GET"/>
     </section>
 </record>

@@ -47,14 +47,11 @@
             <title>Local Places</title>
         </instance>
     </instances>
+	
     <section id="coreInformation">
-        <field id="tenantID" section="collectionspace_core" attributes="GET"/>
-        <field id="createdBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"/>
-        <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"/>
-        <field id="createdAt" section="collectionspace_core" attributes="GET"/>
-        <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core"
-               attributes="GET" mini="search,list,relate"/>
+        <include src="core-fields.xml"  strip-root="yes"/>
     </section>
+	
     <section id="placeAuthorityInformation">
         <field id="preferredPlace" ui-type="groupfield/preferredPlace/selfrenderer" ui-func="cspace.preferred">
             <selector>preferred-placeAuthority</selector>
@@ -230,8 +227,6 @@
     <!-- not used in UI except in autocompletes -->
     <section id="otherInformation">
         <field id="shortIdentifier" mini="search,list,relate" attributes="GET"/>
-        <field id="csid" mini="search,list,relate" attributes="GET"/>
-        <field id="refName" mini="search,list,relate" attributes="GET"/>
-        <field id="uri" mini="search,list,relate" attributes="GET"/>
+        <field id="csid" exists-in-services="false" mini="search,list,relate" attributes="GET"/>
     </section>
 </record>

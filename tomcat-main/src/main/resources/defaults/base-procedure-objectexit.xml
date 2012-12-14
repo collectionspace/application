@@ -44,13 +44,11 @@
                 <include src="domain-procedure-objectexit.xml"  strip-root="yes" />
 				
                 <row-selector>.csc-recordList-row:</row-selector>
+
                 <section id="coreInformation">
-                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
-                    <field id="createdBy" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
-                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                    <include src="core-fields.xml"  strip-root="yes" />
                 </section>
+
                 <!--  Object Exit Information Group -->
                 <section id="objectexitInformation">
                     <field id="exitNumber" ui-search="repeatable" chooser="yes" in-title="yes" mini="number,search,list,relate" seperate_ui_container="true">

@@ -26,13 +26,10 @@
 	
 	<include src="domain-other-reporting.xml" strip-root="yes"/>
 	
-    <section id="coreinfo">
-        <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
-        <field id="createdBy" section="collectionspace_core" attributes="GET"></field>
-        <field id="updatedBy" section="collectionspace_core" attributes="GET"></field>
-        <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-        <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
-    </section>
+	<section id="coreInformation">
+		<include src="core-fields.xml"  strip-root="yes" />
+	</section>
+	
     <section id="reporting">
     	<field id="name" mini="number,search,list,relate"></field>
     	<field id="notes" ></field>

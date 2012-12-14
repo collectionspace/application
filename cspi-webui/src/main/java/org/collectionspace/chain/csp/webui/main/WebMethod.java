@@ -27,5 +27,7 @@ public interface WebMethod extends TrieMethod {
 	public static final String RELATION_ONE_WAY_PARAM = "one-way";
 
 	public void configure(WebUI ui,Spec spec);
+	
+	@Override
 	public void run(Object in,String[] tail) throws UIException;
 }

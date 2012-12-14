@@ -43,17 +43,15 @@
 				<include src="domain-procedure-movement.xml" strip-root="yes"/>
 				
                 <row-selector>.csc-recordList-row:</row-selector>
+				
                 <section id="coreInformation">
-                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
-                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="createdBy" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
-										<field id="workflow" section="collectionspace_core" attributes="GET" 
-														mini="search,list">
-											<services-tag>workflowState</services-tag>
-										</field>
+                    <include src="core-fields.xml"  strip-root="yes" />
+					<field id="workflow" exists-in-services="false" section="collectionspace_core" attributes="GET" 
+									mini="search,list">
+						<services-tag>workflowState</services-tag>
+					</field>
                 </section>
+				
                 <section id="currentLocationHeader"></section> <!-- temp until better way to do group headers -->
                 <section id="locationMovementInformation">
                     <!--  Object Location Information Group -->
