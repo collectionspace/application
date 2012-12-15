@@ -1,16 +1,22 @@
-<record id="concept" type="authority">
+<record id="concept" type="authority" cms-type="default">
     <terms-used>false</terms-used>
     <web-url>concept</web-url>
-    <services-tenant-plural>Conceptauthorities</services-tenant-plural>
-    <services-tenant-singular>Conceptauthority</services-tenant-singular>
+    
+    <services-tenant-auth-singular>Conceptauthority</services-tenant-auth-singular>
+    <services-tenant-auth-plural>Conceptauthorities</services-tenant-auth-plural>
+    <services-tenant-singular>Concept</services-tenant-singular>
+    <services-tenant-doctype>Conceptitem</services-tenant-doctype>
+
     <services-instances-path>conceptauthorities_common:http://collectionspace.org/services/concept,abstract-common-list/list-item</services-instances-path>
     <services-single-instance-path>conceptauthorities_common:http://collectionspace.org/services/concept,conceptauthorities_common</services-single-instance-path>
     <services-list-path>http://collectionspace.org/services/concept,abstract-common-list/list-item</services-list-path>
+    
     <services-record-path>concepts_common:http://collectionspace.org/services/concept,concepts_common</services-record-path>
     <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
     <services-url>conceptauthorities</services-url>
     <authority-vocab-type>ConceptAuthority</authority-vocab-type>
     <hassoftdelete>true</hassoftdelete>
+    
     <structures>
         <structure id="search">
             <view>
@@ -85,8 +91,9 @@
     </section>
     <!-- not used in UI except in autocompletes -->
     <section id="otherInformation">
+    	<field id="inAuthority"></field>
+    	<field id="refName"></field>
         <field id="shortIdentifier" mini="search,list,relate" attributes="GET"></field>
         <field id="csid" exists-in-services="false" mini="search,list,relate" attributes="GET"></field>
-        <field id="termStatus" mini="search,list,relate"></field>
     </section>
 </record>

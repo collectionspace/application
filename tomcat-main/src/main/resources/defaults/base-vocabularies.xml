@@ -42,6 +42,7 @@
                 </section>
 				<!-- not used in UI except in autocompletes -->
                 <section id="otherInformation">
+                	<field id="inAuthority"></field>
                     <field id="shortIdentifier" mini="search,list,relate" attributes="GET"></field>
                     <field id="csid" exists-in-services="false" mini="search,list,relate" attributes="GET"></field>
                 </section>

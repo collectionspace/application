@@ -201,10 +201,12 @@ public class Record implements FieldParent {
 
 
 		utils.initStrings(section,"services-tenant-singular", utils.getString("services-url"));
+		utils.initStrings(section,"services-tenant-doctype", utils.getString("services-tenant-singular"));
+		
 		utils.initStrings(section,"services-tenant-plural", utils.getString("services-tenant-singular")+"s");
 		utils.initStrings(section,"services-tenant-auth-singular", utils.getString("services-url"));
 		utils.initStrings(section,"services-tenant-auth-plural", utils.getString("services-tenant-singular")+"s");
-
+		
 		utils.initStrings(section,"services-schemalocation", "http://services.collectionspace.org");
 		
 		utils.initStrings(section,"services-dochandler","org.collectionspace.services."+ utils.getString("services-tenant-singular").toLowerCase() +".nuxeo."+ utils.getString("services-tenant-singular")+"DocumentModelHandler");
@@ -634,6 +636,17 @@ public class Record implements FieldParent {
 	public String getServicesTenantAuthSg() {
 		return utils.getString("services-tenant-auth-singular");
 	}
+	
+	public String getServicesTenantDoctype() {
+		String result = this.getServicesTenantSg();
+		
+		String elementVal = utils.getString("services-tenant-doctype");
+		if (elementVal != null && elementVal.trim().isEmpty() == false) {
+			result = elementVal;
+		}
+		
+		return result;
+	}	
 
 	public String getServicesTenantAuthPl() {
 		return utils.getString("services-tenant-auth-plural");

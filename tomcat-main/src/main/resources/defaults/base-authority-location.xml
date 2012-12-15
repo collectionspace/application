@@ -1,12 +1,16 @@
-<record id="location"  type="authority">
+<record id="location"  type="authority" cms-type="default">
     <terms-used>false</terms-used>
-    <!-- XXX servcie layer doesn't currently support  terms but it does on  organisations - go figure -->
     <web-url>location</web-url>
-    <services-tenant-plural>Locationauthorities</services-tenant-plural>
-    <services-tenant-singular>Locationauthority</services-tenant-singular>
+    
+    <services-tenant-auth-singular>Locationauthority</services-tenant-auth-singular>
+    <services-tenant-auth-plural>Locationauthorities</services-tenant-auth-plural>    
+    <services-tenant-singular>Location</services-tenant-singular>
+    <services-tenant-doctype>Locationitem</services-tenant-doctype>
+    
     <services-instances-path>locationauthorities_common:http://collectionspace.org/services/location,abstract-common-list/list-item</services-instances-path>
     <services-single-instance-path>locationauthorities_common:http://collectionspace.org/services/location,locationauthorities_common</services-single-instance-path>
     <services-list-path>http://collectionspace.org/services/location,abstract-common-list/list-item</services-list-path>
+
     <services-record-path>locations_common:http://collectionspace.org/services/location,locations_common</services-record-path>
     <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
     <services-url>locationauthorities</services-url>
@@ -70,6 +74,8 @@
     </section>
     <!-- not used in UI except in autocompletes -->
     <section id="otherInformation">
+       	<field id="inAuthority"></field>
+    	<field id="refName"></field>
         <field id="shortIdentifier" mini="search,list,relate" attributes="GET"></field>
         <field id="csid" exists-in-services="false" mini="search,list,relate" attributes="GET"></field>
     </section>

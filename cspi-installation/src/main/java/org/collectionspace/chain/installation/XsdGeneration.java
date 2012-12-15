@@ -293,7 +293,7 @@ public class XsdGeneration {
 		boolean isAuthorityItemType = record.isAuthorityItemType();
 		String serviceName = record.getServicesTenantSg();
 		String tenantName = record.getSpec().getAdminData().getTenantName();
-		String docTypeName = record.getServicesTenantSg();
+		String docTypeName = record.getServicesTenantDoctype();
 		//
 		// Compute what the doctype name should be based on tenancy and doctype extensions
 		//
