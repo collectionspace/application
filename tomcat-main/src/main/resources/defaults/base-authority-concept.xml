@@ -1,4 +1,4 @@
-<record id="concept" type="authority" cms-type="default">
+<record id="concept" type="authority" cms-type="default" generate-services-schema="false">
     <terms-used>false</terms-used>
     <web-url>concept</web-url>
     

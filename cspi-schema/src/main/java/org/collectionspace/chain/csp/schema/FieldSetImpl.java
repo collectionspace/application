@@ -1,13 +1,24 @@
 package org.collectionspace.chain.csp.schema;
 
+import org.collectionspace.chain.csp.config.ReadOnlySection;
+
 
 public abstract class FieldSetImpl implements FieldSet {
 	
 	protected SchemaUtils utils = new SchemaUtils();
 	
+	protected void initialiseVariables(ReadOnlySection section, String tempid) {
+		utils.initBoolean(section,"@services-type-anonymous", true); // generate an embedded anonymous type instead of a standalone complex type
+	}
+	
 	@Override
 	public Boolean isInServices() {
 		return utils.getBoolean("@exists-in-services");
+	}
+	
+	@Override
+	public Boolean isServicesAnonymousType() {
+		return utils.getBoolean("@services-type-anonymous");
 	}
 	
 	@Override

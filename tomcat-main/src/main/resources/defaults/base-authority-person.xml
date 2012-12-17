@@ -1,6 +1,7 @@
-<record id="person" type="authority" cms-type="default">
+<record id="person" type="authority" cms-type="default" generate-services-schema="false">
     <terms-used>false</terms-used>
     <web-url>person</web-url>
+    
     <services-tenant-auth-singular>Personauthority</services-tenant-auth-singular>
     <services-tenant-auth-plural>Personauthorities</services-tenant-auth-plural>
     <services-tenant-singular>Person</services-tenant-singular>

@@ -35,6 +35,7 @@ public interface FieldSet {
 	public boolean hasServicesParent();
 	public String getSection();
 	public Boolean isInServices();
+	public Boolean isServicesAnonymousType();
 	public boolean hasFieldPerm(String k);
 	public String[] getAllFieldOperations();
 

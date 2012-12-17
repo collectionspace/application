@@ -1094,4 +1094,14 @@ public class Record implements FieldParent {
 	public boolean isExpander() {
 		return false;
 	}
+
+
+	/*
+	 * If any "prefetch" declaration exist in the record, this returns them.
+	 */
+	public String getPrefetchElement() {
+		// TODO Auto-generated method stub
+		log.warn("Record.getPrefetchElement() is just a stubbed out method.  Please implement this method.");
+		return "";  // FIXME: REM 12-2012 - Add code that finds and returns "<prefetch>" element from App config file.
+	}
 }

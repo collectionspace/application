@@ -5,6 +5,7 @@
 			<schema name="common" />
 			<schema name="dublincore" />
 			${SchemaElements}
+			${PrefetchElement}
 		</doctype>
 	</extension>
 </component>

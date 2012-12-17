@@ -69,6 +69,8 @@ public class Repeat extends FieldSetImpl implements FieldParent  {
 	 * @param section
 	 */
 	protected void initialiseVariables(ReadOnlySection section, String tempid) {
+		super.initialiseVariables(section, tempid);
+		
 		utils.initStrings(section,"@id",tempid);
 		this.setRepeatSubRecord(false);
 		utils.setString("fullid",utils.getString("@id"));
@@ -80,6 +82,7 @@ public class Repeat extends FieldSetImpl implements FieldParent  {
 		utils.initBoolean(section,"@asSibling",false); //show repeatables as siblings rather than proper repeat - used in roles and permissions
 		utils.initStrings(section,"@section","common"); //Service section that this field exists in
 		utils.initBoolean(section,"@exists-in-services",true); //in case you want to totally hide something from the services
+		utils.initBoolean(section,"@services-type-anonymous", true); //in case you want to totally hide something from the services
 		// should this field allow a primary flag in the UI repeat spec and schema
 		utils.initBoolean(section,"@has-primary",true);
 		// used when want to override default grouped behaviour e.g. blobs in media
@@ -495,7 +498,6 @@ public class Repeat extends FieldSetImpl implements FieldParent  {
 	public boolean hasFieldPerm(String perm){
 		return utils.getSet("@attributes").contains(perm);
 	}
-
 
 	public boolean hasEnumBlank() {
 		return utils.getBoolean("enum/@has-blank");

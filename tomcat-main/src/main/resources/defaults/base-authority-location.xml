@@ -1,4 +1,4 @@
-<record id="location"  type="authority" cms-type="default">
+<record id="location"  type="authority" cms-type="default" generate-services-schema="false">
     <terms-used>false</terms-used>
     <web-url>location</web-url>
     
@@ -16,6 +16,7 @@
     <services-url>locationauthorities</services-url>
     <authority-vocab-type>LocationAuthority</authority-vocab-type>
     <hassoftdelete>true</hassoftdelete>
+    
     <structures>
         <structure id="search">
             <view>
@@ -65,7 +66,7 @@
         <field id="address" ui-search="repeatable"></field>
 		<repeat id="conditionGroupList/conditionGroup">
             <field id="conditionNote" ui-search="repeatable"></field>
-            <field id="conditionNoteDate" ui-type="date"></field>
+            <field id="conditionNoteDate" ui-type="date" datatype="date"></field>
         </repeat>
         <field id="securityNote" ui-search="repeatable"></field>
         <field id="locationType" ui-search="repeatable" autocomplete="vocab-locationtype" ui-type="enum">

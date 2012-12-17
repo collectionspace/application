@@ -53,7 +53,8 @@ public class MakeXsd {
 			// structuredDates are a special case and we need to define the complex type first.
 			//
 			if (fieldSet.isAStructureDate() == true) {
-				Element complexElement = ele.addElement(new QName("complexType", ns));
+				currentElement = root; // was not here
+				Element complexElement = root.addElement(new QName("complexType", ns)); // was ele
 				complexElement.addAttribute("name", servicesType);
 				Element sequenced = complexElement.addElement(new QName("sequence", ns));
 				currentElement = sequenced;
@@ -251,10 +252,13 @@ public class MakeXsd {
 
 				FieldSet[] fieldSetArray = rfs.getChildren("");
 				if (fieldSetArray != null && fieldSetArray.length > 0) {
-//					listName = rfs.getChildren("")[0].getServicesTag() + "List";
-//					fieldElement.addAttribute("type", listName);
-					listName = null;
-					System.out.println();
+					if (rfs.isServicesAnonymousType() == true) {
+						listName = null; // Ends up creating an embedded anonymous complex type
+					} else {
+						listName = rfs.getChildren("")[0].getServicesTag() + "List";
+						fieldElement.addAttribute("type", FieldSet.NS + listName);
+						fieldElement = fieldElement.getParent();
+					}
 				} else { // If there is no children to define the type, there better be an explicit services type declaration
 					String servicesType = rfs.getServicesType();
 					if (servicesType != null) {

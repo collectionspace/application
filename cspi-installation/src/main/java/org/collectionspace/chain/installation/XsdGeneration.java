@@ -76,6 +76,7 @@ public class XsdGeneration {
 	
 	private static final String REQUIRE_BUNDLE_LIST_VAR = "${Require-Bundle-List}";
 	private static final String SCHEMA_ELEMENTS_LIST_VAR = "${SchemaElements}";
+	private static final String PREFETCH_ELEMENT_LIST_VAR = "${PrefetchElement}";
 	private static final String EMC_LAYOUT_LIST_VAR = "${LayoutList}";
 
 	private static final String SCHEMA_ELEMENT_TEMPLATE = "<schema name=\"" + SCHEMA_NAME_VAR + "\" />";	
@@ -344,6 +345,7 @@ public class XsdGeneration {
 				//
 				String schemaElementsList = getSchemaElementsList(record, definedSchemaList);
 				substitutionMap.put(SCHEMA_ELEMENTS_LIST_VAR, schemaElementsList);
+				substitutionMap.put(PREFETCH_ELEMENT_LIST_VAR, record.getPrefetchElement());
 				
 				String schemaParentType = DEFAULT_PARENT_TYPE;
 				if (record.isServicesExtension() == true) { // If we know this is an extension of a common base type, we need to set the parent type
