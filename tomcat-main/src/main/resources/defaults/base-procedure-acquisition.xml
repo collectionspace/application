@@ -1,5 +1,5 @@
 
-            <record id="acquisition" in-findedit="yes" type="record,procedure">
+            <record id="acquisition" in-findedit="yes" type="record,procedure" cms-type="default">
                 <services-url>acquisitions</services-url>
                 <services-tenant-singular>Acquisition</services-tenant-singular>
                 <services-list-path>abstract-common-list/list-item</services-list-path>
@@ -69,7 +69,7 @@
                         ui-func="cspace.structuredDate">
                     </field>
                     <field id="acquisitionAuthorizer" autocomplete="person-person"></field>
-                    <field id="acquisitionAuthorizerDate" ui-type="date">
+                    <field id="acquisitionAuthorizerDate" ui-type="date" datatype="date">
                         <selector>acquisition-acquisitionAuthorizerDate</selector>
                         <container-selector>acquisition-acquisitionAuthorizerDate-container</container-selector>
                     </field>
