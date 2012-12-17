@@ -1,10 +1,10 @@
 <record id="taxon" type="authority" cms-type="default" in-recordlist="yes" in-findedit="yes" generate-services-schema="true">
-
     <web-url>taxon</web-url>
     
     <services-tenant-auth-singular>Taxonomyauthority</services-tenant-auth-singular>
     <services-tenant-auth-plural>Taxonomyauthority</services-tenant-auth-plural>    
     <services-tenant-singular>Taxon</services-tenant-singular>
+    <services-tenant-plural>Taxon</services-tenant-plural>
     
     <services-instances-path>taxonomyauthority_common:http://collectionspace.org/services/taxonomy,abstract-common-list/list-item</services-instances-path>
     <services-single-instance-path>taxonomyauthority_common:http://collectionspace.org/services/taxonomy,taxonomyauthority_common</services-single-instance-path>

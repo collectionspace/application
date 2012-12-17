@@ -1,13 +1,13 @@
-
-
-            <record id="loanout" in-findedit="yes" type="record,procedure">
+            <record id="loanout" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="false">
                 <services-url>loansout</services-url>
-                <services-tenant-plural>Loansout</services-tenant-plural>
                 <services-tenant-singular>Loanout</services-tenant-singular>
+                <services-tenant-plural>Loansout</services-tenant-plural>
+
                 <services-list-path>abstract-common-list/list-item</services-list-path>
                 <services-record-path>loansout_common:http://collectionspace.org/services/loanout,loansout_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 <hassoftdelete>true</hassoftdelete>
+
                 <structures>
                     <structure id="search">
                         <view>
@@ -76,7 +76,7 @@
                         <selector>loanOut-borrower</selector>
                     </field>
                     <field id="borrowersAuthorizer" autocomplete="person-person"></field>
-                    <field id="borrowersAuthorizationDate"  ui-type="date"></field>
+                    <field id="borrowersAuthorizationDate"  ui-type="date" datatype="date"></field>
                     <field id="borrowersContact" autocomplete="person-person">
                         <selector>loanOut-borrowersContact</selector>
                     </field>
@@ -102,7 +102,7 @@
                     <field id="lendersContact" autocomplete="person-person">
                         <selector>loanOut-lendersContact</selector>
                     </field>
-                    <field id="lendersAuthorizationDate" ui-type="date">
+                    <field id="lendersAuthorizationDate" ui-type="date" datatype="date">
                         <selector>loanOut-lendersAuthorizationDate</selector>
                     </field>
                     <field id="loanOutNote">
@@ -112,20 +112,20 @@
                         <field id="loanStatus" ui-search="repeatable" autocomplete="vocab-lostatus" ui-type="enum">
                             <selector>loanOut-loanedObjectStatus</selector>
                         </field>
-                        <field id="loanStatusDate" ui-type="date">
+                        <field id="loanStatusDate" ui-type="date" datatype="date">
                             <selector>loanOut-loanedObjectStatusDate</selector>
                         </field>
                         <field id="loanStatusNote">
                             <selector>loanOut-loanedObjectStatusNote</selector>
                         </field>
                     </repeat>
-                    <field id="loanOutDate" ui-search="range" ui-type="date">
+                    <field id="loanOutDate" ui-search="range" ui-type="date" datatype="date">
                         <selector>loanOut-loanOutDate</selector>
                     </field>
-                    <field id="loanReturnDate" ui-search="range" ui-type="date">
+                    <field id="loanReturnDate" ui-search="range" ui-type="date" datatype="date">
                         <selector>loanOut-loanReturnDate</selector>
                     </field>
-                    <field id="loanRenewalApplicationDate" ui-search="range" ui-type="date">
+                    <field id="loanRenewalApplicationDate" ui-search="range" ui-type="date" datatype="date">
                         <selector>loanOut-loanRenewalApplicationDate</selector>
                     </field>
                 </section>

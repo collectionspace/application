@@ -1,17 +1,17 @@
-
-
-<record id="reports" in-recordlist="no" type="authorizationdata">
+<record id="reports" in-recordlist="no" type="authorizationdata" cms-type="default" generate-services-schema="false">
+	<web-url>reporting</web-url>
+	<terms-used>false</terms-used>
+	<refobj-used>false</refobj-used>
+	 
 	<services-url>reports</services-url>
     <services-tenant-singular>Reports</services-tenant-singular>
+    <services-tenant-plural>Reports</services-tenant-plural>
+    
 	<services-list-path>abstract-common-list/list-item</services-list-path>
     <services-record-path>reports_common:http://collectionspace.org/services/report,reports_common</services-record-path>
     <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-                
-	<web-url>reporting</web-url>
 	<authorization-view>false</authorization-view>
             
-	<terms-used>false</terms-used>
-	<refobj-used>false</refobj-used>    
     <structures>
         <structure id="screen">
             <view>
@@ -36,10 +36,10 @@
     	<repeat id="forDocTypes">
     		<field id="forDocType"></field>
     	</repeat>
-    	<field id="supportsNoContext" ></field>
-    	<field id="supportsSingleDoc" ></field>
-    	<field id="supportsDocList"></field>
-    	<field id="supportsGroup"></field>
+    	<field id="supportsNoContext" datatype="boolean"></field>
+    	<field id="supportsSingleDoc" datatype="boolean"></field>
+    	<field id="supportsDocList" datatype="boolean"></field>
+    	<field id="supportsGroup" datatype="boolean"></field>
     	<field id="filename"></field>
     	<field id="outputMIME"></field>
     </section>

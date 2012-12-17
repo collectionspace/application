@@ -90,5 +90,8 @@ public interface FieldSet {
 	
 	public void setServicesType(String servicesType);
 	public String getServicesType();
-	public String getServicesType(boolean namespaceQualified);	
+	public String getServicesType(boolean namespaceQualified);
+	
+	public String getServicesGroupType(boolean namespaceQualified);
+	public void setServicesGroupType(String servicesGroupType);	
 }

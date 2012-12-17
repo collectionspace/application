@@ -9,6 +9,17 @@ public abstract class FieldSetImpl implements FieldSet {
 	
 	protected void initialiseVariables(ReadOnlySection section, String tempid) {
 		utils.initBoolean(section,"@services-type-anonymous", true); // generate an embedded anonymous type instead of a standalone complex type
+		if (section != null) {
+			String servicesType = (String)section.getValue("/@services-type");
+			if (servicesType != null && servicesType.isEmpty() == false) {
+				this.setServicesType(servicesType);
+			}
+			String servicesGroupType = (String)section.getValue("/@services-group-type");
+			if (servicesGroupType != null && servicesGroupType.isEmpty() == false) {
+				this.setServicesGroupType(servicesGroupType);
+			}			
+		}
+		
 	}
 	
 	@Override
@@ -41,9 +52,8 @@ public abstract class FieldSetImpl implements FieldSet {
 		return utils.getString("parentID");
 	}
 	
-	@Override
-	public String getServicesType(boolean namespaceQualified) {
-		String result = utils.getString("services-type");
+	private String getServicesType(String attributeName, boolean namespaceQualified) {
+		String result = utils.getString(attributeName);
 		String nsPrefix = NS;
 
 		if (result == null) {
@@ -68,6 +78,21 @@ public abstract class FieldSetImpl implements FieldSet {
 		}
 		
 		return result;
+	}
+	
+	@Override
+	public String getServicesGroupType(boolean namespaceQualified) {
+		return getServicesType("services-group-type", namespaceQualified);
+	}
+	
+	@Override
+	public void setServicesGroupType(String servicesGroupType) {
+		utils.setString("services-group-type", servicesGroupType);
+	}
+		
+	@Override
+	public String getServicesType(boolean namespaceQualified) {
+		return getServicesType("services-type", namespaceQualified);
 	}
 	
 	@Override

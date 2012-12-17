@@ -167,12 +167,6 @@ public class Repeat extends FieldSetImpl implements FieldParent  {
 		//define the operations that the Service layer allows for this item
 		utils.initSet(section, "@attributes", new String[] {"GET","PUT","POST","DELETE"});
 
-		if (section != null) {
-			String servicesType = (String)section.getValue("/@services-type");
-			if (servicesType != null && servicesType.isEmpty() == false) {
-				this.setServicesType(servicesType);
-			}
-		}
 	}
 
 	@Override

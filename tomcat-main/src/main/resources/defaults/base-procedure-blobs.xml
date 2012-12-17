@@ -1,5 +1,5 @@
 
-            <record id="blobs" in-recordlist="no" type="blob" cms-type="default">
+            <record id="blobs" in-recordlist="no" type="blob" cms-type="default" generate-services-schema="false">
                 <services-url>blobs</services-url>
                 <services-tenant-singular>Blob</services-tenant-singular>
                 <terms-used>false</terms-used>

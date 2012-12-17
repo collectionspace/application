@@ -42,10 +42,18 @@ public class MakeXsd {
 	 */
 	private String generateFieldGroup(FieldSet fieldSet, Element ele, Namespace ns,
 			Element root) {
-		String type = fieldSet.getServicesType(false /* not NS qualified */);
+		String fieldSetServicesType = fieldSet.getServicesType(false /* not NS qualified */);
 		Spec spec = fieldSet.getRecord().getSpec();
-		Record record = spec.getRecord(type);
+		Record record = spec.getRecord(fieldSetServicesType); // find a record that corresponds to the fieldset's service type
 		String servicesType = record.getServicesType();
+		
+		//
+		// Special case for backwards compat with existing "dateGroup" table/schema in Services
+		//
+		String servicesGroupType = fieldSet.getServicesGroupType(false);
+		if (fieldSetServicesType.equalsIgnoreCase(servicesGroupType) == false) {
+			servicesType = servicesGroupType;
+		}
 		
 		if (definedGroupFields.containsKey(servicesType) == false) {
 			Element currentElement = ele;
@@ -53,6 +61,10 @@ public class MakeXsd {
 			// structuredDates are a special case and we need to define the complex type first.
 			//
 			if (fieldSet.isAStructureDate() == true) {
+				String parentRecordName = fieldSet.getRecord().getID();
+				if (parentRecordName.equalsIgnoreCase("media")) {
+					System.out.println();
+				}
 				currentElement = root; // was not here
 				Element complexElement = root.addElement(new QName("complexType", ns)); // was ele
 				complexElement.addAttribute("name", servicesType);

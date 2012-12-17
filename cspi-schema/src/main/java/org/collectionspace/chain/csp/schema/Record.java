@@ -103,6 +103,7 @@ public class Record implements FieldParent {
 		utils.initStrings(section, "@cms-type", "none");
 		utils.initBoolean(section, "@generate-services-schema", true);
 		utils.initBoolean(section,"@is-extension", false);
+		utils.initBoolean(section,"@generate-if-authority", true); // REM: 12/2012 - The Contact service config file will set this value to false for schema generation -"false" since Contact is not a true authority from the Service's perspective.
 		
 		//
 		// The name for used to create the Services XML Schema.
@@ -416,11 +417,6 @@ public class Record implements FieldParent {
 	}
 	/** end field functions **/
 	
-	
-	
-	
-	
-	
 	public String getID() {
 		return utils.getString("@id");
 	}
@@ -451,9 +447,9 @@ public class Record implements FieldParent {
 	}
 	
 	public boolean isAuthorityItemType() {
-		return isType(TYPE_AUTHORITY);
+		return isType(TYPE_AUTHORITY) && shouldGenerateAuthoritySchema();
 	}
-	
+		
 	public boolean isType(String k) {
 		return utils.getSet("@type").contains(k);
 	}
@@ -482,6 +478,10 @@ public class Record implements FieldParent {
 	}
 	public String getServicesCmsType() {
 		String result = utils.getString("@cms-type");
+		return result;
+	}
+	private boolean shouldGenerateAuthoritySchema() {
+		boolean result = utils.getBoolean("@generate-if-authority");		
 		return result;
 	}
 	public boolean isServicesExtension() {

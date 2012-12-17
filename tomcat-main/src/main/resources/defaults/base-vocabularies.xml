@@ -1,4 +1,4 @@
-            <record id="vocab" in-recordlist="no" type="authority,vocabulary" cms-type="default">
+            <record id="vocab" in-recordlist="no" type="authority,vocabulary" cms-type="default" generate-services-schema="false">
                 <terms-used>false</terms-used>
                 <refobj-used>false</refobj-used>
                 <web-url>vocab</web-url>

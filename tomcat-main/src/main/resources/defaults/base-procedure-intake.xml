@@ -1,10 +1,12 @@
-<record id="intake" in-findedit="yes" type="record,procedure">
+<record id="intake" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="false">
                 <services-url>intakes</services-url>
                 <services-tenant-singular>Intake</services-tenant-singular>
+                
                 <services-list-path>abstract-common-list/list-item</services-list-path>
                 <services-record-path>intakes_common:http://collectionspace.org/services/intake,intakes_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 <hassoftdelete>true</hassoftdelete>
+                
                 <structures>
                     <structure id="search">
                         <view>
@@ -54,7 +56,7 @@
                             <option id="evaluation" sample="EV2009.1">Evaluation</option>
                         </options>
                     </field>
-                    <field id="entryDate" ui-search="range" ui-type="date">
+                    <field id="entryDate" ui-search="range" ui-type="date" datatype="date">
                         <selector>intake-entry-date</selector>
                     </field>
                     <field id="entryReason" ui-search="repeatable" seperate_ui_container="true">
@@ -71,7 +73,7 @@
                         <selector>intake-entryMethod</selector>
                         <field id="entryMethod" ui-search="repeatable" autocomplete="vocab-entrymethod" ui-type="enum"></field>
                     </repeat>
-                    <field id="returnDate" ui-search="range" ui-type="date">
+                    <field id="returnDate" ui-search="range" ui-type="date" datatype="date">
                         <container-selector>intake-returnDate-container</container-selector>
                     </field>
                     <field id="currentOwner" in-title="yes" mini="summary,search,list,relate" ui-search="repeatable" autocomplete="person-person,organization-organization">
@@ -91,7 +93,7 @@
                     </field>
                 </section>
                 <section id="objectCollectionInformation">
-                    <field id="fieldCollectionDate" ui-type="date">
+                    <field id="fieldCollectionDate" ui-type="date" datatype="date">
                         <container-selector>intake-fieldCollectionDate-container</container-selector>
                     </field>
                     <repeat id="fieldCollectionMethods">
@@ -126,7 +128,7 @@
                     <field id="insurancePolicyNumber">
                         <selector>intake-insurance-policy-number</selector>
                     </field>
-                    <field id="insuranceRenewalDate" ui-type="date">
+                    <field id="insuranceRenewalDate" ui-type="date"  datatype="date">
                         <selector>intake-insurance-renewal-date</selector>
                     </field>
                     <field id="insuranceReferenceNumber">
@@ -149,7 +151,7 @@
                             <selector>intake-current-location-note</selector>
                         </field>
                     </repeat>
-                    <field id="locationDate" ui-type="date">
+                    <field id="locationDate" ui-type="date" datatype="date">
                         <selector>intake-location-date</selector>
                     </field>
                     <!--  <field id="normalLocation" autocomplete="location-location, place-place"> -->
@@ -170,7 +172,7 @@
                     <field id="conditionCheckNote">
                         <selector>intake-condition-check-note</selector>
                     </field>
-                    <field id="conditionCheckDate" ui-type="date">
+                    <field id="conditionCheckDate" ui-type="date" datatype="date">
                         <selector>intake-condition-check-date</selector>
                     </field>
                     <field id="conditionCheckReferenceNumber">
