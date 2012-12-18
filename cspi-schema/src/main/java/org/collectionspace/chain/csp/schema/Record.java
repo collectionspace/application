@@ -113,6 +113,10 @@ public class Record implements FieldParent {
 		// record,authority,compute-displayname can have multiple types using
 		// commas
 		utils.initSet(section,"@type",new String[] { "record" });
+		
+		utils.initSet(section,"@services-folder-subtypes", new String[] { "record" });
+		utils.initSet(section,"@services-workspace-subtypes", new String[] { "record" });
+		
 		utils.initStrings(section,"showin","");
 
 		// specified that it is included in the findedit uispec - probably not useful any more?
@@ -452,6 +456,14 @@ public class Record implements FieldParent {
 		
 	public boolean isType(String k) {
 		return utils.getSet("@type").contains(k);
+	}
+	
+	public Set<String> getServicesFolderSubtypes() {
+		return utils.getSet("@services-folder-subtypes");
+	}
+
+	public Set<String> getServicesWorkspaceSubtypes() {
+		return utils.getSet("@services-workspace-subtypes");
 	}
 
 	public Spec getSpec() {

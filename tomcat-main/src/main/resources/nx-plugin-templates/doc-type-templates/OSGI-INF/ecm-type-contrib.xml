@@ -14,12 +14,14 @@
     <type id="Folder" coretype="Folder">
       <subtypes>
         <type>${NuxeoDocTypeName}</type>
+        ${FolderSubtypes}
       </subtypes>
     </type>
     
     <type id="Workspace" coretype="Workspace">
       <subtypes>
         <type>${NuxeoDocTypeName}</type>
+        ${WorkspaceSubtypes}
       </subtypes>
     </type>
   </extension>

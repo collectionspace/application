@@ -1,4 +1,4 @@
-<record id="taxon" type="authority" cms-type="default" in-recordlist="yes" in-findedit="yes" generate-services-schema="true">
+<record id="taxon" type="authority" cms-type="default" in-recordlist="yes" in-findedit="yes" generate-services-schema="false">
     <web-url>taxon</web-url>
     
     <services-tenant-auth-singular>Taxonomyauthority</services-tenant-auth-singular>

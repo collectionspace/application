@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -42,6 +43,9 @@ public class XsdGeneration {
 	private static final String NUXEO_SCHEMA_TYPE_TEMPLATES_DIR = NUXEO_PLUGIN_TEMPLATES_DIR + "/" + "schema-type-templates";
 	private static final String NUXEO_DOCTYPE_TEMPLATES_DIR = NUXEO_PLUGIN_TEMPLATES_DIR + "/" + "doc-type-templates";
 	private static final String NUXEO_PARENT_AUTHORITY_TEMPLATE = "authorities_common.xsd";
+	
+	private static final String NUXEO_FOLDER_SUBTYPES_VAR = "${FolderSubtypes}";
+	private static final String NUXEO_WORKSPACE_SUBTYPES_VAR = "${WorkspaceSubtypes}";
 	
 	private static final String DEFAULT_PARENT_TYPE = "CollectionSpaceDocument";
 	private static final String SCHEMA_PARENT_TYPE_VAR = "$SchemaParentType}";
@@ -91,6 +95,8 @@ public class XsdGeneration {
 	private static final String NX_PLUGIN_NAME = "nx_plugin_out";
 
 	private static final int MAX_OSGI_LINE_LEN = 72;
+
+	private static final Object SUBTYPE_INDENT = "        ";  // 8 spaces for indent of folder/workspace indentation
 	
 	private HashMap<String, String> serviceSchemas = new HashMap<String, String>();
 	private HashMap<String, String> serviceSchemaBundles = new HashMap<String, String>();
@@ -352,6 +358,13 @@ public class XsdGeneration {
 					schemaParentType = serviceName;
 				}
 				substitutionMap.put(SCHEMA_PARENT_TYPE_VAR, schemaParentType);
+				
+				String folderSubtypes = getFolderSubtypes(record);
+				substitutionMap.put(NUXEO_FOLDER_SUBTYPES_VAR, folderSubtypes);
+				
+				String workspaceSubtypes = getWorkspaceSubtypes(record);
+				substitutionMap.put(NUXEO_WORKSPACE_SUBTYPES_VAR, workspaceSubtypes);
+				
 				createOsgiInfFiles(doctypeTemplatesDir, substitutionMap, zos);
 				//
 				// We're finished adding entries so close the zip output stream
@@ -366,6 +379,45 @@ public class XsdGeneration {
 			String errMsg = String.format("Nuxeo document type '%s' already exists.  Skipping creation.", docTypeName);
 			throw new Exception(errMsg);
 		}
+	}
+
+	private String getFolderSubtypes(Record record) {
+		Set<String> folderSubtypeList = record.getServicesFolderSubtypes();
+		return getSubtypes(folderSubtypeList);
+	}
+	
+	private String getWorkspaceSubtypes(Record record) {
+		Set<String> workspaceSubtypeList = record.getServicesWorkspaceSubtypes();
+		return getSubtypes(workspaceSubtypeList);
+	}	
+	
+	/*
+	 * Given a set of strings, we create something like the following
+     * <subtypes>
+     *   <type>Blob</type>
+     *   <type>Foo</type>
+     * </subtypes>
+	 * 
+	 */
+	private String getSubtypes(Set<String> subtypeList) {
+		String result = ""; //empty string
+		
+		if (subtypeList != null && subtypeList.isEmpty() == false) {
+			StringBuffer elementList = new StringBuffer();
+			for (String folderSubtype : subtypeList) {
+				//
+				// Creates a <type>theTypeName</type> element
+				//
+				elementList.append(SUBTYPE_INDENT);
+				elementList.append("<type>");
+				elementList.append(folderSubtype);
+				elementList.append("</type>");
+				elementList.append("\n");
+			}
+			result = elementList.substring(0, elementList.length() - 1); // Remove the last end-of-line
+		}
+		
+		return result;
 	}
 
 	private void createOsgiInfFiles(File osgiInfTemplatesDir, HashMap<String, String> substitutionMap, ZipOutputStream zos) throws Exception {
