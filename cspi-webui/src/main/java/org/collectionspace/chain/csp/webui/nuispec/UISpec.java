@@ -1158,7 +1158,11 @@ public class UISpec extends SchemaStructure implements WebMethod {
 		String selector = pre;
 		for(String part : affixes) {
                     // FIXME: NetBeans flagged this String comparison for
-                    // using != and ==, rather than String.equals() - ADR 2012-12-18
+                    // using != and ==, rather than String.equals().
+                    //
+                    // This is one of many places it might be appropriate to use
+                    // org.collectionspace.services.common.api.Tools.notBlank()
+                    // - ADR 2012-12-18
 			if(part != null && part !=""){
 				selector += part;
 			}

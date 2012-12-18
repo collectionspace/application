@@ -194,7 +194,7 @@ public class SchemaStructure {
 			actualValidatedField(out, fs, context);
 		} else if("externalURL".equalsIgnoreCase(uiType)){
 			actualExternalURLField(out, fs, context);
-		} else if("valueDeurned".equalsIgnoreCase(uiType)){
+		} else if("valueDeURNed".equalsIgnoreCase(uiType)){
 			actualDeURNedField(out, fs, context);
                 } else if(fs.isASelfRenderer()){	// also based upon uiType
 			actualSelfRendererField(out, fs, context);
