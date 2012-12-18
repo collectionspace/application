@@ -1,5 +1,5 @@
-
-            <record id="blobs" in-recordlist="no" type="blob" services-workspace-subtypes="foo,bar" cms-type="default" generate-services-schema="true">
+            <record id="blobs" in-recordlist="no" type="blob" services-workspace-subtypes="Picture,File" 
+            		services-folder-subtypes="Picture" cms-type="default" generate-services-schema="true">
                 <services-url>blobs</services-url>
                 <services-tenant-singular>Blob</services-tenant-singular>
                 <terms-used>false</terms-used>

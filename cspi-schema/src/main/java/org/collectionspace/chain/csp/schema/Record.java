@@ -113,9 +113,12 @@ public class Record implements FieldParent {
 		// record,authority,compute-displayname can have multiple types using
 		// commas
 		utils.initSet(section,"@type",new String[] { "record" });
-		
-		utils.initSet(section,"@services-folder-subtypes", new String[] { "record" });
-		utils.initSet(section,"@services-workspace-subtypes", new String[] { "record" });
+		//
+		// Service specific config for Nuxeo ECM platform - things added to the "doctype" definitions
+		//
+		utils.initSet(section,"@services-folder-subtypes", new String[]{});
+		utils.initSet(section,"@services-workspace-subtypes", new String[]{});
+		utils.initSet(section,"@services-prefetch-fields", new String[]{});
 		
 		utils.initStrings(section,"showin","");
 
@@ -465,10 +468,15 @@ public class Record implements FieldParent {
 	public Set<String> getServicesWorkspaceSubtypes() {
 		return utils.getSet("@services-workspace-subtypes");
 	}
+	
+	public Set<String> getServicesPrefetchFields() {
+		return utils.getSet("@services-prefetch-fields");
+	}
 
 	public Spec getSpec() {
 		return spec;
 	}
+	@Override
 	public FieldParent getParent() {
 		return null;
 	}
@@ -1105,15 +1113,5 @@ public class Record implements FieldParent {
 	@Override
 	public boolean isExpander() {
 		return false;
-	}
-
-
-	/*
-	 * If any "prefetch" declaration exist in the record, this returns them.
-	 */
-	public String getPrefetchElement() {
-		// TODO Auto-generated method stub
-		log.warn("Record.getPrefetchElement() is just a stubbed out method.  Please implement this method.");
-		return "";  // FIXME: REM 12-2012 - Add code that finds and returns "<prefetch>" element from App config file.
 	}
 }

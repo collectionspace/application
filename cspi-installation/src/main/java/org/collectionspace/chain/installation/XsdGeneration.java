@@ -37,7 +37,7 @@ public class XsdGeneration {
 	
 	private static final boolean kIS_OSGI_MANIFEST = true;
 	private static final boolean kNOT_AN_OSGI_MANIFEST = false;
-	
+		
 	private static final String NUXEO_PLUGIN_TEMPLATES_DIR = "nx-plugin-templates";
 	private static final String NUXEO_AUTH_TEMPLATES_PREFIX = "auth-";
 	private static final String NUXEO_SCHEMA_TYPE_TEMPLATES_DIR = NUXEO_PLUGIN_TEMPLATES_DIR + "/" + "schema-type-templates";
@@ -68,7 +68,6 @@ public class XsdGeneration {
 	private static final String DOCTYPE_NAME_LOWERCASE_VAR = "${NuxeoDocTypeName_LowerCase}";
 	private static final String AUTHORITY_DOCTYPE_NAME_VAR = "${AuthorityNuxeoDocTypeName}";
 	
-
 	private static final String SERVICE_NAME_VAR = "${ServiceName}";
 	private static final String SERVICE_NAME_LOWERCASE_VAR = "${ServiceName_LowerCase}";	
 	
@@ -77,6 +76,9 @@ public class XsdGeneration {
 	
 	private static final String BUNDLE_SYM_NAME = "${BundleSymbolicName}";
 	private static final String AUTH_BUNDLE_SYM_NAME = "${AuthBundleSymbolicName}";
+	
+	private static final Object SUBTYPE_INDENT = "\t\t\t\t";  // 4 tab characters for indent of folder/workspace <Subtype> element indentation
+	private static final Object PREFETCH_INDENT = "\t\t\t\t";  // 4 tab characters for indent of <Prefetch> content lines
 	
 	private static final String REQUIRE_BUNDLE_LIST_VAR = "${Require-Bundle-List}";
 	private static final String SCHEMA_ELEMENTS_LIST_VAR = "${SchemaElements}";
@@ -95,8 +97,6 @@ public class XsdGeneration {
 	private static final String NX_PLUGIN_NAME = "nx_plugin_out";
 
 	private static final int MAX_OSGI_LINE_LEN = 72;
-
-	private static final Object SUBTYPE_INDENT = "        ";  // 8 spaces for indent of folder/workspace indentation
 	
 	private HashMap<String, String> serviceSchemas = new HashMap<String, String>();
 	private HashMap<String, String> serviceSchemaBundles = new HashMap<String, String>();
@@ -351,7 +351,7 @@ public class XsdGeneration {
 				//
 				String schemaElementsList = getSchemaElementsList(record, definedSchemaList);
 				substitutionMap.put(SCHEMA_ELEMENTS_LIST_VAR, schemaElementsList);
-				substitutionMap.put(PREFETCH_ELEMENT_LIST_VAR, record.getPrefetchElement());
+				substitutionMap.put(PREFETCH_ELEMENT_LIST_VAR, getPrefetchElement(record));
 				
 				String schemaParentType = DEFAULT_PARENT_TYPE;
 				if (record.isServicesExtension() == true) { // If we know this is an extension of a common base type, we need to set the parent type
@@ -364,7 +364,7 @@ public class XsdGeneration {
 				
 				String workspaceSubtypes = getWorkspaceSubtypes(record);
 				substitutionMap.put(NUXEO_WORKSPACE_SUBTYPES_VAR, workspaceSubtypes);
-				
+								
 				createOsgiInfFiles(doctypeTemplatesDir, substitutionMap, zos);
 				//
 				// We're finished adding entries so close the zip output stream
@@ -381,11 +381,41 @@ public class XsdGeneration {
 		}
 	}
 
+	/*
+	 * Return the Nuxeo <prefetch> element for the Nuxeo doctype.
+	 */
+	private String getPrefetchElement(Record record) {
+		String result = "";
+		
+		Set<String> prefetchFieldList = record.getServicesPrefetchFields();
+		if (prefetchFieldList != null && prefetchFieldList.isEmpty() == false) {
+			StringBuffer out = new StringBuffer();
+			out.append("<prefetch>\n");
+			for (String prefetchField : prefetchFieldList) {
+				out.append(PREFETCH_INDENT);
+				out.append(prefetchField);
+				out.append('\n');
+			}
+			out.append(PREFETCH_INDENT);
+			out = out.deleteCharAt(out.length() - 1); // delete the last '\t' character to align with opening <prefetch> element
+			out.append("</prefetch>");
+			result = out.toString();
+		}
+		
+		return result;
+	}
+
+	/*
+	 * Return the Nuxeo EMC "Folder" <Subtype> declarations
+	 */
 	private String getFolderSubtypes(Record record) {
 		Set<String> folderSubtypeList = record.getServicesFolderSubtypes();
 		return getSubtypes(folderSubtypeList);
 	}
 	
+	/*
+	 * Return the Nuxeo EMC "Workspace" <Subtype> declarations
+	 */	
 	private String getWorkspaceSubtypes(Record record) {
 		Set<String> workspaceSubtypeList = record.getServicesWorkspaceSubtypes();
 		return getSubtypes(workspaceSubtypeList);
@@ -412,7 +442,7 @@ public class XsdGeneration {
 				elementList.append("<type>");
 				elementList.append(folderSubtype);
 				elementList.append("</type>");
-				elementList.append("\n");
+				elementList.append('\n');
 			}
 			result = elementList.substring(0, elementList.length() - 1); // Remove the last end-of-line
 		}

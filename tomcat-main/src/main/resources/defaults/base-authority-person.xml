@@ -1,4 +1,5 @@
-<record id="person" type="authority" cms-type="default" generate-services-schema="false">
+<record id="person" type="authority" cms-type="default" generate-services-schema="true"
+		services-prefetch-fields="persons_common:personTermGroupList/0/termDisplayName,persons_common:refName,persons_common:shortIdentifier">
     <terms-used>false</terms-used>
     <web-url>person</web-url>
     
