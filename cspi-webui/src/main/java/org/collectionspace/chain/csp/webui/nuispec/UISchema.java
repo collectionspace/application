@@ -96,6 +96,13 @@ public class UISchema extends SchemaStructure implements WebMethod {
 		actualSchemaObject(datatype, null, null, null, urlfield);
 		out.put(getSelector(fs,context),urlfield);
 	}
+        
+        protected void actualDeURNedField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+		String datatype = "string";
+		JSONObject deurnedfield = new JSONObject();
+		actualSchemaObject(datatype, null, null, null, deurnedfield);
+		out.put(getSelector(fs,context),deurnedfield);
+	}
 	
 	protected void actualSubRecordField(JSONObject out, FieldSet fs, UISpecRunContext context, Record subr, Boolean repeated, JSONObject parent) throws JSONException{
 
