@@ -591,7 +591,15 @@
     ".csc-collection-object-comments-label": {
       "messagekey": "collection-object-commentsLabel"
     }, 
-    ".csc-collection-object-computedCurrentLocation": "${fields.computedCurrentLocation}", 
+    ".csc-collection-object-computedCurrentLocation": {
+      "decorators": [
+        {
+          "func": "cspace.util.urnToStringFieldConverter", 
+          "type": "fluid"
+        }
+      ], 
+      "value": "${fields.computedCurrentLocation}"
+    }, 
     ".csc-collection-object-computedCurrentLocation-label": {
       "messagekey": "collection-object-computedCurrentLocationLabel"
     }, 
