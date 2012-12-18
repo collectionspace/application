@@ -11,10 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
-import org.collectionspace.chain.csp.config.ConfigException;
-
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldParent;
 import org.collectionspace.chain.csp.schema.FieldSet;
@@ -168,8 +165,9 @@ public class UISpec extends SchemaStructure implements WebMethod {
 		
 		JSONObject options=new JSONObject();
 		String extra="";
-		if(f.getRecord().isType("authority"))
+		if(f.getRecord().isType("authority")) {
 			extra="vocabularies/";
+                }
 		String[] contextdata = context.getUIRecordUrl();
 		String autocompleteurl = extra + f.getRecord().getWebURL();
 		if(contextdata.length>0){
@@ -245,6 +243,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @param useContainer
 	 * @throws JSONException 
 	 */
+        @Override
 	protected void actualChooserField(JSONObject out, FieldSet fs, UISpecRunContext context, Boolean useContainer) throws JSONException{
 		if(useContainer){
 			String containerSelector = getContainerSelector(fs,context);
@@ -257,6 +256,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 		}
 	}
 
+        @Override
 	protected Object actualBooleanField(Field f,UISpecRunContext context) throws JSONException {
 		return displayAsplain(f,context);
 	}
@@ -306,6 +306,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 		}
 		return out;
 	}
+        
 	/**
 	 * This is a bit of JSON needed by the UI so they display dates in the UIspec
 	 * @param f
@@ -337,6 +338,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @param context
 	 * @throws JSONException 
 	 */
+        @Override
 	protected void actualDateField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
 		String fieldSelector = getSelector(fs,context);
 		JSONArray decorators = getExistingDecoratorsArray(out, fieldSelector);
@@ -379,6 +381,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @param context
 	 * @throws JSONException 
 	 */
+        @Override
 	protected void actualValidatedField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
 		String fieldSelector = getSelector(fs,context);
 		JSONArray decorators = getExistingDecoratorsArray(out, fieldSelector);
@@ -392,6 +395,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @param context
 	 * @throws JSONException 
 	 */
+        @Override
 	protected void actualExternalURLField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
 		String fieldSelector = getSelector(fs,context);
 		JSONArray decorators = getExistingDecoratorsArray(out, fieldSelector);
@@ -399,7 +403,8 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	}
 	
 	/**
-	 * This is a bit of JSON needed by the UI so they display dates in the UIspec
+	 * This is a bit of JSON needed by the UI so they display fields decorated
+         * with external URL-handling behavior in the UIspec
 	 * @param f
 	 * @param context
 	 * @return
@@ -422,10 +427,51 @@ public class UISpec extends SchemaStructure implements WebMethod {
 		out.put("value", actualFieldEntry(f,context));
 		return out;
 	}
+        
+        /**
+	 * Overwrite with output you need for this thing you are doing
+	 * @param out
+	 * @param fs
+	 * @param context
+	 * @throws JSONException 
+	 */
+        @Override
+	protected void actualDeURNedField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+		String fieldSelector = getSelector(fs,context);
+		JSONArray decorators = getExistingDecoratorsArray(out, fieldSelector);
+		out.put(fieldSelector,actualDeURN(fs,context, decorators));
+	}
+	
+	/**
+	 * This is a bit of JSON needed by the UI so they display fields decorated
+         * with de-URN behavior (extracting display names from URNs) in the UIspec
+         * @param f
+	 * @param context
+	 * @return
+	 * @throws JSONException
+	 */
+	private JSONObject actualDeURN(FieldSet fs,UISpecRunContext context, JSONArray decorators) throws JSONException {
+		JSONObject out=new JSONObject();
+		Field f = (Field)fs;
+		JSONObject decorator=getDecorator("fluid",null,"cspace.util.urnToStringFieldConverter",null,f.isReadOnly());
+		if(!f.isRefactored()){
+			if(f.hasContainer()){
+				decorator.put("container",getSelector(f,context));
+			}
+		}
+		if(decorators==null) {
+			decorators=new JSONArray();
+		}
+		decorators.put(decorator);
+		out.put(DECORATORS_KEY,decorators);
+		out.put("value", actualFieldEntry(f,context));
+		return out;
+	}
 
 	/**
 	 * treat just the same as a normal field - only need the distinction in UISchema
 	 */
+        @Override
 	protected void actualSelfRendererField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
 		actualField(out, fs, context);
 	}
@@ -436,6 +482,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @param context
 	 * @throws JSONException 
 	 */
+        @Override
 	protected void actualField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
 		// When generating the actual field entry for a structured date in the context
 		// of range search, we have to output a simple date spec
@@ -455,8 +502,10 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @param fs
 	 * @param out
 	 * @param context
-	 * @throws JSONException 
+         * @param contents 
+         * @throws JSONException 
 	 */
+        @Override
 	protected void actualGroupEntry(FieldSet fs, JSONObject out, UISpecRunContext context, JSONObject contents) throws JSONException{
 		out.put(getSelector(fs,context),contents);
 	}
@@ -507,6 +556,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @param label
 	 * @throws JSONException
 	 */
+        @Override
 	protected void actualMessageKey(JSONObject temp, String labelSelector, String label) throws JSONException {
 		JSONObject msg = new JSONObject();
 		msg.put("messagekey", label);
@@ -519,6 +569,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @param context
 	 * @throws JSONException 
 	 */
+        @Override
 	protected void actualFieldExpanderEntry(JSONObject out,FieldSet fs, UISpecRunContext context) throws JSONException{
 		if("radio".equals(fs.getUIType())){
 			JSONObject expander = new JSONObject();
@@ -542,9 +593,11 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * output the ENUM markup for the UISpec
 	 * @param f
 	 * @param context
-	 * @return
+         * @param decorators 
+         * @return
 	 * @throws JSONException
 	 */
+        @Override
 	protected Object actualENUMField(Field f,UISpecRunContext context, JSONArray decorators) throws JSONException {
 		JSONObject out = new JSONObject();
 		JSONObject options = new JSONObject();
@@ -573,6 +626,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @return
 	 * @throws JSONException
 	 */
+        @Override
 	protected Object actualOptionField(Field f,UISpecRunContext context) throws JSONException {
 		// Dropdown entry
 		JSONObject out=new JSONObject();
@@ -590,8 +644,9 @@ public class UISpec extends SchemaStructure implements WebMethod {
 			if(opt.getID().equals("")){ hasdefault = true;}
 			ids.put(opt.getID());
 			names.put(opt.getName());
-			if(opt.isDefault())
+			if(opt.isDefault()) {
 				dfault=opt.getID();
+                        }
 		}
 		
 		//need to make sure there is always a blank on search and default is ""
@@ -604,14 +659,16 @@ public class UISpec extends SchemaStructure implements WebMethod {
 		else{
 
 			//currently only supports single select dropdowns and not multiselect
-			if(dfault!=null)
+			if(dfault!=null) {
 				out.put("default",dfault+"");
+                        }
 			out.put("optionlist",ids);
 			out.put("optionnames",names);	
 		}
 		return out;
 	}
 
+        @Override
 	protected void actualAddDecorator(FieldSet fs, JSONObject out, UISpecRunContext sub,
 					JSONObject options) throws JSONException{
 		sub.setUIAffix(fs.getID()+"-");
@@ -631,6 +688,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @param tree
 	 * @throws JSONException
 	 */
+        @Override
 	protected void actualSelfRenderer(JSONObject out, JSONObject tree) throws JSONException{
 		JSONObject expander = new JSONObject();
 		expander.put("type", "fluid.noexpand");
@@ -649,6 +707,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @param subitems
 	 * @throws JSONException
 	 */
+        @Override
 	protected void actualOtherGroup(FieldSet fs, JSONObject out, UISpecRunContext sub,  Record subitems) throws JSONException{
 		out.put("value",displayAsveryplain("fields."+fs.getPrimaryKey()));
 		for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {		
@@ -665,6 +724,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @param options
 	 * @throws JSONException 
 	 */
+        @Override
 	protected void actualStructuredDate(FieldSet fs, JSONObject out, UISpecRunContext sub, JSONObject subexpander, Record subitems, JSONObject options) throws JSONException{
 		out.put("value",displayAsveryplain("fields."+fs.getPrimaryKey()));
 		Boolean truerepeat = false;
@@ -711,6 +771,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @param context
 	 * @throws JSONException 
 	 */
+        @Override
 	protected void actualTrueTreeEntry(JSONObject out,FieldSet fs, UISpecRunContext context) throws JSONException{
 
 		JSONObject tout = new JSONObject();
@@ -764,6 +825,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @param context
 	 * @throws JSONException 
 	 */
+        @Override
 	protected void actualRepeatExpanderEntry(JSONObject out, Repeat r, UISpecRunContext context) throws JSONException{
 		JSONArray expanders = new JSONArray();
 		JSONObject siblingexpander = new JSONObject();
@@ -835,9 +897,11 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * Overwrite with the output you need for the thing you are doing.
 	 * @param out
 	 * @param r
-	 * @param context
-	 * @param contents
+         * @param context
+         * @param preProtoTree
+         * @throws JSONException
 	 */
+    @Override
 	protected void actualRepeatNonSiblingEntry(JSONObject out, Repeat r, UISpecRunContext context, JSONObject preProtoTree) throws JSONException{
 
 		JSONArray decorators=new JSONArray();
@@ -893,6 +957,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @param children
 	 * @throws JSONException 
 	 */
+        @Override
 	protected void actualRepeatSiblingEntry(JSONObject out, Repeat r, UISpecRunContext context, JSONArray children) throws JSONException{
 		JSONObject row=new JSONObject();
 		row.put("children",children);
@@ -905,6 +970,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @param context
 	 * @throws JSONException 
 	 */
+        @Override
 	protected void actualUploaderEntry(JSONObject out,FieldSet fs, UISpecRunContext context) throws JSONException{
 		String condition =  "cspace.mediaUploader.assertBlob";
 
@@ -934,6 +1000,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	}
 
 	// XXX make common
+        @Override
 	protected Object displayAsplain(Field f,UISpecRunContext context) {
 		if(f.getParent().isExpander() ||  f.isRepeatSubRecord()){
 			return displayAsradio(f);
@@ -990,8 +1057,10 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	/**
 	 * ${items.0.name}
 	 * @param f
-	 * @return
+         * @return
+         * @throws JSONException  
 	 */
+        @Override
 	protected Object displayAsplainlist(Field f) throws JSONException {
 		List<String> path=new ArrayList<String>();
 		String name="items";
@@ -1088,6 +1157,8 @@ public class UISpec extends SchemaStructure implements WebMethod {
 		List<String> affixes = Arrays.asList(context.getUIAffix());
 		String selector = pre;
 		for(String part : affixes) {
+                    // FIXME: NetBeans flagged this String comparison for
+                    // using != and ==, rather than String.equals() - ADR 2012-12-18
 			if(part != null && part !=""){
 				selector += part;
 			}
@@ -1123,8 +1194,10 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @param options
 	 * @param subitems
 	 * @param sub
-	 * @throws JSONException
+         * @param mainContext 
+         * @throws JSONException
 	 */
+        @Override
 	protected void makeAStructureDate(FieldSet fs, JSONObject out,
 			JSONObject subexpander, JSONObject options, Record subitems,
 			UISpecRunContext sub, UISpecRunContext mainContext) throws JSONException {
@@ -1151,6 +1224,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @param sub
 	 * @throws JSONException
 	 */
+        @Override
 	protected void makeAOtherGroup(FieldSet fs, JSONObject out,
 			JSONObject subexpander, JSONObject options, Record subitems,
 			UISpecRunContext sub) throws JSONException {
@@ -1169,6 +1243,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @param sub
 	 * @throws JSONException
 	 */
+        @Override
 	protected void makeASelfRenderer(FieldSet fs, UISpecRunContext context,
 			JSONObject out, JSONObject subexpander, JSONObject options,
 			Record subitems, UISpecRunContext sub) throws JSONException {

@@ -183,7 +183,7 @@ public class SchemaStructure {
 		if(fs.hasAutocompleteInstance()) {
 			actualAuthorities(out, fs, context);
 			// Allow dual behaviors here
-			if("externalURL".equals(uiType)){
+			if("externalURL".equalsIgnoreCase(uiType)){
 				actualExternalURLField(out, fs, context);
 			}
 		} else if("chooser".equals(uiType) && !this.spectype.equals("search")) {
@@ -192,9 +192,11 @@ public class SchemaStructure {
 			actualDateField(out, fs, context);
 		} else if("validated".equals(uiType)){
 			actualValidatedField(out, fs, context);
-		} else if("externalURL".equals(uiType)){
+		} else if("externalURL".equalsIgnoreCase(uiType)){
 			actualExternalURLField(out, fs, context);
-		} else if(fs.isASelfRenderer()){	// also based upon uiType
+		} else if("valueDeurned".equalsIgnoreCase(uiType)){
+			actualDeURNedField(out, fs, context);
+                } else if(fs.isASelfRenderer()){	// also based upon uiType
 			actualSelfRendererField(out, fs, context);
 		} else{
 			actualField(out, fs, context);
@@ -245,7 +247,15 @@ public class SchemaStructure {
 	 */
 	protected void actualExternalURLField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
 	}
-	
+        /**
+	 * 
+	 * @param out
+	 * @param fs
+	 * @param context
+	 * @throws JSONException 
+	 */
+	protected void actualDeURNedField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+	}
 	/**
 	 * Overwrite with output you need for this thing you are doing
 	 * @param out
@@ -285,9 +295,11 @@ public class SchemaStructure {
 			actualDateField(out, fs, context);
 		} else if("validated".equals(uiType)){
 			actualValidatedField(out, fs, context);
-		} else if("externalURL".equals(uiType)){
+		} else if("externalURL".equalsIgnoreCase(uiType)){
 			actualExternalURLField(out, fs, context);
-		}
+		} else if("valueDeurned".equalsIgnoreCase(uiType)){
+			actualDeURNedField(out, fs, context);
+                }
 	}
 
 	protected Object actualFieldEntry(FieldSet fs, UISpecRunContext context ) throws JSONException {
@@ -960,8 +972,8 @@ public class SchemaStructure {
 	private Boolean isExpander(FieldSet fs){
 		return fs.isExpander();
 	}
-	
-	
+
+
 	
 	
 	
