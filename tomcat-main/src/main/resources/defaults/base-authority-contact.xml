@@ -1,5 +1,5 @@
             <record id="contact" in-recordlist="no" type="authority,compute-displayname" cms-type="default"
-            		generate-services-schema="false" generate-if-authority="false">
+            		generate-services-schema="true" generate-if-authority="false">
                 <web-url>contact</web-url>
                 <services-url>contacts</services-url>
                 

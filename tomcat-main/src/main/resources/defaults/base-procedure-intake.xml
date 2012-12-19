@@ -1,4 +1,4 @@
-<record id="intake" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="false">
+<record id="intake" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
                 <services-url>intakes</services-url>
                 <services-tenant-singular>Intake</services-tenant-singular>
                 

@@ -1,4 +1,3 @@
-
             <record id="dimension" in-recordlist="no" separate-record="false" services-type="measuredPartGroupList">
                 <hassoftdelete>true</hassoftdelete>
 				<section id="dimensionInformation">
@@ -83,6 +82,7 @@
 		                    </field>
 	                        <field id="valueDate" ui-type="date" datatype="date"></field>
 	                        <field id="valueQualifier"></field>
+	                        <field id="dimensionNote"></field>
 	                    </repeat>
                     </repeat>
                 </section>

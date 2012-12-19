@@ -1,4 +1,4 @@
-<record id="reports" in-recordlist="no" type="authorizationdata" cms-type="default" generate-services-schema="false">
+<record id="reports" in-recordlist="no" type="authorizationdata" cms-type="default" generate-services-schema="true">
 	<web-url>reporting</web-url>
 	<terms-used>false</terms-used>
 	<refobj-used>false</refobj-used>

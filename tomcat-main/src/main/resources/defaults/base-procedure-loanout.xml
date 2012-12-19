@@ -1,4 +1,4 @@
-            <record id="loanout" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="false">
+            <record id="loanout" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
                 <services-url>loansout</services-url>
                 <services-tenant-singular>Loanout</services-tenant-singular>
                 <services-tenant-plural>Loansout</services-tenant-plural>

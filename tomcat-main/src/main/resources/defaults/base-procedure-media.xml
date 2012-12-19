@@ -1,4 +1,4 @@
-            <record id="media" in-findedit="yes" type="procedure,record" cms-type="default" generate-services-schema="false">
+            <record id="media" in-findedit="yes" type="procedure,record" cms-type="default" generate-services-schema="true">
                 <services-url>media</services-url>      
                 <services-tenant-singular>Media</services-tenant-singular>
                 <services-tenant-plural>Media</services-tenant-plural>                

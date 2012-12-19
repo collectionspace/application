@@ -1,4 +1,4 @@
-            <record id="movement" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="false">
+            <record id="movement" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
                 <services-url>movements</services-url>
                 <web-url>movement</web-url>
                 <tab-url>movement-tab</tab-url>

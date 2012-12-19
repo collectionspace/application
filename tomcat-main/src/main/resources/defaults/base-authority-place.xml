@@ -1,4 +1,4 @@
-<record id="place" type="authority" cms-type="default" generate-services-schema="false">
+<record id="place" type="authority" cms-type="default" generate-services-schema="true">
 
     <web-url>place</web-url>
     
