@@ -1,147 +1,212 @@
-{"concept": {
+{
+  "concept": {
     "properties": {
-        "relations": {
-            "default": {},
-            "type": "object"
-        },
-        "csid": {"type": "string"},
-        "fields": {
-            "properties": {
-                "tenantID": {"type": "string"},
-                "citationGroup": {
-                    "items": {
-                        "properties": {
-                            "_primary": {
-                                "default": true,
-                                "type": "boolean"
-                            },
-                            "citationSourceDetail": {"type": "string"},
-                            "citationSource": {"type": "string"}
-                        },
-                        "type": "object"
-                    },
-                    "type": "array"
-                },
-                "relatedTerms": {
-                    "items": {
-                        "properties": {
-                            "_primary": {
-                                "default": true,
-                                "type": "boolean"
-                            },
-                            "relatedTerm": {"type": "string"}
-                        },
-                        "type": "object"
-                    },
-                    "type": "array"
-                },
-                "scopeNoteSourceDetail": {"type": "string"},
-                "csid": {"type": "string"},
-                "uri": {"type": "string"},
-                "updatedBy": {"type": "string"},
-                "shortIdentifier": {"type": "string"},
-                "updatedAt": {"type": "date"},
-                "createdBy": {"type": "string"},
-                "scopeNote": {"type": "string"},
-                "conceptTermGroup": {
-                    "items": {
-                        "properties": {
-                            "termName": {"type": "string"},
-                            "termSource": {"type": "string"},
-                            "termSourceID": {"type": "string"},
-                            "termSourceNote": {"type": "string"},
-                            "termLanguage": {
-                                "default": "",
-                                "type": "string"
-                            },
-                            "historicalStatus": {
-                                "default": "current",
-                                "type": "string"
-                            },
-                            "termPrefForLang": {
-                                "default": false,
-                                "type": "boolean"
-                            },
-                            "_primary": {
-                                "default": true,
-                                "type": "boolean"
-                            },
-                            "termDisplayName": {"type": "string"},
-                            "termType": {
-                                "default": "",
-                                "type": "string"
-                            },
-                            "termStatus": {
-                                "default": "provisional",
-                                "type": "string"
-                            },
-                            "termQualifier": {"type": "string"},
-                            "termSourceDetail": {"type": "string"}
-                        },
-                        "type": "object"
-                    },
-                    "type": "array"
-                },
-                "broaderContext": {"type": "string"},
-                "createdAt": {"type": "string"},
-                "description": {"type": "string"},
-                "termStatus": {"type": "string"},
-                "refName": {"type": "string"},
-                "additionalSourceGroup": {
-                    "items": {
-                        "properties": {
-                            "additionalSourceDetail": {"type": "string"},
-                            "_primary": {
-                                "default": true,
-                                "type": "boolean"
-                            },
-                            "additionalSource": {"type": "string"},
-                            "additionalSourceID": {"type": "string"},
-                            "additionalSourceNote": {"type": "string"}
-                        },
-                        "type": "object"
-                    },
-                    "type": "array"
-                },
-                "equivalentContexts": {
-                    "items": {
-                        "properties": {
-                            "_primary": {
-                                "default": true,
-                                "type": "boolean"
-                            },
-                            "equivalentContext": {"type": "string"}
-                        },
-                        "type": "object"
-                    },
-                    "type": "array"
-                },
-                "narrowerContexts": {
-                    "items": {
-                        "properties": {
-                            "narrowerContext": {"type": "string"},
-                            "_primary": {
-                                "default": true,
-                                "type": "boolean"
-                            },
-                            "narrowerContextType": {
-                                "default": "",
-                                "type": "string"
-                            }
-                        },
-                        "type": "object"
-                    },
-                    "type": "array"
-                },
-                "recordType": {"type": "string"},
-                "scopeNoteSource": {"type": "string"},
-                "broaderContextType": {
-                    "default": "",
-                    "type": "string"
+      "csid": {
+        "type": "string"
+      }, 
+      "fields": {
+        "properties": {
+          "additionalSourceGroup": {
+            "items": {
+              "properties": {
+                "_primary": {
+                  "default": true, 
+                  "type": "boolean"
+                }, 
+                "additionalSource": {
+                  "type": "string"
+                }, 
+                "additionalSourceDetail": {
+                  "type": "string"
+                }, 
+                "additionalSourceID": {
+                  "type": "string"
+                }, 
+                "additionalSourceNote": {
+                  "type": "string"
                 }
-            },
-            "type": "object"
-        }
-    },
+              }, 
+              "type": "object"
+            }, 
+            "type": "array"
+          }, 
+          "broaderContext": {
+            "type": "string"
+          }, 
+          "broaderContextType": {
+            "default": "", 
+            "type": "string"
+          }, 
+          "citationGroup": {
+            "items": {
+              "properties": {
+                "_primary": {
+                  "default": true, 
+                  "type": "boolean"
+                }, 
+                "citationSource": {
+                  "type": "string"
+                }, 
+                "citationSourceDetail": {
+                  "type": "string"
+                }
+              }, 
+              "type": "object"
+            }, 
+            "type": "array"
+          }, 
+          "conceptTermGroup": {
+            "items": {
+              "properties": {
+                "_primary": {
+                  "default": true, 
+                  "type": "boolean"
+                }, 
+                "historicalStatus": {
+                  "default": "current", 
+                  "type": "string"
+                }, 
+                "termDisplayName": {
+                  "type": "string"
+                }, 
+                "termLanguage": {
+                  "default": "", 
+                  "type": "string"
+                }, 
+                "termName": {
+                  "type": "string"
+                }, 
+                "termPrefForLang": {
+                  "default": false, 
+                  "type": "boolean"
+                }, 
+                "termQualifier": {
+                  "type": "string"
+                }, 
+                "termSource": {
+                  "type": "string"
+                }, 
+                "termSourceDetail": {
+                  "type": "string"
+                }, 
+                "termSourceID": {
+                  "type": "string"
+                }, 
+                "termSourceNote": {
+                  "type": "string"
+                }, 
+                "termStatus": {
+                  "default": "provisional", 
+                  "type": "string"
+                }, 
+                "termType": {
+                  "default": "", 
+                  "type": "string"
+                }
+              }, 
+              "type": "object"
+            }, 
+            "type": "array"
+          }, 
+          "createdAt": {
+            "type": "string"
+          }, 
+          "createdBy": {
+            "type": "string"
+          }, 
+          "csid": {
+            "type": "string"
+          }, 
+          "description": {
+            "type": "string"
+          }, 
+          "equivalentContexts": {
+            "items": {
+              "properties": {
+                "_primary": {
+                  "default": true, 
+                  "type": "boolean"
+                }, 
+                "equivalentContext": {
+                  "type": "string"
+                }
+              }, 
+              "type": "object"
+            }, 
+            "type": "array"
+          }, 
+          "narrowerContexts": {
+            "items": {
+              "properties": {
+                "_primary": {
+                  "default": true, 
+                  "type": "boolean"
+                }, 
+                "narrowerContext": {
+                  "type": "string"
+                }, 
+                "narrowerContextType": {
+                  "default": "", 
+                  "type": "string"
+                }
+              }, 
+              "type": "object"
+            }, 
+            "type": "array"
+          }, 
+          "recordType": {
+            "type": "string"
+          }, 
+          "refName": {
+            "type": "string"
+          }, 
+          "relatedTerms": {
+            "items": {
+              "properties": {
+                "_primary": {
+                  "default": true, 
+                  "type": "boolean"
+                }, 
+                "relatedTerm": {
+                  "type": "string"
+                }
+              }, 
+              "type": "object"
+            }, 
+            "type": "array"
+          }, 
+          "scopeNote": {
+            "type": "string"
+          }, 
+          "scopeNoteSource": {
+            "type": "string"
+          }, 
+          "scopeNoteSourceDetail": {
+            "type": "string"
+          }, 
+          "shortIdentifier": {
+            "type": "string"
+          }, 
+          "tenantID": {
+            "type": "string"
+          }, 
+          "updatedAt": {
+            "type": "date"
+          }, 
+          "updatedBy": {
+            "type": "string"
+          }, 
+          "uri": {
+            "type": "string"
+          }
+        }, 
+        "type": "object"
+      }, 
+      "relations": {
+        "default": {}, 
+        "type": "object"
+      }
+    }, 
     "type": "object"
-}}
+  }
+}
