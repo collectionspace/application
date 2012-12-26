@@ -85,7 +85,7 @@
 		<!-- Local fields -->
 		
 		<field id="deadFlag" datatype="boolean" section="botgarden"/>
-		<field id="deadDate" ui-type="date" section="botgarden"/>
+		<field id="deadDate" ui-search="range" ui-type="date" section="botgarden"/>
 	</section>
 	
 	<section id="descriptionInformation">
@@ -287,6 +287,9 @@
 
 	<section id="localityInformation">
 		<repeat id="localityGroupList/localityGroup">
+			<!-- Add to advanced search -->
+			<field id="taxonomicRange" ui-search="repeatable"/>
+			<field id="fieldLocPlace" ui-search="repeatable"/>
 			<!-- Change to dynamic lists -->
 		    <field id="fieldLocCounty" autocomplete="vocab-county" ui-type="enum"><options/></field>
 			<field id="fieldLocState" autocomplete="vocab-state" ui-type="enum"><options/></field>
