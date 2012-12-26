@@ -72,6 +72,8 @@
 				</options>
 			</field>
 		</repeat>
+		<field id="accessRestrictions" ui-search="repeatable"/>
+		<field id="family" ui-search="repeatable"/>
 		<field id="taxonomicStatus">
 			<options>
 				<option id="" default="yes">Please select a value</option>
@@ -143,7 +145,8 @@
 		
 		<repeat id="plantAttributesGroupList/plantAttributesGroup" section="naturalhistory">
 			<!-- Add autocomplete -->
-			<field id="conservationCategory" autocomplete="concept-conservation_ca"/>
+			<field id="conservationCategory" autocomplete="concept-conservation_ca" ui-search="repeatable"/>
+			<field id="conservationOrganization" ui-search="repeatable"/>
 		</repeat>
 
 		<repeat id="naturalHistoryCommonNameGroupList/naturalHistoryCommonNameGroup">
