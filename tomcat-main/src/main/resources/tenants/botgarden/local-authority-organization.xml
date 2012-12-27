@@ -17,6 +17,7 @@
 		
 	<section id="organizationNameAuthorityInformation">
 		<repeat id="associatedPersonGroupList/associatedPersonGroup">
+			<field id="associatedPerson" ui-search="repeatable"/>
 			<field id="associatedPersonRole">
 				<!-- Define options -->
 				<options>
