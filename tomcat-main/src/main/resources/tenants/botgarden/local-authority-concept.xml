@@ -19,4 +19,9 @@
 			<title>Conservation Categories</title>
 		</instance>
 	</instances>
+	
+	<section id="conceptAuthorityInformation">
+		<field id="associatedPerson" ui-search="repeatable"/>
+		<field id="associatedOrganization" ui-search="repeatable"/>
+	</section>
 </record>
