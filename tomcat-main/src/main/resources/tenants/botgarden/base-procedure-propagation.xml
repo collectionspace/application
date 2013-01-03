@@ -150,7 +150,7 @@
                     <field id="concentration"/>
                     <field id="wounded" datatype="boolean"/>
                     <field id="plantType" autocomplete="vocab-propPlantType" ui-type="enum"/>
-                    <field id="germinationDate" ui-type="date"/>
+                    <field id="germinationDate" ui-type="date" ui-search="range"/>
                     <field id="successRate"/>
                     
                     <repeat id="propActivityGroupList/propActivityGroup">
