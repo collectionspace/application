@@ -7,7 +7,6 @@
 package org.collectionspace.chain.csp.schema;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -17,7 +16,6 @@ import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -82,7 +80,7 @@ public class Record implements FieldParent {
 	private Map<String, Map<String, FieldSet>> minidataset = new HashMap<String, Map<String, FieldSet>>();
 	private Spec spec;
 	private FieldSet mini_summary, mini_number, display_name;
-	private String whoamI = "";
+	private String whoamI = ""; // Used for debugging purposes.
 	private HashSet<String> authTypeTokenSet = new HashSet<String>();
 
 
@@ -118,7 +116,7 @@ public class Record implements FieldParent {
 		//
 		utils.initSet(section,"@services-folder-subtypes", new String[]{});
 		utils.initSet(section,"@services-workspace-subtypes", new String[]{});
-		utils.initSet(section,"@services-prefetch-fields", new String[]{});
+		utils.initSet(section,"@services-prefetch-fields", new String[]{"<!-- Fields to be prefetch by the repository manager. -->"});
 		
 		utils.initStrings(section,"showin","");
 

@@ -4,7 +4,7 @@
 	<refobj-used>false</refobj-used>
 	 
 	<services-url>reports</services-url>
-    <services-tenant-singular>Reports</services-tenant-singular>
+    <services-tenant-singular>Report</services-tenant-singular>
     <services-tenant-plural>Reports</services-tenant-plural>
     
 	<services-list-path>abstract-common-list/list-item</services-list-path>

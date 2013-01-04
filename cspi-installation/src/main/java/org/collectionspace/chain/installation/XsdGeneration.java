@@ -77,8 +77,8 @@ public class XsdGeneration {
 	private static final String BUNDLE_SYM_NAME = "${BundleSymbolicName}";
 	private static final String AUTH_BUNDLE_SYM_NAME = "${AuthBundleSymbolicName}";
 	
-	private static final Object SUBTYPE_INDENT = "\t\t\t\t";  // 4 tab characters for indent of folder/workspace <Subtype> element indentation
-	private static final Object PREFETCH_INDENT = "\t\t\t\t";  // 4 tab characters for indent of <Prefetch> content lines
+	private static final String SUBTYPE_INDENT = "\t\t\t\t";  // 4 tab characters for indent of folder/workspace <Subtype> element indentation
+	private static final String PREFETCH_INDENT = "\t\t\t\t";  // 4 tab characters for indent of <Prefetch> content lines
 	
 	private static final String REQUIRE_BUNDLE_LIST_VAR = "${Require-Bundle-List}";
 	private static final String SCHEMA_ELEMENTS_LIST_VAR = "${SchemaElements}";
@@ -438,13 +438,13 @@ public class XsdGeneration {
 				//
 				// Creates a <type>theTypeName</type> element
 				//
-				elementList.append(SUBTYPE_INDENT);
 				elementList.append("<type>");
 				elementList.append(folderSubtype);
 				elementList.append("</type>");
 				elementList.append('\n');
+				elementList.append(SUBTYPE_INDENT);
 			}
-			result = elementList.substring(0, elementList.length() - 1); // Remove the last end-of-line
+			result = elementList.substring(0, elementList.length() - SUBTYPE_INDENT.length() - 1); // Remove the last end-of-line and tabs
 		}
 		
 		return result;
