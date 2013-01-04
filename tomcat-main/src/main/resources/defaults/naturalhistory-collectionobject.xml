@@ -211,7 +211,13 @@
 	</section>
 
 	<section id="descriptionInformation">
-		<field id="cultivated" datatype="boolean" section="naturalhistory"/>
+		<field id="cultivated" section="naturalhistory" ui-search="single">
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			</options>
+		</field>
 		<repeat id="annotationGroupList/annotationGroup" section="naturalhistory">
 			<field id="annotationType" section="naturalhistory">
 				<selector>collection-object-annotationType</selector>
@@ -239,7 +245,13 @@
 			</field>
 		</repeat>
 		
-		<field id="rare" datatype="boolean" section="naturalhistory"/>
+		<field id="rare" section="naturalhistory" ui-search="single">
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			</options>
+		</field>
 
 	    <field id="provenanceType" section="naturalhistory">
    		    <options>
@@ -545,7 +557,7 @@
                                     <option id="Howard">Howard</option>
                                     <option id="Huancabamba">Huancabamba</option>
                                     <option id="Huanuco">Huanuco</option>
-                                    <option id="HUMBOLDT">HUMBOLDT</option>
+                                    <option id="Humboldt">Humboldt</option>
                                     <option id="Hunterdon">Hunterdon</option>
                                     <option id="Huntingdonshire (UK)">Huntingdonshire (UK)</option> 
                                     <option id="Huron">Huron</option>
