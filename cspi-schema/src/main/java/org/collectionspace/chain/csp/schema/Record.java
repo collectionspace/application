@@ -7,10 +7,8 @@
 package org.collectionspace.chain.csp.schema;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,7 +16,6 @@ import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -31,15 +28,17 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public class Record implements FieldParent {
+	private static final Logger log = LoggerFactory.getLogger(Record.class);
 	
 	public final static String BLOB_SOURCE_URL = "blobUri"; // BlobClient.BLOB_URI_PARAM; // The 'blobUri' query param used to pass an external URL for the services to download data from
 	public final static String BLOB_PURGE_ORIGINAL = "blobPurgeOrig"; // BlobClient.BLOB_PURGE_ORIGINAL;
 
+	private static final String TYPE_AUTHORITY = "authority";
+	
 	public static final String SUPPORTS_LOCKING = "supportslocking";
 	public static final String RANGE_START_SUFFIX = "Start";
 	public static final String RANGE_END_SUFFIX = "End";
 	
-	private static final Logger log = LoggerFactory.getLogger(Record.class);
 	protected SchemaUtils utils = new SchemaUtils();
 	
 	private Map<String, Structure> structure = new HashMap<String, Structure>();
@@ -76,12 +75,12 @@ public class Record implements FieldParent {
 	//list of all 'record' e.g. structuredDates, dimensions etc that are included
 	private Map<String, String> nestedFieldList = new HashMap<String, String>();
 	
-	private Map<String, Instance> instances = new LinkedHashMap<String, Instance>();
+	private Map<String, Instance> instances = new HashMap<String, Instance>();
 	private Map<String, FieldSet> summarylist = new HashMap<String, FieldSet>();
 	private Map<String, Map<String, FieldSet>> minidataset = new HashMap<String, Map<String, FieldSet>>();
 	private Spec spec;
 	private FieldSet mini_summary, mini_number, display_name;
-	private String whoamI = "";
+	private String whoamI = ""; // Used for debugging purposes.
 	private HashSet<String> authTypeTokenSet = new HashSet<String>();
 
 
@@ -98,9 +97,27 @@ public class Record implements FieldParent {
 		// standard = singular form of the concept
 		utils.initStrings(section,"@id",null);
 		whoamI = utils.getString("@id");
+		
+		utils.initStrings(section, "@cms-type", "none");
+		utils.initBoolean(section, "@generate-services-schema", true);
+		utils.initBoolean(section,"@is-extension", false);
+		utils.initBoolean(section,"@generate-if-authority", true); // REM: 12/2012 - The Contact service config file will set this value to false for schema generation -"false" since Contact is not a true authority from the Service's perspective.
+		
+		//
+		// The name for used to create the Services XML Schema.
+		//
+		utils.initStrings(section, "@services-type", null);
+		
 		// record,authority,compute-displayname can have multiple types using
 		// commas
 		utils.initSet(section,"@type",new String[] { "record" });
+		//
+		// Service specific config for Nuxeo ECM platform - things added to the "doctype" definitions
+		//
+		utils.initSet(section,"@services-folder-subtypes", new String[]{});
+		utils.initSet(section,"@services-workspace-subtypes", new String[]{});
+		utils.initSet(section,"@services-prefetch-fields", new String[]{"<!-- Fields to be prefetch by the repository manager. -->"});
+		
 		utils.initStrings(section,"showin","");
 
 		// specified that it is included in the findedit uispec - probably not useful any more?
@@ -110,9 +127,7 @@ public class Record implements FieldParent {
 
 		//Record differentiates between things like structureddates and procedures
 		utils.initBoolean(section,"@separate-record",true);
-		
-		
-		
+				
 		// config whether service layer needs call as multipart or not - authorization is not currently multipart
 		utils.initBoolean(section,"is-multipart",true);
 
@@ -192,10 +207,12 @@ public class Record implements FieldParent {
 
 
 		utils.initStrings(section,"services-tenant-singular", utils.getString("services-url"));
+		utils.initStrings(section,"services-tenant-doctype", utils.getString("services-tenant-singular"));
+		
 		utils.initStrings(section,"services-tenant-plural", utils.getString("services-tenant-singular")+"s");
 		utils.initStrings(section,"services-tenant-auth-singular", utils.getString("services-url"));
 		utils.initStrings(section,"services-tenant-auth-plural", utils.getString("services-tenant-singular")+"s");
-
+		
 		utils.initStrings(section,"services-schemalocation", "http://services.collectionspace.org");
 		
 		utils.initStrings(section,"services-dochandler","org.collectionspace.services."+ utils.getString("services-tenant-singular").toLowerCase() +".nuxeo."+ utils.getString("services-tenant-singular")+"DocumentModelHandler");
@@ -362,6 +379,11 @@ public class Record implements FieldParent {
 		}
 		return null;
 	}
+	
+	public Map<String, String> getNestedFieldList() {
+		return this.nestedFieldList;
+	}
+	
 	public FieldSet getServiceFieldFullList(String id) {
 		return serviceFieldFullList.get(id);
 	}
@@ -400,11 +422,6 @@ public class Record implements FieldParent {
 	}
 	/** end field functions **/
 	
-	
-	
-	
-	
-	
 	public String getID() {
 		return utils.getString("@id");
 	}
@@ -433,13 +450,31 @@ public class Record implements FieldParent {
 			return utils.getString("showin").equals(k);
 		}
 	}
+	
+	public boolean isAuthorityItemType() {
+		return isType(TYPE_AUTHORITY) && shouldGenerateAuthoritySchema();
+	}
+		
 	public boolean isType(String k) {
 		return utils.getSet("@type").contains(k);
+	}
+	
+	public Set<String> getServicesFolderSubtypes() {
+		return utils.getSet("@services-folder-subtypes");
+	}
+
+	public Set<String> getServicesWorkspaceSubtypes() {
+		return utils.getSet("@services-workspace-subtypes");
+	}
+	
+	public Set<String> getServicesPrefetchFields() {
+		return utils.getSet("@services-prefetch-fields");
 	}
 
 	public Spec getSpec() {
 		return spec;
 	}
+	@Override
 	public FieldParent getParent() {
 		return null;
 	}
@@ -454,6 +489,26 @@ public class Record implements FieldParent {
 	}
 	public String getUILabel(String id){
 		return utils.getString("@id") + "-" + id + "Label";
+	}
+	public String getServicesType() {
+		String result = utils.getString("@services-type");
+		return result;
+	}
+	public String getServicesCmsType() {
+		String result = utils.getString("@cms-type");
+		return result;
+	}
+	private boolean shouldGenerateAuthoritySchema() {
+		boolean result = utils.getBoolean("@generate-if-authority");		
+		return result;
+	}
+	public boolean isServicesExtension() {
+		boolean result = utils.getBoolean("@is-extension");		
+		return result;
+	}
+	public boolean isGenerateServicesSchema() {
+		boolean result = utils.getBoolean("@generate-services-schema");		
+		return result;
 	}
 	public String getUILabelSelector(String id){
 		return getPreSelector()  + utils.getString("@id") + "-" +  id + "-label";
@@ -476,8 +531,6 @@ public class Record implements FieldParent {
 		}
 		return null;
 	}
-
-
 
 	public String enumBlankValue(){
 		return utils.getString("enum-blank");
@@ -601,6 +654,17 @@ public class Record implements FieldParent {
 	public String getServicesTenantAuthSg() {
 		return utils.getString("services-tenant-auth-singular");
 	}
+	
+	public String getServicesTenantDoctype() {
+		String result = this.getServicesTenantSg();
+		
+		String elementVal = utils.getString("services-tenant-doctype");
+		if (elementVal != null && elementVal.trim().isEmpty() == false) {
+			result = elementVal;
+		}
+		
+		return result;
+	}	
 
 	public String getServicesTenantAuthPl() {
 		return utils.getString("services-tenant-auth-plural");

@@ -416,6 +416,7 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 					else
 						//apply_include(find_entity(include.src),include.strip); //put merge code here when "merge" REM
 						apply_include(include);
+						System.err.println("Including: " + include.src);
 				} else {
 					up.startElement(uri, localName, qName, attributes);
 				}

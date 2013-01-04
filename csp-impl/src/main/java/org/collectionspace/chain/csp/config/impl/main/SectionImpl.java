@@ -31,9 +31,13 @@ public class SectionImpl implements Section {
 		this.target=target;
 	}
 	
+	@Override
 	public ReadOnlySection getParent() { return parent; }
+	@Override
 	public String getName() { return name; }
+	@Override
 	public void addValue(String key,Object value) { map.put(key,value); }
+	@Override
 	public Object getValue(String key) { return map.get(key); }
 	void addChild(SectionImpl m) { children.add(m); }
 	
@@ -53,6 +57,7 @@ public class SectionImpl implements Section {
 			m.dump();
 	}
 
+	@Override
 	public ReadOnlySection[] getChildren() {
 		return children.toArray(new ReadOnlySection[0]);
 	}

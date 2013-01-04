@@ -1,11 +1,13 @@
-<record id="loanin" in-findedit="yes" type="record,procedure">
+<record id="loanin" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
                 <services-url>loansin</services-url>
                 <services-tenant-plural>Loansin</services-tenant-plural>
                 <services-tenant-singular>Loanin</services-tenant-singular>
+                
                 <services-list-path>abstract-common-list/list-item</services-list-path>
                 <services-record-path>loansin_common:http://collectionspace.org/services/loanin,loansin_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 <hassoftdelete>true</hassoftdelete>
+                
                 <structures>
                     <structure id="search">
                         <view>
@@ -61,11 +63,7 @@
 				
                 <row-selector>.csc-recordList-row:</row-selector>
                 <section id="coreInformation">
-                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
-                    <field id="createdBy" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
-                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                    <include src="core-fields.xml"  strip-root="yes" />
                 </section>
                 <section id="loaninInformation">
                     <field id="loanInNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate" seperate_ui_container="true">
@@ -96,7 +94,7 @@
                         <field id="lendersAuthorizer" autocomplete="person-person">
                             <selector>loanIn-lendersAuthorizer</selector>
                         </field>
-                        <field id="lendersAuthorizationDate" ui-type="date" >
+                        <field id="lendersAuthorizationDate" ui-type="date" datatype="date">
                             <selector>loanIn-lendersAuthorizerDate</selector>
                         </field>
                         <field id="lendersContact" autocomplete="person-person">
@@ -105,25 +103,25 @@
                     </repeat>
                     <field id="borrowersAuthorizer" autocomplete="person-person"></field>
                     <field id="borrowersContact" autocomplete="person-person"></field>
-                    <field id="borrowersAuthorizationDate"  ui-type="date"></field>
+                    <field id="borrowersAuthorizationDate" ui-type="date"  datatype="date"></field>
                     <field id="loanInConditions">
                         <selector>loanIn-loanInConditions</selector>
                     </field>
                     <field id="loanInNote">
                         <selector>loanIn-loanInNote</selector>
                     </field>
-                    <field id="loanInDate" ui-search="range" ui-type="date" >
+                    <field id="loanInDate" ui-search="range" ui-type="date" datatype="date">
                         <selector>loanIn-loanInDate</selector>
                     </field>
-                    <field id="loanReturnDate" ui-search="range" ui-type="date" >
+                    <field id="loanReturnDate" ui-search="range" ui-type="date" datatype="date">
                         <selector>loanIn-loanReturnDate</selector>
                     </field>
-                    <field id="loanRenewalApplicationDate" ui-search="range" ui-type="date" >
+                    <field id="loanRenewalApplicationDate" ui-search="range" ui-type="date" datatype="date">
                         <selector>loanIn-loanRenewalApplicationDate</selector>
                     </field>
                     <repeat id="loanStatusGroupList/loanStatusGroup">
                         <field id="loanStatus" ui-search="repeatable" autocomplete="vocab-lostatus" ui-type="enum"></field>
-                        <field id="loanStatusDate" ui-type="date"></field>
+                        <field id="loanStatusDate" ui-type="date" datatype="date"></field>
                         <field id="loanStatusNote"></field>
                     </repeat>
                 </section>

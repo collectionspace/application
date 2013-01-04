@@ -1,4 +1,4 @@
-<record id="organization" type="authority">
+<record id="organization" type="authority" cms-type="default" generate-services-schema="true">
     <web-url>organization</web-url>
     <services-tenant-auth-plural>Orgauthorities</services-tenant-auth-plural>
     <services-tenant-auth-singular>Orgauthority</services-tenant-auth-singular>
@@ -45,14 +45,10 @@
         </instance>
     </instances>
     
-    <section id="coreInformation">
-        <field id="tenantID" section="collectionspace_core" attributes="GET"/>
-        <field id="createdBy" section="collectionspace_core" attributes="GET"/>
-        <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"/>
-        <field id="createdAt" section="collectionspace_core" attributes="GET"/>
-        <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core"
-            attributes="GET" mini="search,list,relate"/>
-    </section>                 
+	<section id="coreInformation">
+		<include src="core-fields.xml"  strip-root="yes" />
+	</section>
+	
     <section id="organizationNameAuthorityInformation">
         <field id="preferredOrganization" ui-type="groupfield/preferredOA/selfrenderer" ui-func="cspace.preferred">
             <selector>preferred-orgAuthority</selector>
@@ -97,9 +93,11 @@
     </section>
     <!-- not used in UI except in autocompletes -->
     <section id="otherInformation">
+       	<field id="inAuthority"></field>
+    	<field id="deprecatedRefName">
+			<services-tag>refName</services-tag>
+		</field>
         <field id="shortIdentifier" mini="search,list,relate" attributes="GET"/>
-        <field id="csid" mini="search,list,relate" attributes="GET"/>
-        <field id="refName" mini="search,list,relate" attributes="GET"/>
-        <field id="uri" mini="search,list,relate" attributes="GET"/>
+        <field id="csid" exists-in-services="false" mini="search,list,relate" attributes="GET"/>
     </section>
 </record>

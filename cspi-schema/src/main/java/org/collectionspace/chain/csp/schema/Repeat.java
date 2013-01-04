@@ -16,9 +16,8 @@ import java.util.Stack;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 
-public class Repeat implements FieldSet, FieldParent  {
+public class Repeat extends FieldSetImpl implements FieldParent  {
 	
-	protected SchemaUtils utils = new SchemaUtils();
 	protected String[] services_parent;
 	protected FieldParent parent;
 	protected Stack<String> merged = new Stack<String>();
@@ -70,6 +69,8 @@ public class Repeat implements FieldSet, FieldParent  {
 	 * @param section
 	 */
 	protected void initialiseVariables(ReadOnlySection section, String tempid) {
+		super.initialiseVariables(section, tempid);
+		
 		utils.initStrings(section,"@id",tempid);
 		this.setRepeatSubRecord(false);
 		utils.setString("fullid",utils.getString("@id"));
@@ -81,6 +82,7 @@ public class Repeat implements FieldSet, FieldParent  {
 		utils.initBoolean(section,"@asSibling",false); //show repeatables as siblings rather than proper repeat - used in roles and permissions
 		utils.initStrings(section,"@section","common"); //Service section that this field exists in
 		utils.initBoolean(section,"@exists-in-services",true); //in case you want to totally hide something from the services
+		utils.initBoolean(section,"@services-type-anonymous", true); //in case you want to totally hide something from the services
 		// should this field allow a primary flag in the UI repeat spec and schema
 		utils.initBoolean(section,"@has-primary",true);
 		// used when want to override default grouped behaviour e.g. blobs in media
@@ -164,11 +166,10 @@ public class Repeat implements FieldSet, FieldParent  {
 		
 		//define the operations that the Service layer allows for this item
 		utils.initSet(section, "@attributes", new String[] {"GET","PUT","POST","DELETE"});
+
 	}
 
-	public String getID() {
-		return utils.getString("@id");
-	}
+	@Override
 	public SchemaUtils getUtils() {
 		return utils;
 	}
@@ -177,18 +178,39 @@ public class Repeat implements FieldSet, FieldParent  {
 		return utils.getString("fullid");
 	}
 
+	@Override
 	public String getUISpecPrefix() {
 		return utils.getString("@ui-spec-prefix");
 	}
 	//this affects the depth of nesting in the things like the elPaths e.g. false: "elPath": "fields..0.telephoneNumberGroup" vs true: "elPath": "fields.telephoneNumberGroup"
+	@Override
 	public Boolean getUISpecInherit() {
 		return utils.getBoolean("@ui-spec-inherit");
 	}
 	
+	@Override
 	public boolean hasServicesParent() {
 		return utils.getBoolean("has_services_parent");
 	}
+	
+	public boolean hasOrphans() {
+		Boolean result = utils.getBoolean("@hasOrphans");
+		if (result == null) {
+			FieldSet[] children = this.getChildren(null);
+			if (children.length == 1) {
+				if (children[0].isAGroupField() == true) {
+					result = true;
+					utils.setBoolean("@hasOrphans", result);
+				}
+			} else {
+				result = false;
+			}
+		}
+		
+		return result;
+	}
 
+	@Override
 	public String[] getServicesParent() {
 		return services_parent;
 	}
@@ -208,50 +230,61 @@ public class Repeat implements FieldSet, FieldParent  {
 //		return children.toArray(new FieldSet[0]);
 //	}
 	public FieldSet[] getChildren(String perm) {
-		if(perm.equals("")){
+		if (perm == null || perm.equals("")) {
 			return children.toArray(new FieldSet[0]);
 		}
-		if(childrenperm.containsKey(perm)){
+		if (childrenperm.containsKey(perm)) {
 			return childrenperm.get(perm).toArray(new FieldSet[0]);
 		}
 		return new FieldSet[0];
 	}
 
+	@Override
 	public FieldParent getParent() {
 		return this.parent;
 	}
+	@Override
 	public void setParent(FieldParent fp) {
 		this.parent = fp;
 	}
 
 
+	@Override
 	public Record getRecord() {
 		return parent.getRecord();
 	}
 
+	@Override
 	public String getContainerSelector() {
 		return utils.getString("container-selector");
 	}
+	@Override
 	public String getPreContainerSelector() {
 		return utils.getString("precontainer-selector");
 	}
+	@Override
 	public String getPreSelector() {
 		return utils.getString("preselector");
 	}
+	@Override
 	public String getDecoratorSelector() {
 		return utils.getString("decoratorselector");
 	}
+	@Override
 	public String getSelector() {
 		return utils.getString("selector");
 	}
+	@Override
 	public String getTitleSelector() {
 		return utils.getString("title-selector");
 	}
 	
+	@Override
 	public String getPreTitleSelector() {
 		return utils.getString("pretitle-selector");
 	}
 
+	@Override
 	public String getLabel() {
 		return utils.getString("label");
 	}
@@ -261,6 +294,7 @@ public class Repeat implements FieldSet, FieldParent  {
 	public String getUILabelSelector(String id){
 		return getUIprefix() +  id + "-label";
 	}
+	@Override
 	public String getUILabelSelector() {
 		return getUIprefix() +  utils.getString("@id") + "-label";
 	}
@@ -269,16 +303,20 @@ public class Repeat implements FieldSet, FieldParent  {
 		return utils.getString("@id") + "-" + id + "Label";
 	}
 	
+	@Override
 	public String getUIFunc() {
 		return utils.getString("@ui-func");
 	}
+	@Override
 	public String getUIType() {
 		return utils.getString("@ui-type");
 	}
 
+	@Override
 	public String getSearchType() {
 		return utils.getString("@ui-search");
 	}
+	@Override
 	public String getQueryBehavior() {
 		return utils.getString("@query-behavior");
 	}
@@ -286,16 +324,14 @@ public class Repeat implements FieldSet, FieldParent  {
 	public void setSearchType(String val) {
 		utils.setString("@ui-search",val);
 	}
+	@Override
 	public String getServicesTag() {
 		return utils.getString("services-tag");
 	}
-	
+		
+	@Override
 	public String getServicesUrl(){
 		return utils.getString("@serviceurl");
-	}
-
-	public Boolean isInServices() {
-		return utils.getBoolean("@exists-in-services");
 	}
 
 	public Boolean getXxxServicesNoRepeat() {
@@ -314,6 +350,7 @@ public class Repeat implements FieldSet, FieldParent  {
 		return utils.getBoolean("@asSibling");
 	}
 	//used in generateGroupField in uispec for elpaths
+	@Override
 	public String getPrimaryKey() {
 		return utils.getString("@primarykey");
 	}
@@ -322,31 +359,39 @@ public class Repeat implements FieldSet, FieldParent  {
 		return utils.getBoolean("@has-primary");
 	}
 
+	@Override
 	public boolean isExpander() {
 		return utils.getBoolean("@as-expander");
 	}
 	
+	@Override
 	public boolean isConditionExpander(){
 		return utils.getBoolean("@as-conditional-expander");
 	}
 
+	@Override
 	public boolean isRepeatSubRecord() {
 		return utils.getBoolean("@is-subrecord");
 	}
 	
+	@Override
 	public void setRepeatSubRecord(Boolean var) {
 		utils.setBoolean("@is-subrecord",var);
 	}
 	
+	@Override
 	public String getSection() {
 		return utils.getString("@section");
 	}
+	@Override
 	public String getLabelAffix() {
 		return utils.getString("@label-affix");
 	}
+	@Override
 	public String getSelectorAffix() {
 		return utils.getString("@selector-affix");
 	}
+	@Override
 	public boolean isReadOnly(){
 		return utils.getBoolean("@ui-readonly");
 	}
@@ -354,6 +399,7 @@ public class Repeat implements FieldSet, FieldParent  {
 		return utils.getBoolean("@showgrouped");
 	}
 
+	@Override
 	public Boolean usesRecord() {
 		if (utils.getString("@userecord") != null && !utils.getString("@userecord").equals("")) {
 			return true;
@@ -361,6 +407,7 @@ public class Repeat implements FieldSet, FieldParent  {
 		return false;
 	}
 	
+	@Override
 	public String usesRecordValidator() {
 		if(utils.getString("@onlyifexists") !=null && !utils.getString("@onlyifexists").equals("")){
 			return utils.getString("@onlyifexists");
@@ -368,6 +415,7 @@ public class Repeat implements FieldSet, FieldParent  {
 		return null;
 	}
 
+	@Override
 	public Record usesRecordId() {
 		if (usesRecord()) {
 			return this.getRecord().getSpec().getRecord(utils.getString("@userecord"));
@@ -375,6 +423,7 @@ public class Repeat implements FieldSet, FieldParent  {
 		return null;
 	}
 
+	@Override
 	public String[] getIDPath() {
 		if (utils.getBoolean("@xxx-ui-no-repeat")) {
 			if (parent instanceof Repeat) {
@@ -402,10 +451,12 @@ public class Repeat implements FieldSet, FieldParent  {
 	 * @param fs
 	 * @return
 	 */
+	@Override
 	public boolean isASelfRenderer(){
 		return getUIType().contains(SELFRENDERER);
 	}
 	
+	@Override
 	public Record getSelfRendererRecord() {
 		String parts[] = getUIType().split("/");
 		if(parts.length!=3 || !SELFRENDERER.equals(parts[2]))
@@ -416,36 +467,42 @@ public class Repeat implements FieldSet, FieldParent  {
 	
 	
 
+	@Override
 	public Boolean hasAutocompleteInstance() {
 		return false;
 	}
 
+	@Override
 	public Boolean hasMergeData() {
 		return false;
 	}
 
+	@Override
 	public List<String> getAllMerge() {
 		return merged;
 	}
 
 	//getAllFieldPerms now getAllFieldOperations
+	@Override
 	public String[] getAllFieldOperations(){
 		return utils.getSet("@attributes").toArray(new String[0]);
 	}
 
+	@Override
 	public boolean hasFieldPerm(String perm){
 		return utils.getSet("@attributes").contains(perm);
 	}
-
 
 	public boolean hasEnumBlank() {
 		return utils.getBoolean("enum/@has-blank");
 	}
 
+	@Override
 	public String enumBlankValue() {
 		return utils.getString("enum/blank-value");
 	}
 
+	@Override
 	public String getWithCSID() {
 		return utils.getString("@with-csid");
 	}
@@ -461,6 +518,7 @@ public class Repeat implements FieldSet, FieldParent  {
 		return false;
 	}
 
+	@Override
 	public void config_finish(Spec spec) {
 		for (FieldSet child : children)
 			child.config_finish(spec);

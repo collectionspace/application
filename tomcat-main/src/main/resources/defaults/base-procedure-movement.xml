@@ -1,13 +1,15 @@
-
-            <record id="movement" in-findedit="yes" type="record,procedure">
+            <record id="movement" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
                 <services-url>movements</services-url>
                 <web-url>movement</web-url>
                 <tab-url>movement-tab</tab-url>
+                
                 <services-tenant-singular>Movement</services-tenant-singular>
+                
                 <services-list-path>abstract-common-list/list-item</services-list-path>
                 <services-record-path>movements_common:http://collectionspace.org/services/movement,movements_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 <hassoftdelete>true</hassoftdelete>
+                
                 <supportslocking>true</supportslocking>
                 <structures>
                     <structure id="search">
@@ -43,17 +45,15 @@
 				<include src="domain-procedure-movement.xml" strip-root="yes"/>
 				
                 <row-selector>.csc-recordList-row:</row-selector>
+				
                 <section id="coreInformation">
-                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
-                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="createdBy" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
-										<field id="workflow" section="collectionspace_core" attributes="GET" 
-														mini="search,list">
-											<services-tag>workflowState</services-tag>
-										</field>
+                    <include src="core-fields.xml"  strip-root="yes" />
+					<field id="workflow" exists-in-services="false" section="collectionspace_core" attributes="GET" 
+									mini="search,list">
+						<services-tag>workflowState</services-tag>
+					</field>
                 </section>
+				
                 <section id="currentLocationHeader"></section> <!-- temp until better way to do group headers -->
                 <section id="locationMovementInformation">
                     <!--  Object Location Information Group -->
@@ -70,7 +70,7 @@
                         </options>
                     </field>
                     <field id="currentLocationNote"></field>
-                    <field id="locationDate" ui-search="range" in-title="yes" mini="list" ui-type="date">
+                    <field id="locationDate" ui-search="range" in-title="yes" mini="list" ui-type="date" datatype="date">
                         <selector>movement-locationDate</selector>
                     </field>
                     <field id="normalLocation" ui-search="repeatable" autocomplete="location-location"></field>
@@ -84,8 +84,8 @@
                             <option id="movement" sample="MV2010.1">Movement</option>
                         </options>
                     </field>
-                    <field id="plannedRemovalDate" ui-search="range" ui-type="date"></field>
-                    <field id="removalDate" ui-search="range" ui-type="date">
+                    <field id="plannedRemovalDate" ui-search="range" ui-type="date" datatype="date"></field>
+                    <field id="removalDate" ui-search="range" ui-type="date" datatype="date">
                         <selector>movement-removalDate</selector>
                     </field>
                     <field id="reasonForMove" ui-search="repeatable">
@@ -115,8 +115,8 @@
                     <field id="movementNote"></field>
                 </section>
                 <section id="inventory">
-                	<field id="inventoryDate" ui-search="range" ui-type="date"></field>
-                	<field id="nextInventoryDate" ui-search="range" ui-type="date"></field>
+                	<field id="inventoryDate" ui-search="range" ui-type="date" datatype="date"></field>
+                	<field id="nextInventoryDate" ui-search="range" ui-type="date" datatype="date"></field>
                 	<field id="inventoryNote" ui-search="repeatable"></field>
                 	<field id="inventoryActionRequired" ui-search="repeatable">
                             <options>
