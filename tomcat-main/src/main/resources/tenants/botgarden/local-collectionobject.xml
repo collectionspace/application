@@ -84,7 +84,13 @@
 	
 		<!-- Local fields -->
 		
-		<field id="deadFlag" datatype="boolean" section="botgarden"/>
+		<field id="deadFlag" section="botgarden" ui-search="single">
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			</options>
+		</field>
 		<field id="deadDate" ui-search="range" ui-type="date" section="botgarden"/>
 	</section>
 	
