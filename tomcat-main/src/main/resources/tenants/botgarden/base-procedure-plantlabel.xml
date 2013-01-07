@@ -1,0 +1,173 @@
+<record id="plantlabel" in-findedit="yes" type="record,procedure">
+                <services-url>plantlabels</services-url>
+                <services-tenant-plural>Plantlabels</services-tenant-plural>
+                <services-tenant-singular>Plantlabel</services-tenant-singular>
+                <services-list-path>abstract-common-list/list-item</services-list-path>
+                <services-record-path>plantlabels_common:http://collectionspace.org/services/plantlabel,plantlabels_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                <hassoftdelete>true</hassoftdelete>
+                <structures>
+                    <structure id="search">
+                        <view>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                    </structure>
+                    <structure id="screen">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false">
+                                <repeat id="termsUsed" show="true"></repeat>
+                                <repeat id="relatedProcedures" show="true"></repeat>
+                                <repeat id="relatedObjects" show="true"></repeat>
+                            </sidebar>
+                            <edit-section show="true"></edit-section>
+                            <list-section show="false"></list-section>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                        <repeat id="termsUsed" asSibling="true">
+                            <selector>recordList-row:</selector>
+                            <field id="linktext" ui-type="linktext">
+                                <selector>related-number</selector>
+                            </field>
+                            <field id="recordtype" ui-type="list">
+                                <selector>related-recordtype</selector>
+                            </field>
+                            <field id="sourceFieldName" ui-type="list">
+                                <selector>related-field</selector>
+                            </field>
+                        </repeat>
+                    </structure>
+                    <structure id="tab">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="false"></list-section>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                        <repeat id="list" asSibling="true">
+                            <selector>recordList-row:</selector>
+                            <field id="summary" ui-type="list">
+                                <selector>related-summary</selector>
+                            </field>
+                            <field id="number" ui-type="list">
+                                <selector>related-number</selector>
+                            </field>
+                        </repeat>
+                    </structure>
+                </structures>
+				
+                <!-- <include src="domain-procedure-plantlabel.xml" strip-root="yes"/> -->
+				
+                <row-selector>.csc-recordList-row:</row-selector>
+                <section id="coreInformation">
+                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdBy" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                </section>
+                <section id="plantlabelInformation">
+                    <field id="propNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,terms,relate" seperate_ui_container="true">
+                        <title-selector>titleBar-propNumber</title-selector>
+                        <selector>plantlabel-propNumber</selector>
+                        <container-selector>plantlabel-propNumber-patternChooserContainer</container-selector>
+            			<options>
+            				<option id="prop-number" sample="UCBG1000">Propagation Number</option>
+            			</options>
+            		</field>
+                    <field id="propDate" ui-type="groupfield/structureddate" 
+                        primarykey="propDate.dateDisplayDate" ui-func="cspace.structuredDate"/>
+                    <field id="propReason" ui-search="repeatable" >
+                        <options>
+                            <option id="" default="yes">Please select a value</option>
+                            <option id="class use">class use</option>
+                            <option id="research">research</option>
+                            <option id="garden collection">garden collection</option>
+                            <option id="distribution">distribution</option>
+                            <option id="conservation">conservation</option>
+                        </options>
+                    </field>
+                    <field id="propType" ui-search="repeatable" mini="summary,search,list,terms,relate">
+                        <options>
+                            <option id="" default="yes">Please select a value</option>
+                            <option id="seed">Seed</option>
+                            <option id="cutting">Cutting</option>
+                            <option id="living plant">Living Plant</option>
+                            <option id="division">Division</option>
+                            <option id="bulb corm tuber">Bulb/Corm/Tuber</option>
+                            <option id="graft">Graft</option>
+                            <option id="tissue culture">Tissue Culture</option>
+                        </options>
+                    </field>
+                    <field id="propComments"/>
+                    <field id="numStarted"/>
+                    <repeat id="scarStratGroupList/scarStratGroup">
+                        <field id="scarStrat">
+                            <options>
+                                <option id="" default="yes">Please select a value</option>
+                                <option id="abrade">abrade</option>
+                                <option id="boiling water">boiling water</option>
+                                <option id="GA3">GA3</option>
+                                <option id="fire">fire</option>
+                                <option id="freeze">freeze</option>
+                                <option id="isopropyl alcohol">isopropyl alcohol</option>
+                                <option id="nick">nick</option>
+                                <option id="pericarp removed broken">pericarp removed/broken</option>
+                                <option id="seed coat removed">seed coat removed</option>
+                                <option id="sulfuric acid">sulfuric acid</option>
+                                <option id="cold strat">cold strat</option>
+                                <option id="warm strat">warm strat</option>
+                                <option id="smoke">smoke</option>
+                                <option id="water soak">water soak</option>
+                            </options>
+                        </field>
+                        <field id="duration"/>
+                        <field id="durationUnit">
+                            <options>
+                                <option id="" default="yes">Please select a value</option>
+                                <option id="hours">Hours</option>
+                                <option id="days">Days</option>
+                                <option id="weeks">Weeks</option>
+                                <option id="months">Months</option>
+                            </options>
+                        </field>
+                    </repeat>                    
+                    <field id="extraSeeds" datatype="boolean"/>
+                    <field id="spores" datatype="boolean"/>
+                    <field id="cuttingType">
+                        <options>
+                            <option id="" default="yes">Please select a value</option>
+                            <option id="softwood">softwood</option>
+                            <option id="semi-hardwood">semi-hardwood</option>
+                            <option id="hardwood">hardwood</option>
+                            <option id="heel">heel</option>
+                            <option id="dormant">dormant</option>
+                            <option id="root">root</option>
+                        </options>
+                    </field>
+                    <field id="hormone" autocomplete="vocab-propHormones" ui-type="enum"/>
+                    <field id="concentration"/>
+                    <field id="wounded" datatype="boolean"/>
+                    <field id="plantType" autocomplete="vocab-propPlantType" ui-type="enum"/>
+                    <field id="germinationDate" ui-type="date" ui-search="range"/>
+                    <field id="successRate"/>
+                    
+                    <repeat id="propActivityGroupList/propActivityGroup">
+                        <field id="order"/>
+                        <!-- <field id="activityDate" ui-type="date"/> -->
+                        <group id="activityDate" ui-type="groupfield/structureddate" 
+                            primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
+                        </group>
+                        <field id="activityType" autocomplete="vocab-propActivityType" ui-type="enum"/>
+                        <field id="propCount"/>
+                        <field id="medium" autocomplete="concept-concept"/>
+                        <field id="potSize" autocomplete="vocab-potSize" ui-type="enum"/>
+                        <field id="nurseryLocation" autocomplete="location-location"/>
+                        <field id="conditions" autocomplete="vocab-propConditions" ui-type="enum"/>
+                        <field id="chemicalApplied" autocomplete="vocab-propChemicals" ui-type="enum"/>
+                        <field id="activityConcentration"/>
+                        <field id="activityComments"/>
+                    </repeat>
+                </section>
+            </record>
