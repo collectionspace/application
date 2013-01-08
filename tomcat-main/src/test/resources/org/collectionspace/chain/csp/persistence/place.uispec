@@ -178,7 +178,13 @@
         ".csc-place-placeType-label": {"messagekey": "place-placeTypeLabel"},
         ".csc-place-vLatitude-label": {"messagekey": "place-vLatitudeLabel"},
         ".csc-place-maxDepthInMeters-label": {"messagekey": "place-maxDepthInMetersLabel"},
-        ".csc-place-createdAt": "${fields.createdAt}",
+        ".csc-place-createdAt": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.createdAt}"
+        },
         ".csc-place-updatedAt": {
             "decorators": [{
                 "func": "cspace.datePicker",
@@ -186,6 +192,7 @@
             }],
             "value": "${fields.updatedAt}"
         },
+        ".csc-place-deprecatedRefName-label": {"messagekey": "place-deprecatedRefNameLabel"},
         ".csc-place-vElevation": "${fields.vElevation}",
         ".csc-place-vCoordSys-label": {"messagekey": "place-vCoordSysLabel"},
         ".csc-place-csid-label": {"messagekey": "place-csidLabel"},
@@ -236,7 +243,6 @@
         ".csc-place-localityInformation-label": {"messagekey": "place-localityInformationLabel"},
         ".csc-placeGeoRefGroup-geoRefDateGroup-label": {"messagekey": "placeGeoRefGroup-geoRefDateGroupLabel"},
         ".csc-place-updatedAt-label": {"messagekey": "place-updatedAtLabel"},
-        ".csc-place-tenantID-label": {"messagekey": "place-tenantIDLabel"},
         ".csc-place-minDepthInMeters": "${fields.minDepthInMeters}",
         ".csc-place-coordUncertaintyInMeters-label": {"messagekey": "place-coordUncertaintyInMetersLabel"},
         ".csc-place-pointRadiusSpatialFit-label": {"messagekey": "place-pointRadiusSpatialFitLabel"},
@@ -449,13 +455,15 @@
         ".csc-place-vDistanceAboveSurface": "${fields.vDistanceAboveSurface}",
         ".csc-place-placeSource": "${fields.placeSource}",
         ".csc-place-createdAt-label": {"messagekey": "place-createdAtLabel"},
+        ".csc-place-tenantId-label": {"messagekey": "place-tenantIdLabel"},
         ".csc-place-preferredPlace-label": {"messagekey": "place-preferredPlaceLabel"},
-        ".csc-place-maxDepthInMeters": "${fields.maxDepthInMeters}",
         ".csc-place-geoReferencedBy-label": {"messagekey": "place-geoReferencedByLabel"},
+        ".csc-place-maxDepthInMeters": "${fields.maxDepthInMeters}",
         ".csc-place-vDepth-label": {"messagekey": "place-vDepthLabel"},
         ".csc-place-uri-label": {"messagekey": "place-uriLabel"},
         ".csc-place-uri": "${fields.uri}",
         ".csc-place-placeID": "${fields.placeID}",
+        ".csc-place-tenantId": "${fields.tenantId}",
         ".csc-place-placeOwnerGroup-label": {"messagekey": "place-placeOwnerGroupLabel"},
         ".csc-place-geoRefProtocol-label": {"messagekey": "place-geoRefProtocolLabel"},
         ".csc-place-vUnitofMeasure-label": {"messagekey": "place-vUnitofMeasureLabel"},
@@ -520,10 +528,12 @@
                 "elPath": "fields.placeOwnerGroup"
             }
         }]},
+        ".csc-place-inAuthority": "${fields.inAuthority}",
         ".csc-place-refName-label": {"messagekey": "place-refNameLabel"},
         ".csc-place-geoRefRemarks-label": {"messagekey": "place-geoRefRemarksLabel"},
-        ".csc-place-minElevationInMeters": "${fields.minElevationInMeters}",
+        ".csc-place-deprecatedRefName": "${fields.deprecatedRefName}",
         ".csc-place-vCoordSource": "${fields.vCoordSource}",
+        ".csc-place-minElevationInMeters": "${fields.minElevationInMeters}",
         ".csc-place-geoReferenceInformation-label": {"messagekey": "place-geoReferenceInformationLabel"},
         ".csc-place-vUnitofMeasure": {
             "optionnames": [
@@ -712,8 +722,8 @@
         ".csc-place-placeNote-label": {"messagekey": "place-placeNoteLabel"},
         ".csc-place-geoRefPlaceName-label": {"messagekey": "place-geoRefPlaceNameLabel"},
         ".csc-place-placeAuthorityInformation-label": {"messagekey": "place-placeAuthorityInformationLabel"},
-        ".csc-place-tenantID": "${fields.tenantID}",
         ".csc-place-minElevationInMeters-label": {"messagekey": "place-minElevationInMetersLabel"},
+        ".csc-place-inAuthority-label": {"messagekey": "place-inAuthorityLabel"},
         ".csc-place-vCoordinates": "${fields.vCoordinates}",
         ".csc-place-minDistanceAboveSurfaceInMeters": "${fields.minDistanceAboveSurfaceInMeters}",
         ".csc-place-placeSource-label": {"messagekey": "place-placeSourceLabel"},

@@ -89,22 +89,25 @@ public class ConfigFinder implements EntityResolver {
 		InputStream result = null;
 		
 		File file = getDataFromAttributePathAsFile();
-		result = new FileInputStream(file);
+		if (file != null) {
+			result = new FileInputStream(file);
+		}
 		
 		return result;
 	}
 
 	private InputStream getDataFromName() {
-		String path = (String) ctx.getAttribute("config-filename");
+		InputStream result = null;
+		String path = (String)ctx.getAttribute("config-filename");
 
 		try {
-			return Thread.currentThread().getContextClassLoader()
-					.getResourceAsStream(path);
+			result = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 		} catch (Exception x) {
 			log.trace(String.format("Could not find App config file from context attribute name '%s'", "config-filename"),
 					x);
-			return null;
 		}
+		
+		return result;
 	}
 
 	private File getDataFromNameAsFile() {

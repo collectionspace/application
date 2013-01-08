@@ -11,6 +11,7 @@
         "csid": {"type": "string"},
         "fields": {
             "properties": {
+                "tenantId": {"type": "string"},
                 "placeNote": {"type": "string"},
                 "relatedTerms": {
                     "items": {
@@ -125,8 +126,8 @@
                     },
                     "type": "array"
                 },
-                "maxDepthInMeters": {"type": "string"},
                 "vLongitude": {"type": "string"},
+                "maxDepthInMeters": {"type": "string"},
                 "vSpatialReferenceSystem": {
                     "default": "",
                     "type": "string"
@@ -211,7 +212,7 @@
                 "shortIdentifier": {"type": "string"},
                 "maxDistanceAboveSurfaceInMeters": {"type": "string"},
                 "vCoordSource": {"type": "string"},
-                "createdAt": {"type": "string"},
+                "createdAt": {"type": "date"},
                 "maxElevationInMeters": {"type": "string"},
                 "placeSource": {"type": "string"},
                 "narrowerContexts": {
@@ -241,13 +242,13 @@
                     "default": "",
                     "type": "string"
                 },
-                "tenantID": {"type": "string"},
                 "vCoordinates": {"type": "string"},
                 "vLatitude": {"type": "string"},
                 "vUnitofMeasure": {
                     "default": "",
                     "type": "string"
                 },
+                "deprecatedRefName": {"type": "string"},
                 "placeGeoRefGroup": {
                     "items": {
                         "properties": {
@@ -351,6 +352,7 @@
                     "type": "string"
                 },
                 "createdBy": {"type": "string"},
+                "inAuthority": {"type": "string"},
                 "broaderContext": {"type": "string"},
                 "vElevation": {"type": "string"},
                 "minDepthInMeters": {"type": "string"},

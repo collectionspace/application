@@ -257,19 +257,25 @@
                 "elPath": "fields.conditionGroup"
             }
         }]},
+        ".csc-location-tenantId-label": {"messagekey": "location-tenantIdLabel"},
         ".csc-location-address": "${fields.address}",
-        ".csc-location-tenantID": "${fields.tenantID}",
         ".csc-location-otherInformation-label": {"messagekey": "location-otherInformationLabel"},
+        ".csc-location-deprecatedRefName-label": {"messagekey": "location-deprecatedRefNameLabel"},
         ".csc-location-preferredLocation-label": {"messagekey": "location-preferredLocationLabel"},
         ".csc-location-locationType-label": {"messagekey": "location-locationTypeLabel"},
-        ".csc-location-tenantID-label": {"messagekey": "location-tenantIDLabel"},
         ".csc-location-shortIdentifier": "${fields.shortIdentifier}",
         ".csc-location-createdBy": "${fields.createdBy}",
         ".csc-location-updatedBy": "${fields.updatedBy}",
         ".csc-location-locationTermInformation-label": {"messagekey": "location-locationTermInformationLabel"},
         ".csc-location-uri": "${fields.uri}",
         ".csc-location-accessNote-label": {"messagekey": "location-accessNoteLabel"},
-        ".csc-location-createdAt": "${fields.createdAt}",
+        ".csc-location-createdAt": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.createdAt}"
+        },
         ".csc-location-accessNote": "${fields.accessNote}",
         ".csc-location-type": {"decorators": [{
             "func": "cspace.termList",
@@ -280,15 +286,18 @@
             }
         }]},
         ".csc-location-csid": "${fields.csid}",
-        ".csc-location-uri-label": {"messagekey": "location-uriLabel"},
+        ".csc-location-inAuthority": "${fields.inAuthority}",
         ".csc-location-createdBy-label": {"messagekey": "location-createdByLabel"},
-        ".csc-location-updatedAt-label": {"messagekey": "location-updatedAtLabel"},
+        ".csc-location-uri-label": {"messagekey": "location-uriLabel"},
         ".csc-location-shortIdentifier-label": {"messagekey": "location-shortIdentifierLabel"},
+        ".csc-location-updatedAt-label": {"messagekey": "location-updatedAtLabel"},
         ".csc-location-securityNote": "${fields.securityNote}",
         ".csc-location-refName-label": {"messagekey": "location-refNameLabel"},
         ".csc-location-createdAt-label": {"messagekey": "location-createdAtLabel"},
+        ".csc-location-tenantId": "${fields.tenantId}",
         ".csc-location-conditionNote-label": {"messagekey": "location-conditionNoteLabel"},
         ".csc-location-domaindata-label": {"messagekey": "location-domaindataLabel"},
+        ".csc-location-deprecatedRefName": "${fields.deprecatedRefName}",
         ".csc-location-refName": "${fields.refName}",
         ".csc-location-csid-label": {"messagekey": "location-csidLabel"},
         ".csc-location-updatedAt": {
@@ -301,6 +310,7 @@
         ".csc-location-conditionNoteDate-label": {"messagekey": "location-conditionNoteDateLabel"},
         ".csc-location-coreInformation-label": {"messagekey": "location-coreInformationLabel"},
         ".csc-location-securityNote-label": {"messagekey": "location-securityNoteLabel"},
+        ".csc-location-inAuthority-label": {"messagekey": "location-inAuthorityLabel"},
         ".csc-location-updatedBy-label": {"messagekey": "location-updatedByLabel"}
     }
 }

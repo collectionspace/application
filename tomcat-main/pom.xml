@@ -12,6 +12,14 @@
 		<version>3.1-SNAPSHOT</version>
 	</parent>
 
+	<repositories>
+		<repository>
+			<id>libs-snapshots-local</id>
+			<name>libs-snapshots-local</name>
+			<url>http://source.collectionspace.org:8081/artifactory/libs-snapshots-local</url>
+		</repository>
+	</repositories>
+	
 	<dependencies>
 	     <dependency>
          	<groupId>org.collectionspace.services</groupId>
@@ -39,6 +47,10 @@
 				<exclusion>
 					<artifactId>bcel</artifactId>
 					<groupId>org.apache.bcel</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>testng</artifactId>
+					<groupId>org.testng</groupId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -239,6 +251,5 @@
             <url>http://onejar-maven-plugin.googlecode.com/svn/mavenrepo</url>
         </pluginRepository>
     </pluginRepositories>
-	
 	
 </project>

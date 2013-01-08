@@ -180,7 +180,17 @@ public class JSONUtils {
 	}
 	
 	public static boolean checkJSONEquivOrEmptyStringKey(JSONObject a,JSONObject b) throws JSONException {
-		return checkJSONEquiv(stripEmptyStringKey(a),stripEmptyStringKey(b));
+		boolean result = checkJSONEquiv(stripEmptyStringKey(a),stripEmptyStringKey(b));
+		
+		if (log.isDebugEnabled() && result == false) {
+			String staticJSON = a.toString();
+			String generatedJSON = b.toString();
+			log.debug("JSON objects did not compare successfully.");
+			log.debug("staticJSON=" + staticJSON);
+			log.debug("generatedJSON=" + generatedJSON);
+		}
+		
+		return result;
 	}
 	
 	// Hack to deal with holding arrays of Strings in the glean map which will later be JSON Array

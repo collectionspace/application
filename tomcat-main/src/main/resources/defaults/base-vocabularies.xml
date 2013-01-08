@@ -24,6 +24,10 @@
 				<include src="domain-vocabularies.xml" strip-root="yes"/>
 				
 				<include src="base-instance-vocabularies.xml" />
+				
+			    <section id="coreInformation">
+			        <include src="core-fields.xml"  strip-root="yes"/>
+			    </section>				
                 
                 <section id="vocabularyInformation">
                     <field id="displayName" in-title="yes" display-name="yes" mini="summary,number,search,list,relate">
