@@ -5,14 +5,11 @@
 				<!-- Change options -->
 				<options>
 					<option id="">Please select a value</option>
-					<option id="common">Common name</option>
-					<option id="technical-scientific">Technical or scientific name</option>
-					<option id="native">Native name</option>
-					<option id="non-native">Non-native name</option>
-					<option id="local">Local name</option>
-					<option id="descriptive">Descriptive name</option>
-					<option id="spelling-variant">Spelling variant</option>
-					<option id="reverse">Reverse qualified</option>
+					<option id="synonym">Synonym</option>
+					<option id="verified-geographic">Verified Geographic Name</option>
+					<option id="reverse-qualified">Reverse Qualified Name</option>
+					<option id="short-name">Short Name</option>
+					<option id="unverified-geographic">Unverified Geographic Name</option>
 				</options>
 			</field>
 			<field id="historicalStatus">
