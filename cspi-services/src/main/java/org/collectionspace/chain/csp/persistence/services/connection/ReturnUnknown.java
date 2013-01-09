@@ -31,32 +31,23 @@ public class ReturnUnknown  implements Returned {
 
 	public void setResponse(HttpMethod method, int status) throws IOException, DocumentException {
 		this.status=status;
-		InputStream stream=method.getResponseBodyAsStream();
-		SAXReader reader=new SAXReader();
-		if(status>=400) {
-			log.error("Got error : "+IOUtils.toString(stream));
+		InputStream stream = method.getResponseBodyAsStream();
+		if (status >= 400 || stream == null) {
+			log.error("Error get content with HTTP Status code:" + Integer.toString(status) + "Got error: " + stream != null ? IOUtils.toString(stream) : "<emtpy content>");
 		}
+		
 		// TODO errorhandling
-		Document out=null;
 		Header content_type=method.getResponseHeader("Content-Type");
 		contenttype = content_type.getValue();
-		if(content_type!=null) {
-			if(log.isDebugEnabled()) {
-				ByteArrayOutputStream dump = new ByteArrayOutputStream();
-				// TODO CSPACE-2552 add ,"UTF-8" to reader.read()?
-				new TeeInputStream(stream,dump);
-				log.debug(dump.toString());
-			} else {
-
-	            ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
-	            IOUtils.copy(stream,byteOut);
-	            new TeeInputStream(stream,byteOut);
-	            bytebody = byteOut.toByteArray();
-				
-			//	out=reader.read(stream); 
-			}
+		if (content_type != null) {
+	        ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
+	        IOUtils.copy(stream, byteOut);
+	        new TeeInputStream(stream, byteOut); // REM - Is this needed?  Is there some necessary side-effect going on here by creating this TeeInputStream instance?
+	        bytebody = byteOut.toByteArray();
+		} else {
+			log.error("Encountered a document with unknown content type.  Returning no content.");
 		}
+		
 		stream.close();
-		//doc=out;
 	}
 }

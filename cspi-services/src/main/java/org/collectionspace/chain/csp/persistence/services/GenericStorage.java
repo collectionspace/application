@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
+import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
@@ -28,7 +30,9 @@ import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.chain.csp.schema.Relationship;
 import org.collectionspace.chain.csp.schema.Repeat;
+import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.util.json.JSONUtils;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.core.CSPRequestCredentials;
@@ -36,8 +40,10 @@ import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
+import org.collectionspace.services.common.api.RefName;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
+import org.dom4j.DocumentFactory;
 import org.dom4j.Element;
 import org.dom4j.Node;
 import org.json.JSONArray;
@@ -55,6 +61,9 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class GenericStorage  implements ContextualisedStorage {
+	public final static String SEARCH_RELATED_TO_CSID_AS_SUBJECT = "rtSbj";
+	public final static String MARK_RELATED_TO_CSID_AS_SUBJECT = "mkRtSbj";
+	public final static String SEARCH_ALL_GROUP = "searchAllGroup";
 
 	private static final Logger log=LoggerFactory.getLogger(GenericStorage.class);
 	
@@ -63,7 +72,9 @@ public class GenericStorage  implements ContextualisedStorage {
 	protected Map<String,String> view_good=new HashMap<String,String>();// map of servicenames of fields to descriptors
 	protected Map<String,String> view_map=new HashMap<String,String>(); // map of csid to service name of field
 	protected Set<String> xxx_view_deurn=new HashSet<String>();
+	protected Set<String> view_search_optional=new HashSet<String>();
 	protected Map<String,List<String>> view_merge = new HashMap<String, List<String>>();
+	protected Map<String,List<String>> view_useCsid=new HashMap<String,List<String>>(); // tracks list fields marked use-csid 
 
 	/**
 	 * Constructor
@@ -87,7 +98,9 @@ public class GenericStorage  implements ContextualisedStorage {
 		view_good=new HashMap<String,String>();
 		view_map=new HashMap<String,String>();
 		xxx_view_deurn=new HashSet<String>();
+		view_search_optional=new HashSet<String>();
 		view_merge = new HashMap<String, List<String>>();
+		view_useCsid=new HashMap<String,List<String>>();
 		initializeGlean(r);
 	}
 	/**
@@ -102,11 +115,20 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @param reset_merge
 	 * @param init
 	 */
-	protected void resetGlean(Record r,Map<String,String> reset_good, Map<String,String>  reset_map, Set<String>  reset_deurn, Map<String,List<String>>  reset_merge, Boolean init){
+	protected void resetGlean(Record r, 
+			Map<String,String>		reset_good, 
+			Map<String,String>		reset_map, 
+			Set<String>				reset_deurn, 
+			Set<String>				reset_search_optional, 
+			Map<String,List<String>> reset_merge, 
+			Map<String,List<String>> reset_useCsid, 
+			Boolean 				init){
 		view_good=reset_good;
 		view_map=reset_map;
 		xxx_view_deurn=reset_deurn;
+		view_search_optional=reset_search_optional;
 		view_merge = reset_merge;
+		view_useCsid = reset_useCsid;
 		if(init){
 			initializeGlean(r);
 		}
@@ -159,23 +181,43 @@ public class GenericStorage  implements ContextualisedStorage {
 				String prefix = setName;
 				if(r.getMiniDataSetByName(prefix).length>0 && !prefix.equals("")){
 					for(FieldSet fs : r.getMiniDataSetByName(prefix)){
-						view_good.put(prefix+"_"+ fs.getID(),fs.getID());
 						view_map.put(fs.getServicesTag(),fs.getID());
+						view_good.put(prefix+"_"+ fs.getID(),fs.getID());
 						if(fs instanceof Field) {
 							Field f=(Field)fs;
+							String fsID = f.getID();
+							// If the field is actually based upon another, marked use-csid,
+							// then put the name of that field in the view map instead.
+							// We need to glean that from the list results, so we can build
+							// the field from it.
+							String use_csid=f.useCsid();
+							if(use_csid!=null && f.useCsidField()!=null){
+								String useID = f.useCsidField();
+								List<String> useStrings = new ArrayList<String>();
+								useStrings.add(useID);
+								useStrings.add(use_csid);
+								view_useCsid.put(prefix+"_"+ fsID,useStrings);
+								// Need to ensure that we glean the useId value as well
+								view_good.put(prefix+"_"+ useID,useID);
+								// Strictly speaking we should get the services tag for
+								// the field, but we'll cheat for simplicity, since it is
+								// almost always the ID, and we'll just insist that for
+								// useCsid that it must be. Sigh.
+								view_map.put(useID,useID);
+							}
 							// Single field
 							if(f.hasMergeData()){
-								view_merge.put(prefix+"_"+f.getID(),f.getAllMerge());
+								view_merge.put(prefix+"_"+fsID,f.getAllMerge());
 								for(String fm : f.getAllMerge()){
 									if(fm!=null){
 										if(r.getFieldFullList(fm).hasAutocompleteInstance()){
-											xxx_view_deurn.add(f.getID());
+											xxx_view_deurn.add(fsID);
 										}
 									}
 								}
 							}
 							if(f.hasAutocompleteInstance()){
-								xxx_view_deurn.add(f.getID());
+								xxx_view_deurn.add(fsID);
 							}
 						}
 						
@@ -183,6 +225,13 @@ public class GenericStorage  implements ContextualisedStorage {
 				}
 			}
 		}
+		// Special cases not currently supported in config. This is a hack, and once we figure out
+		// what a pattern looks like, we can consider configuring this somehow. 
+		// The current support is for a return field that may or may not be present in list
+		// results. When it is, we want to pass it along to the UI
+		view_search_optional.add("related");
+		view_good.put("search_related","related");
+		view_map.put("related","related");
 	}
 
 	/**
@@ -246,19 +295,32 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws UnderlyingStorageException
 	 */
 	protected String xxx_deurn(String in) throws UnderlyingStorageException {
-		if(!in.startsWith("urn:"))
-			return in;
-		if(!in.endsWith("'"))
-			return in;
-		in=in.substring(0,in.length()-1);
-		int pos=in.lastIndexOf("'");
-		if(pos==-1)
-			return in+"'";
-		try {
-			return URLDecoder.decode(in.substring(pos+1),"UTF8");
-		} catch (UnsupportedEncodingException e) {
-			throw new UnderlyingStorageException("No UTF8!");
-		}
+	    if(!in.startsWith("urn:"))
+		return in;
+	    if(!in.endsWith("'"))
+		return in;
+            String deurned = "";
+            // Try first parsing the URN using the format for an authority item
+            // reference.  If that fails, then fallback to trying to parse the URN
+            // using the format for an authority reference (which is also used
+            // for references to object and procedural records).
+            RefName.AuthorityItem item = RefName.AuthorityItem.parse(in);
+            if (item!=null) {
+                deurned = item.displayName;
+            } else {
+                RefName.Authority authority = RefName.Authority.parse(in);
+                if (authority!=null) {
+                    deurned = authority.displayName;
+                }
+            }
+            if (deurned.isEmpty()) {
+                return in;
+            }
+            try {
+                 return URLDecoder.decode(deurned, "UTF8");  
+            } catch (UnsupportedEncodingException e) {
+                 throw new UnderlyingStorageException("Could not de-urn Display Name because UTF8 decoding is not supported");
+            }
 	}
 	
 
@@ -294,6 +356,7 @@ public class GenericStorage  implements ContextualisedStorage {
 		Set<String> to_get=new HashSet<String>(view_good.keySet());
 		// Try to fullfil from gleaned info
 		//gleaned is info that everytime we read a record we cache certain parts of it
+		
 		for(String fieldname : view_good.keySet()) {
 			//only get the info that is needed
 			String name = fieldname;
@@ -316,20 +379,38 @@ public class GenericStorage  implements ContextualisedStorage {
 						break;
 					}
 				}
-			}
-			else{
+			} else if(view_useCsid.containsKey(fieldname)){
+				List<String> useStrings = view_useCsid.get(fieldname);
+				String useField = useStrings.get(0);
+				String useCsidPattern = useStrings.get(1);
+				String useCsid = getGleanedValue(cache,cachelistitem,useField);
+				if(useCsid!=null)
+					gleaned = XmlJsonConversion.csid_value(useCsid,useCsidPattern,conn.getIMSBase());
+			} else {
 				gleaned=getGleanedValue(cache,cachelistitem,good);
 			}
 			
-			if(gleaned==null)
+			if(gleaned==null) {
+				// If the field was optional, but we go no value, go ahead and remove it
+				// from the to_get set, so we do not fan out below.
+				if(view_search_optional.contains(good)) {
+					to_get.remove(fieldname);
+				}
 				continue;
+			}
 			if(xxx_view_deurn.contains(good))
 				gleaned=xxx_deurn(gleaned);
 			
 			
 			if(name.startsWith(summarylistname)){
-				name = name.substring(summarylistname.length());
-				summarylist.put(name, gleaned);
+				// The optionals, even though they are tied to individual views, put
+				// values at the top level, and not in the summary.
+				if(view_search_optional.contains(good)) {
+					out.put(good,gleaned);
+				} else {
+					name = name.substring(summarylistname.length());
+					summarylist.put(name, gleaned);
+				}
 			}
 			else{
 				out.put(fieldname,gleaned);
@@ -341,9 +422,9 @@ public class GenericStorage  implements ContextualisedStorage {
 		if(to_get.contains("summary")){
 			String gleaned=getGleanedValue(cache,cachelistitem,"docName");
 			if(gleaned!=null){
-			String good = view_good.get("summary");
-			if(xxx_view_deurn.contains(good))
-				gleaned=xxx_deurn(gleaned);
+				String good = view_good.get("summary");
+				if(xxx_view_deurn.contains(good))
+					gleaned=xxx_deurn(gleaned);
 				out.put("summary",gleaned);
 				to_get.remove("summary");
 			}
@@ -352,9 +433,9 @@ public class GenericStorage  implements ContextualisedStorage {
 		if(to_get.contains("number")){
 			String gleaned=getGleanedValue(cache,cachelistitem,"docNumber");
 			if(gleaned!=null){
-			String good = view_good.get("number");
-			if(xxx_view_deurn.contains(good))
-				gleaned=xxx_deurn(gleaned);
+				String good = view_good.get("number");
+				if(xxx_view_deurn.contains(good))
+					gleaned=xxx_deurn(gleaned);
 				out.put("number",gleaned);
 				to_get.remove("number");
 			}
@@ -362,6 +443,18 @@ public class GenericStorage  implements ContextualisedStorage {
 		
 		// Do a full request only if values in list of fields returned != list from cspace-config
 		if(to_get.size()>0) {
+			if(log.isInfoEnabled()) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("Fanning out on cachelistitem: [");
+				sb.append(cachelistitem);
+				sb.append("] Fields: [");
+				for(String fieldname : to_get) {
+					sb.append(fieldname);
+					sb.append(" ");
+				}
+				sb.append("]");
+				log.info(sb.toString());
+			}
 			JSONObject data=simpleRetrieveJSON(creds,cache,null,cachelistitem,thisr);
 			for(String fieldname : to_get) {
 				String good = view_good.get(fieldname);
@@ -378,8 +471,15 @@ public class GenericStorage  implements ContextualisedStorage {
 							break;
 						}
 					}
-				}
-				else{
+				} else if(view_useCsid.containsKey(fieldname)){
+					List<String> useStrings = view_useCsid.get(fieldname);
+					String useField = useStrings.get(0);
+					String useCsidPattern = useStrings.get(1);
+					String useCsid = JSONUtils.checkKey(data, useField);
+					if(useCsid!=null) {
+						value = XmlJsonConversion.csid_value(useCsid,useCsidPattern,conn.getIMSBase());
+					}
+				} else {
 					value = JSONUtils.checkKey(data, good);
 				}
 				//this might work with repeat objects
@@ -408,6 +508,7 @@ public class GenericStorage  implements ContextualisedStorage {
 				}
 			}
 		}
+
 		if(summarylist.length()>0){
 			out.put("summarylist", summarylist);
 		}
@@ -497,6 +598,9 @@ public class GenericStorage  implements ContextualisedStorage {
 						convertToJson(out,doc.getDocument(parts[0]), thisr, "GET",section , csid);
 					}
 				}
+				// If this record has hierarchy, will pull out the relations section and map it to the hierarchy
+				// fields (special case handling of XML-JSON
+				handleHierarchyPayloadRetrieve(thisr, doc, out, csid);
 			}
 			else{
 				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, servicesurl+softpath,null, creds, cache);
@@ -620,7 +724,7 @@ public class GenericStorage  implements ContextualisedStorage {
 		}
 		else if("refObjs".equals(view)){
 			String path = servicepath+"/refObjs";
-			return refObjViewRetrieveJSON(storage,creds,cache,path);
+			return refObjViewRetrieveJSON(storage,creds,cache,path, restrictions);
 		}
 		else
 			return new JSONObject();
@@ -805,37 +909,50 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws JSONException
 	 * @throws UnimplementedException 
 	 */
-	public JSONObject refObjViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String path, Record vr) throws ExistException, UnderlyingStorageException, JSONException, UnimplementedException {
+	public JSONObject refObjViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,
+			CSPRequestCache cache,String path, JSONObject restrictions, Record vr) 
+		throws ExistException, UnderlyingStorageException, JSONException, UnimplementedException {
 
 		JSONObject out=new JSONObject();
 		Map<String,String> old_good=view_good;// map of servicenames of fields to descriptors
 		Map<String,String> old_map=view_map; // map of csid to service name of field
 		Set<String> old_deurn=xxx_view_deurn;
+		Set<String> old_search_optional=view_search_optional;
 		Map<String,List<String>>old_merge =view_merge;
+		Map<String,List<String>> old_useCsid=view_useCsid;
 
 		try{
 
 			Map<String,String> reset_good=new HashMap<String,String>();// map of servicenames of fields to descriptors
 			Map<String,String> reset_map=new HashMap<String,String>(); // map of csid to service name of field
 			Set<String> reset_deurn=new HashSet<String>();
+			Set<String> reset_search_optional=new HashSet<String>();
 			Map<String,List<String>> reset_merge = new HashMap<String, List<String>>();
+			Map<String,List<String>> reset_useCsid=new HashMap<String,List<String>>();
 			if(vr.hasRefObjUsed()){
+				path =  getRestrictedPath(path, restrictions,"kw", "", false, "");
 				//XXX need a way to append the data needed from the field,
 				// which we don't know until after we have got the information...
 				reset_map.put("docType", "docType");
 				reset_map.put("docId", "docId");
+				reset_map.put("docName", "docName");
 				reset_map.put("docNumber", "docNumber");
 				reset_map.put("sourceField", "sourceField");
 				reset_map.put("uri", "uri");
+				reset_map.put("refName", "refName");
 				reset_good.put("terms_docType", "docType");
 				reset_good.put("terms_docId", "docId");
+				reset_good.put("terms_docName", "docName");
 				reset_good.put("terms_docNumber", "docNumber");
 				reset_good.put("terms_sourceField", "sourceField");
+				reset_good.put("terms_refName", "refName");
 
 				view_good = reset_good;
 				view_map = reset_map;
 				xxx_view_deurn = reset_deurn;
+				view_search_optional = reset_search_optional;
 				view_merge = reset_merge;
+				view_useCsid = reset_useCsid;
 				
 				//String nodeName = "authority-ref-doc-list/authority-ref-doc-item";
 				// Need to pick up pagination, etc. 
@@ -845,30 +962,32 @@ public class GenericStorage  implements ContextualisedStorage {
 				reset_good = view_good;
 				reset_map = view_map;
 				reset_deurn = xxx_view_deurn;
+				reset_search_optional = view_search_optional;
 				reset_merge = view_merge;
+				reset_useCsid = view_useCsid;
 				
 				JSONArray recs = data.getJSONArray("listItems");
+				if(data.has("pagination")) {
+					out.put("pagination", data.getJSONObject("pagination"));
+				}
+				
+				JSONArray items=new JSONArray();
 				//String[] filepaths = (String[]) data.get("listItems");
 				for (int i = 0; i < recs.length(); ++i) {
 
-					String uri = recs.getJSONObject(i).getString("csid");
-					String filePath = recs.getJSONObject(i).getString("csid");
+					String uri      = recs.getJSONObject(i).getString("csid");
+					String filePath = uri; // recs.getJSONObject(i).getString("csid");
 					if(filePath!=null && filePath.startsWith("/"))
 						filePath=filePath.substring(1);
 					
 					String[] parts=filePath.split("/");
 					String recordurl = parts[0];
 					Record thisr = vr.getSpec().getRecordByServicesUrl(recordurl);
-					resetGlean(thisr,reset_good,reset_map,reset_deurn,reset_merge, true);// what glean info required for this one..
+					// what glean info required for this one..
+					resetGlean(thisr, reset_good, reset_map, reset_deurn,
+							reset_search_optional, reset_merge, reset_useCsid, true);
 					String csid = parts[parts.length-1];
-					JSONObject dataitem = null;
-					if(thisr.isType("authority")){
-						dataitem =  miniViewRetrieveJSON(cache,creds,csid, "terms", thisr.getServicesURL()+"/"+uri, thisr);
-					}
-					else{
-						dataitem =  miniViewRetrieveJSON(cache,creds,csid, "terms", uri, thisr);
-					}
-					//JSONObject 
+					JSONObject dataitem = miniViewRetrieveJSON(cache,creds,csid, "terms", uri, thisr);
 					dataitem.getJSONObject("summarylist").put("uri",filePath);
 					
 					
@@ -880,6 +999,7 @@ public class GenericStorage  implements ContextualisedStorage {
 						fieldName = key.split(":")[1];
 						//XXX fixCSPACE-2909 would be nice if they gave us the actual field rather than the parent
 						//XXX CSPACE-2586
+                                                // FIXME: We might remove the following if CSPACE-2909's fix makes this moot - ADR 2012-07-19
 						while(thisr.getFieldFullList(fieldName) instanceof Repeat || thisr.getFieldFullList(fieldName) instanceof Group ){
 							fieldName = ((Repeat)thisr.getFieldFullList(fieldName)).getChildren("GET")[0].getID();
 						}
@@ -893,8 +1013,10 @@ public class GenericStorage  implements ContextualisedStorage {
 					dataitem.put("sourceFieldType", dataitem.getJSONObject("summarylist").getString("docType"));
 					dataitem.put("sourceFieldType", dataitem.getJSONObject("summarylist").getString("docType"));
 					
-					out.put(csid+":"+key,dataitem);
+					//items.put(csid+":"+key,dataitem);
+					items.put(dataitem);
 				}
+				out.put("items", items);
 			}
 
 			return out;
@@ -910,12 +1032,20 @@ public class GenericStorage  implements ContextualisedStorage {
 			out.put("Functionality Failed",dataitem);
 			//return out;
 			throw new UnderlyingStorageException("Connection problem"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
+		} catch (UnsupportedEncodingException uae) {
+			log.error("failed to retrieve refObjs for "+path);
+			JSONObject dataitem = new JSONObject();
+			dataitem.put("message", uae.getMessage());
+			out.put("Functionality Failed",dataitem);
+			throw new UnderlyingStorageException("Problem building query"+uae.getLocalizedMessage(),uae);
 		} finally {
 			// Ensure we restore the gleaning views even if we get a failure (CSPACE-4424)
 			view_good = old_good;
 			view_map = old_map;
 			xxx_view_deurn = old_deurn;
+			view_search_optional  = old_search_optional;
 			view_merge = old_merge;
+			view_useCsid = old_useCsid;
 		}
 	}
 	/**
@@ -930,8 +1060,10 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws JSONException
 	 * @throws UnimplementedException 
 	 */
-	public JSONObject refObjViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String path) throws ExistException, UnderlyingStorageException, JSONException, UnimplementedException {
-		return refObjViewRetrieveJSON(storage,creds, cache,path, this.r);
+	public JSONObject refObjViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,
+			CSPRequestCache cache,String path, JSONObject restrictions) 
+					throws ExistException, UnderlyingStorageException, JSONException, UnimplementedException {
+		return refObjViewRetrieveJSON(storage,creds, cache,path, restrictions, this.r);
 	}
 	
 	/**
@@ -947,7 +1079,10 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws UnimplementedException
 	 * @throws UnderlyingStorageException
 	 */
-	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject,Record thisr, String serviceurl)
+	public void updateJSON(
+			ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache,
+			String filePath, JSONObject jsonObject, JSONObject restrictions,
+			Record thisr, String serviceurl)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			Map<String,Document> parts=new HashMap<String,Document>();
@@ -961,9 +1096,14 @@ public class GenericStorage  implements ContextualisedStorage {
 				//	log.info(doc.asXML());
 				}
 			}
+			
+			// This checks for hierarchy support, and does nothing if not appropriate. 
+			handleHierarchyPayloadSend(thisr, parts, jsonObject, filePath);
+			
 			int status = 0;
 			if(thisr.isMultipart()){
-				ReturnedMultipartDocument docm = conn.getMultipartXMLDocument(RequestMethod.PUT,serviceurl+filePath,parts,creds,cache);
+				String restrictedPath = getRestrictedPath(serviceurl, filePath, restrictions, null);
+				ReturnedMultipartDocument docm = conn.getMultipartXMLDocument(RequestMethod.PUT,restrictedPath,parts,creds,cache);
 				status = docm.getStatus();
 			}
 			else{ 
@@ -1005,11 +1145,11 @@ public class GenericStorage  implements ContextualisedStorage {
 							Integer pn = Integer.valueOf(data.getJSONObject("pagination").getString("pageNum"));
 							Integer ti = Integer.valueOf(data.getJSONObject("pagination").getString("totalItems"));
 							if(ti > (ps * (pn +1))){
-								JSONObject restrictions = new JSONObject();
-								restrictions.put("pageSize", Integer.toString(ps));
-								restrictions.put("pageNum", Integer.toString(pn + 1));
+								JSONObject pgRestrictions = new JSONObject();
+								pgRestrictions.put("pageSize", Integer.toString(ps));
+								pgRestrictions.put("pageNum", Integer.toString(pn + 1));
 
-								getPath = getRestrictedPath(getPath, restrictions, sr.getServicesSearchKeyword(), "", false, "");
+								getPath = getRestrictedPath(getPath, pgRestrictions, sr.getServicesSearchKeyword(), "", false, "");
 								//need more values
 							}
 							else{
@@ -1110,8 +1250,8 @@ public class GenericStorage  implements ContextualisedStorage {
 							if(sr.getID().equals("termlistitem")){
 								//
 								String subpath = savePath+key+"/refObjs";
-								JSONObject test =  refObjViewRetrieveJSON(root,creds,cache,subpath, sr);
-								if(test.length() > 0){
+								JSONObject test =  refObjViewRetrieveJSON(root,creds,cache,subpath, new JSONObject(), sr);
+								if(test.has("items") && (test.getJSONArray("items").length() > 0)){
 									throw new ExistException("Term List in use - can not delete: "+key);
 								}
 							}
@@ -1123,7 +1263,8 @@ public class GenericStorage  implements ContextualisedStorage {
 						while(keys.hasNext()) {
 							String key=keys.next();
 							JSONObject value = updatecsid.getJSONObject(key);
-							updateJSON( root, creds, cache, key,  value, sr, savePath);
+							JSONObject subrRestrictions = new JSONObject();
+							updateJSON( root, creds, cache, key,  value, subrRestrictions, sr, savePath);
 						}
 						
 						
@@ -1162,9 +1303,9 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws UnimplementedException
 	 * @throws UnderlyingStorageException
 	 */
-	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject,Record thisr)
+	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject, JSONObject restrictions,Record thisr)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
-		updateJSON( root, creds, cache, filePath,  jsonObject, thisr, thisr.getServicesURL()+"/");
+		updateJSON( root, creds, cache, filePath,  jsonObject, restrictions, thisr, thisr.getServicesURL()+"/");
 	}
 
 	/**
@@ -1172,9 +1313,9 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * I allowed the specification of record types as sub records caused issues
 	 * possibly should rework to keep record purity and think of a better way of calling the sub record info
 	 */
-	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject)
+	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject, JSONObject restrictions)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
-		updateJSON( root, creds, cache, filePath,  jsonObject, r);
+		updateJSON( root, creds, cache, filePath,  jsonObject, restrictions, r);
 	}
 	
 	/** 
@@ -1261,9 +1402,14 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @param {JSONObject} jsonObject The JSON string coming in from the UI Layer, containing the object to be stored
 	 * @return {String} csid The id of the object in the database
 	 */
-	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	@Override
+	public String autocreateJSON(ContextualisedStorage root,
+			CSPRequestCredentials creds,
+			CSPRequestCache cache,
+			String filePath,
+			JSONObject jsonObject,
+			JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-
 			ReturnedURL url = null;
 			Document doc = null;
 			//used by userroles and permroles as they have complex urls
@@ -1275,13 +1421,15 @@ public class GenericStorage  implements ContextualisedStorage {
 					doc=XmlJsonConversion.convertToXml(r,jsonObject,section,"POST");
 					String path = r.getServicesURL();
 					path = path.replace("*", getSubCsid(jsonObject,r.getPrimaryField()));
+					String restrictedPath = getRestrictedPath(path, restrictions, null);
 
-					deleteJSON(root,creds,cache,path);
-					url = conn.getURL(RequestMethod.POST, path, doc, creds, cache);	
+					deleteJSON(root,creds,cache,restrictedPath);
+					url = conn.getURL(RequestMethod.POST, restrictedPath, doc, creds, cache);	
 				}
 			}
 			else{
-				url = autoCreateSub(creds, cache, jsonObject, doc, r.getServicesURL(), r);
+				String restrictedPath = getRestrictedPath(r.getServicesURL(), restrictions, null);
+				url = autoCreateSub(creds, cache, jsonObject, doc, restrictedPath, r); // REM - We need a way to send query params (restrictions) on POST and UPDATE 
 			}
 
 			// create related sub records?
@@ -1337,7 +1485,9 @@ public class GenericStorage  implements ContextualisedStorage {
 				msg += " permissions error";
 			}
 			throw new UnderlyingStorageException(msg,e.getStatus(), e.getUrl(),e);
-		} catch (JSONException e) {
+		} catch (UnderlyingStorageException e) {
+			throw e; // REM - CSPACE-5632: Need to catch and rethrow this exception type to prevent throwing an "UnimplementedException" exception below.
+		} catch (Exception e) {
 			throw new UnimplementedException("JSONException",e);
 		}
 	}
@@ -1355,11 +1505,12 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws JSONException
 	 * @throws UnderlyingStorageException
 	 * @throws ConnectionException
+	 * @throws ExistException 
 	 */
 	protected ReturnedURL autoCreateSub(CSPRequestCredentials creds,
 			CSPRequestCache cache, JSONObject jsonObject, Document doc, String savePrefix, Record r)
 			throws JSONException, UnderlyingStorageException,
-			ConnectionException {
+			ConnectionException, ExistException {
 		ReturnedURL url;
 		Map<String,Document> parts=new HashMap<String,Document>();
 		Document doc2 = doc;
@@ -1374,6 +1525,10 @@ public class GenericStorage  implements ContextualisedStorage {
 				//log.info(savePrefix);
 			}
 		}
+		
+		// This checks for hierarchy support, and does nothing if not appropriate. 
+		handleHierarchyPayloadSend(r, parts, jsonObject, null);
+
 		//some records are accepted as multipart in the service layers, others arent, that's why we split up here
 		if(r.isMultipart())
 			url = conn.getMultipartURL(RequestMethod.POST,savePrefix,parts,creds,cache);
@@ -1514,36 +1669,74 @@ public class GenericStorage  implements ContextualisedStorage {
 		return null;
 	}
 
+	/*
+	 * A wrapper call to getRestrictedPath() with some common defaults
+	 */
+	protected String getRestrictedPath(String basepath, JSONObject restrictions, String tail)
+			throws UnsupportedEncodingException, JSONException {
+		return getRestrictedPath(basepath, null, restrictions, null, tail, false, "");
+	}
+	
+	/*
+	 * A wrapper call to getRestrictedPath() with some common defaults
+	 */
+	protected String getRestrictedPath(String basepath, String filepath, JSONObject restrictions, String tail)
+			throws UnsupportedEncodingException, JSONException {
+		return getRestrictedPath(basepath, filepath, restrictions, null, tail, false, "");
+	}
+	
+	protected String getRestrictedPath(String basepath, JSONObject restrictions, String keywordparam, 
+					String tail, Boolean supportTermCompletion, String displayNameID)
+		throws UnsupportedEncodingException, JSONException {
+	return getRestrictedPath(basepath, null, restrictions, keywordparam, tail, supportTermCompletion, displayNameID);
+}
 	/**
 	 * One stop shop to work out what the restricted path is that should be sent to the service layer
 	 * @param basepath
 	 * @param restrictions
 	 * @param keywordparam
 	 * @param tail
-	 * @param isVocab
-	 * @param displayName
+	 * @param supportTermCompletion
+	 * @param displayNameID
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 * @throws JSONException
 	 */
-	protected String getRestrictedPath(String basepath, JSONObject restrictions, String keywordparam, String tail, Boolean isVocab, String displayName) throws UnsupportedEncodingException, JSONException{
-		
+	protected String getRestrictedPath(String basepath, String filepath, JSONObject restrictions, String keywordparam, String tail, Boolean supportTermCompletion, String displayNameID) throws UnsupportedEncodingException, JSONException{
+
+		// Separator between the base part (scheme/authority/path) of the URL
+		// and its query parameters (aka query or query string) part
+		// TODO rewrite to use StringBuilder
 		String postfix = "?";
 
-		if (tail.length() > 0) {
-			postfix += tail.substring(1) + "&";
+		if (basepath != null && basepath.contains(postfix)) {
+			// FIXME: Hack for CSPACE-5431: If the basepath already includes
+			// query parameters ("restrictions"), remove them first, before
+			// appending new query parameters to the basepath.
+			basepath = basepath.substring(0,basepath.lastIndexOf(postfix));
 		}
 		
+		if(filepath == null) {
+			filepath = "";
+		} else if(filepath.length()>1 && !filepath.startsWith("/") && !basepath.endsWith("/")) {
+			filepath = "/" + filepath;
+		}
+
+		if (tail != null && tail.length() > 0) {
+			postfix += tail.substring(1) + "&";
+		}
+
 		String prefix=null;
 		Boolean queryadded = false;
 		if(restrictions!=null){
 
-			if(isVocab && restrictions.has(displayName)){
-				prefix=restrictions.getString(displayName); 
+			if(supportTermCompletion && restrictions.has(displayNameID)){
+				prefix=restrictions.getString(displayNameID); 
 			}
 			if(restrictions.has("keywords")) {
 				/* Keyword search */
 				String data=URLEncoder.encode(restrictions.getString("keywords"),"UTF-8");
+				// TODO - should ensure data is non-empty
 				postfix += keywordparam+"="+data+"&";
 			} 
 			if(restrictions.has("advancedsearch")) {
@@ -1577,19 +1770,43 @@ public class GenericStorage  implements ContextualisedStorage {
 				postfix+=restrictions.getString("queryTerm")+"="+URLEncoder.encode(queryString,"UTF8")+"&";
 				queryadded = true;
 			}
+			if(restrictions.has(MARK_RELATED_TO_CSID_AS_SUBJECT)){ // REM - What is this restriction mean?
+				postfix += MARK_RELATED_TO_CSID_AS_SUBJECT+"="
+						+restrictions.getString(MARK_RELATED_TO_CSID_AS_SUBJECT)+"&";
+			}
+			if(restrictions.has(SEARCH_RELATED_TO_CSID_AS_SUBJECT)){
+				postfix += SEARCH_RELATED_TO_CSID_AS_SUBJECT+"="
+						+restrictions.getString(SEARCH_RELATED_TO_CSID_AS_SUBJECT)+"&";
+			}
+			if(restrictions.has(SEARCH_ALL_GROUP)){
+				// Have to replace the "common" part of the URL with the passed group.
+				// this is a bit of a hack, but the alternative is work: model multiple
+				// searchall variants: one for each group we are interested in.
+				basepath = basepath.replace("/common/","/"+restrictions.getString(SEARCH_ALL_GROUP)+"/");
+			}
+			if (restrictions.has(Record.BLOB_SOURCE_URL)) {
+				String blobUri = restrictions.getString(Record.BLOB_SOURCE_URL);
+				postfix += Record.BLOB_SOURCE_URL + "=" + URLEncoder.encode(blobUri, "UTF-8") + "&"; // REM - The Services seems to have problems with the syntax of some URLs.
+				if (restrictions.has(Record.BLOB_PURGE_ORIGINAL)) {
+					String blobPurgeOriginal = restrictions.getString(Record.BLOB_PURGE_ORIGINAL); // This param tells the Services to delete the original blob after creating the derivatives
+					postfix += Record.BLOB_PURGE_ORIGINAL + "=" + blobPurgeOriginal + "&";
+				}
+			}
 		}
 
-		if(isVocab){
+		if(supportTermCompletion){
 			if(prefix!=null && !queryadded){
 				postfix+="pt="+URLEncoder.encode(prefix,"UTF8")+"&";
 			}
 		}
 
-		postfix = postfix.substring(0, postfix.length()-1);
-		if(postfix.length() == 0){postfix +="/";}
-		
+		postfix = postfix.substring(0, postfix.length()-1); // Remove the last character (probably the '&' character)
+		if (postfix.length() == 0) {
+			// postfix +="/";	// Trailing slash does nothing.
+		}
+
 		//log.info(postfix);
-		String path = basepath+postfix;
+		String path = basepath+filepath+postfix;
 		return path;
 	}
 
@@ -1598,7 +1815,20 @@ public class GenericStorage  implements ContextualisedStorage {
 	 */
 	public JSONObject getPathsJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			String path = getRestrictedPath(r.getServicesURL(), restrictions, r.getServicesSearchKeyword(), "", false, "");
+			
+			FieldSet dispNameFS = r.getDisplayNameField(); 
+			String displayNameFieldID;
+			boolean supportsTermCompletion;
+			if(dispNameFS!=null) {
+				displayNameFieldID = dispNameFS.getID(); 
+				supportsTermCompletion = true;
+			} else {
+				displayNameFieldID = ""; 
+				supportsTermCompletion = false;
+			}
+			
+			String path = getRestrictedPath(r.getServicesURL(), restrictions, r.getServicesSearchKeyword(), "", 
+											supportsTermCompletion, displayNameFieldID);
 			
 			String node = "/"+r.getServicesListPath().split("/")[0]+"/*";
 			JSONObject data = getListView(creds,cache,path,node,"/"+r.getServicesListPath(),"csid",false,r);
@@ -1811,10 +2041,14 @@ public class GenericStorage  implements ContextualisedStorage {
 						}
 					} else {
 						// Mark all the fields not yet found as gleaned - 
+						String gleanname = urlPlusCSID;
+						if(csidfield.equals("uri")){
+							gleanname = csid;
+						}
 						for(String s : allfields){
-							String gleaned = getGleanedValue(cache,urlPlusCSID,s);
+							String gleaned = getGleanedValue(cache,gleanname,s);
 							if(gleaned==null){
-								setGleanedValue(cache,urlPlusCSID,s,"");
+								setGleanedValue(cache,gleanname,s,"");
 							}
 						}
 					}
@@ -1883,6 +2117,7 @@ public class GenericStorage  implements ContextualisedStorage {
 					if(node.selectSingleNode(csidfield)!=null){
 						csid=node.selectSingleNode(csidfield).getText();
 						urlPlusCSID = r.getServicesURL()+"/"+csid;
+						setGleanedValue(cache,urlPlusCSID,"csid",csid);
 					}
 					for(Node field : fields) {
 						if(csidfield.equals(field.getName())) {
@@ -1960,5 +2195,232 @@ public class GenericStorage  implements ContextualisedStorage {
 		} catch (UnsupportedEncodingException x) {
 			throw new UnderlyingStorageException("Error UnsupportedEncodingException JSON",x);
 		}
+	}
+	
+	public void handleHierarchyPayloadRetrieve(Record r, ReturnedMultipartDocument doc, JSONObject out, String thiscsid) throws JSONException {
+		if(r.hasHierarchyUsed("screen")){
+			//lets do relationship stuff...
+			Document list = doc.getDocument("relations-common-list");
+			if(list==null)
+				return;
+			List<Node> nodes=list.selectNodes("/relations-common-list/*");
+
+			for(Node node : nodes) {
+				if(node.matches("/relations-common-list/relation-list-item")){
+					//String test = node.asXML();
+					String relationshipType = node.selectSingleNode("relationshipType").getText();
+					// Be forgiving while waiting for services to complete code.
+					Node relationshipMetaTypeNode = node.selectSingleNode("relationshipMetaType");
+					String relationshipMetaType = (relationshipMetaTypeNode!=null)?
+													relationshipMetaTypeNode.getText():"";
+					//String subjCSID = node.selectSingleNode("subjectCsid").getText();
+					//String objCSID = node.selectSingleNode("objectCsid").getText();
+					String subjURI="";
+					String subjCSID="";
+					String subjDocType="";
+					if(node.selectSingleNode("subject/uri")!=null){
+						subjCSID=node.selectSingleNode("subject/csid").getText();
+						subjDocType=node.selectSingleNode("subject/documentType").getText();
+						subjURI = node.selectSingleNode("subject/refName").getText();
+					}
+					String objRefName="";
+					String objDocType="";
+					String objCSID="";
+					if(node.selectSingleNode("object/uri")!=null){
+						objCSID=node.selectSingleNode("object/csid").getText();
+						objDocType=node.selectSingleNode("object/documentType").getText();
+						objRefName = node.selectSingleNode("object/refName").getText();
+					}
+
+					String relateduri = objRefName;
+					String relatedcsid = objCSID;
+					String relatedser = objDocType;
+
+					if(r.getSpec().hasRelationshipByPredicate(relationshipType)){
+						Relationship rel = r.getSpec().getRelationshipByPredicate(relationshipType);
+						Relationship newrel = rel;
+						//is this subject or object
+						if(thiscsid.equals(objCSID)){
+							//should we invert
+							if(r.getSpec().hasRelationshipInverse(rel.getID())){
+								newrel = r.getSpec().getInverseRelationship(rel.getID());
+								relateduri = subjURI;
+								relatedcsid = subjCSID;
+								relatedser = subjDocType;
+							}
+						}
+
+						String metaTypeField = newrel.getMetaTypeField();
+
+						if(newrel.getObject().equals("n")){ //array
+							JSONObject subdata = new JSONObject();
+							subdata.put(newrel.getChildName(),relateduri);
+							if(!StringUtils.isEmpty(metaTypeField)) {
+								subdata.put(metaTypeField,relationshipMetaType);
+							}
+							if(out.has(newrel.getID())){
+								out.getJSONArray(newrel.getID()).put(subdata);
+							}
+							else{
+								JSONArray relList = new JSONArray();
+								relList.put(subdata);
+								out.put(newrel.getID(), relList);
+							}
+						}
+						else{//string
+							out.put(newrel.getID(), relateduri);
+							if(!StringUtils.isEmpty(metaTypeField)) {
+								out.put(metaTypeField,relationshipMetaType);
+							}
+							if(newrel.showSiblings()){
+								out.put(newrel.getSiblingChild(), relatedser+"/"+relatedcsid);
+								//out.put(newrel.getSiblingChild(), relateduri);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	public void handleHierarchyPayloadSend(Record thisr, Map<String,Document> body, 
+			JSONObject jsonObject, String thiscsid) throws JSONException, ExistException, UnderlyingStorageException {
+		if(thisr.hasHierarchyUsed("screen")){
+			Spec spec = this.r.getSpec();
+			ArrayList<Element> alleles = new ArrayList<Element>();
+			for(Relationship rel : r.getSpec().getAllRelations()){
+				Relationship newrel=rel;
+				Boolean inverse = false;
+				if(rel.hasInverse()){
+					newrel = thisr.getSpec().getRelation(rel.getInverse());
+					inverse = true;
+				}
+				//does this relationship apply to this record
+				if(rel.hasSourceType(r.getID())){
+					
+					//does this record have the data in the json
+					if(jsonObject.has(rel.getID())){
+						String metaTypeField = rel.getMetaTypeField();
+						if(rel.getObject().equals("1")){
+							if(jsonObject.has(rel.getID()) && !jsonObject.get(rel.getID()).equals("")){
+								// Look for a metatype
+								String metaType = "";
+								if(!StringUtils.isEmpty(metaTypeField)
+										&& jsonObject.has(metaTypeField)) {
+									metaType = jsonObject.getString(metaTypeField);
+								}
+								Element bit = createRelationship(newrel,jsonObject.get(rel.getID()), 
+														thiscsid, r.getServicesURL(), 
+														metaType, inverse, spec);
+								if(bit != null){
+									alleles.add(bit);
+								}
+							}
+						}
+						else if(rel.getObject().equals("n")){
+							//if()
+							JSONArray temp = jsonObject.getJSONArray(rel.getID());
+							for(int i=0; i<temp.length();i++){
+								String relFieldName = rel.getChildName();
+								JSONObject relItem = temp.getJSONObject(i);
+								if(relItem.has(relFieldName) && !relItem.getString(relFieldName).equals("")){
+									String uri = relItem.getString(relFieldName);
+									// Look for a metatype
+									String metaType = "";
+									if(!StringUtils.isEmpty(metaTypeField)
+											&& relItem.has(metaTypeField)) {
+										metaType = relItem.getString(metaTypeField);
+									}
+									Element bit = createRelationship(newrel, uri, 
+														thiscsid, r.getServicesURL(), 
+														metaType, inverse, spec);
+									if(bit != null){
+										alleles.add(bit);
+									}
+								}
+							}
+							
+						}
+					}
+				}
+			}
+			//add relationships section
+			if(!alleles.isEmpty()){
+				Element[] array = alleles.toArray(new Element[0]);
+				Document out=XmlJsonConversion.getXMLRelationship(array);
+				body.put("relations-common-list",out);
+				//log.info(out.asXML());
+			}
+			else{
+
+				Document out=XmlJsonConversion.getXMLRelationship(null);
+				body.put("relations-common-list",out);
+				//log.info(out.asXML());
+			}
+			//probably should put empty array in if no data
+		}
+	}
+	// NOTE that this is building XML Doc, and not JSON as is typical!
+	protected static Element createRelationship(Relationship rel, Object data, String csid, 
+						String subjtype, String metaType,
+						Boolean reverseIt, Spec spec)
+					throws ExistException, UnderlyingStorageException, JSONException{
+
+		Document doc=DocumentFactory.getInstance().createDocument();
+		Element subroot = doc.addElement("relation-list-item");
+
+		Element predicate=subroot.addElement("predicate");
+		predicate.addText(rel.getPredicate());
+		Element relMetaType=subroot.addElement("relationshipMetaType");
+		relMetaType.addText(metaType);
+		String subjectName = "subject";
+		String objectName = "object";
+		if(reverseIt){
+			subjectName = "object";
+			objectName = "subject";
+		}
+		Element subject=subroot.addElement(subjectName);
+		Element subjcsid = subject.addElement("csid");
+		if(csid != null){
+			subjcsid.addText(csid);
+		}
+		else{
+			subjcsid.addText("${itemCSID}");
+		}
+		
+		//find out record type from urn 
+		String refName = (String)data;
+		Element object=subroot.addElement(objectName);
+
+		// We may or may not be dealing with a sub-resource like AuthItems.
+		// TODO - this may all be unneccessary, as the services should fill in
+		// doc types, etc. now automatically.
+		// OTOH, not a bad idea to validate the refName...
+        RefName.AuthorityItem itemParsed = RefName.AuthorityItem.parse(refName);
+        if(itemParsed != null) {
+	        String serviceurl = itemParsed.inAuthority.resource;
+			Record myr = spec.getRecordByServicesUrl(serviceurl);
+	        if(myr.isType("authority")){
+	
+	    		Element objRefName = object.addElement("refName");
+	    		objRefName.addText(refName);
+	        }
+	        else{
+	        	throw new JSONException(
+	        	"Relation object refName is for sub-resources other than authority item - NYI!");
+	        }
+        } else {
+        	RefName.Authority resourceParsed = RefName.Authority.parse(refName);
+        	if(resourceParsed != null) {
+        		Element objRefName = object.addElement("refName");
+        		objRefName.addText(refName);
+        	} else {
+	        	throw new JSONException(
+	        			"Relation object refName does not appear to be valid!");
+        	}
+        }
+		
+		//log.info(subroot.asXML());
+		return subroot;
 	}
 }

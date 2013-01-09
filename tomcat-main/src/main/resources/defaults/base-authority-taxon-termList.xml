@@ -9,13 +9,17 @@
                 <selector>taxonAuthority-termDisplayName</selector>
                 <title-selector>titleBar-displayName</title-selector>
             </field>
+            <!-- FIXME: Per comments on CSPACE-5669: termName does not appear in -->
+            <!-- the UI's Taxon record editor template, nor is it enabled in Advanced Search. -->
+            <!-- We might ask for functional clarification around whether this should -->
+            <!-- continue to be so. - ADR 2012-10-24 -->
             <field id="termName">
                 <selector>taxonAuthority-termName</selector>
             </field>
             <!-- Recommendation: Hide termType in the UI because taxonomy has established -->
             <!-- international nomenclature standards. -->
             <!-- FIXME: Should we remove this field from mini-records? - ADR 2012-05-18 -->
-            <field id="termType" mini="summary,search,list,relate">
+            <field id="termType">
                 <selector>taxonAuthority-termType</selector>
                 <options>
                     <option id="">Please select a value</option>
@@ -24,8 +28,7 @@
                     <option id="used for term">Used for Term</option>
                 </options>
             </field>
-            <!-- FIXME: Add 'ui-search="repeatable"' back to this field when CSPACE-5184/CSPACE-5185 is fixed -->
-            <field id="termStatus" seperate_ui_container="true"
+            <field id="termStatus" ui-search="repeatable" seperate_ui_container="true"
                 mini="search,list,relate">
                 <selector>taxonAuthority-termStatus</selector>
                 <options>
@@ -62,7 +65,7 @@
                 <selector>taxonAuthority-termSourceNote</selector>
             </field>
             <!-- Fields specific to Taxon terms -->
-            <field id="taxonomicStatus">
+            <field id="taxonomicStatus" ui-search="repeatable" >
                 <selector>taxonAuthority-taxonomicStatus</selector>
                 <options>
                     <option id="" default="yes">Please select a value</option>

@@ -234,8 +234,10 @@ public class WebUI implements CSP, UI, Configurable {
 					addMethod(Operation.CREATE,new String[]{"vocabularies",n.getWebURL(),"search"},0,new AuthoritiesVocabulariesSearchList(n,true));				
 					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL(),"initialize"},0,new AuthoritiesVocabulariesInitialize(n,true));				
 					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL(),"refresh"},0,new AuthoritiesVocabulariesInitialize(n,false));				
-					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL()},1,new VocabulariesRead(n));				
-					addMethod(Operation.READ,new String[]{"vocabularies","basic",n.getWebURL()},1,new VocabulariesRead(n,true));
+					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL()},1,new VocabulariesRead(n,VocabulariesRead.GET_FULL_INFO));
+					addMethod(Operation.READ,new String[]{"vocabularies","basic",n.getWebURL()},1,new VocabulariesRead(n,VocabulariesRead.GET_BASIC_INFO));
+					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL(),"authorities"},1,new VocabulariesRead(n,VocabulariesRead.GET_TERMS_USED_INFO));
+					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL(),"refobjs"},1,new VocabulariesRead(n,VocabulariesRead.GET_REF_OBJS_INFO));
 					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL(),"autocomplete"},0,new WebAutoComplete(spec.getRecord(r.getID())));
 					addMethod(Operation.CREATE,new String[]{"vocabularies",n.getWebURL()},0,new VocabulariesCreateUpdate(n,true));
 					addMethod(Operation.UPDATE,new String[]{"vocabularies",n.getWebURL()},1,new VocabulariesCreateUpdate(n,false));
@@ -246,9 +248,9 @@ public class WebUI implements CSP, UI, Configurable {
 			else if(r.isType("record") || r.isType("blob") || r.isType("authorizationdata")){
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"__auto"},0,new WebAuto());
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"autocomplete"},0,new WebAutoComplete(spec.getRecord(r.getID())));
-				addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,true));
-				addMethod(Operation.CREATE,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,true));
-				addMethod(Operation.READ,new String[]{r.getWebURL()},0,new RecordSearchList(r,false));
+				addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,RecordSearchList.MODE_SEARCH));
+				addMethod(Operation.CREATE,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,RecordSearchList.MODE_SEARCH));
+				addMethod(Operation.READ,new String[]{r.getWebURL()},0,new RecordSearchList(r,RecordSearchList.MODE_LIST));
 				addMethod(Operation.READ,new String[]{r.getWebURL()},1,new RecordRead(r));
 				addMethod(Operation.READ,new String[]{"basic",r.getWebURL()},1,new RecordRead(r,true));
 				addMethod(Operation.DELETE,new String[]{r.getWebURL()},1,new RecordDelete(r.getID()));
@@ -257,12 +259,22 @@ public class WebUI implements CSP, UI, Configurable {
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"source-vocab"},1,new VocabRedirector(r));
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"authorities"},1,new RecordAuthorities(r));
 
-				addMethod(Operation.READ,new String[]{r.getWebURL(),"procedure"},1,new RecordRelated(r)); 
+				//addMethod(Operation.READ,new String[]{r.getWebURL(),"procedures"},1,new RecordRelated(r)); 
 				
-				for(Record r2 : spec.getAllRecords()) {
-					 if(r.isType("record")){
-						 addMethod(Operation.READ,new String[]{r.getWebURL(),r2.getWebURL()},1,new RecordRelated(r,r2)); 
-					 }
+				// All the relatable records need to be able to fetch the other relatable records.
+				if((r.isType("procedure") && !r.isType("vocabulary"))
+						|| "collection-object".equals(r.getID())) {
+					for(Record r2 : spec.getAllRecords()) {
+						if((r2.isType("procedure") && !r2.isType("vocabulary"))
+								|| "collection-object".equals(r2.getID())) {
+							// We do not actually care about the type of r, but rather just the CSID tail.
+							// We'll search on r2's related to the CSID tail.
+							addMethod(Operation.READ,new String[]{r.getWebURL(),r2.getWebURL()},1,new RecordSearchList(r2,RecordSearchList.MODE_SEARCH_RELATED)); 
+						} else if(r2.isType("searchall")){
+							// Allow to ask for all procedures related to this record. Use SearchAll with a related search.
+							addMethod(Operation.READ,new String[]{r.getWebURL(),"procedures"},1,new RecordSearchList(r2,RecordSearchList.MODE_SEARCH_RELATED, "procedure"));
+						}
+					}
 				}
 				
 			}
@@ -282,8 +294,8 @@ public class WebUI implements CSP, UI, Configurable {
 				// XXX this isn't right but it does work. NEEDS to have it's own methods rather than piggy backing on RECORD
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"__auto"},0,new WebAuto());
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"autocomplete"},0,new WebAutoComplete(spec.getRecord(r.getID())));
-				addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,true));
-				addMethod(Operation.READ,new String[]{r.getWebURL()},0,new RecordSearchList(r,false));
+				addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,RecordSearchList.MODE_SEARCH));
+				addMethod(Operation.READ,new String[]{r.getWebURL()},0,new RecordSearchList(r,RecordSearchList.MODE_LIST));
 				addMethod(Operation.READ,new String[]{r.getWebURL()},1,new RecordRead(r));
 				addMethod(Operation.DELETE,new String[]{r.getWebURL()},1,new RecordDelete(r.getID()));
 				addMethod(Operation.CREATE,new String[]{r.getWebURL()},0,new RecordCreateUpdate(r,true));
@@ -291,7 +303,7 @@ public class WebUI implements CSP, UI, Configurable {
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"source-vocab"},1,new VocabRedirector(r));
 			}
 			else if(r.isType("searchall")){
-				addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,true));
+				addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,RecordSearchList.MODE_SEARCH));
 			}
 			
 		}

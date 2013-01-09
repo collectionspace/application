@@ -210,7 +210,9 @@ public class DataGenerator extends SchemaStructure implements WebMethod {
 	 * @throws JSONException 
 	 */
 	protected void actualField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
-		out.put(getSelector(fs,context),actualFieldEntry(fs,context));
+		String fieldSelector = getSelector(fs,context);
+		JSONArray decorators = getExistingDecoratorsArray(out, fieldSelector);
+		out.put(fieldSelector,actualFieldEntry(fs,context, decorators));
 	}
 	/**
 	 * output the option field markup for UISpecs
@@ -260,11 +262,12 @@ public class DataGenerator extends SchemaStructure implements WebMethod {
 	 */
 	protected void actualAuthorities(JSONObject out, FieldSet fs, UISpecRunContext context)
 			throws JSONException {
+		String selector = getSelector(fs,context);
 		if("enum".equals(fs.getUIType())){
-			out.put(getSelector(fs,context),actualFieldEntry(fs,context));
+			out.put(selector,actualFieldEntry(fs, context));
 		}
 		else{
-			out.put(getSelector(fs,context),actualAutocomplete(fs,context));
+			out.put(selector,actualAutocomplete(fs, context));
 		}
 	}
 	protected Object actualAutocomplete(FieldSet fs,UISpecRunContext context) throws JSONException {
@@ -595,7 +598,7 @@ public class DataGenerator extends SchemaStructure implements WebMethod {
 				String key=(String)rit.next();
 				data.put("fields",out.getJSONObject(key));
 
-				String path=writer.sendJSON(storage,null,data);
+				String path=writer.sendJSON(storage,null,data,null);
 				dataitems.put(key,path);
 				//log.info(path);
 

@@ -110,7 +110,7 @@ public class RecordRelated implements WebMethod {
 		JSONObject myres = restriction;
 		if(this.relatedrecord ==null){ //return all of the procedures etc
 			for(Record r2 : this.record.getSpec().getAllRecords()) {
-				if(r2.isType("procedure")){
+				if(r2.isType("procedure")&&!r2.isType("vocabulary")){
 					myres.put("dstType", r2.getServicesTenantSg());
 					getRelation(storage,myres,recordtypes,paginated);
 				}
@@ -143,11 +143,11 @@ public class RecordRelated implements WebMethod {
 					// restrict = "keywords";
 					// key="results";
 					// }
-					if (restrict.equals("pageSize")
-							|| restrict.equals("pageNum")
+					if (restrict.equals(WebMethod.PAGE_SIZE_PARAM)
+							|| restrict.equals(WebMethod.PAGE_NUM_PARAM)
 							|| restrict.equals("keywords")) {
 						restriction.put(restrict, value);
-					} else if (restrict.equals("query")) {
+					} else if (restrict.equals(WebMethod.SEARCH_QUERY_PARAM)) {
 						// ignore - someone was doing something odd
 					} else {
 						// XXX I would so prefer not to restrict and just pass

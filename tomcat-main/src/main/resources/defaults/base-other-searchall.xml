@@ -11,8 +11,8 @@
 
     <web-url>all</web-url>
     <authorization-view>false</authorization-view>
-		<!-- Need to filter all soft-deleted records when searching -->
-    <hassoftdelete>false</hassoftdelete>
+    <!-- Need to filter all soft-deleted records when searching -->
+    <hassoftdelete>true</hassoftdelete>
 
     <structures>
         <structure id="screen">
@@ -41,6 +41,7 @@
         <field id="uri" mini="summary,search,list" attributes="GET"/>
         <field id="docName" mini="summary,search,list" attributes="GET"/>
         <field id="docNumber" mini="number,search,list" attributes="GET"/>
+        <field id="refName" mini="search,list" attributes="GET"/>
         <field id="docType" mini="search,list" attributes="GET"/>
     </section>
 

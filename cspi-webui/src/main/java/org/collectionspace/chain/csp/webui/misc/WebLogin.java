@@ -62,11 +62,11 @@ public class WebLogin implements WebMethod {
 	
 	private void login(Request in) throws UIException { // Temporary hack for Mars
 		UIRequest request=in.getUIRequest();
-		String username=request.getRequestArgument("userid");
-		String password=request.getRequestArgument("password");
+		String username=request.getRequestArgument(USERID_PARAM);
+		String password=request.getRequestArgument(PASSWORD_PARAM);
 		String tenantId=tenantid;
 	
-		if(request.getRequestArgument("userid") ==  null){
+		if(username ==  null){
 			JSONObject data = new JSONObject();
 			if(request.isJSON()){
 				data=request.getJSONBody();
@@ -83,21 +83,22 @@ public class WebLogin implements WebMethod {
 						tenantId=data.getString("tenant");
 					}
 				} catch (JSONException e) {
-					username=request.getRequestArgument("userid");
-					password=request.getRequestArgument("password");
+					username=request.getRequestArgument(USERID_PARAM);
+					password=request.getRequestArgument(PASSWORD_PARAM);
 				}
 			}
 		}
-		request.getSession().setValue(UISession.USERID,username);
-		request.getSession().setValue(UISession.PASSWORD,password);
-		request.getSession().setValue(UISession.TENANT,tenantId);
+		UISession uiSession = request.getSession();
+		uiSession.setValue(UISession.USERID,username);
+		uiSession.setValue(UISession.PASSWORD,password);
+		uiSession.setValue(UISession.TENANT,tenantId);
 		in.reset();
 		if(testSuccess(in.getStorage(), tenantId)) {
 			request.setRedirectPath(login_dest.split("/"));
 		} else {
-			request.getSession().setValue(UISession.USERID,"");
-			request.getSession().setValue(UISession.PASSWORD,"");
-			request.getSession().setValue(UISession.TENANT,"");
+			uiSession.setValue(UISession.USERID,"");
+			uiSession.setValue(UISession.PASSWORD,"");
+			uiSession.setValue(UISession.TENANT,"");
 			request.setRedirectPath(login_failed_dest.split("/"));
 			request.setRedirectArgument("result","fail");
 		}

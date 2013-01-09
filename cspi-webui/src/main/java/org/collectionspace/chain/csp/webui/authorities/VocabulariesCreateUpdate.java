@@ -36,7 +36,7 @@ public class VocabulariesCreateUpdate implements WebMethod {
 	public VocabulariesCreateUpdate(Instance n,boolean create) {
 		this.create=create;
 		this.n=n;
-		reader=new VocabulariesRead(n);
+		reader=new VocabulariesRead(n, VocabulariesRead.GET_BASIC_INFO);
 	}
 
 	public VocabulariesCreateUpdate(Record r,boolean create) {
@@ -54,11 +54,11 @@ public class VocabulariesCreateUpdate implements WebMethod {
 		if(path!=null) {
 			// Update
 			if(fields!=null)
-				storage.updateJSON(pathstart+"/"+path,fields);
+				storage.updateJSON(pathstart+"/"+path,fields, new JSONObject());
 		} else {
 			// Create
 			if(fields!=null)
-				path=storage.autocreateJSON(pathstart,fields);
+				path=storage.autocreateJSON(pathstart,fields,null);
 		}
 		
 		// XXX no vocabulary relations for now. Naming is too complex.
@@ -87,11 +87,11 @@ public class VocabulariesCreateUpdate implements WebMethod {
 		JSONObject fields=data.optJSONObject("fields");
 		if(path!=null && !path.equals("")) {
 			if(fields!=null)
-				storage.updateJSON(base+"/"+path,fields);
+				storage.updateJSON(base+"/"+path,fields, new JSONObject());
 		} else {
 		// Create
 			if(fields!=null)
-				path=storage.autocreateJSON(base,fields);
+				path=storage.autocreateJSON(base,fields,null);
 		}
 		return path;
 	}

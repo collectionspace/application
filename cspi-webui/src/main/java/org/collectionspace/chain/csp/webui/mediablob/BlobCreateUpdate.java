@@ -32,7 +32,7 @@ public class BlobCreateUpdate   extends RecordCreateUpdate  {
 	
 
 	
-	private void store_set(Storage storage,UIRequest request,String path) throws UIException {
+	private void store_set(Storage storage,UIRequest request,String path) throws UIException { // REM - Documentation here would be nice
 		try {
 			JSONObject data=new JSONObject();
 			JSONObject data2=new JSONObject();
@@ -42,7 +42,7 @@ public class BlobCreateUpdate   extends RecordCreateUpdate  {
 			data2.put("contentType", "multipart/form-data");
 			data.put("fields", data2);
 			if(create) {
-				path=sendJSON(storage,null,data);
+				path=sendJSON(storage,null,data,null);
 				data3.put("file",  path);
 				String[] parts = path.split("/");
 				String csid = parts[parts.length -1];

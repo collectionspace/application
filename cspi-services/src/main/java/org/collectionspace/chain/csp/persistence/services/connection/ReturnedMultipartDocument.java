@@ -31,19 +31,36 @@ public class ReturnedMultipartDocument implements Returned {
 	private Map<String,Document> docs=new HashMap<String,Document>();
 	
 	ReturnedMultipartDocument() {}
+        
+        // Start of a range of HTTP status code values that signify error status
+        final static int ERROR_STATUS_START_VALUE = 400;
+        
+        // Custom HTTP status code used by CollectionSpace's Services layer
+        // to signify that a transaction failure has occurred
+        public final static int TRANSACTION_FAILED_STATUS = 590;
+        public final static String TRANSACTION_FAILED_MESSAGE =
+            "A transaction failed, either because it timed out or due to some other cause. " +
+            "Please contact your system administrator.";
 
 	public String[] listDocuments() { return docs.keySet().toArray(new String[0]); }
 	public Document getDocument(String name) { return docs.get(name); }
+	private void setStatus(int status) { this.status = status; }
 	public int getStatus() { return status; }
+        public boolean isErrorStatus() {
+           return ((getStatus() >= ERROR_STATUS_START_VALUE)? true : false);
+        }
+        public boolean isTransactionFailedStatus() {
+           return ((getStatus() == TRANSACTION_FAILED_STATUS)? true : false);
+        }
 
 	private void addDocument(String name,Document doc) { docs.put(name,doc); }	
 	
 	
 	public void setResponse(HttpMethod method, int status) throws Exception  {
-		this.status=status;
+		setStatus(status);
 		InputStream stream=method.getResponseBodyAsStream();
 		SAXReader reader=new SAXReader();
-		if(status>=400) {
+		if(isErrorStatus()) {
 			log.info("Got error : "+IOUtils.toString(stream));
 		}
 		// TODO errorhandling

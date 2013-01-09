@@ -11,6 +11,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
+import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
@@ -27,6 +28,7 @@ import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.collectionspace.csp.helper.core.ResponseCache;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,6 +46,8 @@ public class RecordCreateUpdate implements WebMethod {
 	protected RecordSearchList searcher;
 	protected CacheTermList ctl;
 	
+	protected static final String BLOBS_SERVICE_URL_PATTERN = "/cspace-services/blobs/";
+	
 	public RecordCreateUpdate(Record r,boolean create) { 
 		this.spec=r.getSpec();
 		this.record = r;
@@ -53,7 +57,7 @@ public class RecordCreateUpdate implements WebMethod {
 		this.reader=new RecordRead(r);
 		this.avi = new AuthoritiesVocabulariesInitialize(r,false);
 		this.reader.configure(spec);
-		this.searcher = new RecordSearchList(r,false);
+		this.searcher = new RecordSearchList(r,RecordSearchList.MODE_LIST);
 	}
 		
 	private void deleteAllRelations(Storage storage,String csid) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
@@ -80,11 +84,12 @@ public class RecordCreateUpdate implements WebMethod {
 			r.put("src",base+"/"+csid);
 			r.put("dst",dst_type+"/"+dst_id);
 			r.put("type",type);
-			storage.autocreateJSON("relations/main",r);
+			storage.autocreateJSON("relations/main",r,null);
 		}
 	}
 	
-	public String sendJSON(Storage storage,String path,JSONObject data) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+	public String sendJSON(Storage storage, String path, JSONObject data, JSONObject restrictions)
+			throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		final String WORKFLOW_TRANSITION = "workflowTransition";
 		final String WORKFLOW_TRANSITION_LOCK = "lock";
 		
@@ -93,11 +98,11 @@ public class RecordCreateUpdate implements WebMethod {
 		if(path!=null) {
 			// Update
 			if(fields!=null)
-				storage.updateJSON(base+"/"+path,fields);
+				storage.updateJSON(base+"/"+path, fields, restrictions);
 		} else {
 			// Create
 			if(fields!=null)
-				path=storage.autocreateJSON(base,fields);
+				path=storage.autocreateJSON(base, fields, restrictions);
 		}
 		if(relations!=null)
 			setRelations(storage,path,relations);
@@ -264,7 +269,7 @@ public class RecordCreateUpdate implements WebMethod {
 			permission_add.put("actionGroup", queryString);
 			permission_add.put("action", actions);
 
-			permid=storage.autocreateJSON(spec.getRecordByWebUrl("permission").getID(),permission_add);
+			permid=storage.autocreateJSON(spec.getRecordByWebUrl("permission").getID(),permission_add,null);
 			
 		}
 		
@@ -379,14 +384,15 @@ public class RecordCreateUpdate implements WebMethod {
 		accountrole.put("fields", arfields);
 		//log.info("WAAA"+arfields.toString());
 		if(fields!=null)
-			path=storage.autocreateJSON(spec.getRecordByWebUrl("permrole").getID(),arfields);
+			path=storage.autocreateJSON(spec.getRecordByWebUrl("permrole").getID(),arfields,null);
 	}
 	
 	private void store_set(Storage storage,UIRequest request,String path) throws UIException {
 		try {
+			JSONObject restrictions = new JSONObject();
 			JSONObject data=request.getJSONBody();
 
-			if(this.base.equals("role")){
+			if (this.base.equals("role")) {
 				JSONObject fields=data.optJSONObject("fields");
 				if((fields.optString("roleName") == null || fields.optString("roleName").equals("")) && fields.optString("displayName") !=null){
 					String test  = fields.optString("displayName");
@@ -395,28 +401,36 @@ public class RecordCreateUpdate implements WebMethod {
 					fields.put("roleName", "ROLE_"+test);
 					data.put("fields", fields);
 				}
+				// If we are updating a role, then we need to clear the userperms cache
+				// Note that creating a role does not impact things until we assign it
+				if(!create) {
+					ResponseCache.clearCache(ResponseCache.USER_PERMS_CACHE);
+				}
 			}
-			if(this.record.getID().equals("media")){
+			if (this.record.getID().equals("media")) {
 				JSONObject fields=data.optJSONObject("fields");
-				if(fields.has("srcUri")){
-					
-					//is this internal or external?
-					//XXX HACK as ervice layer having issues with external urls
-					String uri = fields.getString("srcUri");
-					/*
-					String baseurl = "http://nightly.collectionspace.org:8180/cspace-services/blobs/";
-					if(uri.startsWith(baseurl)){
-						uri = uri.replace(baseurl, "");
-						String[] parts = uri.split("/");
-						fields.put("blobCsid",parts[0]);
-						fields.remove("srcUri");
+				// Handle linked media references
+				if (!fields.has("blobCsid") || StringUtils.isEmpty(fields.getString("blobCsid"))){	// If has blobCsid, already has media link so do nothing more
+					// No media, so consider the source
+					// "sourceUrl" is not a declared field in the app layer config, but the UI passes it in
+					// Can consider mapping srcUri to this if want to clean that up
+					if (fields.has("sourceUrl")){
+						// We have a source - see where it is from
+						String uri = fields.getString("sourceUrl");
+						if(uri.contains(BLOBS_SERVICE_URL_PATTERN)) {
+							// This is an uploaded blob, so just pull the csid and set into blobCsid
+							String[] parts = uri.split(BLOBS_SERVICE_URL_PATTERN);	// Split to get CSID
+							String[] bits = parts[1].split("/"); // Strip off anything trailing the CSID
+							fields.put("blobCsid",bits[0]);
+						} else { // This must be an external Url source
+							// External Source is handled as params to the CREATE/UPDATE of the media record
+							restrictions.put(Record.BLOB_SOURCE_URL, uri);
+							// Tell the Services to delete the original after creating derivatives
+							restrictions.put(Record.BLOB_PURGE_ORIGINAL, Boolean.toString(true));
+						}
+						fields.remove("sourceUrl");
+						data.put("fields", fields);
 					}
-					*/
-					String[] parts = uri.split("/blobs/");
-					String[] bits = parts[1].split("/");
-					fields.put("blobCsid",bits[0]);
-					fields.remove("srcUri");
-					data.put("fields", fields);
 				}
 			}
 
@@ -445,17 +459,57 @@ public class RecordCreateUpdate implements WebMethod {
 
 				byte[] data_array = (byte[])out.get("getByteBody");
 				request.sendUnknown(data_array,out.getString("contenttype"));
-				
+				request.setCacheMaxAgeSeconds(0);	// Ensure we do not cache report output.
 				//request.sendJSONResponse(out);
 				request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
 			}
 			else{
+				FieldSet displayNameFS = this.record.getDisplayNameField();
+				String displayNameFieldName = (displayNameFS!=null)?displayNameFS.getID():null;
+				boolean remapDisplayName = false;
+				String remapDisplayNameValue = null;
+				boolean quickie = false;
 				if(create) {
-					path=sendJSON(storage,null,data);
+					quickie = (data.has("_view") && data.getString("_view").equals("autocomplete"));
+					remapDisplayName = quickie && !"displayName".equals(displayNameFieldName);
+					// Check to see if displayName field needs remapping from UI
+					if(remapDisplayName) {
+						// Need to map the field for displayName, and put it into a proper structure
+						JSONObject fields = data.getJSONObject("fields");
+						remapDisplayNameValue = fields.getString("displayName");
+						if(remapDisplayNameValue != null) {
+							// This needs generalizing, in case the remapped name is nested
+							/*
+							 * From vocab handling where we know where the termDisplayName is
+							FieldSet parentTermGroup = (FieldSet)displayNameFS.getParent();
+							JSONArray parentTermInfoArray = new JSONArray();
+							JSONObject termInfo = new JSONObject();
+							termInfo.put(displayNameFieldName, remapDisplayNameValue);
+							parentTermInfoArray.put(termInfo);
+							*/
+							fields.put(displayNameFieldName, remapDisplayNameValue);
+							fields.remove("displayName");
+						}
+					}
+					path=sendJSON(storage, null, data, restrictions); // REM - We needed a way to send query params, so I'm adding "restrictions" here
 					data.put("csid",path);
 					data.getJSONObject("fields").put("csid",path);
-				} else
-					path=sendJSON(storage,path,data);
+					// Is this needed???
+					/*
+					String refName = data.getJSONObject("fields").getString("refName");
+					data.put("urn", refName);
+					data.getJSONObject("fields").put("urn", refName);
+					// This seems wrong - especially when we create from existing.
+					if(remapDisplayName){
+						JSONObject newdata = new JSONObject();
+						newdata.put("urn", refName);
+						newdata.put("displayName",quickieDisplayName);
+						data = newdata;
+					}
+					 */
+				} else {
+					path=sendJSON(storage,path,data,restrictions);
+				}
 				if(path==null)
 					throw new UIException("Insufficient data for create (no fields?)");
 
@@ -466,7 +520,17 @@ public class RecordCreateUpdate implements WebMethod {
 					assignTerms(storage,path,data);
 				}
 				
-				data=reader.getJSON(storage,path);
+				data=reader.getJSON(storage,path); // We do a GET now to read back what we created.
+				if(quickie){
+					JSONObject newdata = new JSONObject();
+					JSONObject fields = data.getJSONObject("fields");
+					String displayName = fields.getString(remapDisplayName?displayNameFieldName:"displayName");
+					newdata.put("displayName",remapDisplayNameValue);
+					String refName = fields.getString("refName");
+					newdata.put("urn", refName);
+					data = newdata;
+				}
+
 				request.sendJSONResponse(data);
 				request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
 				if(create)
@@ -496,5 +560,7 @@ public class RecordCreateUpdate implements WebMethod {
 
 	public void configure() throws ConfigException {}
 	
-	public void configure(WebUI ui,Spec spec) {}
+	public void configure(WebUI ui,Spec spec) {
+		this.searcher.configure(spec);
+	}
 }

@@ -29,17 +29,26 @@ import org.slf4j.LoggerFactory;
 
 public class BlobStorage extends GenericStorage {
 	private static final Logger log=LoggerFactory.getLogger(RecordStorage.class);
+	private static final String ORIGINAL_CONTENT = "Original";
 	
 	public BlobStorage(Record r,ServicesConnection conn) throws DocumentException, IOException {	
 		super(r,conn);
 		initializeGlean(r);
 	}
 	
+	/*
+	 * This method returns actual blob bits -either the original blob bits or those of a derivative
+	 */
 	public JSONObject viewRetrieveImg(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,String view, String extra, JSONObject restrictions) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException, UnsupportedEncodingException {
 		JSONObject out=new JSONObject();
-		String servicesurl = r.getServicesURL()+"/";
+		String servicesurl = r.getServicesURL() + "/";
 		try {
-			filePath = filePath +"/derivatives/"+view+"/content";
+			String contentSuffix = "/content";
+			if (view.equalsIgnoreCase(ORIGINAL_CONTENT)) {
+				filePath = filePath + contentSuffix;
+			} else {
+				filePath = filePath + "/derivatives/" + view + contentSuffix;
+			}
 			String softpath = filePath;
 			if(r.hasSoftDeleteMethod()){
 				softpath = softpath(filePath);
@@ -53,7 +62,7 @@ public class BlobStorage extends GenericStorage {
 				ReturnUnknown doc = conn.getUnknownDocument(RequestMethod.GET, servicesurl+softpath, null, creds, cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300))
 					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),softpath);
-				out.put("getByteBody", doc.getBytes());
+				out.put("getByteBody", doc.getBytes()); // REM: We're returning an array of bytes here and we probably should be using a stream of bytes
 				out.put("contenttype", doc.getContentType());
 				
 			}
@@ -127,7 +136,13 @@ public class BlobStorage extends GenericStorage {
 		}
 	}
 	
-	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds, CSPRequestCache cache, String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	@Override
+	public String autocreateJSON(ContextualisedStorage root,
+			CSPRequestCredentials creds,
+			CSPRequestCache cache,
+			String filePath,
+			JSONObject jsonObject,
+			JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		
 		ReturnedURL url = null;
 		try {

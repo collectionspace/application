@@ -30,6 +30,7 @@ import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.ui.UIException;
+import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,6 +38,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class UISpec extends SchemaStructure implements WebMethod {
+	
 	private static final Logger log=LoggerFactory.getLogger(UISpec.class);
 	protected CacheTermList ctl;
 	protected Record record;
@@ -61,7 +63,14 @@ public class UISpec extends SchemaStructure implements WebMethod {
 		Request q=(Request)in;
 		ctl = new CacheTermList(q.getCache());
 		JSONObject out=uispec(q.getStorage());
-		q.getUIRequest().sendJSONResponse(out);
+
+		UIRequest uir = q.getUIRequest();
+		uir.sendJSONResponse(out);
+
+		int cacheMaxAgeSeconds = spec.getAdminData().getUiSpecSchemaCacheAge();
+		if(cacheMaxAgeSeconds > 0) {
+			uir.setCacheMaxAgeSeconds(cacheMaxAgeSeconds);
+		}
 	}
 	
 	/**
@@ -152,9 +161,8 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @return
 	 * @throws JSONException
 	 */
-	protected JSONObject actualAutocomplete(FieldSet fs,UISpecRunContext context) throws JSONException {
+	private JSONObject actualAutocomplete(FieldSet fs,UISpecRunContext context, JSONArray decorators) throws JSONException {
 		JSONObject out=new JSONObject();
-		JSONArray decorators=new JSONArray();
 		Field f = (Field)fs;
 
 		
@@ -200,8 +208,11 @@ public class UISpec extends SchemaStructure implements WebMethod {
 				decorator.put("container",getSelector(f,context));
 			}
 		}
+		if(decorators==null) {
+			decorators=new JSONArray();
+		}
 		decorators.put(decorator);
-		out.put("decorators",decorators);
+		out.put(DECORATORS_KEY,decorators);
 		if(f.isRefactored()){
 			out.put("value", actualFieldEntry(f,context));
 		}
@@ -217,11 +228,13 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 */
 	protected void actualAuthorities(JSONObject out, FieldSet fs, UISpecRunContext context)
 			throws JSONException {
+		String fieldSelector = getSelector(fs,context);
+		JSONArray decorators = getExistingDecoratorsArray(out, fieldSelector);
 		if("enum".equals(fs.getUIType())){
-			out.put(getSelector(fs,context),actualFieldEntry(fs,context));
+			out.put(fieldSelector,actualFieldEntry(fs,context));
 		}
 		else{
-			out.put(getSelector(fs,context),actualAutocomplete(fs,context));
+			out.put(fieldSelector,actualAutocomplete(fs,context, decorators));
 		}
 	}
 	/**
@@ -234,9 +247,13 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 */
 	protected void actualChooserField(JSONObject out, FieldSet fs, UISpecRunContext context, Boolean useContainer) throws JSONException{
 		if(useContainer){
-			out.put(getContainerSelector(fs,context),actualChooser(fs,context));}
-		else{
-			out.put(getSelector(fs,context),actualChooser(fs,context));
+			String containerSelector = getContainerSelector(fs,context);
+			JSONArray decorators = getExistingDecoratorsArray(out, containerSelector);
+			out.put(containerSelector,actualChooser(fs,context, decorators));
+		} else {
+			String fieldSelector = getSelector(fs,context);
+			JSONArray decorators = getExistingDecoratorsArray(out, fieldSelector);
+			out.put(fieldSelector,actualChooser(fs,context, decorators));
 		}
 	}
 
@@ -251,10 +268,9 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @return
 	 * @throws JSONException
 	 */
-	protected JSONObject actualChooser(FieldSet fs,UISpecRunContext context) throws JSONException {
+	private JSONObject actualChooser(FieldSet fs,UISpecRunContext context, JSONArray decorators) throws JSONException {
 		Field f = (Field)fs;
 		JSONObject out=new JSONObject();
-		JSONArray decorators=new JSONArray();
 
 		JSONObject options=new JSONObject();
 		JSONObject selectors=new JSONObject();
@@ -280,8 +296,11 @@ public class UISpec extends SchemaStructure implements WebMethod {
 				decorator.put("container",getContainerSelector(f,context));
 			}
 		}
+		if(decorators==null) {
+			decorators=new JSONArray();
+		}
 		decorators.put(decorator);
-		out.put("decorators",decorators);
+		out.put(DECORATORS_KEY,decorators);
 		if(f.isRefactored()){
 			out.put("valuebinding", actualFieldEntry(f,context));
 		}
@@ -294,9 +313,8 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @return
 	 * @throws JSONException
 	 */
-	protected JSONObject actualDate(FieldSet fs,UISpecRunContext context) throws JSONException {
+	private JSONObject actualDate(FieldSet fs,UISpecRunContext context, JSONArray decorators) throws JSONException {
 		JSONObject out=new JSONObject();
-		JSONArray decorators=new JSONArray();
 		Field f = (Field)fs;
 		JSONObject decorator=getDecorator("fluid",null,"cspace.datePicker",null,f.isReadOnly());
 		if(!f.isRefactored()){
@@ -304,8 +322,11 @@ public class UISpec extends SchemaStructure implements WebMethod {
 				decorator.put("container",getSelector(f,context));
 			}
 		}
+		if(decorators==null) {
+			decorators=new JSONArray();
+		}
 		decorators.put(decorator);
-		out.put("decorators",decorators);
+		out.put(DECORATORS_KEY,decorators);
 		out.put("value", actualFieldEntry(f,context));
 		return out;
 	}
@@ -317,7 +338,9 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @throws JSONException 
 	 */
 	protected void actualDateField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
-		out.put(getSelector(fs,context),actualDate(fs,context));
+		String fieldSelector = getSelector(fs,context);
+		JSONArray decorators = getExistingDecoratorsArray(out, fieldSelector);
+		out.put(fieldSelector,actualDate(fs,context, decorators));
 	}
 	/**
 	 * This is a bit of JSON needed by the UI so they can validate data types like integer,float etc
@@ -327,10 +350,9 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @return
 	 * @throws JSONException
 	 */
-	protected JSONObject generateDataTypeValidator(FieldSet fs, UISpecRunContext context) throws JSONException {
+	private JSONObject generateDataTypeValidator(FieldSet fs, UISpecRunContext context, JSONArray decorators) throws JSONException {
 		Field f = (Field)fs;
 		JSONObject out=new JSONObject();
-		JSONArray decorators=new JSONArray();
 		JSONObject options = new JSONObject();
 		String type = f.getDataType();
 		if(type.equals("")){type = "string";}
@@ -342,8 +364,11 @@ public class UISpec extends SchemaStructure implements WebMethod {
 				decorator.put("container",getSelector(f,context));
 			}
 		}
+		if(decorators==null) {
+			decorators=new JSONArray();
+		}
 		decorators.put(decorator);
-		out.put("decorators",decorators);
+		out.put(DECORATORS_KEY,decorators);
 		out.put("value", actualFieldEntry(f,context));
 		return out;
 	}
@@ -355,7 +380,22 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @throws JSONException 
 	 */
 	protected void actualValidatedField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
-		out.put(getSelector(fs,context),generateDataTypeValidator(fs,context));
+		String fieldSelector = getSelector(fs,context);
+		JSONArray decorators = getExistingDecoratorsArray(out, fieldSelector);
+		out.put(fieldSelector,generateDataTypeValidator(fs,context, decorators));
+	}
+	
+	/**
+	 * Overwrite with output you need for this thing you are doing
+	 * @param out
+	 * @param fs
+	 * @param context
+	 * @throws JSONException 
+	 */
+	protected void actualExternalURLField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+		String fieldSelector = getSelector(fs,context);
+		JSONArray decorators = getExistingDecoratorsArray(out, fieldSelector);
+		out.put(fieldSelector,actualExternalURL(fs,context, decorators));
 	}
 	/**
 	 * Generate the JSON needed by the UI to create a computed field.
@@ -435,6 +475,30 @@ public class UISpec extends SchemaStructure implements WebMethod {
 		out.put(getSelector(fs,context),generateComputedField(fs,context));
 	}
 	
+	/**
+	 * This is a bit of JSON needed by the UI so they display dates in the UIspec
+	 * @param f
+	 * @param context
+	 * @return
+	 * @throws JSONException
+	 */
+	private JSONObject actualExternalURL(FieldSet fs,UISpecRunContext context, JSONArray decorators) throws JSONException {
+		JSONObject out=new JSONObject();
+		Field f = (Field)fs;
+		JSONObject decorator=getDecorator("fluid",null,"cspace.externalURL",null,f.isReadOnly());
+		if(!f.isRefactored()){
+			if(f.hasContainer()){
+				decorator.put("container",getSelector(f,context));
+			}
+		}
+		if(decorators==null) {
+			decorators=new JSONArray();
+		}
+		decorators.put(decorator);
+		out.put(DECORATORS_KEY,decorators);
+		out.put("value", actualFieldEntry(f,context));
+		return out;
+	}
 
 	/**
 	 * treat just the same as a normal field - only need the distinction in UISchema
@@ -450,7 +514,16 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @throws JSONException 
 	 */
 	protected void actualField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
-		out.put(getSelector(fs,context),actualFieldEntry(fs,context));
+		// When generating the actual field entry for a structured date in the context
+		// of range search, we have to output a simple date spec
+		if(this.spectype.equals("search") && fs.getSearchType().equals("range")
+				&& isAStructureDate(fs)){
+			actualDateField(out, fs, context);
+		} else {
+			String fieldSelector = getSelector(fs,context);
+			JSONArray decorators = getExistingDecoratorsArray(out, fieldSelector);
+			out.put(fieldSelector,actualFieldEntry(fs,context, decorators));
+		}
 	}
 	
 	
@@ -471,7 +544,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @param context
 	 * @throws JSONException
 	 */
-	protected void actualHierarchyEntry(JSONObject out, FieldSet f, UISpecRunContext context) throws JSONException{
+	private void actualHierarchyEntry(JSONObject out, FieldSet f, UISpecRunContext context) throws JSONException{
 		String condition =  "cspace.hierarchy.assertEquivalentContexts";
 		Record thisr = f.getRecord();
 		JSONObject cond = new JSONObject();
@@ -484,10 +557,13 @@ public class UISpec extends SchemaStructure implements WebMethod {
 		}
 		JSONObject ttree = new JSONObject();
 		actualMessageKey(ttree, thisr.getUILabelSelector(f.getID()), f.getLabel());
-		
+
+		// This looks wrong - a single decorator is being set as the value of the
+		// plural decorators key, which usually holds an array of decorators.
+		// However, it turns out that UI is forgiving, and handles either Object or Array
 		JSONObject decorator = getDecorator("addClass","hidden",null,null,f.isReadOnly());
 		JSONObject decorators = new JSONObject();
-		decorators.put("decorators", decorator);
+		decorators.put(DECORATORS_KEY, decorator);
 		JSONObject ftree = new JSONObject();
 		ftree.put(thisr.getUILabelSelector(f.getID()),decorators);
 		
@@ -546,9 +622,8 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @return
 	 * @throws JSONException
 	 */
-	protected Object actualENUMField(Field f,UISpecRunContext context) throws JSONException {
+	protected Object actualENUMField(Field f,UISpecRunContext context, JSONArray decorators) throws JSONException {
 		JSONObject out = new JSONObject();
-		JSONArray decorator = new JSONArray();
 		JSONObject options = new JSONObject();
 		if(f.getParent() instanceof Repeat && (isATrueRepeat((Repeat)f.getParent()))){
 			options.put("elPath", f.getID());
@@ -558,9 +633,13 @@ public class UISpec extends SchemaStructure implements WebMethod {
 			options.put("elPath", displayAsveryplainWithoutEnclosure(f,context));
 		}
 		options.put("termListType", f.getID());
-		JSONObject decdata = getDecorator("fluid", null, "cspace.termList", options,f.isReadOnly());
-		decorator.put(decdata);
-		out.put("decorators", decorator);
+		JSONObject decorator = getDecorator("fluid", null, "cspace.termList", options,f.isReadOnly());
+
+		if(decorators==null) {
+			decorators=new JSONArray();
+		}
+		decorators.put(decorator);
+		out.put(DECORATORS_KEY,decorators);
 	
 		return out;
 	}
@@ -609,13 +688,19 @@ public class UISpec extends SchemaStructure implements WebMethod {
 		}
 		return out;
 	}
-	
-	protected void actualAddDecorator(FieldSet fs, JSONObject out, UISpecRunContext sub,  JSONObject options) throws JSONException{
+
+	protected void actualAddDecorator(FieldSet fs, JSONObject out, UISpecRunContext sub,
+					JSONObject options) throws JSONException{
 		sub.setUIAffix(fs.getID()+"-");
-		JSONArray decorators=new JSONArray();
 		JSONObject decorator=getDecorator("fluid",null,fs.getUIFunc(),options,fs.isReadOnly());
-		decorators.put(decorator);
-		out.put("decorators",decorators);
+		JSONArray decorators = getExistingDecoratorsArray(out);
+		if(decorators!=null) {
+			decorators.put(decorator);
+		} else {
+			decorators=new JSONArray();
+			decorators.put(decorator);
+			out.put(DECORATORS_KEY,decorators);
+		}
 	}
 	/**
 	 * Overwrite with output you need for this thing you are doing
@@ -779,7 +864,11 @@ public class UISpec extends SchemaStructure implements WebMethod {
 							String classes = getDecoratorSelector(child,context);
 							JSONObject decorator = getDecorator("addClass",classes,null,null,child.isReadOnly());
 							tree.put("value", actualFieldEntry((Field)child,context));
-							tree.put("decorators", decorator);
+							JSONArray decorators = new JSONArray();
+							decorators.put(decorator);
+							decorator=getDecorator("fluid",null,"cspace.externalURL",null,child.isReadOnly());
+							decorators.put(decorator);
+							tree.put(DECORATORS_KEY, decorators);
 						}
 					}
 					else if(child.getUIType().equals("decorated")){
@@ -789,7 +878,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 							String classes = getDecoratorSelector(child,context);
 							JSONObject decorator = getDecorator("addClass",classes,null,null,child.isReadOnly());
 							tree.put("value", actualFieldEntry((Field)child,context));
-							tree.put("decorators", decorator);
+							tree.put(DECORATORS_KEY, decorator);
 						}
 					}
 					else{
@@ -855,7 +944,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 
 		JSONObject decorator = getDecorator("fluid",null,"cspace.makeRepeatable",options,r.isReadOnly());
 		decorators.put(decorator);
-		content.put("decorators",decorators);
+		content.put(DECORATORS_KEY,decorators);
 
 		String selector = getSelector(r,context);
 		//CSPACE-2619 scalar repeatables are different from group repeats
@@ -910,7 +999,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 		ttree.put(getSelector(fs,context),new JSONObject());
 		JSONObject decorator = getDecorator("addClass","hidden",null,null,fs.isReadOnly());
 		JSONObject decorators = new JSONObject();
-		decorators.put("decorators", decorator);
+		decorators.put(DECORATORS_KEY, decorator);
 		JSONObject ftree = new JSONObject();
 		ftree.put(getSelector(fs,context),decorators);
 		JSONObject cexpander = new JSONObject();
@@ -1115,9 +1204,19 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 */
 	protected void makeAStructureDate(FieldSet fs, JSONObject out,
 			JSONObject subexpander, JSONObject options, Record subitems,
-			UISpecRunContext sub) throws JSONException {
-		actualStructuredDate(fs, out, sub, subexpander, subitems, options);
-		actualAddDecorator(fs, out, sub, options);
+			UISpecRunContext sub, UISpecRunContext mainContext) throws JSONException {
+		// We map structured-date range searches onto a range search on the scalar date fields. 
+		// We continue to refer to the structured date field so that the search builder can
+		// do the right thing, but here in the search schema, we act as though the structured
+		// date is really a scalar date, so the UI code will build the right UI
+		// Note that at this point, the fs is actually a synthetic copy of the original
+		// with the id changed to append "Start" or "End"
+		if( (this.spectype.equals("search") && fs.getSearchType().equals("range"))){
+			actualDateField(out, fs, mainContext);
+		} else {
+			actualStructuredDate(fs, out, sub, subexpander, subitems, options);
+			actualAddDecorator(fs, out, sub, options);
+		}
 	}
 	/**
 	 * 

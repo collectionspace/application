@@ -25,6 +25,7 @@ import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.ui.UIException;
+import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,7 +74,12 @@ public class UISchema extends SchemaStructure implements WebMethod {
 		else{
 			out = uiotherschema(q.getStorage(),StringUtils.join(tail,"/"));
 		}
-		q.getUIRequest().sendJSONResponse(out);
+		UIRequest uir = q.getUIRequest();
+		uir.sendJSONResponse(out);
+		int cacheMaxAgeSeconds = spec.getAdminData().getUiSpecSchemaCacheAge();
+		if(cacheMaxAgeSeconds > 0) {
+			uir.setCacheMaxAgeSeconds(cacheMaxAgeSeconds);
+		}
 	}
 
 	protected void actualValidatedField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
@@ -83,6 +89,7 @@ public class UISchema extends SchemaStructure implements WebMethod {
 		actualSchemaObject(datatype, null, null, null, validator);
 		out.put(getSelector(fs,context),validator);
 	}
+	
 	protected void actualComputedField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
 		String datatype = ((Field)fs).getDataType();
 		if(datatype.equals("")){datatype="string";}
@@ -90,6 +97,14 @@ public class UISchema extends SchemaStructure implements WebMethod {
 		actualSchemaObject(datatype, null, null, null, computed);
 		out.put(getSelector(fs,context),computed);
 	}
+	
+	protected void actualExternalURLField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+		String datatype = "string";
+		JSONObject urlfield = new JSONObject();
+		actualSchemaObject(datatype, null, null, null, urlfield);
+		out.put(getSelector(fs,context),urlfield);
+	}
+	
 	protected void actualSubRecordField(JSONObject out, FieldSet fs, UISpecRunContext context, Record subr, Boolean repeated, JSONObject parent) throws JSONException{
 
 		if(fs instanceof Group){
@@ -251,8 +266,18 @@ public class UISchema extends SchemaStructure implements WebMethod {
 	
 	protected void makeAStructureDate(FieldSet fs, JSONObject out,
 			JSONObject subexpander, JSONObject options, Record subitems,
-			UISpecRunContext sub) throws JSONException {
-		makeAOtherGroup(fs,out,subexpander, options, subitems, sub);
+			UISpecRunContext sub, UISpecRunContext mainContext) throws JSONException {
+		// We map structured-date range searches onto a range search on the scalar date fields. 
+		// We continue to refer to the structured date field so that the search builder can
+		// do the right thing, but here in the search schema, we act as though the structured
+		// date is really a scalar date, so the UI code will build the right UI
+		// Note that at this point, the fs is actually a synthetic copy of the original
+		// with the id changed to append "Start" or "End"
+		if( (this.spectype.equals("search") && fs.getSearchType().equals("range"))){
+			actualDateField(out, fs, mainContext);
+		} else {
+			makeAOtherGroup(fs,out,subexpander, options, subitems, sub);
+		}
 	}	
 	
 	protected void makeAOtherGroup(FieldSet fs, JSONObject out,
@@ -498,6 +523,7 @@ public class UISchema extends SchemaStructure implements WebMethod {
 					if (rc.isInRecordList()) {
 						if (rc.isShowType("authority")) {
 							JSONObject authInfoProps = new JSONObject();
+							int cardinal = 0;
 							for(Instance ins : rc.getAllInstances()){
 								JSONObject instanceInfo = new JSONObject();
 								JSONObject instanceProps = new JSONObject();
@@ -505,9 +531,15 @@ public class UISchema extends SchemaStructure implements WebMethod {
 								nptAllowed.put("type", "boolean");
 								nptAllowed.put("default", ins.getNPTAllowed());
 								instanceProps.put("nptAllowed", nptAllowed);
+								// Preserve the order of the namespaces
+								JSONObject orderProp = new JSONObject();
+								orderProp.put("type", "integer");
+								orderProp.put("default", cardinal);
+								instanceProps.put("order", orderProp);
 								instanceInfo.put("type", "object");
 								instanceInfo.put("properties", instanceProps);
 								authInfoProps.put(ins.getWebURL(), instanceInfo);
+								cardinal++;
 							}
 							JSONObject authorityInfo = new JSONObject();
 							authorityInfo.put("type", "object");

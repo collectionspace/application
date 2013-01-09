@@ -10,11 +10,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,7 +32,12 @@ import org.slf4j.LoggerFactory;
  */
 public class Record implements FieldParent {
 	
+	public final static String BLOB_SOURCE_URL = "blobUri"; // BlobClient.BLOB_URI_PARAM; // The 'blobUri' query param used to pass an external URL for the services to download data from
+	public final static String BLOB_PURGE_ORIGINAL = "blobPurgeOrig"; // BlobClient.BLOB_PURGE_ORIGINAL;
+
 	public static final String SUPPORTS_LOCKING = "supportslocking";
+	public static final String RANGE_START_SUFFIX = "Start";
+	public static final String RANGE_END_SUFFIX = "End";
 	
 	private static final Logger log = LoggerFactory.getLogger(Record.class);
 	protected SchemaUtils utils = new SchemaUtils();
@@ -68,12 +76,14 @@ public class Record implements FieldParent {
 	//list of all 'record' e.g. structuredDates, dimensions etc that are included
 	private Map<String, String> nestedFieldList = new HashMap<String, String>();
 	
-	private Map<String, Instance> instances = new HashMap<String, Instance>();
+	private Map<String, Instance> instances = new LinkedHashMap<String, Instance>();
 	private Map<String, FieldSet> summarylist = new HashMap<String, FieldSet>();
 	private Map<String, Map<String, FieldSet>> minidataset = new HashMap<String, Map<String, FieldSet>>();
 	private Spec spec;
 	private FieldSet mini_summary, mini_number, display_name;
 	private String whoamI = "";
+	private HashSet<String> authTypeTokenSet = new HashSet<String>();
+
 
 	/* Service stuff */
 	private Map<String, String> services_record_paths = new HashMap<String, String>();
@@ -242,8 +252,8 @@ public class Record implements FieldParent {
 			else if(searchf.getSearchType().equals("range")){
 				searchf.getRecord().addUISection("search", searchf.getID());
 //need to add label for main bit as well...
-				Field fst = new Field(searchf.getRecord(),searchf.getID()+"Start");
-				Field fed = new Field(searchf.getRecord(),searchf.getID()+"End");
+				Field fst = new Field(searchf.getRecord(),searchf.getID()+RANGE_START_SUFFIX);
+				Field fed = new Field(searchf.getRecord(),searchf.getID()+RANGE_END_SUFFIX);
 
 				fst.setSearchType("range");
 				fed.setSearchType("range");
@@ -565,6 +575,10 @@ public class Record implements FieldParent {
 		return instances.values().toArray(new Instance[0]);
 	}
 
+	public int getNumInstances() {
+		return instances.size();
+	}
+
 	public Instance getInstance(String key) {
 		return instances.get(key);
 	}
@@ -771,6 +785,13 @@ public class Record implements FieldParent {
 			}
 		}
 	}
+	
+	private void buildAuthTypeTokenSet() {
+		String authTypeTokens[] = getAuthorizationType().split("/");
+		for(String token:authTypeTokens) {
+			authTypeTokenSet.add(token);
+		}
+	}
 
 
 
@@ -785,7 +806,23 @@ public class Record implements FieldParent {
 	}
 
 	public Boolean isAuthorizationType(String name) {
-		return getAuthorizationType().contains(name);
+		// This is too simplistic. We need to either match, 
+		// or allow a set of tokens in a path to match, but
+		// the contains model is broken. 
+		String authType = getAuthorizationType();
+		if(StringUtils.isEmpty(authType))
+			return false;
+		if(authType.equals(name))
+			return true;
+		// Okay, now we get fancy. Build a set of tokens, and match up
+		String nameTokens[] = name.split("/");
+		for(String nameToken:nameTokens) {
+			// A missing token means we do not match
+			if(!authTypeTokenSet.contains(nameToken))
+				return false;
+		}
+		// If we get there, the auth type contained all the name tokens, so we return true.
+		return true;
 	}
 
 
@@ -1004,6 +1041,7 @@ public class Record implements FieldParent {
 		mergeNestedSummaryLists();
 		mergeNestedMiniLists();
 		mergeSearchLists();
+		buildAuthTypeTokenSet();
 	}
 
 	@Override

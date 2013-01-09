@@ -153,7 +153,7 @@
         "assocPlaceType": ""
     }],
     "collection": "collection",
-    
+    "computedCurrentLocation":"latest storage location",
     "contentDate": {
         "dateEarliestSingleQualifier": "",
         "scalarValuesComputed": "",

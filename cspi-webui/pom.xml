@@ -46,6 +46,12 @@
       <type>jar</type>
     </dependency>  
 
+     <dependency>
+         <groupId>org.collectionspace.services</groupId>
+         <artifactId>org.collectionspace.services.common-api</artifactId>
+         <version>3.2-SNAPSHOT</version>
+     </dependency>    
+
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>general-utils</artifactId>
@@ -91,6 +97,11 @@
       <version>2.0.1</version>
       <type>jar</type>
     </dependency>
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
+		</dependency>
     <dependency>
     	<groupId>javax.mail</groupId>
     	<artifactId>mail</artifactId>
@@ -98,7 +109,13 @@
     	<type>jar</type>
     	<scope>compile</scope>
     </dependency>
-    
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.4</version>
+      <scope>provided</scope>
+    </dependency>
+ 
   </dependencies>
   
   <build>

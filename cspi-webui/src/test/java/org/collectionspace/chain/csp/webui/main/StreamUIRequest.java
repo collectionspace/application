@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.LineIterator;
 import org.collectionspace.csp.api.ui.Operation;
@@ -95,6 +97,14 @@ public class StreamUIRequest implements UIRequest {
 			buf.append("Caused by:\n");
 			exception_to_text_internal(buf,next);
 		}
+	}
+
+	public int getCacheMaxAgeSeconds() {
+		return 0;
+	}
+	public void setCacheMaxAgeSeconds(int cacheMaxAgeSeconds) {
+		// Ignore this for now. Need to figure out how to set cache for things like report outputs (probably never)
+		// and image blobs (perhaps aggressively?).
 	}
 
 	public void setFailure(boolean isit, Exception why) throws UIException {
@@ -209,4 +219,6 @@ public class StreamUIRequest implements UIRequest {
 	}
 
 	public UISession getSession() { return null; } // XXX support this?
+	public  HttpSession getHttpSession() { return null; }
+
 }

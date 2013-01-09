@@ -30,6 +30,7 @@ import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
+import org.collectionspace.services.common.api.RefName;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Node;
@@ -170,7 +171,8 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		return ret;
 	}
 
-	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath, JSONObject data)
+	@Override
+	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath, JSONObject data, JSONObject restrictions)
 	throws ExistException,UnimplementedException, UnderlyingStorageException {
 		try {
 			extractPaths(filePath,new String[]{"main"},0);
@@ -180,7 +182,8 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 			in.put("relations_common",datapath);
 			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/relations/",in,creds,cache);
 			if(out.getStatus()>299)
-				throw new UnderlyingStorageException("Could not add relation status="+out.getStatus());
+				throw new UnderlyingStorageException("Could not add relation status="+out.getStatus(),
+						out.getStatus(), "/relations/");
 			return out.getURLTail();
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Could not add relation"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
@@ -311,22 +314,16 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 						list.add(node.selectSingleNode("csid").getText());
 						if(isHierarchical){
 							JSONObject hdata = new JSONObject();
-							hdata.put("subjecturi", node.selectSingleNode("subject").selectSingleNode("uri").getText());
-							hdata.put("objecturi", node.selectSingleNode("object").selectSingleNode("uri").getText());
-							hdata.put("subjectcsid", node.selectSingleNode("subject").selectSingleNode("csid").getText());
-							hdata.put("objectcsid", node.selectSingleNode("object").selectSingleNode("csid").getText());
-							if(node.selectSingleNode("subject").selectSingleNode("name") !=null){
-								hdata.put("subjectname", node.selectSingleNode("subject").selectSingleNode("name").getText());
-							}
-							else{
-								hdata.put("subjectname","MISSING DATA");
-							}
-							if(node.selectSingleNode("object").selectSingleNode("name")!=null){
-								hdata.put("objectname", node.selectSingleNode("object").selectSingleNode("name").getText());
-							}
-							else{
-								hdata.put("objectname","MISSING DATA");
-							}
+							Node subjectNode = node.selectSingleNode("subject");
+							Node objectNode = node.selectSingleNode("object");
+							hdata.put("subjecturi", subjectNode.selectSingleNode("uri").getText());
+							hdata.put("objecturi", objectNode.selectSingleNode("uri").getText());
+							hdata.put("subjectcsid", subjectNode.selectSingleNode("csid").getText());
+							hdata.put("objectcsid", objectNode.selectSingleNode("csid").getText());
+							
+							findNameUnderNode(hdata, "subjectname", "subjectrefname",subjectNode);
+							findNameUnderNode(hdata, "objectname", "objectrefname",objectNode);
+							
 							hdata.put("type", node.selectSingleNode("predicate").getText());
 							hdata.put("csid", node.selectSingleNode("csid").getText());
 							moredata.put(node.selectSingleNode("csid").getText(), hdata);
@@ -345,6 +342,45 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		} catch (JSONException e) {
 			throw new UnderlyingStorageException("Could not retrieve relation",e);
 		}
+	}
+	
+	private void findNameUnderNode(JSONObject out, String nameKey, String refNameKey,
+						Node itemNode) throws JSONException {
+		// Look for something to put into the subjectname. Start with refName,
+		// then name, then number
+		Node itemRefName = itemNode.selectSingleNode("refName");
+		String nameValue = null;
+		if(itemRefName!=null) {
+			String refNameValue = itemRefName.getText();
+                        out.put(refNameKey, refNameValue);
+                        RefName.AuthorityItem item = RefName.AuthorityItem.parse(refNameValue);
+                        if(item !=null) {
+                                nameValue = item.displayName;
+                        }else {
+                                RefName.Authority authority = RefName.Authority.parse(refNameValue);
+                                if(authority !=null) {
+                                        nameValue = authority.displayName;
+                                }  
+                        }
+		}
+		// If no displayName from refName, then try name element
+		if(nameValue==null) {
+			Node itemNameNode = itemNode.selectSingleNode("name");
+			if(itemNameNode!=null) {
+				nameValue = itemNameNode.getText();
+			}
+		}
+		// Still nothing? try number element
+		if(nameValue==null) {
+			Node itemNumberNode = itemNode.selectSingleNode("number");
+			if(itemNumberNode!=null) {
+				nameValue = itemNumberNode.getText();
+			}
+		}
+		if(nameValue==null) {
+			nameValue = "MISSING DATA";
+		} 
+		out.put(nameKey, nameValue);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -399,7 +435,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		}
 	}
 
-	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath,JSONObject data) 
+	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath,JSONObject data, JSONObject restrictions) 
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			String[] parts=extractPaths(filePath,new String[]{"main"},1);

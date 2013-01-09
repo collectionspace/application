@@ -3,7 +3,6 @@
     <section>
         <!-- List containing this item's preferred term and any non-preferred terms -->
         <repeat id="personTermGroupList/personTermGroup">
-            <!--            <selector>preferred-personAuthority</selector>-->
             <!-- Fields common across all authority items -->
             <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes"
                 mini="summary,number,search,list,relate">
@@ -16,8 +15,7 @@
             <field id="termType" autocomplete="vocab-persontermtype" ui-type="enum">
                 <selector>personAuthority-termType</selector>
             </field>
-            <!-- FIXME: Add 'ui-search="repeatable"' back to this field when CSPACE-5184/CSPACE-5185 is fixed -->
-            <field id="termStatus" seperate_ui_container="true"
+            <field id="termStatus" ui-search="repeatable" seperate_ui_container="true"
                 mini="search,list,relate">
                 <selector>personAuthority-termStatus</selector>
                 <options>
@@ -76,13 +74,13 @@
                     <option id="Lady">Lady</option>
                 </options>
             </field>
-            <field id="foreName" mini="list,search,relate,terms">
+            <field id="foreName" mini="list,search,relate">
                 <selector>personAuthority-foreName</selector>
             </field>
             <field id="middleName">
                 <selector>personAuthority-middleName</selector>
             </field>
-            <field id="surName" mini="list,search,relate,terms">
+            <field id="surName" mini="list,search,relate">
                 <selector>personAuthority-surName</selector>
             </field>
             <field id="nameAdditions">

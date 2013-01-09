@@ -2,12 +2,12 @@
     "taxon": {
         "properties": {
             "relations": {
-                "default": {},
+                "default": {
+                },
                 "type": "object"
             },
             "termsUsed": {
-                "default": [],
-                "type": "array"
+                "default":[], "type": "array"
             },
             "csid": {
                 "type": "string"
@@ -24,8 +24,7 @@
                         "items": {
                             "properties": {
                                 "_primary": {
-                                    "default": true,
-                                    "type": "boolean"
+                                    "default": true, "type": "boolean"
                                 },
                                 "relatedTerm": {
                                     "type": "string"
@@ -36,8 +35,7 @@
                         "type": "array"
                     },
                     "taxonCurrency": {
-                        "default": "",
-                        "type": "string"
+                        "default": "", "type": "string"
                     },
                     "csid": {
                         "type": "string"
@@ -52,12 +50,10 @@
                                     "type": "string"
                                 },
                                 "_primary": {
-                                    "default": true,
-                                    "type": "boolean"
+                                    "default": true, "type": "boolean"
                                 },
                                 "commonNameLanguage": {
-                                    "default": "",
-                                    "type": "string"
+                                    "default": "", "type": "string"
                                 },
                                 "commonNameSource": {
                                     "type": "string"
@@ -80,12 +76,10 @@
                                     "type": "string"
                                 },
                                 "_primary": {
-                                    "default": true,
-                                    "type": "boolean"
+                                    "default": true, "type": "boolean"
                                 },
                                 "taxonAuthorType": {
-                                    "default": "",
-                                    "type": "string"
+                                    "default": "", "type": "string"
                                 }
                             },
                             "type": "object"
@@ -102,8 +96,7 @@
                         "items": {
                             "properties": {
                                 "_primary": {
-                                    "default": true,
-                                    "type": "boolean"
+                                    "default": true, "type": "boolean"
                                 },
                                 "taxonCitation": {
                                     "type": "string"
@@ -126,34 +119,28 @@
                                     "type": "string"
                                 },
                                 "taxonomicStatus": {
-                                    "default": "",
-                                    "type": "string"
+                                    "default": "", "type": "string"
                                 },
                                 "termSourceNote": {
                                     "type": "string"
                                 },
                                 "termLanguage": {
-                                    "default": "",
-                                    "type": "string"
+                                    "default": "", "type": "string"
                                 },
                                 "termPrefForLang": {
-                                    "default": false,
-                                    "type": "boolean"
+                                    "default": false, "type": "boolean"
                                 },
                                 "_primary": {
-                                    "default": true,
-                                    "type": "boolean"
+                                    "default": true, "type": "boolean"
                                 },
                                 "termDisplayName": {
                                     "type": "string"
                                 },
                                 "termType": {
-                                    "default": "",
-                                    "type": "string"
+                                    "default": "", "type": "string"
                                 },
                                 "termStatus": {
-                                    "default": "provisional",
-                                    "type": "string"
+                                    "default": "provisional", "type": "string"
                                 },
                                 "termQualifier": {
                                     "type": "string"
@@ -170,8 +157,7 @@
                         "type": "string"
                     },
                     "taxonIsNamedHybrid": {
-                        "default": false,
-                        "type": "boolean"
+                        "default": false, "type": "boolean"
                     },
                     "broaderContext": {
                         "type": "string"
@@ -189,8 +175,7 @@
                         "items": {
                             "properties": {
                                 "_primary": {
-                                    "default": true,
-                                    "type": "boolean"
+                                    "default": true, "type": "boolean"
                                 },
                                 "equivalentContext": {
                                     "type": "string"
@@ -207,17 +192,21 @@
                                     "type": "string"
                                 },
                                 "_primary": {
-                                    "default": true,
-                                    "type": "boolean"
+                                    "default": true, "type": "boolean"
+                                },
+                                "narrowerContextType": {
+                                    "default": "", "type": "string"
                                 }
                             },
                             "type": "object"
                         },
                         "type": "array"
                     },
+                    "broaderContextType": {
+                        "default": "", "type": "string"
+                    },
                     "taxonRank": {
-                        "default": "",
-                        "type": "string"
+                        "default": "", "type": "string"
                     }
                 },
                 "type": "object"

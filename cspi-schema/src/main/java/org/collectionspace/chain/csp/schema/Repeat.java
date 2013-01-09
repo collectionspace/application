@@ -157,6 +157,7 @@ public class Repeat implements FieldSet, FieldParent  {
 		utils.initStrings(section,"@ui-func", "");
 		
 		utils.initStrings(section,"@ui-search", "");
+		utils.initStrings(section,"@query-behavior", QUERY_BEHAVIOR_NORMAL);
 		utils.initStrings(section,"label", "" + utils.getString("selectorID") + "-" +  utils.getString("@id") + "Label");
 		
 		utils.initStrings(section,"services-tag",utils.getString("@id"));
@@ -278,6 +279,10 @@ public class Repeat implements FieldSet, FieldParent  {
 	public String getSearchType() {
 		return utils.getString("@ui-search");
 	}
+	public String getQueryBehavior() {
+		return utils.getString("@query-behavior");
+	}
+	
 	public void setSearchType(String val) {
 		utils.setString("@ui-search",val);
 	}

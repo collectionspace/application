@@ -9,7 +9,9 @@ package org.collectionspace.chain.csp.webui.authorities;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
+import org.collectionspace.services.common.api.RefName;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
@@ -33,29 +35,23 @@ import org.slf4j.LoggerFactory;
 
 
 public class VocabulariesRead implements WebMethod {
+	public static final int GET_FULL_INFO = 0;
+	public static final int GET_BASIC_INFO = 1;
+	public static final int GET_TERMS_USED_INFO = 2;
+	public static final int GET_REF_OBJS_INFO = 3;
 	private static final Logger log=LoggerFactory.getLogger(VocabulariesRead.class);
 	private Instance n;
 	private String base;
 	private Spec spec;
 	private RecordAuthorities termsused;
-	private boolean showbasicinfoonly;
+	private int getInfoMode;
 	private Map<String,String> type_to_url=new HashMap<String,String>();
 
 	public VocabulariesRead(Instance n) {
-		this.showbasicinfoonly = false;
-		this.base=n.getID();
-		this.n=n;
-		if(this.spec == null){
-			this.spec = n.getRecord().getSpec();
-			for(Record r : spec.getAllRecords()) {
-				type_to_url.put(r.getID(),r.getWebURL());
-			}
-		}
-		Record r =n.getRecord();
-		this.termsused = new RecordAuthorities(r);
+		this(n, GET_FULL_INFO);
 	}
-	public VocabulariesRead(Instance n, Boolean showbasicinfoonly) {
-		this.showbasicinfoonly = showbasicinfoonly;
+	public VocabulariesRead(Instance n, int getInfoMode) {
+		this.getInfoMode = getInfoMode;
 		this.base=n.getID();
 		this.n=n;
 		if(this.spec == null){
@@ -135,29 +131,54 @@ public class VocabulariesRead implements WebMethod {
 	 * @throws JSONException
 	 */
 	@SuppressWarnings("unchecked")
-	private JSONArray getRefObj(Storage storage,String path)   {
-		JSONArray out=new JSONArray();
+	private void getRefObjs(Storage storage,String path, JSONObject out, String itemsKey, 
+			boolean addPagination, JSONObject restrictions) throws JSONException   {
+		JSONArray items=new JSONArray();
 		try{
-			JSONObject mini = storage.retrieveJSON(path+"/refObjs", new JSONObject());
-			if(mini != null){
-				Iterator t=mini.keys();
-				while(t.hasNext()) {
-					String field=(String)t.next();
-					JSONObject in=mini.getJSONObject(field);
-					String rt = in.getString("sourceFieldType");
-					String uiname = rt;
-					if(this.spec.hasRecordByServicesDocType(rt)){
-						uiname = this.spec.getRecordByServicesDocType(rt).getWebURL();
+			JSONObject refObjs = storage.retrieveJSON(path+"/refObjs", restrictions);
+			if(refObjs != null) {
+				if(refObjs.has("items")) {
+					JSONArray ritems = refObjs.getJSONArray("items");
+					for(int i=0;i<ritems.length();i++) {
+						JSONObject in = ritems.getJSONObject(i);
+						//JSONObject in=ritems.getJSONObject(field);
+						String rt = in.getString("sourceFieldType");
+						Record rec = this.spec.getRecordByServicesDocType(rt);
+						String uiname;
+						if(rec != null) {
+							uiname = rec.getWebURL();
+							if(rec.isType("authority")) {	// Need to add namespace for authorities
+								String refName = null;
+								if(in.has("refName")) {
+									refName = in.getString("refName");
+								} else if(in.has("summarylist")) {
+									JSONObject summList = in.getJSONObject("summarylist");
+									if(summList.has("refName")) {
+										refName = summList.getString("refName");
+									}
+								}
+								if(refName!=null) {
+									RefName.AuthorityItem item = RefName.AuthorityItem.parse(refName); 
+									in.put("namespace",item.getParentShortIdentifier());
+								}
+							}
+						} else {
+							uiname = rt;
+						}
+						in.put("recordtype", uiname);
+						/*
+						JSONObject entry=new JSONObject();
+						entry.put("csid",in.getString("csid"));
+						entry.put("recordtype",in.getString("sourceFieldType"));
+						entry.put("sourceFieldName",field);
+						entry.put("number",in.getString("sourceFieldName"));
+						*/
+						items.put(in);
 					}
-					in.put("recordtype", uiname);
-					/*
-					JSONObject entry=new JSONObject();
-					entry.put("csid",in.getString("csid"));
-					entry.put("recordtype",in.getString("sourceFieldType"));
-					entry.put("sourceFieldName",field);
-					entry.put("number",in.getString("sourceFieldName"));
-					*/
-					out.put(in);
+				}
+				out.put(itemsKey, items);
+				if(addPagination && refObjs.has("pagination")){
+					out.put("pagination", refObjs.get("pagination"));
 				}
 			}
 		}
@@ -174,8 +195,6 @@ public class VocabulariesRead implements WebMethod {
 			log.debug("UnderlyingStorageException"+e.getLocalizedMessage());
 			//wordlessly eat the errors at the moment as they might be permission errors
 		}
-		
-		return out;
 	}
 	
 	private JSONObject generateMiniRecord(Storage storage,String type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
@@ -221,10 +240,10 @@ public class VocabulariesRead implements WebMethod {
 	private JSONObject getHierarchy(Storage storage, JSONObject fields) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
 		for(Relationship r: n.getRecord().getSpec().getAllRelations()){
 			if(r.showSiblings()){
-				JSONObject temp = new JSONObject();
-				temp.put("_primary", true);
+				//JSONObject temp = new JSONObject();
+				//temp.put("_primary", true);
 				JSONArray children = new JSONArray();
-				children.put(temp);
+				//children.put(temp);
 				fields.put(r.getSiblingParent(), children);
 				if(fields.has(r.getID())){
 					//String broadterm = fields.getString(r.getID());
@@ -246,7 +265,7 @@ public class VocabulariesRead implements WebMethod {
 							//it's name is
 							JSONObject siblings = new JSONObject();
 							if(!fields.getString("csid").equals(mored.getString("subjectcsid"))){
-								siblings.put(child,mored.getString("subjectname"));
+								siblings.put(child,mored.getString("subjectrefname"));
 								children.put(siblings);
 							}
 						}
@@ -280,26 +299,42 @@ public class VocabulariesRead implements WebMethod {
 	
 	/* Wrapper exists to decomplexify exceptions: also used inCreateUpdate, hence not private */
 	JSONObject getJSON(Storage storage,String csid) throws UIException {
+		return getJSON(storage, csid, new JSONObject());
+	}
+
+	private JSONObject getJSON(Storage storage,String csid, JSONObject restriction) throws UIException {
 		JSONObject out=new JSONObject();
 		try {
 			String refPath = n.getRecord().getID()+"/"+n.getTitleRef()+"/";
-			JSONObject fields=storage.retrieveJSON(refPath+csid, new JSONObject());
-			//add in equivalent hierarchy if relevant
-			csid = fields.getString("csid");
-			fields = getHierarchy(storage,fields);
-			//fields.put("csid",csid);
-			//JSONObject relations=createRelations(storage,csid);
-			out.put("csid",csid);
-			out.put("fields",fields);
-			out.put("namespace",n.getWebURL());
+			if(getInfoMode == GET_FULL_INFO || getInfoMode == GET_BASIC_INFO) {
 
-			if(!showbasicinfoonly){
+				JSONObject fields=storage.retrieveJSON(refPath+csid, restriction);
+				//add in equivalent hierarchy if relevant
+				csid = fields.getString("csid");
+				fields = getHierarchy(storage,fields);
+				//fields.put("csid",csid);
+				//JSONObject relations=createRelations(storage,csid);
+				out.put("fields",fields);
+				out.put("csid",csid);
+				out.put("namespace",n.getWebURL());
+			}
+
+			if(getInfoMode == GET_FULL_INFO) {
 				out.put("relations",new JSONArray());
 				//out.put("relations",relations);
+			}
+			if(getInfoMode == GET_FULL_INFO) {
 				JSONObject tusd = this.termsused.getTermsUsed(storage, refPath+csid, new JSONObject());
 				out.put("termsUsed",tusd.getJSONArray("results"));
-				//getTermsUsed(storage,refPath+csid));
-				out.put("refobjs",getRefObj(storage,refPath+csid));
+			}
+			if(getInfoMode == GET_TERMS_USED_INFO) {
+				JSONObject tusd = this.termsused.getTermsUsed(storage, refPath+csid, restriction);
+				out.put("termsUsed",tusd);
+			}
+			if(getInfoMode == GET_FULL_INFO) {
+				getRefObjs(storage,refPath+csid, out, "refobjs", false, restriction);
+			} else if(getInfoMode == GET_REF_OBJS_INFO) {
+				getRefObjs(storage,refPath+csid, out, "items", true, restriction);
 			}
 		} catch (ExistException e) {
 			UIException uiexception =  new UIException(e.getMessage(),e);
@@ -313,15 +348,32 @@ public class VocabulariesRead implements WebMethod {
 		} catch (JSONException e) {
 			throw new UIException("Could not create JSON"+e,e);
 		}
-		if (out == null) {
-			throw new UIException("No JSON Found");
-		}
 		return out;
 	}
 	
 	private void store_get(Storage storage,UIRequest request,String path) throws UIException {
 		// Get the data
-		JSONObject outputJSON = getJSON(storage,path);
+		JSONObject restriction = new JSONObject();
+
+		
+		if(getInfoMode == GET_TERMS_USED_INFO || getInfoMode == GET_REF_OBJS_INFO) {
+			Set<String> args = request.getAllRequestArgument();
+			for (String restrict : args) {
+				if (request.getRequestArgument(restrict) != null) {
+					String value = request.getRequestArgument(restrict);
+					if (restrict.equals(WebMethod.PAGE_SIZE_PARAM)
+							|| restrict.equals(WebMethod.PAGE_NUM_PARAM)) {
+						try {
+							restriction.put(restrict, value);
+						} catch (JSONException e) {
+							log.warn("Problem with pagination request param (ignoring):"+e);
+						}
+					}
+				}
+			}
+		}
+
+		JSONObject outputJSON = getJSON(storage,path, restriction);
 	
 		// Write the requested JSON out
 		request.sendJSONResponse(outputJSON);

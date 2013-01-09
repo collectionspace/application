@@ -29,7 +29,7 @@ class TrieNode {
 	}
 
 	private boolean call_here(String[] path,int off,Object pay) throws Exception {
-		for(int i=path.length-off;i>-1;i--) {
+		for(int i=path.length-off;i>-1;i--) { // ??? A little help?
 			TrieMethod m=values.get(i);
 			if(m!=null) {
 				m.run(pay,(String[])ArrayUtils.subarray(path,off,path.length));
@@ -39,7 +39,7 @@ class TrieNode {
 		return false;
 	}
 	
-	boolean call(String[] path,int off,Object pay) throws Exception {
+	boolean call(String[] path,int off,Object pay) throws Exception { // Wow.  What the heck is this code doing?  Documentation please!
 		if(off==path.length) {
 			return call_here(path,off,pay);
 		} else {

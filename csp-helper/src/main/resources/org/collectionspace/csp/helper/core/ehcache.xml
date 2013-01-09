@@ -1,0 +1,7 @@
+<ehcache>
+    <!-- userperms are cached for 30 minutes to reduce loginstatus overhead.
+         100 at a time is plenty for most instances - that's a lot of users in our world.
+         We do not persist across invocations, -->
+    <cache name="userperms" maxElementsInMemory="100" eternal="false" overflowToDisk="false" 
+        timeToIdleSeconds="1800" timeToLiveSeconds="1800" diskPersistent="false" />
+</ehcache>

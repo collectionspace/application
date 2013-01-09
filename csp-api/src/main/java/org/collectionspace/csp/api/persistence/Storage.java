@@ -28,7 +28,7 @@ public interface Storage {
 	 * @param filePath - path to file for storage
 	 * @param jsonObject - the JSONObject to be parsed and stored
 	 */
-	public void updateJSON(String filePath, JSONObject jsonObject)
+	public void updateJSON(String filePath, JSONObject jsonObject, JSONObject restrictions)
 		throws ExistException, UnimplementedException, UnderlyingStorageException;
 
 	/**
@@ -40,7 +40,7 @@ public interface Storage {
 	public void createJSON(String filePath, JSONObject jsonObject)
 		throws ExistException, UnimplementedException, UnderlyingStorageException;
 
-	public String autocreateJSON(String filePath, JSONObject jsonObject)
+	public String autocreateJSON(String filePath, JSONObject jsonObject, JSONObject restrictions)
 		throws ExistException, UnimplementedException, UnderlyingStorageException;
 	
 	public String[] getPaths(String rootPath,JSONObject restrictions)

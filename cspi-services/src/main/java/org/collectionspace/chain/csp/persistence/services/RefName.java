@@ -1,4 +1,4 @@
-package org.collectionspace.chain.csp.persistence.services.vocab;
+package org.collectionspace.chain.csp.persistence.services;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -6,16 +6,22 @@ import java.util.regex.Pattern;
 
 public class RefName {
 
+	/*
     public static final String HACK_VOCABULARIES = "Vocabularies"; //TODO: get rid of these.
     public static final String HACK_ORGANIZATIONS = "Organizations"; //TODO: get rid of these.
     public static final String HACK_ORGAUTHORITIES = "Orgauthorities";  //TODO: get rid of these.
     public static final String HACK_PERSONAUTHORITIES = "Personauthorities";  //TODO: get rid of these.
     public static final String HACK_LOCATIONAUTHORITIES = "Locationauthorities";  //TODO: get rid of these.
+    */
     public static final String URN_PREFIX = "urn:cspace:";
     public static final String URN_NAME_PREFIX = "urn:cspace:name";
     public static final String REFNAME = "refName";
     public static final String AUTHORITY_REGEX = "urn:cspace:(.*):(.*):name\\((.*)\\)\\'?([^\\']*)\\'?";
+    public static final String CSID_REFNAME_REGEX = "urn:cspace:(.*):(.*):id\\((.*)\\)\\'?([^\\']*)\\'?";
     public static final String AUTHORITY_ITEM_REGEX = "urn:cspace:(.*):(.*):name\\((.*)\\):item:name\\((.*)\\)\\'?([^\\']*)\\'?";
+    public static final String NAME_SPECIFIER = "name";
+    public static final String ID_SPECIFIER = "id";
+    /*
     public static final String AUTHORITY_EXAMPLE = "urn:cspace:collectionspace.org:Loansin:name(shortID)'displayName'";
     public static final String AUTHORITY_EXAMPLE2 = "urn:cspace:collectionspace.org:Loansin:name(shortID)";
     public static final String AUTHORITY_ITEM_EXAMPLE = "urn:cspace:collectionspace.org:Loansin:name(shortID):item:name(itemShortID)'itemDisplayName'";
@@ -25,11 +31,13 @@ public class RefName {
     public static final String EX_displayName = "displayName";
     public static final String EX_itemShortIdentifier = "itemShortID";
     public static final String EX_itemDisplayName = "itemDisplayName";
+     */
 
     public static class Authority {
 
         public String tenantName = "";
         public String resource = "";
+        public String csid = "";
         public String shortIdentifier = "";
         public String displayName = "";
 
@@ -46,6 +54,19 @@ public class RefName {
                 info.shortIdentifier = m.group(3);
                 info.displayName = m.group(4);
                 return info;
+            } else {
+                p = Pattern.compile(CSID_REFNAME_REGEX);
+                m = p.matcher(urn);
+                if (m.find()) {
+                    if (m.groupCount() < 4) {
+                        return null;
+                    }
+                    info.tenantName = m.group(1);
+                    info.resource = m.group(2);
+                    info.csid = m.group(3);
+                    info.displayName = m.group(4);
+                    return info;
+                }
             }
             return null;
         }
@@ -74,7 +95,28 @@ public class RefName {
 
         public String toString() {
             String displaySuffix = (displayName != null && (!displayName.isEmpty())) ? '\'' + displayName + '\'' : "";
-            return URN_PREFIX + tenantName + ':' + resource + ":" + "name" + "(" + shortIdentifier + ")" + displaySuffix;
+            //return URN_PREFIX + tenantName + ':' + resource + ":" + "name" + "(" + shortIdentifier + ")" + displaySuffix;
+        	StringBuilder sb = new StringBuilder();
+        	sb.append(URN_PREFIX);
+        	sb.append(tenantName);
+        	sb.append(':');
+        	sb.append(resource);
+        	sb.append(':');
+        	if(csid!=null) {
+            	sb.append(ID_SPECIFIER);
+            	sb.append("(");
+            	sb.append(csid);
+            	sb.append(")");
+        	} else if(shortIdentifier!= null) {
+            	sb.append(NAME_SPECIFIER);
+            	sb.append("(");
+            	sb.append(shortIdentifier);
+            	sb.append(")");
+        	} else {
+        		throw new NullPointerException("Authority has neither CSID nor shortID!");
+        	}
+        	sb.append(displaySuffix);
+            return sb.toString();
         }
     }
 
@@ -196,5 +238,10 @@ public class RefName {
      */
     public static String shortIdToPath(String shortId) {
         return URN_NAME_PREFIX + '(' + shortId + ')';
+    }
+    
+    public static String getDisplayName(String refName) {
+    	Authority authority = Authority.parse(refName);
+    	return authority==null?null:authority.displayName;
     }
 }

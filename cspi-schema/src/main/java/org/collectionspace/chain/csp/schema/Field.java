@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -24,12 +25,13 @@ import org.slf4j.LoggerFactory;
 
 // XXX unentangle UI and SVC parts
 public class Field implements FieldSet {
+	
 	private static final Logger log = LoggerFactory.getLogger(Field.class);
 	protected SchemaUtils utils = new SchemaUtils();
 	
 	private FieldParent parent;
 
-	private Map<String, Instance> instances = new HashMap<String, Instance>();
+	private Map<String, Instance> instances = new LinkedHashMap<String, Instance>();
 
 	/* UI */
 	private Boolean seperate_default = false;
@@ -112,6 +114,7 @@ public class Field implements FieldSet {
 		utils.initStrings(section,"@ui-args", "");
 		utils.initStrings(section,"@ui-type", "plain");
 		utils.initStrings(section,"@ui-search", "");
+		utils.initStrings(section,"@query-behavior", QUERY_BEHAVIOR_NORMAL);
 		if (utils.getString("@ui-type").equals("date")) {
 			seperate_default = true;
 		}
@@ -245,6 +248,9 @@ public class Field implements FieldSet {
 	}
 	public void setSearchType(String val) {
 		utils.setString("@ui-search",val);
+	}
+	public String getQueryBehavior() {
+		return utils.getString("@query-behavior");
 	}
 	
 	public String getUIFunc() {

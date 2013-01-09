@@ -3,3 +3,4 @@ dst-type=relations_common/objectDocumentType
 src=relations_common/subjectCsid
 dst=relations_common/objectCsid
 type=relations_common/relationshipType
+metatype=relations_common/relationshipMetaType

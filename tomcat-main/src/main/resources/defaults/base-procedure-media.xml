@@ -65,7 +65,7 @@
                         <services-tag>languageList</services-tag>
                         <field id="language" ui-search="repeatable" autocomplete="vocab-languages" ui-type="enum">
                         <enum>
-                            <default>eng</default>
+                            <default>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</default>
                         </enum>
 						</field>
                     </repeat>
@@ -95,9 +95,12 @@
                     </repeat>
                     <field id="coverage"></field>
                     <repeat id="dateGroupList/dateGroup">
-                        <group id="date" xxx-services-no-repeat="true" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate"></group>
-					</repeat>
+                        <group id="date" ui-search="range" xxx-services-no-repeat="true" ui-type="groupfield/structureddate"
+                               primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
+                        </group>
+                    </repeat>
                     <field id="source" ui-search="repeatable"></field>
+                    <field id="externalUrl" ui-type="externalURL"></field>
                     <repeat id="subjects">
                         <services-tag>subjectList</services-tag>
                         <field id="subject" ui-search="repeatable"></field>
@@ -109,10 +112,12 @@
                 <section id="otherInformation">
                     <field id="uri"></field>
                     <field id="srcUri"></field>
-                    <field id="blobCsid"></field>
-					
+                    <field id="blobCsid"></field>					
                     <field id="imgThumb" attributes="GET" mini="search,list,relate" exists-in-services="false">
                         <use-csid id="blobCsid">ims;download/;/Thumbnail</use-csid>
+                    </field>
+                    <field id="imgOrig" attributes="GET" mini="search,list,relate" exists-in-services="false">
+                        <use-csid id="blobCsid">ims;download/;/Original</use-csid>
                     </field>
                     <group id="blobs" ui-type="uploader" showgrouped="false" userecord="blobs" serviceurl="blobs" onlyifexists="blobCsid" attributes="GET" ui-spec-prefix="blobs" with-csid="blobCsid"/>
                 </section>

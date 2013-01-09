@@ -2,6 +2,7 @@
   <subjectDocumentType xtmpl:point="src-type"/>
   <objectDocumentType xtmpl:point="dst-type"/>
   <relationshipType xtmpl:point="type"/>
+  <relationshipMetaType xtmpl:point="metatype"/>
   <subjectCsid xtmpl:point="src"/>
   <objectCsid xtmpl:point="dst"/>
 </ns2:relations_common>

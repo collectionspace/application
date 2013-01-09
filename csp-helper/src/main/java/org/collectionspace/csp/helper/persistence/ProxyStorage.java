@@ -24,9 +24,9 @@ public abstract class ProxyStorage implements Storage {
 	protected ProxyStorage(Storage p) { setTarget(p); }
 	protected void setTarget(Storage p) { proxed=p; }
 	
-	public String autocreateJSON(String filePath, JSONObject jsonObject)
+	public String autocreateJSON(String filePath, JSONObject jsonObject, JSONObject restrictions)
 			throws ExistException, UnimplementedException, UnderlyingStorageException {
-		return proxed.autocreateJSON(filePath,jsonObject);
+		return proxed.autocreateJSON(filePath, jsonObject, restrictions);
 	}
 
 	public void createJSON(String filePath, JSONObject jsonObject)
@@ -54,9 +54,9 @@ public abstract class ProxyStorage implements Storage {
 		return proxed.retrieveJSON(filePath,restrictions);
 	}
 
-	public void updateJSON(String filePath, JSONObject jsonObject)
+	public void updateJSON(String filePath, JSONObject jsonObject, JSONObject restrictions)
 			throws ExistException, UnimplementedException, UnderlyingStorageException {
-		proxed.updateJSON(filePath,jsonObject);
+		proxed.updateJSON(filePath,jsonObject, restrictions);
 	}
 
 	public void transitionWorkflowJSON(String filePath, String workflowTransition) 

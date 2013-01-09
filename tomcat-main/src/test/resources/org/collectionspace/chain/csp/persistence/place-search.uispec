@@ -289,7 +289,39 @@
           "repeatTree": {
             "expander": {
               "tree": {
-                ".csc-placeAuthority-termDisplayName": "${{row}.termDisplayName}"
+                ".csc-placeAuthority-termDisplayName": "${{row}.termDisplayName}", 
+                ".csc-placeAuthority-termLanguage": {
+                  "decorators": [
+                    {
+                      "func": "cspace.termList", 
+                      "options": {
+                        "elPath": "termLanguage", 
+                        "root": "{row}", 
+                        "termListType": "termLanguage"
+                      }, 
+                      "type": "fluid"
+                    }
+                  ]
+                }, 
+                ".csc-placeAuthority-termName": "${{row}.termName}", 
+                ".csc-placeAuthority-termStatus": {
+                  "default": "", 
+                  "optionlist": [
+                    "provisional", 
+                    "under review", 
+                    "accepted", 
+                    "rejected", 
+                    ""
+                  ], 
+                  "optionnames": [
+                    "Provisional", 
+                    "Under Review", 
+                    "Accepted", 
+                    "Rejected", 
+                    "Please select a value"
+                  ], 
+                  "selection": "${{row}.termStatus}"
+                }
               }, 
               "type": "fluid.noexpand"
             }

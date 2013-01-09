@@ -141,9 +141,9 @@ public class StubJSONStore implements Storage {
 		throw new UnderlyingStorageException("Cannot post to path");
 	}
 
-	public void updateJSON(String filePath, JSONObject jsonObject) throws ExistException, UnderlyingStorageException, UnimplementedException {
+	public void updateJSON(String filePath, JSONObject jsonObject, JSONObject restrictions) throws ExistException, UnderlyingStorageException, UnimplementedException {
 		if(idRequest(filePath))
-			id.updateJSON(filePath,jsonObject);
+			id.updateJSON(filePath,jsonObject, restrictions);
 		set(filePath,jsonObject,false);
 	}
 
@@ -217,9 +217,10 @@ public class StubJSONStore implements Storage {
 		return out.toArray(new String[0]);
 	}
 
-	public String autocreateJSON(String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public String autocreateJSON(String filePath, JSONObject jsonObject, JSONObject restrictions)
+			throws ExistException, UnimplementedException, UnderlyingStorageException {
 		if("id".equals(filePath))
-			id.autocreateJSON("",jsonObject);
+			id.autocreateJSON("",jsonObject,null);
 		while(true) {
 			int tail=rnd.nextInt(Integer.MAX_VALUE);
 			String filename=filePath+"/"+tail;

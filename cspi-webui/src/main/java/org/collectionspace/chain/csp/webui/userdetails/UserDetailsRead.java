@@ -42,7 +42,7 @@ public class UserDetailsRead  implements WebMethod {
 		this.base=r.getID();
 		this.r = r;
 		this.spec=r.getSpec();
-		this.searcher = new RecordSearchList(r,false);
+		this.searcher = new RecordSearchList(r,RecordSearchList.MODE_LIST);
 		record_type=r.isType("userdata");
 	}
 		
@@ -107,5 +107,6 @@ public class UserDetailsRead  implements WebMethod {
 		for(Record r : spec.getAllRecords()) {
 			type_to_url.put(r.getID(),r.getWebURL());
 		}
+		this.searcher.configure(spec);
 	}
 }

@@ -78,10 +78,10 @@ public class TestAccount extends ServicesBaseClass {
 		JSONObject u1=getJSON("user1.json");
 		/* create the user based on json */
 		/* will give a hidden 500 error if userid is not unique (useful eh?) */
-		String path=ss.autocreateJSON("users/",u1);
+		String path=ss.autocreateJSON("users/",u1,null);
 		assertNotNull(path);
 		JSONObject u2=getJSON("user1.json");
-		ss.updateJSON("users/"+path,u2);
+		ss.updateJSON("users/"+path,u2, new JSONObject());
 		JSONObject u3=ss.retrieveJSON("users/"+path, new JSONObject());
 		assertNotNull(u3);
 		// Check output

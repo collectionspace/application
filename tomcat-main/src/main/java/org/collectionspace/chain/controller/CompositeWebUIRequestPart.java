@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.collectionspace.chain.util.misc.JSON;
@@ -72,6 +74,13 @@ public class CompositeWebUIRequestPart implements UIRequest {
 		default:
 			return 200;
 		}
+	}
+	
+	public int getCacheMaxAgeSeconds() {
+		return 0;
+	}
+	public void setCacheMaxAgeSeconds(int cacheMaxAgeSeconds) {
+		// Ignore this for now. Caching composite requests is not really clear.
 	}
 	
 	public JSONObject solidify() throws JSONException, UIException {
@@ -211,6 +220,9 @@ public class CompositeWebUIRequestPart implements UIRequest {
 
 	@Override
 	public UISession getSession() throws UIException { return parent.getSession(); }
+
+	public  HttpSession getHttpSession() { return null; }
+
 
 	@Override
 	public TTYOutputter getTTYOutputter() throws UIException {

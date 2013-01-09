@@ -201,19 +201,20 @@ public class RecordTraverser implements WebMethod  {
 			return  (JSONObject) pdata.get(relativeindexvalue);
 		}
 	}
-	public JSONObject subTraverser(Storage storage, UIRequest request,
+	
+	private JSONObject subTraverser(Storage storage, UIRequest request,
 			String key, Integer numInstances, String base, String instance,
 			JSONObject restriction) throws JSONException,
 			UIException, ExistException, UnimplementedException,
 			UnderlyingStorageException {
 		JSONObject results = new JSONObject();
 		Record myr = this.spec.getRecord(base);
-		if(this.spec.getRecord(base).isType("record")){
-			this.searcher = new RecordSearchList(myr,true);
+		if(myr.isType("record") || myr.isType("searchall")){
+			this.searcher = new RecordSearchList(myr,RecordSearchList.MODE_SEARCH);
+			this.searcher.configure(this.spec);	// Need to set up maps for recordtype.
 			results = this.searcher.getJSON(storage,restriction,key,base);
-
 		}
-		else if(this.spec.getRecord(base).isType("authority")){
+		else if(myr.isType("authority")){
 			if(myr.hasInstance(instance)){
 				Instance myn = myr.getInstance(instance);
 				this.avsearcher = new AuthoritiesVocabulariesSearchList(myn,true);

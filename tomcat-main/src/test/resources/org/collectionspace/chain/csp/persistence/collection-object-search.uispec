@@ -92,6 +92,39 @@
   ".csc-collection-object-form-label": {
     "messagekey": "collection-object-formLabel"
   }, 
+  ".csc-collection-object-inscriptionContent-label": {
+    "messagekey": "collection-object-inscriptionContentLabel"
+  }, 
+  ".csc-collection-object-inscriptionContentDateGroup-label": {
+    "messagekey": "textualInscriptionGroup-inscriptionContentDateGroupLabel"
+  }, 
+  ".csc-collection-object-inscriptionContentInscriber-label": {
+    "messagekey": "collection-object-inscriptionContentInscriberLabel"
+  }, 
+  ".csc-collection-object-inscriptionContentInterpretation-label": {
+    "messagekey": "collection-object-inscriptionContentInterpretationLabel"
+  }, 
+  ".csc-collection-object-inscriptionContentLanguage-label": {
+    "messagekey": "collection-object-inscriptionContentLanguageLabel"
+  }, 
+  ".csc-collection-object-inscriptionContentMethod-label": {
+    "messagekey": "collection-object-inscriptionContentMethodLabel"
+  }, 
+  ".csc-collection-object-inscriptionContentPosition-label": {
+    "messagekey": "collection-object-inscriptionContentPositionLabel"
+  }, 
+  ".csc-collection-object-inscriptionContentScript-label": {
+    "messagekey": "collection-object-inscriptionContentScriptLabel"
+  }, 
+  ".csc-collection-object-inscriptionContentTranslation-label": {
+    "messagekey": "collection-object-inscriptionContentTranslationLabel"
+  }, 
+  ".csc-collection-object-inscriptionContentTransliteration-label": {
+    "messagekey": "collection-object-inscriptionContentTransliterationLabel"
+  }, 
+  ".csc-collection-object-inscriptionContentType-label": {
+    "messagekey": "collection-object-inscriptionContentTypeLabel"
+  }, 
   ".csc-collection-object-inscriptionDescription-label": {
     "messagekey": "collection-object-inscriptionDescriptionLabel"
   }, 
@@ -181,6 +214,41 @@
       }
     ]
   }, 
+  ".csc-collection-object-numberOfObjects-label": {
+    "messagekey": "collection-object-numberOfObjectsLabel"
+  }, 
+  ".csc-collection-object-numberOfObjectsEnd": {
+    "decorators": [
+      {
+        "func": "cspace.inputValidator", 
+        "options": {
+          "label": "collection-object-numberOfObjectsEndLabel", 
+          "type": "string"
+        }, 
+        "type": "fluid"
+      }
+    ], 
+    "value": "${numberOfObjectsEnd}"
+  }, 
+  ".csc-collection-object-numberOfObjectsEnd-label": {
+    "messagekey": "collection-object-numberOfObjectsEndLabel"
+  }, 
+  ".csc-collection-object-numberOfObjectsStart": {
+    "decorators": [
+      {
+        "func": "cspace.inputValidator", 
+        "options": {
+          "label": "collection-object-numberOfObjectsStartLabel", 
+          "type": "string"
+        }, 
+        "type": "fluid"
+      }
+    ], 
+    "value": "${numberOfObjectsStart}"
+  }, 
+  ".csc-collection-object-numberOfObjectsStart-label": {
+    "messagekey": "collection-object-numberOfObjectsStartLabel"
+  }, 
   ".csc-collection-object-objectComponentGroup": {
     "decorators": [
       {
@@ -267,6 +335,33 @@
   }, 
   ".csc-collection-object-objectNumber-label": {
     "messagekey": "collection-object-objectNumberLabel"
+  }, 
+  ".csc-collection-object-objectProductionDate-label": {
+    "messagekey": "collection-object-objectProductionDateLabel"
+  }, 
+  ".csc-collection-object-objectProductionDateEnd": {
+    "decorators": [
+      {
+        "func": "cspace.datePicker", 
+        "type": "fluid"
+      }
+    ], 
+    "value": "${objectProductionDateEnd}"
+  }, 
+  ".csc-collection-object-objectProductionDateEnd-label": {
+    "messagekey": "collection-object-objectProductionDateEndLabel"
+  }, 
+  ".csc-collection-object-objectProductionDateStart": {
+    "decorators": [
+      {
+        "func": "cspace.datePicker", 
+        "type": "fluid"
+      }
+    ], 
+    "value": "${objectProductionDateStart}"
+  }, 
+  ".csc-collection-object-objectProductionDateStart-label": {
+    "messagekey": "collection-object-objectProductionDateStartLabel"
   }, 
   ".csc-collection-object-objectProductionOrganization-label": {
     "messagekey": "collection-object-objectProductionOrganizationLabel"
@@ -481,6 +576,38 @@
   }, 
   ".csc-collection-object-techniqueType-label": {
     "messagekey": "collection-object-techniqueTypeLabel"
+  }, 
+  ".csc-collection-object-textualInscriptionGroup": {
+    "decorators": [
+      {
+        "func": "cspace.makeRepeatable", 
+        "options": {
+          "elPath": "textualInscriptionGroup", 
+          "hidePrimary": true, 
+          "repeatTree": {
+            "expander": {
+              "tree": {
+                ".csc-object-description-inscription-content-inscriber": {
+                  "decorators": [
+                    {
+                      "func": "cspace.autocomplete", 
+                      "options": {
+                        "queryUrl": "../../../tenant/core/cataloging/autocomplete/inscriptionContentInscriber", 
+                        "vocabUrl": "../../../tenant/core/cataloging/source-vocab/inscriptionContentInscriber"
+                      }, 
+                      "type": "fluid"
+                    }
+                  ], 
+                  "value": "${{row}.inscriptionContentInscriber}"
+                }
+              }, 
+              "type": "fluid.noexpand"
+            }
+          }
+        }, 
+        "type": "fluid"
+      }
+    ]
   }, 
   ".csc-collection-object-title-label": {
     "messagekey": "collection-object-titleLabel"

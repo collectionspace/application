@@ -18,6 +18,7 @@ import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.collectionspace.csp.helper.core.ResponseCache;
 
 public class UserDetailsDelete implements WebMethod {
 
@@ -28,6 +29,8 @@ public class UserDetailsDelete implements WebMethod {
 
 	private void store_delete(Storage storage,UIRequest request,String path) throws UIException {
 		try {
+			// Deleting a user needs to clear the userperms cache for safety.
+			ResponseCache.clearCache(ResponseCache.USER_PERMS_CACHE);
 			storage.deleteJSON(base+"/"+path);
 		} catch (ExistException e) {
 			throw new UIException("JSON Not found "+e,e);

@@ -9,11 +9,10 @@
                 <selector>conceptAuthority-termDisplayName</selector>
                 <title-selector>titleBar-displayName</title-selector>
             </field>
-            <!-- FIXME: Add 'ui-search="repeatable"' back to this field when CSPACE-5184/CSPACE-5185 is fixed -->
-            <field id="termName">
+            <field id="termName" ui-search="repeatable">
                 <selector>conceptAuthority-termName</selector>
             </field>
-            <field id="termType" mini="summary,search,list,relate">
+            <field id="termType">
                 <selector>conceptAuthority-termType</selector>
                 <options>
                     <option id="">Please select a value</option>
@@ -22,8 +21,7 @@
                     <option id="used for term">Used for Term</option>
                 </options>
             </field>
-            <!-- FIXME: Add 'ui-search="repeatable"' back to this field when CSPACE-5184/CSPACE-5185 is fixed -->
-            <field id="termStatus" seperate_ui_container="true"
+            <field id="termStatus" ui-search="repeatable" seperate_ui_container="true"
                 mini="search,list,relate">
                 <selector>conceptAuthority-termStatus</selector>
                 <options>
@@ -36,8 +34,7 @@
             <field id="termQualifier">
                 <selector>conceptAuthority-termQualifier</selector>
             </field>
-            <!-- FIXME: Add 'ui-search="repeatable"' back to this field when CSPACE-5184/CSPACE-5185 is fixed -->
-            <field id="termLanguage" autocomplete="vocab-languages" ui-type="enum">
+            <field id="termLanguage" ui-search="repeatable" autocomplete="vocab-languages" ui-type="enum">
                 <selector>conceptAuthority-termLanguage</selector>
             </field>
             <field id="termPrefForLang" datatype="boolean">

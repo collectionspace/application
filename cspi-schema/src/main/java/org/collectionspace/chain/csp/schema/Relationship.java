@@ -25,6 +25,7 @@ public class Relationship {
 		utils.initStrings(section,"childname",utils.getString("@id"));
 		utils.initStrings(section,"displayName",utils.getString("@id"));
 		utils.initStrings(section,"predicate",utils.getString("@id"));
+		utils.initStrings(section,"metaTypeField","");
 		utils.initStrings(section,"showsiblings","");
 		utils.initStrings(section,"subject","n");
 		utils.initStrings(section,"object","n");
@@ -43,6 +44,7 @@ public class Relationship {
 	public String getSubject() { return utils.getString("subject"); }
 	public String getObject() { return utils.getString("object"); }
 	public String getPredicate() { return utils.getString("predicate"); }
+	public String getMetaTypeField() { return utils.getString("metaTypeField"); }
 	public String getInverse() { return utils.getString("inverseOf"); }
 	public Boolean hasInverse() { if(utils.getString("inverseOf").equals("")){ return false; } else { return true; } }
 	public Boolean isDirectional() { return utils.getBoolean("directional"); }

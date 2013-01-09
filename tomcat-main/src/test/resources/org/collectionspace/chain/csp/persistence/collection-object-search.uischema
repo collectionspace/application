@@ -136,6 +136,12 @@
         }, 
         "type": "array"
       }, 
+      "numberOfObjectsEnd": {
+        "type": "string"
+      }, 
+      "numberOfObjectsStart": {
+        "type": "string"
+      }, 
       "objectComponentGroup": {
         "items": {
           "properties": {
@@ -181,6 +187,12 @@
           "type": "object"
         }, 
         "type": "array"
+      }, 
+      "objectProductionDateEnd": {
+        "type": "string"
+      }, 
+      "objectProductionDateStart": {
+        "type": "string"
       }, 
       "objectProductionOrganizationGroup": {
         "items": {
@@ -361,6 +373,21 @@
               "type": "boolean"
             }, 
             "technique": {
+              "type": "string"
+            }
+          }, 
+          "type": "object"
+        }, 
+        "type": "array"
+      }, 
+      "textualInscriptionGroup": {
+        "items": {
+          "properties": {
+            "_primary": {
+              "default": true, 
+              "type": "boolean"
+            }, 
+            "inscriptionContentInscriber": {
               "type": "string"
             }
           }, 

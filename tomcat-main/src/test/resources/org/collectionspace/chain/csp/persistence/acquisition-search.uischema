@@ -1,6 +1,18 @@
 {
   "acquisition": {
     "properties": {
+      "accessionDateGroupEnd": {
+        "type": "string"
+      }, 
+      "accessionDateGroupStart": {
+        "type": "string"
+      }, 
+      "acquisitionDateGroupEnd": {
+        "type": "string"
+      }, 
+      "acquisitionDateGroupStart": {
+        "type": "string"
+      }, 
       "acquisitionFunding": {
         "items": {
           "properties": {
@@ -106,6 +118,12 @@
           "type": "object"
         }, 
         "type": "array"
+      }, 
+      "objectPurchasePriceValueEnd": {
+        "type": "string"
+      }, 
+      "objectPurchasePriceValueStart": {
+        "type": "string"
       }, 
       "updatedAtEnd": {
         "type": "date"

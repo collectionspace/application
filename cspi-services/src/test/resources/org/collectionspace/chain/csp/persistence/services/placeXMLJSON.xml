@@ -42,6 +42,7 @@
         <termDisplayName>123456</termDisplayName>
         <termLanguage></termLanguage>
         <termType>technical-scientific</termType>
+			  <termPrefForLang>false</termPrefForLang>
     </placeTermGroup>
 </placeTermGroupList>
 <minDistanceAboveSurfaceInMeters>123456.0</minDistanceAboveSurfaceInMeters>

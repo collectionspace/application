@@ -89,7 +89,7 @@ public class CacheTermList {
 						if(vr.getFieldFullList("termStatus") instanceof Field){
 							fields.put("termStatus", ((Field)vr.getFieldFullList("termStatus")).getOptionDefault());
 						}
-						storage.autocreateJSON(vr.getID(),fields);
+						storage.autocreateJSON(vr.getID(),fields,restriction);
 						data = storage.getPathsJSON(url,restriction);
 					}
 					if(data.has("listItems")){

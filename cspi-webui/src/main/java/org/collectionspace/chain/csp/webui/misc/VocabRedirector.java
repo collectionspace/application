@@ -6,9 +6,11 @@
  */
 package org.collectionspace.chain.csp.webui.misc;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.collectionspace.chain.csp.schema.AdminData;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Instance;
@@ -32,10 +34,13 @@ import org.slf4j.LoggerFactory;
 public class VocabRedirector implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(VocabRedirector.class);
 	private Record r;
+	private AdminData adminData = null;
 	
 	public VocabRedirector(Record r) { this.r=r; }
 	
-	public void configure(WebUI ui, Spec spec) {}
+	public void configure(WebUI ui, Spec spec) {
+		adminData = spec.getAdminData();
+	}
 
 	//old style
 	private String pathFor(String in) {
@@ -45,7 +50,17 @@ public class VocabRedirector implements WebMethod {
 		return "/vocabularies/"+weburl; 
 	}
 	
-	private JSONArray pathForAll(String fieldname) throws JSONException{
+	/**
+	 * Returns information on the vocabularies (Authority namespaces) that are configured
+	 * for autocomplete use for the passed field, in the context record. 
+	 * If the record is itself an Authority term editor, hierarchy fields should
+	 * be constrained to the vocabulary named by vocabConstraint 
+	 * @param fieldname The name of the field for which to return the info
+	 * @param vocabConstraint The vocabulary when the field is hierarchic and the record is a term.
+	 * @return Information on the configured vocabularies
+	 * @throws JSONException
+	 */
+	private JSONArray pathForAll(String fieldname, String vocabConstraint) throws JSONException{
 		JSONArray out = new JSONArray();
 
 		FieldSet fd = r.getFieldFullList(fieldname);
@@ -53,19 +68,21 @@ public class VocabRedirector implements WebMethod {
 		Instance[] allInstances = null;
 		if(fd == null || !(fd instanceof Field)){
 			if(r.hasHierarchyUsed("screen")){
-				Structure s = r.getStructure("screen");
-				if(s.hasOption(fieldname)){
-					Option a = s.getOption(fieldname);
-					String[] data = a.getName().split(",");
-
-					Map<String, Instance> tempinstances = new HashMap<String, Instance>();
-					for(String ins : data){
-						tempinstances.put(ins, r.getSpec().getInstance(ins));
-						allInstances = tempinstances.values().toArray(new Instance[0]);
+				Structure s = r.getStructure("screen");	// Configures the hierarchy section.
+				if(s.hasOption(fieldname)){				// This is one of the hierarchy fields
+					if(vocabConstraint!=null) {
+						allInstances = new Instance[1];
+						String fullname = r.getID()+"-"+vocabConstraint;
+						allInstances[0] = r.getSpec().getInstance(fullname);
+					} else {
+						Option a = s.getOption(fieldname);
+						String[] data = a.getName().split(",");
+						allInstances = new Instance[data.length];
+						for(int i=0; i<data.length; i++){
+							allInstances[i] = (r.getSpec().getInstance(data[i]));
+						}
 					}
-					
-				}
-				else{
+				} else{
 					FieldSet fs = r.getSpec().getRecord("hierarchy").getFieldFullList(fieldname);
 					if(fs instanceof Field){ 	
 						allInstances = ((Field)fs).getAllAutocompleteInstances();
@@ -92,8 +109,14 @@ public class VocabRedirector implements WebMethod {
 	private void redirect(CSPRequestCache cache,Storage storage,UIRequest request,String[] tail) throws UIException {
 		try {
 			JSONArray out = new JSONArray();
-			out = pathForAll(tail[0]);
+			String vocabConstraint = request.getRequestArgument(CONSTRAIN_VOCAB_PARAM);
+			out = pathForAll(tail[0], vocabConstraint);
 			request.sendJSONResponse(out);
+			int cacheMaxAgeSeconds = adminData.getAutocompleteListCacheAge();
+			if(cacheMaxAgeSeconds > 0) {
+				request.setCacheMaxAgeSeconds(cacheMaxAgeSeconds);
+			}
+			
 		} catch (JSONException e) {
 			throw new UIException("JSON building failed",e);
 		}
