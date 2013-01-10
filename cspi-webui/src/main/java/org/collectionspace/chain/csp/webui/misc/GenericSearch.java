@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldParent;
@@ -248,6 +249,13 @@ public class GenericSearch {
 								}
 							}
 							fieldname = fs.getID();
+							String sortFieldname = r.getSortKey(fieldname);
+						
+							if (StringUtils.isNotEmpty(sortFieldname)) {
+								log.debug("Found sort key " + sortFieldname + " for " + fieldname);
+								fs = r.getFieldFullList(sortFieldname);
+							}
+							
 							FieldSet tmp = fs;
 							fieldname = getSearchSpecifierForField(fs, true);
 							

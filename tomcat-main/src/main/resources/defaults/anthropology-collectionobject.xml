@@ -1,10 +1,15 @@
 <record id="collection-object">
 	<services-record-path id="anthropology">collectionobjects_anthropology:http://collectionspace.org/services/collectionobject/domain/anthropology,collectionobjects_anthropology</services-record-path>
 
+	<section id="identificationInformation">
+		<field id="homeLocation" autocomplete="location-location" section="anthropology" ui-search="repeatable"/>
+		<field id="homeCrate" autocomplete="location-crate" section="anthropology" ui-search="repeatable"/>
+	</section>
+
 	<section id="repatriationNagpraComplianceInformation">
 		<!-- THIS ALL NEEDS TO BE RETHOUGHT IN LIGHT OF THE NEW NAGPRACLAIM SERVICE -->
 		<repeat id="nagpraInventoryNameList" section="anthropology">
-			<field id="nagpraInventoryName" section="anthropology" seperate_ui_container="true">
+			<field id="nagpraInventoryName" section="anthropology" seperate_ui_container="true" ui-search="repeatable">
 				<selector>collection-object-nagpraInventoryName</selector>
 				<options>
 					<option id="notOnAnInventory" default="yes">not on an inventory</option>
@@ -224,7 +229,7 @@
 			</field>
 		</repeat>
 		<repeat id="nagpraApplicabilityList" section="anthropology">
-			<field id="nagpraApplicability" section="anthropology" seperate_ui_container="true">
+			<field id="nagpraApplicability" section="anthropology" seperate_ui_container="true" ui-search="repeatable">
 				<selector>collection-object-nagpraApplicability</selector>
 				<options>
 					<option id="nonNagpra" default="yes">not subject to NAGPRA</option>
@@ -234,6 +239,7 @@
 					<option id="ufo">unassociated funerary object (UFO)</option>
 					<option id="sacredObject">sacred object</option>
 					<option id="objectOfCulturalPatrimony">object of cultural patrimony</option>
+					<option id="subjectToNAGPRA">subject to NAGPRA (unspec.)</option>
 					<option id="needsFurtherResearch">needs further research</option>
 					<option id="unknown">unknown</option>
 				</options>

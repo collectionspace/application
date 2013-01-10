@@ -616,6 +616,15 @@ public class XmlJsonConversion {
 						for(FieldSet fd : subitems.getAllFieldTopLevel(operation)) {
 							children.add(fd); //non-nested groupfields?
 						}
+						// A hack to get structured dates in extensions working. The children added in the above
+						// getAllFieldTopLevel call have section "common", even if the group is in a different section.
+						// Therefore, they are never added to the xml. The code below allows deployers to explicitly
+						// put the fields in the group in the configuration file, with the correct section (the 
+						// workaround described in CSPACE-5085). This code allows the same workaround to work for
+						// groups with xxx-services-no-repeat set to true.
+						for(FieldSet fd : ((Group)fs).getChildren(operation)) {
+							children.add(fd);
+						}
 					}
 					else{
 						//this one should be nested
@@ -877,31 +886,34 @@ public class XmlJsonConversion {
 			addRepeatToJson(out,root,(Repeat)fs,permlevel, tempSon,csid,ims_url);
 	}
 	
-	public static void convertToJson(JSONObject out,Record r,Document doc, String operation, String section,String csid,String ims_url) throws JSONException {
+	public static JSONObject convertToJson(JSONObject out,Record r,Document doc, String operation, String section,String csid,String ims_url) throws JSONException {
 		Element root=doc.getRootElement();
 		JSONObject tempSon = new JSONObject();
 		for(FieldSet f : r.getAllServiceFieldTopLevel(operation,section)) {
 			addFieldSetToJson(out,root,f,operation, tempSon,csid,ims_url);
 		}
+
+//		PAHMA-469: Moved merge field computation to GenericStorage.simpleRetrieveJSON.
+//		if(r.hasMerged()){
+//			for(FieldSet f : r.getAllMergedFields()){
+//				for(String fm : f.getAllMerge()){
+//					if (fm != null) {
+//						if (r.hasFieldByOperation(fm, operation)) {
+//							if (tempSon.has(fm)) {
+//								String data = tempSon.getString(fm);
+//								if (data != null && !data.equals("")
+//										&& !out.has(f.getID())) {
+//									out.put(f.getID(), data);
+//								}
+//							}
+//						}
+//					}
+//				}
+//			}
+//			
+//		}
 		
-		if(r.hasMerged()){
-			for(FieldSet f : r.getAllMergedFields()){
-				for(String fm : f.getAllMerge()){
-					if (fm != null) {
-						if (r.hasFieldByOperation(fm, operation)) {
-							if (tempSon.has(fm)) {
-								String data = tempSon.getString(fm);
-								if (data != null && !data.equals("")
-										&& !out.has(f.getID())) {
-									out.put(f.getID(), data);
-								}
-							}
-						}
-					}
-				}
-			}
-			
-		}
+		return tempSon;
 	}
 
 	public static JSONObject convertToJson(Record r,Document doc, String permlevel, String section,String csid,String ims_url) throws JSONException {

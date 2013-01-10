@@ -4,20 +4,23 @@
 	<section id="claimInformation">
 		<!--<field id="claimName" section="anthropology" in-title="yes"></field>-->
 		<field id="claimName" ui-search="repeatable" section="anthropology" in-title="yes" mini="summary,search,list,relate,terms"></field>
-		<field id="claimType" ui-search="repeatable" section="anthropology" seperate_ui_container="true">
-			<options>
-				<option id="" default="yes">(none selected)</option>
-				<option id="affiliatedHsr">affiliated human skeletal remains (HSR)</option>
-				<option id="unaffiliatedCuiHsr">unaffiliated human skeletal remains (HSR) (=CUI)</option>
-				<option id="afo">associated funerary object (AFO)</option>
-				<option id="ufo">unassociated funerary object (UFO)</option>
-				<option id="sacredObject">sacred object</option>
-				<option id="objectOfCulturalPatrimony">object of cultural patrimony</option>
-				<option id="nonNagpra">not subject to NAGPRA</option>
-				<option id="needsFurtherResearch">needs further research</option>
-				<option id="unknown">unknown</option>
-			</options>
-		</field>
+		
+		<repeat id="claimTypeList" section="anthropology">
+			<field id="claimType" ui-search="repeatable" section="anthropology" seperate_ui_container="true">
+				<options>
+					<option id="" default="yes">(none selected)</option>
+					<option id="affiliatedHsr">affiliated human skeletal remains (HSR)</option>
+					<option id="unaffiliatedCuiHsr">unaffiliated human skeletal remains (HSR) (=CUI)</option>
+					<option id="afo">associated funerary object (AFO)</option>
+					<option id="ufo">unassociated funerary object (UFO)</option>
+					<option id="sacredObject">sacred object</option>
+					<option id="objectOfCulturalPatrimony">object of cultural patrimony</option>
+					<option id="nonNagpra">not subject to NAGPRA</option>
+					<option id="needsFurtherResearch">needs further research</option>
+					<option id="unknown">unknown</option>
+				</options>
+			</field>
+		</repeat>
 		
 		<repeat id="claimAltNameGroupList/claimAltNameGroup" section="anthropology">
 			<field id="claimAltName" section="anthropology"></field>
@@ -253,13 +256,12 @@
 		</repeat>
 
 		<repeat id="claimSiteInvolvedGroupList/claimSiteInvolvedGroup" section="anthropology">
-			<!--<field id="claimSiteInvolvedName" section="anthropology" autocomplete="place-place"></field> WAITING FOR PLACE AUTHORITY -->
-			<field id="claimSiteInvolvedName" section="anthropology"></field>
+			<field id="claimSiteInvolvedName" section="anthropology" autocomplete="place-place"></field>
 			<field id="claimSiteInvolvedNote" section="anthropology"></field>
 		</repeat>
 
 		<repeat id="claimGroupInvolvedGroupList/claimGroupInvolvedGroup" section="anthropology">
-			<field id="groupInvolvedName" section="anthropology"></field> <!-- SHOULD EVENTUALLY BE AUTOCOMPLETE FROM CULTURAL GROUP AUTHORITY -->
+			<field id="groupInvolvedName" section="anthropology" autocomplete="concept-concept"></field>
 			<field id="groupInvolvedNote" section="anthropology"></field>
 		</repeat>
 	</section>
@@ -321,15 +323,35 @@
 			<field id="responseFromNationalNagpraNote" section="anthropology"></field>
 		</repeat>
 
-		<repeat id="claimPeriodInvolvedGroupGroupList/claimPeriodInvolvedGroupGroup" section="anthropology"> 
-			<field id="claimPeriodInvolvedGroup" section="anthropology"></field>  <!-- SHOULD BE STRUCTURED DATE, BUT AS OF 8/17/2011, STRUCTURED DATES DON'T WORK IN <repeat></repeat> TAGS -->
-			<!--<field id="claimPeriodInvolvedGroup" section="anthropology" ui-type="groupfield/structureddate" primarykey="claimPeriodInvolvedGroup.dateDisplayDate" ui-func="cspace.structuredDate">
-				<services-tag>claimPeriodInvolvedGroup</services-tag>
-				<selector>claim-claimPeriodInvolvedGroup</selector>
-			</field>-->
-			<field id="claimPeriodInvolvedNote" section="anthropology"></field>
+		<repeat id="claimPeriodInvolvedGroupList/claimPeriodInvolvedGroup" section="anthropology">
+			<group id="claimPeriodInvolvedDateGroup" section="anthropology" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
+				<!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
+				<field id="dateDisplayDate" section="anthropology"/>
+				<field id="dateAssociation" section="anthropology"/>
+				<field id="dateEarliestSingleYear" section="anthropology"/>
+				<field id="dateEarliestSingleMonth" section="anthropology"/>
+				<field id="dateEarliestSingleDay" section="anthropology"/>
+				<field id="dateEarliestSingleEra" section="anthropology"/>
+				<field id="dateEarliestSingleCertainty" section="anthropology"/>
+				<field id="dateEarliestSingleQualifier" section="anthropology"/>
+				<field id="dateEarliestSingleQualifierValue" section="anthropology"/>
+				<field id="dateEarliestSingleQualifierUnit" section="anthropology"/>
+				<field id="dateLatestYear" section="anthropology"/>
+				<field id="dateLatestMonth" section="anthropology"/>
+				<field id="dateLatestDay" section="anthropology"/>
+				<field id="dateLatestEra" section="anthropology"/>
+				<field id="dateLatestCertainty" section="anthropology"/>
+				<field id="dateLatestQualifier" section="anthropology"/>
+				<field id="dateLatestQualifierValue" section="anthropology"/>
+				<field id="dateLatestQualifierUnit" section="anthropology"/>
+				<field id="datePeriod" section="anthropology"/>
+				<field id="dateNote" section="anthropology"/>
+				<field id="dateEarliestScalarValue" section="anthropology"/>
+				<field id="dateLatestScalarValue" section="anthropology"/>
+				<field id="scalarValuesComputed" section="anthropology"/>
+			</group>
+			<field id="claimPeriodInvolvedNote" section="anthropology"/>
 		</repeat>
-		
 		<!-- ADD CHECKLIST PAIRS -->
 		<!-- ADD CULTURAL CARE NOTES -->
 	</section>

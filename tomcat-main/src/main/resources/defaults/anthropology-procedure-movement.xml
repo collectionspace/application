@@ -8,5 +8,8 @@
 				<selector>movement-locationHandler</selector>
 			</field>
 		</repeat>
+		
+		<field id="crate" section="anthropology" autocomplete="location-crate"/>
+		<field id="computedSummary" section="anthropology" mini="number,search,list,relate,terms" ui-type="computed" ui-func="pahma.computeMovementSummary" ui-args="locationDate,reasonForMove" ui-readonly="true"/>
 	</section>
 </record>

@@ -1,6 +1,6 @@
-<record id="preferredTA" in-recordlist="no" separate-record="false">
+<record id="preferredTA" type="authority" in-recordlist="no" separate-record="false">
     <hassoftdelete>true</hassoftdelete>
-    <section>
+    <section id="termInformation">
         <!-- List containing this item's preferred term and any non-preferred terms -->
         <repeat id="taxonTermGroupList/taxonTermGroup">
             <!-- Fields common across all authority items -->
@@ -65,6 +65,9 @@
                 <selector>taxonAuthority-termSourceNote</selector>
             </field>
             <!-- Fields specific to Taxon terms -->
+            <field id="termFormattedDisplayName">
+                <selector>taxonAuthority-termFormattedDisplayName</selector>
+            </field>
             <field id="taxonomicStatus" ui-search="repeatable" >
                 <selector>taxonAuthority-taxonomicStatus</selector>
                 <options>

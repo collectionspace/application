@@ -1,0 +1,9 @@
+<record id="invocationresults" type="invocationresults">
+	<services-record-path>invocationResults:http://collectionspace.org/services/common/invocable,invocationResults</services-record-path>
+
+	<section id="invocationResults">
+		<field id="primaryURICreated"/>
+		<field id="userNote"/>
+		<field id="numAffected"/>
+	</section>
+</record>
