@@ -67,107 +67,29 @@
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
                     <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
-                <section id="plantlabelInformation">
-                    <field id="propNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,terms,relate" seperate_ui_container="true">
-                        <title-selector>titleBar-propNumber</title-selector>
-                        <selector>plantlabel-propNumber</selector>
-                        <container-selector>plantlabel-propNumber-patternChooserContainer</container-selector>
-            			<options>
-            				<option id="prop-number" sample="UCBG1000">Propagation Number</option>
-            			</options>
+                <section id="volunteerLabels">
+                    <!-- family could come from cataloging -->
+                    <field id="family" ui-search="repeatable" in-title="yes" mini="number,search,list,terms,relate">
+                        <title-selector>titleBar-family</title-selector>
             		</field>
-                    <field id="propDate" ui-type="groupfield/structureddate" 
-                        primarykey="propDate.dateDisplayDate" ui-func="cspace.structuredDate"/>
-                    <field id="propReason" ui-search="repeatable" >
+                    <!-- commonName could come from cataloging -->
+                    <field id="commonName" ui-search="repeatable" />
+                    <field id="locale" ui-search="repeatable" />
+                    <!-- taxonName tied to vocabulary 'propagatorLabels' or 'plantSales' -->
+                    <field id="taxonName" ui-search="repeatable" autocomplete="taxon-taxon"/>
+                    <field id="labelData"/>
+                    <field id="numberOfLabels"/>
+                    <field id="printLabels" ui-search="repeatable" mini="summary,search,list,terms,relate">
                         <options>
                             <option id="" default="yes">Please select a value</option>
-                            <option id="class use">class use</option>
-                            <option id="research">research</option>
-                            <option id="garden collection">garden collection</option>
-                            <option id="distribution">distribution</option>
-                            <option id="conservation">conservation</option>
+                            <option id="yes">Yes</option>
+                            <option id="no">No</option>
                         </options>
                     </field>
-                    <field id="propType" ui-search="repeatable" mini="summary,search,list,terms,relate">
-                        <options>
-                            <option id="" default="yes">Please select a value</option>
-                            <option id="seed">Seed</option>
-                            <option id="cutting">Cutting</option>
-                            <option id="living plant">Living Plant</option>
-                            <option id="division">Division</option>
-                            <option id="bulb corm tuber">Bulb/Corm/Tuber</option>
-                            <option id="graft">Graft</option>
-                            <option id="tissue culture">Tissue Culture</option>
-                        </options>
-                    </field>
-                    <field id="propComments"/>
-                    <field id="numStarted"/>
-                    <repeat id="scarStratGroupList/scarStratGroup">
-                        <field id="scarStrat">
-                            <options>
-                                <option id="" default="yes">Please select a value</option>
-                                <option id="abrade">abrade</option>
-                                <option id="boiling water">boiling water</option>
-                                <option id="GA3">GA3</option>
-                                <option id="fire">fire</option>
-                                <option id="freeze">freeze</option>
-                                <option id="isopropyl alcohol">isopropyl alcohol</option>
-                                <option id="nick">nick</option>
-                                <option id="pericarp removed broken">pericarp removed/broken</option>
-                                <option id="seed coat removed">seed coat removed</option>
-                                <option id="sulfuric acid">sulfuric acid</option>
-                                <option id="cold strat">cold strat</option>
-                                <option id="warm strat">warm strat</option>
-                                <option id="smoke">smoke</option>
-                                <option id="water soak">water soak</option>
-                            </options>
-                        </field>
-                        <field id="duration"/>
-                        <field id="durationUnit">
-                            <options>
-                                <option id="" default="yes">Please select a value</option>
-                                <option id="hours">Hours</option>
-                                <option id="days">Days</option>
-                                <option id="weeks">Weeks</option>
-                                <option id="months">Months</option>
-                            </options>
-                        </field>
-                    </repeat>                    
-                    <field id="extraSeeds" datatype="boolean"/>
-                    <field id="spores" datatype="boolean"/>
-                    <field id="cuttingType">
-                        <options>
-                            <option id="" default="yes">Please select a value</option>
-                            <option id="softwood">softwood</option>
-                            <option id="semi-hardwood">semi-hardwood</option>
-                            <option id="hardwood">hardwood</option>
-                            <option id="heel">heel</option>
-                            <option id="dormant">dormant</option>
-                            <option id="root">root</option>
-                        </options>
-                    </field>
-                    <field id="hormone" autocomplete="vocab-propHormones" ui-type="enum"/>
-                    <field id="concentration"/>
-                    <field id="wounded" datatype="boolean"/>
-                    <field id="plantType" autocomplete="vocab-propPlantType" ui-type="enum"/>
-                    <field id="germinationDate" ui-type="date" ui-search="range"/>
-                    <field id="successRate"/>
-                    
-                    <repeat id="propActivityGroupList/propActivityGroup">
-                        <field id="order"/>
-                        <!-- <field id="activityDate" ui-type="date"/> -->
-                        <group id="activityDate" ui-type="groupfield/structureddate" 
-                            primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
-                        </group>
-                        <field id="activityType" autocomplete="vocab-propActivityType" ui-type="enum"/>
-                        <field id="propCount"/>
-                        <field id="medium" autocomplete="concept-concept"/>
-                        <field id="potSize" autocomplete="vocab-potSize" ui-type="enum"/>
-                        <field id="nurseryLocation" autocomplete="location-location"/>
-                        <field id="conditions" autocomplete="vocab-propConditions" ui-type="enum"/>
-                        <field id="chemicalApplied" autocomplete="vocab-propChemicals" ui-type="enum"/>
-                        <field id="activityConcentration"/>
-                        <field id="activityComments"/>
-                    </repeat>
+                </section>
+                <section id="propagatorLabels">
+                    <field id="gardenLocationAbreviation" ui-search="repeatable" />
+                    <field id="collector" ui-search="repeatable" />
+                    <field id="ecologyData"/>
                 </section>
             </record>
