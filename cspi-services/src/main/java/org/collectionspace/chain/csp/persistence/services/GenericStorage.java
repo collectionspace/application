@@ -6,7 +6,6 @@
  */
 package org.collectionspace.chain.csp.persistence.services;
 
-import org.collectionspace.services.common.api.RefName;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
