@@ -126,7 +126,7 @@ public class MakeXsd {
 			if (servicesType != null) {
 				ele.addAttribute("name", servicesType);
 			} else {
-				System.out.println("Created an anonymous complex type for Repeat ID=" + r.getID());
+				log.debug("Created an anonymous complex type for Repeat ID=" + r.getID());
 			}
 			
 			// Now create a "sequence" node and iterate over the children items of the Repeat instance

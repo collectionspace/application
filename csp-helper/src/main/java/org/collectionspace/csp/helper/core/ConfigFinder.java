@@ -322,11 +322,11 @@ public class ConfigFinder implements EntityResolver {
 			File configBase = this.getConfigBase();
 			if (configBase != null && configBase.exists()) {
 				String fileEntityName = configBase.getAbsolutePath() + "/" + systemId;
-				log.info(String.format("Looking to resolve publicId:%s systemId:%s in '%s'.", publicId, systemId,
+				log.debug(String.format("Looking to resolve publicId:%s systemId:%s in '%s'.", publicId, systemId,
 						fileEntityName));
 				File fileEntity = new File(fileEntityName);
 				if (fileEntity.exists() == true) {
-					log.info(String.format("Resolved '%s'.\r\n", fileEntityName));
+					log.debug(String.format("Resolved '%s'.\r\n", fileEntityName));
 					out = new FileInputStream(fileEntity);
 					return new InputSource(out);
 				}

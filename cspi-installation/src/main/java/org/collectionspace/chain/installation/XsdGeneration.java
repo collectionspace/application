@@ -193,7 +193,9 @@ public class XsdGeneration {
 		if (type.equals("core")) { // if 'true' then generate the schema and doctype bundles
 			boolean docTypesCreated = true;
 			for (Record record : spec.getAllRecords()) {
-				dumpRecordServiceInfo(record);
+				if (log.isDebugEnabled() == true) {
+					dumpRecordServiceInfo(record);
+				}
 				if (shouldGenerateBundles(record) == true) {
 					MakeXsd catlog = new MakeXsd(getTenantData(cspm));
 					HashMap<String, String> definedSchemaList = catlog.getDefinedSchemas(
@@ -726,7 +728,7 @@ public class XsdGeneration {
 			for (String key : substitutionMap.keySet()) {
 				String varReplacementStr = substitutionMap.get(key);
 				contentStr = contentStr.replace(key, varReplacementStr);
-				System.out.println(String.format("Replacing the string '%s' with '%s'", key, varReplacementStr));
+				log.debug(String.format("Replacing the string '%s' with '%s'", key, varReplacementStr));
 			}
 			// write the processed file out to the zip entry if they passed one in
 			result = isOSGIManifest ? osgiManifestFormat(contentStr) : contentStr;
