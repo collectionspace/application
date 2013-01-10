@@ -192,7 +192,7 @@ public class SchemaStructure {
 			actualDateField(out, fs, context);
 		} else if("validated".equals(uiType)){
 			actualValidatedField(out, fs, context);
-		} else if("computed".equals(fs.getUIType())){
+		} else if("computed".equals(uiType)){
 			actualComputedField(out, fs, context);
 		} else if("externalURL".equals(uiType)){
 			actualExternalURLField(out, fs, context);
