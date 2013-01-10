@@ -51,7 +51,7 @@
 	</section>
 	
 	<section id="claimInformation"> 
-		<field id="claimNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate,terms" seperate_ui_container="true">
+		<field id="claimNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate" seperate_ui_container="true">
 			<title-selector>titleBar-claimNumber</title-selector>
             <container-selector>claim-claimNumber-container</container-selector>
 			<options>
