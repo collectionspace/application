@@ -3,7 +3,7 @@
 
 	<section id="claimInformation">
 		<!--<field id="claimName" section="anthropology" in-title="yes"></field>-->
-		<field id="claimName" ui-search="repeatable" section="anthropology" in-title="yes" mini="summary,search,list,relate,terms"></field>
+		<field id="claimName" ui-search="repeatable" section="anthropology" in-title="yes" mini="summary,search,list,relate"></field>
 		
 		<repeat id="claimTypeList" section="anthropology">
 			<field id="claimType" ui-search="repeatable" section="anthropology" seperate_ui_container="true">
