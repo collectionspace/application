@@ -160,6 +160,7 @@
             "type": "fluid",
             "options": {"protoTree": {"expander": {
                 "tree": {
+                    ".csc-preferredSLA-termInformation-label": {"messagekey": "preferredSLA-termInformationLabel"},
                     ".csc-preferredSLA-termPrefForLang-label": {"messagekey": "preferredSLA-termPrefForLangLabel"},
                     ".csc-preferredSLA-termSourceNote-label": {"messagekey": "preferredSLA-termSourceNoteLabel"},
                     ".csc-preferredSLA-termSourceID-label": {"messagekey": "preferredSLA-termSourceIDLabel"},

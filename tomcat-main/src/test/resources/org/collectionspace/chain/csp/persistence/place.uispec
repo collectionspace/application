@@ -686,6 +686,7 @@
                             "elPath": "fields.placeTermGroup"
                         }
                     }]},
+                    ".csc-preferredPlace-termInformation-label": {"messagekey": "preferredPlace-termInformationLabel"},
                     ".csc-preferredPlace-termSource-label": {"messagekey": "preferredPlace-termSourceLabel"},
                     ".csc-preferredPlace-termSourceNote-label": {"messagekey": "preferredPlace-termSourceNoteLabel"},
                     ".csc-preferredPlace-termSourceDetail-label": {"messagekey": "preferredPlace-termSourceDetailLabel"},
