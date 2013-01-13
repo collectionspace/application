@@ -892,27 +892,26 @@ public class XmlJsonConversion {
 		for(FieldSet f : r.getAllServiceFieldTopLevel(operation,section)) {
 			addFieldSetToJson(out,root,f,operation, tempSon,csid,ims_url);
 		}
-
-//		PAHMA-469: Moved merge field computation to GenericStorage.simpleRetrieveJSON.
-//		if(r.hasMerged()){
-//			for(FieldSet f : r.getAllMergedFields()){
-//				for(String fm : f.getAllMerge()){
-//					if (fm != null) {
-//						if (r.hasFieldByOperation(fm, operation)) {
-//							if (tempSon.has(fm)) {
-//								String data = tempSon.getString(fm);
-//								if (data != null && !data.equals("")
-//										&& !out.has(f.getID())) {
-//									out.put(f.getID(), data);
-//								}
-//							}
-//						}
-//					}
-//				}
-//			}
-//			
-//		}
 		
+		if(r.hasMerged()){
+			for(FieldSet f : r.getAllMergedFields()){
+				for(String fm : f.getAllMerge()){
+					if (fm != null) {
+						if (r.hasFieldByOperation(fm, operation)) {
+							if (tempSon.has(fm)) {
+								String data = tempSon.getString(fm);
+								if (data != null && !data.equals("")
+										&& !out.has(f.getID())) {
+									out.put(f.getID(), data);
+								}
+							}
+						}
+					}
+				}
+			}
+			
+		}
+
 		return tempSon;
 	}
 

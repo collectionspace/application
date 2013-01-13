@@ -610,21 +610,37 @@ public class GenericStorage  implements ContextualisedStorage {
 					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),softpath);
 				tempSons.add(convertToJson(out,doc.getDocument(), thisr, "GET", "common",csid));
 			}
-			
-			if(r.hasMerged()){
-				for(FieldSet f : r.getAllMergedFields()){
-					for(String fm : f.getAllMerge()){
-						if (fm != null) {
-							if (r.hasFieldByOperation(fm, "GET")) {
-								for(JSONObject tempSon : tempSons) {
-									if (tempSon.has(fm)) {
-										String data = tempSon.getString(fm);
-										if (data != null && !data.equals("")
-												&& !out.has(f.getID())) {
-											out.put(f.getID(), data);
-										}
-									}
+
+			if (r.hasMerged()) {
+				for (FieldSet f : r.getAllMergedFields()) {
+					/*
+					 * PAHMA- 469: The above calls to convertToJson called XmlJsonConversion.convertToJson,
+					 * which calculated values for merge fields. However, these calculations only looked for
+					 * merged values from within one section, so they can produce incorrect results when
+					 * merge fields pull values from multiple sections. So, for each merge field, we remove
+					 * the previously calculated value, then recalculate the value, looking in all sections.
+					 * It may be that the merge field calculation in XmlJsonConversion.convertToJson can
+					 * be removed, and the calculation only needs to be done here. However, there are tests
+					 * that rely on XmlJsonConversion.convertToJson producing a value for merge fields
+					 * (and the value is correct if all merged values come from the same section), so this
+					 * is being conservative.
+					 */
+					out.remove(f.getID());
+
+					for (String fm : f.getAllMerge()) {
+						if (fm != null && r.hasFieldByOperation(fm, "GET")) {
+							String value = null;
+
+							for (JSONObject tempSon : tempSons) {
+								if (tempSon.has(fm)) {
+									value = tempSon.getString(fm);
+									break;
 								}
+							}
+
+							if (value != null && !value.equals("")) {
+								out.put(f.getID(), value);
+								break;
 							}
 						}
 					}
