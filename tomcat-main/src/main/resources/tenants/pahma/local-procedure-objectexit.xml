@@ -1,0 +1,52 @@
+<record id="objectexit">
+	<section id="objectexitInformation">
+		<field id="exitNumber">
+			<!-- Change options -->
+			<options>
+				<option id="pahma-objectexit" sample="EX 2012.1.1">Object Exit</option>
+			</options>
+		</field>
+		
+		<!-- Remove ui-search, mini, and in-title, since newOwner is replacing this field -->
+		<field id="currentOwner" ui-search="" mini="" in-title=""/>
+		
+		<repeat id="exitMethods">
+			<field id="exitMethod">
+				<!-- Change options -->
+				<options>
+					<option id="" default="yes">(none selected)</option>
+					<option id="courier">courier</option>
+					<option id="inperson">in person</option>
+					<option id="post">post</option>
+				</options>
+			</field>
+		</repeat>
+		
+		<field id="exitReason">
+			<!-- Change options -->
+			<options>
+				<option id="" default="yes">(none selected)</option>
+				<option id="auctioned-or-sold">auctioned or sold</option>
+				<option id="destructive-testing">destructive testing</option>
+				<option id="destroyed">destroyed</option>
+				<option id="discarded">discarded</option>
+				<option id="exchanged">exchanged</option>
+				<option id="lost">lost</option>
+				<option id="recalled-by-federal-agency">recalled by federal agency</option>
+				<option id="recataloged">recataloged</option>
+				<option id="repatriated">repatriated</option>
+				<option id="returned-to-original-owner">returned to original owner</option>
+				<option id="returnofloan">return of loan</option>
+				<option id="sold">sold</option>
+				<option id="stolen">stolen</option>
+				<option id="transferred">transferred</option>
+				<option id="unknown">unknown</option>
+			</options>
+		</field>
+		
+		<repeat id="newOwnerList" section="anthropology">
+			<!-- Add mini and in-title -->
+			<field id="newOwner" mini="summary,list" in-title="yes"/>
+		</repeat>
+	</section>
+</record>

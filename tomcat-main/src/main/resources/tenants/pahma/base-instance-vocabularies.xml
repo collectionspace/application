@@ -1,0 +1,216 @@
+<!-- TODO: Figure out how to use xmlmerge on this file -->
+<instances>
+	<include src="domain-instance-vocabularies.xml" strip-root="yes"/>
+	<instance id="vocab-languages">
+		<web-url>languages</web-url>
+		<title-ref>languages</title-ref>
+		<title>Languages</title>
+		<options>
+			<option id="grc">Ancient Greek</option>
+			<option id="ara">Arabic</option>
+			<option id="hye">Armenian</option>
+			<option id="zho">Chinese</option>
+			<option id="dan">Danish</option>
+			<option id="nld">Dutch</option>
+			<option id="eng">English</option>
+			<option id="enguk">English (UK)</option>
+			<option id="fra">French</option>
+			<option id="deu">German</option>
+			<option id="heb">Hebrew</option>
+			<option id="ind">Indonesian</option>
+			<option id="ita">Italian</option>
+			<option id="jpn">Japanese</option>
+			<option id="kor">Korean</option>
+			<option id="lat">Latin</option>
+			<option id="mal">Malaysian</option>
+			<option id="enm">Middle English</option>
+			<option id="gre">Modern Greek</option>
+			<option id="ang">Old English</option>
+			<option id="por">Portuguese</option>
+			<option id="ron">Romanian</option>
+			<option id="rus">Russian</option>
+			<option id="smo">Samoan</option>
+			<option id="spa">Spanish</option>
+			<option id="swa">Swahili</option>
+			<option id="swe">Swedish</option>
+			<option id="tgl">Tagalog</option>
+			<option id="yor">Yoruba</option>
+			<!-- <option id="unknown">unknown</option> -->
+		</options>
+	</instance>
+	<instance id="vocab-lostatus">
+		<web-url>loanstatus</web-url>
+		<title-ref>loanstatus</title-ref>
+		<title>Loan Status</title>
+		<options>
+			<option id="requested">requested</option>
+			<option id="authorized">authorized</option>
+			<option id="agreed">agreed</option>
+			<option id="conservation">conservation</option>
+			<option id="sent">sent</option>
+			<option id="photographyRequested">photography requested</option>
+			<option id="refused">refused</option>
+			<option id="renewed">renewed</option>
+			<option id="returned">returned</option>
+		</options>
+	</instance>
+	<instance id="vocab-currency">
+		<web-url>currency</web-url>
+		<title-ref>currency</title-ref>
+		<title>Standard Currency</title>
+		<options>
+			<option id="usd">US Dollar ($)</option>
+			<option id="cad">Canadian Dollar ($)</option>
+			<option id="nlg">Dutch Gilders (&#x192;)</option>
+			<option id="eur">Euro (&#x20AC;)</option>
+			<option id="frf">French Franc (&#x20A3;)</option>
+			<option id="dem">German Mark (DM)</option>
+			<option id="itl">Italian Lira (&#x20A4;)</option>
+			<option id="jpy">Japanese Yen (&#xA5;)</option>
+			<option id="gbp">Pound Sterling (&#xA3;)</option>
+			<option id="dkk">Danish Krone (kr)</option>
+			<option id="sek">Swedish Krona (kr)</option>
+			<option id="chf">Swiss Franc (CHF)</option>
+		</options>
+	</instance>
+	<instance id="vocab-collectionmethod">
+		<web-url>collectionmethod</web-url>
+		<title-ref>collectionmethod</title-ref>
+		<title>Collection Method</title>
+		<options>
+			<option id="borehole">borehole</option>
+			<option id="commissioned">commissioned</option>
+			<option id="dryScreened">dry screened</option>
+			<option id="excavated">excavated</option>
+			<option id="exchanged">exchanged</option>
+			<option id="foundDead">found dead</option>
+			<option id="gifted">gifted</option>
+			<option id="netted">netted</option>
+			<option id="photographed">photographed</option>
+			<option id="purchased">purchased</option>
+			<option id="recorded">recorded</option>
+			<option id="salvaged">salvaged</option>
+			<option id="shot">shot</option>
+			<option id="trapped">trapped</option>
+			<option id="wetScreened">wet screened</option>
+			<option id="unknown">unknown</option>
+		</options>
+	</instance>
+	<instance id="vocab-conditionfitness">
+		<web-url>conditionfitness</web-url>
+		<title-ref>conditionfitness</title-ref>
+		<title>Condition Fitness</title>
+		<options>
+			<option id="dangerous">dangerous</option>
+			<option id="suitable">suitable</option>
+			<option id="reasonable">reasonable</option>
+			<option id="unsuitable">unsuitable</option>
+		</options>
+	</instance>
+	<instance id="vocab-conditioncheckmethod">
+		<web-url>conditioncheckmethod</web-url>
+		<title-ref>conditioncheckmethod</title-ref>
+		<title>Condition Check Method</title>
+		<options>
+			<option id="observed">observed</option>
+			<option id="xrayed">x-rayed</option>
+		</options>
+	</instance>
+	<instance id="vocab-entrymethod">
+		<web-url>entrymethod</web-url>
+		<title-ref>entrymethod</title-ref>
+		<title>Entry Method</title>
+		<options>
+			<option id="abandoned">abandoned</option>
+			<option id="inPerson">in person</option>
+			<option id="courier">courier</option>
+			<option id="foundInCollections">found in collections</option>
+			<option id="foundOnDoorstep">found on doorstep</option>
+			<option id="post">by mail</option>
+			<option id="unknown">unknown</option>
+		</options>
+	</instance>
+	<instance id="vocab-conditioncheckreason">
+		<web-url>conditioncheckreason</web-url>
+		<title-ref>conditioncheckreason</title-ref>
+		<title>Condition Check Reason</title>
+		<options>
+			<option id="conservation">conservation</option>
+			<option id="consideration">consideration</option> <!-- ##### WHAT IS THIS? (MTB NOTE) ##### -->
+			<option id="damagedInTransit">damaged in transit</option>
+			<option id="enquiry">inquiry</option>
+			<option id="loanInReceived">loan in (received)</option>
+			<option id="loanInReturn">loan in (return)</option>
+			<option id="loanOutPrep">loan out (prep.)</option>
+			<option id="loanOutDuring">loan out (during)</option>
+			<option id="loanOutReturn">loan out (return)</option>
+			<option id="unknown">unknown</option>
+		</options>
+	</instance>
+	<instance id="vocab-locationtype">
+		<web-url>locationtype</web-url>
+		<title-ref>locationtype</title-ref>
+		<title>Location Type</title>
+		<options>
+			<option id="building">building</option>
+			<option id="room">room</option>
+			<option id="unit">unit</option>
+			<option id="shelf">shelf</option>
+			<option id="drawer">drawer</option>
+			<option id="tray">tray</option>
+		</options>
+	</instance>
+	<instance id="vocab-dateera">
+		<web-url>dateera</web-url>
+		<title-ref>dateera</title-ref>
+		<title>Date Era</title>
+		<options>
+			<option id="ce">AD/CE</option>
+			<option id="bce">BC/BCE</option>
+			<option id="bp">BP</option>
+		</options>
+	</instance>
+	<instance id="vocab-datequalifier">
+		<web-url>datequalifier</web-url>
+		<title-ref>datequalifier</title-ref>
+		<title>Date Qualifier</title>
+		<options>
+			<option id="days">day(s)</option>
+			<option id="month">month(s)</option>
+			<option id="years">year(s)</option>
+		</options>
+	</instance>
+	<instance id="vocab-agequalifier">
+		<web-url>agequalifier</web-url>
+		<title-ref>agequalifier</title-ref>
+		<title>Age Qualifier</title>
+		<options>
+			<option id="approximately">approximately</option>
+			<option id="olderthan">older than</option>
+			<option id="youngerthan">younger than</option>
+		</options>
+	</instance>
+	<instance id="vocab-dateCertainty">
+		<web-url>datecertainty</web-url>
+		<title-ref>datecertainty</title-ref>
+		<title>Date Certainty</title>
+		<options>
+			<option id="after">after</option>
+			<option id="approximate">approximate</option>
+			<option id="before">before</option>
+			<option id="circa">circa</option>
+			<option id="probably">probably</option>
+			<option id="possibly">possibly</option>
+		</options>
+	</instance>
+	<instance id="vocab-persontermtype">
+		<web-url>persontermtype</web-url>
+		<title-ref>persontermtype</title-ref>
+		<title>personTermType</title>
+		<options>
+				<option id="artist">artist</option>
+				<option id="donor">donor</option>
+				<option id="employee">employee</option>
+		</options>
+	</instance>
+</instances>

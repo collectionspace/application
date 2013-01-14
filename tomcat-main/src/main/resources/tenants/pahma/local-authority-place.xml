@@ -1,0 +1,20 @@
+<record id="place">
+	<instances id="place">
+		<instance id="place-place">
+			<!-- Change title -->
+			<title>PAHMA Place Authority</title>
+		</instance>
+	</instances>
+
+	<section id="coreInformation">
+		<!-- Add ui-search and ui-type -->
+		<field id="createdAt" ui-search="range" ui-type="date"/>
+	</section>
+
+	<section id="placeAuthorityInformation">
+		<!-- Change to use a dynamic term list -->
+		<field id="placeType" autocomplete="vocab-PlaceType" ui-type="enum">
+			<options/>
+		</field>
+	</section>
+</record>

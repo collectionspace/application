@@ -1,0 +1,15 @@
+<record id="preferredOA">
+	<section id="termInformation">
+		<repeat id="orgTermGroupList/orgTermGroup">
+			<field id="termStatus">
+				<!-- Change options -->
+				<options>
+					<option id="provisional" default="yes">provisional</option>
+					<option id="underReview">under review</option>
+					<option id="accepted">accepted</option>
+					<option id="rejected">rejected</option>
+				</options>
+			</field>
+		</repeat>
+	</section>
+</record>

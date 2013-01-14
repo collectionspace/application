@@ -1,0 +1,37 @@
+<record id="person">
+	<!-- Change terms-used to true -->
+	<terms-used>true</terms-used>
+
+	<instances id="person">
+		<instance id="person-person">
+			<!-- Change title -->
+			<title>PAHMA Person Authority</title>
+		</instance>
+	</instances>
+
+	<section id="coreInformation">
+		<!-- Add ui-search and ui-type -->
+		<field id="createdAt" ui-search="range" ui-type="date"/>
+	</section>
+
+	<section id="personNameAuthorityInformation">
+		<field id="gender">
+			<!-- Change options -->
+			<options>
+				<option id="" default="yes">(none selected)</option>
+				<option id="male">male</option>
+				<option id="female">female</option>
+				<option id="transgender">transgender</option>
+				<option id="unknown">unknown</option>
+			</options>
+		</field>
+		<repeat id="groups">
+			<!-- Add autocomplete -->
+			<field id="group" autocomplete="concept-concept"/>
+		</repeat>
+		<!-- Add autocomplete -->
+		<field id="birthPlace" autocomplete="place-place"/>
+		<!-- Add autocomplete -->
+		<field id="deathPlace" autocomplete="place-place"/>
+	</section>
+</record>

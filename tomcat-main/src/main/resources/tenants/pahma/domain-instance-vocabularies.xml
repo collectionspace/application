@@ -1,0 +1,79 @@
+<instances>
+	<instance id="vocab-loanpurpose">
+		<web-url>loanpurpose</web-url>
+		<title-ref>loanpurpose</title-ref>
+		<title>Loan Purpose</title>
+		<options>
+			<option id="appraisal">Appraisal</option>
+			<option id="ceremonial_use">Ceremonial use</option>
+			<option id="conservation">Conservation</option>
+			<option id="conservation_fumigation">Conservation: fumigation</option>
+			<option id="exhibit_class_exhibit">Exhibit: class exhibit</option>
+			<option id="exhibit_off_campus">Exhibit: off-campus</option>
+			<option id="exhibit_on_campus">Exhibit: on-campus</option>
+			<option id="exhibit_traveling_exhibit">Exhibit: traveling exhibit</option>
+			<option id="exhibit_unclassified">Exhibit: unclassified</option>
+			<option id="photography_digitization">Photography: digitization</option>
+			<option id="photography_general">Photography: general</option>
+			<option id="photography_radiography">Photography: radiography</option>
+			<option id="photography_video">Photography: video</option>
+			<option id="research_destructive_analysis">Research: destructive analysis</option>
+			<option id="research_dissertation">Research: dissertation</option>
+			<option id="research_general">Research: general</option>
+			<option id="research_identification">Research: identification</option>
+			<option id="research_undergrad_teaching">Research: undergrad. teaching</option>
+			<option id="teaching_non_uc_non_csu">Teaching: non-UC, non-CSU</option>
+			<option id="teaching_other_uc_or_csu">Teaching: other UC or CSU</option>
+			<option id="teaching_teaching_exhibit">Teaching: teaching exhibit</option>
+			<option id="teaching_ucb_campus">Teaching: UCB campus</option>
+			<option id="teaching_unspecified">Teaching: unspecified</option>
+		</options>
+	</instance>
+	<instance id="vocab-PlaceType">
+		<web-url>PlaceType</web-url>
+		<title-ref>PlaceType</title-ref>
+		<title>PlaceType</title>
+		<options>
+			<option id="pt14">bedrock mortar site</option>
+			<option id="pt13">cave</option>
+			<option id="pt1">cemetery/graveyard</option>
+			<option id="pt18">ceramic scatter</option>
+			<option id="pt6">ceremonial site</option>
+			<option id="pt20">cliff dwelling</option>
+			<option id="pt11">fort</option>
+			<option id="pt17">historic ranch</option>
+			<option id="pt7">historic village</option>
+			<option id="pt3">house/habitation</option>
+			<option id="pt16">lithic scatter</option>
+			<option id="pt8">mission</option>
+			<option id="pt9">mound</option>
+			<option id="pt21">pit house</option>
+			<option id="pt12">pueblo</option>
+			<option id="pt5">rock art</option>
+			<option id="pt15">seasonal camp</option>
+			<option id="pt10">shellmound</option>
+			<option id="pt4">surface scatter</option>
+			<option id="pt19">type site</option>
+		</options>
+	</instance>
+	<instance id="vocab-grouppurpose">
+		<web-url>GroupPurpose</web-url>
+		<title-ref>GroupPurpose</title-ref>
+		<title>GroupPurpose</title>
+		<options>
+			<option id="classes">Classes</option>
+			<option id="collectionsManagement">Collections Management</option>
+			<option id="conservation">Conservation</option>
+			<option id="education">Education</option>
+			<option id="exhibits">Exhibits</option>
+			<option id="loans">Loans</option>
+			<option id="nagpra">NAGPRA</option>
+			<option id="objectMovement">Object Movement</option>
+			<option id="photography">Photography</option>
+			<option id="publicPrograms">Public Programs</option>
+			<option id="registration">Registration</option>
+			<option id="research">Research</option>
+			<option id="tours">Tours</option>
+		</options>
+	</instance>
+</instances>

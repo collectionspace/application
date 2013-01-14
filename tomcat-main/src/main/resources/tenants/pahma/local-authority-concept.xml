@@ -1,0 +1,27 @@
+<record id="concept">
+	<instances id="concept">
+		<instance id="concept-material_ca">
+			<!-- Change title -->
+			<title>Materials</title>
+		</instance>
+		<instance id="concept-concept">
+			<!-- Change title -->
+			<title>Ethnographic Cultures</title>
+		</instance>
+		<instance id="concept-activity">
+			<!-- Change title -->
+			<title>Activities</title>
+		</instance>
+		<!-- New instances -->
+		<instance id="concept-archculture">
+			<web-url>archculture</web-url>
+			<title-ref>archculture</title-ref>
+			<title>Archaeological Cultures</title>
+		</instance>
+		<instance id="concept-ethusecode">
+			<web-url>ethusecode</web-url>
+			<title-ref>ethusecode</title-ref>
+			<title>Ethnographic File Codes</title>
+		</instance>
+	</instances>
+</record>
