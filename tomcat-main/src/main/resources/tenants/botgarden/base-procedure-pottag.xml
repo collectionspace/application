@@ -1,9 +1,9 @@
-<record id="plantlabel" in-findedit="yes" type="record,procedure">
-                <services-url>plantlabels</services-url>
-                <services-tenant-plural>Plantlabels</services-tenant-plural>
-                <services-tenant-singular>Plantlabel</services-tenant-singular>
+<record id="pottag" in-findedit="yes" type="record,procedure">
+                <services-url>pottags</services-url>
+                <services-tenant-plural>Pottags</services-tenant-plural>
+                <services-tenant-singular>Pottag</services-tenant-singular>
                 <services-list-path>abstract-common-list/list-item</services-list-path>
-                <services-record-path>plantlabels_common:http://collectionspace.org/services/plantlabel,plantlabels_common</services-record-path>
+                <services-record-path>pottags_common:http://collectionspace.org/services/pottag,pottags_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 <hassoftdelete>true</hassoftdelete>
                 <structures>
@@ -57,7 +57,7 @@
                     </structure>
                 </structures>
 				
-                <!-- <include src="domain-procedure-plantlabel.xml" strip-root="yes"/> -->
+                <!-- <include src="domain-procedure-pottag.xml" strip-root="yes"/> -->
 				
                 <row-selector>.csc-recordList-row:</row-selector>
                 <section id="coreInformation">
