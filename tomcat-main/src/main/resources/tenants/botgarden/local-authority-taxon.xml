@@ -8,6 +8,11 @@
             <title-ref>common</title-ref>
             <title>Common Taxonomy Authority</title>
         </instance>
+        <instance id="taxon-plantsales">
+            <web-url>plantsales</web-url>
+            <title-ref>plantsales</title-ref>
+            <title>Plant Sale Taxonomy Authority</title>
+        </instance>
     </instances>
     
 	<section id="taxonNameAuthorityInformation">

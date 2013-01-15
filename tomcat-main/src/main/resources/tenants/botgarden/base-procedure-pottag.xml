@@ -68,15 +68,12 @@
                     <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section id="volunteerLabels">
-                    <!-- family could come from cataloging -->
-                    <field id="family" ui-search="repeatable" in-title="yes" mini="number,search,list,terms,relate">
+                    <field id="family" ui-search="repeatable" in-title="yes" mini="number,search,list,terms,relate" autocomplete="taxon-taxon">
                         <title-selector>titleBar-family</title-selector>
             		</field>
-                    <!-- commonName could come from cataloging -->
-                    <field id="commonName" ui-search="repeatable" />
+                    <field id="commonName" ui-search="repeatable" autocomplete="taxon-common"/>
                     <field id="locale" ui-search="repeatable" />
-                    <!-- taxonName tied to vocabulary 'propagatorLabels' or 'plantSales' -->
-                    <field id="taxonName" ui-search="repeatable" autocomplete="taxon-taxon"/>
+                    <field id="taxonName" ui-search="repeatable" autocomplete="taxon-taxon,taxon-plantsales"/>
                     <field id="labelData"/>
                     <field id="numberOfLabels"/>
                     <field id="printLabels" ui-search="repeatable" mini="summary,search,list,terms,relate">
