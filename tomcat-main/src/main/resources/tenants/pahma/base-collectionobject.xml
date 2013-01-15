@@ -22,10 +22,24 @@
     <structure id="screen">
       <view>
         <label-section id="messagekeys" show="true"/>
+        <hierarchy-section show="true">
+          <options>
+						<!-- The values here may not be used, but are here for completeness -->
+            <option id="narrowerContext">collection-object</option>
+            <option id="broaderContext">collection-object</option>
+          </options>
+        </hierarchy-section>
       </view>
     </structure>
     <structure id="tab">
       <view>
+        <hierarchy-section show="true">
+          <options>
+            <!-- The values here may not be used, but are here for completeness -->
+            <option id="narrowerContext">collection-object</option>
+            <option id="broaderContext">collection-object</option>
+          </options>
+        </hierarchy-section>
         <titlebar show="false"/>
         <sidebar show="false"/>
         <edit-section id="details" show="true"/>
@@ -44,10 +58,13 @@
     </structure>
   </structures>
 
-  <include src="domain-collectionobject.xml"  strip-root="yes"/>
+  <include src="domain-collectionobject.xml" strip-root="yes"/>
 
   <section id="coreInformation">
-    <field id="tenantID" section="collectionspace_core" attributes="GET"/>
+    <field id="tenantId" section="collectionspace_core" attributes="GET"/>
+		<!-- Need to glean csid for termCompletion -->
+    <field id="csid" mini="search,list" attributes="GET"></field>
+    <field id="refName" section="collectionspace_core" mini="search,list,relate" attributes="GET"></field>
     <field id="createdAt" section="collectionspace_core" attributes="GET"/>
     <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core"
       attributes="GET" mini="search,list,relate"/>
@@ -66,7 +83,7 @@
   </section>
   <section id="identificationInformation">
     <field id="objectNumber" ui-search="repeatable" chooser="yes" in-title="yes" in-tab="yes"
-      mini="number,search,list,relate" seperate_ui_container="true">
+      display-name="yes" mini="number,search,list,relate" seperate_ui_container="true">
       <selector>object-identification-object-number</selector>
       <title-selector>titleBar-object-identification-object-number</title-selector>
       <options>
@@ -75,7 +92,7 @@
         <option id="loanin" sample="LI2009.1.1">Loans In</option>
       </options>
     </field>
-    <field id="numberOfObjects" ui-type="validated" datatype="integer">
+    <field id="numberOfObjects" ui-search="range" ui-type="validated" datatype="integer">
       <selector>object-identification-number-objects</selector>
     </field>
     <repeat id="otherNumberList/otherNumber">
@@ -148,6 +165,8 @@
         <selector>object-identification-comments</selector>
       </field>
     </repeat>
+    <field id="computedCurrentLocation" ui-type="valueDeURNed">
+    </field>
     <repeat id="titleGroupList/titleGroup">
       <!-- selector>collection-object-titleGroup</selector -->
       <field id="title" ui-search="repeatable" in-title="yes" mini="search">
@@ -156,7 +175,7 @@
       </field>
       <field id="titleLanguage" autocomplete="vocab-languages" ui-type="enum">
         <enum>
-          <default>eng</default>
+          <default>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</default>
         </enum>
         <selector>object-identification-object-title-language</selector>
       </field>
@@ -167,7 +186,7 @@
         </field>
         <field id="titleTranslationLanguage" autocomplete="vocab-languages" ui-type="enum">
           <enum>
-            <default>eng</default>
+            <default>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</default>
             <blank-value>Please select a value</blank-value>
           </enum>
         </field>
@@ -224,7 +243,7 @@
       </field>
       <field id="objectNameLanguage" autocomplete="vocab-languages" ui-type="enum">
         <enum>
-          <default>eng</default>
+          <default>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</default>
           <blank-value>Please select a value</blank-value>
         </enum>
         <selector>object-identification-object-language</selector>
@@ -391,7 +410,7 @@
       <repeat id="contentLanguages">
         <field id="contentLanguage" autocomplete="vocab-languages" ui-type="enum">
           <enum>
-            <default>eng</default>
+            <default>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</default>
             <blank-value>Please select a value</blank-value>
           </enum>
           <selector>object-description-content-language</selector>
@@ -477,7 +496,8 @@
         </field>
       </repeat>
       <repeat id="contentOrganizations">
-        <field id="contentOrganization" autocomplete="organization-organization,organization-ulan_oa">
+        <field id="contentOrganization"
+          autocomplete="organization-organization,organization-ulan_oa">
           <selector>object-description-content-organization</selector>
         </field>
       </repeat>
@@ -509,12 +529,12 @@
           <selector>object-description-inscription-content</selector>
         </field>
         <field id="inscriptionContentInscriber"
-          autocomplete="person-person,organization-organization">
+          autocomplete="person-person,organization-organization" ui-search="repeatable">
           <selector>object-description-inscription-content-inscriber</selector>
         </field>
         <field id="inscriptionContentLanguage" autocomplete="vocab-languages" ui-type="enum">
           <enum>
-            <default>eng</default>
+            <default>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</default>
             <blank-value>Please select a value</blank-value>
           </enum>
           <selector>object-description-inscription-content-language</selector>
@@ -635,9 +655,9 @@
   </section>
   <section id="objectProductionInformation">
     <repeat id="objectProductionDateGroupList/objectProductionDateGroup">
-      <group id="objectProductionDate" xxx-services-no-repeat="true"
-        ui-type="groupfield/structureddate" primarykey="dateDisplayDate"
-        ui-func="cspace.structuredDate"/>
+      <group id="objectProductionDate" ui-type="groupfield/structureddate"
+        ui-search="range" primarykey="dateDisplayDate"
+        ui-func="cspace.structuredDate" xxx-services-no-repeat="true"/>
     </repeat>
     <repeat id="techniqueGroupList/techniqueGroup">
       <!-- selector>csc-collection-object-techniqueGroup</selector -->
@@ -742,7 +762,7 @@
     </field>
     <field id="ownershipExchangePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
       <enum>
-        <default>usd</default>
+        <default>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'</default>
       </enum>
       <selector>object-history-association-denomination</selector>
     </field>
