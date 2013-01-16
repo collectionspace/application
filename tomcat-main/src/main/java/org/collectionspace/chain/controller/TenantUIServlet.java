@@ -326,7 +326,7 @@ public class TenantUIServlet extends TenantServlet {
 			mimetype = "text/cache-manifest";
 		}
         
-        sub.sendUnknown(bytebody, mimetype);
+        sub.sendUnknown(bytebody, mimetype, null);
 		if(bytebody==null)
 			return false; // Not for us
 		

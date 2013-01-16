@@ -151,11 +151,11 @@ public class StreamUIRequest implements UIRequest {
 	public void sendXMLResponse(String data) throws UIException {
 		println(out,data);
 	}
-	public void sendUnknown(String data, String contenttype) throws UIException {
+	public void sendUnknown(String data, String contenttype, String contentDisposition) throws UIException {
 		println(out,data);
 	}
 	
-	public void sendUnknown(byte[] data, String contenttype) throws UIException {
+	public void sendUnknown(byte[] data, String contenttype, String contentDisposition) throws UIException {
 		try {
 			out.write(data);
 		} catch (IOException e) {
