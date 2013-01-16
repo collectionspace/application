@@ -1,0 +1,22 @@
+<settings>
+	<admin>
+		<termlist-cache-timeout>0</termlist-cache-timeout>
+		<autocompletelist-cache-timeout>0</autocompletelist-cache-timeout>
+		<reportlist-cache-timeout>0</reportlist-cache-timeout>
+		<uploaded-media-cache-timeout>0</uploaded-media-cache-timeout>
+		<uispecschema-cache-timeout>0</uispecschema-cache-timeout>
+		<ui-html-cache-timeout>0</ui-html-cache-timeout>
+		<ui-css-cache-timeout>0</ui-css-cache-timeout>
+		<ui-js-cache-timeout>0</ui-js-cache-timeout>
+		<ui-media-cache-timeout>0</ui-media-cache-timeout>
+		<ui-props-cache-timeout>0</ui-props-cache-timeout>
+	</admin>
+	<email>
+		<baseurl>http://localhost:8180</baseurl>
+	</email>
+	<persistence>
+		<service>
+			<ims-url>http://localhost:8180/collectionspace/chain/</ims-url>
+		</service>
+	</persistence>
+</settings>
