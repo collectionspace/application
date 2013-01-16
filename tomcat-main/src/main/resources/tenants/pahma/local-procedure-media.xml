@@ -51,9 +51,4 @@
 		</field>
 		<field id="primaryDisplay" section="pahma" datatype="boolean"/>
 	</section>
-	
-	<section id="otherInformation">
-		<!-- Remove search and list from mini (relate is required for the media snapshot) -->
-		<field id="imgThumb" mini="relate"/>
-	</section>
 </record>
