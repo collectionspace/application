@@ -940,10 +940,6 @@
 	</section>
 
 	<section id="objectProductionInformation">
-		<repeat id="objectProductionDateGroupList/objectProductionDateGroup">
-			<!-- Add ui-search -->
-			<group id="objectProductionDate" ui-search="repeatable"/>
-		</repeat>
 		<repeat id="techniqueGroupList/techniqueGroup">
 			<field id="techniqueType">
 				<!-- Add options -->
