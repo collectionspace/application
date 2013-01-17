@@ -1,6 +1,6 @@
 <cspace-config tenantname="pahma">
 	<version>11</version>
-	<include src="settings.xml,local-settings.xml,host-settings.xml" merge="xmlmerge-settings.properties"/>
+	<include src="settings.xml,local-settings.xml,host-settings.xml" merge="xmlmerge-settings.properties" strip-root="yes"/>
 
 	<spec>
 		<include src="base-relations.xml"/>
