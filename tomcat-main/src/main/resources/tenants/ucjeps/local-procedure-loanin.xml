@@ -5,6 +5,8 @@
 			<field id="lender" autocomplete="person-person,organization-organization,organization-institution"/>
 		</repeat>
 		
+		<field id="lenderLoanNumber" section="naturalhistory" ui-search="repeatable"/>
+		
 		<!-- Change autocomplete to organization-institution -->
 		<field id="transferInOrg" section="naturalhistory" autocomplete="organization-institution"/>
 	</section>
