@@ -11,6 +11,7 @@
 		
 		<!-- Add organization-institution to autocomplete -->
 		<field id="borrower" autocomplete="person-person,organization-organization,organization-institution"/>
+        <field id="borrowersContact" ui-search="repeatable"/>
 
 		<field id="collection">
 			<!-- Customize the option list -->
