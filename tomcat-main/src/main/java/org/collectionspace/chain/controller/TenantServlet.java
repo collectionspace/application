@@ -673,9 +673,7 @@ public class TenantServlet extends HttpServlet {
 	
 	private InputStream getPublishedResource(HttpServletRequest servlet_request) {
 		InputStream result = null;
-		
-		
-//		String curDir = System.getProperty("user.dir"); servlet_request.getc
+				
 		String serverRootDir = System.getProperty(SERVER_HOME_PROPERTY);
 		String webAppContext = servlet_request.getContextPath();
 		String pathInfo = servlet_request.getPathInfo();
@@ -723,7 +721,7 @@ public class TenantServlet extends HttpServlet {
 			result = true;
 		}
 		
-		return true;
+		return result;
 	}
 }
 
