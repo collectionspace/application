@@ -61,7 +61,7 @@
 
 		<repeat id="claimClaimantGroupList/claimClaimantGroup"> <!-- CORE -->
 			<field id="filedBy" autocomplete="person-person,organization-organization"></field> <!-- CORE -->
-			<field id="filedOnBehalfOf" autocomplete="person-person,organization-organization"></field> <!-- CORE -->
+			<field id="filedOnBehalfOf" mini="summary,search,list,relate" autocomplete="person-person,organization-organization"></field> <!-- CORE -->
 			<field id="claimantNote"></field> <!-- SUGGESTED CORE -->
 		</repeat>
 		
