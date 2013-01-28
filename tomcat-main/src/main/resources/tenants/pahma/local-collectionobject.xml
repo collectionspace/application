@@ -19,7 +19,8 @@
 
 	<section id="identificationInformation">
 		<!-- Add sortKey -->
-		<field id="objectNumber" sortKey="sortableObjectNumber">
+		<!-- <field id="objectNumber" sortKey="sortableObjectNumber"> -->
+		<field id="objectNumber">
 			<!-- Change options -->
 			<options>
 				<option id="pahma-cataloging" sample="HMA 2012.1.1">Cataloged object</option>
