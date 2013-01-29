@@ -49,7 +49,7 @@
 			<include src="base-authz-users.xml"/>
 
 			<include src="base-other-dimension.xml,local-other-dimension.xml" merge="xmlmerge.properties"/>
-			<include src="base-other-hierarchy.xml"/>
+			<include src="base-other-hierarchy.xml,local-other-hierarchy.xml" merge="xmlmerge.properties"/>
 			<include src="base-other-idgenerator.xml,local-other-idgenerator.xml" merge="xmlmerge.properties"/>
 			<include src="base-other-structureddate.xml"/>
 			<include src="base-other-termlist.xml"/>
