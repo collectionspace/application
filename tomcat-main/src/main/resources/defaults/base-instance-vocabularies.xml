@@ -190,6 +190,22 @@
                                 <option id="donor">Donor</option>
                                 <option id="employee">Employee</option>
                         </options>
-                    </instance>                    
-
+                    </instance>
+                    <instance id="vocab-vcoordsys">
+                        <web-url>vcoordsys</web-url>
+                        <title-ref>vcoordsys</title-ref>
+                        <title>Verbatim Coordinate System</title>
+                        <options>
+                                <option id="">Please select a value</option>
+                                <option id="Unknown">Unknown</option>
+                                <option id="None">None</option>
+                                <option id="Degrees">Degrees</option>
+                                <option id="DecimalDegrees">Decimal Degrees</option>
+                                <option id="DegreesDecimalMinutes">Degrees Decimal Minutes</option>
+                                <option id="DegreesMinutesSeconds">Degrees Minutes Seconds</option>
+                                <option id="TownshipRangeSection">Township Range Section</option>
+                                <option id="TownshipRangeSectionDegrees">Township Range Section / Degrees</option>
+                                <option id="UniversalTransverseMercator">Universal Transverse Mercator</option>
+                        </options>
+                    </instance>
 </instances>
