@@ -1,6 +1,7 @@
 <!--
-	This file contains modifications to settings.xml for this tenant. Settings that vary
-	depending on the host on which this tenant is installed are located in host-settings.xml.
+	This file contains modifications to settings.xml for this tenant. Changes to settings
+	for a specific host on which this tenant is installed (e.g. dev vs. production) should
+	be made in host-settings.xml.
 -->
 
 <settings>
