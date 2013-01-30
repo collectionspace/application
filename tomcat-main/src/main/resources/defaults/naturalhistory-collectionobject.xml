@@ -1506,20 +1506,7 @@
 			<field id="vCoordinates" section="naturalhistory"/>
 			<field id="vLatitude" section="naturalhistory"/>
 			<field id="vLongitude" section="naturalhistory"/>
-			<field id="vCoordSys" section="naturalhistory">
-				<options>
-					<option id="">Please select a value</option>
-					<option id="Unknown">Unknown</option>
-					<option id="None">None</option>
-					<option id="Degrees">Degrees</option>
-					<option id="Decimal Degrees">Decimal Degrees</option>
-					<option id="Degrees Decimal Minutes">Degrees Decimal Minutes</option>
-					<option id="Degrees Minutes Seconds">Degrees Minutes Seconds</option>
-					<option id="Township Range Section">Township Range Section</option>
-					<option id="Township Range Section / Degrees">Township Range Section / Degrees</option>
-					<option id="Universal Transverse Mercator">Universal Transverse Mercator</option>
-				</options>
-			</field>
+			<field id="vCoordSys" section="naturalhistory" autocomplete="vocab-vcoordsys" ui-type="enum"/>
 			<field id="vSpatialReferenceSystem" section="naturalhistory">
 				<options>
 					<option id="" default="yes">Please select a value</option>
