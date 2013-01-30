@@ -1,3 +1,8 @@
+<!--
+	This file contains modifications to settings.xml for this tenant. Settings that vary
+	depending on the host on which this tenant is installed are located in host-settings.xml.
+-->
+
 <settings>
 	<admin>
 		<username>admin@pahma.cspace.berkeley.edu</username>
