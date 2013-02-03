@@ -7,6 +7,13 @@
 	</section>
 
 	<section id="mediaInformation">
+		<field id="title">
+			<!-- Add options (just to get a default value) -->
+			<options>
+				<option id="Media record" default="yes">Media record</option>
+			</options>
+		</field>
+
 		<repeat id="languages">
 			<field id="language">
 				<enum>
