@@ -196,7 +196,6 @@
                         <title-ref>vcoordsys</title-ref>
                         <title>Verbatim Coordinate System</title>
                         <options>
-                                <option id="">Please select a value</option>
                                 <option id="Unknown">Unknown</option>
                                 <option id="None">None</option>
                                 <option id="Degrees">Degrees</option>
