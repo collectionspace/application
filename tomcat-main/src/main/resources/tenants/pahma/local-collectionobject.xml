@@ -183,8 +183,30 @@
 		
 		<field id="sortableObjectNumber" section="pahma" ui-search="range" ui-type="computed" ui-args="objectNumber" ui-search-args="objectNumberRangeSearch" ui-func="pahma.createSortableObjectNumber" ui-readonly="true"/>
 		
-		<!-- This is an app-layer only field, used in advanced search to enter "regular" object numbers, which will be computed into sortableObjectNumber for range search. -->
+		<!-- This is an app-layer-only field, used in advanced search to enter "regular" object numbers, which will be computed into sortableObjectNumber for range search. -->
 		<field id="objectNumberRangeSearch" ui-search="range" exists-in-services="false" query-behavior="ignore"/>
+
+		<!-- 
+			Create app-layer-only fields for use on advanced search to search on computedCurrentLocation
+			and computedCrate. These fields need to be created because computedCurrentLocation and
+			computedCrate have the ui-type="valueDeURNed" decorator applied, which is the behavior desired
+			in the record editor, but not on the advanced search form. On the advanced search form, we also
+			want the fields to autocomplete.
+			
+			The exists-in-services="false" attribute prevents a field from being saved in the record editor,
+			but still allows it to be used as a search filter. (Adding query-behavior="ignore" would prevent
+			it from being used as a search filter.)
+		-->
+		
+		<field id="computedCurrentLocationSearch" ui-search="repeatable" autocomplete="location-location" exists-in-services="false">
+			<services-tag>computedCurrentLocation</services-tag>
+		</field>
+		
+		<!-- computedCrate is in the anthropology schema, so the corresponding search field must be declared in that section. -->
+		
+		<field id="computedCrateSearch" ui-search="repeatable" autocomplete="location-crate" exists-in-services="false" section="anthropology">
+			<services-tag>computedCrate</services-tag>
+		</field>
 		
 		<repeat id="pahmaAltNumGroupList/pahmaAltNumGroup" section="pahma">
 			<selector>collection-object-pahmaAltNumGroup</selector> <!-- WHY ARE MANY GROUP SELECTORS MISSING OR COMMENTED OUT, BUT THIS ONE IS NOT? -->
@@ -280,12 +302,12 @@
 				<option id="Casts and molds">Casts and molds</option>
 				<option id="Cat.  1: California (archaeology and ethnology)">Cat.  1: California (archaeology and ethnology)</option>
 				<option id="Cat.  2 - North America (except Mexico and Central America)">Cat.  2 - North America (except Mexico and Central America)</option>
-				<option id="Cat.  3 - Mexico, Central America, and Caribbean Area">Cat.  3 - Mexico, Central America, and Caribbean Area</option>
-				<option id="Cat.  4 - South America (Uhle Collection)">Cat.  4 - South America (Uhle Collection)</option>
-				<option id="Cat.  5 - Africa (except the Hearst Reisner Egyptian Collection)">Cat.  5 - Africa (except the Hearst Reisner Egyptian Collection)</option>
-				<option id="Cat.  6 - Ancient Egypt (the Hearst Reisner Egyptian Collection)">Cat.  6 - Ancient Egypt (the Hearst Reisner Egyptian Collection)</option>
-				<option id="Cat.  7 - Europe (incl. Russia west of Urals, north of Caucasus)">Cat.  7 - Europe (incl. Russia west of Urals, north of Caucasus)</option>
-				<option id="Cat.  8 - Classical Mediterranean regions">Cat.  8 - Classical Mediterranean regions</option>
+				<option id="Cat.  3 - Mexico, Central America, and Caribbean Area">Cat.	 3 - Mexico, Central America, and Caribbean Area</option>
+				<option id="Cat.  4 - South America (Uhle Collection)">Cat.	 4 - South America (Uhle Collection)</option>
+				<option id="Cat.  5 - Africa (except the Hearst Reisner Egyptian Collection)">Cat.	5 - Africa (except the Hearst Reisner Egyptian Collection)</option>
+				<option id="Cat.  6 - Ancient Egypt (the Hearst Reisner Egyptian Collection)">Cat.	6 - Ancient Egypt (the Hearst Reisner Egyptian Collection)</option>
+				<option id="Cat.  7 - Europe (incl. Russia west of Urals, north of Caucasus)">Cat.	7 - Europe (incl. Russia west of Urals, north of Caucasus)</option>
+				<option id="Cat.  8 - Classical Mediterranean regions">Cat.	 8 - Classical Mediterranean regions</option>
 				<option id="Cat.  9 - Asia (incl. Russia east of Urals)">Cat.  9 - Asia (incl. Russia east of Urals)</option>
 				<option id="Cat. 10 - Philippine Islands">Cat. 10 - Philippine Islands</option>
 				<option id="Cat. 11 - Oceania (incl. Australia)">Cat. 11 - Oceania (incl. Australia)</option>
@@ -425,7 +447,7 @@
 				<option id="19C">Keeling Series 19C: Mohave (1908)— Songs of the Akwaka ("Deer") cycle, sung by Kunalye (Mohave) and collected by Leslie Wilbur for A.L. Kroeber in 1908</option>
 				<option id="19D">Keeling Series 19D: Mohave (1908)— Songs of the Ohwera cycle, sung by Kupahwai (Mohave) and collected by Leslie Wilbur for A.L. Kroeber in 1908</option>
 				<option id="19E">Keeling Series 19E: Mohave (1908)— Songs of the Alysa cycle, sung by Kunalye (Mohave) and collected by Leslie Wilbur for A.L. Kroeber in 1908</option>
-				<option id="19F">Keeling Series 19F: Mohave (1908)—  Songs of the Chuhuecha cycle, sung by Achora Hanyava (Mohave) and collected by Leslie Wilbur for A.L. Kroeber in 1908</option>
+				<option id="19F">Keeling Series 19F: Mohave (1908)—	 Songs of the Chuhuecha cycle, sung by Achora Hanyava (Mohave) and collected by Leslie Wilbur for A.L. Kroeber in 1908</option>
 				<option id="19G">Keeling Series 19G: Mohave (1908)— Songs of the Tumanpa Uta'uta cycle, sung by Achora Hanyava (Mohave) and collected by Leslie Wilbur for A.L. Kroeber in 1908</option>
 				<option id="19H">Keeling Series 19H: Mohave (1908)— Recording of Chiyerekavasuk or "Bluebird' (Mohave) collected by Leslie Wilbur for A.L. Kroeber in 1908</option>
 				<option id="20">Keeling Series 20: Northern Sierra Miwok (1908)</option>
