@@ -250,7 +250,7 @@ public class CompositeWebUIRequestPart implements UIRequest {
 		pw.flush();
 	}
 	
-	public void sendUnknown(String data, String contenttype) throws UIException {
+	public void sendUnknown(String data, String contenttype, String contentDisposition) throws UIException {
 
 		mime_type_out=contenttype;
 		PrintWriter pw=new PrintWriter(body_out);
@@ -258,7 +258,7 @@ public class CompositeWebUIRequestPart implements UIRequest {
 		pw.flush();
 	}
 
-	public void sendUnknown(byte[] data, String contenttype) throws UIException {
+	public void sendUnknown(byte[] data, String contenttype, String contentDisposition) throws UIException {
 		mime_type_out=contenttype;
 		try {
 			body_out.write(data);

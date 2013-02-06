@@ -64,7 +64,7 @@ public class BlobStorage extends GenericStorage {
 					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),softpath);
 				out.put("getByteBody", doc.getBytes()); // REM: We're returning an array of bytes here and we probably should be using a stream of bytes
 				out.put("contenttype", doc.getContentType());
-				
+				out.put("contentdisposition", doc.getContentDisposition());
 			}
 			else{
 				ReturnUnknown doc = conn.getUnknownDocument(RequestMethod.GET, servicesurl+softpath, null, creds, cache);
@@ -73,6 +73,7 @@ public class BlobStorage extends GenericStorage {
 
 				out.put("getByteBody", doc.getBytes());
 				out.put("contenttype", doc.getContentType());
+				out.put("contentdisposition", doc.getContentDisposition());
 			}
 
 		} catch (ConnectionException e) {
@@ -112,6 +113,7 @@ public class BlobStorage extends GenericStorage {
 				JSONObject out = new JSONObject();
 				out.put("getByteBody", doc2.getBytes());
 				out.put("contenttype", doc2.getContentType());
+				out.put("contentdisposition", doc2.getContentDisposition());
 				return out;
 			}
 			else if(r.isType("batch")){

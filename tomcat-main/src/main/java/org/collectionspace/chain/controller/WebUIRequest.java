@@ -38,6 +38,7 @@ import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.*;
+import org.collectionspace.chain.csp.persistence.services.RefName.Tools;
 import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.TTYOutputter;
 import org.collectionspace.csp.api.ui.UIException;
@@ -384,12 +385,16 @@ public class WebUIRequest implements UIRequest {
 		response.setContentType("text/xml;charset=UTF-8");
 		out_data=data;
 	}
-	public void sendUnknown(String data, String contenttype) throws UIException {
+	public void sendUnknown(String data, String contenttype, String contentDisposition) throws UIException {
 		response.setContentType(contenttype);
+		if(Tools.notEmpty(contentDisposition))
+			response.setHeader("Content-Disposition", contentDisposition);
 		out_data=data;
 	}
-	public void sendUnknown(byte[] data, String contenttype) throws UIException {
+	public void sendUnknown(byte[] data, String contenttype, String contentDisposition) throws UIException {
 		response.setContentType(contenttype);
+		if(Tools.notEmpty(contentDisposition))
+			response.setHeader("Content-Disposition", contentDisposition);
 		out_binary_data=data;
 	}
 	public void sendJSONResponse(JSONObject data) throws UIException {
