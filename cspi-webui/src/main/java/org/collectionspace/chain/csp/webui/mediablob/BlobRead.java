@@ -22,7 +22,8 @@ public class BlobRead implements WebMethod {
 		try {
 			JSONObject out = s.retrieveJSON("/blobs/"+csid+"/"+derivative,null);
 			byte[] data_array = (byte[])out.get("getByteBody");
-			q.sendUnknown(data_array,out.getString("contenttype"));
+			String contentDisp = out.has("contentdisposition")?out.getString("contentdisposition"):null;
+			q.sendUnknown(data_array,out.getString("contenttype"), contentDisp);
 			int cacheMaxAgeSeconds = adminData.getUploadedMediaCacheAge();
 			if(cacheMaxAgeSeconds > 0) {
 				q.setCacheMaxAgeSeconds(cacheMaxAgeSeconds);

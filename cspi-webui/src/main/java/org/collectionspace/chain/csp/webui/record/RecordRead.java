@@ -433,9 +433,10 @@ public class RecordRead implements WebMethod {
 			if(record.isType("blob")){
 				JSONObject outputJSON = getJSON(storage,path);
 				String content = outputJSON.getString("contenttype");
+				String contentDisp = outputJSON.has("contentdisposition")?outputJSON.getString("contentdisposition"):null;
 				byte[] bob = (byte[])outputJSON.get("getByteBody"); 
 				String getByteBody = bob.toString();
-				request.sendUnknown(getByteBody, content);
+				request.sendUnknown(getByteBody, content, contentDisp);
 			}
 			else if(record.getID().equals("output")){
 				String[] bits = path.split("/");
@@ -454,8 +455,9 @@ public class RecordRead implements WebMethod {
 				JSONObject out=storage.retrieveJSON(base+"/"+path,payload);
 
 				byte[] data_array = (byte[])out.get("getByteBody");
-				request.sendUnknown(data_array,out.getString("contenttype"));
-				
+				String contentDisp = out.has("contentdisposition")?out.getString("contentdisposition"):null;
+				request.sendUnknown(data_array,out.getString("contenttype"), contentDisp);
+				request.setCacheMaxAgeSeconds(0);	// Ensure we do not cache report output.
 			}
 			else if(record.getID().equals("batchoutput")){
 				String[] bits = path.split("/");

@@ -458,7 +458,8 @@ public class RecordCreateUpdate implements WebMethod {
 				JSONObject out=storage.retrieveJSON(base+"/"+path,payload);
 
 				byte[] data_array = (byte[])out.get("getByteBody");
-				request.sendUnknown(data_array,out.getString("contenttype"));
+				String contentDisp = out.has("contentdisposition")?out.getString("contentdisposition"):null;
+				request.sendUnknown(data_array,out.getString("contenttype"), contentDisp);
 				request.setCacheMaxAgeSeconds(0);	// Ensure we do not cache report output.
 				//request.sendJSONResponse(out);
 				request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
