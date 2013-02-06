@@ -458,6 +458,9 @@
                   ".csc-preferredCA-termDisplayName-label": {
                     "messagekey": "preferredCA-termDisplayNameLabel"
                   }, 
+                  ".csc-preferredCA-termInformation-label": {
+                    "messagekey": "preferredCA-termInformationLabel"
+                  }, 
                   ".csc-preferredCA-termLanguage-label": {
                     "messagekey": "preferredCA-termLanguageLabel"
                   }, 
