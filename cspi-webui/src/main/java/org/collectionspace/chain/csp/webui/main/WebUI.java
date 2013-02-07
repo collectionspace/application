@@ -179,6 +179,8 @@ public class WebUI implements CSP, UI, Configurable {
 	}
 
 	private void configure_finish(Spec spec) {
+		final String MEDIA_RECORD_ID = "media";
+		
 		for(Operation op : Operation.values())
 			tries.put(op,new Trie());	
 		
@@ -205,6 +207,9 @@ public class WebUI implements CSP, UI, Configurable {
 			addMethod(Operation.READ,new String[]{s.getWebURL(), "uischema" },0,new UISchema(spec,s));
 		}
 		addMethod(Operation.READ,new String[]{"generator"},0,new DataGenerator(spec));
+		Record mediaR = spec.getRecord(MEDIA_RECORD_ID);
+		if(mediaR==null)
+			log.error("No media record configured!!!");
 		for(Record r : spec.getAllRecords()) {
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"generator"},0,new DataGenerator(r,"screen"));
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"serviceschema"},0,new ServicesXsd(r,"common"));
@@ -228,6 +233,12 @@ public class WebUI implements CSP, UI, Configurable {
 				addMethod(Operation.CREATE,new String[]{"authorities",r.getWebURL()},0,new VocabulariesCreateUpdate(r,true));
 				addMethod(Operation.READ,new String[]{"authorities",r.getWebURL(),"initialize"},0,new AuthoritiesVocabulariesInitialize(r,true));
 				addMethod(Operation.READ,new String[]{"authorities",r.getWebURL(),"refresh"},0,new AuthoritiesVocabulariesInitialize(r,false));
+				// We need to do a special case for related media. Weird, but makes a certain sense...
+				// We do not actually care about the type of r, but rather just the CSID tail.
+				// We'll search on media related to the CSID tail.
+				if(mediaR!=null) {
+					addMethod(Operation.READ,new String[]{r.getWebURL(),mediaR.getWebURL()},1,new RecordSearchList(mediaR,RecordSearchList.MODE_SEARCH_RELATED));
+				}
 				for(Instance n : r.getAllInstances()) {
 					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL()},0,new AuthoritiesVocabulariesSearchList(n,false));
 					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL(),"search"},0,new AuthoritiesVocabulariesSearchList(n,true));
