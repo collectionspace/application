@@ -53,9 +53,11 @@
 		</field>
 		<field id="recordStatus">
 		  <options>
-			<option id="none" default="yes">None</option>
+		    <option id="" default="yes">Please select a value</option>
+			<option id="none">None</option>
 			<option id="partial">Partial</option>
 			<option id="complete">Complete</option>
+			<option id="unknown">Unknown</option>
 		  </options>
 		</field>
 		<repeat id="taxonomicIdentGroupList/taxonomicIdentGroup">
@@ -133,6 +135,15 @@
 			<!-- Add groups to autocomplete -->
 			<field id="annotationAuthor" autocomplete="person-person,organization-group_org"/>
 		</repeat>
+	    <field id="provenanceType" section="naturalhistory">
+   		    <options>
+   		        <option id="" default="yes">Please select a value</option>
+   				<option id="W-wild source">W-wild source</option>
+   				<option id="Z-cultivated from wild source">Z-cultivated from wild source</option>
+   				<option id="G-not wild source">G-not wild source</option>
+   				<option id="U-unknown">U-unknown</option>
+   			</options>
+   		</field>
 		<field id="handwritten" section="botgarden">
 			<options>
 				<option id="" default="yes">Please select a value</option>
