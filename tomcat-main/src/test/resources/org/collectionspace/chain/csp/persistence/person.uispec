@@ -1415,7 +1415,7 @@
                   }, 
                   ".csc-preferredPA-termInformation-label": {
                     "messagekey": "preferredPA-termInformationLabel"
-                  },
+                  }, 
                   ".csc-preferredPA-termLanguage-label": {
                     "messagekey": "preferredPA-termLanguageLabel"
                   }, 
