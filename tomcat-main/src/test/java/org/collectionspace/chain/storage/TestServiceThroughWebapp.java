@@ -160,9 +160,11 @@ public class TestServiceThroughWebapp {
 	}
 
 	@Test public void testTermsUsed() throws Exception {
+            	UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"GET","/tenant/core/vocabularies/person",null);
+		assertEquals("Person vocabulary could not be found",200,out.getStatus());
 		JSONObject data=new JSONObject("{'csid':'','fields':{'personTermGroup':[{'termDisplayName':'David Bowie'}]}}");
-		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/vocabularies/person",data.toString());
-		assertEquals(201,out.getStatus());		
+		out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/vocabularies/person",data.toString());
+		assertEquals("New term could not be created in person vocabulary", 201,out.getStatus());		
 		JSONObject jo=new JSONObject(out.getContent());
 		String p_csid=jo.getString("csid");
 		out=tester.jettyDoUTF8(jetty,"GET","/tenant/core/vocabularies/person/"+p_csid,data.toString());
@@ -172,15 +174,15 @@ public class TestServiceThroughWebapp {
 		data.put("valuer",p_refid);
 		out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/intake/",tester.makeSimpleRequest(data.toString()));
 		log.info(out.getContent());
-		assertEquals(201,out.getStatus());
+		assertEquals("Intake record containing person refname in 'valuer' field could not be created",201,out.getStatus());
 		jo=new JSONObject(out.getContent());
 		//log.info(jo.toString());
 		JSONArray terms_used=jo.getJSONArray("termsUsed");
 		assertEquals(1,terms_used.length());
 		JSONObject term_used=terms_used.getJSONObject(0);
 		//assertEquals("valuer",term_used.getString("sourceFieldName"));
-		assertEquals("person",term_used.getString("recordtype"));		
-		assertEquals("David Bowie",term_used.getString("number"));
+		assertEquals("Person term was not found in 'terms used' for Intake record","person",term_used.getString("recordtype"));		
+		assertEquals("Expected person term's displayname was not found in 'terms used' for Intake record","David Bowie",term_used.getString("number"));
 	}
 		
 	@Test public void testAutoGet() throws Exception {
