@@ -1337,7 +1337,7 @@
                   }, 
                   ".csc-preferredOA-termInformation-label": {
                     "messagekey": "preferredOA-termInformationLabel"
-                  },
+                  }, 
                   ".csc-preferredOA-termLanguage-label": {
                     "messagekey": "preferredOA-termLanguageLabel"
                   }, 
