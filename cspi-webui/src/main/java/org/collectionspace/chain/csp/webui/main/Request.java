@@ -29,8 +29,17 @@ public class Request {
 	private CSPRequestCredentials generateCredentials(UISession session) {
 		CSPRequestCredentials creds=storage_generator.createCredentials(); // XXX
 		if(session!=null && creds!=null) {
-			creds.setCredential(StorageGenerator.CRED_USERID,session.getValue(UISession.USERID));
-			creds.setCredential(StorageGenerator.CRED_PASSWORD,session.getValue(UISession.PASSWORD));
+			String userId = (String) session.getValue(UISession.USERID);
+			if (userId == null || userId.isEmpty() || userId.trim().isEmpty()) {
+				userId = "<No User ID specified.>";
+			}
+			creds.setCredential(StorageGenerator.CRED_USERID, userId);
+			
+			String password = (String) session.getValue(UISession.PASSWORD);
+			if (password == null || password.isEmpty() || password.trim().isEmpty()) {
+				password = "<No password specified.>";
+			}
+			creds.setCredential(StorageGenerator.CRED_PASSWORD, password);
 		}
 		return creds;
 	}
