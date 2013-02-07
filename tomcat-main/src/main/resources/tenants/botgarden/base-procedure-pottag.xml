@@ -71,7 +71,7 @@
                     <field id="family" ui-search="repeatable" in-title="yes" mini="number,search,list,terms,relate" autocomplete="taxon-taxon">
                         <title-selector>titleBar-family</title-selector>
             		</field>
-                    <field id="commonName" ui-search="repeatable" autocomplete="taxon-common"/>
+                    <field id="commonName" ui-search="repeatable"/>
                     <field id="locale" ui-search="repeatable" />
                     <field id="taxonName" ui-search="repeatable" autocomplete="taxon-taxon,taxon-plantsales"/>
                     <field id="labelData"/>
@@ -83,10 +83,5 @@
                             <option id="no">No</option>
                         </options>
                     </field>
-                </section>
-                <section id="propagatorLabels">
-                    <field id="gardenLocationAbreviation" ui-search="repeatable" />
-                    <field id="collector" ui-search="repeatable" />
-                    <field id="ecologyData"/>
                 </section>
             </record>
