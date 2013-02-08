@@ -261,6 +261,9 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 	}
 	
 	public void run(Object in, String[] tail) throws UIException {
+		if(tail.length > 0) {
+			throw new UIException("Illegal search specified. Tail: "+r.getWebURL()+"/"+StringUtils.join(tail,"/"));
+		}
 		Request q=(Request)in;
 		UIRequest uir = q.getUIRequest();
 		if(search) {
