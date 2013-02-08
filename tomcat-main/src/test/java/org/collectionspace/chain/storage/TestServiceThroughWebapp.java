@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 
 public class TestServiceThroughWebapp {
 	private static final Logger log=LoggerFactory.getLogger(TestServiceThroughWebapp.class);
+	
 	private static TestBase tester = new TestBase();
 	static ServletTester jetty;
 	static {
@@ -31,6 +32,37 @@ public class TestServiceThroughWebapp {
 			
 		}
 	}
+	
+	private String getAdminUsername() {
+		Spec spec = tester.getSpec(jetty);
+		String username = spec.getAdminData().getAuthUser();
+		return username;
+	}
+	
+	private String getAdminPassword() {
+		Spec spec = tester.getSpec(jetty);
+		String pwd = spec.getAdminData().getAuthPass();
+		return pwd;
+	}
+	
+	static private String getAdminTenantId() {
+		Spec spec = tester.getSpec(jetty);
+		String tenant = spec.getAdminData().getTenant();
+		return tenant;
+	}
+	
+	/*
+	 * Login as the admin user for the tenant
+	 */
+	private void adminLogin() throws Exception {
+		String username = getAdminUsername();
+		String pwd = getAdminPassword();
+		String tenant = getAdminTenantId();
+		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/login","userid="+username+"&password="+pwd+"&tenant="+tenant);	
+		assertEquals(303,out.getStatus());
+		assertEquals("/collectionspace/ui/core/html/findedit.html",out.getHeader("Location"));
+	}
+	
 	
 	@AfterClass public static void testStop() throws Exception {
 		tester.stopJetty(jetty);
@@ -162,6 +194,9 @@ public class TestServiceThroughWebapp {
 	@Test public void testTermsUsed() throws Exception {
 		JSONObject data=new JSONObject("{'csid':'','fields':{'personTermGroup':[{'termDisplayName':'David Bowie'}]}}");
 		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/vocabularies/person",data.toString());
+		if (out.getStatus() != 201) {
+			System.err.println("out.getStatus() != 201");
+		}
 		assertEquals(201,out.getStatus());		
 		JSONObject jo=new JSONObject(out.getContent());
 		String p_csid=jo.getString("csid");
@@ -269,25 +304,29 @@ public class TestServiceThroughWebapp {
 		out=tester.jettyDoUTF8(jetty,"DELETE","/tenant/core"+id1,null);		
 		out=tester.jettyDoUTF8(jetty,"DELETE","/tenant/core"+id2,null);
 	}
-	
-	@Test public void testLogin() throws Exception {
-		Spec spec = tester.getSpec(jetty);
-		String pwd = spec.getAdminData().getAuthPass();
-		String username = spec.getAdminData().getAuthUser();
-		String tenant = spec.getAdminData().getTenant();
-		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/login","userid="+username+"&password="+pwd+"&tenant="+tenant);	
+		
+	@Test
+	public void testLogin() throws Exception {
+		// Should pass because the proper credentials are sent as valid query parameters
+		String username = getAdminUsername();
+		String pwd = getAdminPassword();
+		String tenant = getAdminTenantId();		
+		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/login?userid="+username+"&password="+pwd+"&tenant="+tenant,null);
 		assertEquals(303,out.getStatus());
-		assertEquals("/collectionspace/ui/core/html/findedit.html",out.getHeader("Location"));
-		out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/login?userid="+username+"&password="+pwd+"&tenant="+tenant,null);
-		assertEquals(303,out.getStatus());
-		log.info(out.getHeader("Location"));
+		log.info(out.getHeader("Location"));		
 		assertFalse(out.getHeader("Location").endsWith("?result=fail"));
-		out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/login?userid=guest&password=toast",null);	
-		assertEquals(303,out.getStatus());
-		assertTrue(out.getHeader("Location").endsWith("?result=fail"));
-		out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/login?userid=bob&password=bob",null);	
+		
+		// Should fail because the credentials not valid
+		out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/login", "userid=guest&password=toast&tenant=1");	
 		assertEquals(303,out.getStatus());
 		assertTrue(out.getHeader("Location").endsWith("?result=fail"));
 		
+		// Should fail because the credentials are not valid and there is no tenant specified
+		out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/login", "userid=bob&password=bob");	
+		assertEquals(303,out.getStatus());
+		assertTrue(out.getHeader("Location").endsWith("?result=fail"));
+		
+		// Now that we're finished with the testing, we need to log back in for the other tests to work.
+		adminLogin();		
 	}
 }
