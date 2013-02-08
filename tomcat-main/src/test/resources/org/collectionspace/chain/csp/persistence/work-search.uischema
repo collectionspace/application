@@ -1,0 +1,69 @@
+{
+    "work": {
+        "properties": {
+            "createdBys": {
+                "items": {
+                    "properties": {
+                        "_primary": {
+                            "default": true,
+                            "type": "boolean"
+                        },
+                        "createdBy": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
+            "updatedAtEnd": {
+                "type": "date"
+            },
+            "updatedBys": {
+                "items": {
+                    "properties": {
+                        "_primary": {
+                            "default": true,
+                            "type": "boolean"
+                        },
+                        "updatedBy": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
+            "workTermGroup": {
+                "items": {
+                    "properties": {
+                        "termName": {
+                            "type": "string"
+                        },
+                        "_primary": {
+                            "default": true,
+                            "type": "boolean"
+                        },
+                        "termDisplayName": {
+                            "type": "string"
+                        },
+                        "termStatus": {
+                            "default": "",
+                            "type": "string"
+                        },
+                        "termLanguage": {
+                            "default": "",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
+            "updatedAtStart": {
+                "type": "date"
+            }
+        },
+        "type": "object"
+    }
+}

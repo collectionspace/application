@@ -22,7 +22,9 @@
             "taxon",
             "tgn_place",
             "ulan_oa",
-            "ulan_pa"
+            "ulan_pa",
+            "work",
+            "cona_work"
         ],
         "type": "array"
     }

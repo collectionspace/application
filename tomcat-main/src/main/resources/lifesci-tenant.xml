@@ -54,6 +54,8 @@
 			<include src="base-authority-concept-termList.xml" />
 			<include src="base-authority-concept.xml,lifesci-authority-concept.xml"
 				merge="xmlmerge.properties" /> <!-- Perform an XML merge -->
+			<include src="base-authority-work-termList.xml"/>
+			<include src="base-authority-work.xml"/>
 
 			<include src="base-vocabularies.xml" />
 

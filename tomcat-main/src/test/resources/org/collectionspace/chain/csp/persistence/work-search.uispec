@@ -1,0 +1,158 @@
+{
+    ".csc-work-termSourceNote-label": {
+        "messagekey": "preferredWork-termSourceNoteLabel"
+    },
+    ".csc-work-termLanguage-label": {
+        "messagekey": "preferredWork-termLanguageLabel"
+    },
+    ".csc-work-termSourceDetail-label": {
+        "messagekey": "preferredWork-termSourceDetailLabel"
+    },
+    ".csc-work-termSource-label": {
+        "messagekey": "preferredWork-termSourceLabel"
+    },
+    ".csc-work-createdBy-label": {
+        "messagekey": "work-createdByLabel"
+    },
+    ".csc-work-termName-label": {
+        "messagekey": "preferredWork-termNameLabel"
+    },
+    ".csc-work-createdBy": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-work-createdBy": "${{row}.createdBy}"
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "createdBys",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-preferredWork-workTermGroup": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-workAuthority-termName": "${{row}.termName}",
+                                ".csc-workAuthority-termStatus": {
+                                    "default": "",
+                                    "optionnames": [
+                                        "Please select a value",
+                                        "Quick Added, needs attention",
+                                        "In Progress",
+                                        "Complete"
+                                    ],
+                                    "optionlist": [
+                                        "",
+                                        "quickaddedneedsattention",
+                                        "inprogress",
+                                        "complete"
+                                    ],
+                                    "selection": "${{row}.termStatus}"
+                                },
+                                ".csc-workAuthority-termLanguage": {
+                                    "decorators": [
+                                        {
+                                            "func": "cspace.termList",
+                                            "type": "fluid",
+                                            "options": {
+                                                "root": "{row}",
+                                                "elPath": "termLanguage",
+                                                "termListType": "termLanguage"
+                                            }
+                                        }
+                                    ]
+                                },
+                                ".csc-workAuthority-termDisplayName": "${{row}.termDisplayName}"
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "workTermGroup",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-work-updatedAtStart-label": {
+        "messagekey": "work-updatedAtStartLabel"
+    },
+    ".csc-work-termPrefForLang-label": {
+        "messagekey": "preferredWork-termPrefForLangLabel"
+    },
+    ".csc-work-updatedBy-label": {
+        "messagekey": "work-updatedByLabel"
+    },
+    ".csc-work-updatedAtStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${updatedAtStart}"
+    },
+    ".csc-work-updatedAtEnd-label": {
+        "messagekey": "work-updatedAtEndLabel"
+    },
+    ".csc-work-termStatus-label": {
+        "messagekey": "preferredWork-termStatusLabel"
+    },
+    ".csc-work-updatedBy": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-work-updatedBy": "${{row}.updatedBy}"
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "updatedBys",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-work-termSourceID-label": {
+        "messagekey": "preferredWork-termSourceIDLabel"
+    },
+    ".csc-work-updatedAt-label": {
+        "messagekey": "work-updatedAtLabel"
+    },
+    ".csc-work-termQualifier-label": {
+        "messagekey": "preferredWork-termQualifierLabel"
+    },
+    ".csc-work-updatedAtEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${updatedAtEnd}"
+    },
+    ".csc-work-termDisplayName-label": {
+        "messagekey": "preferredWork-termDisplayNameLabel"
+    },
+    ".csc-work-termType-label": {
+        "messagekey": "preferredWork-termTypeLabel"
+    }
+}

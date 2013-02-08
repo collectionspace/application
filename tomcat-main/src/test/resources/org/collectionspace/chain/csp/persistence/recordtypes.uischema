@@ -48,7 +48,9 @@
           "place", 
           "tgn_place",
           "common_ta",
-          "taxon"
+          "taxon",
+          "work",
+          "cona_work"
         ], 
         "type": "array"
       }

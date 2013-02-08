@@ -190,6 +190,44 @@
                                 <option id="donor">Donor</option>
                                 <option id="employee">Employee</option>
                         </options>
-                    </instance>                    
+                    </instance>   
+                    <instance id="vocab-worktype">
+                        <web-url>worktype</web-url>
+                        <title-ref>worktype</title-ref>
+                        <title>Work Type</title>
+                        <options>
+                            <option id="built">Built</option>
+                            <option id="movable">Movable</option>
+                            <option id="movingimage">Moving Image</option>
+                            <option id="dance">Dance</option>
+                            <option id="theater">Theater</option>
+                            <option id="performance">Performance</option>
+                            <option id="music">Music</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-workcreatortype">
+                        <web-url>workcreatortype</web-url>
+                        <title-ref>workcreatortype</title-ref>
+                        <title>Work Creator Type</title>
+                        <options>
+                            <option id="architect">Architect</option>
+                            <option id="artist">Artist</option>
+                            <option id="choreographer">Choreographer</option>
+                            <option id="composer">Composer</option>
+                            <option id="director">Director</option>
+                            <option id="painter">Painter</option>
+                            <option id="scuptor">Scuptor</option>
+                            <option id="writer">Writer</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-workpublishertype">
+                        <web-url>workpublishertype</web-url>
+                        <title-ref>workpublishertype</title-ref>
+                        <title>Work Publisher Type</title>
+                        <options>
+                            <option id="distributor">Distributor</option>
+                            <option id="publisher">Publisher</option>
+                        </options>
+                    </instance>
 
 </instances>
