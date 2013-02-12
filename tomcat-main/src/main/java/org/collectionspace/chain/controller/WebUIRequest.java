@@ -175,8 +175,11 @@ public class WebUIRequest implements UIRequest {
 			if(!COOKIENAME.equals(cookie.getName()))
 				continue;
 			WebUISession session=umbrella.getSession(cookie.getValue());
-			if(session!=null)
+			if (session!=null) {
 				return session;
+			} else {
+				System.err.println("Could not get session from CSPACESESSID cookie with value: " + cookie.getValue());
+			}
 		}
 		// No valid session: make our own
 		return umbrella.createSession();
