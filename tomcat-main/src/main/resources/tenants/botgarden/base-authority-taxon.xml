@@ -12,7 +12,7 @@
 	</services-record-path>
     <services-url>taxonomyauthority</services-url>
     <authority-vocab-type>TaxonomyAuthority</authority-vocab-type>
-    <authorization-view>false</authorization-view>
+    <authorization-view>true</authorization-view>
     <hassoftdelete>true</hassoftdelete>
     <structures>
         <structure id="search">
