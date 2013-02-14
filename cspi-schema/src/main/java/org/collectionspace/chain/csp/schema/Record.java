@@ -77,6 +77,7 @@ public class Record implements FieldParent {
 	private Spec spec;
 	private FieldSet mini_summary, mini_number, display_name;
 	private String whoamI = "";
+	private HashSet<String> authTypeTokenSet = new HashSet<String>();
 
 	// Map field id to id of the field to be used for sorting
 	private Map<String, String> sortKeys = new HashMap<String, String>();
@@ -809,6 +810,12 @@ public class Record implements FieldParent {
 		}
 	}
 
+    private void buildAuthTypeTokenSet() {
+        String authTypeTokens[] = getAuthorizationType().split("/");
+        for(String token:authTypeTokens) {
+            authTypeTokenSet.add(token);
+        }
+    }
 
 
 	// authorization
@@ -822,7 +829,17 @@ public class Record implements FieldParent {
 	}
 
 	public Boolean isAuthorizationType(String name) {
-		return getAuthorizationType().contains(name);
+	    String authType = getAuthorizationType();
+	    if(StringUtils.isEmpty(authType))
+	        return false;
+	    if(authType.equals(name))
+	        return true;
+	    String nameTokens[] = name.split("/");
+	    for (String nameToken:nameTokens) {
+	        if(!authTypeTokenSet.contains(nameToken))
+	            return false;
+	    }
+	    return true;
 	}
 
 
@@ -1041,6 +1058,7 @@ public class Record implements FieldParent {
 		mergeNestedSummaryLists();
 		mergeNestedMiniLists();
 		mergeSearchLists();
+		buildAuthTypeTokenSet();
 	}
 
 	@Override
