@@ -1503,8 +1503,8 @@
 						<option id="North America">North America</option>
 				</options>
 			</field>
-
 			<field id="vCoordinates" section="naturalhistory"/>
+                        <field id="vOtherCoords" section="naturalhistory"/>
 			<field id="vLatitude" section="naturalhistory"/>
 			<field id="vLongitude" section="naturalhistory"/>
 			<field id="vCoordSys" section="naturalhistory" autocomplete="vocab-vcoordsys" ui-type="enum"/>
