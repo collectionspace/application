@@ -431,10 +431,11 @@ public class RecordCreateUpdate implements WebMethod {
 					ResponseCache.clearCache(ResponseCache.USER_PERMS_CACHE);
 				}
 			}
+			
 			if (this.record.getID().equals("media")) {
 				JSONObject fields=data.optJSONObject("fields");
 				// Handle linked media references
-				if (!fields.has("blobCsid") || StringUtils.isEmpty(fields.getString("blobCsid"))){	// If has blobCsid, already has media link so do nothing more
+				if (!fields.has("blobCsid") || StringUtils.isEmpty(fields.getString("blobCsid"))) {	// If has blobCsid, already has media link so do nothing more
 					// No media, so consider the source
 					// "sourceUrl" is not a declared field in the app layer config, but the UI passes it in
 					// Can consider mapping srcUri to this if want to clean that up
@@ -456,88 +457,15 @@ public class RecordCreateUpdate implements WebMethod {
 						data.put("fields", fields);
 					}
 				}
-			}
-
-			//
-			// Handle report invocations.
-			//
-			if (this.record.getID().equals("output")) {
-				JSONObject payload = new JSONObject();
-				boolean publish = path.endsWith(PUBLISH_URL_SUFFIX);
+			} else if (this.record.getID().equals("output")) {
 				//
-				// First get invocation context params from the incoming path/url
+				// Invoke a report
 				//
-				String[] bits = path.split("/");
-				if (bits.length > 2 && !bits[1].equals("output")) {
-					//
-					// Create the "InvocationContext" for the report -right now this is hard coded.
-					//
-					String type = spec.getRecordByWebUrl(bits[1]).getServicesTenantSg();
-					payload.put("docType", type);
-					payload.put("mode", "single");
-					payload.put("singleCSID", bits[2]);
-					path = bits[0] + (publish ? ("/" + PUBLISH_URL_SUFFIX) : "");
-				}
-				
+				ReportUtils.invokeReport(this, storage, request, path);
+			} else {
 				//
-				// Next look for invocation content parms from incoming payloads and query params.
-				// These values will override any params set in the above code from the path/URL
+				// <Please document this clause.>
 				//
-				JSONObject fields=data.optJSONObject("fields"); // incoming query params
-				setPayloadField("mode", payload, fields, data, "single"); // default value set to "single"
-				setPayloadField("docType", payload, fields, data);
-				//
-				// If mode is 'single' then look for a 'singleCSID' param, otherwise if mode is 'group' look for a 'groupCSID'.
-				// If <mode>CSID param is missing then try to use 'csid' from the query params (from the 'fields' var).
-				//
-				String exceptionMsg = null;
-				if (payload.getString("mode").equals("single")) {
-					if (setPayloadField("singleCSID", payload, fields, data) == false) {
-						if (fields != null && fields.getString("csid").trim().isEmpty() == false) {
-							payload.put("singleCSID", fields.getString("csid"));
-						} else {
-							exceptionMsg = String.format("Report invocation context specified '%s' mode but did not provide a '%s' param.",
-									"single", "singleCSID");
-						}
-					}
-				} else if (payload.getString("mode").equals("group")) {
-					if (setPayloadField("groupCSID", payload, fields, data) == false) {
-						if (fields != null && fields.getString("csid").trim().isEmpty() == false) {
-							payload.put("groupCSID", fields.getString("csid"));
-						} else {
-							exceptionMsg = String.format("Report invocation context specified '%s' mode but did not provide a '%s' param.",
-									"group", "groupCSID");
-						}
-					}
-				} else {
-					exceptionMsg = String.format("The Report invocation mode '%s' is unknown.", payload.getString("mode"));
-				}
-				
-				if (exceptionMsg != null) {
-					throw new UIException(exceptionMsg);
-				}
-								
-//				if(fields.has("singleCSID")){
-//					payload.put("singleCSID", fields.getString("singleCSID"));
-//				}
-//				else if(fields.has("groupCSID")){
-//					payload.put("singleCSID", fields.getString("csid"));
-//				}
-				JSONObject out=storage.retrieveJSON(base + "/" + path, payload);
-				if (publish == true) {
-					// If they are asking the report to be published to the PublicItems service, there will be no response body.  The new public item URL gets returned in the reponse header.					
-					request.sendURLReponse((String)out.get("Location"));
-				} else {
-					// They've asked for the report back, so we need to build up a response containing the report					
-					byte[] data_array = (byte[])out.get("getByteBody");
-					String contentDisp = out.has("contentdisposition")?out.getString("contentdisposition"):null;
-					request.sendUnknown(data_array,out.getString("contenttype"), contentDisp);
-					request.setCacheMaxAgeSeconds(0);	// Ensure we do not cache report output.
-					//request.sendJSONResponse(out);
-				}
-				request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
-			}
-			else{
 				FieldSet displayNameFS = this.record.getDisplayNameField();
 				String displayNameFieldName = (displayNameFS!=null)?displayNameFS.getID():null;
 				boolean remapDisplayName = false;
@@ -584,14 +512,16 @@ public class RecordCreateUpdate implements WebMethod {
 				} else {
 					path=sendJSON(storage,path,data,restrictions);
 				}
-				if(path==null)
+				
+				if (path == null) {
 					throw new UIException("Insufficient data for create (no fields?)");
-
-				if(this.base.equals("role")){
-					assignPermissions(storage,path,data);
 				}
-				if(this.base.equals("termlist")){
-					assignTerms(storage,path,data);
+
+				if (this.base.equals("role")) {
+					assignPermissions(storage, path, data);
+				}
+				if (this.base.equals("termlist")) {
+					assignTerms(storage, path, data);
 				}
 				
 				data=reader.getJSON(storage,path); // We do a GET now to read back what we created.
@@ -626,6 +556,7 @@ public class RecordCreateUpdate implements WebMethod {
 	
 	}
 	
+	@Override
 	public void run(Object in, String[] tail) throws UIException {
 		Request q=(Request)in;
 		ctl = new CacheTermList(q.getCache());
@@ -634,7 +565,24 @@ public class RecordCreateUpdate implements WebMethod {
 
 	public void configure() throws ConfigException {}
 	
+	@Override
 	public void configure(WebUI ui,Spec spec) {
 		this.searcher.configure(spec);
+	}
+
+	@Override
+	public Operation getOperation() {
+		return create ? Operation.CREATE : Operation.UPDATE;
+	}
+
+	@Override
+	public String getBase() {
+		return base;
+	}
+
+	@Override
+	public Spec getSpec() {
+		// TODO Auto-generated method stub
+		return spec;
 	}
 }

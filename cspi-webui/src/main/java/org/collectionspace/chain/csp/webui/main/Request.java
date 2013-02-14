@@ -31,13 +31,13 @@ public class Request {
 		if(session!=null && creds!=null) {
 			String userId = (String) session.getValue(UISession.USERID);
 			if (userId == null || userId.isEmpty() || userId.trim().isEmpty()) {
-				userId = "admin@core.collectionspace.org";//"<No User ID specified.>";
+				userId = "<No User ID specified.>";
 			}
 			creds.setCredential(StorageGenerator.CRED_USERID, userId);
 			
 			String password = (String) session.getValue(UISession.PASSWORD);
 			if (password == null || password.isEmpty() || password.trim().isEmpty()) {
-				password = "Administrator"; //"<No password specified.>";
+				password = "<No password specified.>";
 			}
 			creds.setCredential(StorageGenerator.CRED_PASSWORD, password);
 		}

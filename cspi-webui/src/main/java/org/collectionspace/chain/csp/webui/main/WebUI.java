@@ -96,6 +96,7 @@ public class WebUI implements CSP, UI, Configurable {
 	private String uispec_path;
 	private String login_dest,login_failed_dest,front_page,find_page;
 
+	@Override
 	public String getName() { return "ui.webui"; }
 	public String getUISpecPath() { return uispec_path; }
 	public String getLoginDest() { return login_dest; }
@@ -123,15 +124,18 @@ public class WebUI implements CSP, UI, Configurable {
 		all_methods.add(method);
 	}
 
+	@Override
 	public void go(CSPContext ctx) throws CSPDependencyException {
 		ctx.addConfigRules(this);
 		ctx.addUI("web",this);
 		this.ctx=ctx;
 	}
 
+	@Override
 	public void configure(Rules rules) throws CSPDependencyException {
 		/* MAIN/ui/web -> UI */
 		rules.addRule(SECTIONED,new String[]{"ui","web"},SECTION_PREFIX+"web",null,new Target(){
+			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				((CoreConfig)parent).setRoot(WEBUI_ROOT,WebUI.this);
 				if(section.getValue("/tmp-schema-path")!=null) {
@@ -151,6 +155,7 @@ public class WebUI implements CSP, UI, Configurable {
 		/* MAIN/ui/web/mappings ->UI */
 
 		rules.addRule(SECTION_PREFIX+"web", new String[]{"mappings","map"},SECTION_PREFIX+"uimapping", null, new Target(){
+			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				uiMapping = new UIMapping((WebUI)parent,section);
 				addMapping(uiMapping);
@@ -158,6 +163,7 @@ public class WebUI implements CSP, UI, Configurable {
 			}
 		});
 		rules.addRule(SECTION_PREFIX+"uimapping", new String[]{"configure","meta"},SECTION_PREFIX+"uimetamapping", null, new Target(){
+			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				UIMapping map = (UIMapping)parent;
 				uiMeta = new UIMeta((UIMapping)parent, section);
@@ -332,8 +338,10 @@ public class WebUI implements CSP, UI, Configurable {
 
 	}
 	
+	@Override
 	public void config_finish() throws CSPDependencyException {}
 	
+	@Override
 	public void complete_init() throws CSPDependencyException {
 		Spec spec=(Spec)ctx.getConfigRoot().getRoot(Spec.SPEC_ROOT);
 		if(spec==null)
@@ -345,6 +353,7 @@ public class WebUI implements CSP, UI, Configurable {
 		xxx_storage=ctx.getStorage(name);
 	}
 
+	@Override
 	public void serviceRequest(UIRequest ui) throws UIException {		
 		CSPRequestCache cache=new RequestCache();
 		String[] path=ui.getPrincipalPath();

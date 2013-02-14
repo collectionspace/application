@@ -11,8 +11,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.collectionspace.chain.csp.schema.FieldSet;
-import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.Relationship;
@@ -428,7 +426,7 @@ public class RecordRead implements WebMethod {
 	
 
 	
-	private void store_get(Storage storage,UIRequest request,String path) throws UIException {
+	private void store_get(Storage storage,UIRequest request,String path) throws Exception {
 		// Get the data
 		try {
 			if (record.isType("blob")) {
@@ -438,36 +436,11 @@ public class RecordRead implements WebMethod {
 				byte[] bob = (byte[])outputJSON.get("getByteBody"); 
 				String getByteBody = bob.toString();
 				request.sendUnknown(getByteBody, content, contentDisp);
-			} else if(record.getID().equals("output")) {  // Is this entire clause really here just to invoke reports?  If so, WTH is it not documented?
-				boolean publish = false;
-				if (path.endsWith(PUBLISH_URL_SUFFIX) == true) {  // Check to see if they want to publish the report to the PublicItems service
-					publish = true;
-				}
-				String[] bits = path.split("/");
-				JSONObject payload = new JSONObject();
-				if (bits.length > 1 && !bits[1].equals("output")) {
-					//
-					// Create the "InvocationContext" for the report -right now this is hard coded.
-					//
-					String type = spec.getRecordByWebUrl(bits[1]).getServicesTenantSg();
-					payload.put("docType", type);					
-					payload.put("mode", "single");
-					payload.put("singleCSID", bits[2]);
-					path = bits[0];
-				}
-				
-				if (publish == true) {
-					// If they are asking the report to be published to the PublicItems service, there will be no response body.  The new public item URL gets returned in the reponse header.
-					JSONObject out = storage.retrieveJSON(base + "/" + path + "/" + PUBLISH_URL_SUFFIX, payload);
-					request.sendURLReponse((String)out.get("Location"));
-				} else {
-					JSONObject out = storage.retrieveJSON(base + "/" + path, payload);
-					// They've asked for the report back, so we need to build up a response containing the report
-					byte[] data_array = (byte[])out.get("getByteBody");
-					String contentDisp = out.has("contentdisposition")?out.getString("contentdisposition"):null;
-					request.sendUnknown(data_array,out.getString("contenttype"), contentDisp);
-					request.setCacheMaxAgeSeconds(0);	// Ensure we do not cache report output.
-				}
+			} else if(record.getID().equals("output")) {
+				//
+				// Invoke a report
+				//
+				ReportUtils.invokeReport(this, storage, request, path);
 			} else {
 				JSONObject outputJSON = getJSON(storage,path);
 				outputJSON.put("csid",path);
@@ -485,11 +458,17 @@ public class RecordRead implements WebMethod {
 		}
 	}
 	
+	@Override
 	public void run(Object in, String[] tail) throws UIException {
 		Request q=(Request)in;
-		store_get(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
+		try {
+			store_get(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
+		} catch (Exception e) {
+			throw new UIException(e);
+		}
 	}
 
+	@Override
 	public void configure(WebUI ui,Spec spec) {
 		for(Record r : spec.getAllRecords()) {
 			type_to_url.put(r.getID(),r.getWebURL());
@@ -499,5 +478,21 @@ public class RecordRead implements WebMethod {
 	
 	public void configure(Spec spec) {
 		configure(null, spec);
+	}
+	
+	@Override
+	public Operation getOperation() {
+		return Operation.READ;
+	}
+	
+	@Override
+	public String getBase() {
+		return base;
+	}
+	
+	@Override
+	public Spec getSpec() {
+		// TODO Auto-generated method stub
+		return spec;
 	}
 }
