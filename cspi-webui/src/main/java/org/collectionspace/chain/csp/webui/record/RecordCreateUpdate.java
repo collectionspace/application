@@ -18,6 +18,7 @@ import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.authorities.AuthoritiesVocabulariesInitialize;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
+import org.collectionspace.chain.csp.webui.main.WebMethodWithOps;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.chain.csp.webui.misc.Generic;
 import org.collectionspace.chain.csp.webui.nuispec.CacheTermList;
@@ -35,7 +36,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class RecordCreateUpdate implements WebMethod {
+public class RecordCreateUpdate implements WebMethodWithOps {
 	private static final Logger log=LoggerFactory.getLogger(RecordCreateUpdate.class);
 	protected String url_base,base;
 	protected boolean create;

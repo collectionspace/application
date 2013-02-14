@@ -17,6 +17,7 @@ import org.collectionspace.chain.csp.schema.Relationship;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
+import org.collectionspace.chain.csp.webui.main.WebMethodWithOps;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.chain.csp.webui.misc.Generic;
 import org.collectionspace.csp.api.persistence.ExistException;
@@ -32,9 +33,8 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class RecordRead implements WebMethod {
+public class RecordRead implements WebMethodWithOps {
 	private static final Logger log=LoggerFactory.getLogger(RecordRead.class);
-	private static final String PUBLISH_URL_SUFFIX = "publish";
 	private String base;
 	private Record record;
 

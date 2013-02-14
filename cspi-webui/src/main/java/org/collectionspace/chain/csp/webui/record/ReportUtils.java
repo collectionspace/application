@@ -1,6 +1,6 @@
 package org.collectionspace.chain.csp.webui.record;
 
-import org.collectionspace.chain.csp.webui.main.WebMethod;
+import org.collectionspace.chain.csp.webui.main.WebMethodWithOps;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
@@ -83,7 +83,7 @@ public class ReportUtils {
 	}
 		
 	/* Package Protected */	
-	static void invokeReport(WebMethod webMethod, Storage storage, UIRequest request, String path) throws Exception {
+	static void invokeReport(WebMethodWithOps webMethod, Storage storage, UIRequest request, String path) throws Exception {
 		JSONObject payloadOut = new JSONObject();
 		boolean publish = path.endsWith(PUBLISH_URL_SUFFIX);
 		//

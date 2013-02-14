@@ -30,7 +30,4 @@ public interface WebMethod extends TrieMethod {
 	public void configure(WebUI ui,Spec spec);
 	@Override
 	public void run(Object in,String[] tail) throws UIException;
-	public Operation getOperation();
-	public String getBase();
-	public Spec getSpec();
 }
