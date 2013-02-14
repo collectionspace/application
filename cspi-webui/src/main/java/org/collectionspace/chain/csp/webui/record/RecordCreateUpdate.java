@@ -458,7 +458,9 @@ public class RecordCreateUpdate implements WebMethodWithOps {
 						data.put("fields", fields);
 					}
 				}
-			} else if (this.record.getID().equals("output")) {
+			}
+			
+			if (this.record.getID().equals("output")) {
 				//
 				// Invoke a report
 				//
