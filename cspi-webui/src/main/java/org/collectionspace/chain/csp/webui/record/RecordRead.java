@@ -458,12 +458,11 @@ public class RecordRead implements WebMethod {
 				
 				if (publish == true) {
 					// If they are asking the report to be published to the PublicItems service, there will be no response body.  The new public item URL gets returned in the reponse header.
-					path = path + "/" + PUBLISH_URL_SUFFIX;
-					JSONObject out = storage.retrieveJSON(base+"/"+path,payload);
-					
+					JSONObject out = storage.retrieveJSON(base + "/" + path + "/" + PUBLISH_URL_SUFFIX, payload);
+					request.sendURLReponse((String)out.get("Location"));
 				} else {
+					JSONObject out = storage.retrieveJSON(base + "/" + path, payload);
 					// They've asked for the report back, so we need to build up a response containing the report
-					JSONObject out=storage.retrieveJSON(base+"/"+path,payload);
 					byte[] data_array = (byte[])out.get("getByteBody");
 					String contentDisp = out.has("contentdisposition")?out.getString("contentdisposition"):null;
 					request.sendUnknown(data_array,out.getString("contenttype"), contentDisp);

@@ -115,7 +115,7 @@ public class BlobStorage extends GenericStorage {
 					//
 					response = conn.getPublishedReportDocumentURL(RequestMethod.POST, "reports/"+filePath, doc, creds, cache);
 					ReturnedURL returnedURL = (ReturnedURL)response;
-					out.put("location", returnedURL.getURL());
+					out.put("Location", returnedURL.getURL());
 				} else {
 					//
 					// This request returns the contents of the report.

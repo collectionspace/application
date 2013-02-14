@@ -310,6 +310,7 @@ public class RecordCreateUpdate implements WebMethod {
 
 	private final static String DELETE_WORKFLOW_TRANSITION = Generic.DELETE_PERMISSION;
 	private final static String LOCK_WORKFLOW_TRANSITION = Generic.LOCK_PERMISSION;
+	private static final String PUBLISH_URL_SUFFIX = "publish";
 
 	private void assignPermissions(Storage storage, String path, JSONObject data) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException, UIException{
 		JSONObject fields=data.optJSONObject("fields");
@@ -387,6 +388,29 @@ public class RecordCreateUpdate implements WebMethod {
 			path=storage.autocreateJSON(spec.getRecordByWebUrl("permrole").getID(),arfields,null);
 	}
 	
+	private boolean setPayloadField(String fieldName, JSONObject payloadOut, JSONObject fieldsSrc, JSONObject dataSrc, String defaultValue) throws JSONException {
+		boolean result = true;
+		
+		if (fieldsSrc != null && fieldsSrc.has(fieldName)) {
+			payloadOut.put(fieldName, fieldsSrc.getString(fieldName));
+		} else if (dataSrc != null && dataSrc.has(fieldName)) {
+			payloadOut.put(fieldName, dataSrc.getString(fieldName));
+		} else if (defaultValue != null) {
+			payloadOut.put(fieldName, defaultValue);
+		} else {
+			result = false;
+		}
+		
+		return result;
+	}
+	
+	/*
+	 * Set a field in the payloadOut object with a value from fieldSrc or if not present there then from dataSrc
+	 */
+	private boolean setPayloadField(String fieldName, JSONObject payloadOut, JSONObject fieldsSrc, JSONObject dataSrc) throws JSONException {
+		return setPayloadField(fieldName, payloadOut, fieldsSrc, dataSrc, null);
+	}
+	
 	private void store_set(Storage storage,UIRequest request,String path) throws UIException {
 		try {
 			JSONObject restrictions = new JSONObject();
@@ -434,34 +458,83 @@ public class RecordCreateUpdate implements WebMethod {
 				}
 			}
 
-			if(this.record.getID().equals("output")){
-				//do a read instead of a create as reports are special and evil
-
-				JSONObject fields=data.optJSONObject("fields");
+			//
+			// Handle report invocations.
+			//
+			if (this.record.getID().equals("output")) {
 				JSONObject payload = new JSONObject();
-				payload.put("mode", "single");
-
-				if(fields.has("mode")){
-					payload.put("mode", fields.getString("mode"));
-				}
-				if(fields.has("docType")){
-					String type = spec.getRecordByWebUrl(fields.getString("docType")).getServicesTenantSg();
+				boolean publish = path.endsWith(PUBLISH_URL_SUFFIX);
+				//
+				// First get invocation context params from the incoming path/url
+				//
+				String[] bits = path.split("/");
+				if (bits.length > 1 && !bits[1].equals("output")) {
+					//
+					// Create the "InvocationContext" for the report -right now this is hard coded.
+					//
+					String type = spec.getRecordByWebUrl(bits[1]).getServicesTenantSg();
 					payload.put("docType", type);
-				}
-				if(fields.has("singleCSID")){
-					payload.put("singleCSID", fields.getString("singleCSID"));
-				}
-				else if(fields.has("groupCSID")){
-					payload.put("singleCSID", fields.getString("csid"));
+					payload.put("mode", "single");
+					payload.put("singleCSID", bits[2]);
+					path = bits[0] + (publish ? ("/" + PUBLISH_URL_SUFFIX) : "");
 				}
 				
-				JSONObject out=storage.retrieveJSON(base+"/"+path,payload);
-
-				byte[] data_array = (byte[])out.get("getByteBody");
-				String contentDisp = out.has("contentdisposition")?out.getString("contentdisposition"):null;
-				request.sendUnknown(data_array,out.getString("contenttype"), contentDisp);
-				request.setCacheMaxAgeSeconds(0);	// Ensure we do not cache report output.
-				//request.sendJSONResponse(out);
+				//
+				// Next look for invocation content parms from incoming payloads and query params.
+				// These values will override any params set in the above code from the path/URL
+				//
+				JSONObject fields=data.optJSONObject("fields"); // incoming query params
+				setPayloadField("mode", payload, fields, data, "single"); // default value set to "single"
+				setPayloadField("docType", payload, fields, data);
+				//
+				// If mode is 'single' then look for a 'singleCSID' param, otherwise if mode is 'group' look for a 'groupCSID'.
+				// If <mode>CSID param is missing then try to use 'csid' from the query params (from the 'fields' var).
+				//
+				String exceptionMsg = null;
+				if (payload.getString("mode").equals("single")) {
+					if (setPayloadField("singleCSID", payload, fields, data) == false) {
+						if (fields != null && fields.getString("csid").trim().isEmpty() == false) {
+							payload.put("singleCSID", fields.getString("csid"));
+						} else {
+							exceptionMsg = String.format("Report invocation context specified '%s' mode but did not provide a '%s' param.",
+									"single", "singleCSID");
+						}
+					}
+				} else if (payload.getString("mode").equals("group")) {
+					if (setPayloadField("groupCSID", payload, fields, data) == false) {
+						if (fields != null && fields.getString("csid").trim().isEmpty() == false) {
+							payload.put("groupCSID", fields.getString("csid"));
+						} else {
+							exceptionMsg = String.format("Report invocation context specified '%s' mode but did not provide a '%s' param.",
+									"group", "groupCSID");
+						}
+					}
+				} else {
+					exceptionMsg = String.format("The Report invocation mode '%s' is unknown.", payload.getString("mode"));
+				}
+				
+				if (exceptionMsg != null) {
+					throw new UIException(exceptionMsg);
+				}
+								
+//				if(fields.has("singleCSID")){
+//					payload.put("singleCSID", fields.getString("singleCSID"));
+//				}
+//				else if(fields.has("groupCSID")){
+//					payload.put("singleCSID", fields.getString("csid"));
+//				}
+				JSONObject out=storage.retrieveJSON(base + "/" + path, payload);
+				if (publish == true) {
+					// If they are asking the report to be published to the PublicItems service, there will be no response body.  The new public item URL gets returned in the reponse header.					
+					request.sendURLReponse((String)out.get("Location"));
+				} else {
+					// They've asked for the report back, so we need to build up a response containing the report					
+					byte[] data_array = (byte[])out.get("getByteBody");
+					String contentDisp = out.has("contentdisposition")?out.getString("contentdisposition"):null;
+					request.sendUnknown(data_array,out.getString("contenttype"), contentDisp);
+					request.setCacheMaxAgeSeconds(0);	// Ensure we do not cache report output.
+					//request.sendJSONResponse(out);
+				}
 				request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
 			}
 			else{

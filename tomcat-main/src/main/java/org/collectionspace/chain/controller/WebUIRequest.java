@@ -468,4 +468,9 @@ public class WebUIRequest implements UIRequest {
 
 	public UISession getSession() throws UIException { return session; }
 	public  HttpSession getHttpSession() { return request.getSession(true); }
+	
+	@Override
+	public void sendURLReponse(String url) throws UIException {
+		response.setHeader("Location", url);
+	}
 }
