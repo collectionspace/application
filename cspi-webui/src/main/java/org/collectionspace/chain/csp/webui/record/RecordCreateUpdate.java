@@ -468,7 +468,7 @@ public class RecordCreateUpdate implements WebMethod {
 				// First get invocation context params from the incoming path/url
 				//
 				String[] bits = path.split("/");
-				if (bits.length > 1 && !bits[1].equals("output")) {
+				if (bits.length > 2 && !bits[1].equals("output")) {
 					//
 					// Create the "InvocationContext" for the report -right now this is hard coded.
 					//
