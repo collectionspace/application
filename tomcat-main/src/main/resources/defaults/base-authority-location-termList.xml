@@ -1,5 +1,5 @@
 
-<record id="preferredSLA" in-recordlist="no" separate-record="false">
+<record id="preferredSLA" type="authority" in-recordlist="no" separate-record="false">
     <hassoftdelete>true</hassoftdelete>
     <section id="termInformation">
         <repeat id="locTermGroupList/locTermGroup">
