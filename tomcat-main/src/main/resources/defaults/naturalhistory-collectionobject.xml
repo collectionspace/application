@@ -303,7 +303,7 @@
                                     <option id="Acaponeta">Acaponeta</option>
                                     <option id="Accomack">Accomack</option>
                                     <option id="Ada">Ada</option>
-                                    <option id="ADAMS">ADAMS</option>
+                                    <option id="Adams">Adams</option>
                                     <option id="Addison">Addison</option>
                                     <option id="Agusan del Norte">Agusan del Norte</option>
                                     <option id="Ahuacatlan">Ahuacatlan</option>
@@ -354,8 +354,8 @@
                                     <option id="Berwickshire (UK)">Berwickshire (UK)</option> 
                                     <option id="Bibb">Bibb</option>
                                     <option id="Bienville">Bienville</option>
-                                    <option id="BLAINE">BLAINE</option>
-                                    <option id="BOISE">BOISE</option>
+                                    <option id="Blaine">Blaine</option>
+                                    <option id="Boise">Boise</option>
                                     <option id="Bonaventure">Bonaventure</option>
                                     <option id="Bongara">Bongara</option>
                                     <option id="Bothwell Municipality">Bothwell Municipality</option>
@@ -384,7 +384,7 @@
                                     <option id="Calaveras">Calaveras</option>
                                     <option id="Caldwell">Caldwell</option>
                                     <option id="Caledonia">Caledonia</option>
-                                    <option id="CAMAS">CAMAS</option>
+                                    <option id="Camas">Camas</option>
                                     <option id="Cambridgeshire (UK)">Cambridgeshire (UK)</option> 
                                     <option id="Camden">Camden</option>
                                     <option id="Cameron">Cameron</option>
@@ -435,7 +435,7 @@
                                     <option id="Collier">Collier</option>
                                     <option id="Columbia">Columbia</option>
                                     <option id="Colusa">Colusa</option>
-                                    <option id="COMAL">COMAL</option>
+                                    <option id="Comal">Comal</option>
                                     <option id="Comanche">Comanche</option>
                                     <option id="Compostela">Compostela</option>
                                     <option id="Conejos">Conejos</option>
@@ -452,7 +452,7 @@
                                     <option id="Cumberland (UK)">Cumberland (UK)</option> 
                                     <option id="Cumberland">Cumberland</option>
                                     <option id="Curry">Curry</option>
-                                    <option id="CUSTER">CUSTER</option>
+                                    <option id="Custer">Custer</option>
                                     <option id="Cuyahoga">Cuyahoga</option>
                                     <option id="Dane">Dane</option>
                                     <option id="De Kalb">De Kalb</option>
@@ -468,7 +468,7 @@
                                     <option id="Dodge">Dodge</option>
                                     <option id="Dona Ana">Dona Ana</option>
                                     <option id="Dorset (UK)">Dorset (UK)</option> 
-                                    <option id="DOUGLAS">DOUGLAS</option>
+                                    <option id="Douglas">Douglas</option>
                                     <option id="Down (UK)">Down (UK)</option> 
                                     <option id="Du Page">Du Page</option>
                                     <option id="Duchesne">Duchesne</option>
@@ -483,10 +483,10 @@
                                     <option id="El Dorado">El Dorado</option>
                                     <option id="El Paso">El Paso</option>
                                     <option id="Elko">Elko</option>
-                                    <option id="ELMORE">ELMORE</option>
+                                    <option id="Elmore">Elmore</option>
                                     <option id="Emery">Emery</option>
                                     <option id="Erie">Erie</option>
-                                    <option id="ESMERALDA">ESMERALDA</option>
+                                    <option id="Esmeralda">Esmeralda</option>
                                     <option id="Esmeraldas">Esmeraldas</option>
                                     <option id="Esperance Municipality">Esperance Municipality</option>
                                     <option id="Essex (MA)">Essex (MA)</option>
@@ -561,18 +561,18 @@
                                     <option id="Hunterdon">Hunterdon</option>
                                     <option id="Huntingdonshire (UK)">Huntingdonshire (UK)</option> 
                                     <option id="Huron">Huron</option>
-                                    <option id="IDAHO">IDAHO</option>
+                                    <option id="Idaho">Idaho</option>
                                     <option id="Imperial">Imperial</option>
                                     <option id="Independence">Independence</option>
                                     <option id="Inverness-shire (UK)">Inverness-shire (UK)</option> 
                                     <option id="Inyo">Inyo</option>
-                                    <option id="IRON">IRON</option>
+                                    <option id="Iron">Iron</option>
                                     <option id="Island">Island</option>
                                     <option id="Isle of Wight">Isle of Wight</option>
                                     <option id="Itasca">Itasca</option>
                                     <option id="Ixtlan">Ixtlan</option>
                                     <option id="Izard">Izard</option>
-                                    <option id="JACKSON">JACKSON</option>
+                                    <option id="Jackson">Jackson</option>
                                     <option id="Jaguariaiya">Jaguariaiya</option>
                                     <option id="Jalisco">Jalisco</option>
                                     <option id="Jasper">Jasper</option>
@@ -607,9 +607,9 @@
                                     <option id="Kiowa">Kiowa</option>
                                     <option id="Kirkcudbrightshire (UK)">Kirkcudbrightshire (UK)</option> 
                                     <option id="Kitsap">Kitsap</option>
-                                    <option id="KITTITAS">KITTITAS</option>
+                                    <option id="Kittitas">Kittitas</option>
                                     <option id="Klamath">Klamath</option>
-                                    <option id="KLICKITAT">KLICKITAT</option>
+                                    <option id="Klickitat">Klickitat</option>
                                     <option id="Knox">Knox</option>
                                     <option id="Kodiak Island">Kodiak Island</option>
                                     <option id="Kootenai">Kootenai</option>
@@ -633,15 +633,15 @@
                                     <option id="Lawrence">Lawrence</option>
                                     <option id="Lehigh">Lehigh</option>
                                     <option id="Leicestershire (UK)">Leicestershire (UK)</option> 
-                                    <option id="LEMHI">LEMHI</option>
+                                    <option id="Lemhi">Lemhi</option>
                                     <option id="Leon">Leon</option>
                                     <option id="Lewis">Lewis</option>
                                     <option id="Licking">Licking</option>
                                     <option id="Lilydale Municipality">Lilydale Municipality</option>
-                                    <option id="LINCOLN">LINCOLN</option>
+                                    <option id="Lincoln">Lincoln</option>
                                     <option id="Lincolnshire (UK)">Lincolnshire (UK)</option> 
                                     <option id="Linn">Linn</option>
-                                    <option id="LLANO">LLANO</option>
+                                    <option id="Llano">Llano</option>
                                     <option id="Loja">Loja</option>
                                     <option id="Londonderry (UK)">Londonderry (UK)</option> 
                                     <option id="Longford Municipality">Longford Municipality</option>
@@ -652,7 +652,7 @@
                                     <option id="Macon">Macon</option>
                                     <option id="Madera">Madera</option>
                                     <option id="Madison">Madison</option>
-                                    <option id="MALHEUR">MALHEUR</option>
+                                    <option id="Malheur">Malheur</option>
                                     <option id="Manabi">Manabi</option>
                                     <option id="Maricopa">Maricopa</option>
                                     <option id="Marin">Marin</option>
@@ -732,6 +732,7 @@
                                     <option id="Ozaukee">Ozaukee</option>
                                     <option id="Pacific">Pacific</option>
                                     <option id="Page">Page</option>
+                                    <option id="Palm Beach">Palm Beach</option>
                                     <option id="Palmeira">Palmeira</option>
                                     <option id="Pampanga">Pampanga</option>
                                     <option id="Pangasinan">Pangasinan</option>
@@ -892,7 +893,7 @@
                                     <option id="Tooele">Tooele</option>
                                     <option id="Torrance">Torrance</option>
                                     <option id="Towns">Towns</option>
-                                    <option id="TRAVIS">TRAVIS</option>
+                                    <option id="Travis">Travis</option>
                                     <option id="Treutlen">Treutlen</option>
                                     <option id="Trinity">Trinity</option>
                                     <option id="Tulare">Tulare</option>
@@ -903,14 +904,14 @@
                                     <option id="Uintah">Uintah</option>
                                     <option id="Ulster">Ulster</option>
                                     <option id="Ulverstone Municipality">Ulverstone Municipality</option>
-                                    <option id="UMATILLA">UMATILLA</option>
+                                    <option id="Umatilla">Umatilla</option>
                                     <option id="Union">Union</option>
                                     <option id="Unknown">Unknown</option>
                                     <option id="Upshur">Upshur</option>
                                     <option id="Urubamba">Urubamba</option>
                                     <option id="Utah">Utah</option>
                                     <option id="Valencia">Valencia</option>
-                                    <option id="VALLEY">VALLEY</option>
+                                    <option id="Valley">Valley</option>
                                     <option id="Vanua Levu">Vanua Levu</option>
                                     <option id="Ventura">Ventura</option>
                                     <option id="Vermilion">Vermilion</option>
@@ -920,10 +921,10 @@
                                     <option id="Walla Walla">Walla Walla</option>
                                     <option id="Waratah Municipality">Waratah Municipality</option>
                                     <option id="Warwickshire (UK)">Warwickshire (UK)</option> 
-                                    <option id="WASCO">WASCO</option>
+                                    <option id="Wasco">Wasco</option>
                                     <option id="Washakie">Washakie</option>
                                     <option id="Washington">Washington</option>
-                                    <option id="WASHOE">WASHOE</option>
+                                    <option id="Washoe">Washoe</option>
                                     <option id="Waukesha">Waukesha</option>
                                     <option id="Waushara">Waushara</option>
                                     <option id="West Lothian (Linlithgowshire) (UK)">West Lothian (Linlithgowshire) (UK)</option> 
@@ -1378,7 +1379,7 @@
 					<option id="Antigua and Barbuda">Antigua and Barbuda</option>
 					<option id="Argentina">Argentina</option>
 					<option id="Armenia">Armenia</option>
-					<option id="AUSTRALIA">AUSTRALIA</option>
+					<option id="Australia">Australia</option>
                                         <option id="Belgium">Belgium</option>
 					<option id="Belize">Belize</option>
 					<option id="Bermuda">Bermuda</option>
@@ -1388,7 +1389,7 @@
 					<option id="Brunei">Brunei</option>
 					<option id="Cambodia">Cambodia</option>
 					<option id="Cameroon">Cameroon</option>
-					<option id="CANADA">CANADA</option>
+					<option id="Canada">Canada</option>
 					<option id="Chile">Chile</option>
                                         <option id="China">China</option>
 					<option id="Colombia">Colombia</option>
@@ -1397,9 +1398,9 @@
                                         <option id="Croatia">Croatia</option>
 					<option id="Cuba">Cuba</option>
 					<option id="D R Congo">D R Congo</option>
-					<option id="DENMARK">DENMARK</option>
+					<option id="Denmark">Denmark</option>
 					<option id="Dominican Republic">Dominican Republic</option>
-					<option id="ECUADOR">ECUADOR</option>
+					<option id="Ecuador">Ecuador</option>
 					<option id="El Salvador">El Salvador</option>
 					<option id="Ellas">Ellas</option>
 					<option id="Equatorial Guinea">Equatorial Guinea</option>
@@ -1423,7 +1424,7 @@
 					<option id="Ireland">Ireland</option>
 					<option id="Israel">Israel</option>
 					<option id="Italy">Italy</option>
-					<option id="JAMAICA">JAMAICA</option>
+					<option id="Jamaica">Jamaica</option>
 					<option id="Japan">Japan</option>
 					<option id="Jordan">Jordan</option>
 					<option id="Kenya">Kenya</option>
@@ -1432,7 +1433,7 @@
 					<option id="Malawi">Malawi</option>
 					<option id="Malaysia">Malaysia</option>
                                         <option id="Marshall Islands">Marshall Islands</option>
-					<option id="MEXICO">MEXICO</option>
+					<option id="Mexico">Mexico</option>
 					<option id="Micronesia">Micronesia</option>
 					<option id="Mongolia">Mongolia</option>
 					<option id="Morocco">Morocco</option>
@@ -1446,12 +1447,12 @@
 					<option id="Nicaragua">Nicaragua</option>
 					<option id="Nihon">Nihon</option>
 					<option id="Niue">Niue</option>
-					<option id="NORWAY">NORWAY</option>
+					<option id="Norway">Norway</option>
 					<option id="Pakistan">Pakistan</option>
 					<option id="Panama">Panama</option>
 					<option id="Papua New Guinea">Papua New Guinea</option>
 					<option id="Paraguay">Paraguay</option>
-					<option id="PERU">PERU</option>
+					<option id="Peru">Peru</option>
 					<option id="Philippines">Philippines</option>
 					<option id="Polynesia">Polynesia</option>
 					<option id="Polynesie francaise">Polynesie francaise</option>
@@ -1461,7 +1462,6 @@
 					<option id="Republica Dominicana">Republica Dominicana</option>
 					<option id="Reunion">Reunion</option>
 					<option id="Russia">Russia</option>
-					<option id="SA">SA</option>
 					<option id="Saint Helena">Saint Helena</option>
 					<option id="Saint Lucia">Saint Lucia</option>
 					<option id="Samoa">Samoa</option>
@@ -1469,7 +1469,7 @@
 					<option id="Seychelles">Seychelles</option>
 					<option id="Slovenia">Slovenia</option>                                        
 					<option id="Solomon Islands">Solomon Islands</option>
-					<option id="SOUTH AFRICA">SOUTH AFRICA</option>
+					<option id="South Africa">South Africa</option>
 					<option id="South Korea">South Korea</option>
 					<option id="Spain">Spain</option>                                        
 					<option id="Sri Lanka">Sri Lanka</option>
@@ -1484,7 +1484,6 @@
 					<option id="Trinidad and Tobago">Trinidad and Tobago</option>
 					<option id="Turkey">Turkey</option>
 					<option id="Uganda">Uganda</option>
-					<option id="UK">UK</option>
 					<option id="United Kingdom">United Kingdom</option>
 					<option id="Uruguay">Uruguay</option>
 					<option id="USA">USA</option>
@@ -1503,24 +1502,11 @@
 						<option id="North America">North America</option>
 				</options>
 			</field>
-
 			<field id="vCoordinates" section="naturalhistory"/>
+                        <field id="vOtherCoords" section="naturalhistory"/>
 			<field id="vLatitude" section="naturalhistory"/>
 			<field id="vLongitude" section="naturalhistory"/>
-			<field id="vCoordSys" section="naturalhistory">
-				<options>
-					<option id="">Please select a value</option>
-					<option id="Unknown">Unknown</option>
-					<option id="None">None</option>
-					<option id="Degrees">Degrees</option>
-					<option id="Decimal Degrees">Decimal Degrees</option>
-					<option id="Degrees Decimal Minutes">Degrees Decimal Minutes</option>
-					<option id="Degrees Minutes Seconds">Degrees Minutes Seconds</option>
-					<option id="Township Range Section">Township Range Section</option>
-					<option id="Township Range Section / Degrees">Township Range Section / Degrees</option>
-					<option id="Universal Transverse Mercator">Universal Transverse Mercator</option>
-				</options>
-			</field>
+			<field id="vCoordSys" section="naturalhistory" autocomplete="vocab-vcoordsys" ui-type="enum"/>
 			<field id="vSpatialReferenceSystem" section="naturalhistory">
 				<options>
 					<option id="" default="yes">Please select a value</option>
