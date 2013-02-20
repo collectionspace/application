@@ -12,7 +12,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.collectionspace.csp.api.ui.UIException;
+import org.collectionspace.csp.api.ui.UIRequest;
 import org.collectionspace.csp.api.ui.UISession;
 
 /**
@@ -25,6 +28,7 @@ public class WebUISession implements UISession {
 	private String id;
 	private Random rnd=new Random();
 	private Map<String,Object> data=new HashMap<String,Object>();
+	private WebUIRequest webUIRequest;
 	
 	private String randomSession() throws UIException {
 		String sessionid=rnd.nextLong()+":"+rnd.nextLong()+":"+System.currentTimeMillis();
@@ -54,8 +58,14 @@ public class WebUISession implements UISession {
 	 * @param umbrella
 	 * @throws UIException
 	 */
-	public WebUISession(WebUIUmbrella umbrella) throws UIException {
+	public WebUISession(WebUIUmbrella umbrella, WebUIRequest request) throws UIException {
+		this.webUIRequest = request;
 		id=randomSession();
+	}
+	
+	@Override
+	public UIRequest getUIRequest() {
+		return this.webUIRequest;
 	}
 	
 	void setOld() { old=true; }

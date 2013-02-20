@@ -33,9 +33,9 @@ public class WebUIUmbrella implements UIUmbrella {
 		out.setOld();
 		return out;
 	}
-	
-	WebUISession createSession() throws UIException {
-		WebUISession out=new WebUISession(this);
+		
+	WebUISession createSession(WebUIRequest request) throws UIException {
+		WebUISession out = new WebUISession(this, request);
 		sessions.put(out.getID(),out);
 		return out;
 	}

@@ -6,6 +6,9 @@
  */
 package org.collectionspace.chain.csp.webui.main;
 
+import java.util.Enumeration;
+import java.util.HashMap;
+
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.Storage;
@@ -27,17 +30,19 @@ public class Request {
 	}
 	
 	private CSPRequestCredentials generateCredentials(UISession session) {
+		UIRequest webUIRequest = session.getUIRequest();
+		
 		CSPRequestCredentials creds=storage_generator.createCredentials(); // XXX
 		if(session!=null && creds!=null) {
 			String userId = (String) session.getValue(UISession.USERID);
 			if (userId == null || userId.isEmpty() || userId.trim().isEmpty()) {
-				userId = "<No User ID specified.>";
+				userId = webUIRequest.getRequestHeader(UISession.USERID);
 			}
 			creds.setCredential(StorageGenerator.CRED_USERID, userId);
 			
 			String password = (String) session.getValue(UISession.PASSWORD);
 			if (password == null || password.isEmpty() || password.trim().isEmpty()) {
-				password = "<No password specified.>";
+				password = webUIRequest.getRequestHeader(UISession.PASSWORD);
 			}
 			creds.setCredential(StorageGenerator.CRED_PASSWORD, password);
 		}

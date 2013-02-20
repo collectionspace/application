@@ -14,6 +14,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -211,6 +212,11 @@ public class CompositeWebUIRequestPart implements UIRequest {
 
 	@Override
 	public String getRequestArgument(String key) throws UIException { return params.get(key); }
+	
+	@Override	
+	public String getRequestHeader(String key) {
+		return null;
+	}	
 	
 	@Override
 	public Set<String> getAllRequestArgument() throws UIException { return params.keySet(); }

@@ -182,7 +182,7 @@ public class WebUIRequest implements UIRequest {
 			}
 		}
 		// No valid session: make our own
-		return umbrella.createSession();
+		return umbrella.createSession(this);
 	}
 
 	// XXX expire sessions
@@ -263,6 +263,12 @@ public class WebUIRequest implements UIRequest {
 		
 		return param;
 	}
+	
+	@Override	
+	public String getRequestHeader(String key) {
+		return request.getHeader(key);
+	}
+	
 	@Override
 	public Set<String> getAllRequestArgument() throws UIException {
 		Set<String> params = new HashSet<String>();

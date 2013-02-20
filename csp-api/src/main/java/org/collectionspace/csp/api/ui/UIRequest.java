@@ -6,6 +6,7 @@
  */
 package org.collectionspace.csp.api.ui;
 
+import java.util.Enumeration;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
@@ -57,6 +58,7 @@ public interface UIRequest {
 
 	public String getRequestArgument(String key) throws UIException;
 	public Set<String> getAllRequestArgument() throws UIException;
+	public String getRequestHeader(String key);
 	public Operation getRequestedOperation() throws UIException;
 	
 	public UISession getSession() throws UIException;
