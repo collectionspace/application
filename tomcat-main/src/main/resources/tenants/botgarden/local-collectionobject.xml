@@ -154,9 +154,9 @@
 		</field>
 		<field id="postToPublic" section="botgarden">
 			<options>
-				<option id="" default="yes">Please select a value</option>
-				<option id="no" default="yes">No</option>
-				<option id="yes">Yes</option>
+				<option id="">Please select a value</option>
+				<option id="no">No</option>
+				<option id="yes" default="yes">Yes</option>
 			</options>
 		</field>
 		
