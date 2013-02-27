@@ -60,18 +60,18 @@
             <selector>preferred-workAuthority</selector>
         </field>
         <field id="workHistoryNote"/>
-        <field id="workType" autocomplete="vocab-worktype" ui-type="enum"/>
+        <field id="workType" ui-search="repeatable" autocomplete="vocab-worktype" ui-type="enum"/>
         <repeat id="workDateGroupList/workDateGroup">
-            <group id="workDate" xxx-services-no-repeat="true"
+            <group id="workDate" xxx-services-no-repeat="true" 
                    ui-type="groupfield/structureddate" primarykey="dateDisplayDate"
-                   ui-func="cspace.structuredDate"/>
+                   ui-search="range" ui-func="cspace.structuredDate"/>
         </repeat>
         <repeat id="creatorGroupList/creatorGroup">
-            <field id="creator" autocomplete="person-person"/>
+            <field id="creator" ui-search="repeatable" autocomplete="person-person"/>
             <field id="creatorType" autocomplete="vocab-workcreatortype" ui-type="enum"/>
         </repeat>
         <repeat id="publisherGroupList/publisherGroup">
-            <field id="publisher" autocomplete="person-person"/>
+            <field id="publisher" ui-search="repeatable" autocomplete="person-person"/>
             <field id="publisherType" autocomplete="vocab-workpublishertype" ui-type="enum"/>
         </repeat>
     </section>
