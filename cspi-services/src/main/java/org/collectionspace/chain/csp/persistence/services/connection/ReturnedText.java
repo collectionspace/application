@@ -10,10 +10,16 @@ import org.apache.commons.httpclient.HttpMethod;
 
 public class ReturnedText implements Returned {
 	private String text;
+	private int status;
 	
 	public void setResponse(HttpMethod method, int status) throws Exception {
 		text=method.getResponseBodyAsString();
+		this.status = status;
 	}
 
 	public String getText() { return text; }
+
+	public int getStatus() {
+		return status;
+	}
 }

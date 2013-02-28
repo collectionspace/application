@@ -221,4 +221,8 @@ public class StreamUIRequest implements UIRequest {
 	public UISession getSession() { return null; } // XXX support this?
 	public  HttpSession getHttpSession() { return null; }
 
+	public void sendURLReponse(String url) throws UIException {
+		println(out, url);
+	}
+
 }
