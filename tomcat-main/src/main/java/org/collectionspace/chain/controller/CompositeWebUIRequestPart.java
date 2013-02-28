@@ -306,4 +306,11 @@ public class CompositeWebUIRequestPart implements UIRequest {
 		rpath=in;
 		secondary_redirect=true;
 	}
+
+	@Override
+	public void sendURLReponse(String url) throws UIException {
+		PrintWriter pw=new PrintWriter(body_out);
+		pw.print(url);
+		pw.flush();
+	}
 }

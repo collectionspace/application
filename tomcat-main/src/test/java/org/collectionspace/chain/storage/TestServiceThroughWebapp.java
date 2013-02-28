@@ -14,7 +14,10 @@ import org.collectionspace.chain.util.json.JSONUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,12 +28,17 @@ public class TestServiceThroughWebapp {
 	private static TestBase tester = new TestBase();
 	static ServletTester jetty;
 	static {
-		try{
+		try {
 			jetty=tester.setupJetty("core",true);
-			}
-		catch(Exception ex){
-			
 		}
+		catch(Exception ex){
+			log.error("Could not setup Jetty for test runs", ex);
+		}
+	}
+	
+	@BeforeClass public static void testInitialise() throws Exception {
+		HttpTester out = tester.GETData(TestBase.AUTHS_INIT_PATH, jetty);
+		log.info(out.getContent());
 	}
 	
 	private String getAdminUsername() {
@@ -54,20 +62,18 @@ public class TestServiceThroughWebapp {
 	/*
 	 * Login as the admin user for the tenant
 	 */
-	private void adminLogin() throws Exception {
+	@Before public void adminLogin() throws Exception {
 		String username = getAdminUsername();
 		String pwd = getAdminPassword();
 		String tenant = getAdminTenantId();
 		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/login","userid="+username+"&password="+pwd+"&tenant="+tenant);	
 		assertEquals(303,out.getStatus());
-		assertEquals("/collectionspace/ui/core/html/findedit.html",out.getHeader("Location"));
+		assertEquals("/collectionspace/ui/core/html/findedit.html",out.getHeader("Location"));		
 	}
-	
 	
 	@AfterClass public static void testStop() throws Exception {
 		tester.stopJetty(jetty);
 	}
-	
 	
 	@Test public void testCollectionObjectBasic() throws Exception {
 		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/cataloging/",tester.makeSimpleRequest(tester.getResourceString("obj3.json")));	

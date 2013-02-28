@@ -29,7 +29,7 @@ public class ReturnUnknown  implements Returned {
 	public  byte[] getBytes() { return bytebody; }
 	public String getContentType() { return contentType; }
 	public String getContentDisposition() { return contentDisposition; }
-	public int getStatus() { return status; }
+	@Override public int getStatus() { return status; }
 
 	public void setResponse(HttpMethod method, int status) throws IOException, DocumentException {
 		this.status=status;

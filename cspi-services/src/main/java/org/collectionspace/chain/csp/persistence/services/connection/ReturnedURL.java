@@ -20,7 +20,8 @@ public class ReturnedURL implements Returned {
 	ReturnedURL() {}
 	
 	public String getURL() { return url; }
-	public int getStatus() { return status; }
+	
+	@Override public int getStatus() { return status; }
 	
 	public String getURLTail() {
 		int last=url.lastIndexOf("/");
