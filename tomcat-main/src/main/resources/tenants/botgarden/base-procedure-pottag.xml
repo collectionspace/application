@@ -68,12 +68,12 @@
                     <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section id="volunteerLabels">
-                    <field id="family" ui-search="repeatable" in-title="yes" mini="number,search,list,terms,relate" autocomplete="taxon-taxon">
+                    <field id="family" ui-search="repeatable" in-title="yes" autocomplete="taxon-taxon">
                         <title-selector>titleBar-family</title-selector>
             		</field>
                     <field id="commonName" ui-search="repeatable"/>
                     <field id="locale" ui-search="repeatable" />
-                    <field id="taxonName" ui-search="repeatable" autocomplete="taxon-taxon,taxon-plantsales"/>
+                    <field id="taxonName" ui-search="repeatable" mini="number,search,list,terms,relate" autocomplete="taxon-taxon,taxon-plantsales"/>
                     <field id="labelData"/>
                     <field id="numberOfLabels"/>
                     <field id="printLabels" ui-search="repeatable" mini="summary,search,list,terms,relate">
