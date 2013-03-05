@@ -93,7 +93,11 @@
 				<option id="false">No</option>
 			</options>
 		</field>
-		<field id="deadDate" ui-search="range" ui-type="date" section="botgarden"/>
+		<field id="deadDate" section="botgarden"/>
+		<field id="deadDateSearch" ui-search="range" ui-type="date" exists-in-services="false" section="botgarden">
+		    <services-tag>deadDate</services-tag>
+		</field>
+    	    
 	</section>
 	
 	<section id="descriptionInformation">
