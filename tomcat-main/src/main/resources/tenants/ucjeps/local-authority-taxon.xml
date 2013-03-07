@@ -1,4 +1,6 @@
 <record id="taxon">
+    <services-record-path id="ucjeps">taxon_ucjeps:http://collectionspace.org/services/taxon/local/ucjeps,taxon_ucjeps</services-record-path>
+    
     <instances id="taxon">
         <instance id="taxon-taxon">
             <title>Default Scientific Taxonomy Authority</title>
@@ -64,6 +66,20 @@
 				<option id="variety">variety</option>
 			</options>
 		</field>
+                <field id="taxonMajorGroup" section="ucjeps">
+                        <options>
+                                <option id="">Please select a value</option>
+                                <option id="Spermatophytes">Spermatophytes</option>
+                                <option id="Pteridophytes">Pteridophytes</option>
+                                <option id="Algae">Algae</option>
+                                <option id="Bryophytes">Bryophytes</option>
+                                <option id="Seaweeds">Seaweeds</option>
+                                <option id="Fungi">Fungi</option>
+                                <option id="Lichen">Lichen</option>
+                                <option id="n/a">n/a</option>
+                                <option id="misc">misc</option>
+                        </options> 
+                </field>
 		<repeat id="taxonAuthorGroupList/taxonAuthorGroup">
 			<!-- Change autocomplete to organization-nomenclature -->
 			<field id="taxonAuthor" autocomplete="organization-nomenclature"></field>
