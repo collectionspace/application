@@ -233,6 +233,13 @@ public class ServicesConnection {
 		return out;
 	}
 
+	public ReturnedURL getPublishedReportDocumentURL(RequestMethod method_type,String uri,Document body,CSPRequestCredentials creds,CSPRequestCache cache) throws ConnectionException {
+		ReturnedURL out=new ReturnedURL();
+		doRequest(out,method_type,uri,makeDocumentSource(body),creds,cache);
+		out.relativize(base_url); // Annoying, but we don't want to have factories etc. or too many args
+		return out;
+	}
+	
 	public ReturnedMultipartDocument getMultipartXMLDocument(RequestMethod method_type,String uri,Map<String,Document> body,CSPRequestCredentials creds,CSPRequestCache cache) throws ConnectionException {
 		ReturnedMultipartDocument out=new ReturnedMultipartDocument();
 		doRequest(out,method_type,uri,makeMultipartSource(body),creds,cache);

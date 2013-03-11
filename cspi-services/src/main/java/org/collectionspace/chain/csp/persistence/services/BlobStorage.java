@@ -10,6 +10,7 @@ import org.dom4j.Document;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnUnknown;
+import org.collectionspace.chain.csp.persistence.services.connection.Returned;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMultipartDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
@@ -30,6 +31,7 @@ import org.slf4j.LoggerFactory;
 public class BlobStorage extends GenericStorage {
 	private static final Logger log=LoggerFactory.getLogger(RecordStorage.class);
 	private static final String ORIGINAL_CONTENT = "Original";
+	private static final CharSequence PUBLISH_URL_SUFFIX = "publish";
 	
 	public BlobStorage(Record r,ServicesConnection conn) throws DocumentException, IOException {	
 		super(r,conn);
@@ -64,7 +66,7 @@ public class BlobStorage extends GenericStorage {
 					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),softpath);
 				out.put("getByteBody", doc.getBytes()); // REM: We're returning an array of bytes here and we probably should be using a stream of bytes
 				out.put("contenttype", doc.getContentType());
-				
+				out.put("contentdisposition", doc.getContentDisposition());
 			}
 			else{
 				ReturnUnknown doc = conn.getUnknownDocument(RequestMethod.GET, servicesurl+softpath, null, creds, cache);
@@ -73,6 +75,7 @@ public class BlobStorage extends GenericStorage {
 
 				out.put("getByteBody", doc.getBytes());
 				out.put("contenttype", doc.getContentType());
+				out.put("contentdisposition", doc.getContentDisposition());
 			}
 
 		} catch (ConnectionException e) {
@@ -86,7 +89,7 @@ public class BlobStorage extends GenericStorage {
 	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject restrictions) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		try {
-			if(r.isType("report")){
+			if (r.isType("report") == true) {
 				Document doc = null;
 				Map<String,Document> parts=new HashMap<String,Document>();
 				for(String section : r.getServicesRecordPaths()) {
@@ -97,24 +100,43 @@ public class BlobStorage extends GenericStorage {
 						parts.put(record_path[0],doc);
 					}
 				}
-				ReturnUnknown doc2 = null;
-				if(filePath.contains("/output")){
-					doc2 = conn.getReportDocument(RequestMethod.GET, "reports/"+filePath, null, creds, cache);
-					
-				}
-				else{
-					doc2 = conn.getReportDocument(RequestMethod.POST, "reports/"+filePath, doc, creds, cache);
-					
-				}
-				if(doc2.getStatus()>299 || doc2.getStatus()<200)
-					throw new UnderlyingStorageException("Bad response ", doc2.getStatus(), r.getServicesURL()+"/");
 				
+				Returned response = null;
 				JSONObject out = new JSONObject();
-				out.put("getByteBody", doc2.getBytes());
-				out.put("contenttype", doc2.getContentType());
+				if (filePath.contains("/output") == true) {
+					//
+					// <Please document what this request returns>
+					//
+					response = conn.getReportDocument(RequestMethod.GET, "reports/"+filePath, null, creds, cache);			
+				}
+				else if (filePath.contains(PUBLISH_URL_SUFFIX) == true) {
+					//
+					// If they asked to publish the report then we return a URL to the publicitems service
+					//
+					response = conn.getPublishedReportDocumentURL(RequestMethod.POST, "reports/"+filePath, doc, creds, cache);
+					ReturnedURL returnedURL = (ReturnedURL)response;
+					out.put("Location", returnedURL.getURL());
+				} else {
+					//
+					// This request returns the contents of the report.
+					//
+					response = conn.getReportDocument(RequestMethod.POST, "reports/"+filePath, doc, creds, cache);
+					ReturnUnknown returnUnknown = (ReturnUnknown)response;
+					out.put("getByteBody", returnUnknown.getBytes());
+					out.put("contenttype", returnUnknown.getContentType());
+					out.put("contentdisposition", returnUnknown.getContentDisposition());
+				}
+
+				int status = response.getStatus();
+				if (status > 299 || status < 200) {
+					throw new UnderlyingStorageException("Bad response ", status, r.getServicesURL() + "/");
+				}
+				
 				return out;
-			}
-			else{
+			} else {
+				//
+				// We're being asked for an image or some other attachment.
+				//
 				String[] parts=filePath.split("/");
 				if(parts.length>=2) {
 					String extra = "";

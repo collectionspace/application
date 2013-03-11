@@ -1,10 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.collectionspace</groupId>
 	<artifactId>tomcat-main</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0-SNAPSHOT</version>
 	<name>Core</name>
 	<url>http://maven.apache.org</url>
 
@@ -13,9 +11,6 @@
 		<artifactId>svcapp</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-
-
-
 
 	<dependencies>
 		<dependency>
@@ -35,12 +30,6 @@
 			<artifactId>cspi-installation</artifactId>
 			<version>1.0-SNAPSHOT</version>
 			<type>jar</type>
-		</dependency>
-		<dependency>
-			<groupId>org.collectionspace</groupId>
-			<artifactId>jxutils</artifactId>
-			<version>1.0-SNAPSHOT</version>
-			<scope>test</scope>
 		</dependency>
 
 		<!-- XXX remove -->
@@ -120,11 +109,13 @@
 		<dependency>
 			<groupId>org.mortbay.jetty</groupId>
 			<artifactId>jetty</artifactId>
+			<version>6.1.22</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mortbay.jetty</groupId>
 			<artifactId>jetty-servlet-tester</artifactId>
+			<version>6.1.22</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -167,18 +158,6 @@
 			<version>1.5.6</version>
 		</dependency>
 		<dependency>
-			<groupId>org.mortbay.jetty</groupId>
-			<artifactId>jetty</artifactId>
-			<version>6.1.22</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mortbay.jetty</groupId>
-			<artifactId>jetty-servlet-tester</artifactId>
-			<version>6.1.22</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
@@ -198,9 +177,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
 				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
+					<source>1.7</source>
+					<target>1.7</target>
 					<optimize>true</optimize>
 				</configuration>
 			</plugin>

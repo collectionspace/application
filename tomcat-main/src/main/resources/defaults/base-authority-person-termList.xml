@@ -1,6 +1,6 @@
 <record id="preferredPA" in-recordlist="no" separate-record="false">
     <hassoftdelete>true</hassoftdelete>
-    <section>
+    <section id="termInformation">
         <!-- List containing this item's preferred term and any non-preferred terms -->
         <repeat id="personTermGroupList/personTermGroup">
             <!-- Fields common across all authority items -->

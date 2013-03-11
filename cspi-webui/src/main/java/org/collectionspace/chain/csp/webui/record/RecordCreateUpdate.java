@@ -18,6 +18,7 @@ import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.authorities.AuthoritiesVocabulariesInitialize;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
+import org.collectionspace.chain.csp.webui.main.WebMethodWithOps;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.chain.csp.webui.misc.Generic;
 import org.collectionspace.chain.csp.webui.nuispec.CacheTermList;
@@ -35,7 +36,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class RecordCreateUpdate implements WebMethod {
+public class RecordCreateUpdate implements WebMethodWithOps {
 	private static final Logger log=LoggerFactory.getLogger(RecordCreateUpdate.class);
 	protected String url_base,base;
 	protected boolean create;
@@ -310,6 +311,7 @@ public class RecordCreateUpdate implements WebMethod {
 
 	private final static String DELETE_WORKFLOW_TRANSITION = Generic.DELETE_PERMISSION;
 	private final static String LOCK_WORKFLOW_TRANSITION = Generic.LOCK_PERMISSION;
+	private static final String PUBLISH_URL_SUFFIX = "publish";
 
 	private void assignPermissions(Storage storage, String path, JSONObject data) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException, UIException{
 		JSONObject fields=data.optJSONObject("fields");
@@ -387,6 +389,29 @@ public class RecordCreateUpdate implements WebMethod {
 			path=storage.autocreateJSON(spec.getRecordByWebUrl("permrole").getID(),arfields,null);
 	}
 	
+	private boolean setPayloadField(String fieldName, JSONObject payloadOut, JSONObject fieldsSrc, JSONObject dataSrc, String defaultValue) throws JSONException {
+		boolean result = true;
+		
+		if (fieldsSrc != null && fieldsSrc.has(fieldName)) {
+			payloadOut.put(fieldName, fieldsSrc.getString(fieldName));
+		} else if (dataSrc != null && dataSrc.has(fieldName)) {
+			payloadOut.put(fieldName, dataSrc.getString(fieldName));
+		} else if (defaultValue != null) {
+			payloadOut.put(fieldName, defaultValue);
+		} else {
+			result = false;
+		}
+		
+		return result;
+	}
+	
+	/*
+	 * Set a field in the payloadOut object with a value from fieldSrc or if not present there then from dataSrc
+	 */
+	private boolean setPayloadField(String fieldName, JSONObject payloadOut, JSONObject fieldsSrc, JSONObject dataSrc) throws JSONException {
+		return setPayloadField(fieldName, payloadOut, fieldsSrc, dataSrc, null);
+	}
+	
 	private void store_set(Storage storage,UIRequest request,String path) throws UIException {
 		try {
 			JSONObject restrictions = new JSONObject();
@@ -407,10 +432,11 @@ public class RecordCreateUpdate implements WebMethod {
 					ResponseCache.clearCache(ResponseCache.USER_PERMS_CACHE);
 				}
 			}
+			
 			if (this.record.getID().equals("media")) {
 				JSONObject fields=data.optJSONObject("fields");
 				// Handle linked media references
-				if (!fields.has("blobCsid") || StringUtils.isEmpty(fields.getString("blobCsid"))){	// If has blobCsid, already has media link so do nothing more
+				if (!fields.has("blobCsid") || StringUtils.isEmpty(fields.getString("blobCsid"))) {	// If has blobCsid, already has media link so do nothing more
 					// No media, so consider the source
 					// "sourceUrl" is not a declared field in the app layer config, but the UI passes it in
 					// Can consider mapping srcUri to this if want to clean that up
@@ -433,37 +459,16 @@ public class RecordCreateUpdate implements WebMethod {
 					}
 				}
 			}
-
-			if(this.record.getID().equals("output")){
-				//do a read instead of a create as reports are special and evil
-
-				JSONObject fields=data.optJSONObject("fields");
-				JSONObject payload = new JSONObject();
-				payload.put("mode", "single");
-
-				if(fields.has("mode")){
-					payload.put("mode", fields.getString("mode"));
-				}
-				if(fields.has("docType")){
-					String type = spec.getRecordByWebUrl(fields.getString("docType")).getServicesTenantSg();
-					payload.put("docType", type);
-				}
-				if(fields.has("singleCSID")){
-					payload.put("singleCSID", fields.getString("singleCSID"));
-				}
-				else if(fields.has("groupCSID")){
-					payload.put("singleCSID", fields.getString("csid"));
-				}
-				
-				JSONObject out=storage.retrieveJSON(base+"/"+path,payload);
-
-				byte[] data_array = (byte[])out.get("getByteBody");
-				request.sendUnknown(data_array,out.getString("contenttype"));
-				request.setCacheMaxAgeSeconds(0);	// Ensure we do not cache report output.
-				//request.sendJSONResponse(out);
-				request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
-			}
-			else{
+			
+			if (this.record.getID().equals("output")) {
+				//
+				// Invoke a report
+				//
+				ReportUtils.invokeReport(this, storage, request, path);
+			} else {
+				//
+				// <Please document this clause.>
+				//
 				FieldSet displayNameFS = this.record.getDisplayNameField();
 				String displayNameFieldName = (displayNameFS!=null)?displayNameFS.getID():null;
 				boolean remapDisplayName = false;
@@ -510,14 +515,16 @@ public class RecordCreateUpdate implements WebMethod {
 				} else {
 					path=sendJSON(storage,path,data,restrictions);
 				}
-				if(path==null)
+				
+				if (path == null) {
 					throw new UIException("Insufficient data for create (no fields?)");
-
-				if(this.base.equals("role")){
-					assignPermissions(storage,path,data);
 				}
-				if(this.base.equals("termlist")){
-					assignTerms(storage,path,data);
+
+				if (this.base.equals("role")) {
+					assignPermissions(storage, path, data);
+				}
+				if (this.base.equals("termlist")) {
+					assignTerms(storage, path, data);
 				}
 				
 				data=reader.getJSON(storage,path); // We do a GET now to read back what we created.
@@ -552,6 +559,7 @@ public class RecordCreateUpdate implements WebMethod {
 	
 	}
 	
+	@Override
 	public void run(Object in, String[] tail) throws UIException {
 		Request q=(Request)in;
 		ctl = new CacheTermList(q.getCache());
@@ -560,7 +568,24 @@ public class RecordCreateUpdate implements WebMethod {
 
 	public void configure() throws ConfigException {}
 	
+	@Override
 	public void configure(WebUI ui,Spec spec) {
 		this.searcher.configure(spec);
+	}
+
+	@Override
+	public Operation getOperation() {
+		return create ? Operation.CREATE : Operation.UPDATE;
+	}
+
+	@Override
+	public String getBase() {
+		return base;
+	}
+
+	@Override
+	public Spec getSpec() {
+		// TODO Auto-generated method stub
+		return spec;
 	}
 }

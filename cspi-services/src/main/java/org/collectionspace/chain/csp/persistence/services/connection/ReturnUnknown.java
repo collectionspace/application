@@ -20,14 +20,16 @@ public class ReturnUnknown  implements Returned {
 	private int status;
 	private Document doc;
 	private byte[] bytebody;
-	private String contenttype;
+	private String contentType;
+	private String contentDisposition;
 	
 	ReturnUnknown() {}
 
 	public Document getDocument() { return doc; }
 	public  byte[] getBytes() { return bytebody; }
-	public String getContentType() { return contenttype; }
-	public int getStatus() { return status; }
+	public String getContentType() { return contentType; }
+	public String getContentDisposition() { return contentDisposition; }
+	@Override public int getStatus() { return status; }
 
 	public void setResponse(HttpMethod method, int status) throws IOException, DocumentException {
 		this.status=status;
@@ -37,8 +39,10 @@ public class ReturnUnknown  implements Returned {
 		}
 		
 		// TODO errorhandling
+		Header content_disp=method.getResponseHeader("Content-Disposition");
+		contentDisposition = content_disp==null?"":content_disp.getValue();
 		Header content_type=method.getResponseHeader("Content-Type");
-		contenttype = content_type.getValue();
+		contentType = content_type.getValue();
 		if (content_type != null) {
 	        ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
 	        IOUtils.copy(stream, byteOut);

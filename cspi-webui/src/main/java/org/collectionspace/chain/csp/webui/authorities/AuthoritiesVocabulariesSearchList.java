@@ -25,6 +25,7 @@ import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
+import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.collectionspace.csp.api.ui.UISession;
@@ -260,7 +261,11 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 		}
 	}
 	
+	@Override
 	public void run(Object in, String[] tail) throws UIException {
+		if(tail.length > 0) {
+			throw new UIException("Illegal search specified. Tail: "+r.getWebURL()+"/"+StringUtils.join(tail,"/"));
+		}
 		Request q=(Request)in;
 		UIRequest uir = q.getUIRequest();
 		if(search) {
@@ -276,6 +281,7 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 		
 	}
 
+	@Override
 	public void configure(WebUI ui,Spec spec) {
 		for(Record r : spec.getAllRecords()) {
 			type_to_url.put(r.getID(),r.getWebURL());

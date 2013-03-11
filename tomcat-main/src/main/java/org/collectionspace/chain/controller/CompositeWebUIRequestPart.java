@@ -250,7 +250,7 @@ public class CompositeWebUIRequestPart implements UIRequest {
 		pw.flush();
 	}
 	
-	public void sendUnknown(String data, String contenttype) throws UIException {
+	public void sendUnknown(String data, String contenttype, String contentDisposition) throws UIException {
 
 		mime_type_out=contenttype;
 		PrintWriter pw=new PrintWriter(body_out);
@@ -258,7 +258,7 @@ public class CompositeWebUIRequestPart implements UIRequest {
 		pw.flush();
 	}
 
-	public void sendUnknown(byte[] data, String contenttype) throws UIException {
+	public void sendUnknown(byte[] data, String contenttype, String contentDisposition) throws UIException {
 		mime_type_out=contenttype;
 		try {
 			body_out.write(data);
@@ -305,5 +305,12 @@ public class CompositeWebUIRequestPart implements UIRequest {
 	public void setSecondaryRedirectPath(String[] in) throws UIException {
 		rpath=in;
 		secondary_redirect=true;
+	}
+
+	@Override
+	public void sendURLReponse(String url) throws UIException {
+		PrintWriter pw=new PrintWriter(body_out);
+		pw.print(url);
+		pw.flush();
 	}
 }

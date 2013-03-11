@@ -38,6 +38,7 @@ import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.*;
+import org.collectionspace.chain.csp.persistence.services.RefName.Tools;
 import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.TTYOutputter;
 import org.collectionspace.csp.api.ui.UIException;
@@ -174,8 +175,11 @@ public class WebUIRequest implements UIRequest {
 			if(!COOKIENAME.equals(cookie.getName()))
 				continue;
 			WebUISession session=umbrella.getSession(cookie.getValue());
-			if(session!=null)
+			if (session!=null) {
 				return session;
+			} else {
+				System.err.println("Could not get session from CSPACESESSID cookie with value: " + cookie.getValue());
+			}
 		}
 		// No valid session: make our own
 		return umbrella.createSession();
@@ -193,6 +197,7 @@ public class WebUIRequest implements UIRequest {
 	}
 
 	// NOTE No changes to solidified stuff can happen after you get the TTY outputter
+	@Override
 	public TTYOutputter getTTYOutputter() throws UIException { 
 		try {
 			WebTTYOutputter tty=new WebTTYOutputter(response);
@@ -204,39 +209,48 @@ public class WebUIRequest implements UIRequest {
 		}
 	}
 
+	@Override
 	public String[] getPrincipalPath() throws UIException { return ppath; }
 
+	@Override
 	public void setFailure(boolean isit, Exception why) throws UIException {
 		failure=isit;
 		failing_exception=why;
 	}
 
+	@Override
 	public void setOperationPerformed(Operation op) throws UIException {
 		operation_performed=op;
 	}
 
+	@Override
 	public void setRedirectPath(String[] in) throws UIException {
 		rpath=in;
 		secondary_redirect=false;
 	}
 
+	@Override
 	public void setSecondaryRedirectPath(String[] in) throws UIException {
 		rpath=in;
 		secondary_redirect=true;
 	}
 
+	@Override
 	public void deleteRedirectArgument(String key) throws UIException {
 		rargs.remove(key);
 	}
 
+	@Override
 	public String getRedirectArgument(String key) throws UIException {
 		return rargs.get(key);
 	}
 
+	@Override
 	public void setRedirectArgument(String key, String value) throws UIException {
 		rargs.put(key,value);
 	}
 
+	@Override
 	public String getRequestArgument(String key) throws UIException {
 		String param =  request.getParameter(key);
 		if(param != null)
@@ -249,6 +263,7 @@ public class WebUIRequest implements UIRequest {
 		
 		return param;
 	}
+	@Override
 	public Set<String> getAllRequestArgument() throws UIException {
 		Set<String> params = new HashSet<String>();
 		Enumeration e = request.getParameterNames();
@@ -259,6 +274,7 @@ public class WebUIRequest implements UIRequest {
 		return params;
 	}
 
+	@Override
 	public Operation getRequestedOperation() throws UIException {
 		String method=request.getMethod();
 		if("POST".equals(method))
@@ -282,9 +298,11 @@ public class WebUIRequest implements UIRequest {
 		}
 	}
 
+	@Override
 	public int getCacheMaxAgeSeconds() {
 		return cacheMaxAgeSeconds;
 	}
+	@Override
 	public void setCacheMaxAgeSeconds(int cacheMaxAgeSeconds) {
 		this.cacheMaxAgeSeconds = cacheMaxAgeSeconds;
 	}
@@ -380,40 +398,54 @@ public class WebUIRequest implements UIRequest {
 		}
 	}
 
+	@Override
 	public void sendXMLResponse(String data) throws UIException {
 		response.setContentType("text/xml;charset=UTF-8");
 		out_data=data;
 	}
-	public void sendUnknown(String data, String contenttype) throws UIException {
+	@Override
+	public void sendUnknown(String data, String contenttype, String contentDisposition) throws UIException {
 		response.setContentType(contenttype);
+		if(Tools.notEmpty(contentDisposition))
+			response.setHeader("Content-Disposition", contentDisposition);
 		out_data=data;
 	}
-	public void sendUnknown(byte[] data, String contenttype) throws UIException {
+	@Override
+	public void sendUnknown(byte[] data, String contenttype, String contentDisposition) throws UIException {
 		response.setContentType(contenttype);
+		if(Tools.notEmpty(contentDisposition))
+			response.setHeader("Content-Disposition", contentDisposition);
 		out_binary_data=data;
 	}
+	@Override
 	public void sendJSONResponse(JSONObject data) throws UIException {
 		response.setContentType("text/json;charset=UTF-8");
 		out_data=data.toString();
 	}
+	@Override
 	public void sendJSONResponse(JSONArray data) throws UIException {
 		response.setContentType("text/json;charset=UTF-8");
 		out_data=data.toString();
 	}
 
+	@Override
 	public String getFileName() throws UIException{
 		return uploadName;
 	}
+	@Override
 	public byte[] getbyteBody() throws UIException {
 		return bytebody;
 	}
+	@Override
 	public String getContentType() throws UIException{
 		return contenttype;
 	}
+	@Override
 	public String getBody() throws UIException {
 		return body;
 	}
 
+	@Override
 	public JSONObject getPostBody() throws UIException {
 		JSONObject jsondata = new JSONObject();
 		String jsonString = body;
@@ -434,6 +466,7 @@ public class WebUIRequest implements UIRequest {
 		return jsondata;
 	}
 
+	@Override
 	public Boolean isJSON() throws UIException {
 		try{
 			new JSONObject(body);
@@ -444,6 +477,7 @@ public class WebUIRequest implements UIRequest {
 		}
 	}
 
+	@Override
 	public JSONObject getJSONBody() throws UIException {
 		try {
 			String jsonString = body;
@@ -458,6 +492,13 @@ public class WebUIRequest implements UIRequest {
 		}
 	}
 
+	@Override
 	public UISession getSession() throws UIException { return session; }
+	@Override
 	public  HttpSession getHttpSession() { return request.getSession(true); }
+	
+	@Override
+	public void sendURLReponse(String url) throws UIException {
+		response.setHeader("Location", url);
+	}
 }

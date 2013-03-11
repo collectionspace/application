@@ -2,6 +2,7 @@ package org.collectionspace.chain.controller;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -81,6 +82,8 @@ public class TenantServlet extends HttpServlet {
 	private static final Logger log=LoggerFactory.getLogger(TenantServlet.class);
 	protected static final String COOKIENAME="CSPACESESSID";
 	private static final long serialVersionUID = -4343156244448081917L;
+	private static final String SERVER_HOME_PROPERTY = "catalina.home";
+	private static final String PUBLISHED_DIR = "/cspace/published";
 	protected Map<String, CSPManagerImpl> tenantCSPM = new HashMap<String, CSPManagerImpl>();
 	protected Map<String, Boolean> tenantInit = new HashMap<String, Boolean>();
 	protected Map<String, UIUmbrella> tenantUmbrella = new HashMap<String, UIUmbrella>();
@@ -241,8 +244,9 @@ public class TenantServlet extends HttpServlet {
 			//servlet_response.getWriter().append("Servlet is locked down in a hard fail because of fatal error: "+locked_down);
 			return;
 		}
-		if(perhapsServeFixedContent(servlet_request,servlet_response))
+		if(perhapsServeFixedContent(servlet_request,servlet_response)) {
 			return;
+		}
 		// Setup our request object
 		UI web=tenantCSPM.get(tenantid).getUI("web");
 		if(!tenantUmbrella.containsKey(tenantid)){
@@ -667,6 +671,28 @@ public class TenantServlet extends HttpServlet {
 		return result.toString();
 	}
 	
+	private InputStream getPublishedResource(HttpServletRequest servlet_request) {
+		InputStream result = null;
+				
+		String serverRootDir = System.getProperty(SERVER_HOME_PROPERTY);
+		String webAppContext = servlet_request.getContextPath();
+		String pathInfo = servlet_request.getPathInfo();
+		
+		try {
+			StringBuffer requestedResource = new StringBuffer(serverRootDir);
+			requestedResource.append(PUBLISHED_DIR);
+			requestedResource.append(pathInfo);
+			FileInputStream fis = new FileInputStream(requestedResource.toString());
+			result = fis;
+		} catch (Exception e) {
+			if (log.isDebugEnabled() == true) {
+				log.debug(String.format("Could not find published resource for request: %s", servlet_request.getPathInfo()), e);
+			}
+		}
+		
+		return result;
+	}
+	
 	/**
 	 * attempts to create the outputstream or returns false.
 	 * @param servlet_request
@@ -676,15 +702,26 @@ public class TenantServlet extends HttpServlet {
 	 * @throws IOException
 	 */
 	protected boolean perhapsServeFixedContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws ServletException, IOException {
+		boolean result = false;
+		
 		String pathinfo=servlet_request.getPathInfo();
-		if(pathinfo.startsWith("/"))
-			pathinfo=pathinfo.substring(1);
+		if (pathinfo.startsWith("/")) {
+			pathinfo=pathinfo.substring(1); // remove the leading '/' character
+		}
+		// First check to see if the current class loader can find it
 		InputStream is=Thread.currentThread().getContextClassLoader().getResourceAsStream(pathinfo);
-		if(is==null)
-			return false; // Not for us
-		// Serve fixed content
-		IOUtils.copy(is,servlet_response.getOutputStream());
-		return true;
+		// If we didn't find it there, look in the "published" resources area.
+		if (is == null) {
+			is = getPublishedResource(servlet_request);
+		}
+		
+		if (is != null) {
+			// Serve fixed content
+			IOUtils.copy(is,servlet_response.getOutputStream());
+			result = true;
+		}
+		
+		return result;
 	}
 }
 

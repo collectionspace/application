@@ -14,28 +14,66 @@ import org.collectionspace.chain.util.json.JSONUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TestServiceThroughWebapp {
 	private static final Logger log=LoggerFactory.getLogger(TestServiceThroughWebapp.class);
+	
 	private static TestBase tester = new TestBase();
 	static ServletTester jetty;
 	static {
-		try{
+		try {
 			jetty=tester.setupJetty("core",true);
-			}
-		catch(Exception ex){
-			
 		}
+		catch(Exception ex){
+			log.error("Could not setup Jetty for test runs", ex);
+		}
+	}
+	
+	@BeforeClass public static void testInitialise() throws Exception {
+		HttpTester out = tester.GETData(TestBase.AUTHS_INIT_PATH, jetty);
+		log.info(out.getContent());
+	}
+	
+	private String getAdminUsername() {
+		Spec spec = tester.getSpec(jetty);
+		String username = spec.getAdminData().getAuthUser();
+		return username;
+	}
+	
+	private String getAdminPassword() {
+		Spec spec = tester.getSpec(jetty);
+		String pwd = spec.getAdminData().getAuthPass();
+		return pwd;
+	}
+	
+	static private String getAdminTenantId() {
+		Spec spec = tester.getSpec(jetty);
+		String tenant = spec.getAdminData().getTenant();
+		return tenant;
+	}
+	
+	/*
+	 * Login as the admin user for the tenant
+	 */
+	@Before public void adminLogin() throws Exception {
+		String username = getAdminUsername();
+		String pwd = getAdminPassword();
+		String tenant = getAdminTenantId();
+		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/login","userid="+username+"&password="+pwd+"&tenant="+tenant);	
+		assertEquals(303,out.getStatus());
+		assertEquals("/collectionspace/ui/core/html/findedit.html",out.getHeader("Location"));		
 	}
 	
 	@AfterClass public static void testStop() throws Exception {
 		tester.stopJetty(jetty);
 	}
-	
 	
 	@Test public void testCollectionObjectBasic() throws Exception {
 		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/cataloging/",tester.makeSimpleRequest(tester.getResourceString("obj3.json")));	
@@ -162,6 +200,9 @@ public class TestServiceThroughWebapp {
 	@Test public void testTermsUsed() throws Exception {
 		JSONObject data=new JSONObject("{'csid':'','fields':{'personTermGroup':[{'termDisplayName':'David Bowie'}]}}");
 		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/vocabularies/person",data.toString());
+		if (out.getStatus() != 201) {
+			System.err.println("out.getStatus() != 201");
+		}
 		assertEquals(201,out.getStatus());		
 		JSONObject jo=new JSONObject(out.getContent());
 		String p_csid=jo.getString("csid");
@@ -269,25 +310,29 @@ public class TestServiceThroughWebapp {
 		out=tester.jettyDoUTF8(jetty,"DELETE","/tenant/core"+id1,null);		
 		out=tester.jettyDoUTF8(jetty,"DELETE","/tenant/core"+id2,null);
 	}
-	
-	@Test public void testLogin() throws Exception {
-		Spec spec = tester.getSpec(jetty);
-		String pwd = spec.getAdminData().getAuthPass();
-		String username = spec.getAdminData().getAuthUser();
-		String tenant = spec.getAdminData().getTenant();
-		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/login","userid="+username+"&password="+pwd+"&tenant="+tenant);	
+		
+	@Test
+	public void testLogin() throws Exception {
+		// Should pass because the proper credentials are sent as valid query parameters
+		String username = getAdminUsername();
+		String pwd = getAdminPassword();
+		String tenant = getAdminTenantId();		
+		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/login?userid="+username+"&password="+pwd+"&tenant="+tenant,null);
 		assertEquals(303,out.getStatus());
-		assertEquals("/collectionspace/ui/core/html/findedit.html",out.getHeader("Location"));
-		out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/login?userid="+username+"&password="+pwd+"&tenant="+tenant,null);
-		assertEquals(303,out.getStatus());
-		log.info(out.getHeader("Location"));
+		log.info(out.getHeader("Location"));		
 		assertFalse(out.getHeader("Location").endsWith("?result=fail"));
-		out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/login?userid=guest&password=toast",null);	
-		assertEquals(303,out.getStatus());
-		assertTrue(out.getHeader("Location").endsWith("?result=fail"));
-		out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/login?userid=bob&password=bob",null);	
+		
+		// Should fail because the credentials not valid
+		out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/login", "userid=guest&password=toast&tenant=1");	
 		assertEquals(303,out.getStatus());
 		assertTrue(out.getHeader("Location").endsWith("?result=fail"));
 		
+		// Should fail because the credentials are not valid and there is no tenant specified
+		out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/login", "userid=bob&password=bob");	
+		assertEquals(303,out.getStatus());
+		assertTrue(out.getHeader("Location").endsWith("?result=fail"));
+		
+		// Now that we're finished with the testing, we need to log back in for the other tests to work.
+		adminLogin();		
 	}
 }

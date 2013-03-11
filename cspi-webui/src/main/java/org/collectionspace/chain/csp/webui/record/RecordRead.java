@@ -11,14 +11,13 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.collectionspace.chain.csp.schema.FieldSet;
-import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.Relationship;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
+import org.collectionspace.chain.csp.webui.main.WebMethodWithOps;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.chain.csp.webui.misc.Generic;
 import org.collectionspace.csp.api.persistence.ExistException;
@@ -34,7 +33,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class RecordRead implements WebMethod {
+public class RecordRead implements WebMethodWithOps {
 	private static final Logger log=LoggerFactory.getLogger(RecordRead.class);
 	private String base;
 	private Record record;
@@ -427,37 +426,22 @@ public class RecordRead implements WebMethod {
 	
 
 	
-	private void store_get(Storage storage,UIRequest request,String path) throws UIException {
+	private void store_get(Storage storage,UIRequest request,String path) throws Exception {
 		// Get the data
 		try {
-			if(record.isType("blob")){
+			if (record.isType("blob")) {
 				JSONObject outputJSON = getJSON(storage,path);
 				String content = outputJSON.getString("contenttype");
+				String contentDisp = outputJSON.has("contentdisposition")?outputJSON.getString("contentdisposition"):null;
 				byte[] bob = (byte[])outputJSON.get("getByteBody"); 
 				String getByteBody = bob.toString();
-				request.sendUnknown(getByteBody, content);
-			}
-			else if(record.getID().equals("output")){
-				String[] bits = path.split("/");
-				JSONObject payload = new JSONObject();
-				if(bits.length > 1 && !bits[1].equals("output")){
-
-					payload.put("mode", "single");
-
-					String type = spec.getRecordByWebUrl(bits[1]).getServicesTenantSg();
-					payload.put("docType", type);
-					
-					payload.put("singleCSID", bits[2]);
-					path = bits[0];
-				}
-
-				JSONObject out=storage.retrieveJSON(base+"/"+path,payload);
-
-				byte[] data_array = (byte[])out.get("getByteBody");
-				request.sendUnknown(data_array,out.getString("contenttype"));
-				
-			}
-			else{
+				request.sendUnknown(getByteBody, content, contentDisp);
+			} else if(record.getID().equals("output")) {
+				//
+				// Invoke a report
+				//
+				ReportUtils.invokeReport(this, storage, request, path);
+			} else {
 				JSONObject outputJSON = getJSON(storage,path);
 				outputJSON.put("csid",path);
 				// Write the requested JSON out
@@ -474,11 +458,17 @@ public class RecordRead implements WebMethod {
 		}
 	}
 	
+	@Override
 	public void run(Object in, String[] tail) throws UIException {
 		Request q=(Request)in;
-		store_get(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
+		try {
+			store_get(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
+		} catch (Exception e) {
+			throw new UIException(e);
+		}
 	}
 
+	@Override
 	public void configure(WebUI ui,Spec spec) {
 		for(Record r : spec.getAllRecords()) {
 			type_to_url.put(r.getID(),r.getWebURL());
@@ -488,5 +478,21 @@ public class RecordRead implements WebMethod {
 	
 	public void configure(Spec spec) {
 		configure(null, spec);
+	}
+	
+	@Override
+	public Operation getOperation() {
+		return Operation.READ;
+	}
+	
+	@Override
+	public String getBase() {
+		return base;
+	}
+	
+	@Override
+	public Spec getSpec() {
+		// TODO Auto-generated method stub
+		return spec;
 	}
 }

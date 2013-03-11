@@ -96,6 +96,7 @@ public class WebUI implements CSP, UI, Configurable {
 	private String uispec_path;
 	private String login_dest,login_failed_dest,front_page,find_page;
 
+	@Override
 	public String getName() { return "ui.webui"; }
 	public String getUISpecPath() { return uispec_path; }
 	public String getLoginDest() { return login_dest; }
@@ -123,15 +124,18 @@ public class WebUI implements CSP, UI, Configurable {
 		all_methods.add(method);
 	}
 
+	@Override
 	public void go(CSPContext ctx) throws CSPDependencyException {
 		ctx.addConfigRules(this);
 		ctx.addUI("web",this);
 		this.ctx=ctx;
 	}
 
+	@Override
 	public void configure(Rules rules) throws CSPDependencyException {
 		/* MAIN/ui/web -> UI */
 		rules.addRule(SECTIONED,new String[]{"ui","web"},SECTION_PREFIX+"web",null,new Target(){
+			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				((CoreConfig)parent).setRoot(WEBUI_ROOT,WebUI.this);
 				if(section.getValue("/tmp-schema-path")!=null) {
@@ -151,6 +155,7 @@ public class WebUI implements CSP, UI, Configurable {
 		/* MAIN/ui/web/mappings ->UI */
 
 		rules.addRule(SECTION_PREFIX+"web", new String[]{"mappings","map"},SECTION_PREFIX+"uimapping", null, new Target(){
+			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				uiMapping = new UIMapping((WebUI)parent,section);
 				addMapping(uiMapping);
@@ -158,6 +163,7 @@ public class WebUI implements CSP, UI, Configurable {
 			}
 		});
 		rules.addRule(SECTION_PREFIX+"uimapping", new String[]{"configure","meta"},SECTION_PREFIX+"uimetamapping", null, new Target(){
+			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				UIMapping map = (UIMapping)parent;
 				uiMeta = new UIMeta((UIMapping)parent, section);
@@ -179,6 +185,8 @@ public class WebUI implements CSP, UI, Configurable {
 	}
 
 	private void configure_finish(Spec spec) {
+		final String MEDIA_RECORD_ID = "media";
+		
 		for(Operation op : Operation.values())
 			tries.put(op,new Trie());	
 		
@@ -205,6 +213,9 @@ public class WebUI implements CSP, UI, Configurable {
 			addMethod(Operation.READ,new String[]{s.getWebURL(), "uischema" },0,new UISchema(spec,s));
 		}
 		addMethod(Operation.READ,new String[]{"generator"},0,new DataGenerator(spec));
+		Record mediaR = spec.getRecord(MEDIA_RECORD_ID);
+		if(mediaR==null)
+			log.error("No media record configured!!!");
 		for(Record r : spec.getAllRecords()) {
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"generator"},0,new DataGenerator(r,"screen"));
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"serviceschema"},0,new ServicesXsd(r,"common"));
@@ -228,6 +239,12 @@ public class WebUI implements CSP, UI, Configurable {
 				addMethod(Operation.CREATE,new String[]{"authorities",r.getWebURL()},0,new VocabulariesCreateUpdate(r,true));
 				addMethod(Operation.READ,new String[]{"authorities",r.getWebURL(),"initialize"},0,new AuthoritiesVocabulariesInitialize(r,true));
 				addMethod(Operation.READ,new String[]{"authorities",r.getWebURL(),"refresh"},0,new AuthoritiesVocabulariesInitialize(r,false));
+				// We need to do a special case for related media. Weird, but makes a certain sense...
+				// We do not actually care about the type of r, but rather just the CSID tail.
+				// We'll search on media related to the CSID tail.
+				if(mediaR!=null) {
+					addMethod(Operation.READ,new String[]{r.getWebURL(),mediaR.getWebURL()},1,new RecordSearchList(mediaR,RecordSearchList.MODE_SEARCH_RELATED));
+				}
 				for(Instance n : r.getAllInstances()) {
 					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL()},0,new AuthoritiesVocabulariesSearchList(n,false));
 					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL(),"search"},0,new AuthoritiesVocabulariesSearchList(n,true));
@@ -321,8 +338,10 @@ public class WebUI implements CSP, UI, Configurable {
 
 	}
 	
+	@Override
 	public void config_finish() throws CSPDependencyException {}
 	
+	@Override
 	public void complete_init() throws CSPDependencyException {
 		Spec spec=(Spec)ctx.getConfigRoot().getRoot(Spec.SPEC_ROOT);
 		if(spec==null)
@@ -334,6 +353,7 @@ public class WebUI implements CSP, UI, Configurable {
 		xxx_storage=ctx.getStorage(name);
 	}
 
+	@Override
 	public void serviceRequest(UIRequest ui) throws UIException {		
 		CSPRequestCache cache=new RequestCache();
 		String[] path=ui.getPrincipalPath();
