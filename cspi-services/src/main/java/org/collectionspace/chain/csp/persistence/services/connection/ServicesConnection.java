@@ -62,7 +62,8 @@ public class ServicesConnection {
 				new AuthScope(AuthScope.ANY_HOST,AuthScope.ANY_PORT,AuthScope.ANY_REALM),
 				new UsernamePasswordCredentials((String)creds.getCredential(ServicesStorageGenerator.CRED_USERID),
 												(String)creds.getCredential(ServicesStorageGenerator.CRED_PASSWORD)));
-		cache.setCached(getClass(),new String[]{"client"},client);
+		client.getParams().setAuthenticationPreemptive(true);
+                cache.setCached(getClass(),new String[]{"client"},client);
 		return client;
 	}
 	
