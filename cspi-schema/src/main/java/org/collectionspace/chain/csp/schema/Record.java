@@ -823,6 +823,12 @@ public class Record implements FieldParent {
 		}
 	}
 
+    private void buildAuthTypeTokenSet() {
+        String authTypeTokens[] = getAuthorizationType().split("/");
+        for(String token:authTypeTokens) {
+            authTypeTokenSet.add(token);
+        }
+    }
 
 
 	// authorization
