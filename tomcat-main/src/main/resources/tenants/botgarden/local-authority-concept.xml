@@ -2,6 +2,8 @@
 	<instances id="concept">
 		<instance id="concept-concept">
 			<title>Propagation Medium</title>
+			<web-url>concept</web-url>
+			<title-ref>concept</title-ref>
 		</instance>
 		<instance id="concept-class_ca">
 			<web-url>class_ca</web-url>

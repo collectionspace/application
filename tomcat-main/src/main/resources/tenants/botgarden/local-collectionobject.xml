@@ -296,7 +296,15 @@
 		<field id="fruitsNov" datatype="boolean" section="botgarden"/>
 		<field id="fruitsDec" datatype="boolean" section="botgarden"/>
 	</section>
-		
+	
+	<section id="objectHistoryAssociationInformation">
+		<section id="associationInformation">
+			<repeat id="assocConceptGroupList/assocConceptGroup">
+				<field id="assocConcept" autocomplete=""/>
+			</repeat>
+		</section>
+	</section>
+
 	<section id="objectCollectionInformation">
 		<repeat id="fieldCollectors">
 			<!-- Add ui-search, and change autocomplete to organization-collector -->
