@@ -1,0 +1,10 @@
+<record id="dimension">
+	<section id="dimensionInformation">
+		<repeat id="measuredPartGroupList/measuredPartGroup">
+			<repeat id="dimensionSubGroupList/dimensionSubGroup">
+				<!-- Add organization-institution to autocomplete -->
+				<field id="measuredBy" autocomplete="person-person,organization-organization,organization-institution"/>
+			</repeat>
+		</repeat>
+	</section>
+</record>

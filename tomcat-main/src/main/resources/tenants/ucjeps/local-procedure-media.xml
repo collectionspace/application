@@ -1,0 +1,42 @@
+<record id="media">
+	<services-record-path id="ucjeps">media_ucjeps:http://collectionspace.org/services/media/local/ucjeps,media_ucjeps</services-record-path>
+	
+	<section id="mediaInformation">
+		<!-- Remove mini values -->
+		<field id="title" mini=""/>
+
+		<!-- Add organization-institution to autocomplete -->
+		<field id="contributor" autocomplete="person-person,organization-organization,organization-institution"/>
+		<field id="creator" autocomplete="person-person,organization-organization,organization-institution"/>
+		<field id="publisher" autocomplete="person-person,organization-organization,organization-institution"/>
+		<field id="rightsHolder" autocomplete="person-person,organization-organization,organization-institution"/>
+		
+		<!-- New fields -->
+		<field id="handwritten" section="ucjeps" ui-search="single">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="Unknown">Unknown</option>
+				<option id="yes">Yes</option>
+				<option id="no">No</option>
+			</options>
+		</field>
+		<field id="postToPublic" section="ucjeps" ui-search="single">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="no" default="yes">No</option>
+				<option id="yes">Yes</option>
+			</options>
+		</field>
+		<field id="scientificTaxonomy" in-title="yes" mini="summary,search,list,relate" section="ucjeps" autocomplete="taxon-taxon" ui-search="repeatable">
+			<title-selector>titleBar-media-scientificTaxonomy</title-selector>
+		</field>
+	</section>
+	
+	<section id="otherInformation">
+		<field id="imgThumb" attributes="GET" mini="relate" exists-in-services="false"/>
+		<field id="imgOrig" attributes="GET" mini="relate" exists-in-services="false">
+			<use-csid id="blobCsid">ims;download/;/OriginalJpeg</use-csid>
+			<use-csid id="blobCsid">ims;download/;/Original</use-csid>
+		</field>
+	</section>
+</record>

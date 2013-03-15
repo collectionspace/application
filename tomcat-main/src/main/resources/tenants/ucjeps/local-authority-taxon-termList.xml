@@ -1,0 +1,74 @@
+<record id="preferredTA">
+    <section id="termInformation">
+        <repeat id="taxonTermGroupList/taxonTermGroup">
+            <field id="termSource">
+                <options>
+                	<option id="" default="yes">Please select a value</option>
+                	<option id="unknown">unknown</option>
+                	<option id="A California Flora and Supplement">A California Flora and Supplement</option>
+                	<option id="A Dictionary of the Flowering Plants and Ferns">A Dictionary of the Flowering Plants and Ferns</option>
+                	<option id="A Flora of California">A Flora of California</option>
+                	<option id="A Manual of the Flowering Plants of California">A Manual of the Flowering Plants of California</option>
+                	<option id="Accession sheet">Accession sheet</option>
+                	<option id="Alan R. Smith">Alan R. Smith</option>
+                	<option id="Australian Plant Names Index">Australian Plant Names Index</option>
+                	<option id="Authors of Plant Names">Authors of Plant Names</option>
+                	<option id="Biota of North America Program">Biota of North America Program</option>
+                	<option id="California Academy of Sciences">California Academy of Sciences</option>
+                	<option id="California Native Plant Society Inventory">California Native Plant Society Inventory</option>
+                	<option id="Checklist of European Plants">Checklist of European Plants</option>
+                	<option id="Checklist of the Vascular Plants of San Diego Count">Checklist of the Vascular Plants of San Diego Count</option>
+                	<option id="Christopher Allan Meacham">Christopher Allan Meacham</option>
+                	<option id="Flora of North America">Flora of North America</option>
+                	<option id="GERMPlasm Resources Information Network">GERMPlasm Resources Information Network</option>
+                	<option id="Gray Card Index">Gray Card Index</option>
+                	<option id="Harvard University Index to Collectors">Harvard University Index to Collectors</option>
+                	<option id="herbarium specimen label">herbarium specimen label</option>
+                	<option id="Herbarium, Botany Department, Bishop Museum">Herbarium, Botany Department, Bishop Museum</option>
+                	<option id="Herbarium, University of Oregon">Herbarium, University of Oregon</option>
+                	<option id="Hunt Institute Biographical Dictionary">Hunt Institute Biographical Dictionary</option>
+                	<option id="Index Fungorum">Index Fungorum</option>
+                	<option id="Index Herbariorum Index to Collectors">Index Herbariorum Index to Collectors</option>
+                	<option id="Index Kewensis">Index Kewensis</option>
+                	<option id="Index Nominum Algarum">Index Nominum Algarum</option>
+                	<option id="Index Nominum Genericorum">Index Nominum Genericorum</option>
+                	<option id="Index to California Plant Names">Index to California Plant Names</option>
+                	<option id="ineditus">ineditus</option>
+                	<option id="International Plant Names Index">International Plant Names Index</option>
+                	<option id="James Lauritz Reveal">James Lauritz Reveal</option>
+                	<option id="Jepson Interchange">Jepson Interchange</option>
+                	<option id="John Strother">John Strother</option>
+                	<option id="Kartesz Checklist">Kartesz Checklist</option>
+                	<option id="Kartesz Geography">Kartesz Geography</option>
+                	<option id="Lisa Marie Schultheis">Lisa Marie Schultheis</option>
+                	<option id="Rancho Santa Ana">Rancho Santa Ana</option>
+                	<option id="Richard L. Moe">Richard L. Moe</option>
+                	<option id="Richard Moe">Richard Moe</option>
+                	<option id="Royal Botanical Gardens (KEW)">Royal Botanical Gardens (KEW)</option>
+                	<option id="San Diego Museum of Natural History">San Diego Museum of Natural History</option>
+                	<option id="SMASCH">SMASCH</option>
+                	<option id="Taxonomic Literature-II">Taxonomic Literature-II</option>
+                	<option id="Test record">Test record</option>
+                	<option id="The Jepson Manual: Higher Plants of California">The Jepson Manual: Higher Plants of California</option>
+                	<option id="The work authored by the cited committee">The work authored by the cited committee</option>
+                	<option id="Thomas J. Rosatti">Thomas J. Rosatti</option>
+                	<option id="Tropicos">Tropicos</option>
+                	<option id="UC Botanical Garden">UC Botanical Garden</option>
+                	<option id="UC Herbarium Types Database">UC Herbarium Types Database</option>
+                	<option id="USGS Geographic Names Information System">USGS Geographic Names Information System</option>
+                </options>
+            </field>
+            <field id="taxonomicStatus">
+                <options>
+        			<option id="" default="yes">Please select a value</option>
+        			<option id="valid">valid</option>
+        			<option id="invalid">invalid</option>
+        			<option id="misapplied">misapplied</option>
+        			<option id="accepted">accepted</option>
+        			<option id="synonym">synonym</option>
+        			<option id="illegitimate">illegitimate</option>
+        		</options>
+            </field>
+        </repeat>
+    </section>
+</record>
