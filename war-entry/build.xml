@@ -27,8 +27,6 @@
             <fileset dir="${app_resources_dir}"/>
             <globmapper from="*-tenant.xml" to="cspace-config-*.xml"/>
         </copy>
-        <copy file="${app_trunk}/tomcat-main/src/main/resources/botgarden-tenant.xml" tofile="${config_destination}/cspace-config-botgarden.xml" />
-        <copy file="${app_trunk}/tomcat-main/src/main/resources/tenants/botgarden/settings.xml" tofile="${config_destination}/tenants/botgarden/settings.xml"/>
     </target>
     
     <target name="deploy_nightly_config"
