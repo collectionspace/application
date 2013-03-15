@@ -1,6 +1,6 @@
 <cspace-config tenantname="botgarden">
 	<version>11</version>
-	<include src="local-settings.xml,settings.xml" strip-root="yes"/>
+	<include src="settings.xml,local-settings.xml,host-settings.xml" merge="xmlmerge-settings.properties" strip-root="yes"/>
 
 	<spec>
 		<include src="base-relations.xml"/>
@@ -13,6 +13,7 @@
 
 			<!-- <include src="base-procedure-acquisition.xml"/> -->
 			<include src="base-procedure-blobs.xml"/>
+			<!-- <include src="base-procedure-claim.xml"/> -->
 			<include src="base-procedure-groups.xml"/>
 			<include src="base-procedure-intake.xml"/>
 			<!-- <include src="base-procedure-loanin.xml,naturalhistory-procedure-loanin.xml" merge="xmlmerge.properties"/> -->
