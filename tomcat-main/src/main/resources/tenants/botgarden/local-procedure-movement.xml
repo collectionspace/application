@@ -3,7 +3,7 @@
 
 	<section id="locationMovementInformation">
 		<!-- Change mini summary to number, and remove organization from autocomplete -->
-		<field id="currentLocation" mini="number,search,list,relate,terms" autocomplete="location-location"/>
+		<field id="currentLocation" mini="number,search,list,relate" autocomplete="location-location"/>
 	</section>
 	
 	<section id="movementControlInformation">
