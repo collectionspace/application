@@ -125,6 +125,11 @@
 		</repeat>
 		
 		<section id="associationInformation">
+			<repeat id="assocConceptGroupList/assocConceptGroup">
+				<!-- Remove autocomplete -->
+				<field id="assocConcept" autocomplete=""/>
+			</repeat>
+			
 			<repeat id="assocOrganizationGroupList/assocOrganizationGroup">
 				<!-- Add institution authority to autocomplete -->
 				<field id="assocOrganization" autocomplete="organization-organization,organization-institution"/>

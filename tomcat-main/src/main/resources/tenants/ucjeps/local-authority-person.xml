@@ -1,6 +1,8 @@
 <record id="person">
     <instances id="person">
         <instance id="person-person">
+            <web-url>person</web-url>
+            <title-ref>person</title-ref>
             <title>Default Persons</title>
         </instance>
     </instances>    

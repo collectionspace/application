@@ -1,6 +1,8 @@
 <record id="organization">
     <instances id="organization">
         <instance id="organization-organization">
+            <web-url>organization</web-url>
+            <title-ref>organization</title-ref>
             <title>Collector Authority</title>
         </instance>
         <instance id="organization-institution">
