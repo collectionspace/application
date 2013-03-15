@@ -3,7 +3,7 @@
 
 	<section id="loanoutInformation">
 		<!-- Set in-title to no, and remove number from mini -->
-		<field id="loanOutNumber" ui-search="repeatable" in-title="no" mini="search,list,relate,terms">
+		<field id="loanOutNumber" ui-search="repeatable" in-title="no" mini="search,list,relate">
 			<!-- Change options -->
 			<options>
 				<option id="voucher" sample="V2012.1">Voucher Collection Number</option>
