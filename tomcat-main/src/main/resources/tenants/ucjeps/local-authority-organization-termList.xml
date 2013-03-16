@@ -1,9 +1,9 @@
 <record id="preferredOA">
-    <section id="termInformation">
-        <repeat id="orgTermGroupList/orgTermGroup">
-            <field id="termName" ui-search="repeatable">
-                <selector>orgAuthority-termName</selector>
-            </field>
-        </repeat>
-    </section>
+	<section id="termInformation">
+		<repeat id="orgTermGroupList/orgTermGroup">
+			<field id="termName" ui-search="repeatable">
+				<selector>orgAuthority-termName</selector>
+			</field>
+		</repeat>
+	</section>
 </record>

@@ -1,12 +1,12 @@
 <record id="place">
-    <instances id="place">
-        <instance id="place-place">
-            <web-url>place</web-url>
-            <title-ref>place</title-ref>
-            <title>Default Places</title>
-        </instance>
-    </instances>
-    
+	<instances id="place">
+		<instance id="place-place">
+			<web-url>place</web-url>
+			<title-ref>place</title-ref>
+			<title>Default Places</title>
+		</instance>
+	</instances>
+	
 	<section id="placeAuthorityInformation">
 		<repeat id ="placeOwnerGroupList/placeOwnerGroup">
 			<!-- Add organization-institution to autocomplete -->
