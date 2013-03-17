@@ -1,6 +1,6 @@
 <cspace-config tenantname="ucjeps">
 	<version>11</version>
-	<include src="local-settings.xml,settings.xml" strip-root="yes"/>
+	<include src="settings.xml,local-settings.xml,host-settings.xml" merge="xmlmerge-settings.properties" strip-root="yes"/>
 
 	<spec>
 		<include src="base-relations.xml"/>
