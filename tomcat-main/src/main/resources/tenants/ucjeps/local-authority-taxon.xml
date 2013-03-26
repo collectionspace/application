@@ -20,15 +20,6 @@
 	</instances>
 	
 	<section id="taxonNameAuthorityInformation">
-		<field id="termStatus">
-			<options>
-				<option id="" default="yes">Please select a value</option>
-				<option id="Accepted">Accepted</option>
-				<option id="Rejected">Rejected</option>
-				<option id="Under Review">Under Review</option>
-				<option id="Provisional">Provisional</option>
-			</options>
-		</field>
 		<!-- Remove summary from mini -->
 		<field id="taxonFullName" mini="list,search,relate,terms"/>
 		<!-- Add mini, and change options -->
