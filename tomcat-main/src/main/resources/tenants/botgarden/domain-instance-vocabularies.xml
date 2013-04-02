@@ -135,29 +135,30 @@
 			<option>arctic</option>
 		</options>
 	</instance>
-	<instance id="vocab-conservationCategory">
-		<web-url>conservationCategory</web-url>
-		<title-ref>conservationCategory</title-ref>
-		<title>conservationCategory</title>
-		<options>
-			<option>California Department of Fish and Game</option>
-			<option>California Native Plant Society</option>
-			<option>Convention on International Trade in Endangered Species</option>
-			<option>International Union for Conservation of Nature and Natural Resources - 1997</option>
-			<option>International Union for Conservation of Nature and Natural Resources - 2006</option>
-			<option>International Union for Conservation of Nature and Natural Resources - 2011.1</option>
-			<option>International Union for Conservation of Nature and Natural Resources - 2011.2</option>
-			<option>International Union for Conservation of Nature and Natural Resources - 2012.1</option>
-			<option>IUCN/SSC Global Tree Specialist Group, Red List of Rhododendrons - 2011</option>
-			<option>New York Botanical Garden</option>
-			<option>Non-conservation publication</option>
-			<option>not applicable</option>
-			<option>Rhododendron Species Foundation</option>
-			<option>South African National Biodiversity Institute</option>
-			<option>UNEP World Conservation Monitoring Center - CITES</option>
-			<option>US Fish and Wildlife Service</option>
-		</options>
-	</instance>
+    <!-- This seems no longer necessary, as the conservationCategory field is configured to use the Conservation Category Concept vocabulary -->
+    <!-- <instance id="vocab-conservationCategory">
+        <web-url>conservationCategory</web-url>
+        <title-ref>conservationCategory</title-ref>
+        <title>conservationCategory</title>
+        <options>
+            <option>California Department of Fish and Game</option>
+            <option>California Native Plant Society</option>
+            <option>Convention on International Trade in Endangered Species</option>
+            <option>International Union for Conservation of Nature and Natural Resources - 1997</option>
+            <option>International Union for Conservation of Nature and Natural Resources - 2006</option>
+            <option>International Union for Conservation of Nature and Natural Resources - 2011.1</option>
+            <option>International Union for Conservation of Nature and Natural Resources - 2011.2</option>
+            <option>International Union for Conservation of Nature and Natural Resources - 2012.1</option>
+            <option>IUCN/SSC Global Tree Specialist Group, Red List of Rhododendrons - 2011</option>
+            <option>New York Botanical Garden</option>
+            <option>Non-conservation publication</option>
+            <option>not applicable</option>
+            <option>Rhododendron Species Foundation</option>
+            <option>South African National Biodiversity Institute</option>
+            <option>UNEP World Conservation Monitoring Center - CITES</option>
+            <option>US Fish and Wildlife Service</option>
+        </options>
+    </instance> -->
 	<instance id="vocab-county">
 		<web-url>county</web-url>
 		<title-ref>county</title-ref>
