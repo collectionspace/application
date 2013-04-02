@@ -138,7 +138,7 @@
 
 		<repeat id="naturalHistoryCommonNameGroupList/naturalHistoryCommonNameGroup">
 			<!-- Change autocomplete to taxon-common -->
-			<field id="naturalHistoryCommonName" autocomplete="taxon-common"/>
+			<field id="naturalHistoryCommonName" autocomplete="taxon-common" ui-search="repeatable"/>
 		</repeat>
 
 	</section>
