@@ -72,17 +72,6 @@
 		</repeat>
 		<field id="accessRestrictions" ui-search="repeatable"/>
 		<field id="family" ui-search="repeatable"/>
-		<field id="taxonomicStatus">
-			<options>
-				<option id="" default="yes">Please select a value</option>
-				<option id="valid">valid</option>
-				<option id="invalid">invalid</option>
-				<option id="misapplied">misapplied</option>
-				<option id="accepted">accepted</option>
-				<option id="synonym">synonym</option>
-				<option id="illegitimate">illegitimate</option>
-			</options>
-		</field>
 		<field id="taxonNameSource">
 			<options>
 				<option id="" default="yes">Please select a value</option>
