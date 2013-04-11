@@ -1,8 +1,15 @@
 <record id="place">
 	<instances id="place">
 		<instance id="place-place">
+			<web-url>place</web-url>
+			<title-ref>place</title-ref>
 			<!-- Change title -->
 			<title>PAHMA Place Authority</title>
+		</instance>
+		<instance id="place-tgn_place">
+			<web-url>tgn_place</web-url>
+			<title-ref>tgn_place</title-ref>
+			<title>Thesaurus of Geographic Names</title>
 		</instance>
 	</instances>
 

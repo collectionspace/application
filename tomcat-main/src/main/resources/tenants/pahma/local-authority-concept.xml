@@ -1,6 +1,8 @@
 <record id="concept">
 	<instances id="concept">
 		<instance id="concept-concept">
+		    <web-url>concept</web-url>
+		    <title-ref>concept</title-ref>
 			<!-- Change title -->
 			<title>Ethnographic Cultures</title>
 		</instance>
@@ -17,10 +19,14 @@
 			<title>Ethnographic File Codes</title>
 		</instance>
 		<instance id="concept-material_ca">
+		    <web-url>material_ca</web-url>
+		    <title-ref>material_ca</title-ref>
 			<!-- Change title -->
 			<title>Materials</title>
 		</instance>
 		<instance id="concept-activity">
+		    <web-url>activity</web-url>
+		    <title-ref>activity</title-ref>
 			<!-- Change title -->
 			<title>Activities</title>
 		</instance>

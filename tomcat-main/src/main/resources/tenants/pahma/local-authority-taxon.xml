@@ -1,8 +1,15 @@
 <record id="taxon">
 	<instances id="taxon">
 		<instance id="taxon-taxon">
+			<web-url>taxon</web-url>
+			<title-ref>taxon</title-ref>
 			<!-- Change title -->
 			<title>PAHMA Taxon Authority</title>
+		</instance>
+		<instance id="taxon-common_ta">
+			<web-url>common_ta</web-url>
+			<title-ref>common_ta</title-ref>
+			<title>Common Taxa</title>
 		</instance>
 	</instances>
 
