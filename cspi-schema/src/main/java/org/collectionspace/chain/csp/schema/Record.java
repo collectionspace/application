@@ -823,8 +823,6 @@ public class Record implements FieldParent {
 		}
 	}
 
-
-
 	// authorization
 	public Boolean getAuthorizationView() {
 		return utils.getBoolean("authorization-view");

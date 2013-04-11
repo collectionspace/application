@@ -49,7 +49,7 @@
      <dependency>
          <groupId>org.collectionspace.services</groupId>
          <artifactId>org.collectionspace.services.common-api</artifactId>
-         <version>3.2.1-SNAPSHOT</version>
+         <version>3.2.2-SNAPSHOT</version>
      </dependency>    
 
     <dependency>
