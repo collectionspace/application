@@ -184,9 +184,9 @@
                         <title>personTermType</title>
                         <options>
                             <option id="kewabbr">kewabbr</option>
-                            <option id="preferred">pref</option>
-                            <option id="alias">alias</option>
-                            <option id="abbreviation">abbreviation</option>
+                            <option id="abbr">abbr</option>
+                            <option id="pref">pref</option>
+                            <option id="alternateDescriptor">alternate descriptor</option>
                         </options>
                     </instance>
                     <instance id="vocab-vcoordsys">
