@@ -81,7 +81,7 @@
 		
 		<repeat id="typeSpecimenGroupList/typeSpecimenGroup">
 			<!-- Change autocomplete -->
-			<field id="typeSpecimenAssertionBy" autocomplete="person-person,organization-group_org"/>
+			<field id="typeSpecimenAssertionBy" autocomplete="person-person"/>
 		</repeat>
 	
 		<!-- Local fields -->
