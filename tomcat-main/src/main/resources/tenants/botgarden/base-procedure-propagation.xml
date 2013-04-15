@@ -77,7 +77,7 @@
             			</options>
             		</field>
                     <field id="propDate" ui-type="groupfield/structureddate" 
-                        primarykey="propDate.dateDisplayDate" ui-func="cspace.structuredDate"/>
+                        primarykey="propDate.dateDisplayDate" ui-func="cspace.structuredDate" ui-search="range"/>
                     <field id="propReason" ui-search="repeatable" >
                         <options>
                             <option id="" default="yes">Please select a value</option>
