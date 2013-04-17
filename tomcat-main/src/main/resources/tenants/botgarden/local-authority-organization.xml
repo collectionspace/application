@@ -13,7 +13,7 @@
 		<instance id="organization-group_org">
 			<web-url>group_org</web-url>
 			<title-ref>group_org</title-ref>
-			<title>Groups</title>
+			<title>Authors</title>
 		</instance>
 	</instances>	
 		
