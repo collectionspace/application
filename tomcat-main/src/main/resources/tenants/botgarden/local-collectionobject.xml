@@ -84,6 +84,8 @@
 			<field id="typeSpecimenAssertionBy" autocomplete="person-person"/>
 		</repeat>
 	
+		<field id="source" ui-search="repeatable"/>
+
 		<!-- Local fields -->
 		
 		<field id="deadFlag" section="botgarden" ui-search="single">
@@ -333,7 +335,7 @@
 	<section id="accessionUseInformation">
 		<repeat id="accessionUseGroupList/accessionUseGroup">
 			<!-- Add autocomplete -->
-			<field id="usedIn" autocomplete="concept-class_ca,concept-research_ca"/>
+			<field id="usedIn" autocomplete="concept-class_ca,concept-research_ca" ui-search="repeatable"/>
 		</repeat>
 	</section>
 </record>
