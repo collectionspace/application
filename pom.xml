@@ -34,7 +34,7 @@
     <repository>
         <id>libs-snapshots-local</id>
         <name>libs-snapshots-local</name>
-        <url>http://source.collectionspace.org:8081/artifactory/libs-snapshots-local</url>
+        <url>http://nightly.collectionspace.org:8081/artifactory/libs-snapshot-local</url>
     </repository>
   </repositories>
   -->
