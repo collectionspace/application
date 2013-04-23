@@ -5,6 +5,7 @@
     <services-tenant-auth-singular>Locationauthority</services-tenant-auth-singular>
     <services-tenant-auth-plural>Locationauthorities</services-tenant-auth-plural>
     <services-tenant-singular>Locationitem</services-tenant-singular>
+    <services-tenant-plural>Locations</services-tenant-plural>
     <services-instances-path>locationauthorities_common:http://collectionspace.org/services/location,abstract-common-list/list-item</services-instances-path>
     <services-single-instance-path>locationauthorities_common:http://collectionspace.org/services/location,locationauthorities_common</services-single-instance-path>
     <services-list-path>http://collectionspace.org/services/location,abstract-common-list/list-item</services-list-path>

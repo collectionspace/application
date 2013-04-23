@@ -3,6 +3,7 @@
     <services-tenant-auth-plural>Orgauthorities</services-tenant-auth-plural>
     <services-tenant-auth-singular>Orgauthority</services-tenant-auth-singular>
     <services-tenant-singular>Organization</services-tenant-singular>
+    <services-tenant-plural>Organizations</services-tenant-plural>
     <services-instances-path>orgauthorities_common:http://collectionspace.org/services/organization,abstract-common-list/list-item</services-instances-path>    <services-single-instance-path>orgauthorities_common:http://collectionspace.org/services/organization,orgauthorities_common</services-single-instance-path>
     <services-list-path>http://collectionspace.org/services/organization,abstract-common-list/list-item</services-list-path>
     <services-record-path>organizations_common:http://collectionspace.org/services/organization,organizations_common</services-record-path>
