@@ -1,0 +1,81 @@
+<project name="app" default="quick-deploy">
+
+    <!-- 'environment' must be declared to bring values of system -->
+    <!-- environment variables into Ant, prior to reading any -->
+    <!-- properties files that may reference those values. -->
+    <property environment="env"/>
+
+    <!-- Set properties for this build -->
+    <property name="config.destination" value="${env.CSPACE_JEESERVER_HOME}/lib" />
+    <property name="app.resources.dir" location="tomcat-main/src/main/resources"/>
+
+    <fileset id="app.defaults.with.standard.excludes" dir="${app.resources.dir}/defaults"
+        defaultexcludes="false">
+        <exclude name="**/.project" />
+        <exclude name="**/.classpath" />
+        <exclude name="**/.idea/**" />
+        <exclude name="**/.settings/**" />
+        <exclude name="**/.svn/**" />
+        <exclude name="**/nbproject/**" />
+        <exclude name="**/.git/**" />
+        <exclude name="**/.gitignore" />
+    </fileset>
+
+    <fileset id="app.tenants.with.standard.excludes" dir="${app.resources.dir}/tenants"
+        defaultexcludes="false">
+        <exclude name="**/.project" />
+        <exclude name="**/.classpath" />
+        <exclude name="**/.idea/**" />
+        <exclude name="**/.settings/**" />
+        <exclude name="**/.svn/**" />
+        <exclude name="**/nbproject/**" />
+        <exclude name="**/.git/**" />
+        <exclude name="**/.gitignore" />
+    </fileset>
+
+    <target name="quick-deploy"
+        description="Sync app layer customizations to their deployed locations" 
+        depends="sync-to-deployed-config-dir">
+    </target>
+
+    <target name="sync-to-deployed-config-dir"
+        description="Syncs application layer config files to their deployed locations"
+        depends="sync-defaults-to-deployed-config-dir,sync-tenants-to-deployed-config-dir,copy-cspace-config-to-deployed-config-dir">
+    </target>
+
+    <target name="sync-defaults-to-deployed-config-dir"
+        description="Syncs application layer default config files to their deployed locations">
+        <sync todir="${config.destination}/defaults" verbose="true">
+            <fileset refid="app.defaults.with.standard.excludes"/>
+        </sync>
+	</target>
+
+    <target name="sync-tenants-to-deployed-config-dir"
+        description="Syncs application layer tenant config files to their deployed locations">
+
+        <sync todir="${config.destination}/tenants" verbose="true">
+            <fileset refid="app.tenants.with.standard.excludes"/>
+            <preserveintarget>
+                <!-- In UCB deployments, we create a file in the target tenant directory --> 
+                <!-- called host-settings.xml that contains host-dependent settings. -->
+                <!-- This file should not be deleted. -->
+                <include name="**/host-settings.xml"/>
+            </preserveintarget>
+        </sync>
+	</target>
+
+    <target name="copy-cspace-config-to-deployed-config-dir"
+        description="Copies cspace config files to their deployed locations">
+
+        <!-- Delete cspace-config files from the destination, and copy them from the source. -->
+        <!-- These can't be synced, because they have different names in the source and destination. -->
+        <delete>
+            <fileset dir="${config.destination}" includes="cspace-config-*.xml"/>
+        </delete>
+        
+        <copy todir="${config.destination}" overwrite="true">
+            <fileset dir="${app.resources.dir}"/>
+            <globmapper from="*-tenant.xml" to="cspace-config-*.xml"/>
+        </copy>
+	</target>
+</project>
