@@ -31,6 +31,8 @@
       <include src="base-authority-organization.xml"/>
       <include src="base-authority-person-termList.xml"/>
       <include src="base-authority-person.xml"/>
+      <include src="base-authority-citation-termList.xml"/>
+      <include src="base-authority-citation.xml"/>
       <include src="base-authority-place-termList.xml"/>
       <include src="base-authority-place.xml"/>                
       <include src="base-authority-taxon-termList.xml"/>
