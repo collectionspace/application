@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <ns2:taxon_common xmlns:ns2="http://collectionspace.org/services/taxonomy"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <refName>urn:cspace:org.collectionspace.demo:taxonomyauthority:name(demotaxonomy):taxon:name(CentauruspleurexanthemusGreen1832)'Centaurus pleurexanthemus Green 1832'
-    </refName>
     <taxonYear>1832</taxonYear>
-    <displayNameComputed>true</displayNameComputed>
     <taxonCurrency>current</taxonCurrency>
-    <taxonomicStatus>valid</taxonomicStatus>
+    <shortIdentifier>CentauruspleurexanthemusGreen1832</shortIdentifier>
     <taxonCitationList>
         <taxonCitation>A Monograph of the Trilobites of North America</taxonCitation>
     </taxonCitationList>
-    <shortIdentifier>CentauruspleurexanthemusGreen1832</shortIdentifier>
-    <shortDisplayNameComputed>true</shortDisplayNameComputed>
     <taxonIsNamedHybrid>false</taxonIsNamedHybrid>
-    <termStatus>accepted</termStatus>
-    <taxonFullName>Centaurus pleurexanthemus Green 1832</taxonFullName>
     <taxonAuthorGroupList>
         <taxonAuthorGroup>
             <taxonAuthor>J. Green</taxonAuthor>
@@ -22,4 +15,11 @@
         </taxonAuthorGroup>
     </taxonAuthorGroupList>
     <taxonRank>species</taxonRank>
+    <taxonTermGroupList>
+        <taxonTermGroup>
+            <termDisplayName>Centaurus pleurexanthemus Green 1832</termDisplayName>
+            <termStatus>accepted</termStatus>
+            <taxonomicStatus>valid</taxonomicStatus>
+        </taxonTermGroup>
+    </taxonTermGroupList>
 </ns2:taxon_common>
