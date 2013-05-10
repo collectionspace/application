@@ -133,6 +133,10 @@ public class GenericStorage  implements ContextualisedStorage {
 			initializeGlean(r);
 		}
 	}
+
+	protected void initializeGlean(Record r){
+		initializeGlean(r, this.view_good, this.view_map, this.xxx_view_deurn, this.view_search_optional, this.view_merge, this.view_useCsid);
+	}
 	
 	/**
 	 * initialise the info for the glean array
@@ -144,7 +148,14 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * to help simplify deciding what to find and reduce irrelevant fan out, 
 	 * @param r
 	 */
-	protected void initializeGlean(Record r){
+	protected void initializeGlean(Record r, 
+			Map<String,String>		view_good, 
+			Map<String,String>		view_map, 
+			Set<String>				xxx_view_deurn, 
+			Set<String>				view_search_optional, 
+			Map<String,List<String>> view_merge, 
+			Map<String,List<String>> view_useCsid){
+		
 		// Number
 		if(r.getMiniNumber()!=null){
 			view_good.put("number",r.getMiniNumber().getID());
@@ -1882,6 +1893,10 @@ public class GenericStorage  implements ContextualisedStorage {
 	}
 
 
+	protected JSONObject getRepeatableListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid, Record r) throws ConnectionException, JSONException {
+		return getRepeatableListView(root, creds, cache, path, nodeName, matchlistitem, csidfield, fullcsid, r, this.view_map);
+	}
+	
 	/**
 	 * umbrella function to get repeatable lists 
 	 * sorts out whether you should be viewing a list that includeds soft deleted items or not
@@ -1898,15 +1913,15 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws ConnectionException
 	 * @throws JSONException
 	 */
-	protected JSONObject getRepeatableListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid, Record r) throws ConnectionException, JSONException {
+	protected JSONObject getRepeatableListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid, Record r, Map<String,String> view_map) throws ConnectionException, JSONException {
 		if(r.hasHierarchyUsed("screen")){
 			path = hierarchicalpath(path);
 		}
 		if(r.hasSoftDeleteMethod()){
-			return getRepeatableSoftListView(root,creds,cache,path,nodeName, matchlistitem, csidfield, fullcsid);
+			return getRepeatableSoftListView(root,creds,cache,path,nodeName, matchlistitem, csidfield, fullcsid, view_map);
 		}
 		else{
-			return getRepeatableHardListView(root,creds,cache,path,nodeName, matchlistitem, csidfield, fullcsid);
+			return getRepeatableHardListView(root,creds,cache,path,nodeName, matchlistitem, csidfield, fullcsid, view_map);
 		}
 	}
 
@@ -1974,10 +1989,10 @@ public class GenericStorage  implements ContextualisedStorage {
 		return hierarchicalpath;
 	}
 
-	protected JSONObject getRepeatableSoftListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
+	protected JSONObject getRepeatableSoftListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid, Map<String, String> view_map) throws ConnectionException, JSONException {
 		String softdeletepath = softpath(path);
 		
-		return getRepeatableHardListView(root,creds,cache,softdeletepath,nodeName, matchlistitem, csidfield, fullcsid);
+		return getRepeatableHardListView(root,creds,cache,softdeletepath,nodeName, matchlistitem, csidfield, fullcsid, view_map);
 	}
 	protected JSONObject getSoftListView(CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
 		String softdeletepath = softpath(path);
@@ -1999,7 +2014,7 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws ConnectionException
 	 * @throws JSONException
 	 */
-	protected JSONObject getRepeatableHardListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
+	protected JSONObject getRepeatableHardListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid, Map<String, String> view_map) throws ConnectionException, JSONException {
 		JSONObject out = new JSONObject();
 		JSONObject pagination = new JSONObject();
 		Document list=null;
