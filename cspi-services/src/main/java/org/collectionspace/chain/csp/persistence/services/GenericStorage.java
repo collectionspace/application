@@ -334,13 +334,12 @@ public class GenericStorage  implements ContextualisedStorage {
             }
 	}
 	
-	public JSONObject miniViewRetrieveJSON(CSPRequestCache cache,
-			CSPRequestCredentials creds,String filePath,String extra, String cachelistitem, Record thisr) 
+	public JSONObject miniViewRetrieveJSON(CSPRequestCache cache, CSPRequestCredentials creds,String filePath,String extra, String cachelistitem, Record thisr) 
 			throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 
-		return miniViewRetrieveJSON(cache,
-				creds, filePath, extra, cachelistitem, thisr,
-				this.view_good, this.xxx_view_deurn, this.view_search_optional, this.view_merge, this.view_useCsid);
+		return miniViewRetrieveJSON(cache, creds, filePath, extra, cachelistitem, thisr,
+				this.view_good, this.xxx_view_deurn, this.view_search_optional,
+				this.view_merge, this.view_useCsid);
 	}
 		
 	/**
@@ -358,12 +357,11 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws UnderlyingStorageException
 	 * @throws JSONException
 	 */
-	public JSONObject miniViewRetrieveJSON(CSPRequestCache cache,
-			CSPRequestCredentials creds, String filePath, String extra,
-			String cachelistitem, Record thisr,
+	public JSONObject miniViewRetrieveJSON(CSPRequestCache cache, CSPRequestCredentials creds, String filePath, String extra, String cachelistitem, Record thisr,
 			Map<String, String> view_good, Set<String> xxx_view_deurn, Set<String> view_search_optional,
 			Map<String, List<String>> view_merge, Map<String, List<String>> view_useCsid) 
-			throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+					throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		
 		if(cachelistitem==null){
 			cachelistitem = "/"+thisr.getServicesURL()+"/"+filePath;
 		}
@@ -938,12 +936,6 @@ public class GenericStorage  implements ContextualisedStorage {
 		throws ExistException, UnderlyingStorageException, JSONException, UnimplementedException {
 
 		JSONObject out=new JSONObject();
-//		Map<String,String> old_good=view_good;// map of servicenames of fields to descriptors
-//		Map<String,String> old_map=view_map; // map of csid to service name of field
-//		Set<String> old_deurn=xxx_view_deurn;
-//		Set<String> old_search_optional=view_search_optional;
-//		Map<String,List<String>>old_merge =view_merge;
-//		Map<String,List<String>> old_useCsid=view_useCsid;
 
 		try{
 
@@ -970,25 +962,11 @@ public class GenericStorage  implements ContextualisedStorage {
 				reset_good.put("terms_docNumber", "docNumber");
 				reset_good.put("terms_sourceField", "sourceField");
 				reset_good.put("terms_refName", "refName");
-
-//				view_good = reset_good;
-//				view_map = reset_map;
-//				xxx_view_deurn = reset_deurn;
-//				view_search_optional = reset_search_optional;
-//				view_merge = reset_merge;
-//				view_useCsid = reset_useCsid;
 				
 				//String nodeName = "authority-ref-doc-list/authority-ref-doc-item";
 				// Need to pick up pagination, etc. 
 				String nodeName = "authority-ref-doc-list/*";
 				JSONObject data = getRepeatableListView(storage,creds,cache,path,nodeName,"/authority-ref-doc-list/authority-ref-doc-item","uri", true, vr, reset_map);//XXX this might be the wrong record to pass to checkf or hard/soft delet listing
-
-//				reset_good = view_good;
-//				reset_map = view_map;
-//				reset_deurn = xxx_view_deurn;
-//				reset_search_optional = view_search_optional;
-//				reset_merge = view_merge;
-//				reset_useCsid = view_useCsid;
 				
 				JSONArray recs = data.getJSONArray("listItems");
 				if(data.has("pagination")) {
@@ -1008,8 +986,6 @@ public class GenericStorage  implements ContextualisedStorage {
 					String recordurl = parts[0];
 					Record thisr = vr.getSpec().getRecordByServicesUrl(recordurl);
 					// what glean info required for this one..
-//					resetGlean(thisr, reset_good, reset_map, reset_deurn,
-//							reset_search_optional, reset_merge, reset_useCsid, true);
 					Map<String,String> thisr_view_good = reset_good;
 					Map<String,String> thisr_view_map = reset_map;
 					Set<String> thisr_xxx_view_deurn = reset_deurn;
@@ -1072,14 +1048,6 @@ public class GenericStorage  implements ContextualisedStorage {
 			dataitem.put("message", uae.getMessage());
 			out.put("Functionality Failed",dataitem);
 			throw new UnderlyingStorageException("Problem building query"+uae.getLocalizedMessage(),uae);
-		} finally {
-			// Ensure we restore the gleaning views even if we get a failure (CSPACE-4424)
-//			view_good = old_good;
-//			view_map = old_map;
-//			xxx_view_deurn = old_deurn;
-//			view_search_optional  = old_search_optional;
-//			view_merge = old_merge;
-//			view_useCsid = old_useCsid;
 		}
 	}
 	/**
