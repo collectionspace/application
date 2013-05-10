@@ -20,8 +20,6 @@
 	</instances>
 	
 	<section id="taxonNameAuthorityInformation">
-		<!-- Remove summary from mini -->
-		<field id="taxonFullName" mini="list,search,relate,terms"/>
 		<!-- Add mini, and change options -->
 		<field id="taxonRank" mini="summary">
 			<options>
