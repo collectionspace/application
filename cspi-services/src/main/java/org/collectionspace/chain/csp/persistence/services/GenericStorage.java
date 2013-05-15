@@ -953,10 +953,6 @@ public class GenericStorage  implements ContextualisedStorage {
 
 			Map<String,String> refObj_view_good=new HashMap<String,String>();// map of servicenames of fields to descriptors
 			Map<String,String> refObj_view_map=new HashMap<String,String>(); // map of csid to service name of field
-			Set<String> refObj_xxx_view_deurn=new HashSet<String>();
-			Set<String> refObj_view_search_optional=new HashSet<String>();
-			Map<String,List<String>> refObj_view_merge = new HashMap<String, List<String>>();
-			Map<String,List<String>> refObj_view_useCsid=new HashMap<String,List<String>>();
 			if(vr.hasRefObjUsed()){
 				path =  getRestrictedPath(path, restrictions,"kw", "", false, "");
 				//XXX need a way to append the data needed from the field,
@@ -1000,10 +996,10 @@ public class GenericStorage  implements ContextualisedStorage {
 					// what glean info required for this one..
 					Map<String,String> thisr_view_good = new HashMap<String,String>(refObj_view_good);
 					Map<String,String> thisr_view_map = new HashMap<String,String>(refObj_view_map);
-					Set<String> thisr_xxx_view_deurn = new HashSet<String>(refObj_xxx_view_deurn);
-					Set<String> thisr_view_search_optional = new HashSet<String>(refObj_view_search_optional);
-					Map<String,List<String>> thisr_view_merge = new HashMap<String, List<String>>(refObj_view_merge);
-					Map<String,List<String>> thisr_view_useCsid = new HashMap<String,List<String>>(refObj_view_useCsid);
+					Set<String> thisr_xxx_view_deurn = new HashSet<String>();
+					Set<String> thisr_view_search_optional = new HashSet<String>();
+					Map<String,List<String>> thisr_view_merge = new HashMap<String, List<String>>();
+					Map<String,List<String>> thisr_view_useCsid = new HashMap<String,List<String>>();
 					
 					initializeGlean(thisr, thisr_view_good, thisr_view_map, thisr_xxx_view_deurn,
 							thisr_view_search_optional, thisr_view_merge, thisr_view_useCsid);
