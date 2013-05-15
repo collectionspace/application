@@ -136,15 +136,26 @@ public class GenericStorage  implements ContextualisedStorage {
 	
 	/**
 	 * initialise the info for the glean array
-	 * view_good: map of servicenames of fields to descriptors
-	 * view_map: map of csid to service name of field
-	 * view_merge: map of fields needed if one field to the UI is really multiple fields in the services
 	 * 
 	 * view_good keys are prefixed by the values found in the mini tag in the config file 
 	 * to help simplify deciding what to find and reduce irrelevant fan out, 
 	 * @param r
+	 * @param view_good				map of servicenames of fields to descriptors
+	 * @param view_map				map of csid to service name of field
+	 * @param xxx_view_deurn
+	 * @param view_search_optional
+	 * @param view_merge			map of fields needed if one field to the UI is really multiple fields in the services
+	 * @param view_useCsid
 	 */
-	protected void initializeGlean(Record r){
+	// CSPACE-5988: Allow maps to be passed as parameters, instead of using instance variables.
+	protected void initializeGlean(Record r, 
+			Map<String,String>		view_good,
+			Map<String,String>		view_map,
+			Set<String>				xxx_view_deurn,
+			Set<String>				view_search_optional,
+			Map<String,List<String>> view_merge,
+			Map<String,List<String>> view_useCsid){
+
 		// Number
 		if(r.getMiniNumber()!=null){
 			view_good.put("number",r.getMiniNumber().getID());
@@ -234,6 +245,10 @@ public class GenericStorage  implements ContextualisedStorage {
 		view_map.put("related","related");
 	}
 
+	protected void initializeGlean(Record r){
+		initializeGlean(r, this.view_good, this.view_map, this.xxx_view_deurn, this.view_search_optional, this.view_merge, this.view_useCsid);
+	}
+	
 	/**
 	 * Set the csids that were retrieved in the cache
 	 * @param cache The cache itself
@@ -323,7 +338,6 @@ public class GenericStorage  implements ContextualisedStorage {
             }
 	}
 	
-
 	/**
 	 * Get a mini view of the record
 	 * Currently used for relatedObj relatedProc Find&Edit and Search
@@ -333,13 +347,25 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @param creds
 	 * @param filePath
 	 * @param extra - used to define which subset of data to use expects related|terms|search|list
+	 * @param cachelistitem
+	 * @param thisr
+	 * @param view_good
+	 * @param xxx_view_deurn
+	 * @param view_search_optional
+	 * @param view_merge
+	 * @param view_useCsid
 	 * @return
 	 * @throws ExistException
 	 * @throws UnimplementedException
 	 * @throws UnderlyingStorageException
 	 * @throws JSONException
 	 */
-	public JSONObject miniViewRetrieveJSON(CSPRequestCache cache,CSPRequestCredentials creds,String filePath,String extra, String cachelistitem, Record thisr) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
+	// CSPACE-5988: Allow maps to be passed as parameters, instead of using instance variables.
+	public JSONObject miniViewRetrieveJSON(CSPRequestCache cache, CSPRequestCredentials creds, String filePath, String extra, String cachelistitem, Record thisr,
+			Map<String, String> view_good, Set<String> xxx_view_deurn, Set<String> view_search_optional,
+			Map<String, List<String>> view_merge, Map<String, List<String>> view_useCsid) 
+					throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		
 		if(cachelistitem==null){
 			cachelistitem = "/"+thisr.getServicesURL()+"/"+filePath;
 		}
@@ -513,6 +539,14 @@ public class GenericStorage  implements ContextualisedStorage {
 			out.put("summarylist", summarylist);
 		}
 		return out;
+	}
+	
+	public JSONObject miniViewRetrieveJSON(CSPRequestCache cache, CSPRequestCredentials creds,String filePath,String extra, String cachelistitem, Record thisr) 
+			throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
+
+		return miniViewRetrieveJSON(cache, creds, filePath, extra, cachelistitem, thisr,
+				this.view_good, this.xxx_view_deurn, this.view_search_optional,
+				this.view_merge, this.view_useCsid);
 	}
 	
 	/**
@@ -914,57 +948,43 @@ public class GenericStorage  implements ContextualisedStorage {
 		throws ExistException, UnderlyingStorageException, JSONException, UnimplementedException {
 
 		JSONObject out=new JSONObject();
-		Map<String,String> old_good=view_good;// map of servicenames of fields to descriptors
-		Map<String,String> old_map=view_map; // map of csid to service name of field
-		Set<String> old_deurn=xxx_view_deurn;
-		Set<String> old_search_optional=view_search_optional;
-		Map<String,List<String>>old_merge =view_merge;
-		Map<String,List<String>> old_useCsid=view_useCsid;
 
+		/*
+		 * Usually, processing of list results utilizes "glean" maps stored as instance variables (view_good, view_map,
+		 * xxx_view_deurn, view_search_optional, view_merge, and view_useCsid). These instance variables can be
+		 * considered defaults that work for the most common kinds of list results. The format returned from the refobj
+		 * services call is non-standard with respect to most list results, so we have to set up a special context to
+		 * interpret the results the way we need. Swapping out the instance variables is not thread-safe (CSPACE-5988).
+		 * Instead, the required maps are defined locally to this method, and passed as parameters into the methods
+		 * that need them, which overrides the use of the corresponding instance variables.
+		 */
+		
 		try{
 
-			Map<String,String> reset_good=new HashMap<String,String>();// map of servicenames of fields to descriptors
-			Map<String,String> reset_map=new HashMap<String,String>(); // map of csid to service name of field
-			Set<String> reset_deurn=new HashSet<String>();
-			Set<String> reset_search_optional=new HashSet<String>();
-			Map<String,List<String>> reset_merge = new HashMap<String, List<String>>();
-			Map<String,List<String>> reset_useCsid=new HashMap<String,List<String>>();
+			Map<String,String> refObj_view_good=new HashMap<String,String>();// map of servicenames of fields to descriptors
+			Map<String,String> refObj_view_map=new HashMap<String,String>(); // map of csid to service name of field
 			if(vr.hasRefObjUsed()){
 				path =  getRestrictedPath(path, restrictions,"kw", "", false, "");
 				//XXX need a way to append the data needed from the field,
 				// which we don't know until after we have got the information...
-				reset_map.put("docType", "docType");
-				reset_map.put("docId", "docId");
-				reset_map.put("docName", "docName");
-				reset_map.put("docNumber", "docNumber");
-				reset_map.put("sourceField", "sourceField");
-				reset_map.put("uri", "uri");
-				reset_map.put("refName", "refName");
-				reset_good.put("terms_docType", "docType");
-				reset_good.put("terms_docId", "docId");
-				reset_good.put("terms_docName", "docName");
-				reset_good.put("terms_docNumber", "docNumber");
-				reset_good.put("terms_sourceField", "sourceField");
-				reset_good.put("terms_refName", "refName");
-
-				view_good = reset_good;
-				view_map = reset_map;
-				xxx_view_deurn = reset_deurn;
-				view_search_optional = reset_search_optional;
-				view_merge = reset_merge;
-				view_useCsid = reset_useCsid;
+				refObj_view_map.put("docType", "docType");
+				refObj_view_map.put("docId", "docId");
+				refObj_view_map.put("docName", "docName");
+				refObj_view_map.put("docNumber", "docNumber");
+				refObj_view_map.put("sourceField", "sourceField");
+				refObj_view_map.put("uri", "uri");
+				refObj_view_map.put("refName", "refName");
+				refObj_view_good.put("terms_docType", "docType");
+				refObj_view_good.put("terms_docId", "docId");
+				refObj_view_good.put("terms_docName", "docName");
+				refObj_view_good.put("terms_docNumber", "docNumber");
+				refObj_view_good.put("terms_sourceField", "sourceField");
+				refObj_view_good.put("terms_refName", "refName");
 				
 				//String nodeName = "authority-ref-doc-list/authority-ref-doc-item";
 				// Need to pick up pagination, etc. 
 				String nodeName = "authority-ref-doc-list/*";
-				JSONObject data = getRepeatableListView(storage,creds,cache,path,nodeName,"/authority-ref-doc-list/authority-ref-doc-item","uri", true, vr);//XXX this might be the wrong record to pass to checkf or hard/soft delet listing
-
-				reset_good = view_good;
-				reset_map = view_map;
-				reset_deurn = xxx_view_deurn;
-				reset_search_optional = view_search_optional;
-				reset_merge = view_merge;
-				reset_useCsid = view_useCsid;
+				JSONObject data = getRepeatableListView(storage,creds,cache,path,nodeName,"/authority-ref-doc-list/authority-ref-doc-item","uri", true, vr, refObj_view_map);//XXX this might be the wrong record to pass to checkf or hard/soft delet listing
 				
 				JSONArray recs = data.getJSONArray("listItems");
 				if(data.has("pagination")) {
@@ -983,11 +1003,22 @@ public class GenericStorage  implements ContextualisedStorage {
 					String[] parts=filePath.split("/");
 					String recordurl = parts[0];
 					Record thisr = vr.getSpec().getRecordByServicesUrl(recordurl);
-					// what glean info required for this one..
-					resetGlean(thisr, reset_good, reset_map, reset_deurn,
-							reset_search_optional, reset_merge, reset_useCsid, true);
+					
+					// Set up the glean maps required for this record. We need to reset these each time
+					// through the loop, because every record could be a different type.
+					
+					Map<String,String> thisr_view_good = new HashMap<String,String>(refObj_view_good);
+					Map<String,String> thisr_view_map = new HashMap<String,String>(refObj_view_map);
+					Set<String> thisr_xxx_view_deurn = new HashSet<String>();
+					Set<String> thisr_view_search_optional = new HashSet<String>();
+					Map<String,List<String>> thisr_view_merge = new HashMap<String, List<String>>();
+					Map<String,List<String>> thisr_view_useCsid = new HashMap<String,List<String>>();
+					
+					initializeGlean(thisr, thisr_view_good, thisr_view_map, thisr_xxx_view_deurn,
+							thisr_view_search_optional, thisr_view_merge, thisr_view_useCsid);
+					
 					String csid = parts[parts.length-1];
-					JSONObject dataitem = miniViewRetrieveJSON(cache,creds,csid, "terms", uri, thisr);
+					JSONObject dataitem = miniViewRetrieveJSON(cache,creds,csid, "terms", uri, thisr, thisr_view_good, thisr_xxx_view_deurn, thisr_view_search_optional, thisr_view_merge, thisr_view_useCsid);
 					dataitem.getJSONObject("summarylist").put("uri",filePath);
 					
 					
@@ -1038,14 +1069,6 @@ public class GenericStorage  implements ContextualisedStorage {
 			dataitem.put("message", uae.getMessage());
 			out.put("Functionality Failed",dataitem);
 			throw new UnderlyingStorageException("Problem building query"+uae.getLocalizedMessage(),uae);
-		} finally {
-			// Ensure we restore the gleaning views even if we get a failure (CSPACE-4424)
-			view_good = old_good;
-			view_map = old_map;
-			xxx_view_deurn = old_deurn;
-			view_search_optional  = old_search_optional;
-			view_merge = old_merge;
-			view_useCsid = old_useCsid;
 		}
 	}
 	/**
@@ -1843,8 +1866,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			throw new UnderlyingStorageException("Service layer exception",e);
 		}
 	}
-
-
+	
 	/**
 	 * umbrella function to get repeatable lists 
 	 * sorts out whether you should be viewing a list that includeds soft deleted items or not
@@ -1857,20 +1879,26 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @param csidfield
 	 * @param fullcsid
 	 * @param r
+	 * @param view_map
 	 * @return
 	 * @throws ConnectionException
 	 * @throws JSONException
 	 */
-	protected JSONObject getRepeatableListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid, Record r) throws ConnectionException, JSONException {
+	// CSPACE-5988: Allow view_map to be passed as a parameter, instead of using the instance variable.
+	protected JSONObject getRepeatableListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid, Record r, Map<String,String> view_map) throws ConnectionException, JSONException {
 		if(r.hasHierarchyUsed("screen")){
 			path = hierarchicalpath(path);
 		}
 		if(r.hasSoftDeleteMethod()){
-			return getRepeatableSoftListView(root,creds,cache,path,nodeName, matchlistitem, csidfield, fullcsid);
+			return getRepeatableSoftListView(root,creds,cache,path,nodeName, matchlistitem, csidfield, fullcsid, view_map);
 		}
 		else{
-			return getRepeatableHardListView(root,creds,cache,path,nodeName, matchlistitem, csidfield, fullcsid);
+			return getRepeatableHardListView(root,creds,cache,path,nodeName, matchlistitem, csidfield, fullcsid, view_map);
 		}
+	}
+	
+	protected JSONObject getRepeatableListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid, Record r) throws ConnectionException, JSONException {
+		return getRepeatableListView(root, creds, cache, path, nodeName, matchlistitem, csidfield, fullcsid, r, this.view_map);
 	}
 
 	/**
@@ -1937,11 +1965,17 @@ public class GenericStorage  implements ContextualisedStorage {
 		return hierarchicalpath;
 	}
 
-	protected JSONObject getRepeatableSoftListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
+	// CSPACE-5988: Allow view_map to be passed as a parameter, instead of using the instance variable.
+	protected JSONObject getRepeatableSoftListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid, Map<String, String> view_map) throws ConnectionException, JSONException {
 		String softdeletepath = softpath(path);
 		
-		return getRepeatableHardListView(root,creds,cache,softdeletepath,nodeName, matchlistitem, csidfield, fullcsid);
+		return getRepeatableHardListView(root,creds,cache,softdeletepath,nodeName, matchlistitem, csidfield, fullcsid, view_map);
 	}
+
+	protected JSONObject getRepeatableSoftListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
+		return getRepeatableSoftListView(root, creds, cache, path, nodeName, matchlistitem, csidfield, fullcsid, this.view_map);
+	}
+	
 	protected JSONObject getSoftListView(CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
 		String softdeletepath = softpath(path);
 		
@@ -1958,11 +1992,13 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @param matchlistitem
 	 * @param csidfield
 	 * @param fullcsid
+	 * @param view_map
 	 * @return
 	 * @throws ConnectionException
 	 * @throws JSONException
 	 */
-	protected JSONObject getRepeatableHardListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
+	// CSPACE-5988: Allow view_map to be passed as a parameter, instead of using the instance variable.
+	protected JSONObject getRepeatableHardListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid, Map<String, String> view_map) throws ConnectionException, JSONException {
 		JSONObject out = new JSONObject();
 		JSONObject pagination = new JSONObject();
 		Document list=null;
@@ -2065,7 +2101,11 @@ public class GenericStorage  implements ContextualisedStorage {
 		out.put("listItems", listitems);
 		return out;
 	}
-	
+
+	protected JSONObject getRepeatableHardListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
+		return getRepeatableHardListView(root, creds, cache, path, nodeName, matchlistitem, csidfield, fullcsid, this.view_map);
+	}
+
 	/**
 	 * return list view of items
 	 * TODO make getHardListView and getRepeatableHardListView to share more code as they aren't different enough to warrant the level of code repeat
