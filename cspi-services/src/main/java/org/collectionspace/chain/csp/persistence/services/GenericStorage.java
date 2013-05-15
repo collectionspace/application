@@ -988,34 +988,34 @@ public class GenericStorage  implements ContextualisedStorage {
 
 		try{
 
-			Map<String,String> reset_good=new HashMap<String,String>();// map of servicenames of fields to descriptors
-			Map<String,String> reset_map=new HashMap<String,String>(); // map of csid to service name of field
-			Set<String> reset_deurn=new HashSet<String>();
-			Set<String> reset_search_optional=new HashSet<String>();
-			Map<String,List<String>> reset_merge = new HashMap<String, List<String>>();
-			Map<String,List<String>> reset_useCsid=new HashMap<String,List<String>>();
+			Map<String,String> refObj_view_good=new HashMap<String,String>();// map of servicenames of fields to descriptors
+			Map<String,String> refObj_view_map=new HashMap<String,String>(); // map of csid to service name of field
+			Set<String> refObj_xxx_view_deurn=new HashSet<String>();
+			Set<String> refObj_view_search_optional=new HashSet<String>();
+			Map<String,List<String>> refObj_view_merge = new HashMap<String, List<String>>();
+			Map<String,List<String>> refObj_view_useCsid=new HashMap<String,List<String>>();
 			if(vr.hasRefObjUsed()){
 				path =  getRestrictedPath(path, restrictions,"kw", "", false, "");
 				//XXX need a way to append the data needed from the field,
 				// which we don't know until after we have got the information...
-				reset_map.put("docType", "docType");
-				reset_map.put("docId", "docId");
-				reset_map.put("docName", "docName");
-				reset_map.put("docNumber", "docNumber");
-				reset_map.put("sourceField", "sourceField");
-				reset_map.put("uri", "uri");
-				reset_map.put("refName", "refName");
-				reset_good.put("terms_docType", "docType");
-				reset_good.put("terms_docId", "docId");
-				reset_good.put("terms_docName", "docName");
-				reset_good.put("terms_docNumber", "docNumber");
-				reset_good.put("terms_sourceField", "sourceField");
-				reset_good.put("terms_refName", "refName");
+				refObj_view_map.put("docType", "docType");
+				refObj_view_map.put("docId", "docId");
+				refObj_view_map.put("docName", "docName");
+				refObj_view_map.put("docNumber", "docNumber");
+				refObj_view_map.put("sourceField", "sourceField");
+				refObj_view_map.put("uri", "uri");
+				refObj_view_map.put("refName", "refName");
+				refObj_view_good.put("terms_docType", "docType");
+				refObj_view_good.put("terms_docId", "docId");
+				refObj_view_good.put("terms_docName", "docName");
+				refObj_view_good.put("terms_docNumber", "docNumber");
+				refObj_view_good.put("terms_sourceField", "sourceField");
+				refObj_view_good.put("terms_refName", "refName");
 				
 				//String nodeName = "authority-ref-doc-list/authority-ref-doc-item";
 				// Need to pick up pagination, etc. 
 				String nodeName = "authority-ref-doc-list/*";
-				JSONObject data = getRepeatableListView(storage,creds,cache,path,nodeName,"/authority-ref-doc-list/authority-ref-doc-item","uri", true, vr, reset_map);//XXX this might be the wrong record to pass to checkf or hard/soft delet listing
+				JSONObject data = getRepeatableListView(storage,creds,cache,path,nodeName,"/authority-ref-doc-list/authority-ref-doc-item","uri", true, vr, refObj_view_map);//XXX this might be the wrong record to pass to checkf or hard/soft delet listing
 				
 				JSONArray recs = data.getJSONArray("listItems");
 				if(data.has("pagination")) {
@@ -1035,12 +1035,12 @@ public class GenericStorage  implements ContextualisedStorage {
 					String recordurl = parts[0];
 					Record thisr = vr.getSpec().getRecordByServicesUrl(recordurl);
 					// what glean info required for this one..
-					Map<String,String> thisr_view_good = reset_good;
-					Map<String,String> thisr_view_map = reset_map;
-					Set<String> thisr_xxx_view_deurn = reset_deurn;
-					Set<String> thisr_view_search_optional = reset_search_optional;
-					Map<String,List<String>> thisr_view_merge = reset_merge;
-					Map<String,List<String>> thisr_view_useCsid = reset_useCsid;
+					Map<String,String> thisr_view_good = refObj_view_good;
+					Map<String,String> thisr_view_map = refObj_view_map;
+					Set<String> thisr_xxx_view_deurn = refObj_xxx_view_deurn;
+					Set<String> thisr_view_search_optional = refObj_view_search_optional;
+					Map<String,List<String>> thisr_view_merge = refObj_view_merge;
+					Map<String,List<String>> thisr_view_useCsid = refObj_view_useCsid;
 					
 					initializeGlean(thisr, thisr_view_good, thisr_view_map, thisr_xxx_view_deurn,
 							thisr_view_search_optional, thisr_view_merge, thisr_view_useCsid);
