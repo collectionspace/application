@@ -1035,12 +1035,12 @@ public class GenericStorage  implements ContextualisedStorage {
 					String recordurl = parts[0];
 					Record thisr = vr.getSpec().getRecordByServicesUrl(recordurl);
 					// what glean info required for this one..
-					Map<String,String> thisr_view_good = refObj_view_good;
-					Map<String,String> thisr_view_map = refObj_view_map;
-					Set<String> thisr_xxx_view_deurn = refObj_xxx_view_deurn;
-					Set<String> thisr_view_search_optional = refObj_view_search_optional;
-					Map<String,List<String>> thisr_view_merge = refObj_view_merge;
-					Map<String,List<String>> thisr_view_useCsid = refObj_view_useCsid;
+					Map<String,String> thisr_view_good = new HashMap<String,String>(refObj_view_good);
+					Map<String,String> thisr_view_map = new HashMap<String,String>(refObj_view_map);
+					Set<String> thisr_xxx_view_deurn = new HashSet<String>(refObj_xxx_view_deurn);
+					Set<String> thisr_view_search_optional = new HashSet<String>(refObj_view_search_optional);
+					Map<String,List<String>> thisr_view_merge = new HashMap<String, List<String>>(refObj_view_merge);
+					Map<String,List<String>> thisr_view_useCsid = new HashMap<String,List<String>>(refObj_view_useCsid);
 					
 					initializeGlean(thisr, thisr_view_good, thisr_view_map, thisr_xxx_view_deurn,
 							thisr_view_search_optional, thisr_view_merge, thisr_view_useCsid);
