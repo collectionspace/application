@@ -986,6 +986,16 @@ public class GenericStorage  implements ContextualisedStorage {
 
 		JSONObject out=new JSONObject();
 
+		/*
+		 * Usually, processing of list results utilizes "glean" maps stored as instance variables (view_good, view_map,
+		 * xxx_view_deurn, view_search_optional, view_merge, and view_useCsid). These instance variables can be
+		 * considered defaults that work for the most common kinds of list results. The format returned from the refobj
+		 * services call is non-standard with respect to most list results, so we have to set up a special context to
+		 * interpret the results the way we need. Swapping out the instance variables is not thread-safe (CSPACE-5988).
+		 * Instead, the required maps are defined locally to this method, and passed as parameters into the methods
+		 * that need them, which overrides the use of the corresponding instance variables.
+		 */
+		
 		try{
 
 			Map<String,String> refObj_view_good=new HashMap<String,String>();// map of servicenames of fields to descriptors
@@ -1030,7 +1040,10 @@ public class GenericStorage  implements ContextualisedStorage {
 					String[] parts=filePath.split("/");
 					String recordurl = parts[0];
 					Record thisr = vr.getSpec().getRecordByServicesUrl(recordurl);
-					// what glean info required for this one..
+					
+					// Set up the glean maps required for this record. We need to reset these each time
+					// through the loop, because every record could be a different type.
+					
 					Map<String,String> thisr_view_good = new HashMap<String,String>(refObj_view_good);
 					Map<String,String> thisr_view_map = new HashMap<String,String>(refObj_view_map);
 					Set<String> thisr_xxx_view_deurn = new HashSet<String>();
