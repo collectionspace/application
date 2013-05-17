@@ -18,6 +18,8 @@ import org.slf4j.LoggerFactory;
 
 public class Services {
 	private static final Logger log = LoggerFactory.getLogger(Services.class);
+	private static final String GROUP_XPATH_SUFFIX = "/*";
+	private static final String NO_REPO_DOMAIN = "none";
 	protected Spec spec;
 	protected TenantSpec tenantSpec;
 	protected Boolean defaultonly;
@@ -72,8 +74,6 @@ public class Services {
 		root.add(this.nsxsi);
 //		root.add(this.nstypes);
 		
-
-
 		//<tenant:tenantBinding version="0.1">
 		Element ele = root.addElement(new QName("tenantBinding", nstenant));
 		if(!this.defaultonly){
@@ -84,19 +84,14 @@ public class Services {
 
 		//<tenant:repositoryDomain name="default-domain" repositoryClient="nuxeo-java"/>
 		Element rele = ele.addElement(new QName("repositoryDomain", nstenant));
-
-		if(this.defaultonly){
-			rele.addAttribute("name", this.tenantSpec.getDefaultDomain());
-		}
-		else{
-			rele.addAttribute("name", this.tenantSpec.getRepoDomain());
-		}
+		rele.addAttribute("name", this.tenantSpec.getRepositoryDomain());
+		rele.addAttribute("storageName", this.tenantSpec.getStorageName());
 		rele.addAttribute("repositoryClient", this.tenantSpec.getRepoClient());
 		
 		//add in <tenant:properties> if required
 		makeProperties(ele);
 		
-		Boolean debug = false;
+		Boolean debug = true;
 		//loop over each record type and add <tenant:serviceBindings
 		for (Record r : this.spec.getAllRecords()) {
 			if (r.isType("record") && debug) {
@@ -206,15 +201,15 @@ public class Services {
 			String namespaceURI, String schemaLocation, Namespace thisns, Boolean addAuths, String section) {
 		Element pele = cele.addElement(new QName("part", thisns));
 		pele.addAttribute("id", id);
-		pele.addAttribute("control_group", "Managed");
+		pele.addAttribute("control_group", "Managed"); //FIXME: This shouldn't be hard coded.
 		pele.addAttribute("versionable", "true");
-		pele.addAttribute("auditable", "false");
+		pele.addAttribute("auditable", "false"); //FIXME: Should not be hard coded.
 		pele.addAttribute("label", label);
 		pele.addAttribute("updated", "");
 		pele.addAttribute("order", order);
 		
 		Element conle = pele.addElement(new QName("content",thisns));
-		conle.addAttribute("contentType", "application/xml");
+		conle.addAttribute("contentType", "application/xml"); //FIXME: This shouldn't be hard coded
 		
 		Element xconle = conle.addElement(new QName("xmlContent",thisns));
 		xconle.addAttribute("namespaceURI", namespaceURI);
@@ -290,19 +285,19 @@ public class Services {
 	 * @param section
 	 * @param isAuthority
 	 */
-	private void doDocHandler(Record r, Element el, Namespace thisns, String section, Boolean isAuthority){
+	private void doDocHandlerParams(Record r, Element el, Namespace thisns, String section, Boolean isAuthority){ //FIXME: Rename this method to doDocHandlerParms
 		//<service:DocHandlerParams>
 		Element dhele = el.addElement(new QName("DocHandlerParams", thisns));
 		Element pele = dhele.addElement(new QName("params", thisns));
 		if(this.defaultonly){
-			Element nuxeoscheme = pele.addElement(new QName("NuxeoSchemaName",thisns));
-			nuxeoscheme.addText(r.getServicesTenantPl().toLowerCase());
-			Element dublin = pele.addElement(new QName("DublinCoreTitle",thisns));
-			dublin.addText(r.getServicesTenantPl().toLowerCase());
-			Element abstractlist = pele.addElement(new QName("AbstractCommonListClassname",thisns));
-			abstractlist.addText(r.getServicesAbstractCommonList());
-			Element commonlist = pele.addElement(new QName("CommonListItemClassname",thisns));
-			commonlist.addText(r.getServicesCommonList());
+//			Element nuxeoscheme = pele.addElement(new QName("NuxeoSchemaName",thisns));
+//			nuxeoscheme.addText(r.getServicesTenantPl().toLowerCase());
+//			Element dublin = pele.addElement(new QName("DublinCoreTitle",thisns));
+//			dublin.addText(r.getServicesTenantPl().toLowerCase());
+//			Element abstractlist = pele.addElement(new QName("AbstractCommonListClassname",thisns));
+//			abstractlist.addText(r.getServicesAbstractCommonList());
+//			Element commonlist = pele.addElement(new QName("CommonListItemClassname",thisns));
+//			commonlist.addText(r.getServicesCommonList());
 		}
 		
 		Element lrele = pele.addElement(new QName("ListResultsFields", thisns));
@@ -333,10 +328,10 @@ public class Services {
 	 * domain specific tenant binding
 	 */
 	private void makeLowerParts(Record r, Namespace thisns, Element cele, String label, String labelsg, Boolean isAuthority){
-		Integer num = 3;
+		Integer num = 3; //FIXME: Replace this magic number please?
 		String sectional = r.getServicesRecordPath(this.domainsection);
 		String[] sectionparts=sectional.split(":",2);
-		String schemaLocationDomain = sectionparts[1].split(",",2)[0] + " "+ r.getServicesSchemaBaseLocation() + labelsg + "/domain/" + label + "_"+this.domainsection+".xsd";
+		String schemaLocationDomain = sectionparts[1].split(",",2)[0] + " "+ r.getServicesSchemaBaseLocation() + labelsg + "/domain/" + label + "_"+this.domainsection+".xsd"; //FIXME: Please add some comments here.
 
 		makePart(r,cele,num.toString(),sectionparts[0],num.toString(),sectionparts[1].split(",",2)[0],schemaLocationDomain,thisns,true,this.domainsection);
 		num++;
@@ -360,7 +355,7 @@ public class Services {
 		else{
 			cele.addAttribute("name", r.getServicesTenantSg());
 		}
-		cele.addAttribute("version", "1.0");
+		cele.addAttribute("version", "1.0"); // FIXME: Version should not be hardcoded.
 
 		String label = r.getServicesTenantPl().toLowerCase();
 		String labelsg = r.getServicesTenantSg().toLowerCase();
@@ -455,40 +450,41 @@ public class Services {
 		addServiceBinding(r, cele, nsservices, false);
 	}
 	
-	private void addServiceBinding(Record r, Element el, Namespace thisns, Boolean isAuthority) {
-		//<service:repositoryDomain>default-domain</service:repositoryDomain>
-		Element repository = el.addElement(new QName("repositoryDomain",thisns));
-
-		if(this.defaultonly){
-			repository.addText(this.tenantSpec.getDefaultDomain());
-			//<service:documentHandler>
-			String docHandler = r.getServicesDocHandler();
-			Element documentHandler = el.addElement(new QName("documentHandler",thisns));
-			documentHandler.addText(docHandler);
-			//<service:validatorHandler>
-			Element validatorHandler = el.addElement(new QName("validatorHandler",thisns));
-			validatorHandler.addText(r.getServicesValidatorHandler());
-		}
-		else{
-			repository.addText(this.tenantSpec.getRepoDomain());
+	private void addServiceBinding(Record r, Element el, Namespace nameSpace, Boolean isAuthority) {
+		String repositoryDomain = r.getServicesRepositoryDomain();
+		if (repositoryDomain == null) {
+			repositoryDomain = this.tenantSpec.getRepositoryDomain(); // Assume the default tenant repo if the service hasn't specified one
 		}
 		
-		if(!this.domainsection.equals("")){//only do if domain exists or is common
-			//<service:object name="CollectionObject" version="0.1">
-			//defines all authref fields
-			doServiceObject(r, el, this.nsservices, isAuthority);
-
-			//<service:DocHandlerParams> include fields to show in list results
-			doDocHandler(r, el, this.nsservices, this.domainsection, isAuthority);
-			
-			//<service:initHandler> which fields need to be modified in the nuxeo db
-			doInitHandler(r, el, this.nsservices, this.domainsection, isAuthority);
+		if (repositoryDomain.equalsIgnoreCase(NO_REPO_DOMAIN) == false) {  // Note that NO_REPO_DOMAIN is different than "null" or not specified.
+			//<service:repositoryDomain>default-domain</service:repositoryDomain>
+			Element repository = el.addElement(new QName("repositoryDomain", nameSpace));		
+			repository.addText(this.tenantSpec.getRepositoryDomain());
 		}
+		
+		//<service:documentHandler>
+		String docHandler = r.getServicesDocHandler();
+		Element documentHandler = el.addElement(new QName("documentHandler", nameSpace));
+		documentHandler.addText(docHandler);
+		
+		//<service:DocHandlerParams> include fields to show in list results
+		doDocHandlerParams(r, el, this.nsservices, this.domainsection, isAuthority);
 
+		//<service:validatorHandler>
+		Element validatorHandler = el.addElement(new QName("validatorHandler", nameSpace));
+		validatorHandler.addText(r.getServicesValidatorHandler());
+		
+		//<service:initHandler> which fields need to be modified in the nuxeo db
+		doInitHandler(r, el, this.nsservices, this.domainsection, isAuthority);
+
+		//<service:properties>
+		//doServiceProperties
+		
+		//<service:object>
+		doServiceObject(r, el, this.nsservices, isAuthority);
 	}
 	
 
-	
 	//defines fields to show in list results
 	private void doLists(Record r, Element el, Namespace thisns, String section) {
 
@@ -534,42 +530,57 @@ public class Services {
 		}
 	}
 
+	//
+	// It's possible that the repeat is of a structured "group" type.  If so, we need to
+	// create an XPath of the form <yxzGroupList>/*/<fieldName>.  To do this we need to split
+	// the 'fullid' of this repeat fieldset into its component parts.
+	//
+	private String getXpathStructuredPart(Repeat repeat) {
+		String result = null;
+		
+		String[] parts = repeat.getfullID().split("/");
+		result = parts[0];
+		if (parts.length > 1) { // If we have more than one part, we have a repeating structure.
+			result = result + GROUP_XPATH_SUFFIX;
+		}
+		
+		return result;
+	}
+	
+	/*
+	 * Creates a set of Service binding authrefs of the following form:
+	 *  <types:item>
+	 *      <types:key>authRef</types:key>
+	 *      <types:value>currentOwner</types:value>
+	 *  </types:item>
+	 */
 	private void doAuths(Element auth, Namespace types, Record r, String section) {
-		/*
-		 * 
-						<types:item>
-							<types:key>authRef</types:key>
-							<types:value>currentOwner</types:value>
-						</types:item>
-		 */
 		for (FieldSet in : r.getAllFieldFullList("")) {
-			if (in.getSection().equals(section)) {
-				if (in.hasAutocompleteInstance()) {
-					Boolean typecheck = false;
-					if (in instanceof Field) {
-						typecheck = (((Field) in).getUIType()).equals("enum");
-					}
-					if (!typecheck) {
-						FieldSet fs = in;
-
-						Element tele = auth
-								.addElement(new QName("item", types));
-						Element tele2 = tele
-								.addElement(new QName("key", types));
-						Element tele3 = tele.addElement(new QName("value",
-								types));
-						tele2.addText("authRef");
-						String name = "";
-						while (fs.getParent() instanceof Repeat
-								|| fs.getParent() instanceof Group) {
-
-							fs = (FieldSet) fs.getParent();
-							name += fs.getServicesTag();
-							name += "/";
+			if (in.getSection().equals(section) && in.hasAutocompleteInstance()) {
+				Boolean isEnum = false;
+				if (in instanceof Field) {
+					isEnum = (((Field) in).getUIType()).equals("enum");
+				}
+				if (isEnum == false) {
+					Element tele = auth.addElement(new QName("item", types));
+					Element tele2 = tele.addElement(new QName("key", types));
+					Element tele3 = tele.addElement(new QName("value", types));
+					tele2.addText("authRef");
+					String name = "";
+					FieldSet fs = (FieldSet) in;
+					while (fs.getParent() instanceof Repeat	|| fs.getParent() instanceof Group) {
+						String xpathStructuredPart = fs.getServicesTag();
+						if (fs.getParent() instanceof Repeat) {
+							xpathStructuredPart = getXpathStructuredPart((Repeat)fs.getParent());
+							log.debug("We've got a repeat");
+						} else {
+							log.debug("We've got a Group"); // I haven't yet seen an example of this in the App config files.
 						}
-						name += in.getServicesTag();
-						tele3.addText(name);
+						fs = (FieldSet) fs.getParent();
+						name += xpathStructuredPart + "/";
 					}
+					name += in.getServicesTag();
+					tele3.addText(name);
 				}
 			}
 		}

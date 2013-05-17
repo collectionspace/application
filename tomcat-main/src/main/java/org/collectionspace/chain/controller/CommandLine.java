@@ -303,6 +303,8 @@ public class CommandLine {
 				//
 				// Generate all the Service schemas from the Application layer's configuration records
 				//
+				
+				/*
 				XsdGeneration xsdMetadata = null;
 				try {
 					xsdMetadata = new XsdGeneration(tenantConfigFile, maketype, "3.0", bundleOutputDir);
@@ -317,6 +319,33 @@ public class CommandLine {
 					System.out.println(String.format("Document types defined in config: %s", tenantConfigFile.getAbsolutePath()));
 					for (String doctypeName : doctypes.keySet()) {
 						System.out.println(String.format("\tDocument type file name: %s", doctypeName));
+					}
+				} catch (Exception e) {
+					String exceptionMsg = e.getMessage();
+					if (errMsg != null) {
+						errMsg = errMsg + "\r\n" + exceptionMsg; // Append the error message (if any) from each attempt
+					} else {
+						errMsg = exceptionMsg;
+					}
+					if (log.isDebugEnabled() == true) {
+						log.debug(errMsg, e);
+					}
+				}
+				*/
+				
+				//
+				// Now generate the service bindings
+				//
+				XsdGeneration tenantBindingsMetadata = null;
+				try {
+					tenantBindingsMetadata = new XsdGeneration(tenantConfigFile, "delta", "3.0", bundleOutputDir);
+					String tenantBindings = tenantBindingsMetadata.getTenantBindings();
+					if (tenantBindings != null) {
+						log.debug(String.format("Service Bindings Begin: %s >>>+++++++++++++++++++++++++++++++++>>>", tenantConfigFile.getName()));
+						log.debug(tenantBindings);
+						log.debug("Service Bindings End: <<<+++++++++++++++++++++++++++++++++<<<");
+					} else {
+						throw new Exception(String.format("Could not create tenant bindings for file %s", tenantConfigFile));
 					}
 				} catch (Exception e) {
 					String exceptionMsg = e.getMessage();
@@ -347,7 +376,6 @@ public class CommandLine {
 			System.exit(-1);
 		}
 	}
-
 
 	private static File resolveBundleOutputDir() {
 		File result = null;

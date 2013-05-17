@@ -35,22 +35,25 @@ import org.collectionspace.chain.csp.schema.Util;
  *
  */
 public class TenantSpec {
+	private static final String DEFAULT_INDEX_HANDLER = "org.collectionspace.services.common.init.AddIndices";
 	private String tenant, tenantDisplay, tenantVersion;
-	private String repoDomain, repoClient;
-	private String defaultDomain;
+	private String storageName;
+	private String repoClient;
+	private String repositoryDomain;
+	private String indexHandler;
 	private Set<String> languages = new LinkedHashSet<String>();
 	private Set<String> dateformats = new LinkedHashSet<String>();
 	private Set<String> defaultlanguages = new LinkedHashSet<String>();
-	private Set<String> defaultdateformats = new LinkedHashSet<String>();
-	
+	private Set<String> defaultdateformats = new LinkedHashSet<String>();	
 	
 	public TenantSpec(ReadOnlySection section) {
-		defaultDomain = "default-domain";
+		repositoryDomain = "default-domain"; //FIXME:REM - This should not be hard coded.  Should be part of the App layer configuration
 		tenant = Util.getStringOrDefault(section,"/tenant/name","collectionspace.org");
 		tenantDisplay = Util.getStringOrDefault(section,"/tenant/display-name","CollectionSpace Demo");
 		tenantVersion = Util.getStringOrDefault(section,"/tenant/version","1.0");
-		repoDomain = Util.getStringOrDefault(section,"/repository/domain",defaultDomain);
-		repoClient = Util.getStringOrDefault(section,"/repository/client","nuxeo-java");
+		storageName = Util.getStringOrDefault(section,"/repository/domain", repositoryDomain);
+		repoClient = Util.getStringOrDefault(section,"/repository/client", "nuxeo-java");
+		indexHandler = Util.getStringOrDefault(section,"/repository/indexHandler", DEFAULT_INDEX_HANDLER);
 		defaultlanguages.add("en");
 		defaultdateformats.add("MM/dd/yyyy");
 		defaultdateformats.add("MMM dd, yyyy");
@@ -93,16 +96,20 @@ public class TenantSpec {
 		return defaultdateformats.toArray(new String[0]);
 	}
 	
-	public String getDefaultDomain(){
-		return defaultDomain;
+	public String getRepositoryDomain(){
+		return repositoryDomain;
+	}
+	
+	public String getIndexHandler() {
+		return indexHandler;
 	}
 
 	public String getRepoClient(){
 		return repoClient;
 	}
 
-	public String getRepoDomain(){
-		return repoDomain;
+	public String getStorageName(){
+		return storageName;
 	}
 
 	public String getTenant(){

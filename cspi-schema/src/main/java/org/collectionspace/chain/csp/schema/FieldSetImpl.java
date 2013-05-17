@@ -27,6 +27,10 @@ public abstract class FieldSetImpl implements FieldSet {
 		return utils.getBoolean("@exists-in-services");
 	}
 	
+	public Boolean shouldIndex() {
+		return utils.getBoolean("@services-should-index");
+	}
+	
 	@Override
 	public Boolean isServicesAnonymousType() {
 		return utils.getBoolean("@services-type-anonymous");

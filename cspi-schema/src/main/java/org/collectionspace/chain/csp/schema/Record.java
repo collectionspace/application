@@ -205,6 +205,8 @@ public class Record implements FieldParent {
 		
 //(17:06) The services singular tag should probably be "ServicesDocumentType"
 
+		// The tenant's repository that the service will use.
+		utils.initStrings(section,"services-repo-domain", utils.getString("services-repo-domain"));
 
 		utils.initStrings(section,"services-tenant-singular", utils.getString("services-url"));
 		utils.initStrings(section,"services-tenant-doctype", utils.getString("services-tenant-singular"));
@@ -215,10 +217,14 @@ public class Record implements FieldParent {
 		
 		utils.initStrings(section,"services-schemalocation", "http://services.collectionspace.org");
 		
-		utils.initStrings(section,"services-dochandler","org.collectionspace.services."+ utils.getString("services-tenant-singular").toLowerCase() +".nuxeo."+ utils.getString("services-tenant-singular")+"DocumentModelHandler");
-		utils.initStrings(section,"services-abstract","org.collectionspace.services."+utils.getString("services-tenant-singular").toLowerCase()+"."+ utils.getString("services-tenant-plural") +"CommonList");
-		utils.initStrings(section,"services-common", utils.getString("services-abstract") + "$"+utils.getString("services-tenant-singular")+"ListItem");
-		utils.initStrings(section,"services-validator","org.collectionspace.services."+ utils.getString("services-tenant-singular").toLowerCase() +".nuxeo."+ utils.getString("services-tenant-singular")+"ValidatorHandler");
+		utils.initStrings(section,"services-dochandler",
+				"org.collectionspace.services."+ utils.getString("services-tenant-singular").toLowerCase() +".nuxeo."+ utils.getString("services-tenant-singular")+"DocumentModelHandler");
+		utils.initStrings(section,"services-abstract",
+				"org.collectionspace.services."+utils.getString("services-tenant-singular").toLowerCase()+"."+ utils.getString("services-tenant-plural") +"CommonList");
+		utils.initStrings(section,"services-common",
+				utils.getString("services-abstract") + "$"+utils.getString("services-tenant-singular")+"ListItem");
+		utils.initStrings(section,"services-validator",
+				"org.collectionspace.services."+ utils.getString("services-tenant-singular").toLowerCase() +".nuxeo."+ utils.getString("services-tenant-singular")+"ValidatorHandler");
 
 		spec = parent;
 	}
@@ -685,8 +691,12 @@ public class Record implements FieldParent {
 		return utils.getString("schema-location");
 	}
 	
-	public String getServicesDocHandler(){
+	public String getServicesDocHandler() {
 		return utils.getString("services-dochandler");
+	}
+	
+	public String getServicesRepositoryDomain() {
+		return utils.getString("services-repo-domain");
 	}
 	
 	public String getServicesListPath() {

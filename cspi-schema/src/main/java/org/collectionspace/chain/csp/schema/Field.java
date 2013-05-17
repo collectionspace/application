@@ -82,6 +82,7 @@ public class Field extends FieldSetImpl {
 
 		this.setRepeatSubRecord(false);
 		utils.initStrings(section,"@id",tempid);
+		utils.initBoolean(section,"@services-should-index", false); // ask the Services to create an index on this field
 		
 		utils.initSet(section,"@autocomplete",new String[] { "" });
 		utils.initBoolean(section,"@container",false);
