@@ -116,17 +116,12 @@
 			<field id="objectNameLevel">
 				<!-- Change options -->
 				<options>
-					<option id="wholeObject" default="yes">whole object</option>
-					<option id="damagedWhole">damaged whole</option>
-					<option id="incomplete">incomplete</option>
-					<option id="broken">broken</option>
-					<option id="partOfAnObject">part of an object</option>
-					<option id="fragment">fragment</option>
+					<option id="whole" default="yes">whole</option>
+					<option id="part/fragment">part/fragment</option>
 					<option id="shardSherd">shard/sherd</option>
 					<option id="chip">chip</option>
 					<option id="dust">dust</option>
 					<option id="residue">residue</option>
-					<option id="unknown">unknown</option>
 				</options>
 			</field>
 			<field id="objectNameSystem">
