@@ -27,6 +27,7 @@ public abstract class FieldSetImpl implements FieldSet {
 		return utils.getBoolean("@exists-in-services");
 	}
 	
+	@Override
 	public Boolean shouldIndex() {
 		return utils.getBoolean("@services-should-index");
 	}

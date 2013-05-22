@@ -46,7 +46,7 @@
                         <services-filter-param>uid</services-filter-param>
                         <selector>user-userID</selector>
                     </field>
-                    <field id="screenName" mini="list" services-should-index="true">
+                    <field id="screenName" mini="list">
                         <services-filter-param>sn</services-filter-param>
                         <selector>user-userName</selector>
                     </field>

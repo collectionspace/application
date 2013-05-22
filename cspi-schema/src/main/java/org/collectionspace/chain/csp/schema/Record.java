@@ -215,7 +215,7 @@ public class Record implements FieldParent {
 		utils.initStrings(section,"services-tenant-auth-singular", utils.getString("services-url"));
 		utils.initStrings(section,"services-tenant-auth-plural", utils.getString("services-tenant-singular")+"s");
 		
-		utils.initStrings(section,"services-schemalocation", "http://services.collectionspace.org");
+		utils.initStrings(section,"services-schema-location", "http://services.collectionspace.org");
 		
 		utils.initStrings(section,"services-dochandler",
 				"org.collectionspace.services."+ utils.getString("services-tenant-singular").toLowerCase() +".nuxeo."+ utils.getString("services-tenant-singular")+"DocumentModelHandler");
@@ -688,7 +688,7 @@ public class Record implements FieldParent {
 	}
 
 	public String getServicesSchemaBaseLocation(){
-		return utils.getString("schema-location");
+		return utils.getString("services-schema-location");
 	}
 	
 	public String getServicesDocHandler() {
@@ -725,6 +725,24 @@ public class Record implements FieldParent {
 
 	public String getServicesRecordPath(String name) {
 		return services_record_paths.get(name);
+	}
+	
+	public String getServicesSchemaName(String sectionName) {
+		return getServicesRecordPath(sectionName).split(":", 2)[0];
+	}
+	
+	public String getServicesSchemaNameSpaceURI(String sectionName) {
+		String path = getServicesRecordPath(sectionName);
+		String[] pathParts = path.split(":", 2);
+		String schemaLocationCore = pathParts[1].split(",",2)[0];
+				
+		return schemaLocationCore;
+	}
+	
+	public String getServicesPartLabel(String sectionName) {
+		String[] pathParts = getServicesRecordPath(sectionName).split(":", 2);
+		String schemaPartLabel = pathParts[1].split(",",2)[1];
+		return schemaPartLabel;
 	}
 	
 	public Boolean hasServicesRecordPath(String name) {

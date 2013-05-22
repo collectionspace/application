@@ -93,5 +93,6 @@ public interface FieldSet {
 	public String getServicesType(boolean namespaceQualified);
 	
 	public String getServicesGroupType(boolean namespaceQualified);
-	public void setServicesGroupType(String servicesGroupType);	
+	public void setServicesGroupType(String servicesGroupType);
+	public Boolean shouldIndex();
 }

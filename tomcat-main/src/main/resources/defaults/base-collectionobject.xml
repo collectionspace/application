@@ -72,7 +72,7 @@
   </section>
   <section id="identificationInformation">
     <field id="objectNumber" ui-search="repeatable" chooser="yes" in-title="yes" in-tab="yes"
-      display-name="yes" mini="number,search,list,relate" seperate_ui_container="true">
+      display-name="yes" mini="number,search,list,relate" seperate_ui_container="true" services-should-index="true">
       <selector>object-identification-object-number</selector>
       <title-selector>titleBar-object-identification-object-number</title-selector>
       <options>
@@ -81,7 +81,7 @@
         <option id="loanin" sample="LI2009.1.1">Loans In</option>
       </options>
     </field>
-    <field id="numberOfObjects" ui-search="range" ui-type="validated" datatype="integer">
+    <field id="numberOfObjects" ui-search="range" ui-type="validated" datatype="integer" services-should-index="true">
       <selector>object-identification-number-objects</selector>
     </field>
     <repeat id="otherNumberList/otherNumber">
