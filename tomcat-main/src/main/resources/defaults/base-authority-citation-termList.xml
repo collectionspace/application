@@ -1,0 +1,84 @@
+<record id="preferredCI" in-recordlist="no" separate-record="false">
+    <hassoftdelete>true</hassoftdelete>
+    <section>
+        <!-- List containing this item's preferred term and any non-preferred terms -->
+        <repeat id="citationTermGroupList/citationTermGroup">
+            <!--<selector>preferred-citationAuthority</selector>-->
+            <!-- Fields common across all authority items -->
+            <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes"
+                mini="summary,number,search,list,relate">
+                <selector>citationAuthority-termDisplayName</selector>
+                <title-selector>titleBar-displayName</title-selector>
+            </field>
+            <field id="termName">
+                <selector>citationAuthority-termName</selector>
+            </field>            
+            <field id="termQualifier">
+                <selector>citationAuthority-termQualifier</selector>
+            </field>
+            <field id="termType" autocomplete="vocab-citationtermtype" ui-type="enum">
+                <selector>citationAuthority-termType</selector>
+            </field>
+            <!-- FIXME: Add 'ui-search="repeatable"' back to this field when CSPACE-5184/CSPACE-5185 is fixed -->
+            <field id="termStatus" seperate_ui_container="true"
+                mini="search,list,relate">
+                <selector>citationAuthority-termStatus</selector>
+                <options>
+                    <option id="provisional" default="yes">Provisional</option>
+                    <option id="under review">Under Review</option>
+                    <option id="accepted">Accepted</option>
+                    <option id="rejected">Rejected</option>
+                </options>
+            </field>
+                        
+            <field id="termFullCitation" ui-search="repeatable">
+                <selector>citationAuthority-termFullCitation</selector>
+            </field>
+            <field id="termTitle">
+                <selector>citationAuthority-termTitle</selector>
+            </field>
+            <field id="termSubTitle">
+                <selector>citationAuthority-termSubTitle</selector>
+            </field>
+            <field id="termSectionTitle">
+                <selector>citationAuthority-termSectionTitle</selector>
+            </field>
+            <field id="termVolume">
+                <selector>citationAuthority-termVolume</selector>
+            </field>
+            <field id="termIssue">
+                <selector>citationAuthority-termIssue</selector>
+            </field>
+            
+            <field id="termLanguage" autocomplete="vocab-languages" ui-type="enum">
+                <selector>citationAuthority-termLanguage</selector>
+            </field>
+            <field id="termPrefForLang" datatype="boolean">
+                <selector>citationAuthority-termPrefForLang</selector>
+            </field>
+            <field id="termSource">
+                <!-- To be tied to citation authority eventually? -->
+                <selector>citationAuthority-termSource</selector>
+            </field>
+            <field id="termSourceDetail">
+                <selector>citationAuthority-termSourceDetail</selector>
+            </field>
+            <field id="termSourceID">
+                <selector>citationAuthority-termSourceID</selector>
+            </field>
+            <field id="termSourceNote">
+                <selector>citationAuthority-termSourceNote</selector>
+            </field>
+           
+        </repeat>
+    </section>
+    
+    <!--  labels -->
+	<section id="labelTermFullCitation"/>
+	<section id="labelTermTitle"/>
+	<section id="labelTermSubTitle"/>
+	<section id="labelTermSectionTitle"/>
+	<section id="labelTermVolume"/>
+	<section id="labelTermIssue"/>
+				
+</record>
