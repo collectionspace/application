@@ -66,7 +66,7 @@
                    autocomplete="organization-organization">
             </field>
             <field id="place" ui-search="repeatable"
-                   autocomplete="place-place, place-place_tgn">
+                   autocomplete="place-place,place-tgn_place">
             </field>
             <group id="publicationDate" ui-type="groupfield/structureddate"
                    primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
