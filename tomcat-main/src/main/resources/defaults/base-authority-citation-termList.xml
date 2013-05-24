@@ -12,7 +12,6 @@
             <field id="termType" autocomplete="vocab-citationtermtype" ui-type="enum"></field>
             <field id="termStatus" ui-search="repeatable" seperate_ui_container="true"
                    mini="search,list,relate">
-                <selector>citationAuthority-termStatus</selector>
                 <options>
                     <option id="provisional" default="yes">Provisional</option>
                     <option id="under review">Under Review</option>
