@@ -58,6 +58,7 @@
         
         <field id="preferredCitation" ui-type="groupfield/preferredCI/selfrenderer"
                ui-func="cspace.preferred">
+               <selector>preferred-citationAuthority</selector>
         </field>
         
         <repeat id="citationPublicationInfoGroupList/citationPublicationInfoGroup" >          
