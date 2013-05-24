@@ -42,6 +42,10 @@
 			<include src="base-authority-person-termList.xml" />
 			<include src="base-authority-person.xml,lifesci-authority-person.xml"
 				merge="xmlmerge.properties" /> <!-- Perform an XML merge -->
+                                
+                        <include src="base-authority-citation-termList.xml"/>
+			<include src="base-authority-citation.xml,lifesci-authority-citation.xml"
+				merge="xmlmerge.properties" /> <!-- Perform an XML merge -->
 
 			<include src="base-authority-place-termList.xml" />
 			<include src="base-authority-place.xml,lifesci-authority-place.xml"
