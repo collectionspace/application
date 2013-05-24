@@ -49,71 +49,54 @@
         <field id="createdBy" section="collectionspace_core" attributes="GET"></field>
         <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
         <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-        <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+        <field id="updatedAt" ui-search="range" ui-type="date"
+               section="collectionspace_core" attributes="GET" mini="search,list,relate">
+        </field>
     </section>
     
     <section id="citationNameAuthorityInformation">
         
-        <!-- Remove explicit selector tags, in favor of convention-based -->
-        <!-- selector names - ADR 2013-05-23 -->
-        
-        <field id="preferredCitation" ui-type="groupfield/preferredCI/selfrenderer" ui-func="cspace.preferred">
-            <selector>preferred-citationAuthority</selector>
+        <field id="preferredCitation" ui-type="groupfield/preferredCI/selfrenderer"
+               ui-func="cspace.preferred">
         </field>
         
         <repeat id="citationPublicationInfoGroupList/citationPublicationInfoGroup" >          
-            <field id="publisher" ui-search="repeatable" autocomplete="organization-organization">
-                <selector>citationAuthority-publication-publisher</selector>
+            <field id="publisher" ui-search="repeatable"
+                   autocomplete="organization-organization">
             </field>
-            <field id="place" ui-search="repeatable" autocomplete="location-location, location-offsite_sla">
-                <selector>citationAuthority-publication-place</selector>
+            <field id="place" ui-search="repeatable"
+                   autocomplete="place-place, place-place_tgn">
             </field>
-            <group id="publicationDate" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate" >
-                <selector>citationAuthority-publication-publicationDate</selector>
+            <group id="publicationDate" ui-type="groupfield/structureddate"
+                   primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
             </group>
-            <field id="edition" ui-search="repeatable">
-                <selector>citationAuthority-publication-edition</selector>
-            </field>
-            <field id="pages">
-                <selector>citationAuthority-publication-pages</selector>
-            </field>			           
+            <field id="edition" ui-search="repeatable"></field>
+            <field id="pages"></field>
         </repeat> 
 			      
         <repeat id="citationAgentInfoGroupList/citationAgentInfoGroup" >          
-            <field id="agent" ui-search="repeatable" autocomplete="person-person, person-ulan_pa, organization-organization">
-                <selector>citationAuthority-agentInfo-agent</selector>
-            </field>                     
-            <field id="role" autocomplete="vocab-agentinfo" ui-type="enum">
-                <selector>citationAuthority-agentInfo-role</selector>
-            </field>          		
-            <field id="note">
-                <selector>citationAuthority-agentInfo-note</selector>
-            </field>			           
+            <field id="agent" ui-search="repeatable"
+                   autocomplete="person-person, person-ulan_pa, organization-organization">
+            </field>
+            <field id="role" autocomplete="vocab-agentinfo" ui-type="enum"></field>
+            <field id="note"></field>			           
         </repeat>
         
-        <field id="citationNote">
-            <selector>citationAuthority-citation-note</selector>
-        </field>
+        <field id="citationNote"></field>
 					
         <repeat id="citationResourceIdentGroupList/citationResourceIdentGroup" >          
-            <field id="resourceIdent">
-                <selector>citationAuthority-resourceId-id</selector>
-            </field>		                               
-            <field id="type" autocomplete="vocab-resourceid" ui-type="enum">			             
-                <selector>citationAuthority-resourceId-type</selector>
-            </field>  
-            <group id="captureDate" ui-search="range" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate" >
-                <selector>citationAuthority-resourceId-captureDate</selector>
+            <field id="resourceIdent"></field>		                               
+            <field id="type" autocomplete="vocab-resourceid" ui-type="enum"></field>  
+            <group id="captureDate" ui-search="range" ui-type="groupfield/structureddate"
+                   primarykey="dateDisplayDate" ui-func="cspace.structuredDate" >
             </group>        		           		           
         </repeat>
 			       
         <repeat id="citationRelatedTermsGroupList/citationRelatedTermsGroup" >          
-            <field id="relatedTerm" ui-search="repeatable" autocomplete="concept-concept,concept-material_ca,concept-activity">
-                <selector>citationAuthority-relatedTerms-relatedTerm</selector>
+            <field id="relatedTerm" ui-search="repeatable"
+                   autocomplete="concept-concept,concept-material_ca,concept-activity">
             </field>                     
-            <field id="relationType" autocomplete="vocab-relationtype" ui-type="enum">
-                <selector>citationAuthority-relatedTerms-relationType</selector>
-            </field>          		          		           
+            <field id="relationType" autocomplete="vocab-relationtype" ui-type="enum"></field>          		          		           
         </repeat>
 			        
     </section>
@@ -125,34 +108,5 @@
         <field id="refName" mini="search,list,relate" attributes="GET"></field>
         <field id="uri" mini="search,list,relate" attributes="GET"></field>
     </section>
-                
-    <!--  labels -->
-    <!-- These label declarations aren't present in the other -->
-    <!-- Application layer authority config files so far reviewed. -->
-    <!-- Identify the need for these or remove these declarations. - ADR 2013-05-23 -->
-    <!--
-    <section id="labelPublicationInformation-group"/>
-    <section id="labelPublicationInformation-publisher"/>
-    <section id="labelPublicationInformation-place"/>
-    <section id="labelPublicationInformation-date"/>
-    <section id="labelPublicationInformation-edition"/>
-    <section id="labelPublicationInformation-pages"/>
-				
-    <section id="labelAgentInformation-group"/>
-    <section id="labelAgentInformation-agent"/>
-    <section id="labelAgentInformation-role"/>
-    <section id="labelAgentInformation-note"/>
-				
-    <section id="labelCitationNotes"/>
-				
-    <section id="labelResourceIdentifiers-group"/>
-    <section id="labelResourceIdentifiers-id"/>
-    <section id="labelResourceIdentifiers-type"/>
-    <section id="labelResourceIdentifiers-capture-date"/>
-				
-    <section id="labelRelatedTerms-group"/>
-    <section id="labelRelatedTerms-related"/>
-    <section id="labelRelatedTerms-type"/>
-    -->
 				
 </record>
