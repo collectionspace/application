@@ -9,10 +9,10 @@
                 <selector>citationAuthority-termDisplayName</selector>
                 <title-selector>titleBar-displayName</title-selector>
             </field>
-            <field id="termName" ui-search="repeatable">
+            <field id="termName">
                 <selector>citationAuthority-termName</selector>
             </field>            
-            <field id="termType" autocomplete="vocab-citationtermtype" ui-type="enum">
+            <field id="termType" ui-search="repeatable" autocomplete="vocab-citationtermtype" ui-type="enum">
                 <selector>citationAuthority-termType</selector>
             </field>
             <field id="termStatus" ui-search="repeatable" seperate_ui_container="true"
@@ -51,7 +51,7 @@
             <field id="termFullCitation" ui-search="repeatable">
                 <selector>citationAuthority-termFullCitation</selector>
             </field>
-            <field id="termTitle">
+            <field id="termTitle" ui-search="repeatable">
                 <selector>citationAuthority-termTitle</selector>
             </field>
             <field id="termSubTitle">
