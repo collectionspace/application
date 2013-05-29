@@ -1,4 +1,5 @@
 <record id="organization" type="authority">
+    <terms-used>true</terms-used>
     <web-url>organization</web-url>
     <services-tenant-auth-plural>Orgauthorities</services-tenant-auth-plural>
     <services-tenant-auth-singular>Orgauthority</services-tenant-auth-singular>

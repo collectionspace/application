@@ -1,5 +1,5 @@
 <record id="concept" type="authority">
-    <terms-used>false</terms-used>
+    <terms-used>true</terms-used>
     <web-url>concept</web-url>
     <services-tenant-plural>Conceptauthorities</services-tenant-plural>
     <services-tenant-singular>Conceptauthority</services-tenant-singular>
