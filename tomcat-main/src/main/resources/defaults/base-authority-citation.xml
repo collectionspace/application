@@ -39,7 +39,7 @@
         <instance id="citation-citation">
             <web-url>citation</web-url>
             <title-ref>citation</title-ref>
-            <title>Default Citations</title>
+            <title>Local Citations</title>
         </instance>
         <!-- Add a second vocabulary instance here, if possible - ADR 2013-05-23 -->
     </instances>      
