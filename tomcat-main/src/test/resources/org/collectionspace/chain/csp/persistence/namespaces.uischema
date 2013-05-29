@@ -6,7 +6,7 @@
           "citation": {
             "properties": {
               "nptAllowed": {
-                "default": false, 
+                "default": true, 
                 "type": "boolean"
               }, 
               "order": {
@@ -24,7 +24,7 @@
           "activity": {
             "properties": {
               "nptAllowed": {
-                "default": false, 
+                "default": true, 
                 "type": "boolean"
               }, 
               "order": {
@@ -37,7 +37,7 @@
           "concept": {
             "properties": {
               "nptAllowed": {
-                "default": false, 
+                "default": true, 
                 "type": "boolean"
               }, 
               "order": {
@@ -50,7 +50,7 @@
           "material_ca": {
             "properties": {
               "nptAllowed": {
-                "default": false, 
+                "default": true, 
                 "type": "boolean"
               }, 
               "order": {
@@ -68,7 +68,7 @@
           "location": {
             "properties": {
               "nptAllowed": {
-                "default": false, 
+                "default": true, 
                 "type": "boolean"
               }, 
               "order": {
@@ -81,7 +81,7 @@
           "offsite_sla": {
             "properties": {
               "nptAllowed": {
-                "default": false, 
+                "default": true, 
                 "type": "boolean"
               }, 
               "order": {
@@ -99,7 +99,7 @@
           "organization": {
             "properties": {
               "nptAllowed": {
-                "default": false, 
+                "default": true, 
                 "type": "boolean"
               }, 
               "order": {
@@ -112,7 +112,7 @@
           "ulan_oa": {
             "properties": {
               "nptAllowed": {
-                "default": false, 
+                "default": true, 
                 "type": "boolean"
               }, 
               "order": {
@@ -130,7 +130,7 @@
           "person": {
             "properties": {
               "nptAllowed": {
-                "default": false, 
+                "default": true, 
                 "type": "boolean"
               }, 
               "order": {
@@ -143,7 +143,7 @@
           "ulan_pa": {
             "properties": {
               "nptAllowed": {
-                "default": false, 
+                "default": true, 
                 "type": "boolean"
               }, 
               "order": {
@@ -161,7 +161,7 @@
           "place": {
             "properties": {
               "nptAllowed": {
-                "default": false, 
+                "default": true, 
                 "type": "boolean"
               }, 
               "order": {
@@ -174,7 +174,7 @@
           "tgn_place": {
             "properties": {
               "nptAllowed": {
-                "default": false, 
+                "default": true, 
                 "type": "boolean"
               }, 
               "order": {
@@ -192,7 +192,7 @@
           "common_ta": {
             "properties": {
               "nptAllowed": {
-                "default": false, 
+                "default": true, 
                 "type": "boolean"
               }, 
               "order": {
@@ -205,7 +205,7 @@
           "taxon": {
             "properties": {
               "nptAllowed": {
-                "default": false, 
+                "default": true, 
                 "type": "boolean"
               }, 
               "order": {
