@@ -50,12 +50,12 @@
         <service>
             <url>http://nightly.collectionspace.org:8180/cspace-services</url>
 			<tenant>
-				<name>hearstmuseum.berkeley.edu</name>
-				<version>0.1</version>
-				<display-name>Phoebe A. Hearst Museum of Anthropology</display-name>
+                                <name>core.collectionspace.org</name>
+                                <version>0.1</version>
+                                <display-name>Collectionspace core tenant</display-name>
 			</tenant>
 			<repository>
-				<domain>pahma-domain</domain>
+				<domain>core-domain</domain>
 				<client>nuxeo-java</client>
 				<dateformats>
 					<pattern>MM/dd/yyyy</pattern>
