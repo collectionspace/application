@@ -2,7 +2,7 @@
     <terms-used>false</terms-used>
     <web-url>concept</web-url>
     <services-tenant-plural>Conceptauthorities</services-tenant-plural>
-    <services-tenant-singular>Conceptauthority</services-tenant-singular>
+    <services-tenant-singular>Conceptitem</services-tenant-singular>
     <services-instances-path>conceptauthorities_common:http://collectionspace.org/services/concept,abstract-common-list/list-item</services-instances-path>
     <services-single-instance-path>conceptauthorities_common:http://collectionspace.org/services/concept,conceptauthorities_common</services-single-instance-path>
     <services-list-path>http://collectionspace.org/services/concept,abstract-common-list/list-item</services-list-path>
