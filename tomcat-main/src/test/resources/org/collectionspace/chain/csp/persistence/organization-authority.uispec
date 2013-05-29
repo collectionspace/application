@@ -1285,7 +1285,19 @@
                                 }, 
                                 ".csc-orgAuthority-termName": "${{row}.termName}", 
                                 ".csc-orgAuthority-termPrefForLang": "${{row}.termPrefForLang}", 
-                                ".csc-orgAuthority-termSource": "${{row}.termSource}", 
+                                ".csc-orgAuthority-termSource": {
+                                  "decorators": [
+                                    {
+                                      "func": "cspace.autocomplete", 
+                                      "options": {
+                                        "queryUrl": "../../../tenant/core/preferredOA/autocomplete/termSource", 
+                                        "vocabUrl": "../../../tenant/core/preferredOA/source-vocab/termSource"
+                                      }, 
+                                      "type": "fluid"
+                                    }
+                                  ], 
+                                  "value": "${{row}.termSource}"
+                                }, 
                                 ".csc-orgAuthority-termSourceDetail": "${{row}.termSourceDetail}", 
                                 ".csc-orgAuthority-termSourceID": "${{row}.termSourceID}", 
                                 ".csc-orgAuthority-termSourceNote": "${{row}.termSourceNote}", 

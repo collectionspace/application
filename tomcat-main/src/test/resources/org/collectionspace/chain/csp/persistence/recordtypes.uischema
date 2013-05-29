@@ -36,19 +36,18 @@
       }, 
       "vocabularies": {
         "default": [
-          "ulan_pa", 
           "person", 
-          "activity", 
-          "concept", 
+          "ulan_pa", 
           "material_ca", 
+          "concept", 
+          "activity", 
           "offsite_sla", 
           "location", 
-          "ulan_oa", 
           "organization", 
+          "ulan_oa", 
+          "tgn_place", 
           "place", 
-          "tgn_place",
-          "common_ta",
-          "taxon"
+          "citation"
         ], 
         "type": "array"
       }

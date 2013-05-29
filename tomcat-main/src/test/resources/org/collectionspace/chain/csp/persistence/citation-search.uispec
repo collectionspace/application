@@ -1,0 +1,336 @@
+{
+  ".csc-citation-agent-label": {
+    "messagekey": "citation-agentLabel"
+  }, 
+  ".csc-citation-captureDate-label": {
+    "messagekey": "citation-captureDateLabel"
+  }, 
+  ".csc-citation-captureDateEnd": {
+    "decorators": [
+      {
+        "func": "cspace.datePicker", 
+        "type": "fluid"
+      }
+    ], 
+    "value": "${captureDateEnd}"
+  }, 
+  ".csc-citation-captureDateEnd-label": {
+    "messagekey": "citation-captureDateEndLabel"
+  }, 
+  ".csc-citation-captureDateStart": {
+    "decorators": [
+      {
+        "func": "cspace.datePicker", 
+        "type": "fluid"
+      }
+    ], 
+    "value": "${captureDateStart}"
+  }, 
+  ".csc-citation-captureDateStart-label": {
+    "messagekey": "citation-captureDateStartLabel"
+  }, 
+  ".csc-citation-citationAgentInfoGroup": {
+    "decorators": [
+      {
+        "func": "cspace.makeRepeatable", 
+        "options": {
+          "elPath": "citationAgentInfoGroup", 
+          "hidePrimary": true, 
+          "repeatTree": {
+            "expander": {
+              "tree": {
+                ".csc-citation-agent": {
+                  "decorators": [
+                    {
+                      "func": "cspace.autocomplete", 
+                      "options": {
+                        "queryUrl": "../../../tenant/core/vocabularies/citation/autocomplete/agent", 
+                        "vocabUrl": "../../../tenant/core/vocabularies/citation/source-vocab/agent"
+                      }, 
+                      "type": "fluid"
+                    }
+                  ], 
+                  "value": "${{row}.agent}"
+                }
+              }, 
+              "type": "fluid.noexpand"
+            }
+          }
+        }, 
+        "type": "fluid"
+      }
+    ]
+  }, 
+  ".csc-citation-citationPublicationInfoGroup": {
+    "decorators": [
+      {
+        "func": "cspace.makeRepeatable", 
+        "options": {
+          "elPath": "citationPublicationInfoGroup", 
+          "hidePrimary": true, 
+          "repeatTree": {
+            "expander": {
+              "tree": {
+                ".csc-citation-edition": "${{row}.edition}", 
+                ".csc-citation-publicationPlace": {
+                  "decorators": [
+                    {
+                      "func": "cspace.autocomplete", 
+                      "options": {
+                        "queryUrl": "../../../tenant/core/vocabularies/citation/autocomplete/publicationPlace", 
+                        "vocabUrl": "../../../tenant/core/vocabularies/citation/source-vocab/publicationPlace"
+                      }, 
+                      "type": "fluid"
+                    }
+                  ], 
+                  "value": "${{row}.publicationPlace}"
+                }, 
+                ".csc-citation-publisher": {
+                  "decorators": [
+                    {
+                      "func": "cspace.autocomplete", 
+                      "options": {
+                        "queryUrl": "../../../tenant/core/vocabularies/citation/autocomplete/publisher", 
+                        "vocabUrl": "../../../tenant/core/vocabularies/citation/source-vocab/publisher"
+                      }, 
+                      "type": "fluid"
+                    }
+                  ], 
+                  "value": "${{row}.publisher}"
+                }
+              }, 
+              "type": "fluid.noexpand"
+            }
+          }
+        }, 
+        "type": "fluid"
+      }
+    ]
+  }, 
+  ".csc-citation-citationRelatedTermsGroup": {
+    "decorators": [
+      {
+        "func": "cspace.makeRepeatable", 
+        "options": {
+          "elPath": "citationRelatedTermsGroup", 
+          "hidePrimary": true, 
+          "repeatTree": {
+            "expander": {
+              "tree": {
+                ".csc-citation-relatedTerm": {
+                  "decorators": [
+                    {
+                      "func": "cspace.autocomplete", 
+                      "options": {
+                        "queryUrl": "../../../tenant/core/vocabularies/citation/autocomplete/relatedTerm", 
+                        "vocabUrl": "../../../tenant/core/vocabularies/citation/source-vocab/relatedTerm"
+                      }, 
+                      "type": "fluid"
+                    }
+                  ], 
+                  "value": "${{row}.relatedTerm}"
+                }
+              }, 
+              "type": "fluid.noexpand"
+            }
+          }
+        }, 
+        "type": "fluid"
+      }
+    ]
+  }, 
+  ".csc-citation-edition-label": {
+    "messagekey": "citation-editionLabel"
+  }, 
+  ".csc-citation-note-label": {
+    "messagekey": "citation-noteLabel"
+  }, 
+  ".csc-citation-pages-label": {
+    "messagekey": "citation-pagesLabel"
+  }, 
+  ".csc-citation-publicationDate-label": {
+    "messagekey": "citationPublicationInfoGroup-publicationDateLabel"
+  }, 
+  ".csc-citation-publicationPlace-label": {
+    "messagekey": "citation-publicationPlaceLabel"
+  }, 
+  ".csc-citation-publisher-label": {
+    "messagekey": "citation-publisherLabel"
+  }, 
+  ".csc-citation-relatedTerm-label": {
+    "messagekey": "citation-relatedTermLabel"
+  }, 
+  ".csc-citation-relationType-label": {
+    "messagekey": "citation-relationTypeLabel"
+  }, 
+  ".csc-citation-role-label": {
+    "messagekey": "citation-roleLabel"
+  }, 
+  ".csc-citation-termDisplayName-label": {
+    "messagekey": "preferredCI-termDisplayNameLabel"
+  }, 
+  ".csc-citation-termFullCitation-label": {
+    "messagekey": "preferredCI-termFullCitationLabel"
+  }, 
+  ".csc-citation-termIssue-label": {
+    "messagekey": "preferredCI-termIssueLabel"
+  }, 
+  ".csc-citation-termLanguage-label": {
+    "messagekey": "preferredCI-termLanguageLabel"
+  }, 
+  ".csc-citation-termName-label": {
+    "messagekey": "preferredCI-termNameLabel"
+  }, 
+  ".csc-citation-termPrefForLang-label": {
+    "messagekey": "preferredCI-termPrefForLangLabel"
+  }, 
+  ".csc-citation-termQualifier-label": {
+    "messagekey": "preferredCI-termQualifierLabel"
+  }, 
+  ".csc-citation-termSectionTitle-label": {
+    "messagekey": "preferredCI-termSectionTitleLabel"
+  }, 
+  ".csc-citation-termSource-label": {
+    "messagekey": "preferredCI-termSourceLabel"
+  }, 
+  ".csc-citation-termSourceDetail-label": {
+    "messagekey": "preferredCI-termSourceDetailLabel"
+  }, 
+  ".csc-citation-termSourceID-label": {
+    "messagekey": "preferredCI-termSourceIDLabel"
+  }, 
+  ".csc-citation-termSourceNote-label": {
+    "messagekey": "preferredCI-termSourceNoteLabel"
+  }, 
+  ".csc-citation-termStatus-label": {
+    "messagekey": "preferredCI-termStatusLabel"
+  }, 
+  ".csc-citation-termSubTitle-label": {
+    "messagekey": "preferredCI-termSubTitleLabel"
+  }, 
+  ".csc-citation-termTitle-label": {
+    "messagekey": "preferredCI-termTitleLabel"
+  }, 
+  ".csc-citation-termType-label": {
+    "messagekey": "preferredCI-termTypeLabel"
+  }, 
+  ".csc-citation-termVolume-label": {
+    "messagekey": "preferredCI-termVolumeLabel"
+  }, 
+  ".csc-citation-updatedAt-label": {
+    "messagekey": "citation-updatedAtLabel"
+  }, 
+  ".csc-citation-updatedAtEnd": {
+    "decorators": [
+      {
+        "func": "cspace.datePicker", 
+        "type": "fluid"
+      }
+    ], 
+    "value": "${updatedAtEnd}"
+  }, 
+  ".csc-citation-updatedAtEnd-label": {
+    "messagekey": "citation-updatedAtEndLabel"
+  }, 
+  ".csc-citation-updatedAtStart": {
+    "decorators": [
+      {
+        "func": "cspace.datePicker", 
+        "type": "fluid"
+      }
+    ], 
+    "value": "${updatedAtStart}"
+  }, 
+  ".csc-citation-updatedAtStart-label": {
+    "messagekey": "citation-updatedAtStartLabel"
+  }, 
+  ".csc-citation-updatedBy": {
+    "decorators": [
+      {
+        "func": "cspace.makeRepeatable", 
+        "options": {
+          "elPath": "updatedBys", 
+          "hidePrimary": true, 
+          "repeatTree": {
+            "expander": {
+              "tree": {
+                ".csc-citation-updatedBy": "${{row}.updatedBy}"
+              }, 
+              "type": "fluid.noexpand"
+            }
+          }
+        }, 
+        "type": "fluid"
+      }
+    ]
+  }, 
+  ".csc-citation-updatedBy-label": {
+    "messagekey": "citation-updatedByLabel"
+  }, 
+  ".csc-preferredCI-citationTermGroup": {
+    "decorators": [
+      {
+        "func": "cspace.makeRepeatable", 
+        "options": {
+          "elPath": "citationTermGroup", 
+          "hidePrimary": true, 
+          "repeatTree": {
+            "expander": {
+              "tree": {
+                ".csc-citationAuthority-termDisplayName": "${{row}.termDisplayName}", 
+                ".csc-citationAuthority-termFullCitation": "${{row}.termFullCitation}", 
+                ".csc-citationAuthority-termLanguage": {
+                  "decorators": [
+                    {
+                      "func": "cspace.termList", 
+                      "options": {
+                        "elPath": "termLanguage", 
+                        "root": "{row}", 
+                        "termListType": "termLanguage"
+                      }, 
+                      "type": "fluid"
+                    }
+                  ]
+                }, 
+                ".csc-citationAuthority-termStatus": {
+                  "default": "", 
+                  "optionlist": [
+                    "provisional", 
+                    "under review", 
+                    "accepted", 
+                    "rejected", 
+                    ""
+                  ], 
+                  "optionnames": [
+                    "Provisional", 
+                    "Under Review", 
+                    "Accepted", 
+                    "Rejected", 
+                    "Please select a value"
+                  ], 
+                  "selection": "${{row}.termStatus}"
+                }, 
+                ".csc-citationAuthority-termTitle": "${{row}.termTitle}", 
+                ".csc-citationAuthority-termType": {
+                  "decorators": [
+                    {
+                      "func": "cspace.termList", 
+                      "options": {
+                        "elPath": "termType", 
+                        "root": "{row}", 
+                        "termListType": "termType"
+                      }, 
+                      "type": "fluid"
+                    }
+                  ]
+                }
+              }, 
+              "type": "fluid.noexpand"
+            }
+          }
+        }, 
+        "type": "fluid"
+      }
+    ]
+  }
+}
