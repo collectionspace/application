@@ -5,7 +5,7 @@
 <record id="place" type="authority">
     <terms-used>true</terms-used>
     <web-url>place</web-url>
-    <services-tenant-singular>Placeauthority</services-tenant-singular>
+    <services-tenant-singular>Placeitem</services-tenant-singular>
     <services-tenant-plural>Placeauthorities</services-tenant-plural>
     <services-instances-path>placeauthorities_common:http://collectionspace.org/services/place,abstract-common-list/list-item</services-instances-path>
     <services-single-instance-path>placeauthorities_common:http://collectionspace.org/services/place,placeauthorities_common</services-single-instance-path>
