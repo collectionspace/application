@@ -95,14 +95,14 @@
         </repeat>
         <field id="taxonYear" ui-search="repeatable"/>
         <repeat id="taxonCitationList" has-primary="yes">
-            <field id="taxonCitation" ui-search="repeatable"/>
+            <field id="taxonCitation" autocomplete="citation-citation" ui-search="repeatable"/>
         </repeat>
         <field id="taxonNote"/>
         <field id="taxonIsNamedHybrid" datatype="boolean" ui-search="repeatable"></field>
         <repeat id="commonNameGroupList/commonNameGroup" has-primary="yes">
             <field id="commonName" ui-search="repeatable"/>
             <field id="commonNameLanguage" autocomplete="vocab-languages" ui-type="enum"/>
-            <field id="commonNameSource"/>
+            <field id="commonNameSource" autocomplete="citation-citation"/>
             <field id="commonNameSourceDetail"/>
         </repeat>
     </section>
