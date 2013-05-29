@@ -41,6 +41,7 @@ public class TestVocab extends ServicesBaseClass {
 		//testAllAuthorities(ss,"/place/place","displayName");
 		log.info("testAuthorities:concept");
 		//testAllAuthorities(ss,"/concept/concept","displayName");
+		//testAllAuthorities(ss,"/citation/citation","displayName");
 		log.info("testAuthorities_finish");
 	}
 	
