@@ -96,7 +96,7 @@
         </repeat>
         <field id="taxonYear" ui-search="repeatable"/>
         <repeat id="taxonCitationList" has-primary="yes">
-            <field id="taxonCitation" autocomplete="citation-citation" ui-search="repeatable"/>
+            <field id="taxonCitation" autocomplete="citation-citation,citation-worldcat" ui-search="repeatable"/>
         </repeat>
         <field id="taxonNote"/>
         <field id="taxonIsNamedHybrid" datatype="boolean" ui-search="repeatable"></field>

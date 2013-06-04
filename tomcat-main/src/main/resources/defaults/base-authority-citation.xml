@@ -25,8 +25,8 @@
                 <label-section id="messagekeys" show="true"></label-section>
                 <hierarchy-section show="true">
                     <options>
-                        <option id="narrowerContext">citation-citation</option>
-                        <option id="broaderContext">citation-citation</option>
+                        <option id="narrowerContext">citation-citation,citation-worldcat</option>
+                        <option id="broaderContext">citation-citation,citation-worldcat</option>
                     </options>
                 </hierarchy-section>
             </view>
@@ -41,7 +41,11 @@
             <title-ref>citation</title-ref>
             <title>Local Citations</title>
         </instance>
-        <!-- Add a second vocabulary instance here, if possible - ADR 2013-05-23 -->
+        <instance id="citation-worldcat">
+            <web-url>worldcat</web-url>
+            <title-ref>worldcat</title-ref>
+            <title>WorldCat Citations</title>
+        </instance>
     </instances>      
     
     <section id="coreInformation">
