@@ -9,6 +9,10 @@
           "broaderContext": {
             "type": "string"
           }, 
+          "broaderContextType": {
+            "default": "", 
+            "type": "string"
+          }, 
           "contact": {
             "properties": {
               "addressGroup": {
@@ -409,6 +413,10 @@
                   "type": "boolean"
                 }, 
                 "narrowerContext": {
+                  "type": "string"
+                }, 
+                "narrowerContextType": {
+                  "default": "", 
                   "type": "string"
                 }
               }, 

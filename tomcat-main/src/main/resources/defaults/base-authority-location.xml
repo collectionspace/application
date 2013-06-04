@@ -1,6 +1,5 @@
 <record id="location"  type="authority">
-    <terms-used>false</terms-used>
-    <!-- XXX servcie layer doesn't currently support  terms but it does on  organisations - go figure -->
+    <terms-used>true</terms-used>
     <web-url>location</web-url>
     <services-tenant-plural>Locationauthorities</services-tenant-plural>
     <services-tenant-singular>Locationitem</services-tenant-singular>

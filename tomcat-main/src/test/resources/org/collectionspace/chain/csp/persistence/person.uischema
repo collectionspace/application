@@ -548,6 +548,10 @@
       "relations": {
         "default": {}, 
         "type": "object"
+      }, 
+      "termsUsed": {
+        "default": [], 
+        "type": "array"
       }
     }, 
     "type": "object"

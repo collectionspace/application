@@ -1,29 +1,30 @@
 {
-    "recordlist": {
-        "default": [
-            "acquisition",
-            "activity",
-            "cataloging",
-            "common_ta",
-            "concept",
-            "group",
-            "intake",
-            "loanin",
-            "loanout",
-            "location",
-            "material_ca",
-            "media",
-            "movement",
-            "objectexit",
-            "offsite_sla",
-            "organization",
-            "person",
-            "place",
-            "taxon",
-            "tgn_place",
-            "ulan_oa",
-            "ulan_pa"
-        ],
-        "type": "array"
-    }
+  "recordlist": {
+    "default": [
+      "material_ca", 
+      "concept", 
+      "activity", 
+      "person", 
+      "ulan_pa", 
+      "offsite_sla", 
+      "location", 
+      "loanin", 
+      "loanout", 
+      "acquisition", 
+      "organization", 
+      "ulan_oa", 
+      "cataloging", 
+      "movement", 
+      "tgn_place", 
+      "place", 
+      "common_ta", 
+      "taxon", 
+      "objectexit", 
+      "citation", 
+      "intake", 
+      "group", 
+      "media"
+    ], 
+    "type": "array"
+  }
 }

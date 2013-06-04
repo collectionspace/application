@@ -1961,7 +1961,19 @@
             "repeatTree": {
               "expander": {
                 "tree": {
-                  ".csc-collection-object-reference": "${{row}.reference}", 
+                  ".csc-collection-object-reference": {
+                    "decorators": [
+                      {
+                        "func": "cspace.autocomplete", 
+                        "options": {
+                          "queryUrl": "../../../tenant/core/cataloging/autocomplete/reference", 
+                          "vocabUrl": "../../../tenant/core/cataloging/source-vocab/reference"
+                        }, 
+                        "type": "fluid"
+                      }
+                    ], 
+                    "value": "${{row}.reference}"
+                  }, 
                   ".csc-collection-object-referenceNote": "${{row}.referenceNote}"
                 }, 
                 "type": "fluid.noexpand"

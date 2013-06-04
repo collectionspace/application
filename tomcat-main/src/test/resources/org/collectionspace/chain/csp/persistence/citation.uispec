@@ -1,0 +1,728 @@
+{
+  "hierarchy": {
+    ".csc-hierarchy-broaderContext": {
+      "decorators": [
+        {
+          "func": "cspace.autocomplete", 
+          "options": {
+            "queryUrl": "../../../tenant/core/vocabularies/citation/autocomplete/broaderContext", 
+            "vocabUrl": "../../../tenant/core/vocabularies/citation/source-vocab/broaderContext"
+          }, 
+          "type": "fluid"
+        }, 
+        {
+          "func": "cspace.externalURL", 
+          "type": "fluid"
+        }
+      ], 
+      "value": "${fields.broaderContext}"
+    }, 
+    ".csc-hierarchy-broaderContext-label": {
+      "messagekey": "hierarchy-broaderContextLabel"
+    }, 
+    ".csc-hierarchy-broaderContextType": {
+      "optionlist": [
+        "set", 
+        "derivative", 
+        "separable-part", 
+        "non-separable-part", 
+        "recto", 
+        "verso"
+      ], 
+      "optionnames": [
+        "Set", 
+        "Work (derivative)", 
+        "Work (separable part)", 
+        "Work (non-separable part)", 
+        "Work (recto)", 
+        "Work (verso)"
+      ], 
+      "selection": "${fields.broaderContextType}"
+    }, 
+    ".csc-hierarchy-broaderContextType-label": {
+      "messagekey": "hierarchy-broaderContextTypeLabel"
+    }, 
+    ".csc-hierarchy-domaindata-label": {
+      "messagekey": "hierarchy-domaindataLabel"
+    }, 
+    ".csc-hierarchy-equivalentContext-label": {
+      "messagekey": "hierarchy-equivalentContextLabel"
+    }, 
+    ".csc-hierarchy-equivalentContexts-label": {
+      "messagekey": "hierarchy-equivalentContextsLabel"
+    }, 
+    ".csc-hierarchy-equivalentInformation-label": {
+      "messagekey": "hierarchy-equivalentInformationLabel"
+    }, 
+    ".csc-hierarchy-hierarchyInformation-label": {
+      "messagekey": "hierarchy-hierarchyInformationLabel"
+    }, 
+    ".csc-hierarchy-narrowerContext-label": {
+      "messagekey": "hierarchy-narrowerContextLabel"
+    }, 
+    ".csc-hierarchy-narrowerContextType-label": {
+      "messagekey": "hierarchy-narrowerContextTypeLabel"
+    }, 
+    ".csc-hierarchy-narrowerContexts": {
+      "decorators": [
+        {
+          "func": "cspace.makeRepeatable", 
+          "options": {
+            "elPath": "fields.narrowerContexts", 
+            "repeatTree": {
+              "expander": {
+                "tree": {
+                  ".csc-hierarchy-narrowerContext": {
+                    "decorators": [
+                      {
+                        "func": "cspace.autocomplete", 
+                        "options": {
+                          "invokers": {
+                            "selectMatch": {
+                              "funcName": "cspace.autocomplete.selectMatchConfirm"
+                            }
+                          }, 
+                          "queryUrl": "../../../tenant/core/vocabularies/citation/autocomplete/narrowerContext", 
+                          "strings": {
+                            "narrowerChange": "Warning: %narrower currently has broader term %broader."
+                          }, 
+                          "vocabUrl": "../../../tenant/core/vocabularies/citation/source-vocab/narrowerContext"
+                        }, 
+                        "type": "fluid"
+                      }, 
+                      {
+                        "func": "cspace.externalURL", 
+                        "type": "fluid"
+                      }
+                    ], 
+                    "value": "${{row}.narrowerContext}"
+                  }, 
+                  ".csc-hierarchy-narrowerContextType": {
+                    "optionlist": [
+                      "set", 
+                      "derivative", 
+                      "separable-part", 
+                      "non-separable-part", 
+                      "recto", 
+                      "verso"
+                    ], 
+                    "optionnames": [
+                      "Item in a set", 
+                      "Derivative", 
+                      "Separable part", 
+                      "Non-separable part", 
+                      "Recto", 
+                      "Verso"
+                    ], 
+                    "selection": "${{row}.narrowerContextType}"
+                  }
+                }, 
+                "type": "fluid.noexpand"
+              }
+            }
+          }, 
+          "type": "fluid"
+        }
+      ]
+    }, 
+    ".csc-hierarchy-narrowerContexts-label": {
+      "messagekey": "hierarchy-narrowerContextsLabel"
+    }, 
+    ".csc-hierarchy-relatedTerm": {
+      "decorators": [
+        {
+          "func": "cspace.makeRepeatable", 
+          "options": {
+            "elPath": "fields.relatedTerms", 
+            "repeatTree": {
+              "expander": {
+                "tree": {
+                  ".csc-hierarchy-relatedTerm": {
+                    "decorators": [
+                      {
+                        "func": "cspace.autocomplete", 
+                        "options": {
+                          "queryUrl": "../../../tenant/core/vocabularies/citation/autocomplete/relatedTerm", 
+                          "vocabUrl": "../../../tenant/core/vocabularies/citation/source-vocab/relatedTerm"
+                        }, 
+                        "type": "fluid"
+                      }
+                    ], 
+                    "value": "${{row}.relatedTerm}"
+                  }
+                }, 
+                "type": "fluid.noexpand"
+              }
+            }
+          }, 
+          "type": "fluid"
+        }
+      ]
+    }, 
+    ".csc-hierarchy-relatedTerm-label": {
+      "messagekey": "hierarchy-relatedTermLabel"
+    }, 
+    ".csc-hierarchy-relatedTerms-label": {
+      "messagekey": "hierarchy-relatedTermsLabel"
+    }, 
+    "expander": [
+      {
+        "condition": {
+          "args": {
+            "equivalentContexts": "${fields.equivalentContexts}"
+          }, 
+          "funcName": "cspace.hierarchy.assertEquivalentContexts"
+        }, 
+        "falseTree": {
+          ".csc-hierarchy-equivalentContext-label": {
+            "decorators": {
+              "classes": "hidden", 
+              "type": "addClass"
+            }
+          }
+        }, 
+        "trueTree": {
+          ".csc-hierarchy-equivalentContext-label": {
+            "messagekey": "hierarchy-equivalentContextLabel"
+          }
+        }, 
+        "type": "fluid.renderer.condition"
+      }, 
+      {
+        "controlledBy": "fields.equivalentContexts", 
+        "pathAs": "row", 
+        "repeatID": ".csc-hierarchy-equivalentContext:", 
+        "tree": {
+          "decorators": [
+            {
+              "classes": "cs-hierarchy-equivalentContext", 
+              "type": "addClass"
+            }, 
+            {
+              "func": "cspace.externalURL", 
+              "type": "fluid"
+            }
+          ], 
+          "value": "${{row}.equivalentContext}"
+        }, 
+        "type": "fluid.renderer.repeat"
+      }
+    ]
+  }, 
+  "recordEditor": {
+    ".csc-citation-agent-label": {
+      "messagekey": "citation-agentLabel"
+    }, 
+    ".csc-citation-citationAgentInfoGroup": {
+      "decorators": [
+        {
+          "func": "cspace.makeRepeatable", 
+          "options": {
+            "elPath": "fields.citationAgentInfoGroup", 
+            "repeatTree": {
+              "expander": {
+                "tree": {
+                  ".csc-citation-agent": {
+                    "decorators": [
+                      {
+                        "func": "cspace.autocomplete", 
+                        "options": {
+                          "queryUrl": "../../../tenant/core/vocabularies/citation/autocomplete/agent", 
+                          "vocabUrl": "../../../tenant/core/vocabularies/citation/source-vocab/agent"
+                        }, 
+                        "type": "fluid"
+                      }
+                    ], 
+                    "value": "${{row}.agent}"
+                  }, 
+                  ".csc-citation-note": "${{row}.note}", 
+                  ".csc-citation-role": {
+                    "decorators": [
+                      {
+                        "func": "cspace.termList", 
+                        "options": {
+                          "elPath": "role", 
+                          "root": "{row}", 
+                          "termListType": "role"
+                        }, 
+                        "type": "fluid"
+                      }
+                    ]
+                  }
+                }, 
+                "type": "fluid.noexpand"
+              }
+            }
+          }, 
+          "type": "fluid"
+        }
+      ]
+    }, 
+    ".csc-citation-citationAgentInfoGroup-label": {
+      "messagekey": "citation-citationAgentInfoGroupLabel"
+    }, 
+    ".csc-citation-citationNameAuthorityInformation-label": {
+      "messagekey": "citation-citationNameAuthorityInformationLabel"
+    }, 
+    ".csc-citation-citationNote": "${fields.citationNote}", 
+    ".csc-citation-citationNote-label": {
+      "messagekey": "citation-citationNoteLabel"
+    }, 
+    ".csc-citation-citationPublicationInfoGroup": {
+      "decorators": [
+        {
+          "func": "cspace.makeRepeatable", 
+          "options": {
+            "elPath": "fields.citationPublicationInfoGroup", 
+            "repeatTree": {
+              "expander": {
+                "tree": {
+                  ".csc-citation-edition": "${{row}.edition}", 
+                  ".csc-citation-pages": "${{row}.pages}", 
+                  ".csc-citation-publicationPlace": {
+                    "decorators": [
+                      {
+                        "func": "cspace.autocomplete", 
+                        "options": {
+                          "queryUrl": "../../../tenant/core/vocabularies/citation/autocomplete/publicationPlace", 
+                          "vocabUrl": "../../../tenant/core/vocabularies/citation/source-vocab/publicationPlace"
+                        }, 
+                        "type": "fluid"
+                      }
+                    ], 
+                    "value": "${{row}.publicationPlace}"
+                  }, 
+                  ".csc-citation-publisher": {
+                    "decorators": [
+                      {
+                        "func": "cspace.autocomplete", 
+                        "options": {
+                          "queryUrl": "../../../tenant/core/vocabularies/citation/autocomplete/publisher", 
+                          "vocabUrl": "../../../tenant/core/vocabularies/citation/source-vocab/publisher"
+                        }, 
+                        "type": "fluid"
+                      }
+                    ], 
+                    "value": "${{row}.publisher}"
+                  }, 
+                  ".csc-citationPublicationInfoGroup-publicationDate": {
+                    "decorators": [
+                      {
+                        "func": "cspace.structuredDate", 
+                        "options": {
+                          "elPath": "publicationDate.dateDisplayDate", 
+                          "elPaths": {
+                            "dateAssociation": "publicationDate.dateAssociation", 
+                            "dateDisplayDate": "publicationDate.dateDisplayDate", 
+                            "dateEarliestScalarValue": "publicationDate.dateEarliestScalarValue", 
+                            "dateEarliestSingleCertainty": "publicationDate.dateEarliestSingleCertainty", 
+                            "dateEarliestSingleDay": "publicationDate.dateEarliestSingleDay", 
+                            "dateEarliestSingleEra": "publicationDate.dateEarliestSingleEra", 
+                            "dateEarliestSingleMonth": "publicationDate.dateEarliestSingleMonth", 
+                            "dateEarliestSingleQualifier": "publicationDate.dateEarliestSingleQualifier", 
+                            "dateEarliestSingleQualifierUnit": "publicationDate.dateEarliestSingleQualifierUnit", 
+                            "dateEarliestSingleQualifierValue": "publicationDate.dateEarliestSingleQualifierValue", 
+                            "dateEarliestSingleYear": "publicationDate.dateEarliestSingleYear", 
+                            "dateLatestCertainty": "publicationDate.dateLatestCertainty", 
+                            "dateLatestDay": "publicationDate.dateLatestDay", 
+                            "dateLatestEra": "publicationDate.dateLatestEra", 
+                            "dateLatestMonth": "publicationDate.dateLatestMonth", 
+                            "dateLatestQualifier": "publicationDate.dateLatestQualifier", 
+                            "dateLatestQualifierUnit": "publicationDate.dateLatestQualifierUnit", 
+                            "dateLatestQualifierValue": "publicationDate.dateLatestQualifierValue", 
+                            "dateLatestScalarValue": "publicationDate.dateLatestScalarValue", 
+                            "dateLatestYear": "publicationDate.dateLatestYear", 
+                            "dateNote": "publicationDate.dateNote", 
+                            "datePeriod": "publicationDate.datePeriod", 
+                            "scalarValuesComputed": "publicationDate.scalarValuesComputed"
+                          }, 
+                          "root": "{row}"
+                        }, 
+                        "type": "fluid"
+                      }
+                    ], 
+                    "value": "${{row}.publicationDate.dateDisplayDate}"
+                  }
+                }, 
+                "type": "fluid.noexpand"
+              }
+            }
+          }, 
+          "type": "fluid"
+        }
+      ]
+    }, 
+    ".csc-citation-citationPublicationInfoGroup-label": {
+      "messagekey": "citation-citationPublicationInfoGroupLabel"
+    }, 
+    ".csc-citation-citationRelatedTermsGroup": {
+      "decorators": [
+        {
+          "func": "cspace.makeRepeatable", 
+          "options": {
+            "elPath": "fields.citationRelatedTermsGroup", 
+            "repeatTree": {
+              "expander": {
+                "tree": {
+                  ".csc-citation-relatedTerm": {
+                    "decorators": [
+                      {
+                        "func": "cspace.autocomplete", 
+                        "options": {
+                          "queryUrl": "../../../tenant/core/vocabularies/citation/autocomplete/relatedTerm", 
+                          "vocabUrl": "../../../tenant/core/vocabularies/citation/source-vocab/relatedTerm"
+                        }, 
+                        "type": "fluid"
+                      }
+                    ], 
+                    "value": "${{row}.relatedTerm}"
+                  }, 
+                  ".csc-citation-relationType": {
+                    "decorators": [
+                      {
+                        "func": "cspace.termList", 
+                        "options": {
+                          "elPath": "relationType", 
+                          "root": "{row}", 
+                          "termListType": "relationType"
+                        }, 
+                        "type": "fluid"
+                      }
+                    ]
+                  }
+                }, 
+                "type": "fluid.noexpand"
+              }
+            }
+          }, 
+          "type": "fluid"
+        }
+      ]
+    }, 
+    ".csc-citation-citationRelatedTermsGroup-label": {
+      "messagekey": "citation-citationRelatedTermsGroupLabel"
+    }, 
+    ".csc-citation-citationResourceIdentGroup": {
+      "decorators": [
+        {
+          "func": "cspace.makeRepeatable", 
+          "options": {
+            "elPath": "fields.citationResourceIdentGroup", 
+            "repeatTree": {
+              "expander": {
+                "tree": {
+                  ".csc-citation-resourceIdent": "${{row}.resourceIdent}", 
+                  ".csc-citation-type": {
+                    "decorators": [
+                      {
+                        "func": "cspace.termList", 
+                        "options": {
+                          "elPath": "type", 
+                          "root": "{row}", 
+                          "termListType": "type"
+                        }, 
+                        "type": "fluid"
+                      }
+                    ]
+                  }, 
+                  ".csc-citationResourceIdentGroup-captureDate": {
+                    "decorators": [
+                      {
+                        "func": "cspace.structuredDate", 
+                        "options": {
+                          "elPath": "captureDate.dateDisplayDate", 
+                          "elPaths": {
+                            "dateAssociation": "captureDate.dateAssociation", 
+                            "dateDisplayDate": "captureDate.dateDisplayDate", 
+                            "dateEarliestScalarValue": "captureDate.dateEarliestScalarValue", 
+                            "dateEarliestSingleCertainty": "captureDate.dateEarliestSingleCertainty", 
+                            "dateEarliestSingleDay": "captureDate.dateEarliestSingleDay", 
+                            "dateEarliestSingleEra": "captureDate.dateEarliestSingleEra", 
+                            "dateEarliestSingleMonth": "captureDate.dateEarliestSingleMonth", 
+                            "dateEarliestSingleQualifier": "captureDate.dateEarliestSingleQualifier", 
+                            "dateEarliestSingleQualifierUnit": "captureDate.dateEarliestSingleQualifierUnit", 
+                            "dateEarliestSingleQualifierValue": "captureDate.dateEarliestSingleQualifierValue", 
+                            "dateEarliestSingleYear": "captureDate.dateEarliestSingleYear", 
+                            "dateLatestCertainty": "captureDate.dateLatestCertainty", 
+                            "dateLatestDay": "captureDate.dateLatestDay", 
+                            "dateLatestEra": "captureDate.dateLatestEra", 
+                            "dateLatestMonth": "captureDate.dateLatestMonth", 
+                            "dateLatestQualifier": "captureDate.dateLatestQualifier", 
+                            "dateLatestQualifierUnit": "captureDate.dateLatestQualifierUnit", 
+                            "dateLatestQualifierValue": "captureDate.dateLatestQualifierValue", 
+                            "dateLatestScalarValue": "captureDate.dateLatestScalarValue", 
+                            "dateLatestYear": "captureDate.dateLatestYear", 
+                            "dateNote": "captureDate.dateNote", 
+                            "datePeriod": "captureDate.datePeriod", 
+                            "scalarValuesComputed": "captureDate.scalarValuesComputed"
+                          }, 
+                          "root": "{row}"
+                        }, 
+                        "type": "fluid"
+                      }
+                    ], 
+                    "value": "${{row}.captureDate.dateDisplayDate}"
+                  }
+                }, 
+                "type": "fluid.noexpand"
+              }
+            }
+          }, 
+          "type": "fluid"
+        }
+      ]
+    }, 
+    ".csc-citation-citationResourceIdentGroup-label": {
+      "messagekey": "citation-citationResourceIdentGroupLabel"
+    }, 
+    ".csc-citation-coreInformation-label": {
+      "messagekey": "citation-coreInformationLabel"
+    }, 
+    ".csc-citation-createdAt": "${fields.createdAt}", 
+    ".csc-citation-createdAt-label": {
+      "messagekey": "citation-createdAtLabel"
+    }, 
+    ".csc-citation-createdBy": "${fields.createdBy}", 
+    ".csc-citation-createdBy-label": {
+      "messagekey": "citation-createdByLabel"
+    }, 
+    ".csc-citation-csid": "${fields.csid}", 
+    ".csc-citation-csid-label": {
+      "messagekey": "citation-csidLabel"
+    }, 
+    ".csc-citation-domaindata-label": {
+      "messagekey": "citation-domaindataLabel"
+    }, 
+    ".csc-citation-edition-label": {
+      "messagekey": "citation-editionLabel"
+    }, 
+    ".csc-citation-note-label": {
+      "messagekey": "citation-noteLabel"
+    }, 
+    ".csc-citation-otherInformation-label": {
+      "messagekey": "citation-otherInformationLabel"
+    }, 
+    ".csc-citation-pages-label": {
+      "messagekey": "citation-pagesLabel"
+    }, 
+    ".csc-citation-preferredCitation-label": {
+      "messagekey": "citation-preferredCitationLabel"
+    }, 
+    ".csc-citation-publicationPlace-label": {
+      "messagekey": "citation-publicationPlaceLabel"
+    }, 
+    ".csc-citation-publisher-label": {
+      "messagekey": "citation-publisherLabel"
+    }, 
+    ".csc-citation-refName": "${fields.refName}", 
+    ".csc-citation-refName-label": {
+      "messagekey": "citation-refNameLabel"
+    }, 
+    ".csc-citation-relatedTerm-label": {
+      "messagekey": "citation-relatedTermLabel"
+    }, 
+    ".csc-citation-relationType-label": {
+      "messagekey": "citation-relationTypeLabel"
+    }, 
+    ".csc-citation-resourceIdent-label": {
+      "messagekey": "citation-resourceIdentLabel"
+    }, 
+    ".csc-citation-role-label": {
+      "messagekey": "citation-roleLabel"
+    }, 
+    ".csc-citation-shortIdentifier": "${fields.shortIdentifier}", 
+    ".csc-citation-shortIdentifier-label": {
+      "messagekey": "citation-shortIdentifierLabel"
+    }, 
+    ".csc-citation-tenantID": "${fields.tenantID}", 
+    ".csc-citation-tenantID-label": {
+      "messagekey": "citation-tenantIDLabel"
+    }, 
+    ".csc-citation-type-label": {
+      "messagekey": "citation-typeLabel"
+    }, 
+    ".csc-citation-updatedAt": {
+      "decorators": [
+        {
+          "func": "cspace.datePicker", 
+          "type": "fluid"
+        }
+      ], 
+      "value": "${fields.updatedAt}"
+    }, 
+    ".csc-citation-updatedAt-label": {
+      "messagekey": "citation-updatedAtLabel"
+    }, 
+    ".csc-citation-updatedBy": "${fields.updatedBy}", 
+    ".csc-citation-updatedBy-label": {
+      "messagekey": "citation-updatedByLabel"
+    }, 
+    ".csc-citation-uri": "${fields.uri}", 
+    ".csc-citation-uri-label": {
+      "messagekey": "citation-uriLabel"
+    }, 
+    ".csc-citationPublicationInfoGroup-publicationDate-label": {
+      "messagekey": "citationPublicationInfoGroup-publicationDateLabel"
+    }, 
+    ".csc-citationResourceIdentGroup-captureDate-label": {
+      "messagekey": "citationResourceIdentGroup-captureDateLabel"
+    }, 
+    ".csc-preferred-citationAuthority": {
+      "decorators": [
+        {
+          "func": "cspace.preferred", 
+          "options": {
+            "protoTree": {
+              "expander": {
+                "tree": {
+                  ".csc-preferredCI-citationTermGroup": {
+                    "decorators": [
+                      {
+                        "func": "cspace.makeRepeatable", 
+                        "options": {
+                          "elPath": "fields.citationTermGroup", 
+                          "repeatTree": {
+                            "expander": {
+                              "tree": {
+                                ".csc-citationAuthority-termDisplayName": "${{row}.termDisplayName}", 
+                                ".csc-citationAuthority-termFullCitation": "${{row}.termFullCitation}", 
+                                ".csc-citationAuthority-termIssue": "${{row}.termIssue}", 
+                                ".csc-citationAuthority-termLanguage": {
+                                  "decorators": [
+                                    {
+                                      "func": "cspace.termList", 
+                                      "options": {
+                                        "elPath": "termLanguage", 
+                                        "root": "{row}", 
+                                        "termListType": "termLanguage"
+                                      }, 
+                                      "type": "fluid"
+                                    }
+                                  ]
+                                }, 
+                                ".csc-citationAuthority-termName": "${{row}.termName}", 
+                                ".csc-citationAuthority-termPrefForLang": "${{row}.termPrefForLang}", 
+                                ".csc-citationAuthority-termQualifier": "${{row}.termQualifier}", 
+                                ".csc-citationAuthority-termSectionTitle": "${{row}.termSectionTitle}", 
+                                ".csc-citationAuthority-termSource": {
+                                  "decorators": [
+                                    {
+                                      "func": "cspace.autocomplete", 
+                                      "options": {
+                                        "queryUrl": "../../../tenant/core/preferredCI/autocomplete/termSource", 
+                                        "vocabUrl": "../../../tenant/core/preferredCI/source-vocab/termSource"
+                                      }, 
+                                      "type": "fluid"
+                                    }
+                                  ], 
+                                  "value": "${{row}.termSource}"
+                                }, 
+                                ".csc-citationAuthority-termSourceDetail": "${{row}.termSourceDetail}", 
+                                ".csc-citationAuthority-termSourceID": "${{row}.termSourceID}", 
+                                ".csc-citationAuthority-termSourceNote": "${{row}.termSourceNote}", 
+                                ".csc-citationAuthority-termStatus": {
+                                  "default": "provisional", 
+                                  "optionlist": [
+                                    "provisional", 
+                                    "under review", 
+                                    "accepted", 
+                                    "rejected"
+                                  ], 
+                                  "optionnames": [
+                                    "Provisional", 
+                                    "Under Review", 
+                                    "Accepted", 
+                                    "Rejected"
+                                  ], 
+                                  "selection": "${{row}.termStatus}"
+                                }, 
+                                ".csc-citationAuthority-termSubTitle": "${{row}.termSubTitle}", 
+                                ".csc-citationAuthority-termTitle": "${{row}.termTitle}", 
+                                ".csc-citationAuthority-termType": {
+                                  "decorators": [
+                                    {
+                                      "func": "cspace.termList", 
+                                      "options": {
+                                        "elPath": "termType", 
+                                        "root": "{row}", 
+                                        "termListType": "termType"
+                                      }, 
+                                      "type": "fluid"
+                                    }
+                                  ]
+                                }, 
+                                ".csc-citationAuthority-termVolume": "${{row}.termVolume}"
+                              }, 
+                              "type": "fluid.noexpand"
+                            }
+                          }
+                        }, 
+                        "type": "fluid"
+                      }
+                    ]
+                  }, 
+                  ".csc-preferredCI-citationTermGroup-label": {
+                    "messagekey": "preferredCI-citationTermGroupLabel"
+                  }, 
+                  ".csc-preferredCI-termDisplayName-label": {
+                    "messagekey": "preferredCI-termDisplayNameLabel"
+                  }, 
+                  ".csc-preferredCI-termFullCitation-label": {
+                    "messagekey": "preferredCI-termFullCitationLabel"
+                  }, 
+                  ".csc-preferredCI-termIssue-label": {
+                    "messagekey": "preferredCI-termIssueLabel"
+                  }, 
+                  ".csc-preferredCI-termLanguage-label": {
+                    "messagekey": "preferredCI-termLanguageLabel"
+                  }, 
+                  ".csc-preferredCI-termName-label": {
+                    "messagekey": "preferredCI-termNameLabel"
+                  }, 
+                  ".csc-preferredCI-termPrefForLang-label": {
+                    "messagekey": "preferredCI-termPrefForLangLabel"
+                  }, 
+                  ".csc-preferredCI-termQualifier-label": {
+                    "messagekey": "preferredCI-termQualifierLabel"
+                  }, 
+                  ".csc-preferredCI-termSectionTitle-label": {
+                    "messagekey": "preferredCI-termSectionTitleLabel"
+                  }, 
+                  ".csc-preferredCI-termSource-label": {
+                    "messagekey": "preferredCI-termSourceLabel"
+                  }, 
+                  ".csc-preferredCI-termSourceDetail-label": {
+                    "messagekey": "preferredCI-termSourceDetailLabel"
+                  }, 
+                  ".csc-preferredCI-termSourceID-label": {
+                    "messagekey": "preferredCI-termSourceIDLabel"
+                  }, 
+                  ".csc-preferredCI-termSourceNote-label": {
+                    "messagekey": "preferredCI-termSourceNoteLabel"
+                  }, 
+                  ".csc-preferredCI-termStatus-label": {
+                    "messagekey": "preferredCI-termStatusLabel"
+                  }, 
+                  ".csc-preferredCI-termSubTitle-label": {
+                    "messagekey": "preferredCI-termSubTitleLabel"
+                  }, 
+                  ".csc-preferredCI-termTitle-label": {
+                    "messagekey": "preferredCI-termTitleLabel"
+                  }, 
+                  ".csc-preferredCI-termType-label": {
+                    "messagekey": "preferredCI-termTypeLabel"
+                  }, 
+                  ".csc-preferredCI-termVolume-label": {
+                    "messagekey": "preferredCI-termVolumeLabel"
+                  }
+                }, 
+                "type": "fluid.noexpand"
+              }
+            }
+          }, 
+          "type": "fluid"
+        }
+      ]
+    }
+  }
+}

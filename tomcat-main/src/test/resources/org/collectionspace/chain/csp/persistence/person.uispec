@@ -1325,7 +1325,19 @@
                                 ".csc-personAuthority-termName": "${{row}.termName}", 
                                 ".csc-personAuthority-termPrefForLang": "${{row}.termPrefForLang}", 
                                 ".csc-personAuthority-termQualifier": "${{row}.termQualifier}", 
-                                ".csc-personAuthority-termSource": "${{row}.termSource}", 
+                                ".csc-personAuthority-termSource": {
+                                  "decorators": [
+                                    {
+                                      "func": "cspace.autocomplete", 
+                                      "options": {
+                                        "queryUrl": "../../../tenant/core/preferredPA/autocomplete/termSource", 
+                                        "vocabUrl": "../../../tenant/core/preferredPA/source-vocab/termSource"
+                                      }, 
+                                      "type": "fluid"
+                                    }
+                                  ], 
+                                  "value": "${{row}.termSource}"
+                                }, 
                                 ".csc-personAuthority-termSourceDetail": "${{row}.termSourceDetail}", 
                                 ".csc-personAuthority-termSourceID": "${{row}.termSourceID}", 
                                 ".csc-personAuthority-termSourceNote": "${{row}.termSourceNote}", 

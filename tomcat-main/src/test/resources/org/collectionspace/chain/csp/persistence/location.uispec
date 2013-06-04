@@ -367,7 +367,19 @@
                                 ".csc-locationAuthority-termName": "${{row}.termName}", 
                                 ".csc-locationAuthority-termPrefForLang": "${{row}.termPrefForLang}", 
                                 ".csc-locationAuthority-termQualifier": "${{row}.termQualifier}", 
-                                ".csc-locationAuthority-termSource": "${{row}.termSource}", 
+                                ".csc-locationAuthority-termSource": {
+                                  "decorators": [
+                                    {
+                                      "func": "cspace.autocomplete", 
+                                      "options": {
+                                        "queryUrl": "../../../tenant/core/preferredSLA/autocomplete/termSource", 
+                                        "vocabUrl": "../../../tenant/core/preferredSLA/source-vocab/termSource"
+                                      }, 
+                                      "type": "fluid"
+                                    }
+                                  ], 
+                                  "value": "${{row}.termSource}"
+                                }, 
                                 ".csc-locationAuthority-termSourceDetail": "${{row}.termSourceDetail}", 
                                 ".csc-locationAuthority-termSourceID": "${{row}.termSourceID}", 
                                 ".csc-locationAuthority-termSourceNote": "${{row}.termSourceNote}", 
