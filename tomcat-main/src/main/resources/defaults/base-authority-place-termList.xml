@@ -44,8 +44,7 @@
             <field id="termPrefForLang" datatype="boolean">
                 <selector>placeAuthority-termPrefForLang</selector>
             </field>
-            <!-- termSource will be a Citation Authority autocomplete field when that service is implemented -->
-            <field id="termSource">
+            <field id="termSource" autocomplete="citation-citation,citation-worldcat">
                 <selector>placeAuthority-termSource</selector>
             </field>
             <field id="termSourceDetail">

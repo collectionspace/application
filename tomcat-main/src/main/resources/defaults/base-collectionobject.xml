@@ -881,7 +881,7 @@
   <!-- CSPACE-3501: reference and catalog number combined into a repeatable group; catalog number renamed reference note -->
   <section id="referenceInformation">
     <repeat id="referenceGroupList/referenceGroup">
-      <field id="reference"/>
+      <field id="reference" autocomplete="citation-citation,citation-worldcat"/>
       <field id="referenceNote"/>
     </repeat>
   </section>

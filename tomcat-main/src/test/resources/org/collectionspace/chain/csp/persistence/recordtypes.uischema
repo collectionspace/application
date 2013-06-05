@@ -3,9 +3,9 @@
     "properties": {
       "administration": {
         "default": [
-          "users", 
+          "role", 
           "termlist", 
-          "role"
+          "users"
         ], 
         "type": "array"
       }, 
@@ -23,32 +23,33 @@
       }, 
       "procedures": {
         "default": [
+          "acquisition", 
+          "group", 
+          "intake", 
           "loanin", 
           "loanout", 
-          "acquisition", 
+          "media", 
           "movement", 
-          "objectexit", 
-          "intake", 
-          "group", 
-          "media"
+          "objectexit"
         ], 
         "type": "array"
       }, 
       "vocabularies": {
         "default": [
-          "ulan_pa", 
-          "person", 
           "activity", 
+          "citation", 
+          "common_ta", 
           "concept", 
+          "location", 
           "material_ca", 
           "offsite_sla", 
-          "location", 
-          "ulan_oa", 
           "organization", 
+          "person", 
           "place", 
-          "tgn_place",
-          "common_ta",
-          "taxon"
+          "taxon", 
+          "tgn_place", 
+          "ulan_oa", 
+          "ulan_pa"
         ], 
         "type": "array"
       }

@@ -262,7 +262,19 @@
                                 ".csc-taxonAuthority-termName": "${{row}.termName}", 
                                 ".csc-taxonAuthority-termPrefForLang": "${{row}.termPrefForLang}", 
                                 ".csc-taxonAuthority-termQualifier": "${{row}.termQualifier}", 
-                                ".csc-taxonAuthority-termSource": "${{row}.termSource}", 
+                                ".csc-taxonAuthority-termSource": {
+                                  "decorators": [
+                                    {
+                                      "func": "cspace.autocomplete", 
+                                      "options": {
+                                        "queryUrl": "../../../tenant/lifesci/preferredTA/autocomplete/termSource", 
+                                        "vocabUrl": "../../../tenant/lifesci/preferredTA/source-vocab/termSource"
+                                      }, 
+                                      "type": "fluid"
+                                    }
+                                  ], 
+                                  "value": "${{row}.termSource}"
+                                }, 
                                 ".csc-taxonAuthority-termSourceDetail": "${{row}.termSourceDetail}", 
                                 ".csc-taxonAuthority-termSourceID": "${{row}.termSourceID}", 
                                 ".csc-taxonAuthority-termSourceNote": "${{row}.termSourceNote}", 
@@ -383,7 +395,19 @@
                       }
                     ]
                   }, 
-                  ".csc-taxon-commonNameSource": "${{row}.commonNameSource}", 
+                  ".csc-taxon-commonNameSource": {
+                    "decorators": [
+                      {
+                        "func": "cspace.autocomplete", 
+                        "options": {
+                          "queryUrl": "../../../tenant/lifesci/vocabularies/taxon/autocomplete/commonNameSource", 
+                          "vocabUrl": "../../../tenant/lifesci/vocabularies/taxon/source-vocab/commonNameSource"
+                        }, 
+                        "type": "fluid"
+                      }
+                    ], 
+                    "value": "${{row}.commonNameSource}"
+                  }, 
                   ".csc-taxon-commonNameSourceDetail": "${{row}.commonNameSourceDetail}"
                 }, 
                 "type": "fluid.noexpand"
@@ -501,7 +525,19 @@
             "repeatTree": {
               "expander": {
                 "tree": {
-                  ".csc-taxon-taxonCitation": "${{row}.taxonCitation}"
+                  ".csc-taxon-taxonCitation": {
+                    "decorators": [
+                      {
+                        "func": "cspace.autocomplete", 
+                        "options": {
+                          "queryUrl": "../../../tenant/lifesci/vocabularies/taxon/autocomplete/taxonCitation", 
+                          "vocabUrl": "../../../tenant/lifesci/vocabularies/taxon/source-vocab/taxonCitation"
+                        }, 
+                        "type": "fluid"
+                      }
+                    ], 
+                    "value": "${{row}.taxonCitation}"
+                  }
                 }, 
                 "type": "fluid.noexpand"
               }

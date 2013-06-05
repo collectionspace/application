@@ -1,0 +1,84 @@
+<record id="preferredCI" in-recordlist="no" separate-record="false">
+    <hassoftdelete>true</hassoftdelete>
+    <section>
+        <!-- List containing this item's preferred term and any non-preferred terms -->
+        <repeat id="citationTermGroupList/citationTermGroup">
+            <!-- Fields common across all authority items -->
+            <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes"
+                   mini="summary,number,search,list,relate">
+                <selector>citationAuthority-termDisplayName</selector>
+                <title-selector>titleBar-displayName</title-selector>
+            </field>
+            <field id="termName">
+                <selector>citationAuthority-termName</selector>
+            </field>            
+            <field id="termType" ui-search="repeatable" autocomplete="vocab-citationtermtype" ui-type="enum">
+                <selector>citationAuthority-termType</selector>
+            </field>
+            <field id="termStatus" ui-search="repeatable" seperate_ui_container="true"
+                   mini="search,list,relate">
+                <selector>citationAuthority-termStatus</selector>
+                <options>
+                    <option id="provisional" default="yes">Provisional</option>
+                    <option id="under review">Under Review</option>
+                    <option id="accepted">Accepted</option>
+                    <option id="rejected">Rejected</option>
+                </options>
+            </field>
+            <field id="termQualifier">
+                <selector>citationAuthority-termQualifier</selector>
+            </field>     
+            <field id="termLanguage" ui-search="repeatable" autocomplete="vocab-languages" ui-type="enum">
+                <selector>citationAuthority-termLanguage</selector>
+            </field>
+            <field id="termPrefForLang" datatype="boolean">
+                <selector>citationAuthority-termPrefForLang</selector>
+            </field>
+            <field id="termSource" autocomplete="citation-citation,citation-worldcat">
+                <selector>citationAuthority-termSource</selector>
+            </field>
+            <field id="termSourceDetail">
+                <selector>citationAuthority-termSourceDetail</selector>
+            </field>
+            <field id="termSourceID">
+                <selector>citationAuthority-termSourceID</selector>
+            </field>
+            <field id="termSourceNote">
+                <selector>citationAuthority-termSourceNote</selector>
+            </field>
+            <!-- Fields specific to Citation terms -->
+            <field id="termFullCitation" ui-search="repeatable">
+                <selector>citationAuthority-termFullCitation</selector>
+            </field>
+            <field id="termTitle" ui-search="repeatable">
+                <selector>citationAuthority-termTitle</selector>
+            </field>
+            <field id="termSubTitle">
+                <selector>citationAuthority-termSubTitle</selector>
+            </field>
+            <field id="termSectionTitle">
+                <selector>citationAuthority-termSectionTitle</selector>
+            </field>
+            <field id="termVolume">
+                <selector>citationAuthority-termVolume</selector>
+            </field>
+            <field id="termIssue">
+                <selector>citationAuthority-termIssue</selector>
+            </field>
+        </repeat>
+    </section>
+    
+    <!--  labels -->
+    <!-- These label declarations aren't present in the other -->
+    <!-- Application layer authority config files so far reviewed. -->
+    <!-- Identify the need for these or remove these declarations. - ADR 2013-05-23 -->
+    <!--
+    <section id="labelTermFullCitation"/>
+    <section id="labelTermTitle"/>
+    <section id="labelTermSubTitle"/>
+    <section id="labelTermSectionTitle"/>
+    <section id="labelTermVolume"/>
+    <section id="labelTermIssue"/>
+    -->
+				
+</record>
