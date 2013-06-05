@@ -15,6 +15,19 @@
               }
             }, 
             "type": "object"
+          }, 
+          "worldcat": {
+            "properties": {
+              "nptAllowed": {
+                "default": true, 
+                "type": "boolean"
+              }, 
+              "order": {
+                "default": 1, 
+                "type": "integer"
+              }
+            }, 
+            "type": "object"
           }
         }, 
         "type": "object"
