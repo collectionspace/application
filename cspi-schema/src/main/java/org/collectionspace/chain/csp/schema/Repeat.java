@@ -23,9 +23,29 @@ public class Repeat extends FieldSetImpl implements FieldParent  {
 	protected Stack<String> merged = new Stack<String>();
 	protected List<FieldSet> children = new ArrayList<FieldSet>();
 	protected Map<String,List<FieldSet>> childrenperm = new HashMap<String, List<FieldSet>>();
+	protected boolean searchOnlyRepeat = false;
 
 	/* Services */
+	
+	@Override
+	public boolean isTrueRepeatField() {
+		boolean result = false;
+		
+		if (this instanceof Repeat && ((Repeat)this).isSearchOnlyRepeat() == false) {
+			result = true; 
+		}
+				
+		return result;
+	}
 
+	public void setSearchOnlyRepeat(boolean flag) {
+		this.searchOnlyRepeat = flag;
+	}
+	
+	public boolean isSearchOnlyRepeat() {
+		return this.searchOnlyRepeat;
+	}
+	
 	public Repeat(Record record, String id) {
 		this.parent = record;
 		utils.setString("parentID", record.getID());

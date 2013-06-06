@@ -113,10 +113,10 @@
                     <field id="loanInDate" ui-search="range" ui-type="date" datatype="date">
                         <selector>loanIn-loanInDate</selector>
                     </field>
-                    <field id="loanReturnDate" ui-search="range" ui-type="date" datatype="date">
+                    <field id="loanReturnDate" ui-search="range" ui-type="date" datatype="date" mini="list">
                         <selector>loanIn-loanReturnDate</selector>
                     </field>
-                    <field id="loanRenewalApplicationDate" ui-search="range" ui-type="date" datatype="date" services-should-index="true">
+                    <field id="loanRenewalApplicationDate" ui-search="range" ui-type="date" datatype="date">
                         <selector>loanIn-loanRenewalApplicationDate</selector>
                     </field>
                     <repeat id="loanStatusGroupList/loanStatusGroup">

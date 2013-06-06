@@ -31,6 +31,15 @@ public class Services {
 	
 	private static final String GROUP_XPATH_SUFFIX = "/*";
 	private static final String NO_REPO_DOMAIN = "none";
+
+	private static final String SERVICES_BINDING_TYPE_SECURITY = "security";
+
+	private static final String AUTH_REF = "authRef";
+	private static final String TERM_REF = "termRef";
+
+	private static final String OBJECT_NAME_PROPERTY = "objectNameProperty";
+	private static final String OBJECT_NUMBER_PROPERTY = "objectNumberProperty";
+	
 	protected Spec spec;
 	protected TenantSpec tenantSpec;
 	protected Boolean defaultonly;
@@ -74,72 +83,67 @@ public class Services {
 	 * @return
 	 */
 	private String doServiceBindingsCommon() {
-		
-		
 		Document doc = DocumentFactory.getInstance().createDocument();
-
-
 		Element root = doc.addElement(new QName("TenantBindingConfig", this.nstenant));
 		root.addAttribute("xsi:schemaLocation", this.schemaloc);
-//		root.add(this.nsservices);
+		// root.add(this.nsservices);
 		root.add(this.nsxsi);
-//		root.add(this.nstypes);
-		
-		//<tenant:tenantBinding version="0.1">
+		// root.add(this.nstypes);
+
+		// <tenant:tenantBinding version="0.1">
 		Element ele = root.addElement(new QName("tenantBinding", nstenant));
-		if(!this.defaultonly){
+		if (!this.defaultonly) {
 			ele.addAttribute("name", this.tenantSpec.getTenant());
 			ele.addAttribute("displayName", this.tenantSpec.getTenantDisplay());
 		}
 		ele.addAttribute("version", this.tenantSpec.getTenantVersion());
 
-		//<tenant:repositoryDomain name="default-domain" repositoryClient="nuxeo-java"/>
+		// <tenant:repositoryDomain name="default-domain" repositoryClient="nuxeo-java"/>
 		Element rele = ele.addElement(new QName("repositoryDomain", nstenant));
 		rele.addAttribute("name", this.tenantSpec.getRepositoryDomain());
 		rele.addAttribute("storageName", this.tenantSpec.getStorageName());
 		rele.addAttribute("repositoryClient", this.tenantSpec.getRepoClient());
-		
-		//add in <tenant:properties> if required
+
+		// add in <tenant:properties> if required
 		makeProperties(ele);
-		
-		//loop over each record type and add <tenant:serviceBindings
+
+		// loop over each record type and add <tenant:serviceBindings
 		for (Record r : this.spec.getAllRecords()) {
 			if (r.isType("record") == true) {
-				String rtype="procedure";
+				String rtype = "procedure";
 				if (!r.isType("procedure") && r.isType("record")) {
 					rtype = "object";
 				}
-				
-				//<tenant:serviceBindings name="CollectionObjects" type="object" version="0.1">
+				// <tenant:serviceBindings name="CollectionObjects" type="object" version="0.1">
 				Element cele = ele.addElement(new QName("serviceBindings", nstenant));
+				cele.addAttribute("id", r.getServicesTenantPl());
 				cele.addAttribute("name", r.getServicesTenantPl());
 				cele.addAttribute("type", rtype);
-				cele.addAttribute("version", "0.1"); //FIXME:REM - Should not be hard coded.
-
-				addServiceBinding(r, cele, nsservices, false);	
-			}
-			if(r.isType("authority")){
-
-//				addVocabularies(r, ele);
-			}
-			if(r.isType("userdata")){
-
-				Element cele = ele.addElement(new QName(
-						"serviceBindings", nstenant));
-				cele.addAttribute("name", r.getServicesTenantPl());
-				cele.addAttribute("version", "0.1");
-
+				cele.addAttribute("version", "0.1"); // FIXME:REM - Should not be hard coded.
 				addServiceBinding(r, cele, nsservices, false);
 			}
-			if(r.isType("authorizationdata")){
-				//	ignore at the moment as they are so non standard
-				//	addAuthorization(r,ele);
+
+			if (r.isType("authority")) {
+				log.debug("ignore at the moment as they are so non standard");
+				// addVocabularies(r, ele);
+			}
+
+			if (r.isType("userdata")) {
+				Element cele = ele.addElement(new QName("serviceBindings", nstenant));
+				cele.addAttribute("id", r.getServicesTenantPl());
+				cele.addAttribute("name", r.getServicesTenantPl());
+				cele.addAttribute("type", SERVICES_BINDING_TYPE_SECURITY);
+				cele.addAttribute("version", "0.1"); // FIXME:REM - Should not be hard coded
+				addServiceBinding(r, cele, nsservices, false);
+			}
+
+			if (r.isType("authorizationdata")) {
+				// ignore at the moment as they are so non standard
+				// addAuthorization(r,ele);
+				log.debug("ignore at the moment as they are so non standard");
 			}
 		}
 
-		//addExtras();
-		
-		
 		return doc.asXML();
 	}
 
@@ -494,54 +498,101 @@ public class Services {
 		doInitHandler(r, el, this.nsservices, isAuthority);
 
 		//<service:properties>
-		//doServiceProperties
+		Element servicePropertiesElement = el.addElement(new QName("properties", nameSpace));		
+		if (doServiceProperties(r, servicePropertiesElement, this.nsservices) == false) {
+			el.remove(servicePropertiesElement);
+		}
 		
 		//<service:object>
 		doServiceObject(r, el, this.nsservices, isAuthority);
 	}
 	
+	/*
+	 * Returns the fully qualified path of a field name
+	 */
+	private String getFullyQualifiedFieldPath(FieldSet in) {
+		FieldSet fst = in;
+		String name = "";
+		while (fst.getParent().isTrueRepeatField() || fst.getParent() instanceof Group) {
+			fst = (FieldSet) fst.getParent();
+			if (fst instanceof Repeat) {
+				Repeat rt = (Repeat) fst;
+				if (rt.hasServicesParent()) {
+					name += rt.getServicesParent()[0];
+				} else {
+					name += rt.getServicesTag();
+				}
+			} else {
+				Group gp = (Group) fst;
+				if (gp.hasServicesParent()) {
+					name += gp.getServicesParent()[0];
+				} else {
+					name += gp.getServicesTag();
+				}
+			}
+			name += "/[0]/";
+		}
+		name += in.getServicesTag();
+		
+		return name;
+	}
 
+	/*
+	 * Added an element like the following to the passed in "props" element.
+	 * 
+	 * <types:item xmlns:types="http://collectionspace.org/services/config/types">
+	 *		<types:key>authRef</types:key>
+	 *     	<types:value>borrower</types:value>
+	 * </types:item>
+	 */
+	private void addServiceProperty(Element props, FieldSet fs, String keyName, Namespace types) {
+		//<item>
+		Element itemElement = props.addElement(new QName("item", types));
+		
+		//<key>
+		Element keyElement = itemElement.addElement(new QName("key", types));
+		keyElement.addText(keyName);		
+		
+		//<value>
+		Element valueElement = itemElement.addElement(new QName("value", types));
+		String fieldPath = this.getFullyQualifiedFieldPath(fs);
+		valueElement.addText(fieldPath);	
+	}
+
+	private boolean doServiceProperties(Record r, Element props, Namespace types) {
+		boolean result = false;
+		
+		FieldSet objNameProp = r.getMiniSummary();
+		if (objNameProp != null) {
+			this.addServiceProperty(props, objNameProp, OBJECT_NAME_PROPERTY, types);
+			result = true;
+		}
+
+		FieldSet objNumberProp = r.getMiniNumber();
+		if (objNumberProp != null) {
+			this.addServiceProperty(props, objNumberProp, OBJECT_NUMBER_PROPERTY, types);
+			result = true;
+		}
+				
+		return result;
+	}
+		
 	//defines fields to show in list results
 	private void doLists(Record r, Element el, Namespace thisns, String section) {
-
 		for (FieldSet fs : r.getAllMiniSummaryList()) {
-
 			if (fs.isInServices() && fs.getSection().equals(section)) {
-				FieldSet fst = fs;
-				String name = "";
-				while (fst.getParent() instanceof Repeat
-						|| fst.getParent() instanceof Group) {
+				String fieldNamePath = this.getFullyQualifiedFieldPath(fs);
 
-					fst = (FieldSet) fst.getParent();
-					if (fst instanceof Repeat) {
-						Repeat rt = (Repeat) fst;
-						if (rt.hasServicesParent()) {
-							name += rt.getServicesParent()[0];
-						} else {
-							name += rt.getServicesTag();
-						}
-					} else {
-						Group gp = (Group) fst;
-						if (gp.hasServicesParent()) {
-							name += gp.getServicesParent()[0];
-						} else {
-							name += gp.getServicesTag();
-						}
-					}
-					name += "/[0]/";
-				}
-				name += fs.getServicesTag();
-
-				Element lrf = el.addElement(new QName("ListResultField",thisns));
-				Element elrf = lrf.addElement(new QName("element",thisns));
-				if(!section.equals("common")){
-					Element slrf = lrf.addElement(new QName("schema",thisns));
+				Element lrf = el.addElement(new QName("ListResultField", thisns));
+				Element elrf = lrf.addElement(new QName("element", thisns));
+				if (!section.equals("common")) {
+					Element slrf = lrf.addElement(new QName("schema", thisns));
 					slrf.addText(r.getServicesSchemaName(section));
 				}
-				Element xlrf = lrf.addElement(new QName("xpath",thisns));
+				Element xlrf = lrf.addElement(new QName("xpath", thisns));
 
 				elrf.addText(fs.getServicesTag());
-				xlrf.addText(name);
+				xlrf.addText(fieldNamePath);
 			}
 		}
 	}
@@ -577,27 +628,30 @@ public class Services {
 				if (in instanceof Field) {
 					isEnum = (((Field) in).getUIType()).equals("enum");
 				}
-				if (isEnum == false) {
-					Element tele = auth.addElement(new QName("item", types));
-					Element tele2 = tele.addElement(new QName("key", types));
-					Element tele3 = tele.addElement(new QName("value", types));
-					tele2.addText("authRef");
-					String name = "";
-					FieldSet fs = (FieldSet) in;
-					while (fs.getParent() instanceof Repeat	|| fs.getParent() instanceof Group) {
-						String xpathStructuredPart = fs.getServicesTag();
-						if (fs.getParent() instanceof Repeat) {
-							xpathStructuredPart = getXpathStructuredPart((Repeat)fs.getParent());
-							log.debug("We've got a repeat");
-						} else {
-							log.debug("We've got a Group"); // I haven't yet seen an example of this in the App config files.
-						}
-						fs = (FieldSet) fs.getParent();
-						name += xpathStructuredPart + "/";
-					}
-					name += in.getServicesTag();
-					tele3.addText(name);
+				
+				Element tele = auth.addElement(new QName("item", types));
+				Element tele2 = tele.addElement(new QName("key", types));
+				Element tele3 = tele.addElement(new QName("value", types));
+				String refType = AUTH_REF;
+				if (isEnum == true) {
+					refType = TERM_REF;
 				}
+				tele2.addText(refType);
+				String name = "";
+				FieldSet fs = (FieldSet) in;
+				while (fs.getParent() instanceof Repeat	|| fs.getParent() instanceof Group) {
+					String xpathStructuredPart = fs.getServicesTag();
+					if (fs.getParent() instanceof Repeat) {
+						xpathStructuredPart = getXpathStructuredPart((Repeat)fs.getParent());
+						log.debug("We've got a repeat");
+					} else {
+						log.debug("We've got a Group"); // I haven't yet seen an example of this in the App config files.
+					}
+					fs = (FieldSet) fs.getParent();
+					name += xpathStructuredPart + "/";
+				}
+				name += in.getServicesTag();
+				tele3.addText(name);
 			}
 		}
 	}

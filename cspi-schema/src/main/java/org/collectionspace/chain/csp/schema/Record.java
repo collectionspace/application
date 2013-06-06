@@ -229,7 +229,9 @@ public class Record implements FieldParent {
 		spec = parent;
 	}
 
-
+	public boolean isTrueRepeatField() {
+		return false;
+	}
 	
 	/** field functions **/
 	//getPerm is now hasFieldByOperation(fieldId,operation)
@@ -264,6 +266,7 @@ public class Record implements FieldParent {
 				}
 				else{
 					Repeat r = new Repeat(searchf.getRecord(),searchf.getID()+"s"); //UI wants 'plurals' for the fake repeat parents
+					r.setSearchOnlyRepeat(true); // Our parent is not a "real" Repeat field.  It's just acting this way for searches.
 					//XXX this name is terrible - should be a better way
 					r.setSearchType("repeator");
 					searchFieldFullList.put(r.getID(),r);
