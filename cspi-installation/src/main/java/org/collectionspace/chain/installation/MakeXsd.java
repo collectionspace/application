@@ -62,9 +62,6 @@ public class MakeXsd {
 			//
 			if (fieldSet.isAStructureDate() == true) {
 				String parentRecordName = fieldSet.getRecord().getID();
-				if (parentRecordName.equalsIgnoreCase("media")) {
-					System.out.println();
-				}
 				currentElement = root; // was not here
 				Element complexElement = root.addElement(new QName("complexType", ns)); // was ele
 				complexElement.addAttribute("name", servicesType);

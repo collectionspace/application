@@ -338,7 +338,7 @@ public class CommandLine {
 				//
 				XsdGeneration tenantBindingsMetadata = null;
 				try {
-					tenantBindingsMetadata = new XsdGeneration(tenantConfigFile, "delta", "3.0", bundleOutputDir);
+					tenantBindingsMetadata = new XsdGeneration(tenantConfigFile, "delta"/*"core"*/, "3.0", bundleOutputDir);
 					String tenantBindings = tenantBindingsMetadata.getTenantBindings();
 					if (tenantBindings != null) {
 						log.debug(String.format("Service Bindings Begin: %s >>>+++++++++++++++++++++++++++++++++>>>", tenantConfigFile.getName()));

@@ -39,6 +39,9 @@ public class Services {
 
 	private static final String OBJECT_NAME_PROPERTY = "objectNameProperty";
 	private static final String OBJECT_NUMBER_PROPERTY = "objectNumberProperty";
+
+	private static final String BASE_AUTHORITY_RECORD = "baseAuthority";
+	private static final String BASE_AUTHORITY_SECTION = BASE_AUTHORITY_RECORD;
 	
 	protected Spec spec;
 	protected TenantSpec tenantSpec;
@@ -124,8 +127,7 @@ public class Services {
 			}
 
 			if (r.isType("authority")) {
-				log.debug("ignore at the moment as they are so non standard");
-				// addVocabularies(r, ele);
+				addVocabularies(r, ele);
 			}
 
 			if (r.isType("userdata")) {
@@ -280,26 +282,12 @@ public class Services {
 	 * @param section
 	 * @param isAuthority
 	 */
-	private void doDocHandlerParams(Record r, Element el, Namespace thisns, String section, Boolean isAuthority){ //FIXME: Rename this method to doDocHandlerParms
+	private void doDocHandlerParams(Record r, Element el, Namespace thisns, String section, Boolean isAuthority) { //FIXME: Rename this method to doDocHandlerParms
 		//<service:DocHandlerParams>
 		Element dhele = el.addElement(new QName("DocHandlerParams", thisns));
 		Element pele = dhele.addElement(new QName("params", thisns));
-		if(this.defaultonly){
-//			Element nuxeoscheme = pele.addElement(new QName("NuxeoSchemaName",thisns));
-//			nuxeoscheme.addText(r.getServicesTenantPl().toLowerCase());
-//			Element dublin = pele.addElement(new QName("DublinCoreTitle",thisns));
-//			dublin.addText(r.getServicesTenantPl().toLowerCase());
-//			Element abstractlist = pele.addElement(new QName("AbstractCommonListClassname",thisns));
-//			abstractlist.addText(r.getServicesAbstractCommonList());
-//			Element commonlist = pele.addElement(new QName("CommonListItemClassname",thisns));
-//			commonlist.addText(r.getServicesCommonList());
-		}
-		
 		Element lrele = pele.addElement(new QName("ListResultsFields", thisns));
-		
-		if(!isAuthority){// only do if not authority view
-			doLists(r,lrele,thisns,section);
-		}
+		doLists(r, lrele, thisns, section, isAuthority);
 	}
 
 	/**
@@ -438,21 +426,19 @@ public class Services {
 	 * @param r
 	 * @param el
 	 */
-	private void addVocabularies(Record r, Element el){
+	private void addVocabularies(Record r, Element el) {		
 		//add standard procedure like bit
-		Element cele = el.addElement(new QName(
-				"serviceBindings", nstenant));
+		Element cele = el.addElement(new QName("serviceBindings", nstenant));
 		cele.addAttribute("name", r.getServicesTenantPl());
 		cele.addAttribute("version", "0.1");
 		addServiceBinding(r, cele, nsservices, false);
-		
+
 		//add vocabulary bit
-		Element cele2 = el.addElement(new QName(
-				"serviceBindings", nstenant));
+		Element cele2 = el.addElement(new QName("serviceBindings", nstenant));
 		cele2.addAttribute("name", r.getServicesTenantAuthPl());
 		cele2.addAttribute("version", "0.1");
 		addServiceBinding(r, cele2, nsservices, true);
-		
+
 	}
 	
 	/**
@@ -576,16 +562,27 @@ public class Services {
 				
 		return result;
 	}
-		
+			
 	//defines fields to show in list results
-	private void doLists(Record r, Element el, Namespace thisns, String section) {
+	private void doLists(Record record, Element el, Namespace thisns, String section, boolean isAuthority) {
+		Record r = record;
+		//
+		// If we're dealing with an Authority/Vocabulary then we need to use the base Authority/Vocabulary record and
+		// not the term/item record.
+		//
+		if (isAuthority == true) {
+			Spec spec = r.getSpec();
+			r = spec.getRecord(BASE_AUTHORITY_RECORD);
+			section = COLLECTIONSPACE_COMMON_PART_NAME;
+		}
+		
 		for (FieldSet fs : r.getAllMiniSummaryList()) {
 			if (fs.isInServices() && fs.getSection().equals(section)) {
 				String fieldNamePath = this.getFullyQualifiedFieldPath(fs);
 
 				Element lrf = el.addElement(new QName("ListResultField", thisns));
 				Element elrf = lrf.addElement(new QName("element", thisns));
-				if (!section.equals("common")) {
+				if (!section.equals(COLLECTIONSPACE_COMMON_PART_NAME)) {
 					Element slrf = lrf.addElement(new QName("schema", thisns));
 					slrf.addText(r.getServicesSchemaName(section));
 				}
@@ -614,6 +611,39 @@ public class Services {
 		return result;
 	}
 	
+	private void createAuthRef(Element auth, Namespace types, Record r, String section, FieldSet in) {
+		if (in.getSection().equals(section) && in.hasAutocompleteInstance()) {
+			Boolean isEnum = false;
+			if (in instanceof Field) {
+				isEnum = (((Field) in).getUIType()).equals("enum");
+			}
+			
+			Element tele = auth.addElement(new QName("item", types));
+			Element tele2 = tele.addElement(new QName("key", types));
+			Element tele3 = tele.addElement(new QName("value", types));
+			String refType = AUTH_REF;
+			if (isEnum == true) {
+				refType = TERM_REF;
+			}
+			tele2.addText(refType);
+			String name = "";
+			FieldSet fs = (FieldSet) in;
+			while (fs.getParent() instanceof Repeat	|| fs.getParent() instanceof Group) {
+				String xpathStructuredPart = fs.getServicesTag();
+				if (fs.getParent() instanceof Repeat) {
+					xpathStructuredPart = getXpathStructuredPart((Repeat)fs.getParent());
+					log.debug("We've got a repeat");
+				} else {
+					log.debug("We've got a Group"); // I haven't yet seen an example of this in the App config files.
+				}
+				fs = (FieldSet) fs.getParent();
+				name += xpathStructuredPart + "/";
+			}
+			name += in.getServicesTag();
+			tele3.addText(name);
+		}
+	}
+	
 	/*
 	 * Creates a set of Service binding authrefs of the following form:
 	 *  <types:item>
@@ -623,35 +653,17 @@ public class Services {
 	 */
 	private void doAuths(Element auth, Namespace types, Record r, String section) {
 		for (FieldSet in : r.getAllFieldFullList("")) {
-			if (in.getSection().equals(section) && in.hasAutocompleteInstance()) {
-				Boolean isEnum = false;
-				if (in instanceof Field) {
-					isEnum = (((Field) in).getUIType()).equals("enum");
-				}
-				
-				Element tele = auth.addElement(new QName("item", types));
-				Element tele2 = tele.addElement(new QName("key", types));
-				Element tele3 = tele.addElement(new QName("value", types));
-				String refType = AUTH_REF;
-				if (isEnum == true) {
-					refType = TERM_REF;
-				}
-				tele2.addText(refType);
-				String name = "";
-				FieldSet fs = (FieldSet) in;
-				while (fs.getParent() instanceof Repeat	|| fs.getParent() instanceof Group) {
-					String xpathStructuredPart = fs.getServicesTag();
-					if (fs.getParent() instanceof Repeat) {
-						xpathStructuredPart = getXpathStructuredPart((Repeat)fs.getParent());
-						log.debug("We've got a repeat");
-					} else {
-						log.debug("We've got a Group"); // I haven't yet seen an example of this in the App config files.
-					}
-					fs = (FieldSet) fs.getParent();
-					name += xpathStructuredPart + "/";
-				}
-				name += in.getServicesTag();
-				tele3.addText(name);
+			if (in.isASelfRenderer() == true) {
+				String fieldSetServicesType = in.getServicesType(false /* not NS qualified */);
+				Spec spec = in.getRecord().getSpec();
+				Record subRecord = spec.getRecord(fieldSetServicesType); // find a record that corresponds to the fieldset's service type
+				//
+				// Iterate through each field of the subrecord
+				//
+				doAuths(auth, types, subRecord, section);
+					
+			} else {
+				createAuthRef(auth, types, r, section, in);
 			}
 		}
 	}

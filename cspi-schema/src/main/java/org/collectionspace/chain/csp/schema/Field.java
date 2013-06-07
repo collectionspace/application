@@ -291,7 +291,7 @@ public class Field extends FieldSetImpl {
 	@Override
 	public Record getSelfRendererRecord() {
 		String parts[] = getUIType().split("/");
-		if(parts.length!=3 || !SELFRENDERER.equals(parts[2]))
+		if(parts.length!=3 || !SELFRENDERER.equals(parts[2]))  //FIXME: This is horribly opaque code! We need to document this.
 			return null;
 		Record subrecord = getRecord().getSpec().getRecordByServicesUrl(parts[1]);
 		return subrecord;
