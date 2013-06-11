@@ -4,7 +4,7 @@
   <!--  -->
   <artifactId>cspi-installation</artifactId>
   <packaging>jar</packaging>
-  <name>JXUtils</name>
+  <name>CSP: Installation</name>
   
     <parent>
     <groupId>org.collectionspace</groupId>
