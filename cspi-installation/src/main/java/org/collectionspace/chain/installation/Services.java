@@ -144,6 +144,18 @@ public class Services {
 				// addAuthorization(r,ele);
 				log.debug("ignore at the moment as they are so non standard");
 			}
+			//
+			// Debug-log the generated Service bindings for this App layer record
+			//
+			Element bindingsForRecord = ele.element(new QName("serviceBindings", nstenant));
+			if (bindingsForRecord != null) {
+				String tenantName = this.tenantSpec.getTenant();
+				log.debug(String.format("Tenant name='%s'", tenantName));
+				
+				String recordName = r.getRecordName();
+				String serviceBindings = bindingsForRecord.asXML();
+				log.debug(String.format("Bindings for Record=%s: %s", recordName, serviceBindings));
+			}
 		}
 
 		return doc.asXML();
@@ -242,35 +254,48 @@ public class Services {
 	 * @param section
 	 * @param isAuthority
 	 */
-	private void doInitHandler(Record r, Element el, Namespace thisns, Boolean isAuthority) {
-		if (isAuthority == false) {
-			Element dhele = el.addElement(new QName("initHandler", thisns));
-			Element cele = dhele.addElement(new QName("classname", thisns));
-			cele.addText(this.tenantSpec.getIndexHandler());
-			Element paramsElement = dhele.addElement(new QName("params", thisns));
-			
-			boolean noIndexedFields = true;
-			//loop over all fields to find out is they should be indexed
-			for (FieldSet f: r.getAllFieldFullList("")) {
-				if (f instanceof Field) {
-					Field fd = (Field)f;
-					String fieldName = fd.getServicesTag().toLowerCase();
-					String sectionName = fd.getSection();
-					if (fd.shouldIndex() == true) {
-						Element fieldElement = paramsElement.addElement(new QName("field", thisns));
-						Element tableElement = fieldElement.addElement(new QName("table", thisns));
-						tableElement.addText(r.getServicesSchemaName(sectionName));
-						Element columnElement = fieldElement.addElement(new QName("col", thisns));
-						columnElement.addText(fieldName);
-						noIndexedFields = false;
+	private void doInitHandler(Record record, Element el, Namespace thisns, Boolean isAuthority) {
+		Record r = record;
+		//
+		// If we're dealing with an Authority/Vocabulary then we need to use the base Authority/Vocabulary record and
+		// not the term/item record.
+		//
+		if (isAuthority == true) {
+			Spec spec = r.getSpec();
+			r = spec.getRecord(BASE_AUTHORITY_RECORD);
+		}
+		
+		Element dhele = el.addElement(new QName("initHandler", thisns));
+		Element cele = dhele.addElement(new QName("classname", thisns));
+		cele.addText(this.tenantSpec.getIndexHandler());
+		Element paramsElement = dhele.addElement(new QName("params", thisns));
+		
+		boolean noIndexedFields = true;
+		//loop over all fields to find out is they should be indexed
+		for (FieldSet f: r.getAllFieldFullList("")) {
+			if (f instanceof Field) {
+				Field fd = (Field)f;
+				String fieldName = fd.getServicesTag().toLowerCase();
+				String sectionName = fd.getSection();
+				if (fd.shouldIndex() == true) {
+					Element fieldElement = paramsElement.addElement(new QName("field", thisns));
+					Element tableElement = fieldElement.addElement(new QName("table", thisns));
+					String tableName = r.getServicesSchemaName(sectionName);
+					if (isAuthority == true) {
+						tableName = record.getAuthoritySchemaName();
 					}
+					tableElement.addText(tableName);
+
+					Element columnElement = fieldElement.addElement(new QName("col", thisns));
+					columnElement.addText(fieldName);
+					noIndexedFields = false;
 				}
 			}
-			
-			if (noIndexedFields == true) {
-				// Since there were no fields to index, we don't need this empty <initHandler> element
-				el.remove(dhele);
-			}
+		}
+		
+		if (noIndexedFields == true) {
+			// Since there were no fields to index, we don't need this empty <initHandler> element
+			el.remove(dhele);
 		}
 	}
 	
@@ -402,8 +427,12 @@ public class Services {
 			if (r.isType("authorizationdata")) {
 				schemaLocationCommon = namespaceURI + " "+ r.getServicesSchemaBaseLocation()  + "/" + label + ".xsd";
 			}
-			makePart(r, cele, num.toString(), r.getServicesPartLabel(COLLECTIONSPACE_COMMON_PART_NAME),
-					num.toString(), namespaceURI, schemaLocationCommon, thisns, true, COLLECTIONSPACE_COMMON_PART_NAME);
+			String servicesPartLabel = r.getServicesPartLabel(COLLECTIONSPACE_COMMON_PART_NAME);
+			if (isAuthority == true) {
+				servicesPartLabel = r.getAuthoritySchemaName();
+			}
+			makePart(r, cele, num.toString(), servicesPartLabel,
+					num.toString(), namespaceURI, schemaLocationCommon, thisns, !isAuthority, COLLECTIONSPACE_COMMON_PART_NAME); // We don't support term and auth refs for Authority item/term parents -i.e., Authorities.
 			processedParts.add(COLLECTIONSPACE_COMMON_PART_NAME);
 			num++;
 		}
@@ -485,7 +514,7 @@ public class Services {
 
 		//<service:properties>
 		Element servicePropertiesElement = el.addElement(new QName("properties", nameSpace));		
-		if (doServiceProperties(r, servicePropertiesElement, this.nsservices) == false) {
+		if (doServiceProperties(r, servicePropertiesElement, this.nsservices, isAuthority) == false) {
 			el.remove(servicePropertiesElement);
 		}
 		
@@ -545,8 +574,17 @@ public class Services {
 		valueElement.addText(fieldPath);	
 	}
 
-	private boolean doServiceProperties(Record r, Element props, Namespace types) {
+	private boolean doServiceProperties(Record record, Element props, Namespace types, boolean isAuthority) {
 		boolean result = false;
+		Record r = record;
+		//
+		// If we're dealing with an Authority/Vocabulary then we need to use the base Authority/Vocabulary record and
+		// not the term/item record.
+		//
+		if (isAuthority == true) {
+			Spec spec = r.getSpec();
+			r = spec.getRecord(BASE_AUTHORITY_RECORD);
+		}		
 		
 		FieldSet objNameProp = r.getMiniSummary();
 		if (objNameProp != null) {

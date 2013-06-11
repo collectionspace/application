@@ -229,6 +229,10 @@ public class Record implements FieldParent {
 		spec = parent;
 	}
 
+	public String getRecordName() {
+		return this.whoamI;
+	}
+	
 	public boolean isTrueRepeatField() {
 		return false;
 	}
@@ -731,8 +735,19 @@ public class Record implements FieldParent {
 	}
 	
 	public String getServicesSchemaName(String sectionName) {
-		return getServicesRecordPath(sectionName).split(":", 2)[0];
+		String result = null;
+		
+		String servicesRecordPath = getServicesRecordPath(sectionName);
+		if (servicesRecordPath != null) {
+			result = servicesRecordPath.split(":", 2)[0];
+		}
+		
+		return result;
 	}
+	
+	public String getAuthoritySchemaName() {
+		return getServicesSingleInstancePath().split(":", 2)[0];
+	}	
 	
 	public String getServicesSchemaNameSpaceURI(String sectionName) {
 		String path = getServicesRecordPath(sectionName);
