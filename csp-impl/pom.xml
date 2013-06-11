@@ -128,7 +128,7 @@
 		<repository>
 			<id>libs-releases-local</id>
 			<name>libs-releases-local</name>
-			<url>http://source.collectionspace.org:8081/artifactory/libs-releases-local</url>
+			<url>http://source.collectionspace.org:8081/artifactory/libs-release-local</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
