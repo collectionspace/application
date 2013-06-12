@@ -113,18 +113,19 @@ public class Services {
 
 		// loop over each record type and add <tenant:serviceBindings
 		for (Record r : this.spec.getAllRecords()) {
+			Element serviceBindingsElement = null;
 			if (r.isType("record") == true) {
 				String rtype = "procedure";
 				if (!r.isType("procedure") && r.isType("record")) {
 					rtype = "object";
 				}
 				// <tenant:serviceBindings name="CollectionObjects" type="object" version="0.1">
-				Element cele = ele.addElement(new QName("serviceBindings", nstenant));
-				cele.addAttribute("id", r.getServicesTenantPl());
-				cele.addAttribute("name", r.getServicesTenantPl());
-				cele.addAttribute("type", rtype);
-				cele.addAttribute("version", "0.1"); // FIXME:REM - Should not be hard coded.
-				addServiceBinding(r, cele, nsservices, false);
+				serviceBindingsElement = ele.addElement(new QName("serviceBindings", nstenant));
+				serviceBindingsElement.addAttribute("id", r.getServicesTenantPl());
+				serviceBindingsElement.addAttribute("name", r.getServicesTenantPl());
+				serviceBindingsElement.addAttribute("type", rtype);
+				serviceBindingsElement.addAttribute("version", "0.1"); // FIXME:REM - Should not be hard coded.
+				addServiceBinding(r, serviceBindingsElement, nsservices, false);
 			}
 
 			if (r.isType("authority")) {
@@ -132,12 +133,12 @@ public class Services {
 			}
 
 			if (r.isType("userdata")) {
-				Element cele = ele.addElement(new QName("serviceBindings", nstenant));
-				cele.addAttribute("id", r.getServicesTenantPl());
-				cele.addAttribute("name", r.getServicesTenantPl());
-				cele.addAttribute("type", SERVICES_BINDING_TYPE_SECURITY);
-				cele.addAttribute("version", "0.1"); // FIXME:REM - Should not be hard coded
-				addServiceBinding(r, cele, nsservices, false);
+				serviceBindingsElement = ele.addElement(new QName("serviceBindings", nstenant));
+				serviceBindingsElement.addAttribute("id", r.getServicesTenantPl());
+				serviceBindingsElement.addAttribute("name", r.getServicesTenantPl());
+				serviceBindingsElement.addAttribute("type", SERVICES_BINDING_TYPE_SECURITY);
+				serviceBindingsElement.addAttribute("version", "0.1"); // FIXME:REM - Should not be hard coded
+				addServiceBinding(r, serviceBindingsElement, nsservices, false);
 			}
 
 			if (r.isType("authorizationdata")) {
@@ -148,7 +149,7 @@ public class Services {
 			//
 			// Debug-log the generated Service bindings for this App layer record
 			//
-			Element bindingsForRecord = ele.element(new QName("serviceBindings", nstenant));
+			Element bindingsForRecord = serviceBindingsElement;
 			if (bindingsForRecord != null) {
 				String tenantName = this.tenantSpec.getTenant();
 				log.debug(String.format("Tenant name='%s'", tenantName));
