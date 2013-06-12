@@ -1,24 +1,25 @@
 package org.collectionspace.chain.installation;
 
-import java.awt.List;
-import java.lang.reflect.Array;
+import java.io.File;
 import java.util.ArrayList;
 
 import org.collectionspace.chain.csp.persistence.services.TenantSpec;
 import org.collectionspace.chain.csp.schema.Field;
-import org.collectionspace.chain.csp.schema.FieldParent;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.chain.csp.schema.Spec;
+
 import org.dom4j.Document;
 import org.dom4j.DocumentFactory;
 import org.dom4j.Element;
 import org.dom4j.Namespace;
 import org.dom4j.QName;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.apache.commons.io.FileUtils;
 
 public class Services {
 	private static final Logger log = LoggerFactory.getLogger(Services.class);
@@ -155,6 +156,14 @@ public class Services {
 				String recordName = r.getRecordName();
 				String serviceBindings = bindingsForRecord.asXML();
 				log.debug(String.format("Bindings for Record=%s: %s", recordName, serviceBindings));
+				
+				String serviceBindingsFileName = String.format("%s.%s.bindings.xml", tenantName, recordName);
+				File serviceBindingsFile = new File(serviceBindingsFileName);
+				try {
+					FileUtils.writeStringToFile(serviceBindingsFile, serviceBindings);
+				} catch (Exception e) {
+					log.debug(String.format("Could not write service bindings file to: %s", serviceBindingsFileName), e);
+				}
 			}
 		}
 
