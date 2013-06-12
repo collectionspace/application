@@ -113,62 +113,75 @@ public class Services {
 
 		// loop over each record type and add <tenant:serviceBindings
 		for (Record r : this.spec.getAllRecords()) {
-			Element serviceBindingsElement = null;
-			if (r.isType("record") == true) {
-				String rtype = "procedure";
-				if (!r.isType("procedure") && r.isType("record")) {
-					rtype = "object";
+			if (r.isInRecordList() == true) {
+				Element serviceBindingsElement = null;
+				if (r.isType("record") == true) {
+					String rtype = "procedure";
+					if (!r.isType("procedure") && r.isType("record")) {
+						rtype = "object";
+					}
+					// <tenant:serviceBindings name="CollectionObjects" type="object" version="0.1">
+					serviceBindingsElement = ele.addElement(new QName("serviceBindings", nstenant));
+					serviceBindingsElement.addAttribute("id", r.getServicesTenantPl());
+					serviceBindingsElement.addAttribute("name", r.getServicesTenantPl());
+					serviceBindingsElement.addAttribute("type", rtype);
+					serviceBindingsElement.addAttribute("version", "0.1"); // FIXME:REM - Should not be hard coded.
+					addServiceBinding(r, serviceBindingsElement, nsservices, false);
 				}
-				// <tenant:serviceBindings name="CollectionObjects" type="object" version="0.1">
-				serviceBindingsElement = ele.addElement(new QName("serviceBindings", nstenant));
-				serviceBindingsElement.addAttribute("id", r.getServicesTenantPl());
-				serviceBindingsElement.addAttribute("name", r.getServicesTenantPl());
-				serviceBindingsElement.addAttribute("type", rtype);
-				serviceBindingsElement.addAttribute("version", "0.1"); // FIXME:REM - Should not be hard coded.
-				addServiceBinding(r, serviceBindingsElement, nsservices, false);
-			}
-
-			if (r.isType("authority")) {
-				addVocabularies(r, ele);
-			}
-
-			if (r.isType("userdata")) {
-				serviceBindingsElement = ele.addElement(new QName("serviceBindings", nstenant));
-				serviceBindingsElement.addAttribute("id", r.getServicesTenantPl());
-				serviceBindingsElement.addAttribute("name", r.getServicesTenantPl());
-				serviceBindingsElement.addAttribute("type", SERVICES_BINDING_TYPE_SECURITY);
-				serviceBindingsElement.addAttribute("version", "0.1"); // FIXME:REM - Should not be hard coded
-				addServiceBinding(r, serviceBindingsElement, nsservices, false);
-			}
-
-			if (r.isType("authorizationdata")) {
-				// ignore at the moment as they are so non standard
-				// addAuthorization(r,ele);
-				log.debug("ignore at the moment as they are so non standard");
-			}
-			//
-			// Debug-log the generated Service bindings for this App layer record
-			//
-			Element bindingsForRecord = serviceBindingsElement;
-			if (bindingsForRecord != null) {
+	
+				if (r.isType("authority")) {
+					addVocabularies(r, ele);
+				}
+	
+				if (r.isType("userdata")) {
+					serviceBindingsElement = ele.addElement(new QName("serviceBindings", nstenant));
+					serviceBindingsElement.addAttribute("id", r.getServicesTenantPl());
+					serviceBindingsElement.addAttribute("name", r.getServicesTenantPl());
+					serviceBindingsElement.addAttribute("type", SERVICES_BINDING_TYPE_SECURITY);
+					serviceBindingsElement.addAttribute("version", "0.1"); // FIXME:REM - Should not be hard coded
+					addServiceBinding(r, serviceBindingsElement, nsservices, false);
+				}
+	
+				if (r.isType("authorizationdata")) {
+					// ignore at the moment as they are so non standard
+					// addAuthorization(r,ele);
+					log.debug("ignore at the moment as they are so non standard");
+				}
+				//
+				// Debug-log the generated Service bindings for this App layer record
+				//
+				Element bindingsForRecord = serviceBindingsElement;
+				if (bindingsForRecord != null && !r.isType("authority")) {
+					this.writeToFile(r, bindingsForRecord, false);
+				}
+			}  else {
 				String tenantName = this.tenantSpec.getTenant();
-				log.debug(String.format("Tenant name='%s'", tenantName));
-				
 				String recordName = r.getRecordName();
-				String serviceBindings = bindingsForRecord.asXML();
-				log.debug(String.format("Bindings for Record=%s: %s", recordName, serviceBindings));
-				
-				String serviceBindingsFileName = String.format("%s.%s.bindings.xml", tenantName, recordName);
-				File serviceBindingsFile = new File(serviceBindingsFileName);
-				try {
-					FileUtils.writeStringToFile(serviceBindingsFile, serviceBindings);
-				} catch (Exception e) {
-					log.debug(String.format("Could not write service bindings file to: %s", serviceBindingsFileName), e);
-				}
+				log.trace(String.format("%s.%s does not require a service binding", tenantName, recordName));
 			}
 		}
-
+		
 		return doc.asXML();
+	}
+	
+	void writeToFile(Record r, Element bindingsForRecord, boolean isAuthority) {
+		String tenantName = this.tenantSpec.getTenant();
+		log.debug(String.format("Tenant name='%s'", tenantName));
+
+		String recordName = r.getRecordName();
+		if (isAuthority == true) {
+			recordName = r.getServicesTenantAuthPl();
+		}
+		String serviceBindings = bindingsForRecord.asXML();
+		log.debug(String.format("Bindings for Record=%s: %s", recordName, serviceBindings));
+
+		String serviceBindingsFileName = String.format("%s.%s.bindings.xml", tenantName, recordName);
+		File serviceBindingsFile = new File(serviceBindingsFileName);
+		try {
+			FileUtils.writeStringToFile(serviceBindingsFile, serviceBindings);
+		} catch (Exception e) {
+			log.debug(String.format("Could not write service bindings file to: %s", serviceBindingsFileName), e);
+		}
 	}
 
 	/**
@@ -467,16 +480,22 @@ public class Services {
 	 */
 	private void addVocabularies(Record r, Element el) {		
 		//add standard procedure like bit
-		Element cele = el.addElement(new QName("serviceBindings", nstenant));
-		cele.addAttribute("name", r.getServicesTenantPl());
-		cele.addAttribute("version", "0.1");
-		addServiceBinding(r, cele, nsservices, false);
+		Element bindingsForAuthority = el.addElement(new QName("serviceBindings", nstenant));
+		bindingsForAuthority.addAttribute("name", r.getServicesTenantPl());
+		bindingsForAuthority.addAttribute("version", "0.1");
+		addServiceBinding(r, bindingsForAuthority, nsservices, false);
+		if (log.isDebugEnabled() == true) {
+			this.writeToFile(r, bindingsForAuthority, false);
+		}
 
 		//add vocabulary bit
-		Element cele2 = el.addElement(new QName("serviceBindings", nstenant));
-		cele2.addAttribute("name", r.getServicesTenantAuthPl());
-		cele2.addAttribute("version", "0.1");
-		addServiceBinding(r, cele2, nsservices, true);
+		Element bindingsForAuthorityItem = el.addElement(new QName("serviceBindings", nstenant));
+		bindingsForAuthorityItem.addAttribute("name", r.getServicesTenantAuthPl());
+		bindingsForAuthorityItem.addAttribute("version", "0.1");
+		addServiceBinding(r, bindingsForAuthorityItem, nsservices, true);
+		if (log.isDebugEnabled() == true) {
+			this.writeToFile(r, bindingsForAuthorityItem, true);
+		}
 
 	}
 	
