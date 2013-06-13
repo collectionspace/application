@@ -1,6 +1,10 @@
 <record id="termlistitem" in-recordlist="no" type="record,procedure,vocabulary">
 	<terms-used>false</terms-used>
 	<refobj-used>true</refobj-used>
+	
+    <services-tenant-singular>Vocabulary</services-tenant-singular>
+    <services-tenant-plural>Vocabularyitems</services-tenant-plural>
+	
     <services-url>items</services-url>
 	<services-record-path>vocabularyitems_common:http://collectionspace.org/services/vocabulary,vocabularyitems_common</services-record-path>
     <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>

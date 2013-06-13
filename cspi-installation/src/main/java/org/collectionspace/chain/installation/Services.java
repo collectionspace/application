@@ -114,7 +114,7 @@ public class Services {
 		// loop over each record type and add <tenant:serviceBindings
 		for (Record r : this.spec.getAllRecords()) {
 			if (r.isType("vocabulary") == true) {
-				String name = r.getRecordName();
+				String name = r.getServicesTenantPl();
 				log.debug(name);
 			}
 			if (r.isInRecordList() == true || r.isType("vocabulary") == true) {
