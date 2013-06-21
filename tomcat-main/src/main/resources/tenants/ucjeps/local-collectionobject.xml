@@ -101,6 +101,20 @@
 				</options>			
 			</field>
 		</repeat>
+		
+		<!-- naturalhistory overrides -->
+
+		<field id="cultivated">
+			<!-- Change default to No -->
+			<options>
+				<option id="">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false" default="yes">No</option>
+			</options>
+		</field>
+		
+		<!-- Local fields -->
+		
 		<field id="handwritten" section="ucjeps">
 			<options>
 				<option id="" default="yes">Please select a value</option>
@@ -112,8 +126,8 @@
 		<field id="postToPublic" section="ucjeps">
 			<options>
 				<option id="">Please select a value</option>
-				<option id="no" default="yes">No</option>
-				<option id="yes">Yes</option>
+				<option id="no">No</option>
+				<option id="yes" default="yes">Yes</option>
 			</options>
 		</field>
 	</section>
