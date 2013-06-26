@@ -164,7 +164,7 @@ public class XsdGeneration {
 			out.println(String.format("getServicesValidatorHandler = %s", record.getServicesValidatorHandler()));
 			out.println(String.format("getServicesCommonList = %s", record.getServicesCommonList()));
 			out.println(String.format("getServicesSchemaBaseLocation = %s", record.getServicesSchemaBaseLocation()));
-			out.println(String.format("getServicesDocHandler = %s", record.getServicesDocHandler()));
+			out.println(String.format("getServicesDocHandler = %s", record.getServicesDocHandler(record.isAuthorityItemType() == false)));
 			out.println(String.format("getServicesListPath = %s", record.getServicesListPath()));
 			out.println(String.format("getServicesFieldsPath = %s", record.getServicesFieldsPath()));
 			out.println(String.format("getServicesSearchKeyword = %s", record.getServicesSearchKeyword()));

@@ -25,6 +25,7 @@ public class MainConfigHandler extends DefaultHandler {
 	}
 		
 	public void startElement(String uri, String localName, String qName, Attributes attributes) {
+		System.out.print(String.format("Start of element <%s>", localName));
 		String name=localName;
 		if(uri!=null && !"".equals(uri))
 			name=uri+":"+name;
@@ -45,6 +46,7 @@ public class MainConfigHandler extends DefaultHandler {
 	}
 	
 	public void endElement(String uri, String localName, String qName) {
+		System.out.println(String.format("</%s>.", localName));
 		events.end();
 	}
 	

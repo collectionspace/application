@@ -519,40 +519,45 @@ public class Services {
 	}
 	
 	private void addServiceBinding(Record r, Element el, Namespace nameSpace, Boolean isAuthority) {
-		String repositoryDomain = r.getServicesRepositoryDomain();
-		if (repositoryDomain == null) {
-			repositoryDomain = this.tenantSpec.getRepositoryDomain(); // Assume the default tenant repo if the service hasn't specified one
+		try {
+			String repositoryDomain = r.getServicesRepositoryDomain();
+			if (repositoryDomain == null) {
+				repositoryDomain = this.tenantSpec.getRepositoryDomain(); // Assume the default tenant repo if the service hasn't specified one
+			}
+			
+			if (repositoryDomain.equalsIgnoreCase(NO_REPO_DOMAIN) == false) {  // Note that NO_REPO_DOMAIN is different than "null" or not specified.
+				//<service:repositoryDomain>default-domain</service:repositoryDomain>
+				Element repository = el.addElement(new QName("repositoryDomain", nameSpace));		
+				repository.addText(this.tenantSpec.getRepositoryDomain());
+			}
+			
+			//<service:documentHandler>
+			String docHandlerName = r.getServicesDocHandler(isAuthority);
+			Element docHandlerElement = el.addElement(new QName("documentHandler", nameSpace));
+			docHandlerElement.addText(docHandlerName);
+			
+			//<service:DocHandlerParams> include fields to show in list results
+			doDocHandlerParams(r, el, this.nsservices, this.domainsection, isAuthority);
+	
+			//<service:validatorHandler>
+			Element validatorHandlerElement = el.addElement(new QName("validatorHandler", nameSpace));
+			validatorHandlerElement.addText(r.getServicesValidatorHandler());
+			
+			//<service:initHandler> which fields need to be modified in the nuxeo db
+			doInitHandler(r, el, this.nsservices, isAuthority);
+	
+			//<service:properties>
+			Element servicePropertiesElement = el.addElement(new QName("properties", nameSpace));		
+			if (doServiceProperties(r, servicePropertiesElement, this.nsservices, isAuthority) == false) {
+				el.remove(servicePropertiesElement);
+			}
+			
+			//<service:object>
+			doServiceObject(r, el, this.nsservices, isAuthority);
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(String.format("Could not create service bindings for record '%s' in namespace '%s'.", r.getRecordName(), nameSpace.toString()));
 		}
-		
-		if (repositoryDomain.equalsIgnoreCase(NO_REPO_DOMAIN) == false) {  // Note that NO_REPO_DOMAIN is different than "null" or not specified.
-			//<service:repositoryDomain>default-domain</service:repositoryDomain>
-			Element repository = el.addElement(new QName("repositoryDomain", nameSpace));		
-			repository.addText(this.tenantSpec.getRepositoryDomain());
-		}
-		
-		//<service:documentHandler>
-		String docHandlerName = r.getServicesDocHandler();
-		Element docHandlerElement = el.addElement(new QName("documentHandler", nameSpace));
-		docHandlerElement.addText(docHandlerName);
-		
-		//<service:DocHandlerParams> include fields to show in list results
-		doDocHandlerParams(r, el, this.nsservices, this.domainsection, isAuthority);
-
-		//<service:validatorHandler>
-		Element validatorHandlerElement = el.addElement(new QName("validatorHandler", nameSpace));
-		validatorHandlerElement.addText(r.getServicesValidatorHandler());
-		
-		//<service:initHandler> which fields need to be modified in the nuxeo db
-		doInitHandler(r, el, this.nsservices, isAuthority);
-
-		//<service:properties>
-		Element servicePropertiesElement = el.addElement(new QName("properties", nameSpace));		
-		if (doServiceProperties(r, servicePropertiesElement, this.nsservices, isAuthority) == false) {
-			el.remove(servicePropertiesElement);
-		}
-		
-		//<service:object>
-		doServiceObject(r, el, this.nsservices, isAuthority);
 	}
 	
 	/*
@@ -647,7 +652,11 @@ public class Services {
 			section = COLLECTIONSPACE_COMMON_PART_NAME;
 		}
 		
-		for (FieldSet fs : r.getAllMiniSummaryList()) {
+		FieldSet[] allMiniSummaryList = r.getAllMiniSummaryList();
+		if (allMiniSummaryList == null) {
+			log.error(String.format("allMiniSummaryList for record '%s' is null.", r.getRecordName()));
+		}
+		for (FieldSet fs : allMiniSummaryList) {
 			if (fs.isInServices() && fs.getSection().equals(section)) {
 				String fieldNamePath = this.getFullyQualifiedFieldPath(fs);
 

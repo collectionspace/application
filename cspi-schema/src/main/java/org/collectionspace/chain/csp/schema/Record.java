@@ -33,7 +33,8 @@ public class Record implements FieldParent {
 	public final static String BLOB_SOURCE_URL = "blobUri"; // BlobClient.BLOB_URI_PARAM; // The 'blobUri' query param used to pass an external URL for the services to download data from
 	public final static String BLOB_PURGE_ORIGINAL = "blobPurgeOrig"; // BlobClient.BLOB_PURGE_ORIGINAL;
 
-	private static final String TYPE_AUTHORITY = "authority";
+	private static final String TYPE_AUTHORITY = "Authority";
+	private static final String TYPE_AUTHORITY_LOWERCASE = TYPE_AUTHORITY.toLowerCase();
 	
 	public static final String SUPPORTS_LOCKING = "supportslocking";
 	public static final String RANGE_START_SUFFIX = "Start";
@@ -465,7 +466,7 @@ public class Record implements FieldParent {
 	}
 	
 	public boolean isAuthorityItemType() {
-		return isType(TYPE_AUTHORITY) && shouldGenerateAuthoritySchema();
+		return isType(TYPE_AUTHORITY_LOWERCASE) && shouldGenerateAuthoritySchema();
 	}
 		
 	public boolean isType(String k) {
@@ -698,8 +699,25 @@ public class Record implements FieldParent {
 		return utils.getString("services-schema-location");
 	}
 	
-	public String getServicesDocHandler() {
-		return utils.getString("services-dochandler");
+	/*
+	 * The "<services-tenant-auth-singular>" element of the config record for authorities is used to create the Nuxeo doctype names.  We also need to use it
+	 * to generate the Service layer's document handler class name for the service bindings.  Unfortunately, most of the existing authorities use something like
+	 * "Personauthority" for the Nuxeo document name and "PersonAuthorityDocument..." for the document handler class name.  Therefore, we need to convert the
+	 * lowercase 'a' to an uppercase 'A' in the "Authority" substring.  For example, we convert the substring "Personauthority" to "PersonAuthority".
+	 */
+	public String getServicesDocHandler(Boolean isAuthority) {
+		String result = utils.getString("services-dochandler");
+		
+		if (isAuthority == true) {
+			String servicesTenantAuthSg = this.getServicesTenantAuthSg();
+			String itemName = servicesTenantAuthSg.replace(TYPE_AUTHORITY_LOWERCASE, "");
+			if (itemName.equals(servicesTenantAuthSg) == false) { // test to see if we found the substring "authority"
+				String authorityName = itemName + TYPE_AUTHORITY;
+				result = result.replace(itemName, authorityName);
+			}
+		}
+		
+		return result;
 	}
 	
 	public String getServicesRepositoryDomain() {

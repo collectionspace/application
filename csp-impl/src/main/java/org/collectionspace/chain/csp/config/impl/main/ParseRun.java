@@ -27,6 +27,7 @@ public class ParseRun implements EventConsumer {
 	}
 
 	public void text(String text) {
+		System.out.print(text);
 		here.addChild(TreeNode.create_text(text));
 	}
 	
