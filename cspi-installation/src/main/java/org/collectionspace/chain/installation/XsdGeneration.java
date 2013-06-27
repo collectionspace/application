@@ -192,7 +192,7 @@ public class XsdGeneration {
 		return result;
 	}
 	
-	public XsdGeneration(File configfile, String type, String schemaVersion, File outputDir) throws Exception {		
+	public XsdGeneration(File configfile, String type, String schemaVersion, File outputDir, String serviceBindingsVersion) throws Exception {		
 		CSPManager cspm=getServiceManager(configfile);
 		Spec spec = getSpec(cspm);
 
@@ -250,7 +250,7 @@ public class XsdGeneration {
 			}
 		} else if (type.equals("delta")) { // Create the service bindings.
 			Services tenantbob = new Services(getSpec(cspm), getTenantData(cspm),false);
-			tenantBindings = tenantbob.doit();
+			tenantBindings = tenantbob.doit(serviceBindingsVersion);
 		}
 	}
 	

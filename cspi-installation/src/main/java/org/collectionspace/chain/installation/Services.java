@@ -30,6 +30,14 @@ public class Services {
 	private static final String COLLECTIONSPACE_SCHEMA_LOCATION_SYSTEM = "http://collectionspace.org/services/config/system http://collectionspace.org/services/config/system/system-response.xsd";
 	private static final String COLLECTIONSPACE_NAMESPACE_URI_SYSTEM = "http://collectionspace.org/services/config/system";
 	
+	private static final String RECORD_TYPE_VOCABULARY = "vocabulary";
+	private static final String RECORD_TYPE_AUTHORITY = "authority";
+	private static final String RECORD_TYPE_UTILITY = "utility";
+	private static final String RECORD_TYPE_OBJECT = "object";
+	private static final String RECORD_TYPE_PROCEDURE = "procedure";
+	private static final String RECORD_TYPE_USERDATA = "userdata";
+	private static final String RECORD_TYPE_AUTHORIZATIONDATA = "authorizationdata";
+	
 	private static final String GROUP_XPATH_SUFFIX = "/*";
 	private static final String NO_REPO_DOMAIN = "none";
 
@@ -69,8 +77,8 @@ public class Services {
 		this.domainsection = "common";
 	}
 
-	public String  doit() {
-		return doServiceBindingsCommon();
+	public String  doit(String serviceBindingVersion) {
+		return doServiceBindingsCommon(serviceBindingVersion);
 	}
 
 	/**
@@ -86,7 +94,7 @@ public class Services {
 	 * 
 	 * @return
 	 */
-	private String doServiceBindingsCommon() {
+	private String doServiceBindingsCommon(String serviceBindingVersion) {
 		Document doc = DocumentFactory.getInstance().createDocument();
 		Element root = doc.addElement(new QName("TenantBindingConfig", this.nstenant));
 		root.addAttribute("xsi:schemaLocation", this.schemaloc);
@@ -117,36 +125,36 @@ public class Services {
 				String name = r.getServicesTenantPl();
 				log.debug(name);
 			}
-			if (r.isInRecordList() == true || r.isType("vocabulary") == true) {
+			if (r.isInRecordList() == true || r.isType(RECORD_TYPE_VOCABULARY) == true) {
 				Element serviceBindingsElement = null;
 				if (r.isType("record") == true) {
-					String rtype = "procedure";
-					if (!r.isType("procedure") && r.isType("record")) {
-						rtype = "object";
+					String rtype = RECORD_TYPE_PROCEDURE;
+					if (!r.isType(RECORD_TYPE_PROCEDURE) && r.isType("record")) {
+						rtype = RECORD_TYPE_OBJECT;
 					}
 					// <tenant:serviceBindings name="CollectionObjects" type="object" version="0.1">
 					serviceBindingsElement = ele.addElement(new QName("serviceBindings", nstenant));
-					serviceBindingsElement.addAttribute("id", r.getServicesTenantPl());
 					serviceBindingsElement.addAttribute("name", r.getServicesTenantPl());
+					serviceBindingsElement.addAttribute("id", r.getServicesTenantPl());
 					serviceBindingsElement.addAttribute("type", rtype);
-					serviceBindingsElement.addAttribute("version", "0.1"); // FIXME:REM - Should not be hard coded.
+					serviceBindingsElement.addAttribute("version", serviceBindingVersion);
 					addServiceBinding(r, serviceBindingsElement, nsservices, false);
 				}
 	
-				if (r.isType("authority")) {
-					addVocabularies(r, ele);
+				if (r.isType(RECORD_TYPE_AUTHORITY)) {
+					addVocabularies(r, ele, serviceBindingVersion);
 				}
 	
-				if (r.isType("userdata")) {
+				if (r.isType(RECORD_TYPE_USERDATA)) {
 					serviceBindingsElement = ele.addElement(new QName("serviceBindings", nstenant));
 					serviceBindingsElement.addAttribute("id", r.getServicesTenantPl());
 					serviceBindingsElement.addAttribute("name", r.getServicesTenantPl());
 					serviceBindingsElement.addAttribute("type", SERVICES_BINDING_TYPE_SECURITY);
-					serviceBindingsElement.addAttribute("version", "0.1"); // FIXME:REM - Should not be hard coded
+					serviceBindingsElement.addAttribute("version", serviceBindingVersion);
 					addServiceBinding(r, serviceBindingsElement, nsservices, false);
 				}
 	
-				if (r.isType("authorizationdata")) {
+				if (r.isType(RECORD_TYPE_AUTHORIZATIONDATA)) {
 					// ignore at the moment as they are so non standard
 					// addAuthorization(r,ele);
 					log.debug("ignore at the moment as they are so non standard");
@@ -155,7 +163,7 @@ public class Services {
 				// Debug-log the generated Service bindings for this App layer record
 				//
 				Element bindingsForRecord = serviceBindingsElement;
-				if (bindingsForRecord != null && !r.isType("authority")) {
+				if (bindingsForRecord != null && !r.isType(RECORD_TYPE_AUTHORITY)) {
 					this.writeToFile(r, bindingsForRecord, false);
 				}
 			}  else {
@@ -482,11 +490,14 @@ public class Services {
 	 * @param r
 	 * @param el
 	 */
-	private void addVocabularies(Record r, Element el) {		
+	private void addVocabularies(Record r, Element el, String version) {		
 		//add standard procedure like bit
 		Element bindingsForAuthority = el.addElement(new QName("serviceBindings", nstenant));
 		bindingsForAuthority.addAttribute("name", r.getServicesTenantPl());
-		bindingsForAuthority.addAttribute("version", "0.1");
+		bindingsForAuthority.addAttribute("id", r.getServicesTenantPl());
+		bindingsForAuthority.addAttribute("type", RECORD_TYPE_AUTHORITY);
+		
+		bindingsForAuthority.addAttribute("version", version);
 		addServiceBinding(r, bindingsForAuthority, nsservices, false);
 		if (log.isDebugEnabled() == true) {
 			this.writeToFile(r, bindingsForAuthority, false);
@@ -495,7 +506,10 @@ public class Services {
 		//add vocabulary bit
 		Element bindingsForAuthorityItem = el.addElement(new QName("serviceBindings", nstenant));
 		bindingsForAuthorityItem.addAttribute("name", r.getServicesTenantAuthPl());
-		bindingsForAuthorityItem.addAttribute("version", "0.1");
+		bindingsForAuthorityItem.addAttribute("id", r.getServicesTenantAuthPl());
+		bindingsForAuthorityItem.addAttribute("type", RECORD_TYPE_UTILITY);
+		
+		bindingsForAuthorityItem.addAttribute("version", version);
 		addServiceBinding(r, bindingsForAuthorityItem, nsservices, true);
 		if (log.isDebugEnabled() == true) {
 			this.writeToFile(r, bindingsForAuthorityItem, true);
@@ -540,8 +554,9 @@ public class Services {
 			doDocHandlerParams(r, el, this.nsservices, this.domainsection, isAuthority);
 	
 			//<service:validatorHandler>
+			String validatorHandlerName = r.getServicesValidatorHandler(isAuthority);
 			Element validatorHandlerElement = el.addElement(new QName("validatorHandler", nameSpace));
-			validatorHandlerElement.addText(r.getServicesValidatorHandler());
+			validatorHandlerElement.addText(validatorHandlerName);
 			
 			//<service:initHandler> which fields need to be modified in the nuxeo db
 			doInitHandler(r, el, this.nsservices, isAuthority);

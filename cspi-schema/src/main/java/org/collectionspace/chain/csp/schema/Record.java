@@ -687,10 +687,7 @@ public class Record implements FieldParent {
 	public String getServicesAbstractCommonList(){
 		return utils.getString("services-abstract");
 	}
-	public String getServicesValidatorHandler(){
-		return utils.getString("services-validator");
-		
-	}
+	
 	public String getServicesCommonList(){
 		return utils.getString("services-common");
 	}
@@ -705,16 +702,34 @@ public class Record implements FieldParent {
 	 * "Personauthority" for the Nuxeo document name and "PersonAuthorityDocument..." for the document handler class name.  Therefore, we need to convert the
 	 * lowercase 'a' to an uppercase 'A' in the "Authority" substring.  For example, we convert the substring "Personauthority" to "PersonAuthority".
 	 */
+	private String getAuthorityForm(String handlerName) {
+		String result = handlerName;
+		
+		String servicesTenantAuthSg = this.getServicesTenantAuthSg();
+		String itemName = servicesTenantAuthSg.replace(TYPE_AUTHORITY_LOWERCASE, "");
+		if (itemName.equals(servicesTenantAuthSg) == false) { // test to see if we found the substring "authority"
+			String authorityName = itemName + TYPE_AUTHORITY;
+			result = result.replace(itemName, authorityName);
+		}
+		
+		return result;
+	}
+	
 	public String getServicesDocHandler(Boolean isAuthority) {
 		String result = utils.getString("services-dochandler");
 		
 		if (isAuthority == true) {
-			String servicesTenantAuthSg = this.getServicesTenantAuthSg();
-			String itemName = servicesTenantAuthSg.replace(TYPE_AUTHORITY_LOWERCASE, "");
-			if (itemName.equals(servicesTenantAuthSg) == false) { // test to see if we found the substring "authority"
-				String authorityName = itemName + TYPE_AUTHORITY;
-				result = result.replace(itemName, authorityName);
-			}
+			result = getAuthorityForm(result);
+		}
+		
+		return result;
+	}
+	
+	public String getServicesValidatorHandler(Boolean isAuthority){
+		String result = utils.getString("services-validator");
+		
+		if (isAuthority == true) {
+			result = getAuthorityForm(result);
 		}
 		
 		return result;

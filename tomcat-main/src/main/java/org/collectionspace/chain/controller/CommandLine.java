@@ -46,6 +46,7 @@ class AppConfigBuildFileFilter implements FilenameFilter {
 public class CommandLine {
 	private static final Logger log = LoggerFactory.getLogger(CommandLine.class);
 	
+	private static final String SERVICE_BINDINGS_VERSION = "1.1";
 	private static final String SCHEMA_AND_DOCTYPES_DIR = JEEServerDeployment.NUXEO_SERVER_DIR;
 	private static final String TENANT_CONFIG_DIR = "lib";
 	
@@ -338,7 +339,7 @@ public class CommandLine {
 				//
 				XsdGeneration tenantBindingsMetadata = null;
 				try {
-					tenantBindingsMetadata = new XsdGeneration(tenantConfigFile, "delta"/*"core"*/, "3.0", bundleOutputDir);
+					tenantBindingsMetadata = new XsdGeneration(tenantConfigFile, "delta"/*"core"*/, "3.0", bundleOutputDir, SERVICE_BINDINGS_VERSION);
 					String tenantBindings = tenantBindingsMetadata.getTenantBindings();
 					if (tenantBindings != null) {
 						log.debug(String.format("Service Bindings Begin: %s >>>+++++++++++++++++++++++++++++++++>>>", tenantConfigFile.getName()));
