@@ -162,7 +162,7 @@
         <title-selector>titleBar-object-identification-object-title</title-selector>
         <selector>object-identification-object-title</selector>
       </field>
-      <field id="titleLanguage" autocomplete="vocab-languages" ui-type="enum">
+      <field id="titleLanguage" autocomplete="vocab-languages" ui-type="enum" services-should-index="true">
         <enum>
           <default>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</default>
         </enum>

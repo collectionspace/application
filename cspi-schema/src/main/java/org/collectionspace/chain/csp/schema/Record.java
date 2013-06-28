@@ -83,13 +83,21 @@ public class Record implements FieldParent {
 	private FieldSet mini_summary, mini_number, display_name;
 	private String whoamI = ""; // Used for debugging purposes.
 	private HashSet<String> authTypeTokenSet = new HashSet<String>();
-
+	private Record lastAuthoriyProxy = null; // Used during Service binding generation.  Only the "baseAuthority" record ever uses this member.  Values would be things like PersonAuthority, OrgAuthority, and other authority records.
 
 	/* Service stuff */
 	private Map<String, String> services_record_paths = new HashMap<String, String>();
 	private Map<String, String> services_instances_paths = new HashMap<String, String>();
 	private Map<String, Field> services_filter_param = new HashMap<String, Field>();
 
+	public Record getLastAuthorityProxy() {
+		return this.lastAuthoriyProxy;
+	}
+	
+	public void setLastAuthorityProxy(Record lastAuthoriyProxy) {
+		this.lastAuthoriyProxy = lastAuthoriyProxy;
+	}
+	
 	// XXX utility methods
 	Record(Spec parent, ReadOnlySection section, Map<String,String> data) {
 		//Map<String,String>data = (Map<String,String>)parent;

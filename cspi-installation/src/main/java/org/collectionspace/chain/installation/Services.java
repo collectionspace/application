@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import org.collectionspace.chain.csp.persistence.services.TenantSpec;
 import org.collectionspace.chain.csp.schema.Field;
+import org.collectionspace.chain.csp.schema.FieldParent;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Record;
@@ -56,6 +57,8 @@ public class Services {
 	private static final String DEFAULT_SERVICEOBJECT_ID = "1";
 
 	private static final String DEFAULT_HIERARCHY_TYPE = "screen";
+
+	private static final boolean NOT_NAMESPACED = false;
 	
 	protected Spec spec;
 	protected TenantSpec tenantSpec;
@@ -139,8 +142,8 @@ public class Services {
 					}
 					// <tenant:serviceBindings name="CollectionObjects" type="object" version="0.1">
 					serviceBindingsElement = ele.addElement(new QName("serviceBindings", nstenant));
-					serviceBindingsElement.addAttribute("name", r.getServicesTenantPl());
 					serviceBindingsElement.addAttribute("id", r.getServicesTenantPl());
+					serviceBindingsElement.addAttribute("name", r.getServicesTenantPl());
 					serviceBindingsElement.addAttribute("type", rtype);
 					serviceBindingsElement.addAttribute("version", serviceBindingVersion);
 					addServiceBinding(r, serviceBindingsElement, nsservices, false, serviceBindingVersion);
@@ -286,44 +289,78 @@ public class Services {
 		}
 	}
 	
-	private boolean createInitFieldEntry(Element paramsElement, Namespace namespace, Record record, FieldSet f, Boolean isAuthority) {
-		boolean result = true;
-		
-		if (f instanceof Field) {
-			Field fd = (Field)f;
-			String fieldName = fd.getServicesTag().toLowerCase();
-			String sectionName = fd.getSection();
-			if (fd.shouldIndex() == true) {
-				Element fieldElement = paramsElement.addElement(new QName("field", namespace));
-				Element tableElement = fieldElement.addElement(new QName("table", namespace));
-				String tableName = record.getServicesSchemaName(sectionName);
-				if (isAuthority == true) {
-					tableName = record.getAuthoritySchemaName();
-				}
-				tableElement.addText(tableName);
-
-				Element columnElement = fieldElement.addElement(new QName("col", namespace));
-				columnElement.addText(fieldName);
-				result = false;
-			}
+	private String getServiceTableName(FieldSet fieldSet, Record record, Boolean isAuthority) {
+		String result = record.getServicesSchemaName(fieldSet.getSection());		
+		if (isAuthority == true) {
+			result = record.getAuthoritySchemaName();
+		}
+		//
+		// If the parent is a Repeat instance then we need to use a different method to
+		// get the table name.
+		//
+		FieldParent parent = fieldSet.getParent();
+		if (parent instanceof Repeat) {
+			Repeat fieldParent = (Repeat)parent;
+			result = fieldParent.getServicesTag().toLowerCase();
 		} else {
-			log.error(String.format("Ignoring field '%s:%s'", Arrays.toString(f.getIDPath()), f.getID()));
+			
 		}
 		
 		return result;
 	}
 	
-	private boolean createInitFieldList(Element paramsElement, Namespace namespace, Record record, Boolean isAuthority) {
-		boolean result = true;
+	/*
+	 * Attempt to create an entry in the service bindings for this field to be indexed.  Returns true if created and false if not.
+	 */
+	private boolean createInitFieldEntry(Element paramsElement, Namespace namespace, Record record, FieldSet f, Boolean isAuthority) {
+		boolean result = false;
 		
+		if (f instanceof Field) {
+			Field fd = (Field)f;
+			String fieldName = fd.getServicesTag().toLowerCase();
+			if (fd.shouldIndex() == true) {
+				Element fieldElement = paramsElement.addElement(new QName("field", namespace));
+				
+				Element tableElement = fieldElement.addElement(new QName("table", namespace));				
+				String tableName = fd.getServiceTableName(isAuthority); //getServiceTableName(fd, record, isAuthority);
+				tableElement.addText(tableName);
+
+				Element columnElement = fieldElement.addElement(new QName("col", namespace));
+				columnElement.addText(fieldName);
+				result = true;
+			}
+		} else {
+			log.error(String.format("Ignoring FieldSet instance '%s:%s'", Arrays.toString(f.getIDPath()), f.getID()));
+		}
+		
+		return result;
+	}
+	
+	/*
+	 * Returns true if we end up creating service binding entries for field initialization.
+	 */
+	private boolean createInitFieldList(Element paramsElement, Namespace namespace, Record record, Boolean isAuthority) {
+		boolean result = false;
+		
+		// Loop through each field to see if we need to create a service binding entry
 		for (FieldSet f: record.getAllFieldFullList("")) {
+			boolean createdEntry = false;
 			if (f.isASelfRenderer() == true) {
-				String fieldSetServicesType = f.getServicesType(false /* not NS qualified */);
+				//
+				// Self rendered fields are essentially sub-records
+				//
+				String fieldSetServicesType = f.getServicesType(NOT_NAMESPACED);
 				Spec spec = f.getRecord().getSpec();
 				Record subRecord = spec.getRecord(fieldSetServicesType); // find a record that corresponds to the fieldset's service type
-				createInitFieldList(paramsElement, namespace, subRecord, isAuthority);
+				createdEntry = createInitFieldList(paramsElement, namespace, subRecord, isAuthority); // make a recursive call with the subrecord
 			} else {
-				result = createInitFieldEntry(paramsElement, namespace, record, f, isAuthority); // Recursive call
+				createdEntry = createInitFieldEntry(paramsElement, namespace, record, f, isAuthority); // Create a service binding for the field
+			}
+			//
+			// We'll return true even if just one of the fields causes us to create a service binding entry
+			//
+			if (createdEntry == true) {
+				result = true;
 			}
 		}
 			
@@ -347,6 +384,7 @@ public class Services {
 		if (isAuthority == true) {
 			Spec spec = r.getSpec();
 			r = spec.getRecord(BASE_AUTHORITY_RECORD);
+			r.setLastAuthorityProxy(record); // Since all the authorities share the same "baseAuthority" record, we need to set the actual authority record; e.g., Person, Organization, etc...
 		}
 		
 		Element dhele = el.addElement(new QName("initHandler", thisns));
@@ -354,8 +392,8 @@ public class Services {
 		cele.addText(this.tenantSpec.getIndexHandler());
 		Element paramsElement = dhele.addElement(new QName("params", thisns));
 		
-		boolean noIndexedFields = createInitFieldList(paramsElement, thisns, record, isAuthority);
-		if (noIndexedFields == true) {
+		boolean createdIndexedFields = createInitFieldList(paramsElement, thisns, r, isAuthority);
+		if (createdIndexedFields == false) {
 			// Since there were no fields to index, we don't need this empty <initHandler> element
 			el.remove(dhele);
 		}
@@ -491,7 +529,7 @@ public class Services {
 		// <service:part id="1" control_group="Managed" versionable="true" auditable="false" label="intakes_common" updated="" order="1">
 		if (r.hasServicesRecordPath(COLLECTIONSPACE_COMMON_PART_NAME)) {
 			String namespaceURI = r.getServicesSchemaNameSpaceURI(COLLECTIONSPACE_COMMON_PART_NAME);
-			String schemaLocationCommon = namespaceURI + " " + r.getServicesSchemaBaseLocation() + labelsg + "/" + label + "_common.xsd";			
+			String schemaLocationCommon = namespaceURI + " " + r.getServicesSchemaBaseLocation() + "/" + (isAuthority ? r.getRecordName() : labelsg) + "/" + label + "_common.xsd";			
 			if (r.isType("authorizationdata")) {
 				schemaLocationCommon = namespaceURI + " "+ r.getServicesSchemaBaseLocation()  + "/" + label + ".xsd";
 			}

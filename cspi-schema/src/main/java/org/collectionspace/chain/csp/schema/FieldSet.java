@@ -30,6 +30,7 @@ public interface FieldSet {
 	public void setParent(FieldParent fp);
 	public Record getRecord();
 	public String getServicesTag();
+	public String getServiceTableName(boolean isAuthority);
 	public String getServicesUrl();
 	public String[] getServicesParent();
 	public boolean hasServicesParent();

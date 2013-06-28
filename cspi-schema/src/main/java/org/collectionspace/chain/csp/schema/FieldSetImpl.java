@@ -101,6 +101,31 @@ public abstract class FieldSetImpl implements FieldSet {
 	}
 	
 	@Override
+	public String getServiceTableName(boolean isAuthority) {
+		String result = null;
+		//
+		// If the parent is a Repeat instance then the enclosing type is the
+		// table name.  Otherwise, the table name is either the section name
+		// or the authority schema name if we're dealing with an authority.
+		//
+		FieldParent parent = this.getParent();
+		if (parent instanceof Repeat) {
+			Repeat fieldParent = (Repeat)parent;
+			result = fieldParent.getServicesTag().toLowerCase();
+		} else if (parent instanceof Record) {
+			Record record = (Record)parent;
+			if (isAuthority == true) {
+				Record proxy = record.getLastAuthorityProxy(); // Since all the authorities share the same "baseAuthority" record, we need to find the actual authority record; e.g., Person, Organization, etc...
+				result = proxy.getAuthoritySchemaName();
+			} else {
+				result = record.getServicesSchemaName(this.getSection());
+			}
+		}
+
+		return result;
+	}
+	
+	@Override
 	public String getServicesType() {
 		return getServicesType(true /* default to getting namespace qualified */);
 	}
