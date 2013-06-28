@@ -210,7 +210,7 @@ public class Record implements FieldParent {
 		utils.initStrings(section,"services-repo-domain", utils.getString("services-repo-domain"));
 
 		utils.initStrings(section,"services-tenant-singular", utils.getString("services-url"));
-		utils.initStrings(section,"services-tenant-doctype", utils.getString("services-tenant-singular"));
+		utils.initStrings(section,"services-tenant-doctype", null);//, utils.getString("services-tenant-singular"));
 		
 		utils.initStrings(section,"services-tenant-plural", utils.getString("services-tenant-singular")+"s");
 		utils.initStrings(section,"services-tenant-auth-singular", utils.getString("services-url"));
@@ -669,12 +669,19 @@ public class Record implements FieldParent {
 		return utils.getString("services-tenant-auth-singular");
 	}
 	
-	public String getServicesTenantDoctype() {
+	/*
+	 * By convention, the value from getServicesTenantSg() is the Nuxeo doctype name.  However, if the record
+	 * explicitly declares a doctype using the "services-tenant-doctype" element then that value is used.  Also,
+	 * Authorities are a special case, the doctype should be the value from getServicesTenantAuthSg for Authorites.
+	 */
+	public String getServicesTenantDoctype(boolean isAuthority) {
 		String result = this.getServicesTenantSg();
 		
 		String elementVal = utils.getString("services-tenant-doctype");
 		if (elementVal != null && elementVal.trim().isEmpty() == false) {
 			result = elementVal;
+		} else if (isAuthority == true) {
+			result = this.getServicesTenantAuthSg();
 		}
 		
 		return result;

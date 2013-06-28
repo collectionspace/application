@@ -2,6 +2,7 @@ package org.collectionspace.chain.installation;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.collectionspace.chain.csp.persistence.services.TenantSpec;
 import org.collectionspace.chain.csp.schema.Field;
@@ -51,6 +52,10 @@ public class Services {
 
 	private static final String BASE_AUTHORITY_RECORD = "baseAuthority";
 	private static final String BASE_AUTHORITY_SECTION = BASE_AUTHORITY_RECORD;
+
+	private static final String DEFAULT_SERVICEOBJECT_ID = "1";
+
+	private static final String DEFAULT_HIERARCHY_TYPE = "screen";
 	
 	protected Spec spec;
 	protected TenantSpec tenantSpec;
@@ -138,7 +143,7 @@ public class Services {
 					serviceBindingsElement.addAttribute("id", r.getServicesTenantPl());
 					serviceBindingsElement.addAttribute("type", rtype);
 					serviceBindingsElement.addAttribute("version", serviceBindingVersion);
-					addServiceBinding(r, serviceBindingsElement, nsservices, false);
+					addServiceBinding(r, serviceBindingsElement, nsservices, false, serviceBindingVersion);
 				}
 	
 				if (r.isType(RECORD_TYPE_AUTHORITY)) {
@@ -151,7 +156,7 @@ public class Services {
 					serviceBindingsElement.addAttribute("name", r.getServicesTenantPl());
 					serviceBindingsElement.addAttribute("type", SERVICES_BINDING_TYPE_SECURITY);
 					serviceBindingsElement.addAttribute("version", serviceBindingVersion);
-					addServiceBinding(r, serviceBindingsElement, nsservices, false);
+					addServiceBinding(r, serviceBindingsElement, nsservices, false, serviceBindingVersion);
 				}
 	
 				if (r.isType(RECORD_TYPE_AUTHORIZATIONDATA)) {
@@ -280,6 +285,50 @@ public class Services {
 			
 		}
 	}
+	
+	private boolean createInitFieldEntry(Element paramsElement, Namespace namespace, Record record, FieldSet f, Boolean isAuthority) {
+		boolean result = true;
+		
+		if (f instanceof Field) {
+			Field fd = (Field)f;
+			String fieldName = fd.getServicesTag().toLowerCase();
+			String sectionName = fd.getSection();
+			if (fd.shouldIndex() == true) {
+				Element fieldElement = paramsElement.addElement(new QName("field", namespace));
+				Element tableElement = fieldElement.addElement(new QName("table", namespace));
+				String tableName = record.getServicesSchemaName(sectionName);
+				if (isAuthority == true) {
+					tableName = record.getAuthoritySchemaName();
+				}
+				tableElement.addText(tableName);
+
+				Element columnElement = fieldElement.addElement(new QName("col", namespace));
+				columnElement.addText(fieldName);
+				result = false;
+			}
+		} else {
+			log.error(String.format("Ignoring field '%s:%s'", Arrays.toString(f.getIDPath()), f.getID()));
+		}
+		
+		return result;
+	}
+	
+	private boolean createInitFieldList(Element paramsElement, Namespace namespace, Record record, Boolean isAuthority) {
+		boolean result = true;
+		
+		for (FieldSet f: record.getAllFieldFullList("")) {
+			if (f.isASelfRenderer() == true) {
+				String fieldSetServicesType = f.getServicesType(false /* not NS qualified */);
+				Spec spec = f.getRecord().getSpec();
+				Record subRecord = spec.getRecord(fieldSetServicesType); // find a record that corresponds to the fieldset's service type
+				createInitFieldList(paramsElement, namespace, subRecord, isAuthority);
+			} else {
+				result = createInitFieldEntry(paramsElement, namespace, record, f, isAuthority); // Recursive call
+			}
+		}
+			
+		return result;
+	}
 
 	/**
 	 * Define fields that needs to have indexes created in the Nuxeo DB
@@ -305,29 +354,7 @@ public class Services {
 		cele.addText(this.tenantSpec.getIndexHandler());
 		Element paramsElement = dhele.addElement(new QName("params", thisns));
 		
-		boolean noIndexedFields = true;
-		//loop over all fields to find out is they should be indexed
-		for (FieldSet f: r.getAllFieldFullList("")) {
-			if (f instanceof Field) {
-				Field fd = (Field)f;
-				String fieldName = fd.getServicesTag().toLowerCase();
-				String sectionName = fd.getSection();
-				if (fd.shouldIndex() == true) {
-					Element fieldElement = paramsElement.addElement(new QName("field", thisns));
-					Element tableElement = fieldElement.addElement(new QName("table", thisns));
-					String tableName = r.getServicesSchemaName(sectionName);
-					if (isAuthority == true) {
-						tableName = record.getAuthoritySchemaName();
-					}
-					tableElement.addText(tableName);
-
-					Element columnElement = fieldElement.addElement(new QName("col", thisns));
-					columnElement.addText(fieldName);
-					noIndexedFields = false;
-				}
-			}
-		}
-		
+		boolean noIndexedFields = createInitFieldList(paramsElement, thisns, record, isAuthority);
 		if (noIndexedFields == true) {
 			// Since there were no fields to index, we don't need this empty <initHandler> element
 			el.remove(dhele);
@@ -346,6 +373,12 @@ public class Services {
 		//<service:DocHandlerParams>
 		Element dhele = el.addElement(new QName("DocHandlerParams", thisns));
 		Element pele = dhele.addElement(new QName("params", thisns));
+		
+		if (r.hasHierarchyUsed(DEFAULT_HIERARCHY_TYPE) == true) {
+			//<service:SupportsHierarchy>true</service:SupportsHierarchy>
+			Element sh_rele = pele.addElement(new QName("SupportsHierarchy", thisns));
+			sh_rele.addText("true");
+		}
 		Element lrele = pele.addElement(new QName("ListResultsFields", thisns));
 		doLists(r, lrele, thisns, section, isAuthority);
 	}
@@ -408,20 +441,20 @@ public class Services {
 	 * @param thisns
 	 * @param isAuthority
 	 */
-	private void doServiceObject(Record r, Element el, Namespace thisns, Boolean isAuthority){
-		//<service:object name="Intake" version="0.1">
+	private void doServiceObject(Record r, Element el, Namespace thisns, Boolean isAuthority, String serviceBindingVersion){
 		Element cele = el.addElement(new QName("object", thisns));
 
-		if (isAuthority == true) {
-			cele.addAttribute("name", r.getServicesTenantAuthSg());
-		} else {
-			cele.addAttribute("name", r.getServicesTenantSg());
-		}
-		cele.addAttribute("version", "1.0"); // FIXME: Version should not be hardcoded.
+		// the default ID for the service object is "1" since most services have just one service object
+		cele.addAttribute("id", DEFAULT_SERVICEOBJECT_ID);
 
+		// For example, <service:object name="Intake" version="0.1">
+		String serviceObjectName = r.getServicesTenantDoctype(isAuthority);
+		cele.addAttribute("name", serviceObjectName);
+		cele.addAttribute("version", serviceBindingVersion);
+
+		// the labels will be used to create the bindings for the parts
 		String label = r.getServicesTenantPl().toLowerCase();
 		String labelsg = r.getServicesTenantSg().toLowerCase();
-
 		if (isAuthority == true) {
 			label = r.getServicesTenantAuthPl().toLowerCase();
 			labelsg = r.getServicesTenantAuthSg().toLowerCase();
@@ -486,35 +519,33 @@ public class Services {
 	}
 	
 	/**
-	 * vocabs have 2 parts in the tenant binding
-	 * @param r
-	 * @param el
+	 * Since the Application layer declares a single config record for both the Vocabulary/Authority and their corresponding items,
+	 * we need to create the two corresponding service bindings from the one Application record.
 	 */
-	private void addVocabularies(Record r, Element el, String version) {		
-		//add standard procedure like bit
+	private void addVocabularies(Record r, Element el, String serviceBindingVersion) {		
+		// Add the bindings for the Authority/Vocabulary item
+		Element bindingsForAuthorityItemx = el.addElement(new QName("serviceBindings", nstenant));
+		bindingsForAuthorityItemx.addAttribute("name", r.getServicesTenantPl());
+		bindingsForAuthorityItemx.addAttribute("id", r.getServicesTenantPl());
+		bindingsForAuthorityItemx.addAttribute("type", RECORD_TYPE_AUTHORITY);
+		
+		bindingsForAuthorityItemx.addAttribute("version", serviceBindingVersion);
+		addServiceBinding(r, bindingsForAuthorityItemx, nsservices, false, serviceBindingVersion);
+		if (log.isDebugEnabled() == true) {
+			this.writeToFile(r, bindingsForAuthorityItemx, false);
+		}
+
+		// Add the bindings for the Authority/Vocabulary.
 		Element bindingsForAuthority = el.addElement(new QName("serviceBindings", nstenant));
-		bindingsForAuthority.addAttribute("name", r.getServicesTenantPl());
-		bindingsForAuthority.addAttribute("id", r.getServicesTenantPl());
-		bindingsForAuthority.addAttribute("type", RECORD_TYPE_AUTHORITY);
+		bindingsForAuthority.addAttribute("name", r.getServicesTenantAuthPl());
+		bindingsForAuthority.addAttribute("id", r.getServicesTenantAuthPl());
+		bindingsForAuthority.addAttribute("type", RECORD_TYPE_UTILITY);
 		
-		bindingsForAuthority.addAttribute("version", version);
-		addServiceBinding(r, bindingsForAuthority, nsservices, false);
+		bindingsForAuthority.addAttribute("version", serviceBindingVersion);
+		addServiceBinding(r, bindingsForAuthority, nsservices, true, serviceBindingVersion);
 		if (log.isDebugEnabled() == true) {
-			this.writeToFile(r, bindingsForAuthority, false);
+			this.writeToFile(r, bindingsForAuthority, true);
 		}
-
-		//add vocabulary bit
-		Element bindingsForAuthorityItem = el.addElement(new QName("serviceBindings", nstenant));
-		bindingsForAuthorityItem.addAttribute("name", r.getServicesTenantAuthPl());
-		bindingsForAuthorityItem.addAttribute("id", r.getServicesTenantAuthPl());
-		bindingsForAuthorityItem.addAttribute("type", RECORD_TYPE_UTILITY);
-		
-		bindingsForAuthorityItem.addAttribute("version", version);
-		addServiceBinding(r, bindingsForAuthorityItem, nsservices, true);
-		if (log.isDebugEnabled() == true) {
-			this.writeToFile(r, bindingsForAuthorityItem, true);
-		}
-
 	}
 	
 	/**
@@ -523,16 +554,16 @@ public class Services {
 	 * @param r
 	 * @param el
 	 */
-	private void addAuthorization(Record r, Element el){
+	private void addAuthorization(Record r, Element el, String serviceBindingVersion){
 		//add standard procedure like bit
 		Element cele = el.addElement(new QName(
 				"serviceBindings", nstenant));
 		cele.addAttribute("name", r.getServicesTenantPl());
 		cele.addAttribute("version", "0.1");
-		addServiceBinding(r, cele, nsservices, false);
+		addServiceBinding(r, cele, nsservices, false, serviceBindingVersion);
 	}
 	
-	private void addServiceBinding(Record r, Element el, Namespace nameSpace, Boolean isAuthority) {
+	private void addServiceBinding(Record r, Element el, Namespace nameSpace, Boolean isAuthority, String serviceBindingVersion) {
 		try {
 			String repositoryDomain = r.getServicesRepositoryDomain();
 			if (repositoryDomain == null) {
@@ -568,7 +599,7 @@ public class Services {
 			}
 			
 			//<service:object>
-			doServiceObject(r, el, this.nsservices, isAuthority);
+			doServiceObject(r, el, this.nsservices, isAuthority, serviceBindingVersion);
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(String.format("Could not create service bindings for record '%s' in namespace '%s'.", r.getRecordName(), nameSpace.toString()));
@@ -755,7 +786,7 @@ public class Services {
 				//
 				// Iterate through each field of the subrecord
 				//
-				doAuths(auth, types, subRecord, section);
+				doAuths(auth, types, subRecord, section); // Recursive call
 					
 			} else {
 				createAuthRef(auth, types, r, section, in);
