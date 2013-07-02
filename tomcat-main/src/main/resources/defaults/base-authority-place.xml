@@ -230,11 +230,11 @@
     </section>
     <!-- not used in UI except in autocompletes -->
     <section id="otherInformation">
-       	<field id="inAuthority"></field>
+       	<field id="inAuthority" services-should-index="true"></field>
     	<field id="deprecatedRefName">
 			<services-tag>refName</services-tag>
 		</field>
-        <field id="shortIdentifier" mini="search,list,relate" attributes="GET"/>
+        <field id="shortIdentifier" mini="search,list,relate" attributes="GET" services-should-index="true"/>
         <field id="csid" exists-in-services="false" mini="search,list,relate" attributes="GET"/>
     </section>
 </record>
