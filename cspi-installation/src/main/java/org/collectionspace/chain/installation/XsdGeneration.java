@@ -161,7 +161,7 @@ public class XsdGeneration {
 		
 			
 			out.println(String.format("getServicesAbstractCommonList = %s", record.getServicesAbstractCommonList()));
-			out.println(String.format("getServicesValidatorHandler = %s", record.getServicesValidatorHandler()));
+			out.println(String.format("getServicesValidatorHandler = %s", record.getServicesValidatorHandler(false))); // 'false' means that we're not treating the record as an authority
 			out.println(String.format("getServicesCommonList = %s", record.getServicesCommonList()));
 			out.println(String.format("getServicesSchemaBaseLocation = %s", record.getServicesSchemaBaseLocation()));
 			out.println(String.format("getServicesDocHandler = %s", record.getServicesDocHandler(record.isAuthorityItemType() == false)));
@@ -310,7 +310,7 @@ public class XsdGeneration {
 		boolean isAuthorityItemType = record.isAuthorityItemType();
 		String serviceName = record.getServicesTenantSg();
 		String tenantName = record.getSpec().getAdminData().getTenantName();
-		String docTypeName = record.getServicesTenantDoctype();
+		String docTypeName = record.getServicesTenantDoctype(false); // 'false' means we're not treating the record as an authority
 		//
 		// Compute what the doctype name should be based on tenancy and doctype extensions
 		//

@@ -37,6 +37,7 @@ public class Services {
 	private static final String RECORD_TYPE_UTILITY = "utility";
 	private static final String RECORD_TYPE_OBJECT = "object";
 	private static final String RECORD_TYPE_PROCEDURE = "procedure";
+	private static final String RECORD_TYPE_RECORD = "record";
 	private static final String RECORD_TYPE_USERDATA = "userdata";
 	private static final String RECORD_TYPE_AUTHORIZATIONDATA = "authorizationdata";
 	
@@ -59,6 +60,8 @@ public class Services {
 	private static final String DEFAULT_HIERARCHY_TYPE = "screen";
 
 	private static final boolean NOT_NAMESPACED = false;
+
+	private static final String RECORD_NAME_VOCAB = "vocab";
 	
 	protected Spec spec;
 	protected TenantSpec tenantSpec;
@@ -68,7 +71,7 @@ public class Services {
 	/**
 	 * not sure how configurable these need to be - they can be made more flexible
 	 */
-	protected Namespace nstenant = new Namespace("tenant", "http://collectionspace.org/services/common/tenant"); 
+	protected Namespace nstenant = new Namespace("tenant", "http://collectionspace.org/services/config/tenant"); // http://collectionspace.org/services/config/tenant
 	protected Namespace nsservices = new Namespace("service", "http://collectionspace.org/services/config/service"); 
 	protected Namespace nsxsi = new Namespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");  
 	protected Namespace nstypes = new Namespace("types", "http://collectionspace.org/services/config/types"); 
@@ -89,6 +92,43 @@ public class Services {
 		return doServiceBindingsCommon(serviceBindingVersion);
 	}
 
+	//
+	// Try to figure out what the service binding type should be for this record. Good luck.
+	//
+	private String getServiceBindingType(Record record) {
+		String result = RECORD_TYPE_PROCEDURE;
+		
+		if (record.isType(RECORD_TYPE_RECORD) == true) {
+			if (record.isType(RECORD_TYPE_PROCEDURE) == false) {
+				result = RECORD_TYPE_OBJECT;
+			} else if (record.isType(RECORD_TYPE_VOCABULARY)) {
+				if (record.isInRecordList() == true) {	// termlist is in the "record list"
+					result = RECORD_TYPE_UTILITY;
+				} else {
+					result = RECORD_TYPE_VOCABULARY;	// termlistitem is *not* in the "record list"			
+				}
+			} else {
+				log.debug(String.format("Record '%s' is neither an object nor a vocabulary.  Please verify it is a procedure.", record.getRecordName()));
+			}
+		} else {
+			log.warn(String.format("Record '%s' is not of type 'record'.  We're going to assume it is a 'procedure' but please verify by hand.",
+					record.getRecordName()));
+		}
+		
+		return result;
+	}
+	
+	private boolean shouldGenerateServiceBinding(Record record) {
+		boolean result = false;
+
+		if ((record.isInRecordList() == true || record.isType(RECORD_TYPE_VOCABULARY) == true)
+				&& !record.getRecordName().equals(RECORD_NAME_VOCAB)) {
+			result = true;
+		}
+
+		return result;
+	}
+	
 	/**
 	 * if this.defaultonly - true then return
 	 * service-bindings-common.xml - a shared prototype of core and common
@@ -127,45 +167,40 @@ public class Services {
 		// add in <tenant:properties> if required
 		makeProperties(ele);
 
-		// loop over each record type and add <tenant:serviceBindings
+		// loop over each record type and add a <tenant:serviceBindings> element
 		for (Record r : this.spec.getAllRecords()) {
-			if (r.isType("vocabulary") == true) {
-				String name = r.getServicesTenantPl();
-				log.debug(name);
-			}
-			if (r.isInRecordList() == true || r.isType(RECORD_TYPE_VOCABULARY) == true) {
+			String tenantName = this.tenantSpec.getTenant();
+			String recordName = r.getRecordName();
+
+			if (shouldGenerateServiceBinding(r) == true) {
 				Element serviceBindingsElement = null;
-				if (r.isType("record") == true) {
-					String rtype = RECORD_TYPE_PROCEDURE;
-					if (!r.isType(RECORD_TYPE_PROCEDURE) && r.isType("record")) {
-						rtype = RECORD_TYPE_OBJECT;
-					}
-					// <tenant:serviceBindings name="CollectionObjects" type="object" version="0.1">
+				if (r.isType(RECORD_TYPE_RECORD) == true) {
+					String rtype = getServiceBindingType(r);
+					// e.g., <tenant:serviceBindings name="CollectionObjects" type="object" version="0.1">
 					serviceBindingsElement = ele.addElement(new QName("serviceBindings", nstenant));
 					serviceBindingsElement.addAttribute("id", r.getServicesTenantPl());
 					serviceBindingsElement.addAttribute("name", r.getServicesTenantPl());
 					serviceBindingsElement.addAttribute("type", rtype);
 					serviceBindingsElement.addAttribute("version", serviceBindingVersion);
 					addServiceBinding(r, serviceBindingsElement, nsservices, false, serviceBindingVersion);
-				}
-	
-				if (r.isType(RECORD_TYPE_AUTHORITY)) {
-					addVocabularies(r, ele, serviceBindingVersion);
-				}
-	
-				if (r.isType(RECORD_TYPE_USERDATA)) {
+				} else if (r.isType(RECORD_TYPE_AUTHORITY)) {
+					// e.g., <tenant:serviceBindings id="Persons" name="Persons" type="authority" version="0.1">
+					addAuthorities(r, ele, serviceBindingVersion);
+				} else if (r.isType(RECORD_TYPE_USERDATA)) {
 					serviceBindingsElement = ele.addElement(new QName("serviceBindings", nstenant));
 					serviceBindingsElement.addAttribute("id", r.getServicesTenantPl());
 					serviceBindingsElement.addAttribute("name", r.getServicesTenantPl());
 					serviceBindingsElement.addAttribute("type", SERVICES_BINDING_TYPE_SECURITY);
 					serviceBindingsElement.addAttribute("version", serviceBindingVersion);
 					addServiceBinding(r, serviceBindingsElement, nsservices, false, serviceBindingVersion);
-				}
-	
-				if (r.isType(RECORD_TYPE_AUTHORIZATIONDATA)) {
+				} else if (r.isType(RECORD_TYPE_AUTHORIZATIONDATA)) {
 					// ignore at the moment as they are so non standard
 					// addAuthorization(r,ele);
 					log.debug("ignore at the moment as they are so non standard");
+				} else {
+					// Should never get here
+					log.warn(String.format("Record '%s.%s' is of an unknown type so we could not create a service binding for it.",
+							tenantName, recordName));
 				}
 				//
 				// Debug-log the generated Service bindings for this App layer record
@@ -174,16 +209,17 @@ public class Services {
 				if (bindingsForRecord != null && !r.isType(RECORD_TYPE_AUTHORITY)) {
 					this.writeToFile(r, bindingsForRecord, false);
 				}
-			}  else {
-				String tenantName = this.tenantSpec.getTenant();
-				String recordName = r.getRecordName();
-				log.trace(String.format("%s.%s does not require a service binding", tenantName, recordName));
+			} else {
+				log.trace(String.format("'%s.%s' does not require a service binding", tenantName, recordName));
 			}
 		}
 		
 		return doc.asXML();
 	}
 	
+	//
+	// For debugging purposes, this method writes a service bindings element to disk.
+	//
 	void writeToFile(Record r, Element bindingsForRecord, boolean isAuthority) {
 		String tenantName = this.tenantSpec.getTenant();
 		log.debug(String.format("Tenant name='%s'", tenantName));
@@ -205,7 +241,7 @@ public class Services {
 	}
 
 	/**
-	 * add in dateformats and languages if required
+	 * Add in date formats and languages if required
 	 * @param ele
 	 */
 	private void makeProperties(Element ele){
@@ -282,10 +318,10 @@ public class Services {
 		xconle.addAttribute("namespaceURI", namespaceURI);
 		xconle.addAttribute("schemaLocation", schemaLocation);
 		
-		if(addAuths){
-			Element auths = pele.addElement(new QName("properties",thisns));
-			doAuths(auths,this.nstypes,r,section);
-			
+		if (addAuths) {
+			Element auths = pele.addElement(new QName("properties", thisns));
+			doAuths(auths, this.nstypes, r, section);
+
 		}
 	}
 	
@@ -412,7 +448,7 @@ public class Services {
 		Element dhele = el.addElement(new QName("DocHandlerParams", thisns));
 		Element pele = dhele.addElement(new QName("params", thisns));
 		
-		if (r.hasHierarchyUsed(DEFAULT_HIERARCHY_TYPE) == true) {
+		if (r.hasHierarchyUsed(DEFAULT_HIERARCHY_TYPE) == true && isAuthority == false) {
 			//<service:SupportsHierarchy>true</service:SupportsHierarchy>
 			Element sh_rele = pele.addElement(new QName("SupportsHierarchy", thisns));
 			sh_rele.addText("true");
@@ -560,7 +596,7 @@ public class Services {
 	 * Since the Application layer declares a single config record for both the Vocabulary/Authority and their corresponding items,
 	 * we need to create the two corresponding service bindings from the one Application record.
 	 */
-	private void addVocabularies(Record r, Element el, String serviceBindingVersion) {		
+	private void addAuthorities(Record r, Element el, String serviceBindingVersion) {		
 		// Add the bindings for the Authority/Vocabulary item
 		Element bindingsForAuthorityItemx = el.addElement(new QName("serviceBindings", nstenant));
 		bindingsForAuthorityItemx.addAttribute("name", r.getServicesTenantPl());
@@ -632,7 +668,7 @@ public class Services {
 	
 			//<service:properties>
 			Element servicePropertiesElement = el.addElement(new QName("properties", nameSpace));		
-			if (doServiceProperties(r, servicePropertiesElement, this.nsservices, isAuthority) == false) {
+			if (doServiceProperties(r, servicePropertiesElement, this.nstypes, isAuthority) == false) {
 				el.remove(servicePropertiesElement);
 			}
 			
