@@ -720,12 +720,10 @@ public class Record implements FieldParent {
 	private String getAuthorityForm(String handlerName) {
 		String result = handlerName;
 		
+		String servicesTenantSg = this.getServicesTenantSg();
 		String servicesTenantAuthSg = this.getServicesTenantAuthSg();
-		String itemName = servicesTenantAuthSg.replace(TYPE_AUTHORITY_LOWERCASE, "");
-		if (itemName.equals(servicesTenantAuthSg) == false) { // test to see if we found the substring "authority"
-			String authorityName = itemName + TYPE_AUTHORITY;
-			result = result.replace(itemName, authorityName);
-		}
+		String authorityName = servicesTenantAuthSg.replace(TYPE_AUTHORITY_LOWERCASE, TYPE_AUTHORITY); // replace "authority" with "Authority"
+		result = result.replace(servicesTenantSg, authorityName);
 		
 		return result;
 	}
