@@ -103,7 +103,7 @@
     </repeat>
     <repeat id="responsibleDepartments" has-primary="yes">
       <selector>object-identification-responsible-department</selector>
-      <field id="responsibleDepartment" ui-search="repeatable" mini="search"
+      <field id="responsibleDepartment" ui-search="repeatable" mini="search,list"
         seperate_ui_container="true">
         <selector>object-identification-responsible-department</selector>
         <options>
@@ -158,7 +158,7 @@
     </field>
     <repeat id="titleGroupList/titleGroup">
       <!-- selector>collection-object-titleGroup</selector -->
-      <field id="title" ui-search="repeatable" in-title="yes" mini="search">
+      <field id="title" ui-search="repeatable" in-title="yes" mini="search,list">
         <title-selector>titleBar-object-identification-object-title</title-selector>
         <selector>object-identification-object-title</selector>
       </field>
@@ -240,7 +240,7 @@
       <field id="objectNameNote">
         <selector>object-identification-object-note</selector>
       </field>
-      <field id="objectName" ui-search="repeatable" mini="search">
+      <field id="objectName" ui-search="repeatable" mini="search,list">
         <selector>object-identification-object-name</selector>
       </field>
     </repeat>

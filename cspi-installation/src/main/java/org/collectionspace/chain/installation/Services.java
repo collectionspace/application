@@ -41,6 +41,7 @@ public class Services {
 	private static final String RECORD_TYPE_USERDATA = "userdata";
 	private static final String RECORD_TYPE_AUTHORIZATIONDATA = "authorizationdata";
 	
+	private static final String GROUP_LIST_SUFFIX = "/[0]";
 	private static final String GROUP_XPATH_SUFFIX = "/*";
 	private static final String NO_REPO_DOMAIN = "none";
 
@@ -320,7 +321,7 @@ public class Services {
 		
 		if (addAuths) {
 			Element auths = pele.addElement(new QName("properties", thisns));
-			doAuths(auths, this.nstypes, r, section);
+			doAuthRefs(auths, this.nstypes, r, section);
 
 		}
 	}
@@ -381,6 +382,7 @@ public class Services {
 		// Loop through each field to see if we need to create a service binding entry
 		for (FieldSet f: record.getAllFieldFullList("")) {
 			boolean createdEntry = false;
+			
 			if (f.isASelfRenderer() == true) {
 				//
 				// Self rendered fields are essentially sub-records
@@ -681,32 +683,78 @@ public class Services {
 	}
 	
 	/*
+	 * Repeatable scalars (multivalued scalars)...
+	 */
+	private boolean isScalarRepeat(FieldSet fieldSet) {
+		boolean result = false;
+		
+		FieldParent parent = fieldSet.getParent();
+		if (parent instanceof Repeat) {
+			Repeat repeat = (Repeat)parent;
+			
+			if (repeat.isTrueRepeatField() == true) {
+				String[] parts = repeat.getfullID().split("/");
+				if (parts.length == 1) {
+					result = true;
+				}
+			}
+		}
+
+		return result;
+	}
+	
+	/*
 	 * Returns the fully qualified path of a field name
 	 */
 	private String getFullyQualifiedFieldPath(FieldSet in) {
-		FieldSet fst = in;
-		String name = "";
-		while (fst.getParent().isTrueRepeatField() || fst.getParent() instanceof Group) {
-			fst = (FieldSet) fst.getParent();
-			if (fst instanceof Repeat) {
-				Repeat rt = (Repeat) fst;
-				if (rt.hasServicesParent()) {
-					name += rt.getServicesParent()[0];
-				} else {
-					name += rt.getServicesTag();
-				}
-			} else {
-				Group gp = (Group) fst;
-				if (gp.hasServicesParent()) {
-					name += gp.getServicesParent()[0];
-				} else {
-					name += gp.getServicesTag();
-				}
-			}
-			name += "/[0]/";
-		}
-		name += in.getServicesTag();
+		String tail = null;		
+		String name = in.getServicesTag(); // Start by assuming it's just a plain scalar field, so we would just return the name
 		
+		//
+		// Debug
+		//
+		String[] fullName = in.getIDPath();
+		boolean isPartOfGroup = in.getParent() instanceof Group;
+		boolean isGroup = in instanceof Group;
+		boolean isGroupField = in.isAGroupField();
+		
+		//
+		// If it's a repeatable field
+		//
+		if (in.getParent().isTrueRepeatField() == true) {
+			name = "";
+			FieldSet fst = in;
+			while (fst.getParent().isTrueRepeatField() == true) {
+				tail = "/"; // Fields that are part of a repeatable structured group have a form like this 'titleGroupList/[0]/title'
+				if (isScalarRepeat(fst) == true) {
+					tail = ""; // Scalar-repeats (aka, multi-valued fields) look like 'responsibleDepartments/[0]' and *not* 'responsibleDepartments/[0]/responsibleDepartment'
+				}
+				
+				fst = (FieldSet) fst.getParent();
+				if (fst instanceof Repeat) {
+					Repeat rt = (Repeat) fst;
+					if (rt.hasServicesParent()) {
+						name += rt.getServicesParent()[0];
+					} else {
+						name += rt.getServicesTag();
+					}
+				} else { // REM - This 'else' clause is not necessary and should be removed.
+					Group gp = (Group) fst;
+					if (gp.hasServicesParent()) {
+						name += gp.getServicesParent()[0];
+					} else {
+						name += gp.getServicesTag();
+					}
+				}
+				
+				name += GROUP_LIST_SUFFIX + tail;
+			}
+			
+			if (name.contains(GROUP_LIST_SUFFIX) && name.endsWith("/")) {
+				name += in.getServicesTag();
+			}
+		}
+				
 		return name;
 	}
 
@@ -828,7 +876,13 @@ public class Services {
 			tele2.addText(refType);
 			String name = "";
 			FieldSet fs = (FieldSet) in;
-			while (fs.getParent() instanceof Repeat	|| fs.getParent() instanceof Group) {
+			
+			//Debugging
+			String recordID = r.getRecordName();
+			String fieldSetID = fs.getID();
+			log.debug("");
+			
+			while (fs.getParent().isTrueRepeatField() == true) {
 				String xpathStructuredPart = fs.getServicesTag();
 				if (fs.getParent() instanceof Repeat) {
 					xpathStructuredPart = getXpathStructuredPart((Repeat)fs.getParent());
@@ -837,7 +891,12 @@ public class Services {
 					log.debug("We've got a Group"); // I haven't yet seen an example of this in the App config files.
 				}
 				fs = (FieldSet) fs.getParent();
-				name += xpathStructuredPart + "/";
+				
+				String separator = "|"; // Repeatable scalars are separated by the '|' character; otherwise, we use the '/' for xpath expressions
+				if (xpathStructuredPart.endsWith("*")) {
+					separator = "/";
+				}
+				name += xpathStructuredPart + separator;
 			}
 			name += in.getServicesTag();
 			tele3.addText(name);
@@ -851,7 +910,7 @@ public class Services {
 	 *      <types:value>currentOwner</types:value>
 	 *  </types:item>
 	 */
-	private void doAuths(Element auth, Namespace types, Record r, String section) {
+	private void doAuthRefs(Element auth, Namespace types, Record r, String section) {
 		for (FieldSet in : r.getAllFieldFullList("")) {
 			if (in.isASelfRenderer() == true) {
 				String fieldSetServicesType = in.getServicesType(false /* not NS qualified */);
@@ -860,7 +919,7 @@ public class Services {
 				//
 				// Iterate through each field of the subrecord
 				//
-				doAuths(auth, types, subRecord, section); // Recursive call
+				doAuthRefs(auth, types, subRecord, section); // Recursive call
 					
 			} else {
 				createAuthRef(auth, types, r, section, in);
