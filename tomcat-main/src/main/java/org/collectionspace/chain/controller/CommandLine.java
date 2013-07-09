@@ -59,6 +59,7 @@ public class CommandLine {
 	private static final String SERVICE_BINDINGS_VERSION = "1.1";
 	private static final String SCHEMA_AND_DOCTYPES_DIR = JEEServerDeployment.NUXEO_SERVER_DIR;
 	private static final String TENANT_CONFIG_DIR = "lib";
+	private static final String SERVICES_TENANT_CONFIG_DIR = "cspace/config/services/tenants";
 	
 	private static Options options;
 	private static org.apache.commons.cli.CommandLine cmd;
@@ -67,12 +68,14 @@ public class CommandLine {
 	private static final boolean kNO_VALUE_NEEDED = false;
 	
 	private static final String ARG_CONFIG_BASE_DIR = "c";
+	private static final String ARG_CONFIG_SERVICE_BASE_DIR = "s";
 	private static final String ARG_OUTPUT_DIR = "o";
 	private static final String ARG_HELP = "h";
 
 	private static boolean fromBuild;
 	private static File cspaceHomeDir;
 	private static File appConfigDir;
+	private static File servicesConfigDir;
 	private static File bundlesOutputDir;
 	
 	private static final String XMLMERGE_DEFAULT_PROPS_STR="matcher.default=ID\n";
@@ -86,15 +89,22 @@ public class CommandLine {
 		cspaceHomeDir = dir;
 	}
 
+	private static void setAppConfigDir(File dir) {
+		appConfigDir = dir;
+	}
 
 	private static File getAppConfigDir() {
 		return appConfigDir;
 	}
 
-
-	private static void setAppConfigDir(File dir) {
-		appConfigDir = dir;
+	private static void setServicesConfigDir(File dir) {
+		servicesConfigDir = dir;
 	}
+	
+	private static File getServicesConfigDir() {
+		return servicesConfigDir;
+	}
+	
 
 
 	private static File getBundlesOutputDir() {
@@ -120,6 +130,43 @@ public class CommandLine {
 		}
 		
 		return result;
+	}
+	
+	private static final File resolveServicesConfigDir() {
+		File result = null;
+		String errMsg = null;
+		
+		String configDirName = cmd != null ? cmd.getOptionValue(ARG_CONFIG_SERVICE_BASE_DIR) : null;
+		if (configDirName == null || configDirName.isEmpty() == true) {
+			// If they didn't specify the config dir as a command line argument
+			// then look for the JEE server path in the environment vars and derive the config dir from it
+			Map<String, String> env = System.getenv();
+			String jeeHomeDir = env.get(ConfigFinder.CSPACE_JEESERVER_HOME);
+			if (jeeHomeDir != null && jeeHomeDir.trim().isEmpty() == false) {
+				configDirName = jeeHomeDir + "/" + SERVICES_TENANT_CONFIG_DIR;
+			}
+			log.info(String.format("No command line argument for the Services config directory was specified so we're using the system environment variable '%s'='%s' to locate the config files.",
+					ConfigFinder.CSPACE_JEESERVER_HOME, jeeHomeDir));
+		}
+		
+		if (configDirName != null) {
+			File dir = new File(configDirName);
+			if (dir.exists() == true && dir.isDirectory() == true) {
+				setServicesConfigDir(dir);
+				result = dir;
+			} else {
+				errMsg = String.format("The Services config directory '%s' does not exist.", dir.getAbsolutePath());
+			}
+		} else {
+			errMsg = String.format("No command line argument for the Services config directory was specified and the system environment variable '%s' is missing.",
+					ConfigFinder.CSPACE_JEESERVER_HOME);
+		}
+		
+		if (errMsg != null) {
+			log.error(errMsg);
+		}
+		
+		return result;	
 	}
 	
 	private static final File resolveTenantConfigDir() {
@@ -223,6 +270,10 @@ public class CommandLine {
     	// add option for specifying the Application layer's config base/root directory
     	newOption = new Option(ARG_CONFIG_BASE_DIR, kVALUE_NEEDED, "App base config directory");
     	options.addOption(newOption);
+    	
+    	// add option for specifying the Service layer's config base/root directory
+    	newOption = new Option(ARG_CONFIG_SERVICE_BASE_DIR, kVALUE_NEEDED, "Service layer's base config directory");
+    	options.addOption(newOption);
 
     	// add option for specifying the output directory for the bundles
     	newOption = new Option(ARG_OUTPUT_DIR, kVALUE_NEEDED, "Output directory - <optional> current directory is the default ouput directory");
@@ -324,6 +375,12 @@ public class CommandLine {
 		if (bundleOutputDir == null) {
 			System.exit(-1);
 		}
+		//
+		// Find the Service config base directory
+		//
+		File serviceConfigDir = resolveServicesConfigDir();
+		log.debug(serviceConfigDir.getAbsolutePath());
+		
 		//
 		// Find the App config base directory and start processing.
 		//
