@@ -11,10 +11,12 @@ package org.collectionspace.chain.controller;
  * 
  */
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,11 +25,19 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.PosixParser;
+import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.installation.XsdGeneration;
 import org.collectionspace.csp.helper.core.ConfigFinder;
 import org.collectionspace.services.common.api.JEEServerDeployment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import ch.elca.el4j.services.xmlmerge.config.ConfigurableXmlMerge;
+import ch.elca.el4j.services.xmlmerge.config.PropertyXPathConfigurer;
+import ch.elca.el4j.services.xmlmerge.AbstractXmlMergeException;
+import ch.elca.el4j.services.xmlmerge.ConfigurationException;
+import ch.elca.el4j.services.xmlmerge.Configurer;
+
 
 class AppConfigDeployFileFilter implements FilenameFilter {
     @Override
@@ -64,6 +74,8 @@ public class CommandLine {
 	private static File cspaceHomeDir;
 	private static File appConfigDir;
 	private static File bundlesOutputDir;
+	
+	private static final String XMLMERGE_DEFAULT_PROPS_STR="matcher.default=ID\n";
 	
 	
 	private static File getCspaceHomeDir() {
@@ -276,6 +288,26 @@ public class CommandLine {
     	
     	return result;
     }
+	
+	private static InputStream getServiceBindingsDeltaStream() {
+		InputStream result = null;
+		
+		return result;
+	}
+	
+	private static String mergeWithServiceDelta(String generatedBindings) throws Exception {
+		String result = null;
+		
+		InputStream generatedBindingsStream = new ByteArrayInputStream(generatedBindings.getBytes());
+		InputStream serviceBindingsDeltaStream = getServiceBindingsDeltaStream();
+		InputStream[] inputStreams = {generatedBindingsStream, serviceBindingsDeltaStream};
+		
+		Configurer configurer = new PropertyXPathConfigurer(XMLMERGE_DEFAULT_PROPS_STR);
+		InputStream mergedStream = new ConfigurableXmlMerge(configurer).merge(inputStreams);
+		result = IOUtils.toString(mergedStream, "UTF-8");
+
+		return result;
+	}
 	
 	public static final void main(String[] args) throws Exception {
 		//

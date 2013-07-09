@@ -59,6 +59,7 @@
 				<client>nuxeo-java</client>
 				<dateformats>
 					<pattern>MM/dd/yyyy</pattern>
+					<pattern>MMM dd, yyyy</pattern>
 					<pattern>dd.MM.yyyy</pattern>
 				</dateformats>
 				<languages>
