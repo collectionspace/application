@@ -145,11 +145,10 @@ public class Services {
 	 */
 	private String doServiceBindingsCommon(String serviceBindingVersion) {
 		Document doc = DocumentFactory.getInstance().createDocument();
+		
 		Element root = doc.addElement(new QName("TenantBindingConfig", this.nstenant));
 		root.addAttribute("xsi:schemaLocation", this.schemaloc);
-		// root.add(this.nsservices);
 		root.add(this.nsxsi);
-		// root.add(this.nstypes);
 
 		// <tenant:tenantBinding version="0.1">
 		Element ele = root.addElement(new QName("tenantBinding", nstenant));

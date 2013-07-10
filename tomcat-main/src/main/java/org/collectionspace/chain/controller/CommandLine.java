@@ -13,6 +13,7 @@ package org.collectionspace.chain.controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,6 +33,7 @@ import org.collectionspace.services.common.api.JEEServerDeployment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ch.elca.el4j.services.xmlmerge.config.AttributeMergeConfigurer;
 import ch.elca.el4j.services.xmlmerge.config.ConfigurableXmlMerge;
 import ch.elca.el4j.services.xmlmerge.config.PropertyXPathConfigurer;
 import ch.elca.el4j.services.xmlmerge.AbstractXmlMergeException;
@@ -79,6 +81,8 @@ public class CommandLine {
 	private static File bundlesOutputDir;
 	
 	private static final String XMLMERGE_DEFAULT_PROPS_STR="matcher.default=ID\n";
+
+	private static final String SERVICES_DELTA_FILE = "tenant-bindings-proto-unified.xml";
 	
 	
 	private static File getCspaceHomeDir() {
@@ -340,8 +344,12 @@ public class CommandLine {
     	return result;
     }
 	
-	private static InputStream getServiceBindingsDeltaStream() {
+	private static InputStream getServiceBindingsDeltaStream() throws Exception {
 		InputStream result = null;
+		
+		File servicesConfigDir = getServicesConfigDir();
+		File servicesDeltaFile = new File(servicesConfigDir + "/" + SERVICES_DELTA_FILE);
+		result = new FileInputStream(servicesDeltaFile);
 		
 		return result;
 	}
@@ -353,7 +361,7 @@ public class CommandLine {
 		InputStream serviceBindingsDeltaStream = getServiceBindingsDeltaStream();
 		InputStream[] inputStreams = {generatedBindingsStream, serviceBindingsDeltaStream};
 		
-		Configurer configurer = new PropertyXPathConfigurer(XMLMERGE_DEFAULT_PROPS_STR);
+		Configurer configurer = new AttributeMergeConfigurer();
 		InputStream mergedStream = new ConfigurableXmlMerge(configurer).merge(inputStreams);
 		result = IOUtils.toString(mergedStream, "UTF-8");
 
@@ -437,6 +445,7 @@ public class CommandLine {
 					} else {
 						throw new Exception(String.format("Could not create tenant bindings for file %s", tenantConfigFile));
 					}
+					String mergedTenantBindings = mergeWithServiceDelta(tenantBindings);
 				} catch (Exception e) {
 					String exceptionMsg = e.getMessage();
 					if (errMsg != null) {
