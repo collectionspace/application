@@ -26,6 +26,7 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.PosixParser;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.installation.XsdGeneration;
 import org.collectionspace.csp.helper.core.ConfigFinder;
@@ -62,6 +63,8 @@ public class CommandLine {
 	private static final String SCHEMA_AND_DOCTYPES_DIR = JEEServerDeployment.NUXEO_SERVER_DIR;
 	private static final String TENANT_CONFIG_DIR = "lib";
 	private static final String SERVICES_TENANT_CONFIG_DIR = "cspace/config/services/tenants";
+	private static final String TENANT_BINDINGS_DIR = JEEServerDeployment.CSPACE_DIR_NAME + File.separator + JEEServerDeployment.CONFIG_DIR_PATH
+			+ File.separator + JEEServerDeployment.TENANT_BINDINGS_ROOTDIRNAME;
 	
 	private static Options options;
 	private static org.apache.commons.cli.CommandLine cmd;
@@ -78,6 +81,7 @@ public class CommandLine {
 	private static File cspaceHomeDir;
 	private static File appConfigDir;
 	private static File servicesConfigDir;
+	private static File bindingsOutputDir;
 	private static File bundlesOutputDir;
 	
 	private static final String XMLMERGE_DEFAULT_PROPS_STR="matcher.default=ID\n";
@@ -109,7 +113,14 @@ public class CommandLine {
 		return servicesConfigDir;
 	}
 	
+	private static File getBindingsOutputDir() {
+		return bindingsOutputDir;
+	}
 
+
+	private static void setBindingsOutputDir(File dir) {
+		bindingsOutputDir = dir;
+	}
 
 	private static File getBundlesOutputDir() {
 		return bundlesOutputDir;
@@ -379,8 +390,10 @@ public class CommandLine {
 		//
 		// Make sure we have a place to output the schema and doctype bundles
 		//
-		File bundleOutputDir = resolveBundleOutputDir();
-		if (bundleOutputDir == null) {
+		File bundleOutputDir = resolveOutputDir(JEEServerDeployment.NUXEO_SERVER_PLUGINS_DIR, "Service Bundles");
+		if (bundleOutputDir != null) {
+			setBundlesOutputDir(bundleOutputDir);
+		} else {
 			System.exit(-1);
 		}
 		//
@@ -436,7 +449,15 @@ public class CommandLine {
 				//
 				XsdGeneration tenantBindingsMetadata = null;
 				try {
+					File bindingsOutputDir = resolveOutputDir(TENANT_BINDINGS_DIR, "Service Bindings");
+					if (bindingsOutputDir != null) {
+						setBindingsOutputDir(bindingsOutputDir);
+					} else {
+						System.exit(-1);
+					}
 					tenantBindingsMetadata = new XsdGeneration(tenantConfigFile, "delta"/*"core"*/, "3.0", bundleOutputDir, SERVICE_BINDINGS_VERSION);
+					String tenantName = tenantBindingsMetadata.getSpec().getAdminData().getTenantName();
+					
 					String tenantBindings = tenantBindingsMetadata.getTenantBindings();
 					if (tenantBindings != null) {
 						log.debug(String.format("Service Bindings Begin: %s >>>+++++++++++++++++++++++++++++++++>>>", tenantConfigFile.getName()));
@@ -446,6 +467,11 @@ public class CommandLine {
 						throw new Exception(String.format("Could not create tenant bindings for file %s", tenantConfigFile));
 					}
 					String mergedTenantBindings = mergeWithServiceDelta(tenantBindings);
+					if (mergedTenantBindings != null) {
+						FileUtils.writeStringToFile(bindingsOutputDir, mergedTenantBindings);
+					} else {
+						throw new Exception(String.format("Could not create merged tenant bindings for file %s", tenantConfigFile));
+					}
 				} catch (Exception e) {
 					String exceptionMsg = e.getMessage();
 					if (errMsg != null) {
@@ -475,7 +501,69 @@ public class CommandLine {
 			System.exit(-1);
 		}
 	}
-
+	
+	private static File resolveOutputDir(String outputDirPath, String outputDirLabel) {
+		File result = null;
+		String errMsg = null;
+		
+		String outputDirName = cmd != null ? cmd.getOptionValue(ARG_OUTPUT_DIR) : null;
+		if (outputDirName == null || outputDirName.isEmpty() == true) {
+			// If they didn't specify the output dir as a command line argument
+			// then look for the JEE server path in the environment vars and derive the output dir from it
+			Map<String, String> env = System.getenv();
+			String jeeHomeDir = env.get(ConfigFinder.CSPACE_JEESERVER_HOME);
+			if (jeeHomeDir != null && jeeHomeDir.trim().isEmpty() == false) {
+				outputDirName = jeeHomeDir + "/" + outputDirPath;
+				log.info(String.format("No command line argument for the output directory of the %s was specified so we're using "
+						+ "the system environment variable '%s'='%s' to locate the output directory.", outputDirLabel,
+						ConfigFinder.CSPACE_JEESERVER_HOME, jeeHomeDir));
+			} else {
+				errMsg = String.format("No command line argument for the output directory was specified and the system environment variable '%s' is missing.",
+						ConfigFinder.CSPACE_JEESERVER_HOME);
+				outputDirName = System.getProperty("user.dir"); // The current directory
+				outputDirName = outputDirName + File.separator + outputDirPath;
+				log.warn(String.format("Writing %s out to '%s'", outputDirLabel, outputDirName));
+			}
+		}
+		
+		if (outputDirName != null) {
+			File dir = new File(outputDirName);
+			if (dir.exists() == true && dir.isDirectory() == true) {
+				result = dir;
+			} else {
+				//
+				// The output directory does not exist, so try to create it
+				//
+				boolean createdDir = false;
+				try {
+					createdDir = dir.mkdirs();
+				} catch (SecurityException Se) {
+					log.trace(Se.getMessage(), Se);
+				}
+				if (createdDir == true) {
+					result = dir;
+					log.debug(String.format("Created directory '%s' for %s.",
+									dir.getAbsolutePath(), outputDirLabel));
+				} else {
+					errMsg = String
+							.format("Could not create output directory '%s' for %s.",
+									dir.getAbsolutePath(), outputDirPath);
+				}
+			}
+		}
+		
+		if (errMsg != null) {
+			log.error(errMsg);
+		} else {
+			log.debug(String.format("Writing %s out to directory %s.", outputDirLabel, result.getAbsolutePath()));
+		}
+		
+		return result;
+	}
+	
+	//
+	// FIXME - REM: Calls to this method should be replaced with a call to the more generic resolveOutputDir() method.
+	//
 	private static File resolveBundleOutputDir() {
 		File result = null;
 		String errMsg = null;
@@ -492,7 +580,11 @@ public class CommandLine {
 						+ "the system environment variable '%s'='%s' to locate the output directory.",
 						ConfigFinder.CSPACE_JEESERVER_HOME, jeeHomeDir));
 			} else {
+				log.warn(String.format("No command line argument for the App config directory was specified and the system environment variable '%s' is missing.",
+						ConfigFinder.CSPACE_JEESERVER_HOME));
 				outputDirName = System.getProperty("user.dir");
+				outputDirName = outputDirName + File.separator + JEEServerDeployment.NUXEO_PLUGINS_DIR;
+				log.warn(String.format("Writing service bundles out to '%s'", outputDirName));
 			}
 		}
 		
