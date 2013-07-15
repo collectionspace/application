@@ -477,20 +477,13 @@ public class CommandLine {
 						throw new Exception(String.format("Could not create tenant bindings for file %s", tenantConfigFile));
 					}
 					String mergedTenantBindings = mergeWithServiceDelta(tenantBindings);
-<<<<<<< HEAD
-					log.debug(String.format("Merged Service Bindings Begin: %s >>>+++++++++++++++++++++++++++++++++>>>", tenantConfigFile.getName()));
-					log.debug(mergedTenantBindings);
-					String outputFileName = tenantConfigFile.getName() + ".merged.bindings.xml";
-					writeToFile(outputFileName, mergedTenantBindings);
-					log.debug("Merged Service Bindings End: <<<+++++++++++++++++++++++++++++++++<<<");
-
-=======
 					if (mergedTenantBindings != null) {
-						FileUtils.writeStringToFile(bindingsOutputDir, mergedTenantBindings);
+						String mergedTenantBindingsFilename = bindingsOutputDir.getAbsolutePath() + File.separator + tenantName +
+								"-" + JEEServerDeployment.TENANT_BINDINGS_PROTOTYPE_FILENAME;
+						FileUtils.writeStringToFile(new File(mergedTenantBindingsFilename), mergedTenantBindings);
 					} else {
 						throw new Exception(String.format("Could not create merged tenant bindings for file %s", tenantConfigFile));
 					}
->>>>>>> 34d93b4f049aaba4f6b34f421a3935721f82a55d
 				} catch (Exception e) {
 					String exceptionMsg = e.getMessage();
 					if (errMsg != null) {
