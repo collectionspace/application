@@ -26,6 +26,7 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.PosixParser;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.installation.XsdGeneration;
 import org.collectionspace.csp.helper.core.ConfigFinder;
@@ -368,6 +369,16 @@ public class CommandLine {
 		return result;
 	}
 	
+	private static final void writeToFile(String outputFileName, String outputString) {
+		File outputFile = new File(outputFileName);
+		
+		try {
+			FileUtils.writeStringToFile(outputFile, outputString);
+		} catch (Exception e) {
+			log.debug(String.format("Could not write service bindings file to: %s", outputFile), e);
+		}
+	}
+	
 	public static final void main(String[] args) throws Exception {
 		//
 		// Parse the commandline arguments.
@@ -446,6 +457,12 @@ public class CommandLine {
 						throw new Exception(String.format("Could not create tenant bindings for file %s", tenantConfigFile));
 					}
 					String mergedTenantBindings = mergeWithServiceDelta(tenantBindings);
+					log.debug(String.format("Merged Service Bindings Begin: %s >>>+++++++++++++++++++++++++++++++++>>>", tenantConfigFile.getName()));
+					log.debug(mergedTenantBindings);
+					String outputFileName = tenantConfigFile.getName() + ".merged.bindings.xml";
+					writeToFile(outputFileName, mergedTenantBindings);
+					log.debug("Merged Service Bindings End: <<<+++++++++++++++++++++++++++++++++<<<");
+
 				} catch (Exception e) {
 					String exceptionMsg = e.getMessage();
 					if (errMsg != null) {

@@ -36,6 +36,7 @@ import org.collectionspace.chain.csp.schema.Util;
  */
 public class TenantSpec {
 	private static final String DEFAULT_INDEX_HANDLER = "org.collectionspace.services.common.init.AddIndices";
+	private String tenantId;
 	private String tenant, tenantDisplay, tenantVersion;
 	private String storageName;
 	private String repoClient;
@@ -48,6 +49,7 @@ public class TenantSpec {
 	
 	public TenantSpec(ReadOnlySection section) {
 		repositoryDomain = "default-domain"; //FIXME:REM - This should not be hard coded.  Should be part of the App layer configuration
+		tenantId = Util.getStringOrDefault(section,"/tenant/id","-1");
 		tenant = Util.getStringOrDefault(section,"/tenant/name","collectionspace.org");
 		tenantDisplay = Util.getStringOrDefault(section,"/tenant/display-name","CollectionSpace Demo");
 		tenantVersion = Util.getStringOrDefault(section,"/tenant/version","1.0");
@@ -116,6 +118,10 @@ public class TenantSpec {
 		return tenant;
 	}
 
+	public String getTenantId(){
+		return tenantId;
+	}
+	
 	public String getTenantVersion(){
 		return tenantVersion;
 	}

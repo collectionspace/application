@@ -153,6 +153,7 @@ public class Services {
 		// <tenant:tenantBinding version="0.1">
 		Element ele = root.addElement(new QName("tenantBinding", nstenant));
 		if (!this.defaultonly) {
+			ele.addAttribute("id", this.tenantSpec.getTenantId());
 			ele.addAttribute("name", this.tenantSpec.getTenant());
 			ele.addAttribute("displayName", this.tenantSpec.getTenantDisplay());
 		}

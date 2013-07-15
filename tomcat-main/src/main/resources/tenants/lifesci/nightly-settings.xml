@@ -50,6 +50,7 @@
         <service>
             <url>http://nightly.collectionspace.org:8180/cspace-services</url>
 			<tenant>
+				<id>2</id>
 				<name>lifesci.collectionspace.org</name>
 				<version>0.1</version>
 				<display-name>Default tenant Lifesci</display-name>
