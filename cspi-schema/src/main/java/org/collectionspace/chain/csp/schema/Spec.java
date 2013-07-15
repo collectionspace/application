@@ -69,7 +69,7 @@ public class Spec implements CSP, Configurable {
 	
 	public String getTenantID() {
 		return tenantid;
-	}
+	}	
 
 	@Override
 	public void go(CSPContext ctx) throws CSPDependencyException {

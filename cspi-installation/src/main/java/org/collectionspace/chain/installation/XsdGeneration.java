@@ -97,9 +97,7 @@ public class XsdGeneration {
 	private static final String JAR_EXT = ".jar";	
 
 	private static final String TENANT_QUALIFIER = "Tenant";
-
 	private static final String NX_PLUGIN_NAME = "nx_plugin_out";
-
 	private static final int MAX_OSGI_LINE_LEN = 72;
 	
 	private HashMap<String, String> serviceSchemas = new HashMap<String, String>();
@@ -108,6 +106,15 @@ public class XsdGeneration {
 	
 	private String tenantBindings = null;
 	private File configBase = null;
+	private Spec spec;
+
+	public Spec getSpec() {
+		return this.spec;
+	}
+	
+	private void setSpec(Spec spec) {
+		this.spec = spec;
+	}
 	
 	public String getTenantBindings() {
 		return this.tenantBindings;
@@ -194,7 +201,8 @@ public class XsdGeneration {
 	
 	public XsdGeneration(File configfile, String type, String schemaVersion, File outputDir, String serviceBindingsVersion) throws Exception {		
 		CSPManager cspm=getServiceManager(configfile);
-		Spec spec = getSpec(cspm);
+		Spec spec = createSpec(cspm);
+		setSpec(spec);
 
 		// 1. Setup a hashmap to keep track of which records and bundles we've already processed.
 		// 2. Loop through all the known record types
@@ -249,7 +257,7 @@ public class XsdGeneration {
 				throw new Exception(errMsg);
 			}
 		} else if (type.equals("delta")) { // Create the service bindings.
-			Services tenantbob = new Services(getSpec(cspm), getTenantData(cspm),false);
+			Services tenantbob = new Services(createSpec(cspm), getTenantData(cspm),false);
 			tenantBindings = tenantbob.doit(serviceBindingsVersion);
 		}
 	}
@@ -850,7 +858,7 @@ public class XsdGeneration {
 		return result;
 	}
 	
-	private Spec getSpec(CSPManager cspm){
+	private Spec createSpec(CSPManager cspm){
 		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 		return spec;
