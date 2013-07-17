@@ -158,11 +158,12 @@ public class CommandLine {
 			Map<String, String> env = System.getenv();
 			String jeeHomeDir = env.get(ConfigFinder.CSPACE_JEESERVER_HOME);
 			if (jeeHomeDir != null && jeeHomeDir.trim().isEmpty() == false) {
-				configDirName = jeeHomeDir + "/" + SERVICES_TENANT_CONFIG_DIR;
+				configDirName = jeeHomeDir;
 			}
 			log.info(String.format("No command line argument for the Services config directory was specified so we're using the system environment variable '%s'='%s' to locate the config files.",
 					ConfigFinder.CSPACE_JEESERVER_HOME, jeeHomeDir));
 		}
+		configDirName = configDirName + File.separator + SERVICES_TENANT_CONFIG_DIR;
 		
 		if (configDirName != null) {
 			File dir = new File(configDirName);
@@ -346,7 +347,7 @@ public class CommandLine {
     						dir.getAbsoluteFile(), jeeHomeDir));
     			}
     		} else {
-    			log.error(String.format("Too run this command you must either supply some command line arguments or set the system environment variable '%s'.",
+    			log.error(String.format("To run this command you must supply either command line arguments or set the system environment variable '%s'.",
     					ConfigFinder.CSPACE_JEESERVER_HOME));
         		showHelp(new Exception("No arguments specified."));
     		}
@@ -410,6 +411,9 @@ public class CommandLine {
 		// Find the Service config base directory
 		//
 		File serviceConfigDir = resolveServicesConfigDir();
+		if (serviceConfigDir == null) {
+			System.exit(-1);
+		}
 		log.debug(serviceConfigDir.getAbsolutePath());
 		
 		//
