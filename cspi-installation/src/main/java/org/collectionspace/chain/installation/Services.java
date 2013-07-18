@@ -467,7 +467,7 @@ public class Services {
 	private void setDomain(Record r) {
 		if (!this.defaultonly) {
 			this.domainsection = ""; // assumes only one domain
-			for (String section : r.getServicesRecordPaths()) {
+			for (String section : r.getServicesRecordPathKeys()) {
 				if (!section.equals("common")
 						&& !section.equals(COLLECTIONSPACE_CORE_PART_NAME)) {
 					this.domainsection = section; // assumes only one domain
@@ -495,15 +495,16 @@ public class Services {
 	/**
 	 * domain specific tenant binding
 	 */
-	private void makeLowerParts(Record r, ArrayList<String> processedPartsList, Namespace thisns, Element cele, String label, String labelsg, Boolean isAuthority){
+	private void makeLowerParts(Record r, ArrayList<String> processedPartsList, Namespace thisns, Element cele,
+			String label, String labelsg, Boolean isAuthority) {
 		Integer num = processedPartsList.size();
-		
-		for (String servicePart : r.getServicesRecordPaths()) {
+
+		for (String servicePart : r.getServicesRecordPathKeys()) {
 			if (inProcessedPartsList(processedPartsList, servicePart) == false) {
-				String namespaceURI = r.getServicesSchemaNameSpaceURI(servicePart);
-				String schemaLocationCommon = namespaceURI + " " + r.getServicesSchemaBaseLocation() + labelsg + "/" + label + ".xsd";			
-				makePart(r, cele, num.toString(), r.getServicesPartLabel(servicePart),
-						num.toString(), namespaceURI, schemaLocationCommon, thisns, false, servicePart);
+				String schemaNamespace = r.getServicesSchemaNameSpaceURI(servicePart);
+				String schemaLocationCommon = r.getXMLSchemaLocation(servicePart);
+				makePart(r, cele, num.toString(), r.getServicesPartLabel(servicePart), num.toString(), schemaNamespace,
+						schemaLocationCommon, thisns, !isAuthority, servicePart);
 				processedPartsList.add(servicePart);
 				num++;
 			}

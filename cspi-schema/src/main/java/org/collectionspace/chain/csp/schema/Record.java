@@ -768,7 +768,7 @@ public class Record implements FieldParent {
 		return utils.getString("services-single-instance-path");
 	}
 
-	public String[] getServicesRecordPaths() {
+	public String[] getServicesRecordPathKeys() {
 		return services_record_paths.keySet().toArray(new String[0]);
 	}
 	
@@ -802,6 +802,19 @@ public class Record implements FieldParent {
 				
 		return schemaLocationCore;
 	}
+	
+	public String getXMLSchemaLocation(String sectionName) {
+		String result;
+		
+		String schemaName = this.getServicesSchemaName(sectionName);
+		String schemaNamespaceUri = this.getServicesSchemaNameSpaceURI(sectionName);
+		String schemaXsdLocation = schemaNamespaceUri.replace(sectionName, schemaName);
+		result = schemaNamespaceUri + " " + schemaXsdLocation + ".xsd";
+		
+		return result;
+	}
+	
+	
 	
 	public String getServicesPartLabel(String sectionName) {
 		String[] pathParts = getServicesRecordPath(sectionName).split(":", 2);
