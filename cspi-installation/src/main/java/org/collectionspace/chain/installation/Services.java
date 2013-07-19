@@ -320,9 +320,11 @@ public class Services {
 		xconle.addAttribute("schemaLocation", schemaLocation);
 		
 		if (addAuths) {
-			Element auths = pele.addElement(new QName("properties", thisns));
-			doAuthRefs(auths, this.nstypes, r, section);
-
+			Element authRefsElement = pele.addElement(new QName("properties", thisns));
+			boolean createdAuthRefs = doAuthRefs(authRefsElement, this.nstypes, r, section);
+			if (createdAuthRefs == false) {
+				pele.remove(authRefsElement);
+			}
 		}
 	}
 	
@@ -503,7 +505,7 @@ public class Services {
 				String namespaceURI = r.getServicesSchemaNameSpaceURI(servicePart);
 				String schemaLocationCommon = namespaceURI + " " + r.getServicesSchemaBaseLocation() + labelsg + "/" + label + ".xsd";			
 				makePart(r, cele, num.toString(), r.getServicesPartLabel(servicePart),
-						num.toString(), namespaceURI, schemaLocationCommon, thisns, false, servicePart);
+						num.toString(), namespaceURI, schemaLocationCommon, thisns, !isAuthority, servicePart);
 				processedPartsList.add(servicePart);
 				num++;
 			}
@@ -859,8 +861,14 @@ public class Services {
 		return result;
 	}
 	
-	private void createAuthRef(Element auth, Namespace types, Record r, String section, FieldSet in) {
+	/*
+	 * If we authRef's or termRef's, then we create an entry in the bindings xml and return 'true'; otherwise, we return 'false'
+	 */
+	private boolean createAuthRef(Element auth, Namespace types, Record r, String section, FieldSet in) {
+		boolean result = false;
+		
 		if (in.getSection().equals(section) && in.hasAutocompleteInstance()) {
+			result = true; // Let the caller know we created an referenced term 
 			Boolean isEnum = false;
 			if (in instanceof Field) {
 				isEnum = (((Field) in).getUIType()).equals("enum");
@@ -876,12 +884,7 @@ public class Services {
 			tele2.addText(refType);
 			String name = "";
 			FieldSet fs = (FieldSet) in;
-			
-			//Debugging
-			String recordID = r.getRecordName();
-			String fieldSetID = fs.getID();
-			log.debug("");
-			
+						
 			while (fs.getParent().isTrueRepeatField() == true) {
 				String xpathStructuredPart = fs.getServicesTag();
 				if (fs.getParent() instanceof Repeat) {
@@ -901,6 +904,8 @@ public class Services {
 			name += in.getServicesTag();
 			tele3.addText(name);
 		}
+		
+		return result;
 	}
 	
 	/*
@@ -909,8 +914,12 @@ public class Services {
 	 *      <types:key>authRef</types:key>
 	 *      <types:value>currentOwner</types:value>
 	 *  </types:item>
+	 *  
+	 *  If we don't create any entries then we'll return 'false' to the caller;
 	 */
-	private void doAuthRefs(Element auth, Namespace types, Record r, String section) {
+	private boolean doAuthRefs(Element auth, Namespace types, Record r, String section) {
+		boolean result = false;
+		
 		for (FieldSet in : r.getAllFieldFullList("")) {
 			if (in.isASelfRenderer() == true) {
 				String fieldSetServicesType = in.getServicesType(false /* not NS qualified */);
@@ -919,11 +928,19 @@ public class Services {
 				//
 				// Iterate through each field of the subrecord
 				//
-				doAuthRefs(auth, types, subRecord, section); // Recursive call
+				boolean createdAuths = doAuthRefs(auth, types, subRecord, section); // Recursive call
+				if (createdAuths == true) {
+					result = true; // Let the caller know we created at least one auth/term reference
+				}
 					
 			} else {
-				createAuthRef(auth, types, r, section, in);
+				boolean createdAuths = createAuthRef(auth, types, r, section, in);
+				if (createdAuths == true) {
+					result = true; // Let the caller know we created at least one auth/term reference
+				}
 			}
 		}
+		
+		return result;
 	}
 }

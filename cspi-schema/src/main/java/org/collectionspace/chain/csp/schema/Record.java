@@ -688,7 +688,11 @@ public class Record implements FieldParent {
 		String elementVal = utils.getString("services-tenant-doctype");
 		if (elementVal != null && elementVal.trim().isEmpty() == false) {
 			result = elementVal;
-		} else if (isAuthority == true) {
+		}
+		//
+		// Handle special case for Authorities
+		// 
+		if (isAuthority == true) {
 			result = this.getServicesTenantAuthSg();
 		}
 		
