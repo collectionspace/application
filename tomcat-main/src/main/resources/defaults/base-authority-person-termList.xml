@@ -34,8 +34,7 @@
             <field id="termPrefForLang" datatype="boolean">
                 <selector>personAuthority-termPrefForLang</selector>
             </field>
-            <field id="termSource">
-                <!-- To be tied to citation authority eventually? -->
+            <field id="termSource" autocomplete="citation-citation,citation-worldcat">
                 <selector>personAuthority-termSource</selector>
             </field>
             <field id="termSourceDetail">

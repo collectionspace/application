@@ -405,7 +405,19 @@
                                 ".csc-conceptAuthority-termName": "${{row}.termName}", 
                                 ".csc-conceptAuthority-termPrefForLang": "${{row}.termPrefForLang}", 
                                 ".csc-conceptAuthority-termQualifier": "${{row}.termQualifier}", 
-                                ".csc-conceptAuthority-termSource": "${{row}.termSource}", 
+                                ".csc-conceptAuthority-termSource": {
+                                  "decorators": [
+                                    {
+                                      "func": "cspace.autocomplete", 
+                                      "options": {
+                                        "queryUrl": "../../../tenant/core/preferredCA/autocomplete/termSource", 
+                                        "vocabUrl": "../../../tenant/core/preferredCA/source-vocab/termSource"
+                                      }, 
+                                      "type": "fluid"
+                                    }
+                                  ], 
+                                  "value": "${{row}.termSource}"
+                                }, 
                                 ".csc-conceptAuthority-termSourceDetail": "${{row}.termSourceDetail}", 
                                 ".csc-conceptAuthority-termSourceID": "${{row}.termSourceID}", 
                                 ".csc-conceptAuthority-termSourceNote": "${{row}.termSourceNote}", 

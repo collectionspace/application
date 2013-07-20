@@ -1,7 +1,6 @@
 {
     "taxonYear": "1832",
     "taxonCurrency": "current",
-    "taxonomicStatus": "valid",
     "shortIdentifier": "CentauruspleurexanthemusGreen1832",
     "taxonCitationList": [
         {
@@ -10,11 +9,20 @@
         }
     ],
     "taxonIsNamedHybrid": "false",
-    "termStatus": "accepted",
-    "taxonFullName": "Centaurus pleurexanthemus Green 1832",
-    "displayName": "Centaurus pleurexanthemus Green 1832",
-    "refid":
-        "urn:cspace:org.collectionspace.demo:taxonomyauthority:name(demotaxonomy):taxon:name(CentauruspleurexanthemusGreen1832)'Centaurus pleurexanthemus Green 1832'",
-    "recordtype": "taxonomy",
-    "taxonRank": "species"
+    "taxonAuthorGroup": [
+        {
+            "_primary": true,
+            "taxonAuthor": "J. Green",
+            "taxonAuthorType": "ascribed",
+        }
+    ],
+    "taxonRank": "species",
+    "taxonTermGroup": [
+        {
+            "_primary": true,
+            "termDisplayName": "Centaurus pleurexanthemus Green 1832",
+            "termStatus": "accepted",
+            "taxonomicStatus": "valid",
+        }
+    ]
 }

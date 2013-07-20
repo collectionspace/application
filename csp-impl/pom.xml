@@ -120,7 +120,7 @@
 		<repository>
 			<id>collectionspace-remote-repos</id>
 			<name>collectionspace-remote-repos</name>
-			<url>http://source.collectionspace.org:8081/artifactory/remote-repos</url>
+			<url>http://nightly.collectionspace.org:8081/artifactory/remote-repos</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
@@ -128,7 +128,7 @@
 		<repository>
 			<id>libs-releases-local</id>
 			<name>libs-releases-local</name>
-			<url>http://source.collectionspace.org:8081/artifactory/libs-releases-local</url>
+			<url>http://nightly.collectionspace.org:8081/artifactory/libs-release-local</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>

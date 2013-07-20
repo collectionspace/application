@@ -14,9 +14,9 @@
   
   <repositories>
     <repository>
-        <id>libs-snapshots-local</id>
-        <name>libs-snapshots-local</name>
-        <url>http://source.collectionspace.org:8081/artifactory/libs-snapshots-local</url>
+        <id>libs-snapshot-local</id>
+        <name>libs-snapshot-local</name>
+        <url>http://nightly.collectionspace.org:8081/artifactory/libs-snapshot-local</url>
     </repository>
   </repositories>
 
@@ -60,7 +60,7 @@
      <dependency>
          <groupId>org.collectionspace.services</groupId>
          <artifactId>org.collectionspace.services.common-api</artifactId>
-         <version>3.2.2-SNAPSHOT</version>
+         <version>3.3-SNAPSHOT</version>
      </dependency>    
     
     

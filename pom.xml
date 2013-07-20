@@ -29,15 +29,17 @@
 		<maven.tomcat.home>/tmp</maven.tomcat.home>
 	</properties>
   
-  <!-- The CollectionSpace public Maven repository for "snapshot" artifacts 
+  <!-- The CollectionSpace public Maven repository for "snapshot" artifacts -->
   <repositories>
     <repository>
-        <id>libs-snapshots-local</id>
-        <name>libs-snapshots-local</name>
-        <url>http://source.collectionspace.org:8081/artifactory/libs-snapshots-local</url>
+        <id>libs-snapshot-local</id>
+        <name>libs-snapshot-local</name>
+        <url>http://nightly.collectionspace.org:8081/artifactory/libs-snapshot-local</url>
+		<snapshots>
+			<enabled>true</enabled>
+		</snapshots>
     </repository>
   </repositories>
-  -->
   
   <build>
     <testResources>
