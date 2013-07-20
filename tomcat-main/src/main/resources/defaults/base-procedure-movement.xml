@@ -70,7 +70,7 @@
                         </options>
                     </field>
                     <field id="currentLocationNote"></field>
-                    <field id="locationDate" ui-search="range" in-title="yes" mini="list" ui-type="date" datatype="date">
+                    <field id="locationDate" ui-search="range" in-title="yes" mini="list" ui-type="date" datatype="date" services-should-index="true">
                         <selector>movement-locationDate</selector>
                     </field>
                     <field id="normalLocation" ui-search="repeatable" autocomplete="location-location"></field>

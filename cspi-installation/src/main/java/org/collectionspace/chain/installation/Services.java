@@ -469,7 +469,7 @@ public class Services {
 	private void setDomain(Record r) {
 		if (!this.defaultonly) {
 			this.domainsection = ""; // assumes only one domain
-			for (String section : r.getServicesRecordPaths()) {
+			for (String section : r.getServicesRecordPathKeys()) {
 				if (!section.equals("common")
 						&& !section.equals(COLLECTIONSPACE_CORE_PART_NAME)) {
 					this.domainsection = section; // assumes only one domain
@@ -497,15 +497,16 @@ public class Services {
 	/**
 	 * domain specific tenant binding
 	 */
-	private void makeLowerParts(Record r, ArrayList<String> processedPartsList, Namespace thisns, Element cele, String label, String labelsg, Boolean isAuthority){
+	private void makeLowerParts(Record r, ArrayList<String> processedPartsList, Namespace thisns, Element cele,
+			String label, String labelsg, Boolean isAuthority) {
 		Integer num = processedPartsList.size();
-		
-		for (String servicePart : r.getServicesRecordPaths()) {
+
+		for (String servicePart : r.getServicesRecordPathKeys()) {
 			if (inProcessedPartsList(processedPartsList, servicePart) == false) {
-				String namespaceURI = r.getServicesSchemaNameSpaceURI(servicePart);
-				String schemaLocationCommon = namespaceURI + " " + r.getServicesSchemaBaseLocation() + labelsg + "/" + label + ".xsd";			
-				makePart(r, cele, num.toString(), r.getServicesPartLabel(servicePart),
-						num.toString(), namespaceURI, schemaLocationCommon, thisns, !isAuthority, servicePart);
+				String schemaNamespace = r.getServicesSchemaNameSpaceURI(servicePart);
+				String schemaLocationCommon = r.getXMLSchemaLocation(servicePart);
+				makePart(r, cele, num.toString(), r.getServicesPartLabel(servicePart), num.toString(), schemaNamespace,
+						schemaLocationCommon, thisns, !isAuthority, servicePart);
 				processedPartsList.add(servicePart);
 				num++;
 			}
@@ -852,10 +853,23 @@ public class Services {
 	private String getXpathStructuredPart(Repeat repeat) {
 		String result = null;
 		
+		String servicesTag = repeat.getServicesTag();
 		String[] parts = repeat.getfullID().split("/");
-		result = parts[0];
 		if (parts.length > 1) { // If we have more than one part, we have a repeating structure.
-			result = result + GROUP_XPATH_SUFFIX;
+			result = parts[0] + GROUP_XPATH_SUFFIX;
+		} else {
+			result = servicesTag != null ? servicesTag : parts[0];
+			//
+			// For debugging.  The Service's Media schema uses the "List" field suffix differently (and against convention) from the other Services
+			//
+			String parentRecordName = repeat.getRecord().getRecordName();
+			if (servicesTag != null && !servicesTag.equals(parts[0])) {
+				log.warn(String.format("Potential internal error.  The Services tag '%s' does not match the field name '%s' for Repeat field '%s:%s.'",
+						servicesTag, parts[0], parentRecordName, repeat.getfullID()));
+			} else if (servicesTag == null) {
+				log.warn(String.format("Internal error.  Services tag '%s' was null for Repeat field '%s:%s'.",
+						servicesTag, parentRecordName, repeat.getfullID()));
+			}
 		}
 		
 		return result;
@@ -899,7 +913,7 @@ public class Services {
 				if (xpathStructuredPart.endsWith("*")) {
 					separator = "/";
 				}
-				name += xpathStructuredPart + separator;
+				name = xpathStructuredPart + separator + name;
 			}
 			name += in.getServicesTag();
 			tele3.addText(name);
@@ -921,6 +935,8 @@ public class Services {
 		boolean result = false;
 		
 		for (FieldSet in : r.getAllFieldFullList("")) {
+			String fieldName = in.getID() + ":" + in.getLabel();
+
 			if (in.isASelfRenderer() == true) {
 				String fieldSetServicesType = in.getServicesType(false /* not NS qualified */);
 				Spec spec = in.getRecord().getSpec();

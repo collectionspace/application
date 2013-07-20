@@ -148,7 +148,7 @@ public class XsdGeneration {
 			out.println(String.format("getServicesRecordPath = %s", record.getServicesRecordPath("")));
 			
 			out.println("getServicesRecordPaths =");
-			String[] recordPathList = record.getServicesRecordPaths();
+			String[] recordPathList = record.getServicesRecordPathKeys();
 			for (String recordPath : recordPathList) {
 				out.println(String.format("\t%s", recordPath));
 			}

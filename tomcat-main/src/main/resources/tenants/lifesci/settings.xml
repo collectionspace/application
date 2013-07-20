@@ -57,6 +57,7 @@
 			</tenant>
 			<repository>
 				<domain>lifesci-domain</domain>
+				<repository></repository>
 				<client>nuxeo-java</client>
 				<dateformats>
 					<pattern>MM/dd/yyyy</pattern>
