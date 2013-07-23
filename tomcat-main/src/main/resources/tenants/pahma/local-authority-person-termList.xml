@@ -12,6 +12,8 @@
 					<option id="rejected">rejected</option>
 				</options>
 			</field>
+			<!-- Remove autocomplete -->
+			<field id="termSource" autocomplete=""/>
 			<field id="title">
 				<!-- Change options -->
 				<options>
