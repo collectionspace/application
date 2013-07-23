@@ -9,6 +9,8 @@
 					<option id="alternativeterm">alternative term</option>
 				</options>
 			</field>
+			<!-- Remove autocomplete -->
+			<field id="termSource" autocomplete=""/>
 		</repeat>
 	</section>
 </record>
