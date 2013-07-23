@@ -24,7 +24,8 @@
       "worldcat", 
       "intake", 
       "group", 
-      "media"
+      "media",
+      "claim"
     ], 
     "type": "array"
   }
