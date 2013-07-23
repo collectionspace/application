@@ -1,6 +1,6 @@
 
 
-            <record id="structureddate" in-recordlist="no" separate-record="false">
+            <record id="structureddate" in-recordlist="no" separate-record="false" services-type="structuredDateGroup">
                 <section id="structuredDateInformation">
                     <field id="dateNote">
                         <selector>dateNote</selector>
@@ -98,15 +98,15 @@
                         <preselector></preselector>
                     </field>
                     
-                    <field id="dateEarliestScalarValue" ui-type="date">
+                    <field id="dateEarliestScalarValue" ui-type="date" datatype="date">
                         <selector>dateEarliestScalarValue</selector>
                         <preselector></preselector>
                     </field>
-                    <field id="dateLatestScalarValue" ui-type="date">
+                    <field id="dateLatestScalarValue" ui-type="date" datatype="date">
                         <selector>dateLatestScalarValue</selector>
                         <preselector></preselector>
                     </field>
-                    <field id="scalarValuesComputed" ui-search="false">
+                    <field id="scalarValuesComputed" ui-search="false" datatype="boolean">
                         <options>
                             <option id="true" default="yes">true</option>
                             <option id="false">false</option>

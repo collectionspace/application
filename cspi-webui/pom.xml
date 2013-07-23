@@ -5,13 +5,13 @@
   <groupId>org.collectionspace</groupId>
   <artifactId>cspi-webui</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>3.1-SNAPSHOT</version>
   <name>CSP: Web UI</name>
   
     <parent>
     <groupId>org.collectionspace</groupId>
     <artifactId>svcapp</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>3.1-SNAPSHOT</version>
   </parent>
   
 
@@ -28,21 +28,21 @@
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>csp-api</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>3.1-SNAPSHOT</version>
       <type>jar</type>
     </dependency>  
 
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>jxutils</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>3.1-SNAPSHOT</version>
       <type>jar</type>
     </dependency>  
 
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>cspi-schema</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>3.1-SNAPSHOT</version>
       <type>jar</type>
     </dependency>  
 
@@ -55,14 +55,14 @@
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>general-utils</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>3.1-SNAPSHOT</version>
       <type>jar</type>
     </dependency>  
   
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>csp-helper</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>3.1-SNAPSHOT</version>
       <type>jar</type>
     </dependency>  
 

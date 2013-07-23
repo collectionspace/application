@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 1 
+Bundle-Name: 
+ ${AuthBundleSymbolicName}
+Bundle-SymbolicName: 
+ ${AuthBundleSymbolicName};singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Localization: plugin
+Bundle-Vendor: Nuxeo 
+Require-Bundle: org.nuxeo.runtime, 
+ org.nuxeo.ecm.core.api,
+ org.nuxeo.ecm.core,
+ org.nuxeo.ecm.webapp.core
+Provide-Package: 
+ ${AuthBundleSymbolicName}
+Nuxeo-Component: OSGI-INF/core-schema-contrib.xml
+

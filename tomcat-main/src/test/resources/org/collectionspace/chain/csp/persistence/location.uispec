@@ -465,11 +465,25 @@
                 }, 
                 "type": "fluid.noexpand"
               }
+        ".csc-location-tenantId-label": {"messagekey": "location-tenantIdLabel"},
+        ".csc-location-deprecatedRefName-label": {"messagekey": "location-deprecatedRefNameLabel"},
+        ".csc-location-createdAt": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.createdAt}"
+        },
             }
+        ".csc-location-inAuthority": "${fields.inAuthority}",
+        ".csc-location-uri-label": {"messagekey": "location-uriLabel"},
+        ".csc-location-updatedAt-label": {"messagekey": "location-updatedAtLabel"},
+        ".csc-location-tenantId": "${fields.tenantId}",
+        ".csc-location-deprecatedRefName": "${fields.deprecatedRefName}",
           }, 
           "type": "fluid"
         }
       ]
-    }
+        ".csc-location-inAuthority-label": {"messagekey": "location-inAuthorityLabel"},
   }
 }

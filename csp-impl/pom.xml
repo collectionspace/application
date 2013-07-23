@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.collectionspace</groupId>
 		<artifactId>svcapp</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<version>3.1-SNAPSHOT</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -48,7 +48,7 @@
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>csp-api</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>3.1-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
@@ -120,15 +120,15 @@
 		<repository>
 			<id>collectionspace-remote-repos</id>
 			<name>collectionspace-remote-repos</name>
-			<url>http://nightly.collectionspace.org:8081/artifactory/remote-repos</url>
+			<url>http://source.collectionspace.org:8081/artifactory/remote-repos</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
 		<repository>
-			<id>libs-releases-local</id>
-			<name>libs-releases-local</name>
-			<url>http://nightly.collectionspace.org:8081/artifactory/libs-release-local</url>
+			<id>libs-release-local</id>
+			<name>libs-release-local</name>
+			<url>http://source.collectionspace.org:8081/artifactory/libs-release-local</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>

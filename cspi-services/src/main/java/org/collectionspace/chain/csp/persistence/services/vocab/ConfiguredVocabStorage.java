@@ -205,7 +205,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			else{
 				vocab = RefName.shortIdToPath(filePath);
 				pathurl ="/"+r.getServicesURL()+"/"+vocab+ITEMS_SUFFIX;
-				for(String section : r.getServicesRecordPaths()) {
+				for(String section : r.getServicesRecordPathKeys()) {
 					String path=r.getServicesRecordPath(section);
 					String[] record_path=path.split(":",2);
 					String[] tag_path=record_path[1].split(",",2);
@@ -377,7 +377,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			String parentcsid = null;
 			String shortIdentifier = "";
 			
-			for(String section : r.getServicesRecordPaths()) {
+			for(String section : r.getServicesRecordPathKeys()) {
 				String path=r.getServicesRecordPath(section);
 				String[] record_path=path.split(":",2);
 				String[] tag_path=record_path[1].split(",",2);
@@ -608,7 +608,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			String csid = savePath.split("/")[3];
 			
 			Map<String,Document> body=new HashMap<String,Document>();
-			for(String section : r.getServicesRecordPaths()) {
+			for(String section : r.getServicesRecordPathKeys()) {
 				String path=r.getServicesRecordPath(section);
 				String[] record_path=path.split(":",2);
 				String[] tag_path=record_path[1].split(",",2);

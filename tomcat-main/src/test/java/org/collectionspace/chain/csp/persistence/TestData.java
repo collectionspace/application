@@ -72,7 +72,7 @@ public class TestData {
 	private  InputSource getSource(String fallbackFile) {
         TestData demo = new TestData();
 		try {
-			return TestConfigFinder.getConfigStream(fallbackFile);
+			return TestConfigFinder.getConfigStream(fallbackFile, true);
 		} catch(Exception ce){	
 			try{
 				return TestConfigFinder.getConfigStream();

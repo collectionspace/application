@@ -1,12 +1,13 @@
-
-
-            <record id="media" in-findedit="yes" type="procedure,record">
+            <record id="media" in-findedit="yes" type="procedure,record" cms-type="default" generate-services-schema="true">
+                <services-url>media</services-url>      
                 <services-tenant-singular>Media</services-tenant-singular>
+                <services-tenant-plural>Media</services-tenant-plural>                
+                
+                <services-list-path>abstract-common-list/list-item</services-list-path>
                 <services-record-path>media_common:http://collectionspace.org/services/media,media_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-                <services-list-path>abstract-common-list/list-item</services-list-path>
-
                 <hassoftdelete>true</hassoftdelete>
+                
                 <structures>
                     <structure id="search">
                         <view>
@@ -41,12 +42,9 @@
 				<include src="domain-procedure-media.xml" strip-root="yes"/>
 				
                 <section id="coreInformation">
-                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
-                    <field id="createdBy" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
-                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                    <include src="core-fields.xml"  strip-root="yes" />
                 </section>
+
                 <section id="fileInformationHeader"></section> <!-- temp until better way to do group headers -->
                 <section id="fileInformation"></section> <!-- temp until better way to do group headers -->
                 <section id="mediaInformation">
@@ -55,9 +53,9 @@
                     <field id="format" ui-search="repeatable"></field>
                     <field id="dateCreated"></field>
                     <field id="dateModified"></field>
-                    <field id="externalMediaUrl"></field>
+                    <field id="externalMediaUrl" exists-in-services="false"></field>
 					
-					<field id="dimension" ui-type="groupfield/dimension/selfrenderer"  ui-func="cspace.dimension"  ></field>
+					<field id="dimension" ui-type="groupfield/dimension/selfrenderer"  ui-func="cspace.dimension"></field>
                     <field id="title" ui-search="repeatable" mini="summary,search,list,relate"></field>
                     <field id="contributor" autocomplete="person-person,organization-organization"></field>
                     <field id="creator" ui-search="repeatable" autocomplete="person-person,organization-organization"></field>
@@ -95,7 +93,7 @@
                     </repeat>
                     <field id="coverage"></field>
                     <repeat id="dateGroupList/dateGroup">
-                        <group id="date" ui-search="range" xxx-services-no-repeat="true" ui-type="groupfield/structureddate"
+                        <group id="date" ui-search="range" xxx-services-no-repeat="true" ui-type="groupfield/structureddate" services-group-type="dateGroup"
                                primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
                         </group>
                     </repeat>
@@ -111,7 +109,7 @@
                 <!-- not used in ui yet -->
                 <section id="otherInformation">
                     <field id="uri"></field>
-                    <field id="srcUri"></field>
+                    <field id="sourceUrl"></field>
                     <field id="blobCsid"></field>					
                     <field id="imgThumb" attributes="GET" mini="search,list,relate" exists-in-services="false">
                         <use-csid id="blobCsid">ims;download/;/Thumbnail</use-csid>
@@ -119,6 +117,6 @@
                     <field id="imgOrig" attributes="GET" mini="search,list,relate" exists-in-services="false">
                         <use-csid id="blobCsid">ims;download/;/Original</use-csid>
                     </field>
-                    <group id="blobs" ui-type="uploader" showgrouped="false" userecord="blobs" serviceurl="blobs" onlyifexists="blobCsid" attributes="GET" ui-spec-prefix="blobs" with-csid="blobCsid"/>
+                    <group id="blobs" exists-in-services="false" ui-type="uploader" showgrouped="false" userecord="blobs" serviceurl="blobs" onlyifexists="blobCsid" attributes="GET" ui-spec-prefix="blobs" with-csid="blobCsid"/>
                 </section>
             </record>

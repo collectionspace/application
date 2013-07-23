@@ -2,60 +2,73 @@
 
 <project name="Application Layer Nightly Build Script" default="post_build_tasks">
 
-    <property environment="env"/>
-    <property name="config_destination" value="${env.CSPACE_JEESERVER_HOME}/lib" />
-    <property name="app_trunk" location=".." />
-    <property name="app_resources_dir" location="${app_trunk}/tomcat-main/src/main/resources"/>
-    
-    <target name="post_build_tasks"
+	<property environment="env"/>
+	<property name="config_destination" value="${env.CSPACE_JEESERVER_HOME}/lib" />
+	<property name="nuxeo_config_destination" value="${env.CSPACE_JEESERVER_HOME}/nuxeo-server" />
+	<property name="app_trunk" location=".." />
+	<property name="app_resources_dir" location="${app_trunk}/tomcat-main/src/main/resources"/>
+	<property name="cspace.tool.csmake" value="csmake" />
+
+	<target name="post_build_tasks"
         description="Various post-build tasks"
-        depends="deploy_cspace_config, deploy_nightly_config, retrieve_jar">
-    </target>
-    
-    <target name="deploy_cspace_config"
+        depends="deploy_cspace_config, deploy_nightly_config, retrieve_jar, deploy_services_bundles">
+	</target>
+
+	<target name="deploy_cspace_config"
         description="Copies application layer config files to their deployed locations">
-        <!-- Copy defaults and tenants folders and all of their contents -->
-        <delete dir="${config_destination}/defaults"/>
-        <copy todir="${config_destination}/defaults">
-            <fileset dir="${app_resources_dir}/defaults" includes="*/**"/>
-        </copy>
-        <copy todir="${config_destination}/tenants">
-            <fileset dir="${app_resources_dir}/tenants" includes="*/**"/>
-        </copy>
-        <!-- Copy cspace-config files -->
-        <copy todir="${config_destination}" overwrite="true">
-            <fileset dir="${app_resources_dir}"/>
-            <globmapper from="*-tenant.xml" to="cspace-config-*.xml"/>
-        </copy>
-    </target>
-    
-    <target name="deploy_nightly_config"
-        description="Copies host-specific settings files for the CollectionSpace project's Nightly host"
-        depends="localhost_is_nightly" if="${is.nightly}">
-        <copy file="${app_trunk}/tomcat-main/src/main/resources/tenants/core/nightly-settings.xml"
+		<!-- Copy defaults and tenants folders and all of their contents -->
+		<delete dir="${config_destination}/defaults"/>
+		<copy todir="${config_destination}/defaults">
+			<fileset dir="${app_resources_dir}/defaults" includes="*/**"/>
+		</copy>
+		<copy todir="${config_destination}/tenants">
+			<fileset dir="${app_resources_dir}/tenants" includes="*/**"/>
+		</copy>
+		<!-- Copy cspace-config files -->
+		<copy todir="${config_destination}" overwrite="true">
+			<fileset dir="${app_resources_dir}"/>
+			<globmapper from="*-tenant.xml" to="cspace-config-*.xml"/>
+		</copy>
+	</target>
+
+	<target name="deploy_nightly_config" depends="localhost_is_nightly" if="${is.nightly}"
+        description="Copies host-specific settings files for the CollectionSpace project's Nightly host">
+		<copy file="${app_trunk}/tomcat-main/src/main/resources/tenants/core/nightly-settings.xml"
             tofile="${config_destination}/tenants/core/local-core-settings.xml"/>
-        <copy file="${app_trunk}/tomcat-main/src/main/resources/tenants/lifesci/nightly-settings.xml"
+		<copy file="${app_trunk}/tomcat-main/src/main/resources/tenants/lifesci/nightly-settings.xml"
             tofile="${config_destination}/tenants/lifesci/local-lifesci-settings.xml"/>
-    </target>
-    
-    <target name="localhost_is_nightly"
+	</target>
+
+	<target name="localhost_is_nightly"
         description="Identifies whether this build is running on the CollectionSpace project's Nightly host">
-        <!-- Get host settings for the Nightly host via DNS -->
-        <hostinfo prefix="nightly.host" host="nightly.collectionspace.org"/>
-        <!-- Get host settings for the local host -->
-        <hostinfo prefix="local.host"/>
-        <!-- Compare the IPv4 addresses of the Nightly host and of the local host -->
-        <!-- If they match, we're running on Nightly -->
-        <condition property="is.nightly">
-            <equals arg1="${nightly.host.ADDR4}" arg2="${local.host.ADDR4}"/>
-        </condition>
-    </target>
-    
-    <target name="retrieve_jar" description="Retrieves the JAR for command-line use">
-        <copy file="${app_trunk}/tomcat-main/target/tomcat-main.one-jar.jar"
-            tofile="${config_destination}/cspace.jar"/>
-    </target>
-    
+		<!-- Get host settings for the Nightly host via DNS -->
+		<hostinfo prefix="nightly.host" host="nightly.collectionspace.org"/>
+		<!-- Get host settings for the local host -->
+		<hostinfo prefix="local.host"/>
+		<!-- Compare the IPv4 addresses of the Nightly host and of the local host -->
+		<!-- If they match, we're running on Nightly -->
+		<condition property="is.nightly">
+			<equals arg1="${nightly.host.ADDR4}" arg2="${local.host.ADDR4}"/>
+		</condition>
+	</target>
+
+	<target name="retrieve_jar" description="Retrieves the JAR for command-line use">
+		<copy file="${app_trunk}/tomcat-main/target/${cspace.tool.csmake}.jar"
+            tofile="${config_destination}/${cspace.tool.csmake}.jar"/>
+	</target>
+
+	<target name="deploy_services_bundles" depends="deploy_cspace_config"
+		description="Generates and deploys the CollectionSpace Services schema and doctype bundles.">
+		<exec executable="${env.JAVA_HOME}/bin/java" failonerror="true">
+			<arg value="-jar" />
+			<arg value="${app_trunk}/tomcat-main/target/${cspace.tool.csmake}.jar" />
+			<arg value="-c" />
+			<arg value="${app_trunk}/tomcat-main/src/main/resources" />
+			<arg value="-o" />
+			<arg value="${nuxeo_config_destination}/plugins" />
+		</exec>
+	</target>
+	
 </project>
 
 

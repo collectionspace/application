@@ -7,10 +7,8 @@
 package org.collectionspace.chain.csp.schema;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,7 +16,6 @@ import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -31,15 +28,18 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public class Record implements FieldParent {
+	private static final Logger log = LoggerFactory.getLogger(Record.class);
 	
 	public final static String BLOB_SOURCE_URL = "blobUri"; // BlobClient.BLOB_URI_PARAM; // The 'blobUri' query param used to pass an external URL for the services to download data from
 	public final static String BLOB_PURGE_ORIGINAL = "blobPurgeOrig"; // BlobClient.BLOB_PURGE_ORIGINAL;
 
+	private static final String TYPE_AUTHORITY = "Authority";
+	private static final String TYPE_AUTHORITY_LOWERCASE = TYPE_AUTHORITY.toLowerCase();
+	
 	public static final String SUPPORTS_LOCKING = "supportslocking";
 	public static final String RANGE_START_SUFFIX = "Start";
 	public static final String RANGE_END_SUFFIX = "End";
 	
-	private static final Logger log = LoggerFactory.getLogger(Record.class);
 	protected SchemaUtils utils = new SchemaUtils();
 	
 	private Map<String, Structure> structure = new HashMap<String, Structure>();
@@ -76,20 +76,28 @@ public class Record implements FieldParent {
 	//list of all 'record' e.g. structuredDates, dimensions etc that are included
 	private Map<String, String> nestedFieldList = new HashMap<String, String>();
 	
-	private Map<String, Instance> instances = new LinkedHashMap<String, Instance>();
+	private Map<String, Instance> instances = new HashMap<String, Instance>();
 	private Map<String, FieldSet> summarylist = new HashMap<String, FieldSet>();
 	private Map<String, Map<String, FieldSet>> minidataset = new HashMap<String, Map<String, FieldSet>>();
 	private Spec spec;
 	private FieldSet mini_summary, mini_number, display_name;
-	private String whoamI = "";
+	private String whoamI = ""; // Used for debugging purposes.
 	private HashSet<String> authTypeTokenSet = new HashSet<String>();
-
+	private Record lastAuthoriyProxy = null; // Used during Service binding generation.  Only the "baseAuthority" record ever uses this member.  Values would be things like PersonAuthority, OrgAuthority, and other authority records.
 
 	/* Service stuff */
 	private Map<String, String> services_record_paths = new HashMap<String, String>();
 	private Map<String, String> services_instances_paths = new HashMap<String, String>();
 	private Map<String, Field> services_filter_param = new HashMap<String, Field>();
 
+	public Record getLastAuthorityProxy() {
+		return this.lastAuthoriyProxy;
+	}
+	
+	public void setLastAuthorityProxy(Record lastAuthoriyProxy) {
+		this.lastAuthoriyProxy = lastAuthoriyProxy;
+	}
+	
 	// XXX utility methods
 	Record(Spec parent, ReadOnlySection section, Map<String,String> data) {
 		//Map<String,String>data = (Map<String,String>)parent;
@@ -98,9 +106,27 @@ public class Record implements FieldParent {
 		// standard = singular form of the concept
 		utils.initStrings(section,"@id",null);
 		whoamI = utils.getString("@id");
+		
+		utils.initStrings(section, "@cms-type", "none");
+		utils.initBoolean(section, "@generate-services-schema", true);
+		utils.initBoolean(section,"@is-extension", false);
+		utils.initBoolean(section,"@generate-if-authority", true); // REM: 12/2012 - The Contact service config file will set this value to false for schema generation -"false" since Contact is not a true authority from the Service's perspective.
+		
+		//
+		// The name for used to create the Services XML Schema.
+		//
+		utils.initStrings(section, "@services-type", null);
+		
 		// record,authority,compute-displayname can have multiple types using
 		// commas
 		utils.initSet(section,"@type",new String[] { "record" });
+		//
+		// Service specific config for Nuxeo ECM platform - things added to the "doctype" definitions
+		//
+		utils.initSet(section,"@services-folder-subtypes", new String[]{});
+		utils.initSet(section,"@services-workspace-subtypes", new String[]{});
+		utils.initSet(section,"@services-prefetch-fields", new String[]{"<!-- Fields to be prefetch by the repository manager. -->"});
+		
 		utils.initStrings(section,"showin","");
 
 		// specified that it is included in the findedit uispec - probably not useful any more?
@@ -110,9 +136,7 @@ public class Record implements FieldParent {
 
 		//Record differentiates between things like structureddates and procedures
 		utils.initBoolean(section,"@separate-record",true);
-		
-		
-		
+				
 		// config whether service layer needs call as multipart or not - authorization is not currently multipart
 		utils.initBoolean(section,"is-multipart",true);
 
@@ -190,23 +214,37 @@ public class Record implements FieldParent {
 		
 //(17:06) The services singular tag should probably be "ServicesDocumentType"
 
+		// The tenant's repository that the service will use.
+		utils.initStrings(section,"services-repo-domain", utils.getString("services-repo-domain"));
 
 		utils.initStrings(section,"services-tenant-singular", utils.getString("services-url"));
+		utils.initStrings(section,"services-tenant-doctype", null);//, utils.getString("services-tenant-singular"));
+		
 		utils.initStrings(section,"services-tenant-plural", utils.getString("services-tenant-singular")+"s");
 		utils.initStrings(section,"services-tenant-auth-singular", utils.getString("services-url"));
 		utils.initStrings(section,"services-tenant-auth-plural", utils.getString("services-tenant-singular")+"s");
-
-		utils.initStrings(section,"services-schemalocation", "http://services.collectionspace.org");
 		
-		utils.initStrings(section,"services-dochandler","org.collectionspace.services."+ utils.getString("services-tenant-singular").toLowerCase() +".nuxeo."+ utils.getString("services-tenant-singular")+"DocumentModelHandler");
-		utils.initStrings(section,"services-abstract","org.collectionspace.services."+utils.getString("services-tenant-singular").toLowerCase()+"."+ utils.getString("services-tenant-plural") +"CommonList");
-		utils.initStrings(section,"services-common", utils.getString("services-abstract") + "$"+utils.getString("services-tenant-singular")+"ListItem");
-		utils.initStrings(section,"services-validator","org.collectionspace.services."+ utils.getString("services-tenant-singular").toLowerCase() +".nuxeo."+ utils.getString("services-tenant-singular")+"ValidatorHandler");
+		utils.initStrings(section,"services-schema-location", "http://services.collectionspace.org");
+		
+		utils.initStrings(section,"services-dochandler",
+				"org.collectionspace.services."+ utils.getString("services-tenant-singular").toLowerCase() +".nuxeo."+ utils.getString("services-tenant-singular")+"DocumentModelHandler");
+		utils.initStrings(section,"services-abstract",
+				"org.collectionspace.services."+utils.getString("services-tenant-singular").toLowerCase()+"."+ utils.getString("services-tenant-plural") +"CommonList");
+		utils.initStrings(section,"services-common",
+				utils.getString("services-abstract") + "$"+utils.getString("services-tenant-singular")+"ListItem");
+		utils.initStrings(section,"services-validator",
+				"org.collectionspace.services."+ utils.getString("services-tenant-singular").toLowerCase() +".nuxeo."+ utils.getString("services-tenant-singular")+"ValidatorHandler");
 
 		spec = parent;
 	}
 
-
+	public String getRecordName() {
+		return this.whoamI;
+	}
+	
+	public boolean isTrueRepeatField() {
+		return false;
+	}
 	
 	/** field functions **/
 	//getPerm is now hasFieldByOperation(fieldId,operation)
@@ -241,6 +279,7 @@ public class Record implements FieldParent {
 				}
 				else{
 					Repeat r = new Repeat(searchf.getRecord(),searchf.getID()+"s"); //UI wants 'plurals' for the fake repeat parents
+					r.setSearchOnlyRepeat(true); // Our parent is not a "real" Repeat field.  It's just acting this way for searches.
 					//XXX this name is terrible - should be a better way
 					r.setSearchType("repeator");
 					searchFieldFullList.put(r.getID(),r);
@@ -362,6 +401,11 @@ public class Record implements FieldParent {
 		}
 		return null;
 	}
+	
+	public Map<String, String> getNestedFieldList() {
+		return this.nestedFieldList;
+	}
+	
 	public FieldSet getServiceFieldFullList(String id) {
 		return serviceFieldFullList.get(id);
 	}
@@ -400,11 +444,6 @@ public class Record implements FieldParent {
 	}
 	/** end field functions **/
 	
-	
-	
-	
-	
-	
 	public String getID() {
 		return utils.getString("@id");
 	}
@@ -433,13 +472,31 @@ public class Record implements FieldParent {
 			return utils.getString("showin").equals(k);
 		}
 	}
+	
+	public boolean isAuthorityItemType() {
+		return isType(TYPE_AUTHORITY_LOWERCASE) && shouldGenerateAuthoritySchema();
+	}
+		
 	public boolean isType(String k) {
 		return utils.getSet("@type").contains(k);
+	}
+	
+	public Set<String> getServicesFolderSubtypes() {
+		return utils.getSet("@services-folder-subtypes");
+	}
+
+	public Set<String> getServicesWorkspaceSubtypes() {
+		return utils.getSet("@services-workspace-subtypes");
+	}
+	
+	public Set<String> getServicesPrefetchFields() {
+		return utils.getSet("@services-prefetch-fields");
 	}
 
 	public Spec getSpec() {
 		return spec;
 	}
+	@Override
 	public FieldParent getParent() {
 		return null;
 	}
@@ -454,6 +511,26 @@ public class Record implements FieldParent {
 	}
 	public String getUILabel(String id){
 		return utils.getString("@id") + "-" + id + "Label";
+	}
+	public String getServicesType() {
+		String result = utils.getString("@services-type");
+		return result;
+	}
+	public String getServicesCmsType() {
+		String result = utils.getString("@cms-type");
+		return result;
+	}
+	private boolean shouldGenerateAuthoritySchema() {
+		boolean result = utils.getBoolean("@generate-if-authority");		
+		return result;
+	}
+	public boolean isServicesExtension() {
+		boolean result = utils.getBoolean("@is-extension");		
+		return result;
+	}
+	public boolean isGenerateServicesSchema() {
+		boolean result = utils.getBoolean("@generate-services-schema");		
+		return result;
 	}
 	public String getUILabelSelector(String id){
 		return getPreSelector()  + utils.getString("@id") + "-" +  id + "-label";
@@ -476,8 +553,6 @@ public class Record implements FieldParent {
 		}
 		return null;
 	}
-
-
 
 	public String enumBlankValue(){
 		return utils.getString("enum-blank");
@@ -601,6 +676,28 @@ public class Record implements FieldParent {
 	public String getServicesTenantAuthSg() {
 		return utils.getString("services-tenant-auth-singular");
 	}
+	
+	/*
+	 * By convention, the value from getServicesTenantSg() is the Nuxeo doctype name.  However, if the record
+	 * explicitly declares a doctype using the "services-tenant-doctype" element then that value is used.  Also,
+	 * Authorities are a special case, the doctype should be the value from getServicesTenantAuthSg for Authorites.
+	 */
+	public String getServicesTenantDoctype(boolean isAuthority) {
+		String result = this.getServicesTenantSg();
+		
+		String elementVal = utils.getString("services-tenant-doctype");
+		if (elementVal != null && elementVal.trim().isEmpty() == false) {
+			result = elementVal;
+		}
+		//
+		// Handle special case for Authorities
+		// 
+		if (isAuthority == true) {
+			result = this.getServicesTenantAuthSg();
+		}
+		
+		return result;
+	}	
 
 	public String getServicesTenantAuthPl() {
 		return utils.getString("services-tenant-auth-plural");
@@ -609,20 +706,54 @@ public class Record implements FieldParent {
 	public String getServicesAbstractCommonList(){
 		return utils.getString("services-abstract");
 	}
-	public String getServicesValidatorHandler(){
-		return utils.getString("services-validator");
-		
-	}
+	
 	public String getServicesCommonList(){
 		return utils.getString("services-common");
 	}
 
 	public String getServicesSchemaBaseLocation(){
-		return utils.getString("schema-location");
+		return utils.getString("services-schema-location");
 	}
 	
-	public String getServicesDocHandler(){
-		return utils.getString("services-dochandler");
+	/*
+	 * The "<services-tenant-auth-singular>" element of the config record for authorities is used to create the Nuxeo doctype names.  We also need to use it
+	 * to generate the Service layer's document handler class name for the service bindings.  Unfortunately, most of the existing authorities use something like
+	 * "Personauthority" for the Nuxeo document name and "PersonAuthorityDocument..." for the document handler class name.  Therefore, we need to convert the
+	 * lowercase 'a' to an uppercase 'A' in the "Authority" substring.  For example, we convert the substring "Personauthority" to "PersonAuthority".
+	 */
+	private String getAuthorityForm(String handlerName) {
+		String result = handlerName;
+		
+		String servicesTenantSg = this.getServicesTenantSg();
+		String servicesTenantAuthSg = this.getServicesTenantAuthSg();
+		String authorityName = servicesTenantAuthSg.replace(TYPE_AUTHORITY_LOWERCASE, TYPE_AUTHORITY); // replace "authority" with "Authority"
+		result = result.replace(servicesTenantSg, authorityName);
+		
+		return result;
+	}
+	
+	public String getServicesDocHandler(Boolean isAuthority) {
+		String result = utils.getString("services-dochandler");
+		
+		if (isAuthority == true) {
+			result = getAuthorityForm(result);
+		}
+		
+		return result;
+	}
+	
+	public String getServicesValidatorHandler(Boolean isAuthority){
+		String result = utils.getString("services-validator");
+		
+		if (isAuthority == true) {
+			result = getAuthorityForm(result);
+		}
+		
+		return result;
+	}
+	
+	public String getServicesRepositoryDomain() {
+		return utils.getString("services-repo-domain");
 	}
 	
 	public String getServicesListPath() {
@@ -641,7 +772,7 @@ public class Record implements FieldParent {
 		return utils.getString("services-single-instance-path");
 	}
 
-	public String[] getServicesRecordPaths() {
+	public String[] getServicesRecordPathKeys() {
 		return services_record_paths.keySet().toArray(new String[0]);
 	}
 	
@@ -651,6 +782,48 @@ public class Record implements FieldParent {
 
 	public String getServicesRecordPath(String name) {
 		return services_record_paths.get(name);
+	}
+	
+	public String getServicesSchemaName(String sectionName) {
+		String result = null;
+		
+		String servicesRecordPath = getServicesRecordPath(sectionName);
+		if (servicesRecordPath != null) {
+			result = servicesRecordPath.split(":", 2)[0];
+		}
+		
+		return result;
+	}
+	
+	public String getAuthoritySchemaName() {
+		return getServicesSingleInstancePath().split(":", 2)[0];
+	}	
+	
+	public String getServicesSchemaNameSpaceURI(String sectionName) {
+		String path = getServicesRecordPath(sectionName);
+		String[] pathParts = path.split(":", 2);
+		String schemaLocationCore = pathParts[1].split(",",2)[0];
+				
+		return schemaLocationCore;
+	}
+	
+	public String getXMLSchemaLocation(String sectionName) {
+		String result;
+		
+		String schemaName = this.getServicesSchemaName(sectionName);
+		String schemaNamespaceUri = this.getServicesSchemaNameSpaceURI(sectionName);
+		String schemaXsdLocation = schemaNamespaceUri.replace(sectionName, schemaName);
+		result = schemaNamespaceUri + " " + schemaXsdLocation + ".xsd";
+		
+		return result;
+	}
+	
+	
+	
+	public String getServicesPartLabel(String sectionName) {
+		String[] pathParts = getServicesRecordPath(sectionName).split(":", 2);
+		String schemaPartLabel = pathParts[1].split(",",2)[1];
+		return schemaPartLabel;
 	}
 	
 	public Boolean hasServicesRecordPath(String name) {

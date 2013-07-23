@@ -387,6 +387,13 @@
                       "epsg4267-nad27", 
                       "unknown"
                     ], 
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.createdAt}"
+        },
+        ".csc-place-deprecatedRefName-label": {"messagekey": "place-deprecatedRefNameLabel"},
                     "optionnames": [
                       "Please select a value", 
                       "EPSG:4326-WGS84", 
@@ -689,6 +696,9 @@
     ".csc-place-vDistanceAboveSurface": "${fields.vDistanceAboveSurface}", 
     ".csc-place-vDistanceAboveSurface-label": {
       "messagekey": "place-vDistanceAboveSurfaceLabel"
+        ".csc-place-tenantId-label": {"messagekey": "place-tenantIdLabel"},
+        ".csc-place-maxDepthInMeters": "${fields.maxDepthInMeters}",
+        ".csc-place-tenantId": "${fields.tenantId}",
     }, 
     ".csc-place-vElevation": "${fields.vElevation}", 
     ".csc-place-vElevation-label": {
@@ -979,5 +989,6 @@
         }
       ]
     }
+        ".csc-place-inAuthority-label": {"messagekey": "place-inAuthorityLabel"},
   }
 }
