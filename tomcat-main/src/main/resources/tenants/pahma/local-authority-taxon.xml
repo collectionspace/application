@@ -57,6 +57,10 @@
 				</options>
 			</field>
 		</repeat>
+		<repeat id="taxonCitationList">
+			<!-- Remove autocomplete -->
+			<field id="taxonCitation" autocomplete=""/>
+		</repeat>
 		<field id="taxonIsNamedHybrid">
 			<!-- Change options -->
 			<options>
