@@ -9,6 +9,8 @@
 					<option id="rejected">inactive</option>
 				</options>
 			</field>
+			<!-- Remove autocomplete -->
+			<field id="termSource" autocomplete=""/>
 		</repeat>
 	</section>
 </record>
