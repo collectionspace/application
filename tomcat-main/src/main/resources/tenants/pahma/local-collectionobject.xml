@@ -1354,6 +1354,13 @@
 		</section>
 	</section>
 
+	<section id="referenceInformation">
+		<repeat id="referenceGroupList/referenceGroup">
+			<!-- Remove autocomplete -->
+			<field id="reference" autocomplete=""/>
+		</repeat>
+	</section>
+
 	<section id="objectCollectionInformation">
 		<repeat id="fieldCollectionSources">
 			<!-- Add ui-search and add concept-concept to autocomplete -->
