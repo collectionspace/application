@@ -1330,8 +1330,8 @@
                                     {
                                       "func": "cspace.autocomplete", 
                                       "options": {
-                                        "queryUrl": "../../../tenant/core/preferredPA/autocomplete/termSource", 
-                                        "vocabUrl": "../../../tenant/core/preferredPA/source-vocab/termSource"
+                                        "queryUrl": "../../../tenant/core/vocabularies/preferredPA/autocomplete/termSource", 
+                                        "vocabUrl": "../../../tenant/core/vocabularies/preferredPA/source-vocab/termSource"
                                       }, 
                                       "type": "fluid"
                                     }

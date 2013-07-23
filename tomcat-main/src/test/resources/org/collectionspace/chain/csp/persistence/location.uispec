@@ -372,8 +372,8 @@
                                     {
                                       "func": "cspace.autocomplete", 
                                       "options": {
-                                        "queryUrl": "../../../tenant/core/preferredSLA/autocomplete/termSource", 
-                                        "vocabUrl": "../../../tenant/core/preferredSLA/source-vocab/termSource"
+                                        "queryUrl": "../../../tenant/core/vocabularies/preferredSLA/autocomplete/termSource", 
+                                        "vocabUrl": "../../../tenant/core/vocabularies/preferredSLA/source-vocab/termSource"
                                       }, 
                                       "type": "fluid"
                                     }
