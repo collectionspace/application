@@ -213,4 +213,66 @@
 				<option id="employee">employee</option>
 		</options>
 	</instance>
+	<instance id="vocab-citationtermtype">
+		<web-url>citationtermtype</web-url>
+		<title-ref>citationtermtype</title-ref>
+		<title>citationTermType</title>
+		<options>
+			<option id="monograph">monograph</option>
+			<option id="dictionary">dictionary</option>
+			<option id="encyclopedia">encyclopedia</option>
+			<option id="gazetteer">gazetteer</option>
+			<option id="criticism">criticism</option>
+			<option id="atlas">atlas</option>
+			<option id="guide">guide book</option>
+			<option id="biography">biography</option>
+			<option id="history">history</option>
+			<option id="Festschrift">festschrift</option>
+			<option id="catalog">exhibition catalog</option>
+			<option id="journal">journal article</option>
+			<option id="newspaper">newspaper article</option>
+			<option id="dissertation">dissertation</option>
+			<option id="birthcert">birth certificate</option>
+			<option id="obituary">obituary</option>
+			<option id="brochure">brochure</option>
+			<option id="exhibitionchecklist">exhibition checklist</option>
+			<option id="exhibitionreview">exhibition review</option>
+			<option id="contract">contract</option>
+			<option id="conditionreport">condition report</option>
+			<option id="letter">letter</option>
+			<option id="diary">diary</option>
+			<option id="inventory">inventory</option>
+			<option id="verbalopinion">verbal opinion</option> 
+		</options>
+	</instance>
+	<instance id="vocab-agentinfo">
+		<web-url>agentinfotype</web-url>
+		<title-ref>agentinfotype</title-ref>
+		<title>agentinfoType</title>
+		<options>
+			<option id="writer">writer</option> 
+			<option id="editor">editor</option>
+		</options>
+	</instance>
+	<instance id="vocab-resourceid">
+		<web-url>resourceidtype</web-url>
+		<title-ref>resourceidtype</title-ref>
+		<title>resourceidType</title>
+		<options>
+			<option id="isbn">ISBN</option>
+			<option id="issn">ISSN</option>
+			<option id="permalink">permalink</option>
+		</options>
+	</instance>
+	<instance id="vocab-relationtype">
+		<web-url>relationtypetype</web-url>
+		<title-ref>relationtypetype</title-ref>
+		<title>relationtypeType</title>
+		<options>
+			<option id="monography">monography (published in)</option> 
+				<option id="magazine">magazine (published in)</option> 
+				<option id="exhibition">exhibition</option> 
+				<option id="facsimile">facsimile of</option>
+		</options>
+	</instance>
 </instances>
