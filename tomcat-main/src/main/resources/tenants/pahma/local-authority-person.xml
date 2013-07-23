@@ -1,7 +1,4 @@
 <record id="person">
-	<!-- Change terms-used to true -->
-	<terms-used>true</terms-used>
-
 	<instances id="person">
 		<instance id="person-person">
 			<web-url>person</web-url>
