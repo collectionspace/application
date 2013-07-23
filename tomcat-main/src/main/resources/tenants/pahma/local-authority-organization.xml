@@ -1,0 +1,24 @@
+<record id="organization">
+	<instances id="organization">
+		<instance id="organization-organization">
+			<web-url>organization</web-url>
+			<title-ref>organization</title-ref>
+			<!-- Change title -->
+			<title>PAHMA Organization Authority</title>
+		</instance>
+		<instance id="organization-ulan_oa">
+			<web-url>ulan_oa</web-url>
+			<title-ref>ulan_oa</title-ref>
+			<title>ULAN Organizations</title>
+		</instance>
+	</instances>
+		
+	<section id="organizationNameAuthorityInformation">
+		<!-- Add autocomplete -->
+		<field id="foundingPlace" autocomplete="place-place"/>
+		<repeat id="groups">
+			<!-- Add autocomplete -->
+			<field id="group" autocomplete="concept-concept"/>
+		</repeat>
+	</section>
+</record>

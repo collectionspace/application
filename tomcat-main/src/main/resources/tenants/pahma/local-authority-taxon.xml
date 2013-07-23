@@ -1,0 +1,69 @@
+<record id="taxon">
+	<instances id="taxon">
+		<instance id="taxon-taxon">
+			<web-url>taxon</web-url>
+			<title-ref>taxon</title-ref>
+			<!-- Change title -->
+			<title>PAHMA Taxon Authority</title>
+		</instance>
+		<instance id="taxon-common_ta">
+			<web-url>common_ta</web-url>
+			<title-ref>common_ta</title-ref>
+			<title>Common Taxa</title>
+		</instance>
+	</instances>
+
+	<section id="taxonNameAuthorityInformation">
+		<field id="taxonRank">
+			<!-- Change options -->
+			<options>
+				<option id="" default="yes">(none selected)</option>
+				<option id="domain">domain</option>
+				<option id="kingdom">kingdom</option>
+				<option id="phylum">phylum</option>
+				<option id="subphylum">subphylum</option>
+				<option id="division">division</option>
+				<option id="class">class</option>
+				<option id="subclass">subclass</option>
+				<option id="infraclass">infraclass</option>
+				<option id="order">order</option>
+				<option id="infraorder">infraorder</option>
+				<option id="superfamily">superfamily</option>
+				<option id="family">family</option>
+				<option id="subfamily">subfamily</option>
+				<option id="tribe">tribe</option>
+				<option id="subtribe">subtribe</option>
+				<option id="genus">genus</option>
+				<option id="species">species</option>
+				<option id="subspecies">subspecies</option>
+			</options>
+		</field>
+		<field id="taxonCurrency">
+			<!-- Change options -->
+			<options>
+				<option id="" default="yes">(none selected)</option>
+				<option id="current">current</option>
+				<option id="obsolete">obsolete</option>
+				<option id="archaic">archaic</option>
+			</options>
+		</field>
+		<repeat id="taxonAuthorGroupList/taxonAuthorGroup">
+			<field id="taxonAuthorType">
+				<!-- Change options -->
+				<options>
+					<option id="" default="yes">(none selected)</option>
+					<option id="ascribed">ascribed</option>
+					<option id="parenthetical">parenthetical</option>
+				</options>
+			</field>
+		</repeat>
+		<field id="taxonIsNamedHybrid">
+			<!-- Change options -->
+			<options>
+				<option id="" default="yes">(none selected)</option>
+				<option id="true">true</option>
+				<option id="false">false</option>
+			</options>
+		</field>
+	</section>
+</record>

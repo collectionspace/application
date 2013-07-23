@@ -1,0 +1,27 @@
+<record id="place">
+	<instances id="place">
+		<instance id="place-place">
+			<web-url>place</web-url>
+			<title-ref>place</title-ref>
+			<!-- Change title -->
+			<title>PAHMA Place Authority</title>
+		</instance>
+		<instance id="place-tgn_place">
+			<web-url>tgn_place</web-url>
+			<title-ref>tgn_place</title-ref>
+			<title>Thesaurus of Geographic Names</title>
+		</instance>
+	</instances>
+
+	<section id="coreInformation">
+		<!-- Add ui-search and ui-type -->
+		<field id="createdAt" ui-search="range" ui-type="date"/>
+	</section>
+
+	<section id="placeAuthorityInformation">
+		<!-- Change to use a dynamic term list -->
+		<field id="placeType" autocomplete="vocab-PlaceType" ui-type="enum">
+			<options/>
+		</field>
+	</section>
+</record>

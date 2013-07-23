@@ -1,0 +1,11 @@
+<record id="vocab">
+	<section id="vocabularyInformation">
+		<field id="termStatus">
+			<!-- Change options -->
+			<options>
+				<option id="active" default="yes">active</option>
+				<option id="inactive">inactive</option>
+			</options>
+		</field>
+	</section>
+</record>
