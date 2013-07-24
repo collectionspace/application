@@ -69,5 +69,9 @@
 				<option id="false">false</option>
 			</options>
 		</field>
+		<repeat id="commonNameGroupList/commonNameGroup">
+			<!-- Remove autocomplete -->
+			<field id="commonNameSource" autocomplete=""/>
+		</repeat>
 	</section>
 </record>
