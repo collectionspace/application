@@ -9,7 +9,7 @@
     <parent>
     <groupId>org.collectionspace</groupId>
     <artifactId>svcapp</artifactId>
-    <version>3.1-SNAPSHOT</version>
+    <version>4.0-SNAPSHOT</version>
   </parent>
   
 
@@ -18,7 +18,7 @@
     <dependency>
        	<groupId>org.collectionspace.services</groupId>
     	<artifactId>org.collectionspace.services.client</artifactId>
-       	<version>3.2-SNAPSHOT</version>
+       	<version>4.0-SNAPSHOT</version>
    	</dependency>  
     <dependency>
       <groupId>org.json</groupId>
@@ -96,14 +96,14 @@
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>cspi-schema</artifactId>
-      <version>3.1-SNAPSHOT</version>
+      <version>4.0-SNAPSHOT</version>
       <type>jar</type>
     </dependency>  
 
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>cspi-services</artifactId>
-      <version>3.1-SNAPSHOT</version>
+      <version>4.0-SNAPSHOT</version>
       <type>jar</type>
     </dependency>  
     
@@ -111,7 +111,7 @@
   </dependencies>
   
   <build>
-    <finalName>jxutils</finalName>
+    <finalName>cspi-installation</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

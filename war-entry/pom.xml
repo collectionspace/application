@@ -4,12 +4,11 @@
 	<artifactId>war-entry</artifactId>
 	<packaging>war</packaging>
 	<name>war-entry</name>
-	<url>http://maven.apache.org</url>
 
 	<parent>
 		<groupId>org.collectionspace</groupId>
 		<artifactId>svcapp</artifactId>
-		<version>3.1-SNAPSHOT</version>
+		<version>4.0-SNAPSHOT</version>
 	</parent>
 
 	<profiles>
@@ -42,7 +41,7 @@
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>tomcat-main</artifactId>
-			<version>3.1-SNAPSHOT</version>
+			<version>4.0-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
 

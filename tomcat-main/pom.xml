@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>org.collectionspace</groupId>
 		<artifactId>svcapp</artifactId>
-		<version>3.1-SNAPSHOT</version>
+		<version>4.0-SNAPSHOT</version>
 	</parent>
 
 	<repositories>
@@ -29,19 +29,19 @@
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>csp-api</artifactId>
-			<version>3.1-SNAPSHOT</version>
+			<version>4.0-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>csp-helper</artifactId>
-			<version>3.1-SNAPSHOT</version>
+			<version>4.0-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>cspi-installation</artifactId>
-			<version>3.1-SNAPSHOT</version>
+			<version>4.0-SNAPSHOT</version>
 			<type>jar</type>
 			<exclusions>
 				<exclusion>
@@ -61,32 +61,32 @@
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>cspi-file</artifactId>
-			<version>3.1-SNAPSHOT</version>
+			<version>4.0-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>cspi-services</artifactId>
-			<version>3.1-SNAPSHOT</version>
+			<version>4.0-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>cspi-webui</artifactId>
-			<version>3.1-SNAPSHOT</version>
+			<version>4.0-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>general-utils</artifactId>
-			<version>3.1-SNAPSHOT</version>
+			<version>4.0-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
 
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>jxutils</artifactId>
-			<version>3.1-SNAPSHOT</version>
+			<version>4.0-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
 

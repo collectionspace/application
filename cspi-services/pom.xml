@@ -4,12 +4,11 @@
 	<artifactId>cspi-services</artifactId>
 	<packaging>jar</packaging>
 	<name>CSP: Services</name>
-	<url>http://maven.apache.org</url>
 
 	<parent>
 		<groupId>org.collectionspace</groupId>
 		<artifactId>svcapp</artifactId>
-		<version>3.1-SNAPSHOT</version>
+		<version>4.0-SNAPSHOT</version>
 	</parent>
 
 	<repositories>
@@ -32,35 +31,35 @@
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>csp-api</artifactId>
-			<version>3.1-SNAPSHOT</version>
+			<version>4.0-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
 
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>csp-helper</artifactId>
-			<version>3.1-SNAPSHOT</version>
+			<version>4.0-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
 
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>cspi-schema</artifactId>
-			<version>3.1-SNAPSHOT</version>
+			<version>4.0-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
 
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>jxutils</artifactId>
-			<version>3.1-SNAPSHOT</version>
+			<version>4.0-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
 
 		<dependency>
 			<groupId>org.collectionspace.services</groupId>
 			<artifactId>org.collectionspace.services.common-api</artifactId>
-         <version>4.0-SNAPSHOT</version>
+         <version>3.2-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
