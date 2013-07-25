@@ -258,7 +258,15 @@
     ".csc-location-coreInformation-label": {
       "messagekey": "location-coreInformationLabel"
     }, 
-    ".csc-location-createdAt": "${fields.createdAt}", 
+    ".csc-location-createdAt": {
+      "decorators": [
+        {
+          "func": "cspace.datePicker", 
+          "type": "fluid"
+        }
+      ], 
+      "value": "${fields.createdAt}"
+    }, 
     ".csc-location-createdAt-label": {
       "messagekey": "location-createdAtLabel"
     }, 
@@ -270,8 +278,16 @@
     ".csc-location-csid-label": {
       "messagekey": "location-csidLabel"
     }, 
+    ".csc-location-deprecatedRefName": "${fields.deprecatedRefName}", 
+    ".csc-location-deprecatedRefName-label": {
+      "messagekey": "location-deprecatedRefNameLabel"
+    }, 
     ".csc-location-domaindata-label": {
       "messagekey": "location-domaindataLabel"
+    }, 
+    ".csc-location-inAuthority": "${fields.inAuthority}", 
+    ".csc-location-inAuthority-label": {
+      "messagekey": "location-inAuthorityLabel"
     }, 
     ".csc-location-locationTermInformation-label": {
       "messagekey": "location-locationTermInformationLabel"
@@ -297,9 +313,9 @@
     ".csc-location-shortIdentifier-label": {
       "messagekey": "location-shortIdentifierLabel"
     }, 
-    ".csc-location-tenantID": "${fields.tenantID}", 
-    ".csc-location-tenantID-label": {
-      "messagekey": "location-tenantIDLabel"
+    ".csc-location-tenantId": "${fields.tenantId}", 
+    ".csc-location-tenantId-label": {
+      "messagekey": "location-tenantIdLabel"
     }, 
     ".csc-location-type": {
       "decorators": [
@@ -465,25 +481,11 @@
                 }, 
                 "type": "fluid.noexpand"
               }
-        ".csc-location-tenantId-label": {"messagekey": "location-tenantIdLabel"},
-        ".csc-location-deprecatedRefName-label": {"messagekey": "location-deprecatedRefNameLabel"},
-        ".csc-location-createdAt": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }],
-            "value": "${fields.createdAt}"
-        },
             }
-        ".csc-location-inAuthority": "${fields.inAuthority}",
-        ".csc-location-uri-label": {"messagekey": "location-uriLabel"},
-        ".csc-location-updatedAt-label": {"messagekey": "location-updatedAtLabel"},
-        ".csc-location-tenantId": "${fields.tenantId}",
-        ".csc-location-deprecatedRefName": "${fields.deprecatedRefName}",
           }, 
           "type": "fluid"
         }
       ]
-        ".csc-location-inAuthority-label": {"messagekey": "location-inAuthorityLabel"},
+    }
   }
 }
