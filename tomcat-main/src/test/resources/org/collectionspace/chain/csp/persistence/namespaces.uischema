@@ -6,7 +6,7 @@
           "citation": {
             "properties": {
               "nptAllowed": {
-                "default": true, 
+                "default": false, 
                 "type": "boolean"
               }, 
               "order": {
@@ -19,7 +19,7 @@
           "worldcat": {
             "properties": {
               "nptAllowed": {
-                "default": true, 
+                "default": false, 
                 "type": "boolean"
               }, 
               "order": {
@@ -37,11 +37,11 @@
           "activity": {
             "properties": {
               "nptAllowed": {
-                "default": true, 
+                "default": false, 
                 "type": "boolean"
               }, 
               "order": {
-                "default": 2, 
+                "default": 0, 
                 "type": "integer"
               }
             }, 
@@ -50,7 +50,7 @@
           "concept": {
             "properties": {
               "nptAllowed": {
-                "default": true, 
+                "default": false, 
                 "type": "boolean"
               }, 
               "order": {
@@ -63,11 +63,11 @@
           "material_ca": {
             "properties": {
               "nptAllowed": {
-                "default": true, 
+                "default": false, 
                 "type": "boolean"
               }, 
               "order": {
-                "default": 0, 
+                "default": 2, 
                 "type": "integer"
               }
             }, 
@@ -81,7 +81,7 @@
           "location": {
             "properties": {
               "nptAllowed": {
-                "default": true, 
+                "default": false, 
                 "type": "boolean"
               }, 
               "order": {
@@ -94,7 +94,7 @@
           "offsite_sla": {
             "properties": {
               "nptAllowed": {
-                "default": true, 
+                "default": false, 
                 "type": "boolean"
               }, 
               "order": {
@@ -112,11 +112,11 @@
           "organization": {
             "properties": {
               "nptAllowed": {
-                "default": true, 
+                "default": false, 
                 "type": "boolean"
               }, 
               "order": {
-                "default": 0, 
+                "default": 1, 
                 "type": "integer"
               }
             }, 
@@ -125,11 +125,11 @@
           "ulan_oa": {
             "properties": {
               "nptAllowed": {
-                "default": true, 
+                "default": false, 
                 "type": "boolean"
               }, 
               "order": {
-                "default": 1, 
+                "default": 0, 
                 "type": "integer"
               }
             }, 
@@ -143,11 +143,11 @@
           "person": {
             "properties": {
               "nptAllowed": {
-                "default": true, 
+                "default": false, 
                 "type": "boolean"
               }, 
               "order": {
-                "default": 0, 
+                "default": 1, 
                 "type": "integer"
               }
             }, 
@@ -156,11 +156,11 @@
           "ulan_pa": {
             "properties": {
               "nptAllowed": {
-                "default": true, 
+                "default": false, 
                 "type": "boolean"
               }, 
               "order": {
-                "default": 1, 
+                "default": 0, 
                 "type": "integer"
               }
             }, 
@@ -174,11 +174,11 @@
           "place": {
             "properties": {
               "nptAllowed": {
-                "default": true, 
+                "default": false, 
                 "type": "boolean"
               }, 
               "order": {
-                "default": 1, 
+                "default": 0, 
                 "type": "integer"
               }
             }, 
@@ -187,11 +187,11 @@
           "tgn_place": {
             "properties": {
               "nptAllowed": {
-                "default": true, 
+                "default": false, 
                 "type": "boolean"
               }, 
               "order": {
-                "default": 0, 
+                "default": 1, 
                 "type": "integer"
               }
             }, 
@@ -205,11 +205,11 @@
           "common_ta": {
             "properties": {
               "nptAllowed": {
-                "default": true, 
+                "default": false, 
                 "type": "boolean"
               }, 
               "order": {
-                "default": 0, 
+                "default": 1, 
                 "type": "integer"
               }
             }, 
@@ -218,11 +218,11 @@
           "taxon": {
             "properties": {
               "nptAllowed": {
-                "default": true, 
+                "default": false, 
                 "type": "boolean"
               }, 
               "order": {
-                "default": 1, 
+                "default": 0, 
                 "type": "integer"
               }
             }, 
