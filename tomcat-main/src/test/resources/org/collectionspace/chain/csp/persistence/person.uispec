@@ -531,10 +531,10 @@
                       "COSTA RICA", 
                       "CROATIA", 
                       "CUBA", 
-                      "CURA\ufffd\ufffdAO", 
+                      "CURA\u00c7AO", 
                       "CYPRUS", 
                       "CZECH REPUBLIC", 
-                      "C\ufffd\ufffdTE D\u2019IVOIRE", 
+                      "C\u00d4TE D\u2019IVOIRE", 
                       "DENMARK", 
                       "DJIBOUTI", 
                       "DOMINICA", 
@@ -659,8 +659,8 @@
                       "ROMANIA", 
                       "RUSSIAN FEDERATION", 
                       "RWANDA", 
-                      "R\ufffd\ufffdUNION", 
-                      "SAINT BARTH\ufffd\ufffdLEMY", 
+                      "R\u00c9UNION", 
+                      "SAINT BARTH\u00c9LEMY", 
                       "SAINT HELENA, ASCENSION AND TRISTAN DA CUNHA", 
                       "SAINT KITTS AND NEVIS", 
                       "SAINT LUCIA", 
@@ -725,7 +725,7 @@
                       "YEMEN", 
                       "ZAMBIA", 
                       "ZIMBABWE", 
-                      "\ufffd\ufffdLAND ISLANDS"
+                      "\u00c5LAND ISLANDS"
                     ], 
                     "selection": "${{row}.addressCountry}"
                   }, 
