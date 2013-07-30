@@ -33,7 +33,7 @@
 			<include src="base-authority-place.xml,local-authority-place.xml" merge="xmlmerge.properties"/>
             <include src="base-authority-taxon-termList.xml,local-authority-taxon-termList.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-taxon.xml,naturalhistory-authority-taxon.xml,local-authority-taxon.xml" merge="xmlmerge.properties"/>
-			<include src="base-authority-concept-termList.xml"/>
+			<include src="base-authority-concept-termList.xml,local-authority-concept-termList.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-concept.xml,local-authority-concept.xml" merge="xmlmerge.properties"/>
 			
 			<include src="base-vocabularies.xml"/>
