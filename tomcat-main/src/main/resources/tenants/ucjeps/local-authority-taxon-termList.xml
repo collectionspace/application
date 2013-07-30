@@ -1,7 +1,8 @@
 <record id="preferredTA">
 	<section id="termInformation">
 		<repeat id="taxonTermGroupList/taxonTermGroup">
-			<field id="termSource">
+			<!-- Remove autocomplete -->
+			<field id="termSource" autocomplete="">
 				<!-- Change options -->
 				<options>
 					<option id="" default="yes">Please select a value</option>

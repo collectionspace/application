@@ -70,9 +70,15 @@
 				</options>
 			</field>
 		</repeat>
+		<repeat id="taxonCitationList">
+			<!-- Remove autocomplete -->
+			<field id="taxonCitation" autocomplete=""/>
+		</repeat>
 		<repeat id="commonNameGroupList/commonNameGroup">
 			<!-- Change autocomplete to taxon-common -->
 			<field id="commonName" autocomplete="taxon-common"/>
+			<!-- Remove autocomplete -->
+			<field id="commonNameSource" autocomplete=""/>
 		</repeat>
 		
 		<!-- Local fields -->
