@@ -1,0 +1,6 @@
+<record id="preferredSLA">
+	<section id="termInformation">
+		<!-- Remove autocomplete -->
+		<field id="termSource" autocomplete=""/>
+	</section>
+</record>
