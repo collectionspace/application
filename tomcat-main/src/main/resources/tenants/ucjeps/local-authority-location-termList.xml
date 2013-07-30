@@ -1,6 +1,8 @@
 <record id="preferredSLA">
 	<section id="termInformation">
-		<!-- Remove autocomplete -->
-		<field id="termSource" autocomplete=""/>
+		<repeat id="locTermGroupList/locTermGroup">
+			<!-- Remove autocomplete -->
+			<field id="termSource" autocomplete=""/>
+		</repeat>
 	</section>
 </record>
