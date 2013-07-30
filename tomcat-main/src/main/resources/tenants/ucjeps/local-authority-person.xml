@@ -1,4 +1,5 @@
 <record id="person">
+	<terms-used>false</terms-used>
 	<instances id="person">
 		<instance id="person-person">
 			<web-url>person</web-url>

@@ -1,0 +1,8 @@
+<record id="preferredPA">
+	<section id="termInformation">
+		<repeat id="personTermGroupList/personTermGroup">
+			<!-- Remove autocomplete -->
+			<field id="termSource" autocomplete=""/>
+		</repeat>
+	</section>
+</record>
