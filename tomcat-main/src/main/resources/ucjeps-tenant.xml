@@ -30,7 +30,7 @@
 			<include src="base-authority-person-termList.xml,local-authority-person-termList.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-person.xml,local-authority-person.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-citation-termList.xml,local-authority-citation-termList.xml" merge="xmlmerge.properties"/>
-			<include src="base-authority-citation.xml"/>
+			<include src="base-authority-citation.xml,local-authority-citation.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-place-termList.xml,local-authority-place-termList.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-place.xml,local-authority-place.xml" merge="xmlmerge.properties"/>
             <include src="base-authority-taxon-termList.xml,local-authority-taxon-termList.xml" merge="xmlmerge.properties"/>
