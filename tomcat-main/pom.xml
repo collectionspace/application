@@ -16,7 +16,7 @@
 		<repository>
 			<id>libs-snapshot-local</id>
 			<name>libs-snapshot-local</name>
-			<url>http://source.collectionspace.org:8081/artifactory/libs-snapshot-local</url>
+			<url>http://nightly.collectionspace.org:8081/artifactory/libs-snapshot-local</url>
 		</repository>
 	</repositories>
 	
@@ -172,7 +172,6 @@
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<name>Apache Log4j</name>
 			<version>1.2.16</version>
 			<scope>provided</scope>
 		</dependency>
