@@ -309,7 +309,7 @@ public class MakeXsd {
 		Element cslele = slele.addElement(new QName("complexType", ns));
 		Element scslele = cslele.addElement(new QName("sequence", ns));
 
-		Set<String> searchflds = new HashSet();
+		Set<String> searchflds = new HashSet<String>();
 		for (String minis : xsdRecord.getAllMiniDataSets()) {
 			if (minis != null && !minis.equals("")) {
 				for (FieldSet flds : xsdRecord.getMiniDataSetByName(minis)) {
@@ -318,13 +318,12 @@ public class MakeXsd {
 				}
 			}
 		}
-		Iterator iter = searchflds.iterator();
+		Iterator<String> iter = searchflds.iterator();
 		while (iter.hasNext()) {
 			Element sfld = scslele.addElement(new QName("element", ns));
 			sfld.addAttribute("name", (String) iter.next());
 			sfld.addAttribute("type", "xs:string");
 			sfld.addAttribute("minOccurs", "1");
-
 		}
 
 		/*standard fields */

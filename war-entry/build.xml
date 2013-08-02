@@ -11,12 +11,23 @@
 
 	<target name="post_build_tasks"
         description="Various post-build tasks"
-        depends="deploy_cspace_config, deploy_nightly_config, retrieve_jar, deploy_services_bundles">
+        depends="deploy_cspace_config, deploy_nightly_config, retrieve_jar">
 	</target>
 
 	<target name="deploy_cspace_config"
         description="Copies application layer config files to their deployed locations">
-		<!-- Copy defaults and tenants folders and all of their contents -->
+		
+		<!-- Copy nuxeo templates -->
+		<copy todir="${config_destination}/nx-plugin-templates">
+			<fileset dir="${app_resources_dir}/nx-plugin-templates" includes="*/**"/>
+		</copy>
+		<copy todir="${config_destination}/auth-nx-plugin-templates">
+			<fileset dir="${app_resources_dir}/auth-nx-plugin-templates" includes="*/**"/>
+		</copy>
+		
+		<!-- 
+			Copy defaults and tenants folders and all of their contents
+		-->
 		<delete dir="${config_destination}/defaults"/>
 		<copy todir="${config_destination}/defaults">
 			<fileset dir="${app_resources_dir}/defaults" includes="*/**"/>
@@ -24,6 +35,7 @@
 		<copy todir="${config_destination}/tenants">
 			<fileset dir="${app_resources_dir}/tenants" includes="*/**"/>
 		</copy>
+		
 		<!-- Copy cspace-config files -->
 		<copy todir="${config_destination}" overwrite="true">
 			<fileset dir="${app_resources_dir}"/>
@@ -55,18 +67,6 @@
 	<target name="retrieve_jar" description="Retrieves the JAR for command-line use">
 		<copy file="${app_trunk}/tomcat-main/target/${cspace.tool.csmake}.jar"
             tofile="${config_destination}/${cspace.tool.csmake}.jar"/>
-	</target>
-
-	<target name="deploy_services_bundles" depends="deploy_cspace_config"
-		description="Generates and deploys the CollectionSpace Services schema and doctype bundles.">
-		<exec executable="${env.JAVA_HOME}/bin/java" failonerror="true">
-			<arg value="-jar" />
-			<arg value="${app_trunk}/tomcat-main/target/${cspace.tool.csmake}.jar" />
-			<arg value="-c" />
-			<arg value="${app_trunk}/tomcat-main/src/main/resources" />
-			<arg value="-o" />
-			<arg value="${nuxeo_config_destination}/plugins" />
-		</exec>
 	</target>
 	
 </project>

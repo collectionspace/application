@@ -35,9 +35,7 @@
 		</profile>
 	</profiles>
 
-
 	<dependencies>
-
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>tomcat-main</artifactId>
@@ -45,41 +43,38 @@
 			<type>jar</type>
 		</dependency>
 
-<dependency>
-  <groupId>org.apache.maven</groupId>
-  <artifactId>maven-archiver</artifactId>
-  <version>2.4.1</version>
-</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-archiver</artifactId>
+			<version>2.4.1</version>
+		</dependency>
 
-<dependency>
-  <groupId>org.apache.maven.plugins</groupId>
-  <artifactId>maven-war-plugin</artifactId>
-  <version>2.1.1</version>
-</dependency>
-
-
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-war-plugin</artifactId>
+			<version>2.1.1</version>
+		</dependency>
 	</dependencies>
+	
 	<build>
 		<finalName>collectionspace</finalName>
-
 		<!-- We need the logging info in the war's classes, so it gets picked up -->
-    <resources>
-      <resource>
-        <directory>${project.basedir}/../tomcat-main/src/main/resources</directory>
-        <includes>
-          <include>log4j.properties</include>
-        </includes>
-      </resource>
-    </resources>
-
-
+		<resources>
+			<resource>
+				<directory>${project.basedir}/../tomcat-main/src/main/resources</directory>
+				<includes>
+					<include>log4j.properties</include>
+				</includes>
+			</resource>
+		</resources>
+		
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.7</source>
+					<target>1.7</target>
 					<optimize>true</optimize>
 				</configuration>
 			</plugin>
@@ -89,8 +84,8 @@
 				<version>2.1.1</version>
 				<configuration>
 					<outputDirectory>${maven.tomcat.home}</outputDirectory>
-				    <archive>
-    				</archive>
+					<archive>
+					</archive>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -126,7 +121,7 @@
 								<!-- location of war file -->
 								<location>
 									${maven.tomcat.home}/${project.build.finalName}.${project.packaging}
-	              </location>
+								</location>
 							</deployable>
 						</deployables>
 					</deployer>

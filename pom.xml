@@ -28,6 +28,7 @@
 	<properties>
 		<maven.tomcat.home>/tmp</maven.tomcat.home>
 		<cspace.tool.csmake>csmake</cspace.tool.csmake>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
   
   <!-- The CollectionSpace public Maven repository for "snapshot" artifacts -->
@@ -35,7 +36,7 @@
     <repository>
         <id>libs-snapshot-local</id>
         <name>libs-snapshot-local</name>
-        <url>http://source.collectionspace.org:8081/artifactory/libs-snapshot-local</url>
+        <url>http://nightly.collectionspace.org:8081/artifactory/libs-snapshot-local</url>
 		<snapshots>
 			<enabled>true</enabled>
 		</snapshots>
