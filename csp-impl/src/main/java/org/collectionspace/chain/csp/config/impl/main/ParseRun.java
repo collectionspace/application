@@ -7,29 +7,38 @@
 package org.collectionspace.chain.csp.config.impl.main;
 
 import org.collectionspace.chain.csp.config.impl.parser.EventConsumer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ParseRun implements EventConsumer {
-	private TreeNode root=null,here=null;
+	private static final Logger log = LoggerFactory.getLogger(EventConsumer.class);
 
+	private TreeNode root = null, here = null;
+
+	@Override
 	public void end() {
-		here=here.getParent();
+		here = here.getParent();
 	}
 
+	@Override
 	public void start(String tag) {
-		if(root==null) {
-			root=TreeNode.create_tag(tag);
-			here=root;
+		if (root == null) {
+			root = TreeNode.create_tag(tag);
+			here = root;
 		} else {
-			TreeNode next=TreeNode.create_tag(tag);
+			TreeNode next = TreeNode.create_tag(tag);
 			here.addChild(next);
-			here=next;
+			here = next;
 		}
 	}
 
+	@Override
 	public void text(String text) {
-		System.out.print(text);
+		log.trace(text);
 		here.addChild(TreeNode.create_text(text));
 	}
-	
-	public TreeNode getTree() { return root; }
+
+	public TreeNode getTree() {
+		return root;
+	}
 }

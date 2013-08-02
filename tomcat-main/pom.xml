@@ -24,7 +24,7 @@
 	     <dependency>
          	<groupId>org.collectionspace.services</groupId>
          	<artifactId>org.collectionspace.services.common-api</artifactId>
-         	<version>3.2-SNAPSHOT</version>
+         	<version>4.0-SNAPSHOT</version>
      	</dependency>
 		<dependency>
 			<groupId>org.collectionspace</groupId>
@@ -168,6 +168,13 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>1.5.6</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<name>Apache Log4j</name>
+			<version>1.2.16</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>jaxen</groupId>

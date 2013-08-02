@@ -22,11 +22,12 @@ import org.collectionspace.chain.csp.schema.Spec;
 
 import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSPDependencyException;
-
 import org.collectionspace.csp.container.impl.CSPManagerImpl;
 import org.collectionspace.csp.helper.core.ConfigFinder;
 import org.collectionspace.csp.helper.test.TestConfigFinder;
+
 import org.collectionspace.services.client.AbstractServiceClientImpl;
+import org.collectionspace.services.common.api.CommonAPI;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +36,7 @@ import org.xml.sax.InputSource;
 
 public class XsdGeneration {
 	private static final Logger log = LoggerFactory.getLogger(XsdGeneration.class);
-	
+		
 	private static final String EOL = "\r\n"; // <CR><LF>
 	private static final int MAX_CONFIG_FILE_SIZE = 100 * 1024;
 	
@@ -199,14 +200,23 @@ public class XsdGeneration {
 		return result;
 	}
 	
-	public XsdGeneration(File configfile, String type, String schemaVersion, File outputDir, String serviceBindingsVersion) throws Exception {		
+	/*
+	 * Depending up the 'generationType' passed in, this method creates either the Service bindings or the Service's Nuxeo doctype and
+	 * Nuxeo schema bundles
+	 */
+	public XsdGeneration(
+			File configfile, 
+			String generationType, 
+			String schemaVersion, 
+			File bundlesOutputDir, 
+			String serviceBindingsVersion) throws Exception {		
 		CSPManager cspm=getServiceManager(configfile);
 		Spec spec = createSpec(cspm);
 		setSpec(spec);
 
 		// 1. Setup a hashmap to keep track of which records and bundles we've already processed.
 		// 2. Loop through all the known record types
-		if (type.equals("core")) { // if 'true' then generate the schema and doctype bundles
+		if (generationType.equals(CommonAPI.GENERATE_BUNDLES)) { // if 'true' then generate the schema and doctype bundles
 			boolean docTypesCreated = true;
 			for (Record record : spec.getAllRecords()) {
 				if (log.isDebugEnabled() == true) {
@@ -223,7 +233,7 @@ public class XsdGeneration {
 						if (getServiceSchemas().containsKey(definedSchema) == false) {
 							// If the newly defined schema doesn't already exist in our master list then add it
 							try {
-								createSchemaBundle(record, definedSchema, definedSchemaList, outputDir);
+								createSchemaBundle(record, definedSchema, definedSchemaList, bundlesOutputDir);
 								getServiceSchemas().put(definedSchema, definedSchemaList.get(definedSchema)); // Store a copy of the schema that was generated
 								log.debug(String.format("New Services schema '%s' defined in Application configuration record '%s'.",
 										definedSchema, record.getID()));
@@ -243,7 +253,7 @@ public class XsdGeneration {
 					// Create the Nuxeo bundle document type
 					//
 					if (schemasCreated == true) {
-						createDocumentTypeBundle(record, definedSchemaList, outputDir);
+						createDocumentTypeBundle(record, definedSchemaList, bundlesOutputDir);
 					} else {
 						docTypesCreated = false;
 						log.error(String.format("Failed to create all the required schema bundles for App record ID='%s'.", record.getID()));
@@ -256,9 +266,11 @@ public class XsdGeneration {
 						configfile.getAbsolutePath());
 				throw new Exception(errMsg);
 			}
-		} else if (type.equals("delta")) { // Create the service bindings.
+		} else if (generationType.equals(CommonAPI.GENERATE_BINDINGS)) { // Create the service bindings.
 			Services tenantbob = new Services(createSpec(cspm), getTenantData(cspm),false);
 			tenantBindings = tenantbob.doit(serviceBindingsVersion);
+		} else {
+			throw new Exception("Unknown generation type requested.");
 		}
 	}
 	
@@ -485,7 +497,7 @@ public class XsdGeneration {
 				processTemplateFile(osgiFile, substitutionMap, zos, kNOT_AN_OSGI_MANIFEST);	
 				zos.closeEntry();
 			} else {
-				System.err.println(String.format("Ignoring directory '%s' while processing OSGI-INF files.", osgiFile.getAbsolutePath()));
+				log.error(String.format("Ignoring directory '%s' while processing OSGI-INF files.", osgiFile.getAbsolutePath()));
 			}
 		}
 	}

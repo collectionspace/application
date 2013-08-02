@@ -109,7 +109,7 @@ public class Services {
 					result = RECORD_TYPE_VOCABULARY;	// termlistitem is *not* in the "record list"			
 				}
 			} else {
-				log.debug(String.format("Record '%s' is neither an object nor a vocabulary.  Please verify it is a procedure.", record.getRecordName()));
+				log.trace(String.format("Record '%s' is neither an object nor a vocabulary.  Please verify it is a procedure.", record.getRecordName()));
 			}
 		} else {
 			log.warn(String.format("Record '%s' is not of type 'record'.  We're going to assume it is a 'procedure' but please verify by hand.",
@@ -197,7 +197,8 @@ public class Services {
 				} else if (r.isType(RECORD_TYPE_AUTHORIZATIONDATA)) {
 					// ignore at the moment as they are so non standard
 					// addAuthorization(r,ele);
-					log.debug("ignore at the moment as they are so non standard");
+					log.debug(String.format("Ignoring record '%s:%s' at the moment as it is of type '%s' and so non-standard",
+							tenantName, r.getRecordName(), RECORD_TYPE_AUTHORIZATIONDATA));
 				} else {
 					// Should never get here
 					log.warn(String.format("Record '%s.%s' is of an unknown type so we could not create a service binding for it.",
@@ -223,14 +224,12 @@ public class Services {
 	//
 	void writeToFile(Record r, Element bindingsForRecord, boolean isAuthority) {
 		String tenantName = this.tenantSpec.getTenant();
-		log.debug(String.format("Tenant name='%s'", tenantName));
-
 		String recordName = r.getRecordName();
 		if (isAuthority == true) {
 			recordName = r.getServicesTenantAuthPl();
 		}
 		String serviceBindings = bindingsForRecord.asXML();
-		log.debug(String.format("Bindings for Record=%s: %s", recordName, serviceBindings));
+		log.trace(String.format("Bindings for Record=%s: %s", recordName, serviceBindings));
 
 		String serviceBindingsFileName = String.format("%s.%s.bindings.xml", tenantName, recordName);
 		File serviceBindingsFile = new File(serviceBindingsFileName);
@@ -369,7 +368,7 @@ public class Services {
 				result = true;
 			}
 		} else {
-			log.error(String.format("Ignoring FieldSet instance '%s:%s'", Arrays.toString(f.getIDPath()), f.getID()));
+			log.trace(String.format("Ignoring FieldSet instance '%s:%s'", Arrays.toString(f.getIDPath()), f.getID()));
 		}
 		
 		return result;
@@ -903,9 +902,6 @@ public class Services {
 				String xpathStructuredPart = fs.getServicesTag();
 				if (fs.getParent() instanceof Repeat) {
 					xpathStructuredPart = getXpathStructuredPart((Repeat)fs.getParent());
-					log.debug("We've got a repeat");
-				} else {
-					log.debug("We've got a Group"); // I haven't yet seen an example of this in the App config files.
 				}
 				fs = (FieldSet) fs.getParent();
 				
