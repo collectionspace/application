@@ -79,7 +79,8 @@ public class Field extends FieldSetImpl {
 	}
 	*/
 	protected void initialiseVariables(ReadOnlySection section, String tempid) {
-
+		super.initialiseVariables(section, tempid); // REM - 8/3/2013: Adding this call to our parent so common strings and bools get initialized
+		
 		this.setRepeatSubRecord(false);
 		utils.initStrings(section,"@id",tempid);
 		utils.initBoolean(section,"@services-should-index", false); // ask the Services to create an index on this field
@@ -143,7 +144,8 @@ public class Field extends FieldSetImpl {
 		// in_tab = Util.getBooleanOrDefault(section, "/@in-tab", false);
 		
 		utils.initStrings(section,"services-tag", utils.getString("@id"));
-
+		utils.initBoolean(section,"@services-schema-qualify", false);
+		
 		Set<String> minis = Util.getSetOrDefault(section, "/@mini",
 				new String[] { "" });
 		if (minis.contains("number")) {
@@ -163,7 +165,9 @@ public class Field extends FieldSetImpl {
 		if (utils.getBoolean("@display-name"))
 			this.parent.getRecord().setDisplayName(this);
 		
-		utils.initBoolean(section,"@exists-in-services",true);
+		utils.initStrings(section,"@service-field-alias", null);
+		utils.initBoolean(section,"@exists-in-services", true);
+		utils.initBoolean(section,"@authref-in-services", false);
 
 		utils.initSet(section,"default",new String[] { "" });
 		utils.initSet(section,"enum/default",new String[] { "" });		
@@ -511,8 +515,8 @@ public class Field extends FieldSetImpl {
 	@Override
 	public Record getRecord() {
 		return parent.getRecord();
-	}
-
+		}
+		
 	@Override
 	public String[] getIDPath() {
 		if (parent instanceof Repeat && !((Repeat) parent).getSearchType().equals("repeator")) {
@@ -546,15 +550,19 @@ public class Field extends FieldSetImpl {
 
 	@Override
 	public Boolean hasAutocompleteInstance() {
+		Boolean result = false;
+		
 		if (utils.getSet("@autocomplete").size() > 0) {
 			for (String autocomplete_instance_id : utils.getSet("@autocomplete")) {
 				autocomplete_instance_id = autocomplete_instance_id.trim();
 				if (!autocomplete_instance_id.equals("")) {
-					return true;
+					result = true;
+					break;
 				}
 			}
 		}
-		return false;
+		
+		return result;
 	}
 
 	public boolean hasEnumBlank() {

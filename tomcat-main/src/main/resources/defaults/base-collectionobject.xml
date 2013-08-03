@@ -62,7 +62,7 @@
   <section id="coreInformation">
     <include src="core-fields.xml"  strip-root="yes" />
     <field id="csid" exists-in-services="false" mini="search,list" attributes="GET"></field>
-    <field id="nametitle" mini="summary,search,list,relate" exists-in-services="false">
+    <field id="nametitle" mini="summary,search,list,relate" exists-in-services="false" service-field-alias="objectName">
       <selector>object-identification-object-nametitle</selector>
       <merges>
         <merge id="title" rank="1"/>
@@ -72,7 +72,7 @@
   </section>
   <section id="identificationInformation">
     <field id="objectNumber" ui-search="repeatable" chooser="yes" in-title="yes" in-tab="yes"
-      display-name="yes" mini="number,search,list,relate" seperate_ui_container="true" services-should-index="true">
+      display-name="yes" mini="number,search,list,relate" seperate_ui_container="true">
       <selector>object-identification-object-number</selector>
       <title-selector>titleBar-object-identification-object-number</title-selector>
       <options>
@@ -81,7 +81,7 @@
         <option id="loanin" sample="LI2009.1.1">Loans In</option>
       </options>
     </field>
-    <field id="numberOfObjects" ui-search="range" ui-type="validated" datatype="integer" services-should-index="true">
+    <field id="numberOfObjects" ui-search="range" ui-type="validated" datatype="integer">
       <selector>object-identification-number-objects</selector>
     </field>
     <repeat id="otherNumberList/otherNumber">
@@ -154,7 +154,7 @@
         <selector>object-identification-comments</selector>
       </field>
     </repeat>
-    <field id="computedCurrentLocation" ui-type="valueDeURNed">
+    <field id="computedCurrentLocation" ui-type="valueDeURNed" authref-in-services="true">
     </field>
     <repeat id="titleGroupList/titleGroup">
       <!-- selector>collection-object-titleGroup</selector -->
@@ -162,7 +162,7 @@
         <title-selector>titleBar-object-identification-object-title</title-selector>
         <selector>object-identification-object-title</selector>
       </field>
-      <field id="titleLanguage" autocomplete="vocab-languages" ui-type="enum" services-should-index="true">
+      <field id="titleLanguage" autocomplete="vocab-languages" ui-type="enum">
         <enum>
           <default>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</default>
         </enum>

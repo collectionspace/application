@@ -17,6 +17,7 @@
         <structure id="screen">
             <view>
                 <label-section id="messagekeys" show="true"></label-section>
+                <hierarchy-section show="true"/> <!-- Here just so the Service bindings gets <SupportsHierarchy>true</SupportsHierarchy> -->
                 <titlebar show="false"></titlebar>
                 <sidebar show="false"></sidebar>
                 <edit-section id="details" show="true"></edit-section>
@@ -28,12 +29,14 @@
 	
 
     <section id="termListItemInformation">
-    	<field id="_subrecordcsid"></field>
-		<field id="displayName"></field>
+    	<field id="_subrecordcsid"></field> <!-- What is this field? -->
+    	<field id="inAuthority" services-should-index="true"></field>
+		<field id="displayName" mini="summary" services-should-index="true"></field>
 		<field id="source"></field>
 		<field id="sourcePage"></field>
-		<field id="shortIdentifier"></field>
+		<field id="shortIdentifier" mini="number" services-should-index="true"></field>
 		<field id="description"></field>
+		<field id="order" mini="list"></field>
 		<field id="termStatus" mini="search,list,relate">
             <options>
                 <option id="active" default="yes">Active</option>

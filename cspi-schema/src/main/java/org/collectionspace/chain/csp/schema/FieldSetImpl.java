@@ -8,6 +8,8 @@ public abstract class FieldSetImpl implements FieldSet {
 	protected SchemaUtils utils = new SchemaUtils();
 	
 	protected void initialiseVariables(ReadOnlySection section, String tempid) {
+		utils.initStrings(section,"@services-setter", null);
+		utils.initBoolean(section,"@services-schema-qualify", false);
 		utils.initBoolean(section,"@services-type-anonymous", true); // generate an embedded anonymous type instead of a standalone complex type
 		if (section != null) {
 			String servicesType = (String)section.getValue("/@services-type");
@@ -23,9 +25,29 @@ public abstract class FieldSetImpl implements FieldSet {
 	}
 	
 	@Override
+	public String getServicesSetter() {
+		return utils.getString("@services-setter");
+	}
+	
+	@Override
+	public boolean shouldSchemaQualify() {
+		return utils.getBoolean("@services-schema-qualify");
+	}	
+	
+	@Override
+	public String getServiceFieldAlias() {
+		return utils.getString("@service-field-alias");
+	}
+	
+	@Override
+	public Boolean isAuthRefInServices() {
+		return utils.getBoolean("@authref-in-services");
+	}
+	
+	@Override
 	public Boolean isInServices() {
 		return utils.getBoolean("@exists-in-services");
-	}
+	}	
 	
 	@Override
 	public Boolean shouldIndex() {

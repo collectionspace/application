@@ -48,13 +48,14 @@
 
                 <!--  Object Exit Information Group -->
                 <section id="objectexitInformation">
-                    <field id="exitNumber" ui-search="repeatable" chooser="yes" in-title="yes" mini="number,search,list,relate" seperate_ui_container="true">
+                    <field id="exitNumber" ui-search="repeatable" chooser="yes" in-title="yes" mini="number,search,list,relate" 
+                    	seperate_ui_container="true" services-setter="setExitNumber">
                         <options>
                             <option id="objectexit" sample="EX2010.1">Object Exit</option>
                         </options>
                     </field>
                     <field id="currentOwner" ui-search="repeatable" autocomplete="person-person,organization-organization"
-                           mini="summary,list" in-title="yes">
+                           mini="summary,list" in-title="yes" services-setter="setCurrentOwner">
                     </field>
                     <field id="depositor" ui-search="repeatable" autocomplete="person-person,organization-organization"></field>
                     <field id="exitDateGroup" ui-type="groupfield/structureddate" 

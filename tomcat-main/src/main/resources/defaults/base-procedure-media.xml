@@ -56,7 +56,7 @@
                     <field id="externalMediaUrl" exists-in-services="false"></field>
 					
 					<field id="dimension" ui-type="groupfield/dimension/selfrenderer"  ui-func="cspace.dimension"></field>
-                    <field id="title" ui-search="repeatable" mini="summary,search,list,relate"></field>
+                    <field id="title" ui-search="repeatable" mini="summary,search,list,relate" services-schema-qualify="true"></field> <!-- Need to qualify the field name for the Services since 'title' is ambiguous. -->
                     <field id="contributor" autocomplete="person-person,organization-organization"></field>
                     <field id="creator" ui-search="repeatable" autocomplete="person-person,organization-organization"></field>
                     <repeat id="languages">

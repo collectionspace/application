@@ -29,14 +29,23 @@ public interface FieldSet {
 	public String getParentID();
 	public void setParent(FieldParent fp);
 	public Record getRecord();
+
+	/*
+	 * Methods specific to Service artifact generation
+	 */
+	public String getServicesSetter();
+	public boolean shouldSchemaQualify();
 	public String getServicesTag();
 	public String getServiceTableName(boolean isAuthority);
 	public String getServicesUrl();
 	public String[] getServicesParent();
 	public boolean hasServicesParent();
-	public String getSection();
+	public String getServiceFieldAlias();
 	public Boolean isInServices();
 	public Boolean isServicesAnonymousType();
+	public Boolean isAuthRefInServices();
+	
+	public String getSection();	
 	public boolean hasFieldPerm(String k);
 	public String[] getAllFieldOperations();
 

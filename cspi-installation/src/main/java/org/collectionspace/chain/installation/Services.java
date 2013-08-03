@@ -172,6 +172,9 @@ public class Services {
 		for (Record r : this.spec.getAllRecords()) {
 			String tenantName = this.tenantSpec.getTenant();
 			String recordName = r.getRecordName();
+			if (log.isDebugEnabled() == true) {
+				log.debug(String.format("Processing App record '%s'", recordName));
+			}
 
 			if (shouldGenerateServiceBinding(r) == true) {
 				Element serviceBindingsElement = null;
@@ -212,7 +215,7 @@ public class Services {
 					this.writeToFile(r, bindingsForRecord, false);
 				}
 			} else {
-				log.trace(String.format("'%s.%s' does not require a service binding", tenantName, recordName));
+				log.debug(String.format("'%s.%s' does not require a service binding", tenantName, recordName));
 			}
 		}
 		
@@ -768,7 +771,7 @@ public class Services {
 	 *     	<types:value>borrower</types:value>
 	 * </types:item>
 	 */
-	private void addServiceProperty(Element props, FieldSet fs, String keyName, Namespace types) {
+	private void addServiceProperty(Element props, FieldSet fieldSet, String keyName, Namespace types, boolean isAuthority) {
 		//<item>
 		Element itemElement = props.addElement(new QName("item", types));
 		
@@ -778,7 +781,13 @@ public class Services {
 		
 		//<value>
 		Element valueElement = itemElement.addElement(new QName("value", types));
-		String fieldPath = this.getFullyQualifiedFieldPath(fs);
+		String fieldPath = this.getFullyQualifiedFieldPath(fieldSet);
+		
+		Record record = fieldSet.getRecord();
+		if (fieldSet.shouldSchemaQualify() == true) {
+			String schemaName = record.getServicesSchemaName(fieldSet.getSection());
+			fieldPath = schemaName + ":" + fieldPath;
+		}
 		valueElement.addText(fieldPath);	
 	}
 
@@ -796,13 +805,17 @@ public class Services {
 		
 		FieldSet objNameProp = r.getMiniSummary();
 		if (objNameProp != null) {
-			this.addServiceProperty(props, objNameProp, OBJECT_NAME_PROPERTY, types);
+			String serviceFieldAlias = objNameProp.getServiceFieldAlias();
+			if (serviceFieldAlias != null) {
+				objNameProp = r.getField(serviceFieldAlias);
+			}
+			this.addServiceProperty(props, objNameProp, OBJECT_NAME_PROPERTY, types, isAuthority);
 			result = true;
 		}
 
 		FieldSet objNumberProp = r.getMiniNumber();
 		if (objNumberProp != null) {
-			this.addServiceProperty(props, objNumberProp, OBJECT_NUMBER_PROPERTY, types);
+			this.addServiceProperty(props, objNumberProp, OBJECT_NUMBER_PROPERTY, types, isAuthority);
 			result = true;
 		}
 				
@@ -829,17 +842,28 @@ public class Services {
 		for (FieldSet fs : allMiniSummaryList) {
 			if (fs.isInServices() && fs.getSection().equals(section)) {
 				String fieldNamePath = this.getFullyQualifiedFieldPath(fs);
-
+				//
+				// Add the <ListResultField> element
+				//
 				Element lrf = el.addElement(new QName("ListResultField", thisns));
-				Element elrf = lrf.addElement(new QName("element", thisns));
 				if (!section.equals(COLLECTIONSPACE_COMMON_PART_NAME)) {
 					Element slrf = lrf.addElement(new QName("schema", thisns));
 					slrf.addText(r.getServicesSchemaName(section));
+				} else {
+					log.isDebugEnabled();
 				}
-				Element xlrf = lrf.addElement(new QName("xpath", thisns));
 
+				Element elrf = lrf.addElement(new QName("element", thisns));
 				elrf.addText(fs.getServicesTag());
+				
+				Element xlrf = lrf.addElement(new QName("xpath", thisns));
 				xlrf.addText(fieldNamePath);
+				
+				String setter = fs.getServicesSetter(); 
+				if (setter != null && setter.trim().isEmpty() == false) {
+					Element slrf = lrf.addElement(new QName("setter", thisns));
+					slrf.addText(setter);
+				}
 			}
 		}
 	}
@@ -874,14 +898,25 @@ public class Services {
 		return result;
 	}
 	
+	private boolean isAuthOrTermRef(FieldSet fieldSet) {
+		boolean result = false;
+		
+		if (fieldSet.hasAutocompleteInstance() || fieldSet.isAuthRefInServices()) {
+			result = true;
+		}
+		
+		return result;
+	}
+	
 	/*
 	 * If we authRef's or termRef's, then we create an entry in the bindings xml and return 'true'; otherwise, we return 'false'
 	 */
 	private boolean createAuthRef(Element auth, Namespace types, Record r, String section, FieldSet in) {
 		boolean result = false;
+		String fieldName = in.getID();
 		
-		if (in.getSection().equals(section) && in.hasAutocompleteInstance()) {
-			result = true; // Let the caller know we created an referenced term 
+		if (in.getSection().equals(section) && isAuthOrTermRef(in)) {
+			result = true; // Let the caller know we created a referenced term 
 			Boolean isEnum = false;
 			if (in instanceof Field) {
 				isEnum = (((Field) in).getUIType()).equals("enum");
@@ -931,7 +966,7 @@ public class Services {
 		boolean result = false;
 		
 		for (FieldSet in : r.getAllFieldFullList("")) {
-			String fieldName = in.getID() + ":" + in.getLabel();
+			String fieldName = in.getID() + ":" + in.getLabel(); // for debugging only
 
 			if (in.isASelfRenderer() == true) {
 				String fieldSetServicesType = in.getServicesType(false /* not NS qualified */);

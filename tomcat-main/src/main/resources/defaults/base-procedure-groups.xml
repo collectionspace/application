@@ -46,7 +46,7 @@
                 </section>
                 <section id="groupInformation">
                     <!--  Object Exit Information Group -->
-                    <field id="title" ui-search="repeatable" in-title="yes" mini="number,search,list,relate" >
+                    <field id="title" ui-search="repeatable" in-title="yes" mini="number,search,list,relate" services-schema-qualify="true" >
                         <selector>group-title</selector>
                     </field>
                     <field id="scopeNote"></field>
@@ -67,7 +67,7 @@
                         </options>
                     </field>
                     <field id="owner" ui-search="repeatable" autocomplete="person-person"
-                           mini="summary,list" in-title="yes">
+                           mini="summary,list" in-title="yes" services-schema-qualify="true">
                     </field>
                 </section>
             </record> <!-- close GROUPS record -->
