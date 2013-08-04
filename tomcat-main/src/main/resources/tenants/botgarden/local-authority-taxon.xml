@@ -77,6 +77,8 @@
 			<field id="commonNameSource" autocomplete=""/>
 		</repeat>
 		
+		<!-- naturalhistory fields -->
+		
 		<field id="accessRestrictions" ui-search="repeatable"/>
 		<field id="family" ui-search="repeatable"/>
 		<field id="taxonNameSource">
@@ -137,16 +139,16 @@
 			</options>
 		</field>
 		
-		<repeat id="plantAttributesGroupList/plantAttributesGroup" section="naturalhistory">
-			<!-- Add autocomplete -->
+		<repeat id="plantAttributesGroupList/plantAttributesGroup">
+			<!-- Add autocomplete and ui-search -->
 			<field id="conservationCategory" autocomplete="concept-conservation_ca" ui-search="repeatable"/>
+			<!-- Add ui-search -->
 			<field id="conservationOrganization" ui-search="repeatable"/>
 		</repeat>
 
 		<repeat id="naturalHistoryCommonNameGroupList/naturalHistoryCommonNameGroup">
-			<!-- Change autocomplete to taxon-common -->
+			<!-- Change autocomplete to taxon-common and add ui-search -->
 			<field id="naturalHistoryCommonName" autocomplete="taxon-common" ui-search="repeatable"/>
 		</repeat>
-
 	</section>
 </record>
