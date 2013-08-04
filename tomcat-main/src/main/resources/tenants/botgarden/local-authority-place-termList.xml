@@ -12,6 +12,8 @@
 					<option id="Unverified Geographic Name">Unverified Geographic Name</option>
 				</options>
 			</field>
+			<!-- Remove autocomplete -->
+			<field id="termSource" autocomplete=""/>
 			<field id="historicalStatus">
 				<!-- Change options -->
 				<options>
