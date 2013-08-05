@@ -25,7 +25,7 @@
       "intake", 
       "group", 
       "work",
-      "cona_work"
+      "cona_work",
       "media"
     ], 
     "type": "array"
