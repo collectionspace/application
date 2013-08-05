@@ -13,6 +13,8 @@
 						 uses the record id. Ugh. -->
         <sourceTypes>location,locationauthorities,personauthorities,person,citationauthorities,citation,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities,collection-object</sourceTypes>
         <destinationTypes>location,locationauthorities,personauthorities,person,citationauthorities,citation,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities,collection-object</destinationTypes>
+        <sourceTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities,collection-object,work,workauthorities</sourceTypes>
+        <destinationTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities,collection-object,work,workauthorities</destinationTypes>
         <showinui>true</showinui>
     </relation>
     <relation id="narrowerContexts">
@@ -29,6 +31,8 @@
 						 uses the record id. Ugh. -->
         <sourceTypes>location,locationauthorities,personauthorities,person,citationauthorities,citation,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities,collection-object</sourceTypes>
         <destinationTypes>location,locationauthorities,personauthorities,person,citationauthorities,citation,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities,collection-object</destinationTypes>
+        <sourceTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities,collection-object,work,workauthorities</sourceTypes>
+        <destinationTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities,collection-object,work,workauthorities</destinationTypes>
         <showinui>true</showinui>
     </relation>
     <relation id="broader">

@@ -51,6 +51,9 @@
           "ulan_oa", 
           "ulan_pa",
           "worldcat"
+          "taxon",
+          "work",
+          "cona_work"
         ], 
         "type": "array"
       }
