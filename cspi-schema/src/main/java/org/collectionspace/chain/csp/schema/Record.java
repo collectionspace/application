@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
@@ -39,6 +40,12 @@ public class Record implements FieldParent {
 	public static final String SUPPORTS_LOCKING = "supportslocking";
 	public static final String RANGE_START_SUFFIX = "Start";
 	public static final String RANGE_END_SUFFIX = "End";
+	
+	public static final String COLLECTIONSPACE_CORE_PART_NAME = "collectionspace_core";
+	public static final String COLLECTIONSPACE_COMMON_PART_NAME = "common";
+	public static final String COLLECTIONSPACE_SYSTEM_PART_NAME = "system";
+	public static final String COLLECTIONSPACE_SCHEMA_LOCATION_SYSTEM = "http://collectionspace.org/services/config/system http://collectionspace.org/services/config/system/system-response.xsd";
+	public static final String COLLECTIONSPACE_NAMESPACE_URI_SYSTEM = "http://collectionspace.org/services/config/system";	
 
 	protected SchemaUtils utils = new SchemaUtils();
 
@@ -230,17 +237,14 @@ public class Record implements FieldParent {
 
 		utils.initStrings(section, "services-schema-location", "http://services.collectionspace.org");
 
-		utils.initStrings(section, "services-dochandler",
-				"org.collectionspace.services." + utils.getString("services-tenant-singular").toLowerCase() + ".nuxeo."
-						+ utils.getString("services-tenant-singular") + "DocumentModelHandler");
 		utils.initStrings(section, "services-abstract",
 				"org.collectionspace.services." + utils.getString("services-tenant-singular").toLowerCase() + "."
 						+ utils.getString("services-tenant-plural") + "CommonList");
 		utils.initStrings(section, "services-common",
 				utils.getString("services-abstract") + "$" + utils.getString("services-tenant-singular") + "ListItem");
-		utils.initStrings(section, "services-validator",
-				"org.collectionspace.services." + utils.getString("services-tenant-singular").toLowerCase() + ".nuxeo."
-						+ utils.getString("services-tenant-singular") + "ValidatorHandler");
+
+		utils.initStrings(section, "services-dochandler", null);
+		utils.initStrings(section, "services-validator", null);
 
 		spec = parent;
 	}
@@ -792,8 +796,37 @@ public class Record implements FieldParent {
 		return result;
 	}
 
+	/*
+	 * Gets the last word at the end of a URL.
+	 */
+	private static String getURLTail(String url) {
+		String result = null;
+		
+		Scanner scanner = null;
+		try {
+			scanner = new Scanner(url).useDelimiter("\\/+");
+		    while (scanner.hasNext() == true) {
+		    	result = scanner.next();
+		    }	 
+		} catch (Exception e) {
+			// Ignore the exception or logger.trace(e);
+		} finally {
+			scanner.close();
+		}
+
+		return result;
+	}
+	
+	/*
+	 * Gets the Service's document model handler by using standard naming conventions.
+	 */
 	public String getServicesDocHandler(Boolean isAuthority) {
 		String result = utils.getString("services-dochandler");
+		
+		if (result == null) {
+			result = "org.collectionspace.services." + getURLTail(getServicesSchemaNameSpaceURI(COLLECTIONSPACE_COMMON_PART_NAME)) + ".nuxeo."
+					+ utils.getString("services-tenant-singular") + "DocumentModelHandler";
+		}
 
 		if (isAuthority == true) {
 			result = getAuthorityForm(result);
@@ -802,9 +835,17 @@ public class Record implements FieldParent {
 		return result;
 	}
 
+	/*
+	 * Gets the Service's document model validation handler by using standard naming conventions.
+	 */	
 	public String getServicesValidatorHandler(Boolean isAuthority) {
 		String result = utils.getString("services-validator");
 
+		if (result == null) {
+			result = "org.collectionspace.services." + getURLTail(getServicesSchemaNameSpaceURI(COLLECTIONSPACE_COMMON_PART_NAME)) + ".nuxeo."
+					+ utils.getString("services-tenant-singular") + "ValidatorHandler";
+		}
+		
 		if (isAuthority == true) {
 			result = getAuthorityForm(result);
 		}

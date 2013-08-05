@@ -26,12 +26,6 @@ import org.apache.commons.io.FileUtils;
 public class Services {
 	private static final Logger log = LoggerFactory.getLogger(Services.class);
 	
-	private static final String COLLECTIONSPACE_CORE_PART_NAME = "collectionspace_core";
-	private static final String COLLECTIONSPACE_COMMON_PART_NAME = "common";
-	private static final String COLLECTIONSPACE_SYSTEM_PART_NAME = "system";
-	private static final String COLLECTIONSPACE_SCHEMA_LOCATION_SYSTEM = "http://collectionspace.org/services/config/system http://collectionspace.org/services/config/system/system-response.xsd";
-	private static final String COLLECTIONSPACE_NAMESPACE_URI_SYSTEM = "http://collectionspace.org/services/config/system";
-	
 	private static final String RECORD_TYPE_VOCABULARY = "vocabulary";
 	private static final String RECORD_TYPE_AUTHORITY = "authority";
 	private static final String RECORD_TYPE_UTILITY = "utility";
@@ -473,7 +467,7 @@ public class Services {
 			this.domainsection = ""; // assumes only one domain
 			for (String section : r.getServicesRecordPathKeys()) {
 				if (!section.equals("common")
-						&& !section.equals(COLLECTIONSPACE_CORE_PART_NAME)) {
+						&& !section.equals(Record.COLLECTIONSPACE_CORE_PART_NAME)) {
 					this.domainsection = section; // assumes only one domain
 				}
 			}
@@ -563,36 +557,36 @@ public class Services {
 		
 		Integer num = 0;
 		//<service:part id="0" control_group="Managed" versionable="true" auditable="false" label="intakes-system" updated="" order="0">
-		String schemaLocationSystem = COLLECTIONSPACE_SCHEMA_LOCATION_SYSTEM;
-		makePart(r, cele, num.toString(), label + "-" + COLLECTIONSPACE_SYSTEM_PART_NAME,
-				num.toString(), COLLECTIONSPACE_NAMESPACE_URI_SYSTEM, schemaLocationSystem, thisns, false, COLLECTIONSPACE_SYSTEM_PART_NAME);
-		processedParts.add(COLLECTIONSPACE_SCHEMA_LOCATION_SYSTEM);
+		String schemaLocationSystem = Record.COLLECTIONSPACE_SCHEMA_LOCATION_SYSTEM;
+		makePart(r, cele, num.toString(), label + "-" + Record.COLLECTIONSPACE_SYSTEM_PART_NAME,
+				num.toString(), Record.COLLECTIONSPACE_NAMESPACE_URI_SYSTEM, schemaLocationSystem, thisns, false, Record.COLLECTIONSPACE_SYSTEM_PART_NAME);
+		processedParts.add(Record.COLLECTIONSPACE_SCHEMA_LOCATION_SYSTEM);
 		num++;
 
 		// <service:part id="1" control_group="Managed" versionable="true" auditable="false" label="intakes_common" updated="" order="1">
-		if (r.hasServicesRecordPath(COLLECTIONSPACE_COMMON_PART_NAME)) {
-			String namespaceURI = r.getServicesSchemaNameSpaceURI(COLLECTIONSPACE_COMMON_PART_NAME);
+		if (r.hasServicesRecordPath(Record.COLLECTIONSPACE_COMMON_PART_NAME)) {
+			String namespaceURI = r.getServicesSchemaNameSpaceURI(Record.COLLECTIONSPACE_COMMON_PART_NAME);
 			String schemaLocationCommon = namespaceURI + " " + r.getServicesSchemaBaseLocation() + "/" + (isAuthority ? r.getRecordName() : labelsg) + "/" + label + "_common.xsd";			
 			if (r.isType("authorizationdata")) {
 				schemaLocationCommon = namespaceURI + " "+ r.getServicesSchemaBaseLocation()  + "/" + label + ".xsd";
 			}
-			String servicesPartLabel = r.getServicesPartLabel(COLLECTIONSPACE_COMMON_PART_NAME);
+			String servicesPartLabel = r.getServicesPartLabel(Record.COLLECTIONSPACE_COMMON_PART_NAME);
 			if (isAuthority == true) {
 				servicesPartLabel = r.getAuthoritySchemaName();
 			}
 			makePart(r, cele, num.toString(), servicesPartLabel,
-					num.toString(), namespaceURI, schemaLocationCommon, thisns, !isAuthority, COLLECTIONSPACE_COMMON_PART_NAME); // We don't support term and auth refs for Authority item/term parents -i.e., Authorities.
-			processedParts.add(COLLECTIONSPACE_COMMON_PART_NAME);
+					num.toString(), namespaceURI, schemaLocationCommon, thisns, !isAuthority, Record.COLLECTIONSPACE_COMMON_PART_NAME); // We don't support term and auth refs for Authority item/term parents -i.e., Authorities.
+			processedParts.add(Record.COLLECTIONSPACE_COMMON_PART_NAME);
 			num++;
 		}
 
 		// <service:part id="2" control_group="Managed" versionable="true" auditable="false" label="collectionspace_core" updated="" order="2">
-		if (r.hasServicesRecordPath(COLLECTIONSPACE_CORE_PART_NAME)) {
-			String namespaceURI = r.getServicesSchemaNameSpaceURI(COLLECTIONSPACE_CORE_PART_NAME);
+		if (r.hasServicesRecordPath(Record.COLLECTIONSPACE_CORE_PART_NAME)) {
+			String namespaceURI = r.getServicesSchemaNameSpaceURI(Record.COLLECTIONSPACE_CORE_PART_NAME);
 			String schemaLocationCore = namespaceURI + " " + r.getServicesSchemaBaseLocation() + "/collectionspace_core.xsd";
-			makePart(r, cele, num.toString(), r.getServicesPartLabel(COLLECTIONSPACE_CORE_PART_NAME),
-					num.toString(), namespaceURI, schemaLocationCore, thisns, false, COLLECTIONSPACE_CORE_PART_NAME);
-			processedParts.add(COLLECTIONSPACE_CORE_PART_NAME);
+			makePart(r, cele, num.toString(), r.getServicesPartLabel(Record.COLLECTIONSPACE_CORE_PART_NAME),
+					num.toString(), namespaceURI, schemaLocationCore, thisns, false, Record.COLLECTIONSPACE_CORE_PART_NAME);
+			processedParts.add(Record.COLLECTIONSPACE_CORE_PART_NAME);
 			num++;
 		}
 	
@@ -832,7 +826,7 @@ public class Services {
 		if (isAuthority == true) {
 			Spec spec = r.getSpec();
 			r = spec.getRecord(BASE_AUTHORITY_RECORD);
-			section = COLLECTIONSPACE_COMMON_PART_NAME;
+			section = Record.COLLECTIONSPACE_COMMON_PART_NAME;
 		}
 		
 		FieldSet[] allMiniSummaryList = r.getAllMiniSummaryList();
@@ -846,7 +840,7 @@ public class Services {
 				// Add the <ListResultField> element
 				//
 				Element lrf = el.addElement(new QName("ListResultField", thisns));
-				if (!section.equals(COLLECTIONSPACE_COMMON_PART_NAME)) {
+				if (!section.equals(Record.COLLECTIONSPACE_COMMON_PART_NAME)) {
 					Element slrf = lrf.addElement(new QName("schema", thisns));
 					slrf.addText(r.getServicesSchemaName(section));
 				} else {
