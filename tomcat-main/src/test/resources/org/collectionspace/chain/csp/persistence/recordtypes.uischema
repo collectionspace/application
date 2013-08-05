@@ -38,7 +38,8 @@
         "default": [
           "activity", 
           "citation", 
-          "common_ta", 
+          "common_ta",
+          "cona_work"
           "concept", 
           "location", 
           "material_ca", 
@@ -51,9 +52,7 @@
           "ulan_oa", 
           "ulan_pa",
           "worldcat"
-          "taxon",
           "work",
-          "cona_work"
         ], 
         "type": "array"
       }

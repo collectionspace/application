@@ -24,9 +24,8 @@
       "worldcat", 
       "intake", 
       "group", 
-            "ulan_pa",
-            "work",
-            "cona_work"
+      "work",
+      "cona_work"
       "media"
     ], 
     "type": "array"
