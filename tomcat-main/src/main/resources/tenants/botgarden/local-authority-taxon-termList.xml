@@ -10,7 +10,8 @@
 					<option id="Grex Name">Grex Name</option>
 				</options>
 			</field>
-			<field id="termSource">
+			<!-- Remove autocomplete -->
+			<field id="termSource" autocomplete="">
 				<options>
 					<option id="" default="yes">Please select a value</option>
 					<option id="Royal Botanical Gardens (KEW)">Royal Botanical Gardens (KEW)</option>
@@ -18,8 +19,6 @@
 					<option id="UC Botanical Garden">UC Botanical Garden</option>
 				</options>
 			</field>
-			<!-- Remove autocomplete -->
-			<field id="termSource" autocomplete=""/>
 			<field id="taxonomicStatus">
 				<options>
 					<option id="" default="yes">Please select a value</option>
