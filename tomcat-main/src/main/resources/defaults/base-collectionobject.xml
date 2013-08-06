@@ -72,7 +72,7 @@
   </section>
   <section id="identificationInformation">
     <field id="objectNumber" ui-search="repeatable" chooser="yes" in-title="yes" in-tab="yes"
-      display-name="yes" mini="number,search,list,relate" seperate_ui_container="true">
+      display-name="yes" mini="number,search,list,relate" seperate_ui_container="true" services-refnameDisplayName="true">
       <selector>object-identification-object-number</selector>
       <title-selector>titleBar-object-identification-object-number</title-selector>
       <options>

@@ -8,6 +8,7 @@ public abstract class FieldSetImpl implements FieldSet {
 	protected SchemaUtils utils = new SchemaUtils();
 	
 	protected void initialiseVariables(ReadOnlySection section, String tempid) {
+		utils.initBoolean(section,"@services-refnameDisplayName", false);
 		utils.initStrings(section,"@services-setter", null);
 		utils.initBoolean(section,"@services-schema-qualify", false);
 		utils.initBoolean(section,"@services-type-anonymous", true); // generate an embedded anonymous type instead of a standalone complex type
@@ -19,9 +20,14 @@ public abstract class FieldSetImpl implements FieldSet {
 			String servicesGroupType = (String)section.getValue("/@services-group-type");
 			if (servicesGroupType != null && servicesGroupType.isEmpty() == false) {
 				this.setServicesGroupType(servicesGroupType);
-			}			
+			}
 		}
 		
+	}
+	
+	@Override
+	public boolean isServicesRefnameDisplayName() {
+		return utils.getBoolean("@services-refnameDisplayName");
 	}
 	
 	@Override

@@ -367,6 +367,10 @@ public class Record implements FieldParent {
 		return new FieldSet[0];
 	}
 
+	public FieldSet[] getAllFieldFullList() {
+		return fieldFullList.values().toArray(new FieldSet[0]);
+	}
+	
 	public FieldSet[] getAllFieldFullList(String operation) {
 		if (allfieldsbyoperation.containsKey(operation)) {
 			return allfieldsbyoperation.get(operation).values().toArray(new FieldSet[0]);

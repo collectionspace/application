@@ -435,6 +435,31 @@ public class Services {
 		}
 	}
 	
+	/*
+	 * Creates the <> element in the Service binding. Is used to generate the 'refName' in service payloads
+	 * For example,
+	 * 	<service:RefnameDisplayNameField> <!-- The field used as the display name in an object's refname -->
+	 *		<service:element>objectNumber</service:element>
+	 *		<service:xpath>objectNumber</service:xpath>
+	 *	</service:RefnameDisplayNameField>
+	 */
+	private void doRefnameDisplayNameField(Record record, Element ele, Namespace thisns, String section, boolean isAuthority) {
+		for (FieldSet fieldSet : record.getAllFieldFullList()) {
+			if (fieldSet.isServicesRefnameDisplayName() == true) {
+				Element doRefnameDisplayNameEle = ele.addElement(new QName("RefnameDisplayNameField", thisns));
+				
+				Element elrf = doRefnameDisplayNameEle.addElement(new QName("element", thisns));
+				elrf.addText(fieldSet.getServicesTag());
+				
+				Element xlrf = doRefnameDisplayNameEle.addElement(new QName("xpath", thisns));
+				String fieldNamePath = this.getFullyQualifiedFieldPath(fieldSet);
+				xlrf.addText(fieldNamePath);
+				
+				break; // Allow only a single <RefnameDisplayNameField> element
+			}
+		}
+	}
+	
 	/**
 	 * <service:DocHandlerParams>
 	 * @param r
@@ -447,12 +472,15 @@ public class Services {
 		//<service:DocHandlerParams>
 		Element dhele = el.addElement(new QName("DocHandlerParams", thisns));
 		Element pele = dhele.addElement(new QName("params", thisns));
-		
+				
 		if (r.hasHierarchyUsed(DEFAULT_HIERARCHY_TYPE) == true && isAuthority == false) {
 			//<service:SupportsHierarchy>true</service:SupportsHierarchy>
 			Element sh_rele = pele.addElement(new QName("SupportsHierarchy", thisns));
 			sh_rele.addText("true");
 		}
+
+		doRefnameDisplayNameField(r, pele, thisns, section, isAuthority);
+		
 		Element lrele = pele.addElement(new QName("ListResultsFields", thisns));
 		doLists(r, lrele, thisns, section, isAuthority);
 	}
