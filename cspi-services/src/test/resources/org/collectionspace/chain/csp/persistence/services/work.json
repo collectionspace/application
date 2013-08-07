@@ -1,0 +1,85 @@
+{
+    "shortIdentifier": "worktest1",
+    "publisherGroup": [
+        {
+            "_primary": true,
+            "publisherType": "distributor",
+            "publisher": "TriStar Pictures"
+        }
+    ],
+    "workType": "work type goes here",
+    "workHistoryNote": "history note goes here",
+    "creatorGroup": [
+        {
+            "_primary": true,
+            "creatorType": "director",
+            "creator": "Frank Oz"
+        }
+    ],
+    "workTermGroup": [
+        {
+            "_primary": true,
+            "termDisplayName": "Muppets Take Manhattan (1984)",
+            "termName": "Muppets Take Manhattan",
+            "termLanguage": "english",
+            "termPrefForLang": false,
+            "termType": "term type",
+            "termQualifier": "term qualifier",
+            "termSource": "other",
+            "termSourceID": "12345",
+            "termSourceDetail": "term source detail",
+            "termSourceNote": "source note goes here",
+            "termStatus": "complete"
+        }
+    ],
+    "workDateGroup": [{
+            "dateEarliestSingleQualifier": "-",
+            "scalarValuesComputed": "false",
+            "dateLatestDay": "22",
+            "dateLatestYear": "5",
+            "dateAssociation": "sdf",
+            "dateEarliestSingleEra": "bce",
+            "dateDisplayDate": "sdf",
+            "dateEarliestSingleCertainty": "about",
+            "dateLatestEra": "bce",
+            "dateEarliestSingleQualifierValue": "4",
+            "dateLatestCertainty": "approximate",
+            "dateEarliestSingleYear": "1",
+            "dateLatestQualifier": "+",
+            "dateLatestQualifierValue": "2",
+            "dateEarliestSingleQualifierUnit": "days",
+            "datePeriod": "sdf",
+            "dateEarliestScalarValue": "",
+            "_primary": true,
+            "dateLatestMonth": "11",
+            "dateNote": "sdf",
+            "dateLatestScalarValue": "",
+            "dateLatestQualifierUnit": "month",
+            "dateEarliestSingleDay": "3",
+            "dateEarliestSingleMonth": "2"
+        }, {
+            "dateEarliestSingleQualifier": "-",
+            "scalarValuesComputed": "false",
+            "dateLatestDay": "20",
+            "dateLatestYear": "1",
+            "dateAssociation": "wer",
+            "dateEarliestSingleEra": "bce",
+            "dateDisplayDate": "wer",
+            "dateEarliestSingleCertainty": "about",
+            "dateLatestEra": "bce",
+            "dateEarliestSingleQualifierValue": "4",
+            "dateLatestCertainty": "approximate",
+            "dateEarliestSingleYear": "1",
+            "dateLatestQualifier": "+",
+            "dateLatestQualifierValue": "2",
+            "dateEarliestSingleQualifierUnit": "days",
+            "datePeriod": "werwerwer",
+            "dateEarliestScalarValue": "",
+            "dateLatestMonth": "11",
+            "dateNote": "werwer",
+            "dateLatestScalarValue": "",
+            "dateLatestQualifierUnit": "month",
+            "dateEarliestSingleDay": "21",
+            "dateEarliestSingleMonth": "7"
+        }]
+}

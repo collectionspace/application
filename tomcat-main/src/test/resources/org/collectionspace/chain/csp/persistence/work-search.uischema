@@ -1,0 +1,121 @@
+{
+    "work": {
+        "properties": {
+            "workTypes": {
+                "items": {
+                    "properties": {
+                        "_primary": {
+                            "default": true,
+                            "type": "boolean"
+                        },
+                        "workType": {
+                            "default": "",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
+            "createdBys": {
+                "items": {
+                    "properties": {
+                        "_primary": {
+                            "default": true,
+                            "type": "boolean"
+                        },
+                        "createdBy": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
+            "publisherGroup": {
+                "items": {
+                    "properties": {
+                        "_primary": {
+                            "default": true,
+                            "type": "boolean"
+                        },
+                        "publisher": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
+            "updatedAtEnd": {
+                "type": "date"
+            },
+            "workDateStart": {
+                "type": "string"
+            },
+            "workDateEnd": {
+                "type": "string"
+            },
+            "updatedBys": {
+                "items": {
+                    "properties": {
+                        "_primary": {
+                            "default": true,
+                            "type": "boolean"
+                        },
+                        "updatedBy": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
+            "workTermGroup": {
+                "items": {
+                    "properties": {
+                        "termName": {
+                            "type": "string"
+                        },
+                        "_primary": {
+                            "default": true,
+                            "type": "boolean"
+                        },
+                        "termDisplayName": {
+                            "type": "string"
+                        },
+                        "termStatus": {
+                            "default": "",
+                            "type": "string"
+                        },
+                        "termLanguage": {
+                            "default": "",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
+            "updatedAtStart": {
+                "type": "date"
+            },
+            "creatorGroup": {
+                "items": {
+                    "properties": {
+                        "_primary": {
+                            "default": true,
+                            "type": "boolean"
+                        },
+                        "creator": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            }
+        },
+        "type": "object"
+    }
+}

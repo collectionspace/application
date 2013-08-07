@@ -1,0 +1,289 @@
+{
+    "work": {
+        "properties": {
+            "relations": {
+                "default": {},
+                "type": "object"
+            },
+            "termsUsed": {
+                "default": [],
+                "type": "array"
+            },
+            "csid": {
+                "type": "string"
+            },
+            "fields": {
+                "properties": {
+                    "tenantID": {
+                        "type": "string"
+                    },
+                    "relatedTerms": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "relatedTerm": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "workHistoryNote": {
+                        "type": "string"
+                    },
+                    "publisherGroup": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "publisherType": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "publisher": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "workType": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "csid": {
+                        "type": "string"
+                    },
+                    "uri": {
+                        "type": "string"
+                    },
+                    "workTermGroup": {
+                        "items": {
+                            "properties": {
+                                "termPrefForLang": {
+                                    "default": false,
+                                    "type": "boolean"
+                                },
+                                "termName": {
+                                    "type": "string"
+                                },
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "termType": {
+                                    "type": "string"
+                                },
+                                "termDisplayName": {
+                                    "type": "string"
+                                },
+                                "termSource": {
+                                    "type": "string"
+                                },
+                                "termStatus": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "termSourceID": {
+                                    "type": "string"
+                                },
+                                "termQualifier": {
+                                    "type": "string"
+                                },
+                                "termSourceDetail": {
+                                    "type": "string"
+                                },
+                                "termSourceNote": {
+                                    "type": "string"
+                                },
+                                "termLanguage": {
+                                    "default": "",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "updatedBy": {
+                        "type": "string"
+                    },
+                    "creatorGroup": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "creatorType": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "creator": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "updatedAt": {
+                        "type": "date"
+                    },
+                    "shortIdentifier": {
+                        "type": "string"
+                    },
+                    "createdBy": {
+                        "type": "string"
+                    },
+                    "broaderContext": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "string"
+                    },
+                    "refName": {
+                        "type": "string"
+                    },
+                    "equivalentContexts": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "equivalentContext": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "narrowerContexts": {
+                        "items": {
+                            "properties": {
+                                "narrowerContext": {
+                                    "type": "string"
+                                },
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "narrowerContextType": {
+                                    "default": "",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "workDateGroup": {
+                        "items": {
+                            "properties": {
+                                "dateEarliestSingleQualifier": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "scalarValuesComputed": {
+                                    "default": "true",
+                                    "type": "string"
+                                },
+                                "dateLatestDay": {
+                                    "type": "integer"
+                                },
+                                "dateLatestYear": {
+                                    "type": "integer"
+                                },
+                                "dateAssociation": {
+                                    "type": "string"
+                                },
+                                "dateEarliestSingleEra": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "dateDisplayDate": {
+                                    "type": "string"
+                                },
+                                "dateEarliestSingleCertainty": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "dateLatestEra": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "dateEarliestSingleQualifierValue": {
+                                    "type": "integer"
+                                },
+                                "dateLatestCertainty": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "dateEarliestSingleYear": {
+                                    "type": "integer"
+                                },
+                                "dateLatestQualifier": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "dateLatestQualifierValue": {
+                                    "type": "integer"
+                                },
+                                "dateEarliestSingleQualifierUnit": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "datePeriod": {
+                                    "type": "string"
+                                },
+                                "dateEarliestScalarValue": {
+                                    "type": "date"
+                                },
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "dateLatestMonth": {
+                                    "type": "integer"
+                                },
+                                "dateNote": {
+                                    "type": "string"
+                                },
+                                "dateLatestScalarValue": {
+                                    "type": "date"
+                                },
+                                "dateLatestQualifierUnit": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "dateEarliestSingleDay": {
+                                    "type": "integer"
+                                },
+                                "dateEarliestSingleMonth": {
+                                    "type": "integer"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "broaderContextType": {
+                        "default": "",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "type": "object"
+    }
+}
