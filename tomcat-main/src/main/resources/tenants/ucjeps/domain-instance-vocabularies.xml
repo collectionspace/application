@@ -1,0 +1,12 @@
+<root>
+	<instance id="vocab-vcoordsys">
+		<web-url>vcoordsys</web-url>
+		<title-ref>vcoordsys</title-ref>
+		<title>Verbatim Coordinate System</title>
+		<options>
+			<option id="None">None</option>
+			<option id="Unknown">Unknown</option>
+			<option id="UTM">UTM</option>
+		</options>
+	</instance>
+</root>
