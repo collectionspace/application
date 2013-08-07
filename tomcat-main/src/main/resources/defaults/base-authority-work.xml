@@ -25,8 +25,8 @@
                 <label-section id="messagekeys" show="true"/>
                 <hierarchy-section show="true">
                     <options>
-                        <option id="narrowerContext">work-work</option>
-                        <option id="broaderContext">work-work</option>
+                        <option id="narrowerContext">work-work,work-cona_work</option>
+                        <option id="broaderContext">work-work,work-cona_work</option>
                     </options>
                 </hierarchy-section>
             </view>
@@ -67,11 +67,11 @@
                    ui-search="range" ui-func="cspace.structuredDate"/>
         </repeat>
         <repeat id="creatorGroupList/creatorGroup">
-            <field id="creator" ui-search="repeatable" autocomplete="person-person"/>
+            <field id="creator" ui-search="repeatable" autocomplete="person-person,organization-organization"/>
             <field id="creatorType" autocomplete="vocab-workcreatortype" ui-type="enum"/>
         </repeat>
         <repeat id="publisherGroupList/publisherGroup">
-            <field id="publisher" ui-search="repeatable" autocomplete="person-person"/>
+            <field id="publisher" ui-search="repeatable" autocomplete="person-person,organization-organization"/>
             <field id="publisherType" autocomplete="vocab-workpublishertype" ui-type="enum"/>
         </repeat>
     </section>
