@@ -1365,6 +1365,16 @@
 			<option id="Zhonghua">Zhonghua</option>
         </options>
     </instance>
+    <instance id="vocab-vcoordsys">
+        <web-url>vcoordsys</web-url>
+        <title-ref>vcoordsys</title-ref>
+        <title>Verbatim Coordinate System</title>
+        <options>
+                <option id="None">None</option>
+                <option id="Unknown">Unknown</option>
+                <option id="UTM">UTM</option>
+        </options>
+    </instance>
     <instance id="vocab-potSize">
         <web-url>potsize</web-url>
         <title-ref>potsize</title-ref>
