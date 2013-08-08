@@ -127,6 +127,10 @@ public class Structure  implements FieldParent  {
 	public void addMainArea(FieldSet f){
 		mainarea_sections.put(f.getID(),f);
 	}
+	
+	public boolean isTrueRepeatField() {
+		return false;
+	}
 
 	public FieldSet[] getAllFieldTopLevel() { return fields.values().toArray(new FieldSet[0]); }
 	public FieldSet getFieldTopLevel(String id) { return fields.get(id); }

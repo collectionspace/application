@@ -1,162 +1,121 @@
-{
-  "intake": {
+{"intake": {
     "properties": {
-      "createdBys": {
-        "items": {
-          "properties": {
-            "_primary": {
-              "default": true, 
-              "type": "boolean"
-            }, 
-            "createdBy": {
-              "type": "string"
-            }
-          }, 
-          "type": "object"
-        }, 
-        "type": "array"
-      }, 
-      "currentLocationGroup": {
-        "items": {
-          "properties": {
-            "_primary": {
-              "default": true, 
-              "type": "boolean"
-            }, 
-            "currentLocation": {
-              "type": "string"
-            }
-          }, 
-          "type": "object"
-        }, 
-        "type": "array"
-      }, 
-      "currentOwners": {
-        "items": {
-          "properties": {
-            "_primary": {
-              "default": true, 
-              "type": "boolean"
-            }, 
-            "currentOwner": {
-              "type": "string"
-            }
-          }, 
-          "type": "object"
-        }, 
-        "type": "array"
-      }, 
-      "depositors": {
-        "items": {
-          "properties": {
-            "_primary": {
-              "default": true, 
-              "type": "boolean"
-            }, 
-            "depositor": {
-              "type": "string"
-            }
-          }, 
-          "type": "object"
-        }, 
-        "type": "array"
-      }, 
-      "entryDateEnd": {
-        "type": "date"
-      }, 
-      "entryDateStart": {
-        "type": "date"
-      }, 
-      "entryMethods": {
-        "items": {
-          "properties": {
-            "_primary": {
-              "default": true, 
-              "type": "boolean"
-            }, 
-            "entryMethod": {
-              "default": "", 
-              "type": "string"
-            }
-          }, 
-          "type": "object"
-        }, 
-        "type": "array"
-      }, 
-      "entryNumbers": {
-        "items": {
-          "properties": {
-            "_primary": {
-              "default": true, 
-              "type": "boolean"
-            }, 
-            "entryNumber": {
-              "type": "string"
-            }
-          }, 
-          "type": "object"
-        }, 
-        "type": "array"
-      }, 
-      "entryReasons": {
-        "items": {
-          "properties": {
-            "_primary": {
-              "default": true, 
-              "type": "boolean"
-            }, 
-            "entryReason": {
-              "default": "", 
-              "type": "string"
-            }
-          }, 
-          "type": "object"
-        }, 
-        "type": "array"
-      }, 
-      "fieldCollectionEventNames": {
-        "items": {
-          "properties": {
-            "_primary": {
-              "default": true, 
-              "type": "boolean"
-            }, 
-            "fieldCollectionEventName": {
-              "type": "string"
-            }
-          }, 
-          "type": "object"
-        }, 
-        "type": "array"
-      }, 
-      "returnDateEnd": {
-        "type": "date"
-      }, 
-      "returnDateStart": {
-        "type": "date"
-      }, 
-      "updatedAtEnd": {
-        "type": "date"
-      }, 
-      "updatedAtStart": {
-        "type": "date"
-      }, 
-      "updatedBys": {
-        "items": {
-          "properties": {
-            "_primary": {
-              "default": true, 
-              "type": "boolean"
-            }, 
-            "updatedBy": {
-              "type": "string"
-            }
-          }, 
-          "type": "object"
-        }, 
-        "type": "array"
-      }
-    }, 
+        "entryDateEnd": {"type": "date"},
+        "returnDateEnd": {"type": "date"},
+        "depositors": {
+            "items": {
+                "properties": {
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    },
+                    "depositor": {"type": "string"}
+                },
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "currentLocationGroup": {
+            "items": {
+                "properties": {
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    },
+                    "currentLocation": {"type": "string"}
+                },
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "returnDateStart": {"type": "date"},
+        "entryReasons": {
+            "items": {
+                "properties": {
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    },
+                    "entryReason": {
+                        "default": "",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "updatedAtEnd": {"type": "date"},
+        "entryNumbers": {
+            "items": {
+                "properties": {
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    },
+                    "entryNumber": {"type": "string"}
+                },
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "updatedAtStart": {"type": "date"},
+        "currentOwners": {
+            "items": {
+                "properties": {
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    },
+                    "currentOwner": {"type": "string"}
+                },
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "entryMethods": {
+            "items": {
+                "properties": {
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    },
+                    "entryMethod": {
+                        "default": "",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "updatedBys": {
+            "items": {
+                "properties": {
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    },
+                    "updatedBy": {"type": "string"}
+                },
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "fieldCollectionEventNames": {
+            "items": {
+                "properties": {
+                    "fieldCollectionEventName": {"type": "string"},
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "entryDateStart": {"type": "date"}
+    },
     "type": "object"
-  }
-}
+}}

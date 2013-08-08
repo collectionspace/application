@@ -12,4 +12,5 @@ public interface FieldParent {
 	public String enumBlankValue();
 	public String getID();
 	public FieldParent getParent();
+	public boolean isTrueRepeatField(); // Sometimes fields are of type "Repeat" only so they can be search with multiple values
 }

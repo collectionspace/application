@@ -774,7 +774,15 @@
     ".csc-collection-object-coreInformation-label": {
       "messagekey": "collection-object-coreInformationLabel"
     }, 
-    ".csc-collection-object-createdAt": "${fields.createdAt}", 
+    ".csc-collection-object-createdAt": {
+      "decorators": [
+        {
+          "func": "cspace.datePicker", 
+          "type": "fluid"
+        }
+      ], 
+      "value": "${fields.createdAt}"
+    }, 
     ".csc-collection-object-createdAt-label": {
       "messagekey": "collection-object-createdAtLabel"
     }, 
@@ -785,33 +793,6 @@
     ".csc-collection-object-csid": "${fields.csid}", 
     ".csc-collection-object-csid-label": {
       "messagekey": "collection-object-csidLabel"
-    }, 
-    ".csc-collection-object-dateAssociation-label": {
-      "messagekey": "collection-object-dateAssociationLabel"
-    }, 
-    ".csc-collection-object-dateEarliestSingle-label": {
-      "messagekey": "collection-object-dateEarliestSingleLabel"
-    }, 
-    ".csc-collection-object-dateEarliestSingleCertainty-label": {
-      "messagekey": "collection-object-dateEarliestSingleCertaintyLabel"
-    }, 
-    ".csc-collection-object-dateEarliestSingleQualifier-label": {
-      "messagekey": "collection-object-dateEarliestSingleQualifierLabel"
-    }, 
-    ".csc-collection-object-dateLatest-label": {
-      "messagekey": "collection-object-dateLatestLabel"
-    }, 
-    ".csc-collection-object-dateLatestCertainty-label": {
-      "messagekey": "collection-object-dateLatestCertaintyLabel"
-    }, 
-    ".csc-collection-object-dateLatestQualifier-label": {
-      "messagekey": "collection-object-dateLatestQualifierLabel"
-    }, 
-    ".csc-collection-object-datePeriod-label": {
-      "messagekey": "collection-object-datePeriodLabel"
-    }, 
-    ".csc-collection-object-dateText-label": {
-      "messagekey": "collection-object-dateTextLabel"
     }, 
     ".csc-collection-object-descriptionInformation-label": {
       "messagekey": "collection-object-descriptionInformationLabel"
@@ -829,6 +810,9 @@
                   }, 
                   ".csc-dimension-dimensionInformation-label": {
                     "messagekey": "dimension-dimensionInformationLabel"
+                  }, 
+                  ".csc-dimension-dimensionNote-label": {
+                    "messagekey": "dimension-dimensionNoteLabel"
                   }, 
                   ".csc-dimension-dimensionSummary-label": {
                     "messagekey": "dimension-dimensionSummaryLabel"
@@ -918,6 +902,7 @@
                                                 ], 
                                                 "selection": "${{row}.dimension}"
                                               }, 
+                                              ".csc-dimension-dimensionNote": "${{row}.dimensionNote}", 
                                               ".csc-dimension-measuredBy": {
                                                 "decorators": [
                                                   {
@@ -1885,9 +1870,6 @@
     ".csc-collection-object-objectViewerContributionInformation-label": {
       "messagekey": "collection-object-objectViewerContributionInformationLabel"
     }, 
-    ".csc-collection-object-otherInformation-label": {
-      "messagekey": "collection-object-otherInformationLabel"
-    }, 
     ".csc-collection-object-otherNumber-label": {
       "messagekey": "collection-object-otherNumberLabel"
     }, 
@@ -2401,6 +2383,10 @@
     ".csc-collection-object-updatedBy-label": {
       "messagekey": "collection-object-updatedByLabel"
     }, 
+    ".csc-collection-object-uri": "${fields.uri}", 
+    ".csc-collection-object-uri-label": {
+      "messagekey": "collection-object-uriLabel"
+    }, 
     ".csc-collection-object-usage-label": {
       "messagekey": "collection-object-usageLabel"
     }, 
@@ -2448,31 +2434,6 @@
     ".csc-collection-object-viewersRole-label": {
       "messagekey": "collection-object-viewersRoleLabel"
     }, 
-    ".csc-date-information-date-association": "${fields.dateAssociation}", 
-    ".csc-date-information-date-earliest-single-certainty": "${fields.dateEarliestSingleCertainty}", 
-    ".csc-date-information-date-earliest-single-date": {
-      "decorators": [
-        {
-          "func": "cspace.datePicker", 
-          "type": "fluid"
-        }
-      ], 
-      "value": "${fields.dateEarliestSingle}"
-    }, 
-    ".csc-date-information-date-earliest-single-qualifier": "${fields.dateEarliestSingleQualifier}", 
-    ".csc-date-information-date-latest-certainty": "${fields.dateLatestCertainty}", 
-    ".csc-date-information-date-latest-date": {
-      "decorators": [
-        {
-          "func": "cspace.datePicker", 
-          "type": "fluid"
-        }
-      ], 
-      "value": "${fields.dateLatest}"
-    }, 
-    ".csc-date-information-date-latest-qualifier": "${fields.dateLatestQualifier}", 
-    ".csc-date-information-date-period": "${fields.datePeriod}", 
-    ".csc-date-information-date-text": "${fields.dateText}", 
     ".csc-nonTextualInscriptionGroup-inscriptionDescriptionDateGroup-label": {
       "messagekey": "nonTextualInscriptionGroup-inscriptionDescriptionDateGroupLabel"
     }, 

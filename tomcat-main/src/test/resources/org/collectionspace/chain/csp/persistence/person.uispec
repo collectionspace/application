@@ -22,19 +22,19 @@
     }, 
     ".csc-hierarchy-broaderContextType": {
       "optionlist": [
-        "set", 
         "derivative", 
-        "separable-part", 
         "non-separable-part", 
         "recto", 
+        "separable-part", 
+        "set", 
         "verso"
       ], 
       "optionnames": [
         "Set", 
         "Work (derivative)", 
-        "Work (separable part)", 
         "Work (non-separable part)", 
         "Work (recto)", 
+        "Work (separable part)", 
         "Work (verso)"
       ], 
       "selection": "${fields.broaderContextType}"
@@ -99,19 +99,19 @@
                   }, 
                   ".csc-hierarchy-narrowerContextType": {
                     "optionlist": [
-                      "set", 
                       "derivative", 
-                      "separable-part", 
                       "non-separable-part", 
                       "recto", 
+                      "separable-part", 
+                      "set", 
                       "verso"
                     ], 
                     "optionnames": [
-                      "Item in a set", 
                       "Derivative", 
-                      "Separable part", 
+                      "Item in a set", 
                       "Non-separable part", 
                       "Recto", 
+                      "Separable part", 
                       "Verso"
                     ], 
                     "selection": "${{row}.narrowerContextType}"
@@ -225,260 +225,258 @@
                   ".csc-contact-addressCountry": {
                     "optionlist": [
                       "", 
-                      "AF", 
-                      "AX", 
-                      "AL", 
-                      "DZ", 
-                      "AS", 
                       "AD", 
-                      "AO", 
-                      "AI", 
-                      "AQ", 
+                      "AE", 
+                      "AF", 
                       "AG", 
-                      "AR", 
+                      "AI", 
+                      "AL", 
                       "AM", 
-                      "AW", 
-                      "AU", 
+                      "AO", 
+                      "AQ", 
+                      "AR", 
+                      "AS", 
                       "AT", 
+                      "AU", 
+                      "AW", 
+                      "AX", 
                       "AZ", 
-                      "BS", 
-                      "BH", 
-                      "BD", 
+                      "BA", 
                       "BB", 
-                      "BY", 
+                      "BD", 
                       "BE", 
-                      "BZ", 
+                      "BF", 
+                      "BG", 
+                      "BH", 
+                      "BI", 
                       "BJ", 
+                      "BL", 
                       "BM", 
-                      "BT", 
+                      "BN", 
                       "BO", 
                       "BQ", 
-                      "BA", 
-                      "BW", 
-                      "BV", 
                       "BR", 
-                      "IO", 
-                      "BN", 
-                      "BG", 
-                      "BF", 
-                      "BI", 
-                      "KH", 
-                      "CM", 
+                      "BS", 
+                      "BT", 
+                      "BV", 
+                      "BW", 
+                      "BY", 
+                      "BZ", 
                       "CA", 
-                      "CV", 
-                      "KY", 
-                      "CF", 
-                      "TD", 
-                      "CL", 
-                      "CN", 
-                      "CX", 
                       "CC", 
-                      "CO", 
-                      "KM", 
-                      "CG", 
                       "CD", 
-                      "CK", 
-                      "CR", 
+                      "CF", 
+                      "CG", 
+                      "CH", 
                       "CI", 
-                      "HR", 
+                      "CK", 
+                      "CL", 
+                      "CM", 
+                      "CN", 
+                      "CO", 
+                      "CR", 
                       "CU", 
+                      "CV", 
                       "CW", 
+                      "CX", 
                       "CY", 
                       "CZ", 
-                      "DK", 
+                      "DE", 
                       "DJ", 
+                      "DK", 
                       "DM", 
                       "DO", 
+                      "DZ", 
                       "EC", 
-                      "EG", 
-                      "SV", 
-                      "GQ", 
-                      "ER", 
                       "EE", 
+                      "EG", 
+                      "EH", 
+                      "ER", 
+                      "ES", 
                       "ET", 
-                      "FK", 
-                      "FO", 
-                      "FJ", 
                       "FI", 
+                      "FJ", 
+                      "FK", 
+                      "FM", 
+                      "FO", 
                       "FR", 
-                      "GF", 
-                      "PF", 
-                      "TF", 
                       "GA", 
-                      "GM", 
+                      "GB", 
+                      "GD", 
                       "GE", 
-                      "DE", 
+                      "GF", 
+                      "GG", 
                       "GH", 
                       "GI", 
-                      "GR", 
                       "GL", 
-                      "GD", 
-                      "GP", 
-                      "GU", 
-                      "GT", 
-                      "GG", 
+                      "GM", 
                       "GN", 
+                      "GP", 
+                      "GQ", 
+                      "GR", 
+                      "GS", 
+                      "GT", 
+                      "GU", 
                       "GW", 
                       "GY", 
-                      "HT", 
-                      "HM", 
-                      "VA", 
-                      "HN", 
                       "HK", 
+                      "HM", 
                       "HN", 
-                      "IS", 
-                      "IN", 
+                      "HN", 
+                      "HR", 
+                      "HT", 
                       "ID", 
-                      "IR", 
-                      "IQ", 
                       "IE", 
-                      "IM", 
                       "IL", 
+                      "IM", 
+                      "IN", 
+                      "IO", 
+                      "IQ", 
+                      "IR", 
+                      "IS", 
                       "IT", 
-                      "JM", 
-                      "JP", 
                       "JE", 
+                      "JM", 
                       "JO", 
-                      "KZ", 
+                      "JP", 
                       "KE", 
+                      "KG", 
+                      "KH", 
                       "KI", 
+                      "KM", 
+                      "KN", 
                       "KP", 
                       "KR", 
                       "KW", 
-                      "KG", 
+                      "KY", 
+                      "KZ", 
                       "LA", 
-                      "LV", 
                       "LB", 
-                      "LS", 
-                      "LR", 
-                      "LY", 
+                      "LC", 
                       "LI", 
+                      "LK", 
+                      "LR", 
+                      "LS", 
                       "LT", 
                       "LU", 
-                      "MO", 
-                      "MK", 
+                      "LV", 
+                      "LY", 
+                      "MA", 
+                      "MC", 
+                      "MD", 
+                      "ME", 
+                      "MF", 
                       "MG", 
-                      "MW", 
-                      "MY", 
-                      "MV", 
-                      "ML", 
-                      "MT", 
                       "MH", 
+                      "MK", 
+                      "ML", 
+                      "MM", 
+                      "MN", 
+                      "MO", 
+                      "MP", 
                       "MQ", 
                       "MR", 
-                      "MU", 
-                      "YT", 
-                      "MX", 
-                      "FM", 
-                      "MD", 
-                      "MC", 
-                      "MN", 
-                      "ME", 
                       "MS", 
-                      "MA", 
+                      "MT", 
+                      "MU", 
+                      "MV", 
+                      "MW", 
+                      "MX", 
+                      "MY", 
                       "MZ", 
-                      "MM", 
                       "NA", 
-                      "NR", 
-                      "NP", 
-                      "NL", 
                       "NC", 
-                      "NZ", 
-                      "NI", 
                       "NE", 
-                      "NG", 
-                      "NU", 
                       "NF", 
-                      "MP", 
+                      "NG", 
+                      "NI", 
+                      "NL", 
                       "NO", 
+                      "NP", 
+                      "NR", 
+                      "NU", 
+                      "NZ", 
                       "OM", 
-                      "PK", 
-                      "PW", 
-                      "PS", 
                       "PA", 
-                      "PG", 
-                      "PY", 
                       "PE", 
+                      "PF", 
+                      "PG", 
                       "PH", 
-                      "PN", 
+                      "PK", 
                       "PL", 
-                      "PT", 
+                      "PM", 
+                      "PN", 
                       "PR", 
+                      "PS", 
+                      "PT", 
+                      "PW", 
+                      "PY", 
                       "QA", 
                       "RE", 
                       "RO", 
+                      "RS", 
                       "RU", 
                       "RW", 
-                      "BL", 
-                      "SH", 
-                      "KN", 
-                      "LC", 
-                      "MF", 
-                      "PM", 
-                      "VC", 
-                      "WS", 
-                      "SM", 
-                      "ST", 
                       "SA", 
-                      "SN", 
-                      "RS", 
-                      "SC", 
-                      "SL", 
-                      "SG", 
-                      "SX", 
-                      "SK", 
-                      "SI", 
                       "SB", 
-                      "SO", 
-                      "ZA", 
-                      "GS", 
-                      "SS", 
-                      "ES", 
-                      "LK", 
+                      "SC", 
                       "SD", 
-                      "SR", 
-                      "SJ", 
-                      "SZ", 
                       "SE", 
-                      "CH", 
+                      "SG", 
+                      "SH", 
+                      "SI", 
+                      "SJ", 
+                      "SK", 
+                      "SL", 
+                      "SM", 
+                      "SN", 
+                      "SO", 
+                      "SR", 
+                      "SS", 
+                      "ST", 
+                      "SV", 
+                      "SX", 
                       "SY", 
-                      "TW", 
-                      "TJ", 
-                      "TZ", 
-                      "TH", 
-                      "TL", 
-                      "TG", 
-                      "TK", 
-                      "TO", 
-                      "TT", 
-                      "TN", 
-                      "TR", 
-                      "TM", 
+                      "SZ", 
                       "TC", 
+                      "TD", 
+                      "TF", 
+                      "TG", 
+                      "TH", 
+                      "TJ", 
+                      "TK", 
+                      "TL", 
+                      "TM", 
+                      "TN", 
+                      "TO", 
+                      "TR", 
+                      "TT", 
                       "TV", 
-                      "UG", 
+                      "TW", 
+                      "TZ", 
                       "UA", 
-                      "AE", 
-                      "GB", 
-                      "US", 
+                      "UG", 
                       "UM", 
+                      "US", 
                       "UY", 
                       "UZ", 
-                      "VU", 
+                      "VA", 
+                      "VC", 
                       "VE", 
-                      "VN", 
                       "VG", 
                       "VI", 
+                      "VN", 
+                      "VU", 
                       "WF", 
-                      "EH", 
+                      "WS", 
                       "YE", 
+                      "YT", 
+                      "ZA", 
                       "ZM", 
                       "ZW"
                     ], 
                     "optionnames": [
-                      "Please select a value", 
                       "AFGHANISTAN", 
-                      "\u00c5LAND ISLANDS", 
                       "ALBANIA", 
                       "ALGERIA", 
                       "AMERICAN SAMOA", 
@@ -531,12 +529,12 @@
                       "CONGO, THE DEMOCRATIC REPUBLIC OF THE", 
                       "COOK ISLANDS", 
                       "COSTA RICA", 
-                      "C\u00d4TE D\u2019IVOIRE", 
                       "CROATIA", 
                       "CUBA", 
                       "CURA\u00c7AO", 
                       "CYPRUS", 
                       "CZECH REPUBLIC", 
+                      "C\u00d4TE D\u2019IVOIRE", 
                       "DENMARK", 
                       "DJIBOUTI", 
                       "DOMINICA", 
@@ -656,11 +654,12 @@
                       "POLAND", 
                       "PORTUGAL", 
                       "PUERTO RICO", 
+                      "Please select a value", 
                       "QATAR", 
-                      "R\u00c9UNION", 
                       "ROMANIA", 
                       "RUSSIAN FEDERATION", 
                       "RWANDA", 
+                      "R\u00c9UNION", 
                       "SAINT BARTH\u00c9LEMY", 
                       "SAINT HELENA, ASCENSION AND TRISTAN DA CUNHA", 
                       "SAINT KITTS AND NEVIS", 
@@ -725,7 +724,8 @@
                       "WESTERN SAHARA", 
                       "YEMEN", 
                       "ZAMBIA", 
-                      "ZIMBABWE"
+                      "ZIMBABWE", 
+                      "\u00c5LAND ISLANDS"
                     ], 
                     "selection": "${{row}.addressCountry}"
                   }, 
@@ -785,13 +785,29 @@
     ".csc-contact-coreInformation-label": {
       "messagekey": "contact-coreInformationLabel"
     }, 
-    ".csc-contact-createdAt": "${fields.contact.createdAt}", 
+    ".csc-contact-createdAt": {
+      "decorators": [
+        {
+          "func": "cspace.datePicker", 
+          "type": "fluid"
+        }
+      ], 
+      "value": "${fields.contact.createdAt}"
+    }, 
     ".csc-contact-createdAt-label": {
       "messagekey": "contact-createdAtLabel"
     }, 
     ".csc-contact-createdBy": "${fields.contact.createdBy}", 
     ".csc-contact-createdBy-label": {
       "messagekey": "contact-createdByLabel"
+    }, 
+    ".csc-contact-csid": "${fields.contact.csid}", 
+    ".csc-contact-csid-label": {
+      "messagekey": "contact-csidLabel"
+    }, 
+    ".csc-contact-displayName": "${fields.contact.displayName}", 
+    ".csc-contact-displayName-label": {
+      "messagekey": "contact-displayNameLabel"
     }, 
     ".csc-contact-domaindata-label": {
       "messagekey": "contact-domaindataLabel"
@@ -813,14 +829,14 @@
                     "optionlist": [
                       "", 
                       "business", 
-                      "personal", 
-                      "other"
+                      "other", 
+                      "personal"
                     ], 
                     "optionnames": [
                       "Please select a value", 
                       "business", 
-                      "personal", 
-                      "other"
+                      "other", 
+                      "personal"
                     ], 
                     "selection": "${{row}.emailType}"
                   }
@@ -882,6 +898,21 @@
     ".csc-contact-faxNumberType-label": {
       "messagekey": "contact-faxNumberTypeLabel"
     }, 
+    ".csc-contact-inAuthority": "${fields.contact.inAuthority}", 
+    ".csc-contact-inAuthority-label": {
+      "messagekey": "contact-inAuthorityLabel"
+    }, 
+    ".csc-contact-inItem": "${fields.contact.inItem}", 
+    ".csc-contact-inItem-label": {
+      "messagekey": "contact-inItemLabel"
+    }, 
+    ".csc-contact-otherInformation-label": {
+      "messagekey": "contact-otherInformationLabel"
+    }, 
+    ".csc-contact-refName": "${fields.contact.refName}", 
+    ".csc-contact-refName-label": {
+      "messagekey": "contact-refNameLabel"
+    }, 
     ".csc-contact-telephoneNumber-label": {
       "messagekey": "contact-telephoneNumberLabel"
     }, 
@@ -927,17 +958,29 @@
     ".csc-contact-telephoneNumberType-label": {
       "messagekey": "contact-telephoneNumberTypeLabel"
     }, 
-    ".csc-contact-tenantID": "${fields.contact.tenantID}", 
-    ".csc-contact-tenantID-label": {
-      "messagekey": "contact-tenantIDLabel"
+    ".csc-contact-tenantId": "${fields.contact.tenantId}", 
+    ".csc-contact-tenantId-label": {
+      "messagekey": "contact-tenantIdLabel"
     }, 
-    ".csc-contact-updatedAt": "${fields.contact.updatedAt}", 
+    ".csc-contact-updatedAt": {
+      "decorators": [
+        {
+          "func": "cspace.datePicker", 
+          "type": "fluid"
+        }
+      ], 
+      "value": "${fields.contact.updatedAt}"
+    }, 
     ".csc-contact-updatedAt-label": {
       "messagekey": "contact-updatedAtLabel"
     }, 
     ".csc-contact-updatedBy": "${fields.contact.updatedBy}", 
     ".csc-contact-updatedBy-label": {
       "messagekey": "contact-updatedByLabel"
+    }, 
+    ".csc-contact-uri": "${fields.contact.uri}", 
+    ".csc-contact-uri-label": {
+      "messagekey": "contact-uriLabel"
     }, 
     ".csc-contact-webAddress-label": {
       "messagekey": "contact-webAddressLabel"
@@ -956,14 +999,14 @@
                     "optionlist": [
                       "", 
                       "business", 
-                      "personal", 
-                      "other"
+                      "other", 
+                      "personal"
                     ], 
                     "optionnames": [
                       "Please select a value", 
                       "business", 
-                      "personal", 
-                      "other"
+                      "other", 
+                      "personal"
                     ], 
                     "selection": "${{row}.webAddressType}"
                   }
@@ -1000,7 +1043,15 @@
     ".csc-person-coreInformation-label": {
       "messagekey": "person-coreInformationLabel"
     }, 
-    ".csc-person-createdAt": "${fields.createdAt}", 
+    ".csc-person-createdAt": {
+      "decorators": [
+        {
+          "func": "cspace.datePicker", 
+          "type": "fluid"
+        }
+      ], 
+      "value": "${fields.createdAt}"
+    }, 
     ".csc-person-createdAt-label": {
       "messagekey": "person-createdAtLabel"
     }, 
@@ -1018,6 +1069,10 @@
     ".csc-person-deathPlace-label": {
       "messagekey": "person-deathPlaceLabel"
     }, 
+    ".csc-person-deprecatedRefName": "${fields.deprecatedRefName}", 
+    ".csc-person-deprecatedRefName-label": {
+      "messagekey": "person-deprecatedRefNameLabel"
+    }, 
     ".csc-person-domaindata-label": {
       "messagekey": "person-domaindataLabel"
     }, 
@@ -1029,6 +1084,10 @@
     }, 
     ".csc-person-groups-label": {
       "messagekey": "person-groupsLabel"
+    }, 
+    ".csc-person-inAuthority": "${fields.inAuthority}", 
+    ".csc-person-inAuthority-label": {
+      "messagekey": "person-inAuthorityLabel"
     }, 
     ".csc-person-nameNote-label": {
       "messagekey": "person-nameNoteLabel"
@@ -1068,9 +1127,9 @@
     ".csc-person-shortIdentifier-label": {
       "messagekey": "person-shortIdentifierLabel"
     }, 
-    ".csc-person-tenantID": "${fields.tenantID}", 
-    ".csc-person-tenantID-label": {
-      "messagekey": "person-tenantIDLabel"
+    ".csc-person-tenantId": "${fields.tenantId}", 
+    ".csc-person-tenantId-label": {
+      "messagekey": "person-tenantIdLabel"
     }, 
     ".csc-person-updatedAt": {
       "decorators": [
@@ -1173,13 +1232,13 @@
       "default": "", 
       "optionlist": [
         "", 
-        "male", 
-        "female"
+        "female", 
+        "male"
       ], 
       "optionnames": [
-        "Please select a value", 
+        "Female", 
         "Male", 
-        "Female"
+        "Please select a value"
       ], 
       "selection": "${fields.gender}"
     }, 
@@ -1344,16 +1403,16 @@
                                 ".csc-personAuthority-termStatus": {
                                   "default": "provisional", 
                                   "optionlist": [
-                                    "provisional", 
-                                    "under review", 
                                     "accepted", 
-                                    "rejected"
+                                    "provisional", 
+                                    "rejected", 
+                                    "under review"
                                   ], 
                                   "optionnames": [
-                                    "Provisional", 
-                                    "Under Review", 
                                     "Accepted", 
-                                    "Rejected"
+                                    "Provisional", 
+                                    "Rejected", 
+                                    "Under Review"
                                   ], 
                                   "selection": "${{row}.termStatus}"
                                 }, 
@@ -1374,33 +1433,33 @@
                                   "default": "", 
                                   "optionlist": [
                                     "", 
+                                    "Baron", 
+                                    "Baroness", 
+                                    "Dame", 
+                                    "Dr", 
+                                    "Lady", 
+                                    "Lord", 
+                                    "Miss", 
                                     "Mr", 
                                     "Mrs", 
                                     "Ms", 
-                                    "Miss", 
-                                    "Dr", 
                                     "Professor", 
-                                    "Sir", 
-                                    "Dame", 
-                                    "Baron", 
-                                    "Baroness", 
-                                    "Lord", 
-                                    "Lady"
+                                    "Sir"
                                   ], 
                                   "optionnames": [
-                                    "Please select a value", 
+                                    "Baron", 
+                                    "Baroness", 
+                                    "Dame", 
+                                    "Dr", 
+                                    "Lady", 
+                                    "Lord", 
+                                    "Miss", 
                                     "Mr", 
                                     "Mrs", 
                                     "Ms", 
-                                    "Miss", 
-                                    "Dr", 
+                                    "Please select a value", 
                                     "Professor", 
-                                    "Sir", 
-                                    "Dame", 
-                                    "Baron", 
-                                    "Baroness", 
-                                    "Lord", 
-                                    "Lady"
+                                    "Sir"
                                   ], 
                                   "selection": "${{row}.title}"
                                 }

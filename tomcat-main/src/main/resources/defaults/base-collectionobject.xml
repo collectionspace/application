@@ -1,5 +1,4 @@
-
-<record id="collection-object" in-findedit="yes">
+<record id="collection-object" in-findedit="yes" cms-type="default" generate-services-schema="true">
   <services-url>collectionobjects</services-url>
   <services-tenant-singular>CollectionObject</services-tenant-singular>
   <services-list-path>abstract-common-list/list-item</services-list-path>
@@ -61,16 +60,9 @@
   <include src="domain-collectionobject.xml" strip-root="yes"/>
 
   <section id="coreInformation">
-    <field id="tenantId" section="collectionspace_core" attributes="GET"/>
-		<!-- Need to glean csid for termCompletion -->
-    <field id="csid" mini="search,list" attributes="GET"></field>
-    <field id="refName" section="collectionspace_core" mini="search,list,relate" attributes="GET"></field>
-    <field id="createdAt" section="collectionspace_core" attributes="GET"/>
-    <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core"
-      attributes="GET" mini="search,list,relate"/>
-    <field id="createdBy" section="collectionspace_core" attributes="GET"/>
-    <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"/>
-    <field id="nametitle" mini="summary,search,list,relate" exists-in-services="false">
+    <include src="core-fields.xml"  strip-root="yes" />
+    <field id="csid" exists-in-services="false" mini="search,list" attributes="GET"></field>
+    <field id="nametitle" mini="summary,search,list,relate" exists-in-services="false" service-field-alias="objectName">
       <selector>object-identification-object-nametitle</selector>
       <merges>
         <merge id="title" rank="1"/>
@@ -80,7 +72,7 @@
   </section>
   <section id="identificationInformation">
     <field id="objectNumber" ui-search="repeatable" chooser="yes" in-title="yes" in-tab="yes"
-      display-name="yes" mini="number,search,list,relate" seperate_ui_container="true">
+      display-name="yes" mini="number,search,list,relate" seperate_ui_container="true" services-refnameDisplayName="true">
       <selector>object-identification-object-number</selector>
       <title-selector>titleBar-object-identification-object-number</title-selector>
       <options>
@@ -111,7 +103,7 @@
     </repeat>
     <repeat id="responsibleDepartments" has-primary="yes">
       <selector>object-identification-responsible-department</selector>
-      <field id="responsibleDepartment" ui-search="repeatable" mini="search"
+      <field id="responsibleDepartment" ui-search="repeatable" mini="search,list"
         seperate_ui_container="true">
         <selector>object-identification-responsible-department</selector>
         <options>
@@ -162,11 +154,11 @@
         <selector>object-identification-comments</selector>
       </field>
     </repeat>
-    <field id="computedCurrentLocation" ui-type="valueDeURNed">
+    <field id="computedCurrentLocation" ui-type="valueDeURNed" authref-in-services="true">
     </field>
     <repeat id="titleGroupList/titleGroup">
       <!-- selector>collection-object-titleGroup</selector -->
-      <field id="title" ui-search="repeatable" in-title="yes" mini="search">
+      <field id="title" ui-search="repeatable" in-title="yes" mini="search,list">
         <title-selector>titleBar-object-identification-object-title</title-selector>
         <selector>object-identification-object-title</selector>
       </field>
@@ -248,7 +240,7 @@
       <field id="objectNameNote">
         <selector>object-identification-object-note</selector>
       </field>
-      <field id="objectName" ui-search="repeatable" mini="search">
+      <field id="objectName" ui-search="repeatable" mini="search,list">
         <selector>object-identification-object-name</selector>
       </field>
     </repeat>
@@ -257,7 +249,7 @@
     <field id="copyNumber" ui-search="repeatable">
       <selector>object-description-copy-number</selector>
     </field>
-    <repeat id="objectStatusList">
+    <repeat id="objectStatusList" services-type-anonymous="false">
       <field id="objectStatus" ui-search="repeatable" seperate_ui_container="true">
         <selector>object-description-object-status</selector>
         <options>
@@ -655,6 +647,7 @@
         ui-search="range" primarykey="dateDisplayDate"
         ui-func="cspace.structuredDate" xxx-services-no-repeat="true"/>
     </repeat>
+    
     <repeat id="techniqueGroupList/techniqueGroup">
       <!-- selector>csc-collection-object-techniqueGroup</selector -->
       <field id="technique" ui-search="repeatable">
@@ -716,8 +709,9 @@
       </field>
     </repeat>
     <repeat id="ownershipDateGroupList/ownershipDateGroup">
-      <group id="ownershipDate" xxx-services-no-repeat="true" ui-type="groupfield/structureddate"
-        primarykey="dateDisplayDate" ui-func="cspace.structuredDate"/>
+      <group id="ownershipDate" xxx-services-no-repeat="true"
+        ui-type="groupfield/structureddate" primarykey="dateDisplayDate"
+        ui-func="cspace.structuredDate"/>
     </repeat>
 
     <field id="ownershipAccess" seperate_ui_container="true">
@@ -906,35 +900,5 @@
     <repeat id="fieldColEventNames">
       <field id="fieldColEventName" ui-search="repeatable"/>
     </repeat>
-  </section>
-  <!-- ununsed -->
-  <section id="otherInformation">
-    <field id="dateAssociation">
-      <selector>date-information-date-association</selector>
-    </field>
-    <field id="dateText">
-      <selector>date-information-date-text</selector>
-    </field>
-    <field id="dateLatestCertainty">
-      <selector>date-information-date-latest-certainty</selector>
-    </field>
-    <field id="dateEarliestSingleCertainty">
-      <selector>date-information-date-earliest-single-certainty</selector>
-    </field>
-    <field id="dateLatestQualifier">
-      <selector>date-information-date-latest-qualifier</selector>
-    </field>
-    <field id="dateEarliestSingleQualifier">
-      <selector>date-information-date-earliest-single-qualifier</selector>
-    </field>
-    <field id="dateEarliestSingle" ui-type="date">
-      <selector>date-information-date-earliest-single-date</selector>
-    </field>
-    <field id="dateLatest" ui-type="date">
-      <selector>date-information-date-latest-date</selector>
-    </field>
-    <field id="datePeriod">
-      <selector>date-information-date-period</selector>
-    </field>
   </section>
 </record>

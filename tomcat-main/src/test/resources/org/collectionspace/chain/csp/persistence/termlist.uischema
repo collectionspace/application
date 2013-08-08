@@ -1,82 +1,55 @@
-{
-    "termlist": {
-        "properties": {
-            "csid": {
-                "type": "string"
-            },
-            "fields": {
-                "properties": {
-                    "shortIdentifier": {
-                        "type": "string"
-                    },
-                    "usedBys": {
-                        "items": {
-                            "properties": {
-                                "_primary": {
-                                    "default": true,
-                                    "type": "boolean"
-                                },
-                                "usedBy": {
-                                    "type": "string"
-                                }
+{"termlist": {
+    "properties": {
+        "csid": {"type": "string"},
+        "fields": {
+            "properties": {
+                "shortIdentifier": {"type": "string"},
+                "usedBys": {
+                    "items": {
+                        "properties": {
+                            "_primary": {
+                                "default": true,
+                                "type": "boolean"
                             },
-                            "type": "object"
+                            "usedBy": {"type": "string"}
                         },
-                        "type": "array"
+                        "type": "object"
                     },
-                    "source": {
-                        "type": "string"
-                    },
-                    "description": {
-                        "type": "string"
-                    },
-                    "terms": {
-                        "items": {
-                            "properties": {
-                                "shortIdentifier": {
-                                    "type": "string"
-                                },
-                                "_primary": {
-                                    "default": true,
-                                    "type": "boolean"
-                                },
-                                "source": {
-                                    "type": "string"
-                                },
-                                "_subrecordcsid": {
-                                    "type": "string"
-                                },
-                                "description": {
-                                    "type": "string"
-                                },
-                                "termStatus": {
-                                    "default": "active",
-                                    "type": "string"
-                                },
-                                "displayName": {
-                                    "type": "string"
-                                },
-                                "sourcePage": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        },
-                        "type": "array"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "displayName": {
-                        "type": "string"
-                    },
-                    "sourcePage": {
-                        "type": "string"
-                    }
+                    "type": "array"
                 },
-                "type": "object"
-            }
-        },
-        "type": "object"
-    }
-}
+                "source": {"type": "string"},
+                "description": {"type": "string"},
+                "name": {"type": "string"},
+                "terms": {
+                    "items": {
+                        "properties": {
+                            "shortIdentifier": {"type": "string"},
+                            "_primary": {
+                                "default": true,
+                                "type": "boolean"
+                            },
+                            "_subrecordcsid": {"type": "string"},
+                            "inAuthority": {"type": "string"},
+                            "source": {"type": "string"},
+                            "order": {"type": "string"},
+                            "description": {"type": "string"},
+                            "termStatus": {
+                                "default": "active",
+                                "type": "string"
+                            },
+                            "displayName": {"type": "string"},
+                            "sourcePage": {"type": "string"}
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "displayName": {"type": "string"},
+                "vocabType": {"type": "string"},
+                "sourcePage": {"type": "string"}
+            },
+            "type": "object"
+        }
+    },
+    "type": "object"
+}}

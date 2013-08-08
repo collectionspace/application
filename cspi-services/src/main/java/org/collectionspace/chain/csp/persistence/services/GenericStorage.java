@@ -625,7 +625,7 @@ public class GenericStorage  implements ContextualisedStorage {
 				if((doc.getStatus()<200 || doc.getStatus()>=300))
 					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),softpath);
 				
-				for(String section : thisr.getServicesRecordPaths()) {
+				for(String section : thisr.getServicesRecordPathKeys()) {
 					String path=thisr.getServicesRecordPath(section);
 					String[] parts=path.split(":",2);
 					if(doc.getDocument(parts[0]) != null ){
@@ -1110,7 +1110,7 @@ public class GenericStorage  implements ContextualisedStorage {
 		try {
 			Map<String,Document> parts=new HashMap<String,Document>();
 			Document doc = null;
-			for(String section : thisr.getServicesRecordPaths()) {
+			for(String section : thisr.getServicesRecordPathKeys()) {
 				String path=thisr.getServicesRecordPath(section);
 				String[] record_path=path.split(":",2);
 				doc=XmlJsonConversion.convertToXml(thisr,jsonObject,section,"PUT");
@@ -1366,7 +1366,7 @@ public class GenericStorage  implements ContextualisedStorage {
 				//XXX test if works: need to delete first before create/update
 			//	deleteJSON(root,creds,cache,filePath);
 
-				for(String section : myr.getServicesRecordPaths()) {
+				for(String section : myr.getServicesRecordPathKeys()) {
 					doc=XmlJsonConversion.convertToXml(myr,jsonObject,section,"POST");
 					String path = myr.getServicesURL();
 					path = path.replace("*", getSubCsid(jsonObject,myr.getPrimaryField()));
@@ -1440,7 +1440,7 @@ public class GenericStorage  implements ContextualisedStorage {
 				//XXX test if works: need to delete first before create/update
 			//	deleteJSON(root,creds,cache,filePath);
 
-				for(String section : r.getServicesRecordPaths()) {
+				for(String section : r.getServicesRecordPathKeys()) {
 					doc=XmlJsonConversion.convertToXml(r,jsonObject,section,"POST");
 					String path = r.getServicesURL();
 					path = path.replace("*", getSubCsid(jsonObject,r.getPrimaryField()));
@@ -1537,7 +1537,7 @@ public class GenericStorage  implements ContextualisedStorage {
 		ReturnedURL url;
 		Map<String,Document> parts=new HashMap<String,Document>();
 		Document doc2 = doc;
-		for(String section : r.getServicesRecordPaths()) {
+		for(String section : r.getServicesRecordPathKeys()) {
 			String path=r.getServicesRecordPath(section);
 			String[] record_path=path.split(":",2);
 			doc2=XmlJsonConversion.convertToXml(r,jsonObject,section,"POST");

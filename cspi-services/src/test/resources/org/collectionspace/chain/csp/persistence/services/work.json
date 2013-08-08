@@ -1,40 +1,18 @@
 {
     "shortIdentifier": "worktest1",
-    "publisherGroup": [
-        {
-            "_primary": true,
-            "publisherType": "distributor",
-            "publisher": "TriStar Pictures"
-        }
-    ],
-    "workType": "work type goes here",
     "workHistoryNote": "history note goes here",
-    "creatorGroup": [
+    "publisherGroup": [{
+        "_primary": true,
+        "publisherType": "distributor",
+        "publisher": "TriStar Pictures"
+    }],
+    "refName": "",
+    "workType": "work type goes here",
+    "csid": "",
+    "workDateGroup": [
         {
-            "_primary": true,
-            "creatorType": "director",
-            "creator": "Frank Oz"
-        }
-    ],
-    "workTermGroup": [
-        {
-            "_primary": true,
-            "termDisplayName": "Muppets Take Manhattan (1984)",
-            "termName": "Muppets Take Manhattan",
-            "termLanguage": "english",
-            "termPrefForLang": false,
-            "termType": "term type",
-            "termQualifier": "term qualifier",
-            "termSource": "other",
-            "termSourceID": "12345",
-            "termSourceDetail": "term source detail",
-            "termSourceNote": "source note goes here",
-            "termStatus": "complete"
-        }
-    ],
-    "workDateGroup": [{
             "dateEarliestSingleQualifier": "-",
-            "scalarValuesComputed": "false",
+            "scalarValuesComputed": false,
             "dateLatestDay": "22",
             "dateLatestYear": "5",
             "dateAssociation": "sdf",
@@ -57,9 +35,10 @@
             "dateLatestQualifierUnit": "month",
             "dateEarliestSingleDay": "3",
             "dateEarliestSingleMonth": "2"
-        }, {
+        },
+        {
             "dateEarliestSingleQualifier": "-",
-            "scalarValuesComputed": "false",
+            "scalarValuesComputed": false,
             "dateLatestDay": "20",
             "dateLatestYear": "1",
             "dateAssociation": "wer",
@@ -81,5 +60,26 @@
             "dateLatestQualifierUnit": "month",
             "dateEarliestSingleDay": "21",
             "dateEarliestSingleMonth": "7"
-        }]
+        }
+    ],
+    "uri": "",
+    "workTermGroup": [{
+        "termPrefForLang": false,
+        "termName": "Muppets Take Manhattan",
+        "_primary": true,
+        "termType": "term type",
+        "termDisplayName": "Muppets Take Manhattan (1984)",
+        "termSource": "other",
+        "termStatus": "complete",
+        "termSourceID": "12345",
+        "termQualifier": "term qualifier",
+        "termSourceDetail": "term source detail",
+        "termSourceNote": "source note goes here",
+        "termLanguage": "english"
+    }],
+    "creatorGroup": [{
+        "_primary": true,
+        "creatorType": "director",
+        "creator": "Frank Oz"
+    }]
 }

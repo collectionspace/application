@@ -1,5 +1,3 @@
-
-
 <record id="all" in-recordlist="yes" type="searchall">
     <services-url>servicegroups/common/items</services-url>
     <terms-used>false</terms-used>
