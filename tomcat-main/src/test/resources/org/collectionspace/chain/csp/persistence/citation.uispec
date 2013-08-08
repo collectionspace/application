@@ -670,6 +670,9 @@
                   ".csc-preferredCI-termFullCitation-label": {
                     "messagekey": "preferredCI-termFullCitationLabel"
                   }, 
+                  ".csc-preferredCI-termInformation-label": {
+                    "messagekey": "preferredCI-termInformationLabel"
+                  }, 
                   ".csc-preferredCI-termIssue-label": {
                     "messagekey": "preferredCI-termIssueLabel"
                   }, 
