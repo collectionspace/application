@@ -167,7 +167,7 @@ public class TestService extends ServicesBaseClass {
 		Map<String, Document> parts = new HashMap<String, Document>();
 		Document doc = null;
 		JSONObject testjson = new JSONObject();
-		for (String section : r.getServicesRecordPaths()) {
+		for (String section : r.getServicesRecordPathKeys()) {
 			if (section.equals("common")) {
 				String path = r.getServicesRecordPath(section);
 				String[] record_path = path.split(":", 2);

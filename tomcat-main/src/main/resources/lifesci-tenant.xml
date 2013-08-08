@@ -1,5 +1,6 @@
 <cspace-config tenantname="lifesci">
 
+	<tenantid>2</tenantid>
 	<version>11</version>
 	<include src="settings.xml,local-lifesci-settings.xml" merge="xmlmerge.properties" 
 		strip-root="yes" />
@@ -10,7 +11,7 @@
 
 		<records>
 			<enum-blank>Please select a value</enum-blank>
-
+			<include src="base-authority.xml"/>
 			<include src="base-collectionobject.xml" />
 			<include
 				src="base-collectionobject.xml,naturalhistory-collectionobject.xml"

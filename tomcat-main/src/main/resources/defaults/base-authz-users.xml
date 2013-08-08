@@ -7,6 +7,9 @@
                 <services-record-path>:http://collectionspace.org/services/account,accounts_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 <services-list-path>accounts-common-list/account-list-item</services-list-path>
+                <services-repo-domain>none</services-repo-domain>
+                <services-dochandler>org.collectionspace.services.account.storage.AccountDocumentHandler</services-dochandler>
+                <services-validator>org.collectionspace.services.account.storage.AccountValidatorHandler</services-validator>
                 <structures>
                     <structure id="screen">
                         <!-- screen|print|blackberry etc -->
@@ -35,32 +38,32 @@
 				<include src="domain-authz-users.xml" strip-root="yes"/>
 				
                 <section id="coreInformation">
-                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
-			        <field id="createdBy" section="collectionspace_core" attributes="GET"></field>
-			        <field id="updatedBy" section="collectionspace_core" attributes="GET"></field>
-                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                    <include src="core-fields.xml"  strip-root="yes" />
                 </section>
+
                 <section id="accountInformation">
                     <field id="userId">
                         <services-filter-param>uid</services-filter-param>
                         <selector>user-userID</selector>
                     </field>
-                    <field id="screenName">
+                    <field id="screenName" mini="list">
                         <services-filter-param>sn</services-filter-param>
                         <selector>user-userName</selector>
+                    </field>
+                    <field id="personRefName" mini="list">
+                        <selector>user-personRefName</selector>
                     </field>
                     <field id="password">
                         <selector>user-password</selector>
                     </field>
-                    <field id="email">
+                    <field id="email" mini="list">
                         <services-filter-param>email</services-filter-param>
                         <selector>user-email</selector>
                     </field>
                     <field id="createdAt" />
                     <field id="rolesProtection" />
                     <field id="metadataProtection" />
-                    <field id="status" seperate_ui_container="true">
+                    <field id="status" seperate_ui_container="true" mini="list">
                         <selector>user-status</selector>
                         <options>
                             <option id="active" default="yes">Active</option>

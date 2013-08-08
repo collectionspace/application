@@ -1,9 +1,10 @@
-
-            <record id="blobs" in-recordlist="no" type="blob">
+            <record id="blobs" in-recordlist="no" type="blob" services-workspace-subtypes="Picture,File" 
+            		services-folder-subtypes="Picture" cms-type="default" generate-services-schema="true">
                 <services-url>blobs</services-url>
+                <services-tenant-singular>Blob</services-tenant-singular>
                 <terms-used>false</terms-used>
                 <refobj-used>false</refobj-used>
-                <services-record-path>blobs_common://collectionspace.org/services/blob,blobs_common</services-record-path>
+                <services-record-path>blobs_common:http://collectionspace.org/services/blob,blobs_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 <services-list-path>abstract-common-list/list-item</services-list-path>
                 <hassoftdelete>true</hassoftdelete>
@@ -13,12 +14,9 @@
 				<include src="domain-procedure-blobs.xml" strip-root="yes"/>
 				
                 <section id="coreInformation">
-                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
-                    <field id="createdBy" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedBy" section="collectionspace_core" attributes="GET"></field>
-                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                    <include src="core-fields.xml"  strip-root="yes" />
                 </section>
+				
                 <section id="blobInformation">
                     <field id="encoding" attributes="GET"></field>
                     <field id="mimeType" attributes="GET"></field>
@@ -26,16 +24,17 @@
                     <field id="name"></field>
                     <field id="length" attributes="GET"></field>
                     <field id="digest"></field>
+                    <field id="repositoryId"></field>
                     <field id="uri"></field>
-                    <field id="id"></field>
+                    <field id="id" exists-in-services="false"></field>
 					<field id="dimension" ui-type="groupfield/dimension/selfrenderer" in-trueTree="true" ui-readonly="true"  ui-func="cspace.dimension"  ></field>
-                    <field id="imgThumb" attributes="GET" mini="search,list,relate">
+                    <field id="imgThumb" attributes="GET" mini="search,list,relate" exists-in-services="false">
                         <use-csid>ims;download/;/Thumbnail</use-csid>
                     </field>
-                    <field id="imgMedium" attributes="GET">
+                    <field id="imgMedium" attributes="GET" exists-in-services="false">
                         <use-csid>ims;download/;/Medium</use-csid>
                     </field>
-                    <field id="imgOrig" attributes="GET">
+                    <field id="imgOrig" attributes="GET" exists-in-services="false">
                         <use-csid>ims;download/;/Original</use-csid>
                     </field>
                 </section>

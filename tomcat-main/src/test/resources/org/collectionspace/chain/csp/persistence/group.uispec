@@ -1,75 +1,79 @@
-{
-    "recordEditor": {
-        ".csc-group-domaindata-label": {
-            "messagekey": "group-domaindataLabel"
-        },
-        ".csc-group-title-label": {
-            "messagekey": "group-titleLabel"
-        },
-        ".csc-group-createdBy": "${fields.createdBy}",
-        ".csc-group-owner": {
-            "decorators": [{
-                "func": "cspace.autocomplete",
-                "type": "fluid",
-                "options": {
-                    "queryUrl": "../../../tenant/core/group/autocomplete/owner",
-                    "vocabUrl": "../../../tenant/core/group/source-vocab/owner"
-                }
-            }],
-            "value": "${fields.owner}"
-        },
-        ".csc-group-createdBy-label": {
-            "messagekey": "group-createdByLabel"
-        },
-        ".csc-group-responsibleDepartment-label": {
-            "messagekey": "group-responsibleDepartmentLabel"
-        },
-        ".csc-group-createdAt": "${fields.createdAt}",
-        ".csc-group-coreInformation-label": {
-            "messagekey": "group-coreInformationLabel"
-        },
-        ".csc-group-tenantID": "${fields.tenantID}",
-        ".csc-group-summary-label": {
-            "messagekey": "group-summaryLabel"
-        },
-        ".csc-group-createdAt-label": {
-            "messagekey": "group-createdAtLabel"
-        },
-        ".csc-group-responsibleDepartment": {
-            "optionnames": ["Antiquities", "Architecture and Design", "Decorative Arts", "Ethnography", "Herpetology", "Media and Performance Art", "Paintings and Sculpture", "Paleobotany", "Photographs", "Please select a value", "Prints and Drawings"],
-            "optionlist": ["", "antiquities", "architecture-design", "decorative-arts", "ethnography", "herpetology", "media-performance-art", "paintings-sculpture", "paleobotany", "photographs", "prints-drawings"],
-            "selection": "${fields.responsibleDepartment}"
-        },
-        ".csc-group-number-label": {
-            "messagekey": "group-numberLabel"
-        },
-        ".csc-group-updatedAt": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }],
-            "value": "${fields.updatedAt}"
-        },
-        ".csc-group-updatedBy": "${fields.updatedBy}",
-        ".csc-group-scopeNote-label": {
-            "messagekey": "group-scopeNoteLabel"
-        },
-        ".csc-group-title": "${fields.title}",
-        ".csc-group-updatedBy-label": {
-            "messagekey": "group-updatedByLabel"
-        },
-        ".csc-group-updatedAt-label": {
-            "messagekey": "group-updatedAtLabel"
-        },
-        ".csc-group-scopeNote": "${fields.scopeNote}",
-        ".csc-group-groupInformation-label": {
-            "messagekey": "group-groupInformationLabel"
-        },
-        ".csc-group-tenantID-label": {
-            "messagekey": "group-tenantIDLabel"
-        },
-        ".csc-group-owner-label": {
-            "messagekey": "group-ownerLabel"
-        }
-    }
-}
+{"recordEditor": {
+    ".csc-group-domaindata-label": {"messagekey": "group-domaindataLabel"},
+    ".csc-group-createdBy": "${fields.createdBy}",
+    ".csc-group-owner": {
+        "decorators": [{
+            "func": "cspace.autocomplete",
+            "type": "fluid",
+            "options": {
+                "queryUrl": "../../../tenant/core/group/autocomplete/owner",
+                "vocabUrl": "../../../tenant/core/group/source-vocab/owner"
+            }
+        }],
+        "value": "${fields.owner}"
+    },
+    ".csc-group-uri-label": {"messagekey": "group-uriLabel"},
+    ".csc-group-responsibleDepartment-label": {"messagekey": "group-responsibleDepartmentLabel"},
+    ".csc-group-coreInformation-label": {"messagekey": "group-coreInformationLabel"},
+    ".csc-group-tenantId": "${fields.tenantId}",
+    ".csc-group-createdAt-label": {"messagekey": "group-createdAtLabel"},
+    ".csc-group-updatedAt": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${fields.updatedAt}"
+    },
+    ".csc-group-number-label": {"messagekey": "group-numberLabel"},
+    ".csc-group-owner-label": {"messagekey": "group-ownerLabel"},
+    ".csc-group-refName-label": {"messagekey": "group-refNameLabel"},
+    ".csc-group-refName": "${fields.refName}",
+    ".csc-group-title-label": {"messagekey": "group-titleLabel"},
+    ".csc-group-tenantId-label": {"messagekey": "group-tenantIdLabel"},
+    ".csc-group-createdBy-label": {"messagekey": "group-createdByLabel"},
+    ".csc-group-createdAt": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${fields.createdAt}"
+    },
+    ".csc-group-summary-label": {"messagekey": "group-summaryLabel"},
+    ".csc-group-responsibleDepartment": {
+        "optionnames": [
+            "Please select a value",
+            "Antiquities",
+            "Architecture and Design",
+            "Decorative Arts",
+            "Ethnography",
+            "Herpetology",
+            "Media and Performance Art",
+            "Paintings and Sculpture",
+            "Paleobotany",
+            "Photographs",
+            "Prints and Drawings"
+        ],
+        "optionlist": [
+            "",
+            "antiquities",
+            "architecture-design",
+            "decorative-arts",
+            "ethnography",
+            "herpetology",
+            "media-performance-art",
+            "paintings-sculpture",
+            "paleobotany",
+            "photographs",
+            "prints-drawings"
+        ],
+        "selection": "${fields.responsibleDepartment}"
+    },
+    ".csc-group-updatedBy": "${fields.updatedBy}",
+    ".csc-group-scopeNote-label": {"messagekey": "group-scopeNoteLabel"},
+    ".csc-group-title": "${fields.title}",
+    ".csc-group-updatedBy-label": {"messagekey": "group-updatedByLabel"},
+    ".csc-group-updatedAt-label": {"messagekey": "group-updatedAtLabel"},
+    ".csc-group-scopeNote": "${fields.scopeNote}",
+    ".csc-group-groupInformation-label": {"messagekey": "group-groupInformationLabel"},
+    ".csc-group-uri": "${fields.uri}"
+}}

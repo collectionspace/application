@@ -3,68 +3,104 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>tomcat-main</artifactId>
 	<packaging>jar</packaging>
-	<name>Core</name>
+	<name>tomcat-main</name>
 	<url>http://maven.apache.org</url>
 
 	<parent>
 		<groupId>org.collectionspace</groupId>
 		<artifactId>svcapp</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<version>4.0-SNAPSHOT</version>
 	</parent>
 
+	<repositories>
+		<repository>
+			<id>libs-snapshot-local</id>
+			<name>libs-snapshot-local</name>
+			<url>http://nightly.collectionspace.org:8081/artifactory/libs-snapshot-local</url>
+		</repository>
+	</repositories>
+	
 	<dependencies>
+	     <dependency>
+         	<groupId>org.collectionspace.services</groupId>
+         	<artifactId>org.collectionspace.services.common-api</artifactId>
+         	<version>4.0-SNAPSHOT</version>
+     	</dependency>
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>csp-api</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>4.0-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>csp-helper</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>4.0-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>cspi-installation</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>4.0-SNAPSHOT</version>
 			<type>jar</type>
+			<exclusions>
+				<exclusion>
+					<artifactId>bcel</artifactId>
+					<groupId>org.apache.bcel</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>testng</artifactId>
+					<groupId>org.testng</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>
+						org.collectionspace.services.jaxb
+					</artifactId>
+					<groupId>org.collectionspace.services</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
+		<!-- 
+		 -->
 
 		<!-- XXX remove -->
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>cspi-file</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>4.0-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>cspi-services</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>4.0-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>cspi-webui</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>4.0-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>general-utils</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>4.0-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
 
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>jxutils</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>4.0-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
 
+		<dependency>
+			<groupId>commons-cli</groupId>
+			<artifactId>commons-cli</artifactId>
+			<version>1.2</version>
+		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
@@ -117,7 +153,7 @@
 			<artifactId>jetty-servlet-tester</artifactId>
 			<version>6.1.22</version>
 			<scope>test</scope>
-		</dependency>
+		</dependency>		
 		<dependency>
 			<groupId>commons-httpclient</groupId>
 			<artifactId>commons-httpclient</artifactId>
@@ -140,17 +176,20 @@
 			<version>1.5.6</version>
 		</dependency>
 		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.16</version>
+		</dependency>
+		<dependency>
 			<groupId>jaxen</groupId>
 			<artifactId>jaxen</artifactId>
-			<version>1.1.1</version>
-			
+			<version>1.1.1</version>			
 			<exclusions>
         		<exclusion>
             		<groupId>xerces</groupId>
             		<artifactId>xmlParserAPIs</artifactId>
 		        </exclusion>
-		    </exclusions>
-			
+		    </exclusions>			
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -170,9 +209,6 @@
 	</dependencies>
 	<build>
 		<finalName>tomcat-main</finalName>
-		
-		
-		
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -187,21 +223,23 @@
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>maven-jetty-plugin</artifactId>
+				<version>6.1.26</version>
 				<configuration>
 					<contextPath>collectionspace</contextPath>
 				</configuration>
 			</plugin>
 			
-			            <plugin>
+			<plugin>
                 <groupId>org.dstovall</groupId>
                 <artifactId>onejar-maven-plugin</artifactId>
-                <version>1.4.4</version>
+                <version>1.4.5</version>
                 <executions>
                     <execution>
                         <configuration>
                             <mainClass>org.collectionspace.chain.controller.CommandLine</mainClass>
                             <attachToBuild>true</attachToBuild>
                             <classifier>onejar</classifier>
+                            <filename>${cspace.tool.csmake}.jar</filename>
                         </configuration>
                         <goals>
                             <goal>one-jar</goal>
@@ -209,7 +247,6 @@
                     </execution>
                 </executions>
             </plugin>
-			
 			
 		</plugins>
 	</build>
@@ -220,6 +257,5 @@
             <url>http://onejar-maven-plugin.googlecode.com/svn/mavenrepo</url>
         </pluginRepository>
     </pluginRepositories>
-	
 	
 </project>

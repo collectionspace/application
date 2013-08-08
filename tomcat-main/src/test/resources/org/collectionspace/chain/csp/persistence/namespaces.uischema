@@ -41,7 +41,7 @@
                 "type": "boolean"
               }, 
               "order": {
-                "default": 2, 
+                "default": 0, 
                 "type": "integer"
               }
             }, 
@@ -67,7 +67,7 @@
                 "type": "boolean"
               }, 
               "order": {
-                "default": 0, 
+                "default": 2, 
                 "type": "integer"
               }
             }, 
@@ -116,7 +116,7 @@
                 "type": "boolean"
               }, 
               "order": {
-                "default": 0, 
+                "default": 1, 
                 "type": "integer"
               }
             }, 
@@ -129,7 +129,7 @@
                 "type": "boolean"
               }, 
               "order": {
-                "default": 1, 
+                "default": 0, 
                 "type": "integer"
               }
             }, 
@@ -147,7 +147,7 @@
                 "type": "boolean"
               }, 
               "order": {
-                "default": 0, 
+                "default": 1, 
                 "type": "integer"
               }
             }, 
@@ -160,7 +160,7 @@
                 "type": "boolean"
               }, 
               "order": {
-                "default": 1, 
+                "default": 0, 
                 "type": "integer"
               }
             }, 
@@ -178,7 +178,7 @@
                 "type": "boolean"
               }, 
               "order": {
-                "default": 1, 
+                "default": 0, 
                 "type": "integer"
               }
             }, 
@@ -191,7 +191,7 @@
                 "type": "boolean"
               }, 
               "order": {
-                "default": 0, 
+                "default": 1, 
                 "type": "integer"
               }
             }, 
@@ -209,7 +209,7 @@
                 "type": "boolean"
               }, 
               "order": {
-                "default": 0, 
+                "default": 1, 
                 "type": "integer"
               }
             }, 
@@ -222,7 +222,7 @@
                 "type": "boolean"
               }, 
               "order": {
-                "default": 1, 
+                "default": 0, 
                 "type": "integer"
               }
             }, 

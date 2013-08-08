@@ -1,172 +1,219 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ns2:places_common xmlns:ns2="http://collectionspace.org/services/place">
-<vLongitude>123456</vLongitude>
-<maxDepthInMeters>234567.0</maxDepthInMeters>
-<vSpatialReferenceSystem>epsg4269-nad83</vSpatialReferenceSystem>
-<minElevationInMeters>123456.0</minElevationInMeters>
-<placeTermGroupList>
-    <placeTermGroup>
-        <termStatus>provisional</termStatus>
-        <termSource>123456</termSource>
-        <nameDateGroup>
-            <dateEarliestSingleQualifier/>
-            <scalarValuesComputed>true</scalarValuesComputed>
-            <dateLatestYear>1956</dateLatestYear>
-            <dateLatestDay>30</dateLatestDay>
-            <dateAssociation>Eisenhower</dateAssociation>
-            <dateEarliestSingleEra></dateEarliestSingleEra>
-            <dateDisplayDate>3456</dateDisplayDate>
-            <dateEarliestSingleCertainty></dateEarliestSingleCertainty>
-            <dateLatestEra></dateLatestEra>
-            <dateEarliestSingleQualifierValue/>
-            <dateLatestCertainty></dateLatestCertainty>
-            <dateEarliestSingleYear>1956</dateEarliestSingleYear>
-            <dateLatestQualifier/>
-            <dateLatestQualifierValue/>
-            <dateEarliestSingleQualifierUnit/>
-            <datePeriod>Postwar</datePeriod>
-            <dateEarliestScalarValue>1956-03-04T00:00:00Z</dateEarliestScalarValue>
-            <dateLatestMonth>6</dateLatestMonth>
-            <dateNote>jibberish</dateNote>
-            <dateLatestScalarValue>1956-06-30T00:00:00Z</dateLatestScalarValue>
-            <dateLatestQualifierUnit/>
-            <dateEarliestSingleDay>4</dateEarliestSingleDay>
-            <dateEarliestSingleMonth>3</dateEarliestSingleMonth>
-        </nameDateGroup>
-        <nameAbbrev>123</nameAbbrev>
-        <historicalStatus>current</historicalStatus>
-        <termName>123456</termName>
-        <termSourceNote>12</termSourceNote>
-        <termSourceDetail>123456</termSourceDetail>
-        <termSourceID>123456</termSourceID>
-        <termDisplayName>123456</termDisplayName>
-        <termLanguage></termLanguage>
-        <termType>technical-scientific</termType>
-			  <termPrefForLang>false</termPrefForLang>
-    </placeTermGroup>
-</placeTermGroupList>
-<minDistanceAboveSurfaceInMeters>123456.0</minDistanceAboveSurfaceInMeters>
-<vDepth>123456</vDepth>
-<shortIdentifier>march7735pm1331177716612</shortIdentifier>
-<maxDistanceAboveSurfaceInMeters>234567.0</maxDistanceAboveSurfaceInMeters>
-<vCoordSource>123456</vCoordSource>
-<maxElevationInMeters>234567.0</maxElevationInMeters>
-<vDistanceAboveSurface>123456</vDistanceAboveSurface>
-<vCoordSourceRefId>123456</vCoordSourceRefId>
-<placeType>municipality</placeType>
-<note>123456</note>
-<placeIdentifier>123456</placeIdentifier>
-<placeOwnerGroupList>
-    <placeOwnerGroup>
-        <ownershipDateGroup>
-            <dateEarliestSingleQualifier/>
-            <scalarValuesComputed>true</scalarValuesComputed>
-            <dateLatestYear>1950</dateLatestYear>
-            <dateLatestDay/>
-            <dateAssociation/>
-            <dateEarliestSingleEra/>
-            <dateDisplayDate>1930-1950</dateDisplayDate>
-            <dateEarliestSingleCertainty></dateEarliestSingleCertainty>
-            <dateLatestEra/>
-            <dateEarliestSingleQualifierValue/>
-            <dateLatestCertainty></dateLatestCertainty>
-            <dateEarliestSingleYear>1930</dateEarliestSingleYear>
-            <dateLatestQualifier/>
-            <dateLatestQualifierValue/>
-            <dateEarliestSingleQualifierUnit/>
-            <datePeriod>a generation earlier</datePeriod>
-            <dateEarliestScalarValue>1930-01-01T00:00:00Z</dateEarliestScalarValue>
-            <dateLatestMonth/>
-            <dateNote/>
-            <dateLatestScalarValue>1950-12-31T00:00:00Z</dateLatestScalarValue>
-            <dateLatestQualifierUnit/>
-            <dateEarliestSingleDay/>
-            <dateEarliestSingleMonth/>
-        </ownershipDateGroup>
-        <ownershipNote/>
-        <owner></owner>
-    </placeOwnerGroup>
-    <placeOwnerGroup>
-        <ownershipDateGroup>
-            <dateEarliestSingleQualifier/>
-            <scalarValuesComputed>true</scalarValuesComputed>
-            <dateLatestYear/>
-            <dateLatestDay/>
-            <dateAssociation>123456</dateAssociation>
-            <dateEarliestSingleEra/>
-            <dateDisplayDate>1950-</dateDisplayDate>
-            <dateEarliestSingleCertainty></dateEarliestSingleCertainty>
-            <dateLatestEra/>
-            <dateEarliestSingleQualifierValue/>
-            <dateLatestCertainty/>
-            <dateEarliestSingleYear>1949</dateEarliestSingleYear>
-            <dateLatestQualifier/>
-            <dateLatestQualifierValue/>
-            <dateEarliestSingleQualifierUnit/>
-            <datePeriod>Postwar until current day</datePeriod>
-            <dateEarliestScalarValue>1949-01-01T00:00:00Z</dateEarliestScalarValue>
-            <dateLatestMonth/>
-            <dateNote>more jibberish</dateNote>
-            <dateLatestScalarValue>1949-12-31T00:00:00Z</dateLatestScalarValue>
-            <dateLatestQualifierUnit/>
-            <dateEarliestSingleDay/>
-            <dateEarliestSingleMonth/>
-        </ownershipDateGroup>
-        <ownershipNote>An org</ownershipNote>
-        <owner></owner>
-    </placeOwnerGroup>
-</placeOwnerGroupList>
-<vCoordinates>123456</vCoordinates>
-<vLatitude>123456</vLatitude>
-<vUnitofMeasure>meters</vUnitofMeasure>
-<csid>47299e96-ec1a-4d33-a33a</csid>
-<vCoordSys>national-grid-reference</vCoordSys>
-<placeGeoRefGroupList>
-    <placeGeoRefGroup>
-        <geoReferencedBy></geoReferencedBy>
-        <footprintWKT>123456</footprintWKT>
-        <coordUncertaintyInMeters>123456</coordUncertaintyInMeters>
-        <coordPrecision>123456</coordPrecision>
-        <geoRefVerificationStatus>unverified</geoRefVerificationStatus>
-        <footprintSpatialFit>123456</footprintSpatialFit>
-        <geoRefPlaceName>march 7</geoRefPlaceName>
-        <geoRefRemarks>all useless data</geoRefRemarks>
-        <decimalLatitude>123456.0</decimalLatitude>
-        <geodeticDatum>epsg4326-wgs84</geodeticDatum>
-        <geoRefSource>123456</geoRefSource>
-        <decimalLongitude>123456.0</decimalLongitude>
-        <geoRefProtocol>georeferencing-dummies</geoRefProtocol>
-        <footprintSRS>123456</footprintSRS>
-        <geoRefDateGroup>
-            <dateEarliestSingleQualifier/>
-            <scalarValuesComputed>true</scalarValuesComputed>
-            <dateLatestYear/>
-            <dateLatestDay/>
-            <dateAssociation>none</dateAssociation>
-            <dateEarliestSingleEra></dateEarliestSingleEra>
-            <dateDisplayDate>yesterday</dateDisplayDate>
-            <dateEarliestSingleCertainty/>
-            <dateLatestEra/>
-            <dateEarliestSingleQualifierValue/>
-            <dateLatestCertainty/>
-            <dateEarliestSingleYear>2012</dateEarliestSingleYear>
-            <dateLatestQualifier/>
-            <dateLatestQualifierValue/>
-            <dateEarliestSingleQualifierUnit/>
-            <datePeriod>present</datePeriod>
-            <dateEarliestScalarValue>2012-03-06T00:00:00Z</dateEarliestScalarValue>
-            <dateLatestMonth/>
-            <dateNote>no notes</dateNote>
-            <dateLatestScalarValue>2012-03-06T00:00:00Z</dateLatestScalarValue>
-            <dateLatestQualifierUnit/>
-            <dateEarliestSingleDay>6</dateEarliestSingleDay>
-            <dateEarliestSingleMonth>3</dateEarliestSingleMonth>
-        </geoRefDateGroup>
-        <pointRadiusSpatialFit>123456</pointRadiusSpatialFit>
-    </placeGeoRefGroup>
-</placeGeoRefGroupList>
-<vElevation>123456</vElevation>
-<minDepthInMeters>123456.0</minDepthInMeters>
-<refName>urn:cspace:core.collectionspace.org:placeauthorities:name(place):item:name(march7735pm1331177716612)'march 7 7-35pm'</refName>
+<ns2:places_common xmlns:ns2="http://collectionspace.org/services/place"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <placeNote>Tigers and sleeping bags.</placeNote>
+    <maxDepthInMeters>111</maxDepthInMeters>
+    <vLongitude>128</vLongitude>
+    <vSpatialReferenceSystem>epsg4326-wgs84</vSpatialReferenceSystem>
+    <minElevationInMeters>1</minElevationInMeters>
+    <minDistanceAboveSurfaceInMeters>1</minDistanceAboveSurfaceInMeters>
+    <vDepth>129</vDepth>
+    <shortIdentifier>GlonceyLand1357679703360</shortIdentifier>
+    <maxDistanceAboveSurfaceInMeters>111</maxDistanceAboveSurfaceInMeters>
+    <vCoordSource>Allstar</vCoordSource>
+    <maxElevationInMeters>111</maxElevationInMeters>
+    <placeTermGroupList>
+        <placeTermGroup>
+            <termName>Gloncey</termName>
+            <termSource>Coughlin</termSource>
+            <termSourceID>REM</termSourceID>
+            <termSourceNote>Montclair</termSourceNote>
+            <termLanguage>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(grc)'Ancient
+                Greek'</termLanguage>
+            <historicalStatus>current</historicalStatus>
+            <termPrefForLang>true</termPrefForLang>
+            <termDisplayName>Gloncey Land</termDisplayName>
+            <termType>common</termType>
+            <nameDateGroup>
+                <dateEarliestSingleQualifier/>
+                <scalarValuesComputed>true</scalarValuesComputed>
+                <dateLatestDay/>
+                <dateLatestYear>1981</dateLatestYear>
+                <dateAssociation>St Cassians</dateAssociation>
+                <dateEarliestSingleEra/>
+                <dateDisplayDate>1/1/1970</dateDisplayDate>
+                <dateEarliestSingleCertainty/>
+                <dateLatestEra/>
+                <dateEarliestSingleQualifierValue/>
+                <dateLatestCertainty/>
+                <dateEarliestSingleYear>1966</dateEarliestSingleYear>
+                <dateLatestQualifier/>
+                <dateLatestQualifierValue/>
+                <dateEarliestSingleQualifierUnit/>
+                <datePeriod>elementary</datePeriod>
+                <dateEarliestScalarValue>1966-01-01T00:00:00Z</dateEarliestScalarValue>
+                <dateLatestMonth/>
+                <dateNote>RCC</dateNote>
+                <dateLatestScalarValue>1982-01-01T00:00:00Z</dateLatestScalarValue>
+                <dateLatestQualifierUnit/>
+                <dateEarliestSingleDay/>
+                <dateEarliestSingleMonth/>
+            </nameDateGroup>
+            <nameAbbrev>GL</nameAbbrev>
+            <nameNote>Tigers abound</nameNote>
+            <termStatus>provisional</termStatus>
+            <termQualifier>The Great</termQualifier>
+            <termSourceDetail>Ricky</termSourceDetail>
+        </placeTermGroup>
+    </placeTermGroupList>
+    <placeSource>New Jersey</placeSource>
+    <vCoordSourceRefId>Twins</vCoordSourceRefId>
+    <vDistanceAboveSurface>123</vDistanceAboveSurface>
+    <placeType>autonomous-region</placeType>
+    <placeOwnerGroupList>
+        <placeOwnerGroup>
+            <ownershipDateGroup>
+                <dateEarliestSingleQualifier/>
+                <scalarValuesComputed>true</scalarValuesComputed>
+                <dateLatestDay/>
+                <dateLatestYear/>
+                <dateAssociation/>
+                <dateEarliestSingleEra/>
+                <dateDisplayDate>1/1/1977</dateDisplayDate>
+                <dateEarliestSingleCertainty/>
+                <dateLatestEra/>
+                <dateEarliestSingleQualifierValue/>
+                <dateLatestCertainty/>
+                <dateEarliestSingleYear/>
+                <dateLatestQualifier/>
+                <dateLatestQualifierValue/>
+                <dateEarliestSingleQualifierUnit/>
+                <datePeriod/>
+                <dateEarliestScalarValue/>
+                <dateLatestMonth/>
+                <dateNote/>
+                <dateLatestScalarValue/>
+                <dateLatestQualifierUnit/>
+                <dateEarliestSingleDay/>
+                <dateEarliestSingleMonth/>
+            </ownershipDateGroup>
+            <ownershipNote>Yanks</ownershipNote>
+            <owner>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Applegate1357679420589)'Applegate'</owner>
+        </placeOwnerGroup>
+        <placeOwnerGroup>
+            <ownershipDateGroup>
+                <dateEarliestSingleQualifier/>
+                <scalarValuesComputed>true</scalarValuesComputed>
+                <dateLatestDay/>
+                <dateLatestYear/>
+                <dateAssociation/>
+                <dateEarliestSingleEra/>
+                <dateDisplayDate>2/2/1976</dateDisplayDate>
+                <dateEarliestSingleCertainty/>
+                <dateLatestEra/>
+                <dateEarliestSingleQualifierValue/>
+                <dateLatestCertainty/>
+                <dateEarliestSingleYear/>
+                <dateLatestQualifier/>
+                <dateLatestQualifierValue/>
+                <dateEarliestSingleQualifierUnit/>
+                <datePeriod/>
+                <dateEarliestScalarValue/>
+                <dateLatestMonth/>
+                <dateNote/>
+                <dateLatestScalarValue/>
+                <dateLatestQualifierUnit/>
+                <dateEarliestSingleDay/>
+                <dateEarliestSingleMonth/>
+            </ownershipDateGroup>
+            <ownershipNote>Nadia</ownershipNote>
+            <owner>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Olympics1357679541343)'Olympics'</owner>
+        </placeOwnerGroup>
+    </placeOwnerGroupList>
+    <vCoordinates>12.23</vCoordinates>
+    <vLatitude>23.12</vLatitude>
+    <vUnitofMeasure>centimeters</vUnitofMeasure>
+    <csid>36241585-2623-4c74-9bf9</csid>
+    <placeGeoRefGroupList>
+        <placeGeoRefGroup>
+            <geoReferencedBy>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Micky1357679586781)'Micky'</geoReferencedBy>
+            <footprintWKT>3</footprintWKT>
+            <coordUncertaintyInMeters>12</coordUncertaintyInMeters>
+            <coordPrecision>34</coordPrecision>
+            <geoRefVerificationStatus>unverified</geoRefVerificationStatus>
+            <footprintSpatialFit>5</footprintSpatialFit>
+            <geoRefPlaceName>Candyland</geoRefPlaceName>
+            <geoRefRemarks>Snickers</geoRefRemarks>
+            <decimalLatitude>44</decimalLatitude>
+            <geodeticDatum>epsg4326-wgs84</geodeticDatum>
+            <geoRefSource>Sam</geoRefSource>
+            <decimalLongitude>445</decimalLongitude>
+            <geoRefProtocol/>
+            <footprintSRS>4</footprintSRS>
+            <geoRefDateGroup>
+                <dateEarliestSingleQualifier/>
+                <scalarValuesComputed>true</scalarValuesComputed>
+                <dateLatestDay/>
+                <dateLatestYear/>
+                <dateAssociation/>
+                <dateEarliestSingleEra/>
+                <dateDisplayDate>2/2/2002</dateDisplayDate>
+                <dateEarliestSingleCertainty/>
+                <dateLatestEra/>
+                <dateEarliestSingleQualifierValue/>
+                <dateLatestCertainty/>
+                <dateEarliestSingleYear/>
+                <dateLatestQualifier/>
+                <dateLatestQualifierValue/>
+                <dateEarliestSingleQualifierUnit/>
+                <datePeriod/>
+                <dateEarliestScalarValue/>
+                <dateLatestMonth/>
+                <dateNote/>
+                <dateLatestScalarValue/>
+                <dateLatestQualifierUnit/>
+                <dateEarliestSingleDay/>
+                <dateEarliestSingleMonth/>
+            </geoRefDateGroup>
+            <pointRadiusSpatialFit>2</pointRadiusSpatialFit>
+        </placeGeoRefGroup>
+        <placeGeoRefGroup>
+            <geoReferencedBy>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Googy1357679698523)'Googy'</geoReferencedBy>
+            <footprintWKT>7</footprintWKT>
+            <coordUncertaintyInMeters>7</coordUncertaintyInMeters>
+            <coordPrecision>7</coordPrecision>
+            <geoRefVerificationStatus>unverified</geoRefVerificationStatus>
+            <footprintSpatialFit>7</footprintSpatialFit>
+            <geoRefPlaceName>Foester</geoRefPlaceName>
+            <geoRefRemarks>Please fix</geoRefRemarks>
+            <decimalLatitude>7</decimalLatitude>
+            <geodeticDatum>epsg4326-wgs84</geodeticDatum>
+            <geoRefSource>Eardon</geoRefSource>
+            <decimalLongitude>7</decimalLongitude>
+            <geoRefProtocol>chapman-wieczorek-2006-guide-best-practices-georeferencing</geoRefProtocol>
+            <footprintSRS>7</footprintSRS>
+            <geoRefDateGroup>
+                <dateEarliestSingleQualifier/>
+                <scalarValuesComputed>true</scalarValuesComputed>
+                <dateLatestDay/>
+                <dateLatestYear/>
+                <dateAssociation/>
+                <dateEarliestSingleEra/>
+                <dateDisplayDate>7/7/2007</dateDisplayDate>
+                <dateEarliestSingleCertainty/>
+                <dateLatestEra/>
+                <dateEarliestSingleQualifierValue/>
+                <dateLatestCertainty/>
+                <dateEarliestSingleYear/>
+                <dateLatestQualifier/>
+                <dateLatestQualifierValue/>
+                <dateEarliestSingleQualifierUnit/>
+                <datePeriod/>
+                <dateEarliestScalarValue/>
+                <dateLatestMonth/>
+                <dateNote/>
+                <dateLatestScalarValue/>
+                <dateLatestQualifierUnit/>
+                <dateEarliestSingleDay/>
+                <dateEarliestSingleMonth/>
+            </geoRefDateGroup>
+            <pointRadiusSpatialFit>7</pointRadiusSpatialFit>
+        </placeGeoRefGroup>
+    </placeGeoRefGroupList>
+    <vCoordSys>altitude-depth</vCoordSys>
+    <inAuthority>d0cbb89e-642c-42be-8e12</inAuthority>
+    <vElevation>7837</vElevation>
+    <minDepthInMeters>1</minDepthInMeters>
+    <refName>urn:cspace:core.collectionspace.org:placeauthorities:name(place):item:name(GlonceyLand1357679703360)'Gloncey
+        Land'</refName>
 </ns2:places_common>
-

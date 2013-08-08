@@ -5,7 +5,7 @@
         <repeat id="citationTermGroupList/citationTermGroup">
             <!-- Fields common across all authority items -->
             <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes"
-                   mini="summary,number,search,list,relate">
+                   mini="summary,number,search,list,relate" services-should-index="true">
                 <selector>citationAuthority-termDisplayName</selector>
                 <title-selector>titleBar-displayName</title-selector>
             </field>
