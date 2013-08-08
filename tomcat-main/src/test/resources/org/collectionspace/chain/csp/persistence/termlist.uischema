@@ -1,85 +1,55 @@
-{
-  "termlist": {
+{"termlist": {
     "properties": {
-      "csid": {
-        "type": "string"
-      }, 
-      "fields": {
-        "properties": {
-          "description": {
-            "type": "string"
-          }, 
-          "displayName": {
-            "type": "string"
-          }, 
-          "name": {
-            "type": "string"
-          }, 
-          "shortIdentifier": {
-            "type": "string"
-          }, 
-          "source": {
-            "type": "string"
-          }, 
-          "sourcePage": {
-            "type": "string"
-          }, 
-          "terms": {
-            "items": {
-              "properties": {
-                "_primary": {
-                  "default": true, 
-                  "type": "boolean"
-                }, 
-                "_subrecordcsid": {
-                  "type": "string"
-                }, 
-                "description": {
-                  "type": "string"
-                }, 
-                "displayName": {
-                  "type": "string"
-                }, 
-                "shortIdentifier": {
-                  "type": "string"
-                }, 
-                "source": {
-                  "type": "string"
-                }, 
-                "sourcePage": {
-                  "type": "string"
-                }, 
-                "termStatus": {
-                  "default": "active", 
-                  "type": "string"
-                }
-              }, 
-              "type": "object"
-            }, 
-            "type": "array"
-          }, 
-          "usedBys": {
-            "items": {
-              "properties": {
-                "_primary": {
-                  "default": true, 
-                  "type": "boolean"
-                }, 
-                "usedBy": {
-                  "type": "string"
-                }
-              }, 
-              "type": "object"
-            }, 
-            "type": "array"
-          }, 
-          "vocabType": {
-            "type": "string"
-          }
-        }, 
-        "type": "object"
-      }
-    }, 
+        "csid": {"type": "string"},
+        "fields": {
+            "properties": {
+                "shortIdentifier": {"type": "string"},
+                "usedBys": {
+                    "items": {
+                        "properties": {
+                            "_primary": {
+                                "default": true,
+                                "type": "boolean"
+                            },
+                            "usedBy": {"type": "string"}
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "source": {"type": "string"},
+                "description": {"type": "string"},
+                "name": {"type": "string"},
+                "terms": {
+                    "items": {
+                        "properties": {
+                            "shortIdentifier": {"type": "string"},
+                            "_primary": {
+                                "default": true,
+                                "type": "boolean"
+                            },
+                            "_subrecordcsid": {"type": "string"},
+                            "inAuthority": {"type": "string"},
+                            "source": {"type": "string"},
+                            "order": {"type": "string"},
+                            "description": {"type": "string"},
+                            "termStatus": {
+                                "default": "active",
+                                "type": "string"
+                            },
+                            "displayName": {"type": "string"},
+                            "sourcePage": {"type": "string"}
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "displayName": {"type": "string"},
+                "vocabType": {"type": "string"},
+                "sourcePage": {"type": "string"}
+            },
+            "type": "object"
+        }
+    },
     "type": "object"
-  }
-}
+}}
