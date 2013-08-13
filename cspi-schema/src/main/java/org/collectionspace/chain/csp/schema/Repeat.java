@@ -111,7 +111,8 @@ public class Repeat extends FieldSetImpl implements FieldParent {
 		utils.initStrings(section, "@onlyifexists", ""); //
 		utils.initStrings(section, "@ui-spec-prefix", "");
 		utils.initBoolean(section, "@ui-spec-inherit", false);
-		utils.initBoolean(section, "@ui-readonly", false);
+		utils.initBoolean(section, "@services-readonly", false);
+		utils.initBoolean(section, "@ui-readonly", utils.getBoolean("@services-readonly"));
 		utils.initStrings(section, "@with-csid", null);
 		// used by uispec to create new structure
 		utils.initBoolean(section, "@as-expander", false);
@@ -429,6 +430,11 @@ public class Repeat extends FieldSetImpl implements FieldParent {
 		return utils.getBoolean("@ui-readonly");
 	}
 
+	@Override
+	public boolean isServicesReadOnly() {
+		return utils.getBoolean("@services-readonly");
+	}
+	
 	public Boolean isGrouped() {
 		return utils.getBoolean("@showgrouped");
 	}

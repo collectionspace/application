@@ -154,7 +154,7 @@
         <selector>object-identification-comments</selector>
       </field>
     </repeat>
-    <field id="computedCurrentLocation" ui-type="valueDeURNed" authref-in-services="true">
+    <field id="computedCurrentLocation" ui-type="valueDeURNed" services-readonly="true" authref-in-services="true">
     </field>
     <repeat id="titleGroupList/titleGroup">
       <!-- selector>collection-object-titleGroup</selector -->

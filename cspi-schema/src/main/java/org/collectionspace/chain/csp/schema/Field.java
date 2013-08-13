@@ -105,7 +105,8 @@ public class Field extends FieldSetImpl {
 		utils.initStrings(section,"@label-affix", "-label");
 		utils.initStrings(section,"@serviceurl", null);
 		utils.initStrings(section,"@ui-spec-prefix","");
-		utils.initBoolean(section, "@ui-readonly", false);
+		utils.initBoolean(section, "@services-readonly", false);
+		utils.initBoolean(section, "@ui-readonly", utils.getBoolean("@services-readonly"));
 		utils.initBoolean(section,"@ui-spec-inherit",false);
 		utils.initStrings(section,"@with-csid","");
 
@@ -315,6 +316,10 @@ public class Field extends FieldSetImpl {
 	@Override
 	public boolean isReadOnly(){
 		return utils.getBoolean("@ui-readonly");
+	}
+	@Override
+	public boolean isServicesReadOnly(){
+		return utils.getBoolean("@services-readonly");
 	}
 	
 	@Override
