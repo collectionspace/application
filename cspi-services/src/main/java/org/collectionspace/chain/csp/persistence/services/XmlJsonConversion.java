@@ -37,8 +37,14 @@ import org.slf4j.LoggerFactory;
 public class XmlJsonConversion {
 	private static final Logger log=LoggerFactory.getLogger(XmlJsonConversion.class);
 	private static void addFieldToXml(Element root,Field field,JSONObject in, String permlevel) throws JSONException, UnderlyingStorageException {
+		if (field.isServicesReadOnly()) {
+			// Omit fields that are read-only in the services layer.
+			log.debug("Omitting services-readonly field: " + field.getID());
+			return;
+		}
 		
 		Element element=root;
+
 		if(field.getUIType().startsWith("groupfield") && field.getUIType().contains("selfrenderer")){
 //ignore the top level if this is a self renderer as the UI needs it but the services doesn't
 		}
@@ -82,8 +88,14 @@ public class XmlJsonConversion {
 	
 	//XXX could refactor this and addRepeatToXML as this is what happens in the middle of addRepeatToXML
 	private static void addGroupToXml(Element root, Group group, JSONObject in, String section, String permlevel) throws JSONException, UnderlyingStorageException{
+		if (group.isServicesReadOnly()) {
+			// Omit fields that are read-only in the services layer.
+			log.debug("Omitting services-readonly group: " + group.getID());
+			return;
+		}
+		
 		Element element=root;
-
+		
 		if(group.hasServicesParent()){
 			for(String path : group.getServicesParent()){
 				if(path !=null){
@@ -135,8 +147,14 @@ public class XmlJsonConversion {
 	}
 	
 	private static void addRepeatToXml(Element root,Repeat repeat,JSONObject in,String section, String permlevel) throws JSONException, UnderlyingStorageException {
-
+		if (repeat.isServicesReadOnly()) {
+			// Omit fields that are read-only in the services layer.
+			log.debug("Omitting services-readonly repeat: " + repeat.getID());
+			return;
+		}
+		
 		Element element=root;
+		
 		if(repeat.hasServicesParent()){
 			for(String path : repeat.getServicesParent()){
 				if(path !=null){
