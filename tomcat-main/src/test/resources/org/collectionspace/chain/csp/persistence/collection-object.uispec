@@ -595,7 +595,10 @@
       "decorators": [
         {
           "func": "cspace.util.urnToStringFieldConverter", 
-          "type": "fluid"
+          "type": "fluid",
+          "options": {
+            "readOnly": true
+          }
         }
       ], 
       "value": "${fields.computedCurrentLocation}"
