@@ -135,6 +135,12 @@ public class TestService extends ServicesBaseClass {
 		testJSONXML(spec, "citation", "citation.xml", "citation.json");
                 testJSONXML(spec, "place", "placeXMLJSON.xml", "placeJSON.json");
         testJSONXML(spec, "work", "work.xml", "work.json");
+        // CSPACE-6135: In CollectionObject, the computedCurrentLocation field is services-readonly,
+        // so the JSON->XML->JSON conversion produces JSON that does not match the initial JSON
+        // (computedCurrentLocation is omitted from the XML, so it does not appear in the JSON
+        // converted back from the XML). In this case, we need to supply a third parameter to
+        // specify the expected round-trip JSON. objectsReturnedJSON.json is identical to
+        // objectsJSON.json, except computedCurrentLocation has been removed.
 		testJSONXML(spec, "collection-object", "objectsXMLJSON.xml",
 				"objectsJSON.json", "objectsReturnedJSON.json");
 		
