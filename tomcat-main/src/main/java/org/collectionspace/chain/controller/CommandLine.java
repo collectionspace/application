@@ -290,7 +290,7 @@ public class CommandLine {
 				for (String fileName : fileNameList) {
 					File tenantConfigFile = new File(configDir.getAbsolutePath() + "/" + fileName);
 					fileList.add(tenantConfigFile);
-					logger.debug(String.format("Found the Application layer's tenant configuration file: '%s'",
+					logger.info(String.format("Found the Application layer's tenant configuration file: '%s'",
 							tenantConfigFile.getAbsolutePath()));
 				}
 				result = fileList.toArray(result);
