@@ -31,10 +31,10 @@
 		</repeat>
 		<field id="collection">
 			<options>
-				<option id="" default="yes">Please select a value</option>
+				<option id="">Please select a value</option>
 				<option id="Unknown">Unknown</option>
 				<option id="Jepson Herbarium">Jepson Herbarium</option>
-				<option id="University of California Herbarium">University Herbarium, University of California, Berkeley (UC)</option>
+				<option id="University of California Herbarium" default="yes">University Herbarium, University of California, Berkeley (UC)</option>
 				<option id="University of California- Santa Barbara">University of California- Santa Barbara</option>
 				<option id="Herbarium (UCSC)">Herbarium (UCSC)</option>
 				<option id="University of California">University of California</option>
