@@ -1,13 +1,18 @@
 package org.collectionspace.chain.csp.schema;
 
 import org.collectionspace.chain.csp.config.ReadOnlySection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public abstract class FieldSetImpl implements FieldSet {
 	
+	private static final Logger logger = LoggerFactory.getLogger(FieldSetImpl.class);
+	
 	protected SchemaUtils utils = new SchemaUtils();
 	
 	protected void initialiseVariables(ReadOnlySection section, String tempid) {
+		utils.initBoolean(section,"@services-derived", false);
 		utils.initBoolean(section,"@services-refnameDisplayName", false);
 		utils.initStrings(section,"@services-setter", null);
 		utils.initBoolean(section,"@services-schema-qualify", false);
@@ -23,6 +28,15 @@ public abstract class FieldSetImpl implements FieldSet {
 			}
 		}
 		
+	}
+	
+	@Override
+	public boolean isServicesDerived() {
+		boolean result = utils.getBoolean("@services-derived");
+		if (result == true) {
+			logger.trace(String.format("Found a Services derived field named '%s'", this.getID()));
+		}
+		return result;
 	}
 	
 	@Override

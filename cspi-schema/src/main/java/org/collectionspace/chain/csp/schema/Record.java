@@ -322,8 +322,11 @@ public class Record implements FieldParent {
 	public void addField(FieldSet f) {
 		String parentType = f.getParent().getClass().getSimpleName();
 		fieldFullList.put(f.getID(), f);
-		if (f.isInServices()) {
+		if (f.isInServices() || f.isServicesDerived()) {
 			serviceFieldFullList.put(f.getID(), f);
+		} else {
+			log.trace(String.format("%s: isInServices() and isServicesDerived() methods returned false, so we wont add '%s' to the serviceFieldFullList.",
+					f.getID(), f.getID()));
 		}
 		if (f.isASelfRenderer()) {
 			addSelfRenderer(f);
@@ -334,13 +337,16 @@ public class Record implements FieldParent {
 
 		if (parentType.equals("Record")) { //toplevel field
 			fieldTopLevel.put(f.getID(), f);
-			if (f.isInServices()) {
+			if (f.isInServices() || f.isServicesDerived()) {
 				serviceFieldTopLevel.put(f.getID(), f);
 				//list fields by the operations they support
 				for (String oper : f.getAllFieldOperations()) {
 					hashutil(servicefieldsbyoperation, oper, f.getSection(), f);
 					//subdivide section and then by GET POST PUT etc
 				}
+			} else {
+				log.trace(String.format("%s: isInServices() and isServicesDerived() methods returned false, so we wont add '%s' to the serviceFieldTopLevel.",
+						f.getID(), f.getID()));
 			}
 			//list fields by the operations they support
 			for (String oper : f.getAllFieldOperations()) {

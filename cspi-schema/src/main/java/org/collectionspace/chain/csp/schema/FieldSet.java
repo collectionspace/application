@@ -33,6 +33,7 @@ public interface FieldSet {
 	/*
 	 * Methods specific to Service artifact generation
 	 */
+	public boolean isServicesDerived();
 	public boolean isServicesRefnameDisplayName();
 	public String getServicesSetter();
 	public boolean shouldSchemaQualify();
