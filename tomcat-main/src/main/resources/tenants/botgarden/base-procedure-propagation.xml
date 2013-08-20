@@ -73,7 +73,7 @@
                         <selector>propagation-propNumber</selector>
                         <container-selector>propagation-propNumber-patternChooserContainer</container-selector>
             			<options>
-            				<option id="prop-number" sample="UCBG1000">Propagation Number</option>
+            				<option id="prop-number" sample="1000">Propagation Number</option>
             			</options>
             		</field>
                     <field id="propDate" ui-type="groupfield/structureddate" 
