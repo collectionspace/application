@@ -163,6 +163,8 @@
 	</section>
 
 	<section id="objectCollectionInformation">
+		<!-- Add ui-search -->
+		<field id="fieldCollectionNumber" ui-search="range"/>
 		<repeat id="fieldCollectors">
 			<!-- Add ui-search, and remove person authority from autocomplete -->
 			<field id="fieldCollector" autocomplete="organization-organization" ui-search="repeatable"/>
