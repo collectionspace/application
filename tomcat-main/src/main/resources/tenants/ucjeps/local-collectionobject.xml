@@ -176,4 +176,6 @@
 			<field id="decimalLongitude" ui-type="computed" ui-func="cspace.georef.dms2decimal" ui-args="vLongitude" ui-readonly="true"/>
 		</repeat>
 	</section>
+	
+	<section id="collectorLabelInformation"/>
 </record>
