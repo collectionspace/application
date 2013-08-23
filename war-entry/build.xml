@@ -18,9 +18,11 @@
         description="Copies application layer config files to their deployed locations">
 		
 		<!-- Copy nuxeo templates -->
+		<delete dir="${config_destination}/nx-plugin-templates"/>
 		<copy todir="${config_destination}/nx-plugin-templates">
 			<fileset dir="${app_resources_dir}/nx-plugin-templates" includes="*/**"/>
 		</copy>
+		<delete dir="${config_destination}/auth-nx-plugin-templates"/>
 		<copy todir="${config_destination}/auth-nx-plugin-templates">
 			<fileset dir="${app_resources_dir}/auth-nx-plugin-templates" includes="*/**"/>
 		</copy>
@@ -32,11 +34,17 @@
 		<copy todir="${config_destination}/defaults">
 			<fileset dir="${app_resources_dir}/defaults" includes="*/**"/>
 		</copy>
+		<delete dir="${config_destination}/tenants"/>
 		<copy todir="${config_destination}/tenants">
 			<fileset dir="${app_resources_dir}/tenants" includes="*/**"/>
 		</copy>
 		
-		<!-- Copy cspace-config files -->
+		<!-- Delete old and Copy new cspace-config files -->
+		<delete>
+			<fileset dir="${config_destination}" casesensitive="yes">
+			  <include name="cspace-config-*.xml"/>
+			</fileset>
+		</delete>
 		<copy todir="${config_destination}" overwrite="true">
 			<fileset dir="${app_resources_dir}"/>
 			<globmapper from="*-tenant.xml" to="cspace-config-*.xml"/>
