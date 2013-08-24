@@ -368,6 +368,8 @@ public class WebUI implements CSP, UI, Configurable {
 		} catch(UIException e) {
 			throw e;
 		} catch (Exception e) {
+                        log.debug("Error in WebUI.serviceRequest",e);
+                        log.debug(String.format("Request body= %s", ui.getBody()));
 			throw new UIException("Error in read",e);
 		}
 		throw new UIException("path not used");
