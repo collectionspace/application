@@ -85,12 +85,13 @@ public class Repeat implements FieldSet, FieldParent  {
 		utils.initBoolean(section,"@has-primary",true);
 		// used when want to override default grouped behaviour e.g. blobs in media
 		utils.initBoolean(section, "@showgrouped", true);
-		utils.initStrings(section,"@userecord",""); //this is a mark of a subrecord e.g contact in person, blob in media
-		utils.initStrings(section,"@onlyifexists",""); //
-		utils.initStrings(section,"@ui-spec-prefix","");
-		utils.initBoolean(section,"@ui-spec-inherit",false);
-		utils.initBoolean(section, "@ui-readonly", false);
-		utils.initStrings(section,"@with-csid",null);
+		utils.initStrings(section, "@userecord", ""); //this is a mark of a subrecord e.g contact in person, blob in media
+		utils.initStrings(section, "@onlyifexists", ""); //
+		utils.initStrings(section, "@ui-spec-prefix", "");
+		utils.initBoolean(section, "@ui-spec-inherit", false);
+		utils.initBoolean(section, "@services-readonly", false);
+		utils.initBoolean(section, "@ui-readonly", utils.getBoolean("@services-readonly"));
+		utils.initStrings(section, "@with-csid", null);
 		// used by uispec to create new structure
 		utils.initBoolean(section,"@as-expander",false);
 		utils.initBoolean(section,"@as-conditional-expander",false);
@@ -350,7 +351,17 @@ public class Repeat implements FieldSet, FieldParent  {
 	public boolean isReadOnly(){
 		return utils.getBoolean("@ui-readonly");
 	}
+<<<<<<< HEAD
 	public Boolean isGrouped(){
+=======
+
+	@Override
+	public boolean isServicesReadOnly() {
+		return utils.getBoolean("@services-readonly");
+	}
+	
+	public Boolean isGrouped() {
+>>>>>>> 0741db5... CSPACE-6135: Implement services-readonly field handling.
 		return utils.getBoolean("@showgrouped");
 	}
 
