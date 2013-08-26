@@ -351,9 +351,6 @@ public class Repeat implements FieldSet, FieldParent  {
 	public boolean isReadOnly(){
 		return utils.getBoolean("@ui-readonly");
 	}
-<<<<<<< HEAD
-	public Boolean isGrouped(){
-=======
 
 	@Override
 	public boolean isServicesReadOnly() {
@@ -361,7 +358,6 @@ public class Repeat implements FieldSet, FieldParent  {
 	}
 	
 	public Boolean isGrouped() {
->>>>>>> 0741db5... CSPACE-6135: Implement services-readonly field handling.
 		return utils.getBoolean("@showgrouped");
 	}
 
