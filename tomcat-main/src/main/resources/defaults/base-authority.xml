@@ -1,0 +1,10 @@
+<record id="baseAuthority" in-recordlist="no" separate-record="false" generate-services-schema="false">
+    <section>
+	    <field id="displayName" mini="list" services-should-index="true"/>
+	    <field id="refName"/>
+	    <field id="shortIdentifier" mini="list" services-should-index="true"/>
+	    <field id="vocabType" mini="list"/>
+	    <field id="source"/>
+	    <field id="description"/>
+    </section>
+</record>

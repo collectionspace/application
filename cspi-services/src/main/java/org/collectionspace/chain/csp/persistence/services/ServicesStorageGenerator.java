@@ -101,7 +101,7 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 				return this;
 			}
 		});
-		rules.addRule(SECTION_PREFIX+"service", new String[]{"languages","language"},SECTION_PREFIX+"language", null, new Target(){
+		rules.addRule(SECTION_PREFIX+"service", new String[]{"repository","languages","language"},SECTION_PREFIX+"language", null, new Target(){
 			public Object populate(Object parent, ReadOnlySection milestone) {
 				String lang = (String)milestone.getValue("");
 				tenantData.addLanguage(lang);

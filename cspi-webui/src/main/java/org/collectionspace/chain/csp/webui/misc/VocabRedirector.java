@@ -6,10 +6,6 @@
  */
 package org.collectionspace.chain.csp.webui.misc;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.collectionspace.chain.csp.schema.AdminData;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;

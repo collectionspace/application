@@ -1,646 +1,665 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ns2:collectionobjects_common xmlns:ns2="http://collectionspace.org/services/collectionobject" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://collectionspace.org/services/collectionobject http://services.collectionspace.org/collectionobject/collectionobjects_common.xsd">
+<ns2:collectionobjects_common xmlns:ns2="http://collectionspace.org/services/collectionobject"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://collectionspace.org/services/collectionobject http://services.collectionspace.org/collectionobject/collectionobjects_common.xsd">
 
-<objectNumber>2010.1.9</objectNumber>
-<otherNumberList>
-	<otherNumber>
-		<numberValue>a</numberValue>
-		<numberType>v</numberType>
-	</otherNumber>
-	<otherNumber>
-		<numberValue>b</numberValue>
-		<numberType>f</numberType>
-	</otherNumber>
-</otherNumberList>
-<referenceGroupList>
-	<referenceGroup>
-		<reference>reference</reference>
-		<referenceNote>referenceNote</referenceNote>
-	</referenceGroup>
-</referenceGroupList>
-<objectProductionDateGroupList>
-    <objectProductionDateGroup>
-		<dateEarliestSingleQualifier>-</dateEarliestSingleQualifier>
-        <dateLatestDay>22</dateLatestDay>
-        <dateLatestYear>5</dateLatestYear>
-        <dateAssociation>sdf</dateAssociation>
-        <dateEarliestSingleEra>bce</dateEarliestSingleEra>
-        <dateDisplayDate>sdf</dateDisplayDate>
-        <dateEarliestSingleCertainty>about</dateEarliestSingleCertainty>
-        <dateLatestEra>bce</dateLatestEra>
-        <dateEarliestSingleQualifierValue>4</dateEarliestSingleQualifierValue>
-        <dateLatestCertainty>approximate</dateLatestCertainty>
-        <dateEarliestSingleYear>1</dateEarliestSingleYear>
-        <dateLatestQualifier>+</dateLatestQualifier>
-        <dateLatestQualifierValue>2</dateLatestQualifierValue>
-        <dateEarliestSingleQualifierUnit>days</dateEarliestSingleQualifierUnit>
-        <datePeriod>sdf</datePeriod>
-        <dateLatestMonth>11</dateLatestMonth>
-        <dateNote>sdf</dateNote>
-        <dateLatestQualifierUnit>month</dateLatestQualifierUnit>
-        <dateEarliestSingleDay>3</dateEarliestSingleDay>
-        <dateEarliestSingleMonth>2</dateEarliestSingleMonth>
-        <scalarValuesComputed>false</scalarValuesComputed>
-        <dateEarliestScalarValue></dateEarliestScalarValue>
-        <dateLatestScalarValue></dateLatestScalarValue>
-    </objectProductionDateGroup>
-    <objectProductionDateGroup>
-		<dateEarliestSingleQualifier>-</dateEarliestSingleQualifier>
-        <dateLatestDay>20</dateLatestDay>
-        <dateLatestYear>1</dateLatestYear>
-        <dateAssociation>wer</dateAssociation>
-        <dateEarliestSingleEra>bce</dateEarliestSingleEra>
-        <dateDisplayDate>wer</dateDisplayDate>
-        <dateEarliestSingleCertainty>about</dateEarliestSingleCertainty>
-        <dateLatestEra>bce</dateLatestEra>
-        <dateEarliestSingleQualifierValue>4</dateEarliestSingleQualifierValue>
-        <dateLatestCertainty>approximate</dateLatestCertainty>
-        <dateEarliestSingleYear>1</dateEarliestSingleYear>
-        <dateLatestQualifier>+</dateLatestQualifier>
-        <dateLatestQualifierValue>2</dateLatestQualifierValue>
-        <dateEarliestSingleQualifierUnit>days</dateEarliestSingleQualifierUnit>
-        <datePeriod>werwerwer</datePeriod>
-        <dateLatestMonth>11</dateLatestMonth>
-        <dateNote>werwer</dateNote>
-        <dateLatestQualifierUnit>month</dateLatestQualifierUnit>
-        <dateEarliestSingleDay>21</dateEarliestSingleDay>
-        <dateEarliestSingleMonth>7</dateEarliestSingleMonth>
-        <scalarValuesComputed>false</scalarValuesComputed>
-        <dateEarliestScalarValue></dateEarliestScalarValue>
-        <dateLatestScalarValue></dateLatestScalarValue>
-    </objectProductionDateGroup>
-</objectProductionDateGroupList>
-<ownersReferences/>
-<objectProductionReasons/>
-<viewersReferences/>
-<briefDescriptions>
-    <briefDescription>bob</briefDescription>
-    <briefDescription>george</briefDescription>
-</briefDescriptions>
-<comments>
-    <comment>comment a </comment>
-    <comment>comment b </comment>
-    <comment>comment c </comment>
-</comments>
-<distinguishingFeatures>distinguishingFeatures</distinguishingFeatures>
-<numberOfObjects>numberOfObjects</numberOfObjects>
-<objectNameList>
-	<objectNameGroup>
-<objectName>objectName</objectName>
-<objectNameCurrency>objectNameCurrency</objectNameCurrency>
-<objectNameLevel>objectNameLevel</objectNameLevel>
-<objectNameNote>objectNameNote</objectNameNote>
-<objectNameSystem>objectNameSystem</objectNameSystem>
-<objectNameType>objectNameType</objectNameType>
-<objectNameLanguage>objectNameLanguage</objectNameLanguage>
-		</objectNameGroup>
-		</objectNameList>
-<responsibleDepartments>
-<responsibleDepartment>ethnography1</responsibleDepartment>
-<responsibleDepartment>ethnography2</responsibleDepartment>
-<responsibleDepartment>ethnography</responsibleDepartment>
-</responsibleDepartments>
-<collection>collection</collection>
-<computedCurrentLocation>latest storage location</computedCurrentLocation>
-<titleGroupList>
-    <titleGroup>
-        <title>Der Ring des Nibelungen</title>
-        <titleLanguage>deu</titleLanguage>
-        <titleTranslationSubGroupList>
-            <titleTranslationSubGroup>
-                <titleTranslation>The Ring Cycle</titleTranslation>
-                <titleTranslationLanguage>eng</titleTranslationLanguage>
-            </titleTranslationSubGroup>
-            <titleTranslationSubGroup>
-                <titleTranslation>Ringling Bros. / Barnum and Bailey's epic times</titleTranslation>
-                <titleTranslationLanguage>ang</titleTranslationLanguage>
-            </titleTranslationSubGroup>
-        </titleTranslationSubGroupList>
-        <titleType>assigned-by-artist</titleType>
-    </titleGroup>
-    <titleGroup>
-        <title>Das Rheingold - Die Valküre - Siegfried - Götterdämmerung</title>
-        <titleLanguage>German</titleLanguage>
-        <titleTranslationSubGroupList>
-            <titleTranslationSubGroup>
-                <titleTranslation>The Rhein Gold - The Valkyrie - Siegfried - Twilight of the Gods</titleTranslation>
-                <titleTranslationLanguage>eng</titleTranslationLanguage>
-            </titleTranslationSubGroup>
-        </titleTranslationSubGroupList>
-        <titleType>collection</titleType>
-    </titleGroup>
-</titleGroupList>
-<recordStatus>recordStatus</recordStatus>
-<!-- Object Description Information -->
-<age>age</age>
-<ageQualifier>ageQualifier</ageQualifier>
-<ageUnit>ageUnit</ageUnit>
-<colors>
-    <color>red</color>
-    <color>green</color>
-    <color>blue</color>
-</colors>
-<!-- Object Description - Content Information -->
-<contentActivities>
-    <contentActivity>contentActivity a</contentActivity>
-    <contentActivity>contentActivity b</contentActivity>
-    <contentActivity>contentActivity c</contentActivity>
-</contentActivities>
-<contentConcepts>
-    <contentConcept>contentConcept a</contentConcept>
-    <contentConcept>contentConcept b</contentConcept>
-    <contentConcept>contentConcept c</contentConcept>
-</contentConcepts>
-<contentDateGroup>
-		<dateEarliestSingleQualifier></dateEarliestSingleQualifier>
-        <dateLatestDay></dateLatestDay>
-        <dateLatestYear></dateLatestYear>
-        <dateAssociation></dateAssociation>
-        <dateEarliestSingleEra></dateEarliestSingleEra>
-        <dateDisplayDate></dateDisplayDate>
-        <dateEarliestSingleCertainty></dateEarliestSingleCertainty>
-        <dateLatestEra></dateLatestEra>
-        <dateEarliestSingleQualifierValue></dateEarliestSingleQualifierValue>
-        <dateLatestCertainty></dateLatestCertainty>
+    <objectNumber>2010.1.9</objectNumber>
+    <otherNumberList>
+        <otherNumber>
+            <numberValue>a</numberValue>
+            <numberType>v</numberType>
+        </otherNumber>
+        <otherNumber>
+            <numberValue>b</numberValue>
+            <numberType>f</numberType>
+        </otherNumber>
+    </otherNumberList>
+    <referenceGroupList>
+        <referenceGroup>
+            <reference>reference</reference>
+            <referenceNote>referenceNote</referenceNote>
+        </referenceGroup>
+    </referenceGroupList>
+    <objectProductionDateGroupList>
+        <objectProductionDateGroup>
+            <dateEarliestSingleQualifier>-</dateEarliestSingleQualifier>
+            <dateLatestDay>22</dateLatestDay>
+            <dateLatestYear>5</dateLatestYear>
+            <dateAssociation>sdf</dateAssociation>
+            <dateEarliestSingleEra>bce</dateEarliestSingleEra>
+            <dateDisplayDate>sdf</dateDisplayDate>
+            <dateEarliestSingleCertainty>about</dateEarliestSingleCertainty>
+            <dateLatestEra>bce</dateLatestEra>
+            <dateEarliestSingleQualifierValue>4</dateEarliestSingleQualifierValue>
+            <dateLatestCertainty>approximate</dateLatestCertainty>
+            <dateEarliestSingleYear>1</dateEarliestSingleYear>
+            <dateLatestQualifier>+</dateLatestQualifier>
+            <dateLatestQualifierValue>2</dateLatestQualifierValue>
+            <dateEarliestSingleQualifierUnit>days</dateEarliestSingleQualifierUnit>
+            <datePeriod>sdf</datePeriod>
+            <dateLatestMonth>11</dateLatestMonth>
+            <dateNote>sdf</dateNote>
+            <dateLatestQualifierUnit>month</dateLatestQualifierUnit>
+            <dateEarliestSingleDay>3</dateEarliestSingleDay>
+            <dateEarliestSingleMonth>2</dateEarliestSingleMonth>
+            <scalarValuesComputed>false</scalarValuesComputed>
+            <dateEarliestScalarValue/>
+            <dateLatestScalarValue/>
+        </objectProductionDateGroup>
+        <objectProductionDateGroup>
+            <dateEarliestSingleQualifier>-</dateEarliestSingleQualifier>
+            <dateLatestDay>20</dateLatestDay>
+            <dateLatestYear>1</dateLatestYear>
+            <dateAssociation>wer</dateAssociation>
+            <dateEarliestSingleEra>bce</dateEarliestSingleEra>
+            <dateDisplayDate>wer</dateDisplayDate>
+            <dateEarliestSingleCertainty>about</dateEarliestSingleCertainty>
+            <dateLatestEra>bce</dateLatestEra>
+            <dateEarliestSingleQualifierValue>4</dateEarliestSingleQualifierValue>
+            <dateLatestCertainty>approximate</dateLatestCertainty>
+            <dateEarliestSingleYear>1</dateEarliestSingleYear>
+            <dateLatestQualifier>+</dateLatestQualifier>
+            <dateLatestQualifierValue>2</dateLatestQualifierValue>
+            <dateEarliestSingleQualifierUnit>days</dateEarliestSingleQualifierUnit>
+            <datePeriod>werwerwer</datePeriod>
+            <dateLatestMonth>11</dateLatestMonth>
+            <dateNote>werwer</dateNote>
+            <dateLatestQualifierUnit>month</dateLatestQualifierUnit>
+            <dateEarliestSingleDay>21</dateEarliestSingleDay>
+            <dateEarliestSingleMonth>7</dateEarliestSingleMonth>
+            <scalarValuesComputed>false</scalarValuesComputed>
+            <dateEarliestScalarValue/>
+            <dateLatestScalarValue/>
+        </objectProductionDateGroup>
+    </objectProductionDateGroupList>
+    <ownersReferences/>
+    <objectProductionReasons/>
+    <viewersReferences/>
+    <briefDescriptions>
+        <briefDescription>bob</briefDescription>
+        <briefDescription>george</briefDescription>
+    </briefDescriptions>
+    <comments>
+        <comment>comment a </comment>
+        <comment>comment b </comment>
+        <comment>comment c </comment>
+    </comments>
+    <distinguishingFeatures>distinguishingFeatures</distinguishingFeatures>
+    <numberOfObjects>numberOfObjects</numberOfObjects>
+    <objectNameList>
+        <objectNameGroup>
+            <objectName>objectName</objectName>
+            <objectNameCurrency>objectNameCurrency</objectNameCurrency>
+            <objectNameLevel>objectNameLevel</objectNameLevel>
+            <objectNameNote>objectNameNote</objectNameNote>
+            <objectNameSystem>objectNameSystem</objectNameSystem>
+            <objectNameType>objectNameType</objectNameType>
+            <objectNameLanguage>objectNameLanguage</objectNameLanguage>
+        </objectNameGroup>
+    </objectNameList>
+    <responsibleDepartments>
+        <responsibleDepartment>ethnography1</responsibleDepartment>
+        <responsibleDepartment>ethnography2</responsibleDepartment>
+        <responsibleDepartment>ethnography</responsibleDepartment>
+    </responsibleDepartments>
+    <collection>collection</collection>
+    <computedCurrentLocation>latest storage location</computedCurrentLocation>
+    <titleGroupList>
+        <titleGroup>
+            <title>Der Ring des Nibelungen</title>
+            <titleLanguage>deu</titleLanguage>
+            <titleTranslationSubGroupList>
+                <titleTranslationSubGroup>
+                    <titleTranslation>The Ring Cycle</titleTranslation>
+                    <titleTranslationLanguage>eng</titleTranslationLanguage>
+                </titleTranslationSubGroup>
+                <titleTranslationSubGroup>
+                    <titleTranslation>Ringling Bros. / Barnum and Bailey's epic times</titleTranslation>
+                    <titleTranslationLanguage>ang</titleTranslationLanguage>
+                </titleTranslationSubGroup>
+            </titleTranslationSubGroupList>
+            <titleType>assigned-by-artist</titleType>
+        </titleGroup>
+        <titleGroup>
+            <title>Das Rheingold - Die Valküre - Siegfried - Götterdämmerung</title>
+            <titleLanguage>German</titleLanguage>
+            <titleTranslationSubGroupList>
+                <titleTranslationSubGroup>
+                    <titleTranslation>The Rhein Gold - The Valkyrie - Siegfried - Twilight of the Gods</titleTranslation>
+                    <titleTranslationLanguage>eng</titleTranslationLanguage>
+                </titleTranslationSubGroup>
+            </titleTranslationSubGroupList>
+            <titleType>collection</titleType>
+        </titleGroup>
+    </titleGroupList>
+    <recordStatus>recordStatus</recordStatus>
+    <!-- Object Description Information -->
+    <age>age</age>
+    <ageQualifier>ageQualifier</ageQualifier>
+    <ageUnit>ageUnit</ageUnit>
+    <colors>
+        <color>red</color>
+        <color>green</color>
+        <color>blue</color>
+    </colors>
+    <!-- Object Description - Content Information -->
+    <contentActivities>
+        <contentActivity>contentActivity a</contentActivity>
+        <contentActivity>contentActivity b</contentActivity>
+        <contentActivity>contentActivity c</contentActivity>
+    </contentActivities>
+    <contentConcepts>
+        <contentConcept>contentConcept a</contentConcept>
+        <contentConcept>contentConcept b</contentConcept>
+        <contentConcept>contentConcept c</contentConcept>
+    </contentConcepts>
+    <contentDateGroup>
+        <dateEarliestSingleQualifier/>
+        <dateLatestDay/>
+        <dateLatestYear/>
+        <dateAssociation/>
+        <dateEarliestSingleEra/>
+        <dateDisplayDate/>
+        <dateEarliestSingleCertainty/>
+        <dateLatestEra/>
+        <dateEarliestSingleQualifierValue/>
+        <dateLatestCertainty/>
         <dateEarliestSingleYear>1901</dateEarliestSingleYear>
-        <dateLatestQualifier></dateLatestQualifier>
-        <dateLatestQualifierValue></dateLatestQualifierValue>
-        <dateEarliestSingleQualifierUnit></dateEarliestSingleQualifierUnit>
-        <datePeriod></datePeriod>
-        <dateLatestMonth></dateLatestMonth>
-        <dateNote></dateNote>
-        <dateLatestQualifierUnit></dateLatestQualifierUnit>
-        <dateEarliestSingleDay></dateEarliestSingleDay>
-        <dateEarliestSingleMonth></dateEarliestSingleMonth>
-        <scalarValuesComputed></scalarValuesComputed>
-        <dateEarliestScalarValue></dateEarliestScalarValue>
-        <dateLatestScalarValue></dateLatestScalarValue>
-</contentDateGroup>
-<contentDescription>contentDescription</contentDescription>
-<contentEventNameGroupList>
-	<contentEventNameGroup>
-    	<contentEventName>contentEventName</contentEventName>
-    	<contentEventNameType>contentEventNameType</contentEventNameType>
-	</contentEventNameGroup>
-</contentEventNameGroupList>
-<contentNote>contentNote</contentNote>
-<contentLanguages>
-    <contentLanguage>English</contentLanguage>
-    <contentLanguage>POlish</contentLanguage>
-    <contentLanguage>Russian</contentLanguage>
-</contentLanguages>
-<contentObjectGroupList>
-	<contentObjectGroup>
-  		<contentObject>contentObject</contentObject>
-  		<contentObjectType>contentObjectType</contentObjectType>
-	</contentObjectGroup>
-</contentObjectGroupList>
-<contentOrganizations>
-    <contentOrganization>contentOrganization a</contentOrganization>
-    <contentOrganization>contentOrganization s</contentOrganization>
-    <contentOrganization>contentOrganization d</contentOrganization>
-    <contentOrganization>contentOrganization f</contentOrganization>
-</contentOrganizations>
-<contentOtherGroupList>
-	<contentOtherGroup>
-    	<contentOther>contentOther</contentOther>
-    	<contentOtherType>contentOtherType</contentOtherType>
-	</contentOtherGroup>
-</contentOtherGroupList>
-<contentPeoples>
-    <contentPeople>contentPeople s</contentPeople>
-    <contentPeople>contentPeople g</contentPeople>
-    <contentPeople>contentPeople b</contentPeople>
-</contentPeoples>
-<contentPersons>
-    <contentPerson>contentPerson 2</contentPerson>
-    <contentPerson>contentPerson 3</contentPerson>
-    <contentPerson>contentPerson 4</contentPerson>
-</contentPersons>
-<contentPlaces>
-    <contentPlace>contentPlace 1</contentPlace>
-    <contentPlace>contentPlace 2</contentPlace>
-    <contentPlace>contentPlace 3</contentPlace>
-</contentPlaces>
-<contentPositions><contentPosition>contentPosition</contentPosition></contentPositions>
-<contentScripts>
-    <contentScript>contentScript 1</contentScript>
-    <contentScript>contentScript 2</contentScript>
-    <contentScript>contentScript 3</contentScript>
-</contentScripts>
-<copyNumber>copyNumber</copyNumber>
-<!-- Object Description - Dimension Information -->
+        <dateLatestQualifier/>
+        <dateLatestQualifierValue/>
+        <dateEarliestSingleQualifierUnit/>
+        <datePeriod/>
+        <dateLatestMonth/>
+        <dateNote/>
+        <dateLatestQualifierUnit/>
+        <dateEarliestSingleDay/>
+        <dateEarliestSingleMonth/>
+        <scalarValuesComputed/>
+        <dateEarliestScalarValue/>
+        <dateLatestScalarValue/>
+    </contentDateGroup>
+    <contentDescription>contentDescription</contentDescription>
+    <contentEventNameGroupList>
+        <contentEventNameGroup>
+            <contentEventName>contentEventName</contentEventName>
+            <contentEventNameType>contentEventNameType</contentEventNameType>
+        </contentEventNameGroup>
+    </contentEventNameGroupList>
+    <contentNote>contentNote</contentNote>
+    <contentLanguages>
+        <contentLanguage>English</contentLanguage>
+        <contentLanguage>POlish</contentLanguage>
+        <contentLanguage>Russian</contentLanguage>
+    </contentLanguages>
+    <contentObjectGroupList>
+        <contentObjectGroup>
+            <contentObject>contentObject</contentObject>
+            <contentObjectType>contentObjectType</contentObjectType>
+        </contentObjectGroup>
+    </contentObjectGroupList>
+    <contentOrganizations>
+        <contentOrganization>contentOrganization a</contentOrganization>
+        <contentOrganization>contentOrganization s</contentOrganization>
+        <contentOrganization>contentOrganization d</contentOrganization>
+        <contentOrganization>contentOrganization f</contentOrganization>
+    </contentOrganizations>
+    <contentOtherGroupList>
+        <contentOtherGroup>
+            <contentOther>contentOther</contentOther>
+            <contentOtherType>contentOtherType</contentOtherType>
+        </contentOtherGroup>
+    </contentOtherGroupList>
+    <contentPeoples>
+        <contentPeople>contentPeople s</contentPeople>
+        <contentPeople>contentPeople g</contentPeople>
+        <contentPeople>contentPeople b</contentPeople>
+    </contentPeoples>
+    <contentPersons>
+        <contentPerson>contentPerson 2</contentPerson>
+        <contentPerson>contentPerson 3</contentPerson>
+        <contentPerson>contentPerson 4</contentPerson>
+    </contentPersons>
+    <contentPlaces>
+        <contentPlace>contentPlace 1</contentPlace>
+        <contentPlace>contentPlace 2</contentPlace>
+        <contentPlace>contentPlace 3</contentPlace>
+    </contentPlaces>
+    <contentPositions>
+        <contentPosition>contentPosition</contentPosition>
+    </contentPositions>
+    <contentScripts>
+        <contentScript>contentScript 1</contentScript>
+        <contentScript>contentScript 2</contentScript>
+        <contentScript>contentScript 3</contentScript>
+    </contentScripts>
+    <copyNumber>copyNumber</copyNumber>
+    <!-- Object Description - Dimension Information -->
 
-<measuredPartGroupList>
-<measuredPartGroup>
-<measuredPart>arm</measuredPart>
-<dimensionSummary/>
-<dimensionSubGroupList>
-<dimensionSubGroup>
-<dimension>diameter</dimension>
-<measuredBy>rj</measuredBy>
-<measurementUnit>cm</measurementUnit>
-<measurementMethod>eyeball</measurementMethod>
-<value>10</value>
-<valueDate>2011-11-08</valueDate>
-<valueQualifier>approx.</valueQualifier>
-</dimensionSubGroup>
-<dimensionSubGroup>
-<dimension>length</dimension>
-<measuredBy>rj</measuredBy>
-<measurementUnit>cm</measurementUnit>
-<measurementMethod>eyeball</measurementMethod>
-<value>75</value>
-<valueDate>2011-11-08</valueDate>
-<valueQualifier>approx.</valueQualifier>
-</dimensionSubGroup>
-</dimensionSubGroupList>
-</measuredPartGroup>
-<measuredPartGroup>
-<measuredPart>other arm</measuredPart>
-<dimensionSummary/>
-<dimensionSubGroupList>
-<dimensionSubGroup>
-<dimension>length</dimension>
-<measuredBy>rj</measuredBy>
-<measurementUnit>cm</measurementUnit>
-<measurementMethod>eyeball</measurementMethod>
-<value>80</value>
-<valueDate>2011-11-08</valueDate>
-<valueQualifier>close enough for govt work</valueQualifier>
-</dimensionSubGroup>
-</dimensionSubGroupList>
-</measuredPartGroup>
-</measuredPartGroupList>
+    <measuredPartGroupList>
+        <measuredPartGroup>
+            <measuredPart>arm</measuredPart>
+            <dimensionSummary/>
+            <dimensionSubGroupList>
+                <dimensionSubGroup>
+                    <dimension>diameter</dimension>
+                    <measuredBy>rj</measuredBy>
+                    <measurementUnit>cm</measurementUnit>
+                    <measurementMethod>eyeball</measurementMethod>
+                    <value>10</value>
+                    <valueDate>2011-11-08</valueDate>
+                    <valueQualifier>approx.</valueQualifier>
+                </dimensionSubGroup>
+                <dimensionSubGroup>
+                    <dimension>length</dimension>
+                    <measuredBy>rj</measuredBy>
+                    <measurementUnit>cm</measurementUnit>
+                    <measurementMethod>eyeball</measurementMethod>
+                    <value>75</value>
+                    <valueDate>2011-11-08</valueDate>
+                    <valueQualifier>approx.</valueQualifier>
+                </dimensionSubGroup>
+            </dimensionSubGroupList>
+        </measuredPartGroup>
+        <measuredPartGroup>
+            <measuredPart>other arm</measuredPart>
+            <dimensionSummary/>
+            <dimensionSubGroupList>
+                <dimensionSubGroup>
+                    <dimension>length</dimension>
+                    <measuredBy>rj</measuredBy>
+                    <measurementUnit>cm</measurementUnit>
+                    <measurementMethod>eyeball</measurementMethod>
+                    <value>80</value>
+                    <valueDate>2011-11-08</valueDate>
+                    <valueQualifier>close enough for govt work</valueQualifier>
+                </dimensionSubGroup>
+            </dimensionSubGroupList>
+        </measuredPartGroup>
+    </measuredPartGroupList>
 
-<editionNumber></editionNumber>
-<forms>
-    <form></form>
-</forms>
-<!-- Object description Inscription - Content Information -->
+    <editionNumber/>
+    <forms>
+        <form/>
+    </forms>
+    <!-- Object description Inscription - Content Information -->
     <!-- Made repeatable in v1.13 -->
-<textualInscriptionGroupList>
-    <textualInscriptionGroup>
-        <inscriptionContent></inscriptionContent>
-        <inscriptionContentInscriber></inscriptionContentInscriber>
-        <inscriptionContentDateGroup>
-            <dateDisplayDate>2012</dateDisplayDate>
-            <dateAssociation></dateAssociation>
-            <dateEarliestSingleYear>2012</dateEarliestSingleYear>
-            <dateEarliestSingleMonth></dateEarliestSingleMonth>
-            <dateEarliestSingleDay></dateEarliestSingleDay>
-            <dateEarliestSingleEra></dateEarliestSingleEra>
-            <dateEarliestSingleCertainty></dateEarliestSingleCertainty>
-            <dateEarliestSingleQualifier></dateEarliestSingleQualifier>
-            <dateEarliestSingleQualifierValue></dateEarliestSingleQualifierValue>
-            <dateEarliestSingleQualifierUnit></dateEarliestSingleQualifierUnit>
-            <dateLatestYear></dateLatestYear>
-            <dateLatestMonth></dateLatestMonth>
-            <dateLatestDay></dateLatestDay>
-            <dateLatestEra></dateLatestEra>
-            <dateLatestCertainty></dateLatestCertainty>
-            <dateLatestQualifier></dateLatestQualifier>
-            <dateLatestQualifierValue></dateLatestQualifierValue>
-            <dateLatestQualifierUnit></dateLatestQualifierUnit>
-            <datePeriod></datePeriod>
-            <dateNote></dateNote>
-            <dateEarliestScalarValue></dateEarliestScalarValue>
-            <dateLatestScalarValue></dateLatestScalarValue>
-            <scalarValuesComputed></scalarValuesComputed>
-        </inscriptionContentDateGroup>
-        <inscriptionContentInterpretation></inscriptionContentInterpretation>
-        <inscriptionContentLanguage></inscriptionContentLanguage>
-        <inscriptionContentMethod></inscriptionContentMethod>
-        <inscriptionContentPosition></inscriptionContentPosition>
-        <inscriptionContentScript></inscriptionContentScript>
-        <inscriptionContentTranslation></inscriptionContentTranslation>
-        <inscriptionContentTransliteration></inscriptionContentTransliteration>
-        <inscriptionContentType></inscriptionContentType>
-    </textualInscriptionGroup>
-</textualInscriptionGroupList>
-<!-- Object Description Inscription - Description Information -->
+    <textualInscriptionGroupList>
+        <textualInscriptionGroup>
+            <inscriptionContent/>
+            <inscriptionContentInscriber/>
+            <inscriptionContentDateGroup>
+                <dateDisplayDate>2012</dateDisplayDate>
+                <dateAssociation/>
+                <dateEarliestSingleYear>2012</dateEarliestSingleYear>
+                <dateEarliestSingleMonth/>
+                <dateEarliestSingleDay/>
+                <dateEarliestSingleEra/>
+                <dateEarliestSingleCertainty/>
+                <dateEarliestSingleQualifier/>
+                <dateEarliestSingleQualifierValue/>
+                <dateEarliestSingleQualifierUnit/>
+                <dateLatestYear/>
+                <dateLatestMonth/>
+                <dateLatestDay/>
+                <dateLatestEra/>
+                <dateLatestCertainty/>
+                <dateLatestQualifier/>
+                <dateLatestQualifierValue/>
+                <dateLatestQualifierUnit/>
+                <datePeriod/>
+                <dateNote/>
+                <dateEarliestScalarValue/>
+                <dateLatestScalarValue/>
+                <scalarValuesComputed/>
+            </inscriptionContentDateGroup>
+            <inscriptionContentInterpretation/>
+            <inscriptionContentLanguage/>
+            <inscriptionContentMethod/>
+            <inscriptionContentPosition/>
+            <inscriptionContentScript/>
+            <inscriptionContentTranslation/>
+            <inscriptionContentTransliteration/>
+            <inscriptionContentType/>
+        </textualInscriptionGroup>
+    </textualInscriptionGroupList>
+    <!-- Object Description Inscription - Description Information -->
     <!-- Made repeatable in v1.13 -->
-<nonTextualInscriptionGroupList>
-    <nonTextualInscriptionGroup>
-        <inscriptionDescription></inscriptionDescription>
-        <inscriptionDescriptionInscriber></inscriptionDescriptionInscriber>
-        <inscriptionDescriptionDateGroup>
-            <dateDisplayDate>2012</dateDisplayDate>
-            <dateAssociation></dateAssociation>
-            <dateEarliestSingleYear>2012</dateEarliestSingleYear>
-            <dateEarliestSingleMonth></dateEarliestSingleMonth>
-            <dateEarliestSingleDay></dateEarliestSingleDay>
-            <dateEarliestSingleEra></dateEarliestSingleEra>
-            <dateEarliestSingleCertainty></dateEarliestSingleCertainty>
-            <dateEarliestSingleQualifier></dateEarliestSingleQualifier>
-            <dateEarliestSingleQualifierValue></dateEarliestSingleQualifierValue>
-            <dateEarliestSingleQualifierUnit></dateEarliestSingleQualifierUnit>
-            <dateLatestYear></dateLatestYear>
-            <dateLatestMonth></dateLatestMonth>
-            <dateLatestDay></dateLatestDay>
-            <dateLatestEra></dateLatestEra>
-            <dateLatestCertainty></dateLatestCertainty>
-            <dateLatestQualifier></dateLatestQualifier>
-            <dateLatestQualifierValue></dateLatestQualifierValue>
-            <dateLatestQualifierUnit></dateLatestQualifierUnit>
-            <datePeriod></datePeriod>
-            <dateNote></dateNote>
-            <dateEarliestScalarValue></dateEarliestScalarValue>
-            <dateLatestScalarValue></dateLatestScalarValue>
-            <scalarValuesComputed></scalarValuesComputed>
-        </inscriptionDescriptionDateGroup>
-        <inscriptionDescriptionInterpretation></inscriptionDescriptionInterpretation>
-        <inscriptionDescriptionMethod></inscriptionDescriptionMethod>
-        <inscriptionDescriptionPosition></inscriptionDescriptionPosition>
-        <inscriptionDescriptionType></inscriptionDescriptionType>
-    </nonTextualInscriptionGroup>
-</nonTextualInscriptionGroupList>
-<!-- Object Description Material Information -->
-<materialGroupList>
-	<materialGroup>
-<material></material>
-<materialComponent></materialComponent>
-<materialComponentNote></materialComponentNote>
-<materialName></materialName>
-<materialSource></materialSource>
-		</materialGroup>
-</materialGroupList>
-<!-- Misc Object Description Information -->
-<objectStatusList>
-	<objectStatus>objectStatus</objectStatus>
-</objectStatusList>
-<phase></phase>
-<physicalDescription></physicalDescription>
-<sex></sex>
-<styles>
-    <style></style>
-</styles>
-<technicalAttributeGroupList><technicalAttributeGroup>
-	<technicalAttribute></technicalAttribute>
-	<technicalAttributeMeasurement></technicalAttributeMeasurement>
-	<technicalAttributeMeasurementUnit></technicalAttributeMeasurementUnit>
-</technicalAttributeGroup></technicalAttributeGroupList>
-<objectComponentGroupList><objectComponentGroup>
-	<objectComponentName></objectComponentName>
-	<objectComponentInformation></objectComponentInformation>
-</objectComponentGroup></objectComponentGroupList>
-<!-- Object Production Information -->
-<objectProductionDate></objectProductionDate>
-<objectProductionNote></objectProductionNote>
-<objectProductionOrganizationGroupList><objectProductionOrganizationGroup>
-	<objectProductionOrganization></objectProductionOrganization>
-	<objectProductionOrganizationRole></objectProductionOrganizationRole>
-</objectProductionOrganizationGroup></objectProductionOrganizationGroupList>
+    <nonTextualInscriptionGroupList>
+        <nonTextualInscriptionGroup>
+            <inscriptionDescription/>
+            <inscriptionDescriptionInscriber/>
+            <inscriptionDescriptionDateGroup>
+                <dateDisplayDate>2012</dateDisplayDate>
+                <dateAssociation/>
+                <dateEarliestSingleYear>2012</dateEarliestSingleYear>
+                <dateEarliestSingleMonth/>
+                <dateEarliestSingleDay/>
+                <dateEarliestSingleEra/>
+                <dateEarliestSingleCertainty/>
+                <dateEarliestSingleQualifier/>
+                <dateEarliestSingleQualifierValue/>
+                <dateEarliestSingleQualifierUnit/>
+                <dateLatestYear/>
+                <dateLatestMonth/>
+                <dateLatestDay/>
+                <dateLatestEra/>
+                <dateLatestCertainty/>
+                <dateLatestQualifier/>
+                <dateLatestQualifierValue/>
+                <dateLatestQualifierUnit/>
+                <datePeriod/>
+                <dateNote/>
+                <dateEarliestScalarValue/>
+                <dateLatestScalarValue/>
+                <scalarValuesComputed/>
+            </inscriptionDescriptionDateGroup>
+            <inscriptionDescriptionInterpretation/>
+            <inscriptionDescriptionMethod/>
+            <inscriptionDescriptionPosition/>
+            <inscriptionDescriptionType/>
+        </nonTextualInscriptionGroup>
+    </nonTextualInscriptionGroupList>
+    <!-- Object Description Material Information -->
+    <materialGroupList>
+        <materialGroup>
+            <material/>
+            <materialComponent/>
+            <materialComponentNote/>
+            <materialName/>
+            <materialSource/>
+        </materialGroup>
+    </materialGroupList>
+    <!-- Misc Object Description Information -->
+    <objectStatusList>
+        <objectStatus>objectStatus</objectStatus>
+    </objectStatusList>
+    <phase/>
+    <physicalDescription/>
+    <sex/>
+    <styles>
+        <style/>
+    </styles>
+    <technicalAttributeGroupList>
+        <technicalAttributeGroup>
+            <technicalAttribute/>
+            <technicalAttributeMeasurement/>
+            <technicalAttributeMeasurementUnit/>
+        </technicalAttributeGroup>
+    </technicalAttributeGroupList>
+    <objectComponentGroupList>
+        <objectComponentGroup>
+            <objectComponentName/>
+            <objectComponentInformation/>
+        </objectComponentGroup>
+    </objectComponentGroupList>
+    <!-- Object Production Information -->
+    <objectProductionDate/>
+    <objectProductionNote/>
+    <objectProductionOrganizationGroupList>
+        <objectProductionOrganizationGroup>
+            <objectProductionOrganization/>
+            <objectProductionOrganizationRole/>
+        </objectProductionOrganizationGroup>
+    </objectProductionOrganizationGroupList>
 
-<objectProductionPeopleGroupList><objectProductionPeopleGroup>
-	<objectProductionPeople></objectProductionPeople>
-	<objectProductionPeopleRole></objectProductionPeopleRole>
-</objectProductionPeopleGroup></objectProductionPeopleGroupList>
-	
-<objectProductionPersonGroupList><objectProductionPersonGroup>
-	<objectProductionPerson></objectProductionPerson>
-	<objectProductionPersonRole></objectProductionPersonRole>
-</objectProductionPersonGroup></objectProductionPersonGroupList>
-<objectProductionPlaceGroupList><objectProductionPlaceGroup>
-	<objectProductionPlace></objectProductionPlace>
-	<objectProductionPlaceRole></objectProductionPlaceRole>
-</objectProductionPlaceGroup></objectProductionPlaceGroupList>
-<objectProductionReason></objectProductionReason>
-<techniqueGroupList><techniqueGroup>
-<technique></technique>
-<techniqueType></techniqueType>
-</techniqueGroup></techniqueGroupList>
-<!-- Object History and Association Information - Association -->
-<!-- In the following field names, "assoc" is an abbreviation for "association". -->
-<!-- See the comments to CSPACE-2501 for a discussion of the database identifier -->
-<!-- length limit that made this abbreviation necessary. -->
-<assocActivityGroupList><assocActivityGroup>
-<assocActivity></assocActivity>
-<assocActivityNote></assocActivityNote>
-<assocActivityType></assocActivityType>
-</assocActivityGroup></assocActivityGroupList>
-<assocCulturalContextGroupList><assocCulturalContextGroup>
-    <assocCulturalContextType></assocCulturalContextType>
-    <assocCulturalContext></assocCulturalContext>
-    <assocCulturalContextNote></assocCulturalContextNote>
-</assocCulturalContextGroup></assocCulturalContextGroupList>
-<assocDateGroupList><assocDateGroup>
-<assocDateNote></assocDateNote>
-<assocStructuredDateGroup>
-    <dateDisplayDate>2012</dateDisplayDate>
-    <dateAssociation></dateAssociation>
-    <dateEarliestSingleYear>2012</dateEarliestSingleYear>
-    <dateEarliestSingleMonth></dateEarliestSingleMonth>
-    <dateEarliestSingleDay></dateEarliestSingleDay>
-    <dateEarliestSingleEra></dateEarliestSingleEra>
-    <dateEarliestSingleCertainty></dateEarliestSingleCertainty>
-    <dateEarliestSingleQualifier></dateEarliestSingleQualifier>
-    <dateEarliestSingleQualifierValue></dateEarliestSingleQualifierValue>
-    <dateEarliestSingleQualifierUnit></dateEarliestSingleQualifierUnit>
-    <dateLatestYear></dateLatestYear>
-    <dateLatestMonth></dateLatestMonth>
-    <dateLatestDay></dateLatestDay>
-    <dateLatestEra></dateLatestEra>
-    <dateLatestCertainty></dateLatestCertainty>
-    <dateLatestQualifier></dateLatestQualifier>
-    <dateLatestQualifierValue></dateLatestQualifierValue>
-    <dateLatestQualifierUnit></dateLatestQualifierUnit>
-    <datePeriod></datePeriod>
-    <dateNote></dateNote>
-    <dateEarliestScalarValue></dateEarliestScalarValue>
-    <dateLatestScalarValue></dateLatestScalarValue>
-    <scalarValuesComputed></scalarValuesComputed>
-</assocStructuredDateGroup>
-<assocDateType></assocDateType>
-</assocDateGroup></assocDateGroupList>
-<assocEventName></assocEventName>
-<assocEventNameType></assocEventNameType>
-<assocEventOrganizations>
-    <assocEventOrganization></assocEventOrganization>
-</assocEventOrganizations>
-<assocEventPeoples>
-    <assocEventPeople></assocEventPeople>
-</assocEventPeoples>
-<assocEventPersons>
-    <assocEventPerson></assocEventPerson>
-</assocEventPersons>
-<assocEventPlaces>
-    <assocEventPlace></assocEventPlace>
-</assocEventPlaces>
-<assocObjectGroupList><assocObjectGroup>
-<assocObject></assocObject>
-<assocObjectType></assocObjectType>
-<assocObjectNote></assocObjectNote>
-</assocObjectGroup></assocObjectGroupList>
-<assocOrganizationGroupList><assocOrganizationGroup>
-    <assocOrganization></assocOrganization>
-    <assocOrganizationNote></assocOrganizationNote>
-    <assocOrganizationType></assocOrganizationType>
-</assocOrganizationGroup></assocOrganizationGroupList>
-<assocPersonGroupList>
-    <assocPersonGroup>
-        <assocPerson></assocPerson>
-        <assocPersonType></assocPersonType>
-        <assocPersonNote></assocPersonNote>
-    </assocPersonGroup>
-</assocPersonGroupList>
+    <objectProductionPeopleGroupList>
+        <objectProductionPeopleGroup>
+            <objectProductionPeople/>
+            <objectProductionPeopleRole/>
+        </objectProductionPeopleGroup>
+    </objectProductionPeopleGroupList>
 
-<assocPeopleGroupList>
-    <assocPeopleGroup>
-        <assocPeople></assocPeople>
-        <assocPeopleType></assocPeopleType>
-        <assocPeopleNote></assocPeopleNote>
-    </assocPeopleGroup>
-</assocPeopleGroupList>
+    <objectProductionPersonGroupList>
+        <objectProductionPersonGroup>
+            <objectProductionPerson/>
+            <objectProductionPersonRole/>
+        </objectProductionPersonGroup>
+    </objectProductionPersonGroupList>
+    <objectProductionPlaceGroupList>
+        <objectProductionPlaceGroup>
+            <objectProductionPlace/>
+            <objectProductionPlaceRole/>
+        </objectProductionPlaceGroup>
+    </objectProductionPlaceGroupList>
+    <objectProductionReason/>
+    <techniqueGroupList>
+        <techniqueGroup>
+            <technique/>
+            <techniqueType/>
+        </techniqueGroup>
+    </techniqueGroupList>
+    <!-- Object History and Association Information - Association -->
+    <!-- In the following field names, "assoc" is an abbreviation for "association". -->
+    <!-- See the comments to CSPACE-2501 for a discussion of the database identifier -->
+    <!-- length limit that made this abbreviation necessary. -->
+    <assocActivityGroupList>
+        <assocActivityGroup>
+            <assocActivity/>
+            <assocActivityNote/>
+            <assocActivityType/>
+        </assocActivityGroup>
+    </assocActivityGroupList>
+    <assocCulturalContextGroupList>
+        <assocCulturalContextGroup>
+            <assocCulturalContextType/>
+            <assocCulturalContext/>
+            <assocCulturalContextNote/>
+        </assocCulturalContextGroup>
+    </assocCulturalContextGroupList>
+    <assocDateGroupList>
+        <assocDateGroup>
+            <assocDateNote/>
+            <assocStructuredDateGroup>
+                <dateDisplayDate>2012</dateDisplayDate>
+                <dateAssociation/>
+                <dateEarliestSingleYear>2012</dateEarliestSingleYear>
+                <dateEarliestSingleMonth/>
+                <dateEarliestSingleDay/>
+                <dateEarliestSingleEra/>
+                <dateEarliestSingleCertainty/>
+                <dateEarliestSingleQualifier/>
+                <dateEarliestSingleQualifierValue/>
+                <dateEarliestSingleQualifierUnit/>
+                <dateLatestYear/>
+                <dateLatestMonth/>
+                <dateLatestDay/>
+                <dateLatestEra/>
+                <dateLatestCertainty/>
+                <dateLatestQualifier/>
+                <dateLatestQualifierValue/>
+                <dateLatestQualifierUnit/>
+                <datePeriod/>
+                <dateNote/>
+                <dateEarliestScalarValue/>
+                <dateLatestScalarValue/>
+                <scalarValuesComputed/>
+            </assocStructuredDateGroup>
+            <assocDateType/>
+        </assocDateGroup>
+    </assocDateGroupList>
+    <assocEventName/>
+    <assocEventNameType/>
+    <assocEventOrganizations>
+        <assocEventOrganization/>
+    </assocEventOrganizations>
+    <assocEventPeoples>
+        <assocEventPeople/>
+    </assocEventPeoples>
+    <assocEventPersons>
+        <assocEventPerson/>
+    </assocEventPersons>
+    <assocEventPlaces>
+        <assocEventPlace/>
+    </assocEventPlaces>
+    <assocObjectGroupList>
+        <assocObjectGroup>
+            <assocObject/>
+            <assocObjectType/>
+            <assocObjectNote/>
+        </assocObjectGroup>
+    </assocObjectGroupList>
+    <assocOrganizationGroupList>
+        <assocOrganizationGroup>
+            <assocOrganization/>
+            <assocOrganizationNote/>
+            <assocOrganizationType/>
+        </assocOrganizationGroup>
+    </assocOrganizationGroupList>
+    <assocPersonGroupList>
+        <assocPersonGroup>
+            <assocPerson/>
+            <assocPersonType/>
+            <assocPersonNote/>
+        </assocPersonGroup>
+    </assocPersonGroupList>
 
-<assocConceptGroupList>
-    <assocConceptGroup>
-        <assocConcept></assocConcept>
-        <assocConceptType></assocConceptType>
-        <assocConceptNote></assocConceptNote>
-    </assocConceptGroup>
-</assocConceptGroupList>
-<assocPlaceGroupList>
-    <assocPlaceGroup>
-        <assocPlace></assocPlace>
-        <assocPlaceType></assocPlaceType>
-        <assocPlaceNote></assocPlaceNote>
-    </assocPlaceGroup>
-</assocPlaceGroupList>
-<associationNote></associationNote>
-<associationType></associationType>
-<!-- Object History and Association Information - History -->
-<objectHistoryNote></objectHistoryNote>
-<owners>
-    <owner></owner>
-</owners>
-<ownershipAccess></ownershipAccess>
-<ownershipCategory></ownershipCategory>
-<ownershipDateGroupList>
-    <ownershipDateGroup>
-		<dateEarliestSingleQualifier>-</dateEarliestSingleQualifier>
-        <dateLatestDay>22</dateLatestDay>
-        <dateLatestYear>5</dateLatestYear>
-        <dateAssociation>sdf</dateAssociation>
-        <dateEarliestSingleEra>bce</dateEarliestSingleEra>
-        <dateDisplayDate>sdf</dateDisplayDate>
-        <dateEarliestSingleCertainty>about</dateEarliestSingleCertainty>
-        <dateLatestEra>bce</dateLatestEra>
-        <dateEarliestSingleQualifierValue>4</dateEarliestSingleQualifierValue>
-        <dateLatestCertainty>approximate</dateLatestCertainty>
-        <dateEarliestSingleYear>1</dateEarliestSingleYear>
-        <dateLatestQualifier>+</dateLatestQualifier>
-        <dateLatestQualifierValue>2</dateLatestQualifierValue>
-        <dateEarliestSingleQualifierUnit>days</dateEarliestSingleQualifierUnit>
-        <datePeriod>sdf</datePeriod>
-        <dateLatestMonth>11</dateLatestMonth>
-        <dateNote>sdf</dateNote>
-        <dateLatestQualifierUnit>month</dateLatestQualifierUnit>
-        <dateEarliestSingleDay>3</dateEarliestSingleDay>
-        <dateEarliestSingleMonth>2</dateEarliestSingleMonth>
-        <scalarValuesComputed>false</scalarValuesComputed>
-        <dateEarliestScalarValue></dateEarliestScalarValue>
-        <dateLatestScalarValue></dateLatestScalarValue>
-    </ownershipDateGroup>
-    <ownershipDateGroup>
-		<dateEarliestSingleQualifier>-</dateEarliestSingleQualifier>
-        <dateLatestDay>20</dateLatestDay>
-        <dateLatestYear>1</dateLatestYear>
-        <dateAssociation>wer</dateAssociation>
-        <dateEarliestSingleEra>bce</dateEarliestSingleEra>
-        <dateDisplayDate>wer</dateDisplayDate>
-        <dateEarliestSingleCertainty>about</dateEarliestSingleCertainty>
-        <dateLatestEra>bce</dateLatestEra>
-        <dateEarliestSingleQualifierValue>4</dateEarliestSingleQualifierValue>
-        <dateLatestCertainty>approximate</dateLatestCertainty>
-        <dateEarliestSingleYear>1</dateEarliestSingleYear>
-        <dateLatestQualifier>+</dateLatestQualifier>
-        <dateLatestQualifierValue>2</dateLatestQualifierValue>
-        <dateEarliestSingleQualifierUnit>days</dateEarliestSingleQualifierUnit>
-        <datePeriod>werwerwer</datePeriod>
-        <dateLatestMonth>11</dateLatestMonth>
-        <dateNote>werwer</dateNote>
-        <dateLatestQualifierUnit>month</dateLatestQualifierUnit>
-        <dateEarliestSingleDay>21</dateEarliestSingleDay>
-        <dateEarliestSingleMonth>7</dateEarliestSingleMonth>
-        <scalarValuesComputed>false</scalarValuesComputed>
-        <dateEarliestScalarValue></dateEarliestScalarValue>
-        <dateLatestScalarValue></dateLatestScalarValue>
-    </ownershipDateGroup>
-</ownershipDateGroupList>
-<ownershipExchangeMethod></ownershipExchangeMethod>
-<ownershipExchangeNote></ownershipExchangeNote>
-<ownershipExchangePriceCurrency></ownershipExchangePriceCurrency>
-<ownershipExchangePriceValue></ownershipExchangePriceValue>
-<ownershipPlace></ownershipPlace>
-<usageGroupList><usageGroup>
-<usage></usage>
-<usageNote></usageNote>
-</usageGroup></usageGroupList>
-<!-- Object Owner's Contribution Information -->
-<ownersPersonalExperience></ownersPersonalExperience>
-<ownersPersonalResponse></ownersPersonalResponse>
-<ownersReference></ownersReference>
-<ownersContributionNote></ownersContributionNote>
-<!-- Object Viewers Contribution Information -->
-<viewersRole></viewersRole>
-<viewersPersonalExperience></viewersPersonalExperience>
-<viewersPersonalResponse></viewersPersonalResponse>
-<viewersReference></viewersReference>
-<viewersContributionNote></viewersContributionNote>
-<!-- Reference Information -->
-<reference></reference>
-<catalogNumber></catalogNumber>
-<!--  Object Collection Information Group -->
-<fieldCollectionDateGroup>
-    <dateDisplayDate>2012</dateDisplayDate>
-    <dateAssociation></dateAssociation>
-    <dateEarliestSingleYear>2012</dateEarliestSingleYear>
-    <dateEarliestSingleMonth></dateEarliestSingleMonth>
-    <dateEarliestSingleDay></dateEarliestSingleDay>
-    <dateEarliestSingleEra></dateEarliestSingleEra>
-    <dateEarliestSingleCertainty></dateEarliestSingleCertainty>
-    <dateEarliestSingleQualifier></dateEarliestSingleQualifier>
-    <dateEarliestSingleQualifierValue></dateEarliestSingleQualifierValue>
-    <dateEarliestSingleQualifierUnit></dateEarliestSingleQualifierUnit>
-    <dateLatestYear></dateLatestYear>
-    <dateLatestMonth></dateLatestMonth>
-    <dateLatestDay></dateLatestDay>
-    <dateLatestEra></dateLatestEra>
-    <dateLatestCertainty></dateLatestCertainty>
-    <dateLatestQualifier></dateLatestQualifier>
-    <dateLatestQualifierValue></dateLatestQualifierValue>
-    <dateLatestQualifierUnit></dateLatestQualifierUnit>
-    <datePeriod></datePeriod>
-    <dateNote></dateNote>
-    <dateEarliestScalarValue></dateEarliestScalarValue>
-    <dateLatestScalarValue></dateLatestScalarValue>
-    <scalarValuesComputed></scalarValuesComputed>
-</fieldCollectionDateGroup>
-<fieldCollectionMethods>
-    <fieldCollectionMethod></fieldCollectionMethod>
-</fieldCollectionMethods>
-<fieldCollectionNote></fieldCollectionNote>
-<fieldCollectionNumber></fieldCollectionNumber>
-<fieldCollectionPlace></fieldCollectionPlace>
-<fieldCollectionSources>
-    <fieldCollectionSource></fieldCollectionSource>
-</fieldCollectionSources>
-<fieldCollectors>
-    <fieldCollector></fieldCollector>
-</fieldCollectors>
-<fieldColEventNames><fieldColEventName>fieldCollectionEventName</fieldColEventName></fieldColEventNames>
+    <assocPeopleGroupList>
+        <assocPeopleGroup>
+            <assocPeople/>
+            <assocPeopleType/>
+            <assocPeopleNote/>
+        </assocPeopleGroup>
+    </assocPeopleGroupList>
 
-<!-- Object Description Date Information -->
-<!-- This appears to be a placeholder structured date -->
-<dateAssociation></dateAssociation>
-<dateEarliestSingle></dateEarliestSingle>
-<dateEarliestSingleCertainty></dateEarliestSingleCertainty>
-<dateEarliestSingleQualifier></dateEarliestSingleQualifier>
-<dateLatest></dateLatest>
-<dateLatestCertainty></dateLatestCertainty>
-<dateLatestQualifier></dateLatestQualifier>
-<datePeriod></datePeriod>
-<dateText></dateText>
-
+    <assocConceptGroupList>
+        <assocConceptGroup>
+            <assocConcept/>
+            <assocConceptType/>
+            <assocConceptNote/>
+        </assocConceptGroup>
+    </assocConceptGroupList>
+    <assocPlaceGroupList>
+        <assocPlaceGroup>
+            <assocPlace/>
+            <assocPlaceType/>
+            <assocPlaceNote/>
+        </assocPlaceGroup>
+    </assocPlaceGroupList>
+    <associationNote/>
+    <associationType/>
+    <!-- Object History and Association Information - History -->
+    <objectHistoryNote/>
+    <owners>
+        <owner/>
+    </owners>
+    <ownershipAccess/>
+    <ownershipCategory/>
+    <ownershipDateGroupList>
+        <ownershipDateGroup>
+            <dateEarliestSingleQualifier>-</dateEarliestSingleQualifier>
+            <dateLatestDay>22</dateLatestDay>
+            <dateLatestYear>5</dateLatestYear>
+            <dateAssociation>sdf</dateAssociation>
+            <dateEarliestSingleEra>bce</dateEarliestSingleEra>
+            <dateDisplayDate>sdf</dateDisplayDate>
+            <dateEarliestSingleCertainty>about</dateEarliestSingleCertainty>
+            <dateLatestEra>bce</dateLatestEra>
+            <dateEarliestSingleQualifierValue>4</dateEarliestSingleQualifierValue>
+            <dateLatestCertainty>approximate</dateLatestCertainty>
+            <dateEarliestSingleYear>1</dateEarliestSingleYear>
+            <dateLatestQualifier>+</dateLatestQualifier>
+            <dateLatestQualifierValue>2</dateLatestQualifierValue>
+            <dateEarliestSingleQualifierUnit>days</dateEarliestSingleQualifierUnit>
+            <datePeriod>sdf</datePeriod>
+            <dateLatestMonth>11</dateLatestMonth>
+            <dateNote>sdf</dateNote>
+            <dateLatestQualifierUnit>month</dateLatestQualifierUnit>
+            <dateEarliestSingleDay>3</dateEarliestSingleDay>
+            <dateEarliestSingleMonth>2</dateEarliestSingleMonth>
+            <scalarValuesComputed>false</scalarValuesComputed>
+            <dateEarliestScalarValue/>
+            <dateLatestScalarValue/>
+        </ownershipDateGroup>
+        <ownershipDateGroup>
+            <dateEarliestSingleQualifier>-</dateEarliestSingleQualifier>
+            <dateLatestDay>20</dateLatestDay>
+            <dateLatestYear>1</dateLatestYear>
+            <dateAssociation>wer</dateAssociation>
+            <dateEarliestSingleEra>bce</dateEarliestSingleEra>
+            <dateDisplayDate>wer</dateDisplayDate>
+            <dateEarliestSingleCertainty>about</dateEarliestSingleCertainty>
+            <dateLatestEra>bce</dateLatestEra>
+            <dateEarliestSingleQualifierValue>4</dateEarliestSingleQualifierValue>
+            <dateLatestCertainty>approximate</dateLatestCertainty>
+            <dateEarliestSingleYear>1</dateEarliestSingleYear>
+            <dateLatestQualifier>+</dateLatestQualifier>
+            <dateLatestQualifierValue>2</dateLatestQualifierValue>
+            <dateEarliestSingleQualifierUnit>days</dateEarliestSingleQualifierUnit>
+            <datePeriod>werwerwer</datePeriod>
+            <dateLatestMonth>11</dateLatestMonth>
+            <dateNote>werwer</dateNote>
+            <dateLatestQualifierUnit>month</dateLatestQualifierUnit>
+            <dateEarliestSingleDay>21</dateEarliestSingleDay>
+            <dateEarliestSingleMonth>7</dateEarliestSingleMonth>
+            <scalarValuesComputed>false</scalarValuesComputed>
+            <dateEarliestScalarValue/>
+            <dateLatestScalarValue/>
+        </ownershipDateGroup>
+    </ownershipDateGroupList>
+    <ownershipExchangeMethod/>
+    <ownershipExchangeNote/>
+    <ownershipExchangePriceCurrency/>
+    <ownershipExchangePriceValue/>
+    <ownershipPlace/>
+    <usageGroupList>
+        <usageGroup>
+            <usage/>
+            <usageNote/>
+        </usageGroup>
+    </usageGroupList>
+    <!-- Object Owner's Contribution Information -->
+    <ownersPersonalExperience/>
+    <ownersPersonalResponse/>
+    <ownersReference/>
+    <ownersContributionNote/>
+    <!-- Object Viewers Contribution Information -->
+    <viewersRole/>
+    <viewersPersonalExperience/>
+    <viewersPersonalResponse/>
+    <viewersReference/>
+    <viewersContributionNote/>
+    <!-- Reference Information -->
+    <reference/>
+    <catalogNumber/>
+    <!--  Object Collection Information Group -->
+    <fieldCollectionDateGroup>
+        <dateDisplayDate>2012</dateDisplayDate>
+        <dateAssociation/>
+        <dateEarliestSingleYear>2012</dateEarliestSingleYear>
+        <dateEarliestSingleMonth/>
+        <dateEarliestSingleDay/>
+        <dateEarliestSingleEra/>
+        <dateEarliestSingleCertainty/>
+        <dateEarliestSingleQualifier/>
+        <dateEarliestSingleQualifierValue/>
+        <dateEarliestSingleQualifierUnit/>
+        <dateLatestYear/>
+        <dateLatestMonth/>
+        <dateLatestDay/>
+        <dateLatestEra/>
+        <dateLatestCertainty/>
+        <dateLatestQualifier/>
+        <dateLatestQualifierValue/>
+        <dateLatestQualifierUnit/>
+        <datePeriod/>
+        <dateNote/>
+        <dateEarliestScalarValue/>
+        <dateLatestScalarValue/>
+        <scalarValuesComputed/>
+    </fieldCollectionDateGroup>
+    <fieldCollectionMethods>
+        <fieldCollectionMethod/>
+    </fieldCollectionMethods>
+    <fieldCollectionNote/>
+    <fieldCollectionNumber/>
+    <fieldCollectionPlace/>
+    <fieldCollectionSources>
+        <fieldCollectionSource/>
+    </fieldCollectionSources>
+    <fieldCollectors>
+        <fieldCollector/>
+    </fieldCollectors>
+    <fieldColEventNames>
+        <fieldColEventName>fieldCollectionEventName</fieldColEventName>
+    </fieldColEventNames>
 </ns2:collectionobjects_common>

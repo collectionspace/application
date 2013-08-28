@@ -55,6 +55,7 @@
     ".csc-acquisition-acquisition-reason": "${fields.acquisitionReason}",
     ".csc-acquisition-owners-label": {"messagekey": "acquisition-ownersLabel"},
     ".csc-acquisition-objectPurchaseOfferPriceValue-label": {"messagekey": "acquisition-objectPurchaseOfferPriceValueLabel"},
+    ".csc-acquisition-refName-label": {"messagekey": "acquisition-refNameLabel"},
     ".csc-acquisition-acquisitionAuthorizer": {
         "decorators": [{
             "func": "cspace.autocomplete",
@@ -117,11 +118,16 @@
     ".csc-acquisition-acquisitionFunding-label": {"messagekey": "acquisition-acquisitionFundingLabel"},
     ".csc-acquisition-acquisitionSources-label": {"messagekey": "acquisition-acquisitionSourcesLabel"},
     ".csc-acquisition-objectCollectionInformation-label": {"messagekey": "acquisition-objectCollectionInformationLabel"},
-    ".csc-acquisition-createdAt": "${fields.createdAt}",
+    ".csc-acquisition-createdAt": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${fields.createdAt}"
+    },
     ".csc-acquisition-updatedBy": "${fields.updatedBy}",
     ".csc-acquisitionDateGroup-acquisitionDateGroup-label": {"messagekey": "acquisitionDateGroup-acquisitionDateGroupLabel"},
     ".csc-acquisition-summary-label": {"messagekey": "acquisition-summaryLabel"},
-    ".csc-acquisition-tenantID-label": {"messagekey": "acquisition-tenantIDLabel"},
     ".csc-acquisition-acquisition-method": {
         "default": "gift",
         "optionnames": [
@@ -192,6 +198,7 @@
         "value": "${fields.updatedAt}"
     },
     ".csc-acquisition-coreInformation-label": {"messagekey": "acquisition-coreInformationLabel"},
+    ".csc-acquisition-fieldCollectionEventNames-label": {"messagekey": "acquisition-fieldCollectionEventNamesLabel"},
     ".csc-acquisition-acquisitionAuthorizerDate": {
         "decorators": [{
             "func": "cspace.datePicker",
@@ -199,8 +206,8 @@
         }],
         "value": "${fields.acquisitionAuthorizerDate}"
     },
-    ".csc-acquisition-fieldCollectionEventNames-label": {"messagekey": "acquisition-fieldCollectionEventNamesLabel"},
     ".csc-acquisition-createdBy-label": {"messagekey": "acquisition-createdByLabel"},
+    ".csc-acquisition-refName": "${fields.refName}",
     ".csc-acquisition-object-purchase-offer-price-value": {
         "decorators": [{
             "func": "cspace.inputValidator",
@@ -212,14 +219,17 @@
         }],
         "value": "${fields.objectPurchaseOfferPriceValue}"
     },
+    ".csc-acquisition-uri-label": {"messagekey": "acquisition-uriLabel"},
     ".csc-object-acquisition-ownersource": "${fields.ownersource}",
     ".csc-acquisition-acquisitionFundingSourceProvisos-label": {"messagekey": "acquisition-acquisitionFundingSourceProvisosLabel"},
+    ".csc-acquisition-tenantId": "${fields.tenantId}",
     ".csc-acquisition-transferOfTitleNumber-label": {"messagekey": "acquisition-transferOfTitleNumberLabel"},
     ".csc-acquisition-originalObjectPurchasePriceValue-label": {"messagekey": "acquisition-originalObjectPurchasePriceValueLabel"},
     ".csc-acquisition-fieldCollectionEventName-label": {"messagekey": "acquisition-fieldCollectionEventNameLabel"},
     ".csc-acquisition-creditLine-label": {"messagekey": "acquisition-creditLineLabel"},
     ".csc-acquisition-acquisitionMethod-label": {"messagekey": "acquisition-acquisitionMethodLabel"},
     ".csc-acquisition-acquisitionSource-label": {"messagekey": "acquisition-acquisitionSourceLabel"},
+    ".csc-acquisition-objectPurchasePriceValue-label": {"messagekey": "acquisition-objectPurchasePriceValueLabel"},
     ".csc-acquisition-original-object-purchase-price-value": {
         "decorators": [{
             "func": "cspace.inputValidator",
@@ -231,7 +241,6 @@
         }],
         "value": "${fields.originalObjectPurchasePriceValue}"
     },
-    ".csc-acquisition-objectPurchasePriceValue-label": {"messagekey": "acquisition-objectPurchasePriceValueLabel"},
     ".csc-acquisition-accessionDateGroup": {
         "decorators": [{
             "func": "cspace.structuredDate",
@@ -301,7 +310,6 @@
     ".csc-acquisition-acquisitionFundingValue-label": {"messagekey": "acquisition-acquisitionFundingValueLabel"},
     ".csc-acquisition-acquisitionAuthorizerHeader-label": {"messagekey": "acquisition-acquisitionAuthorizerHeaderLabel"},
     ".csc-acquisition-acquisitionInformation-label": {"messagekey": "acquisition-acquisitionInformationLabel"},
-    ".csc-acquisition-tenantID": "${fields.tenantID}",
     ".csc-acquisition-object-offer-price-currency": {"decorators": [{
         "func": "cspace.termList",
         "type": "fluid",
@@ -343,6 +351,7 @@
     ".csc-acquisition-accessionDateGroup-label": {"messagekey": "acquisition-accessionDateGroupLabel"},
     ".csc-acquisition-acquisitionReferenceNumber-label": {"messagekey": "acquisition-acquisitionReferenceNumberLabel"},
     ".csc-acquisition-acquisitionFundingSource-label": {"messagekey": "acquisition-acquisitionFundingSourceLabel"},
+    ".csc-acquisition-tenantId-label": {"messagekey": "acquisition-tenantIdLabel"},
     ".csc-acquisition-acquisitionSource": {"decorators": [{
         "func": "cspace.makeRepeatable",
         "type": "fluid",
@@ -393,6 +402,7 @@
     ".csc-acquisition-acquisition-note": "${fields.acquisitionNote}",
     ".csc-acquisition-createdBy": "${fields.createdBy}",
     ".csc-acquisition-transfer-of-title-number": "${fields.transferOfTitleNumber}",
+    ".csc-acquisition-uri": "${fields.uri}",
     ".csc-acquisition-objectOfferPriceCurrency-label": {"messagekey": "acquisition-objectOfferPriceCurrencyLabel"},
     ".csc-acquisition-acquisitionAuthorizerDate-label": {"messagekey": "acquisition-acquisitionAuthorizerDateLabel"}
 }}

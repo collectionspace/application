@@ -26,7 +26,7 @@ public class TestServices {
 
 	private InputSource getSource(String fallbackFile) {
 		try {
-			return TestConfigFinder.getConfigStream(fallbackFile);
+			return TestConfigFinder.getConfigStream(fallbackFile, true);
 		} catch (CSPDependencyException e) {
 			String name=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+fallbackFile;
 			return new InputSource(Thread.currentThread().getContextClassLoader().getResourceAsStream(name));

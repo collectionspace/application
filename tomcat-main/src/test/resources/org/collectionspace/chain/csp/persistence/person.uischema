@@ -144,9 +144,15 @@
                 "type": "array"
               }, 
               "createdAt": {
-                "type": "string"
+                "type": "date"
               }, 
               "createdBy": {
+                "type": "string"
+              }, 
+              "csid": {
+                "type": "string"
+              }, 
+              "displayName": {
                 "type": "string"
               }, 
               "emailGroup": {
@@ -187,6 +193,15 @@
                 }, 
                 "type": "array"
               }, 
+              "inAuthority": {
+                "type": "string"
+              }, 
+              "inItem": {
+                "type": "string"
+              }, 
+              "refName": {
+                "type": "string"
+              }, 
               "telephoneNumberGroup": {
                 "items": {
                   "properties": {
@@ -206,13 +221,16 @@
                 }, 
                 "type": "array"
               }, 
-              "tenantID": {
+              "tenantId": {
                 "type": "string"
               }, 
               "updatedAt": {
-                "type": "string"
+                "type": "date"
               }, 
               "updatedBy": {
+                "type": "string"
+              }, 
+              "uri": {
                 "type": "string"
               }, 
               "webAddressGroup": {
@@ -238,7 +256,7 @@
             "type": "object"
           }, 
           "createdAt": {
-            "type": "string"
+            "type": "date"
           }, 
           "createdBy": {
             "type": "string"
@@ -336,6 +354,9 @@
           "deathPlace": {
             "type": "string"
           }, 
+          "deprecatedRefName": {
+            "type": "string"
+          }, 
           "equivalentContexts": {
             "items": {
               "properties": {
@@ -369,6 +390,9 @@
               "type": "object"
             }, 
             "type": "array"
+          }, 
+          "inAuthority": {
+            "type": "string"
           }, 
           "nameNote": {
             "type": "string"
@@ -530,7 +554,7 @@
           "shortIdentifier": {
             "type": "string"
           }, 
-          "tenantID": {
+          "tenantId": {
             "type": "string"
           }, 
           "updatedAt": {

@@ -1,0 +1,106 @@
+{
+  "work": {
+    "properties": {
+      "creatorGroup": {
+        "items": {
+          "properties": {
+            "_primary": {
+              "default": true, 
+              "type": "boolean"
+            }, 
+            "creator": {
+              "type": "string"
+            }
+          }, 
+          "type": "object"
+        }, 
+        "type": "array"
+      }, 
+      "publisherGroup": {
+        "items": {
+          "properties": {
+            "_primary": {
+              "default": true, 
+              "type": "boolean"
+            }, 
+            "publisher": {
+              "type": "string"
+            }
+          }, 
+          "type": "object"
+        }, 
+        "type": "array"
+      }, 
+      "updatedAtEnd": {
+        "type": "date"
+      }, 
+      "updatedAtStart": {
+        "type": "date"
+      }, 
+      "updatedBys": {
+        "items": {
+          "properties": {
+            "_primary": {
+              "default": true, 
+              "type": "boolean"
+            }, 
+            "updatedBy": {
+              "type": "string"
+            }
+          }, 
+          "type": "object"
+        }, 
+        "type": "array"
+      }, 
+      "workDateEnd": {
+        "type": "string"
+      }, 
+      "workDateStart": {
+        "type": "string"
+      }, 
+      "workTermGroup": {
+        "items": {
+          "properties": {
+            "_primary": {
+              "default": true, 
+              "type": "boolean"
+            }, 
+            "termDisplayName": {
+              "type": "string"
+            }, 
+            "termLanguage": {
+              "default": "", 
+              "type": "string"
+            }, 
+            "termName": {
+              "type": "string"
+            }, 
+            "termStatus": {
+              "default": "", 
+              "type": "string"
+            }
+          }, 
+          "type": "object"
+        }, 
+        "type": "array"
+      }, 
+      "workTypes": {
+        "items": {
+          "properties": {
+            "_primary": {
+              "default": true, 
+              "type": "boolean"
+            }, 
+            "workType": {
+              "default": "", 
+              "type": "string"
+            }
+          }, 
+          "type": "object"
+        }, 
+        "type": "array"
+      }
+    }, 
+    "type": "object"
+  }
+}

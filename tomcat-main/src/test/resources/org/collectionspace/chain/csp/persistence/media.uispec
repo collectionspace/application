@@ -1,10 +1,7 @@
 {"recordEditor": {
     ".csc-media-filename-label": {"messagekey": "media-filenameLabel"},
     ".csc-media-relation-label": {"messagekey": "media-relationLabel"},
-    ".csc-media-srcUri-label": {"messagekey": "media-srcUriLabel"},
     ".csc-media-location-label": {"messagekey": "media-locationLabel"},
-    ".csc-media-blobs-label": {"messagekey": "media-blobsLabel"},
-    ".csc-media-languages-label": {"messagekey": "media-languagesLabel"},
     ".csc-media-relation": {"decorators": [{
         "func": "cspace.makeRepeatable",
         "type": "fluid",
@@ -18,10 +15,8 @@
     }]},
     ".csc-media-language-label": {"messagekey": "media-languageLabel"},
     ".csc-media-format": "${fields.format}",
-    ".csc-blobs-digest": "${fields.blobs.0.digest}",
-    ".csc-media-subjects-label": {"messagekey": "media-subjectsLabel"},
-    ".csc-media-dateModified": "${fields.dateModified}",
     ".csc-media-dateCreated": "${fields.dateCreated}",
+    ".csc-media-dateModified": "${fields.dateModified}",
     ".csc-blobs-name": "${fields.blobs.0.name}",
     ".csc-media-updatedAt": {
         "decorators": [{
@@ -31,57 +26,21 @@
         "value": "${fields.updatedAt}"
     },
     ".csc-media-coverage-label": {"messagekey": "media-coverageLabel"},
-    ".csc-media-location": "${fields.location}",
     ".csc-dateGroup-date-label": {"messagekey": "dateGroup-dateLabel"},
-    ".csc-media-rightsHolder": {
-        "decorators": [{
-            "func": "cspace.autocomplete",
-            "type": "fluid",
-            "options": {
-                "queryUrl": "../../../tenant/core/media/autocomplete/rightsHolder",
-                "vocabUrl": "../../../tenant/core/media/source-vocab/rightsHolder"
-            }
-        }],
-        "value": "${fields.rightsHolder}"
-    },
     ".csc-media-dimension-label": {"messagekey": "media-dimensionLabel"},
     ".csc-blobs-imgOrig": "${fields.blobs.0.imgOrig}",
-    ".csc-media-source": "${fields.source}",
-    ".csc-media-externalMediaUrl": "${fields.externalMediaUrl}",
-    ".csc-media-imgOrig": "${fields.imgOrig}",
-    ".csc-media-imgOrig-label": {"messagekey": "media-imgOrigLabel"},
     ".csc-media-relations-label": {"messagekey": "media-relationsLabel"},
-    ".csc-media-subject": {"decorators": [{
-        "func": "cspace.makeRepeatable",
-        "type": "fluid",
-        "options": {
-            "repeatTree": {"expander": {
-                "tree": {".csc-media-subject": "${{row}.subject}"},
-                "type": "fluid.noexpand"
-            }},
-            "elPath": "fields.subjects"
-        }
-    }]},
-    ".csc-blobs-createdAt": "${fields.blobs.0.createdAt}",
-    ".csc-media-updatedBy-label": {"messagekey": "media-updatedByLabel"},
     ".csc-media-creator-label": {"messagekey": "media-creatorLabel"},
-    ".csc-media-copyrightStatement-label": {"messagekey": "media-copyrightStatementLabel"},
-    ".csc-media-source-label": {"messagekey": "media-sourceLabel"},
     ".csc-blobs-data": "${fields.blobs.0.data}",
     ".csc-media-contributor-label": {"messagekey": "media-contributorLabel"},
-    ".csc-media-otherInformation-label": {"messagekey": "media-otherInformationLabel"},
     ".csc-media-identificationNumber": "${fields.identificationNumber}",
     ".csc-media-filename": "${fields.filename}",
-    ".csc-media-externalMediaUrl-label": {"messagekey": "media-externalMediaUrlLabel"},
-    ".csc-media-uri-label": {"messagekey": "media-uriLabel"},
-    ".csc-media-tenantID-label": {"messagekey": "media-tenantIDLabel"},
-    ".csc-media-dateCreated-label": {"messagekey": "media-dateCreatedLabel"},
-    ".csc-media-rightsHolder-label": {"messagekey": "media-rightsHolderLabel"},
     ".csc-media-subject-label": {"messagekey": "media-subjectLabel"},
+    ".csc-media-rightsHolder-label": {"messagekey": "media-rightsHolderLabel"},
+    ".csc-media-dateCreated-label": {"messagekey": "media-dateCreatedLabel"},
     ".csc-media-updatedAt-label": {"messagekey": "media-updatedAtLabel"},
-    ".csc-media-format-label": {"messagekey": "media-formatLabel"},
     ".csc-blobs-length": "${fields.blobs.0.length}",
-    ".csc-media-dateModified-label": {"messagekey": "media-dateModifiedLabel"},
+    ".csc-media-format-label": {"messagekey": "media-formatLabel"},
     ".csc-media-imgThumb": "${fields.imgThumb}",
     ".csc-media-mediaInformation-label": {"messagekey": "media-mediaInformationLabel"},
     ".csc-media-publisher": {
@@ -95,30 +54,8 @@
         }],
         "value": "${fields.publisher}"
     },
-    ".csc-media-language": {"decorators": [{
-        "func": "cspace.makeRepeatable",
-        "type": "fluid",
-        "options": {
-            "repeatTree": {"expander": {
-                "tree": {".csc-media-language": {"decorators": [{
-                    "func": "cspace.termList",
-                    "type": "fluid",
-                    "options": {
-                        "root": "{row}",
-                        "elPath": "language",
-                        "termListType": "language"
-                    }
-                }]}},
-                "type": "fluid.noexpand"
-            }},
-            "elPath": "fields.languages"
-        }
-    }]},
-    ".csc-media-description-label": {"messagekey": "media-descriptionLabel"},
-    ".csc-blobs-updatedBy": "${fields.blobs.0.updatedBy}",
-    ".csc-media-createdBy-label": {"messagekey": "media-createdByLabel"},
     ".csc-blobs-createdBy": "${fields.blobs.0.createdBy}",
-    ".csc-media-createdAt-label": {"messagekey": "media-createdAtLabel"},
+    ".csc-media-createdBy-label": {"messagekey": "media-createdByLabel"},
     ".csc-media-creator": {
         "decorators": [{
             "func": "cspace.autocomplete",
@@ -132,11 +69,8 @@
     },
     ".csc-media-blobCsid-label": {"messagekey": "media-blobCsidLabel"},
     ".csc-media-fileInformation-label": {"messagekey": "media-fileInformationLabel"},
-    ".csc-media-types-label": {"messagekey": "media-typesLabel"},
-    ".csc-media-coverage": "${fields.coverage}",
     ".csc-blobs-uri": "${fields.blobs.0.uri}",
-    ".csc-media-identificationNumber-label": {"messagekey": "media-identificationNumberLabel"},
-    ".csc-media-srcUri": "${fields.srcUri}",
+    ".csc-media-coverage": "${fields.coverage}",
     ".csc-media-contributor": {
         "decorators": [{
             "func": "cspace.autocomplete",
@@ -148,7 +82,6 @@
         }],
         "value": "${fields.contributor}"
     },
-    ".csc-media-coreInformation-label": {"messagekey": "media-coreInformationLabel"},
     ".csc-media-dimension": {"decorators": [{
         "func": "cspace.dimension",
         "type": "fluid",
@@ -167,6 +100,7 @@
                                     "options": {
                                         "repeatTree": {"expander": {
                                             "tree": {
+                                                ".csc-dimension-dimensionNote": "${{row}.dimensionNote}",
                                                 ".csc-dimension-value": {
                                                     "decorators": [{
                                                         "func": "cspace.inputValidator",
@@ -366,13 +300,12 @@
                 ".csc-measuredPartGroup-dimensionSubGroup-label": {"messagekey": "measuredPartGroup-dimensionSubGroupLabel"},
                 ".csc-dimension-measurementUnit-label": {"messagekey": "dimension-measurementUnitLabel"},
                 ".csc-dimension-valueQualifier-label": {"messagekey": "dimension-valueQualifierLabel"},
-                ".csc-dimension-dimensionSummary-label": {"messagekey": "dimension-dimensionSummaryLabel"}
+                ".csc-dimension-dimensionSummary-label": {"messagekey": "dimension-dimensionSummaryLabel"},
+                ".csc-dimension-dimensionNote-label": {"messagekey": "dimension-dimensionNoteLabel"}
             },
             "type": "fluid.noexpand"
         }}}
     }]},
-    ".csc-media-createdBy": "${fields.createdBy}",
-    ".csc-blobs-mimeType": "${fields.blobs.0.mimeType}",
     ".csc-blobs-imgThumb": "${fields.blobs.0.imgThumb}",
     ".csc-media-externalUrl": {
         "decorators": [{
@@ -403,6 +336,7 @@
                                                 "options": {
                                                     "repeatTree": {"expander": {
                                                         "tree": {
+                                                            ".csc-dimension-dimensionNote": "${{row}.dimensionNote}",
                                                             ".csc-dimension-value": {
                                                                 "decorators": [{
                                                                     "func": "cspace.inputValidator",
@@ -602,7 +536,8 @@
                             ".csc-measuredPartGroup-dimensionSubGroup-label": {"messagekey": "measuredPartGroup-dimensionSubGroupLabel"},
                             ".csc-dimension-measurementUnit-label": {"messagekey": "dimension-measurementUnitLabel"},
                             ".csc-dimension-valueQualifier-label": {"messagekey": "dimension-valueQualifierLabel"},
-                            ".csc-dimension-dimensionSummary-label": {"messagekey": "dimension-dimensionSummaryLabel"}
+                            ".csc-dimension-dimensionSummary-label": {"messagekey": "dimension-dimensionSummaryLabel"},
+                            ".csc-dimension-dimensionNote-label": {"messagekey": "dimension-dimensionNoteLabel"}
                         },
                         "type": "fluid.noexpand"
                     }}
@@ -620,10 +555,6 @@
             "type": "addClass"
         }}}
     },
-    ".csc-media-tenantID": "${fields.tenantID}",
-    ".csc-media-updatedBy": "${fields.updatedBy}",
-    ".csc-media-type-label": {"messagekey": "media-typeLabel"},
-    ".csc-media-copyrightStatement": "${fields.copyrightStatement}",
     ".csc-media-type": {"decorators": [{
         "func": "cspace.makeRepeatable",
         "type": "fluid",
@@ -655,23 +586,131 @@
         }
     }]},
     ".csc-media-number-label": {"messagekey": "media-numberLabel"},
-    ".csc-blobs-updatedAt": "${fields.blobs.0.updatedAt}",
-    ".csc-media-fileInformationHeader-label": {"messagekey": "media-fileInformationHeaderLabel"},
+    ".csc-blobs-updatedAt": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${fields.blobs.0.updatedAt}"
+    },
+    ".csc-media-imgOrig": "${fields.imgOrig}",
     ".csc-media-domaindata-label": {"messagekey": "media-domaindataLabel"},
-    ".csc-blobs-encoding": "${fields.blobs.0.encoding}",
     ".csc-blobs-id": "${fields.blobs.0.id}",
+    ".csc-media-refName-label": {"messagekey": "media-refNameLabel"},
+    ".csc-blobs-imgMedium": "${fields.blobs.0.imgMedium}",
+    ".csc-media-description": "${fields.description}",
+    ".csc-media-imgThumb-label": {"messagekey": "media-imgThumbLabel"},
+    ".csc-media-summary-label": {"messagekey": "media-summaryLabel"},
+    ".csc-media-publisher-label": {"messagekey": "media-publisherLabel"},
+    ".csc-media-title-label": {"messagekey": "media-titleLabel"},
+    ".csc-blobs-refName": "${fields.blobs.0.refName}",
+    ".csc-media-uri": "${fields.uri}",
+    ".csc-media-identificationNumber-container": {"decorators": [{
+        "func": "cspace.numberPatternChooser",
+        "type": "fluid",
+        "options": {
+            "model": {
+                "names": ["Media Resource"],
+                "list": ["media"],
+                "samples": ["MR2011.1.1"]
+            },
+            "selectors": {"numberField": ".csc-media-identificationNumber"}
+        }
+    }]},
+    ".csc-media-externalUrl-label": {"messagekey": "media-externalUrlLabel"},
+    ".csc-media-blobs-label": {"messagekey": "media-blobsLabel"},
+    ".csc-media-languages-label": {"messagekey": "media-languagesLabel"},
+    ".csc-blobs-digest": "${fields.blobs.0.digest}",
+    ".csc-media-subjects-label": {"messagekey": "media-subjectsLabel"},
+    ".csc-media-location": "${fields.location}",
+    ".csc-media-rightsHolder": {
+        "decorators": [{
+            "func": "cspace.autocomplete",
+            "type": "fluid",
+            "options": {
+                "queryUrl": "../../../tenant/core/media/autocomplete/rightsHolder",
+                "vocabUrl": "../../../tenant/core/media/source-vocab/rightsHolder"
+            }
+        }],
+        "value": "${fields.rightsHolder}"
+    },
+    ".csc-media-source": "${fields.source}",
+    ".csc-media-externalMediaUrl": "${fields.externalMediaUrl}",
+    ".csc-media-subject": {"decorators": [{
+        "func": "cspace.makeRepeatable",
+        "type": "fluid",
+        "options": {
+            "repeatTree": {"expander": {
+                "tree": {".csc-media-subject": "${{row}.subject}"},
+                "type": "fluid.noexpand"
+            }},
+            "elPath": "fields.subjects"
+        }
+    }]},
+    ".csc-media-tenantId-label": {"messagekey": "media-tenantIdLabel"},
+    ".csc-blobs-createdAt": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${fields.blobs.0.createdAt}"
+    },
+    ".csc-media-updatedBy-label": {"messagekey": "media-updatedByLabel"},
+    ".csc-media-copyrightStatement-label": {"messagekey": "media-copyrightStatementLabel"},
+    ".csc-media-source-label": {"messagekey": "media-sourceLabel"},
+    ".csc-media-otherInformation-label": {"messagekey": "media-otherInformationLabel"},
+    ".csc-media-externalMediaUrl-label": {"messagekey": "media-externalMediaUrlLabel"},
+    ".csc-media-uri-label": {"messagekey": "media-uriLabel"},
+    ".csc-media-dateModified-label": {"messagekey": "media-dateModifiedLabel"},
+    ".csc-media-language": {"decorators": [{
+        "func": "cspace.makeRepeatable",
+        "type": "fluid",
+        "options": {
+            "repeatTree": {"expander": {
+                "tree": {".csc-media-language": {"decorators": [{
+                    "func": "cspace.termList",
+                    "type": "fluid",
+                    "options": {
+                        "root": "{row}",
+                        "elPath": "language",
+                        "termListType": "language"
+                    }
+                }]}},
+                "type": "fluid.noexpand"
+            }},
+            "elPath": "fields.languages"
+        }
+    }]},
+    ".csc-media-description-label": {"messagekey": "media-descriptionLabel"},
+    ".csc-blobs-updatedBy": "${fields.blobs.0.updatedBy}",
+    ".csc-media-imgOrig-label": {"messagekey": "media-imgOrigLabel"},
+    ".csc-media-createdAt-label": {"messagekey": "media-createdAtLabel"},
+    ".csc-blobs-tenantId": "${fields.blobs.0.tenantId}",
+    ".csc-media-types-label": {"messagekey": "media-typesLabel"},
+    ".csc-media-identificationNumber-label": {"messagekey": "media-identificationNumberLabel"},
+    ".csc-media-coreInformation-label": {"messagekey": "media-coreInformationLabel"},
+    ".csc-blobs-repositoryId": "${fields.blobs.0.repositoryId}",
+    ".csc-media-createdBy": "${fields.createdBy}",
+    ".csc-blobs-mimeType": "${fields.blobs.0.mimeType}",
+    ".csc-media-updatedBy": "${fields.updatedBy}",
+    ".csc-media-sourceUrl": "${fields.sourceUrl}",
+    ".csc-media-type-label": {"messagekey": "media-typeLabel"},
+    ".csc-media-copyrightStatement": "${fields.copyrightStatement}",
+    ".csc-media-fileInformationHeader-label": {"messagekey": "media-fileInformationHeaderLabel"},
+    ".csc-blobs-encoding": "${fields.blobs.0.encoding}",
+    ".csc-media-sourceUrl-label": {"messagekey": "media-sourceUrlLabel"},
     ".csc-media-blobCsid": "${fields.blobCsid}",
     ".csc-media-title": "${fields.title}",
-    ".csc-blobs-tenantID": "${fields.blobs.0.tenantID}",
     ".csc-media-dateGroup-label": {"messagekey": "media-dateGroupLabel"},
-    ".csc-blobs-imgMedium": "${fields.blobs.0.imgMedium}",
-    ".csc-media-imgThumb-label": {"messagekey": "media-imgThumbLabel"},
-    ".csc-media-description": "${fields.description}",
-    ".csc-media-publisher-label": {"messagekey": "media-publisherLabel"},
-    ".csc-media-summary-label": {"messagekey": "media-summaryLabel"},
-    ".csc-media-createdAt": "${fields.createdAt}",
-    ".csc-media-title-label": {"messagekey": "media-titleLabel"},
-    ".csc-media-uri": "${fields.uri}",
+    ".csc-media-refName": "${fields.refName}",
+    ".csc-media-tenantId": "${fields.tenantId}",
+    ".csc-media-createdAt": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${fields.createdAt}"
+    },
     ".csc-dateGroup-date": {"decorators": [{
         "func": "cspace.makeRepeatable",
         "type": "fluid",
@@ -717,19 +756,5 @@
             }},
             "elPath": "fields.dateGroup"
         }
-    }]},
-    ".csc-media-externalUrl-label": {"messagekey": "media-externalUrlLabel"},
-    ".csc-media-identificationNumber-container": {"decorators": [{
-        "func": "cspace.numberPatternChooser",
-        "type": "fluid",
-        "options": {
-            "model": {
-                "names": ["Media Resource"],
-                "list": ["media"],
-                "samples": ["MR2011.1.1"]
-            },
-            "selectors": {"numberField": ".csc-media-identificationNumber"}
-        }
     }]}
 }}
-
