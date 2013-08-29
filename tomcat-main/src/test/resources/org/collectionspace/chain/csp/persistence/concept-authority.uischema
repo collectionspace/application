@@ -52,6 +52,7 @@
                             "termSource": {"type": "string"},
                             "termSourceID": {"type": "string"},
                             "termSourceNote": {"type": "string"},
+                            "termFormattedDisplayName": {"type": "string"}, 
                             "termLanguage": {
                                 "default": "",
                                 "type": "string"
