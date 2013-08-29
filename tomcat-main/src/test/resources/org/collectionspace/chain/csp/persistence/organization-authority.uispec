@@ -1360,6 +1360,7 @@
                                 ".csc-orgAuthority-termSourceDetail": "${{row}.termSourceDetail}", 
                                 ".csc-orgAuthority-termSourceID": "${{row}.termSourceID}", 
                                 ".csc-orgAuthority-termSourceNote": "${{row}.termSourceNote}", 
+                                ".csc-orgAuthority-termFormattedDisplayName": "${{row}.termFormattedDisplayName}", 
                                 ".csc-orgAuthority-termStatus": {
                                   "default": "provisional", 
                                   "optionlist": [
@@ -1432,7 +1433,10 @@
                   }, 
                   ".csc-preferredOA-termSourceNote-label": {
                     "messagekey": "preferredOA-termSourceNoteLabel"
-                  }, 
+                  },
+                  ".csc-preferredOA-termFormattedDisplayName-label": {
+                    "messagekey": "preferredOA-termFormattedDisplayNameLabel"
+                  },
                   ".csc-preferredOA-termStatus-label": {
                     "messagekey": "preferredOA-termStatusLabel"
                   }, 

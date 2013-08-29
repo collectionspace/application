@@ -5,6 +5,7 @@
         "termSource": "Coughlin",
         "termSourceID": "REM",
         "termSourceNote": "Montclair",
+        "termFormattedDisplayName": "Gloncey Land",
         "termLanguage": "urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(grc)'Ancient\n                Greek'",
         "historicalStatus": "current",
         "termPrefForLang": true,

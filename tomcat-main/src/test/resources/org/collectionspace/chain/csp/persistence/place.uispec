@@ -899,6 +899,7 @@
                                 ".csc-placeAuthority-termSourceDetail": "${{row}.termSourceDetail}", 
                                 ".csc-placeAuthority-termSourceID": "${{row}.termSourceID}", 
                                 ".csc-placeAuthority-termSourceNote": "${{row}.termSourceNote}", 
+                                ".csc-placeAuthority-termFormattedDisplayName": "${{row}.termFormattedDisplayName}", 
                                 ".csc-placeAuthority-termStatus": {
                                   "default": "provisional", 
                                   "optionlist": [
@@ -979,6 +980,9 @@
                   }, 
                   ".csc-preferredPlace-termSourceNote-label": {
                     "messagekey": "preferredPlace-termSourceNoteLabel"
+                  }, 
+                  ".csc-preferredPlace-termFormattedDisplayName-label": {
+                    "messagekey": "preferredPlace-termFormattedDisplayNameLabel"
                   }, 
                   ".csc-preferredPlace-termStatus-label": {
                     "messagekey": "preferredPlace-termStatusLabel"

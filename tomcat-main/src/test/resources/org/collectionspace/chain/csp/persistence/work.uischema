@@ -262,6 +262,9 @@
                 "termSourceNote": {
                   "type": "string"
                 }, 
+                "termFormattedDisplayName": {
+                  "type": "string"
+                }, 
                 "termStatus": {
                   "default": "", 
                   "type": "string"

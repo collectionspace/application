@@ -1399,7 +1399,8 @@
                                 }, 
                                 ".csc-personAuthority-termSourceDetail": "${{row}.termSourceDetail}", 
                                 ".csc-personAuthority-termSourceID": "${{row}.termSourceID}", 
-                                ".csc-personAuthority-termSourceNote": "${{row}.termSourceNote}", 
+                                ".csc-personAuthority-termSourceNote": "${{row}.termSourceNote}",
+                                ".csc-personAuthority-termFormattedDisplayName": "${{row}.termFormattedDisplayName}",
                                 ".csc-personAuthority-termStatus": {
                                   "default": "provisional", 
                                   "optionlist": [

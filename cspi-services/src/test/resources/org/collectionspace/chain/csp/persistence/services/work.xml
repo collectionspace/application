@@ -27,6 +27,7 @@
             <termSourceID>12345</termSourceID>
             <termSourceDetail>term source detail</termSourceDetail>
             <termSourceNote>source note goes here</termSourceNote>
+            <termFormattedDisplayName>Muppets Take Manhattan (1984)</termFormattedDisplayName>
             <termStatus>complete</termStatus>
         </workTermGroup>
     </workTermGroupList>

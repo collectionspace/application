@@ -73,6 +73,7 @@
     ".csc-concept-termDisplayName-label": {"messagekey": "preferredCA-termDisplayNameLabel"},
     ".csc-concept-updatedBy-label": {"messagekey": "concept-updatedByLabel"},
     ".csc-concept-termSourceNote-label": {"messagekey": "preferredCA-termSourceNoteLabel"},
+    ".csc-concept-termFormattedDisplayName-label": {"messagekey": "preferredCA-termFormattedDisplayNameLabel"},
     ".csc-concept-termStatus-label": {"messagekey": "preferredCA-termStatusLabel"},
     ".csc-concept-updatedAtStart": {
         "decorators": [{

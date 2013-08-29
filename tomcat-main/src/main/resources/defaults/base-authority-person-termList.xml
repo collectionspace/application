@@ -46,6 +46,8 @@
             <field id="termSourceNote">
                 <selector>personAuthority-termSourceNote</selector>
             </field>
+            <field id="termFormattedDisplayName">
+            </field>
             <!-- Fields specific to Person terms -->
             <field id="salutation">
                 <selector>personAuthority-salutation</selector>
