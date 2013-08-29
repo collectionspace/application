@@ -1,5 +1,5 @@
 <!-- FIXME: Doing some configuration here, but it really belongs in the local file. See other FIXME comments in this file. -->
-<record id="dimension" in-recordlist="no" separate-record="false">
+<record id="dimension" in-recordlist="no" separate-record="false" services-type="measuredPartGroupList">
     <hassoftdelete>true</hassoftdelete>
 	<section id="dimensionInformation">
 		<repeat id="measuredPartGroupList/measuredPartGroup">
@@ -83,9 +83,8 @@
                         <option id="hydraulic_or_pneumatic_scale">Hydraulic or Pneumatic Scale</option>
                     </options> -->
                 </field>
-                <field id="valueDate" ui-type="date"></field>
+                <field id="valueDate" ui-type="date" datatype="date"></field>
                 <field id="valueQualifier"></field>
-                <!-- Adding this as a customization, until it's in the core (v2.5?) -->
                 <field id="dimensionNote"></field>
             </repeat>
         </repeat>
