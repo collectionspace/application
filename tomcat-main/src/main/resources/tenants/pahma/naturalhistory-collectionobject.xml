@@ -140,7 +140,7 @@
 			<field id="annotationNote" section="naturalhistory">
 				<selector>collection-object-annotationNote</selector>
 			</field>
-			<field id="annotationDate" section="naturalhistory" ui-type="date">
+			<field id="annotationDate" section="naturalhistory" ui-type="date" datatype="date>
 				<selector>collection-object-annotationDate</selector>
 			</field>
 			<field id="annotationAuthor" section="naturalhistory" autocomplete="person-person">
