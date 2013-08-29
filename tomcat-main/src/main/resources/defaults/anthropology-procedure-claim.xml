@@ -268,32 +268,32 @@
 	
 	<section id="claimProcessingInformation">
 		<repeat id="dateOfInitialResponseGroupList/dateOfInitialResponseGroup" section="anthropology">
-			<field id="initialResponseDate" section="anthropology" ui-type="date"></field>
+			<field id="initialResponseDate" section="anthropology" ui-type="date" datatype="date"></field>
 			<field id="initialResponseNote" section="anthropology"></field>
 		</repeat>
 
 		<repeat id="sentToLocalCommitteeGroupList/sentToLocalCommitteeGroup" section="anthropology">
-			<field id="sentToLocalCommitteeDate" section="anthropology" ui-type="date"></field>
+			<field id="sentToLocalCommitteeDate" section="anthropology" ui-type="date" datatype="date"></field>
 			<field id="sentToLocalCommitteeNote" section="anthropology"></field>
 		</repeat>
 
 		<repeat id="sentToOversightCommitteeGroupList/sentToOversightCommitteeGroup" section="anthropology">
-			<field id="sentToOversightCommitteeDate" section="anthropology" ui-type="date"></field>
+			<field id="sentToOversightCommitteeDate" section="anthropology" ui-type="date" datatype="date"></field>
 			<field id="sentToOversightCommitteeNote" section="anthropology"></field>
 		</repeat>
 
 		<repeat id="sentToNationalNagpraGroupList/sentToNationalNagpraGroup" section="anthropology">
-			<field id="sentToNationalNagpraDate" section="anthropology" ui-type="date"></field>
+			<field id="sentToNationalNagpraDate" section="anthropology" ui-type="date" datatype="date"></field>
 			<field id="sentToNationalNagpraNote" section="anthropology"></field>
 		</repeat>
 
 		<repeat id="dateOfNationalNagpraApprovalGroupList/dateOfNationalNagpraApprovalGroup" section="anthropology">
-			<field id="dateOfNationalNagpraApprovalDate" section="anthropology" ui-type="date"></field>
+			<field id="dateOfNationalNagpraApprovalDate" section="anthropology" ui-type="date" datatype="date"></field>
 			<field id="dateOfNationalNagpraApprovalNote" section="anthropology"></field>
 		</repeat>
 
 		<repeat id="dateOfThirtyDayNoticeGroupList/dateOfThirtyDayNoticeGroup" section="anthropology">
-			<field id="dateOfThirtyDayNoticeDate" section="anthropology" ui-type="date"></field>
+			<field id="dateOfThirtyDayNoticeDate" section="anthropology" ui-type="date" datatype="date"></field>
 			<field id="dateOfThirtyDayNoticeType" section="anthropology" seperate_ui_container="true">
 				<options>
 					<option id="begin">period begins</option>
@@ -304,22 +304,22 @@
 		</repeat>
 
 		<repeat id="transferGroupList/transferGroup" section="anthropology">
-			<field id="transferDate" section="anthropology" ui-type="date"></field>
+			<field id="transferDate" section="anthropology" ui-type="date" datatype="date"></field>
 			<field id="transferNote" section="anthropology"></field>
 		</repeat>
 
 		<repeat id="recommendationOfLocalCommitteeGroupList/recommendationOfLocalCommitteeGroup" section="anthropology">
-			<field id="recommendationOfLocalCommitteeDate" section="anthropology" ui-type="date"></field>
+			<field id="recommendationOfLocalCommitteeDate" section="anthropology" ui-type="date" datatype="date"></field>
 			<field id="recommendationOfLocalCommitteeNote" section="anthropology"></field>
 		</repeat>
 
 		<repeat id="recommendationOfOversightCommitteeGroupList/recommendationOfOversightCommitteeGroup" section="anthropology">
-			<field id="recommendationOfOversightCommitteeDate" section="anthropology" ui-type="date"></field>
+			<field id="recommendationOfOversightCommitteeDate" section="anthropology" ui-type="date" datatype="date"></field>
 			<field id="recommendationOfOversightCommitteeNote" section="anthropology"></field>
 		</repeat>
 
 		<repeat id="responseFromNationalNagpraGroupList/responseFromNationalNagpraGroup" section="anthropology">
-			<field id="responseFromNationalNagpraDate" section="anthropology" ui-type="date"></field>
+			<field id="responseFromNationalNagpraDate" section="anthropology" ui-type="date" datatype="date"></field>
 			<field id="responseFromNationalNagpraNote" section="anthropology"></field>
 		</repeat>
 
