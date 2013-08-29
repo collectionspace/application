@@ -14,12 +14,15 @@
             "type": "string"
           }, 
           "createdAt": {
-            "type": "string"
+            "type": "date"
           }, 
           "createdBy": {
             "type": "string"
           }, 
           "csid": {
+            "type": "string"
+          }, 
+          "deprecatedRefName": {
             "type": "string"
           }, 
           "equivalentContexts": {
@@ -36,6 +39,9 @@
               "type": "object"
             }, 
             "type": "array"
+          }, 
+          "inAuthority": {
+            "type": "string"
           }, 
           "maxDepthInMeters": {
             "type": "string"
@@ -468,6 +474,9 @@
                 "termSourceNote": {
                   "type": "string"
                 }, 
+                "termFormattedDisplayName": {
+                  "type": "string"
+                }, 
                 "termStatus": {
                   "default": "provisional", 
                   "type": "string"
@@ -506,7 +515,7 @@
           "shortIdentifier": {
             "type": "string"
           }, 
-          "tenantID": {
+          "tenantId": {
             "type": "string"
           }, 
           "updatedAt": {

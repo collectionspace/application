@@ -4,7 +4,7 @@
 	<section id="identificationInformation">
 		<field id="homeLocation" autocomplete="location-location" section="anthropology" ui-search="repeatable"/>
 		<field id="homeCrate" autocomplete="location-crate" section="anthropology" ui-search="repeatable"/>
-		<field id="computedCrate" ui-type="valueDeURNed" services-readonly="true" section="anthropology"/>
+		<field id="computedCrate" ui-type="valueDeURNed" services-readonly="true" authref-in-services="true" section="anthropology"/>
 	</section>
 
 	<section id="repatriationNagpraComplianceInformation">
@@ -275,7 +275,7 @@
 			<field id="repatriationClaimNote" section="anthropology">
 				<selector>collection-object-repatriationClaimNote</selector>
 			</field>
-			<field id="repatriationClaimDate" section="anthropology" ui-type="date">
+			<field id="repatriationClaimDate" section="anthropology" ui-type="date" datatype="date">
 				<selector>collection-object-repatriationClaimDate</selector>
 			</field>
 		</repeat> 
@@ -322,7 +322,7 @@
 			<field id="accessRestrictionOnBehalfOf" section="anthropology" autocomplete="organization-organization">
 				<selector>collection-object-accessRestrictionOnBehalfOf</selector>
 			</field>
-			<field id="accessRestrictionDate" section="anthropology" ui-type="date">
+			<field id="accessRestrictionDate" section="anthropology" ui-type="date" datatype="date">
 				<selector>collection-object-accessRestrictionDate</selector>
 			</field>
 		</repeat> 

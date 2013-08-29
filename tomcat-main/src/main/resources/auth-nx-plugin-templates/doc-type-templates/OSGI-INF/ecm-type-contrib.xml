@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<component name="org.collectionspace.${NuxeoDocTypeName_LowerCase}.ecm.types">
+	<!--
+	*
+	* The Nuxeo ECM type extension for this Authority's item instances
+	*
+	-->
+	<extension target="org.nuxeo.ecm.platform.types.TypeService" point="types">
+		<!--
+			Declares an ECM version of this Authority item's Nuxeo "doctype".
+		-->
+		<type id="${NuxeoDocTypeName}" coretype="${NuxeoDocTypeName}">
+			<label>org.collectionspace.${NuxeoDocTypeName}</label>
+			<default-view>view_documents</default-view>
+			<layouts mode="any">
+				<layout>heading</layout>
+				${LayoutList}
+			</layouts>
+		</type>
+		<!-- 
+			Declares that instances of this ECM type can be put into ECM Folders
+		-->		
+		<type id="Folder" coretype="Folder">
+			<subtypes>
+				<type>${NuxeoDocTypeName}</type>
+			</subtypes>
+		</type>
+		<!--
+			Declares that instances of this ECM type can be put into ECM Workspaces
+		-->
+		<type id="Workspace" coretype="Workspace">
+			<subtypes>
+				<type>${NuxeoDocTypeName}</type>
+			</subtypes>
+		</type>
+	</extension>
+	<!--
+	*
+	* The Nuxeo type extension for this Authority's instances
+	*
+	-->
+	<extension target="org.nuxeo.ecm.platform.types.TypeService" point="types">
+		<!--
+			Declares an ECM version of this Authority item's Nuxeo "doctype".
+		-->
+		<type id="${AuthorityNuxeoDocTypeName}" coretype="${AuthorityNuxeoDocTypeName}">
+			<label>org.collectionspace.${AuthorityNuxeoDocTypeName}</label>
+			<default-view>view_documents</default-view>
+			<layouts mode="any">
+				<layout>heading</layout>
+				${LayoutList}
+			</layouts>
+		</type>
+		<!-- 
+			Declares that instances of this ECM type can be put into ECM Folders
+		-->		
+		<type id="Folder" coretype="Folder">
+			<subtypes>
+				<type>${AuthorityNuxeoDocTypeName}</type>
+			</subtypes>
+		</type>
+		<!--
+			Declares that instances of this ECM type can be put into ECM Workspaces
+		-->
+		<type id="Workspace" coretype="Workspace">
+			<subtypes>
+				<type>${AuthorityNuxeoDocTypeName}</type>
+			</subtypes>
+		</type>
+	</extension>
+</component>

@@ -219,7 +219,15 @@
     ".csc-place-coreInformation-label": {
       "messagekey": "place-coreInformationLabel"
     }, 
-    ".csc-place-createdAt": "${fields.createdAt}", 
+    ".csc-place-createdAt": {
+      "decorators": [
+        {
+          "func": "cspace.datePicker", 
+          "type": "fluid"
+        }
+      ], 
+      "value": "${fields.createdAt}"
+    }, 
     ".csc-place-createdAt-label": {
       "messagekey": "place-createdAtLabel"
     }, 
@@ -236,6 +244,10 @@
     }, 
     ".csc-place-decimalLongitude-label": {
       "messagekey": "place-decimalLongitudeLabel"
+    }, 
+    ".csc-place-deprecatedRefName": "${fields.deprecatedRefName}", 
+    ".csc-place-deprecatedRefName-label": {
+      "messagekey": "place-deprecatedRefNameLabel"
     }, 
     ".csc-place-domaindata-label": {
       "messagekey": "place-domaindataLabel"
@@ -272,6 +284,10 @@
     }, 
     ".csc-place-geodeticDatum-label": {
       "messagekey": "place-geodeticDatumLabel"
+    }, 
+    ".csc-place-inAuthority": "${fields.inAuthority}", 
+    ".csc-place-inAuthority-label": {
+      "messagekey": "place-inAuthorityLabel"
     }, 
     ".csc-place-localityInformation-label": {
       "messagekey": "place-localityInformationLabel"
@@ -625,9 +641,9 @@
     ".csc-place-shortIdentifier-label": {
       "messagekey": "place-shortIdentifierLabel"
     }, 
-    ".csc-place-tenantID": "${fields.tenantID}", 
-    ".csc-place-tenantID-label": {
-      "messagekey": "place-tenantIDLabel"
+    ".csc-place-tenantId": "${fields.tenantId}", 
+    ".csc-place-tenantId-label": {
+      "messagekey": "place-tenantIdLabel"
     }, 
     ".csc-place-updatedAt": {
       "decorators": [
@@ -883,6 +899,7 @@
                                 ".csc-placeAuthority-termSourceDetail": "${{row}.termSourceDetail}", 
                                 ".csc-placeAuthority-termSourceID": "${{row}.termSourceID}", 
                                 ".csc-placeAuthority-termSourceNote": "${{row}.termSourceNote}", 
+                                ".csc-placeAuthority-termFormattedDisplayName": "${{row}.termFormattedDisplayName}", 
                                 ".csc-placeAuthority-termStatus": {
                                   "default": "provisional", 
                                   "optionlist": [
@@ -963,6 +980,9 @@
                   }, 
                   ".csc-preferredPlace-termSourceNote-label": {
                     "messagekey": "preferredPlace-termSourceNoteLabel"
+                  }, 
+                  ".csc-preferredPlace-termFormattedDisplayName-label": {
+                    "messagekey": "preferredPlace-termFormattedDisplayNameLabel"
                   }, 
                   ".csc-preferredPlace-termStatus-label": {
                     "messagekey": "preferredPlace-termStatusLabel"

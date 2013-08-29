@@ -35,7 +35,7 @@
 				</options>
 			</field>
 		</repeat>
-		<field id="shipDate" section="naturalhistory" ui-type="date"/>
+		<field id="shipDate" section="naturalhistory" ui-type="date" datatype="date"/>
 		<field id="transportMethod" section="naturalhistory">
 			<options>
 				<option id="">Please select a value</option>
@@ -45,7 +45,7 @@
 			</options>
 		</field>
 		<field id="numPackages" section="naturalhistory" ui-type="validated" datatype="integer"/>
-		<field id="acknowledgeDate" section="naturalhistory" ui-type="date"/>
+		<field id="acknowledgeDate" section="naturalhistory" ui-type="date" datatype="date"/>
 		<field id="numLent" section="naturalhistory" ui-type="validated" datatype="integer"/>
 		<field id="numReturned" section="naturalhistory" ui-type="validated" datatype="integer"/>
 		<field id="balance" section="naturalhistory" ui-type="validated" datatype="integer"/>
@@ -67,7 +67,7 @@
 		<repeat id="returnGroupList/returnGroup" section="naturalhistory">
 			<field id="returnObjectNumbers" section="naturalhistory"/>
 			<field id="returnQuantity" section="naturalhistory" ui-type="validated" datatype="integer"/>
-			<field id="returnDate" section="naturalhistory" ui-type="date"/>
+			<field id="returnDate" section="naturalhistory" ui-type="date" datatype="date"/>
 			<field id="returnNotes" section="naturalhistory"/>
 			<field id="returnDetermination" section="naturalhistory" autocomplete="taxon-taxon"/>
 		</repeat>
@@ -75,7 +75,7 @@
 
 	<section id="transferInformation">
 		<repeat id="transferGroupList/transferGroup" section="naturalhistory">
-			<field id="transferDate" section="naturalhistory" ui-type="date"/>
+			<field id="transferDate" section="naturalhistory" ui-type="date" datatype="date"/>
 			<field id="transferOrg" section="naturalhistory" autocomplete="organization-organization"/>
 			<field id="transferPerson" section="naturalhistory" autocomplete="person-person"/>
 			<field id="transferDirector" section="naturalhistory" autocomplete="person-person"/>

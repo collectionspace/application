@@ -1,361 +1,214 @@
 {
-  ".csc-intake-createdBy": {
-    "decorators": [
-      {
-        "func": "cspace.makeRepeatable", 
+    ".csc-intake-depositor-label": {"messagekey": "intake-depositorLabel"},
+    ".csc-intake-current-owner": {"decorators": [{
+        "func": "cspace.makeRepeatable",
+        "type": "fluid",
         "options": {
-          "elPath": "createdBys", 
-          "hidePrimary": true, 
-          "repeatTree": {
-            "expander": {
-              "tree": {
-                ".csc-intake-createdBy": "${{row}.createdBy}"
-              }, 
-              "type": "fluid.noexpand"
-            }
-          }
-        }, 
-        "type": "fluid"
-      }
-    ]
-  }, 
-  ".csc-intake-createdBy-label": {
-    "messagekey": "intake-createdByLabel"
-  }, 
-  ".csc-intake-current-owner": {
-    "decorators": [
-      {
-        "func": "cspace.makeRepeatable", 
+            "repeatTree": {"expander": {
+                "tree": {".csc-intake-current-owner": {
+                    "decorators": [{
+                        "func": "cspace.autocomplete",
+                        "type": "fluid",
+                        "options": {
+                            "queryUrl": "../../../tenant/core/intake/autocomplete/currentOwner",
+                            "vocabUrl": "../../../tenant/core/intake/source-vocab/currentOwner"
+                        }
+                    }],
+                    "value": "${{row}.currentOwner}"
+                }},
+                "type": "fluid.noexpand"
+            }},
+            "elPath": "currentOwners",
+            "hidePrimary": true
+        }
+    }]},
+    ".csc-intake-depositor": {"decorators": [{
+        "func": "cspace.makeRepeatable",
+        "type": "fluid",
         "options": {
-          "elPath": "currentOwners", 
-          "hidePrimary": true, 
-          "repeatTree": {
-            "expander": {
-              "tree": {
-                ".csc-intake-current-owner": {
-                  "decorators": [
-                    {
-                      "func": "cspace.autocomplete", 
-                      "options": {
-                        "queryUrl": "../../../tenant/core/intake/autocomplete/currentOwner", 
-                        "vocabUrl": "../../../tenant/core/intake/source-vocab/currentOwner"
-                      }, 
-                      "type": "fluid"
-                    }
-                  ], 
-                  "value": "${{row}.currentOwner}"
-                }
-              }, 
-              "type": "fluid.noexpand"
-            }
-          }
-        }, 
-        "type": "fluid"
-      }
-    ]
-  }, 
-  ".csc-intake-currentLocation-label": {
-    "messagekey": "intake-currentLocationLabel"
-  }, 
-  ".csc-intake-currentLocationFitness-label": {
-    "messagekey": "intake-currentLocationFitnessLabel"
-  }, 
-  ".csc-intake-currentLocationGroup": {
-    "decorators": [
-      {
-        "func": "cspace.makeRepeatable", 
+            "repeatTree": {"expander": {
+                "tree": {".csc-intake-depositor": {
+                    "decorators": [{
+                        "func": "cspace.autocomplete",
+                        "type": "fluid",
+                        "options": {
+                            "queryUrl": "../../../tenant/core/intake/autocomplete/depositor",
+                            "vocabUrl": "../../../tenant/core/intake/source-vocab/depositor"
+                        }
+                    }],
+                    "value": "${{row}.depositor}"
+                }},
+                "type": "fluid.noexpand"
+            }},
+            "elPath": "depositors",
+            "hidePrimary": true
+        }
+    }]},
+    ".csc-intake-entryDateStart": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${entryDateStart}"
+    },
+    ".csc-intake-entryDateEnd-label": {"messagekey": "intake-entryDateEndLabel"},
+    ".csc-intake-updatedAtEnd-label": {"messagekey": "intake-updatedAtEndLabel"},
+    ".csc-intake-currentLocationGroup": {"decorators": [{
+        "func": "cspace.makeRepeatable",
+        "type": "fluid",
         "options": {
-          "elPath": "currentLocationGroup", 
-          "hidePrimary": true, 
-          "repeatTree": {
-            "expander": {
-              "tree": {
-                ".csc-intake-current-location": {
-                  "decorators": [
-                    {
-                      "func": "cspace.autocomplete", 
-                      "options": {
-                        "queryUrl": "../../../tenant/core/intake/autocomplete/currentLocation", 
-                        "vocabUrl": "../../../tenant/core/intake/source-vocab/currentLocation"
-                      }, 
-                      "type": "fluid"
-                    }
-                  ], 
-                  "value": "${{row}.currentLocation}"
-                }
-              }, 
-              "type": "fluid.noexpand"
-            }
-          }
-        }, 
-        "type": "fluid"
-      }
-    ]
-  }, 
-  ".csc-intake-currentLocationNote-label": {
-    "messagekey": "intake-currentLocationNoteLabel"
-  }, 
-  ".csc-intake-currentOwner-label": {
-    "messagekey": "intake-currentOwnerLabel"
-  }, 
-  ".csc-intake-depositor": {
-    "decorators": [
-      {
-        "func": "cspace.makeRepeatable", 
+            "repeatTree": {"expander": {
+                "tree": {".csc-intake-current-location": {
+                    "decorators": [{
+                        "func": "cspace.autocomplete",
+                        "type": "fluid",
+                        "options": {
+                            "queryUrl": "../../../tenant/core/intake/autocomplete/currentLocation",
+                            "vocabUrl": "../../../tenant/core/intake/source-vocab/currentLocation"
+                        }
+                    }],
+                    "value": "${{row}.currentLocation}"
+                }},
+                "type": "fluid.noexpand"
+            }},
+            "elPath": "currentLocationGroup",
+            "hidePrimary": true
+        }
+    }]},
+    ".csc-intake-currentOwner-label": {"messagekey": "intake-currentOwnerLabel"},
+    ".csc-intake-updatedAt-label": {"messagekey": "intake-updatedAtLabel"},
+    ".csc-intake-returnDateStart": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${returnDateStart}"
+    },
+    ".csc-intake-updatedAtStart-label": {"messagekey": "intake-updatedAtStartLabel"},
+    ".csc-intake-updatedBy": {"decorators": [{
+        "func": "cspace.makeRepeatable",
+        "type": "fluid",
         "options": {
-          "elPath": "depositors", 
-          "hidePrimary": true, 
-          "repeatTree": {
-            "expander": {
-              "tree": {
-                ".csc-intake-depositor": {
-                  "decorators": [
-                    {
-                      "func": "cspace.autocomplete", 
-                      "options": {
-                        "queryUrl": "../../../tenant/core/intake/autocomplete/depositor", 
-                        "vocabUrl": "../../../tenant/core/intake/source-vocab/depositor"
-                      }, 
-                      "type": "fluid"
-                    }
-                  ], 
-                  "value": "${{row}.depositor}"
-                }
-              }, 
-              "type": "fluid.noexpand"
-            }
-          }
-        }, 
-        "type": "fluid"
-      }
-    ]
-  }, 
-  ".csc-intake-depositor-label": {
-    "messagekey": "intake-depositorLabel"
-  }, 
-  ".csc-intake-entry-number": {
-    "decorators": [
-      {
-        "func": "cspace.makeRepeatable", 
+            "repeatTree": {"expander": {
+                "tree": {".csc-intake-updatedBy": "${{row}.updatedBy}"},
+                "type": "fluid.noexpand"
+            }},
+            "elPath": "updatedBys",
+            "hidePrimary": true
+        }
+    }]},
+    ".csc-intake-fieldCollectionEventName-label": {"messagekey": "intake-fieldCollectionEventNameLabel"},
+    ".csc-intake-updatedBy-label": {"messagekey": "intake-updatedByLabel"},
+    ".csc-intake-entryMethod-label": {"messagekey": "intake-entryMethodLabel"},
+    ".csc-intake-returnDateEnd": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${returnDateEnd}"
+    },
+    ".csc-intake-entry-reason": {"decorators": [{
+        "func": "cspace.makeRepeatable",
+        "type": "fluid",
         "options": {
-          "elPath": "entryNumbers", 
-          "hidePrimary": true, 
-          "repeatTree": {
-            "expander": {
-              "tree": {
-                ".csc-intake-entry-number": "${{row}.entryNumber}"
-              }, 
-              "type": "fluid.noexpand"
-            }
-          }
-        }, 
-        "type": "fluid"
-      }
-    ]
-  }, 
-  ".csc-intake-entry-reason": {
-    "decorators": [
-      {
-        "func": "cspace.makeRepeatable", 
+            "repeatTree": {"expander": {
+                "tree": {".csc-intake-entry-reason": {
+                    "default": "",
+                    "optionnames": [
+                        "Please select a value",
+                        "Enquiry",
+                        "Consideration",
+                        "Commission",
+                        "Loan"
+                    ],
+                    "optionlist": [
+                        "",
+                        "enquiry",
+                        "consideration",
+                        "commission",
+                        "loan"
+                    ],
+                    "selection": "${{row}.entryReason}"
+                }},
+                "type": "fluid.noexpand"
+            }},
+            "elPath": "entryReasons",
+            "hidePrimary": true
+        }
+    }]},
+    ".csc-intake-field-collection-event-name": {"decorators": [{
+        "func": "cspace.makeRepeatable",
+        "type": "fluid",
         "options": {
-          "elPath": "entryReasons", 
-          "hidePrimary": true, 
-          "repeatTree": {
-            "expander": {
-              "tree": {
-                ".csc-intake-entry-reason": {
-                  "default": "", 
-                  "optionlist": [
-                    "", 
-                    "enquiry", 
-                    "consideration", 
-                    "commission", 
-                    "loan"
-                  ], 
-                  "optionnames": [
-                    "Please select a value", 
-                    "Enquiry", 
-                    "Consideration", 
-                    "Commission", 
-                    "Loan"
-                  ], 
-                  "selection": "${{row}.entryReason}"
-                }
-              }, 
-              "type": "fluid.noexpand"
-            }
-          }
-        }, 
-        "type": "fluid"
-      }
-    ]
-  }, 
-  ".csc-intake-entryDate-label": {
-    "messagekey": "intake-entryDateLabel"
-  }, 
-  ".csc-intake-entryDateEnd": {
-    "decorators": [
-      {
-        "func": "cspace.datePicker", 
-        "type": "fluid"
-      }
-    ], 
-    "value": "${entryDateEnd}"
-  }, 
-  ".csc-intake-entryDateEnd-label": {
-    "messagekey": "intake-entryDateEndLabel"
-  }, 
-  ".csc-intake-entryDateStart": {
-    "decorators": [
-      {
-        "func": "cspace.datePicker", 
-        "type": "fluid"
-      }
-    ], 
-    "value": "${entryDateStart}"
-  }, 
-  ".csc-intake-entryDateStart-label": {
-    "messagekey": "intake-entryDateStartLabel"
-  }, 
-  ".csc-intake-entryMethod": {
-    "decorators": [
-      {
-        "func": "cspace.makeRepeatable", 
+            "repeatTree": {"expander": {
+                "tree": {".csc-intake-field-collection-event-name": "${{row}.fieldCollectionEventName}"},
+                "type": "fluid.noexpand"
+            }},
+            "elPath": "fieldCollectionEventNames",
+            "hidePrimary": true
+        }
+    }]},
+    ".csc-intake-entryNumber-label": {"messagekey": "intake-entryNumberLabel"},
+    ".csc-intake-updatedAtEnd": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${updatedAtEnd}"
+    },
+    ".csc-intake-updatedAtStart": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${updatedAtStart}"
+    },
+    ".csc-intake-returnDateStart-label": {"messagekey": "intake-returnDateStartLabel"},
+    ".csc-intake-currentLocationFitness-label": {"messagekey": "intake-currentLocationFitnessLabel"},
+    ".csc-intake-returnDate-label": {"messagekey": "intake-returnDateLabel"},
+    ".csc-intake-entry-number": {"decorators": [{
+        "func": "cspace.makeRepeatable",
+        "type": "fluid",
         "options": {
-          "elPath": "entryMethods", 
-          "hidePrimary": true, 
-          "repeatTree": {
-            "expander": {
-              "tree": {
-                ".csc-intake-entryMethod": {
-                  "decorators": [
-                    {
-                      "func": "cspace.termList", 
-                      "options": {
-                        "elPath": "entryMethod", 
-                        "root": "{row}", 
+            "repeatTree": {"expander": {
+                "tree": {".csc-intake-entry-number": "${{row}.entryNumber}"},
+                "type": "fluid.noexpand"
+            }},
+            "elPath": "entryNumbers",
+            "hidePrimary": true
+        }
+    }]},
+    ".csc-intake-entryDate-label": {"messagekey": "intake-entryDateLabel"},
+    ".csc-intake-entryMethod": {"decorators": [{
+        "func": "cspace.makeRepeatable",
+        "type": "fluid",
+        "options": {
+            "repeatTree": {"expander": {
+                "tree": {".csc-intake-entryMethod": {"decorators": [{
+                    "func": "cspace.termList",
+                    "type": "fluid",
+                    "options": {
+                        "root": "{row}",
+                        "elPath": "entryMethod",
                         "termListType": "entryMethod"
-                      }, 
-                      "type": "fluid"
                     }
-                  ]
-                }
-              }, 
-              "type": "fluid.noexpand"
-            }
-          }
-        }, 
-        "type": "fluid"
-      }
-    ]
-  }, 
-  ".csc-intake-entryMethod-label": {
-    "messagekey": "intake-entryMethodLabel"
-  }, 
-  ".csc-intake-entryNumber-label": {
-    "messagekey": "intake-entryNumberLabel"
-  }, 
-  ".csc-intake-entryReason-label": {
-    "messagekey": "intake-entryReasonLabel"
-  }, 
-  ".csc-intake-field-collection-event-name": {
-    "decorators": [
-      {
-        "func": "cspace.makeRepeatable", 
-        "options": {
-          "elPath": "fieldCollectionEventNames", 
-          "hidePrimary": true, 
-          "repeatTree": {
-            "expander": {
-              "tree": {
-                ".csc-intake-field-collection-event-name": "${{row}.fieldCollectionEventName}"
-              }, 
-              "type": "fluid.noexpand"
-            }
-          }
-        }, 
-        "type": "fluid"
-      }
-    ]
-  }, 
-  ".csc-intake-fieldCollectionEventName-label": {
-    "messagekey": "intake-fieldCollectionEventNameLabel"
-  }, 
-  ".csc-intake-returnDate-label": {
-    "messagekey": "intake-returnDateLabel"
-  }, 
-  ".csc-intake-returnDateEnd": {
-    "decorators": [
-      {
-        "func": "cspace.datePicker", 
-        "type": "fluid"
-      }
-    ], 
-    "value": "${returnDateEnd}"
-  }, 
-  ".csc-intake-returnDateEnd-label": {
-    "messagekey": "intake-returnDateEndLabel"
-  }, 
-  ".csc-intake-returnDateStart": {
-    "decorators": [
-      {
-        "func": "cspace.datePicker", 
-        "type": "fluid"
-      }
-    ], 
-    "value": "${returnDateStart}"
-  }, 
-  ".csc-intake-returnDateStart-label": {
-    "messagekey": "intake-returnDateStartLabel"
-  }, 
-  ".csc-intake-updatedAt-label": {
-    "messagekey": "intake-updatedAtLabel"
-  }, 
-  ".csc-intake-updatedAtEnd": {
-    "decorators": [
-      {
-        "func": "cspace.datePicker", 
-        "type": "fluid"
-      }
-    ], 
-    "value": "${updatedAtEnd}"
-  }, 
-  ".csc-intake-updatedAtEnd-label": {
-    "messagekey": "intake-updatedAtEndLabel"
-  }, 
-  ".csc-intake-updatedAtStart": {
-    "decorators": [
-      {
-        "func": "cspace.datePicker", 
-        "type": "fluid"
-      }
-    ], 
-    "value": "${updatedAtStart}"
-  }, 
-  ".csc-intake-updatedAtStart-label": {
-    "messagekey": "intake-updatedAtStartLabel"
-  }, 
-  ".csc-intake-updatedBy": {
-    "decorators": [
-      {
-        "func": "cspace.makeRepeatable", 
-        "options": {
-          "elPath": "updatedBys", 
-          "hidePrimary": true, 
-          "repeatTree": {
-            "expander": {
-              "tree": {
-                ".csc-intake-updatedBy": "${{row}.updatedBy}"
-              }, 
-              "type": "fluid.noexpand"
-            }
-          }
-        }, 
-        "type": "fluid"
-      }
-    ]
-  }, 
-  ".csc-intake-updatedBy-label": {
-    "messagekey": "intake-updatedByLabel"
-  }
+                }]}},
+                "type": "fluid.noexpand"
+            }},
+            "elPath": "entryMethods",
+            "hidePrimary": true
+        }
+    }]},
+    ".csc-intake-returnDateEnd-label": {"messagekey": "intake-returnDateEndLabel"},
+    ".csc-intake-entryDateEnd": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${entryDateEnd}"
+    },
+    ".csc-intake-currentLocation-label": {"messagekey": "intake-currentLocationLabel"},
+    ".csc-intake-entryDateStart-label": {"messagekey": "intake-entryDateStartLabel"},
+    ".csc-intake-entryReason-label": {"messagekey": "intake-entryReasonLabel"},
+    ".csc-intake-currentLocationNote-label": {"messagekey": "intake-currentLocationNoteLabel"}
 }

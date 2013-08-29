@@ -1,0 +1,298 @@
+{
+  "work": {
+    "properties": {
+      "csid": {
+        "type": "string"
+      }, 
+      "fields": {
+        "properties": {
+          "broaderContext": {
+            "type": "string"
+          }, 
+          "broaderContextType": {
+            "default": "", 
+            "type": "string"
+          }, 
+          "createdAt": {
+            "type": "date"
+          }, 
+          "createdBy": {
+            "type": "string"
+          }, 
+          "creatorGroup": {
+            "items": {
+              "properties": {
+                "_primary": {
+                  "default": true, 
+                  "type": "boolean"
+                }, 
+                "creator": {
+                  "type": "string"
+                }, 
+                "creatorType": {
+                  "default": "", 
+                  "type": "string"
+                }
+              }, 
+              "type": "object"
+            }, 
+            "type": "array"
+          }, 
+          "csid": {
+            "type": "string"
+          }, 
+          "deprecatedRefName": {
+            "type": "string"
+          }, 
+          "equivalentContexts": {
+            "items": {
+              "properties": {
+                "_primary": {
+                  "default": true, 
+                  "type": "boolean"
+                }, 
+                "equivalentContext": {
+                  "type": "string"
+                }
+              }, 
+              "type": "object"
+            }, 
+            "type": "array"
+          }, 
+          "inAuthority": {
+            "type": "string"
+          }, 
+          "narrowerContexts": {
+            "items": {
+              "properties": {
+                "_primary": {
+                  "default": true, 
+                  "type": "boolean"
+                }, 
+                "narrowerContext": {
+                  "type": "string"
+                }, 
+                "narrowerContextType": {
+                  "default": "", 
+                  "type": "string"
+                }
+              }, 
+              "type": "object"
+            }, 
+            "type": "array"
+          }, 
+          "publisherGroup": {
+            "items": {
+              "properties": {
+                "_primary": {
+                  "default": true, 
+                  "type": "boolean"
+                }, 
+                "publisher": {
+                  "type": "string"
+                }, 
+                "publisherType": {
+                  "default": "", 
+                  "type": "string"
+                }
+              }, 
+              "type": "object"
+            }, 
+            "type": "array"
+          }, 
+          "refName": {
+            "type": "string"
+          }, 
+          "relatedTerms": {
+            "items": {
+              "properties": {
+                "_primary": {
+                  "default": true, 
+                  "type": "boolean"
+                }, 
+                "relatedTerm": {
+                  "type": "string"
+                }
+              }, 
+              "type": "object"
+            }, 
+            "type": "array"
+          }, 
+          "shortIdentifier": {
+            "type": "string"
+          }, 
+          "tenantId": {
+            "type": "string"
+          }, 
+          "updatedAt": {
+            "type": "date"
+          }, 
+          "updatedBy": {
+            "type": "string"
+          }, 
+          "uri": {
+            "type": "string"
+          }, 
+          "workDateGroup": {
+            "items": {
+              "properties": {
+                "_primary": {
+                  "default": true, 
+                  "type": "boolean"
+                }, 
+                "dateAssociation": {
+                  "type": "string"
+                }, 
+                "dateDisplayDate": {
+                  "type": "string"
+                }, 
+                "dateEarliestScalarValue": {
+                  "type": "date"
+                }, 
+                "dateEarliestSingleCertainty": {
+                  "default": "", 
+                  "type": "string"
+                }, 
+                "dateEarliestSingleDay": {
+                  "type": "integer"
+                }, 
+                "dateEarliestSingleEra": {
+                  "default": "", 
+                  "type": "string"
+                }, 
+                "dateEarliestSingleMonth": {
+                  "type": "integer"
+                }, 
+                "dateEarliestSingleQualifier": {
+                  "default": "", 
+                  "type": "string"
+                }, 
+                "dateEarliestSingleQualifierUnit": {
+                  "default": "", 
+                  "type": "string"
+                }, 
+                "dateEarliestSingleQualifierValue": {
+                  "type": "integer"
+                }, 
+                "dateEarliestSingleYear": {
+                  "type": "integer"
+                }, 
+                "dateLatestCertainty": {
+                  "default": "", 
+                  "type": "string"
+                }, 
+                "dateLatestDay": {
+                  "type": "integer"
+                }, 
+                "dateLatestEra": {
+                  "default": "", 
+                  "type": "string"
+                }, 
+                "dateLatestMonth": {
+                  "type": "integer"
+                }, 
+                "dateLatestQualifier": {
+                  "default": "", 
+                  "type": "string"
+                }, 
+                "dateLatestQualifierUnit": {
+                  "default": "", 
+                  "type": "string"
+                }, 
+                "dateLatestQualifierValue": {
+                  "type": "integer"
+                }, 
+                "dateLatestScalarValue": {
+                  "type": "date"
+                }, 
+                "dateLatestYear": {
+                  "type": "integer"
+                }, 
+                "dateNote": {
+                  "type": "string"
+                }, 
+                "datePeriod": {
+                  "type": "string"
+                }, 
+                "scalarValuesComputed": {
+                  "default": "true", 
+                  "type": "string"
+                }
+              }, 
+              "type": "object"
+            }, 
+            "type": "array"
+          }, 
+          "workHistoryNote": {
+            "type": "string"
+          }, 
+          "workTermGroup": {
+            "items": {
+              "properties": {
+                "_primary": {
+                  "default": true, 
+                  "type": "boolean"
+                }, 
+                "termDisplayName": {
+                  "type": "string"
+                }, 
+                "termLanguage": {
+                  "default": "", 
+                  "type": "string"
+                }, 
+                "termName": {
+                  "type": "string"
+                }, 
+                "termPrefForLang": {
+                  "default": false, 
+                  "type": "boolean"
+                }, 
+                "termQualifier": {
+                  "type": "string"
+                }, 
+                "termSource": {
+                  "type": "string"
+                }, 
+                "termSourceDetail": {
+                  "type": "string"
+                }, 
+                "termSourceID": {
+                  "type": "string"
+                }, 
+                "termSourceNote": {
+                  "type": "string"
+                }, 
+                "termFormattedDisplayName": {
+                  "type": "string"
+                }, 
+                "termStatus": {
+                  "default": "", 
+                  "type": "string"
+                }, 
+                "termType": {
+                  "type": "string"
+                }
+              }, 
+              "type": "object"
+            }, 
+            "type": "array"
+          }, 
+          "workType": {
+            "default": "", 
+            "type": "string"
+          }
+        }, 
+        "type": "object"
+      }, 
+      "relations": {
+        "default": {}, 
+        "type": "object"
+      }, 
+      "termsUsed": {
+        "default": [], 
+        "type": "array"
+      }
+    }, 
+    "type": "object"
+  }
+}

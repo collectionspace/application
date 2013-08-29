@@ -5,7 +5,7 @@
         <repeat id="conceptTermGroupList/conceptTermGroup">
             <!-- Fields common across all authority items -->
             <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes"
-                mini="summary,number,search,list,relate">
+                mini="summary,number,search,list,relate" services-should-index="true">
                 <selector>conceptAuthority-termDisplayName</selector>
                 <title-selector>titleBar-displayName</title-selector>
             </field>
@@ -51,6 +51,9 @@
             </field>
             <field id="termSourceNote">
                 <selector>conceptAuthority-termSourceNote</selector>
+            </field>
+            <field id="termFormattedDisplayName">
+                <selector>conceptAuthority-termFormattedDisplayName</selector>
             </field>
             <!-- Fields specific to Concept terms -->
             <field id="historicalStatus">

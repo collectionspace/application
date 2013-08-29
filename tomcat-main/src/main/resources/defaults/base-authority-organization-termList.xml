@@ -5,7 +5,7 @@
         <repeat id="orgTermGroupList/orgTermGroup">
             <!-- Fields common across all authority items -->
             <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes"
-                mini="summary,number,search,list,relate">
+                mini="summary,number,search,list,relate" services-should-index="true">
                 <selector>orgAuthority-termDisplayName</selector>
                 <title-selector>titleBar-termDisplayName</title-selector>
             </field>
@@ -50,6 +50,9 @@
             </field>
             <field id="termSourceNote">
                 <selector>orgAuthority-termSourceNote</selector>
+            </field>
+            <field id="termFormattedDisplayName">
+                <selector>orgAuthority-termFormattedDisplayName</selector>
             </field>
             <!-- Fields specific to Organization terms -->
             <field id="mainBodyName">

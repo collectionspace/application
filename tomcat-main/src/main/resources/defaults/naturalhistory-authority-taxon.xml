@@ -14,7 +14,7 @@
 		<field id="family" section="naturalhistory" autocomplete="taxon-taxon"/>
 		
 		<repeat id="plantAttributesGroupList/plantAttributesGroup" section="naturalhistory">
-			<field id="attributeDate" section="naturalhistory" ui-type="date"/>
+			<field id="attributeDate" section="naturalhistory" ui-type="date" datatype="date"/>
 			<field id="recordedBy" section="naturalhistory" autocomplete="person-person"/>
 			<field id="height" section="naturalhistory"/>
 			<field id="width" section="naturalhistory"/>
