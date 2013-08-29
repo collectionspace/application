@@ -46,6 +46,9 @@
             <field id="termSourceNote">
                 <selector>workAuthority-termSourceNote</selector>
             </field>
+            <field id="termFormattedDisplayName">
+                <selector>workAuthority-termFormattedDisplayName</selector>
+            </field>
         </repeat>
     </section>
 </record>

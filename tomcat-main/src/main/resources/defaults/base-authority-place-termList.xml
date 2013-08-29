@@ -56,6 +56,9 @@
             <field id="termSourceNote">
                 <selector>placeAuthority-termSourceNote</selector>
             </field>
+            <field id="termFormattedDisplayName">
+                <selector>placeAuthority-termFormattedDisplayName</selector>
+            </field>
             <!-- Fields specific to Place terms -->
             <field id="historicalStatus">
                 <selector>placeAuthority-historicalStatus</selector>

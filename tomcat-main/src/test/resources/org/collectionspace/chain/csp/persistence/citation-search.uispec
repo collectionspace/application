@@ -202,6 +202,9 @@
   ".csc-citation-termSourceNote-label": {
     "messagekey": "preferredCI-termSourceNoteLabel"
   }, 
+  ".csc-citation-termFormattedDisplayName-label": {
+    "messagekey": "preferredCI-termFormattedDisplayNameLabel"
+  }, 
   ".csc-citation-termStatus-label": {
     "messagekey": "preferredCI-termStatusLabel"
   }, 

@@ -437,6 +437,7 @@
                                 ".csc-conceptAuthority-termSourceDetail": "${{row}.termSourceDetail}", 
                                 ".csc-conceptAuthority-termSourceID": "${{row}.termSourceID}", 
                                 ".csc-conceptAuthority-termSourceNote": "${{row}.termSourceNote}", 
+                                ".csc-conceptAuthority-termFormattedDisplayName": "${{row}.termFormattedDisplayName}", 
                                 ".csc-conceptAuthority-termStatus": {
                                   "default": "provisional", 
                                   "optionlist": [
@@ -512,6 +513,9 @@
                   }, 
                   ".csc-preferredCA-termSourceNote-label": {
                     "messagekey": "preferredCA-termSourceNoteLabel"
+                  }, 
+                  ".csc-preferredCA-termFormattedDisplayName-label": {
+                    "messagekey": "preferredCA-termFormattedDisplayNameLabel"
                   }, 
                   ".csc-preferredCA-termStatus-label": {
                     "messagekey": "preferredCA-termStatusLabel"
