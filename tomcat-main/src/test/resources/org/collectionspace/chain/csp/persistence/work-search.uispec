@@ -151,7 +151,10 @@
   }, 
   ".csc-work-termSourceNote-label": {
     "messagekey": "preferredWork-termSourceNoteLabel"
-  }, 
+  },
+  ".csc-work-termFormattedDisplayName-label": {
+    "messagekey": "preferredWork-termFormattedDisplayNameLabel"
+  },
   ".csc-work-termStatus-label": {
     "messagekey": "preferredWork-termStatusLabel"
   }, 

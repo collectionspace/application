@@ -620,6 +620,7 @@
                                 ".csc-citationAuthority-termSourceDetail": "${{row}.termSourceDetail}", 
                                 ".csc-citationAuthority-termSourceID": "${{row}.termSourceID}", 
                                 ".csc-citationAuthority-termSourceNote": "${{row}.termSourceNote}", 
+                                ".csc-citationAuthority-termFormattedDisplayName": "${{row}.termFormattedDisplayName}", 
                                 ".csc-citationAuthority-termStatus": {
                                   "default": "provisional", 
                                   "optionlist": [
@@ -702,6 +703,9 @@
                   }, 
                   ".csc-preferredCI-termSourceNote-label": {
                     "messagekey": "preferredCI-termSourceNoteLabel"
+                  }, 
+                  ".csc-preferredCI-termFormattedDisplayName-label": {
+                    "messagekey": "preferredCI-termFormattedDisplayNameLabel"
                   }, 
                   ".csc-preferredCI-termStatus-label": {
                     "messagekey": "preferredCI-termStatusLabel"

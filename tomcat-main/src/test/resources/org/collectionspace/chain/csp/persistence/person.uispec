@@ -1399,7 +1399,8 @@
                                 }, 
                                 ".csc-personAuthority-termSourceDetail": "${{row}.termSourceDetail}", 
                                 ".csc-personAuthority-termSourceID": "${{row}.termSourceID}", 
-                                ".csc-personAuthority-termSourceNote": "${{row}.termSourceNote}", 
+                                ".csc-personAuthority-termSourceNote": "${{row}.termSourceNote}",
+                                ".csc-personAuthority-termFormattedDisplayName": "${{row}.termFormattedDisplayName}",
                                 ".csc-personAuthority-termStatus": {
                                   "default": "provisional", 
                                   "optionlist": [
@@ -1510,6 +1511,9 @@
                   }, 
                   ".csc-preferredPA-termSourceNote-label": {
                     "messagekey": "preferredPA-termSourceNoteLabel"
+                  }, 
+                  ".csc-preferredPA-termFormattedDisplayName-label": {
+                    "messagekey": "preferredPA-termFormattedDisplayNameLabel"
                   }, 
                   ".csc-preferredPA-termStatus-label": {
                     "messagekey": "preferredPA-termStatusLabel"
