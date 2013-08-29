@@ -212,6 +212,44 @@
 				<option id="donor">donor</option>
 				<option id="employee">employee</option>
 		</options>
+	</instance>	  
+	<instance id="vocab-worktype">
+		<web-url>worktype</web-url>
+		<title-ref>worktype</title-ref>
+		<title>Work Type</title>
+		<options>
+			<option id="built">built</option>
+			<option id="movable">movable</option>
+			<option id="movingimage">moving image</option>
+			<option id="dance">dance</option>
+			<option id="theater">theater</option>
+			<option id="performance">performance</option>
+			<option id="music">music</option>
+		</options>
+	</instance>
+	<instance id="vocab-workcreatortype">
+		<web-url>workcreatortype</web-url>
+		<title-ref>workcreatortype</title-ref>
+		<title>Work Creator Type</title>
+		<options>
+			<option id="architect">architect</option>
+			<option id="artist">artist</option>
+			<option id="choreographer">choreographer</option>
+			<option id="composer">composer</option>
+			<option id="director">director</option>
+			<option id="painter">painter</option>
+			<option id="scuptor">scuptor</option>
+			<option id="writer">writer</option>
+		</options>
+	</instance>
+	<instance id="vocab-workpublishertype">
+		<web-url>workpublishertype</web-url>
+		<title-ref>workpublishertype</title-ref>
+		<title>Work Publisher Type</title>
+		<options>
+			<option id="distributor">distributor</option>
+			<option id="publisher">publisher</option>
+		</options>
 	</instance>
 	<instance id="vocab-citationtermtype">
 		<web-url>citationtermtype</web-url>
