@@ -52,6 +52,7 @@
                 <selector>locationAuthority-termSourceNote</selector>
             </field>
             <field id="termFormattedDisplayName">
+                <selector>locationAuthority-termFormattedDisplayName</selector>
             </field>
             <!-- Fields specific to Location terms -->
             <!-- (no such fields in current schema) -->

@@ -13,9 +13,6 @@
 			<field id="termName">
 				<selector>citationAuthority-termName</selector>
 			</field>
-			<field id="termFormattedDisplayName">
-				<selector>citationAuthority-termFormattedDisplayName</selector>
-			</field>
 			<field id="termType" ui-search="repeatable" autocomplete="vocab-citationtermtype"
 				ui-type="enum">
 				<selector>citationAuthority-termType</selector>
@@ -52,7 +49,10 @@
 			<field id="termSourceNote">
 				<selector>citationAuthority-termSourceNote</selector>
 			</field>
-            <!-- Fields specific to Citation terms -->
+			<field id="termFormattedDisplayName">
+				<selector>citationAuthority-termFormattedDisplayName</selector>
+			</field>
+			<!-- Fields specific to Citation terms -->
 			<field id="termFullCitation" ui-search="repeatable">
 				<selector>citationAuthority-termFullCitation</selector>
 			</field>

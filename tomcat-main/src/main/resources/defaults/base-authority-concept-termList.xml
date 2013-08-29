@@ -53,6 +53,7 @@
                 <selector>conceptAuthority-termSourceNote</selector>
             </field>
             <field id="termFormattedDisplayName">
+				<selector>conceptAuthority-termFormattedDisplayName</selector>
             </field>
             <!-- Fields specific to Concept terms -->
             <field id="historicalStatus">
