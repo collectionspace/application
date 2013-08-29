@@ -52,8 +52,6 @@
 			<field id="termSourceNote">
 				<selector>citationAuthority-termSourceNote</selector>
 			</field>
-            <field id="termFormattedDisplayName">
-            </field>
             <!-- Fields specific to Citation terms -->
 			<field id="termFullCitation" ui-search="repeatable">
 				<selector>citationAuthority-termFullCitation</selector>
