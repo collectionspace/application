@@ -137,7 +137,7 @@ public class BlobStorage extends GenericStorage {
 			else if(r.isType("batch")){
 				Document doc = null;
 				Map<String,Document> parts=new HashMap<String,Document>();
-				for(String section : r.getServicesRecordPaths()) {
+				for(String section : r.getServicesRecordPathKeys()) {
 					String path=r.getServicesRecordPath(section);
 					String[] record_path=path.split(":",2);
 					doc=XmlJsonConversion.convertToXml(r,restrictions,section,"POST");
