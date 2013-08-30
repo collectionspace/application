@@ -3,7 +3,7 @@
         <field id="tenantId" section="collectionspace_core" attributes="GET"/>
         <field id="uri" section="collectionspace_core" mini="search,list,relate" attributes="GET"/>
         <field id="refName" section="collectionspace_core" mini="search,list,relate" attributes="GET"/>
-        <field id="createdAt" section="collectionspace_core" ui-type="date" datatype="date"
+        <field id="createdAt" section="collectionspace_core" ui-search="range" ui-type="date" datatype="date"
             attributes="GET"/>
         <field id="updatedAt" section="collectionspace_core" ui-search="range" ui-type="date"
             datatype="date" attributes="GET" mini="search,list,relate"/>
