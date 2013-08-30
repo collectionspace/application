@@ -443,7 +443,7 @@ public class Services {
 	 *		<service:xpath>objectNumber</service:xpath>
 	 *	</service:RefnameDisplayNameField>
 	 */
-	private void doRefnameDisplayNameField(Record record, Element ele, Namespace thisns, String section, boolean isAuthority) {
+	private void doRefnameDisplayNameField(Record record, Element ele, Namespace thisns) {
 		for (FieldSet fieldSet : record.getAllFieldFullList()) {
 			if (fieldSet.isServicesRefnameDisplayName() == true) {
 				Element doRefnameDisplayNameEle = ele.addElement(new QName("RefnameDisplayNameField", thisns));
@@ -461,14 +461,15 @@ public class Services {
 	}
 	
 	/**
-	 * <service:DocHandlerParams>
-	 * @param r
-	 * @param el
-	 * @param thisns
-	 * @param section
-	 * @param isAuthority
-	 */
-	private void doDocHandlerParams(Record r, Element el, Namespace thisns, String section, Boolean isAuthority) { //FIXME: Rename this method to doDocHandlerParms
+     * <service:DocHandlerParams>
+     *
+     * @param r
+     * @param el
+     * @param thisns
+     * @param isAuthority
+     */
+    
+	private void doDocHandlerParams(Record r, Element el, Namespace thisns, Boolean isAuthority) { //FIXME: Rename this method to doDocHandlerParms
 		//<service:DocHandlerParams>
 		Element dhele = el.addElement(new QName("DocHandlerParams", thisns));
 		Element pele = dhele.addElement(new QName("params", thisns));
@@ -485,10 +486,10 @@ public class Services {
 			sh_rele.addText("true");
 		}
 
-		doRefnameDisplayNameField(r, pele, thisns, section, isAuthority);
+		doRefnameDisplayNameField(r, pele, thisns);
 		
 		Element lrele = pele.addElement(new QName("ListResultsFields", thisns));
-		doLists(r, lrele, thisns, section, isAuthority);
+		doLists(r, lrele, thisns, isAuthority);
 	}
 
 	/**
@@ -691,7 +692,7 @@ public class Services {
 			docHandlerElement.addText(docHandlerName);
 			
 			//<service:DocHandlerParams> include fields to show in list results
-			doDocHandlerParams(r, el, this.nsservices, this.domainsection, isAuthority);
+			doDocHandlerParams(r, el, this.nsservices, isAuthority);
 	
 			//<service:validatorHandler>
 			String validatorHandlerName = r.getServicesValidatorHandler(isAuthority);
@@ -851,26 +852,26 @@ public class Services {
 	}
 			
 	//defines fields to show in list results
-	private void doLists(Record record, Element el, Namespace thisns, String section, boolean isAuthority) {
+	private void doLists(Record record, Element el, Namespace thisns, boolean isAuthority) {
 		Record r = record;
 		//
 		// If we're dealing with an Authority/Vocabulary then we need to use the base Authority/Vocabulary record and
 		// not the term/item record.
 		//
 		if (isAuthority == true) {
-			Spec spec = r.getSpec();
-			r = spec.getRecord(BASE_AUTHORITY_RECORD);
-			section = Record.COLLECTIONSPACE_COMMON_PART_NAME;
+			Spec recordSpec = r.getSpec();
+			r = recordSpec.getRecord(BASE_AUTHORITY_RECORD);
 		}
 		
 		FieldSet[] allMiniSummaryList = r.getAllMiniSummaryList();
 		if (allMiniSummaryList == null) {
 			log.error(String.format("allMiniSummaryList for record '%s' is null.", r.getRecordName()));
 		}
+                String section;
 		for (FieldSet fs : allMiniSummaryList) {
-                    // Ignore passed-in value for section, in order to create list results fields for every section
-                    if (fs.isInServices()) { // && fs.getSection().equals(section)) {
+                    if (fs.isInServices()) {
 				String fieldNamePath = this.getFullyQualifiedFieldPath(fs);
+                                section = fs.getSection();
 				//
 				// Add the <ListResultField> element
 				//
@@ -946,9 +947,10 @@ public class Services {
 	private boolean createAuthRefOrTermRef(Element auth, Namespace types, Record r, String section, FieldSet in) {
 		boolean result = false;
 		String fieldName = in.getID();
+                String sec = in.getSection(); // for debugging - remove after
 		
                 // Ignore passed-in section, in order to create authRefs and termRefs for every section
-		if (isAuthOrTermRef(in)) { // && in.getSection().equals(section)
+		if (isAuthOrTermRef(in) && in.getSection().equals(section)) {
 			result = true; // Let the caller know we created a referenced term 
 			Boolean isEnum = false;
 			if (in instanceof Field) {
@@ -1007,8 +1009,8 @@ public class Services {
 
 			if (in.isASelfRenderer() == true) {
 				String fieldSetServicesType = in.getServicesType(false /* not NS qualified */);
-				Spec spec = in.getRecord().getSpec();
-				Record subRecord = spec.getRecord(fieldSetServicesType); // find a record that corresponds to the fieldset's service type
+				Spec recordSpec = in.getRecord().getSpec();
+				Record subRecord = recordSpec.getRecord(fieldSetServicesType); // find a record that corresponds to the fieldset's service type
 				//
 				// Iterate through each field of the subrecord
 				//
