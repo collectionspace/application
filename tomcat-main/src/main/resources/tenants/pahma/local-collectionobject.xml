@@ -2,8 +2,6 @@
 	<services-record-path id="pahma">collectionobjects_pahma:http://collectionspace.org/services/collectionobject/local/pahma,collectionobjects_pahma</services-record-path>
 
 	<section id="coreInformation">
-		<!-- Add ui-search and ui-type -->
-		<field id="createdAt" ui-search="range" ui-type="date"/>
 		<field id="nametitle">
 			<!-- Change merges -->
 			<!-- TODO: For some reason, this kills the xmlmerge. Do it in the base file for now, but figure out a way to fix it. -->

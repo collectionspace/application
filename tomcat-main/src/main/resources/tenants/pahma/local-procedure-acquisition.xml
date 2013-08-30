@@ -1,9 +1,4 @@
 <record id="acquisition">
-	<section id="coreInformation">
-		<!-- Add ui-search and ui-type -->
-		<field id="createdAt" ui-search="range" ui-type="date"/>
-	</section>
-
 	<section id="acquisitionInformation">
 		<field id="acquisitionReferenceNumber">
 			<!-- Change options -->
