@@ -11,7 +11,7 @@
 	
 	<services-record-path id="naturalhistory">persons_naturalhistory:http://collectionspace.org/services/person/domain/naturalhistory,persons_naturalhistory</services-record-path>
     <section id="identificationInformation">
-        <field id="entityType" section="naturalhistory">
+        <field id="entityType" section="naturalhistory" mini="list">
         </field>
     </section>
   
