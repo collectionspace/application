@@ -317,7 +317,7 @@ public class Services {
 		
 		if (addAuths) {
 			Element authRefsElement = pele.addElement(new QName("properties", thisns));
-			boolean createdAuthRefs = doAuthRefs(authRefsElement, this.nstypes, r, section);
+			boolean createdAuthRefs = doAuthRefsAndTermRefs(authRefsElement, this.nstypes, r, section);
 			if (createdAuthRefs == false) {
 				pele.remove(authRefsElement);
 			}
@@ -862,15 +862,19 @@ public class Services {
 			log.error(String.format("allMiniSummaryList for record '%s' is null.", r.getRecordName()));
 		}
 		for (FieldSet fs : allMiniSummaryList) {
-			if (fs.isInServices() && fs.getSection().equals(section)) {
+                    // Ignore passed-in value for section, in order to create list results fields for every section
+                    if (fs.isInServices()) { // && fs.getSection().equals(section)) {
 				String fieldNamePath = this.getFullyQualifiedFieldPath(fs);
 				//
 				// Add the <ListResultField> element
 				//
 				Element lrf = el.addElement(new QName("ListResultField", thisns));
-				if (!section.equals(Record.COLLECTIONSPACE_COMMON_PART_NAME)) {
+                                // Only list result fields in sections other than the common part should
+                                // have a 'schema' element. (By convention, if this element is missing,
+                                // the field is from the common part.)
+                                if (!section.equals(Record.COLLECTIONSPACE_COMMON_PART_NAME)) {
 					Element slrf = lrf.addElement(new QName("schema", thisns));
-					slrf.addText(r.getServicesSchemaName(section));
+					slrf.addText(r.getServicesSchemaName(fs.getSection()));
 				} else {
 					log.isDebugEnabled();
 				}
@@ -931,13 +935,14 @@ public class Services {
 	}
 	
 	/*
-	 * If we authRef's or termRef's, then we create an entry in the bindings xml and return 'true'; otherwise, we return 'false'
+	 * If we have authRef's or termRef's, then we create an entry in the bindings xml and return 'true'; otherwise, we return 'false'
 	 */
-	private boolean createAuthRef(Element auth, Namespace types, Record r, String section, FieldSet in) {
+	private boolean createAuthRefOrTermRef(Element auth, Namespace types, Record r, String section, FieldSet in) {
 		boolean result = false;
 		String fieldName = in.getID();
 		
-		if (in.getSection().equals(section) && isAuthOrTermRef(in)) {
+                // Ignore passed-in section, in order to create authRefs and termRefs for every section
+		if (isAuthOrTermRef(in)) { // && in.getSection().equals(section)
 			result = true; // Let the caller know we created a referenced term 
 			Boolean isEnum = false;
 			if (in instanceof Field) {
@@ -976,15 +981,19 @@ public class Services {
 	}
 	
 	/*
-	 * Creates a set of Service binding authrefs of the following form:
+	 * Creates a set of Service binding authRefs and termRefs similar in form to these examples:
 	 *  <types:item>
 	 *      <types:key>authRef</types:key>
 	 *      <types:value>currentOwner</types:value>
 	 *  </types:item>
+         *  <types:item>
+	 *      <types:key>termRef</types:key>
+	 *      <types:value>termLanguage</types:value>
+	 *  </types:item>
 	 *  
 	 *  If we don't create any entries then we'll return 'false' to the caller;
 	 */
-	private boolean doAuthRefs(Element auth, Namespace types, Record r, String section) {
+	private boolean doAuthRefsAndTermRefs(Element auth, Namespace types, Record r, String section) {
 		boolean result = false;
 		
 		for (FieldSet in : r.getAllFieldFullList("")) {
@@ -997,13 +1006,13 @@ public class Services {
 				//
 				// Iterate through each field of the subrecord
 				//
-				boolean createdAuths = doAuthRefs(auth, types, subRecord, section); // Recursive call
+				boolean createdAuths = doAuthRefsAndTermRefs(auth, types, subRecord, section); // Recursive call
 				if (createdAuths == true) {
 					result = true; // Let the caller know we created at least one auth/term reference
 				}
 					
 			} else {
-				boolean createdAuths = createAuthRef(auth, types, r, section, in);
+				boolean createdAuths = createAuthRefOrTermRef(auth, types, r, section, in);
 				if (createdAuths == true) {
 					result = true; // Let the caller know we created at least one auth/term reference
 				}
