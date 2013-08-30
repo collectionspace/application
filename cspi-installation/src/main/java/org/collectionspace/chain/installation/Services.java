@@ -478,6 +478,12 @@ public class Services {
 			Element sh_rele = pele.addElement(new QName("SupportsHierarchy", thisns));
 			sh_rele.addText("true");
 		}
+		
+		if (r.supportsVersioning() == true) {
+			//<service:SupportsVersioning>true</service:SupportsVersioning>
+			Element sh_rele = pele.addElement(new QName("SupportsVersioning", thisns));
+			sh_rele.addText("true");
+		}
 
 		doRefnameDisplayNameField(r, pele, thisns, section, isAuthority);
 		
