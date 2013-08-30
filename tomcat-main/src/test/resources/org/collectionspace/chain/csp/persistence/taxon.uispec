@@ -278,6 +278,7 @@
                                 ".csc-taxonAuthority-termSourceDetail": "${{row}.termSourceDetail}", 
                                 ".csc-taxonAuthority-termSourceID": "${{row}.termSourceID}", 
                                 ".csc-taxonAuthority-termSourceNote": "${{row}.termSourceNote}", 
+                                ".csc-taxonAuthority-termFormattedDisplayName": "${{row}.termFormattedDisplayName}", 
                                 ".csc-taxonAuthority-termStatus": {
                                   "default": "provisional", 
                                   "optionlist": [
@@ -353,6 +354,9 @@
                   }, 
                   ".csc-preferredTA-termSourceNote-label": {
                     "messagekey": "preferredTA-termSourceNoteLabel"
+                  }, 
+                  ".csc-preferredTA-termFormattedDisplayName-label": {
+                    "messagekey": "preferredTA-termFormattedDisplayNameLabel"
                   }, 
                   ".csc-preferredTA-termStatus-label": {
                     "messagekey": "preferredTA-termStatusLabel"

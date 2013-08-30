@@ -51,6 +51,9 @@
             <field id="termSourceNote">
                 <selector>orgAuthority-termSourceNote</selector>
             </field>
+            <field id="termFormattedDisplayName">
+                <selector>orgAuthority-termFormattedDisplayName</selector>
+            </field>
             <!-- Fields specific to Organization terms -->
             <field id="mainBodyName">
                 <selector>orgAuthority-mainBodyName</selector>

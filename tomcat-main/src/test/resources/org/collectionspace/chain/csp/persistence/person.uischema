@@ -501,6 +501,9 @@
                 "termSourceNote": {
                   "type": "string"
                 }, 
+                "termFormattedDisplayName": {
+                  "type": "string"
+                }, 
                 "termStatus": {
                   "default": "provisional", 
                   "type": "string"

@@ -306,7 +306,7 @@ public class XmlJsonConversion {
                 try {
                     String path = r.getServicesRecordPath(section);
                     if (path != null) {
-                        String[] parts=r.getServicesRecordPath(section).split(":",2);
+                        String[] parts=path.split(":",2);
                         String[] rootel=parts[1].split(",");
                         Element root=doc.addElement(new QName(rootel[1],new Namespace("ns2",rootel[0])));
                         if(r.getAllServiceFieldTopLevel(operation,section).length >0){
@@ -317,7 +317,7 @@ public class XmlJsonConversion {
                         }
                     } else {
                         // Revert to DEBUG after v4.0 testing
-                        log.error(String.format("Record %s lacks expected section %s", r.getRecordName(), section));
+                        log.warn(String.format("Record %s lacks expected section %s", r.getRecordName(), section));
                     }
                 } catch (Exception ex) {
                     log.debug("Error in XmlJsonConversion.convertToXml",ex);

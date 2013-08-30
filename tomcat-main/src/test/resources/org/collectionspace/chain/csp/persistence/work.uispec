@@ -248,6 +248,9 @@
                   ".csc-preferredWork-termSourceNote-label": {
                     "messagekey": "preferredWork-termSourceNoteLabel"
                   }, 
+                  ".csc-preferredWork-termFormattedDisplayName-label": {
+                    "messagekey": "preferredWork-termFormattedDisplayNameLabel"
+                  }, 
                   ".csc-preferredWork-termStatus-label": {
                     "messagekey": "preferredWork-termStatusLabel"
                   }, 
@@ -284,6 +287,7 @@
                                 ".csc-workAuthority-termSourceDetail": "${{row}.termSourceDetail}", 
                                 ".csc-workAuthority-termSourceID": "${{row}.termSourceID}", 
                                 ".csc-workAuthority-termSourceNote": "${{row}.termSourceNote}", 
+                                ".csc-workAuthority-termFormattedDisplayName": "${{row}.termFormattedDisplayName}", 
                                 ".csc-workAuthority-termStatus": {
                                   "default": "", 
                                   "optionlist": [

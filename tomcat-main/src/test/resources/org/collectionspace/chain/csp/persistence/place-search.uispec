@@ -182,6 +182,7 @@
         }
     }]},
     ".csc-place-termSourceNote-label": {"messagekey": "preferredPlace-termSourceNoteLabel"},
+    ".csc-place-termFormattedDisplayName-label": {"messagekey": "preferredPlace-termFormattedDisplayNameLabel"},
     ".csc-place-nameNote-label": {"messagekey": "preferredPlace-nameNoteLabel"},
     ".csc-place-ownershipNote-label": {"messagekey": "place-ownershipNoteLabel"},
     ".csc-place-owner-label": {"messagekey": "place-ownerLabel"},
