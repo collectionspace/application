@@ -862,24 +862,24 @@ public class Services {
 			Spec recordSpec = r.getSpec();
 			r = recordSpec.getRecord(BASE_AUTHORITY_RECORD);
 		}
-		
+
 		FieldSet[] allMiniSummaryList = r.getAllMiniSummaryList();
 		if (allMiniSummaryList == null) {
 			log.error(String.format("allMiniSummaryList for record '%s' is null.", r.getRecordName()));
 		}
-                String section;
+		String section;
 		for (FieldSet fs : allMiniSummaryList) {
-                    if (fs.isInServices()) {
+			if (fs.isInServices() && !fs.excludeFromServicesList()) {
 				String fieldNamePath = this.getFullyQualifiedFieldPath(fs);
-                                section = fs.getSection();
+				section = fs.getSection();
 				//
 				// Add the <ListResultField> element
 				//
 				Element lrf = el.addElement(new QName("ListResultField", thisns));
-                                // Only list result fields in sections other than the common part should
-                                // have a 'schema' element. (By convention, if this element is missing,
-                                // the field is from the common part.)
-                                if (!section.equals(Record.COLLECTIONSPACE_COMMON_PART_NAME)) {
+				// Only list result fields in sections other than the common part should
+				// have a 'schema' element. (By convention, if this element is missing,
+				// the field is from the common part.)
+				if (!section.equals(Record.COLLECTIONSPACE_COMMON_PART_NAME)) {
 					Element slrf = lrf.addElement(new QName("schema", thisns));
 					slrf.addText(r.getServicesSchemaName(fs.getSection()));
 				} else {
@@ -888,11 +888,11 @@ public class Services {
 
 				Element elrf = lrf.addElement(new QName("element", thisns));
 				elrf.addText(fs.getServicesTag());
-				
+
 				Element xlrf = lrf.addElement(new QName("xpath", thisns));
 				xlrf.addText(fieldNamePath);
-				
-				String setter = fs.getServicesSetter(); 
+
+				String setter = fs.getServicesSetter();
 				if (setter != null && setter.trim().isEmpty() == false) {
 					Element slrf = lrf.addElement(new QName("setter", thisns));
 					slrf.addText(setter);
