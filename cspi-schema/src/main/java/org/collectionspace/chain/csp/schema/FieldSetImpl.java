@@ -12,6 +12,7 @@ public abstract class FieldSetImpl implements FieldSet {
 	protected SchemaUtils utils = new SchemaUtils();
 	
 	protected void initialiseVariables(ReadOnlySection section, String tempid) {
+		utils.initBoolean(section,"@services-list-exclude", false);
 		utils.initBoolean(section,"@services-derived", false);
 		utils.initBoolean(section,"@services-refnameDisplayName", false);
 		utils.initStrings(section,"@services-setter", null);
@@ -28,6 +29,11 @@ public abstract class FieldSetImpl implements FieldSet {
 			}
 		}
 		
+	}
+	
+	@Override
+	public Boolean excludeFromServicesList() {
+		return utils.getBoolean("@services-list-exclude");
 	}
 	
 	@Override
