@@ -317,7 +317,7 @@ public class Services {
 		
 		if (addAuths) {
 			Element authRefsElement = pele.addElement(new QName("properties", thisns));
-			boolean createdAuthRefs = doAuthRefs(authRefsElement, this.nstypes, r, section);
+			boolean createdAuthRefs = doAuthRefsAndTermRefs(authRefsElement, this.nstypes, r, section);
 			if (createdAuthRefs == false) {
 				pele.remove(authRefsElement);
 			}
@@ -443,7 +443,7 @@ public class Services {
 	 *		<service:xpath>objectNumber</service:xpath>
 	 *	</service:RefnameDisplayNameField>
 	 */
-	private void doRefnameDisplayNameField(Record record, Element ele, Namespace thisns, String section, boolean isAuthority) {
+	private void doRefnameDisplayNameField(Record record, Element ele, Namespace thisns) {
 		for (FieldSet fieldSet : record.getAllFieldFullList()) {
 			if (fieldSet.isServicesRefnameDisplayName() == true) {
 				Element doRefnameDisplayNameEle = ele.addElement(new QName("RefnameDisplayNameField", thisns));
@@ -461,14 +461,15 @@ public class Services {
 	}
 	
 	/**
-	 * <service:DocHandlerParams>
-	 * @param r
-	 * @param el
-	 * @param thisns
-	 * @param section
-	 * @param isAuthority
-	 */
-	private void doDocHandlerParams(Record r, Element el, Namespace thisns, String section, Boolean isAuthority) { //FIXME: Rename this method to doDocHandlerParms
+     * <service:DocHandlerParams>
+     *
+     * @param r
+     * @param el
+     * @param thisns
+     * @param isAuthority
+     */
+    
+	private void doDocHandlerParams(Record r, Element el, Namespace thisns, Boolean isAuthority) { //FIXME: Rename this method to doDocHandlerParms
 		//<service:DocHandlerParams>
 		Element dhele = el.addElement(new QName("DocHandlerParams", thisns));
 		Element pele = dhele.addElement(new QName("params", thisns));
@@ -478,11 +479,17 @@ public class Services {
 			Element sh_rele = pele.addElement(new QName("SupportsHierarchy", thisns));
 			sh_rele.addText("true");
 		}
+		
+		if (r.supportsVersioning() == true) {
+			//<service:SupportsVersioning>true</service:SupportsVersioning>
+			Element sh_rele = pele.addElement(new QName("SupportsVersioning", thisns));
+			sh_rele.addText("true");
+		}
 
-		doRefnameDisplayNameField(r, pele, thisns, section, isAuthority);
+		doRefnameDisplayNameField(r, pele, thisns);
 		
 		Element lrele = pele.addElement(new QName("ListResultsFields", thisns));
-		doLists(r, lrele, thisns, section, isAuthority);
+		doLists(r, lrele, thisns, isAuthority);
 	}
 
 	/**
@@ -685,7 +692,7 @@ public class Services {
 			docHandlerElement.addText(docHandlerName);
 			
 			//<service:DocHandlerParams> include fields to show in list results
-			doDocHandlerParams(r, el, this.nsservices, this.domainsection, isAuthority);
+			doDocHandlerParams(r, el, this.nsservices, isAuthority);
 	
 			//<service:validatorHandler>
 			String validatorHandlerName = r.getServicesValidatorHandler(isAuthority);
@@ -845,43 +852,47 @@ public class Services {
 	}
 			
 	//defines fields to show in list results
-	private void doLists(Record record, Element el, Namespace thisns, String section, boolean isAuthority) {
+	private void doLists(Record record, Element el, Namespace thisns, boolean isAuthority) {
 		Record r = record;
 		//
 		// If we're dealing with an Authority/Vocabulary then we need to use the base Authority/Vocabulary record and
 		// not the term/item record.
 		//
 		if (isAuthority == true) {
-			Spec spec = r.getSpec();
-			r = spec.getRecord(BASE_AUTHORITY_RECORD);
-			section = Record.COLLECTIONSPACE_COMMON_PART_NAME;
+			Spec recordSpec = r.getSpec();
+			r = recordSpec.getRecord(BASE_AUTHORITY_RECORD);
 		}
-		
+
 		FieldSet[] allMiniSummaryList = r.getAllMiniSummaryList();
 		if (allMiniSummaryList == null) {
 			log.error(String.format("allMiniSummaryList for record '%s' is null.", r.getRecordName()));
 		}
+		String section;
 		for (FieldSet fs : allMiniSummaryList) {
-			if (fs.isInServices() && fs.getSection().equals(section)) {
+			if (fs.isInServices() && !fs.excludeFromServicesList()) {
 				String fieldNamePath = this.getFullyQualifiedFieldPath(fs);
+				section = fs.getSection();
 				//
 				// Add the <ListResultField> element
 				//
 				Element lrf = el.addElement(new QName("ListResultField", thisns));
+				// Only list result fields in sections other than the common part should
+				// have a 'schema' element. (By convention, if this element is missing,
+				// the field is from the common part.)
 				if (!section.equals(Record.COLLECTIONSPACE_COMMON_PART_NAME)) {
 					Element slrf = lrf.addElement(new QName("schema", thisns));
-					slrf.addText(r.getServicesSchemaName(section));
+					slrf.addText(r.getServicesSchemaName(fs.getSection()));
 				} else {
 					log.isDebugEnabled();
 				}
 
 				Element elrf = lrf.addElement(new QName("element", thisns));
 				elrf.addText(fs.getServicesTag());
-				
+
 				Element xlrf = lrf.addElement(new QName("xpath", thisns));
 				xlrf.addText(fieldNamePath);
-				
-				String setter = fs.getServicesSetter(); 
+
+				String setter = fs.getServicesSetter();
 				if (setter != null && setter.trim().isEmpty() == false) {
 					Element slrf = lrf.addElement(new QName("setter", thisns));
 					slrf.addText(setter);
@@ -931,13 +942,15 @@ public class Services {
 	}
 	
 	/*
-	 * If we authRef's or termRef's, then we create an entry in the bindings xml and return 'true'; otherwise, we return 'false'
+	 * If we have authRef's or termRef's, then we create an entry in the bindings xml and return 'true'; otherwise, we return 'false'
 	 */
-	private boolean createAuthRef(Element auth, Namespace types, Record r, String section, FieldSet in) {
+	private boolean createAuthRefOrTermRef(Element auth, Namespace types, Record r, String section, FieldSet in) {
 		boolean result = false;
 		String fieldName = in.getID();
+                String sec = in.getSection(); // for debugging - remove after
 		
-		if (in.getSection().equals(section) && isAuthOrTermRef(in)) {
+                // Ignore passed-in section, in order to create authRefs and termRefs for every section
+		if (isAuthOrTermRef(in) && in.getSection().equals(section)) {
 			result = true; // Let the caller know we created a referenced term 
 			Boolean isEnum = false;
 			if (in instanceof Field) {
@@ -976,15 +989,19 @@ public class Services {
 	}
 	
 	/*
-	 * Creates a set of Service binding authrefs of the following form:
+	 * Creates a set of Service binding authRefs and termRefs similar in form to these examples:
 	 *  <types:item>
 	 *      <types:key>authRef</types:key>
 	 *      <types:value>currentOwner</types:value>
 	 *  </types:item>
+         *  <types:item>
+	 *      <types:key>termRef</types:key>
+	 *      <types:value>termLanguage</types:value>
+	 *  </types:item>
 	 *  
 	 *  If we don't create any entries then we'll return 'false' to the caller;
 	 */
-	private boolean doAuthRefs(Element auth, Namespace types, Record r, String section) {
+	private boolean doAuthRefsAndTermRefs(Element auth, Namespace types, Record r, String section) {
 		boolean result = false;
 		
 		for (FieldSet in : r.getAllFieldFullList("")) {
@@ -992,18 +1009,18 @@ public class Services {
 
 			if (in.isASelfRenderer() == true) {
 				String fieldSetServicesType = in.getServicesType(false /* not NS qualified */);
-				Spec spec = in.getRecord().getSpec();
-				Record subRecord = spec.getRecord(fieldSetServicesType); // find a record that corresponds to the fieldset's service type
+				Spec recordSpec = in.getRecord().getSpec();
+				Record subRecord = recordSpec.getRecord(fieldSetServicesType); // find a record that corresponds to the fieldset's service type
 				//
 				// Iterate through each field of the subrecord
 				//
-				boolean createdAuths = doAuthRefs(auth, types, subRecord, section); // Recursive call
+				boolean createdAuths = doAuthRefsAndTermRefs(auth, types, subRecord, section); // Recursive call
 				if (createdAuths == true) {
 					result = true; // Let the caller know we created at least one auth/term reference
 				}
 					
 			} else {
-				boolean createdAuths = createAuthRef(auth, types, r, section, in);
+				boolean createdAuths = createAuthRefOrTermRef(auth, types, r, section, in);
 				if (createdAuths == true) {
 					result = true; // Let the caller know we created at least one auth/term reference
 				}

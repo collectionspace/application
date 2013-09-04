@@ -735,6 +735,10 @@ public class Record implements FieldParent {
 		return utils.getBoolean(SUPPORTS_LOCKING);
 	}
 
+	public boolean supportsVersioning() {
+		return supportsLocking();  // If it supports locking then it supports versioning.
+	}
+
 	public String getServicesSearchKeyword() {
 		return utils.getString("services-search-keyword");
 	}

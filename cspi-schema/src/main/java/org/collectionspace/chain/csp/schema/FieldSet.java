@@ -46,6 +46,7 @@ public interface FieldSet {
 	public Boolean isInServices();
 	public Boolean isServicesAnonymousType();
 	public Boolean isAuthRefInServices();
+	public Boolean excludeFromServicesList();
 	
 	public String getSection();	
 	public boolean hasFieldPerm(String k);
