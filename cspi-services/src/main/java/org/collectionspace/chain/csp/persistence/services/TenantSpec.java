@@ -39,7 +39,8 @@ public class TenantSpec {
 	private String tenantId;
 	private String tenant, tenantDisplay, tenantVersion;
 	private String storageName;
-	private String repoClient;
+	private String repositoryName;
+	private String repositoryClient;
 	private String repositoryDomain;
 	private String indexHandler;
 	private Set<String> languages = new LinkedHashSet<String>();
@@ -54,7 +55,8 @@ public class TenantSpec {
 		tenantDisplay = Util.getStringOrDefault(section,"/tenant/display-name","CollectionSpace Demo");
 		tenantVersion = Util.getStringOrDefault(section,"/tenant/version","1.0");
 		storageName = Util.getStringOrDefault(section,"/repository/domain", repositoryDomain);
-		repoClient = Util.getStringOrDefault(section,"/repository/client", "nuxeo-java");
+		repositoryName = Util.getStringOrDefault(section,"/repository/name", "");
+		repositoryClient = Util.getStringOrDefault(section,"/repository/client", "nuxeo-java");
 		indexHandler = Util.getStringOrDefault(section,"/repository/indexHandler", DEFAULT_INDEX_HANDLER);
 		defaultlanguages.add("en");
 		defaultdateformats.add("MM/dd/yyyy");
@@ -106,12 +108,16 @@ public class TenantSpec {
 		return indexHandler;
 	}
 
-	public String getRepoClient(){
-		return repoClient;
+	public String getRepositoryClient(){
+		return repositoryClient;
 	}
 
 	public String getStorageName(){
 		return storageName;
+	}
+        
+        public String getRepositoryName(){
+		return repositoryName;
 	}
 
 	public String getTenant(){
