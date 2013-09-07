@@ -56,8 +56,8 @@
 				<display-name>Default tenant Lifesci</display-name>
 			</tenant>
 			<repository>
-				<domain>lifesci-domain</domain>
-				<repository></repository>
+				<domain>lifesci_domain</domain>
+				<name>lifesci_domain</name>
 				<client>nuxeo-java</client>
 				<dateformats>
 					<pattern>MM/dd/yyyy</pattern>
