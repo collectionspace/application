@@ -72,7 +72,7 @@ public class MakeXsd {
 			for (FieldSet subRecordFieldSet : record.getAllFieldTopLevel("")) {
 				generateDataEntry(currentElement, subRecordFieldSet, ns, root, false);
 			}
-			definedGroupFields.put(servicesType, true); // We only need to define the complex type once.
+			definedGroupFields.put(servicesType, true); // We only need to define the complex type once per schema/XSD file.
 		}
 		
 		return servicesType;
@@ -360,6 +360,7 @@ public class MakeXsd {
 			String schema = getServiceSchema(schemaName, record, schemaVersion); // Generates the XML Schema .xsd file -returns it as a String instance
 			String filename = generateXSDFilename(recordType, schemaName);
 			result.put(filename, schema);
+			definedGroupFields.clear(); // for each new XSD file, clear the set of defined group/complex types -see CSPACE-6177.
 		}
 		
 		return result;
@@ -379,17 +380,12 @@ public class MakeXsd {
 		root.addAttribute("targetNamespace", rootel[0]);
 		root.addAttribute("version", schemaVersion);
 
-//		Element ele = root.addElement(new QName("element", ns));
-//		ele.addAttribute("name", rootel[1]);
-//		Element cele = ele.addElement(new QName("complexType", ns));
-
-		// add toplevel items
-
+		// add top level items
 		for (FieldSet fs : record.getAllFieldTopLevel("")) {
 			if (fs.getSection().equalsIgnoreCase(schemaName) == true) {
 				generateDataEntry(root, fs, ns, root, false);
 			} else {
-				//System.err.print(String.format("Ignoring fieldset %s:%s", fs.getSection(), fs.getID()));
+				log.trace(String.format("Ignoring fieldset %s:%s", fs.getSection(), fs.getID()));
 			}
 		}
 
