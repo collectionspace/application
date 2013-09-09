@@ -5,7 +5,7 @@
 		<!--<field id="claimName" section="anthropology" in-title="yes"></field>-->
 		<field id="claimName" ui-search="repeatable" section="anthropology" in-title="yes" mini="summary,search,list,relate"></field>
 		
-		<repeat id="claimTypeList" section="anthropology">
+		<repeat id="claimTypeList" section="anthropology" services-type-anonymous="false">
 			<field id="claimType" ui-search="repeatable" section="anthropology" seperate_ui_container="true">
 				<options>
 					<option id="" default="yes">(none selected)</option>
@@ -27,7 +27,7 @@
 			<field id="claimAltNote" section="anthropology"></field>
 		</repeat>
 
-		<repeat id="claimNoteList" section="anthropology">
+		<repeat id="claimNoteList" section="anthropology" services-type-anonymous="false">
 			<field id="claimNote" section="anthropology"></field>
 		</repeat>		
 	</section>
