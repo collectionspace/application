@@ -38,6 +38,7 @@ public class Record implements FieldParent {
 	private static final String TYPE_AUTHORITY_LOWERCASE = TYPE_AUTHORITY.toLowerCase();
 
 	public static final String SUPPORTS_LOCKING = "supportslocking";
+	public static final String SUPPORTS_VERSIONING = "supportsversioning";
 	public static final String RANGE_START_SUFFIX = "Start";
 	public static final String RANGE_END_SUFFIX = "End";
 	
@@ -225,6 +226,7 @@ public class Record implements FieldParent {
 		utils.initBoolean(section, "hasdeletemethod", false);
 		utils.initBoolean(section, "hassoftdelete", false);
 		utils.initBoolean(section, SUPPORTS_LOCKING, false);
+		utils.initBoolean(section, SUPPORTS_VERSIONING, false);
 
 		//(17:06) The services singular tag should probably be "ServicesDocumentType"
 
@@ -736,7 +738,7 @@ public class Record implements FieldParent {
 	}
 
 	public boolean supportsVersioning() {
-		return supportsLocking();  // If it supports locking then it supports versioning.
+            return utils.getBoolean(SUPPORTS_VERSIONING);
 	}
 
 	public String getServicesSearchKeyword() {
