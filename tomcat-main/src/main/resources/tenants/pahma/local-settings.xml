@@ -38,6 +38,7 @@
 				</languages>
 				<indexHandler>org.collectionspace.services.common.init.AddIndices</indexHandler>
 			</repository>
+			<ims-url>/collectionspace/tenant/pahma/</ims-url>
 	   </service>
 	</persistence>
 	<ui>

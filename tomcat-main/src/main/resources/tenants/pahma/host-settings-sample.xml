@@ -24,9 +24,4 @@
 	<email>
 		<baseurl>http://localhost:8180</baseurl>
 	</email>
-	<persistence>
-		<service>
-			<ims-url>http://localhost:8180/collectionspace/chain/</ims-url>
-		</service>
-	</persistence>
 </settings>
