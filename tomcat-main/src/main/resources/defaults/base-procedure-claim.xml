@@ -57,6 +57,10 @@
 				<option id="claim" sample="CL 2011.1">Claim</option>
 			</options>
 		</field>
+		
+		<repeat id="responsibleDepartments">
+			<field id="responsibleDepartment"></field>
+		</repeat>
 
 		<repeat id="claimClaimantGroupList/claimClaimantGroup"> <!-- CORE -->
 			<field id="filedBy" autocomplete="person-person,organization-organization"></field> <!-- CORE -->
