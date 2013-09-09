@@ -22,6 +22,7 @@ import org.dom4j.QName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.commons.io.FileUtils;
+import org.collectionspace.services.common.api.Tools;
 
 public class Services {
 	private static final Logger log = LoggerFactory.getLogger(Services.class);
@@ -157,7 +158,10 @@ public class Services {
 		Element rele = ele.addElement(new QName("repositoryDomain", nstenant));
 		rele.addAttribute("name", this.tenantSpec.getRepositoryDomain());
 		rele.addAttribute("storageName", this.tenantSpec.getStorageName());
-		rele.addAttribute("repositoryClient", this.tenantSpec.getRepoClient());
+                if (Tools.notEmpty(this.tenantSpec.getRepositoryName())) {
+		    rele.addAttribute("repositoryName", this.tenantSpec.getRepositoryName());
+                }
+		rele.addAttribute("repositoryClient", this.tenantSpec.getRepositoryClient());
 
 		// add in <tenant:properties> if required
 		makeProperties(ele);
