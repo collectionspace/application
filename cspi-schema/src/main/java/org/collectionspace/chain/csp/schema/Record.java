@@ -9,6 +9,7 @@ package org.collectionspace.chain.csp.schema;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -84,7 +85,7 @@ public class Record implements FieldParent {
 	//list of all 'record' e.g. structuredDates, dimensions etc that are included
 	private Map<String, String> nestedFieldList = new HashMap<String, String>();
 
-	private Map<String, Instance> instances = new HashMap<String, Instance>();
+	private Map<String, Instance> instances = new LinkedHashMap<String, Instance>();
 	private Map<String, FieldSet> summarylist = new HashMap<String, FieldSet>();
 	private Map<String, Map<String, FieldSet>> minidataset = new HashMap<String, Map<String, FieldSet>>();
 	private Spec spec;
