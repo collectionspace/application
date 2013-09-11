@@ -145,22 +145,22 @@ public class VocabulariesRead implements WebMethod {
 						//JSONObject in=ritems.getJSONObject(field);
 						String rt = in.getString("sourceFieldType");
 						Record rec = this.spec.getRecordByServicesDocType(rt);
-                                                // CSPACE-6184
-                                                //
-                                                // The Services doctypes for certain authority term records
-                                                // (e.g. "placeitem") won't match any the key (e.g. "place")
-                                                // to retrieve the relevant record from one of the available
-                                                // maps of record types.
-                                                //
-                                                // The following block is a fallback attempt at retrieving the
-                                                // relevant record from a different map of record types, using the
-                                                // first path component in the Services URI (e.g. "placeauthorities")
-                                                // as the key.
-                                                if(rec == null) {
+						// CSPACE-6184
+						//
+						// The Services doctypes for certain authority term records
+						// (e.g. "placeitem") won't match the key (e.g. "place")
+						// to retrieve the relevant record from one of the available
+						// maps of record types.
+						//
+						// The following block is a fallback attempt at retrieving the
+						// relevant record from a different map of record types, using the
+						// first path component in the Services URI (e.g. "placeauthorities")
+						// as the key.
+						if(rec == null) {
                                                     if (in.has("summarylist")) {
-						        JSONObject summaryList = in.getJSONObject("summarylist");
-							if (summaryList.has("uri")) {
-							    String uri = summaryList.getString("uri");
+                                                        JSONObject summaryList = in.getJSONObject("summarylist");
+                                                        if (summaryList.has("uri")) {
+                                                            String uri = summaryList.getString("uri");
                                                             if (Tools.notBlank(uri)) {
                                                                 String recordtypekey = uri.split("/")[0];
                                                                 if (Tools.notBlank(recordtypekey)) {
@@ -169,7 +169,7 @@ public class VocabulariesRead implements WebMethod {
                                                             }
                                                         }
                                                     }
-                                                }
+						}
 						String uiname;
 						if(rec != null) {
 							uiname = rec.getWebURL();
