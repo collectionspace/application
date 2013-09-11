@@ -939,7 +939,13 @@ public class Services {
 		boolean result = false;
 		
 		if (fieldSet.hasAutocompleteInstance() || fieldSet.isAuthRefInServices()) {
+                    // CSPACE-6187: Require that any field for which an authRef
+                    // or termRef declaration is generated actually exists in
+                    // Services schemas. This filters out synthetic fields
+                    // that may be created for various purposes.
+                    if (fieldSet.isInServices()) {
 			result = true;
+                    }
 		}
 		
 		return result;
