@@ -61,8 +61,6 @@
 				<option id="full">full/curatorial</option>
 			</options>
 		</field>
-		<!-- Set authref-in-services to false (workaround for CSPACE-6187) -->
-		<field id="computedCurrentLocation" authref-in-services="false"/>
 		<repeat id="titleGroupList/titleGroup">
 			<!-- Add mini values -->
 			<field id="title" mini="search,list,relate"/>
@@ -167,8 +165,6 @@
 		</repeat>
 		
 		<!-- Fields from anthropology -->
-		<!-- Set authref-in-services to false (workaround for CSPACE-6187) -->
-		<field id="computedCrate" authref-in-services="false"/>
 		
 		<!-- Fields from naturalhistory -->
 		
