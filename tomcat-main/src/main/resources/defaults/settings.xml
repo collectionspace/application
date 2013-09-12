@@ -50,7 +50,7 @@
             <url>http://localhost:8180/cspace-services</url>
 			<config-tenant></config-tenant>
 			<config-bindings></config-bindings>
-			<ims-url>http://localhost:8180/collectionspace/chain/</ims-url> <!-- XXX should be in separate IMS section -->
+			<ims-url>/collectionspace/tenant/core/</ims-url> <!-- XXX should be in separate IMS section -->
         </service>
     </persistence>
     <ui>
