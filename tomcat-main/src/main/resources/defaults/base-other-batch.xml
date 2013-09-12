@@ -32,7 +32,7 @@
 
 	<section id="batch">
 		<field id="name" mini="number,search,list,relate"/>
-		<field id="notes"/>
+		<field id="notes" services-setter="setName"/>
 		<repeat id="forDocTypes">
 			<field id="forDocType"/>
 		</repeat>
