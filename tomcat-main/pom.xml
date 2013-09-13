@@ -209,6 +209,20 @@
 	</dependencies>
 	<build>
 		<finalName>tomcat-main</finalName>
+		
+		<resources>
+			<resource>
+				<!-- Exclude config files, since these get deployed into tomcat's lib directory -->
+				<!-- by the deploy_cspace_config ant target (in ../war-entry/build.xml). -->
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>*-tenant.xml</exclude>
+					<exclude>defaults/**</exclude>
+					<exclude>tenants/**</exclude>
+				</excludes>
+			</resource>
+		</resources>
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
