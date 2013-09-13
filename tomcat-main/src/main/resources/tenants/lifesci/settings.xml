@@ -69,7 +69,7 @@
 				</languages>
 				<indexHandler>org.collectionspace.services.common.init.AddIndices</indexHandler>
 			</repository>
-			<ims-url>http://localhost:8180/collectionspace/tenant/lifesci/</ims-url> 
+			<ims-url>/collectionspace/tenant/lifesci/</ims-url> 
 			<!-- XXX should be in separate IMS section -->
         </service>
     </persistence>
