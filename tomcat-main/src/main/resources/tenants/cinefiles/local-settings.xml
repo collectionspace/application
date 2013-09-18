@@ -1,0 +1,66 @@
+<!--
+	This file contains modifications to settings.xml for this tenant. Changes to settings
+	for a specific host on which this tenant is installed (e.g. dev vs. production) should
+	be made in host-settings.xml.
+-->
+
+<settings>
+	<admin>
+		<username>admin@cinefiles.cspace.berkeley.edu</username>
+		<tenant>50</tenant>
+		<tenantname>cinefiles</tenantname>
+	</admin>
+	<email>
+		<from>admin@cinefiles.cspace.berkeley.edu</from>
+		<passwordreset>
+			<loginpage>/collectionspace/ui/cinefiles/html/index.html</loginpage>
+            <message>Hello {{greeting}},\n\r\n\rYou've started the process to reset your CollectionSpace account password.\n\r\n\rTo finish resetting your password, go to the Reset Password page {{link}} on CollectionSpace.\n\r\n\r \n\r\n\rIf clicking the link doesn't work, copy and paste the following link into your browser address bar and click Go.\n\r\n\r{{link}}\n\r \n\r\n\rThanks,\n\r\n\r CollectionSpace Administrator\n\r\n\rPlease do not reply to this email. This mailbox is not monitored and you will not receive a response. For assistance, contact your CollectionSpace Administrator directly.</message>
+		</passwordreset>
+	</email>
+	<persistence>
+		<service>
+			<tenant>
+				<id>50</id>
+				<name>cinefiles.cspace.berkeley.edu</name>
+				<version>0.1</version>
+				<display-name>CollectionSpace CineFiles Tenant</display-name>
+			</tenant>
+			<repository>
+				<domain>cinefiles_domain</domain>
+				<name>cinefiles_domain</name>
+				<client>nuxeo-java</client>
+				<dateformats>
+					<pattern>MM/dd/yyyy</pattern>
+					<pattern>MMM dd, yyyy</pattern>
+					<pattern>dd.MM.yyyy</pattern>
+				</dateformats>
+				<languages>
+					<language>en</language>
+				</languages>
+				<indexHandler>org.collectionspace.services.common.init.AddIndices</indexHandler>
+			</repository>
+			<ims-url>/collectionspace/tenant/cinefiles/</ims-url>
+	   </service>
+	</persistence>
+	<ui>
+		<web>
+			<login-dest>/collectionspace/ui/cinefiles/html/findedit.html</login-dest>
+			<login-failed-dest>/collectionspace/ui/cinefiles/html/index.html</login-failed-dest>
+			<front-page>/collectionspace/ui/cinefiles/html/index.html</front-page>
+			<mappings>
+				<map id="record">
+					<file>/cinefiles/html/record.html</file>
+				</map>
+				<map id="authority">
+					<file>/cinefiles/html/record.html</file>
+					<configure>
+						<meta id="recordType">{instance/web-url}</meta>
+					</configure>
+				</map>
+				<map id="procedure">
+					<file>/cinefiles/html/record.html</file>
+				</map>
+			</mappings>
+		</web>
+	</ui>
+</settings>
