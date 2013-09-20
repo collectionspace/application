@@ -4,13 +4,13 @@
             <web-url>location</web-url>
             <title-ref>location</title-ref>
             <title>Local Storage Locations</title>
-			<nptAllowed>false</nptAllowed>
+            <nptAllowed>false</nptAllowed>
         </instance>
         <instance id="location-offsite_sla">
             <web-url>offsite_sla</web-url>
             <title-ref>offsite_sla</title-ref>
             <title>Offsite Storage Locations</title>
-			<nptAllowed>false</nptAllowed>
+            <nptAllowed>false</nptAllowed>
         </instance>
     </instances>
 </record>
