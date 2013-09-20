@@ -39,15 +39,15 @@
     <include src="domain-authority-concept.xml" strip-root="yes"/>
                 
     <instances id="concept">
-        <instance id="concept-material_ca">
-            <web-url>material_ca</web-url>
-            <title-ref>material_ca</title-ref>
-            <title>Material Concepts</title>
-        </instance>
         <instance id="concept-concept">
             <web-url>concept</web-url>
             <title-ref>concept</title-ref>
             <title>Associated Concepts</title>
+        </instance>
+        <instance id="concept-material_ca">
+            <web-url>material_ca</web-url>
+            <title-ref>material_ca</title-ref>
+            <title>Material Concepts</title>
         </instance>
         <instance id="concept-activity">
             <web-url>activity</web-url>

@@ -1,4 +1,4 @@
-<record id="location"  type="authority" cms-type="default" generate-services-schema="true">
+<record id="location" type="authority" cms-type="default" generate-services-schema="true">
     <terms-used>true</terms-used>
     <web-url>location</web-url>
     
@@ -39,15 +39,15 @@
 	<include src="domain-authority-location.xml" strip-root="yes"/>
 				
     <instances id="location">
-        <instance id="location-offsite_sla">
-            <web-url>offsite_sla</web-url>
-            <title-ref>offsite_sla</title-ref>
-            <title>Offsite Storage Locations</title>
-        </instance>
         <instance id="location-location">
             <web-url>location</web-url>
             <title-ref>location</title-ref>
             <title>Local Storage Locations</title>
+        </instance>
+        <instance id="location-offsite_sla">
+            <web-url>offsite_sla</web-url>
+            <title-ref>offsite_sla</title-ref>
+            <title>Offsite Storage Locations</title>
         </instance>
     </instances>
 	
