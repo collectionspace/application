@@ -42,15 +42,15 @@
     <include src="domain-authority-taxon.xml" strip-root="yes"/>
 
     <instances id="taxon">
-        <instance id="taxon-common_ta">
-            <web-url>common_ta</web-url>
-            <title-ref>common_ta</title-ref>
-            <title>Common Taxa</title>
-        </instance>
         <instance id="taxon-taxon">
             <web-url>taxon</web-url>
             <title-ref>taxon</title-ref>
             <title>Local Taxa</title>
+        </instance>
+        <instance id="taxon-common_ta">
+            <web-url>common_ta</web-url>
+            <title-ref>common_ta</title-ref>
+            <title>Common Taxa</title>
         </instance>
     </instances>
 	
