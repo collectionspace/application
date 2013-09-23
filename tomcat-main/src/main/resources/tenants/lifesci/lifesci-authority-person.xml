@@ -1,6 +1,6 @@
 <record id="person" type="authority">
 
-	<instances id="person">
+    <instances id="person">
         <instance id="person-person">
             <web-url>person</web-url>
             <title-ref>person</title-ref>
@@ -13,9 +13,9 @@
             <title>ULAN Persons</title>
             <nptAllowed>false</nptAllowed>
         </instance>
-	</instances>
-	
-	<services-record-path id="naturalhistory">persons_naturalhistory:http://collectionspace.org/services/person/domain/naturalhistory,persons_naturalhistory</services-record-path>
+    </instances>
+
+    <services-record-path id="naturalhistory">persons_naturalhistory:http://collectionspace.org/services/person/domain/naturalhistory,persons_naturalhistory</services-record-path>
     <section id="identificationInformation">
         <field id="entityType" section="naturalhistory" mini="list">
         </field>
