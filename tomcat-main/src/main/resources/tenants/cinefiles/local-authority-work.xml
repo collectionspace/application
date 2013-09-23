@@ -1,0 +1,27 @@
+<record id="work">
+	<services-record-path id="cinefiles">works_cinefiles:http://collectionspace.org/services/work/local/cinefiles,works_cinefiles</services-record-path>
+	
+	<section id="workAuthorityInformation">
+		<!-- Local fields -->
+		
+		<repeat id="countries" section="cinefiles">
+			<field id="country" section="cinefiles"/>
+		</repeat>
+		
+		<repeat id="languages" section="cinefiles">
+			<field id="language" section="cinefiles"/>
+		</repeat>
+		
+		<repeat id="genres" section="cinefiles">
+			<field id="genre" section="cinefiles"/>
+		</repeat>
+		
+		<repeat id="subjects" section="cinefiles">
+			<field id="subject" section="cinefiles"/>
+		</repeat>
+		
+		<repeat id="themes" section="cinefiles">
+			<field id="theme" section="cinefiles"/>
+		</repeat>
+	</section>
+</record>

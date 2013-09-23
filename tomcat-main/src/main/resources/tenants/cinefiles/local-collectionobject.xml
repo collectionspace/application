@@ -1,0 +1,44 @@
+<record id="collection-object">
+	<services-record-path id="cinefiles">collectionobjects_cinefiles:http://collectionspace.org/services/collectionobject/local/cinefiles,collectionobjects_cinefiles</services-record-path>
+
+	<section id="identificationInformation">
+		<!-- Local fields -->
+		
+		<field id="pageInfo" section="cinefiles"/>
+		<field id="cleared" section="cinefiles" datatype="boolean"/>
+
+		<field id="hasCastCr" section="cinefiles" datatype="boolean"/>
+		<field id="hasTechCr" section="cinefiles" datatype="boolean"/>
+		<field id="hasBoxInfo" section="cinefiles" datatype="boolean"/>
+		<field id="hasFilmog" section="cinefiles" datatype="boolean"/>
+		<field id="hasDistCo" section="cinefiles" datatype="boolean"/>
+		<field id="hasProdCo" section="cinefiles" datatype="boolean"/>
+		<field id="hasCostInfo" section="cinefiles" datatype="boolean"/>
+		<field id="hasIllust" section="cinefiles" datatype="boolean"/>
+		<field id="hasBiblio" section="cinefiles" datatype="boolean"/>
+		
+		<field id="docType" section="cinefiles"/>
+		
+		<repeat id="docSubjects" section="cinefiles">
+			<field id="docSubject" section="cinefiles"/>
+		</repeat>
+		
+		<repeat id="nameSubjects" section="cinefiles">
+			<field id="nameSubject" section="cinefiles"/>
+		</repeat>
+		
+		<repeat id="filmSubjects" section="cinefiles">
+			<field id="filmSubject" section="cinefiles"/>
+		</repeat>
+		
+		<repeat id="docLanguages" section="cinefiles">
+			<field id="docLanguage" section="cinefiles"/>
+		</repeat>
+		
+		<repeat id="sources" section="cinefiles">
+			<field id="source" section="cinefiles"/>
+		</repeat>
+		
+		<field id="accessCode" section="cinefiles"/>
+	</section>
+</record>

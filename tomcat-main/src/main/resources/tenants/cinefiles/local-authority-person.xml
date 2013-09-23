@@ -1,0 +1,12 @@
+<record id="person">
+	<services-record-path id="cinefiles">persons_cinefiles:http://collectionspace.org/services/person/local/cinefiles,persons_cinefiles</services-record-path>
+
+	<section id="personNameAuthorityInformation">
+		<!-- Local fields -->
+		
+		<field id="birthState" section="cinefiles"/>
+		<field id="birthCity" section="cinefiles"/>
+
+		<field id="accessCode" section="cinefiles"/>
+	</section>
+</record>

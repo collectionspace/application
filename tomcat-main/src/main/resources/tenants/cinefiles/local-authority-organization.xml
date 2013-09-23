@@ -1,0 +1,18 @@
+<record id="organization">
+	<services-record-path id="cinefiles">organizations_cinefiles:http://collectionspace.org/services/organization/local/cinefiles,organizations_cinefiles</services-record-path>
+	
+	<section id="organizationNameAuthorityInformation">
+		<!-- Local fields -->
+		
+		<field id="foundingState" section="cinefiles"/>
+		<field id="foundingCity" section="cinefiles"/>
+
+		<repeat id="memberGroupList/memberGroup" section="cinefiles">
+			<field id="member" section="cinefiles"/>
+			<field id="memberNote" section="cinefiles"/>
+			<field id="memberAuthority" section="cinefiles"/>
+		</repeat>
+		
+		<field id="accessCode" section="cinefiles"/>
+	</section>
+</record>

@@ -10,12 +10,12 @@
 		<records>
 			<enum-blank>Please select a value</enum-blank>
 			
-			<include src="base-collectionobject.xml"/>
+			<include src="base-collectionobject.xml,local-collectionobject.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority.xml"/>
 
 			<include src="base-procedure-blobs.xml"/>
 			<include src="base-procedure-groups.xml"/>
-			<include src="base-procedure-media.xml"/>
+			<include src="base-procedure-media.xml,local-procedure-media.xml" merge="xmlmerge.properties"/>
 
 			<include src="base-authority-contact.xml"/>
 
@@ -23,13 +23,17 @@
 			<include src="base-authority-location-termList.xml"/>
 			<include src="base-authority-location.xml"/>
 			<include src="base-authority-organization-termList.xml"/>
-			<include src="base-authority-organization.xml"/>
+			<include src="base-authority-organization.xml,local-authority-organization.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-person-termList.xml"/>
-			<include src="base-authority-person.xml"/>
+			<include src="base-authority-person.xml,local-authority-person.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-citation-termList.xml"/>
+			<include src="base-authority-citation.xml"/>
+			<include src="base-authority-place-termList.xml"/>
+			<include src="base-authority-place.xml"/>
 			<include src="base-authority-concept-termList.xml"/>
 			<include src="base-authority-concept.xml"/>
 			<include src="base-authority-work-termList.xml"/>
-			<include src="base-authority-work.xml"/>
+			<include src="base-authority-work.xml,local-authority-work.xml" merge="xmlmerge.properties"/>
 
 			<include src="base-vocabularies.xml"/>
 
