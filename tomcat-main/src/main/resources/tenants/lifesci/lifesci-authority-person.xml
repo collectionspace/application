@@ -1,4 +1,4 @@
-<record id="person" type="authority">
+<record id="person" is-extension="true" type="authority">
 
     <instances id="person">
         <instance id="person-person">
