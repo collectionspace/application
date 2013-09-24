@@ -1,4 +1,4 @@
-<record id="work">
+<record id="work" is-extension="true">
 	<services-record-path id="cinefiles">works_cinefiles:http://collectionspace.org/services/work/local/cinefiles,works_cinefiles</services-record-path>
 	
 	<section id="workAuthorityInformation">

@@ -1,4 +1,4 @@
-<record id="media">
+<record id="media" is-extension="true">
 	<services-record-path id="cinefiles">media_cinefiles:http://collectionspace.org/services/media/local/cinefiles,media_cinefiles</services-record-path>
 	
 	<section id="mediaInformation">

@@ -1,4 +1,4 @@
-<record id="collection-object">
+<record id="collection-object" is-extension="true">
 	<services-record-path id="cinefiles">collectionobjects_cinefiles:http://collectionspace.org/services/collectionobject/local/cinefiles,collectionobjects_cinefiles</services-record-path>
 
 	<section id="identificationInformation">

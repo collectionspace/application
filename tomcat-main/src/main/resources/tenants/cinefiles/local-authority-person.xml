@@ -1,4 +1,4 @@
-<record id="person">
+<record id="person" is-extension="true">
 	<services-record-path id="cinefiles">persons_cinefiles:http://collectionspace.org/services/person/local/cinefiles,persons_cinefiles</services-record-path>
 
 	<section id="personNameAuthorityInformation">

@@ -1,4 +1,4 @@
-<record id="organization">
+<record id="organization" is-extension="true">
 	<services-record-path id="cinefiles">organizations_cinefiles:http://collectionspace.org/services/organization/local/cinefiles,organizations_cinefiles</services-record-path>
 	
 	<section id="organizationNameAuthorityInformation">
