@@ -281,14 +281,16 @@ public class UserDetailsReset implements WebMethod {
 
 	private boolean testSuccess(Storage storage) {
 		for(Record r : this.spec.getAllRecords()) {
-			if(!r.isType("record"))
+			if((r.isType("record") == false) || (r.isRealRecord() == false)) {
 				continue;
-			try {
-				storage.getPathsJSON(r.getID(),null);
-				return true;
-			} catch (Exception e) {
-				return false;
-			}
+                        } else {
+                            try {
+                                    storage.getPathsJSON(r.getID(),null);
+                                    return true;
+                            } catch (Exception e) {
+                                    return false;
+                            }
+                        }
 		}
 		return false;
 	}
