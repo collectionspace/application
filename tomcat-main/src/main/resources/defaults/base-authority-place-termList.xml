@@ -1,4 +1,4 @@
-<record id="preferredPlace" type="authority" in-recordlist="no" separate-record="false">
+<record id="preferredPlace" in-recordlist="no" separate-record="false">
     <hassoftdelete>true</hassoftdelete>
     <section id="termInformation">
         <!-- List containing this item's preferred term and any non-preferred terms -->
