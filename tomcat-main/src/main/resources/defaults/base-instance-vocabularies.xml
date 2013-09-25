@@ -216,7 +216,7 @@
                             <option id="composer">Composer</option>
                             <option id="director">Director</option>
                             <option id="painter">Painter</option>
-                            <option id="scuptor">Scuptor</option>
+                            <option id="sculptor">Sculptor</option>
                             <option id="writer">Writer</option>
                         </options>
                     </instance>
