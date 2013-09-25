@@ -1,4 +1,4 @@
-<record id="location">
+<record id="location" is-extension="true">
 	<services-record-path id="anthropology">locations_anthropology:http://collectionspace.org/services/location/domain/anthropology,locations_anthropology</services-record-path>
 
 	<instances id="location">

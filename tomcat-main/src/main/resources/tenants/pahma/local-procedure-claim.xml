@@ -1,4 +1,4 @@
-<record id="claim">
+<record id="claim" is-extension="true">
 	<services-record-path id="pahma">claims_pahma:http://collectionspace.org/services/claim/local/pahma,claims_pahma</services-record-path>
 
 	<section id="claimInformation"> 

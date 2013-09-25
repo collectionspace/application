@@ -1,4 +1,4 @@
-<record id="objectexit">
+<record id="objectexit" is-extension="true">
 	<services-record-path id="anthropology">objectexit_anthropology:http://collectionspace.org/services/objectexit/domain/anthropology,objectexit_anthropology</services-record-path>
 	
 	<section id="objectexitInformation">	

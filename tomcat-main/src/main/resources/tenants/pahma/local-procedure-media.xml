@@ -1,4 +1,4 @@
-<record id="media">
+<record id="media" is-extension="true">
 	<services-record-path id="pahma">media_pahma:http://collectionspace.org/services/media/local/pahma,media_pahma</services-record-path>
 
 	<section id="mediaInformation">

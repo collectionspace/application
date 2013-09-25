@@ -1,4 +1,4 @@
-<record id="organization">
+<record id="organization" is-extension="true">
 	<services-record-path id="anthropology">organizations_anthropology:http://collectionspace.org/services/organization/domain/anthropology,organizations_anthropology</services-record-path>
 
 	<section id="organizationNameAuthorityInformation">

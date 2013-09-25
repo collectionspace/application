@@ -1,4 +1,4 @@
-<record id="loanout">
+<record id="loanout" is-extension="true">
 	<services-record-path id="pahma">loansout_pahma:http://collectionspace.org/services/loanout/local/pahma,loansout_pahma</services-record-path>
 
 	<section id="loanoutInformation">

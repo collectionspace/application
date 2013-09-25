@@ -1,4 +1,4 @@
-<record id="taxon">
+<record id="taxon" is-extension="true">
 	<services-record-path id="naturalhistory">taxon_naturalhistory:http://collectionspace.org/services/taxon/domain/naturalhistory,taxon_naturalhistory</services-record-path>
 
 	<section id="taxonNameAuthorityInformation">

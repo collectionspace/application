@@ -1,4 +1,4 @@
-<record id="loanin">
+<record id="loanin" is-extension="true">
 	<services-record-path id="pahma">loansin_pahma:http://collectionspace.org/services/loanin/local/pahma,loansin_pahma</services-record-path>
 
 	<section id="loaninInformation">

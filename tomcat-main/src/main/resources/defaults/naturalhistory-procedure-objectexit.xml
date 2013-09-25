@@ -1,4 +1,4 @@
-<record id="objectexit">
+<record id="objectexit" is-extension="true">
 	<services-record-path id="naturalhistory">objectexit_naturalhistory:http://collectionspace.org/objectexit/domain/naturalhistory,objectexit_naturalhistory</services-record-path>
 	
 	<section id="objectexitInformation">

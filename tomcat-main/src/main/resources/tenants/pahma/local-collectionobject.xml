@@ -1,4 +1,4 @@
-<record id="collection-object">
+<record id="collection-object" is-extension="true">
 	<services-record-path id="pahma">collectionobjects_pahma:http://collectionspace.org/services/collectionobject/local/pahma,collectionobjects_pahma</services-record-path>
 
 	<section id="coreInformation">

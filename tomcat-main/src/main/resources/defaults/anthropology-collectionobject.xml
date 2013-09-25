@@ -1,4 +1,4 @@
-<record id="collection-object">
+<record id="collection-object" is-extension="true">
 	<services-record-path id="anthropology">collectionobjects_anthropology:http://collectionspace.org/services/collectionobject/domain/anthropology,collectionobjects_anthropology</services-record-path>
 
 	<section id="identificationInformation">
