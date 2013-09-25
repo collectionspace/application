@@ -22,19 +22,19 @@
     }, 
     ".csc-hierarchy-broaderContextType": {
       "optionlist": [
+        "set", 
         "derivative", 
+        "separable-part", 
         "non-separable-part", 
         "recto", 
-        "separable-part", 
-        "set", 
         "verso"
       ], 
       "optionnames": [
         "Set", 
         "Work (derivative)", 
+        "Work (separable part)", 
         "Work (non-separable part)", 
         "Work (recto)", 
-        "Work (separable part)", 
         "Work (verso)"
       ], 
       "selection": "${fields.broaderContextType}"
@@ -99,19 +99,19 @@
                   }, 
                   ".csc-hierarchy-narrowerContextType": {
                     "optionlist": [
+                      "set", 
                       "derivative", 
+                      "separable-part", 
                       "non-separable-part", 
                       "recto", 
-                      "separable-part", 
-                      "set", 
                       "verso"
                     ], 
                     "optionnames": [
-                      "Derivative", 
                       "Item in a set", 
+                      "Derivative", 
+                      "Separable part", 
                       "Non-separable part", 
                       "Recto", 
-                      "Separable part", 
                       "Verso"
                     ], 
                     "selection": "${{row}.narrowerContextType}"
@@ -221,6 +221,9 @@
                   ".csc-preferredWork-termDisplayName-label": {
                     "messagekey": "preferredWork-termDisplayNameLabel"
                   }, 
+                  ".csc-preferredWork-termFormattedDisplayName-label": {
+                    "messagekey": "preferredWork-termFormattedDisplayNameLabel"
+                  }, 
                   ".csc-preferredWork-termInformation-label": {
                     "messagekey": "preferredWork-termInformationLabel"
                   }, 
@@ -248,9 +251,6 @@
                   ".csc-preferredWork-termSourceNote-label": {
                     "messagekey": "preferredWork-termSourceNoteLabel"
                   }, 
-                  ".csc-preferredWork-termFormattedDisplayName-label": {
-                    "messagekey": "preferredWork-termFormattedDisplayNameLabel"
-                  }, 
                   ".csc-preferredWork-termStatus-label": {
                     "messagekey": "preferredWork-termStatusLabel"
                   }, 
@@ -267,6 +267,7 @@
                             "expander": {
                               "tree": {
                                 ".csc-workAuthority-termDisplayName": "${{row}.termDisplayName}", 
+                                ".csc-workAuthority-termFormattedDisplayName": "${{row}.termFormattedDisplayName}", 
                                 ".csc-workAuthority-termLanguage": {
                                   "decorators": [
                                     {
@@ -283,24 +284,35 @@
                                 ".csc-workAuthority-termName": "${{row}.termName}", 
                                 ".csc-workAuthority-termPrefForLang": "${{row}.termPrefForLang}", 
                                 ".csc-workAuthority-termQualifier": "${{row}.termQualifier}", 
-                                ".csc-workAuthority-termSource": "${{row}.termSource}", 
+                                ".csc-workAuthority-termSource": {
+                                  "decorators": [
+                                    {
+                                      "func": "cspace.autocomplete", 
+                                      "options": {
+                                        "queryUrl": "../../../tenant/core/preferredWork/autocomplete/termSource", 
+                                        "vocabUrl": "../../../tenant/core/preferredWork/source-vocab/termSource"
+                                      }, 
+                                      "type": "fluid"
+                                    }
+                                  ], 
+                                  "value": "${{row}.termSource}"
+                                }, 
                                 ".csc-workAuthority-termSourceDetail": "${{row}.termSourceDetail}", 
                                 ".csc-workAuthority-termSourceID": "${{row}.termSourceID}", 
                                 ".csc-workAuthority-termSourceNote": "${{row}.termSourceNote}", 
-                                ".csc-workAuthority-termFormattedDisplayName": "${{row}.termFormattedDisplayName}", 
                                 ".csc-workAuthority-termStatus": {
                                   "default": "", 
                                   "optionlist": [
                                     "", 
-                                    "complete", 
+                                    "quickaddedneedsattention", 
                                     "inprogress", 
-                                    "quickaddedneedsattention"
+                                    "complete"
                                   ], 
                                   "optionnames": [
-                                    "Complete", 
-                                    "In Progress", 
                                     "Please select a value", 
-                                    "Quick Added, needs attention"
+                                    "Quick Added, needs attention", 
+                                    "In Progress", 
+                                    "Complete"
                                   ], 
                                   "selection": "${{row}.termStatus}"
                                 }, 
