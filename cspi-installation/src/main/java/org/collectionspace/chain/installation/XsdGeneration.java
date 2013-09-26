@@ -391,7 +391,11 @@ public class XsdGeneration {
 				
 				String schemaParentType = DEFAULT_PARENT_TYPE;
 				if (record.isServicesExtension() == true) { // If we know this is an extension of a common base type, we need to set the parent type
-					schemaParentType = record.getServicesTenantDoctype(false);
+                                    // CSPACE-6227: When extending base doctypes, get the actual parent doctype.
+                                    // At present, the code line below will not insert the correct 'extends="..."' value in
+                                    // the (as-yet) non-standard case of extending an authority doctype (e.g. Personauthority),
+                                    // as contrasted with extending an authority item doctype (e.g. Person). - ADR 2013-09-26
+                                    schemaParentType = record.getServicesTenantDoctype(false);
 				}
 				substitutionMap.put(SCHEMA_PARENT_TYPE_VAR, schemaParentType);
 				
