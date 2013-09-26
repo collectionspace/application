@@ -1,5 +1,19 @@
 <record id="organization" is-extension="true">
 	<services-record-path id="cinefiles">organizations_cinefiles:http://collectionspace.org/services/organization/local/cinefiles,organizations_cinefiles</services-record-path>
+
+	<instances id="organization">
+		<!-- Replace instances -->
+		<instance id="organization-organization">
+			<web-url>organization</web-url>
+			<title-ref>organization</title-ref>
+			<title>Corporate Names</title>
+		</instance>
+		<instance id="organization-committee">
+			<web-url>committee</web-url>
+			<title-ref>committee</title-ref>
+			<title>Committees</title>
+		</instance>
+	</instances>
 	
 	<section id="organizationNameAuthorityInformation">
 		<!-- Local fields -->

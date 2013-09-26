@@ -1,0 +1,8 @@
+<record id="preferredWork">
+	<section id="termInformation">
+		<repeat id="workTermGroupList/workTermGroup">
+			<!-- Remove citation-worldcat from autocomplete -->
+			<field id="termSource" autocomplete="citation-citation"/>
+		</repeat>
+	</section>
+</record>

@@ -1,0 +1,8 @@
+<record id="preferredOA">
+	<section id="termInformation">
+		<repeat id="orgTermGroupList/orgTermGroup">
+			<!-- Remove citation-worldcat from autocomplete -->
+			<field id="termSource" autocomplete="citation-citation"/>
+		</repeat>
+	</section>
+</record>

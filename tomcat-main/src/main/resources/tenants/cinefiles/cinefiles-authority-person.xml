@@ -1,6 +1,15 @@
 <record id="person" is-extension="true">
 	<services-record-path id="cinefiles">persons_cinefiles:http://collectionspace.org/services/person/local/cinefiles,persons_cinefiles</services-record-path>
 
+	<instances id="person">
+		<!-- Replace instances -->
+		<instance id="person-person">
+			<web-url>person</web-url>
+			<title-ref>person</title-ref>
+			<title>Persons</title>
+		</instance>
+	</instances>
+
 	<section id="personNameAuthorityInformation">
 		<!-- Local fields -->
 		

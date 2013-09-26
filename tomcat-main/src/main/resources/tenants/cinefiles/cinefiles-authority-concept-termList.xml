@@ -1,0 +1,8 @@
+<record id="preferredCA">
+	<section id="termInformation">
+		<repeat id="conceptTermGroupList/conceptTermGroup">
+			<!-- Remove citation-worldcat from autocomplete -->
+			<field id="termSource" autocomplete="citation-citation"/>
+		</repeat>
+	</section>
+</record>

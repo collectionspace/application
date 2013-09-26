@@ -1,0 +1,15 @@
+<record id="concept">
+	<instances id="genre">
+		<!-- Replace instances -->
+		<instance id="concept-concept">
+			<web-url>concept</web-url>
+			<title-ref>concept</title-ref>
+			<title>Subjects</title>
+		</instance>
+		<instance id="concept-genre">
+			<web-url>genre</web-url>
+			<title-ref>genre</title-ref>
+			<title>Genres</title>
+		</instance>
+	</instances>
+</record>

@@ -41,4 +41,33 @@
 		
 		<field id="accessCode" section="cinefiles"/>
 	</section>
+
+	<section id="descriptionInformation">
+		<section id="contentInformation">
+			<repeat id="contentConcepts">
+				<!-- Remove concept-material_ca from autocomplete, and add concept-genre -->
+				<field id="contentConcept" autocomplete="concept-concept,concept-genre"/>
+			</repeat>
+			<repeat id="contentPersons">
+				<!-- Remove person-ulan_pa from autocomplete -->
+				<field id="contentPerson" autocomplete="person-person"/>
+			</repeat>
+			<repeat id="contentOrganizations">
+				<!-- Remove organization-ulan_oa from autocomplete, and add organization-committee -->
+				<field id="contentOrganization" autocomplete="organization-organization,organization-committee"/>
+			</repeat>
+		</section>
+	</section>
+	
+	<section id="referenceInformation">
+		<repeat id="referenceGroupList/referenceGroup">
+			<!-- Remove citation-worldcat from autocomplete -->
+			<field id="reference" autocomplete="citation-citation"/>
+		</repeat>
+	</section>
+
+	<section id="objectCollectionInformation">
+		<!-- Remove place-tgn_place from autocomplete -->
+		<field id="fieldCollectionPlace" autocomplete="place-place"/>
+	</section>
 </record>
