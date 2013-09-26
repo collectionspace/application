@@ -53,7 +53,7 @@ public class XsdGeneration {
 	private static final String NUXEO_WORKSPACE_SUBTYPES_VAR = "${WorkspaceSubtypes}";
 	
 	private static final String DEFAULT_PARENT_TYPE = "CollectionSpaceDocument";
-	private static final String SCHEMA_PARENT_TYPE_VAR = "$SchemaParentType}";
+	private static final String SCHEMA_PARENT_TYPE_VAR = "${SchemaParentType}";
 	private static final String COLLECTIONSPACE_CORE_SCHEMA_NAME_VAR = "${collectionspace_core}";	
 	private static final String COLLECTIONSPACE_CORE_SCHEMA_NAME = "collectionspace_core";
 	private static final String DEFAULT_BUNDLE_PREAMBLE = "collectionspace";
@@ -391,7 +391,7 @@ public class XsdGeneration {
 				
 				String schemaParentType = DEFAULT_PARENT_TYPE;
 				if (record.isServicesExtension() == true) { // If we know this is an extension of a common base type, we need to set the parent type
-					schemaParentType = serviceName;
+					schemaParentType = record.getServicesTenantDoctype(false);
 				}
 				substitutionMap.put(SCHEMA_PARENT_TYPE_VAR, schemaParentType);
 				
