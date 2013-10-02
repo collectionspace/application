@@ -888,8 +888,8 @@
                                     {
                                       "func": "cspace.autocomplete", 
                                       "options": {
-                                        "queryUrl": "../../../tenant/core/vocabularies/preferredPlace/autocomplete/termSource", 
-                                        "vocabUrl": "../../../tenant/core/vocabularies/preferredPlace/source-vocab/termSource"
+                                        "queryUrl": "../../../tenant/core/preferredPlace/autocomplete/termSource", 
+                                        "vocabUrl": "../../../tenant/core/preferredPlace/source-vocab/termSource"
                                       }, 
                                       "type": "fluid"
                                     }
