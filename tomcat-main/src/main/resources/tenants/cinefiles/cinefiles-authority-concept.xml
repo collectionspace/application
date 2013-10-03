@@ -11,5 +11,10 @@
 			<title-ref>genre</title-ref>
 			<title>Genres</title>
 		</instance>
+		<instance id="concept-theme">
+			<web-url>theme</web-url>
+			<title-ref>theme</title-ref>
+			<title>Themes</title>
+		</instance>
 	</instances>
 </record>
