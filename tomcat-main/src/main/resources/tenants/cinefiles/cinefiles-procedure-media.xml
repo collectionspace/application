@@ -3,8 +3,8 @@
 	
 	<section id="mediaInformation">
 		<!-- Local fields -->
-		
-		<field id="page" section="cinefiles" datatype="integer"/>
-		<field id="resolution" section="cinefiles"/>		
+
+		<field id="page" section="cinefiles" datatype="integer" ui-type="validated" mini="search,list,relate"/>
+		<field id="resolution" section="cinefiles"/>
 	</section>
 </record>
