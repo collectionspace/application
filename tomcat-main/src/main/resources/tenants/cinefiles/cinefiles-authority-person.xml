@@ -11,11 +11,20 @@
 	</instances>
 
 	<section id="personNameAuthorityInformation">
+		<!-- Tie to country vocabulary -->
+		<field id="birthPlace" autocomplete="vocab-country" ui-type="enum" />
+
 		<!-- Local fields -->
 		
 		<field id="birthState" section="cinefiles"/>
 		<field id="birthCity" section="cinefiles"/>
 
-		<field id="accessCode" section="cinefiles"/>
+		<field id="accessCode" section="cinefiles">
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="option1">Option 1</option>
+				<option id="option2">Option 2</option>
+			</options>
+		</field>
 	</section>
 </record>

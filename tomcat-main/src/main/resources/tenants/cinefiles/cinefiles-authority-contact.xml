@@ -1,0 +1,11 @@
+<record id="contact">
+	<section id="contactInformation">
+		<repeat id="addressGroupList/addressGroup">
+			<!-- Tie to country vocabulary -->
+			<field id="addressCountry" autocomplete="vocab-country" ui-type="enum">
+				<!-- Remove options -->
+				<options/>
+			</field>
+		</repeat>
+	</section>
+</record>

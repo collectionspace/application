@@ -1,0 +1,11 @@
+<instances>
+	<instance id="vocab-country">
+		<web-url>country</web-url>
+		<title-ref>country</title-ref>
+		<title>Country</title>
+		<options>
+			<option id="option1">Option 1</option> 
+			<option id="option2">Option 2</option>
+		</options>
+	</instance>
+</instances>
