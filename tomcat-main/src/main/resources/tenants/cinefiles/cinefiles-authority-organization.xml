@@ -27,7 +27,7 @@
 		<repeat id="memberGroupList/memberGroup" section="cinefiles">
 			<field id="member" section="cinefiles" autocomplete="person-person"/>
 			<field id="memberNote" section="cinefiles"/>
-			<field id="memberAuthority" section="cinefiles"/>
+			<field id="memberAuthority" section="cinefiles" autocomplete="citation-citation"/>
 		</repeat>
 		
 		<field id="accessCode" section="cinefiles">
