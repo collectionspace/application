@@ -11,29 +11,29 @@
 		<title>Languages</title>
 		<options>
 			<option id="ara">Arabic</option>
-		<option id="hye">Armenian</option>
+			<option id="hye">Armenian</option>
 			<option id="zho">Chinese</option>
 			<option id="eng">English</option>
 			<option id="fra">French</option>
 			<option id="deu">German</option>
 			<option id="grc">Ancient Greek</option>
 			<option id="heb">Hebrew</option>
-		<option id="ind">Indonesian</option>
+			<option id="ind">Indonesian</option>
 			<option id="ita">Italian</option>
 			<option id="jpn">Japanese</option>
 			<option id="kor">Korean</option>
 			<option id="lat">Latin</option>
-		<option id="mal">Malaysian</option>
+			<option id="mal">Malaysian</option>
 			<option id="enm">Middle English</option>
 			<option id="ang">Old English</option>
 			<option id="por">Portuguese</option>
-		<option id="ron">Romanian</option>
+			<option id="ron">Romanian</option>
 			<option id="rus">Russian</option>
 			<option id="spa">Spanish</option>
 			<option id="swa">Swahili</option>
-		<option id="swe">Swedish</option>
-		<option id="tgl">Tagalog</option>
-		<option id="yor">Yoruba</option>
+			<option id="swe">Swedish</option>
+			<option id="tgl">Tagalog</option>
+			<option id="yor">Yoruba</option>
 		</options>
 	</instance>
 	<instance id="vocab-lostatus">
@@ -186,9 +186,9 @@
 		<title-ref>persontermtype</title-ref>
 		<title>personTermType</title>
 		<options>
-				<option id="artist">Artist</option>
-				<option id="donor">Donor</option>
-				<option id="employee">Employee</option>
+			<option id="artist">Artist</option>
+			<option id="donor">Donor</option>
+			<option id="employee">Employee</option>
 		</options>
 	</instance>	  
 	<instance id="vocab-worktype">
@@ -234,31 +234,31 @@
 		<title-ref>citationtermtype</title-ref>
 		<title>citationTermType</title>
 		<options>
-				<option id="monograph">Monograph</option>
-				<option id="dictionary">Dictionary</option>
-				<option id="encyclopedia">Encyclopedia</option>
-				<option id="gazetteer">Gazetteer</option>
-				<option id="criticism">Criticism</option>
-				<option id="atlas">Atlas</option>
-				<option id="guide">Guide book</option>
-				<option id="biography">Biography</option>
-				<option id="history">History</option>
-				<option id="Festschrift">Festschrift</option>
-				<option id="catalog">Exhibition catalog</option>
-				<option id="journal">Journal article</option>
-				<option id="newspaper">Newspaper article</option>
-				<option id="dissertation">Dissertation</option>
-				<option id="birthcert">Birth certificate</option>
-				<option id="obituary">Obituary</option>
-				<option id="brochure">Brochure</option>
-				<option id="exhibitionchecklist">Exhibition checklist</option>
-				<option id="exhibitionreview">Exhibition review</option>
-				<option id="contract">Contract</option>
-				<option id="conditionreport">Condition report</option>
-				<option id="letter">Letter</option>
-				<option id="diary">Diary</option>
-				<option id="inventory">Inventory</option>
-				<option id="verbalopinion">Verbal opinion</option>
+			<option id="monograph">Monograph</option>
+			<option id="dictionary">Dictionary</option>
+			<option id="encyclopedia">Encyclopedia</option>
+			<option id="gazetteer">Gazetteer</option>
+			<option id="criticism">Criticism</option>
+			<option id="atlas">Atlas</option>
+			<option id="guide">Guide book</option>
+			<option id="biography">Biography</option>
+			<option id="history">History</option>
+			<option id="Festschrift">Festschrift</option>
+			<option id="catalog">Exhibition catalog</option>
+			<option id="journal">Journal article</option>
+			<option id="newspaper">Newspaper article</option>
+			<option id="dissertation">Dissertation</option>
+			<option id="birthcert">Birth certificate</option>
+			<option id="obituary">Obituary</option>
+			<option id="brochure">Brochure</option>
+			<option id="exhibitionchecklist">Exhibition checklist</option>
+			<option id="exhibitionreview">Exhibition review</option>
+			<option id="contract">Contract</option>
+			<option id="conditionreport">Condition report</option>
+			<option id="letter">Letter</option>
+			<option id="diary">Diary</option>
+			<option id="inventory">Inventory</option>
+			<option id="verbalopinion">Verbal opinion</option>
 		</options>
 	</instance>
 	<instance id="vocab-agentinfo">
@@ -266,8 +266,8 @@
 		<title-ref>agentinfotype</title-ref>
 		<title>agentinfoType</title>
 		<options>
-				<option id="writer">Writer</option>
-				<option id="editor">Editor</option>
+			<option id="writer">Writer</option>
+			<option id="editor">Editor</option>
 		</options>
 	</instance>
 	<instance id="vocab-resourceid">
@@ -275,9 +275,9 @@
 		<title-ref>resourceidtype</title-ref>
 		<title>resourceidType</title>
 		<options>
-				<option id="isbn">ISBN</option>
-				<option id="issn">ISSN</option>
-				<option id="permalink">Permalink</option>
+			<option id="isbn">ISBN</option>
+			<option id="issn">ISSN</option>
+			<option id="permalink">Permalink</option>
 		</options>
 	</instance>
 	 <instance id="vocab-relationtype">
@@ -285,10 +285,10 @@
 		<title-ref>relationtypetype</title-ref>
 		<title>relationtypeType</title>
 		<options>
-				<option id="monography">Monography (published in)</option>
-				<option id="magazine">Magazine (published in)</option>
-				<option id="exhibition">Exhibition</option>
-				<option id="facsimile">Facsimile of</option>
+			<option id="monography">Monography (published in)</option>
+			<option id="magazine">Magazine (published in)</option>
+			<option id="exhibition">Exhibition</option>
+			<option id="facsimile">Facsimile of</option>
 		</options>
 	</instance>
 </instances>
