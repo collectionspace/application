@@ -1,6 +1,18 @@
 <record id="preferredWork">
 	<section id="termInformation">
 		<repeat id="workTermGroupList/workTermGroup">
+			<!-- Make computed and ui-readonly -->
+			<field id="termDisplayName" ui-type="computed" ui-func="cinefiles.computeWorkDisplayName" ui-args="termQualifier,termName" ui-readonly="true"/>
+            
+			<field id="termQualifier">
+				<!-- Add options -->
+				<options>
+					<option id=""> </option>
+					<option id="A ">A</option>
+					<option id="The ">The</option>
+				</options>
+			</field>
+			
 			<!-- Remove citation-worldcat from autocomplete -->
 			<field id="termSource" autocomplete="citation-citation"/>
 		</repeat>

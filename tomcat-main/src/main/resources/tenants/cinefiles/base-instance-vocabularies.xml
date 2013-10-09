@@ -203,6 +203,7 @@
 			<option id="theater">Theater</option>
 			<option id="performance">Performance</option>
 			<option id="music">Music</option>
+			<option id="film">Film</option>
 		</options>
 	</instance>
 	<instance id="vocab-workcreatortype">
@@ -227,6 +228,7 @@
 		<options>
 			<option id="distributor">Distributor</option>
 			<option id="publisher">Publisher</option>
+			<option id="productioncompany">Production Company</option>
 		</options>
 	</instance>
 	<instance id="vocab-citationtermtype">
