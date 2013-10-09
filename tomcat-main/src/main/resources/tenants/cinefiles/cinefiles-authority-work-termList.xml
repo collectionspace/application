@@ -1,9 +1,15 @@
 <record id="preferredWork">
 	<section id="termInformation">
 		<repeat id="workTermGroupList/workTermGroup">
-			<!-- Make computed and ui-readonly -->
-			<field id="termDisplayName" ui-type="computed" ui-func="cinefiles.computeWorkDisplayName" ui-args="termQualifier,termName" ui-readonly="true"/>
-            
+			<!-- Make computed and ui-readonly, add sortKey, and remove ui-search -->
+			<field id="termDisplayName" ui-search="" sortKey="termName" ui-type="computed" ui-func="cinefiles.computeWorkDisplayName" ui-args="termQualifier,termName" ui-readonly="true"/>
+
+			<!-- Configure an app-layer-only field to be used in advanced search for termDisplayName, which isn't computed and read-only -->
+			<field id="termDisplayNameSearch" ui-search="repeatable" exists-in-services="false">
+				<selector>workAuthority-termDisplayNameSearch</selector>
+				<services-tag>termDisplayName</services-tag>
+			</field>
+			
 			<field id="termQualifier">
 				<!-- Add options -->
 				<options>
