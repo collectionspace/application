@@ -16,17 +16,26 @@
 	</instances>
 	
 	<section id="organizationNameAuthorityInformation">
+		<!-- Tie to country vocabulary -->
+		<field id="foundingPlace" autocomplete="vocab-country" ui-type="enum"/>
+
 		<!-- Local fields -->
 		
 		<field id="foundingState" section="cinefiles"/>
 		<field id="foundingCity" section="cinefiles"/>
 
 		<repeat id="memberGroupList/memberGroup" section="cinefiles">
-			<field id="member" section="cinefiles"/>
+			<field id="member" section="cinefiles" autocomplete="person-person"/>
 			<field id="memberNote" section="cinefiles"/>
 			<field id="memberAuthority" section="cinefiles"/>
 		</repeat>
 		
-		<field id="accessCode" section="cinefiles"/>
+		<field id="accessCode" section="cinefiles">
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="option1">Option 1</option>
+				<option id="option2">Option 2</option>
+			</options>
+		</field>
 	</section>
 </record>
