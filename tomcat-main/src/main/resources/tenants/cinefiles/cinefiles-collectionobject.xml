@@ -1,7 +1,34 @@
 <record id="collection-object" is-extension="true">
 	<services-record-path id="cinefiles">collectionobjects_cinefiles:http://collectionspace.org/services/collectionobject/local/cinefiles,collectionobjects_cinefiles</services-record-path>
 
+	<section id="coreInformation">
+		<!-- Remove mini -->
+		<field id="nametitle" mini=""/>
+	</section>
+	
 	<section id="identificationInformation">
+		<repeat id="responsibleDepartments">
+			<!-- Change to dynamic term list -->
+			<field id="responsibleDepartment" autocomplete="vocab-department" ui-type="enum">
+				<!-- Remove options -->
+				<options/>
+				<!-- Add default -->
+				<enum>
+					<default>urn:cspace:cinefiles.cspace.berkeley.edu:vocabularies:name(department):item:name(pfalibrary)'PFA Library'</default>
+				</enum>
+		  </field>
+		</repeat>
+		
+		<!-- Change to dynamic term list -->
+		<field id="collection" autocomplete="vocab-collection" ui-type="enum">
+			<!-- Remove options -->
+			<options/>
+			<!-- Add default -->
+			<enum>
+				<default>urn:cspace:cinefiles.cspace.berkeley.edu:vocabularies:name(collection):item:name(cinefiles)'CineFiles'</default>
+			</enum>
+		</field>
+	
 		<!-- Local fields -->
 		
 		<field id="pageInfo" section="cinefiles"/>
@@ -17,29 +44,45 @@
 		<field id="hasIllust" section="cinefiles" datatype="boolean"/>
 		<field id="hasBiblio" section="cinefiles" datatype="boolean"/>
 		
-		<field id="docType" section="cinefiles"/>
+		<field id="docType" section="cinefiles" autocomplete="vocab-doctype" ui-type="enum"/>
 		
 		<repeat id="docSubjects" section="cinefiles">
-			<field id="docSubject" section="cinefiles"/>
+			<field id="docSubject" section="cinefiles" autocomplete="concept-concept"/>
 		</repeat>
 		
 		<repeat id="nameSubjects" section="cinefiles">
-			<field id="nameSubject" section="cinefiles"/>
+			<field id="nameSubject" section="cinefiles" autocomplete="person-person,organization-organization"/>
 		</repeat>
 		
 		<repeat id="filmSubjects" section="cinefiles">
-			<field id="filmSubject" section="cinefiles"/>
+			<field id="filmSubject" section="cinefiles" autocomplete="work-work"/>
 		</repeat>
 		
 		<repeat id="docLanguages" section="cinefiles">
-			<field id="docLanguage" section="cinefiles"/>
+			<field id="docLanguage" section="cinefiles" autocomplete="vocab-languages" ui-type="enum"/>
 		</repeat>
 		
 		<repeat id="sources" section="cinefiles">
-			<field id="source" section="cinefiles"/>
+			<field id="source" section="cinefiles" autocomplete="person-person,organization-organization"/>
 		</repeat>
 		
-		<field id="accessCode" section="cinefiles"/>
+		<field id="docTitleArticle" section="cinefiles">
+			<options>
+				<option id=""> </option>
+				<option id="A ">A</option>
+				<option id="The ">The</option>
+			</options>
+		</field>
+		<field id="docTitle" section="cinefiles"/>
+		<field id="docDisplayName" section="cinefiles" mini="summary,search,list,relate" sortKey="docTitle" ui-type="computed" ui-func="cinefiles.computeDocDisplayName" ui-args="docTitleArticle,docTitle" ui-readonly="true"/>
+		
+		<field id="accessCode" section="cinefiles">
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="option1">Option 1</option>
+				<option id="option2">Option 2</option>
+			</options>
+		</field>
 	</section>
 
 	<section id="descriptionInformation">
@@ -57,6 +100,18 @@
 				<field id="contentOrganization" autocomplete="organization-organization,organization-committee"/>
 			</repeat>
 		</section>
+	</section>
+	
+	<section id="objectProductionInformation">
+		<repeat id="objectProductionPersonGroupList/objectProductionPersonGroup">
+			<!-- Change to a dynamic term list -->
+			<field id="objectProductionPersonRole" autocomplete="vocab-productionpersonrole" ui-type="enum">
+				<!-- Add default -->
+				<enum>
+					<default>urn:cspace:cinefiles.cspace.berkeley.edu:vocabularies:name(productionpersonrole):item:name(author)'Author'</default>
+				</enum>
+			</field>
+		</repeat>
 	</section>
 	
 	<section id="referenceInformation">

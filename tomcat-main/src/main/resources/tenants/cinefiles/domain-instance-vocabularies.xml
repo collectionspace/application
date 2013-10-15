@@ -4,8 +4,44 @@
 		<title-ref>country</title-ref>
 		<title>Country</title>
 		<options>
-			<option id="option1">Option 1</option> 
+			<option id="option1">Option 1</option>
 			<option id="option2">Option 2</option>
+		</options>
+	</instance>
+	
+	<instance id="vocab-department">
+		<web-url>department</web-url>
+		<title-ref>department</title-ref>
+		<title>Department</title>
+		<options>
+			<option id="pfalibrary">PFA Library</option>
+		</options>
+	</instance>
+	
+	<instance id="vocab-collection">
+		<web-url>collection</web-url>
+		<title-ref>collection</title-ref>
+		<title>Collection</title>
+		<options>
+			<option id="cinefiles">CineFiles</option>
+		</options>
+	</instance>
+	
+	<instance id="vocab-productionpersonrole">
+		<web-url>productionpersonrole</web-url>
+		<title-ref>productionpersonrole</title-ref>
+		<title>Production Person Role</title>
+		<options>
+			<option id="author">Author</option>
+		</options>
+	</instance>
+	
+	<instance id="vocab-doctype">
+		<web-url>doctype</web-url>
+		<title-ref>doctype</title-ref>
+		<title>Document Type</title>
+		<options>
+			<option id="option1">Option 1</option>
 		</options>
 	</instance>
 </instances>
