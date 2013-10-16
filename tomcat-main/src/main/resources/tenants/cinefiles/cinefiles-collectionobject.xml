@@ -32,7 +32,6 @@
 		<!-- Local fields -->
 		
 		<field id="pageInfo" section="cinefiles"/>
-		<field id="cleared" section="cinefiles" datatype="boolean"/>
 
 		<field id="hasCastCr" section="cinefiles" datatype="boolean"/>
 		<field id="hasTechCr" section="cinefiles" datatype="boolean"/>
