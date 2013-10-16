@@ -1,0 +1,13 @@
+<record id="group">
+	<section id="groupInformation">
+		<!-- Change to dynamic term list -->
+		<field id="responsibleDepartment" autocomplete="vocab-department" ui-type="enum">
+			<!-- Remove options -->
+			<options/>
+			<!-- Add default -->
+			<enum>
+				<default>urn:cspace:cinefiles.cspace.berkeley.edu:vocabularies:name(department):item:name(pfalibrary)'PFA Library'</default>
+			</enum>
+		</field>
+	</section>
+</record>
