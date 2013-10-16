@@ -5,10 +5,10 @@
 			<field id="termDisplayName" ui-search="" sortKey="termName" ui-type="computed" ui-func="cinefiles.computeWorkDisplayName" ui-args="termQualifier,termName" ui-readonly="true"/>
 
 			<!-- Configure an app-layer-only field to be used in advanced search for termDisplayName, which isn't computed and read-only -->
-			<!-- <field id="termDisplayNameSearch" ui-search="repeatable" exists-in-services="false">
+			<field id="termDisplayNameSearch" ui-search="repeatable" exists-in-services="false">
 				<selector>workAuthority-termDisplayNameSearch</selector>
 				<services-tag>termDisplayName</services-tag>
-			</field> -->
+			</field>
 			
 			<field id="termQualifier">
 				<!-- Add options -->
