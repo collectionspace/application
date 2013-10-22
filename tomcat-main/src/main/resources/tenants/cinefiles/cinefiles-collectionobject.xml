@@ -67,7 +67,7 @@
 		
 		<field id="docTitleArticle" section="cinefiles">
 			<options>
-				<option id=" " default="yes">&#160;</option> <!-- Use a non-breaking space as the option text, since options that are empty or contain only whitespace cause UI layer exceptions. -->
+				<option id="" default="yes">&#160;</option> <!-- Use a non-breaking space as the option text, since options that are empty or contain only whitespace cause UI layer exceptions. -->
 				<option id="A">A</option>
 				<option id="Al">Al</option>
 				<option id="An">An</option>
