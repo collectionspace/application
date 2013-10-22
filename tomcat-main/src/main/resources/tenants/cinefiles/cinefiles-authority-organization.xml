@@ -21,8 +21,8 @@
 
 		<!-- Local fields -->
 		
-		<field id="foundingState" section="cinefiles"/>
-		<field id="foundingCity" section="cinefiles"/>
+		<field id="foundingState" section="cinefiles" ui-search="repeatable"/>
+		<field id="foundingCity" section="cinefiles" ui-search="repeatable"/>
 
 		<repeat id="memberGroupList/memberGroup" section="cinefiles">
 			<field id="member" section="cinefiles" autocomplete="person-person"/>
@@ -30,7 +30,7 @@
 			<field id="memberAuthority" section="cinefiles" autocomplete="citation-citation"/>
 		</repeat>
 		
-		<field id="accessCode" section="cinefiles">
+		<field id="accessCode" section="cinefiles" ui-search="repeatable">
 			<options>
 				<option id="" default="yes">Please select a value</option>
 				<option id="option1">Option 1</option>
