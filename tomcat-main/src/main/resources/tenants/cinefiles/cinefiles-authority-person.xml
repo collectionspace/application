@@ -11,15 +11,15 @@
 	</instances>
 
 	<section id="personNameAuthorityInformation">
-		<!-- Tie to country vocabulary -->
-		<field id="birthPlace" autocomplete="vocab-country" ui-type="enum" />
+		<!-- Tie to country vocabulary, and add ui-search -->
+		<field id="birthPlace" autocomplete="vocab-country" ui-type="enum" ui-search="repeatable"/>
 
 		<!-- Local fields -->
 		
-		<field id="birthState" section="cinefiles"/>
-		<field id="birthCity" section="cinefiles"/>
+		<field id="birthState" section="cinefiles" ui-search="repeatable"/>
+		<field id="birthCity" section="cinefiles" ui-search="repeatable"/>
 
-		<field id="accessCode" section="cinefiles">
+		<field id="accessCode" section="cinefiles" ui-search="repeatable">
 			<options>
 				<option id="" default="yes">Please select a value</option>
 				<option id="option1">Option 1</option>
