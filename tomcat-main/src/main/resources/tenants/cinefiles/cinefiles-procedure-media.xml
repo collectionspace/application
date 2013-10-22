@@ -8,12 +8,5 @@
 		<!-- Local fields -->
 
 		<field id="page" section="cinefiles" datatype="integer" ui-type="validated" mini="number,search,list,relate"/>
-		<field id="resolution" section="cinefiles">
-			<options>
-				<option id="">Please select a value</option>
-				<option id="option1">Option 1</option>
-				<option id="option1">Option 2</option>
-			</options>
-		</field>
 	</section>
 </record>
