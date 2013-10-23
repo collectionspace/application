@@ -7,6 +7,9 @@
 	</section>
 	
 	<section id="identificationInformation">
+		<!-- Remove mini -->
+		<field id="objectNumber" mini=""/>
+		
 		<repeat id="responsibleDepartments">
 			<!-- Change to dynamic term list -->
 			<field id="responsibleDepartment" autocomplete="vocab-department" ui-type="enum">
@@ -195,7 +198,7 @@
 			</options>
 		</field>
 		<field id="docTitle" section="cinefiles"/>
-		<field id="docDisplayName" section="cinefiles" mini="summary,search,list,relate" sortKey="docTitle" ui-type="computed" ui-func="cinefiles.computeDocDisplayName" ui-args="docTitleArticle,docTitle" ui-readonly="true"/>
+		<field id="docDisplayName" section="cinefiles" mini="number,search,list,relate" sortKey="docTitle" ui-type="computed" ui-func="cinefiles.computeDocDisplayName" ui-args="docTitleArticle,docTitle" ui-readonly="true"/>
 		
 		<!-- Configure an app-layer-only field to be used in advanced search for docDisplayName, which isn't computed and read-only -->
 		<field id="docDisplayNameSearch" section="cinefiles" ui-search="repeatable" exists-in-services="false">
@@ -230,6 +233,8 @@
 	
 	<section id="objectProductionInformation">
 		<repeat id="objectProductionPersonGroupList/objectProductionPersonGroup">
+			<!-- Add mini -->
+			<field id="objectProductionPerson" mini="summary,search,list,relate"/>
 			<!-- Change to a dynamic term list -->
 			<field id="objectProductionPersonRole" autocomplete="vocab-productionpersonrole" ui-type="enum">
 				<!-- Add default -->
