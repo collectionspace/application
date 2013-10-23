@@ -19,8 +19,8 @@
 		</field>
 		
 		<repeat id="creatorGroupList/creatorGroup">
-			<!-- Add organization-committee to autocomplete -->
-			<field id="creator" autocomplete="person-person,organization-organization,organization-committee"/>
+			<!-- Add organization-committee to autocomplete, and add mini -->
+			<field id="creator" mini="summary,search,list,relate" autocomplete="person-person,organization-organization,organization-committee"/>
 			<field id="creatorType">
 				<!-- Add default -->
 				<enum>
