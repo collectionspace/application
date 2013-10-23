@@ -43,23 +43,23 @@
 		<!-- Local fields -->
 		
 		<repeat id="countries" section="cinefiles">
-			<field id="country" section="cinefiles" autocomplete="vocab-country" ui-type="enum"/>
+			<field id="country" section="cinefiles" autocomplete="vocab-country" ui-type="enum" ui-search="repeatable"/>
 		</repeat>
 		
 		<repeat id="languages" section="cinefiles">
-			<field id="language" section="cinefiles" autocomplete="vocab-languages" ui-type="enum"/>
+			<field id="language" section="cinefiles" autocomplete="vocab-languages" ui-type="enum" ui-search="repeatable"/>
 		</repeat>
 		
 		<repeat id="genres" section="cinefiles">
-			<field id="genre" section="cinefiles" autocomplete="concept-genre"/>
+			<field id="genre" section="cinefiles" autocomplete="concept-genre" ui-search="repeatable"/>
 		</repeat>
 		
 		<repeat id="subjects" section="cinefiles">
-			<field id="subject" section="cinefiles" autocomplete="concept-concept"/>
+			<field id="subject" section="cinefiles" autocomplete="concept-concept" ui-search="repeatable"/>
 		</repeat>
 		
 		<repeat id="themes" section="cinefiles">
-			<field id="theme" section="cinefiles" autocomplete="concept-theme"/>
+			<field id="theme" section="cinefiles" autocomplete="concept-theme" ui-search="repeatable"/>
 		</repeat>
 	</section>
 </record>
