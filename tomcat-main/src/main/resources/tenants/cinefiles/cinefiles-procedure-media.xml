@@ -7,6 +7,6 @@
         
 		<!-- Local fields -->
 
-		<field id="page" section="cinefiles" datatype="integer" ui-type="validated" mini="number,search,list,relate"/>
+		<field id="page" section="cinefiles" datatype="integer" ui-type="validated" mini="number,search,list,relate" ui-search="range"/>
 	</section>
 </record>
