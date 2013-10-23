@@ -34,35 +34,115 @@
 		<field id="pageInfo" section="cinefiles"/>
 
 		<field id="hasCastCr" section="cinefiles" datatype="boolean"/>
+		<field id="hasCastCrSearch" section="cinefiles" datatype="boolean" ui-search="single" exists-in-services="false">
+			<services-tag>hasCastCr</services-tag>
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			</options>
+		</field>
+
 		<field id="hasTechCr" section="cinefiles" datatype="boolean"/>
+		<field id="hasTechCrSearch" section="cinefiles" datatype="boolean" ui-search="single" exists-in-services="false">
+			<services-tag>hasTechCr</services-tag>
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			</options>
+		</field>
+
 		<field id="hasBoxInfo" section="cinefiles" datatype="boolean"/>
+		<field id="hasBoxInfoSearch" section="cinefiles" datatype="boolean" ui-search="single" exists-in-services="false">
+			<services-tag>hasBoxInfo</services-tag>
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			</options>
+		</field>
+
 		<field id="hasFilmog" section="cinefiles" datatype="boolean"/>
+		<field id="hasFilmogSearch" section="cinefiles" datatype="boolean" ui-search="single" exists-in-services="false">
+			<services-tag>hasFilmog</services-tag>
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			</options>
+		</field>
+
 		<field id="hasDistCo" section="cinefiles" datatype="boolean"/>
+		<field id="hasDistCoSearch" section="cinefiles" datatype="boolean" ui-search="single" exists-in-services="false">
+			<services-tag>hasDistCo</services-tag>
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			</options>
+		</field>
+
 		<field id="hasProdCo" section="cinefiles" datatype="boolean"/>
+		<field id="hasProdCoSearch" section="cinefiles" datatype="boolean" ui-search="single" exists-in-services="false">
+			<services-tag>hasProdCo</services-tag>
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			</options>
+		</field>
+
 		<field id="hasCostInfo" section="cinefiles" datatype="boolean"/>
+		<field id="hasCostInfoSearch" section="cinefiles" datatype="boolean" ui-search="single" exists-in-services="false">
+			<services-tag>hasCostInfo</services-tag>
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			</options>
+		</field>
+
 		<field id="hasIllust" section="cinefiles" datatype="boolean"/>
+		<field id="hasIllustSearch" section="cinefiles" datatype="boolean" ui-search="single" exists-in-services="false">
+			<services-tag>hasIllust</services-tag>
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			</options>
+		</field>
+
 		<field id="hasBiblio" section="cinefiles" datatype="boolean"/>
+		<field id="hasBiblioSearch" section="cinefiles" datatype="boolean" ui-search="single" exists-in-services="false">
+			<services-tag>hasBiblio</services-tag>
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			</options>
+		</field>
 		
-		<field id="docType" section="cinefiles" autocomplete="vocab-doctype" ui-type="enum"/>
+		<field id="docType" section="cinefiles" autocomplete="vocab-doctype" ui-type="enum" ui-search="repeatable"/>
 		
 		<repeat id="docSubjects" section="cinefiles">
-			<field id="docSubject" section="cinefiles" autocomplete="concept-concept"/>
+			<field id="docSubject" section="cinefiles" autocomplete="concept-concept" ui-search="repeatable"/>
 		</repeat>
 		
 		<repeat id="nameSubjects" section="cinefiles">
-			<field id="nameSubject" section="cinefiles" autocomplete="person-person,organization-organization"/>
+			<field id="nameSubject" section="cinefiles" autocomplete="person-person,organization-organization" ui-search="repeatable"/>
 		</repeat>
 		
 		<repeat id="filmSubjects" section="cinefiles">
-			<field id="filmSubject" section="cinefiles" autocomplete="work-work"/>
+			<field id="filmSubject" section="cinefiles" autocomplete="work-work" ui-search="repeatable"/>
 		</repeat>
 		
 		<repeat id="docLanguages" section="cinefiles">
-			<field id="docLanguage" section="cinefiles" autocomplete="vocab-languages" ui-type="enum"/>
+			<field id="docLanguage" section="cinefiles" autocomplete="vocab-languages" ui-type="enum" ui-search="repeatable"/>
 		</repeat>
 		
 		<repeat id="sources" section="cinefiles">
-			<field id="source" section="cinefiles" autocomplete="person-person,organization-organization"/>
+			<field id="source" section="cinefiles" autocomplete="person-person,organization-organization" ui-search="repeatable"/>
 		</repeat>
 		
 		<field id="docTitleArticle" section="cinefiles">
@@ -117,7 +197,12 @@
 		<field id="docTitle" section="cinefiles"/>
 		<field id="docDisplayName" section="cinefiles" mini="summary,search,list,relate" sortKey="docTitle" ui-type="computed" ui-func="cinefiles.computeDocDisplayName" ui-args="docTitleArticle,docTitle" ui-readonly="true"/>
 		
-		<field id="accessCode" section="cinefiles">
+		<!-- Configure an app-layer-only field to be used in advanced search for docDisplayName, which isn't computed and read-only -->
+		<field id="docDisplayNameSearch" section="cinefiles" ui-search="repeatable" exists-in-services="false">
+			<services-tag>docDisplayName</services-tag>
+		</field>
+		
+		<field id="accessCode" section="cinefiles" ui-search="repeatable">
 			<options>
 				<option id="" default="yes">Please select a value</option>
 				<option id="option1">Option 1</option>
