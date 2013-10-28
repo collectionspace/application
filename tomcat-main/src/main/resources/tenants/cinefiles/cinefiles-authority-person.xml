@@ -22,8 +22,11 @@
 		<field id="accessCode" section="cinefiles" ui-search="repeatable">
 			<options>
 				<option id="" default="yes">Please select a value</option>
-				<option id="option1">Option 1</option>
-				<option id="option2">Option 2</option>
+				<option id="PFA Staff Only">PFA Staff Only</option>
+				<option id="In House Only">In House Only</option>
+				<option id="Campus (UCB)">Campus (UCB)</option>
+				<option id="Education (*.edu)">Education (*.edu)</option>
+				<option id="World">World</option>
 			</options>
 		</field>
 	</section>
