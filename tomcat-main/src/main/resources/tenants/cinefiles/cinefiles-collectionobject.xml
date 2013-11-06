@@ -144,9 +144,7 @@
 			<field id="docLanguage" section="cinefiles" autocomplete="vocab-languages" ui-type="enum" ui-search="repeatable"/>
 		</repeat>
 		
-		<repeat id="sources" section="cinefiles">
-			<field id="source" section="cinefiles" autocomplete="person-person,organization-organization" ui-search="repeatable"/>
-		</repeat>
+		<field id="source" section="cinefiles" autocomplete="organization-organization" ui-search="repeatable"/>
 		
 		<field id="docTitleArticle" section="cinefiles">
 			<options>
