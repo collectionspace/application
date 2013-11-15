@@ -126,7 +126,11 @@
 			</options>
 		</field>
 		
-		<field id="docType" section="cinefiles" autocomplete="vocab-doctype" ui-type="enum" ui-search="repeatable"/>
+		<field id="docType" section="cinefiles" autocomplete="vocab-doctype" ui-type="enum" ui-search="repeatable">
+			<enum>
+				<default>urn:cspace:cinefiles.cspace.berkeley.edu:vocabularies:name(doctype):item:name(2)'article'</default>
+			</enum>
+		</field>
 		
 		<repeat id="docSubjects" section="cinefiles">
 			<field id="docSubject" section="cinefiles" autocomplete="concept-concept" ui-search="repeatable"/>
