@@ -2,6 +2,8 @@
 	<services-record-path id="cinefiles">media_cinefiles:http://collectionspace.org/services/media/local/cinefiles,media_cinefiles</services-record-path>
 	
 	<section id="mediaInformation">
+		<!-- Change to be computed and read-only -->
+		<field id="title" ui-type="computed" ui-func="cinefiles.computeMediaTitle" ui-args="blobs" ui-readonly="true"/>
 		<!-- Remove mini -->
 		<field id="identificationNumber" mini=""/>
         
