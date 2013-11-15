@@ -5,6 +5,7 @@
 			<web-url>citation</web-url>
 			<title-ref>citation</title-ref>
 			<title>Citations</title>
+			<nptAllowed>false</nptAllowed>
 		</instance>
 	</instances>
 </record>

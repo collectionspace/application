@@ -7,11 +7,13 @@
 			<web-url>organization</web-url>
 			<title-ref>organization</title-ref>
 			<title>Corporate Names</title>
+			<nptAllowed>false</nptAllowed>
 		</instance>
 		<instance id="organization-committee">
 			<web-url>committee</web-url>
 			<title-ref>committee</title-ref>
 			<title>Committees</title>
+			<nptAllowed>false</nptAllowed>
 		</instance>
 	</instances>
 	

@@ -5,6 +5,7 @@
 			<web-url>place</web-url>
 			<title-ref>place</title-ref>
 			<title>Places</title>
+			<nptAllowed>false</nptAllowed>
 		</instance>
 	</instances>
 </record>

@@ -5,6 +5,7 @@
 			<web-url>location</web-url>
 			<title-ref>location</title-ref>
 			<title>Storage Locations</title>
+			<nptAllowed>false</nptAllowed>
 		</instance>
 	</instances>
 </record>

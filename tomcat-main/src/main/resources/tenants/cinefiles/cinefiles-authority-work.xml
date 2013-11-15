@@ -7,6 +7,7 @@
 			<web-url>work</web-url>
 			<title-ref>work</title-ref>
 			<title>Moving Images</title>
+			<nptAllowed>false</nptAllowed>
 		</instance>
 	</instances>
 
