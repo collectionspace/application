@@ -31,7 +31,7 @@ public class StructuredDateParser implements WebMethod {
 	@Override
 	public void run(Object in, String[] tail) throws UIException {
 		UIRequest request = ((Request) in).getUIRequest();
-		String displayDate = request.getRequestArgument("date");
+		String displayDate = request.getRequestArgument("displayDate");
 
 		JSONObject output = new JSONObject();
 		StructuredDate structuredDate = null;
@@ -46,13 +46,20 @@ public class StructuredDateParser implements WebMethod {
 		
 		try {
 			if (formatException != null) {
-				output.put("error", "Bad date format");
-				output.put("errorDetail", formatException.getMessage());
+				// The convention in app layer error responses appears to be to
+				// send a boolean isError, and an array of error messages.
+				output.put("isError", true);
+				output.put("messages", new String[] {"Unrecognized date format", formatException.getMessage()});
 			}
 			
-			if (structuredDate != null) {
-				output.put("structuredDate", structuredDateToJSON(structuredDate));
+			if (structuredDate == null) {
+				// If the date string could not be parsed, return an empty
+				// structured date.
+				structuredDate = new StructuredDate();
+				structuredDate.setDisplayDate(displayDate);
 			}
+			
+			output.put("structuredDate", structuredDateToJSON(structuredDate));
 		}
 		catch(JSONException e) {
 			throw new UIException("Error building JSON", e);
