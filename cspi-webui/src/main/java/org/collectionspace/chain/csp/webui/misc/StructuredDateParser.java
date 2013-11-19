@@ -54,7 +54,7 @@ public class StructuredDateParser implements WebMethod {
 			
 			if (structuredDate == null) {
 				// If the date string could not be parsed, return an empty
-				// structured date.
+				// structured date, setting only the display date.
 				structuredDate = new StructuredDate();
 				structuredDate.setDisplayDate(displayDate);
 			}
@@ -113,13 +113,13 @@ public class StructuredDateParser implements WebMethod {
 			scalarValue = date.getScalarValue();
 		}
 		
-		json.put(prefix + "Year", (year != null) ? year : "");
-		json.put(prefix + "Month", (month != null) ? month : "");
-		json.put(prefix + "Day", (day != null) ? day : "");
+		json.put(prefix + "Year", (year != null) ? year.toString() : "");
+		json.put(prefix + "Month", (month != null) ? month.toString() : "");
+		json.put(prefix + "Day", (day != null) ? day.toString() : "");
 		json.put(prefix + "Era", (era != null) ? era.toString() : "");
 		json.put(prefix + "Certainty", (certainty != null) ? certainty.toString() : "");
 		json.put(prefix + "Qualifier", (qualifierType != null) ? qualifierType.toString() : "");
-		json.put(prefix + "QualifierValue", (qualifierValue != null) ? qualifierValue : "");
+		json.put(prefix + "QualifierValue", (qualifierValue != null) ? qualifierValue.toString() : "");
 		json.put(prefix + "QualifierUnit", (qualifierUnit != null) ? qualifierUnit.toString() : "");
 		json.put(prefix + "ScalarValue", (scalarValue != null) ? scalarValue.toString() : "");
 	}
