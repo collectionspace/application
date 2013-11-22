@@ -52,14 +52,9 @@ public class StructuredDateParser implements WebMethod {
 				output.put("messages", new String[] {"Unrecognized date format", formatException.getMessage()});
 			}
 			
-			if (structuredDate == null) {
-				// If the date string could not be parsed, return an empty
-				// structured date, setting only the display date.
-				structuredDate = new StructuredDate();
-				structuredDate.setDisplayDate(displayDate);
+			if (structuredDate != null) {
+				output.put("structuredDate", structuredDateToJSON(structuredDate));
 			}
-			
-			output.put("structuredDate", structuredDateToJSON(structuredDate));
 		}
 		catch(JSONException e) {
 			throw new UIException("Error building JSON", e);
