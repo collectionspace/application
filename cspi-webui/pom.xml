@@ -52,6 +52,12 @@
          <version>4.0-SNAPSHOT</version>
      </dependency>    
 
+     <dependency>
+         <groupId>org.collectionspace.services</groupId>
+         <artifactId>org.collectionspace.services.structureddate</artifactId>
+         <version>4.0-SNAPSHOT</version>
+     </dependency>
+     
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>general-utils</artifactId>
