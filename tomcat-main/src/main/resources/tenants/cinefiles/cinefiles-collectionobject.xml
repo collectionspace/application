@@ -7,6 +7,13 @@
 	</section>
 	
 	<section id="identificationInformation">
+		<field id="objectNumber">
+			<!-- Replace number patterns -->
+			<options>
+				<option id="document" sample="100">Document Number</option>
+			</options>
+		</field>
+
 		<repeat id="responsibleDepartments">
 			<!-- Change to dynamic term list -->
 			<field id="responsibleDepartment" autocomplete="vocab-department" ui-type="enum">
