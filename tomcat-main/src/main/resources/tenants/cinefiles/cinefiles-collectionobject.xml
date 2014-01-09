@@ -134,7 +134,7 @@
 		</repeat>
 		
 		<repeat id="nameSubjects" section="cinefiles">
-			<field id="nameSubject" section="cinefiles" autocomplete="person-person,organization-organization" ui-search="repeatable"/>
+			<field id="nameSubject" section="cinefiles" autocomplete="person-person,organization-organization,organization-committee" ui-search="repeatable"/>
 		</repeat>
 		
 		<repeat id="filmSubjects" section="cinefiles">
