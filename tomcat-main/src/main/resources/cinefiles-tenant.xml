@@ -13,7 +13,7 @@
 			<include src="base-collectionobject.xml,cinefiles-collectionobject.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority.xml"/>
 
-			<include src="base-procedure-blobs.xml"/>
+			<include src="base-procedure-blobs.xml,cinefiles-procedure-blobs.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-groups.xml,cinefiles-procedure-groups.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-media.xml,cinefiles-procedure-media.xml" merge="xmlmerge.properties"/>
 

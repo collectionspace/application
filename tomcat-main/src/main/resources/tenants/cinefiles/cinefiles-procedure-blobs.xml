@@ -1,0 +1,8 @@
+<record id="blobs">
+	<section id="blobInformation">
+		<field id="imgOrig">
+			<!-- Change from Original to OriginalJpeg -->
+			<use-csid>ims;download/;/OriginalJpeg</use-csid>
+		</field>
+	</section>
+</record>
