@@ -36,6 +36,17 @@
 			</enum>
 		</field>
 	
+		<field id="recordStatus">
+			<!-- Change options -->
+			<options>
+				<option id="temporary">Temporary</option>
+				<option id="new" default="yes">New</option>
+				<option id="in-process">In process</option>
+				<option id="approved">Approved</option>
+				<option id="review-media">Review media</option>
+			</options>
+		</field>
+		
 		<!-- Local fields -->
 		
 		<field id="pageInfo" section="cinefiles"/>
