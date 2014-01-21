@@ -52,9 +52,12 @@ public class ServicesConnection {
 			if(manager!=null)
 				return;
 
+			// We're only connecting to one host, so set the max connections per host to be
+			// the same as the max total connections.
+
 			HttpConnectionManagerParams params = new HttpConnectionManagerParams();
 			params.setMaxTotalConnections(MAX_SERVICES_CONNECTIONS);
-			params.setDefaultMaxConnectionsPerHost(params.getMaxTotalConnections()); // We're only connecting to one host, so set the per-host max to be the same as the total
+			params.setDefaultMaxConnectionsPerHost(MAX_SERVICES_CONNECTIONS);
 			
 			manager=new MultiThreadedHttpConnectionManager();
 			manager.setParams(params);
@@ -175,7 +178,7 @@ public class ServicesConnection {
 							//+ (queryString!=null ? queryString : "")
 									);
 				}
-				
+
 				int response=client.executeMethod(method);
 
 				if(perflog.isDebugEnabled()) {
@@ -190,10 +193,12 @@ public class ServicesConnection {
 			} finally {
 				method.releaseConnection();
 				
-				if (log.isWarnEnabled()) {
-					if (manager.getConnectionsInPool() >= MAX_SERVICES_CONNECTIONS) {
-						log.warn("max services connection limit of " + MAX_SERVICES_CONNECTIONS + " has been reached");
-					}
+				if (manager.getConnectionsInPool() >= MAX_SERVICES_CONNECTIONS) {
+					log.warn("reached max services connection limit of " + MAX_SERVICES_CONNECTIONS);
+					
+					// Delete closed connections, so that the warning will cease to be logged
+					// once a connection becomes available.
+					manager.deleteClosedConnections();
 				}
 			}
 		} finally {
