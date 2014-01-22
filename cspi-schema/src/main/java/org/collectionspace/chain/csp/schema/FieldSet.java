@@ -70,6 +70,7 @@ public interface FieldSet {
 	public boolean isConditionExpander();
 	public boolean isRepeatSubRecord();
 	public boolean isReadOnly();
+	public boolean isServicesReadOnly();
 	public void setRepeatSubRecord(Boolean var);
 	public String getUIType();
 	public String getQueryBehavior();

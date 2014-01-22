@@ -134,7 +134,7 @@ public class TestService extends ServicesBaseClass {
 		testJSONXML(spec, "citation", "citation.xml", "citation.json");
                 testJSONXML(spec, "place", "placeXMLJSON.xml", "placeJSON.json");
 		testJSONXML(spec, "collection-object", "objectsXMLJSON.xml",
-				"objectsJSON.json");
+				"objectsJSON.json", "objectsReturnedJSON.json");
 		
 		testJSONXML(spec, "acquisition", "acquisitionXMLJSON.xml",
 		 		"acquisitionJSON.json");
@@ -154,9 +154,21 @@ public class TestService extends ServicesBaseClass {
 		// testJSONXML(spec,
 		// "permission","permissionXMLJSON.xml","permissionsJSON.json");
 	}
-
+		
+	/**
+	 * Tests conversion of a JSON file to XML. This implementation does not compare the
+	 * resultant generated XML to an expected XML file. Instead, it converts the resultant
+	 * XML back into JSON, and compares that round-trip JSON to an expected JSON file.
+	 * 
+	 * @param spec
+	 * @param objtype
+	 * @param xmlfile			Name of the file containing the expected XML (not currently used)
+	 * @param jsonfile			Name of the file containing JSON to be converted to XML
+	 * @param returnedjsonfile	Name of the file containing the expected round-trip JSON, converted back from XML 
+	 * @throws Exception
+	 */
 	private void testJSONXML(Spec spec, String objtype, String xmlfile,
-			String jsonfile) throws Exception {
+			String jsonfile, String returnedjsonfile) throws Exception {
 
 		log.info("Converting JSON to XML for record type " + objtype);
 		Record r = spec.getRecord(objtype);
@@ -186,7 +198,8 @@ public class TestService extends ServicesBaseClass {
 		}
 		// convert json -> xml and back to json and see if it still looks the
 		// same..
-		boolean result = JSONUtils.checkJSONEquivOrEmptyStringKey(j,testjson);
+		JSONObject expectedjson = getJSON(returnedjsonfile);
+		boolean result = JSONUtils.checkJSONEquivOrEmptyStringKey(expectedjson,testjson);
 		if(!result) {
 			log.info("Original JSON:\n" + j.toString());
 			log.info("After JSON->XML conversion:\n" + doc.asXML());
@@ -197,6 +210,15 @@ public class TestService extends ServicesBaseClass {
 
 	}
 
+
+	/**
+	 * Tests conversion of a JSON file to XML, comparing the round-trip JSON to the original JSON.
+	 */
+	private void testJSONXML(Spec spec, String objtype, String xmlfile,
+			String jsonfile) throws Exception {
+		testJSONXML(spec, objtype, xmlfile, jsonfile, jsonfile);
+	}
+	
 	/**
 	 * This doesn't currently test multipart xml conversion
 	 * 
