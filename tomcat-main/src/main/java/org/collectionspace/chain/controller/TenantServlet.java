@@ -559,7 +559,7 @@ public class TenantServlet extends HttpServlet {
 
 			String[] temp = theString2.split("\n");
 			for(int i =0; i < temp.length ; i++){
-				String[] temp2 = temp[i].split(":");
+				String[] temp2 = temp[i].split(":", 2);
 				if(temp2.length ==2){
 					allStrings.put(temp2[0], temp2[1]);
 				}
@@ -578,7 +578,7 @@ public class TenantServlet extends HttpServlet {
 	
 			String[] temp3 = theString.split("\n");
 			for(int i =0; i < temp3.length ; i++){
-				String[] temp2 = temp3[i].split(":");
+				String[] temp2 = temp3[i].split(":", 2);
 				if(temp2.length ==2){
 					allStrings.put(temp2[0], temp2[1]);
 				}

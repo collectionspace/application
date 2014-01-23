@@ -314,7 +314,8 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 					String name = opt.getName();
 					String shortIdentifier = opt.getID();
 					//create it if term is not already present
-					JSONObject data=new JSONObject("{'displayName':'"+name+"'}");
+					JSONObject data=new JSONObject();
+					data.put("displayName", name);
 					if(opt.getID() == null || opt.getID().equals("")){
 						//XXX here until the service layer does this
 						shortIdentifier = name.replaceAll("\\W", "").toLowerCase();
