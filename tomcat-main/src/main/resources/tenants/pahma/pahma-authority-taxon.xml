@@ -61,14 +61,6 @@
 			<!-- Remove autocomplete -->
 			<field id="taxonCitation" autocomplete=""/>
 		</repeat>
-		<field id="taxonIsNamedHybrid">
-			<!-- Change options -->
-			<options>
-				<option id="" default="yes">(none selected)</option>
-				<option id="true">true</option>
-				<option id="false">false</option>
-			</options>
-		</field>
 		<repeat id="commonNameGroupList/commonNameGroup">
 			<!-- Remove autocomplete -->
 			<field id="commonNameSource" autocomplete=""/>
