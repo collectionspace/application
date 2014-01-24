@@ -6,11 +6,6 @@
 			<!-- Change title -->
 			<title>PAHMA Place Authority</title>
 		</instance>
-		<instance id="place-tgn_place">
-			<web-url>tgn_place</web-url>
-			<title-ref>tgn_place</title-ref>
-			<title>Thesaurus of Geographic Names</title>
-		</instance>
 	</instances>
 
 	<section id="placeAuthorityInformation">
