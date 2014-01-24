@@ -42,6 +42,7 @@
 			<options>
 				<option id="">(none selected)</option>
 				<option id="(not specified)">(not specified)</option>
+				<option id="none (Registration)">none (Registration)</option>
 				<option id="archaeology">archaeology</option>
 				<option id="ethnography">ethnography</option>
 				<option id="documentation">documentation</option>
