@@ -335,9 +335,9 @@
 		</field>
 
 		<repeat id="pahmaCollectionList" section="pahma">
-			<field id="pahmaCollection" section="pahma">
+			<field id="pahmaCollection" section="pahma" ui-search="repeatable">
 				<options>
-					<option id="" default="yes">(none selected)</option>					
+					<option id="" default="yes">(none selected)</option>
 					<option id="Albert M. Bender Collection">Albert M. Bender Collection</option>
 					<option id="Bascom Collection">Bascom Collection</option>
 					<option id="Bennyhoff Olivella Shell Bead Collection">Bennyhoff Olivella Shell Bead Collection</option>
