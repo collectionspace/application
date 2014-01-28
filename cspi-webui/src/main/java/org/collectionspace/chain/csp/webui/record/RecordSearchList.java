@@ -307,7 +307,7 @@ public class RecordSearchList implements WebMethod {
             String type = "";
             if (path != null && !path.equals("")) {
                 restriction.put("queryTerm", "doctype");
-                restriction.put("queryString", spec.getRecordByWebUrl(path).getServicesTenantSg());
+                restriction.put("queryString", spec.getRecordByWebUrl(path).getServicesTenantDoctype(false));
             }
 
             if (restriction.has("queryTerm") && restriction.getString("queryTerm").equals("doctype")) {
