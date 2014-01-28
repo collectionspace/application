@@ -43,7 +43,7 @@
 	</persistence>
 	<ui>
 		<web>
-			<login-dest>/collectionspace/ui/pahma/html/findedit.html</login-dest>
+			<login-dest>/collectionspace/ui/pahma/html/advancedsearch.html</login-dest>
 			<login-failed-dest>/collectionspace/ui/pahma/html/index.html</login-failed-dest>
 			<front-page>/collectionspace/ui/pahma/html/index.html</front-page>
 			<mappings>
