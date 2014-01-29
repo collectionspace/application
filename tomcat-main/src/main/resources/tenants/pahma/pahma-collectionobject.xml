@@ -1363,6 +1363,8 @@
 	</section>
 
 	<section id="objectCollectionInformation">
+		<!-- Remove place-tgn_place from autocomplete -->
+		<field id="fieldCollectionPlace" autocomplete="place-place"/>
 		<repeat id="fieldCollectionSources">
 			<!-- Add ui-search and add concept-concept to autocomplete -->
 			<field id="fieldCollectionSource" ui-search="repeatable" autocomplete="person-person,concept-concept"/>

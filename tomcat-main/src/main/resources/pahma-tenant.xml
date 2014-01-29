@@ -34,7 +34,7 @@
 			<include src="base-authority-person-termList.xml,pahma-authority-person-termList.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-person.xml,anthropology-authority-person.xml,pahma-authority-person.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-citation-termList.xml,pahma-authority-citation-termList.xml" merge="xmlmerge.properties"/>
-			<include src="base-authority-citation.xml"/>
+			<include src="base-authority-citation.xml,pahma-authority-citation.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-place-termList.xml,pahma-authority-place-termList.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-place.xml,pahma-authority-place.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-taxon-termList.xml,pahma-authority-taxon-termList.xml" merge="xmlmerge.properties"/>
