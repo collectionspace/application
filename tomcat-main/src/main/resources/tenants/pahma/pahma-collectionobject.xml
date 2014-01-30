@@ -765,6 +765,10 @@
 					</options>
 				</field>
 			</repeat>
+			<repeat id="contentOrganizations">
+				<!-- Remove organization-ulan_oa from autocomplete -->
+				<field id="contentOrganization" autocomplete="organization-organization"/>
+			</repeat>
 			<repeat id="contentEventNameGroupList/contentEventNameGroup">
 				<field id="contentEventNameType">
 					<!-- Add options -->
