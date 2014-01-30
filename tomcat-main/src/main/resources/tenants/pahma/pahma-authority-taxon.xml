@@ -6,11 +6,6 @@
 			<!-- Change title -->
 			<title>PAHMA Taxon Authority</title>
 		</instance>
-		<instance id="taxon-common_ta">
-			<web-url>common_ta</web-url>
-			<title-ref>common_ta</title-ref>
-			<title>Common Taxa</title>
-		</instance>
 	</instances>
 
 	<section id="taxonNameAuthorityInformation">
