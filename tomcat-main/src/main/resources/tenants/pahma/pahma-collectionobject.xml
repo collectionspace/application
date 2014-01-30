@@ -728,6 +728,10 @@
 				<!-- Add autocomplete -->
 				<field id="contentPeople" autocomplete="concept-concept,concept-archculture"/>
 			</repeat>
+			<repeat id="contentPersons">
+				<!-- Remove person-ulan_pa from autocomplete -->
+				<field id="contentPerson" autocomplete="person-person"/>
+			</repeat>
 			<repeat id="contentPlaces">
 				<!-- Add autocomplete -->
 				<field id="contentPlace" autocomplete="place-place"/>
