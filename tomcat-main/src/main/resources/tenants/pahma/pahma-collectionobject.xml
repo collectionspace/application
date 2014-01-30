@@ -16,12 +16,10 @@
 	</section>
 
 	<section id="identificationInformation">
-		<!-- Add sortKey -->
-		<field id="objectNumber" sortKey="sortableObjectNumber">
-			<!-- Change options -->
-			<options>
-				<option id="pahma-cataloging" sample="HMA 2012.1.1">Cataloged object</option>
-			</options>
+		<!-- Add sortKey, and remove number pattern chooser -->
+		<field id="objectNumber" chooser="no" sortKey="sortableObjectNumber">
+			<!-- Remove options -->
+			<options/>
 		</field>
 		<repeat id="responsibleDepartments">
 			<field id="responsibleDepartment">
