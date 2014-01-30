@@ -41,7 +41,7 @@
 			<include src="base-authority-taxon.xml,pahma-authority-taxon.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-concept-termList.xml,pahma-authority-concept-termList.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-concept.xml,pahma-authority-concept.xml" merge="xmlmerge.properties"/>
-			<include src="base-authority-work-termList.xml"/>
+			<include src="base-authority-work-termList.xml,pahma-authority-work-termList.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-work.xml,pahma-authority-work.xml" merge="xmlmerge.properties"/>
 
 			<include src="base-vocabularies.xml,pahma-vocabularies.xml" merge="xmlmerge.properties"/>

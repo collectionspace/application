@@ -1,4 +1,12 @@
 <record id="citation">
+	<instances id="citation">
+		<instance id="citation-citation">
+			<web-url>citation</web-url>
+			<title-ref>citation</title-ref>
+			<title>Local Citations</title>
+		</instance>
+	</instances>
+	
 	<section id="citationNameAuthorityInformation">
 		<repeat id="citationPublicationInfoGroupList/citationPublicationInfoGroup">
 			<!-- Remove place-tgn_place from autocomplete -->
