@@ -1363,8 +1363,8 @@
 
 	<section id="referenceInformation">
 		<repeat id="referenceGroupList/referenceGroup">
-			<!-- Remove autocomplete -->
-			<field id="reference" autocomplete=""/>
+			<!-- Remove citation-worldcat from autocomplete -->
+			<field id="reference" autocomplete="citation-citation"/>
 		</repeat>
 	</section>
 
