@@ -170,6 +170,8 @@
 		<repeat id="taxonomicIdentGroupList/taxonomicIdentGroup">
 			<!-- Add ui-search -->
 			<field id="taxon" ui-search="repeatable" mini="search,list,relate"/>
+			<!-- Add autocomplete -->
+			<field id="reference" autocomplete="citation-citation"/>
 		</repeat>
 		
 		<!-- Local fields -->
