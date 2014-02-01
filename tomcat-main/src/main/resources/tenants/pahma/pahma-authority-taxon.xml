@@ -53,8 +53,8 @@
 			</field>
 		</repeat>
 		<repeat id="taxonCitationList">
-			<!-- Remove autocomplete -->
-			<field id="taxonCitation" autocomplete=""/>
+			<!-- Remove citation-worldcat from autocomplete -->
+			<field id="taxonCitation" autocomplete="citation-citation"/>
 		</repeat>
 		<repeat id="commonNameGroupList/commonNameGroup">
 			<!-- Remove autocomplete -->
