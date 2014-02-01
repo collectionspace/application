@@ -56,9 +56,5 @@
 			<!-- Remove citation-worldcat from autocomplete -->
 			<field id="taxonCitation" autocomplete="citation-citation"/>
 		</repeat>
-		<repeat id="commonNameGroupList/commonNameGroup">
-			<!-- Remove autocomplete -->
-			<field id="commonNameSource" autocomplete=""/>
-		</repeat>
 	</section>
 </record>
