@@ -9,8 +9,8 @@
 					<option id="alternativeterm">alternative term</option>
 				</options>
 			</field>
-			<!-- Remove autocomplete -->
-			<field id="termSource" autocomplete=""/>
+			<!-- Remove citation-worldcat from autocomplete -->
+			<field id="termSource" autocomplete="citation-citation"/>
 		</repeat>
 	</section>
 </record>

@@ -12,8 +12,8 @@
 					<option id="rejected">rejected</option>
 				</options>
 			</field>
-			<!-- Remove autocomplete -->
-			<field id="termSource" autocomplete=""/>
+			<!-- Remove citation-worldcat from autocomplete -->
+			<field id="termSource" autocomplete="citation-citation"/>
 			<field id="title">
 				<!-- Change options -->
 				<options>

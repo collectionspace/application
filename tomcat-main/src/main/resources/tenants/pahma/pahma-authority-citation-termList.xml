@@ -1,8 +1,8 @@
 <record id="preferredCI">
 	<section id="termInformation">
 		<repeat id="citationTermGroupList/citationTermGroup">
-			<!-- Remove autocomplete -->
-			<field id="termSource" autocomplete=""/>
+			<!-- Remove citation-worldcat from autocomplete -->
+			<field id="termSource" autocomplete="citation-citation"/>
 		</repeat>
 	</section>
 </record>
