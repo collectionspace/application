@@ -1,6 +1,4 @@
 <record id="location">
-	<terms-used>false</terms-used>
-
 	<instances id="location">
 		<!-- Remove location-offsite_sla -->
 		<instance id="location-location">
