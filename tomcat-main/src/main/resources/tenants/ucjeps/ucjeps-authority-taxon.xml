@@ -1,4 +1,4 @@
-<record id="taxon">
+<record id="taxon" is-extension="true">
 	<services-record-path id="ucjeps">taxon_ucjeps:http://collectionspace.org/services/taxon/local/ucjeps,taxon_ucjeps</services-record-path>
 	
 	<instances id="taxon">

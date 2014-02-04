@@ -1,4 +1,4 @@
-<record id="media">
+<record id="media" is-extension="true">
 	<services-record-path id="ucjeps">media_ucjeps:http://collectionspace.org/services/media/local/ucjeps,media_ucjeps</services-record-path>
 	
 	<section id="mediaInformation">
