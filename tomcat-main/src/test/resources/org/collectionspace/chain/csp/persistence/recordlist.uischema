@@ -24,6 +24,8 @@
       "worldcat", 
       "intake", 
       "group", 
+      "work",
+      "cona_work",
       "media",
       "claim"
     ], 

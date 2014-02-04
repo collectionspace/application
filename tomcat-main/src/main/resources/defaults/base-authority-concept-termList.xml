@@ -1,11 +1,11 @@
-<record id="preferredCA" type="authority" in-recordlist="no" separate-record="false">
+<record id="preferredCA" in-recordlist="no" separate-record="false">
     <hassoftdelete>true</hassoftdelete>
     <section id="termInformation">
         <!-- List containing this item's preferred term and any non-preferred terms -->
         <repeat id="conceptTermGroupList/conceptTermGroup">
             <!-- Fields common across all authority items -->
             <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes"
-                mini="summary,number,search,list,relate">
+                mini="summary,number,search,list,relate" services-should-index="true">
                 <selector>conceptAuthority-termDisplayName</selector>
                 <title-selector>titleBar-displayName</title-selector>
             </field>
@@ -51,6 +51,9 @@
             </field>
             <field id="termSourceNote">
                 <selector>conceptAuthority-termSourceNote</selector>
+            </field>
+            <field id="termFormattedDisplayName">
+                <selector>conceptAuthority-termFormattedDisplayName</selector>
             </field>
             <!-- Fields specific to Concept terms -->
             <field id="historicalStatus">

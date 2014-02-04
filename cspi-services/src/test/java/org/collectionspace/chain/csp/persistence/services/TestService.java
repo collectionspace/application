@@ -86,6 +86,7 @@ public class TestService extends ServicesBaseClass {
 		testXMLJSON(spec, "concept", "concept.xml", "concept.json");
                 testXMLJSON(spec, "place", "placeXMLJSON.xml", "placeJSON.json");
                 testXMLJSON(spec, "citation", "citation.xml", "citation.json");
+        testXMLJSON(spec, "work", "work.xml", "work.json");
 		testXMLJSON(spec, "collection-object", "objectsXMLJSON.xml",
 				"objectsJSON.json");
 
@@ -133,6 +134,13 @@ public class TestService extends ServicesBaseClass {
 		testJSONXML(spec, "concept", "concept.xml", "concept.json");
 		testJSONXML(spec, "citation", "citation.xml", "citation.json");
                 testJSONXML(spec, "place", "placeXMLJSON.xml", "placeJSON.json");
+        testJSONXML(spec, "work", "work.xml", "work.json");
+        // CSPACE-6135: In CollectionObject, the computedCurrentLocation field is services-readonly,
+        // so the JSON->XML->JSON conversion produces JSON that does not match the initial JSON
+        // (computedCurrentLocation is omitted from the XML, so it does not appear in the JSON
+        // converted back from the XML). In this case, we need to supply a third parameter to
+        // specify the expected round-trip JSON. objectsReturnedJSON.json is identical to
+        // objectsJSON.json, except computedCurrentLocation has been removed.
 		testJSONXML(spec, "collection-object", "objectsXMLJSON.xml",
 				"objectsJSON.json", "objectsReturnedJSON.json");
 		
@@ -177,7 +185,7 @@ public class TestService extends ServicesBaseClass {
 		Map<String, Document> parts = new HashMap<String, Document>();
 		Document doc = null;
 		JSONObject testjson = new JSONObject();
-		for (String section : r.getServicesRecordPaths()) {
+		for (String section : r.getServicesRecordPathKeys()) {
 			if (section.equals("common")) {
 				String path = r.getServicesRecordPath(section);
 				String[] record_path = path.split(":", 2);

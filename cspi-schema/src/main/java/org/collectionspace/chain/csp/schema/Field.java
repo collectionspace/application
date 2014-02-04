@@ -7,9 +7,7 @@
 package org.collectionspace.chain.csp.schema;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,10 +22,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 // XXX unentangle UI and SVC parts
-public class Field implements FieldSet {
+public class Field extends FieldSetImpl {
 	
 	private static final Logger log = LoggerFactory.getLogger(Field.class);
-	protected SchemaUtils utils = new SchemaUtils();
 	
 	private FieldParent parent;
 
@@ -82,9 +79,11 @@ public class Field implements FieldSet {
 	}
 	*/
 	protected void initialiseVariables(ReadOnlySection section, String tempid) {
-
+		super.initialiseVariables(section, tempid); // REM - 8/3/2013: Adding this call to our parent so common strings and bools get initialized
+		
 		this.setRepeatSubRecord(false);
 		utils.initStrings(section,"@id",tempid);
+		utils.initBoolean(section,"@services-should-index", false); // ask the Services to create an index on this field
 		
 		utils.initSet(section,"@autocomplete",new String[] { "" });
 		utils.initBoolean(section,"@container",false);
@@ -148,7 +147,8 @@ public class Field implements FieldSet {
 		// in_tab = Util.getBooleanOrDefault(section, "/@in-tab", false);
 		
 		utils.initStrings(section,"services-tag", utils.getString("@id"));
-
+		utils.initBoolean(section,"@services-schema-qualify", false);
+		
 		Set<String> minis = Util.getSetOrDefault(section, "/@mini",
 				new String[] { "" });
 		if (minis.contains("number")) {
@@ -174,7 +174,9 @@ public class Field implements FieldSet {
 		if (utils.getBoolean("@display-name"))
 			this.parent.getRecord().setDisplayName(this);
 		
-		utils.initBoolean(section,"@exists-in-services",true);
+		utils.initStrings(section,"@service-field-alias", null);
+		utils.initBoolean(section,"@exists-in-services", true);
+		utils.initBoolean(section,"@authref-in-services", false);
 
 		utils.initSet(section,"default",new String[] { "" });
 		utils.initSet(section,"enum/default",new String[] { "" });		
@@ -199,13 +201,16 @@ public class Field implements FieldSet {
 			}
 		}
 		
+		if (section != null) {
+			String servicesType = (String)section.getValue("/@services-type");
+			if (servicesType != null && servicesType.isEmpty() == false) {
+				this.setServicesType(servicesType);
+			}		
+		}
+		
 	}
 
-
-	public String getID() {
-		return  utils.getString("@id");
-	}
-
+	@Override
 	public SchemaUtils getUtils() {
 		return utils;
 	}
@@ -219,22 +224,28 @@ public class Field implements FieldSet {
 		return utils.getString("autocomplete-options/strings");
 	}
 
+	@Override
 	public String getContainerSelector() {
 		return utils.getString("container-selector");
 	}
+	@Override
 	public String getPreContainerSelector() {
 		return utils.getString("precontainer-selector");
 	}
 
+	@Override
 	public String getSelector() {
 		return utils.getString("selector");
 	}
+	@Override
 	public String getPreSelector() {
 		return utils.getString("preselector");
 	}
+	@Override
 	public String getDecoratorSelector() {
 		return utils.getString("decoratorselector");
 	}
+	@Override
 	public String getLabel() {
 		return utils.getString("label");
 	}
@@ -247,23 +258,28 @@ public class Field implements FieldSet {
 	public String getUILabelSelector(String id){
 		return getUIprefix() +  id + "-label";
 	}
+	@Override
 	public String getUILabelSelector() {
 		return getUIprefix() +  utils.getString("@id") + "-label";
 	}
 
+	@Override
 	public String getUIType() {
 		return utils.getString("@ui-type");
 	}
+	@Override
 	public String getSearchType() {
 		return utils.getString("@ui-search");
 	}
 	public void setSearchType(String val) {
 		utils.setString("@ui-search",val);
 	}
+	@Override
 	public String getQueryBehavior() {
 		return utils.getString("@query-behavior");
 	}
 	
+	@Override
 	public String getUIFunc() {
 		return utils.getString("@ui-func");
 	}
@@ -293,37 +309,38 @@ public class Field implements FieldSet {
 		return utils.getBoolean("@container");
 	}
 
-	public Boolean isInServices() {
-		return utils.getBoolean("@exists-in-services");
-	}
-
 	/**
 	 * UI specific marking: YURA said: 
 	 * these are renderer decorators that do their own rendering so need some sub nesting
 	 * @param fs
 	 * @return
 	 */
+	@Override
 	public boolean isASelfRenderer(){
 		return getUIType().contains(SELFRENDERER);
 	}
 	
+	@Override
 	public Record getSelfRendererRecord() {
 		String parts[] = getUIType().split("/");
-		if(parts.length!=3 || !SELFRENDERER.equals(parts[2]))
+		if(parts.length!=3 || !SELFRENDERER.equals(parts[2]))  //FIXME: This is horribly opaque code! We need to document this.
 			return null;
 		Record subrecord = getRecord().getSpec().getRecordByServicesUrl(parts[1]);
 		return subrecord;
 	}
 	
+	@Override
 	public boolean isExpander() {
 		return utils.getBoolean("@as-expander");
 	}
 	public boolean isInTrueTree(){
 		return utils.getBoolean("@in-trueTree");
 	}
+	@Override
 	public boolean isConditionExpander(){
 		return utils.getBoolean("@as-conditional-expander");
 	}
+	@Override
 	public boolean isReadOnly(){
 		return utils.getBoolean("@ui-readonly");
 	}
@@ -337,10 +354,11 @@ public class Field implements FieldSet {
 		return utils.getBoolean("@services-readonly");
 	}
 	
+	@Override
 	public boolean isRepeatSubRecord() {
 		return utils.getBoolean("@is-subrecord");
 	}
-
+		
 	public String useCsid() {
 		return utils.getString("use-csid");
 	}
@@ -348,6 +366,7 @@ public class Field implements FieldSet {
 		return utils.getString("use-csid/@id");
 	}
 	
+	@Override
 	public void setRepeatSubRecord(Boolean var) {
 		utils.setBoolean("@is-subrecord",var);
 	}
@@ -356,15 +375,18 @@ public class Field implements FieldSet {
 		return !utils.getBoolean("@seperate_ui_container");
 	} // used until UI layer has moved all autocomplete to one container view
 
+	@Override
 	public String getTitleSelector() {
 		return utils.getString("title-selector");
 	}
 	
+	@Override
 	public String getPreTitleSelector() {
 		return utils.getString("pretitle-selector");
 	}
 	
 	//used in generateGroupField in uispec for elpaths
+	@Override
 	public String getPrimaryKey() {
 		return utils.getString("@primarykey");
 	}
@@ -373,10 +395,12 @@ public class Field implements FieldSet {
 		return utils.getString("services-filter-param");
 	}
 
+	@Override
 	public String getServicesTag() {
 		return utils.getString("services-tag");
 	}
 	
+	@Override
 	public String getServicesUrl(){
 		return utils.getString("@serviceurl");
 	}
@@ -415,10 +439,12 @@ public class Field implements FieldSet {
 		return merged.get(index);
 	}
 
+	@Override
 	public List<String> getAllMerge() {
 		return merged;
 	}
 
+	@Override
 	public Boolean hasMergeData() {
 		if (merged.isEmpty())
 			return false;
@@ -426,24 +452,30 @@ public class Field implements FieldSet {
 		return true;
 	}
 
+	@Override
 	public String getLabelAffix() {
 		return utils.getString("@label-affix");
 	}
+	@Override
 	public String getSelectorAffix() {
 		return utils.getString("@selector-affix");
 	}
 
+	@Override
 	public String getUISpecPrefix() {
 		return utils.getString("@ui-spec-prefix");
 	}
+	@Override
 	public Boolean getUISpecInherit() {
 		return utils.getBoolean("@ui-spec-inherit");
 	}
 
+	@Override
 	public String getWithCSID() {
 		return utils.getString("@with-csid");
 	}
 	
+	@Override
 	public Boolean usesRecord() {
 		if (utils.getString("@userecord") != null && !utils.getString("@userecord").equals("")) {
 			return true;
@@ -451,6 +483,7 @@ public class Field implements FieldSet {
 		return false;
 	}
 	
+	@Override
 	public String usesRecordValidator() {
 		if(utils.getString("@onlyifexists") !=null && !utils.getString("@onlyifexists").equals("")){
 			return utils.getString("@onlyifexists");
@@ -458,6 +491,7 @@ public class Field implements FieldSet {
 		return null;
 	}
 	
+	@Override
 	public Record usesRecordId() {
 		if (usesRecord()) {
 			return this.getRecord().getSpec().getRecord(utils.getString("@userecord"));
@@ -486,10 +520,12 @@ public class Field implements FieldSet {
 	}
 	
 	//getAllFieldPerms now getAllFieldOperations
+	@Override
 	public String[] getAllFieldOperations(){
 		return utils.getSet("@attributes").toArray(new String[0]);
 	}
 
+	@Override
 	public boolean hasFieldPerm(String perm){
 		return utils.getSet("@attributes").contains(perm);
 	}
@@ -499,24 +535,30 @@ public class Field implements FieldSet {
 		return StringUtils.join(utils.getSet("@default"), ",");
 	}
 
+	@Override
 	public FieldParent getParent() {
 		return this.parent;
 	}
 
+	@Override
 	public boolean hasServicesParent(){
 		return false;
 	}
+	@Override
 	public String[] getServicesParent() {
 		return new String[0];
 	}
+	@Override
 	public void setParent(FieldParent fp) {
 		this.parent = fp;
 	}
 
+	@Override
 	public Record getRecord() {
 		return parent.getRecord();
-	}
-
+		}
+		
+	@Override
 	public String[] getIDPath() {
 		if (parent instanceof Repeat && !((Repeat) parent).getSearchType().equals("repeator")) {
 			String[] pre = ((Repeat) parent).getIDPath();
@@ -529,6 +571,7 @@ public class Field implements FieldSet {
 		}
 	}
 
+	@Override
 	public String getSection() { //
 		return utils.getString("@section");
 	}
@@ -546,16 +589,21 @@ public class Field implements FieldSet {
 		return null;
 	}
 
+	@Override
 	public Boolean hasAutocompleteInstance() {
+		Boolean result = false;
+		
 		if (utils.getSet("@autocomplete").size() > 0) {
 			for (String autocomplete_instance_id : utils.getSet("@autocomplete")) {
 				autocomplete_instance_id = autocomplete_instance_id.trim();
 				if (!autocomplete_instance_id.equals("")) {
-					return true;
+					result = true;
+					break;
 				}
 			}
 		}
-		return false;
+		
+		return result;
 	}
 
 	public boolean hasEnumBlank() {
@@ -592,6 +640,7 @@ public class Field implements FieldSet {
 		return false;
 	}
 
+	@Override
 	public void config_finish(Spec spec) {
 		if (utils.getSet("@autocomplete").size() > 0) {
 			for (String autocomplete_instance_id : utils.getSet("@autocomplete")) {

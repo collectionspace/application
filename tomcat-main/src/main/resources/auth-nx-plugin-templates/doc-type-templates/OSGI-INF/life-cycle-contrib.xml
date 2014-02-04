@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+*
+* The Nuxeo lifecycle (workflow) declaration for both the Authority and Authority item document types.
+*
+-->
+<component name="org.collectionspace.ecm.platform.${NuxeoDocTypeName_LowerCase}.LifeCycleManagerExtensions">
+	<extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService" point="types">
+		<types>
+			<type name="${NuxeoDocTypeName}">${Lifecycle}</type>
+		</types>
+	</extension>
+	<extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService" point="types">
+		<types>
+			<type name="${AuthorityNuxeoDocTypeName}">${Lifecycle}</type>
+		</types>
+	</extension>
+</component>

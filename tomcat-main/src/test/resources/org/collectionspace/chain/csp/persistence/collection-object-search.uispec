@@ -336,6 +336,9 @@
   ".csc-collection-object-objectNumber-label": {
     "messagekey": "collection-object-objectNumberLabel"
   }, 
+  ".csc-collection-object-createdAt-label": {
+      "messagekey": "collection-object-createdAtLabel"
+  },
   ".csc-collection-object-objectProductionDate-label": {
     "messagekey": "collection-object-objectProductionDateLabel"
   }, 
@@ -366,6 +369,9 @@
   ".csc-collection-object-objectProductionOrganization-label": {
     "messagekey": "collection-object-objectProductionOrganizationLabel"
   }, 
+  ".csc-collection-object-createdAtEnd-label": {
+      "messagekey": "collection-object-createdAtEndLabel"
+  },
   ".csc-collection-object-objectProductionOrganizationGroup": {
     "decorators": [
       {
@@ -548,6 +554,16 @@
   ".csc-collection-object-technicalAttributeMeasurement-label": {
     "messagekey": "collection-object-technicalAttributeMeasurementLabel"
   }, 
+  ".csc-collection-object-createdAtStart": {
+      "decorators": [{
+          "func": "cspace.datePicker",
+          "type": "fluid"
+      }],
+      "value": "${createdAtStart}"
+  },
+  ".csc-collection-object-createdAtStart-label": {
+      "messagekey": "collection-object-createdAtStartLabel"
+  },
   ".csc-collection-object-technicalAttributeMeasurementUnit-label": {
     "messagekey": "collection-object-technicalAttributeMeasurementUnitLabel"
   }, 
@@ -691,6 +707,13 @@
   ".csc-collection-object-updatedBy-label": {
     "messagekey": "collection-object-updatedByLabel"
   }, 
+  ".csc-collection-object-createdAtEnd": {
+      "decorators": [{
+          "func": "cspace.datePicker",
+          "type": "fluid"
+      }],
+      "value": "${createdAtEnd}"
+  },
   ".csc-object-description-copy-number": {
     "decorators": [
       {

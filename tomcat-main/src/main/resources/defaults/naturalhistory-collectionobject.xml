@@ -67,7 +67,7 @@
 				<field id="dateLatestScalarValue" section="naturalhistory"/>
 				<field id="scalarValuesComputed" section="naturalhistory"/>
 			</group>
-			<!-- <field id="identDate" section="naturalhistory" ui-type="date">
+			<!-- <field id="identDate" section="naturalhistory" ui-type="date" datatype="date">
 				<selector>taxonomic-identification-ident-date</selector>
 			</field> -->
 			<field id="institution" section="naturalhistory" autocomplete="organization-organization">
@@ -149,7 +149,7 @@
 		<field id="objectCountNumber" ui-type="validated" datatype="integer" section="naturalhistory"/>
 
 		<repeat id="typeSpecimenGroupList/typeSpecimenGroup" section="naturalhistory">
-			<field id="typeSpecimenKind" ui-search="repeatable" section="naturalhistory" mini="search" seperate_ui_container="true">
+			<field id="typeSpecimenKind" ui-search="repeatable" section="naturalhistory" mini="search,list" seperate_ui_container="true">
 				<selector>object-identification-object-typeSpecimenKind</selector>
 				<options>
 					<option id="">Please select a value</option>
@@ -205,7 +205,7 @@
 		</field>
 		<field id="donorNote" section="naturalhistory"/>
 		
-		<field id="accessionDate" ui-type="date" section="naturalhistory"/>
+		<field id="accessionDate" ui-type="date" datatype="date" section="naturalhistory"/>
 		<field id="requestedBy" autocomplete="person-person" section="naturalhistory"/>
 		<field id="source" section="naturalhistory"/>
 	</section>
@@ -238,6 +238,7 @@
 				<selector>collection-object-annotationNote</selector>
 			</field>
 			<field id="annotationDate" section="naturalhistory" ui-type="date">
+				<!-- FIXME: This field is defined as a string in the database. At some point we should add datatype="date" here, and convert that column to a date. -->
 				<selector>collection-object-annotationDate</selector>
 			</field>
 			<field id="annotationAuthor" section="naturalhistory" autocomplete="person-person">
@@ -1804,8 +1805,8 @@
 			</field>
 			<field id="usedIn" section="naturalhistory"/>
 			<field id="materialType" autocomplete="vocab-collectionobjectmaterialtype" ui-type="enum" section="naturalhistory"/>
-			<field id="requestDate" ui-type="date" section="naturalhistory"/>
-			<field id="filledDate" ui-type="date" section="naturalhistory"/>
+			<field id="requestDate" ui-type="date" datatype="date" section="naturalhistory"/>
+			<field id="filledDate" ui-type="date" datatype="date" section="naturalhistory"/>
 			<field id="useNotes" section="naturalhistory"/>
 		</repeat>
 	</section>

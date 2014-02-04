@@ -2,16 +2,14 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <!--  -->
-  <groupId>org.collectionspace</groupId>
   <artifactId>jxutils</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
   <name>JXUtils</name>
   
     <parent>
     <groupId>org.collectionspace</groupId>
     <artifactId>svcapp</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>4.0-SNAPSHOT</version>
   </parent>
   
 
@@ -57,11 +55,6 @@
 	  </exclusions>
      
       
-    </dependency>
-    <dependency>
-      <groupId>org.json</groupId>
-      <artifactId>json</artifactId>
-      <version>20080701</version> <!-- keep version 49.0 ie Java 5 -->
     </dependency>
         <dependency>
       <groupId>commons-lang</groupId>

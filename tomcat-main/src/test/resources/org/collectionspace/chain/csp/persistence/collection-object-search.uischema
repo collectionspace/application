@@ -17,6 +17,9 @@
         }, 
         "type": "array"
       }, 
+      "createdAtStart": {
+          "type": "date"
+      },
       "copyNumbers": {
         "items": {
           "properties": {
@@ -416,6 +419,9 @@
       "updatedAtStart": {
         "type": "date"
       }, 
+      "createdAtEnd": {
+          "type": "date"
+      },
       "updatedBys": {
         "items": {
           "properties": {
