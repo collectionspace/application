@@ -23,7 +23,7 @@
 			<include src="base-procedure-movement.xml,ucjeps-procedure-movement.xml" merge="xmlmerge.properties"/>
 			<!-- <include src="base-procedure-objectexit.xml"/> -->
 
-			<include src="base-authority-contact.xml,naturalhistory-authority-contact.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-contact.xml"/>
             
 			<include src="base-authority-location-termList.xml,ucjeps-authority-location-termList.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-location.xml,ucjeps-authority-location.xml" merge="xmlmerge.properties"/>
