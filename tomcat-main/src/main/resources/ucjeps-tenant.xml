@@ -1,4 +1,5 @@
 <cspace-config tenantname="ucjeps">
+	<tenantid>20</tenantid>
 	<version>11</version>
 	<include src="settings.xml,ucjeps-settings.xml,host-settings.xml" merge="xmlmerge-settings.properties" strip-root="yes"/>
 
