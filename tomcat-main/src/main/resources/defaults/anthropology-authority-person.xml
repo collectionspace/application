@@ -1,4 +1,4 @@
-<record id="person">
+<record id="person" is-extension="true">
 	<services-record-path id="anthropology">persons_anthropology:http://collectionspace.org/services/person/domain/anthropology,persons_anthropology</services-record-path>
 
 	<section id="personNameAuthorityInformation">

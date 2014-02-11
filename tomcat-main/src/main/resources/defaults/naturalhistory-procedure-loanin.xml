@@ -1,4 +1,4 @@
-<record id="loanin">
+<record id="loanin" is-extension="true">
 	<services-record-path id="naturalhistory">loansin_naturalhistory:http://collectionspace.org/services/loanin/domain/naturalhistory,loansin_naturalhistory</services-record-path>
 
 	<section id="loaninInformation">

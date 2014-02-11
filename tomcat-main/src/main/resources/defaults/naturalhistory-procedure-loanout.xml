@@ -1,4 +1,4 @@
-<record id="loanout">
+<record id="loanout" is-extension="true">
 	<services-record-path id="naturalhistory">loansout_naturalhistory:http://collectionspace.org/services/loanout/domain/naturalhistory,loansout_naturalhistory</services-record-path>
 	
 	<section id="loanoutInformation">
