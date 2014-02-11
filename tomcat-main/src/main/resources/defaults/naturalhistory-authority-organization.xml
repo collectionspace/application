@@ -1,4 +1,4 @@
-<record id="organization">
+<record id="organization" is-extension="true">
 	<services-record-path id="naturalhistory">organizations_naturalhistory:http://collectionspace.org/services/organization/domain/naturalhistory,organizations_naturalhistory</services-record-path>
 
 	<section id="organizationNameAuthorityInformation">
