@@ -224,7 +224,7 @@
 		
 		<field id="accessCode" section="cinefiles" ui-search="repeatable">
 			<options>
-				<option id="" default="yes">Please select a value</option>
+				<option id="" default="yes">None</option>
 				<option id="PFA Staff Only">PFA Staff Only</option>
 				<option id="In House Only">In House Only</option>
 				<option id="Campus (UCB)">Campus (UCB)</option>
