@@ -4,6 +4,10 @@
 	<section id="locationMovementInformation">
 		<!-- Change mini summary to number, and remove organization from autocomplete -->
 		<field id="currentLocation" mini="number,search,list,relate" autocomplete="location-location"/>
+		
+		<!-- Local fields -->
+		
+		<field id="previousLocation" ui-type="valueDeURNed" services-readonly="true" authref-in-services="true" section="botgarden"/>
 	</section>
 	
 	<section id="movementControlInformation">
@@ -24,6 +28,8 @@
 			</options>
 		</field>
 	</section>
+	
+	<!-- Local fields -->
 	
 	<section id="labelInformation">
 		<field id="labelRequested" ui-search="repeatable" section="botgarden">
