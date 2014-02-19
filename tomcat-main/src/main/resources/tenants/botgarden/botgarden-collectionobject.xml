@@ -1,4 +1,4 @@
-<record id="collection-object">
+<record id="collection-object" is-extension="true">
 	<services-record-path id="botgarden">collectionobjects_botgarden:http://collectionspace.org/services/collectionobject/local/botgarden,collectionobjects_botgarden</services-record-path>
 	
 	<section id="coreInformation">

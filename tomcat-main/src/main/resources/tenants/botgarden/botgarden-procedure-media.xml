@@ -1,4 +1,4 @@
-<record id="media">
+<record id="media" is-extension="true">
 	<services-record-path id="botgarden">media_botgarden:http://collectionspace.org/services/media/local/botgarden,media_botgarden</services-record-path>
 	
 	<section id="mediaInformation">

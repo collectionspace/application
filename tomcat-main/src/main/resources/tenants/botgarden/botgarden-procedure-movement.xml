@@ -1,4 +1,4 @@
-<record id="movement">
+<record id="movement" is-extension="true">
 	<services-record-path id="botgarden">movements_botgarden:http://collectionspace.org/services/movement/local/botgarden,movements_botgarden</services-record-path>
 
 	<section id="locationMovementInformation">
