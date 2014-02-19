@@ -1,0 +1,604 @@
+{
+  "hierarchy": {
+    ".csc-hierarchy-broaderContext": {
+      "decorators": [
+        {
+          "func": "cspace.autocomplete", 
+          "options": {
+            "queryUrl": "../../../tenant/core/vocabularies/work/autocomplete/broaderContext", 
+            "vocabUrl": "../../../tenant/core/vocabularies/work/source-vocab/broaderContext"
+          }, 
+          "type": "fluid"
+        }, 
+        {
+          "func": "cspace.externalURL", 
+          "type": "fluid"
+        }
+      ], 
+      "value": "${fields.broaderContext}"
+    }, 
+    ".csc-hierarchy-broaderContext-label": {
+      "messagekey": "hierarchy-broaderContextLabel"
+    }, 
+    ".csc-hierarchy-broaderContextType": {
+      "optionlist": [
+        "set", 
+        "derivative", 
+        "separable-part", 
+        "non-separable-part", 
+        "recto", 
+        "verso"
+      ], 
+      "optionnames": [
+        "Set", 
+        "Work (derivative)", 
+        "Work (separable part)", 
+        "Work (non-separable part)", 
+        "Work (recto)", 
+        "Work (verso)"
+      ], 
+      "selection": "${fields.broaderContextType}"
+    }, 
+    ".csc-hierarchy-broaderContextType-label": {
+      "messagekey": "hierarchy-broaderContextTypeLabel"
+    }, 
+    ".csc-hierarchy-domaindata-label": {
+      "messagekey": "hierarchy-domaindataLabel"
+    }, 
+    ".csc-hierarchy-equivalentContext-label": {
+      "messagekey": "hierarchy-equivalentContextLabel"
+    }, 
+    ".csc-hierarchy-equivalentContexts-label": {
+      "messagekey": "hierarchy-equivalentContextsLabel"
+    }, 
+    ".csc-hierarchy-equivalentInformation-label": {
+      "messagekey": "hierarchy-equivalentInformationLabel"
+    }, 
+    ".csc-hierarchy-hierarchyInformation-label": {
+      "messagekey": "hierarchy-hierarchyInformationLabel"
+    }, 
+    ".csc-hierarchy-narrowerContext-label": {
+      "messagekey": "hierarchy-narrowerContextLabel"
+    }, 
+    ".csc-hierarchy-narrowerContextType-label": {
+      "messagekey": "hierarchy-narrowerContextTypeLabel"
+    }, 
+    ".csc-hierarchy-narrowerContexts": {
+      "decorators": [
+        {
+          "func": "cspace.makeRepeatable", 
+          "options": {
+            "elPath": "fields.narrowerContexts", 
+            "repeatTree": {
+              "expander": {
+                "tree": {
+                  ".csc-hierarchy-narrowerContext": {
+                    "decorators": [
+                      {
+                        "func": "cspace.autocomplete", 
+                        "options": {
+                          "invokers": {
+                            "selectMatch": {
+                              "funcName": "cspace.autocomplete.selectMatchConfirm"
+                            }
+                          }, 
+                          "queryUrl": "../../../tenant/core/vocabularies/work/autocomplete/narrowerContext", 
+                          "strings": {
+                            "narrowerChange": "Warning: %narrower currently has broader term %broader."
+                          }, 
+                          "vocabUrl": "../../../tenant/core/vocabularies/work/source-vocab/narrowerContext"
+                        }, 
+                        "type": "fluid"
+                      }, 
+                      {
+                        "func": "cspace.externalURL", 
+                        "type": "fluid"
+                      }
+                    ], 
+                    "value": "${{row}.narrowerContext}"
+                  }, 
+                  ".csc-hierarchy-narrowerContextType": {
+                    "optionlist": [
+                      "set", 
+                      "derivative", 
+                      "separable-part", 
+                      "non-separable-part", 
+                      "recto", 
+                      "verso"
+                    ], 
+                    "optionnames": [
+                      "Item in a set", 
+                      "Derivative", 
+                      "Separable part", 
+                      "Non-separable part", 
+                      "Recto", 
+                      "Verso"
+                    ], 
+                    "selection": "${{row}.narrowerContextType}"
+                  }
+                }, 
+                "type": "fluid.noexpand"
+              }
+            }
+          }, 
+          "type": "fluid"
+        }
+      ]
+    }, 
+    ".csc-hierarchy-narrowerContexts-label": {
+      "messagekey": "hierarchy-narrowerContextsLabel"
+    }, 
+    ".csc-hierarchy-relatedTerm": {
+      "decorators": [
+        {
+          "func": "cspace.makeRepeatable", 
+          "options": {
+            "elPath": "fields.relatedTerms", 
+            "repeatTree": {
+              "expander": {
+                "tree": {
+                  ".csc-hierarchy-relatedTerm": {
+                    "decorators": [
+                      {
+                        "func": "cspace.autocomplete", 
+                        "options": {
+                          "queryUrl": "../../../tenant/core/vocabularies/work/autocomplete/relatedTerm", 
+                          "vocabUrl": "../../../tenant/core/vocabularies/work/source-vocab/relatedTerm"
+                        }, 
+                        "type": "fluid"
+                      }
+                    ], 
+                    "value": "${{row}.relatedTerm}"
+                  }
+                }, 
+                "type": "fluid.noexpand"
+              }
+            }
+          }, 
+          "type": "fluid"
+        }
+      ]
+    }, 
+    ".csc-hierarchy-relatedTerm-label": {
+      "messagekey": "hierarchy-relatedTermLabel"
+    }, 
+    ".csc-hierarchy-relatedTerms-label": {
+      "messagekey": "hierarchy-relatedTermsLabel"
+    }, 
+    "expander": [
+      {
+        "condition": {
+          "args": {
+            "equivalentContexts": "${fields.equivalentContexts}"
+          }, 
+          "funcName": "cspace.hierarchy.assertEquivalentContexts"
+        }, 
+        "falseTree": {
+          ".csc-hierarchy-equivalentContext-label": {
+            "decorators": {
+              "classes": "hidden", 
+              "type": "addClass"
+            }
+          }
+        }, 
+        "trueTree": {
+          ".csc-hierarchy-equivalentContext-label": {
+            "messagekey": "hierarchy-equivalentContextLabel"
+          }
+        }, 
+        "type": "fluid.renderer.condition"
+      }, 
+      {
+        "controlledBy": "fields.equivalentContexts", 
+        "pathAs": "row", 
+        "repeatID": ".csc-hierarchy-equivalentContext:", 
+        "tree": {
+          "decorators": [
+            {
+              "classes": "cs-hierarchy-equivalentContext", 
+              "type": "addClass"
+            }, 
+            {
+              "func": "cspace.externalURL", 
+              "type": "fluid"
+            }
+          ], 
+          "value": "${{row}.equivalentContext}"
+        }, 
+        "type": "fluid.renderer.repeat"
+      }
+    ]
+  }, 
+  "recordEditor": {
+    ".csc-preferred-workAuthority": {
+      "decorators": [
+        {
+          "func": "cspace.preferred", 
+          "options": {
+            "protoTree": {
+              "expander": {
+                "tree": {
+                  ".csc-preferredWork-termDisplayName-label": {
+                    "messagekey": "preferredWork-termDisplayNameLabel"
+                  }, 
+                  ".csc-preferredWork-termFormattedDisplayName-label": {
+                    "messagekey": "preferredWork-termFormattedDisplayNameLabel"
+                  }, 
+                  ".csc-preferredWork-termInformation-label": {
+                    "messagekey": "preferredWork-termInformationLabel"
+                  }, 
+                  ".csc-preferredWork-termLanguage-label": {
+                    "messagekey": "preferredWork-termLanguageLabel"
+                  }, 
+                  ".csc-preferredWork-termName-label": {
+                    "messagekey": "preferredWork-termNameLabel"
+                  }, 
+                  ".csc-preferredWork-termPrefForLang-label": {
+                    "messagekey": "preferredWork-termPrefForLangLabel"
+                  }, 
+                  ".csc-preferredWork-termQualifier-label": {
+                    "messagekey": "preferredWork-termQualifierLabel"
+                  }, 
+                  ".csc-preferredWork-termSource-label": {
+                    "messagekey": "preferredWork-termSourceLabel"
+                  }, 
+                  ".csc-preferredWork-termSourceDetail-label": {
+                    "messagekey": "preferredWork-termSourceDetailLabel"
+                  }, 
+                  ".csc-preferredWork-termSourceID-label": {
+                    "messagekey": "preferredWork-termSourceIDLabel"
+                  }, 
+                  ".csc-preferredWork-termSourceNote-label": {
+                    "messagekey": "preferredWork-termSourceNoteLabel"
+                  }, 
+                  ".csc-preferredWork-termStatus-label": {
+                    "messagekey": "preferredWork-termStatusLabel"
+                  }, 
+                  ".csc-preferredWork-termType-label": {
+                    "messagekey": "preferredWork-termTypeLabel"
+                  }, 
+                  ".csc-preferredWork-workTermGroup": {
+                    "decorators": [
+                      {
+                        "func": "cspace.makeRepeatable", 
+                        "options": {
+                          "elPath": "fields.workTermGroup", 
+                          "repeatTree": {
+                            "expander": {
+                              "tree": {
+                                ".csc-workAuthority-termDisplayName": "${{row}.termDisplayName}", 
+                                ".csc-workAuthority-termFormattedDisplayName": "${{row}.termFormattedDisplayName}", 
+                                ".csc-workAuthority-termLanguage": {
+                                  "decorators": [
+                                    {
+                                      "func": "cspace.termList", 
+                                      "options": {
+                                        "elPath": "termLanguage", 
+                                        "root": "{row}", 
+                                        "termListType": "termLanguage"
+                                      }, 
+                                      "type": "fluid"
+                                    }
+                                  ]
+                                }, 
+                                ".csc-workAuthority-termName": "${{row}.termName}", 
+                                ".csc-workAuthority-termPrefForLang": "${{row}.termPrefForLang}", 
+                                ".csc-workAuthority-termQualifier": "${{row}.termQualifier}", 
+                                ".csc-workAuthority-termSource": {
+                                  "decorators": [
+                                    {
+                                      "func": "cspace.autocomplete", 
+                                      "options": {
+                                        "queryUrl": "../../../tenant/core/preferredWork/autocomplete/termSource", 
+                                        "vocabUrl": "../../../tenant/core/preferredWork/source-vocab/termSource"
+                                      }, 
+                                      "type": "fluid"
+                                    }
+                                  ], 
+                                  "value": "${{row}.termSource}"
+                                }, 
+                                ".csc-workAuthority-termSourceDetail": "${{row}.termSourceDetail}", 
+                                ".csc-workAuthority-termSourceID": "${{row}.termSourceID}", 
+                                ".csc-workAuthority-termSourceNote": "${{row}.termSourceNote}", 
+                                ".csc-workAuthority-termStatus": {
+                                  "default": "", 
+                                  "optionlist": [
+                                    "", 
+                                    "quickaddedneedsattention", 
+                                    "inprogress", 
+                                    "complete"
+                                  ], 
+                                  "optionnames": [
+                                    "Please select a value", 
+                                    "Quick Added, needs attention", 
+                                    "In Progress", 
+                                    "Complete"
+                                  ], 
+                                  "selection": "${{row}.termStatus}"
+                                }, 
+                                ".csc-workAuthority-termType": "${{row}.termType}"
+                              }, 
+                              "type": "fluid.noexpand"
+                            }
+                          }
+                        }, 
+                        "type": "fluid"
+                      }
+                    ]
+                  }, 
+                  ".csc-preferredWork-workTermGroup-label": {
+                    "messagekey": "preferredWork-workTermGroupLabel"
+                  }
+                }, 
+                "type": "fluid.noexpand"
+              }
+            }
+          }, 
+          "type": "fluid"
+        }
+      ]
+    }, 
+    ".csc-work-coreInformation-label": {
+      "messagekey": "work-coreInformationLabel"
+    }, 
+    ".csc-work-createdAt": {
+      "decorators": [
+        {
+          "func": "cspace.datePicker", 
+          "type": "fluid"
+        }
+      ], 
+      "value": "${fields.createdAt}"
+    }, 
+    ".csc-work-createdAt-label": {
+      "messagekey": "work-createdAtLabel"
+    }, 
+    ".csc-work-createdBy": "${fields.createdBy}", 
+    ".csc-work-createdBy-label": {
+      "messagekey": "work-createdByLabel"
+    }, 
+    ".csc-work-creator-label": {
+      "messagekey": "work-creatorLabel"
+    }, 
+    ".csc-work-creatorGroup": {
+      "decorators": [
+        {
+          "func": "cspace.makeRepeatable", 
+          "options": {
+            "elPath": "fields.creatorGroup", 
+            "repeatTree": {
+              "expander": {
+                "tree": {
+                  ".csc-work-creator": {
+                    "decorators": [
+                      {
+                        "func": "cspace.autocomplete", 
+                        "options": {
+                          "queryUrl": "../../../tenant/core/vocabularies/work/autocomplete/creator", 
+                          "vocabUrl": "../../../tenant/core/vocabularies/work/source-vocab/creator"
+                        }, 
+                        "type": "fluid"
+                      }
+                    ], 
+                    "value": "${{row}.creator}"
+                  }, 
+                  ".csc-work-creatorType": {
+                    "decorators": [
+                      {
+                        "func": "cspace.termList", 
+                        "options": {
+                          "elPath": "creatorType", 
+                          "root": "{row}", 
+                          "termListType": "creatorType"
+                        }, 
+                        "type": "fluid"
+                      }
+                    ]
+                  }
+                }, 
+                "type": "fluid.noexpand"
+              }
+            }
+          }, 
+          "type": "fluid"
+        }
+      ]
+    }, 
+    ".csc-work-creatorGroup-label": {
+      "messagekey": "work-creatorGroupLabel"
+    }, 
+    ".csc-work-creatorType-label": {
+      "messagekey": "work-creatorTypeLabel"
+    }, 
+    ".csc-work-csid": "${fields.csid}", 
+    ".csc-work-csid-label": {
+      "messagekey": "work-csidLabel"
+    }, 
+    ".csc-work-deprecatedRefName": "${fields.deprecatedRefName}", 
+    ".csc-work-deprecatedRefName-label": {
+      "messagekey": "work-deprecatedRefNameLabel"
+    }, 
+    ".csc-work-domaindata-label": {
+      "messagekey": "work-domaindataLabel"
+    }, 
+    ".csc-work-inAuthority": "${fields.inAuthority}", 
+    ".csc-work-inAuthority-label": {
+      "messagekey": "work-inAuthorityLabel"
+    }, 
+    ".csc-work-otherInformation-label": {
+      "messagekey": "work-otherInformationLabel"
+    }, 
+    ".csc-work-preferredWork-label": {
+      "messagekey": "work-preferredWorkLabel"
+    }, 
+    ".csc-work-publisher-label": {
+      "messagekey": "work-publisherLabel"
+    }, 
+    ".csc-work-publisherGroup": {
+      "decorators": [
+        {
+          "func": "cspace.makeRepeatable", 
+          "options": {
+            "elPath": "fields.publisherGroup", 
+            "repeatTree": {
+              "expander": {
+                "tree": {
+                  ".csc-work-publisher": {
+                    "decorators": [
+                      {
+                        "func": "cspace.autocomplete", 
+                        "options": {
+                          "queryUrl": "../../../tenant/core/vocabularies/work/autocomplete/publisher", 
+                          "vocabUrl": "../../../tenant/core/vocabularies/work/source-vocab/publisher"
+                        }, 
+                        "type": "fluid"
+                      }
+                    ], 
+                    "value": "${{row}.publisher}"
+                  }, 
+                  ".csc-work-publisherType": {
+                    "decorators": [
+                      {
+                        "func": "cspace.termList", 
+                        "options": {
+                          "elPath": "publisherType", 
+                          "root": "{row}", 
+                          "termListType": "publisherType"
+                        }, 
+                        "type": "fluid"
+                      }
+                    ]
+                  }
+                }, 
+                "type": "fluid.noexpand"
+              }
+            }
+          }, 
+          "type": "fluid"
+        }
+      ]
+    }, 
+    ".csc-work-publisherGroup-label": {
+      "messagekey": "work-publisherGroupLabel"
+    }, 
+    ".csc-work-publisherType-label": {
+      "messagekey": "work-publisherTypeLabel"
+    }, 
+    ".csc-work-refName": "${fields.refName}", 
+    ".csc-work-refName-label": {
+      "messagekey": "work-refNameLabel"
+    }, 
+    ".csc-work-shortIdentifier": "${fields.shortIdentifier}", 
+    ".csc-work-shortIdentifier-label": {
+      "messagekey": "work-shortIdentifierLabel"
+    }, 
+    ".csc-work-tenantId": "${fields.tenantId}", 
+    ".csc-work-tenantId-label": {
+      "messagekey": "work-tenantIdLabel"
+    }, 
+    ".csc-work-updatedAt": {
+      "decorators": [
+        {
+          "func": "cspace.datePicker", 
+          "type": "fluid"
+        }
+      ], 
+      "value": "${fields.updatedAt}"
+    }, 
+    ".csc-work-updatedAt-label": {
+      "messagekey": "work-updatedAtLabel"
+    }, 
+    ".csc-work-updatedBy": "${fields.updatedBy}", 
+    ".csc-work-updatedBy-label": {
+      "messagekey": "work-updatedByLabel"
+    }, 
+    ".csc-work-uri": "${fields.uri}", 
+    ".csc-work-uri-label": {
+      "messagekey": "work-uriLabel"
+    }, 
+    ".csc-work-workAuthorityInformation-label": {
+      "messagekey": "work-workAuthorityInformationLabel"
+    }, 
+    ".csc-work-workDateGroup-label": {
+      "messagekey": "work-workDateGroupLabel"
+    }, 
+    ".csc-work-workHistoryNote": "${fields.workHistoryNote}", 
+    ".csc-work-workHistoryNote-label": {
+      "messagekey": "work-workHistoryNoteLabel"
+    }, 
+    ".csc-work-workType": {
+      "decorators": [
+        {
+          "func": "cspace.termList", 
+          "options": {
+            "elPath": "fields.workType", 
+            "termListType": "workType"
+          }, 
+          "type": "fluid"
+        }
+      ]
+    }, 
+    ".csc-work-workType-label": {
+      "messagekey": "work-workTypeLabel"
+    }, 
+    ".csc-workDateGroup-workDate": {
+      "decorators": [
+        {
+          "func": "cspace.makeRepeatable", 
+          "options": {
+            "elPath": "fields.workDateGroup", 
+            "repeatTree": {
+              "expander": {
+                "tree": {
+                  ".csc-workDateGroup-workDate": {
+                    "decorators": [
+                      {
+                        "func": "cspace.structuredDate", 
+                        "options": {
+                          "elPath": "dateDisplayDate", 
+                          "elPaths": {
+                            "dateAssociation": "dateAssociation", 
+                            "dateDisplayDate": "dateDisplayDate", 
+                            "dateEarliestScalarValue": "dateEarliestScalarValue", 
+                            "dateEarliestSingleCertainty": "dateEarliestSingleCertainty", 
+                            "dateEarliestSingleDay": "dateEarliestSingleDay", 
+                            "dateEarliestSingleEra": "dateEarliestSingleEra", 
+                            "dateEarliestSingleMonth": "dateEarliestSingleMonth", 
+                            "dateEarliestSingleQualifier": "dateEarliestSingleQualifier", 
+                            "dateEarliestSingleQualifierUnit": "dateEarliestSingleQualifierUnit", 
+                            "dateEarliestSingleQualifierValue": "dateEarliestSingleQualifierValue", 
+                            "dateEarliestSingleYear": "dateEarliestSingleYear", 
+                            "dateLatestCertainty": "dateLatestCertainty", 
+                            "dateLatestDay": "dateLatestDay", 
+                            "dateLatestEra": "dateLatestEra", 
+                            "dateLatestMonth": "dateLatestMonth", 
+                            "dateLatestQualifier": "dateLatestQualifier", 
+                            "dateLatestQualifierUnit": "dateLatestQualifierUnit", 
+                            "dateLatestQualifierValue": "dateLatestQualifierValue", 
+                            "dateLatestScalarValue": "dateLatestScalarValue", 
+                            "dateLatestYear": "dateLatestYear", 
+                            "dateNote": "dateNote", 
+                            "datePeriod": "datePeriod", 
+                            "scalarValuesComputed": "scalarValuesComputed"
+                          }, 
+                          "root": "{row}"
+                        }, 
+                        "type": "fluid"
+                      }
+                    ], 
+                    "value": "${{row}.dateDisplayDate}"
+                  }
+                }, 
+                "type": "fluid.noexpand"
+              }
+            }
+          }, 
+          "type": "fluid"
+        }
+      ]
+    }, 
+    ".csc-workDateGroup-workDate-label": {
+      "messagekey": "workDateGroup-workDateLabel"
+    }
+  }
+}

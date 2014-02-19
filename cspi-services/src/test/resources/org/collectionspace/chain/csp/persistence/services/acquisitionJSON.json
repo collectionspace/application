@@ -2,7 +2,7 @@
     "acquisitionReason": "newvalue",
 	"acquisitionDateGroup":[{
         "dateEarliestSingleQualifier": "-",
-        "scalarValuesComputed": "false",
+        "scalarValuesComputed": false,
         "dateLatestDay": "22",
         "dateLatestYear": "5",
         "dateAssociation": "sdf",
@@ -27,7 +27,7 @@
         "dateEarliestSingleMonth": "2"
     }, {
         "dateEarliestSingleQualifier": "-",
-        "scalarValuesComputed": "false",
+        "scalarValuesComputed": false,
         "dateLatestDay": "20",
         "dateLatestYear": "1",
         "dateAssociation": "wer",
@@ -53,7 +53,7 @@
     "acquisitionReferenceNumber": "acquisitionReferenceNumber",
     "accessionDateGroup": {
         "dateEarliestSingleQualifier": "",
-        "scalarValuesComputed": "true",
+        "scalarValuesComputed": true,
         "dateLatestYear": "",
         "dateLatestDay": "",
         "dateAssociation": "",

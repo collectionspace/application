@@ -785,13 +785,29 @@
     ".csc-contact-coreInformation-label": {
       "messagekey": "contact-coreInformationLabel"
     }, 
-    ".csc-contact-createdAt": "${fields.contact.createdAt}", 
+    ".csc-contact-createdAt": {
+      "decorators": [
+        {
+          "func": "cspace.datePicker", 
+          "type": "fluid"
+        }
+      ], 
+      "value": "${fields.contact.createdAt}"
+    }, 
     ".csc-contact-createdAt-label": {
       "messagekey": "contact-createdAtLabel"
     }, 
     ".csc-contact-createdBy": "${fields.contact.createdBy}", 
     ".csc-contact-createdBy-label": {
       "messagekey": "contact-createdByLabel"
+    }, 
+    ".csc-contact-csid": "${fields.contact.csid}", 
+    ".csc-contact-csid-label": {
+      "messagekey": "contact-csidLabel"
+    }, 
+    ".csc-contact-displayName": "${fields.contact.displayName}", 
+    ".csc-contact-displayName-label": {
+      "messagekey": "contact-displayNameLabel"
     }, 
     ".csc-contact-domaindata-label": {
       "messagekey": "contact-domaindataLabel"
@@ -882,6 +898,21 @@
     ".csc-contact-faxNumberType-label": {
       "messagekey": "contact-faxNumberTypeLabel"
     }, 
+    ".csc-contact-inAuthority": "${fields.contact.inAuthority}", 
+    ".csc-contact-inAuthority-label": {
+      "messagekey": "contact-inAuthorityLabel"
+    }, 
+    ".csc-contact-inItem": "${fields.contact.inItem}", 
+    ".csc-contact-inItem-label": {
+      "messagekey": "contact-inItemLabel"
+    }, 
+    ".csc-contact-otherInformation-label": {
+      "messagekey": "contact-otherInformationLabel"
+    }, 
+    ".csc-contact-refName": "${fields.contact.refName}", 
+    ".csc-contact-refName-label": {
+      "messagekey": "contact-refNameLabel"
+    }, 
     ".csc-contact-telephoneNumber-label": {
       "messagekey": "contact-telephoneNumberLabel"
     }, 
@@ -927,17 +958,29 @@
     ".csc-contact-telephoneNumberType-label": {
       "messagekey": "contact-telephoneNumberTypeLabel"
     }, 
-    ".csc-contact-tenantID": "${fields.contact.tenantID}", 
-    ".csc-contact-tenantID-label": {
-      "messagekey": "contact-tenantIDLabel"
+    ".csc-contact-tenantId": "${fields.contact.tenantId}", 
+    ".csc-contact-tenantId-label": {
+      "messagekey": "contact-tenantIdLabel"
     }, 
-    ".csc-contact-updatedAt": "${fields.contact.updatedAt}", 
+    ".csc-contact-updatedAt": {
+      "decorators": [
+        {
+          "func": "cspace.datePicker", 
+          "type": "fluid"
+        }
+      ], 
+      "value": "${fields.contact.updatedAt}"
+    }, 
     ".csc-contact-updatedAt-label": {
       "messagekey": "contact-updatedAtLabel"
     }, 
     ".csc-contact-updatedBy": "${fields.contact.updatedBy}", 
     ".csc-contact-updatedBy-label": {
       "messagekey": "contact-updatedByLabel"
+    }, 
+    ".csc-contact-uri": "${fields.contact.uri}", 
+    ".csc-contact-uri-label": {
+      "messagekey": "contact-uriLabel"
     }, 
     ".csc-contact-webAddress-label": {
       "messagekey": "contact-webAddressLabel"
@@ -1086,7 +1129,15 @@
     ".csc-organization-coreInformation-label": {
       "messagekey": "organization-coreInformationLabel"
     }, 
-    ".csc-organization-createdAt": "${fields.createdAt}", 
+    ".csc-organization-createdAt": {
+      "decorators": [
+        {
+          "func": "cspace.datePicker", 
+          "type": "fluid"
+        }
+      ], 
+      "value": "${fields.createdAt}"
+    }, 
     ".csc-organization-createdAt-label": {
       "messagekey": "organization-createdAtLabel"
     }, 
@@ -1097,6 +1148,10 @@
     ".csc-organization-csid": "${fields.csid}", 
     ".csc-organization-csid-label": {
       "messagekey": "organization-csidLabel"
+    }, 
+    ".csc-organization-deprecatedRefName": "${fields.deprecatedRefName}", 
+    ".csc-organization-deprecatedRefName-label": {
+      "messagekey": "organization-deprecatedRefNameLabel"
     }, 
     ".csc-organization-dissolutionDateGroup-label": {
       "messagekey": "organization-dissolutionDateGroupLabel"
@@ -1128,6 +1183,10 @@
     ".csc-organization-historyNotes-label": {
       "messagekey": "organization-historyNotesLabel"
     }, 
+    ".csc-organization-inAuthority": "${fields.inAuthority}", 
+    ".csc-organization-inAuthority-label": {
+      "messagekey": "organization-inAuthorityLabel"
+    }, 
     ".csc-organization-organizationNameAuthorityInformation-label": {
       "messagekey": "organization-organizationNameAuthorityInformationLabel"
     }, 
@@ -1145,9 +1204,9 @@
     ".csc-organization-shortIdentifier-label": {
       "messagekey": "organization-shortIdentifierLabel"
     }, 
-    ".csc-organization-tenantID": "${fields.tenantID}", 
-    ".csc-organization-tenantID-label": {
-      "messagekey": "organization-tenantIDLabel"
+    ".csc-organization-tenantId": "${fields.tenantId}", 
+    ".csc-organization-tenantId-label": {
+      "messagekey": "organization-tenantIdLabel"
     }, 
     ".csc-organization-updatedAt": {
       "decorators": [
@@ -1290,8 +1349,8 @@
                                     {
                                       "func": "cspace.autocomplete", 
                                       "options": {
-                                        "queryUrl": "../../../tenant/core/vocabularies/preferredOA/autocomplete/termSource", 
-                                        "vocabUrl": "../../../tenant/core/vocabularies/preferredOA/source-vocab/termSource"
+                                        "queryUrl": "../../../tenant/core/preferredOA/autocomplete/termSource", 
+                                        "vocabUrl": "../../../tenant/core/preferredOA/source-vocab/termSource"
                                       }, 
                                       "type": "fluid"
                                     }
@@ -1301,6 +1360,7 @@
                                 ".csc-orgAuthority-termSourceDetail": "${{row}.termSourceDetail}", 
                                 ".csc-orgAuthority-termSourceID": "${{row}.termSourceID}", 
                                 ".csc-orgAuthority-termSourceNote": "${{row}.termSourceNote}", 
+                                ".csc-orgAuthority-termFormattedDisplayName": "${{row}.termFormattedDisplayName}", 
                                 ".csc-orgAuthority-termStatus": {
                                   "default": "provisional", 
                                   "optionlist": [
@@ -1373,7 +1433,10 @@
                   }, 
                   ".csc-preferredOA-termSourceNote-label": {
                     "messagekey": "preferredOA-termSourceNoteLabel"
-                  }, 
+                  },
+                  ".csc-preferredOA-termFormattedDisplayName-label": {
+                    "messagekey": "preferredOA-termFormattedDisplayNameLabel"
+                  },
                   ".csc-preferredOA-termStatus-label": {
                     "messagekey": "preferredOA-termStatusLabel"
                   }, 

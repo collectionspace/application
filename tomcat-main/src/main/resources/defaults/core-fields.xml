@@ -1,0 +1,15 @@
+<root>
+    <section id="coreInformation">
+        <field id="tenantId" section="collectionspace_core" attributes="GET"/>
+        <field id="uri" section="collectionspace_core" mini="search,list,relate" 
+        	services-list-exclude="true" attributes="GET"/>
+        <field id="refName" section="collectionspace_core" mini="search,list,relate"
+        	services-list-exclude="true" attributes="GET"/>
+        <field id="createdAt" section="collectionspace_core" ui-search="range" ui-type="date" datatype="date"
+            attributes="GET"/>
+        <field id="updatedAt" section="collectionspace_core" ui-search="range" ui-type="date"
+            services-list-exclude="true" datatype="date" attributes="GET" mini="search,list,relate"/>
+        <field id="createdBy" section="collectionspace_core" attributes="GET"/>
+        <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"/>
+    </section>
+</root>

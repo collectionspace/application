@@ -41,36 +41,43 @@ public class ServicesStorage extends SplittingStorage implements Storage {
 		return storage.autocreateJSON(storage,creds,cache, filePath, jsonObject, restrictions);
 	}
 
+	@Override
 	public void createJSON(String filePath, JSONObject jsonObject)
 			throws ExistException, UnimplementedException, UnderlyingStorageException {
 		storage.createJSON(storage,creds,cache, filePath, jsonObject);
 	}
 
+	@Override
 	public void deleteJSON(String filePath)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		storage.deleteJSON(storage,creds,cache,filePath);
 	}
 
+	@Override
 	public JSONObject getPathsJSON(String rootPath,JSONObject restrictions) 
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		return storage.getPathsJSON(storage,creds,cache,rootPath,restrictions);
 	}
 	
+	@Override
 	public String[] getPaths(String rootPath,JSONObject restrictions) 
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		return storage.getPaths(storage,creds,cache,rootPath,restrictions);
 	}
 
+	@Override
 	public JSONObject retrieveJSON(String filePath, JSONObject restrictions)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		return storage.retrieveJSON(storage,creds,cache,filePath, restrictions);
 	}
 
+	@Override
 	public void updateJSON(String filePath, JSONObject jsonObject, JSONObject restrictions)
 			throws ExistException, UnimplementedException, UnderlyingStorageException {
 		storage.updateJSON(storage,creds,cache, filePath, jsonObject, restrictions);
 	}
 	
+	@Override
 	public void transitionWorkflowJSON(String filePath, String workflowTransition) 
 			throws ExistException, UnimplementedException, UnderlyingStorageException {
 		storage.transitionWorkflowJSON(storage, creds, cache, filePath, workflowTransition);

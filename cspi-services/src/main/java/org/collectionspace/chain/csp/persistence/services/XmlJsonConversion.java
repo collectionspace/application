@@ -303,15 +303,26 @@ public class XmlJsonConversion {
 	//
 	public static Document convertToXml(Record r,JSONObject in,String section, String operation) throws JSONException, UnderlyingStorageException {
 		Document doc=DocumentFactory.getInstance().createDocument();
-		String[] parts=r.getServicesRecordPath(section).split(":",2);
-		String[] rootel=parts[1].split(",");
-		Element root=doc.addElement(new QName(rootel[1],new Namespace("ns2",rootel[0])));
-		if(r.getAllServiceFieldTopLevel(operation,section).length >0){
-			for(FieldSet f : r.getAllServiceFieldTopLevel(operation,section)) {
-				addFieldSetToXml(root,f,in,section,operation);
-			}
-			return doc;
-		}
+                try {
+                    String path = r.getServicesRecordPath(section);
+                    if (path != null) {
+                        String[] parts=path.split(":",2);
+                        String[] rootel=parts[1].split(",");
+                        Element root=doc.addElement(new QName(rootel[1],new Namespace("ns2",rootel[0])));
+                        if(r.getAllServiceFieldTopLevel(operation,section).length >0){
+                                for(FieldSet f : r.getAllServiceFieldTopLevel(operation,section)) {
+                                        addFieldSetToXml(root,f,in,section,operation);
+                                }
+                                return doc;
+                        }
+                    } else {
+                        // Revert to DEBUG after v4.0 testing
+                        log.warn(String.format("Record %s lacks expected section %s", r.getRecordName(), section));
+                    }
+                } catch (Exception ex) {
+                    log.debug("Error in XmlJsonConversion.convertToXml",ex);
+                    throw ex;
+                }
 		return null;
 	}
 	private static String getDeUrned(Element  el, Field f) throws JSONException{

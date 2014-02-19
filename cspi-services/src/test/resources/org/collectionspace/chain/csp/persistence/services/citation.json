@@ -36,7 +36,7 @@
         "dateLatestYear": "", 
         "dateNote": "", 
         "datePeriod": "", 
-        "scalarValuesComputed": "true"
+        "scalarValuesComputed": true
       }, 
       "publicationPlace": "urn:cspace:core.collectionspace.org:placeauthorities:name(tgn_place):item:name(newyorkny11369432454870)'New York, NY'", 
       "publisher": "urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(biggerbookpublishers11369429687965)'Bigger Book Publishers'"

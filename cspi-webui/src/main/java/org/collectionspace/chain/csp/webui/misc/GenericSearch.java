@@ -457,7 +457,12 @@ public class GenericSearch {
 			log.error("buildQueryClauseForItem: fieldName does not map to a FieldSet:"+fieldName);
 			return queryClause;
 		}
-
+		
+		String datatype = "";
+		if(fieldSet instanceof Field) {
+			datatype = ((Field)fieldSet).getDataType();
+		}
+		
 		// Used, e.g., when a base entry field is used to compute the actual search field;
 		// do not want to build query term for the base entry field 
 		if(Field.QUERY_BEHAVIOR_IGNORE.equals(fieldSet.getQueryBehavior())) {
@@ -525,7 +530,30 @@ public class GenericSearch {
 					// Leave queryClause empty and fall through
 	            }
 			}
+		} else if (datatype.equals(FieldSet.DATATYPE_BOOLEAN)) {
+			Boolean value = null; 
+			
+			if (item instanceof String) {
+				String valueString = (String) item;
+				
+				if (!valueString.isEmpty()) {
+					value = Boolean.parseBoolean((String) item);
+				}
+			}
+			else if (item instanceof Boolean) { 
+				value = (Boolean) item;
+			}
+			else {
+				log.error("GenericSearch.buildQuery field of type boolean not passed boolean or string value: "
+						+ fieldName );
+			}
+			
+			if (value != null) {
+				queryClause = "(" + getSchemaQualifiedSearchSpecifierForField(r, fieldName, fieldSet)
+						+ (value ? " = 1": " = 0") + ")";
+			}
 		} else if(item instanceof String) {	// Includes fields of types String, int, float, authRefs
+		
 			String value = (String)item;
 			String wrapChar = getQueryValueWrapChar(fieldSet);
 			if(!value.isEmpty()) {
@@ -547,10 +575,6 @@ public class GenericSearch {
 					// Leave queryClause empty and fall through
 	            }
 			}
-		} else if(item instanceof Boolean) { 
-			boolean value = ((Boolean)item).booleanValue(); 
-			queryClause = "(" + getSchemaQualifiedSearchSpecifierForField(r, fieldName, fieldSet)
-							  + (value ? " = 1": " = 0") + ")";
 		}
 		
 		return queryClause;

@@ -1,69 +1,48 @@
-{
-  "concept": {
+{"concept": {
     "properties": {
-      "conceptTermGroup": {
-        "items": {
-          "properties": {
-            "_primary": {
-              "default": true, 
-              "type": "boolean"
-            }, 
-            "termDisplayName": {
-              "type": "string"
-            }, 
-            "termLanguage": {
-              "default": "", 
-              "type": "string"
-            }, 
-            "termName": {
-              "type": "string"
-            }, 
-            "termStatus": {
-              "default": "", 
-              "type": "string"
-            }
-          }, 
-          "type": "object"
-        }, 
-        "type": "array"
-      }, 
-      "createdBys": {
-        "items": {
-          "properties": {
-            "_primary": {
-              "default": true, 
-              "type": "boolean"
-            }, 
-            "createdBy": {
-              "type": "string"
-            }
-          }, 
-          "type": "object"
-        }, 
-        "type": "array"
-      }, 
-      "updatedAtEnd": {
-        "type": "date"
-      }, 
-      "updatedAtStart": {
-        "type": "date"
-      }, 
-      "updatedBys": {
-        "items": {
-          "properties": {
-            "_primary": {
-              "default": true, 
-              "type": "boolean"
-            }, 
-            "updatedBy": {
-              "type": "string"
-            }
-          }, 
-          "type": "object"
-        }, 
-        "type": "array"
-      }
-    }, 
+        "createdAtStart": {
+            "type": "date"
+        },
+        "conceptTermGroup": {
+            "items": {
+                "properties": {
+                    "termName": {"type": "string"},
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    },
+                    "termDisplayName": {"type": "string"},
+                    "termStatus": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "termLanguage": {
+                        "default": "",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "updatedAtEnd": {"type": "date"},
+        "updatedBys": {
+            "items": {
+                "properties": {
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    },
+                    "updatedBy": {"type": "string"}
+                },
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "createdAtEnd": {
+            "type": "date"
+        },
+        "updatedAtStart": {"type": "date"}
+    },
     "type": "object"
-  }
-}
+}}

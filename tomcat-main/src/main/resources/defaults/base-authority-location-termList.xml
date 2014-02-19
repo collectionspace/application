@@ -1,11 +1,11 @@
 
-<record id="preferredSLA" type="authority" in-recordlist="no" separate-record="false">
+<record id="preferredSLA" in-recordlist="no" separate-record="false">
     <hassoftdelete>true</hassoftdelete>
     <section id="termInformation">
         <repeat id="locTermGroupList/locTermGroup">
             <!-- Fields common across all authority items -->
             <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes"
-                mini="summary,number,search,list,relate">
+                mini="summary,number,search,list,relate" services-should-index="true">
                 <selector>locationAuthority-termDisplayName</selector>
                 <title-selector>titleBar-termDisplayName</title-selector>
             </field>
@@ -50,6 +50,9 @@
             </field>
             <field id="termSourceNote">
                 <selector>locationAuthority-termSourceNote</selector>
+            </field>
+            <field id="termFormattedDisplayName">
+                <selector>locationAuthority-termFormattedDisplayName</selector>
             </field>
             <!-- Fields specific to Location terms -->
             <!-- (no such fields in current schema) -->

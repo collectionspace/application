@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!-- Defines the Nuxeo deployment instructions. -->
+<fragment>
+	<extension target="application#MODULE">
+		<module>
+			<java>${bundle.fileName}</java>
+		</module>
+	</extension>
+</fragment>

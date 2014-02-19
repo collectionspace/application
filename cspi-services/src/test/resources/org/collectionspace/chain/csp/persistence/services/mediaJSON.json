@@ -72,7 +72,7 @@
         {
             "_primary": true,
             "dateEarliestSingleQualifier": "-",
-            "scalarValuesComputed": "false",
+            "scalarValuesComputed": false,
             "dateLatestDay": "22",
             "dateLatestYear": "5",
             "dateAssociation": "sdf",
@@ -97,7 +97,7 @@
         },
         {
             "dateEarliestSingleQualifier": "-",
-            "scalarValuesComputed": "false",
+            "scalarValuesComputed": false,
             "dateLatestDay": "20",
             "dateLatestYear": "1",
             "dateAssociation": "wer",

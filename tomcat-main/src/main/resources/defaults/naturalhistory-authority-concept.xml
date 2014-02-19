@@ -1,4 +1,4 @@
-<record id="concept">
+<record id="concept" is-extension="true">
 	<services-record-path id="naturalhistory">concepts_naturalhistory:http://collectionspace.org/services/concept/domain/naturalhistory,concepts_naturalhistory</services-record-path>
 
 	<section id="conceptAuthorityInformation">

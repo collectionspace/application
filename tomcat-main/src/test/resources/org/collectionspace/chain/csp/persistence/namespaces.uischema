@@ -230,6 +230,37 @@
           }
         }, 
         "type": "object"
+      }, 
+      "work": {
+        "properties": {
+          "cona_work": {
+            "properties": {
+              "nptAllowed": {
+                "default": true, 
+                "type": "boolean"
+              }, 
+              "order": {
+                "default": 1, 
+                "type": "integer"
+              }
+            }, 
+            "type": "object"
+          }, 
+          "work": {
+            "properties": {
+              "nptAllowed": {
+                "default": true, 
+                "type": "boolean"
+              }, 
+              "order": {
+                "default": 0, 
+                "type": "integer"
+              }
+            }, 
+            "type": "object"
+          }
+        }, 
+        "type": "object"
       }
     }, 
     "type": "object"

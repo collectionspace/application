@@ -258,7 +258,15 @@
     ".csc-location-coreInformation-label": {
       "messagekey": "location-coreInformationLabel"
     }, 
-    ".csc-location-createdAt": "${fields.createdAt}", 
+    ".csc-location-createdAt": {
+      "decorators": [
+        {
+          "func": "cspace.datePicker", 
+          "type": "fluid"
+        }
+      ], 
+      "value": "${fields.createdAt}"
+    }, 
     ".csc-location-createdAt-label": {
       "messagekey": "location-createdAtLabel"
     }, 
@@ -270,8 +278,16 @@
     ".csc-location-csid-label": {
       "messagekey": "location-csidLabel"
     }, 
+    ".csc-location-deprecatedRefName": "${fields.deprecatedRefName}", 
+    ".csc-location-deprecatedRefName-label": {
+      "messagekey": "location-deprecatedRefNameLabel"
+    }, 
     ".csc-location-domaindata-label": {
       "messagekey": "location-domaindataLabel"
+    }, 
+    ".csc-location-inAuthority": "${fields.inAuthority}", 
+    ".csc-location-inAuthority-label": {
+      "messagekey": "location-inAuthorityLabel"
     }, 
     ".csc-location-locationTermInformation-label": {
       "messagekey": "location-locationTermInformationLabel"
@@ -297,9 +313,9 @@
     ".csc-location-shortIdentifier-label": {
       "messagekey": "location-shortIdentifierLabel"
     }, 
-    ".csc-location-tenantID": "${fields.tenantID}", 
-    ".csc-location-tenantID-label": {
-      "messagekey": "location-tenantIDLabel"
+    ".csc-location-tenantId": "${fields.tenantId}", 
+    ".csc-location-tenantId-label": {
+      "messagekey": "location-tenantIdLabel"
     }, 
     ".csc-location-type": {
       "decorators": [
@@ -372,8 +388,8 @@
                                     {
                                       "func": "cspace.autocomplete", 
                                       "options": {
-                                        "queryUrl": "../../../tenant/core/vocabularies/preferredSLA/autocomplete/termSource", 
-                                        "vocabUrl": "../../../tenant/core/vocabularies/preferredSLA/source-vocab/termSource"
+                                        "queryUrl": "../../../tenant/core/preferredSLA/autocomplete/termSource", 
+                                        "vocabUrl": "../../../tenant/core/preferredSLA/source-vocab/termSource"
                                       }, 
                                       "type": "fluid"
                                     }
@@ -383,6 +399,7 @@
                                 ".csc-locationAuthority-termSourceDetail": "${{row}.termSourceDetail}", 
                                 ".csc-locationAuthority-termSourceID": "${{row}.termSourceID}", 
                                 ".csc-locationAuthority-termSourceNote": "${{row}.termSourceNote}", 
+                                ".csc-locationAuthority-termFormattedDisplayName": "${{row}.termFormattedDisplayName}", 
                                 ".csc-locationAuthority-termStatus": {
                                   "default": "provisional", 
                                   "optionlist": [
@@ -455,6 +472,9 @@
                   }, 
                   ".csc-preferredSLA-termSourceNote-label": {
                     "messagekey": "preferredSLA-termSourceNoteLabel"
+                  },
+                  ".csc-preferredSLA-termFormattedDisplayName-label": {
+                    "messagekey": "preferredSLA-termFormattedDisplayNameLabel"
                   }, 
                   ".csc-preferredSLA-termStatus-label": {
                     "messagekey": "preferredSLA-termStatusLabel"

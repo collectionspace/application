@@ -282,7 +282,15 @@
     ".csc-concept-coreInformation-label": {
       "messagekey": "concept-coreInformationLabel"
     }, 
-    ".csc-concept-createdAt": "${fields.createdAt}", 
+    ".csc-concept-createdAt": {
+      "decorators": [
+        {
+          "func": "cspace.datePicker", 
+          "type": "fluid"
+        }
+      ], 
+      "value": "${fields.createdAt}"
+    }, 
     ".csc-concept-createdAt-label": {
       "messagekey": "concept-createdAtLabel"
     }, 
@@ -294,12 +302,20 @@
     ".csc-concept-csid-label": {
       "messagekey": "concept-csidLabel"
     }, 
+    ".csc-concept-deprecatedRefName": "${fields.deprecatedRefName}", 
+    ".csc-concept-deprecatedRefName-label": {
+      "messagekey": "concept-deprecatedRefNameLabel"
+    }, 
     ".csc-concept-description": "${fields.description}", 
     ".csc-concept-description-label": {
       "messagekey": "concept-descriptionLabel"
     }, 
     ".csc-concept-domaindata-label": {
       "messagekey": "concept-domaindataLabel"
+    }, 
+    ".csc-concept-inAuthority": "${fields.inAuthority}", 
+    ".csc-concept-inAuthority-label": {
+      "messagekey": "concept-inAuthorityLabel"
     }, 
     ".csc-concept-otherInformation-label": {
       "messagekey": "concept-otherInformationLabel"
@@ -328,9 +344,9 @@
     ".csc-concept-shortIdentifier-label": {
       "messagekey": "concept-shortIdentifierLabel"
     }, 
-    ".csc-concept-tenantID": "${fields.tenantID}", 
-    ".csc-concept-tenantID-label": {
-      "messagekey": "concept-tenantIDLabel"
+    ".csc-concept-tenantId": "${fields.tenantId}", 
+    ".csc-concept-tenantId-label": {
+      "messagekey": "concept-tenantIdLabel"
     }, 
     ".csc-concept-updatedAt": {
       "decorators": [
@@ -410,8 +426,8 @@
                                     {
                                       "func": "cspace.autocomplete", 
                                       "options": {
-                                        "queryUrl": "../../../tenant/core/vocabularies/preferredCA/autocomplete/termSource", 
-                                        "vocabUrl": "../../../tenant/core/vocabularies/preferredCA/source-vocab/termSource"
+                                        "queryUrl": "../../../tenant/core/preferredCA/autocomplete/termSource", 
+                                        "vocabUrl": "../../../tenant/core/preferredCA/source-vocab/termSource"
                                       }, 
                                       "type": "fluid"
                                     }
@@ -421,6 +437,7 @@
                                 ".csc-conceptAuthority-termSourceDetail": "${{row}.termSourceDetail}", 
                                 ".csc-conceptAuthority-termSourceID": "${{row}.termSourceID}", 
                                 ".csc-conceptAuthority-termSourceNote": "${{row}.termSourceNote}", 
+                                ".csc-conceptAuthority-termFormattedDisplayName": "${{row}.termFormattedDisplayName}", 
                                 ".csc-conceptAuthority-termStatus": {
                                   "default": "provisional", 
                                   "optionlist": [
@@ -496,6 +513,9 @@
                   }, 
                   ".csc-preferredCA-termSourceNote-label": {
                     "messagekey": "preferredCA-termSourceNoteLabel"
+                  }, 
+                  ".csc-preferredCA-termFormattedDisplayName-label": {
+                    "messagekey": "preferredCA-termFormattedDisplayNameLabel"
                   }, 
                   ".csc-preferredCA-termStatus-label": {
                     "messagekey": "preferredCA-termStatusLabel"
