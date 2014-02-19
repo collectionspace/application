@@ -1,4 +1,4 @@
-<record id="propagation" in-findedit="yes" type="record,procedure">
+<record id="propagation" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
 	<services-url>propagations</services-url>
 	<services-tenant-plural>Propagations</services-tenant-plural>
 	<services-tenant-singular>Propagation</services-tenant-singular>
@@ -63,11 +63,7 @@
 	<row-selector>.csc-recordList-row:</row-selector>
 
 	<section id="coreInformation">
-		<field id="tenantID" section="collectionspace_core" attributes="GET"/>
-		<field id="createdBy" section="collectionspace_core" attributes="GET"/>
-		<field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"/>
-		<field id="createdAt" section="collectionspace_core" attributes="GET"/>
-		<field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"/>
+		<include src="core-fields.xml" strip-root="yes"/>
 	</section>
 
 	<section id="propagationInformation">
@@ -103,7 +99,7 @@
 			</options>
 		</field>
 		<field id="propComments"/>
-		<field id="numStarted"/>
+		<field id="numStarted" datatype="integer"/>
 		<repeat id="scarStratGroupList/scarStratGroup">
 			<field id="scarStrat">
 				<options>
@@ -124,7 +120,7 @@
 					<option id="water soak">water soak</option>
 				</options>
 			</field>
-			<field id="duration"/>
+			<field id="duration" datatype="integer"/>
 			<field id="durationUnit">
 				<options>
 					<option id="" default="yes">Please select a value</option>
@@ -152,14 +148,14 @@
 		<field id="concentration"/>
 		<field id="wounded" datatype="boolean"/>
 		<field id="plantType" autocomplete="vocab-propPlantType" ui-type="enum"/>
-		<field id="germinationDate" ui-type="date" ui-search="range"/>
+		<field id="germinationDate" ui-type="date" datatype="date" ui-search="range"/>
 		<field id="successRate"/>
 		<repeat id="propActivityGroupList/propActivityGroup">
-			<field id="order"/>
+			<field id="order" datatype="integer"/>
 			<!-- <field id="activityDate" ui-type="date"/> -->
 			<group id="activityDate" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate"></group>
 			<field id="activityType" autocomplete="vocab-propActivityType" ui-type="enum"/>
-			<field id="propCount"/>
+			<field id="propCount" datatype="integer"/>
 			<field id="medium" autocomplete="concept-concept"/>
 			<field id="potSize" autocomplete="vocab-potSize" ui-type="enum"/>
 			<field id="nurseryLocation" autocomplete="location-location"/>
