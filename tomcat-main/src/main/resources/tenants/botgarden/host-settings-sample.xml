@@ -1,5 +1,5 @@
 <!--
-	This file contains modifications to settings.xml and local-settings.xml for a specific host on
+	This file contains modifications to settings.xml and botgarden-settings.xml for a specific host on
 	which this tenant is installed.	
 
 	This is a sample file, showing typical settings that need to be changed. Copy it to 
@@ -24,9 +24,4 @@
 	<email>
 		<baseurl>http://localhost:8180</baseurl>
 	</email>
-	<persistence>
-		<service>
-			<ims-url>http://localhost:8180/collectionspace/chain/</ims-url>
-		</service>
-	</persistence>
 </settings>
