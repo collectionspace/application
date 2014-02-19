@@ -1,4 +1,4 @@
-<record id="pottag" in-findedit="yes" type="record,procedure">
+<record id="pottag" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
 	<services-url>pottags</services-url>
 	<services-tenant-plural>Pottags</services-tenant-plural>
 	<services-tenant-singular>Pottag</services-tenant-singular>
@@ -63,11 +63,7 @@
 	<row-selector>.csc-recordList-row:</row-selector>
 
 	<section id="coreInformation">
-		<field id="tenantID" section="collectionspace_core" attributes="GET"/>
-		<field id="createdBy" section="collectionspace_core" attributes="GET"/>
-		<field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"/>
-		<field id="createdAt" section="collectionspace_core" attributes="GET"/>
-		<field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"/>
+		<include src="core-fields.xml" strip-root="yes"/>
 	</section>
 
 	<section id="volunteerLabels">
@@ -78,7 +74,7 @@
 		<field id="locale" ui-search="repeatable"/>
 		<field id="taxonName" ui-search="repeatable" mini="number,search,list,terms,relate" autocomplete="taxon-taxon,taxon-plantsales"/>
 		<field id="labelData"/>
-		<field id="numberOfLabels" ui-search="repeatable"/>
+		<field id="numberOfLabels" ui-search="repeatable" datatype="integer"/>
 		<field id="printLabels" ui-search="repeatable" mini="summary,search,list,terms,relate">
 			<options>
 				<option id="" default="yes">Please select a value</option>
