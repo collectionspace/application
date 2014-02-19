@@ -1,4 +1,5 @@
 <cspace-config tenantname="botgarden">
+	<tenantid>35</tenantid>
 	<version>11</version>
 	<include src="settings.xml,botgarden-settings.xml,host-settings.xml" merge="xmlmerge-settings.properties" strip-root="yes"/>
 
@@ -10,6 +11,7 @@
 			<enum-blank>Please select a value</enum-blank>
 
 			<include src="base-collectionobject.xml,naturalhistory-collectionobject.xml,botgarden-collectionobject.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority.xml"/>
 
 			<!-- <include src="base-procedure-acquisition.xml"/> -->
 			<include src="base-procedure-blobs.xml"/>
@@ -24,7 +26,7 @@
 			<include src="base-procedure-pottag.xml"/>
 			<include src="base-procedure-objectexit.xml,naturalhistory-procedure-objectexit.xml,botgarden-procedure-objectexit.xml" merge="xmlmerge.properties"/>
 
-			<include src="base-authority-contact.xml,naturalhistory-authority-contact.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-contact.xml"/>
             
 			<include src="base-authority-location-termList.xml,botgarden-authority-location-termList.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-location.xml,botgarden-authority-location.xml" merge="xmlmerge.properties"/>
@@ -40,6 +42,8 @@
 			<include src="base-authority-taxon.xml,naturalhistory-authority-taxon.xml,botgarden-authority-taxon.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-concept-termList.xml,botgarden-authority-concept-termList.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-concept.xml,naturalhistory-authority-concept.xml,botgarden-authority-concept.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-work-termList.xml"/>
+			<include src="base-authority-work.xml"/>
 			
 			<include src="base-vocabularies.xml"/>
 			
