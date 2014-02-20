@@ -305,6 +305,7 @@
 	<section id="objectHistoryAssociationInformation">
 		<section id="associationInformation">
 			<repeat id="assocConceptGroupList/assocConceptGroup">
+				<!-- Remove autocomplete -->
 				<field id="assocConcept" autocomplete=""/>
 			</repeat>
 		</section>
