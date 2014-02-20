@@ -42,7 +42,7 @@
 			<include src="base-authority-taxon.xml,naturalhistory-authority-taxon.xml,botgarden-authority-taxon.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-concept-termList.xml,botgarden-authority-concept-termList.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-concept.xml,naturalhistory-authority-concept.xml,botgarden-authority-concept.xml" merge="xmlmerge.properties"/>
-			<include src="base-authority-work-termList.xml"/>
+			<include src="base-authority-work-termList.xml,botgarden-authority-work-termList.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-work.xml"/>
 			
 			<include src="base-vocabularies.xml"/>
