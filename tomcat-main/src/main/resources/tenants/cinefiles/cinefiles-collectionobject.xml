@@ -265,8 +265,8 @@
 	
 	<section id="referenceInformation">
 		<repeat id="referenceGroupList/referenceGroup">
-			<!-- Remove citation-worldcat from autocomplete -->
-			<field id="reference" autocomplete="citation-citation"/>
+			<!-- Change autocomplete to organization-organization instead of citation vocabs -->
+			<field id="reference" autocomplete="organization-organization"/>
 		</repeat>
 	</section>
 
