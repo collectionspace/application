@@ -1,4 +1,4 @@
-<record id="claim">
+<record id="claim" is-extension="true">
 	<services-record-path id="anthropology">claims_anthropology:http://collectionspace.org/services/claim/domain/anthropology,claims_anthropology</services-record-path>
 
 	<section id="claimInformation">

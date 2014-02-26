@@ -1,4 +1,4 @@
-<record id="movement">
+<record id="movement" is-extension="true">
 	<services-record-path id="anthropology">movements_anthropology:http://collectionspace.org/services/movement/domain/anthropology,movements_anthropology</services-record-path>
 	
 	<section id="movementControlInformation">
