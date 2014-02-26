@@ -5,7 +5,7 @@
 		<field id="taxonBasionym" section="naturalhistory" autocomplete="taxon-taxon"/>
 		<field id="accessRestrictions" section="naturalhistory">
 			<options>
-            	<option id="" default="yes">Please select a value</option>
+				<option id="" default="yes">Please select a value</option>
 				<option id="Unrestricted">Unrestricted</option>
 				<option id="Restricted">Restricted</option>
 				<option id="Dead">Dead</option>
@@ -34,12 +34,12 @@
 			<field id="naturalHistoryCommonNameSource" section="naturalhistory"/>
 			<field id="naturalHistoryCommonNameSourceDetail" section="naturalhistory"/>
 			<field id="naturalHistoryCommonNameType" section="naturalhistory">
-			    <options>
-			        <option id="" default="yes">Please select a value</option>
-			        <option id="preferred">Preferred</option>
-			        <option id="secondary">Secondary</option>
-			        <option id="rejected">Rejected</option>
-			    </options>
+				<options>
+					<option id="" default="yes">Please select a value</option>
+					<option id="preferred">Preferred</option>
+					<option id="secondary">Secondary</option>
+					<option id="rejected">Rejected</option>
+				</options>
 			</field>
 		</repeat>
 
