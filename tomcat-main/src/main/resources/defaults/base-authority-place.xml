@@ -190,7 +190,7 @@
                     <option id="unknown">Unknown</option>
                 </options>
             </field>
-            <field id="coordUncertaintyInMeters" datatype="integer"/>
+            <field id="coordUncertaintyInMeters" ui-type="validated" datatype="integer"/>
             <field id="coordPrecision"/>
             <field id="pointRadiusSpatialFit"/>
             <field id="footprintWKT"/>

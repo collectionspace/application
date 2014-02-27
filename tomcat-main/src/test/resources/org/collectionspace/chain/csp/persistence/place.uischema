@@ -91,7 +91,7 @@
                   "type": "string"
                 }, 
                 "coordUncertaintyInMeters": {
-                  "type": "string"
+                  "type": "integer"
                 }, 
                 "decimalLatitude": {
                   "type": "float"
