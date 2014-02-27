@@ -8,4 +8,11 @@
 			<nptAllowed>false</nptAllowed>
 		</instance>
 	</instances>
+	
+	<section id="citationNameAuthorityInformation">
+		<repeat id="citationPublicationInfoGroupList/citationPublicationInfoGroup">
+			<!-- Remove place-tgn_place from autocomplete -->
+			<field id="publicationPlace" autocomplete="place-place"/>
+		</repeat>
+	</section>
 </record>
