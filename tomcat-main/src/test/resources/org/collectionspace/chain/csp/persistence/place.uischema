@@ -44,22 +44,22 @@
             "type": "string"
           }, 
           "maxDepthInMeters": {
-            "type": "string"
+            "type": "float"
           }, 
           "maxDistanceAboveSurfaceInMeters": {
-            "type": "string"
+            "type": "float"
           }, 
           "maxElevationInMeters": {
-            "type": "string"
+            "type": "float"
           }, 
           "minDepthInMeters": {
-            "type": "string"
+            "type": "float"
           }, 
           "minDistanceAboveSurfaceInMeters": {
-            "type": "string"
+            "type": "float"
           }, 
           "minElevationInMeters": {
-            "type": "string"
+            "type": "float"
           }, 
           "narrowerContexts": {
             "items": {
@@ -91,13 +91,13 @@
                   "type": "string"
                 }, 
                 "coordUncertaintyInMeters": {
-                  "type": "string"
+                  "type": "integer"
                 }, 
                 "decimalLatitude": {
-                  "type": "string"
+                  "type": "float"
                 }, 
                 "decimalLongitude": {
-                  "type": "string"
+                  "type": "float"
                 }, 
                 "footprintSRS": {
                   "type": "string"
