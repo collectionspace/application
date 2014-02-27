@@ -21,6 +21,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
+import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
 import org.apache.commons.io.input.TeeInputStream;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorageGenerator;
 import org.collectionspace.csp.api.core.CSPRequestCache;
@@ -37,6 +38,8 @@ import org.slf4j.LoggerFactory;
 // XXX Add useful info to ConnectionException on way out
 
 public class ServicesConnection {
+	public static final int MAX_SERVICES_CONNECTIONS = 20;
+
 	private static final Logger log=LoggerFactory.getLogger(ServicesConnection.class);
 	private static final Logger perflog=LoggerFactory.getLogger("org.collectionspace.perflog");
 	private String base_url,ims_url;
@@ -48,7 +51,16 @@ public class ServicesConnection {
 		synchronized(getClass()) {
 			if(manager!=null)
 				return;
+
+			// We're only connecting to one host, so set the max connections per host to be
+			// the same as the max total connections.
+
+			HttpConnectionManagerParams params = new HttpConnectionManagerParams();
+			params.setMaxTotalConnections(MAX_SERVICES_CONNECTIONS);
+			params.setDefaultMaxConnectionsPerHost(MAX_SERVICES_CONNECTIONS);
+			
 			manager=new MultiThreadedHttpConnectionManager();
+			manager.setParams(params);
 		}
 	}
 
@@ -180,6 +192,16 @@ public class ServicesConnection {
 				throw new ConnectionException(e.getMessage(),0,base_url+"/"+uri,e);
 			} finally {
 				method.releaseConnection();
+				
+				if (log.isWarnEnabled()) {
+					if (manager.getConnectionsInPool() >= MAX_SERVICES_CONNECTIONS) {
+						log.warn("reached max services connection limit of " + MAX_SERVICES_CONNECTIONS);
+					
+						// Delete closed connections from the pool, so that the warning will cease
+						// once a connection becomes available.
+						manager.deleteClosedConnections();
+					}
+				}
 			}
 		} finally {
 			closeStream(body_data);
