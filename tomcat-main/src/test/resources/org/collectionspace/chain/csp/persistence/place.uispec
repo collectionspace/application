@@ -398,7 +398,17 @@
               "expander": {
                 "tree": {
                   ".csc-place-coordPrecision": "${{row}.coordPrecision}", 
-                  ".csc-place-coordUncertaintyInMeters": "${{row}.coordUncertaintyInMeters}", 
+                  ".csc-place-coordUncertaintyInMeters": {
+                    "decorators": [{
+                      "func": "cspace.inputValidator",
+                      "options": {
+                        "label": "place-coordUncertaintyInMetersLabel",
+                        "type": "integer"
+                      },
+                      "type": "fluid"
+                    }],
+                    "value": "${{row}.coordUncertaintyInMeters}"
+                  },
                   ".csc-place-decimalLatitude": {
                     "decorators": [{
                       "func": "cspace.inputValidator",
