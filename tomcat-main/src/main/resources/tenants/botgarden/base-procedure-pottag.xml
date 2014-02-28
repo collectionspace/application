@@ -74,7 +74,7 @@
 		<field id="locale" ui-search="repeatable"/>
 		<field id="taxonName" ui-search="repeatable" mini="number,search,list,terms,relate" autocomplete="taxon-taxon,taxon-plantsales"/>
 		<field id="labelData"/>
-		<field id="numberOfLabels" ui-search="repeatable" datatype="integer"/>
+		<field id="numberOfLabels" ui-search="repeatable" ui-type="validated" datatype="integer"/>
 		<field id="printLabels" ui-search="repeatable" mini="summary,search,list,terms,relate">
 			<options>
 				<option id="" default="yes">Please select a value</option>
