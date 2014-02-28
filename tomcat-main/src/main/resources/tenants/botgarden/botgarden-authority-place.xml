@@ -18,7 +18,7 @@
 				<option id="dept">Dept.</option>
 				<option id="district">District</option>
 				<option id="island">Island</option>
-				<option id="island">Islands</option>
+				<option id="islands">Islands</option>
 				<option id="mountain">Mountain</option>
 				<option id="municipio">Municipio</option>
 				<option id="national-park">National Park</option>
