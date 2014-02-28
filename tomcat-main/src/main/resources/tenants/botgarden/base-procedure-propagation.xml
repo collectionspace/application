@@ -99,7 +99,7 @@
 			</options>
 		</field>
 		<field id="propComments"/>
-		<field id="numStarted" datatype="integer"/>
+		<field id="numStarted" ui-type="validated" datatype="integer"/>
 		<repeat id="scarStratGroupList/scarStratGroup">
 			<field id="scarStrat">
 				<options>
@@ -120,7 +120,7 @@
 					<option id="water soak">water soak</option>
 				</options>
 			</field>
-			<field id="duration" datatype="integer"/>
+			<field id="duration" ui-type="validated" datatype="integer"/>
 			<field id="durationUnit">
 				<options>
 					<option id="" default="yes">Please select a value</option>
@@ -151,11 +151,11 @@
 		<field id="germinationDate" ui-type="date" datatype="date" ui-search="range"/>
 		<field id="successRate"/>
 		<repeat id="propActivityGroupList/propActivityGroup">
-			<field id="order" datatype="integer"/>
+			<field id="order" ui-type="validated" datatype="integer"/>
 			<!-- <field id="activityDate" ui-type="date"/> -->
 			<group id="activityDate" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate"></group>
 			<field id="activityType" autocomplete="vocab-propActivityType" ui-type="enum"/>
-			<field id="propCount" datatype="integer"/>
+			<field id="propCount" ui-type="validated" datatype="integer"/>
 			<field id="medium" autocomplete="concept-concept"/>
 			<field id="potSize" autocomplete="vocab-potSize" ui-type="enum"/>
 			<field id="nurseryLocation" autocomplete="location-location"/>
