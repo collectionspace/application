@@ -292,27 +292,87 @@
     ".csc-place-localityInformation-label": {
       "messagekey": "place-localityInformationLabel"
     }, 
-    ".csc-place-maxDepthInMeters": "${fields.maxDepthInMeters}", 
+    ".csc-place-maxDepthInMeters": {
+      "decorators": [{
+        "func": "cspace.inputValidator",
+        "type": "fluid",
+        "options": {
+          "label": "place-maxDepthInMetersLabel",
+          "type": "float"
+        }
+      }],
+      "value": "${fields.maxDepthInMeters}"
+    },
     ".csc-place-maxDepthInMeters-label": {
       "messagekey": "place-maxDepthInMetersLabel"
     }, 
-    ".csc-place-maxDistanceAboveSurfaceInMeters": "${fields.maxDistanceAboveSurfaceInMeters}", 
+    ".csc-place-maxDistanceAboveSurfaceInMeters": {
+      "decorators": [{
+        "func": "cspace.inputValidator",
+        "type": "fluid",
+        "options": {
+          "label": "place-maxDistanceAboveSurfaceInMetersLabel",
+          "type": "float"
+        }
+      }],
+      "value": "${fields.maxDistanceAboveSurfaceInMeters}"
+    },
     ".csc-place-maxDistanceAboveSurfaceInMeters-label": {
       "messagekey": "place-maxDistanceAboveSurfaceInMetersLabel"
     }, 
-    ".csc-place-maxElevationInMeters": "${fields.maxElevationInMeters}", 
+    ".csc-place-maxElevationInMeters": {
+      "decorators": [{
+        "func": "cspace.inputValidator",
+        "type": "fluid",
+        "options": {
+          "label": "place-maxElevationInMetersLabel",
+          "type": "float"
+        }
+      }],
+      "value": "${fields.maxElevationInMeters}"
+    },
     ".csc-place-maxElevationInMeters-label": {
       "messagekey": "place-maxElevationInMetersLabel"
     }, 
-    ".csc-place-minDepthInMeters": "${fields.minDepthInMeters}", 
+    ".csc-place-minDepthInMeters": {
+      "decorators": [{
+        "func": "cspace.inputValidator",
+        "type": "fluid",
+        "options": {
+          "label": "place-minDepthInMetersLabel",
+          "type": "float"
+        }
+      }],
+      "value": "${fields.minDepthInMeters}"
+    },
     ".csc-place-minDepthInMeters-label": {
       "messagekey": "place-minDepthInMetersLabel"
     }, 
-    ".csc-place-minDistanceAboveSurfaceInMeters": "${fields.minDistanceAboveSurfaceInMeters}", 
+    ".csc-place-minDistanceAboveSurfaceInMeters": {
+      "decorators": [{
+        "func": "cspace.inputValidator",
+        "type": "fluid",
+        "options": {
+          "label": "place-minDistanceAboveSurfaceInMetersLabel",
+          "type": "float"
+        }
+      }],
+      "value": "${fields.minDistanceAboveSurfaceInMeters}"
+    },
     ".csc-place-minDistanceAboveSurfaceInMeters-label": {
       "messagekey": "place-minDistanceAboveSurfaceInMetersLabel"
     }, 
-    ".csc-place-minElevationInMeters": "${fields.minElevationInMeters}", 
+    ".csc-place-minElevationInMeters": {
+      "decorators": [{
+        "func": "cspace.inputValidator",
+        "type": "fluid",
+        "options": {
+          "label": "place-minElevationInMetersLabel",
+          "type": "float"
+        }
+      }],
+      "value": "${fields.minElevationInMeters}"
+    }, 
     ".csc-place-minElevationInMeters-label": {
       "messagekey": "place-minElevationInMetersLabel"
     }, 
@@ -338,9 +398,39 @@
               "expander": {
                 "tree": {
                   ".csc-place-coordPrecision": "${{row}.coordPrecision}", 
-                  ".csc-place-coordUncertaintyInMeters": "${{row}.coordUncertaintyInMeters}", 
-                  ".csc-place-decimalLatitude": "${{row}.decimalLatitude}", 
-                  ".csc-place-decimalLongitude": "${{row}.decimalLongitude}", 
+                  ".csc-place-coordUncertaintyInMeters": {
+                    "decorators": [{
+                      "func": "cspace.inputValidator",
+                      "options": {
+                        "label": "place-coordUncertaintyInMetersLabel",
+                        "type": "integer"
+                      },
+                      "type": "fluid"
+                    }],
+                    "value": "${{row}.coordUncertaintyInMeters}"
+                  },
+                  ".csc-place-decimalLatitude": {
+                    "decorators": [{
+                      "func": "cspace.inputValidator",
+                      "type": "fluid",
+                      "options": {
+                        "label": "place-decimalLatitudeLabel",
+                        "type": "float"
+                      }
+                    }],
+                    "value": "${{row}.decimalLatitude}"
+                  },
+                  ".csc-place-decimalLongitude": {
+                    "decorators": [{
+                      "func": "cspace.inputValidator",
+                      "type": "fluid",
+                      "options": {
+                        "label": "place-decimalLongitudeLabel",
+                        "type": "float"
+                      }
+                    }],
+                    "value": "${{row}.decimalLongitude}"
+                  },
                   ".csc-place-footprintSRS": "${{row}.footprintSRS}", 
                   ".csc-place-footprintSpatialFit": "${{row}.footprintSpatialFit}", 
                   ".csc-place-footprintWKT": "${{row}.footprintWKT}", 
