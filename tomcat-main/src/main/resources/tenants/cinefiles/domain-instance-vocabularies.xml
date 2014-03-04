@@ -279,6 +279,7 @@
 		<title>Collection</title>
 		<options>
 			<option id="cinefiles">CineFiles</option>
+			<option id="pfastills">PFA Stills</option>
 		</options>
 	</instance>
 	
