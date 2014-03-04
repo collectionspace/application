@@ -6,6 +6,9 @@
 		<field id="document">
 			<selector>5abe7f10-cfeb-4c00-b6b5-bdf621692f0f</selector>
 		</field>
+		<field id="stills">
+			<selector>cfbbe386-ee42-45e4-9759-df4d4d940496</selector>
+		</field>
 		<field id="accession">
 			<selector>9dd92952-c384-44dc-a736-95e435c1759c</selector>
 		</field>

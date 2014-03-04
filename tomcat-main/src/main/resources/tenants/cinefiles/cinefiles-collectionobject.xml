@@ -10,7 +10,8 @@
 		<field id="objectNumber">
 			<!-- Replace number patterns -->
 			<options>
-				<option id="document" sample="100">Document Number</option>
+				<option id="document" sample="100">CineFiles Document Number</option>
+				<option id="stills" sample="PS100">PFA Stills Number</option>
 			</options>
 		</field>
 
