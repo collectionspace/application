@@ -51,14 +51,16 @@
 				<option id="DHN">DHN</option>
 			</options>
 		</field>
-		<field id="recordStatus">
-		  <options>
-			<option id="" default="yes">Please select a value</option>
-			<option id="none">None</option>
-			<option id="partial">Partial</option>
-			<option id="complete">Complete</option>
-			<option id="unknown">Unknown</option>
-		  </options>
+		<!-- Remove ui-search -->
+		<field id="recordStatus" ui-search="">
+			<!-- Change options -->
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="none">None</option>
+				<option id="partial">Partial</option>
+				<option id="complete">Complete</option>
+				<option id="unknown">Unknown</option>
+		 	</options>
 		</field>
 		<repeat id="taxonomicIdentGroupList/taxonomicIdentGroup">
 			<!-- Change organization-organization to organization-group_org -->
@@ -141,7 +143,12 @@
 			<!-- Add groups to autocomplete -->
 			<field id="annotationAuthor" autocomplete="person-person,organization-group_org"/>
 		</repeat>
-		<field id="provenanceType" section="naturalhistory">
+		
+		<!-- naturalhistory fields -->
+		
+		<!-- Add ui-search -->
+		<field id="provenanceType" ui-search="repeatable">
+			<!-- Change options -->
 			<options>
 				<option id="" default="yes">Please select a value</option>
 				<option id="W-wild source">W-wild source</option>
