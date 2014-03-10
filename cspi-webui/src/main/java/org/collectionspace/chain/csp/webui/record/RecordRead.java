@@ -450,7 +450,7 @@ public class RecordRead implements WebMethodWithOps {
 
 					payload.put("mode", "single");
 
-					String type = spec.getRecordByWebUrl(bits[1]).getServicesTenantSg();
+					String type = spec.getRecordByWebUrl(bits[1]).getServicesTenantDoctype(false);
 					payload.put("docType", type);
 					
 					payload.put("singleCSID", bits[2]);
