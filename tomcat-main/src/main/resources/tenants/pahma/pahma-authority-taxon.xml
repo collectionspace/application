@@ -15,13 +15,22 @@
 				<option id="" default="yes">(none selected)</option>
 				<option id="domain">domain</option>
 				<option id="kingdom">kingdom</option>
+				<option id="subkingdom">subkingdom</option>
+				<option id="infrakingdom">infrakingdom</option>
+				<option id="superphylum">superphylum</option>
 				<option id="phylum">phylum</option>
 				<option id="subphylum">subphylum</option>
+				<option id="infraphylum">infraphylum</option>
 				<option id="division">division</option>
+				<option id="subdivision">subdivision</option>
+				<option id="infradivision">infradivision</option>
+				<option id="superclass">superclass</option>
 				<option id="class">class</option>
 				<option id="subclass">subclass</option>
 				<option id="infraclass">infraclass</option>
+				<option id="superorder">superorder</option>
 				<option id="order">order</option>
+				<option id="suborder">suborder</option>
 				<option id="infraorder">infraorder</option>
 				<option id="superfamily">superfamily</option>
 				<option id="family">family</option>
