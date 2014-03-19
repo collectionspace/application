@@ -16,9 +16,9 @@
 				<selector>taxonomic-identification-qualifier</selector>
 				<options>
 					<option id="">(none)</option>
-					<option id="aff">aff. (genus)</option>
+					<option id="affg">aff. (genus)</option>
 					<option id="aff">aff. (species)</option>
-					<option id="cf">cf. (genus)</option>
+					<option id="cfg">cf. (genus)</option>
 					<option id="cf">cf. (species)</option>
 					<option id="indet">indet.</option>
 					<option id="spIndet">sp. indet.</option>
