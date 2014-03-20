@@ -49,7 +49,8 @@
 				<option id="unknown">unknown</option>
 			</options>
 		</field>
-		<field id="recordStatus">
+		<!-- Remove ui-search -->
+		<field id="recordStatus" ui-search="" >
 			<!-- Change options -->
 			<options>
 				<option id="minimalInProgress" default="yes">minimal (in progress)</option>
@@ -604,7 +605,8 @@
 			</options>
 		</field>
 		<repeat id="forms">
-			<field id="form">
+			<!-- Remove ui-search -->
+			<field id="form" ui-search="" >
 				<!-- Change options -->
 				<options>
 					<option id="" default="yes">(none selected)</option>
@@ -629,7 +631,8 @@
 			<field id="material" autocomplete="concept-material_ca"/>
 		</repeat>
 		<repeat id="objectComponentGroupList/objectComponentGroup">
-			<field id="objectComponentName">
+			<!-- Remove ui-search -->
+			<field id="objectComponentName" ui-search="">
 				<!-- Delete the options -->
 				<!-- TODO: Figure out how to delete the options tag here, so this works. Currently deleting it in the base file. -->
 			</field>
@@ -895,8 +898,8 @@
 		</section>
 		<section id="nonTextualInscriptionInformation">
 			<repeat id="nonTextualInscriptionGroupList/nonTextualInscriptionGroup">
-				<!-- Add concept-concept and concept-archculture to autocomplete -->
-				<field id="inscriptionDescriptionInscriber" autocomplete="person-person,organization-organization,concept-concept,concept-archculture"/>
+				<!-- Remove ui-search, and add concept-concept and concept-archculture to autocomplete -->
+				<field id="inscriptionDescriptionInscriber" ui-search="" autocomplete="person-person,organization-organization,concept-concept,concept-archculture"/>
 				<field id="inscriptionDescriptionPosition">
 					<!-- Change options -->
 					<options>
@@ -938,7 +941,8 @@
 						<option id="tattoo">tattoo</option>
 					</options>
 				</field>
-				<field id="inscriptionDescriptionMethod">
+				<!-- Remove ui-search -->
+				<field id="inscriptionDescriptionMethod" ui-search="">
 					<!-- Add options -->
 					<options>
 						<option id="">(none selected)</option>
