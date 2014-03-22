@@ -32,6 +32,8 @@
 				<option id="order">order</option>
 				<option id="suborder">suborder</option>
 				<option id="infraorder">infraorder</option>
+				<option id="section">section</option>
+				<option id="subsection">subsection</option>
 				<option id="superfamily">superfamily</option>
 				<option id="family">family</option>
 				<option id="subfamily">subfamily</option>
