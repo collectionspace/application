@@ -61,7 +61,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		this.n = null;
 	}
 	
-	private JSONObject getDisplayNameList(Storage storage,String auth_type,String inst_type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+	private JSONObject getTermData(Storage storage,String auth_type,String inst_type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		//should be using cached data (hopefully) from previous getPathsJson call
 		JSONObject out=storage.retrieveJSON(auth_type+"/"+inst_type+"/"+csid+"/view", new JSONObject());
 		return out;
@@ -69,7 +69,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		
 	
 	
-	private JSONObject list_vocab(JSONObject displayNames,Instance n,Storage storage,String param, Integer pageSize, Integer pageNum, Record thisr) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+	private JSONObject list_vocab(JSONObject shortIdentifiers,Instance n,Storage storage,String param, Integer pageSize, Integer pageNum, Record thisr) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject restriction=new JSONObject();
 		if(param!=null){
 			restriction.put(n.getRecord().getDisplayNameField().getID(),param);
@@ -114,13 +114,13 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		String[] results = (String[]) data.get("listItems");
 		/* Get a view of each */
 		for(String result : results) {
-			//change csid into displayName
-			JSONObject datanames = getDisplayNameList(storage,thisr.getID(),n.getTitleRef(),result);
+			//change csid into shortIdentifier
+			JSONObject termData = getTermData(storage,thisr.getID(),n.getTitleRef(),result);
 			
-			displayNames.put(datanames.getString("displayName"),result);
+			shortIdentifiers.put(termData.getString("shortIdentifier"),result);
 		}
 		JSONObject alldata = new JSONObject();
-		alldata.put("displayName", displayNames);
+		alldata.put("shortIdentifiers", shortIdentifiers);
 		alldata.put("pagination",  data.getJSONObject("pagination"));
 		return alldata;
 	}
@@ -291,7 +291,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 					pageSize = fulldata.getJSONObject("pagination").getInt("pageSize");
 					Integer itemsInPage = fulldata.getJSONObject("pagination").getInt("itemsInPage");
 					pageNum = fulldata.getJSONObject("pagination").getInt("pageNum");
-					results=fulldata.getJSONObject("displayName");
+					results=fulldata.getJSONObject("shortIdentifiers");
 					
 					pageNum++;
 					//are there more results
@@ -304,46 +304,43 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 				}
 
 				//compare
-				results= fulldata.getJSONObject("displayName");
+				results= fulldata.getJSONObject("shortIdentifiers");
 
 				//only add if term is not already present
 				if(tty!= null){
 					tty.line("only add if term is not already present");
 				}
 				for(Option opt : allOpts){
-					String name = opt.getName();
 					String shortIdentifier = opt.getID();
-					//create it if term is not already present
-					JSONObject data=new JSONObject("{'displayName':'"+name+"'}");
-					if(opt.getID() == null || opt.getID().equals("")){
-						//XXX here until the service layer does this
-						shortIdentifier = name.replaceAll("\\W", "").toLowerCase();
-					}
-					data.put("description", opt.getDesc());
-					data.put("shortIdentifier", shortIdentifier);
-					if(thisr.getFieldFullList("termStatus") instanceof Field){
-						data.put("termStatus", ((Field)thisr.getFieldFullList("termStatus")).getOptionDefault());
-					}
-					String url = thisr.getID()+"/"+instance.getTitleRef();
 					
-					if(!results.has(name)){
+					if(!results.has(shortIdentifier)){
+						String name = opt.getName();
+
 						if(tty!= null){
 							tty.line("adding term "+name);
 							log.info("adding term "+name);
 						}
+						
+						//create it if term is not already present
+						JSONObject data=new JSONObject("{'displayName':'"+name+"'}");
+						if(opt.getID() == null || opt.getID().equals("")){
+							//XXX here until the service layer does this
+							shortIdentifier = name.replaceAll("\\W", "").toLowerCase();
+						}
+						data.put("description", opt.getDesc());
+						data.put("shortIdentifier", shortIdentifier);
+						if(thisr.getFieldFullList("termStatus") instanceof Field){
+							data.put("termStatus", ((Field)thisr.getFieldFullList("termStatus")).getOptionDefault());
+						}
+						String url = thisr.getID()+"/"+instance.getTitleRef();
+
 						storage.autocreateJSON(url,data,null);
-						results.remove(name);
+						results.remove(shortIdentifier);
 					}
 					else{
-						//update term
-						storage.updateJSON(url+"/"+results.get(name), data, new JSONObject());
-						
-						if(tty!= null){
-							tty.line("removing term "+name);
-						}
 						//remove from results so can delete everything else if necessary in next stage
 						//tho has issues with duplicates
-						results.remove(name);
+						results.remove(shortIdentifier);
 					}
 				}
 				if(!appendit){
