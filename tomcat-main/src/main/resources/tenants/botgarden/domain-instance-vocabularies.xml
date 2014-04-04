@@ -164,7 +164,6 @@
 		<title-ref>county</title-ref>
 		<title>county</title>
 		<options>
-            <option id="Unknown">Unknown</option>
             <option id="AberdeenshireUK">Aberdeenshire (UK)</option> 
             <option id="Acadia">Acadia</option>
             <option id="Acaponeta">Acaponeta</option>
