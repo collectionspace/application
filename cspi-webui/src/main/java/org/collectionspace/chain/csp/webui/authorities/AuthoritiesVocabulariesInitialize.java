@@ -80,6 +80,9 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		if(pageSize!=null){
 			restriction.put("pageSize",pageSize);
 		}
+		// CSPACE-6371: When fetching existing vocabulary terms, include soft-deleted ones, so that terms
+		// deleted through the UI are not re-added.
+		restriction.put("deleted", true);
 		String url = thisr.getID()+"/"+n.getTitleRef();
 		JSONObject data = null;
 		try{
