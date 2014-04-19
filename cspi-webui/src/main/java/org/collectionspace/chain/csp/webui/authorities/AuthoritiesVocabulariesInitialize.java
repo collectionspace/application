@@ -329,7 +329,8 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 						}
 						
 						//create it if term is not already present
-						JSONObject data=new JSONObject("{'displayName':'"+name+"'}");
+						JSONObject data=new JSONObject();
+						data.put("displayName", name);
 						data.put("description", opt.getDesc());
 						data.put("shortIdentifier", shortIdentifier);
 						if(thisr.getFieldFullList("termStatus") instanceof Field){
