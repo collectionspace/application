@@ -14,4 +14,14 @@
 			<options/>
 		</field>
 	</section>
+    <section id="localityInformation">
+		<!-- Add autocomplete -->
+		<field id="vCoordSource" autocomplete="citation-citation"/>
+	</section>
+	<section id="geoReferenceInformation">
+		<repeat id="placeGeoRefGroupList/placeGeoRefGroup">
+			<!-- Add autocomplete -->
+			<field id="geoRefSource" autocomplete="citation-citation"/>
+		</repeat>
+	</section>
 </record>
