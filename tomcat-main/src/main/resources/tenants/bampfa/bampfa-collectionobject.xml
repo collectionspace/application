@@ -1,6 +1,20 @@
 <record id="collection-object" is-extension="true">
 	<services-record-path id="bampfa">collectionobjects_bampfa:http://collectionspace.org/services/collectionobject/local/bampfa,collectionobjects_bampfa</services-record-path>
 
+	<section id="identificationInformation">
+		<!-- Remove ui-search, remove chooser, remove seperate_ui_container, and make computed -->
+		<field id="objectNumber" ui-search="" chooser="" seperate_ui_container="" ui-type="computed" ui-func="bampfa.computeAccessionNumber" ui-args="accNumberPrefix,accNumberPart1,accNumberPart2,accNumberPart3,accNumberPart4,accNumberPart5" ui-readonly="true">
+			<!-- Remove options -->
+			<options/>
+		</field>
+		
+		<!-- Configure an app-layer-only field to be used in advanced search for objectNumber, which isn't computed and read-only -->
+		<field id="objectNumberSearch" ui-search="repeatable" exists-in-services="false">
+			<selector>object-identification-object-number-search</selector>
+			<services-tag>objectNumber</services-tag>
+		</field>
+	</section>
+	
 	<section id="accNumberInformation">
 		<field id="accNumberPrefix" section="bampfa"/>
 		<field id="accNumberPart1" ui-type="validated" datatype="integer" section="bampfa"/>
