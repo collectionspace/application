@@ -1,0 +1,12 @@
+<record id="collection-object" is-extension="true">
+	<services-record-path id="bampfa">collectionobjects_bampfa:http://collectionspace.org/services/collectionobject/local/bampfa,collectionobjects_bampfa</services-record-path>
+
+	<section id="accNumberInformation">
+		<field id="accNumberPrefix" section="bampfa"/>
+		<field id="accNumberPart1" ui-type="validated" datatype="integer" section="bampfa"/>
+		<field id="accNumberPart2" ui-type="validated" datatype="integer" section="bampfa"/>
+		<field id="accNumberPart3" ui-type="validated" datatype="integer" section="bampfa"/>
+		<field id="accNumberPart4" ui-type="validated" datatype="integer" section="bampfa"/>
+		<field id="accNumberPart5" section="bampfa"/>
+	</section>
+</record>
