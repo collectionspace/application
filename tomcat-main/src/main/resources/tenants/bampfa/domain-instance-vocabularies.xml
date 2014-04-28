@@ -1,0 +1,35 @@
+<instances>
+	<instance id="vocab-collection">
+		<web-url>collection</web-url>
+		<title-ref>collection</title-ref>
+		<title>Collection</title>
+		<options>
+			<option id="C0001">Asian Collection</option>
+			<option id="C0002">Cha Collection</option>
+			<option id="C0003">Cahill Collection</option>
+			<option id="C0004">Japanese Print Collection</option>
+			<option id="C0005">Marshall Collection</option>
+			<option id="C0006">Callaghan photography collection</option>
+			<option id="C0007" desc="Collection of 113 Japanese, Chinese, Tibetan, and Thai seals, 2nd to 20th centuries">Edward Gans Collection</option>
+			<option id="C0009" desc="Gifts from the Andy Warhol Foundation for the Visual Arts">Andy Warhol Photographic Legacy Project</option>
+			<option id="C0010" desc="49 Chinese ceramic pieces, Han dynasty through Ming dynasty (2nd - 15th century CE)">Fong Ceramics</option>
+			<option id="C0011" desc="12 audio tapes and 62 books for Conceptual Art Study Center">James Melchert Collection</option>
+			<option id="C0012" desc="Buddhist materials">Louise Gund Collection</option>
+			<option id="C0013">Bernard-Murray</option>
+			<option id="C0014" desc="extended loan of prints and drawings">Emily and Lisa Honig Collection</option>
+			<option id="C0015" desc="extended loan of Chinese ceramics">Warren King Collection</option>
+			<option id="C0016" desc="63 etchings and lithographs">Simpson Whistler gift</option>
+			<option id="C0017" desc="37 posters by David Lance Goines">Weininger Bequest</option>
+			<option id="C0019" desc="photographs by Pirkle Jones and Ruth-Marion Baruch, gift of the Pirkle Jones Foundation">Pirkle Jones Foundation</option>
+			<option id="C0020">Ant Farm Archive</option>
+			<option id="C0021" desc="Museum of Conceptual Art, Tom Marioni, San Francisco">MOCA Archive</option>
+			<option id="C0022">James Lee Byars Archive</option>
+			<option id="C0023">Alice Hutchins Friends of Fluxus</option>
+			<option id="C0024">Stuart Pitesky Memorial Library</option>
+			<option id="C0025">Konzeption Conception</option>
+			<option id="C0026" desc="19th and 20th century photographs; donors Jan Leonard and Jerrold Peil">Peil Collection</option>
+			<option id="C0027">William Dallam Armes Collection</option>
+			<!-- <option id="C0028"></option> -->
+		</options>
+	</instance>
+</instances>

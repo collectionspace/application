@@ -13,6 +13,12 @@
 			<selector>object-identification-object-number-search</selector>
 			<services-tag>objectNumber</services-tag>
 		</field>
+		
+		<!-- Local fields -->
+		
+		<repeat id="bampfaCollectionList" section="bampfa">
+			<field id="bampfaCollection" section="bampfa" ui-search="repeatable" autocomplete="vocab-collection" ui-type="enum"/>
+		</repeat>
 	</section>
 	
 	<section id="accNumberInformation">
