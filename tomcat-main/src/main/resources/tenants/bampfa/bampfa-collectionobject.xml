@@ -21,6 +21,13 @@
 		</repeat>
 	</section>
 	
+	<section id="descriptionInformation">
+		<repeat id="styles">
+			<!-- Tie to the periodorstyle vocabulary -->
+			<field id="style" autocomplete="vocab-periodorstyle" ui-type="enum"/>
+		</repeat>
+	</section>
+	
 	<!-- Local fields -->
 	
 	<section id="accNumberInformation">

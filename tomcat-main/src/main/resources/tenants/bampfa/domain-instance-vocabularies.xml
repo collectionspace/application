@@ -32,4 +32,68 @@
 			<!-- <option id="C0028"></option> -->
 		</options>
 	</instance>
+	
+	<instance id="vocab-periodorstyle">
+		<web-url>periodorstyle</web-url>
+		<title-ref>periodorstyle</title-ref>
+		<title>Period or Style</title>
+		<options>	
+			<option id="periodorstyle001">Abstract Expressionism</option>
+			<option id="periodorstyle002">Abstraction</option>
+			<option id="periodorstyle003">Ancient </option>
+			<option id="periodorstyle004">Art and Technology</option>
+			<option id="periodorstyle005">Art Nouveau</option>
+			<option id="periodorstyle006">Ashcan</option>
+			<option id="periodorstyle007">Barbizon</option>
+			<option id="periodorstyle008">Baroque</option>
+			<option id="periodorstyle009">Bay Area</option>
+			<option id="periodorstyle010">Beat</option>
+			<option id="periodorstyle011">California</option>
+			<option id="periodorstyle012">Classical</option>
+			<option id="periodorstyle013">CoBrA</option>
+			<option id="periodorstyle014">Color Field</option>
+			<option id="periodorstyle015">Conceptual</option>
+			<option id="periodorstyle016">Conceptual Art</option>
+			<option id="periodorstyle017">Concrete Poetry/Visual Poetry</option>
+			<option id="periodorstyle018">Contructivism</option>
+			<option id="periodorstyle019">Cubism</option>
+			<option id="periodorstyle020">Dadaism</option>
+			<option id="periodorstyle021">Decorative</option>
+			<option id="periodorstyle022">Early American</option>
+			<option id="periodorstyle023">Earth Art</option>
+			<option id="periodorstyle024">Earth Art/Environmental Artl/Land Art</option>
+			<option id="periodorstyle025">Environment</option>
+			<option id="periodorstyle026">Expressionism</option>
+			<option id="periodorstyle027">Fauvism</option>
+			<option id="periodorstyle028">Fluxus</option>
+			<option id="periodorstyle029">Funk</option>
+			<option id="periodorstyle030">Futurism</option>
+			<option id="periodorstyle031">Genetics-related</option>
+			<option id="periodorstyle032">Happenings</option>
+			<option id="periodorstyle033">Impressionism</option>
+			<option id="periodorstyle034">Medieval </option>
+			<option id="periodorstyle035">Minimalism</option>
+			<option id="periodorstyle036">Modernism</option>
+			<option id="periodorstyle037">Museum of Conceptual Art</option>
+			<option id="periodorstyle038">Naïve Art</option>
+			<option id="periodorstyle039">Neoclassicism</option>
+			<option id="periodorstyle040">Nineteenth-century American Landscape</option>
+			<option id="periodorstyle041">Photojournalism</option>
+			<option id="periodorstyle042">Photorealism</option>
+			<option id="periodorstyle043">Pop Art</option>
+			<option id="periodorstyle044">Post-Impressionism</option>
+			<option id="periodorstyle045">Pre-Raphaelite</option>
+			<option id="periodorstyle046">Prehistoric</option>
+			<option id="periodorstyle047">Process</option>
+			<option id="periodorstyle048">Realism</option>
+			<option id="periodorstyle049">Renaissance</option>
+			<option id="periodorstyle050">Romanticism</option>
+			<option id="periodorstyle051">Self-taught/Outsider</option>
+			<option id="periodorstyle052">Social Realism</option>
+			<option id="periodorstyle053">Sound/Acoustic Art</option>
+			<option id="periodorstyle054">Surrealism</option>
+			<option id="periodorstyle055">UC Berkeley</option>
+			<option id="periodorstyle056">Utilitarian</option>
+		</options>
+	</instance>
 </instances>
