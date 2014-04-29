@@ -21,6 +21,8 @@
 		</repeat>
 	</section>
 	
+	<!-- Local fields -->
+	
 	<section id="accNumberInformation">
 		<field id="accNumberPrefix" section="bampfa"/>
 		<field id="accNumberPart1" ui-type="validated" datatype="integer" section="bampfa"/>
@@ -28,5 +30,10 @@
 		<field id="accNumberPart3" ui-type="validated" datatype="integer" section="bampfa"/>
 		<field id="accNumberPart4" ui-type="validated" datatype="integer" section="bampfa"/>
 		<field id="accNumberPart5" section="bampfa"/>
+	</section>
+	
+	<section id="catalogerInformation">
+		<field id="catalogerName" section="bampfa"/>
+		<field id="catalogDate" section="bampfa"/>
 	</section>
 </record>
