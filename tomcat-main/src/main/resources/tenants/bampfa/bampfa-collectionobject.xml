@@ -25,15 +25,24 @@
 	
 	<section id="accNumberInformation">
 		<field id="accNumberPrefix" section="bampfa"/>
-		<field id="accNumberPart1" ui-type="validated" datatype="integer" section="bampfa"/>
-		<field id="accNumberPart2" ui-type="validated" datatype="integer" section="bampfa"/>
-		<field id="accNumberPart3" ui-type="validated" datatype="integer" section="bampfa"/>
-		<field id="accNumberPart4" ui-type="validated" datatype="integer" section="bampfa"/>
+		<field id="accNumberPart1" section="bampfa" ui-type="validated" datatype="integer"/>
+		<field id="accNumberPart2" section="bampfa" ui-type="validated" datatype="integer"/>
+		<field id="accNumberPart3" section="bampfa" ui-type="validated" datatype="integer"/>
+		<field id="accNumberPart4" section="bampfa" ui-type="validated" datatype="integer"/>
 		<field id="accNumberPart5" section="bampfa"/>
 	</section>
 	
 	<section id="catalogerInformation">
 		<field id="catalogerName" section="bampfa"/>
 		<field id="catalogDate" section="bampfa"/>
+	</section>
+	
+	<section id="conditionCheckInformation">
+		<repeat id="conditionCheckGroupList/conditionCheckGroup" section="bampfa">
+			<field id="conditionNote" section="bampfa"/>
+			<field id="conservationNote" section="bampfa"/>
+			<field id="conditionCheckDate" section="bampfa" ui-type="date" datatype="date"/>
+			<field id="conditionCheckBy" section="bampfa"/>
+		</repeat>
 	</section>
 </record>
