@@ -54,4 +54,21 @@
 			<field id="conditionCheckBy" section="bampfa"/>
 		</repeat>
 	</section>
+	
+	<section id="copyrightInformation">
+		<field id="copyrightCredit" section="bampfa"/>
+		<field id="copyrightHolder" section="bampfa"/>
+		<field id="copyrightNote" section="bampfa"/>
+		<field id="photoCredit" section="bampfa"/>
+		<field id="permissionToReproduce" section="bampfa" datatype="boolean"/>
+		
+		<field id="permissionToReproduceSearch" section="bampfa" datatype="boolean" ui-search="single" exists-in-services="false">
+			<services-tag>permissionToReproduce</services-tag>
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			</options>
+		</field>
+	</section>
 </record>
