@@ -30,6 +30,13 @@
 		</repeat>
 	</section>
 	
+	<section id="objectProductionInformation">
+		<repeat id="objectProductionPeopleGroupList/objectProductionPeopleGroup">
+			<!-- Add autocomplete -->
+			<field id="objectProductionPeople" autocomplete="organization-collective"/>
+		</repeat>
+	</section>
+	
 	<!-- Local fields -->
 	
 	<section id="accNumberInformation">
