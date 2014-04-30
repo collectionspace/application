@@ -16,6 +16,8 @@
 		
 		<!-- Local fields -->
 		
+		<field id="itemClass" section="bampfa" ui-search="repeatable" autocomplete="vocab-itemclass" ui-type="enum"/>
+		
 		<repeat id="bampfaCollectionList" section="bampfa">
 			<field id="bampfaCollection" section="bampfa" ui-search="repeatable" autocomplete="vocab-collection" ui-type="enum"/>
 		</repeat>

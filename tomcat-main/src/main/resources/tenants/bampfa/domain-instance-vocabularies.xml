@@ -96,4 +96,33 @@
 			<option id="periodorstyle056">Utilitarian</option>
 		</options>
 	</instance>
+	
+	<instance id="vocab-itemclass">
+		<web-url>itemclass</web-url>
+		<title-ref>itemclass</title-ref>
+		<title>Item Class</title>
+		<options>	
+			<option id="itemclass001">Artifact</option>
+			<option id="itemclass002">Artist's book</option>
+			<option id="itemclass003">Audio</option>
+			<option id="itemclass004">Ceramic</option>
+			<option id="itemclass005">Decorative Arts</option>
+			<option id="itemclass006">Documentation</option>
+			<option id="itemclass007">Drawing</option>
+			<option id="itemclass008">Ephemera</option>
+			<option id="itemclass009">Film</option>
+			<option id="itemclass010">Furniture</option>
+			<option id="itemclass011">Installation</option>
+			<option id="itemclass012">Mixed media</option>
+			<option id="itemclass013">Multi-Media</option>
+			<option id="itemclass014">Multiple</option>
+			<option id="itemclass015">Painting</option>
+			<option id="itemclass016">Photograph</option>
+			<option id="itemclass017">Print</option>
+			<option id="itemclass018">Sculpture</option>
+			<option id="itemclass019">Textile</option>
+			<option id="itemclass020">Video</option>
+			<option id="itemclass021">Work on paper</option>
+		</options>
+	</instance>
 </instances>
