@@ -28,6 +28,16 @@
 			<!-- Tie to the periodorstyle vocabulary -->
 			<field id="style" autocomplete="vocab-periodorstyle" ui-type="enum"/>
 		</repeat>
+		
+		<!-- Local fields -->
+		
+		<field id="bwOrColor" section="bampfa" ui-search="repeatable">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="Black &amp; white">Black &amp; white</option>
+				<option id="Color">Color</option>
+			</options>
+		</field>
 	</section>
 	
 	<section id="objectProductionInformation">
