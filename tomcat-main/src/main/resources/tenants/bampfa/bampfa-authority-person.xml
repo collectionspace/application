@@ -1,0 +1,10 @@
+<record id="person" is-extension="true">
+	<services-record-path id="bampfa">persons_bampfa:http://collectionspace.org/services/person/local/bampfa,persons_bampfa</services-record-path>
+	
+	<section id="personNameAuthorityInformation">
+		
+		<!-- Local fields -->
+		
+		<field id="datesActive" section="bampfa"/>
+	</section>
+</record>
