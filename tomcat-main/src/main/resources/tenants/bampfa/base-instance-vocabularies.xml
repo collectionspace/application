@@ -144,8 +144,8 @@
                         <title-ref>dateera</title-ref>
                         <title>Date Era</title>
                         <options>
-                            <option id="ce">CE</option>
-                            <option id="bce">BCE</option>
+                            <option id="ce">AD</option>
+                            <option id="bce">BC</option>
                         </options>
                     </instance>
                     <instance id="vocab-datequalifier">
