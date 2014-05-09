@@ -45,6 +45,13 @@
 			<!-- Add autocomplete -->
 			<field id="objectProductionPeople" autocomplete="organization-collective"/>
 		</repeat>
+		
+		<!-- Local fields -->
+		
+		<field id="objectProductionDateCirca" section="bampfa" datatype="boolean"/>
+		<field id="objectProductionDateCentury" section="bampfa"/>
+		<field id="objectProductionDateEra" section="bampfa" autocomplete="vocab-dateera" ui-type="enum"/>
+		<field id="objectProductionDynasty" section="bampfa"/>
 	</section>
 	
 	<!-- Local fields -->
