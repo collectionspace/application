@@ -45,9 +45,20 @@
 			<!-- Add autocomplete -->
 			<field id="objectProductionPeople" autocomplete="organization-collective"/>
 		</repeat>
+
+		<repeat id="objectProductionPersonGroupList/objectProductionPersonGroup">
+			<!-- Remove ui-search -->
+			<field id="objectProductionPerson" ui-search="" />
+		</repeat>
 		
 		<!-- Local fields -->
 		
+		<repeat id="bampfaObjectProductionPersonGroupList/bampfaObjectProductionPersonGroup" section="bampfa" >
+			<field id="bampfaObjectProductionPerson" section="bampfa" ui-search="repeatable" autocomplete="person-person"/>
+			<field id="bampfaObjectProductionPersonRole" section="bampfa" autocomplete="vocab-productionpersonrole" ui-type="enum"/>
+			<field id="bampfaObjectProductionPersonQualifier" section="bampfa" autocomplete="vocab-productionpersonqualifier" ui-type="enum"/>
+		</repeat>
+
 		<field id="objectProductionDateCirca" section="bampfa" datatype="boolean"/>
 		<field id="objectProductionDateCentury" section="bampfa"/>
 		<field id="objectProductionDateEra" section="bampfa" autocomplete="vocab-dateera" ui-type="enum"/>

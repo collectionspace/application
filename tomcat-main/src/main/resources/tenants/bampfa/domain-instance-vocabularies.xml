@@ -125,4 +125,39 @@
 			<option id="itemclass021">Work on paper</option>
 		</options>
 	</instance>
+	
+	<instance id="vocab-productionpersonrole">
+		<web-url>productionpersonrole</web-url>
+		<title-ref>productionpersonrole</title-ref>
+		<title>Production Person Role</title>
+		<options>
+			<option id="productionpersonrole001">Artist</option>
+			<option id="productionpersonrole002">Engraver</option>
+		</options>
+	</instance>
+	
+	<instance id="vocab-productionpersonqualifier">
+		<web-url>productionpersonqualifier</web-url>
+		<title-ref>productionpersonqualifier</title-ref>
+		<title>Production Person Qualifier</title>
+		<options>
+			<option id="productionpersonqualifier001">After</option>
+			<option id="productionpersonqualifier002">Assistant to</option>
+			<option id="productionpersonqualifier003">Associate of</option>
+			<option id="productionpersonqualifier004">Atelier of</option>
+			<option id="productionpersonqualifier005">Attributed to</option>
+			<option id="productionpersonqualifier006">Circle of</option>
+			<option id="productionpersonqualifier007">Copyist of</option>
+			<option id="productionpersonqualifier008">Follower of</option>
+			<option id="productionpersonqualifier009">Manner of</option>
+			<option id="productionpersonqualifier010">Manufactory of</option>
+			<option id="productionpersonqualifier011">Office of</option>
+			<option id="productionpersonqualifier012">Pupil of</option>
+			<option id="productionpersonqualifier013">School of</option>
+			<option id="productionpersonqualifier014">Student of</option>
+			<option id="productionpersonqualifier015">Studio of</option>
+			<option id="productionpersonqualifier016">Style of</option>
+			<option id="productionpersonqualifier017">Workshop of</option>
+		</options>
+	</instance>
 </instances>
