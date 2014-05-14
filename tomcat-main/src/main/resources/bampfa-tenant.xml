@@ -13,7 +13,7 @@
 			<include src="base-collectionobject.xml,bampfa-collectionobject.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority.xml"/>
 
-			<include src="base-procedure-acquisition.xml"/>
+			<include src="base-procedure-acquisition.xml,bampfa-procedure-acquisition.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-blobs.xml"/>
 			<include src="base-procedure-claim.xml"/>
 			<include src="base-procedure-groups.xml"/>

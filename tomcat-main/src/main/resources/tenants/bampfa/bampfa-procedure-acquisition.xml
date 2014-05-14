@@ -1,0 +1,9 @@
+<record id="acquisition">
+	<section id="acquisitionInformation">
+		<!-- Add autocomplete and ui-type -->
+		<field id="acquisitionMethod" autocomplete="vocab-acquisitionmethod" ui-type="enum">
+			<!-- Remove options -->
+			<options/>
+		</field>
+	</section>
+</record>

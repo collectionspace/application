@@ -160,4 +160,22 @@
 			<option id="productionpersonqualifier017">Workshop of</option>
 		</options>
 	</instance>
+	
+	<instance id="vocab-acquisitionmethod">
+		<web-url>acquisitionmethod</web-url>
+		<title-ref>acquisitionmethod</title-ref>
+		<title>Acquisition Method</title>
+		<options>
+			<option id="acquisitionmethod001">bequest</option>
+			<option id="acquisitionmethod002">commission</option>
+			<option id="acquisitionmethod003">found in collection</option>
+			<option id="acquisitionmethod004">gift</option>
+			<option id="acquisitionmethod005">loan</option>
+			<option id="acquisitionmethod006">purchase</option>
+			<option id="acquisitionmethod007">purchase with Donation</option>
+			<option id="acquisitionmethod008">purchase with Grant</option>
+			<option id="acquisitionmethod009">trade</option>
+			<option id="acquisitionmethod010">transfer</option>
+		</options>
+	</instance>
 </instances>
