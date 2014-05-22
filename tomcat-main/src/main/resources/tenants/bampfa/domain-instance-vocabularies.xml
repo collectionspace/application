@@ -178,4 +178,52 @@
 			<option id="acquisitionmethod010">transfer</option>
 		</options>
 	</instance>
+	
+	<instance id="vocab-acquisitionreason">
+		<web-url>acquisitionreason</web-url>
+		<title-ref>acquisitionreason</title-ref>
+		<title>Acquisition Reason</title>
+		<options>
+			<option id="acquisitionreason001">BAM/PFA Gala auction</option>
+			<option id="acquisitionreason002">bequest</option>
+			<option id="acquisitionreason003">Collector's Circle purchase</option>
+			<option id="acquisitionreason004">director's discretionary purchase</option>
+			<option id="acquisitionreason005">discretionary purchase</option>
+			<option id="acquisitionreason006">exchange with 1959.7</option>
+			<option id="acquisitionreason007">exhibition</option>
+			<option id="acquisitionreason008">extended loan</option>
+			<option id="acquisitionreason009">gift consideration</option>
+			<option id="acquisitionreason010">gift offer</option>
+			<option id="acquisitionreason011">gift offer and exhibition</option>
+			<option id="acquisitionreason012">gift offer, exhibition</option>
+			<option id="acquisitionreason013">loan</option>
+			<option id="acquisitionreason014">MATRIX 249</option>
+			<option id="acquisitionreason015">MATRIX 250 exhibition</option>
+			<option id="acquisitionreason016">presentation copy for Acquisitions Committee</option>
+			<option id="acquisitionreason017">promised gift</option>
+			<option id="acquisitionreason018">purchase</option>
+			<option id="acquisitionreason019">purchase (discretionary)</option>
+			<option id="acquisitionreason020">Purchase acquisition</option>
+			<option id="acquisitionreason021">purchase consideration</option>
+			<option id="acquisitionreason022">return to extended loan</option>
+			<option id="acquisitionreason023">Yang Fudong exhibition</option>
+			<option id="acquisitionreason024">year end gift</option>
+			<option id="acquisitionreason025">year end gift offer</option>
+			<option id="acquisitionreason026">year-end gift</option>
+			<option id="acquisitionreason027">Year-end gift offer</option>
+		</options>
+	</instance>
+	
+	<instance id="vocab-legalstatus">
+		<web-url>legalstatus</web-url>
+		<title-ref>legalstatus</title-ref>
+		<title>Legal Status</title>
+		<options>
+			<option id="legalstatus001">deaccessioned</option>
+			<option id="legalstatus002">extended loan</option>
+			<option id="legalstatus003">permanent collection</option>
+			<option id="legalstatus004">study collection</option>
+			<option id="legalstatus005">UCBerkeley dispersed</option>
+		</options>
+	</instance>
 </instances>
