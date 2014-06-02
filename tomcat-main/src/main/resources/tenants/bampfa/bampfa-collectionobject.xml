@@ -38,6 +38,16 @@
 				<option id="Color">Color</option>
 			</options>
 		</field>
+		
+		<field id="soundOrSilent" section="bampfa" ui-search="repeatable">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="Sound">Sound</option>
+				<option id="Silent">Silent</option>
+			</options>		
+		</field>
+		
+		<field id="stateGeneration" section="bampfa"/>
 	</section>
 	
 	<section id="objectProductionInformation">
