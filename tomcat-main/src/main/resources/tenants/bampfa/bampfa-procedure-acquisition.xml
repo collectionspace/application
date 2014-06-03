@@ -57,7 +57,7 @@
 
 		<field id="initialValue" section="bampfa" ui-type="validated" datatype="float"/>
 		<field id="initialValueSource" section="bampfa"/>
-	    <field id="initialValueDateGroup" section="bampfa" ui-type="groupfield/structureddate" primarykey="initialValueDateGroup.dateDisplayDate" ui-func="cspace.structuredDate"/>
+		<field id="initialValueDateGroup" section="bampfa" ui-type="groupfield/structureddate" primarykey="initialValueDateGroup.dateDisplayDate" ui-func="cspace.structuredDate"/>
 	</section>
 	
 	<!-- Use this to generate a message key for the initial value group. -->
