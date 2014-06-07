@@ -468,10 +468,16 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				String vocab = RefName.shortIdToPath(rootPath);
 				url="/"+r.getServicesURL()+"/"+vocab+ITEMS_SUFFIX;
 			}
-				
+			
 			String path = getRestrictedPath(url, restrictions, r.getServicesSearchKeyword(), "", true, getDisplayNameKey() );
 
-			if(r.hasSoftDeleteMethod()){
+			boolean excludeSoftDeleted = true;
+			
+			if (restrictions.has("deleted")) {
+				excludeSoftDeleted = !restrictions.getBoolean("deleted");
+			}
+
+			if(excludeSoftDeleted && r.hasSoftDeleteMethod()){
 				path = softpath(path);
 			}
 			

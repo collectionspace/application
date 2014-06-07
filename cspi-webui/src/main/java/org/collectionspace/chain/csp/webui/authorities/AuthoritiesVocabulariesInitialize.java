@@ -80,6 +80,9 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		if(pageSize!=null){
 			restriction.put("pageSize",pageSize);
 		}
+		// CSPACE-6371: When fetching existing vocabulary terms, include soft-deleted ones, so that terms
+		// deleted through the UI are not re-added.
+		restriction.put("deleted", true);
 		String url = thisr.getID()+"/"+n.getTitleRef();
 		JSONObject data = null;
 		try{
@@ -311,11 +314,15 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 					tty.line("only add if term is not already present");
 				}
 				for(Option opt : allOpts){
+					String name = opt.getName();
 					String shortIdentifier = opt.getID();
+
+					if(shortIdentifier == null || shortIdentifier.equals("")){
+						//XXX here until the service layer does this
+						shortIdentifier = name.replaceAll("\\W", "").toLowerCase();
+					}
 					
 					if(!results.has(shortIdentifier)){
-						String name = opt.getName();
-
 						if(tty!= null){
 							tty.line("adding term "+name);
 							log.info("adding term "+name);
@@ -324,10 +331,6 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 						//create it if term is not already present
 						JSONObject data=new JSONObject();
 						data.put("displayName", name);
-						if(opt.getID() == null || opt.getID().equals("")){
-							//XXX here until the service layer does this
-							shortIdentifier = name.replaceAll("\\W", "").toLowerCase();
-						}
 						data.put("description", opt.getDesc());
 						data.put("shortIdentifier", shortIdentifier);
 						if(thisr.getFieldFullList("termStatus") instanceof Field){
