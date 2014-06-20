@@ -58,7 +58,10 @@
 	                                <option id="stories">stories</option>
 	                            </options>
 	                        </field>
-	                        <field id="value" ui-type="validated" datatype="float"></field>
+	                        <!-- BAMPFA-208: Hacking the common schema, since cspace doesn't handle extensions on the dimension record properly. -->
+	                        <!-- Change value to a string. -->
+	                        <!-- <field id="value" ui-type="validated" datatype="float"></field> -->
+	                        <field id="value"></field>
 	                        <field id="measurementMethod">
 		                        <options>
 		                            <option id="" default="yes">Please select a value</option>
