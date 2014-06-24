@@ -110,8 +110,8 @@
 		<field id="permissionToReproduce" section="bampfa" ui-search="repeatable">
 			<options>
 				<option id="" default="yes">Please select a value</option>
-				<option id="true">Yes</option>
-				<option id="false">No</option>
+				<option id="Yes">Yes</option>
+				<option id="No">No</option>
 			</options>
 		</field>
 	</section>
