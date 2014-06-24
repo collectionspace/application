@@ -21,6 +21,8 @@
 		<repeat id="bampfaCollectionList" section="bampfa">
 			<field id="bampfaCollection" section="bampfa" ui-search="repeatable" autocomplete="vocab-collection" ui-type="enum"/>
 		</repeat>
+		
+		<field id="numberOfScans" section="bampfa" ui-type="validated" datatype="integer"/>
 	</section>
 	
 	<section id="descriptionInformation">
