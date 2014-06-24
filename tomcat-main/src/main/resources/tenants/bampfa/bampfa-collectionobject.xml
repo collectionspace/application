@@ -105,10 +105,7 @@
 		<field id="copyrightHolder" section="bampfa"/>
 		<field id="copyrightNote" section="bampfa"/>
 		<field id="photoCredit" section="bampfa"/>
-		<field id="permissionToReproduce" section="bampfa" datatype="boolean"/>
-		
-		<field id="permissionToReproduceSearch" section="bampfa" datatype="boolean" ui-search="single" exists-in-services="false">
-			<services-tag>permissionToReproduce</services-tag>
+		<field id="permissionToReproduce" section="bampfa" ui-search="repeatable">
 			<options>
 				<option id="" default="yes">Please select a value</option>
 				<option id="true">Yes</option>
