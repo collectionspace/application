@@ -209,4 +209,7 @@
 	
 	<!-- Use this to generate a message key for the initial value group. -->
 	<section id="initialValueGroup"/>
+	
+	<!-- The other number group doesn't get a message key generated, for some reason. Use this to generate one. -->
+	<section id="otherNumberGroup"/>
 </record>
