@@ -20,6 +20,9 @@
 	                            <option id="unframed">unframed</option>
 	                        </options>
 	                    </field>
+                        <!-- BAMPFA-206: Hacking the common schema, since cspace doesn't handle extensions on the dimension record properly. -->
+                        <!-- Add note field. -->
+                        <field id="measuredPartNote"></field>
 	                    <repeat id="dimensionSubGroupList/dimensionSubGroup">
 	                    	<field id="measuredBy"  autocomplete="person-person,organization-organization"></field>
 	                        <field id="dimension" seperate_ui_container="true">
