@@ -212,4 +212,10 @@
 	
 	<!-- The other number group doesn't get a message key generated, for some reason. Use this to generate one. -->
 	<section id="otherNumberGroup"/>
+	
+	<!-- Used to group some fields in the UI. -->
+	<section id="classificationInformation"/>
+
+	<!-- Used to group some fields in the UI. -->
+	<section id="noteInformation"/>
 </record>
