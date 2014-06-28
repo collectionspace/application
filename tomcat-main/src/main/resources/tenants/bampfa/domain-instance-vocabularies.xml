@@ -226,4 +226,14 @@
 			<option id="legalstatus005">UCBerkeley dispersed</option>
 		</options>
 	</instance>
+	
+	<instance id="vocab-subjectsandthemes">
+		<web-url>subjectsandthemes</web-url>
+		<title-ref>subjectsandthemes</title-ref>
+		<title>Subjects and Themes</title>
+		<options>
+			<option id="test">Test Value</option>
+			<!-- TODO -->
+		</options>
+	</instance>
 </instances>

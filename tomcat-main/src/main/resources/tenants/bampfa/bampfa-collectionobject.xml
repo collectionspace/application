@@ -207,15 +207,18 @@
 		<field id="initialValueDateGroup" section="bampfa" ui-type="groupfield/structureddate" primarykey="initialValueDateGroup.dateDisplayDate" ui-func="cspace.structuredDate"/>
 	</section>
 	
+	<section id="classificationInformation">
+		<repeat id="subjectThemes" section="bampfa">
+			<field id="subjectTheme" section="bampfa" autocomplete="vocab-subjectsandthemes" ui-type="enum"/>
+		</repeat>
+	</section>
+	
 	<!-- Use this to generate a message key for the initial value group. -->
 	<section id="initialValueGroup"/>
 	
 	<!-- The other number group doesn't get a message key generated, for some reason. Use this to generate one. -->
 	<section id="otherNumberGroup"/>
 	
-	<!-- Used to group some fields in the UI. -->
-	<section id="classificationInformation"/>
-
 	<!-- Used to group some fields in the UI. -->
 	<section id="noteInformation"/>
 </record>
