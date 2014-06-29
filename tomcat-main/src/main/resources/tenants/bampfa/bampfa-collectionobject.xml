@@ -1,6 +1,11 @@
 <record id="collection-object" is-extension="true">
 	<services-record-path id="bampfa">collectionobjects_bampfa:http://collectionspace.org/services/collectionobject/local/bampfa,collectionobjects_bampfa</services-record-path>
 
+	<section id="coreInformation">
+		<!-- Remove mini -->
+		<field id="nametitle" mini=""/>
+	</section>
+
 	<section id="identificationInformation">
 		<!-- Remove ui-search, remove chooser, remove seperate_ui_container, and make computed -->
 		<field id="objectNumber" ui-search="" chooser="" seperate_ui_container="" ui-type="computed" ui-func="bampfa.computeAccessionNumber" ui-args="accNumberPrefix,accNumberPart1,accNumberPart2,accNumberPart3,accNumberPart4,accNumberPart5" ui-readonly="true">
@@ -13,6 +18,11 @@
 			<selector>object-identification-object-number-search</selector>
 			<services-tag>objectNumber</services-tag>
 		</field>
+
+		<repeat id="titleGroupList/titleGroup">
+			<!-- Add summary and relate to mini -->
+			<field id="title" mini="summary,search,list,relate"/>
+		</repeat>
 		
 		<!-- Local fields -->
 		
