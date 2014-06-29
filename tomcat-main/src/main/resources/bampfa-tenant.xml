@@ -51,7 +51,7 @@
 			<include src="base-authz-userrole.xml"/>
 			<include src="base-authz-users.xml"/>
 
-			<include src="base-other-dimension.xml,bampfa-other-dimension.xml" merge="xmlmerge.properties"/>
+			<include src="base-other-dimension.xml"/>
 			<include src="base-other-hierarchy.xml"/>
 			<include src="base-other-idgenerator.xml"/>
 			<include src="base-other-structureddate.xml"/>
