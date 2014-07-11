@@ -20,11 +20,23 @@
 		</field>
 
 		<repeat id="titleGroupList/titleGroup">
-			<!-- Add summary and relate to mini -->
-			<field id="title" mini="summary,search,list,relate"/>
+			<!-- Remove ui-search, in-title, and mini -->
+			<field id="title" ui-search="" in-title="" mini=""/>
 		</repeat>
 		
 		<!-- Local fields -->
+
+		<repeat id="bampfaTitleGroupList/bampfaTitleGroup" section="bampfa">
+			<field id="bampfaFormattedTitle" section="bampfa" ui-type="richtext"/>
+			<field id="bampfaTitle" section="bampfa" mini="summary,search,list,relate" ui-type="computed" ui-func="bampfa.convertHtmlToPlainText" ui-args="bampfaFormattedTitle" ui-readonly="true"/>
+			
+			<!-- Create an app-layer only field for searching on bampfaTitle, which is not computed. -->
+			<!-- Usually exists-in-services="false" is enough to keep the app layer from saving this field (which would override bampfaTitle with an empty value),
+			     but for some reason, we also need services-readonly="true". It might have to do with being in a repeating group in an extension? -->
+			<field id="bampfaTitleSearch" section="bampfa" ui-search="repeatable" exists-in-services="false" services-readonly="true">
+				<services-tag>bampfaTitle</services-tag>
+			</field>
+		</repeat>
 		
 		<field id="itemClass" section="bampfa" ui-search="repeatable" autocomplete="vocab-itemclass" ui-type="enum"/>
 		
