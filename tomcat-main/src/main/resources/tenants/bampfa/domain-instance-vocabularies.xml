@@ -236,8 +236,58 @@
 		<title-ref>subjectsandthemes</title-ref>
 		<title>Subjects and Themes</title>
 		<options>
-			<option id="test">Test Value</option>
-			<!-- TODO -->
+			<option id="subjectsandthemes001">Abstraction</option>
+			<option id="subjectsandthemes002">Architectural</option>
+			<option id="subjectsandthemes003">Assemblage</option>
+			<option id="subjectsandthemes004">Conceptual</option>
+			<option id="subjectsandthemes005">Fantastic</option>
+			<option id="subjectsandthemes006">Figure</option>
+			<option id="subjectsandthemes007">Figure-Animal </option>
+			<option id="subjectsandthemes008">Figure-Female </option>
+			<option id="subjectsandthemes009">Figure-Figure (named)</option>
+			<option id="subjectsandthemes010">Figure-Figure group</option>
+			<option id="subjectsandthemes011">Figure-Male</option>
+			<option id="subjectsandthemes012">Figure-Nude</option>
+			<option id="subjectsandthemes013">Figure-Plant</option>
+			<option id="subjectsandthemes014">Figure-Portrait</option>
+			<option id="subjectsandthemes015">Figure-Self-portrait</option>
+			<option id="subjectsandthemes016">History</option>
+			<option id="subjectsandthemes017">History-Event (named)</option>
+			<option id="subjectsandthemes018">History-Figure (named)</option>
+			<option id="subjectsandthemes019">History-Place (named)</option>
+			<option id="subjectsandthemes020">Landscape</option>
+			<option id="subjectsandthemes021">Landscape-Animal</option>
+			<option id="subjectsandthemes022">Landscape-Figure in landscape</option>
+			<option id="subjectsandthemes023">Landscape-Nocturnal</option>
+			<option id="subjectsandthemes024">Landscape-Plant</option>
+			<option id="subjectsandthemes025">Landscape-Rural</option>
+			<option id="subjectsandthemes026">Landscape-Seascape</option>
+			<option id="subjectsandthemes027">Landscape-Urban</option>
+			<option id="subjectsandthemes028">Landscape-Western</option>
+			<option id="subjectsandthemes029">Portrait</option>
+			<option id="subjectsandthemes030">Psychological</option>
+			<option id="subjectsandthemes031">Religion and Magic</option>
+			<option id="subjectsandthemes032">Religion and Magic-Biblical story</option>
+			<option id="subjectsandthemes033">Religion and Magic-Christianity</option>
+			<option id="subjectsandthemes034">Religion and Magic-Mythology</option>
+			<option id="subjectsandthemes035">Sexuality</option>
+			<option id="subjectsandthemes036">Sexuality-Eroticism</option>
+			<option id="subjectsandthemes037">Sexuality-Gay/Lesbian</option>
+			<option id="subjectsandthemes038">Sexuality-Gender issues</option>
+			<option id="subjectsandthemes039">Society</option>
+			<option id="subjectsandthemes040">Society-Documentary</option>
+			<option id="subjectsandthemes041">Society-Genre (includes work, leisure, housekeeping, art/music, transportation, furniture, household effects, courtship, etc.)</option>
+			<option id="subjectsandthemes042">Society-Interior</option>
+			<option id="subjectsandthemes043">Society-Political</option>
+			<option id="subjectsandthemes044">Society-Propaganda</option>
+			<option id="subjectsandthemes045">Society-Satire</option>
+			<option id="subjectsandthemes046">Society-Social commentary/Political critique</option>
+			<option id="subjectsandthemes047">Society-Still-life</option>
+			<option id="subjectsandthemes048">Society-War</option>
+			<option id="subjectsandthemes049">Study or Model</option>
+			<option id="subjectsandthemes050">Symbolic</option>
+			<option id="subjectsandthemes051">Symbolic-Allegory</option>
+			<option id="subjectsandthemes052">Text</option>
 		</options>
 	</instance>
 </instances>
