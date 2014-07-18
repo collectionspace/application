@@ -189,6 +189,7 @@
                                 <option id="artist">Artist</option>
                                 <option id="donor">Donor</option>
                                 <option id="employee">Employee</option>
+                                <option id="engraver">Engraver</option>
                         </options>
                     </instance>   
                     <instance id="vocab-worktype">
