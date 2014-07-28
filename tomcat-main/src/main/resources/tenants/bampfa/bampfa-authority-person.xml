@@ -6,5 +6,6 @@
 		<!-- Local fields -->
 		
 		<field id="datesActive" section="bampfa"/>
+		<field id="birthCity" section="bampfa"/>
 	</section>
 </record>
