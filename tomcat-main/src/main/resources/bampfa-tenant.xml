@@ -30,7 +30,7 @@
 			<include src="base-authority-location.xml"/>
 			<include src="base-authority-organization-termList.xml"/>
 			<include src="base-authority-organization.xml,bampfa-authority-organization.xml" merge="xmlmerge.properties"/>
-			<include src="base-authority-person-termList.xml"/>
+			<include src="base-authority-person-termList.xml,bampfa-authority-person-termList.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-person.xml,bampfa-authority-person.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-citation-termList.xml"/>
 			<include src="base-authority-citation.xml"/>

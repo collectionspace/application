@@ -1,0 +1,10 @@
+<record id="preferredPA">
+	<section id="termInformation">
+		<repeat id="personTermGroupList/personTermGroup">
+			<!-- Make computed -->
+			<field id="termDisplayName" ui-type="computed" ui-func="bampfa.computeFullNameLFM" ui-args="foreName,middleName,surName,nameAdditions,fields.nationalities" ui-readonly="true"/>
+			<!-- Make computed -->
+			<field id="termName" ui-type="computed" ui-func="bampfa.computeFullNameFML" ui-args="title,foreName,middleName,surName,nameAdditions,fields.nationalities" ui-readonly="true"/>
+		</repeat>
+	</section>
+</record>
