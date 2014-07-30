@@ -3,8 +3,30 @@
 		<repeat id="personTermGroupList/personTermGroup">
 			<!-- Make computed -->
 			<field id="termDisplayName" ui-type="computed" ui-func="bampfa.computeFullNameLFM" ui-args="foreName,middleName,surName,nameAdditions,fields.nationalities" ui-readonly="true"/>
+
 			<!-- Make computed -->
 			<field id="termName" ui-type="computed" ui-func="bampfa.computeFullNameFML" ui-args="title,foreName,middleName,surName,nameAdditions,fields.nationalities" ui-readonly="true"/>
+
+			<field id="title">
+				<!-- Change options -->
+				<options>
+					<option id="" default="yes">Please select a value</option>
+					<option id="Mr.">Mr.</option>
+					<option id="Mrs.">Mrs.</option>
+					<option id="Ms.">Ms.</option>
+					<option id="Miss">Miss</option>
+					<option id="Dr.">Dr.</option>
+					<option id="Professor">Professor</option>
+					<option id="Captain">Captain</option>
+					<option id="Sir">Sir</option>
+					<option id="Dame">Dame</option>
+					<option id="Baron">Baron</option>
+					<option id="Baroness">Baroness</option>
+					<option id="Lord">Lord</option>
+					<option id="Lady">Lady</option>
+					<option id="Rev.">Rev.</option>
+				</options>
+			</field>
 		</repeat>
 	</section>
 </record>
