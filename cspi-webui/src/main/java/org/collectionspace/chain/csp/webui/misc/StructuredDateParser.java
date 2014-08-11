@@ -94,7 +94,6 @@ public class StructuredDateParser implements WebMethod {
 		QualifierType qualifierType = null;
 		Integer qualifierValue = null;
 		QualifierUnit qualifierUnit = null;
-		String scalarValue = null;
 		
 		if (date != null) {
 			year = date.getYear();
@@ -105,7 +104,6 @@ public class StructuredDateParser implements WebMethod {
 			qualifierType = date.getQualifierType();
 			qualifierValue = date.getQualifierValue();
 			qualifierUnit = date.getQualifierUnit();
-			scalarValue = date.getScalarValue();
 		}
 		
 		json.put(prefix + "Year", (year != null) ? year.toString() : "");
@@ -116,6 +114,5 @@ public class StructuredDateParser implements WebMethod {
 		json.put(prefix + "Qualifier", (qualifierType != null) ? qualifierType.toString() : "");
 		json.put(prefix + "QualifierValue", (qualifierValue != null) ? qualifierValue.toString() : "");
 		json.put(prefix + "QualifierUnit", (qualifierUnit != null) ? qualifierUnit.toString() : "");
-		json.put(prefix + "ScalarValue", (scalarValue != null) ? scalarValue.toString() : "");
 	}
 }
