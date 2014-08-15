@@ -1,0 +1,20 @@
+<record id="intake" is-extension="true">
+	<services-record-path id="bampfa">intakes_bampfa:http://collectionspace.org/services/intake/local/bampfa,intakes_bampfa</services-record-path>
+
+	<section id="objectEntryInformation">
+		<!-- Local fields -->
+		
+		<field id="intakeObject" section="bampfa"/>
+		<field id="sourceAddress" section="bampfa"/>
+		
+		<field id="receipt" section="bampfa">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="Yes">Yes</option>
+				<option id="No">No</option>
+			</options>
+		</field>
+		
+		<field id="disposition" section="bampfa"/>
+	</section>
+</record>
