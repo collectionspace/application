@@ -2,6 +2,11 @@
 	<services-record-path id="bampfa">intakes_bampfa:http://collectionspace.org/services/intake/local/bampfa,intakes_bampfa</services-record-path>
 
 	<section id="objectEntryInformation">
+		<!-- Change to dynamic term list -->
+		<field id="entryReason" autocomplete="vocab-intakepurpose" ui-type="enum">
+			<options/>
+		</field>
+
 		<!-- Local fields -->
 		
 		<field id="intakeObject" section="bampfa"/>

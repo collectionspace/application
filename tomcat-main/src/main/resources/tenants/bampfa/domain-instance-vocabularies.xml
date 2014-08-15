@@ -305,4 +305,16 @@
 			<option id="subjectsandthemes067">Sri Lanka</option>
 		</options>
 	</instance>
+	
+	<instance id="vocab-intakepurpose">
+		<web-url>intakepurpose</web-url>
+		<title-ref>intakepurpose</title-ref>
+		<title>Intake Purpose</title>
+		<options>
+			<option id="intakepurpose001">Enquiry</option>
+			<option id="intakepurpose002">Consideration</option>
+			<option id="intakepurpose003">Commission</option>
+			<option id="intakepurpose004">Loan</option>
+		</options>
+	</instance>
 </instances>
