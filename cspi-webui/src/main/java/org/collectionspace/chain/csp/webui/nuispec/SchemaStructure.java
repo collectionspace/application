@@ -194,6 +194,8 @@ public class SchemaStructure {
 			actualValidatedField(out, fs, context);
 		} else if("computed".equals(uiType)){
 			actualComputedField(out, fs, context);
+		} else if("richtext".equals(uiType)){
+			actualRichTextField(out, fs, context);
 		} else if("externalURL".equalsIgnoreCase(uiType)){
 			actualExternalURLField(out, fs, context);
 		} else if("valueDeURNed".equalsIgnoreCase(uiType)){
@@ -248,6 +250,15 @@ public class SchemaStructure {
 	 * @throws JSONException 
 	 */
 	protected void actualComputedField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+	}	
+	/**
+	 * Write the JSON structure for a rich text field.
+	 * @param out
+	 * @param fs
+	 * @param context
+	 * @throws JSONException 
+	 */
+	protected void actualRichTextField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
 	}	
 	/**
 	 * 
