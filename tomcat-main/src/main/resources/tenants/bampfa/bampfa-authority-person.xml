@@ -7,5 +7,8 @@
 		
 		<field id="datesActive" section="bampfa"/>
 		<field id="birthCity" section="bampfa"/>
+		
+		<field id="copyrightCredit" section="bampfa"/>
+		<field id="copyrightHolder" section="bampfa"/>
 	</section>
 </record>
