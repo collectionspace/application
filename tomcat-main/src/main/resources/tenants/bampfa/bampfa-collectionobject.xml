@@ -111,8 +111,11 @@
 	</section>
 	
 	<section id="catalogerInformation">
-		<field id="catalogerName" section="bampfa"/>
-		<field id="catalogDate" section="bampfa"/>
+		<repeat id="catalogerGroupList/catalogerGroup" section="bampfa">
+			<field id="catalogerName" section="bampfa"/>
+			<field id="catalogDate" section="bampfa" ui-type="date" datatype="date"/>
+			<field id="catalogNote" section="bampfa"/>
+		</repeat>
 	</section>
 	
 	<section id="conditionCheckInformation">
