@@ -131,7 +131,8 @@
 		<field id="photoCredit" section="bampfa"/>
 		<field id="permissionToReproduce" section="bampfa" ui-search="repeatable">
 			<options>
-				<option id="" default="yes">Please select a value</option>
+				<option id="">Please select a value</option>
+				<option id="Unknown" default="yes">Unknown</option>
 				<option id="Yes">Yes</option>
 				<option id="No">No</option>
 			</options>
