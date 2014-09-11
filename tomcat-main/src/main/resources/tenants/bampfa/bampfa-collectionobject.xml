@@ -7,8 +7,8 @@
 	</section>
 
 	<section id="identificationInformation">
-		<!-- Remove ui-search, remove chooser, remove seperate_ui_container, and make computed -->
-		<field id="objectNumber" ui-search="" chooser="" seperate_ui_container="" ui-type="computed" ui-func="bampfa.computeAccessionNumber" ui-args="accNumberPrefix,accNumberPart1,accNumberPart2,accNumberPart3,accNumberPart4,accNumberPart5" ui-readonly="true">
+		<!-- Add sortKey, remove ui-search, remove chooser, remove seperate_ui_container, and make computed -->
+		<field id="objectNumber" sortKey="sortableObjectNumber" ui-search="" chooser="" seperate_ui_container="" ui-type="computed" ui-func="bampfa.computeAccessionNumber" ui-args="accNumberPrefix,accNumberPart1,accNumberPart2,accNumberPart3,accNumberPart4,accNumberPart5" ui-readonly="true">
 			<!-- Remove options -->
 			<options/>
 		</field>
@@ -25,6 +25,8 @@
 		</repeat>
 		
 		<!-- Local fields -->
+
+		<field id="sortableObjectNumber" section="bampfa" ui-search="range" ui-type="computed" ui-args="objectNumber" ui-search-args="objectNumberRangeSearch" ui-func="bampfa.computeSortableObjectNumber" ui-readonly="true"/>
 
 		<repeat id="bampfaTitleGroupList/bampfaTitleGroup" section="bampfa">
 			<field id="bampfaFormattedTitle" section="bampfa" ui-type="richtext"/>
@@ -98,8 +100,6 @@
 		<field id="objectProductionDateEra" section="bampfa" autocomplete="vocab-dateera" ui-type="enum"/>
 		<field id="objectProductionDynasty" section="bampfa"/>
 	</section>
-	
-	<!-- Local fields -->
 	
 	<section id="accNumberInformation">
 		<field id="accNumberPrefix" section="bampfa"/>
