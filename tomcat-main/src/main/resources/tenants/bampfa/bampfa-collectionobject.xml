@@ -28,6 +28,9 @@
 
 		<field id="sortableObjectNumber" section="bampfa" ui-search="range" ui-type="computed" ui-args="objectNumber" ui-search-args="objectNumberRangeSearch" ui-func="bampfa.computeSortableObjectNumber" ui-readonly="true"/>
 
+		<!-- This is an app-layer-only field, used in advanced search to enter "regular" object numbers, which will be computed into sortableObjectNumber for range search. -->
+		<field id="objectNumberRangeSearch" ui-search="range" exists-in-services="false" query-behavior="ignore"/>
+
 		<repeat id="bampfaTitleGroupList/bampfaTitleGroup" section="bampfa">
 			<field id="bampfaFormattedTitle" section="bampfa" ui-type="richtext"/>
 			<field id="bampfaTitle" section="bampfa" mini="summary,search,list,relate" ui-type="computed" ui-func="bampfa.convertHtmlToPlainText" ui-args="bampfaFormattedTitle" ui-readonly="true"/>
