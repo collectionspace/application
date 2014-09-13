@@ -1,0 +1,20 @@
+<record id="location">
+	<!-- Add crate vocabulary -->
+	<instances id="location">
+		<instance id="location-location">
+			<web-url>location</web-url>
+			<title-ref>location</title-ref>
+			<title>Local Storage Locations</title>
+		</instance>
+		<instance id="location-offsite_sla">
+			<web-url>offsite_sla</web-url>
+			<title-ref>offsite_sla</title-ref>
+			<title>Offsite Storage Locations</title>
+		</instance>
+		<instance id="location-crate">
+			<web-url>crate</web-url>
+			<title-ref>crate</title-ref>
+			<title>Crates</title>
+		</instance>
+	</instances>
+</record>

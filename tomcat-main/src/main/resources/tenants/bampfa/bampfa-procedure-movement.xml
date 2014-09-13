@@ -1,0 +1,10 @@
+<record id="movement" is-extension="true">
+	<services-record-path id="bampfa">movements_bampfa:http://collectionspace.org/services/movement/local/bampfa,movements_bampfa</services-record-path>
+
+	<section id="locationMovementInformation">
+		<!-- Local fields -->
+		
+		<!-- Adding mini="search,list" because the UpdateObjectAndCrateLocationBatchJob needs crate to be a services list result field. -->
+		<field id="crate" section="bampfa" ui-search="repeatable" mini="search,list" autocomplete="location-crate"/>
+	</section>
+</record>
