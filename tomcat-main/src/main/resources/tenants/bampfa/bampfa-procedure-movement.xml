@@ -7,4 +7,9 @@
 		<!-- Adding mini="search,list" because the UpdateObjectAndCrateLocationBatchJob needs crate to be a services list result field. -->
 		<field id="crate" section="bampfa" ui-search="repeatable" mini="search,list" autocomplete="location-crate"/>
 	</section>
+	
+	<section id="movementControlInformation">
+		<!-- Remove autocomplete -->
+		<field id="movementContact" autocomplete=""></field>
+	</section>
 </record>
