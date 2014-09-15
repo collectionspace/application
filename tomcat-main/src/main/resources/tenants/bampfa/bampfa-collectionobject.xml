@@ -33,6 +33,26 @@
 
 		<field id="computedCrate" section="bampfa" ui-type="valueDeURNed" services-readonly="true" authref-in-services="true"/>
 
+		<!-- 
+			Create app-layer-only fields for use on advanced search to search on computedCurrentLocation
+			and computedCrate. These fields need to be created because computedCurrentLocation and
+			computedCrate have the ui-type="valueDeURNed" decorator applied, which is the behavior desired
+			in the record editor, but not on the advanced search form. On the advanced search form, we also
+			want the fields to autocomplete.
+			
+			The exists-in-services="false" attribute prevents a field from being saved in the record editor,
+			but still allows it to be used as a search filter. (Adding query-behavior="ignore" would prevent
+			it from being used as a search filter.)
+		-->
+		
+		<field id="computedCurrentLocationSearch" ui-search="repeatable" autocomplete="location-location,location-offsite_sla,organization-organization" exists-in-services="false">
+			<services-tag>computedCurrentLocation</services-tag>
+		</field>
+		
+		<field id="computedCrateSearch" section="bampfa" ui-search="repeatable" autocomplete="location-crate" exists-in-services="false">
+			<services-tag>computedCrate</services-tag>
+		</field>
+		
 		<repeat id="bampfaTitleGroupList/bampfaTitleGroup" section="bampfa">
 			<field id="bampfaFormattedTitle" section="bampfa" ui-type="richtext"/>
 			<field id="bampfaTitle" section="bampfa" mini="summary,search,list,relate" ui-type="computed" ui-func="bampfa.convertHtmlToPlainText" ui-args="bampfaFormattedTitle" ui-readonly="true"/>
