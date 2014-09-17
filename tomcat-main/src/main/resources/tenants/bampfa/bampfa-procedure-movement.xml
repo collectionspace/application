@@ -6,9 +6,14 @@
 		
 		<!-- Adding mini="search,list" because the UpdateObjectAndCrateLocationBatchJob needs crate to be a services list result field. -->
 		<field id="crate" section="bampfa" ui-search="repeatable" mini="search,list" autocomplete="location-crate"/>
+		
+		<field id="computedSummary" section="bampfa" mini="number,search,list,relate" ui-type="computed" ui-func="bampfa.computeMovementSummary" ui-args="locationDate,reasonForMove" ui-readonly="true"/>
 	</section>
 	
 	<section id="movementControlInformation">
+		<!-- Remove mini -->
+		<field id="movementReferenceNumber" mini=""/>
+		
 		<!-- Remove autocomplete -->
 		<field id="movementContact" autocomplete=""></field>
 	</section>
