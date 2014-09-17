@@ -317,4 +317,30 @@
 			<option id="intakepurpose004">Loan</option>
 		</options>
 	</instance>
+	
+	<instance id="vocab-movereason">
+		<web-url>movereason</web-url>
+		<title-ref>movereason</title-ref>
+		<title>Move Reason</title>
+		<options>
+			<option id="movereason001">Conservation</option>
+			<option id="movereason002">Exhibition</option>
+			<option id="movereason003">Inventory</option>
+			<option id="movereason004">Loan</option>
+			<option id="movereason005">New Storage Location</option>
+			<option id="movereason006">Photography</option>
+			<option id="movereason007">Research</option>
+		</options>
+	</instance>
+	
+	<instance id="vocab-movemethod">
+		<web-url>movemethod</web-url>
+		<title-ref>movemethod</title-ref>
+		<title>Move Method</title>
+		<options>
+			<option id="movemethod001">Forklift</option>
+			<option id="movemethod002">Handcarried</option>
+			<option id="movemethod003">Trolley</option>
+		</options>
+	</instance>	
 </instances>

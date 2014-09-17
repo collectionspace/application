@@ -14,7 +14,19 @@
 		<!-- Remove mini -->
 		<field id="movementReferenceNumber" mini=""/>
 		
+		<!-- Add autocomplete and remove options -->
+		<field id="reasonForMove" autocomplete="vocab-movereason" ui-type="enum">
+			<options/>
+		</field>
+		
 		<!-- Remove autocomplete -->
 		<field id="movementContact" autocomplete=""></field>
+
+		<repeat id="movementMethods">
+			<!-- Add autocomplete and remove options -->
+			<field id="movementMethod" autocomplete="vocab-movemethod" ui-type="enum">
+				<options/>
+			</field>
+		</repeat>
 	</section>
 </record>
