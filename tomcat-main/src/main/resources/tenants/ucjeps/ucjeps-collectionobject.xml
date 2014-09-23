@@ -86,9 +86,10 @@
 		<repeat id="forms">
 			<field id="form">
 				<options>
-					<option id="" default="yes">Please select a value</option>
+					<option id="">Please select a value</option>
 					<option id="Unknown">Unknown</option>
-					<option id="Mounted on Paper">Mounted on Paper</option>
+					<option id="Mounted on Paper" default="yes">Mounted on Paper</option>
+					<option id="Loose in packet">Loose in packet</option>
 					<option id="Stored in a Box or Bag">Stored in a Box or Bag</option>
 					<option id="Preserved in Liquid">Preserved in Liquid</option>
 					<option id="Microscope Slide Preparation">Microscope Slide Preparation</option>
