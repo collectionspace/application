@@ -1,8 +1,14 @@
 <record id="preferredPA">
 	<section id="termInformation">
 		<repeat id="personTermGroupList/personTermGroup">
-			<!-- Make computed -->
-			<field id="termDisplayName" ui-type="computed" ui-func="bampfa.computeFullNameLFM" ui-args="foreName,middleName,surName,nameAdditions,fields.nationalities" ui-readonly="true"/>
+			<!-- Remove ui-search, and make computed  -->
+			<field id="termDisplayName" ui-search="" ui-type="computed" ui-func="bampfa.computeFullNameLFM" ui-args="foreName,middleName,surName,nameAdditions,fields.nationalities" ui-readonly="true"/>
+
+			<!-- Configure an app-layer-only field to be used in advanced search for termDisplayName, which isn't computed -->
+			<field id="termDisplayNameSearch" ui-search="repeatable" exists-in-services="false" services-readonly="true">
+				<selector>personAuthority-termDisplayNameSearch</selector>
+				<services-tag>termDisplayName</services-tag>
+			</field>
 
 			<!-- Make computed -->
 			<field id="termName" ui-type="computed" ui-func="bampfa.computeFullNameFML" ui-args="title,foreName,middleName,surName,nameAdditions,fields.nationalities" ui-readonly="true"/>
