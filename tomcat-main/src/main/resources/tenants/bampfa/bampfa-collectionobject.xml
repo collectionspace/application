@@ -7,11 +7,14 @@
 	</section>
 
 	<section id="identificationInformation">
-		<!-- Add sortKey, remove ui-search, remove chooser, remove seperate_ui_container, and make computed -->
-		<field id="objectNumber" sortKey="sortableObjectNumber" ui-search="" chooser="" seperate_ui_container="" ui-type="computed" ui-func="bampfa.computeAccessionNumber" ui-args="accNumberPrefix,accNumberPart1,accNumberPart2,accNumberPart3,accNumberPart4,accNumberPart5" ui-readonly="true">
+		<!-- Add sortKey, remove mini, remove ui-search, remove chooser, remove seperate_ui_container, and make computed -->
+		<field id="objectNumber" mini="" sortKey="sortableObjectNumber" ui-search="" chooser="" seperate_ui_container="" ui-type="computed" ui-func="bampfa.computeAccessionNumber" ui-args="accNumberPrefix,accNumberPart1,accNumberPart2,accNumberPart3,accNumberPart4,accNumberPart5" ui-readonly="true">
 			<!-- Remove options -->
 			<options/>
 		</field>
+
+		<!-- This is an app-layer-only field, used in advanced search to enter "regular" object numbers, which will be computed into sortableObjectNumber for range search. -->
+		<field id="objectNumberRangeSearch" ui-search="range" exists-in-services="false" query-behavior="ignore"/>
 		
 		<!-- Configure an app-layer-only field to be used in advanced search for objectNumber, which isn't computed and read-only -->
 		<field id="objectNumberSearch" ui-search="repeatable" exists-in-services="false">
@@ -26,10 +29,14 @@
 		
 		<!-- Local fields -->
 
+		<!-- A computed sortable object number, used for range search on objectNumber -->
 		<field id="sortableObjectNumber" section="bampfa" ui-search="range" ui-type="computed" ui-args="objectNumber" ui-search-args="objectNumberRangeSearch" ui-func="bampfa.computeSortableObjectNumber" ui-readonly="true"/>
 
-		<!-- This is an app-layer-only field, used in advanced search to enter "regular" object numbers, which will be computed into sortableObjectNumber for range search. -->
-		<field id="objectNumberRangeSearch" ui-search="range" exists-in-services="false" query-behavior="ignore"/>
+		<!-- A computed effective object number, used in the title bar and list results. This is the objectNumber if it exists. Otherwise, it falls back to the primary otherNumber. -->
+		<field id="effectiveObjectNumber" section="bampfa" sortKey="sortableEffectiveObjectNumber" mini="number,search,list,relate" ui-type="computed" ui-args="objectNumber,otherNumber" ui-func="bampfa.computeEffectiveObjectNumber" ui-readonly="true"/>
+
+		<!-- A computed sortable effective object number, used for sorting effectiveObjectNumber -->
+		<field id="sortableEffectiveObjectNumber" section="bampfa" ui-type="computed" ui-args="effectiveObjectNumber" ui-func="bampfa.computeSortableObjectNumber" ui-readonly="true"/>
 
 		<field id="computedCrate" section="bampfa" ui-type="valueDeURNed" services-readonly="true" authref-in-services="true"/>
 
