@@ -248,7 +248,7 @@ public class Spec implements CSP, Configurable {
 				boolean dfault=false;
 				String value=(String)section.getValue("/@default");
 				dfault=(value!=null && ("yes".equals(value.toLowerCase()) || "1".equals(value.toLowerCase())));
-				n.addOption((String)section.getValue("/@id"),(String)section.getValue(""),(String)section.getValue("/@sample"),dfault);
+				n.addOption((String)section.getValue("/@id"),(String)section.getValue(""),(String)section.getValue("/@sample"),dfault,(String)section.getValue("/@desc"));
 				return n;
 			}
 		});
