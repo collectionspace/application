@@ -13,6 +13,11 @@
 			<options/>
 		</field>
 
+		<repeat id="otherNumberList/otherNumber">
+			<!-- Add ui-search -->
+			<field id="numberValue" ui-search="repeatable"/>
+		</repeat>
+
 		<!-- This is an app-layer-only field, used in advanced search to enter "regular" object numbers, which will be computed into sortableObjectNumber for range search. -->
 		<field id="objectNumberRangeSearch" ui-search="range" exists-in-services="false" query-behavior="ignore"/>
 		
@@ -105,7 +110,7 @@
 			</options>		
 		</field>
 		
-		<field id="stateGeneration" section="bampfa"/>
+		<field id="stateGeneration" section="bampfa" ui-search="repeatable"/>
 	</section>
 	
 	<section id="objectProductionInformation">
@@ -177,7 +182,7 @@
 	<section id="acquisitionInformation">
 		<field id="accessionDateGroup" section="bampfa" ui-type="groupfield/structureddate" ui-func="cspace.structuredDate" primarykey="accessionDateGroup.dateDisplayDate"/>		
 
-		<field id="legalStatus" section="bampfa" autocomplete="vocab-legalstatus" ui-type="enum"/>
+		<field id="legalStatus" section="bampfa" ui-search="repeatable" autocomplete="vocab-legalstatus" ui-type="enum"/>
 		<field id="legalStatusDateGroup" section="bampfa" ui-type="groupfield/structureddate" ui-func="cspace.structuredDate" primarykey="legalStatusDateGroup.dateDisplayDate"/>
 		
 		<repeat id="acquisitionDateGroupList/acquisitionDateGroup" section="bampfa">
@@ -209,16 +214,16 @@
 			</group>
 		</repeat>
 		
-		<field id="acquisitionMethod" section="bampfa" seperate_ui_container="true" autocomplete="vocab-acquisitionmethod" ui-type="enum"/>
+		<field id="acquisitionMethod" section="bampfa" ui-search="repeatable" seperate_ui_container="true" autocomplete="vocab-acquisitionmethod" ui-type="enum"/>
 
 		<repeat id="acquisitionSources" section="bampfa">
-			<field id="acquisitionSource" section="bampfa"/>
+			<field id="acquisitionSource" section="bampfa" ui-search="repeatable"/>
 		</repeat>
 
 		<field id="creditLine" section="bampfa"/>
 
 		<repeat id="bampfaAcquisitionReasonList" section="bampfa">
-			<field id="bampfaAcquisitionReason" section="bampfa" autocomplete="vocab-acquisitionreason" ui-type="enum"/>
+			<field id="bampfaAcquisitionReason" section="bampfa" ui-search="repeatable" autocomplete="vocab-acquisitionreason" ui-type="enum"/>
 		</repeat>
 		
 		<field id="acquisitionProvisos" section="bampfa"/>
@@ -267,7 +272,7 @@
 	
 	<section id="classificationInformation">
 		<repeat id="subjectThemes" section="bampfa">
-			<field id="subjectTheme" section="bampfa" autocomplete="vocab-subjectsandthemes" ui-type="enum"/>
+			<field id="subjectTheme" section="bampfa" ui-search="repeatable" autocomplete="vocab-subjectsandthemes" ui-type="enum"/>
 		</repeat>
 	</section>
 	
