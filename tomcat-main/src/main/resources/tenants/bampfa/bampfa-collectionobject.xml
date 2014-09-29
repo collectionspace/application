@@ -274,6 +274,8 @@
 		<repeat id="subjectThemes" section="bampfa">
 			<field id="subjectTheme" section="bampfa" ui-search="repeatable" autocomplete="vocab-subjectsandthemes" ui-type="enum"/>
 		</repeat>
+		<field id="seriesTitle" section="bampfa" ui-search="repeatable"/>
+		<field id="partOf" section="bampfa" ui-search="repeatable"/>
 	</section>
 	
 	<!-- Use this to generate a message key for the initial value group. -->
