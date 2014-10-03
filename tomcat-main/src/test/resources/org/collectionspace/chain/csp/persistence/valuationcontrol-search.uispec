@@ -1,0 +1,202 @@
+{
+    ".csc-valuationcontrol-valueSource": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-valuationcontrol-valueSource": {
+                                    "decorators": [
+                                        {
+                                            "func": "cspace.autocomplete",
+                                            "type": "fluid",
+                                            "options": {
+                                                "queryUrl": "../../../tenant/core/valuationcontrol/autocomplete/valueSource",
+                                                "vocabUrl": "../../../tenant/core/valuationcontrol/source-vocab/valueSource"
+                                            }
+                                        }
+                                    ],
+                                    "value": "${{row}.valueSource}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "valueSources",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-valuationcontrol-valueRenewalDate-label": {
+        "messagekey": "valuationcontrol-valueRenewalDateLabel"
+    },
+    ".csc-valuationcontrol-updatedAt-label": {
+        "messagekey": "valuationcontrol-updatedAtLabel"
+    },
+    ".csc-valuationcontrol-updatedAtEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${updatedAtEnd}"
+    },
+    ".csc-valuationcontrol-valuationcontrolRefNumber-label": {
+        "messagekey": "valuationcontrol-valuationcontrolRefNumberLabel"
+    },
+    ".csc-valuationcontrol-updatedBy": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-valuationcontrol-updatedBy": "${{row}.updatedBy}"
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "updatedBys",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-valuationcontrol-valueRenewalDateStart-label": {
+        "messagekey": "valuationcontrol-valueRenewalDateStartLabel"
+    },
+    ".csc-valuationcontrol-valueDate-label": {
+        "messagekey": "valuationcontrol-valueDateLabel"
+    },
+    ".csc-valuationcontrol-valueDateStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${valueDateStart}"
+    },
+    ".csc-valuationcontrol-valueType": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-valuationcontrol-valueType": {
+                                    "default": "",
+                                    "optionnames": [
+                                        "Please select a value",
+                                        "Current Value",
+                                        "Original Value",
+                                        "Replacement Value"
+                                    ],
+                                    "optionlist": [
+                                        "",
+                                        "Current Value",
+                                        "Original Value",
+                                        "Replacement Value"
+                                    ],
+                                    "selection": "${{row}.valueType}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "valueTypes",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-valuationcontrol-valueRenewalDateStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${valueRenewalDateStart}"
+    },
+    ".csc-valuationcontrol-valueDateEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${valueDateEnd}"
+    },
+    ".csc-valuationcontrol-valueType-label": {
+        "messagekey": "valuationcontrol-valueTypeLabel"
+    },
+    ".csc-valuationcontrol-valueDateStart-label": {
+        "messagekey": "valuationcontrol-valueDateStartLabel"
+    },
+    ".csc-valuationcontrol-valueSource-label": {
+        "messagekey": "valuationcontrol-valueSourceLabel"
+    },
+    ".csc-valuationcontrol-valueDateEnd-label": {
+        "messagekey": "valuationcontrol-valueDateEndLabel"
+    },
+    ".csc-valuationcontrol-updatedAtStart-label": {
+        "messagekey": "valuationcontrol-updatedAtStartLabel"
+    },
+    ".csc-valuationcontrol-updatedAtStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${updatedAtStart}"
+    },
+    ".csc-valuationcontrol-valuationcontrolRefNumber": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-valuationcontrol-valuationcontrolRefNumber": "${{row}.valuationcontrolRefNumber}"
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "valuationcontrolRefNumbers",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-valuationcontrol-valueRenewalDateEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${valueRenewalDateEnd}"
+    },
+    ".csc-valuationcontrol-valueRenewalDateEnd-label": {
+        "messagekey": "valuationcontrol-valueRenewalDateEndLabel"
+    },
+    ".csc-valuationcontrol-updatedAtEnd-label": {
+        "messagekey": "valuationcontrol-updatedAtEndLabel"
+    },
+    ".csc-valuationcontrol-updatedBy-label": {
+        "messagekey": "valuationcontrol-updatedByLabel"
+    }
+}

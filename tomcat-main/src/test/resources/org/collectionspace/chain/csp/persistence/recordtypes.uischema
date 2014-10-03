@@ -31,7 +31,8 @@
           "media", 
           "movement", 
           "objectexit",
-          "conditioncheck"
+          "conditioncheck",
+          "valuationcontrol"
         ], 
         "type": "array"
       }, 

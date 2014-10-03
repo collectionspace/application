@@ -22,6 +22,7 @@
       <include src="base-procedure-loanin.xml"/>
       <include src="base-procedure-loanout.xml"/>
       <include src="base-procedure-media.xml"/>
+      <include src="base-procedure-valuationcontrol.xml"/>
       <include src="base-procedure-movement.xml"/>
       <include src="base-procedure-objectexit.xml"/>
 

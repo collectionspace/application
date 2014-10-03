@@ -224,6 +224,8 @@ public class TestUIRecords {
 		tester.testUIspec(jetty, "/acquisition/uischema", "acquisition.uischema");
 		tester.testUIspec(jetty, "/conditioncheck-search/uischema", "conditioncheck-search.uischema");
 		tester.testUIspec(jetty, "/conditioncheck/uischema", "conditioncheck.uischema");
+		tester.testUIspec(jetty, "/valuationcontrol-search/uischema", "valuationcontrol-search.uischema");
+		tester.testUIspec(jetty, "/valuationcontrol/uischema", "valuationcontrol.uischema");
 		
 		tester.testUIspec(jetty, "/cataloging/uispec", "collection-object.uispec");
 		tester.testUIspec(jetty, "/intake/uispec", "intake.uispec");
@@ -233,6 +235,8 @@ public class TestUIRecords {
 		tester.testUIspec(jetty, "/acquisition-search/uispec", "acquisition-search.uispec");
 		tester.testUIspec(jetty, "/conditioncheck/uispec", "conditioncheck.uispec");
 		tester.testUIspec(jetty, "/conditioncheck-search/uispec", "conditioncheck-search.uispec");
+		tester.testUIspec(jetty, "/valuationcontrol-search/uispec", "valuationcontrol-search.uispec");
+		tester.testUIspec(jetty, "/valuationcontrol/uispec", "valuationcontrol.uispec");
 
 	}
 
@@ -319,6 +323,25 @@ public class TestUIRecords {
 		tester.testUIspec(jetty, "/objectexit/uispec", "objectexit.uispec");
 		//objectexit
 	}
+
+
+	/**
+     *  Test Valuation Control Procedure CRUDL
+     */
+	@Test public void testProcedureValuationcontrol() throws Exception {
+		log.info("Testing valuationcontrol Procedure");
+		tester.testPostGetDelete(jetty, "/valuationcontrol/", tester.valuationcontrolCreate(), "valueNote");
+		tester.testLists(jetty, "/valuationcontrol/", tester.valuationcontrolCreate(), "items");
+		log.info("Testing UISCHEMA");
+		tester.testUIspec(jetty, "/valuationcontrol/uischema", "valuationcontrol.uischema");
+		log.info("Testing UISPEC");
+		tester.testUIspec(jetty, "/valuationcontrol/uispec", "valuationcontrol.uispec");
+		log.info("Testing Search UISPEC");
+		tester.testUIspec(jetty, "/valuationcontrol-search/uispec", "valuationcontrol-search.uispec");
+		log.info("Testing Search UISCHEMA");
+		tester.testUIspec(jetty, "/valuationcontrol-search/uischema", "valuationcontrol-search.uischema");
+	}
+
 	
 	/**
 	 * Test Authorities
@@ -434,7 +457,7 @@ public class TestUIRecords {
 	 */
 	@Test public void testSearch() throws Exception {
 		log.info("Testing Search ordering");
-		String[] allRecords = {"acquisition","loanin","loanout","cataloging","objectexit","intake","group","movement","conditioncheck"};
+		String[] allRecords = {"acquisition","loanin","loanout","cataloging","objectexit","intake","group","movement","conditioncheck","valuationcontrol"};
 		
 		for(String r : allRecords) {
 			log.info("Testing Search ordering: "+r);

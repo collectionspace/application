@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ns2:valuationcontrols_common xmlns:ns2="http://collectionspace.org/services/valuationcontrol">
+    <valuationcontrolRefNumber>VC2013.4.22</valuationcontrolRefNumber>
+    <valueAmountsList>
+        <valueAmounts>
+            <valueAmount>1234.56</valueAmount>
+            <valueCurrency>usd</valueCurrency>
+        </valueAmounts>
+    </valueAmountsList>
+    <valueDate>2011-01-01</valueDate>
+    <valueRenewalDate>2012-01-01</valueRenewalDate>
+    <valueSource>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'</valueSource>
+    <valueType>Current Value</valueType>
+    <valueNote>value note goes here</valueNote>
+</ns2:valuationcontrols_common>
