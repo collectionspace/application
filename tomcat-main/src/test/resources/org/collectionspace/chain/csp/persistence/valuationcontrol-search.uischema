@@ -1,0 +1,86 @@
+{
+    "valuationcontrol": {
+        "properties": {
+            "valueDateEnd": {
+                "type": "date"
+            },
+            "updatedAtEnd": {
+                "type": "date"
+            },
+            "valueDateStart": {
+                "type": "date"
+            },
+            "valueTypes": {
+                "items": {
+                    "properties": {
+                        "_primary": {
+                            "default": true,
+                            "type": "boolean"
+                        },
+                        "valueType": {
+                            "default": "",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
+            "valuationcontrolRefNumbers": {
+                "items": {
+                    "properties": {
+                        "valuationcontrolRefNumber": {
+                            "type": "string"
+                        },
+                        "_primary": {
+                            "default": true,
+                            "type": "boolean"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
+            "valueSources": {
+                "items": {
+                    "properties": {
+                        "_primary": {
+                            "default": true,
+                            "type": "boolean"
+                        },
+                        "valueSource": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
+            "updatedBys": {
+                "items": {
+                    "properties": {
+                        "_primary": {
+                            "default": true,
+                            "type": "boolean"
+                        },
+                        "updatedBy": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
+            "valueRenewalDateStart": {
+                "type": "date"
+            },
+            "updatedAtStart": {
+                "type": "date"
+            },
+            "valueRenewalDateEnd": {
+                "type": "date"
+            }
+        },
+        "type": "object"
+    }
+}

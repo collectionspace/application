@@ -26,7 +26,8 @@
       "group", 
       "work",
       "cona_work",
-      "media"
+      "media",
+      "valuationcontrol"
     ], 
     "type": "array"
   }

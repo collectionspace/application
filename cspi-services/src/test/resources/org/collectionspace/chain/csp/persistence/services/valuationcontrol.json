@@ -1,0 +1,14 @@
+{
+    "valuationcontrolRefNumber": "VC2013.4.22",
+    "valueAmounts": [{
+        "_primary": true,
+        "valueAmount": "1234.56",
+        "valueCurrency": "usd"
+    }],
+    "valueDate": "2011-01-01",
+    "valueRenewalDate": "2012-01-01",
+    "valueSource": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'",
+    "de-urned-valueSource": "TEST4",
+    "valueType": "Current Value",
+    "valueNote": "value note goes here"
+}
