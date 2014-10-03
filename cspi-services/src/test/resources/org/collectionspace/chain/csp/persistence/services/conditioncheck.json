@@ -1,0 +1,78 @@
+{
+    "objectAuditCategory": "urn:cspace:core.collectionspace.org:vocabularies:name(TestTermList):item:name(low)'Low'",
+    "completenessGroup": [
+          {
+              "_primary": true,
+              "completeness": "urn:cspace:core.collectionspace.org:vocabularies:name(TestTermList):item:name(complete)'Complete'",
+              "completenessDate": "2012-10-19T22:38:43Z",
+              "completenessNote": "Object is complete."
+          }
+    ],
+    "conditionCheckGroup": [
+          {
+              "_primary": true,
+              "condition": "urn:cspace:core.collectionspace.org:vocabularies:name(TestTermList):item:name(needsnowork)'Needs no work'",
+              "conditionDate": "2012-10-19T22:38:43Z",
+              "conditionNote": "Object is complete."
+          }
+    ],
+    "conservationTreatmentPriority": "urn:cspace:core.collectionspace.org:vocabularies:name(TestTermList):item:name(low)'Low'",
+    "envConditionNoteGroup": [
+          {
+              "_primary": true,
+              "envConditionNote": "Environmental condition is supurb.",
+              "envConditionNoteDate": "2012-10-19T22:38:43Z"
+          }
+    ],
+    "nextConditionCheckDate": "2012-14-19T22:38:43Z",
+    "techAssessmentGroup": [
+          {
+              "_primary": true,
+              "techAssessment": "Environmental condition is supurb.",
+              "techAssessmentDate": "2012-10-19T22:38:43Z"
+          }
+    ],
+    "hazardGroup": [
+          {
+              "_primary": true,
+              "hazard": "urn:cspace:core.collectionspace.org:vocabularies:name(TestTermList):item:name(radioactive)'Radioactive'",
+              "hazardDate": "2012-10-19T22:38:43Z",
+              "hazardNote": "Object needs to be extinguished occasionally."
+          }
+    ],
+    "conditionCheckAssessmentDates": [
+          {
+              "_primary": true,
+              "conditionCheckAssessmentDate":"2010-08-19T22:38:43Z"
+          }
+    ],
+    "conditionCheckMethod": "urn:cspace:core.collectionspace.org:vocabularies:name(TestTermList):item:name(observed)'Observed'",
+    "conditionCheckNote": "It's ok",
+    "conditionCheckReason": "urn:cspace:core.collectionspace.org:vocabularies:name(TestTermList):item:name(newacquisition)'New acquisition'",
+    "conditionCheckRefNumber": "CC2013.001",
+    "conditionChecker": "urn:cspace:org.collectionspace.demo:personauthorities:name(TestPersonAuth):person(JimChecker)'Jim Checker'",
+    "displayRecommendations": "show every other tuesday",
+    "envRecommendations": "pure oxygen only",
+    "handlingRecommendations": "use angel hair",
+    "packingRecommendations": "use the finest cork",
+    "securityRecommendations": "can you get superman?",
+    "specialRequirements": "none",
+    "storageRequirements": "place inside the fortress of solitude",
+    "salvagePriorityCodeGroup": [
+            {
+                "_primary": true,
+                "salvagePriorityCode": "urn:cspace:core.collectionspace.org:vocabularies:name(TestTermList):item:name(low)'Low'",
+                "salvagePriorityCodeDate": "2011-10-19T22:38:43Z"
+            }
+    ],
+    "legalReqsHeldGroup": [
+            {
+                "_primary": true,
+                "legalReqsHeld": "All of them.",
+                "legalReqsHeldBeginDate": "2010-10-19T22:38:43Z",
+                "legalReqsHeldEndDate": "2013-10-19T22:38:43Z",
+                "legalReqsHeldNumber": "12345",
+                "legalReqsHeldRenewDate": "2013-10-19T22:38:43Z"
+            }
+    ]
+}

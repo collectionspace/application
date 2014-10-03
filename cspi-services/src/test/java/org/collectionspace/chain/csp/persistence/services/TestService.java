@@ -99,6 +99,7 @@ public class TestService extends ServicesBaseClass {
 		testXMLJSON(spec, "objectexit", "objectexit.xml", "objectexit.json");
 		testXMLJSON(spec, "group", "group.xml", "group.json");
 		testXMLJSON(spec, "media", "media.xml", "mediaJSON.json");
+		testXMLJSON(spec, "conditioncheck", "conditioncheck.xml", "conditioncheck.json");
 
 		testXMLJSON(spec, "role", "role.xml", "role.json");
 		testXMLJSON(spec, "permrole", "rolepermissions.xml",
@@ -154,6 +155,7 @@ public class TestService extends ServicesBaseClass {
 		testJSONXML(spec, "movement", "movement.xml", "movement.json");
 		testJSONXML(spec, "objectexit", "objectexit.xml", "objectexit.json");
 		testJSONXML(spec, "group", "group.xml", "group.json");
+		testJSONXML(spec, "conditioncheck", "conditioncheck.xml", "conditioncheck.json");
 
 		testJSONXML(spec, "role", "role.xml", "role.json");
 
@@ -688,7 +690,8 @@ public class TestService extends ServicesBaseClass {
 				"objectexit_common/exitNumber", "EX2011.5");
 		testPostGetDelete("groups/", "groups_common", "group.xml",
 				"groups_common/title", "This is my group");
-				
+		testPostGetDelete("conditionchecks/", "conditionchecks_common", "conditioncheck.xml",
+				"conditionchecks_common/conditionCheckRefNumber", "CC2013.001");
 
 		// testPostGetDelete("relations/", "relations_common",
 		// "relationship.xml", "relations_common/relationshipType", "affects");

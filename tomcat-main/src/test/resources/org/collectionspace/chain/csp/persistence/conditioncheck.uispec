@@ -1,0 +1,629 @@
+{
+    "recordEditor": {
+        ".csc-conditioncheck-envConditionNoteGroup-label": {
+            "messagekey": "conditioncheck-envConditionNoteGroupLabel"
+        },
+        ".csc-conditioncheck-completenessDate-label": {
+            "messagekey": "conditioncheck-completenessDateLabel"
+        },
+        ".csc-conditioncheck-salvagePriorityCodeGroup": {
+            "decorators": [
+                {
+                    "func": "cspace.makeRepeatable",
+                    "type": "fluid",
+                    "options": {
+                        "repeatTree": {
+                            "expander": {
+                                "tree": {
+                                    ".csc-conditioncheck-salvagePriorityCode": {
+                                        "default": "",
+                                        "optionnames": [
+                                            "Please select a value",
+                                            "Low",
+                                            "Medium",
+                                            "High"
+                                        ],
+                                        "optionlist": [
+                                            "",
+                                            "low",
+                                            "medium",
+                                            "high"
+                                        ],
+                                        "selection": "${{row}.salvagePriorityCode}"
+                                    },
+                                    ".csc-conditioncheck-salvagePriorityCodeDate": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.datePicker",
+                                                "type": "fluid"
+                                            }
+                                        ],
+                                        "value": "${{row}.salvagePriorityCodeDate}"
+                                    }
+                                },
+                                "type": "fluid.noexpand"
+                            }
+                        },
+                        "elPath": "fields.salvagePriorityCodeGroup"
+                    }
+                }
+            ]
+        },
+        ".csc-conditioncheck-refName-label": {
+            "messagekey": "conditioncheck-refNameLabel"
+        },
+        ".csc-conditioncheck-updatedAt-label": {
+            "messagekey": "conditioncheck-updatedAtLabel"
+        },
+        ".csc-conditioncheck-createdBy": "${fields.createdBy}",
+        ".csc-conditioncheck-nextConditionCheckDate": {
+            "decorators": [
+                {
+                    "func": "cspace.datePicker",
+                    "type": "fluid"
+                }
+            ],
+            "value": "${fields.nextConditionCheckDate}"
+        },
+        ".csc-conditioncheck-conditionCheckMethod": {
+            "default": "",
+            "optionnames": [
+                "Please select a value",
+                "Observed",
+                "X-rayed"
+            ],
+            "optionlist": [
+                "",
+                "observed",
+                "xrayed"
+            ],
+            "selection": "${fields.conditionCheckMethod}"
+        },
+        ".csc-conditioncheck-conditionChecker": {
+            "decorators": [
+                {
+                    "func": "cspace.autocomplete",
+                    "type": "fluid",
+                    "options": {
+                        "queryUrl": "../../../tenant/core/conditioncheck/autocomplete/conditionChecker",
+                        "vocabUrl": "../../../tenant/core/conditioncheck/source-vocab/conditionChecker"
+                    }
+                }
+            ],
+            "value": "${fields.conditionChecker}"
+        },
+        ".csc-conditioncheck-legalRequirements": "${fields.legalRequirements}",
+        ".csc-conditioncheck-conditionDate-label": {
+            "messagekey": "conditioncheck-conditionDateLabel"
+        },
+        ".csc-conditioncheck-objectRequirementInformation-label": {
+            "messagekey": "conditioncheck-objectRequirementInformationLabel"
+        },
+        ".csc-conditioncheck-legalReqsHeldNumber-label": {
+            "messagekey": "conditioncheck-legalReqsHeldNumberLabel"
+        },
+        ".csc-conditioncheck-handlingRecommendations-label": {
+            "messagekey": "conditioncheck-handlingRecommendationsLabel"
+        },
+        ".csc-conditioncheck-conditionCheckNote-label": {
+            "messagekey": "conditioncheck-conditionCheckNoteLabel"
+        },
+        ".csc-conditioncheck-techAssessmentGroup-label": {
+            "messagekey": "conditioncheck-techAssessmentGroupLabel"
+        },
+        ".csc-conditioncheck-envRecommendations-label": {
+            "messagekey": "conditioncheck-envRecommendationsLabel"
+        },
+        ".csc-conditioncheck-completenessGroup": {
+            "decorators": [
+                {
+                    "func": "cspace.makeRepeatable",
+                    "type": "fluid",
+                    "options": {
+                        "repeatTree": {
+                            "expander": {
+                                "tree": {
+                                    ".csc-conditioncheck-completeness": {
+                                        "default": "",
+                                        "optionnames": [
+                                            "Please select a value",
+                                            "Complete",
+                                            "Fragmented",
+                                            "Incomplete"
+                                        ],
+                                        "optionlist": [
+                                            "",
+                                            "complete",
+                                            "fragmented",
+                                            "incomplete"
+                                        ],
+                                        "selection": "${{row}.completeness}"
+                                    },
+                                    ".csc-conditioncheck-completenessDate": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.datePicker",
+                                                "type": "fluid"
+                                            }
+                                        ],
+                                        "value": "${{row}.completenessDate}"
+                                    },
+                                    ".csc-conditioncheck-completenessNote": "${{row}.completenessNote}"
+                                },
+                                "type": "fluid.noexpand"
+                            }
+                        },
+                        "elPath": "fields.completenessGroup"
+                    }
+                }
+            ]
+        },
+        ".csc-conditioncheck-completenessGroup-label": {
+            "messagekey": "conditioncheck-completenessGroupLabel"
+        },
+        ".csc-conditioncheck-conservationTreatmentPriority-label": {
+            "messagekey": "conditioncheck-conservationTreatmentPriorityLabel"
+        },
+        ".csc-conditioncheck-number-label": {
+            "messagekey": "conditioncheck-numberLabel"
+        },
+        ".csc-conditioncheck-displayRecommendations": "${fields.displayRecommendations}",
+        ".csc-conditioncheck-legalReqsHeld-label": {
+            "messagekey": "conditioncheck-legalReqsHeldLabel"
+        },
+        ".csc-conditioncheck-conditionCheckMethod-label": {
+            "messagekey": "conditioncheck-conditionCheckMethodLabel"
+        },
+        ".csc-conditioncheck-summary-label": {
+            "messagekey": "conditioncheck-summaryLabel"
+        },
+        ".csc-conditioncheck-createdAt": {
+            "decorators": [
+                {
+                    "func": "cspace.datePicker",
+                    "type": "fluid"
+                }
+            ],
+            "value": "${fields.createdAt}"
+        },
+        ".csc-conditioncheck-conditionCheckGroup-label": {
+            "messagekey": "conditioncheck-conditionCheckGroupLabel"
+        },
+        ".csc-conditioncheck-nextConditionCheckDate-label": {
+            "messagekey": "conditioncheck-nextConditionCheckDateLabel"
+        },
+        ".csc-conditioncheck-coreInformation-label": {
+            "messagekey": "conditioncheck-coreInformationLabel"
+        },
+        ".csc-conditioncheck-conditionCheckReason": {
+            "default": "",
+            "optionnames": [
+                "Please select a value",
+                "Conservation",
+                "Damaged in transit",
+                "Loan in",
+                "New acquisition"
+            ],
+            "optionlist": [
+                "",
+                "conservation",
+                "damagedintransit",
+                "loanin",
+                "newacquisition"
+            ],
+            "selection": "${fields.conditionCheckReason}"
+        },
+        ".csc-conditioncheck-conditionNote-label": {
+            "messagekey": "conditioncheck-conditionNoteLabel"
+        },
+        ".csc-conditioncheck-createdAt-label": {
+            "messagekey": "conditioncheck-createdAtLabel"
+        },
+        ".csc-conditioncheck-storageRequirements": "${fields.storageRequirements}",
+        ".csc-conditioncheck-tenantId": "${fields.tenantId}",
+        ".csc-conditioncheck-packingRecommendations": "${fields.packingRecommendations}",
+        ".csc-conditioncheck-salvagePriorityCode-label": {
+            "messagekey": "conditioncheck-salvagePriorityCodeLabel"
+        },
+        ".csc-conditioncheck-createdBy-label": {
+            "messagekey": "conditioncheck-createdByLabel"
+        },
+        ".csc-conditioncheck-legalReqsHeldGroup-label": {
+            "messagekey": "conditioncheck-legalReqsHeldGroupLabel"
+        },
+        ".csc-conditioncheck-updatedBy-label": {
+            "messagekey": "conditioncheck-updatedByLabel"
+        },
+        ".csc-conditioncheck-securityRecommendations-label": {
+            "messagekey": "conditioncheck-securityRecommendationsLabel"
+        },
+        ".csc-conditioncheck-reference-number-patternChooserContainer": {
+            "decorators": [
+                {
+                    "func": "cspace.numberPatternChooser",
+                    "type": "fluid",
+                    "options": {
+                        "model": {
+                            "names": [
+                                "Condition Check"
+                            ],
+                            "list": [
+                                "conditioncheck"
+                            ],
+                            "samples": [
+                                "CC2012.1.1"
+                            ]
+                        },
+                        "selectors": {
+                            "numberField": ".csc-conditioncheck-numberPatternChooser-reference-number"
+                        }
+                    }
+                }
+            ]
+        },
+        ".csc-conditioncheck-condition-label": {
+            "messagekey": "conditioncheck-conditionLabel"
+        },
+        ".csc-conditioncheck-conditionCheckNote": "${fields.conditionCheckNote}",
+        ".csc-conditioncheck-tenantId-label": {
+            "messagekey": "conditioncheck-tenantIdLabel"
+        },
+        ".csc-conditioncheck-hazardGroup": {
+            "decorators": [
+                {
+                    "func": "cspace.makeRepeatable",
+                    "type": "fluid",
+                    "options": {
+                        "repeatTree": {
+                            "expander": {
+                                "tree": {
+                                    ".csc-conditioncheck-hazardNote": "${{row}.hazardNote}",
+                                    ".csc-conditioncheck-hazard": {
+                                        "default": "",
+                                        "optionnames": [
+                                            "Please select a value",
+                                            "Poisonous",
+                                            "Radioactive"
+                                        ],
+                                        "optionlist": [
+                                            "",
+                                            "poisonous",
+                                            "radioactive"
+                                        ],
+                                        "selection": "${{row}.hazard}"
+                                    },
+                                    ".csc-conditioncheck-hazardDate": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.datePicker",
+                                                "type": "fluid"
+                                            }
+                                        ],
+                                        "value": "${{row}.hazardDate}"
+                                    }
+                                },
+                                "type": "fluid.noexpand"
+                            }
+                        },
+                        "elPath": "fields.hazardGroup"
+                    }
+                }
+            ]
+        },
+        ".csc-conditioncheck-numberPatternChooser-reference-number": "${fields.conditionCheckRefNumber}",
+        ".csc-conditioncheck-storageRequirements-label": {
+            "messagekey": "conditioncheck-storageRequirementsLabel"
+        },
+        ".csc-conditioncheck-objectAuditCategory-label": {
+            "messagekey": "conditioncheck-objectAuditCategoryLabel"
+        },
+        ".csc-conditioncheck-techAssessmentDate-label": {
+            "messagekey": "conditioncheck-techAssessmentDateLabel"
+        },
+        ".csc-conditioncheck-completenessNote-label": {
+            "messagekey": "conditioncheck-completenessNoteLabel"
+        },
+        ".csc-conditioncheck-legalReqsHeldGroup": {
+            "decorators": [
+                {
+                    "func": "cspace.makeRepeatable",
+                    "type": "fluid",
+                    "options": {
+                        "repeatTree": {
+                            "expander": {
+                                "tree": {
+                                    ".csc-conditioncheck-legalReqsHeldEndDate": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.datePicker",
+                                                "type": "fluid"
+                                            }
+                                        ],
+                                        "value": "${{row}.legalReqsHeldEndDate}"
+                                    },
+                                    ".csc-conditioncheck-legalReqsHeldBeginDate": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.datePicker",
+                                                "type": "fluid"
+                                            }
+                                        ],
+                                        "value": "${{row}.legalReqsHeldBeginDate}"
+                                    },
+                                    ".csc-conditioncheck-legalReqsHeld": "${{row}.legalReqsHeld}",
+                                    ".csc-conditioncheck-legalReqsHeldNumber": "${{row}.legalReqsHeldNumber}",
+                                    ".csc-conditioncheck-legalReqsHeldRenewDate": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.datePicker",
+                                                "type": "fluid"
+                                            }
+                                        ],
+                                        "value": "${{row}.legalReqsHeldRenewDate}"
+                                    }
+                                },
+                                "type": "fluid.noexpand"
+                            }
+                        },
+                        "elPath": "fields.legalReqsHeldGroup"
+                    }
+                }
+            ]
+        },
+        ".csc-conditioncheck-legalReqsHeldBeginDate-label": {
+            "messagekey": "conditioncheck-legalReqsHeldBeginDateLabel"
+        },
+        ".csc-conditioncheck-envConditionNote-label": {
+            "messagekey": "conditioncheck-envConditionNoteLabel"
+        },
+        ".csc-conditioncheck-techAssessment-label": {
+            "messagekey": "conditioncheck-techAssessmentLabel"
+        },
+        ".csc-conditioncheck-conditionCheckAssessmentDate": {
+            "decorators": [
+                {
+                    "func": "cspace.makeRepeatable",
+                    "type": "fluid",
+                    "options": {
+                        "repeatTree": {
+                            "expander": {
+                                "tree": {
+                                    ".csc-conditioncheck-conditionCheckAssessmentDate": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.datePicker",
+                                                "type": "fluid"
+                                            }
+                                        ],
+                                        "value": "${{row}.conditionCheckAssessmentDate}"
+                                    }
+                                },
+                                "type": "fluid.noexpand"
+                            }
+                        },
+                        "elPath": "fields.conditionCheckAssessmentDates"
+                    }
+                }
+            ]
+        },
+        ".csc-conditioncheck-hazardGroup-label": {
+            "messagekey": "conditioncheck-hazardGroupLabel"
+        },
+        ".csc-conditioncheck-legalRequirements-label": {
+            "messagekey": "conditioncheck-legalRequirementsLabel"
+        },
+        ".csc-conditioncheck-displayRecommendations-label": {
+            "messagekey": "conditioncheck-displayRecommendationsLabel"
+        },
+        ".csc-conditioncheck-specialRequirements": "${fields.specialRequirements}",
+        ".csc-conditioncheck-uri": "${fields.uri}",
+        ".csc-conditioncheck-updatedBy": "${fields.updatedBy}",
+        ".csc-conditioncheck-hazardNote-label": {
+            "messagekey": "conditioncheck-hazardNoteLabel"
+        },
+        ".csc-conditioncheck-conditionCheckAssessmentDates-label": {
+            "messagekey": "conditioncheck-conditionCheckAssessmentDatesLabel"
+        },
+        ".csc-conditioncheck-conditionCheckGroup": {
+            "decorators": [
+                {
+                    "func": "cspace.makeRepeatable",
+                    "type": "fluid",
+                    "options": {
+                        "repeatTree": {
+                            "expander": {
+                                "tree": {
+                                    ".csc-conditioncheck-conditionDate": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.datePicker",
+                                                "type": "fluid"
+                                            }
+                                        ],
+                                        "value": "${{row}.conditionDate}"
+                                    },
+                                    ".csc-conditioncheck-conditionNote": "${{row}.conditionNote}",
+                                    ".csc-conditioncheck-condition": {
+                                        "default": "",
+                                        "optionnames": [
+                                            "Please select a value",
+                                            "Needs no work",
+                                            "Exhibitable / needs work",
+                                            "Not exhibitable / stable",
+                                            "In jeopardy"
+                                        ],
+                                        "optionlist": [
+                                            "",
+                                            "needsnowork",
+                                            "exhibitableneedswork",
+                                            "notexhibitablestable",
+                                            "injeopardy"
+                                        ],
+                                        "selection": "${{row}.condition}"
+                                    }
+                                },
+                                "type": "fluid.noexpand"
+                            }
+                        },
+                        "elPath": "fields.conditionCheckGroup"
+                    }
+                }
+            ]
+        },
+        ".csc-conditioncheck-objectAuditCategory": {
+            "default": "",
+            "optionnames": [
+                "Please select a value",
+                "Low",
+                "Medium",
+                "High"
+            ],
+            "optionlist": [
+                "",
+                "low",
+                "medium",
+                "high"
+            ],
+            "selection": "${fields.objectAuditCategory}"
+        },
+        ".csc-conditioncheck-completeness-label": {
+            "messagekey": "conditioncheck-completenessLabel"
+        },
+        ".csc-conditioncheck-envRecommendations": "${fields.envRecommendations}",
+        ".csc-conditioncheck-envConditionNoteDate-label": {
+            "messagekey": "conditioncheck-envConditionNoteDateLabel"
+        },
+        ".csc-conditioncheck-securityRecommendations": "${fields.securityRecommendations}",
+        ".csc-conditioncheck-conditionCheckReason-label": {
+            "messagekey": "conditioncheck-conditionCheckReasonLabel"
+        },
+        ".csc-conditioncheck-conditionCheckRefNumber-label": {
+            "messagekey": "conditioncheck-conditionCheckRefNumberLabel"
+        },
+        ".csc-conditioncheck-legalReqsHeldRenewDate-label": {
+            "messagekey": "conditioncheck-legalReqsHeldRenewDateLabel"
+        },
+        ".csc-conditioncheck-conservationTreatmentPriority": {
+            "default": "",
+            "optionnames": [
+                "Please select a value",
+                "Low",
+                "Medium",
+                "High"
+            ],
+            "optionlist": [
+                "",
+                "low",
+                "medium",
+                "high"
+            ],
+            "selection": "${fields.conservationTreatmentPriority}"
+        },
+        ".csc-conditioncheck-legalReqsHeldEndDate-label": {
+            "messagekey": "conditioncheck-legalReqsHeldEndDateLabel"
+        },
+        ".csc-conditioncheck-envConditionNoteGroup": {
+            "decorators": [
+                {
+                    "func": "cspace.makeRepeatable",
+                    "type": "fluid",
+                    "options": {
+                        "repeatTree": {
+                            "expander": {
+                                "tree": {
+                                    ".csc-conditioncheck-envConditionNoteDate": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.datePicker",
+                                                "type": "fluid"
+                                            }
+                                        ],
+                                        "value": "${{row}.envConditionNoteDate}"
+                                    },
+                                    ".csc-conditioncheck-envConditionNote": "${{row}.envConditionNote}"
+                                },
+                                "type": "fluid.noexpand"
+                            }
+                        },
+                        "elPath": "fields.envConditionNoteGroup"
+                    }
+                }
+            ]
+        },
+        ".csc-conditioncheck-domaindata-label": {
+            "messagekey": "conditioncheck-domaindataLabel"
+        },
+        ".csc-conditioncheck-hazardDate-label": {
+            "messagekey": "conditioncheck-hazardDateLabel"
+        },
+        ".csc-conditioncheck-techAssessmentGroup": {
+            "decorators": [
+                {
+                    "func": "cspace.makeRepeatable",
+                    "type": "fluid",
+                    "options": {
+                        "repeatTree": {
+                            "expander": {
+                                "tree": {
+                                    ".csc-conditioncheck-techAssessmentDate": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.datePicker",
+                                                "type": "fluid"
+                                            }
+                                        ],
+                                        "value": "${{row}.techAssessmentDate}"
+                                    },
+                                    ".csc-conditioncheck-techAssessment": "${{row}.techAssessment}"
+                                },
+                                "type": "fluid.noexpand"
+                            }
+                        },
+                        "elPath": "fields.techAssessmentGroup"
+                    }
+                }
+            ]
+        },
+        ".csc-conditioncheck-objectConditionInformation-label": {
+            "messagekey": "conditioncheck-objectConditionInformationLabel"
+        },
+        ".csc-conditioncheck-hazard-label": {
+            "messagekey": "conditioncheck-hazardLabel"
+        },
+        ".csc-conditioncheck-conditionCheckAssessmentDate-label": {
+            "messagekey": "conditioncheck-conditionCheckAssessmentDateLabel"
+        },
+        ".csc-conditioncheck-conditionChecker-label": {
+            "messagekey": "conditioncheck-conditionCheckerLabel"
+        },
+        ".csc-conditioncheck-packingRecommendations-label": {
+            "messagekey": "conditioncheck-packingRecommendationsLabel"
+        },
+        ".csc-conditioncheck-updatedAt": {
+            "decorators": [
+                {
+                    "func": "cspace.datePicker",
+                    "type": "fluid"
+                }
+            ],
+            "value": "${fields.updatedAt}"
+        },
+        ".csc-conditioncheck-conditionCheckInformation-label": {
+            "messagekey": "conditioncheck-conditionCheckInformationLabel"
+        },
+        ".csc-conditioncheck-salvagePriorityCodeDate-label": {
+            "messagekey": "conditioncheck-salvagePriorityCodeDateLabel"
+        },
+        ".csc-conditioncheck-handlingRecommendations": "${fields.handlingRecommendations}",
+        ".csc-conditioncheck-refName": "${fields.refName}",
+        ".csc-conditioncheck-uri-label": {
+            "messagekey": "conditioncheck-uriLabel"
+        },
+        ".csc-conditioncheck-salvagePriorityCodeGroup-label": {
+            "messagekey": "conditioncheck-salvagePriorityCodeGroupLabel"
+        },
+        ".csc-conditioncheck-specialRequirements-label": {
+            "messagekey": "conditioncheck-specialRequirementsLabel"
+        }
+    }
+}

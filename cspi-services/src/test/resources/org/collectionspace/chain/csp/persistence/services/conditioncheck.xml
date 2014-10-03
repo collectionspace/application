@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ns2:conditionchecks_common xmlns:ns2="http://collectionspace.org/services/conditioncheck">
+    <objectAuditCategory>urn:cspace:core.collectionspace.org:vocabularies:name(TestTermList):item:name(low)'Low'</objectAuditCategory>
+    <completenessGroupList>
+        <completenessGroup>
+            <completeness>urn:cspace:core.collectionspace.org:vocabularies:name(TestTermList):item:name(complete)'Complete'</completeness>
+            <completenessDate>2012-10-19T22:38:43Z</completenessDate>
+            <completenessNote>Object is complete.</completenessNote>
+        </completenessGroup>
+    </completenessGroupList>
+    <conditionCheckGroupList>
+        <conditionCheckGroup>
+            <condition>urn:cspace:core.collectionspace.org:vocabularies:name(TestTermList):item:name(needsnowork)'Needs no work'</condition>
+            <conditionDate>2012-10-19T22:38:43Z</conditionDate>
+            <conditionNote>Object is complete.</conditionNote>
+        </conditionCheckGroup>
+    </conditionCheckGroupList>
+    <conservationTreatmentPriority>urn:cspace:core.collectionspace.org:vocabularies:name(TestTermList):item:name(low)'Low'</conservationTreatmentPriority>
+    <envConditionNoteGroupList>
+        <envConditionNoteGroup>
+            <envConditionNote>Environmental condition is supurb.</envConditionNote>
+            <envConditionNoteDate>2012-10-19T22:38:43Z</envConditionNoteDate>
+        </envConditionNoteGroup>
+    </envConditionNoteGroupList>
+    <nextConditionCheckDate>2012-14-19T22:38:43Z</nextConditionCheckDate>
+    <techAssessmentGroupList>
+        <techAssessmentGroup>
+            <techAssessment>Environmental condition is supurb.</techAssessment>
+            <techAssessmentDate>2012-10-19T22:38:43Z</techAssessmentDate>
+        </techAssessmentGroup>
+    </techAssessmentGroupList>
+    <hazardGroupList>
+        <hazardGroup>
+            <hazard>urn:cspace:core.collectionspace.org:vocabularies:name(TestTermList):item:name(radioactive)'Radioactive'</hazard>
+            <hazardDate>2012-10-19T22:38:43Z</hazardDate>
+            <hazardNote>Object needs to be extinguished occasionally.</hazardNote>
+        </hazardGroup>
+    </hazardGroupList>
+    <conditionCheckAssessmentDates>
+        <conditionCheckAssessmentDate>2010-08-19T22:38:43Z</conditionCheckAssessmentDate>
+    </conditionCheckAssessmentDates>
+    <conditionCheckMethod>urn:cspace:core.collectionspace.org:vocabularies:name(TestTermList):item:name(observed)'Observed'</conditionCheckMethod>
+    <conditionCheckNote>It's ok</conditionCheckNote>
+    <conditionCheckReason>urn:cspace:core.collectionspace.org:vocabularies:name(TestTermList):item:name(newacquisition)'New acquisition'</conditionCheckReason>
+    <conditionCheckRefNumber>CC2013.001</conditionCheckRefNumber>
+    <conditionChecker>urn:cspace:org.collectionspace.demo:personauthorities:name(TestPersonAuth):person(JimChecker)'Jim Checker'</conditionChecker>
+    <displayRecommendations>show every other tuesday</displayRecommendations>
+    <envRecommendations>pure oxygen only</envRecommendations>
+    <handlingRecommendations>use angel hair</handlingRecommendations>
+    <packingRecommendations>use the finest cork</packingRecommendations>
+    <securityRecommendations>can you get superman?</securityRecommendations>
+    <specialRequirements>none</specialRequirements>
+    <storageRequirements>place inside the fortress of solitude</storageRequirements>
+    <salvagePriorityCodeGroupList>
+        <salvagePriorityCodeGroup>
+            <salvagePriorityCode>urn:cspace:core.collectionspace.org:vocabularies:name(TestTermList):item:name(low)'Low'</salvagePriorityCode>
+            <salvagePriorityCodeDate>2011-10-19T22:38:43Z</salvagePriorityCodeDate>
+        </salvagePriorityCodeGroup>
+    </salvagePriorityCodeGroupList>
+    <legalReqsHeldGroupList>
+        <legalReqsHeldGroup>
+            <legalReqsHeld>All of them.</legalReqsHeld>
+            <legalReqsHeldBeginDate>2010-10-19T22:38:43Z</legalReqsHeldBeginDate>
+            <legalReqsHeldEndDate>2013-10-19T22:38:43Z</legalReqsHeldEndDate>
+            <legalReqsHeldNumber>12345</legalReqsHeldNumber>
+            <legalReqsHeldRenewDate>2013-10-19T22:38:43Z</legalReqsHeldRenewDate>
+        </legalReqsHeldGroup>
+    </legalReqsHeldGroupList>
+</ns2:conditionchecks_common>

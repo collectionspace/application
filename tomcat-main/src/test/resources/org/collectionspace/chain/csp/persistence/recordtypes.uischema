@@ -30,7 +30,8 @@
           "loanout", 
           "media", 
           "movement", 
-          "objectexit"
+          "objectexit",
+          "conditioncheck"
         ], 
         "type": "array"
       }, 
