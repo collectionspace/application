@@ -2,6 +2,8 @@ package org.collectionspace.chain.csp.webui.misc;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.schema.Field;
+import org.collectionspace.chain.csp.schema.FieldSet;
+import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
@@ -37,6 +39,28 @@ public class WebTermList implements WebMethod {
 			Field f = (Field)r.getFieldTopLevel(bits[0]);
 			if(f == null){
 				f = (Field)r.getFieldFullList(bits[0]);
+			}
+			// If the field isn't in this record, look for it in subrecords (e.g. contacts).
+			if (f == null) {
+				FieldSet[] subRecordFields = r.getAllSubRecords("GET");
+				
+				for (int i=0; i<subRecordFields.length; i++) {
+					FieldSet subRecordField = subRecordFields[i];
+					Group group = (Group) subRecordField;
+					
+					if (group.usesRecord()) {
+						Record subRecord = group.usesRecordId();
+						f = (Field) subRecord.getFieldTopLevel(bits[0]);
+						
+						if (f == null) {
+							f = (Field) subRecord.getFieldFullList(bits[0]);
+						}
+						
+						if (f != null) {
+							break;
+						}
+					}
+				}
 			}
 			JSONArray result = new JSONArray();
 			for(Instance ins : f.getAllAutocompleteInstances()){
