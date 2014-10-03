@@ -5,7 +5,8 @@
 			<field id="dimensionSummary" ui-type="computed" ui-func="bampfa.computeDimensionSummary" ui-args="measuredPart,dimensionSubGroup,measuredPartNote" ui-readonly="true"/>
 
 			<repeat id="dimensionSubGroupList/dimensionSubGroup">
-				<field id="measurementUnit" seperate_ui_container="true">
+				<field id="measurementUnit">
+					<!-- Make inches the default -->
 					<options>
 						<option id="">Please select a value</option>
 						<option id="carats">carats</option>

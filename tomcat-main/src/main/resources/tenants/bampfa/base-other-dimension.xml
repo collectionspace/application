@@ -20,6 +20,9 @@
 	                            <option id="unframed">unframed</option>
 	                        </options>
 	                    </field>
+                        <!-- BAMPFA-206: Hacking the common schema, since cspace doesn't handle extensions on the dimension record properly. -->
+                        <!-- Add note field. -->
+                        <field id="measuredPartNote"></field>
 	                    <repeat id="dimensionSubGroupList/dimensionSubGroup">
 	                    	<field id="measuredBy"  autocomplete="person-person,organization-organization"></field>
 	                        <field id="dimension" seperate_ui_container="true">
@@ -58,7 +61,10 @@
 	                                <option id="stories">stories</option>
 	                            </options>
 	                        </field>
-	                        <field id="value" ui-type="validated" datatype="float"></field>
+	                        <!-- BAMPFA-208: Hacking the common schema, since cspace doesn't handle extensions on the dimension record properly. -->
+	                        <!-- Change value to a string. -->
+	                        <!-- <field id="value" ui-type="validated" datatype="float"></field> -->
+	                        <field id="value"></field>
 	                        <field id="measurementMethod">
 		                        <options>
 		                            <option id="" default="yes">Please select a value</option>
