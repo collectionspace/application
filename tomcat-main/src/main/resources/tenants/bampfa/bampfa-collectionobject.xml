@@ -175,6 +175,9 @@
 				<option id="Unknown" default="yes">Unknown</option>
 				<option id="Yes">Yes</option>
 				<option id="No">No</option>
+				<option id="Restricted">Restricted</option>
+				<option id="Public Domain">Public Domain</option>
+				<option id="Pending">Pending</option>
 			</options>
 		</field>
 	</section>
