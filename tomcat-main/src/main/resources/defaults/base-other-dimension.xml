@@ -7,19 +7,11 @@
 				<section id="dimensionInformation">
 					<repeat id="measuredPartGroupList/measuredPartGroup">
 	                    <field id="dimensionSummary"></field>
-						<field id="measuredPart" seperate_ui_container="true">
-	                        <options>
-	                            <option id="">Please select a value</option>
-	                            <option id="base">base</option>
-	                            <option id="frame">frame</option>
-	                            <option id="framed">framed</option>
-	                            <option id="image-size">image size</option>
-	                            <option id="mount">mount</option>
-	                            <option id="paper-size">paper size</option>
-	                            <option id="plate-size">plate size</option>
-	                            <option id="unframed">unframed</option>
-	                        </options>
-	                    </field>
+						<!-- BAMPFA-278: Removing options here, since it can't be removed in the overlay. -->
+						<field id="measuredPart"/>
+                        <!-- BAMPFA-206: Hacking the common schema, since cspace doesn't handle extensions on the dimension record properly. -->
+                        <!-- Add note field. -->
+                        <field id="measuredPartNote"></field>
 	                    <repeat id="dimensionSubGroupList/dimensionSubGroup">
 	                    	<field id="measuredBy"  autocomplete="person-person,organization-organization"></field>
 	                        <field id="dimension" seperate_ui_container="true">
@@ -58,7 +50,10 @@
 	                                <option id="stories">stories</option>
 	                            </options>
 	                        </field>
-	                        <field id="value" ui-type="validated" datatype="float"></field>
+	                        <!-- BAMPFA-208: Hacking the common schema, since cspace doesn't handle extensions on the dimension record properly. -->
+	                        <!-- Change value to a string. -->
+	                        <!-- <field id="value" ui-type="validated" datatype="float"></field> -->
+	                        <field id="value"></field>
 	                        <field id="measurementMethod">
 		                        <options>
 		                            <option id="" default="yes">Please select a value</option>
