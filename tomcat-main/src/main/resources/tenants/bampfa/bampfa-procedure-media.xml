@@ -1,0 +1,12 @@
+<record id="media" is-extension="true">
+	<services-record-path id="bampfa">media_bampfa:http://collectionspace.org/services/media/local/bampfa,media_bampfa</services-record-path>
+	
+	<section id="mediaInformation">
+		<!-- Remove mini -->
+		<field id="identificationNumber" mini=""/>
+        
+		<!-- Local fields -->
+
+		<field id="imageNumber" section="bampfa" datatype="integer" ui-type="validated" mini="number,search,list,relate" ui-search="range"/>
+	</section>
+</record>

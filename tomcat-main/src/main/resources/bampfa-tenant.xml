@@ -20,7 +20,7 @@
 			<include src="base-procedure-intake.xml,bampfa-procedure-intake.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-loanin.xml"/>
 			<include src="base-procedure-loanout.xml"/>
-			<include src="base-procedure-media.xml"/>
+			<include src="base-procedure-media.xml,bampfa-procedure-media.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-movement.xml,bampfa-procedure-movement.xml" merge="xmlmerge.properties"/>
 			<!-- <include src="base-procedure-objectexit.xml"/> -->
 			<include src="base-authority-contact.xml"/>
