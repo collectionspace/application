@@ -2,6 +2,14 @@
 	<services-record-path id="bampfa">media_bampfa:http://collectionspace.org/services/media/local/bampfa,media_bampfa</services-record-path>
 	
 	<section id="mediaInformation">
+		<!-- Change to be computed and read-only, and remove ui-search -->
+		<field id="title" ui-type="computed" ui-func="bampfa.computeMediaTitle" ui-args="blobs" ui-readonly="true" ui-search=""/>
+
+		<!-- Configure an app-layer only field for title advanced search -->
+		<field id="titleSearch" ui-search="repeatable" exists-in-services="false">
+			<services-tag>title</services-tag>
+		</field>
+
 		<!-- Remove mini -->
 		<field id="identificationNumber" mini=""/>
         
