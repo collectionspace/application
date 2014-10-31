@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<record id="group">
+	<section id="groupInformation">
+		<!-- Remove autocomplete -->
+		<field id="owner" autocomplete=""/>
+	</section>
+</record>
