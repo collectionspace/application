@@ -92,6 +92,9 @@
 			<field id="style" autocomplete="vocab-periodorstyle" ui-type="enum"/>
 		</repeat>
 		
+		<!-- Add ui-search -->
+		<field id="physicalDescription" ui-search="repeatable"/>
+		
 		<!-- Local fields -->
 		
 		<field id="bwOrColor" section="bampfa" ui-search="repeatable">
