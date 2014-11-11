@@ -112,9 +112,7 @@
         </repeat>
     </section>
     <section id="conditionCheckInformation">
-        <repeat id="conditionCheckAssessmentDates">
-            <field id="conditionCheckAssessmentDate" ui-type="date" datatype="date" ui-search="range"></field>
-        </repeat>
+        <field id="conditionCheckAssessmentDate" ui-type="date" datatype="date" ui-search="range"></field>
         <field id="conditionCheckMethod">
             <selector>conditioncheck-conditionCheckMethod</selector>
             <options>
