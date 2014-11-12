@@ -36,10 +36,7 @@
             <hazardNote>Object needs to be extinguished occasionally.</hazardNote>
         </hazardGroup>
     </hazardGroupList>
-    <conditionCheckAssessmentDates>
-        <conditionCheckAssessmentDate>2010-08-19T22:38:43Z</conditionCheckAssessmentDate>
-    </conditionCheckAssessmentDates>
-    <conditionCheckMethod>urn:cspace:core.collectionspace.org:vocabularies:name(TestTermList):item:name(observed)'Observed'</conditionCheckMethod>
+    <conditionCheckAssessmentDate>2010-08-19T22:38:43Z</conditionCheckAssessmentDate>
     <conditionCheckNote>It's ok</conditionCheckNote>
     <conditionCheckReason>urn:cspace:core.collectionspace.org:vocabularies:name(TestTermList):item:name(newacquisition)'New acquisition'</conditionCheckReason>
     <conditionCheckRefNumber>CC2013.001</conditionCheckRefNumber>
