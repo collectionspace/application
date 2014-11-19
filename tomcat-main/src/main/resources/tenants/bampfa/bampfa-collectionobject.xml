@@ -84,6 +84,8 @@
 		</repeat>
 		
 		<field id="numberOfScans" section="bampfa" ui-type="validated" datatype="integer"/>
+		
+		<field id="artistDisplayOverride" section="bampfa"/>
 	</section>
 	
 	<section id="descriptionInformation">
