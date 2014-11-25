@@ -7,8 +7,8 @@
 	</section>
 
 	<section id="identificationInformation">
-		<!-- Add sortKey, remove mini, remove ui-search, remove chooser, remove seperate_ui_container, and make computed -->
-		<field id="objectNumber" mini="" sortKey="sortableObjectNumber" ui-search="" chooser="" seperate_ui_container="" ui-type="computed" ui-func="bampfa.computeAccessionNumber" ui-args="accNumberPrefix,accNumberPart1,accNumberPart2,accNumberPart3,accNumberPart4,accNumberPart5" ui-readonly="true">
+		<!-- Add sortKey, remove number from mini, remove ui-search, remove chooser, remove seperate_ui_container, and make computed -->
+		<field id="objectNumber" mini="search,list,relate" sortKey="sortableObjectNumber" ui-search="" chooser="" seperate_ui_container="" ui-type="computed" ui-func="bampfa.computeAccessionNumber" ui-args="accNumberPrefix,accNumberPart1,accNumberPart2,accNumberPart3,accNumberPart4,accNumberPart5" ui-readonly="true">
 			<!-- Remove options -->
 			<options/>
 		</field>
