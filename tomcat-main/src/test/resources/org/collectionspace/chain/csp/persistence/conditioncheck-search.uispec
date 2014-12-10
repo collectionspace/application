@@ -1,0 +1,286 @@
+{
+    ".csc-conditioncheck-updatedAtEnd-label": {
+        "messagekey": "conditioncheck-updatedAtEndLabel"
+    },
+    ".csc-conditioncheck-objectAuditCategory-label": {
+        "messagekey": "conditioncheck-objectAuditCategoryLabel"
+    },
+    ".csc-conditioncheck-updatedAt-label": {
+        "messagekey": "conditioncheck-updatedAtLabel"
+    },
+    ".csc-conditioncheck-conditionChecker": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conditioncheck-conditionChecker": {
+                                    "decorators": [
+                                        {
+                                            "func": "cspace.autocomplete",
+                                            "type": "fluid",
+                                            "options": {
+                                                "queryUrl": "../../../tenant/core/conditioncheck/autocomplete/conditionChecker",
+                                                "vocabUrl": "../../../tenant/core/conditioncheck/source-vocab/conditionChecker"
+                                            }
+                                        }
+                                    ],
+                                    "value": "${{row}.conditionChecker}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "conditionCheckers",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-conditioncheck-conditionDate-label": {
+        "messagekey": "conditioncheck-conditionDateLabel"
+    },
+    ".csc-conditioncheck-conservationTreatmentPriority-label": {
+        "messagekey": "conditioncheck-conservationTreatmentPriorityLabel"
+    },
+    ".csc-conditioncheck-updatedBy": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conditioncheck-updatedBy": "${{row}.updatedBy}"
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "updatedBys",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-conditioncheck-conditionCheckAssessmentDateStart-label": {
+        "messagekey": "conditioncheck-conditionCheckAssessmentDateStartLabel"
+    },
+    ".csc-conditioncheck-updatedAtStart-label": {
+        "messagekey": "conditioncheck-updatedAtStartLabel"
+    },
+    ".csc-conditioncheck-conditionCheckAssessmentDateStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${conditionCheckAssessmentDateStart}"
+    },
+    ".csc-conditioncheck-updatedAtEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${updatedAtEnd}"
+    },
+    ".csc-conditioncheck-conditionCheckAssessmentDateEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${conditionCheckAssessmentDateEnd}"
+    },
+    ".csc-conditioncheck-conditionCheckGroup": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conditioncheck-condition": {
+                                    "default": "",
+                                    "optionnames": [
+                                        "Please select a value",
+                                        "Needs no work",
+                                        "Exhibitable / needs work",
+                                        "Not exhibitable / stable",
+                                        "In jeopardy"
+                                    ],
+                                    "optionlist": [
+                                        "",
+                                        "needsnowork",
+                                        "exhibitableneedswork",
+                                        "notexhibitablestable",
+                                        "injeopardy"
+                                    ],
+                                    "selection": "${{row}.condition}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "conditionCheckGroup",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-conditioncheck-objectAuditCategory": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conditioncheck-objectAuditCategory": {
+                                    "default": "",
+                                    "optionnames": [
+                                        "Please select a value",
+                                        "Low",
+                                        "Medium",
+                                        "High"
+                                    ],
+                                    "optionlist": [
+                                        "",
+                                        "low",
+                                        "medium",
+                                        "high"
+                                    ],
+                                    "selection": "${{row}.objectAuditCategory}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "objectAuditCategorys",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-conditioncheck-nextConditionCheckDateStart-label": {
+        "messagekey": "conditioncheck-nextConditionCheckDateStartLabel"
+    },
+    ".csc-conditioncheck-nextConditionCheckDateEnd-label": {
+        "messagekey": "conditioncheck-nextConditionCheckDateEndLabel"
+    },
+    ".csc-conditioncheck-nextConditionCheckDate-label": {
+        "messagekey": "conditioncheck-nextConditionCheckDateLabel"
+    },
+    ".csc-conditioncheck-updatedAtStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${updatedAtStart}"
+    },
+    ".csc-conditioncheck-conditionCheckRefNumber-label": {
+        "messagekey": "conditioncheck-conditionCheckRefNumberLabel"
+    },
+    ".csc-conditioncheck-conditionNote-label": {
+        "messagekey": "conditioncheck-conditionNoteLabel"
+    },
+    ".csc-conditioncheck-conservationTreatmentPriority": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conditioncheck-conservationTreatmentPriority": {
+                                    "default": "",
+                                    "optionnames": [
+                                        "Please select a value",
+                                        "Low",
+                                        "Medium",
+                                        "High"
+                                    ],
+                                    "optionlist": [
+                                        "",
+                                        "low",
+                                        "medium",
+                                        "high"
+                                    ],
+                                    "selection": "${{row}.conservationTreatmentPriority}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "conservationTreatmentPrioritys",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-conditioncheck-conditionCheckAssessmentDate-label": {
+        "messagekey": "conditioncheck-conditionCheckAssessmentDateLabel"
+    },
+    ".csc-conditioncheck-updatedBy-label": {
+        "messagekey": "conditioncheck-updatedByLabel"
+    },
+    ".csc-conditioncheck-conditionChecker-label": {
+        "messagekey": "conditioncheck-conditionCheckerLabel"
+    },
+    ".csc-conditioncheck-condition-label": {
+        "messagekey": "conditioncheck-conditionLabel"
+    },
+    ".csc-conditioncheck-nextConditionCheckDateEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${nextConditionCheckDateEnd}"
+    },
+    ".csc-conditioncheck-numberPatternChooser-reference-number": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conditioncheck-numberPatternChooser-reference-number": "${{row}.conditionCheckRefNumber}"
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "conditionCheckRefNumbers",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-conditioncheck-nextConditionCheckDateStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${nextConditionCheckDateStart}"
+    },
+    ".csc-conditioncheck-conditionCheckAssessmentDateEnd-label": {
+        "messagekey": "conditioncheck-conditionCheckAssessmentDateEndLabel"
+    }
+}

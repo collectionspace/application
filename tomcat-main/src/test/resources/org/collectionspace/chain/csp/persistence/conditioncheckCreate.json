@@ -1,0 +1,8 @@
+{
+    "conditionCheckNote": "It's ok",
+    "conditionCheckRefNumber": "CC2013.001",
+    "conditionCheckers": [
+    { 
+        "conditionChecker": "urn:cspace:org.collectionspace.demo:personauthorities:name(TestPersonAuth):item:name(JimChecker)'Jim Checker'",
+    }]
+}

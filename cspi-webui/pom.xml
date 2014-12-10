@@ -1,17 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
-  <!--  -->
-  <groupId>org.collectionspace</groupId>
   <artifactId>cspi-webui</artifactId>
   <packaging>jar</packaging>
-  <version>4.0-SNAPSHOT</version>
   <name>CSP: Web UI</name>
   
-    <parent>
+  <parent>
     <groupId>org.collectionspace</groupId>
     <artifactId>svcapp</artifactId>
-    <version>4.0-SNAPSHOT</version>
+    <version>4.1-SNAPSHOT</version>
   </parent>
   
 
@@ -28,28 +26,28 @@
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>csp-api</artifactId>
-      <version>4.0-SNAPSHOT</version>
+      <version>${project.version}</version>
       <type>jar</type>
     </dependency>  
 
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>jxutils</artifactId>
-      <version>4.0-SNAPSHOT</version>
+      <version>${project.version}</version>
       <type>jar</type>
     </dependency>  
 
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>cspi-schema</artifactId>
-      <version>4.0-SNAPSHOT</version>
+      <version>${project.version}</version>
       <type>jar</type>
     </dependency>  
 
      <dependency>
          <groupId>org.collectionspace.services</groupId>
          <artifactId>org.collectionspace.services.common-api</artifactId>
-         <version>4.0-SNAPSHOT</version>
+         <version>${project.version}</version>
      </dependency>    
 
      <dependency>
@@ -61,14 +59,14 @@
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>general-utils</artifactId>
-      <version>4.0-SNAPSHOT</version>
+      <version>${project.version}</version>
       <type>jar</type>
     </dependency>  
   
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>csp-helper</artifactId>
-      <version>4.0-SNAPSHOT</version>
+      <version>${project.version}</version>
       <type>jar</type>
     </dependency>  
 
