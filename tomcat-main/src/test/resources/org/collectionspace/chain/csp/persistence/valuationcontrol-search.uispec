@@ -198,5 +198,28 @@
     },
     ".csc-valuationcontrol-updatedBy-label": {
         "messagekey": "valuationcontrol-updatedByLabel"
+    },
+    ".csc-valuationcontrol-createdAt-label": {
+      "messagekey": "valuationcontrol-createdAtLabel"
+    },
+    ".csc-valuationcontrol-createdAtStart-label": {
+      "messagekey": "valuationcontrol-createdAtStartLabel"
+    },
+    ".csc-valuationcontrol-createdAtStart": {
+      "decorators": [{
+        "func": "cspace.datePicker",
+        "type": "fluid"
+      }],
+      "value": "${createdAtStart}"
+    },
+    ".csc-valuationcontrol-createdAtEnd-label": {
+      "messagekey": "valuationcontrol-createdAtEndLabel"
+    },
+    ".csc-valuationcontrol-createdAtEnd": {
+      "decorators": [{
+        "func": "cspace.datePicker",
+        "type": "fluid"
+      }],
+      "value": "${createdAtEnd}"
     }
 }

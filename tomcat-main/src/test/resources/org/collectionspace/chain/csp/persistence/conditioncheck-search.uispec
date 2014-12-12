@@ -282,5 +282,28 @@
     },
     ".csc-conditioncheck-conditionCheckAssessmentDateEnd-label": {
         "messagekey": "conditioncheck-conditionCheckAssessmentDateEndLabel"
+    },
+    ".csc-conditioncheck-createdAt-label": {
+      "messagekey": "conditioncheck-createdAtLabel"
+    },
+    ".csc-conditioncheck-createdAtStart-label": {
+      "messagekey": "conditioncheck-createdAtStartLabel"
+    },
+    ".csc-conditioncheck-createdAtStart": {
+      "decorators": [{
+        "func": "cspace.datePicker",
+        "type": "fluid"
+      }],
+      "value": "${createdAtStart}"
+    },
+    ".csc-conditioncheck-createdAtEnd-label": {
+      "messagekey": "conditioncheck-createdAtEndLabel"
+    },
+    ".csc-conditioncheck-createdAtEnd": {
+      "decorators": [{
+        "func": "cspace.datePicker",
+        "type": "fluid"
+      }],
+      "value": "${createdAtEnd}"
     }
 }

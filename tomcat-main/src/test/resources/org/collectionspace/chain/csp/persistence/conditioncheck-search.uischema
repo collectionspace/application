@@ -111,6 +111,12 @@
             },
             "nextConditionCheckDateStart": {
                 "type": "date"
+            },
+            "createdAtStart": {
+              "type": "date"
+            },
+            "createdAtEnd": {
+              "type": "date"
             }
         },
         "type": "object"
