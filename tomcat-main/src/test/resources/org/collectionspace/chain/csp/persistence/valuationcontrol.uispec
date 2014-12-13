@@ -1,0 +1,206 @@
+{
+    "recordEditor": {
+        ".csc-valuationcontrol-updatedAt-label": {
+            "messagekey": "valuationcontrol-updatedAtLabel"
+        },
+        ".csc-valuationcontrol-updatedBy": "${fields.updatedBy}",
+        ".csc-valuationcontrol-valueAmounts": {
+            "decorators": [
+                {
+                    "func": "cspace.makeRepeatable",
+                    "type": "fluid",
+                    "options": {
+                        "repeatTree": {
+                            "expander": {
+                                "tree": {
+                                    ".csc-valuationcontrol-valueCurrency": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.termList",
+                                                "type": "fluid",
+                                                "options": {
+                                                    "root": "{row}",
+                                                    "elPath": "valueCurrency",
+                                                    "termListType": "valueCurrency"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    ".csc-valuationcontrol-valueAmount": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.inputValidator",
+                                                "type": "fluid",
+                                                "options": {
+                                                    "label": "valuationcontrol-valueAmountLabel",
+                                                    "type": "float"
+                                                }
+                                            }
+                                        ],
+                                        "value": "${{row}.valueAmount}"
+                                    }
+                                },
+                                "type": "fluid.noexpand"
+                            }
+                        },
+                        "elPath": "fields.valueAmounts"
+                    }
+                }
+            ]
+        },
+        ".csc-valuationcontrol-createdAt": {
+            "decorators": [
+                {
+                    "func": "cspace.datePicker",
+                    "type": "fluid"
+                }
+            ],
+            "value": "${fields.createdAt}"
+        },
+        ".csc-valuationcontrol-valueRenewalDate": {
+            "decorators": [
+                {
+                    "func": "cspace.datePicker",
+                    "type": "fluid"
+                }
+            ],
+            "value": "${fields.valueRenewalDate}"
+        },
+        ".csc-valuationcontrol-uri": "${fields.uri}",
+        ".csc-valuationcontrol-valueNote": "${fields.valueNote}",
+        ".csc-valuationcontrol-valueAmounts-label": {
+            "messagekey": "valuationcontrol-valueAmountsLabel"
+        },
+        ".csc-valuationcontrol-valuationcontrolRefNumber": "${fields.valuationcontrolRefNumber}",
+        ".csc-valuationcontrol-valueAmount-label": {
+            "messagekey": "valuationcontrol-valueAmountLabel"
+        },
+        ".csc-valuationcontrol-valueDate": {
+            "decorators": [
+                {
+                    "func": "cspace.datePicker",
+                    "type": "fluid"
+                }
+            ],
+            "value": "${fields.valueDate}"
+        },
+        ".csc-valuationcontrol-number-label": {
+            "messagekey": "valuationcontrol-numberLabel"
+        },
+        ".csc-valuationcontrol-objectValuationInformation-label": {
+            "messagekey": "valuationcontrol-objectValuationInformationLabel"
+        },
+        ".csc-valuationcontrol-domaindata-label": {
+            "messagekey": "valuationcontrol-domaindataLabel"
+        },
+        ".csc-valuationcontrol-valueNote-label": {
+            "messagekey": "valuationcontrol-valueNoteLabel"
+        },
+        ".csc-valuationcontrol-updatedBy-label": {
+            "messagekey": "valuationcontrol-updatedByLabel"
+        },
+        ".csc-valuationcontrol-valueSource": {
+            "decorators": [
+                {
+                    "func": "cspace.autocomplete",
+                    "type": "fluid",
+                    "options": {
+                        "queryUrl": "../../../tenant/core/valuationcontrol/autocomplete/valueSource",
+                        "vocabUrl": "../../../tenant/core/valuationcontrol/source-vocab/valueSource"
+                    }
+                }
+            ],
+            "value": "${fields.valueSource}"
+        },
+        ".csc-valuationcontrol-valueRenewalDate-label": {
+            "messagekey": "valuationcontrol-valueRenewalDateLabel"
+        },
+        ".csc-valuationcontrol-valuationcontrolRefNumber-label": {
+            "messagekey": "valuationcontrol-valuationcontrolRefNumberLabel"
+        },
+        ".csc-valuationcontrol-tenantId": "${fields.tenantId}",
+        ".csc-valuationcontrol-valueType": {
+            "optionnames": [
+                "Please select a value",
+                "Current Value",
+                "Original Value",
+                "Replacement Value"
+            ],
+            "optionlist": [
+                "",
+                "Current Value",
+                "Original Value",
+                "Replacement Value"
+            ],
+            "selection": "${fields.valueType}"
+        },
+        ".csc-valuationcontrol-valueDate-label": {
+            "messagekey": "valuationcontrol-valueDateLabel"
+        },
+        ".csc-valuationcontrol-updatedAt": {
+            "decorators": [
+                {
+                    "func": "cspace.datePicker",
+                    "type": "fluid"
+                }
+            ],
+            "value": "${fields.updatedAt}"
+        },
+        ".csc-valuationcontrol-tenantId-label": {
+            "messagekey": "valuationcontrol-tenantIdLabel"
+        },
+        ".csc-valuationcontrol-valueType-label": {
+            "messagekey": "valuationcontrol-valueTypeLabel"
+        },
+        ".csc-valuationcontrol-createdAt-label": {
+            "messagekey": "valuationcontrol-createdAtLabel"
+        },
+        ".csc-valuationcontrol-createdBy": "${fields.createdBy}",
+        ".csc-valuationcontrol-coreInformation-label": {
+            "messagekey": "valuationcontrol-coreInformationLabel"
+        },
+        ".csc-valuationcontrol-valueCurrency-label": {
+            "messagekey": "valuationcontrol-valueCurrencyLabel"
+        },
+        ".csc-valuationcontrol-summary-label": {
+            "messagekey": "valuationcontrol-summaryLabel"
+        },
+        ".csc-valuationcontrol-uri-label": {
+            "messagekey": "valuationcontrol-uriLabel"
+        },
+        ".csc-valuationcontrol-valueSource-label": {
+            "messagekey": "valuationcontrol-valueSourceLabel"
+        },
+        ".csc-valuationcontrol-createdBy-label": {
+            "messagekey": "valuationcontrol-createdByLabel"
+        },
+        ".csc-valuationcontrol-refName": "${fields.refName}",
+        ".csc-valuationcontrol-refName-label": {
+            "messagekey": "valuationcontrol-refNameLabel"
+        },
+        ".csc-valuationcontrol-valuationcontrolRefNumber-patternChooserContainer": {
+            "decorators": [
+                {
+                    "func": "cspace.numberPatternChooser",
+                    "type": "fluid",
+                    "options": {
+                        "model": {
+                            "names": [
+                                "Valuation Control"
+                            ],
+                            "list": [
+                                "valuationcontrol"
+                            ],
+                            "samples": [
+                                "VC2014.1"
+                            ]
+                        },
+                        "selectors": {
+                            "numberField": ".csc-valuationcontrol-valuationcontrolRefNumber"
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

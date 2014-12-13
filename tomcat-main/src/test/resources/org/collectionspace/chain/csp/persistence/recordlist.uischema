@@ -27,7 +27,9 @@
       "work",
       "cona_work",
       "media",
-      "claim"
+      "claim",
+      "conditioncheck",
+      "valuationcontrol"
     ], 
     "type": "array"
   }
