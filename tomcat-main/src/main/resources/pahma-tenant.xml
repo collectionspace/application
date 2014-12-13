@@ -16,11 +16,13 @@
 			<include src="base-procedure-acquisition.xml,anthropology-procedure-acquisition.xml,pahma-procedure-acquisition.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-blobs.xml"/>
 			<include src="base-procedure-claim.xml,anthropology-procedure-claim.xml,pahma-procedure-claim.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-conditioncheck.xml"/>
 			<include src="base-procedure-groups.xml,pahma-procedure-groups.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-intake.xml,pahma-procedure-intake.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-loanin.xml,pahma-procedure-loanin.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-loanout.xml,pahma-procedure-loanout.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-media.xml,pahma-procedure-media.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-valuationcontrol.xml"/>
 			<include src="base-procedure-movement.xml,anthropology-procedure-movement.xml,pahma-procedure-movement.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-objectexit.xml,anthropology-procedure-objectexit.xml,pahma-procedure-objectexit.xml" merge="xmlmerge.properties"/>
 
