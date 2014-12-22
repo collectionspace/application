@@ -26,8 +26,7 @@
 				<display-name>CollectionSpace PAHMA Tenant</display-name>
 			</tenant>
 			<repository>
-				<domain>pahma_domain</domain>
-				<name>pahma_domain</name>
+				<domain>pahma-domain</domain>
 				<client>nuxeo-java</client>
 				<dateformats>
 					<pattern>MM/dd/yyyy</pattern>
