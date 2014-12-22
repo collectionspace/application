@@ -136,6 +136,28 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!-- 
+				Delete the exploded war file directory from the JEE container when a
+				'clean' build is performed
+			-->
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<phase>clean</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<delete dir="${cspace.server.home}/webapps/${project.build.finalName}"/>
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
