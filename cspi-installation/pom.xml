@@ -1,11 +1,12 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>cspi-installation</artifactId>
 	<packaging>jar</packaging>
 	<name>CSP: Installation</name>
-	
+
 	<parent>
 		<groupId>org.collectionspace</groupId>
 		<artifactId>svcapp</artifactId>
@@ -26,7 +27,8 @@
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
-			<version>20080701</version> <!-- keep version 49.0 ie Java 5. But why?-->
+			<version>20080701</version>
+			<!-- keep version 49.0 ie Java 5. But why?-->
 		</dependency>
 		<dependency>
 			<groupId>dom4j</groupId>
@@ -106,17 +108,6 @@
 
 	<build>
 		<finalName>cspi-installation</finalName>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-					<optimize>true</optimize>
-				</configuration>
-			</plugin>
-		</plugins>
 	</build>
 
 </project>

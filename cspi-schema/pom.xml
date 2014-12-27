@@ -1,38 +1,32 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
   <artifactId>cspi-schema</artifactId>
   <packaging>jar</packaging>
   <name>CSP: Schema</name>
-  
+
   <parent>
     <groupId>org.collectionspace</groupId>
     <artifactId>svcapp</artifactId>
     <version>4.2-SNAPSHOT</version>
   </parent>
-  
+
   <dependencies>
-<!-- 
-    <dependency>
-      <groupId>org.json</groupId>
-      <artifactId>json</artifactId>
-      <version>20080701</version>
-    </dependency>  
--->
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>csp-api</artifactId>
       <version>${project.version}</version>
       <type>jar</type>
-    </dependency>  
+    </dependency>
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>csp-impl</artifactId>
       <version>${project.version}</version>
       <type>jar</type>
-    </dependency>  
-    
+    </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -40,12 +34,12 @@
       <scope>test</scope>
     </dependency>
 
-		<dependency>
-		  <groupId>commons-logging</groupId>
-		  <artifactId>commons-logging</artifactId>
-		  <version>1.1.1</version>
-		  <scope>provided</scope>
-		</dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.1.1</version>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
@@ -56,24 +50,24 @@
       <artifactId>slf4j-log4j12</artifactId>
       <version>1.5.6</version>
     </dependency>
-    
+
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>csp-helper</artifactId>
       <version>${project.version}</version>
       <type>jar</type>
-    </dependency> 
-    
-        <dependency>
+    </dependency>
+
+    <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
       <version>2.4</version>
       <scope>provided</scope>
     </dependency>
-    
-    
+
+
   </dependencies>
-  
+
   <build>
     <finalName>csp-schema</finalName>
     <plugins>
@@ -90,10 +84,10 @@
         <groupId>org.mortbay.jetty</groupId>
         <artifactId>maven-jetty-plugin</artifactId>
         <configuration>
-	  <contextPath>chain</contextPath>
+          <contextPath>chain</contextPath>
         </configuration>
       </plugin>
     </plugins>
   </build>
-  
+
 </project>
