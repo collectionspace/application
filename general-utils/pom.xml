@@ -23,7 +23,6 @@
 			<artifactId>commons-lang</artifactId>
 			<type>jar</type>
 		</dependency>
-
 	</dependencies>
 
 	<build>

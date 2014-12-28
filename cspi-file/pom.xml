@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>cspi-file</artifactId>
@@ -16,7 +15,6 @@
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
-			<version>20080701</version> <!-- keep version 49.0 ie Java 5 -->
 		</dependency>
 
 		<dependency>
@@ -38,8 +36,6 @@
 			<artifactId>commons-io</artifactId>
 			<type>jar</type>
 		</dependency>
-
-		<!-- get empty jar instead of commons-logging -->
 
 		<dependency>
 			<groupId>commons-logging</groupId>

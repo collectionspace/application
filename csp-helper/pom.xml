@@ -16,8 +16,6 @@
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
-			<version>20080701</version>
-			<!-- keep version 49.0 ie Java 5 -->
 		</dependency>
 
 		<dependency>
