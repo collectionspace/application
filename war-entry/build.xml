@@ -11,7 +11,7 @@
 
 	<target name="post_build_tasks"
         description="Various post-build tasks"
-        depends="deploy_cspace_config, deploy_nightly_config, retrieve_jar">
+        depends="deploy_cspace_config, retrieve_jar">
 	</target>
 
 	<target name="deploy_cspace_config"
@@ -57,27 +57,6 @@
 			<fileset dir="${app_resources_dir}"/>
 			<globmapper from="*-tenant.xml" to="cspace-config-*.xml"/>
 		</copy>
-	</target>
-
-	<target name="deploy_nightly_config" depends="localhost_is_nightly" if="${is.nightly}"
-        description="Copies host-specific settings files for the CollectionSpace project's Nightly host">
-		<copy file="${app_trunk}/tomcat-main/src/main/resources/tenants/core/nightly-settings.xml"
-            tofile="${config_destination}/tenants/core/local-core-settings.xml"/>
-		<copy file="${app_trunk}/tomcat-main/src/main/resources/tenants/lifesci/nightly-settings.xml"
-            tofile="${config_destination}/tenants/lifesci/local-lifesci-settings.xml"/>
-	</target>
-
-	<target name="localhost_is_nightly"
-        description="Identifies whether this build is running on the CollectionSpace project's Nightly host">
-		<!-- Get host settings for the Nightly host via DNS -->
-		<hostinfo prefix="nightly.host" host="nightly.collectionspace.org"/>
-		<!-- Get host settings for the local host -->
-		<hostinfo prefix="local.host"/>
-		<!-- Compare the IPv4 addresses of the Nightly host and of the local host -->
-		<!-- If they match, we're running on Nightly -->
-		<condition property="is.nightly">
-			<equals arg1="${nightly.host.ADDR4}" arg2="${local.host.ADDR4}"/>
-		</condition>
 	</target>
 
 	<target name="retrieve_jar" description="Retrieves the JAR for command-line use">
