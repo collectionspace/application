@@ -26,7 +26,8 @@
 				<display-name>CollectionSpace UCJEPS Tenant</display-name>
 			</tenant>
 			<repository>
-				<domain>ucjeps-domain</domain>
+				<domain>ucjeps_domain</domain>
+				<name>ucjeps_domain</name>
 				<client>nuxeo-java</client>
 				<dateformats>
 					<pattern>MM/dd/yyyy</pattern>
