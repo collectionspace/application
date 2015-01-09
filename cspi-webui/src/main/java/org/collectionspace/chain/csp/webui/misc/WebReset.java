@@ -261,6 +261,9 @@ public class WebReset implements WebMethod {
 			for(String dir : paths) {
 				try{
 					if(this.spec.hasRecord(dir)){
+						if (dir.equalsIgnoreCase("vocab") && path.equalsIgnoreCase("keepVocabs")) { // don't reset the term lists
+							continue;
+						}
 						Record r = this.spec.getRecord(dir);
 						if(r.isType("authority")){
 							for(Instance n : r.getAllInstances()) {
