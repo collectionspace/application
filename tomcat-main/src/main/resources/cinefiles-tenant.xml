@@ -47,7 +47,7 @@
 
 			<include src="base-other-dimension.xml"/>
 			<include src="base-other-hierarchy.xml"/>
-			<include src="base-other-idgenerator.xml"/>
+			<include src="base-other-idgenerator.xml,cinefiles-other-idgenerator.xml" merge="xmlmerge.properties"/>
 			<include src="base-other-structureddate.xml"/>
 			<include src="base-other-termlist.xml"/>
 			<include src="base-other-termlistitem.xml"/>
