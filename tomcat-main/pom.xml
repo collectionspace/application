@@ -1,15 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>tomcat-main</artifactId>
 	<packaging>jar</packaging>
 	<name>tomcat-main</name>
-	<url>http://maven.apache.org</url>
 
 	<parent>
 		<groupId>org.collectionspace</groupId>
 		<artifactId>svcapp</artifactId>
-		<version>4.0-SNAPSHOT</version>
+		<version>4.1.1</version>
 	</parent>
 
 	<repositories>
@@ -24,24 +24,24 @@
 	     <dependency>
          	<groupId>org.collectionspace.services</groupId>
          	<artifactId>org.collectionspace.services.common-api</artifactId>
-         	<version>4.0-SNAPSHOT</version>
+         	<version>${project.version}</version>
      	</dependency>
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>csp-api</artifactId>
-			<version>4.0-SNAPSHOT</version>
+			<version>${project.version}</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>csp-helper</artifactId>
-			<version>4.0-SNAPSHOT</version>
+			<version>${project.version}</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>cspi-installation</artifactId>
-			<version>4.0-SNAPSHOT</version>
+			<version>${project.version}</version>
 			<type>jar</type>
 			<exclusions>
 				<exclusion>
@@ -67,32 +67,32 @@
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>cspi-file</artifactId>
-			<version>4.0-SNAPSHOT</version>
+			<version>${project.version}</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>cspi-services</artifactId>
-			<version>4.0-SNAPSHOT</version>
+			<version>${project.version}</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>cspi-webui</artifactId>
-			<version>4.0-SNAPSHOT</version>
+			<version>${project.version}</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>general-utils</artifactId>
-			<version>4.0-SNAPSHOT</version>
+			<version>${project.version}</version>
 			<type>jar</type>
 		</dependency>
 
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>jxutils</artifactId>
-			<version>4.0-SNAPSHOT</version>
+			<version>${project.version}</version>
 			<type>jar</type>
 		</dependency>
 

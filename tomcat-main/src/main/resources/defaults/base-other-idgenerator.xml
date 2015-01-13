@@ -28,6 +28,9 @@
                     <field id="loanout">
                         <selector>4b984865-f93d-4481-b874-3dba863ec589</selector>
                     </field>
+                     <field id="conditioncheck">
+                        <selector>585af100-1a35-11e2-892e-0800200c9a66</selector>
+                    </field>
                     <!-- 'location' below pertains to 'generic locations' stored -->
                     <!-- in Location/Movement/Inventory records, rather than to -->
                     <!-- Storage Location authority term records -->
@@ -42,6 +45,9 @@
                     </field>
                     <field id="objectexit">
                         <selector>d4eea707-d473-4367-853a-728fbcd9be17</selector>
+                    </field>
+                    <field id="valuationcontrol">
+                        <selector>eafbc0cd-70fe-4802-8476-b931b1b0e381</selector>
                     </field>
                     <field id="media">
                         <selector>cd91d8b8-f346-4925-a425-93e02bd1c5c9</selector>

@@ -345,6 +345,44 @@ public class UISpec extends SchemaStructure implements WebMethod {
 		out.put(fieldSelector,actualDate(fs,context, decorators));
 	}
 	/**
+	 * Generate UISpec JSON needed by the UI to show a rich text editor
+	 * @param f
+	 * @param context
+	 * @return
+	 * @throws JSONException
+	 */
+	private JSONObject actualRichText(FieldSet fs,UISpecRunContext context, JSONArray decorators) throws JSONException {
+		JSONObject out=new JSONObject();
+		Field f = (Field)fs;
+		JSONObject decorator=getDecorator("fluid",null,"cspace.richTextEditor",null,f.isReadOnly());
+		if(!f.isRefactored()){
+			if(f.hasContainer()){
+				decorator.put("container",getSelector(f,context));
+			}
+		}
+		if(decorators==null) {
+			decorators=new JSONArray();
+		}
+		decorators.put(decorator);
+		out.put(DECORATORS_KEY,decorators);
+		out.put("value", actualFieldEntry(f,context));
+		return out;
+	}
+	/**
+	 * Generate UISpec JSON needed by the UI to show a rich text editor
+	 * @param out
+	 * @param fs
+	 * @param context
+	 * @throws JSONException 
+	 */
+        @Override
+	protected void actualRichTextField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+		String fieldSelector = getSelector(fs,context);
+		JSONArray decorators = getExistingDecoratorsArray(out, fieldSelector);
+		out.put(fieldSelector,actualRichText(fs,context, decorators));
+	}
+
+	/**
 	 * This is a bit of JSON needed by the UI so they can validate data types like integer,float etc
 	 * CSPACE-4330
 	 * @param f

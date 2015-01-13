@@ -1,0 +1,82 @@
+{
+    "valuationcontrol": {
+        "properties": {
+            "relations": {
+                "default": {},
+                "type": "object"
+            },
+            "termsUsed": {
+                "default": [],
+                "type": "array"
+            },
+            "csid": {
+                "type": "string"
+            },
+            "fields": {
+                "properties": {
+                    "tenantId": {
+                        "type": "string"
+                    },
+                    "valuationcontrolRefNumber": {
+                        "type": "string"
+                    },
+                    "valueRenewalDate": {
+                        "type": "date"
+                    },
+                    "valueDate": {
+                        "type": "date"
+                    },
+                    "valueAmounts": {
+                        "items": {
+                            "properties": {
+                                "valueCurrency": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "valueAmount": {
+                                    "type": "float"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "uri": {
+                        "type": "string"
+                    },
+                    "updatedBy": {
+                        "type": "string"
+                    },
+                    "updatedAt": {
+                        "type": "date"
+                    },
+                    "createdBy": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "date"
+                    },
+                    "valueSource": {
+                        "type": "string"
+                    },
+                    "refName": {
+                        "type": "string"
+                    },
+                    "valueType": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "valueNote": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "type": "object"
+    }
+}
