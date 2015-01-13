@@ -26,7 +26,8 @@
                 <display-name>CollectionSpace BotGarden Tenant</display-name>
             </tenant>
             <repository>
-                <domain>botgarden-domain</domain>
+                <domain>botgarden_domain</domain>
+                <name>botgarden_domain</name>
                 <client>nuxeo-java</client>
                 <dateformats>
                     <pattern>MM/dd/yyyy</pattern>
