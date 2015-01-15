@@ -1,8 +1,4 @@
-            <record id="dimension" in-recordlist="no" separate-record="false" services-type="measuredPartGroupList" cms-type="default" generate-services-schema="true">
-                <services-tenant-singular>Dimension</services-tenant-singular>
-                <services-tenant-plural>Dimensions</services-tenant-plural>
-                <services-record-path>dimensions_common:http://collectionspace.org/services/dimension/,dimensions_common</services-record-path>
-                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+            <record id="dimension" in-recordlist="no" separate-record="false" services-type="measuredPartGroupList">
                 <hassoftdelete>true</hassoftdelete>
 				<section id="dimensionInformation">
 					<repeat id="measuredPartGroupList/measuredPartGroup">

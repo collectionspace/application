@@ -193,12 +193,14 @@ public class ServicesConnection {
 			} finally {
 				method.releaseConnection();
 				
-				if (manager.getConnectionsInPool() >= MAX_SERVICES_CONNECTIONS) {
-					log.warn("reached max services connection limit of " + MAX_SERVICES_CONNECTIONS);
+				if (log.isWarnEnabled()) {
+					if (manager.getConnectionsInPool() >= MAX_SERVICES_CONNECTIONS) {
+						log.warn("reached max services connection limit of " + MAX_SERVICES_CONNECTIONS);
 					
-					// Delete closed connections, so that the warning will cease to be logged
-					// once a connection becomes available.
-					manager.deleteClosedConnections();
+						// Delete closed connections from the pool, so that the warning will cease
+						// once a connection becomes available.
+						manager.deleteClosedConnections();
+					}
 				}
 			}
 		} finally {

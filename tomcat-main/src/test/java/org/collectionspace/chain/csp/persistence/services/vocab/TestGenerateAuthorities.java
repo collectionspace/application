@@ -43,7 +43,7 @@ public class TestGenerateAuthorities {
 		
 		// repopulate the authorities with dummy data
 		//DONOT RUN THIS TEST LOCALLY 
-		out = tester.GETData("/reset/", jetty);
+		out = tester.GETData("/reset/keepVocabs/", jetty); // passing in 'keepVocabs' on the path keeps the default term lists from being reset
 		
 
 		//do we have any records
