@@ -161,7 +161,7 @@
 	</section>
 	
 	<section id="conditionCheckInformation">
-		<repeat id="conditionCheckGroupList/conditionCheckGroup" section="bampfa">
+		<repeat id="bampfaConditionCheckGroupList/bampfaConditionCheckGroup" section="bampfa">
 			<field id="conditionNote" section="bampfa"/>
 			<field id="conservationNote" section="bampfa"/>
 			<field id="conditionCheckDate" section="bampfa" ui-type="date" datatype="date"/>
