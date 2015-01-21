@@ -440,6 +440,7 @@
 					<option id="Colusa">Colusa</option>
 					<option id="Comal">Comal</option>
 					<option id="Comanche">Comanche</option>
+					<option id="Comondú">Comondú</option>
 					<option id="Compostela">Compostela</option>
 					<option id="Conejos">Conejos</option>
 					<option id="Contra Costa">Contra Costa</option>
@@ -488,6 +489,7 @@
 					<option id="Elko">Elko</option>
 					<option id="Elmore">Elmore</option>
 					<option id="Emery">Emery</option>
+					<option id="Ensenada">Ensenada</option>
 					<option id="Erie">Erie</option>
 					<option id="Esmeralda">Esmeralda</option>
 					<option id="Esmeraldas">Esmeraldas</option>
@@ -649,6 +651,7 @@
 					<option id="Londonderry (UK)">Londonderry (UK)</option> 
 					<option id="Longford Municipality">Longford Municipality</option>
 					<option id="Los Angeles">Los Angeles</option>
+					<option id="Los Cabos">Los Cabos</option>
 					<option id="Loudoun">Loudoun</option>
 					<option id="Lucas">Lucas</option>
 					<option id="Lyon">Lyon</option>
@@ -673,6 +676,7 @@
 					<option id="Mercer">Mercer</option>
 					<option id="Merionethshire (UK)">Merionethshire (UK)</option> 
 					<option id="Merrimack">Merrimack</option>
+					<option id="Mexicali">Mexicali</option>
 					<option id="Miahuatlan">Miahuatlan</option>
 					<option id="Miami">Miami</option>
 					<option id="Middlesex (UK)">Middlesex (UK)</option> 
@@ -696,6 +700,7 @@
 					<option id="Morehouse">Morehouse</option>
 					<option id="Morgan">Morgan</option>
 					<option id="Morro do Chapeu">Morro do Chapeu</option>
+					<option id="Mulegé">Mulegé</option>
 					<option id="Muscatine">Muscatine</option>
 					<option id="Muskingum">Muskingum</option>
 					<option id="Nairnshire (UK)">Nairnshire (UK)</option> 
@@ -799,6 +804,7 @@
 					<option id="Rockingham">Rockingham</option>
 					<option id="Rockland">Rockland</option>
 					<option id="Roger Mills">Roger Mills</option>
+					<option id="Rosarito, Playas de">Rosarito, Playas de</option>
 					<option id="Ross Municipality">Ross Municipality</option>
 					<option id="Ross-shire (UK)">Ross-shire (UK)</option> 
 					<option id="Ross">Ross</option>
@@ -888,11 +894,13 @@
 					<option id="Tattnall">Tattnall</option>
 					<option id="Taylor">Taylor</option>
 					<option id="Tazewell">Tazewell</option>
+					<option id="Tecate">Tecate</option>
 					<option id="Tehama">Tehama</option>
 					<option id="Teller">Teller</option>
 					<option id="Tepic">Tepic</option>
 					<option id="Terrell">Terrell</option>
 					<option id="Teton">Teton</option>
+					<option id="Tijuana">Tijuana</option>
 					<option id="Thurston">Thurston</option>
 					<option id="Tillamook">Tillamook</option>
 					<option id="Tompkins (NY)">Tompkins (NY)</option>
@@ -995,14 +1003,9 @@
 					<option id="AZ">AZ</option>
 					<option id="AZ Territory">AZ Territory</option>
 					<option id="Azuay">Azuay</option>
-					<option id="B.C.">B.C.</option>
 					<option id="B.C.S.">B.C.S.</option>
 					<option id="Bac Phan">Bac Phan</option>
 					<option id="Bahia">Bahia</option>
-					<option id="Baja Cal">Baja Cal</option>
-					<option id="Baja Cali">Baja Cali</option>
-					<option id="Baja Calic">Baja Calic</option>
-					<option id="Baja Calif">Baja Calif</option>
 					<option id="Baja California">Baja California</option>
 					<option id="Baja California Sur">Baja California Sur</option>
 					<option id="Baja Verapaz">Baja Verapaz</option>
@@ -1010,7 +1013,6 @@
 					<option id="Baluchistan">Baluchistan</option>
 					<option id="Banguey Island">Banguey Island</option>
 					<option id="Barinas">Barinas</option>
-					<option id="BC">BC</option>
 					<option id="BCS">BCS</option>
 					<option id="Benguet">Benguet</option>
 					<option id="Binh Tri Thien, Tinh">Binh Tri Thien, Tinh</option>
@@ -1020,7 +1022,6 @@
 					<option id="Bohol">Bohol</option>
 					<option id="Bolivar">Bolivar</option>
 					<option id="Boyaca">Boyaca</option>
-					<option id="British Co">British Co</option>
 					<option id="British Columbia">British Columbia</option>
 					<option id="Brunei">Brunei</option>
 					<option id="Buenos Aires">Buenos Aires</option>
@@ -1029,7 +1030,6 @@
 					<option id="Cajamarca">Cajamarca</option>
 					<option id="Campeche">Campeche</option>
 					<option id="Canar">Canar</option>
-					<option id="Cape of Good Hope">Cape of Good Hope</option>
 					<option id="Cape Province">Cape Province</option>
 					<option id="Carchi">Carchi</option>
 					<option id="Caroline Islands">Caroline Islands</option>
@@ -1136,7 +1136,6 @@
 					<option id="Jiangsu">Jiangsu</option>
 					<option id="Jujuy">Jujuy</option>
 					<option id="Junin">Junin</option>
-					<option id="KA">KA</option>
 					<option id="Kangean">Kangean</option>
 					<option id="Khorasan Province">Khorasan Province</option>
 					<option id="Kkanh Hoa">Kkanh Hoa</option>
@@ -1215,13 +1214,13 @@
 					<option id="Northern Division">Northern Division</option>
 					<option id="Northern Territory">Northern Territory</option>
 					<option id="Northwest Frontier">Northwest Frontier</option>
-					<option id="Northwest Territorie">Northwest Territorie</option>
+					<option id="Northwest Territories">Northwest Territories</option>
+					<option id="Nova Scotia">Nova Scotia</option>
 					<option id="Nuevo Leon">Nuevo Leon</option>
+					<option id="Nunavut">Nunavut</option>
 					<option id="NV">NV</option>
 					<option id="NY">NY</option>
 					<option id="O">O</option>%
-					<option id="OA">OA</option>
-					<option id="OAX">OAX</option>
 					<option id="Oaxaca">Oaxaca</option>
 					<option id="OH">OH</option>
 					<option id="OK">OK</option>
@@ -1288,7 +1287,6 @@
 					<option id="Santiago, Region Met">Santiago, Region Met</option>
 					<option id="Sao Paulo">Sao Paulo</option>
 					<option id="Sarawak">Sarawak</option>
-					<option id="Saskatchew">Saskatchew</option>
 					<option id="Saskatchewan">Saskatchewan</option>
 					<option id="Savaii Island">Savaii Island</option>
 					<option id="SC">SC</option>
