@@ -22,7 +22,7 @@
 			<include src="base-procedure-loanin.xml,pahma-procedure-loanin.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-loanout.xml,pahma-procedure-loanout.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-media.xml,pahma-procedure-media.xml" merge="xmlmerge.properties"/>
-			<include src="base-procedure-valuationcontrol.xml"/>
+			<include src="base-procedure-valuationcontrol.xml,pahma-procedure-valuationcontrol.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-movement.xml,anthropology-procedure-movement.xml,pahma-procedure-movement.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-objectexit.xml,anthropology-procedure-objectexit.xml,pahma-procedure-objectexit.xml" merge="xmlmerge.properties"/>
 

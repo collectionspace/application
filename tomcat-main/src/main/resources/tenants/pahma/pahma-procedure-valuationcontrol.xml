@@ -1,0 +1,13 @@
+<record id="valuationcontrol">
+    <section id="objectValuationInformation">
+        <field id="valueType">
+            <options>
+                <option id="">Please select a value</option>
+                <option id="Current value">Current value</option>
+                <option id="Historic value">Historic value</option>
+                <option id="Original value">Original value</option>
+                <option id="Replacement value">Replacement value</option>
+            </options>
+        </field>
+    </section>
+</record>
