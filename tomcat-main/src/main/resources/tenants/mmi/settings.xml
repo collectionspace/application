@@ -1,6 +1,6 @@
 <settings>
     <admin>
-        <username>admin@movingimage.us</username>
+        <username>admin@cspace.movingimage.us</username>
         <password>Administrator</password>
         <tenant>5</tenant>
         <tenantname>mmi</tenantname>
@@ -24,7 +24,7 @@
     </admin>
     <email>
         <baseurl>http://localhost:8180</baseurl>
-        <from>admin@movingimage.us</from>
+        <from>admin@cspace.movingimage.us</from>
         <to></to>
         <!-- if specified then all emails will send to this address - used for debugging -->
         <smtp>
@@ -51,12 +51,13 @@
             <url>http://localhost:8180/cspace-services</url>
 			<tenant>
 				<id>5</id>
-				<name>movingimage.us</name>
+				<name>cspace.movingimage.us</name>
 				<version>0.1</version>
 				<display-name>Collectionspace MMI Tenant</display-name>
 			</tenant>
 			<repository>
-				<domain>mmi-domain</domain>
+				<domain>mmi</domain>
+				<name>mmi</name>
 				<client>nuxeo-java</client>
 				<dateformats>
 					<pattern>MM/dd/yyyy</pattern>
