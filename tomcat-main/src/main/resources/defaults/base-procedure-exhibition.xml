@@ -1,0 +1,75 @@
+<record id="exhibition" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
+    <services-url>exhibitions</services-url>
+    <services-tenant-plural>Exhibitions</services-tenant-plural>
+    <services-tenant-singular>Exhibition</services-tenant-singular>
+    <services-list-path>abstract-common-list/list-item</services-list-path>
+    <services-record-path>exhibitions_common:http://collectionspace.org/services/exhibition,exhibitions_common</services-record-path>
+    <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+    <hassoftdelete>true</hassoftdelete>
+    <structures>
+        <structure id="search">
+            <view>
+                <label-section id="messagekeys" show="true"></label-section>
+            </view>
+        </structure>
+        <structure id="screen">
+            <view>
+                <label-section id="messagekeys" show="true"></label-section>
+            </view>
+        </structure>
+        <structure id="tab">
+            <view>
+                <titlebar show="false"></titlebar>
+                <sidebar show="false"></sidebar>
+                <edit-section id="details" show="true"></edit-section>
+                <list-section id="list" show="false"></list-section>
+                <label-section id="messagekeys" show="true"></label-section>
+            </view>
+            <repeat id="list" asSibling="true">
+                <selector>recordList-row:</selector>
+                <field id="summary" ui-type="list">
+                    <selector>related-summary</selector>
+                </field>
+                <field id="number" ui-type="list">
+                    <selector>related-number</selector>
+                </field>
+            </repeat>
+        </structure>
+    </structures>
+    
+    <include src="domain-procedure-exhibition.xml" strip-root="yes"/>
+    
+    <row-selector>.csc-recordList-row:</row-selector>
+    <section id="coreInformation">
+        <include src="core-fields.xml" strip-root="yes" />
+    </section>
+    <section id="exhibitionInformation">
+        <field id="exhibitionNumber" ui-search="repeatable" in-title="yes" mini="number,search,list,relate"/>
+        <field id="title" ui-search="repeatable" mini="summary,search,list,relate"/>
+        <field id="type" ui-search="repeatable" autocomplete="vocab-exhibitiontype" ui-type="enum"/>
+        
+        <repeat id="venueGroupList/venueGroup">
+            <field id="venue" ui-search="repeatable"/>
+            <field id="venueOpeningDate" ui-search="range" ui-type="date" datatype="date"/>
+            <field id="venueClosingDate" ui-search="range" ui-type="date" datatype="date"/>
+            <field id="venueAttendance"/>
+            <field id="venueUrl" ui-type="externalURL"/>
+        </repeat>
+        
+        <field id="planningNote"/>
+        <field id="curatorialNote"/>
+        <field id="generalNote"/>
+
+        <repeat id="exhibitionPersonGroupList/exhibitionPersonGroup">
+            <field id="exhibitionPerson" autocomplete="person-person,person-ulan_pa"/>
+            <field id="exhibitionPersonRole" autocomplete="vocab-exhibitionpersonrole" ui-type="enum"/>
+        </repeat>
+        
+        <field id="boilerplateText"/>
+        
+        <repeat id="exhibitionReferenceGroupList/exhibitionReferenceGroup">
+            <field id="exhibitionReference" autocomplete="citation-citation,citation-worldcat"/>
+            <field id="exhibitionReferenceNote"/>
+        </repeat>
+     </section>
+</record>

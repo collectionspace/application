@@ -292,4 +292,18 @@
                                 <option id="facsimile">Facsimile of</option>                                
                         </options>
                     </instance>                                       
+                    <instance id="vocab-exhibitiontype">
+                        <web-url>exhibitiontype</web-url>
+                        <title-ref>exhibitiontype</title-ref>
+                        <title>exhibitiontype</title>
+                        <options>
+                        </options>
+                    </instance>
+                    <instance id="vocab-exhibitionpersonrole">
+                        <web-url>exhibitionpersonrole</web-url>
+                        <title-ref>exhibitionpersonrole</title-ref>
+                        <title>exhibitionpersonrole</title>
+                        <options>
+                        </options>
+                    </instance>
 </instances>
