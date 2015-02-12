@@ -308,9 +308,23 @@
 		<title>relationtypeType</title>
 		<options>
 			<option id="monography">monography (published in)</option> 
-				<option id="magazine">magazine (published in)</option> 
-				<option id="exhibition">exhibition</option> 
-				<option id="facsimile">facsimile of</option>
+			<option id="magazine">magazine (published in)</option> 
+			<option id="exhibition">exhibition</option> 
+			<option id="facsimile">facsimile of</option>
+		</options>
+	</instance>
+	<instance id="vocab-exhibitiontype">
+		<web-url>exhibitiontype</web-url>
+		<title-ref>exhibitiontype</title-ref>
+		<title>exhibitiontype</title>
+		<options>
+		</options>
+	</instance>
+	<instance id="vocab-exhibitionpersonrole">
+		<web-url>exhibitionpersonrole</web-url>
+		<title-ref>exhibitionpersonrole</title-ref>
+		<title>exhibitionpersonrole</title>
+		<options>
 		</options>
 	</instance>
 </instances>

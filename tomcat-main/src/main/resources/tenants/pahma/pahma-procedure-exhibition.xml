@@ -1,0 +1,7 @@
+<record id="exhibition">
+    <section id="exhibitionInformation">
+        <repeat id="exhibitionPersonGroupList/exhibitionPersonGroup">
+            <!-- Remove person-ulan_pa from autocomplete -->
+            <field id="exhibitionPerson" autocomplete="person-person"/>
+        </repeat>
+</record>

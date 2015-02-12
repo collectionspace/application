@@ -17,6 +17,7 @@
 			<include src="base-procedure-blobs.xml"/>
 			<include src="base-procedure-claim.xml,anthropology-procedure-claim.xml,pahma-procedure-claim.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-conditioncheck.xml"/>
+			<include src="base-procedure-exhibition.xml"/>
 			<include src="base-procedure-groups.xml,pahma-procedure-groups.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-intake.xml,pahma-procedure-intake.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-loanin.xml,pahma-procedure-loanin.xml" merge="xmlmerge.properties"/>
