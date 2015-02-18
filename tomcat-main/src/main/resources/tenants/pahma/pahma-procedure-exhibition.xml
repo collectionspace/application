@@ -1,4 +1,6 @@
-<record id="exhibition">
+<record id="exhibition" is-extension="true">
+	<services-record-path id="pahma">exhibitions_pahma:http://collectionspace.org/services/exhibition/local/pahma,exhibitions_pahma</services-record-path>
+
     <section id="exhibitionInformation">
         <repeat id="exhibitionPersonGroupList/exhibitionPersonGroup">
             <!-- Remove person-ulan_pa from autocomplete -->
@@ -8,6 +10,95 @@
         <repeat id="exhibitionReferenceGroupList/exhibitionReferenceGroup">
             <!-- Remove citation-worldcat from autocomplete -->
             <field id="exhibitionReference" autocomplete="citation-citation"/>
+        </repeat>
+        
+        <!-- Local fields -->
+        
+        <repeat id="galleryRotationGroupList/galleryRotationGroup" section="pahma">
+            <field id="galleryRotationName" section="pahma"/>
+            <group id="galleryRotationStartDateGroup" section="pahma" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
+                <!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
+                <field id="dateDisplayDate" section="pahma"/>
+                <field id="dateAssociation" section="pahma"/>
+                <field id="dateEarliestSingleYear" section="pahma"/>
+                <field id="dateEarliestSingleMonth" section="pahma"/>
+                <field id="dateEarliestSingleDay" section="pahma"/>
+                <field id="dateEarliestSingleEra" section="pahma"/>
+                <field id="dateEarliestSingleCertainty" section="pahma"/>
+                <field id="dateEarliestSingleQualifier" section="pahma"/>
+                <field id="dateEarliestSingleQualifierValue" section="pahma"/>
+                <field id="dateEarliestSingleQualifierUnit" section="pahma"/>
+                <field id="dateLatestYear" section="pahma"/>
+                <field id="dateLatestMonth" section="pahma"/>
+                <field id="dateLatestDay" section="pahma"/>
+                <field id="dateLatestEra" section="pahma"/>
+                <field id="dateLatestCertainty" section="pahma"/>
+                <field id="dateLatestQualifier" section="pahma"/>
+                <field id="dateLatestQualifierValue" section="pahma"/>
+                <field id="dateLatestQualifierUnit" section="pahma"/>
+                <field id="datePeriod" section="pahma"/>
+                <field id="dateNote" section="pahma"/>
+                <field id="dateEarliestScalarValue" section="pahma"/>
+                <field id="dateLatestScalarValue" section="pahma"/>
+                <field id="scalarValuesComputed" section="pahma"/>
+            </group>
+            <group id="galleryRotationEndDateGroup" section="pahma" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
+                <!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
+                <field id="dateDisplayDate" section="pahma"/>
+                <field id="dateAssociation" section="pahma"/>
+                <field id="dateEarliestSingleYear" section="pahma"/>
+                <field id="dateEarliestSingleMonth" section="pahma"/>
+                <field id="dateEarliestSingleDay" section="pahma"/>
+                <field id="dateEarliestSingleEra" section="pahma"/>
+                <field id="dateEarliestSingleCertainty" section="pahma"/>
+                <field id="dateEarliestSingleQualifier" section="pahma"/>
+                <field id="dateEarliestSingleQualifierValue" section="pahma"/>
+                <field id="dateEarliestSingleQualifierUnit" section="pahma"/>
+                <field id="dateLatestYear" section="pahma"/>
+                <field id="dateLatestMonth" section="pahma"/>
+                <field id="dateLatestDay" section="pahma"/>
+                <field id="dateLatestEra" section="pahma"/>
+                <field id="dateLatestCertainty" section="pahma"/>
+                <field id="dateLatestQualifier" section="pahma"/>
+                <field id="dateLatestQualifierValue" section="pahma"/>
+                <field id="dateLatestQualifierUnit" section="pahma"/>
+                <field id="datePeriod" section="pahma"/>
+                <field id="dateNote" section="pahma"/>
+                <field id="dateEarliestScalarValue" section="pahma"/>
+                <field id="dateLatestScalarValue" section="pahma"/>
+                <field id="scalarValuesComputed" section="pahma"/>
+            </group>
+            <field id="galleryRotationNote" section="pahma"/>
+        </repeat>
+    </section>
+    
+    <section id="exhibitionPlanningInformation">
+        <repeat id="exhibitionSectionGroupList/exhibitionSectionGroup" section="pahma">
+            <field id="exhibitionSectionName" section="pahma"/>
+            <field id="exhibitionSectionLocation" section="pahma"/>
+            <field id="exhibitionSectionObjects" section="pahma"/>
+            <field id="exhibitionSectionNote" section="pahma"/>
+        </repeat>
+        
+        <repeat id="exhibitionStatusGroupList/exhibitionStatusGroup" section="pahma">
+            <field id="exhibitionStatus" section="pahma"/>
+            <field id="exhibitionStatusDate" section="pahma" ui-type="date" datatype="date"/>
+            <field id="exhibitionStatusNote" section="pahma"/>
+        </repeat>
+    </section>
+    
+    <section id="exhibitionObjectInformation">
+        <repeat id="exhibitionObjectGroupList/exhibitionObjectGroup" section="pahma">
+            <field id="exhibitionObjectNumber" section="pahma"/>
+            <field id="exhibitionObjectName" section="pahma"/>
+            <field id="exhibitionObjectConsCheckDate" section="pahma" ui-type="date" datatype="date"/>
+            <field id="exhibitionObjectConsTreatmentDate" section="pahma" ui-type="date" datatype="date"/>
+            <field id="exhibitionObjectMount" section="pahma" datatype="boolean"/>
+            <field id="exhibitionObjectSection" section="pahma"/>
+            <field id="exhibitionObjectCase" section="pahma"/>
+            <field id="exhibitionObjectSeqNum" section="pahma"/>
+            <field id="exhibitionObjectRotation" section="pahma"/>
+            <field id="exhibitionObjectNote" section="pahma"/>
         </repeat>
     </section>
 </record>
