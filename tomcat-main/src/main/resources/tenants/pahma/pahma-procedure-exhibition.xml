@@ -4,4 +4,10 @@
             <!-- Remove person-ulan_pa from autocomplete -->
             <field id="exhibitionPerson" autocomplete="person-person"/>
         </repeat>
+        
+        <repeat id="exhibitionReferenceGroupList/exhibitionReferenceGroup">
+            <!-- Remove citation-worldcat from autocomplete -->
+            <field id="exhibitionReference" autocomplete="citation-citation"/>
+        </repeat>
+    </section>
 </record>
