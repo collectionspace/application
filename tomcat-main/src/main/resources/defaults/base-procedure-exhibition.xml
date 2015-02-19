@@ -45,7 +45,7 @@
     </section>
     <section id="exhibitionInformation">
         <field id="exhibitionNumber" ui-search="repeatable" in-title="yes" mini="number,search,list,relate"/>
-        <field id="title" ui-search="repeatable" mini="summary,search,list,relate"/>
+        <field id="title" ui-search="repeatable" mini="summary,search,list,relate" services-schema-qualify="true"/>
         <field id="type" ui-search="repeatable" autocomplete="vocab-exhibitiontype" ui-type="enum"/>
         
         <repeat id="venueGroupList/venueGroup">
