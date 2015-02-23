@@ -3,8 +3,7 @@
     <!-- Information about your extension schema goes here -->
     <services-record-path id="mmi">acquisitions_mmi:http://collectionspace.org/services/acquisition/local/mmi,acquisitions_mmi</services-record-path>
     <section id="acquisitionInformation">
-        <field id="acquisitionMethod" ui-search="repeatable" seperate_ui_container="true" section="acquisitionInformation">
-            <selector>acquisition-acquisition-method</selector>
+        <field id="acquisitionMethod">
             <options>
                 <option id="gift" default="yes">Gift</option>
                 <option id="purchase">Purchase</option>
@@ -16,5 +15,4 @@
 
         <field id="extent" section="mmi" datatype="text"></field>
     </section>
-
 </record>
