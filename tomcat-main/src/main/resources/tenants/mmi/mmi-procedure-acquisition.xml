@@ -1,0 +1,22 @@
+<record id="acquisition" is-extension="true" type="record,procedure">
+
+    <!-- Information about your extension schema goes here -->
+    <services-record-path id="mmi">acquisitions_mmi:http://collectionspace.org/services/acquisition/local/mmi,acquisitions_mmi</services-record-path>
+    <section id="acquisitionInformation">
+        <field id="accessionDateGroup" datatype="date" ui-type="date">
+            <selector>acquisition-accessionDateGroup</selector>
+            <container-selector>acquisition-accessionDateGroup-container</container-selector>
+        </field>
+        <field id="acquisitionMethod">
+            <options>
+                <option id="gift" default="yes">Gift</option>
+                <option id="purchase">Purchase</option>
+                <option id="bequest">Bequest</option>
+                <option id="loan">Loan</option>
+                <option id="restricted-gift">Restricted Gift</option>
+            </options>
+        </field>
+
+        <field id="extent" section="mmi" datatype="text"></field>
+    </section>
+</record>

@@ -1,7 +1,7 @@
 <cspace-config tenantname="mmi">
 
 	<version>11</version>
-	<include src="settings.xml,local-mmi-settings.xml" merge="xmlmerge-settings.properties"
+	<include src="settings.xml,local-mmi-settings.xml" merge="xmlmerge-setting.properties"
 		strip-root="yes" />
 
 	<spec>
@@ -14,7 +14,8 @@
 			<include src="base-collectionobject.xml"/>
 			<include src="base-authority.xml"/>
 
-			<include src="base-procedure-acquisition.xml"/>
+			<include src="base-procedure-acquisition.xml,mmi-procedure-acquisition.xml"
+                     merge="xmlmerge.properties"/>
 			<include src="base-procedure-blobs.xml"/>
 			<include src="base-procedure-conditioncheck.xml"/>
 			<include src="base-procedure-groups.xml"/>
