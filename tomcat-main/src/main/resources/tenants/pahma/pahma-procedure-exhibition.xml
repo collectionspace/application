@@ -81,7 +81,7 @@
         </repeat>
         
         <repeat id="exhibitionStatusGroupList/exhibitionStatusGroup" section="pahma">
-            <field id="exhibitionStatus" section="pahma"/>
+            <field id="exhibitionStatus" section="pahma" autocomplete="vocab-exhibitionstatus" ui-type="enum"/>
             <field id="exhibitionStatusDate" section="pahma" ui-type="date" datatype="date"/>
             <field id="exhibitionStatusNote" section="pahma"/>
         </repeat>
