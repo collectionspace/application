@@ -297,6 +297,9 @@
                         <title-ref>exhibitiontype</title-ref>
                         <title>exhibitiontype</title>
                         <options>
+                            <option id="permanent">Permanent</option>
+                            <option id="temporary">Temporary</option>
+                            <option id="traveling">Traveling</option>
                         </options>
                     </instance>
                     <instance id="vocab-exhibitionpersonrole">
@@ -304,6 +307,18 @@
                         <title-ref>exhibitionpersonrole</title-ref>
                         <title>exhibitionpersonrole</title>
                         <options>
+                            <option id="curator">Curator</option>
+                            <option id="exhibitdesigner">Exhibit designer</option>
+                            <option id="exhibitioncoordinator">Exhibition coordinator</option>
+                            <option id="curatorialassistant">Curatorial assistant</option>
+                            <option id="educator">Educator</option>
+                            <option id="publicprogramscoordinator">Public programs coordinator</option>
+                            <option id="publicist">Publicist</option>
+                            <option id="conservator">Conservator</option>
+                            <option id="preparator">Preparator</option>
+                            <option id="imagemediaresearcher">Image/media researcher</option>
+                            <option id="webdesigner">Web designer</option>
+                            <option id="webdeveloper">Web developer</option>
                         </options>
                     </instance>
 </instances>
