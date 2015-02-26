@@ -35,8 +35,8 @@
         <displayName>has broader term</displayName>
         <directional>true</directional>
         <type>hierarchical</type>    
-        <sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media,conditionchecks,valuationcontrols</sourceTypes>
-        <destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media,conditionchecks,valuationcontrols</destinationTypes>
+        <sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media,conditionchecks,valuationcontrols,exhibitions</sourceTypes>
+        <destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media,conditionchecks,valuationcontrols,exhibitions</destinationTypes>
     </relation>
     <relation id="affects">
         <displayName>affects</displayName>
@@ -44,7 +44,7 @@
 				<!-- Groan - the code that handles generic relations uses services-url 
 						 as the types against which it checks, while the hierarchy code 
 						 uses the record id. Ugh. -->
-        <sourceTypes>collectionobjects,intakes,acquisitions,groups,loansin,loansout,movements,objectexit,media,conditionchecks,valuationcontrols,claims</sourceTypes>
-        <destinationTypes>collectionobjects,intakes,acquisitions,groups,loansin,loansout,movements,objectexit,media,conditionchecks,valuationcontrols,claims</destinationTypes>
+        <sourceTypes>collectionobjects,intakes,acquisitions,groups,loansin,loansout,movements,objectexit,media,conditionchecks,valuationcontrols,claims,exhibitions</sourceTypes>
+        <destinationTypes>collectionobjects,intakes,acquisitions,groups,loansin,loansout,movements,objectexit,media,conditionchecks,valuationcontrols,claims,exhibitions</destinationTypes>
     </relation>
 </relationships>

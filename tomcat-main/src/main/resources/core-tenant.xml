@@ -18,6 +18,7 @@
 			<include src="base-procedure-blobs.xml"/>
 			<include src="base-procedure-claim.xml"/>
 			<include src="base-procedure-conditioncheck.xml"/>
+			<include src="base-procedure-exhibition.xml"/>
 			<include src="base-procedure-groups.xml"/>
 			<include src="base-procedure-intake.xml"/>
 			<include src="base-procedure-loanin.xml"/>
