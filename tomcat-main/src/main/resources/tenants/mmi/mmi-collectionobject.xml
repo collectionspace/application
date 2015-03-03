@@ -2,9 +2,11 @@
 
     <!-- Information about your extension schema goes here -->
     <services-record-path id="mmi">collectionobjects_mmi:http://collectionspace.org/services/collectionobject/local/mmi,collectionobjects_mmi</services-record-path>
+    <section id="identificationInformation">
         <field id="administrativeRemarks" section="mmi" datatype="text" />
         <field id="provenance" section="mmi" datatype="text" />
         <field id="initialCataloging" section="mmi" datatype="boolean" />
         <field id="additionalResearch" section="mmi" datatype="boolean" />
         <field id="curatorApproved" section="mmi" datatype="boolean" />
+    </section>
 </record>
