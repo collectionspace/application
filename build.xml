@@ -20,7 +20,7 @@
           <!-- Copy and rename just the tenant config file for the template tenant -->
           <include name="${template.tenant.shortname}-tenant.xml"/>
       </fileset>
-      <mapper type="regexp" from="^(.*)(-tenant.xml)$" to="${tenant.shortname}\2" />
+      <mapper type="glob" from="*" to="${tenant.shortname}-tenant.xml" />
     </copy>
   </target>
   
