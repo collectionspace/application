@@ -28,10 +28,17 @@
        utility routines buildfile, and adds its own behavior specific to this
        CollectionSpace source code layer. -->
   <target name="update-text-in-cloned-tenant" depends="tenant-utils.update-text-in-cloned-tenant">
+    <!-- TODO: Isolate text replacements below, each in their own focused targets. -->
     <!-- Update text in the tenant config file. -->
     <replace file="${resources.dir}/${tenant.shortname}-tenant.xml" token="${template.tenant.shortname}"
       value="${tenant.shortname}">
     </replace>
+    <!-- Update text in the tenant settings file. -->
+    <replaceregexp
+        match="&lt;tenant&gt;(.*)&lt;/tenant&gt;"
+        replace="&lt;tenant&gt;${tenant.id}&lt;/tenant&gt;">
+    <fileset dir="${tenants.dir}/${tenant.shortname}" includes="settings.xml" />
+   </replaceregexp>
   </target>
     
 </project>
