@@ -1,0 +1,19 @@
+<project name="app-tenant-mgmt" default="clone-tenant" basedir=".">
+  <description>Manage Application layer folders and files containing per-tenant configurations</description>
+  
+  <!-- Location of the 'tenants' directory for this CollectionSpace source code layer. -->
+  <property name="src.dir" value="${basedir}" />
+  <property name="tenants.dir" value="${src.dir}/tomcat-main/src/main/resources/tenants"/>
+  
+  <!-- Imports a set of utility routines for managing tenant folders
+       from a separate Ant buildfile.
+       See http://wiki.apache.org/ant/NewAntFeaturesInDetail/Import -->
+  <import file="./tenant-utils-build.xml"/>
+  
+  <!-- This target inherits from an (essentially empty) target in the imported
+       utility routines buildfile, and adds its own behavior specific to this
+       CollectionSpace source code layer. -->
+  <target name="update-text-in-cloned-tenant" depends="tenant-utils.update-text-in-cloned-tenant">
+  </target>
+    
+</project>
