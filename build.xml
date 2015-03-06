@@ -3,12 +3,26 @@
   
   <!-- Location of the 'tenants' directory for this CollectionSpace source code layer. -->
   <property name="src.dir" value="${basedir}" />
-  <property name="tenants.dir" value="${src.dir}/tomcat-main/src/main/resources/tenants"/>
+  <property name="resources.dir" value="${src.dir}/tomcat-main/src/main/resources"/>
+  <property name="tenants.dir" value="${resources.dir}/tenants"/>
   
   <!-- Imports a set of utility routines for managing tenant folders
        from a separate Ant buildfile.
        See http://wiki.apache.org/ant/NewAntFeaturesInDetail/Import -->
   <import file="./tenant-utils-build.xml"/>
+  
+  <!-- This target inherits from an existing target in the imported
+       utility routines buildfile, and adds its own behavior specific to this
+       CollectionSpace source code layer. -->
+  <target name="clone-from-template" depends="tenant-utils.clone-from-template">
+    <copy todir="${resources.dir}">
+      <fileset dir="${resources.dir}" casesensitive="yes">
+          <!-- Copy and rename just the tenant config file for the template tenant -->
+          <include name="${template.tenant.shortname}-tenant.xml"/>
+      </fileset>
+      <mapper type="regexp" from="^(.*)(-tenant.xml)$" to="${tenant.shortname}\2" />
+    </copy>
+  </target>
   
   <!-- This target inherits from an (essentially empty) target in the imported
        utility routines buildfile, and adds its own behavior specific to this
