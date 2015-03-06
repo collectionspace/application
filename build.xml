@@ -28,6 +28,10 @@
        utility routines buildfile, and adds its own behavior specific to this
        CollectionSpace source code layer. -->
   <target name="update-text-in-cloned-tenant" depends="tenant-utils.update-text-in-cloned-tenant">
+    <!-- Update text in the tenant config file. -->
+    <replace file="${resources.dir}/${tenant.shortname}-tenant.xml" token="${template.tenant.shortname}"
+      value="${tenant.shortname}">
+    </replace>
   </target>
     
 </project>
