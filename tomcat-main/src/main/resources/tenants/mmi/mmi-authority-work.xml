@@ -1,0 +1,21 @@
+<record id="work">
+    <section id="workAuthorityInformation">
+        <field id="genre" autocomplete="vocab-genre" ui-type="enum" />
+        <field id="medium" autocomplete="vocab-medium" ui-type="enum" />
+        <repeat id="migratedEntityGroupList/migratedEntityGroup">
+            <field id="migratedEntity"  />
+            <field id="migratedEntityType"  >
+                <selector>workAuthority-migratedEntitmmiyType</selector>
+                <options>
+                    <option id="artist">Artist</option>
+                    <option id="director">Director</option>
+                    <option id="publishingcompany">Publishing company</option>
+                    <option id="developer">Developer</option>
+                    <option id="productioncompany">Production company</option>
+                    <option id="network-cableservice">Network/cable service</option>
+                    <option id="distributioncompany">Distribution company</option>
+                </options>
+            </field>
+        </repeat>
+    </section>
+</record>
