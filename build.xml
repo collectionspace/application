@@ -15,13 +15,8 @@
        utility routines buildfile, and adds its own behavior specific to this
        CollectionSpace source code layer. -->
   <target name="clone-from-template" depends="tenant-utils.clone-from-template">
-    <copy todir="${resources.dir}">
-      <fileset dir="${resources.dir}" casesensitive="yes">
-          <!-- Copy and rename just the tenant config file for the template tenant -->
-          <include name="${template.tenant.shortname}-tenant.xml"/>
-      </fileset>
-      <mapper type="glob" from="*" to="${tenant.shortname}-tenant.xml" />
-    </copy>
+    <copy file="${resources.dir}/${template.tenant.shortname}-tenant.xml"
+       tofile="${resources.dir}/${tenant.shortname}-tenant.xml"/>
   </target>
   
   <!-- This target inherits from an (essentially empty) target in the imported
