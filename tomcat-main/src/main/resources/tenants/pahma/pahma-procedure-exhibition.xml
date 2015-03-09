@@ -91,7 +91,8 @@
         <repeat id="exhibitionObjectGroupList/exhibitionObjectGroup" section="pahma">
             <field id="exhibitionObjectNumber" section="pahma"/>
             <field id="exhibitionObjectName" section="pahma"/>
-            <field id="exhibitionObjectConsCheck" section="pahma">
+            <field id="exhibitionObjectConsCheckDate" section="pahma" ui-type="date" datatype="date"/>
+            <field id="exhibitionObjectConsTreatment" section="pahma">
                 <options>
                     <option id="" default="yes">Please select a value</option>
                     <option id="Needed">Needed</option>
@@ -99,7 +100,6 @@
                     <option id="Done">Done</option>
                 </options>
             </field>
-            <field id="exhibitionObjectConsTreatmentDate" section="pahma" ui-type="date" datatype="date"/>
             <field id="exhibitionObjectMount" section="pahma">
                 <options>
                     <option id="" default="yes">Please select a value</option>
