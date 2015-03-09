@@ -18,10 +18,27 @@
   <!-- This target inherits from an existing target in the imported
        utility routines buildfile, and adds its own behavior specific to this
        CollectionSpace source code layer. -->
-  <target name="clone-from-template" depends="tenant-utils.clone-from-template">
+  <target name="clone-other-template-files"
+    depends="tenant-utils.clone-other-template-files,
+    clone-tenant-schema-config-file">
+  </target>
+  
+  <target name="clone-tenant-schema-config-file">
     <copy file="${resources.dir}/${template.tenant.shortname}-tenant.xml"
        tofile="${resources.dir}/${tenant.shortname}-tenant.xml"/>
-  </target>
+   </target>
+   
+   <!-- This target inherits from an existing target in the imported
+        utility routines buildfile, and adds its own behavior specific to this
+        CollectionSpace source code layer. -->
+   <target name="rename-files" depends="tenant-utils.rename-files">
+     <move todir="${tenants.dir}/${tenant.shortname}" includeemptydirs="false">
+       <fileset dir="${tenants.dir}/${tenant.shortname}">
+         <exclude name="**/*.bak"/>
+       </fileset>
+       <mapper type="regexp" from="^(.*?)${template.tenant.shortname}(.*)$" to="\1${tenant.shortname}\2"/>
+     </move>
+   </target>
   
   <!-- This target inherits from an (essentially empty) target in the imported
        utility routines buildfile, and adds its own behavior specific to this
