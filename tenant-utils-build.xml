@@ -66,13 +66,12 @@
     <echo message="tenant.shortname=${tenant.shortname}"/>
   </target>
   
+  <!-- Check that any required per-tenant properties, beyond the tenant shortname,
+       have been defined and are non-blank.
+       This (essentially empty) target is intended to be inherited and overridden by
+       each Ant buildfile that imports this tenant-utils buildfile. -->
   <target name="check-tenant-extended-properties">
     <echo message="Checking that required tenant extended properties have been set ..."/>
-    <!-- Short name of the new tenant to create -->
-    <antcall target="check-property-is-defined">
-      <param name="property-to-check" value="tenant.internet.domain"/>
-    </antcall>
-    <echo message="tenant.internet.domain=${tenant.internet.domain}"/>
   </target>
  
   <target name="check-property-is-defined">
@@ -97,7 +96,7 @@
     </condition>
   </target>
   
-  <target name="tenant-exists" depends="check-tenant-properties">
+  <target name="tenant-exists" depends="check-tenant-properties,check-tenant-extended-properties">
     <condition property="tenant.exists">
       <available file="${tenants.dir}/${tenant.shortname}" type="dir"/>
     </condition>

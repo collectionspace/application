@@ -88,5 +88,20 @@
     </replace>
   </target>
  
+  <!-- This target inherits from an (essentially empty) target in the imported
+       utility routines buildfile, and adds its own behavior specific to this
+       CollectionSpace source code layer. -->
+  <target name="check-tenant-extended-properties" 
+    depends="tenant-utils.check-tenant-extended-properties">
+    <!-- ID of the new tenant to create -->
+    <antcall target="check-property-is-defined">
+      <param name="property-to-check" value="tenant.id"/>
+    </antcall>
+    <antcall target="check-property-value-is-not-blank">
+      <param name="property-to-check" value="tenant.id"/>
+      <param name="property-to-check-value" value="${tenant.id}"/>
+    </antcall>
+    <echo message="tenant.id=${tenant.id}"/>
+  </target>
     
 </project>
