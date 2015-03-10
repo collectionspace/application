@@ -8,6 +8,8 @@
   
   <!-- Location of the settings file for the newly-cloned tenant. -->
   <property name="settings.file.name" value="settings.xml"/>
+  <property name="template.settings.file"
+    value="${tenants.dir}/${template.tenant.shortname}/${settings.file.name}"/>
   <property name="tenant.settings.file" value="${tenants.dir}/${tenant.shortname}/${settings.file.name}"/>
   
   <!-- Imports a set of utility routines for managing tenant folders
@@ -58,6 +60,8 @@
     depends="update-tenant-id-in-tenant-settings,
     update-tenant-display-name-in-tenant-settings,
     update-tenant-meta-title-in-tenant-settings,
+    extract-template-tenant-internet-domain,
+    update-tenant-internet-domain-in-tenant-settings,
     update-tenant-shortname-in-tenant-settings">
   </target>
   
@@ -91,10 +95,31 @@
       flags="i">
     </replaceregexp>
   </target>
+
   
+  <target name="extract-template-tenant-internet-domain" depends="tenant-utils.check-template-properties">
+    <xmlproperty file="${template.settings.file}"/>
+    <!-- Will retrieve the template tenant's Internet domain from XPath -->
+    <!-- /settings/persistence/service/tenant/name and store its value -->
+    <!-- in a property of the same name, using dots as delimiters rather than slashes -->
+    <property name="template.internet.domain" value="${settings.persistence.service.tenant.name}"/>
+    <echo message="template.internet.domain=${template.internet.domain}"/>
+  </target>
+  
+  <target name="update-tenant-internet-domain-in-tenant-settings">
+   <!-- Note: this text replacement is brute-force and will even replace sub-strings,
+        if found, so you'll need to ensure that the template tenant's Internet domain is a
+        unique string: that it won't be inadvertently contained within text elsewhere. -->
+   <!-- TODO: Perform more nuanced replacements to avoid the problem described above. 
+        (See the Ant ReplaceRegExp task for one potential approach when doing so.) -->
+    <replace file="${tenant.settings.file}" token="${template.internet.domain}"
+      value="${tenant.internet.domain}">
+    </replace>
+  </target>
+   
   <target name="update-tenant-shortname-in-tenant-settings">
    <!-- Note: this text replacement is brute-force and will even replace sub-strings,
-        if found, so you'll need to ensure that your 'template tenant' shortname is a
+        if found, so you'll need to ensure that the template tenant's shortname is a
         unique string: that it won't be inadvertently contained within text elsewhere. -->
    <!-- TODO: Perform more nuanced replacements to avoid the problem described above. 
         (See the Ant ReplaceRegExp task for one potential approach when doing so.) -->
@@ -102,7 +127,7 @@
       value="${tenant.shortname}">
     </replace>
   </target>
- 
+
   <!-- This target inherits from an (essentially empty) target in the imported
        utility routines buildfile, and adds its own behavior specific to this
        CollectionSpace source code layer. -->
@@ -117,6 +142,15 @@
       <param name="property-to-check-value" value="${tenant.id}"/>
     </antcall>
     <echo message="tenant.id=${tenant.id}"/>
+    <!-- Internet domain of the new tenant to create -->
+    <antcall target="check-property-is-defined">
+      <param name="property-to-check" value="tenant.internet.domain"/>
+    </antcall>
+    <antcall target="check-property-value-is-not-blank">
+      <param name="property-to-check" value="tenant.internet.domain"/>
+      <param name="property-to-check-value" value="${tenant.internet.domain}"/>
+    </antcall>
+    <echo message="tenant.internet.domain=${tenant.internet.domain}"/>
   </target>
     
 </project>
