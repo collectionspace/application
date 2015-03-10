@@ -49,7 +49,7 @@
         <field id="type" ui-search="repeatable" autocomplete="vocab-exhibitiontype" ui-type="enum"/>
         
         <repeat id="venueGroupList/venueGroup">
-            <field id="venue" ui-search="repeatable"/>
+            <field id="venue" ui-search="repeatable" autocomplete="organization-organization,organization-ulan_oa,location-location,location-offsite_sla,place-place,place-tgn_place"/>
             <field id="venueOpeningDate" ui-search="range" ui-type="date" datatype="date"/>
             <field id="venueClosingDate" ui-search="range" ui-type="date" datatype="date"/>
             <field id="venueAttendance"/>
@@ -61,7 +61,7 @@
         <field id="generalNote"/>
 
         <repeat id="exhibitionPersonGroupList/exhibitionPersonGroup">
-            <field id="exhibitionPerson" autocomplete="person-person,person-ulan_pa"/>
+            <field id="exhibitionPerson" autocomplete="person-person,person-ulan_pa,organization-organization,organization-ulan_oa"/>
             <field id="exhibitionPersonRole" autocomplete="vocab-exhibitionpersonrole" ui-type="enum"/>
         </repeat>
         
@@ -69,6 +69,7 @@
         
         <repeat id="exhibitionReferenceGroupList/exhibitionReferenceGroup">
             <field id="exhibitionReference" autocomplete="citation-citation,citation-worldcat"/>
+            <field id="exhibitionReferenceType" autocomplete="vocab-exhibitionreferencetype" ui-type="enum"/>
             <field id="exhibitionReferenceNote"/>
         </repeat>
      </section>
