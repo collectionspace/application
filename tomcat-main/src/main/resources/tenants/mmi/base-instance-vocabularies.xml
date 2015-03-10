@@ -312,5 +312,14 @@
             <option id="short">Short</option>
         </options>
     </instance>
+    <instance id="vocab-mediastatus">
+        <web-url>mediastatus</web-url>
+        <title-ref>mediastatus</title-ref>
+        <title>Media Status</title>
+        <options>
+            <option id="display">Display</option>
+            <option id="private">Private</option>
+        </options>
+    </instance>
 
 </instances>

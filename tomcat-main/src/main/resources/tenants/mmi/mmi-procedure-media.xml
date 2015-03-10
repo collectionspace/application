@@ -1,0 +1,10 @@
+<record id="media" is-extension="true" type="record,procedure">
+
+    <!-- Information about your extension schema goes here -->
+    <services-record-path id="mmi">media_mmi:http://collectionspace.org/services/media/local/mmi,media_mmi</services-record-path>
+    <section id="mediaInformation">
+        <field id="isPrimary" datatype="boolean" section="mmi" />
+        <field id="isOriginalMedia" datatype="boolean" section="mmi" />
+        <field id="status" autocomplete="vocab-mediastatus" ui-type="enum" section="mmi" />
+    </section>
+</record>
