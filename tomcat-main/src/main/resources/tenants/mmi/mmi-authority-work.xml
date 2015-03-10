@@ -5,8 +5,9 @@
         <repeat id="migratedEntityGroupList/migratedEntityGroup">
             <field id="migratedEntity"  />
             <field id="migratedEntityType"  >
-                <selector>workAuthority-migratedEntitmmiyType</selector>
+                <selector>work-migratedEntityType</selector>
                 <options>
+                    <option id="" default="yes">Please select a value</option>
                     <option id="artist">Artist</option>
                     <option id="director">Director</option>
                     <option id="publishingcompany">Publishing company</option>
