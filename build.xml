@@ -96,12 +96,11 @@
     </replaceregexp>
   </target>
 
-  
   <target name="extract-template-tenant-internet-domain" depends="tenant-utils.check-template-properties">
-    <xmlproperty file="${template.settings.file}"/>
-    <!-- Will retrieve the template tenant's Internet domain from XPath -->
-    <!-- /settings/persistence/service/tenant/name and store its value -->
+    <!-- Will retrieve the template tenant's Internet domain from the text node at -->
+    <!-- XPath /settings/persistence/service/tenant/name and store its value -->
     <!-- in a property of the same name, using dots as delimiters rather than slashes -->
+    <xmlproperty file="${template.settings.file}"/>
     <property name="template.internet.domain" value="${settings.persistence.service.tenant.name}"/>
     <echo message="template.internet.domain=${template.internet.domain}"/>
   </target>
