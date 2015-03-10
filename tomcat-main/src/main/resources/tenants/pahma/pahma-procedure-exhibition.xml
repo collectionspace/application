@@ -2,9 +2,14 @@
 	<services-record-path id="pahma">exhibitions_pahma:http://collectionspace.org/services/exhibition/local/pahma,exhibitions_pahma</services-record-path>
 
     <section id="exhibitionInformation">
+        <!-- Remvove organization-ulan_oa, location-offsite_sla, place-tgn_place from autocomplete -->
+        <repeat id="venueGroupList/venueGroup">
+            <field id="venue" autocomplete="organization-organization,location-location,place-place"/>
+        </repeat>
+
         <repeat id="exhibitionPersonGroupList/exhibitionPersonGroup">
-            <!-- Remove person-ulan_pa from autocomplete -->
-            <field id="exhibitionPerson" autocomplete="person-person"/>
+            <!-- Remove person-ulan_pa, organization-ulan_oa from autocomplete -->
+            <field id="exhibitionPerson" autocomplete="person-person,organization-organization"/>
         </repeat>
         
         <repeat id="exhibitionReferenceGroupList/exhibitionReferenceGroup">
