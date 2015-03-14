@@ -17,8 +17,12 @@
   
   <!-- Main target -->
   
-  <target name="clone-tenant" depends="clone-template-folder,
-    clone-other-template-files,rename-files,update-text-in-cloned-tenant"
+  <target name="clone-tenant"
+    depends="clone-template-folder,
+    clone-other-template-files,
+    rename-files-in-cloned-tenant,
+    delete-files-in-cloned-tenant,
+    update-text-in-cloned-tenant"
     description="Make a copy ('clone') of an existing tenant (used as a template) to create a new tenant">
   </target>
   
@@ -40,13 +44,19 @@
   
   <!-- This (essentially empty) target can be inherited and overridden by
        any Ant buildfile that imports this tenant-utils buildfile. -->
-  <target name="rename-files" depends="clone-other-template-files">
+  <target name="rename-files-in-cloned-tenant" depends="clone-other-template-files">
     <echo message="Renaming files, where applicable ..."/>
   </target>
+  
+  <!-- This (essentially empty) target can be inherited and overridden by
+       any Ant buildfile that imports this tenant-utils buildfile. -->
+  <target name="delete-files-in-cloned-tenant" depends="rename-files-in-cloned-tenant">
+    <echo message="Deleting files, where applicable ..."/>
+  </target>  
 
   <!-- This (essentially empty) target can be inherited and overridden by
        any Ant buildfile that imports this tenant-utils buildfile. -->
-  <target name="update-text-in-cloned-tenant" depends="rename-files">
+  <target name="update-text-in-cloned-tenant" depends="delete-files-in-cloned-tenant">
     <echo message="Updating text in the newly-cloned tenant ..."/>
   </target>
 
