@@ -47,11 +47,46 @@
         <field id="osteologyNumber" ui-search="repeatable" in-title="yes" mini="number,search,list,relate"/>
         <field id="note"/>
         
-        <field id="Humerus_L_complete"/>
         <field id="Humerus_L_JS_D"/>
         <field id="Humerus_L_JS_P"/>
         <field id="Humerus_L_shaft_D"/>
         <field id="Humerus_L_shaft_M"/>
         <field id="Humerus_L_shaft_P"/>
+        <field id="Humerus_L_complete"/>
+        
+        <field id="Humerus_R_JS_D"/>
+        <field id="Humerus_R_JS_P"/>
+        <field id="Humerus_R_shaft_D"/>
+        <field id="Humerus_R_shaft_M"/>
+        <field id="Humerus_R_shaft_P"/>
+        <field id="Humerus_R_complete"/>
+        
+        <field id="Radius_L_JS_D"/>
+        <field id="Radius_L_JS_P"/>
+        <field id="Radius_L_shaft_D"/>
+        <field id="Radius_L_shaft_M"/>
+        <field id="Radius_L_shaft_P"/>
+        <field id="Radius_L_complete"/>
+        
+        <field id="Radius_R_JS_D"/>
+        <field id="Radius_R_JS_P"/>
+        <field id="Radius_R_shaft_D"/>
+        <field id="Radius_R_shaft_M"/>
+        <field id="Radius_R_shaft_P"/>
+        <field id="Radius_R_complete"/>
+
+        <field id="Ulna_L_JS_D"/>
+        <field id="Ulna_L_JS_P"/>
+        <field id="Ulna_L_shaft_D"/>
+        <field id="Ulna_L_shaft_M"/>
+        <field id="Ulna_L_shaft_P"/>
+        <field id="Ulna_L_complete"/>
+        
+        <field id="Ulna_R_JS_D"/>
+        <field id="Ulna_R_JS_P"/>
+        <field id="Ulna_R_shaft_D"/>
+        <field id="Ulna_R_shaft_M"/>
+        <field id="Ulna_R_shaft_P"/>
+        <field id="Ulna_R_complete"/>
      </section>
 </record>
