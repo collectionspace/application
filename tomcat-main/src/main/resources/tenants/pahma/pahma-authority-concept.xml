@@ -30,5 +30,11 @@
 			<!-- Change title -->
 			<title>Activities</title>
 		</instance>
+		<!-- New instance -->
+		<instance id="concept-objectname">
+			<web-url>objectname</web-url>
+			<title-ref>objectname</title-ref>
+			<title>Object Names</title>
+		</instance>
 	</instances>
 </record>
