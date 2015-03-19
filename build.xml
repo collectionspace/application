@@ -33,7 +33,7 @@
    <!-- This target inherits from an existing target in the imported
         utility routines buildfile, and adds its own behavior specific to this
         CollectionSpace source code layer. -->
-   <target name="rename-files" depends="tenant-utils.rename-files">
+   <target name="rename-files-in-cloned-tenant" depends="tenant-utils.rename-files-in-cloned-tenant">
      <move todir="${tenants.dir}/${tenant.shortname}" includeemptydirs="false">
        <fileset dir="${tenants.dir}/${tenant.shortname}"/>
        <mapper type="regexp" from="^(.*?)${template.tenant.shortname}(.*)$" to="\1${tenant.shortname}\2"/>
@@ -58,8 +58,6 @@
   
   <target name="update-text-in-tenant-settings"
     depends="update-tenant-id-in-tenant-settings,
-    update-tenant-display-name-in-tenant-settings,
-    update-tenant-meta-title-in-tenant-settings,
     extract-template-tenant-internet-domain,
     update-tenant-internet-domain-in-tenant-settings,
     update-tenant-shortname-in-tenant-settings">
@@ -75,24 +73,6 @@
       file="${tenant.settings.file}"
       match="&lt;id&gt;(.*)&lt;/id&gt;"
       replace="&lt;id&gt;${tenant.id}&lt;/id&gt;">
-    </replaceregexp>
-  </target>
- 
-  <target name="update-tenant-display-name-in-tenant-settings">
-    <replaceregexp
-      file="${tenant.settings.file}"
-      match="&lt;display-name&gt;(.*?)${template.tenant.shortname}(.*)&lt;/display-name&gt;"
-      replace="&lt;display-name&gt;\1${tenant.shortname}\2&lt;/display-name&gt;"
-      flags="i">
-    </replaceregexp>
-  </target>
-  
-  <target name="update-tenant-meta-title-in-tenant-settings">
-    <replaceregexp
-      file="${tenant.settings.file}"
-      match="&lt;meta id=&quot;title&quot;&gt;(.*?)${template.tenant.shortname}(.*)&lt;/meta&gt;"
-      replace="&lt;meta id=&quot;title&quot;&gt;\1${tenant.shortname}\2&lt;/meta&gt;"
-      flags="i">
     </replaceregexp>
   </target>
 
@@ -120,11 +100,12 @@
    <!-- Note: this text replacement is brute-force and will even replace sub-strings,
         if found, so you'll need to ensure that the template tenant's shortname is a
         unique string: that it won't be inadvertently contained within text elsewhere. -->
-   <!-- TODO: Perform more nuanced replacements to avoid the problem described above. 
-        (See the Ant ReplaceRegExp task for one potential approach when doing so.) -->
-    <replace file="${tenant.settings.file}" token="${template.tenant.shortname}"
-      value="${tenant.shortname}">
-    </replace>
+    <replaceregexp
+      file="${tenant.settings.file}"
+      match="${template.tenant.shortname}"
+      replace="${tenant.shortname}"
+      flags="gi">
+    </replaceregexp>
   </target>
 
   <!-- This target inherits from an (essentially empty) target in the imported
