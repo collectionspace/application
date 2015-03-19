@@ -23,7 +23,7 @@
     rename-files-in-cloned-tenant,
     delete-files-in-cloned-tenant,
     update-text-in-cloned-tenant"
-    description="Make a copy ('clone') of an existing tenant (used as a template) to create a new tenant">
+    description="Make a copy ('clone') of an existing tenant (effectively using it as a template) to create a new tenant">
   </target>
   
   <!-- Main sub-targets -->
@@ -98,7 +98,7 @@
   </target>
  
   <target name="check-property-is-defined">
-    <fail message="'${property-to-check}' property is not defined. It is usually defined in either a 'tenant.properties' file, present in the same directory as this Ant build.xml file, or by adding a '-D${property-to-check}=somevalue' argument when running 'ant'.">
+    <fail message="'${property-to-check}' property is not defined. It is usually defined in either a 'tenant.properties' file, present in the same directory as this Ant build.xml file, or by adding a '-D${property-to-check}=somevalue' argument when running 'ant clone-tenant'.">
       <condition>
           <not><isset property="${property-to-check}"/></not>
       </condition>
@@ -106,7 +106,7 @@
   </target>
    
   <target name="check-property-value-is-not-blank">
-    <fail message="'${property-to-check}' property is defined, but its value is blank (is empty or contains only whitespace characters). This property must contain a non-blank value, and must match the name of an existing tenant. Its value is usually set in either a 'tenant.properties' file, present in the same directory as this Ant build.xml file, or by adding a '-D${property-to-check}=somevalue' argument when running 'ant'.">
+    <fail message="'${property-to-check}' property is defined, but its value is blank (is empty or contains only whitespace characters). This property must contain a non-blank value, and must match the name of an existing tenant. Its value is usually set in either a 'tenant.properties' file, present in the same directory as this Ant build.xml file, or by adding a '-D${property-to-check}=somevalue' argument when running 'ant clone-tenant'.">
       <condition>
           <equals arg1="${property-to-check-value}" arg2="" trim="true"/>
       </condition>
@@ -126,11 +126,11 @@
   </target>
   
   <target name="template-tenant-does-not-exist-error-check" depends="template-exists" unless="${template.exists}">
-    <fail message="Could not find 'template' tenant folder '${template.tenant.shortname}' in ${tenants.dir} ...   Check the name of the 'template' tenant, which must match the name of an existing tenant. Its value is usually set in a 'template.tenant.shortname' property, either in a 'tenant.properties' file, present in the same directory as this Ant build.xml file, or by adding a '-Dtemplate.tenant.shortname=somevalue' argument when running 'ant'."/>
+    <fail message="Could not find 'template' tenant folder '${template.tenant.shortname}' in ${tenants.dir} ...   Check the name of the 'template' tenant, which must match the name of an existing tenant. Its value is usually set in a 'template.tenant.shortname' property, either in a 'tenant.properties' file, present in the same directory as this Ant build.xml file, or by adding a '-Dtemplate.tenant.shortname=somevalue' argument when running 'ant clone-tenant'."/>
   </target>
   
   <target name="tenant-already-exists-error-check" depends="tenant-exists" if="${tenant.exists}">
-    <fail message="Tenant folder '${tenant.shortname}' already exists as ${tenants.dir}/${tenant.shortname} ... To create a new tenant named '${tenant.shortname}', please move the existing folder outside of the CollectionSpace source code tree and re-run 'ant'. Or you can create a new tenant with a different name, by changing the 'tenant.shortname' value, in either a 'tenant.properties' file, present in the same directory as this Ant build.xml file, or by adding a '-Dtenant.shortname=somevalue' argument when running 'ant'."/>
+    <fail message="Tenant folder '${tenant.shortname}' already exists as ${tenants.dir}/${tenant.shortname} ... To create a new tenant named '${tenant.shortname}', please move the existing folder outside of the CollectionSpace source code tree and re-run 'ant clone-tenant'. Or you can create a new tenant with a different name, by changing the 'tenant.shortname' value, in either a 'tenant.properties' file, present in the same directory as this Ant build.xml file, or by adding a '-Dtenant.shortname=somevalue' argument when running 'ant clone-tenant'."/>
   </target>
   
 </project>
