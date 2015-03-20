@@ -58,7 +58,6 @@
   
   <target name="update-text-in-tenant-settings"
     depends="update-tenant-id-in-tenant-settings,
-    extract-template-tenant-internet-domain,
     update-tenant-internet-domain-in-tenant-settings,
     update-tenant-shortname-in-tenant-settings">
   </target>
@@ -85,7 +84,8 @@
     <echo message="template.internet.domain=${template.internet.domain}"/>
   </target>
   
-  <target name="update-tenant-internet-domain-in-tenant-settings">
+  <target name="update-tenant-internet-domain-in-tenant-settings"
+    depends="extract-template-tenant-internet-domain">
    <!-- Note: this text replacement is brute-force and will even replace sub-strings,
         if found, so you'll need to ensure that the template tenant's Internet domain is a
         unique string: that it won't be inadvertently contained within text elsewhere. -->
