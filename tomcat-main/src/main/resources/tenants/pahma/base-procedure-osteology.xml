@@ -47,6 +47,8 @@
         <field id="osteologyNumber" ui-search="repeatable" in-title="yes" mini="number,search,list,relate"/>
         <field id="note"/>
         
+        <!-- Arm bones -->
+        
         <field id="Humerus_L_JS_D"/>
         <field id="Humerus_L_JS_P"/>
         <field id="Humerus_L_shaft_D"/>
@@ -88,5 +90,49 @@
         <field id="Ulna_R_shaft_M"/>
         <field id="Ulna_R_shaft_P"/>
         <field id="Ulna_R_complete"/>
+        
+        <!-- Leg bones -->
+        
+        <field id="Femur_L_JS_D"/>
+        <field id="Femur_L_JS_P"/>
+        <field id="Femur_L_shaft_D"/>
+        <field id="Femur_L_shaft_M"/>
+        <field id="Femur_L_shaft_P"/>
+        <field id="Femur_L_complete"/>
+        
+        <field id="Femur_R_JS_D"/>
+        <field id="Femur_R_JS_P"/>
+        <field id="Femur_R_shaft_D"/>
+        <field id="Femur_R_shaft_M"/>
+        <field id="Femur_R_shaft_P"/>
+        <field id="Femur_R_complete"/>
+        
+        <field id="Tibia_L_JS_D"/>
+        <field id="Tibia_L_JS_P"/>
+        <field id="Tibia_L_shaft_D"/>
+        <field id="Tibia_L_shaft_M"/>
+        <field id="Tibia_L_shaft_P"/>
+        <field id="Tibia_L_complete"/>
+        
+        <field id="Tibia_R_JS_D"/>
+        <field id="Tibia_R_JS_P"/>
+        <field id="Tibia_R_shaft_D"/>
+        <field id="Tibia_R_shaft_M"/>
+        <field id="Tibia_R_shaft_P"/>
+        <field id="Tibia_R_complete"/>
+
+        <field id="Fibula_L_JS_D"/>
+        <field id="Fibula_L_JS_P"/>
+        <field id="Fibula_L_shaft_D"/>
+        <field id="Fibula_L_shaft_M"/>
+        <field id="Fibula_L_shaft_P"/>
+        <field id="Fibula_L_complete"/>
+        
+        <field id="Fibula_R_JS_D"/>
+        <field id="Fibula_R_JS_P"/>
+        <field id="Fibula_R_shaft_D"/>
+        <field id="Fibula_R_shaft_M"/>
+        <field id="Fibula_R_shaft_P"/>
+        <field id="Fibula_R_complete"/>
      </section>
 </record>
