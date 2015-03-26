@@ -46,8 +46,40 @@
     <section id="osteologyInformation">
         <field id="osteologyNumber" ui-search="repeatable" in-title="yes" mini="number,search,list,relate"/>
         <field id="note"/>
+
+        <!-- Head -->
         
-        <!-- Arm bones -->
+        <field id="Cranium"/>
+        <field id="Frontal_L"/>
+        <field id="Frontal_R"/>
+        <field id="Occipital"/>
+        <field id="Occipital_pars_basilaris"/>
+        <field id="Occipital_L_pars_lateralis"/>
+        <field id="Occipital_R_pars_lateralis"/>
+        <field id="Sphenoid"/>
+        <field id="Vomer"/>
+        <field id="Ethmoid"/>
+        <field id="Parietal_L"/>
+        <field id="Parietal_R"/>
+        <field id="Temporal_L"/>
+        <field id="Temporal_R"/>
+        <field id="Maxilla_L"/>
+        <field id="Maxilla_R"/>
+        <field id="Nasal_L"/>
+        <field id="Nasal_R"/>
+        <field id="Zygomatic_L"/>
+        <field id="Zygomatic_R"/>
+        <field id="Lacrimal_L"/>
+        <field id="Lacrimal_R"/>
+        <field id="Palatine_L"/>
+        <field id="Palatine_R"/>
+        <field id="Mandible_L"/>
+        <field id="Mandible_R"/>
+        <field id="Orbit_L"/>
+        <field id="Orbit_R"/>
+        <field id="Hyoid"/>
+        
+        <!-- Arm -->
         
         <field id="Humerus_L_JS_D"/>
         <field id="Humerus_L_JS_P"/>
@@ -91,7 +123,7 @@
         <field id="Ulna_R_shaft_P"/>
         <field id="Ulna_R_complete"/>
         
-        <!-- Leg bones -->
+        <!-- Leg -->
         
         <field id="Femur_L_JS_D"/>
         <field id="Femur_L_JS_P"/>
@@ -134,5 +166,30 @@
         <field id="Fibula_R_shaft_M"/>
         <field id="Fibula_R_shaft_P"/>
         <field id="Fibula_R_complete"/>
-     </section>
+        
+        <!-- -->
+        
+        <field id="Os_coxae_L"/>
+        <field id="Os_coxae_R"/>
+        <field id="Ischium_L"/>
+        <field id="Ischium_R"/>
+        <field id="Ilium_L"/>
+        <field id="Ilium_R"/>
+        <field id="Pubis_L"/>
+        <field id="Pubis_R"/>
+        <field id="Acetabulum_L"/>
+        <field id="Acetabulum_R"/>
+        <field id="Auricular_surf_L"/>
+        <field id="Auricular_surf_R"/>
+        <field id="Scapula_L"/>
+        <field id="Scapula_R"/>
+        <field id="Glenoid_L"/>
+        <field id="Glenoid_R"/>
+        <field id="Clavicle_L"/>
+        <field id="Clavicle_R"/>
+        <field id="Sternum"/>
+        <field id="Manubrium"/>
+        <field id="Patella_L"/>
+        <field id="Patella_R"/>
+    </section>
 </record>
