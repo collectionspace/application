@@ -1,4 +1,4 @@
-<record id="collection-object" is-extension="true" type="record,procedure">
+<record id="collection-object" is-extension="true" generate-services-schema="true">
 
     <!-- Information about your extension schema goes here -->
     <services-record-path id="mmi">collectionobjects_mmi:http://collectionspace.org/services/collectionobject/local/mmi,collectionobjects_mmi</services-record-path>
@@ -8,5 +8,40 @@
         <field id="initialCataloging" section="mmi" datatype="boolean" />
         <field id="additionalResearch" section="mmi" datatype="boolean" />
         <field id="curatorApproved" section="mmi" datatype="boolean" />
+    </section>
+    <section id="descriptionInformation">
+        <repeat id="contentWorkGroupList/contentWorkGroup" section="mmi">
+            <field id="contentWork" autocomplete="person-person" section="mmi"/>
+
+            <field id="contentWorkType" autocomplete="vocab-contentworktype"
+                   ui-type="enum" section="mmi" />
+
+            <field id="contentWorkNote" ui-type="text" section="mmi" />
+        </repeat>
+        <repeat id="copyrightStatementGroupList/copyrightStatementGroup" section="mmi">
+            <field id="copyrightStatement" section="mmi" datatype="text" />
+        </repeat>
+        <field id="objectProductionEntityNote" section="mmi" datatype="text" />
+    </section>
+    <section id="contentInformation">
+        <repeat id="contentEntitiesGroupList/contentEntitiesGroup" section="mmi">
+            <field id="contentEntity" section="mmi"
+                   autocomplete="organization-organization,person-person">
+
+            </field>
+            <field id="contentEntityType" section="mmi">
+                <selector>object-contentInformation-contentEntityType</selector>
+                <options>
+                    <option id="">Please select a value</option>
+                    <option id="depicts">depicts</option>
+                    <option id="references">references</option>
+                    <option id="seealso">see also</option>
+                </options>
+            </field>
+            <field id="contentEntityNote" section="mmi" datatype="text" />
+        </repeat>
+    </section>
+    <section id="objectHistoryAssociationInformation">
+        <field id="historyNoteSources" section="mmi" autocomplete="citation-citation" />
     </section>
 </record>
