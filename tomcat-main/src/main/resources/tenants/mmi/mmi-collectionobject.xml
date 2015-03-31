@@ -1,4 +1,4 @@
-<record id="collection-object" is-extension="true" generate-services-schema="true">
+<record id="collection-object" is-extension="true" generate-services-schema="true" type="record">
 
     <!-- Information about your extension schema goes here -->
     <services-record-path id="mmi">collectionobjects_mmi:http://collectionspace.org/services/collectionobject/local/mmi,collectionobjects_mmi</services-record-path>
@@ -11,12 +11,17 @@
     </section>
     <section id="descriptionInformation">
         <repeat id="contentWorkGroupList/contentWorkGroup" section="mmi">
-            <field id="contentWork" autocomplete="person-person" section="mmi"/>
+            <field id="contentWork" autocomplete="person-person" section="mmi">
+              <selector>object-description-contentWork</selector>
+            </field>
 
             <field id="contentWorkType" autocomplete="vocab-contentworktype"
-                   ui-type="enum" section="mmi" />
+                   ui-type="enum" section="mmi">
+                <selector>object-description-contentWorkType</selector>
+            </field>/>
 
-            <field id="contentWorkNote" ui-type="text" section="mmi" />
+            <field id="contentWorkNote" ui-type="text" section="mmi" >
+            </field>/>
         </repeat>
         <repeat id="copyrightStatementGroupList/copyrightStatementGroup" section="mmi">
             <field id="copyrightStatement" section="mmi" datatype="text" />
@@ -27,11 +32,14 @@
         <repeat id="contentEntitiesGroupList/contentEntitiesGroup" section="mmi">
             <field id="contentEntity" section="mmi"
                    autocomplete="organization-organization,person-person">
-
+                <selector>object-information-contentEntity</selector>
             </field>
+
+
             <field id="contentEntityType" section="mmi">
-                <selector>object-contentInformation-contentEntityType</selector>
+                <selector>object-information-contentEntityType</selector>
                 <options>
+
                     <option id="">Please select a value</option>
                     <option id="depicts">depicts</option>
                     <option id="references">references</option>
