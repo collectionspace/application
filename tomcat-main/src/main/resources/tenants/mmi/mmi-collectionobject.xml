@@ -11,17 +11,17 @@
     </section>
     <section id="descriptionInformation">
         <repeat id="contentWorkGroupList/contentWorkGroup" section="mmi">
-            <field id="contentWork" autocomplete="person-person" section="mmi">
-              <selector>object-description-contentWork</selector>
-            </field>
+            <field id="contentWork" autocomplete="person-person" section="mmi" />
 
             <field id="contentWorkType" autocomplete="vocab-contentworktype"
                    ui-type="enum" section="mmi">
-                <selector>object-description-contentWorkType</selector>
-            </field>/>
+                <enum>
+                    <default>urn:cspace:cspace.movingimage.us:vocabularies:name(contentworktype):item:name(depicts)'depicts'</default>
+                    <blank-value>Please select a value</blank-value>
+                </enum>
+            </field>
 
-            <field id="contentWorkNote" ui-type="text" section="mmi" >
-            </field>/>
+            <field id="contentWorkNote" ui-type="text" section="mmi" />
         </repeat>
         <repeat id="copyrightStatementGroupList/copyrightStatementGroup" section="mmi">
             <field id="copyrightStatement" section="mmi" datatype="text" />
@@ -31,13 +31,10 @@
     <section id="contentInformation">
         <repeat id="contentEntitiesGroupList/contentEntitiesGroup" section="mmi">
             <field id="contentEntity" section="mmi"
-                   autocomplete="organization-organization,person-person">
-                <selector>object-information-contentEntity</selector>
-            </field>
+                   autocomplete="organization-organization,person-person" />
 
 
-            <field id="contentEntityType" section="mmi">
-                <selector>object-information-contentEntityType</selector>
+            <field id="contentEntityType" section="mmi" seperate_ui_container="true">
                 <options>
 
                     <option id="">Please select a value</option>
