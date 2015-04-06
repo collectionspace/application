@@ -212,17 +212,21 @@ public class Repeat extends FieldSetImpl implements FieldParent {
 		return utils.getBoolean("has_services_parent");
 	}
 
+	/*
+	 * Not sure why, but apparently a Repeat instance with 1 child that is a group is
+	 * considered to have orphans -go figure.
+	 */
 	public boolean hasOrphans() {
 		Boolean result = utils.getBoolean("@hasOrphans");
+		
 		if (result == null) {
+			result = false; // let's assume no orphans
 			FieldSet[] children = this.getChildren(null);
 			if (children.length == 1) {
 				if (children[0].isAGroupField() == true) {
 					result = true;
 					utils.setBoolean("@hasOrphans", result);
 				}
-			} else {
-				result = false;
 			}
 		}
 
