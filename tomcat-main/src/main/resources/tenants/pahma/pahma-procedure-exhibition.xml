@@ -2,16 +2,24 @@
 	<services-record-path id="pahma">exhibitions_pahma:http://collectionspace.org/services/exhibition/local/pahma,exhibitions_pahma</services-record-path>
 
     <section id="exhibitionInformation">
+        <!-- Remove person-ulan_pa, organization-ulan_oa from autocomplete -->
+        <field id="sponsor" ui-search="repeatable" autocomplete="person-person,organization-organization"/>
+
+        <!-- Remove person-ulan_pa, organization-ulan_oa from autocomplete -->
+        <field id="organizer" ui-search="repeatable" autocomplete="person-person,organization-organization"/>
+        
         <!-- Remvove organization-ulan_oa, location-offsite_sla, place-tgn_place from autocomplete -->
         <repeat id="venueGroupList/venueGroup">
             <field id="venue" autocomplete="organization-organization,location-location,place-place"/>
         </repeat>
 
-        <repeat id="exhibitionPersonGroupList/exhibitionPersonGroup">
-            <!-- Remove person-ulan_pa, organization-ulan_oa from autocomplete -->
-            <field id="exhibitionPerson" autocomplete="person-person,organization-organization"/>
+        <repeat id="workingGroupList/workingGroup">
+            <repeat id="exhibitionPersonGroupList/exhibitionPersonGroup">
+                <!-- Remove person-ulan_pa, organization-ulan_oa from autocomplete -->
+                <field id="exhibitionPerson" autocomplete="person-person,organization-organization"/>
+            </repeat>
         </repeat>
-        
+
         <repeat id="exhibitionReferenceGroupList/exhibitionReferenceGroup">
             <!-- Remove citation-worldcat from autocomplete -->
             <field id="exhibitionReference" autocomplete="citation-citation"/>

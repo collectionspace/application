@@ -319,8 +319,6 @@
                             <option id="imagemediaresearcher">Image/media researcher</option>
                             <option id="webdesigner">Web designer</option>
                             <option id="webdeveloper">Web developer</option>
-                            <option id="sponsor">Sponsor</option>
-                            <option id="organizer">Organizer</option>
                         </options>
                     </instance>
                     <instance id="vocab-exhibitionreferencetype">
@@ -330,7 +328,10 @@
                         <options>
                             <option id="catalog">Catalog</option>
                             <option id="research">Research</option>
-                            <option id="reference">Reference</option>
+                            <option id="mention">Mention</option>
+                            <option id="newsarticle">News article</option>
+                            <option id="pressrelease">Press release</option>
+                            <option id="review">Review</option>
                         </options>
                     </instance>
 </instances>

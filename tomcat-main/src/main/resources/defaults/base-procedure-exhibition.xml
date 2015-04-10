@@ -48,6 +48,14 @@
         <field id="title" ui-search="repeatable" mini="summary,search,list,relate" services-schema-qualify="true"/>
         <field id="type" ui-search="repeatable" autocomplete="vocab-exhibitiontype" ui-type="enum"/>
         
+        <repeat id="sponsors">
+            <field id="sponsor" ui-search="repeatable" autocomplete="person-person,person-ulan_pa,organization-organization,organization-ulan_oa"/>
+        </repeat>
+        
+        <repeat id="organizers">
+            <field id="organizer" ui-search="repeatable" autocomplete="person-person,person-ulan_pa,organization-organization,organization-ulan_oa"/>
+        </repeat>
+        
         <repeat id="venueGroupList/venueGroup">
             <field id="venue" ui-search="repeatable" autocomplete="organization-organization,organization-ulan_oa,location-location,location-offsite_sla,place-place,place-tgn_place"/>
             <field id="venueOpeningDate" ui-search="range" ui-type="date" datatype="date"/>
@@ -60,9 +68,14 @@
         <field id="curatorialNote"/>
         <field id="generalNote"/>
 
-        <repeat id="exhibitionPersonGroupList/exhibitionPersonGroup">
-            <field id="exhibitionPerson" autocomplete="person-person,person-ulan_pa,organization-organization,organization-ulan_oa"/>
-            <field id="exhibitionPersonRole" autocomplete="vocab-exhibitionpersonrole" ui-type="enum"/>
+        <repeat id="workingGroupList/workingGroup">
+            <field id="workingGroupTitle"/>
+            <field id="workingGroupNote"/>
+            
+            <repeat id="exhibitionPersonGroupList/exhibitionPersonGroup">
+                <field id="exhibitionPerson" autocomplete="person-person,person-ulan_pa,organization-organization,organization-ulan_oa"/>
+                <field id="exhibitionPersonRole" autocomplete="vocab-exhibitionpersonrole" ui-type="enum"/>
+            </repeat>
         </repeat>
         
         <field id="boilerplateText"/>
