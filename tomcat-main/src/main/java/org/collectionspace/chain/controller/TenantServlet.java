@@ -82,7 +82,7 @@ public class TenantServlet extends HttpServlet {
 	private static final Logger log=LoggerFactory.getLogger(TenantServlet.class);
 	protected static final String COOKIENAME="CSPACESESSID";
 	private static final long serialVersionUID = -4343156244448081917L;
-	private static final String SERVER_HOME_PROPERTY = "catalina.home";
+	private static final String SERVER_HOME_PROPERTY = "catalina.base";
 	private static final String PUBLISHED_DIR = "/cspace/published";
 	protected Map<String, CSPManagerImpl> tenantCSPM = new HashMap<String, CSPManagerImpl>();
 	protected Map<String, Boolean> tenantInit = new HashMap<String, Boolean>();
