@@ -232,7 +232,7 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
     private void apply_include(IncludeTag includeTag) throws SAXException, IOException {
         InputSource includeSrc = null;
 
-        if (includeTag.merge != null && !includeTag.merge.isEmpty()) {
+        if (includeTag.merge != null && !includeTag.merge.isEmpty()) { //FIXME: includeTag.merge could be null so an NPE might be thrown
             includeSrc = apply_merge(includeTag); //merges all the "src" files
         } else {
             includeSrc = find_first_entity(includeTag.src); //returns the first found "src" file
@@ -346,7 +346,7 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
             IOException { // this method returns when it finds the first item in
         // the "all" list
         try {
-            InputSource out = resolveEntity(null, "tenants/" + this.tenantname
+            InputSource out = resolveEntity(null, "tenants/" + this.tenantname //FIXME: this.tenantname might be null, so an NPE could be thrown
                     + "/" + src);
             if (out != null) {
                 return out;

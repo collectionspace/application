@@ -46,7 +46,7 @@ public class AssemblingParser {
 	public void parse(Result out) throws ConfigException {
 		try {
 			String rootpath=AssemblingParser.class.getPackage().getName().replaceAll("\\.","/")+"/"+root_file;
-			InputStream root=Thread.currentThread().getContextClassLoader().getResourceAsStream(rootpath);
+			InputStream root=Thread.currentThread().getContextClassLoader().getResourceAsStream(rootpath); // load the file at org/collectionspace/chain/csp/config/impl/parser/root.xml
 			SAXParser parser = factory.newSAXParser();
 			XMLReader reader = parser.getXMLReader();
 			TransformerHandler xform=transfactory.newTransformerHandler();

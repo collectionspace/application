@@ -589,7 +589,7 @@ public class CommandLine {
 		//
 		// By default, we'll provide verbose messages to the user
 		//
-		changeLoggerLevel(Level.INFO);
+		changeLoggerLevel(Level.ERROR);
 		
 		//
 		// If the user used the '-s' command line argument then we switch to "silent" or "suppress" messages mode.
@@ -612,7 +612,7 @@ public class CommandLine {
 		//
 		// Set our logging/output level
 		//
-		setLoggingLevel();
+		//setLoggingLevel();
 
 		//
 		// Find the Services' configuration base directory
@@ -743,7 +743,7 @@ public class CommandLine {
 				logger.warn(String
 						.format("No command line argument '-%s' for the output directory of the %s was specified and the system environment variable '%s' is missing.  Using the current directory instead.",
 								argOuputDir, outputDirLabel, ConfigFinder.CSPACE_JEESERVER_HOME));
-				logger.debug(String.format("Will attempt to write %s out to current system directory at '%s'",
+				logger.debug(String.format("Will attempt to write '%s' out to current system directory at '%s'",
 						outputDirLabel, outputDirName));
 			}
 		}

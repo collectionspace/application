@@ -90,7 +90,7 @@ public class Record implements FieldParent {
 	private Map<String, Map<String, FieldSet>> minidataset = new HashMap<String, Map<String, FieldSet>>();
 	private Spec spec;
 	private FieldSet mini_summary, mini_number, display_name;
-	private String whoamI = ""; // Used for debugging purposes.
+	public String whoamI = ""; // Used for debugging purposes.
 	private HashSet<String> authTypeTokenSet = new HashSet<String>();
 	private Record lastAuthoriyProxy = null; // Used during Service binding generation.  Only the "baseAuthority" record ever uses this member.  Values would be things like PersonAuthority, OrgAuthority, and other authority records.
 

@@ -382,10 +382,18 @@ public class MakeXsd {
 
 		// add top level items
 		for (FieldSet fs : record.getAllFieldTopLevel("")) {
-			if (fs.getSection().equalsIgnoreCase(schemaName) == true) {
-				generateDataEntry(root, fs, ns, root, false);
-			} else {
-				log.trace(String.format("Ignoring fieldset %s:%s", fs.getSection(), fs.getID()));
+			try {
+				if (fs.getSection().equalsIgnoreCase(schemaName) == true) {
+					generateDataEntry(root, fs, ns, root, false);
+					log.trace(String.format("Generated data entry for fieldset '%s:%s' of record %s:%s", 
+							fs.getSection(), fs.getID(), schemaName, record.whoamI));					
+				} else {
+					log.trace(String.format("Ignoring fieldset %s:%s of record %s:%s",
+							fs.getSection(), fs.getID(), schemaName, record.whoamI));
+				}
+			} catch (Exception e) {
+				log.error(String.format("Could not generate data entry for fieldset '%s:%s' of record %s:%s", 
+						fs.getSection(), fs.getID(), schemaName, record.whoamI), e);
 			}
 		}
 

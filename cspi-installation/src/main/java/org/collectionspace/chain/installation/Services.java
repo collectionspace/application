@@ -208,12 +208,14 @@ public class Services {
 				//
 				// Debug-log the generated Service bindings for this App layer record
 				//
-				Element bindingsForRecord = serviceBindingsElement;
-				if (bindingsForRecord != null && !r.isType(RECORD_TYPE_AUTHORITY)) {
-					this.writeToFile(r, bindingsForRecord, false);
+				if (log.isDebugEnabled() == true) {
+					Element bindingsForRecord = serviceBindingsElement;
+					if (bindingsForRecord != null && !r.isType(RECORD_TYPE_AUTHORITY)) {
+						this.writeToFile(r, bindingsForRecord, false);
+					}
 				}
 			} else {
-				log.debug(String.format("'%s.%s' does not require a service binding", tenantName, recordName));
+				log.debug(String.format("'%s.%s' does not require a service binding.", tenantName, recordName));
 			}
 		}
 		
@@ -224,20 +226,30 @@ public class Services {
 	// For debugging purposes, this method writes a service bindings element to disk.
 	//
 	void writeToFile(Record r, Element bindingsForRecord, boolean isAuthority) {
-		String tenantName = this.tenantSpec.getTenant();
-		String recordName = r.getRecordName();
-		if (isAuthority == true) {
-			recordName = r.getServicesTenantAuthPl();
-		}
-		String serviceBindings = bindingsForRecord.asXML();
-		log.trace(String.format("Bindings for Record=%s: %s", recordName, serviceBindings));
-
-		String serviceBindingsFileName = String.format("%s.%s.bindings.xml", tenantName, recordName);
-		File serviceBindingsFile = new File(serviceBindingsFileName);
-		try {
-			FileUtils.writeStringToFile(serviceBindingsFile, serviceBindings);
-		} catch (Exception e) {
-			log.debug(String.format("Could not write service bindings file to: %s", serviceBindingsFileName), e);
+		if (log.isDebugEnabled() == true) {
+			String tenantName = this.tenantSpec.getTenant();
+			String recordName = r.getRecordName();
+			if (isAuthority == true) {
+				recordName = r.getServicesTenantAuthPl();
+			}
+			//
+			// Write out the service bindings if log level is TRACE
+			//
+			String serviceBindings = bindingsForRecord.asXML();
+			log.trace(String.format("Service bindings for record='%s': %s", recordName, serviceBindings));
+			//
+			// Write the service bindings to a file for debugging/troubleshooting.
+			//
+			String serviceBindingsFileName = String.format("%s.%s.bindings.xml", tenantName, recordName);
+			File serviceBindingsFile = new File(FileUtils.getTempDirectoryPath() + serviceBindingsFileName); // Write this to the System's temp directory
+			try {
+				FileUtils.writeStringToFile(serviceBindingsFile, serviceBindings);
+				log.debug(String.format("Wrote Service bindings for record='%s' to file: %s",
+						recordName, serviceBindingsFile.getAbsoluteFile()));
+			} catch (Exception e) {
+				log.debug(String.format("Could not write Service bindings for record='%s' to file: %s",
+						recordName, serviceBindingsFile.getAbsoluteFile()), e);
+			}
 		}
 	}
 
