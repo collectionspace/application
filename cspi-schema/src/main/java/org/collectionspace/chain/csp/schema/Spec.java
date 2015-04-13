@@ -18,8 +18,8 @@ import java.util.Set;
 
 import org.collectionspace.chain.csp.config.Configurable;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
-import org.collectionspace.chain.csp.config.Rules;
-import org.collectionspace.chain.csp.config.Target;
+import org.collectionspace.chain.csp.config.RuleSet;
+import org.collectionspace.chain.csp.config.RuleTarget;
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
@@ -77,12 +77,12 @@ public class Spec implements CSP, Configurable {
 	}
 
 	@Override
-	public void configure(Rules rules) {
+	public void configure(RuleSet rules) {
 
 		
 		
 		/* MAIN/tenantid -> string */
-		rules.addRule(SECTIONED,new String[]{"tenantid"},SECTION_PREFIX+"tenantid",null,new Target(){
+		rules.addRule(SECTIONED,new String[]{"tenantid"},SECTION_PREFIX+"tenantid",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				tenantid=(String)section.getValue("");
@@ -91,7 +91,7 @@ public class Spec implements CSP, Configurable {
 		});
 		
 		/* MAIN/version -> string */
-		rules.addRule(SECTIONED,new String[]{"version"},SECTION_PREFIX+"version",null,new Target(){
+		rules.addRule(SECTIONED,new String[]{"version"},SECTION_PREFIX+"version",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				version=(String)section.getValue("");
@@ -100,7 +100,7 @@ public class Spec implements CSP, Configurable {
 		});		
 
 		/* MAIN/email -> EmailData */
-		rules.addRule(SECTIONED,new String[]{"email"},SECTION_PREFIX+"email",null,new Target(){
+		rules.addRule(SECTIONED,new String[]{"email"},SECTION_PREFIX+"email",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				ed = new EmailData(Spec.this,section);
@@ -108,7 +108,7 @@ public class Spec implements CSP, Configurable {
 			}
 		});
 		/* MAIN/admin -> AdminData */
-		rules.addRule(SECTIONED,new String[]{"admin"},SECTION_PREFIX+"admin",null,new Target(){
+		rules.addRule(SECTIONED,new String[]{"admin"},SECTION_PREFIX+"admin",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				adminData = new AdminData(Spec.this,section);
@@ -117,7 +117,7 @@ public class Spec implements CSP, Configurable {
 		});
 		
 		/* MAIN/spec -> SPEC */
-		rules.addRule(SECTIONED,new String[]{"spec"},SECTION_PREFIX+"spec",null,new Target(){
+		rules.addRule(SECTIONED,new String[]{"spec"},SECTION_PREFIX+"spec",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				((CoreConfig)parent).setRoot(SPEC_ROOT,Spec.this);
@@ -128,7 +128,7 @@ public class Spec implements CSP, Configurable {
 		/* SPEC/schemas -> SCHEMAS */
 		rules.addRule(SECTION_PREFIX+"spec",new String[]{"schemas"},SECTION_PREFIX+"schemas",null,null);
 		/* RELATIONSHIPS/relation -> RELATION(@id) */
-		rules.addRule(SECTION_PREFIX+"schemas",new String[]{"schema"},SECTION_PREFIX+"schema",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"schemas",new String[]{"schema"},SECTION_PREFIX+"schema",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				Schemas s=new Schemas(Spec.this,section);
@@ -141,7 +141,7 @@ public class Spec implements CSP, Configurable {
 		/* SPEC/relationships -> RELATIONSHIPS */
 		rules.addRule(SECTION_PREFIX+"spec",new String[]{"relationships"},SECTION_PREFIX+"relationships",null,null);
 		/* RELATIONSHIPS/relation -> RELATION(@id) */
-		rules.addRule(SECTION_PREFIX+"relationships",new String[]{"relation"},SECTION_PREFIX+"relation",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"relationships",new String[]{"relation"},SECTION_PREFIX+"relation",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				Relationship r=new Relationship(Spec.this,section);
@@ -156,7 +156,7 @@ public class Spec implements CSP, Configurable {
 		
 
 		/* SPEC/records -> RECORDS */
-		rules.addRule(SECTION_PREFIX+"spec",new String[]{"records"},SECTION_PREFIX+"records",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"spec",new String[]{"records"},SECTION_PREFIX+"records",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				Map<String,String> recordsdata=new HashMap<String,String>();
@@ -171,7 +171,7 @@ public class Spec implements CSP, Configurable {
 			}
 		});			
 		/* RECORDS/record -> RECORD(@id) */
-		rules.addRule(SECTION_PREFIX+"records",new String[]{"record"},SECTION_PREFIX+"record",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"records",new String[]{"record"},SECTION_PREFIX+"record",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				Map<String,String>data = (Map<String,String>)parent;
@@ -184,7 +184,7 @@ public class Spec implements CSP, Configurable {
 			}
 		});
 		/* SPEC/section -> Sections */
-		rules.addRule(SECTION_PREFIX+"record",new String[]{"section"},SECTION_PREFIX+"uisection",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"record",new String[]{"section"},SECTION_PREFIX+"uisection",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				String id=(String)section.getValue("/@id");
@@ -196,7 +196,7 @@ public class Spec implements CSP, Configurable {
 		});
 
 		/* Section/section -> Sections */
-		rules.addRule(SECTION_PREFIX+"uisection",new String[]{"section"},SECTION_PREFIX+"uisection",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"uisection",new String[]{"section"},SECTION_PREFIX+"uisection",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				String id=(String)section.getValue("/@id");
@@ -208,7 +208,7 @@ public class Spec implements CSP, Configurable {
 		});
 		
 		/* RECORD/services-instances-path -> RECORDPATH */
-		rules.addRule(SECTION_PREFIX+"record",new String[]{"services-single-instance-path"},SECTION_PREFIX+"instance-path",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"record",new String[]{"services-single-instance-path"},SECTION_PREFIX+"instance-path",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				Record r=(Record)parent;
@@ -220,7 +220,7 @@ public class Spec implements CSP, Configurable {
 			}
 		});		
 		/* RECORD/services-record-path -> RECORDPATH */
-		rules.addRule(SECTION_PREFIX+"record",new String[]{"services-record-path"},SECTION_PREFIX+"record-path",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"record",new String[]{"services-record-path"},SECTION_PREFIX+"record-path",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				Record r=(Record)parent;
@@ -232,7 +232,7 @@ public class Spec implements CSP, Configurable {
 			}
 		});		
 		/* RECORD/instances/instance -> INSTANCE */
-		rules.addRule(SECTION_PREFIX+"record",new String[]{"instances","instance"},SECTION_PREFIX+"instance",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"record",new String[]{"instances","instance"},SECTION_PREFIX+"instance",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				Instance n=new Instance((Record)parent,section);
@@ -241,7 +241,7 @@ public class Spec implements CSP, Configurable {
 			}
 		});			
 		/* FIELD/options/option -> OPTION */
-		rules.addRule(SECTION_PREFIX+"instance",new String[]{"options","option"},SECTION_PREFIX+"option",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"instance",new String[]{"options","option"},SECTION_PREFIX+"option",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				Instance n=(Instance)parent;
@@ -254,7 +254,7 @@ public class Spec implements CSP, Configurable {
 		});
 
 		/* RECORD/field -> FIELD */
-		rules.addRule(SECTION_PREFIX+"uisection",new String[]{"field"},SECTION_PREFIX+"field",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"uisection",new String[]{"field"},SECTION_PREFIX+"field",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				Field f=new Field((Record)parent,section);
@@ -269,7 +269,7 @@ public class Spec implements CSP, Configurable {
 		
 		
 		/* RECORD/structures/structure -> STRUCTURE */
-		rules.addRule(SECTION_PREFIX+"record",new String[]{"structures","structure"},SECTION_PREFIX+"structure",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"record",new String[]{"structures","structure"},SECTION_PREFIX+"structure",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				Structure s=new Structure((Record)parent,section);
@@ -280,7 +280,7 @@ public class Spec implements CSP, Configurable {
 
 
 		/* STRUCTURE/repeat -> REPEAT */
-		rules.addRule(SECTION_PREFIX+"structure",new String[]{"view","sidebar","repeat"},SECTION_PREFIX+"repeat",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"structure",new String[]{"view","sidebar","repeat"},SECTION_PREFIX+"repeat",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				Repeat r=new Repeat((Structure)parent,section);
@@ -290,7 +290,7 @@ public class Spec implements CSP, Configurable {
 		});		
 		//
 		/* FIELD/options/option -> OPTION */
-		rules.addRule(SECTION_PREFIX+"structure",new String[]{"view","hierarchy-section", "options", "option"},SECTION_PREFIX+"option",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"structure",new String[]{"view","hierarchy-section", "options", "option"},SECTION_PREFIX+"option",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				Structure n=(Structure)parent;
@@ -304,7 +304,7 @@ public class Spec implements CSP, Configurable {
 
 
 		/* STRUCTURE/repeat -> REPEAT */
-		rules.addRule(SECTION_PREFIX+"structure",new String[]{"repeat"},SECTION_PREFIX+"repeat",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"structure",new String[]{"repeat"},SECTION_PREFIX+"repeat",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				Repeat r=new Repeat((Structure)parent,section);
@@ -315,7 +315,7 @@ public class Spec implements CSP, Configurable {
 		});
 
 		/* RECORD/repeat -> REPEAT */
-		rules.addRule(SECTION_PREFIX+"uisection",new String[]{"repeat"},SECTION_PREFIX+"repeat",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"uisection",new String[]{"repeat"},SECTION_PREFIX+"repeat",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				Repeat r=new Repeat((Record)parent,section);
@@ -326,7 +326,7 @@ public class Spec implements CSP, Configurable {
 
 
 		/* REPEAT/field -> FIELD */
-		rules.addRule(SECTION_PREFIX+"repeat",new String[]{"field"},SECTION_PREFIX+"field",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"repeat",new String[]{"field"},SECTION_PREFIX+"field",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				Field f=new Field((Repeat)parent,section);
@@ -338,7 +338,7 @@ public class Spec implements CSP, Configurable {
 
 
 		/* RECORD/group -> GROUP */
-		rules.addRule(SECTION_PREFIX+"uisection",new String[]{"group"},SECTION_PREFIX+"group",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"uisection",new String[]{"group"},SECTION_PREFIX+"group",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				Group r=new Group((Record)parent,section);
@@ -347,7 +347,7 @@ public class Spec implements CSP, Configurable {
 			}
 		});
 		/* GROUP/field -> FIELD */
-		rules.addRule(SECTION_PREFIX+"group",new String[]{"field"},SECTION_PREFIX+"field",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"group",new String[]{"field"},SECTION_PREFIX+"field",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				Field f=new Field((Group)parent,section);
@@ -357,7 +357,7 @@ public class Spec implements CSP, Configurable {
 			}
 		});
 		/* GROUP/group -> GROUP */
-		rules.addRule(SECTION_PREFIX+"group",new String[]{"group"},SECTION_PREFIX+"group",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"group",new String[]{"group"},SECTION_PREFIX+"group",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				Group r=new Group((Group)parent,section);
@@ -367,7 +367,7 @@ public class Spec implements CSP, Configurable {
 			}
 		});
 		/* REPEAT/group -> GROUP */
-		rules.addRule(SECTION_PREFIX+"repeat",new String[]{"group"},SECTION_PREFIX+"group",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"repeat",new String[]{"group"},SECTION_PREFIX+"group",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				Group r=new Group((Repeat)parent,section);
@@ -377,7 +377,7 @@ public class Spec implements CSP, Configurable {
 			}
 		});
 		/* GROUP/repeat -> REPEAT */
-		rules.addRule(SECTION_PREFIX+"group",new String[]{"repeat"},SECTION_PREFIX+"repeat",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"group",new String[]{"repeat"},SECTION_PREFIX+"repeat",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				Repeat r=new Repeat((Repeat)parent,section);
@@ -389,7 +389,7 @@ public class Spec implements CSP, Configurable {
 
 
 		/* REPEAT/repeat -> REPEAT */
-		rules.addRule(SECTION_PREFIX+"repeat",new String[]{"repeat"},SECTION_PREFIX+"repeat",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"repeat",new String[]{"repeat"},SECTION_PREFIX+"repeat",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				Repeat r=new Repeat((Repeat)parent,section);
@@ -401,7 +401,7 @@ public class Spec implements CSP, Configurable {
 		
 
 		/* FIELD/options/option -> OPTION */
-		rules.addRule(SECTION_PREFIX+"field",new String[]{"options","option"},SECTION_PREFIX+"option",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"field",new String[]{"options","option"},SECTION_PREFIX+"option",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				Field f=(Field)parent;
@@ -413,7 +413,7 @@ public class Spec implements CSP, Configurable {
 			}
 		});
 		/* FIELD/merges/merge -> OPTION */
-		rules.addRule(SECTION_PREFIX+"field",new String[]{"merges","merge"},SECTION_PREFIX+"merge",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"field",new String[]{"merges","merge"},SECTION_PREFIX+"merge",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				Field f=(Field)parent;

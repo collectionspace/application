@@ -14,6 +14,9 @@ import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 
+/*
+ * I wonder what "CSP" stands for? Maybe CollectionSpace (P)ersistence manager?
+ */
 public interface CSPManager extends CSPContext {
 	public void register(CSP in);
 	public void go() throws CSPDependencyException;

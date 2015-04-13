@@ -894,22 +894,24 @@ public class XsdGeneration {
 	}
 	
 	private CSPManager getServiceManager(File configFile) {
-		CSPManager cspm=new CSPManagerImpl();
+		CSPManager result = null;
+		
+		CSPManager cspm = new CSPManagerImpl();
 		cspm.register(new CoreConfig());
 		cspm.register(new Spec());
 		cspm.register(new ServicesStorageGenerator());
 		try {
-			cspm.go();
+			cspm.go(); // Do more initialization of our CSPManagerImpl instance (i.e., cspm)
 			File configBase = configFile.getParentFile();
-			this.setConfigBase(configBase);
 			cspm.setConfigBase(configBase); // Saves a copy of the base config directory
 			cspm.configure(getSource(configFile), new ConfigFinder(null, configBase));
+			this.setConfigBase(configBase);
+			result = cspm;
 		} catch (CSPDependencyException e) {
-			log.error("CSPManagerImpl failed");
-			log.error(e.getLocalizedMessage() );
+			log.error("CSPManagerImpl initialization failed.", e);
 		}
-		return cspm;
 		
+		return result;
 	}
 
 	private void setConfigBase(File configBase) {

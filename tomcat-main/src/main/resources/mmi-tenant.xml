@@ -1,5 +1,7 @@
 <cspace-config tenantname="mmi">
 
+
+	<tenantid>2</tenantid>
 	<version>11</version>
 	<include src="settings.xml,local-mmi-settings.xml" merge="xmlmerge-setting.properties"
 		strip-root="yes" />

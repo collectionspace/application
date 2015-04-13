@@ -13,7 +13,7 @@ import java.util.Map;
 
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.Section;
-import org.collectionspace.chain.csp.config.Target;
+import org.collectionspace.chain.csp.config.RuleTarget;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,9 +23,9 @@ public class SectionImpl implements Section {
 	private String name;
 	private Map<String,Object> map=new HashMap<String,Object>();
 	private List<SectionImpl> children=new ArrayList<SectionImpl>();
-	private Target target;
+	private RuleTarget target;
 	
-	public SectionImpl(ReadOnlySection parent,String name,Target target) {
+	public SectionImpl(ReadOnlySection parent,String name,RuleTarget target) {
 		this.parent=parent;
 		this.name=name;
 		this.target=target;

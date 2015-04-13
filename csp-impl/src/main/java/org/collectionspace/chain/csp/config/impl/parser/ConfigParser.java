@@ -15,7 +15,7 @@ import javax.xml.transform.sax.SAXResult;
 
 import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.config.impl.main.ParseRun;
-import org.collectionspace.chain.csp.config.impl.main.RulesImpl;
+import org.collectionspace.chain.csp.config.impl.main.RuleSetImpl;
 import org.collectionspace.chain.csp.config.impl.main.SectionImpl;
 import org.collectionspace.chain.csp.config.impl.main.TreeNode;
 import org.slf4j.Logger;
@@ -29,7 +29,7 @@ public class ConfigParser {
 	private static final Logger log=LoggerFactory.getLogger(ConfigParser.class);
 	private ConfigLoadingMessages messages=new ConfigLoadingMessagesImpl();
 	private SAXParserFactory factory;
-	private RulesImpl rules;
+	private RuleSetImpl rules;
 	private EntityResolver er;
 	
 	private class Resolver implements EntityResolver {
@@ -44,7 +44,7 @@ public class ConfigParser {
 		}
 	}
 	
-	public ConfigParser(RulesImpl rules,EntityResolver er) throws ConfigException {
+	public ConfigParser(RuleSetImpl rules,EntityResolver er) throws ConfigException {
 		factory = SAXParserFactory.newInstance();
 		log.debug("Factoryclass",factory.getClass());
 		factory.setNamespaceAware(true);
