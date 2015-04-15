@@ -191,5 +191,83 @@
         <field id="Manubrium"/>
         <field id="Patella_L"/>
         <field id="Patella_R"/>
+
+        <!-- Wrist -->
+        
+        <field id="Carpals_L_complete"/>
+        <field id="Carpals_R_complete"/>
+        <field id="Scaphoid_L"/>
+        <field id="Scaphoid_R"/>
+        <field id="Lunate_L"/>
+        <field id="Lunate_R"/>
+        <field id="Triquetral_L"/>
+        <field id="Triquetral_R"/>
+        <field id="Pisiform_L"/>
+        <field id="Pisiform_R"/>
+        <field id="Trapezium_L"/>
+        <field id="Trapezium_R"/>
+        <field id="Trapezoid_L"/>
+        <field id="Trapezoid_R"/>
+        <field id="Capitate_L"/>
+        <field id="Capitate_R"/>
+        <field id="Hamate_L"/>
+        <field id="Hamate_R"/>
+        <field id="Sesamoid_L_count_hand"/>
+        <field id="Sesamoid_R_count_hand"/>
+        
+        <!-- Ankle -->
+        
+        <field id="Tarsals_L_complete"/>
+        <field id="Tarsals_R_complete"/>
+        <field id="Talus_L"/>
+        <field id="Talus_R"/>
+        <field id="Calcaneus_L"/>
+        <field id="Calcaneus_R"/>
+        <field id="Navicular_L"/>
+        <field id="Navicular_R"/>
+        <field id="Cuboid_L"/>
+        <field id="Cuboid_R"/>
+        <field id="Med_cuneif_1_L"/>
+        <field id="Med_cuneif_1_R"/>
+        <field id="Int_cuneif_2_L"/>
+        <field id="Int_cuneif_2_R"/>
+        <field id="Lat_cuneif_3_L"/>
+        <field id="Lat_cuneif_3_R"/>
+        <field id="Sesamoid_L_count_foot"/>
+        <field id="Sesamoid_R_count_foot"/> 
+        
+        <!-- Hand -->
+        
+        <field id="MC_L_complete"/>
+        <field id="MC_R_complete"/>
+        <field id="MC_L_count"/>
+        <field id="MC_R_count"/>
+        <field id="MC1_L"/>
+        <field id="MC1_R"/>
+        <field id="MC2_L"/>
+        <field id="MC2_R"/>
+        <field id="MC3_L"/>
+        <field id="MC3_R"/>
+        <field id="MC4_L"/>
+        <field id="MC4_R"/>
+        <field id="MC5_L"/>
+        <field id="MC5_R"/>
+        
+        <!-- Foot -->
+        
+        <field id="MT_L_complete"/>
+        <field id="MT_R_complete"/>
+        <field id="MT_L_count"/>
+        <field id="MT_R_count"/>
+        <field id="MT1_L"/>
+        <field id="MT1_R"/>
+        <field id="MT2_L"/>
+        <field id="MT2_R"/>
+        <field id="MT3_L"/>
+        <field id="MT3_R"/>
+        <field id="MT4_L"/>
+        <field id="MT4_R"/>
+        <field id="MT5_L"/>
+        <field id="MT5_R"/>
     </section>
 </record>
