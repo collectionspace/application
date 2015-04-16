@@ -269,5 +269,152 @@
         <field id="MT4_R"/>
         <field id="MT5_L"/>
         <field id="MT5_R"/>
+        
+        <!-- Vertebrae -->
+        
+        <field id="Vertebrae_complete"/>
+        
+        <field id="C1_complete"/>
+        <field id="C1_L_arch"/>
+        <field id="C1_R_arch"/>
+        <field id="C2_complete"/>
+        <field id="C2_centrum"/>
+        <field id="C2_L_arch"/>
+        <field id="C2_R_arch"/>
+        <field id="C3_complete"/>
+        <field id="C3_centrum"/>
+        <field id="C3_L_arch"/>
+        <field id="C3_R_arch"/>
+        <field id="C4_complete"/>
+        <field id="C4_centrum"/>
+        <field id="C4_L_arch"/>
+        <field id="C4_R_arch"/>
+        <field id="C5_complete"/>
+        <field id="C5_centrum"/>
+        <field id="C5_L_arch"/>
+        <field id="C5_R_arch"/>
+        <field id="C6_complete"/>
+        <field id="C6_centrum"/>
+        <field id="C6_L_arch"/>
+        <field id="C6_R_arch"/>
+        <field id="C7_complete"/>
+        <field id="C7_centrum"/>
+        <field id="C7_L_arch"/>
+        <field id="C7_R_arch"/>
+        
+        <field id="C_centra_count"/>
+        <field id="C_L_arch_count"/>
+        <field id="C_R_arch_count"/>
+        
+        <field id="T1_complete"/>
+        <field id="T1_centrum"/>
+        <field id="T1_L_arch"/>
+        <field id="T1_R_arch"/>
+        <field id="T2_complete"/>
+        <field id="T2_centrum"/>
+        <field id="T2_L_arch"/>
+        <field id="T2_R_arch"/>
+        <field id="T3_complete"/>
+        <field id="T3_centrum"/>
+        <field id="T3_L_arch"/>
+        <field id="T3_R_arch"/>
+        <field id="T4_complete"/>
+        <field id="T4_centrum"/>
+        <field id="T4_L_arch"/>
+        <field id="T4_R_arch"/>
+        <field id="T5_complete"/>
+        <field id="T5_centrum"/>
+        <field id="T5_L_arch"/>
+        <field id="T5_R_arch"/>
+        <field id="T6_complete"/>
+        <field id="T6_centrum"/>
+        <field id="T6_L_arch"/>
+        <field id="T6_R_arch"/>
+        <field id="T7_complete"/>
+        <field id="T7_centrum"/>
+        <field id="T7_L_arch"/>
+        <field id="T7_R_arch"/>
+        <field id="T8_complete"/>
+        <field id="T8_centrum"/>
+        <field id="T8_L_arch"/>
+        <field id="T8_R_arch"/>
+        <field id="T9_complete"/>
+        <field id="T9_centrum"/>
+        <field id="T9_L_arch"/>
+        <field id="T9_R_arch"/>
+        <field id="T10_complete"/>
+        <field id="T10_centrum"/>
+        <field id="T10_L_arch"/>
+        <field id="T10_R_arch"/>
+        <field id="T11_complete"/>
+        <field id="T11_centrum"/>
+        <field id="T11_L_arch"/>
+        <field id="T11_R_arch"/>
+        <field id="T12_complete"/>
+        <field id="T12_centrum"/>
+        <field id="T12_L_arch"/>
+        <field id="T12_R_arch"/>
+
+        <field id="T_centra_count"/>
+        <field id="T_L_arch_count"/>
+        <field id="T_R_arch_count"/>
+        
+        <field id="L1_complete"/>
+        <field id="L1_centrum"/>
+        <field id="L1_L_arch"/>
+        <field id="L1_R_arch"/>
+        <field id="L2_complete"/>
+        <field id="L2_centrum"/>
+        <field id="L2_L_arch"/>
+        <field id="L2_R_arch"/>
+        <field id="L3_complete"/>
+        <field id="L3_centrum"/>
+        <field id="L3_L_arch"/>
+        <field id="L3_R_arch"/>
+        <field id="L4_complete"/>
+        <field id="L4_centrum"/>
+        <field id="L4_L_arch"/>
+        <field id="L4_R_arch"/>
+        <field id="L5_complete"/>
+        <field id="L5_centrum"/>
+        <field id="L5_L_arch"/>
+        <field id="L5_R_arch"/>
+        
+        <field id="L_centra_count"/>
+        <field id="L_L_arch_count"/>
+        <field id="L_R_arch_count"/>
+        
+        <field id="Sacrum_complete"/>
+        <field id="Sacrum"/>
+        <field id="Sacrum_L_alae"/>
+        <field id="Sacrum_R_alae"/>
+        
+        <field id="S1_complete"/>
+        <field id="S1_centrum"/>
+        <field id="S1_L_ala"/>
+        <field id="S1_R_ala"/>
+        <field id="S2_complete"/>
+        <field id="S2_centrum"/>
+        <field id="S2_L_ala"/>
+        <field id="S2_R_ala"/>
+        <field id="S3_complete"/>
+        <field id="S3_centrum"/>
+        <field id="S3_L_ala"/>
+        <field id="S3_R_ala"/>
+        <field id="S4_complete"/>
+        <field id="S4_centrum"/>
+        <field id="S4_L_ala"/>
+        <field id="S4_R_ala"/>
+        <field id="S5_complete"/>
+        <field id="S5_centrum"/>
+        <field id="S5_L_ala"/>
+        <field id="S5_R_ala"/>
+        
+        <field id="S_centra_count"/>
+        <field id="S_L_ala_count"/>
+        <field id="S_R_ala_count"/>
+        
+        <field id="Coccyx_complete"/>
+        <field id="Coccyx"/>
     </section>
 </record>
