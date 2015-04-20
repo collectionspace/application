@@ -228,7 +228,7 @@
 			<field id="acquisitionSource" section="bampfa" ui-search="repeatable"/>
 		</repeat>
 
-		<field id="creditLine" section="bampfa"/>
+		<field id="creditLine" section="bampfa" ui-search="repeatable"/>
 
 		<repeat id="bampfaAcquisitionReasonList" section="bampfa">
 			<field id="bampfaAcquisitionReason" section="bampfa" ui-search="repeatable" autocomplete="vocab-acquisitionreason" ui-type="enum"/>
