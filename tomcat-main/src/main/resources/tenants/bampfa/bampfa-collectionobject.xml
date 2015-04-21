@@ -121,7 +121,9 @@
 	<section id="objectProductionInformation">
 		<repeat id="objectProductionPeopleGroupList/objectProductionPeopleGroup">
 			<!-- Add autocomplete -->
-			<field id="objectProductionPeople" autocomplete="organization-collective"/>
+			<field id="objectProductionPeople" autocomplete="organization-organization,organization-collective"/>
+			<!-- Add autocomplete and ui-type -->
+			<field id="objectProductionPeopleRole" autocomplete="vocab-productionpeoplerole" ui-type="enum"/>
 		</repeat>
 
 		<repeat id="objectProductionPersonGroupList/objectProductionPersonGroup">
@@ -132,7 +134,7 @@
 		<!-- Local fields -->
 		
 		<repeat id="bampfaObjectProductionPersonGroupList/bampfaObjectProductionPersonGroup" section="bampfa" >
-			<field id="bampfaObjectProductionPerson" section="bampfa" ui-search="repeatable" autocomplete="person-person"/>
+			<field id="bampfaObjectProductionPerson" section="bampfa" mini="search,list" ui-search="repeatable" autocomplete="person-person"/>
 			<field id="bampfaObjectProductionPersonRole" section="bampfa" autocomplete="vocab-productionpersonrole" ui-type="enum"/>
 			<field id="bampfaObjectProductionPersonQualifier" section="bampfa" autocomplete="vocab-productionpersonqualifier" ui-type="enum"/>
 		</repeat>

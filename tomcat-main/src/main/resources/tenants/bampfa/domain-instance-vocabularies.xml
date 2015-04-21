@@ -343,5 +343,17 @@
 			<option id="movemethod002">Handcarried</option>
 			<option id="movemethod003">Trolley</option>
 		</options>
-	</instance>	
+	</instance>
+	
+	<instance id="vocab-productionpeoplerole">
+		<web-url>productionpeoplerole</web-url>
+		<title-ref>productionpeoplerole</title-ref>
+		<title>Production Organization Role</title>
+		<options>
+			<option id="productionpeoplerole001">Publisher</option>
+			<option id="productionpeoplerole002">Museum</option>
+			<option id="productionpeoplerole003">Gallery</option>
+			<option id="productionpeoplerole004">Artists Collective</option>
+		</options>
+	</instance>
 </instances>
