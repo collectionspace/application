@@ -16,6 +16,23 @@
 		<repeat id="otherNumberList/otherNumber">
 			<!-- Add ui-search -->
 			<field id="numberValue" ui-search="repeatable"/>
+			<!-- Change options -->
+			<field id="numberType">
+				<options>
+					<option id="">Please select a value</option>
+					<option id="Appraisal">Appraisal</option>
+					<option id="Artist">Artist</option>
+					<option id="Auction House">Auction House</option>
+					<option id="Donor, Gallery">Donor, Gallery</option>
+					<option id="lender">Lender</option>
+					<option id="obsolete">Obsolete</option>
+					<option id="previous">Previous</option>
+					<option id="serial">Serial</option>
+					<option id="UC Collection">UC Collection</option>
+					<option id="UCB Inventory">UCB Inventory</option>
+					<option id="unknown">Unknown</option>
+				</options>
+			</field>
 		</repeat>
 
 		<!-- This is an app-layer-only field, used in advanced search to enter "regular" object numbers, which will be computed into sortableObjectNumber for range search. -->
