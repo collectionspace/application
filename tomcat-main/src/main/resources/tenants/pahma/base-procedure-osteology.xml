@@ -44,8 +44,9 @@
         <include src="core-fields.xml" strip-root="yes" />
     </section>
     <section id="osteologyInformation">
-        <field id="osteologyNumber" ui-search="repeatable" in-title="yes" mini="number,search,list,relate"/>
-        <field id="note"/>
+        <field id="InventoryID" ui-search="repeatable" in-title="yes" mini="number,summary,search,list,relate"/>
+        <field id="InventoryIsComplete" datatype="boolean"/>
+        <field id="NotesOnElementInventory"/>
 
         <!-- Head -->
         
