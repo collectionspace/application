@@ -6,16 +6,16 @@
   <property name="resources.dir" value="${src.dir}/tomcat-main/src/main/resources"/>
   <property name="tenants.dir" value="${resources.dir}/tenants"/>
   
+  <!-- Imports a set of utility routines for managing tenant folders
+       from a separate Ant buildfile.
+       See http://wiki.apache.org/ant/NewAntFeaturesInDetail/Import -->
+  <import file="./tenant-utils-build.xml"/>
+  
   <!-- Location of the settings file for the newly-cloned tenant. -->
   <property name="settings.file.name" value="settings.xml"/>
   <property name="template.settings.file"
     value="${tenants.dir}/${template.tenant.shortname}/${settings.file.name}"/>
   <property name="tenant.settings.file" value="${tenants.dir}/${tenant.shortname}/${settings.file.name}"/>
-  
-  <!-- Imports a set of utility routines for managing tenant folders
-       from a separate Ant buildfile.
-       See http://wiki.apache.org/ant/NewAntFeaturesInDetail/Import -->
-  <import file="./tenant-utils-build.xml"/>
   
   <!-- This target inherits from an existing target in the imported
        utility routines buildfile, and adds its own behavior specific to this
