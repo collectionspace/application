@@ -253,6 +253,11 @@
         <field id="MC5_L"/>
         <field id="MC5_R"/>
         
+        <field id="Phalanx_P_count_hand"/>
+        <field id="Phalanx_I_count_hand"/>
+        <field id="Phalanx_D_count_hand"/>
+        <field id="Phalanx_juv_count_hand"/>
+        
         <!-- Foot -->
         
         <field id="MT_L_complete"/>
@@ -269,6 +274,113 @@
         <field id="MT4_R"/>
         <field id="MT5_L"/>
         <field id="MT5_R"/>
+
+        <field id="Phalanx_P_count_foot"/>
+        <field id="Phalanx_I_count_foot"/>
+        <field id="Phalanx_D_count_foot"/>
+        <field id="Phalanx_juv_count_foot"/>
+        
+        <!-- Ribs -->
+        
+        <field id="Ribs_L_complete"/>
+        
+        <field id="Rib1_L"/>
+        <field id="Rib1_L_sternal_end_complete"/>
+        <field id="Rib1_L_head_neck_complete"/>
+        
+        <field id="Rib2_L"/>
+        <field id="Rib2_L_sternal_end_complete"/>
+        <field id="Rib2_L_head_neck_complete"/>
+        
+        <field id="Rib3_L"/>
+        <field id="Rib3_L_sternal_end_complete"/>
+        <field id="Rib3_L_head_neck_complete"/>
+        
+        <field id="Rib4_L"/>
+        <field id="Rib4_L_sternal_end_complete"/>
+        <field id="Rib4_L_head_neck_complete"/>
+        
+        <field id="Rib5_L"/>
+        <field id="Rib5_L_sternal_end_complete"/>
+        <field id="Rib5_L_head_neck_complete"/>
+        
+        <field id="Rib6_L"/>
+        <field id="Rib6_L_sternal_end_complete"/>
+        <field id="Rib6_L_head_neck_complete"/>
+        
+        <field id="Rib7_L"/>
+        <field id="Rib7_L_sternal_end_complete"/>
+        <field id="Rib7_L_head_neck_complete"/>
+        
+        <field id="Rib8_L"/>
+        <field id="Rib8_L_sternal_end_complete"/>
+        <field id="Rib8_L_head_neck_complete"/>
+        
+        <field id="Rib9_L"/>
+        <field id="Rib9_L_sternal_end_complete"/>
+        <field id="Rib9_L_head_neck_complete"/>
+        
+        <field id="Rib10_L"/>
+        <field id="Rib10_L_sternal_end_complete"/>
+        <field id="Rib10_L_head_neck_complete"/>
+        
+        <field id="Rib11_L"/>
+        <field id="Rib11_L_sternal_end_complete"/>
+        <field id="Rib11_L_head_neck_complete"/>
+        
+        <field id="Rib12_L"/>
+        <field id="Rib12_L_sternal_end_complete"/>
+        <field id="Rib12_L_head_neck_complete"/>
+        
+        <field id="Ribs_R_complete"/>
+        
+        <field id="Rib1_R"/>
+        <field id="Rib1_R_sternal_end_complete"/>
+        <field id="Rib1_R_head_neck_complete"/>
+        
+        <field id="Rib2_R"/>
+        <field id="Rib2_R_sternal_end_complete"/>
+        <field id="Rib2_R_head_neck_complete"/>
+        
+        <field id="Rib3_R"/>
+        <field id="Rib3_R_sternal_end_complete"/>
+        <field id="Rib3_R_head_neck_complete"/>
+        
+        <field id="Rib4_R"/>
+        <field id="Rib4_R_sternal_end_complete"/>
+        <field id="Rib4_R_head_neck_complete"/>
+        
+        <field id="Rib5_R"/>
+        <field id="Rib5_R_sternal_end_complete"/>
+        <field id="Rib5_R_head_neck_complete"/>
+        
+        <field id="Rib6_R"/>
+        <field id="Rib6_R_sternal_end_complete"/>
+        <field id="Rib6_R_head_neck_complete"/>
+        
+        <field id="Rib7_R"/>
+        <field id="Rib7_R_sternal_end_complete"/>
+        <field id="Rib7_R_head_neck_complete"/>
+        
+        <field id="Rib8_R"/>
+        <field id="Rib8_R_sternal_end_complete"/>
+        <field id="Rib8_R_head_neck_complete"/>
+        
+        <field id="Rib9_R"/>
+        <field id="Rib9_R_sternal_end_complete"/>
+        <field id="Rib9_R_head_neck_complete"/>
+        
+        <field id="Rib10_R"/>
+        <field id="Rib10_R_sternal_end_complete"/>
+        <field id="Rib10_R_head_neck_complete"/>
+        
+        <field id="Rib11_R"/>
+        <field id="Rib11_R_sternal_end_complete"/>
+        <field id="Rib11_R_head_neck_complete"/>
+        
+        <field id="Rib12_R"/>
+        <field id="Rib12_R_sternal_end_complete"/>
+        <field id="Rib12_R_head_neck_complete"/>
         
         <!-- Vertebrae -->
         
