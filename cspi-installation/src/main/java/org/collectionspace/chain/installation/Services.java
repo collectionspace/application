@@ -3,6 +3,7 @@ package org.collectionspace.chain.installation;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.UUID;
 
 import org.collectionspace.chain.csp.persistence.services.TenantSpec;
 import org.collectionspace.chain.csp.schema.Field;
@@ -12,13 +13,11 @@ import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.chain.csp.schema.Spec;
-
 import org.dom4j.Document;
 import org.dom4j.DocumentFactory;
 import org.dom4j.Element;
 import org.dom4j.Namespace;
 import org.dom4j.QName;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.commons.io.FileUtils;
@@ -63,6 +62,7 @@ public class Services {
 	protected TenantSpec tenantSpec;
 	protected Boolean defaultonly;
 	protected String domainsection;
+	protected String tempDirectoryPath;
 
 	/**
 	 * not sure how configurable these need to be - they can be made more flexible
@@ -76,12 +76,39 @@ public class Services {
 
 	public Services() {
 	}
-
+	
 	public Services(Spec spec,TenantSpec td, Boolean isdefault) {
 		this.spec = spec;
 		this.tenantSpec = td;
 		this.defaultonly = isdefault;
 		this.domainsection = "common";
+		this.tempDirectoryPath = createTempDirectoryPath();
+	}
+	
+	private String createTempDirectoryPath() {
+		String result = null;
+		
+		String tmpPath = FileUtils.getTempDirectoryPath();
+		if (!tmpPath.endsWith(System.getProperty("file.separator"))) { // ensure the path ends with a file separator character
+			tmpPath = tmpPath + System.getProperty("file.separator");
+		}
+		
+		String dirName = "cspace-bindings-" + UUID.randomUUID();		
+		File tmp = new File(tmpPath + dirName);
+		result = tmp.getAbsolutePath();
+		
+		if (!result.endsWith(System.getProperty("file.separator"))) { // ensure the path ends with a file separator character
+			result = result + System.getProperty("file.separator");
+		}
+		
+		log.debug(String.format("Using the following directory to store debug copies of the generated service bindings: %s",
+				result));
+		
+		return result;
+	}
+
+	public String getTempDirectoryPath() {
+		return this.tempDirectoryPath;
 	}
 
 	public String  doit(String serviceBindingVersion) {
@@ -241,7 +268,7 @@ public class Services {
 			// Write the service bindings to a file for debugging/troubleshooting.
 			//
 			String serviceBindingsFileName = String.format("%s.%s.bindings.xml", tenantName, recordName);
-			File serviceBindingsFile = new File(FileUtils.getTempDirectoryPath() + serviceBindingsFileName); // Write this to the System's temp directory
+			File serviceBindingsFile = new File(getTempDirectoryPath() + serviceBindingsFileName); // Write this to the System's temp directory
 			try {
 				FileUtils.writeStringToFile(serviceBindingsFile, serviceBindings);
 				log.debug(String.format("Wrote Service bindings for record='%s' to file: %s",
