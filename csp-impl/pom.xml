@@ -43,6 +43,11 @@
 			<type>jar</type>
 		</dependency>
 		<dependency>
+			<groupId>org.collectionspace.services</groupId>
+			<artifactId>org.collectionspace.services.common-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>		
+		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<type>jar</type>

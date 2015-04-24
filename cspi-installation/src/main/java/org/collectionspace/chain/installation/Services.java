@@ -1,9 +1,9 @@
 package org.collectionspace.chain.installation;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.UUID;
 
 import org.collectionspace.chain.csp.persistence.services.TenantSpec;
 import org.collectionspace.chain.csp.schema.Field;
@@ -13,6 +13,9 @@ import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.services.common.api.FileTools;
+import org.collectionspace.services.common.api.Tools;
+
 import org.dom4j.Document;
 import org.dom4j.DocumentFactory;
 import org.dom4j.Element;
@@ -21,7 +24,6 @@ import org.dom4j.QName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.commons.io.FileUtils;
-import org.collectionspace.services.common.api.Tools;
 
 public class Services {
 	private static final Logger log = LoggerFactory.getLogger(Services.class);
@@ -62,7 +64,7 @@ public class Services {
 	protected TenantSpec tenantSpec;
 	protected Boolean defaultonly;
 	protected String domainsection;
-	protected String tempDirectoryPath;
+	protected File tempDirectory;
 
 	/**
 	 * not sure how configurable these need to be - they can be made more flexible
@@ -75,40 +77,19 @@ public class Services {
 	"http://collectionspace.org/services/config/tenant.xsd";
 
 	public Services() {
+		// Intentionally left blank?
 	}
 	
-	public Services(Spec spec,TenantSpec td, Boolean isdefault) {
+	public Services(Spec spec,TenantSpec td, Boolean isdefault) throws IOException {
 		this.spec = spec;
 		this.tenantSpec = td;
 		this.defaultonly = isdefault;
 		this.domainsection = "common";
-		this.tempDirectoryPath = createTempDirectoryPath();
+		this.tempDirectory = FileTools.createTmpDir("cspace-bindings-");
 	}
 	
-	private String createTempDirectoryPath() {
-		String result = null;
-		
-		String tmpPath = FileUtils.getTempDirectoryPath();
-		if (!tmpPath.endsWith(System.getProperty("file.separator"))) { // ensure the path ends with a file separator character
-			tmpPath = tmpPath + System.getProperty("file.separator");
-		}
-		
-		String dirName = "cspace-bindings-" + UUID.randomUUID();		
-		File tmp = new File(tmpPath + dirName);
-		result = tmp.getAbsolutePath();
-		
-		if (!result.endsWith(System.getProperty("file.separator"))) { // ensure the path ends with a file separator character
-			result = result + System.getProperty("file.separator");
-		}
-		
-		log.debug(String.format("Using the following directory to store debug copies of the generated service bindings: %s",
-				result));
-		
-		return result;
-	}
-
-	public String getTempDirectoryPath() {
-		return this.tempDirectoryPath;
+	public File getTempDirectory() {
+		return this.tempDirectory;
 	}
 
 	public String  doit(String serviceBindingVersion) {
@@ -268,7 +249,7 @@ public class Services {
 			// Write the service bindings to a file for debugging/troubleshooting.
 			//
 			String serviceBindingsFileName = String.format("%s.%s.bindings.xml", tenantName, recordName);
-			File serviceBindingsFile = new File(getTempDirectoryPath() + serviceBindingsFileName); // Write this to the System's temp directory
+			File serviceBindingsFile = new File(getTempDirectory(), serviceBindingsFileName); // Write this to a temp directory for debugging purposes
 			try {
 				FileUtils.writeStringToFile(serviceBindingsFile, serviceBindings);
 				log.debug(String.format("Wrote Service bindings for record='%s' to file: %s",
