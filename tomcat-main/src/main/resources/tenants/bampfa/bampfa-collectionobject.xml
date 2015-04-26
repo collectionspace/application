@@ -23,7 +23,8 @@
 					<option id="Appraisal">Appraisal</option>
 					<option id="Artist">Artist</option>
 					<option id="Auction House">Auction House</option>
-					<option id="Donor, Gallery">Donor, Gallery</option>
+					<option id="Donor">Donor</option>
+					<option id="Gallery">Gallery</option>
 					<option id="lender">Lender</option>
 					<option id="obsolete">Obsolete</option>
 					<option id="previous">Previous</option>
