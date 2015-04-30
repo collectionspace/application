@@ -45,6 +45,34 @@
     </section>
     <section id="osteologyInformation">
         <field id="InventoryID" ui-search="repeatable" in-title="yes" mini="number,summary,search,list,relate"/>
+
+        <repeat id="osteoAgeEstimateGroupList/osteoAgeEstimateGroup">
+            <field id="osteoAgeEstimateLower" ui-type="validated" datatype="integer"/>
+            <field id="osteoAgeEstimateUpper" ui-type="validated" datatype="integer"/>
+            <group id="osteoAgeEstimateDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate"/>
+            <field id="osteoAgeEstimateAnalyst" autocomplete="person-person"/>
+            <field id="osteoAgeEstimateNote"/>
+        </repeat>
+
+        <repeat id="sexDeterminationGroupList/sexDeterminationGroup">
+            <field id="sexDetermination">
+                <options>
+                    <option id="">Please select a value</option>
+                    <option id="Female">Female</option>
+                    <option id="Probably female">Probably female</option>
+                    <option id="Possibly female">Possibly female</option>
+                    <option id="Male">Male</option>
+                    <option id="Probably male">Probably male</option>
+                    <option id="Possibly male">Possibly male</option>
+                    <option id="Indeterminate">Indeterminate</option>
+                    <option id="Unknown">Unknown</option>
+                </options>
+            </field>
+            <group id="sexDeterminationDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate"/>
+            <field id="sexDeterminationAnalyst" autocomplete="person-person"/>
+            <field id="sexDeterminationNote"/>
+        </repeat>
+        
         <field id="InventoryIsComplete" datatype="boolean"/>
         <field id="NotesOnElementInventory"/>
 
