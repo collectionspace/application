@@ -1,0 +1,182 @@
+{
+    "exhibition": {
+        "properties": {
+            "csid": {
+                "type": "string"
+            },
+            "fields": {
+                "properties": {
+                    "boilerplateText": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "date"
+                    },
+                    "createdBy": {
+                        "type": "string"
+                    },
+                    "curatorialNote": {
+                        "type": "string"
+                    },
+                    "exhibitionNumber": {
+                        "type": "string"
+                    },
+                    "exhibitionReferenceGroup": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "exhibitionReference": {
+                                    "type": "string"
+                                },
+                                "exhibitionReferenceNote": {
+                                    "type": "string"
+                                },
+                                "exhibitionReferenceType": {
+                                    "default": "",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "generalNote": {
+                        "type": "string"
+                    },
+                    "organizers": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "organizer": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "planningNote": {
+                        "type": "string"
+                    },
+                    "refName": {
+                        "type": "string"
+                    },
+                    "sponsors": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "sponsor": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "tenantId": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "updatedAt": {
+                        "type": "date"
+                    },
+                    "updatedBy": {
+                        "type": "string"
+                    },
+                    "uri": {
+                        "type": "string"
+                    },
+                    "venueGroup": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "venue": {
+                                    "type": "string"
+                                },
+                                "venueAttendance": {
+                                    "type": "string"
+                                },
+                                "venueClosingDate": {
+                                    "type": "date"
+                                },
+                                "venueOpeningDate": {
+                                    "type": "date"
+                                },
+                                "venueUrl": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "workingGroup": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "exhibitionPersonGroup": {
+                                    "items": {
+                                        "properties": {
+                                            "_primary": {
+                                                "default": true,
+                                                "type": "boolean"
+                                            },
+                                            "exhibitionPerson": {
+                                                "type": "string"
+                                            },
+                                            "exhibitionPersonRole": {
+                                                "default": "",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "type": "array"
+                                },
+                                "workingGroupNote": {
+                                    "type": "string"
+                                },
+                                "workingGroupTitle": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    }
+                },
+                "type": "object"
+            },
+            "relations": {
+                "default": {},
+                "type": "object"
+            },
+            "termsUsed": {
+                "default": [],
+                "type": "array"
+            }
+        },
+        "type": "object"
+    }
+}

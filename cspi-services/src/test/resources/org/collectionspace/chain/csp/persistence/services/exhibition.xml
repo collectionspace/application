@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ns2:exhibitions_common xmlns:ns2="http://collectionspace.org/services/exhibition">
+    <generalNote>Generally do some things.</generalNote>
+    <workingGroupList>
+        <workingGroup>
+            <exhibitionPersonGroupList>
+                <exhibitionPersonGroup>
+                    <exhibitionPerson>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(ConnieCurator1429860191889)'Connie Curator'</exhibitionPerson>
+                    <exhibitionPersonRole>urn:cspace:core.collectionspace.org:vocabularies:name(exhibitionpersonrole):item:name(curator)'Curator'</exhibitionPersonRole>
+                </exhibitionPersonGroup>
+                <exhibitionPersonGroup>
+                    <exhibitionPerson>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(EdEducator1429860205520)'Ed Educator'</exhibitionPerson>
+                    <exhibitionPersonRole>urn:cspace:core.collectionspace.org:vocabularies:name(exhibitionpersonrole):item:name(educator)'Educator'</exhibitionPersonRole>
+                </exhibitionPersonGroup>
+            </exhibitionPersonGroupList>
+            <workingGroupTitle>People</workingGroupTitle>
+            <workingGroupNote>These are some people</workingGroupNote>
+        </workingGroup>
+    </workingGroupList>
+    <title>My Exhibition</title>
+    <venueGroupList>
+        <venueGroup>
+            <venueAttendance>1999</venueAttendance>
+            <venueOpeningDate>2015-04-24T00:00:00.000Z</venueOpeningDate>
+            <venue>urn:cspace:core.collectionspace.org:placeauthorities:name(place):item:name(Gallery11429860147339)'Gallery 1'</venue>
+            <venueClosingDate>2015-04-25T00:00:00.000Z</venueClosingDate>
+            <venueUrl>http://exhibit.com</venueUrl>
+        </venueGroup>
+    </venueGroupList>
+    <sponsors>
+        <sponsor>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(AcmeCo1429860126929)'Acme Co.'</sponsor>
+    </sponsors>
+    <exhibitionReferenceGroupList>
+        <exhibitionReferenceGroup>
+            <exhibitionReference>urn:cspace:core.collectionspace.org:citationauthorities:name(citation):item:name(Reference11429860263344)'Reference 1'</exhibitionReference>
+            <exhibitionReferenceType>urn:cspace:core.collectionspace.org:vocabularies:name(exhibitionreferencetype):item:name(catalog)'Catalog'</exhibitionReferenceType>
+            <exhibitionReferenceNote>This is the catalog</exhibitionReferenceNote>
+        </exhibitionReferenceGroup>
+    </exhibitionReferenceGroupList>
+    <curatorialNote>Do some curating.</curatorialNote>
+    <planningNote>Some planning was required</planningNote>
+    <exhibitionNumber>EX123</exhibitionNumber>
+    <organizers>
+        <organizer>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(JohnDoe1429860133232)'John Doe'</organizer>
+    </organizers>
+    <boilerplateText>Lorem ipsum...</boilerplateText>
+    <type>urn:cspace:core.collectionspace.org:vocabularies:name(exhibitiontype):item:name(permanent)'Permanent'</type>
+</ns2:exhibitions_common>

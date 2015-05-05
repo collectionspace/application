@@ -28,6 +28,7 @@
       "cona_work",
       "media",
       "conditioncheck",
+      "exhibition",
       "valuationcontrol"
     ], 
     "type": "array"
