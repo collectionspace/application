@@ -557,5 +557,67 @@
         
         <field id="Coccyx_complete"/>
         <field id="Coccyx"/>
+        
+        <!-- Teeth -->
+        
+        <field id="Teeth_UM3_R"/>
+        <field id="Teeth_UM2_R"/>
+        <field id="Teeth_UM1_R"/>
+        <field id="Teeth_UP4_R"/>
+        <field id="Teeth_UP3_R"/>
+        <field id="Teeth_UC_R"/>
+        <field id="Teeth_UI2_R"/>
+        <field id="Teeth_UI1_R"/>
+
+        <field id="Teeth_UI1_L"/>
+        <field id="Teeth_UI2_L"/>
+        <field id="Teeth_UC_L"/>
+        <field id="Teeth_UP3_L"/>
+        <field id="Teeth_UP4_L"/>
+        <field id="Teeth_UM1_L"/>
+        <field id="Teeth_UM2_L"/>
+        <field id="Teeth_UM3_L"/>
+        
+        <field id="Teeth_LM3_R"/>
+        <field id="Teeth_LM2_R"/>
+        <field id="Teeth_LM1_R"/>
+        <field id="Teeth_LP4_R"/>
+        <field id="Teeth_LP3_R"/>
+        <field id="Teeth_LC_R"/>
+        <field id="Teeth_LI2_R"/>
+        <field id="Teeth_LI1_R"/>
+
+        <field id="Teeth_LI1_L"/>
+        <field id="Teeth_LI2_L"/>
+        <field id="Teeth_LC_L"/>
+        <field id="Teeth_LP3_L"/>
+        <field id="Teeth_LP4_L"/>
+        <field id="Teeth_LM1_L"/>
+        <field id="Teeth_LM2_L"/>
+        <field id="Teeth_LM3_L"/>
+        
+        <field id="Teeth_decid_Udm2_R"/>
+        <field id="Teeth_decid_Udm1_R"/>
+        <field id="Teeth_decid_Udc_R"/>
+        <field id="Teeth_decid_Udi2_R"/>
+        <field id="Teeth_decid_Udi1_R"/>
+        
+        <field id="Teeth_decid_Udi1_L"/>
+        <field id="Teeth_decid_Udi2_L"/>
+        <field id="Teeth_decid_Udc_L"/>
+        <field id="Teeth_decid_Udm1_L"/>
+        <field id="Teeth_decid_Udm2_L"/>
+        
+        <field id="Teeth_decid_Ldm2_R"/>
+        <field id="Teeth_decid_Ldm1_R"/>
+        <field id="Teeth_decid_Ldc_R"/>
+        <field id="Teeth_decid_Ldi2_R"/>
+        <field id="Teeth_decid_Ldi1_R"/>
+        
+        <field id="Teeth_decid_Ldi1_L"/>
+        <field id="Teeth_decid_Ldi2_L"/>
+        <field id="Teeth_decid_Ldc_L"/>
+        <field id="Teeth_decid_Ldm1_L"/>
+        <field id="Teeth_decid_Ldm2_L"/>
     </section>
 </record>
