@@ -1,0 +1,24 @@
+<record id="conditioncheck" is-extension="true">
+    <services-record-path id="pahma">conditionchecks_pahma:http://collectionspace.org/services/conditioncheck/local/pahma,conditionchecks_pahma</services-record-path>
+
+    <section id="objectConditionInformation">
+        <repeat id="conditionCheckGroupList/conditionCheckGroup">
+            <field id="condition">
+                <!-- Replace options -->
+                <options>
+                    <option id="" default="yes">Please select a value</option>
+                    <option id="very good">very good</option>
+                    <option id="good">good</option>
+                    <option id="fair">fair</option>
+                    <option id="poor">poor</option>
+                </options>
+            </field>
+        </repeat>
+    </section>
+    
+    <section id="objectRequirementInformation">
+        <field id="tempRequirement" section="pahma" autocomplete="vocab-temperaturelevel" ui-type="enum"/>
+        <field id="humidityRequirement" section="pahma" autocomplete="vocab-humiditylevel" ui-type="enum"/>
+        <field id="lightRequirement" section="pahma" autocomplete="vocab-lightlevel" ui-type="enum"/>
+    </section>
+</record>
