@@ -88,4 +88,37 @@
 			<option id="labelswritten">Labels written</option>
 		</options>
 	</instance>
+	<instance id="vocab-temperaturelevel">
+		<web-url>temperaturelevel</web-url>
+		<title-ref>temperaturelevel</title-ref>
+		<title>temperaturelevel</title>
+		<options>
+			<option id="normal">Normal 65-68F</option>
+			<option id="cool">Cool 55-65F</option>
+			<option id="cold">Cold 33-54F</option>
+			<option id="freezer">Freezer 0-32F</option>
+		</options>
+	</instance>
+	<instance id="vocab-humiditylevel">
+		<web-url>humiditylevel</web-url>
+		<title-ref>humiditylevel</title-ref>
+		<title>humiditylevel</title>
+		<options>
+			<option id="50">50% RH +/- 5%</option>
+			<option id="45">45% RH +/- 5%</option>
+			<option id="35">35% RH +/- 5%</option>
+		</options>
+	</instance>
+	<instance id="vocab-lightlevel">
+		<web-url>lightlevel</web-url>
+		<title-ref>lightlevel</title-ref>
+		<title>lightlevel</title>
+		<options>
+			<option id="50">50 lux max. with &lt;/= 75 uW/lumen UV content</option>
+			<option id="100">100 lux max. with &lt;/= 75 uW/lumen UV content</option>
+			<option id="150">150 lux max. with &lt;/= 75 uW/lumen UV content</option>
+			<option id="200">200 lux max. with &lt;/= 75 uW/lumen UV content</option>
+			<option id="300">300 lux max. with &lt;/= 75 uW/lumen UV content</option>
+		</options>
+	</instance>
 </instances>
