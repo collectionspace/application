@@ -1,0 +1,190 @@
+<instances id="vocabularies">
+    <instance id="vocab-technicalchange">
+        <web-url>technicalchange</web-url>
+        <title-ref>technicalchange</title-ref>
+        <title>Technical Change</title>
+        <options>
+            <option id="codecompilation">code compilation</option>
+            <option id="emulation">emulation</option>
+            <option id="migration">migration</option>
+            <option id="refurbishing">refurbishing</option>
+        </options>
+    </instance>
+    <instance id="vocab-technicalchangereason">
+        <web-url>technicalchangereason</web-url>
+        <title-ref>technicalchangereason</title-ref>
+        <title>Technical Change Reason</title>
+        <options>
+            <option id="conservation">conservation</option>
+            <option id="exhibition">exhibition</option>
+            <option id="inventory">inventory</option>
+            <option id="refurbishing">refurbishing</option>
+        </options>
+    </instance>
+    <instance id="vocab-conditionsupport">
+        <web-url>conditionprevioussupport</web-url>
+        <title-ref>conditionprevioussupport</title-ref>
+        <title>Condition Check Previous Support</title>
+        <options>
+            <option id="8mm">8mm</option>
+            <option id="16mm"> 16mm</option>
+            <option id="35mm"> 35mm</option>
+            <option id="50mm"> 50mm</option>
+            <option id="onehalfinch"> 1/2 in.</option>
+            <option id="threequartersinch"> 3/4 in.</option>
+            <option id="twoinch"> 2 in.</option> 
+            <option id="bluray"> Blu-ray disc</option>
+            <option id="cd"> CD</option>
+            <option id="dvd">DVD</option>
+            <option id="floppydisk"> Floppy disk</option>
+            <option id="laserdisc"> Laserdisc</option>
+            <option id="tapecassette"> Tape cassette</option>
+            <option id="videocassette"> Videocassette</option>
+        </options>
+    </instance>
+    <instance id="vocab-contentworktype">
+        <web-url>contentworktype</web-url>
+        <title-ref>contentworktype</title-ref>
+        <title>Content - Work Type</title>
+        <options>
+            <option id="audio">Audio</option>
+            <option id="film">Film</option>
+            <option id="multimedia">Multimedia</option>
+            <option id="video">video</option>
+        </options>
+    </instance>
+    <instance id="vocab-origformat">
+        <web-url>originalformat</web-url>
+        <title-ref>originalformat</title-ref>
+        <title>Original Media Format</title>
+        <options>
+            <option id="8mm">8mm</option>
+            <option id="16mm"> 16mm</option>
+            <option id="35mm"> 35mm</option>
+            <option id="50mm"> 50mm</option>
+            <option id="onehalfinch"> 1/2 in.</option>
+            <option id="threequartersinch"> 3/4 in.</option>
+            <option id="twoinch"> 2 in.</option> 
+            <option id="beta"> Bets</option>
+            <option id="dcc"> DCC</option>
+            <option id="digibeta">Digibeta</option>
+            <option id="minidv"> MiniDV</option>
+            <option id="mp3"> MP3</option>
+            <option id="vhs"> VHS</option>
+        </options>
+    </instance>
+    <instance id="vocab-origaudioformat">
+        <web-url>originalaudioformat</web-url>
+        <title-ref>originalaudioformat</title-ref>
+        <title>Original Audio Format</title>
+        <options>
+            <option id="aiff"> AIFF</option>
+            <option id="cassette"> cassette</option>
+            <option id="8track"> eight-track</option>
+            <option id="mp3"> MP3</option>
+            <option id="magnetictape"> Magnetic Tape</option>
+            <option id="reeltoreel"> reel-to-reel</option>
+            <option id="vinyl"> vinyl record</option> 
+            <option id="wav"> WAV</option>
+        </options>
+    </instance>
+    <instance id="vocab-programminglanguage">
+        <web-url>programminglanguage</web-url>
+        <title-ref>programminglanguage</title-ref>
+        <title>Programming languages</title>
+        <options>
+            <option id="clang">C (language)</option>
+            <option id="cplusplus"> C++</option>
+            <option id="csharp"> C#</option>
+            <option id="java"> Java</option>
+            <option id="javascript"> Javascript</option>
+            <option id="php"> Perl</option>
+            <option id="python"> PHP</option> 
+            <option id="ruby"> Python</option>
+            <option id="sql"> Ruby</option>
+            <option id="digibeta"> SQL</option>
+        </options>
+    </instance>
+    <instance id="vocab-authoringenvironment">
+        <web-url>authoringenvironment</web-url>
+        <title-ref>authoringenvironment</title-ref>
+        <title>Authoring Environment</title>
+        <options>
+            <option id="director">Director</option>
+            <option id="flash"> Flash</option>
+            <option id="shockwave"> Shockwave</option>
+        </options>
+    </instance>
+    <instance id="vocab-compressionsystem">
+        <web-url>compressionsystem</web-url>
+        <title-ref>compressionsystem</title-ref>
+        <title>Compression System</title>
+        <options>
+            <option id="dolby">Dolby</option>
+            <option id="mpeg"> MPEG</option>
+        </options>
+    </instance>
+    <instance id="vocab-ratioformat">
+        <web-url>ratioformat</web-url>
+        <title-ref>ratioformat</title-ref>
+        <title>Ratio Format</title>
+        <options>
+            <option id="4x3">4:3</option>
+            <option id="3x2"> 3:2</option>
+            <option id="1618x1"> 1.618:1</option>
+            <option id="16x9"> 16:9</option>
+            <option id="185x1"> 1.85:1</option>
+        </options>
+    </instance>
+    <instance id="vocab-screenresolution">
+        <web-url>screenresolution</web-url>
+        <title-ref>screenresolution</title-ref>
+        <title>Screen Resolution</title>
+        <options>
+            <option id="480i"> 480i</option>
+            <option id="480p"> 480p</option>
+            <option id="720p"> 720p</option>
+            <option id="1080i"> 1080i</option>
+            <option id="1080p"> 1080p</option>
+            <option id="1024x768"> 1024 x 768</option>
+            <option id="1366x768"> 1366 x 768</option>
+            <option id="1280x800"> 1280 x 800</option>
+        </options>
+    </instance>
+    <instance id="vocab-colorpalette">
+        <web-url>colorpalette</web-url>
+        <title-ref>colorpalette</title-ref>
+        <title>Color Palette</title>
+        <options>
+            <option id="cmyk">CMYK</option>
+            <option id="rgb"> RGB</option>
+        </options>
+    </instance>
+    <instance id="vocab-creationhardware">
+        <web-url>creationhardware</web-url>
+        <title-ref>creationhardware</title-ref>
+        <title>Creation Hardware</title>
+        <options>
+            <option id="stillcamera"> Still Camera</option>
+            <option id="mobiledevice"> Mobile Device</option>
+            <option id="moviecamera"> Movie Camera</option>
+            <option id="taperecorder"> Tape Recorder</option>
+            <option id="webcam"> Webcam</option>
+        </options>
+    </instance>
+    <instance id="vocab-playbackhardware">
+        <web-url>playbackhardware</web-url>
+        <title-ref>playbackhardware</title-ref>
+        <title>Playback Hardware</title>
+        <options>
+            <option id="bluray">Blu-ray video player</option>
+            <option id="cdplayer"> CD player</option>
+            <option id="computer"> Computer</option>
+            <option id="dvdplayer">  DVD player</option>
+            <option id="laserdiscplayer">  Laserdisc player</option>
+            <option id="tapecassetteplayer">  Tape cassette player</option>
+            <option id="television"> Television set</option>
+            <option id="videocassetteplayer">  Videocassette player</option>
+        </options>
+    </instance>
+</instances>
