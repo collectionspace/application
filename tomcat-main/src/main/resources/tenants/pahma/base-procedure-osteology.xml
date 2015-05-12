@@ -73,8 +73,10 @@
             <field id="sexDeterminationNote"/>
         </repeat>
         
-        <field id="InventoryIsComplete" datatype="boolean"/>
         <field id="NotesOnElementInventory"/>
+        <field id="InventoryIsComplete" datatype="boolean"/>
+        <field id="inventoryAnalyst" autocomplete="person-person"/>
+        <field id="inventoryDate" ui-type="date" datatype="date"/>
 
         <!-- Head -->
         
