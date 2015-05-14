@@ -44,7 +44,7 @@
         <include src="core-fields.xml" strip-root="yes" />
     </section>
     <section id="osteologyInformation">
-        <field id="InventoryID" ui-search="repeatable" in-title="yes" mini="number,summary,search,list,relate"/>
+        <field id="InventoryID" ui-search="repeatable" in-title="yes" mini="number,search,list,relate"/>
 
         <repeat id="osteoAgeEstimateGroupList/osteoAgeEstimateGroup">
             <field id="osteoAgeEstimateLower" ui-type="validated" datatype="integer"/>
@@ -75,8 +75,8 @@
         
         <field id="NotesOnElementInventory"/>
         <field id="InventoryIsComplete" datatype="boolean"/>
-        <field id="inventoryAnalyst" autocomplete="person-person"/>
-        <field id="inventoryDate" ui-type="date" datatype="date"/>
+        <field id="inventoryAnalyst" ui-search="repeatable" autocomplete="person-person"/>
+        <field id="inventoryDate" ui-search="range" mini="summary,search,list,relate" ui-type="date" datatype="date"/>
 
         <!-- Head -->
         
