@@ -9,7 +9,7 @@
 	<name>Root</name>
 
 	<properties>
-		<maven.tomcat.home>/tmp</maven.tomcat.home>
+		<temp.war.location>${basedir}/tmp</temp.war.location>
 		<cspace.tool.csmake>csmake</cspace.tool.csmake>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jetty.version>6.1.22</jetty.version>
