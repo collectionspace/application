@@ -1,0 +1,9 @@
+<record id="conditioncheck" is-extension="true">
+    <services-record-path id="anthropology">conditionchecks_anthropology:http://collectionspace.org/services/conditioncheck/domain/anthropology,conditionchecks_anthropology</services-record-path>
+
+    <section id="objectRequirementInformation">
+        <field id="tempRequirement" section="anthropology" autocomplete="vocab-temperaturelevel" ui-type="enum"/>
+        <field id="humidityRequirement" section="anthropology" autocomplete="vocab-humiditylevel" ui-type="enum"/>
+        <field id="lightRequirement" section="anthropology" autocomplete="vocab-lightlevel" ui-type="enum"/>
+    </section>
+</record>
