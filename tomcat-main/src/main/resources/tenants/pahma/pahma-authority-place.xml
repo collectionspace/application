@@ -13,11 +13,20 @@
 		<field id="placeType" autocomplete="vocab-PlaceType" ui-type="enum">
 			<options/>
 		</field>
+		
+		<!-- Anthropology domain modifications -->
+		
+		<repeat id="placeReferenceGroupList/placeReferenceGroup" section="anthropology">
+			<!-- Remove citation-worldcat from autocomplete -->
+			<field id="placeReference" autocomplete="citation-citation"/>
+		</repeat>
 	</section>
-    <section id="localityInformation">
+	
+	<section id="localityInformation">
 		<!-- Add autocomplete -->
 		<field id="vCoordSource" autocomplete="citation-citation"/>
 	</section>
+	
 	<section id="geoReferenceInformation">
 		<repeat id="placeGeoRefGroupList/placeGeoRefGroup">
 			<!-- Add autocomplete -->
