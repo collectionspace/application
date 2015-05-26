@@ -1,0 +1,10 @@
+<record id="place" is-extension="true">
+	<services-record-path id="anthropology">places_anthropology:http://collectionspace.org/services/place/domain/anthropology,places_anthropology</services-record-path>
+
+	<section id="placeAuthorityInformation">
+		<repeat id="placeReferenceGroupList/placeReferenceGroup" section="anthropology">
+			<field id="placeReference" autocomplete="citation-citation,citation-worldcat" section="anthropology"/>
+			<field id="placeReferenceNote" section="anthropology"/>
+		</repeat>
+	</section>
+</record>
