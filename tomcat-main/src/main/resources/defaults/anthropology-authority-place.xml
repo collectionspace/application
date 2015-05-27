@@ -39,4 +39,10 @@
 			<field id="placeAssocNote" section="anthropology"/>
 		</repeat>
 	</section>
+	
+	<section id="localityInformation">
+		<field id="township" section="anthropology"/>
+		<field id="range" section="anthropology"/>
+		<field id="section" section="anthropology"/>
+	</section>
 </record>
