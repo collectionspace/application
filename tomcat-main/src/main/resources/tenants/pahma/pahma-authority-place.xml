@@ -16,9 +16,14 @@
 		
 		<!-- Anthropology domain modifications -->
 		
-		<repeat id="placeReferenceGroupList/placeReferenceGroup" section="anthropology">
+		<repeat id="placeReferenceGroupList/placeReferenceGroup">
 			<!-- Remove citation-worldcat from autocomplete -->
 			<field id="placeReference" autocomplete="citation-citation"/>
+		</repeat>
+		
+		<repeat id="placeAssocGroupList/placeAssocGroup">
+			<!-- Remove person-ulan_pa and organization-ulan_oa from autocomplete -->
+			<field id="placeAssocName" autocomplete="person-person,organization-organization"/>
 		</repeat>
 	</section>
 	

@@ -121,4 +121,14 @@
 			<option id="300">300 lux max. with &lt;/= 75 uW/lumen UV content</option>
 		</options>
 	</instance>
+	<instance id="vocab-placeassociation">
+		<web-url>placeassociation</web-url>
+		<title-ref>placeassociation</title-ref>
+		<title>placeassociation</title>
+		<options>
+			<option id="excavation">excavation</option>
+			<option id="salvage">salvage</option>
+			<option id="survey">survey</option>
+		</options>
+	</instance>
 </instances>
