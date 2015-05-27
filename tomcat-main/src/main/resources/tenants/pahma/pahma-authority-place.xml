@@ -1,4 +1,6 @@
-<record id="place">
+<record id="place" is-extension="true">
+	<services-record-path id="pahma">places_pahma:http://collectionspace.org/services/place/local/pahma,places_pahma</services-record-path>
+	
 	<instances id="place">
 		<instance id="place-place">
 			<web-url>place</web-url>
@@ -30,6 +32,10 @@
 	<section id="localityInformation">
 		<!-- Add autocomplete -->
 		<field id="vCoordSource" autocomplete="citation-citation"/>
+		
+		<!-- Local fields -->
+		
+		<field id="verbatimQuarterSection" section="pahma"/>
 	</section>
 	
 	<section id="geoReferenceInformation">
