@@ -31,6 +31,7 @@ import org.slf4j.LoggerFactory;
 public class BlobStorage extends GenericStorage {
 	private static final Logger log=LoggerFactory.getLogger(RecordStorage.class);
 	private static final String ORIGINAL_CONTENT = "Original";
+	private static final String ORIGINALJPEG_CONTENT = "OriginalJpeg";
 	private static final CharSequence PUBLISH_URL_SUFFIX = "publish";
 	
 	public BlobStorage(Record r,ServicesConnection conn) throws DocumentException, IOException {	
@@ -39,13 +40,46 @@ public class BlobStorage extends GenericStorage {
 	}
 	
 	/*
+	 * This method tries to get the "original" content, but if that content does not exist then it will
+	 * try to get the ORIGINALJPEG_CONTENT view instead.  The original might be missing if the source of the
+	 * image was an external URL.
+	 */
+	public JSONObject originalViewRetrieveImg(ContextualisedStorage storage,
+			CSPRequestCredentials creds,
+			CSPRequestCache cache,
+			String inFilePath,
+			String view,
+			String extra,
+			JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException, UnsupportedEncodingException {
+		JSONObject result = null;
+		
+		try {
+			result = viewRetrieveImg(storage, creds, cache, inFilePath, view, extra, restrictions);
+		} catch (UnderlyingStorageException e) {
+			// If we couldn't find the original, let's try to find the ORIGINALJPEG_CONTENT content instead.
+			result = viewRetrieveImg(storage, creds, cache, inFilePath, ORIGINALJPEG_CONTENT, extra, restrictions);
+			log.warn(String.format("Could not find the original content for '%s', so the '%s' view was returned instead.",
+					inFilePath, ORIGINALJPEG_CONTENT));
+		}
+		
+		return result;
+	}
+	
+	/*
 	 * This method returns actual blob bits -either the original blob bits or those of a derivative
 	 */
-	public JSONObject viewRetrieveImg(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,String view, String extra, JSONObject restrictions) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException, UnsupportedEncodingException {
-		JSONObject out=new JSONObject();
+	public JSONObject viewRetrieveImg(ContextualisedStorage storage,
+			CSPRequestCredentials creds,
+			CSPRequestCache cache,
+			String inFilePath,
+			String view,
+			String extra,
+			JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException, UnsupportedEncodingException {
+		JSONObject out = new JSONObject();
 		String servicesurl = r.getServicesURL() + "/";
 		try {
 			String contentSuffix = "/content";
+			String filePath = inFilePath;
 			if (view.equalsIgnoreCase(ORIGINAL_CONTENT)) {
 				filePath = filePath + contentSuffix;
 			} else {
@@ -59,35 +93,25 @@ public class BlobStorage extends GenericStorage {
 				softpath = hierarchicalpath(softpath);
 			}
 			
-			
-			if(r.isMultipart()){
-				ReturnUnknown doc = conn.getUnknownDocument(RequestMethod.GET, servicesurl+softpath, null, creds, cache);
-				if((doc.getStatus()<200 || doc.getStatus()>=300))
-					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),softpath);
-				out.put("getByteBody", doc.getBytes()); // REM: We're returning an array of bytes here and we probably should be using a stream of bytes
-				out.put("contenttype", doc.getContentType());
-				out.put("contentdisposition", doc.getContentDisposition());
+			ReturnUnknown doc = conn.getUnknownDocument(RequestMethod.GET, servicesurl+softpath, null, creds, cache);
+			if (doc.getStatus() < 200 || doc.getStatus() >= 300) {
+				throw new UnderlyingStorageException("Does not exist ", doc.getStatus(), softpath);
 			}
-			else{
-				ReturnUnknown doc = conn.getUnknownDocument(RequestMethod.GET, servicesurl+softpath, null, creds, cache);
-				if((doc.getStatus()<200 || doc.getStatus()>=300))
-					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),softpath);
-
-				out.put("getByteBody", doc.getBytes());
-				out.put("contenttype", doc.getContentType());
-				out.put("contentdisposition", doc.getContentDisposition());
-			}
+			out.put("getByteBody", doc.getBytes()); // REM: We're returning an array of bytes here and we probably should be using a stream of bytes
+			out.put("contenttype", doc.getContentType());
+			out.put("contentdisposition", doc.getContentDisposition());
 
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
+			throw new UnderlyingStorageException("Service layer exception " + e.getLocalizedMessage(), e.getStatus(), e.getUrl(), e);
 		}
+		
 		return out;
-	}
-	
-	
+	}	
 	
 	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject restrictions) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
+		JSONObject result = null;
+		
 		try {
 			if (r.isType("report") == true) {
 				Document doc = null;
@@ -132,23 +156,28 @@ public class BlobStorage extends GenericStorage {
 					throw new UnderlyingStorageException("Bad response ", status, r.getServicesURL() + "/");
 				}
 				
-				return out;
+				result = out;
 			} else {
 				//
 				// We're being asked for an image or some other attachment.
 				//
 				String[] parts=filePath.split("/");
-				if(parts.length>=2) {
+				if (parts.length >= 2) {
+					String imagefilePath = parts[0];
+					String view = parts[1];
 					String extra = "";
-					if(parts.length==3){
+					if (parts.length == 3) {
 						extra = parts[2];
 					}
-					return viewRetrieveImg(root,creds,cache,parts[0],parts[1],extra, restrictions);
+					if (view.equalsIgnoreCase(ORIGINAL_CONTENT)) {
+						result = originalViewRetrieveImg(root, creds, cache, imagefilePath, view, extra, restrictions);
+					}
+					else {
+						result = viewRetrieveImg(root, creds, cache, imagefilePath, view, extra, restrictions);
+					}
 				} else
-					return simpleRetrieveJSON(creds,cache,filePath);
+					result = simpleRetrieveJSON(creds,cache,filePath);
 			}
-			
-			
 		} catch(JSONException x) {
 			throw new UnderlyingStorageException("Error building JSON",x);
 		} catch (UnsupportedEncodingException x) {
@@ -156,29 +185,32 @@ public class BlobStorage extends GenericStorage {
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		}
+		
+		return result;
 	}
 	
 	@Override
 	public String autocreateJSON(ContextualisedStorage root,
-			CSPRequestCredentials creds,
-			CSPRequestCache cache,
-			String filePath,
-			JSONObject jsonObject,
-			JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
-		
+			CSPRequestCredentials creds, CSPRequestCache cache,
+			String filePath, JSONObject jsonObject, JSONObject restrictions)
+			throws ExistException, UnimplementedException,
+			UnderlyingStorageException {
+
 		ReturnedURL url = null;
 		try {
-		byte[] bitten = (byte[]) jsonObject.get("getbyteBody");
-		String uploadname = jsonObject.getString("fileName");
-		String type = jsonObject.getString("contentType");
-		String path = r.getServicesURL();
-			url = conn.getStringURL(RequestMethod.POST, path, bitten, uploadname, type, creds, cache);
+			byte[] bitten = (byte[]) jsonObject.get("getbyteBody");
+			String uploadname = jsonObject.getString("fileName");
+			String type = jsonObject.getString("contentType");
+			String path = r.getServicesURL();
+			url = conn.getStringURL(RequestMethod.POST, path, bitten,
+					uploadname, type, creds, cache);
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException(e.getMessage(),e.getStatus(), e.getUrl(),e);
+			throw new UnderlyingStorageException(e.getMessage(), e.getStatus(),
+					e.getUrl(), e);
 		} catch (JSONException e) {
-			throw new UnimplementedException("JSONException",e);
+			throw new UnimplementedException("JSONException", e);
 		}
-		return conn.getBase()+url.getURL();
+		return conn.getBase() + url.getURL();
 	}
 
 }
