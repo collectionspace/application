@@ -2,6 +2,12 @@
 	<services-record-path id="anthropology">places_anthropology:http://collectionspace.org/services/place/domain/anthropology,places_anthropology</services-record-path>
 
 	<section id="placeAuthorityInformation">
+		<repeat id="placeNoteGroupList/placeNoteGroup" section="anthropology">
+			<field id="placeNoteText" section="anthropology"/> <!-- This can't be called placeNote, because there's a field in the common schema called placeNote. -->
+			<field id="placeNoteAuthor" autocomplete="person-person" section="anthropology"/>
+			<field id="placeNoteDate" ui-type="date" datatype="date" section="anthropology"/>
+		</repeat>
+
 		<repeat id="placeReferenceGroupList/placeReferenceGroup" section="anthropology">
 			<field id="placeReference" autocomplete="citation-citation,citation-worldcat" section="anthropology"/>
 			<field id="placeReferenceNote" section="anthropology"/>
