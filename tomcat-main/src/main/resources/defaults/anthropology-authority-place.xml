@@ -12,6 +12,10 @@
 			<field id="placeReference" autocomplete="citation-citation,citation-worldcat" section="anthropology"/>
 			<field id="placeReferenceNote" section="anthropology"/>
 		</repeat>
+		
+		<repeat id="anthropologyPlaceTypes" section="anthropology">
+			<field id="anthropologyPlaceType" autocomplete="vocab-PlaceType" ui-type="enum" section="anthropology"/>
+		</repeat>
 
 		<repeat id="placeAssocGroupList/placeAssocGroup" section="anthropology">
 			<field id="placeAssocName" autocomplete="person-person,person-ulan_pa,organization-organization,organization-ulan_oa" section="anthropology"/>
