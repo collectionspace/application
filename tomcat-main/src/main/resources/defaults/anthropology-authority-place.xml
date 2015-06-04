@@ -4,7 +4,7 @@
 	<section id="placeAuthorityInformation">
 		<repeat id="placeNoteGroupList/placeNoteGroup" section="anthropology">
 			<field id="placeNoteText" ui-search="repeatable" section="anthropology"/> <!-- This can't be called placeNote, because there's a field in the common schema called placeNote. -->
-			<field id="placeNoteAuthor" ui-search="repeatable" autocomplete="person-person" section="anthropology"/>
+			<field id="placeNoteAuthor" autocomplete="person-person" section="anthropology"/>
 			<field id="placeNoteDate" ui-type="date" datatype="date" section="anthropology"/>
 		</repeat>
 
