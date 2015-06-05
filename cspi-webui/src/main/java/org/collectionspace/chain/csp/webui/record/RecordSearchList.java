@@ -259,6 +259,34 @@ public class RecordSearchList implements WebMethod {
         }
     }
 
+    /*
+     * Will return true if there might be another page of permissions waiting for us in
+     * the services layer.
+     */
+    private boolean morePermissions(JSONObject permissionResults, String key) throws JSONException {
+    	boolean result = false;
+    	
+    	if (permissionResults.has("pagination")) {
+    		JSONObject pagination = permissionResults.getJSONObject("pagination");
+    		JSONArray separatelists = pagination.getJSONArray("separatelists");
+    		String[] permissionsList = (String[])separatelists.get(0);
+    		//
+    		// If the permissionsList is not empty then there still might
+    		// be another page of permissions, so we'll return true
+    		//
+        	if (permissionsList != null && permissionsList.length > 0) {
+        		result = true;
+        	}
+    	}
+    	//
+    	// Just to be safe, we'll also return true if we found items in the result list.
+    	//
+    	if (permissionResults.has(key) && permissionResults.getJSONArray(key).length() > 0) {
+    		result = true;
+    	}
+    	
+    	return result;
+    }
     /**
      * This function is the general function that calls the correct funtions to
      * get all the data that the UI requested and get it in the correct format
@@ -283,26 +311,13 @@ public class RecordSearchList implements WebMethod {
         JSONObject results = new JSONObject();
 
         if (this.r.getID().equals("permission")) {
-            //pagination isn't properly implemented in permissions so just keep looping til we get everything
-            int pgnum = 0;
-            if (restriction.has("pageNum")) { //just get teh page specified
-                results = getJSON(storage, restriction, key, base);
-            } else { // if not specified page then loop over them all.
-                JSONArray newitems = new JSONArray();
-                results = getJSON(storage, restriction, key, base);
-                while (results.has(key) && results.getJSONArray(key).length() > 0) {
-
-                    JSONArray items = results.getJSONArray(key);
-                    for (int i = 0; i < items.length(); i++) {
-                        newitems.put(items.get(i));
-                    }
-                    pgnum++;
-                    restriction.put("pageNum", Integer.toString(pgnum));
-
-                    results = getJSON(storage, restriction, key, base);
-                }
-                results.put(key, newitems);
-            }
+        	//
+            // Pagination information is not implemented in permissions. See CSPACE-4785
+        	// Until CSPACE-4785 gets resolved, we'll tread "permission" requests
+        	// as a special case.
+        	//
+        	results = getJSON(storage, restriction, key, base);
+        	log.debug(results.toString());
         } else if (r.getID().equals("reports")) {
             String type = "";
             if (path != null && !path.equals("")) {
@@ -345,6 +360,7 @@ public class RecordSearchList implements WebMethod {
             }
             results = getJSON(storage, restriction, key, base);
         }
+        
         return results;
     }
 

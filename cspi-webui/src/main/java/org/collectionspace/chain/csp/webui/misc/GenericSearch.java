@@ -211,15 +211,14 @@ public class GenericSearch {
 						restrict = "keywords";
 						key="results";
 					}
-					if(restrict.equals(WebMethod.PAGE_SIZE_PARAM)
-					 ||restrict.equals(WebMethod.PAGE_NUM_PARAM)
-					 ||restrict.equals(WebMethod.MARK_RELATED_QUERY_PARAM)
-					 ||restrict.equals("keywords")
-					 ||restrict.equals("sortDir")) {
-						restriction.put(restrict,value);
-					}
-					else if(restrict.equals("sortKey")){////"summarylist.updatedAt"//movements_common:locationDate
-						if(r.isType("searchall")) {
+					if (restrict.equals(WebMethod.PAGE_SIZE_PARAM)
+							|| restrict.equals(WebMethod.PAGE_NUM_PARAM)
+							|| restrict.equals(WebMethod.MARK_RELATED_QUERY_PARAM)
+							|| restrict.equals("keywords")
+							|| restrict.equals("sortDir")) {
+						restriction.put(restrict, value);
+					} else if(restrict.equals("sortKey")) {////"summarylist.updatedAt"//movements_common:locationDate
+						if (r.isType("searchall")) {
 							log.debug("Ignoring sortKey (nor supported on searchall record):"+value);
 						} else {
 							String[] bits = value.split("\\.");

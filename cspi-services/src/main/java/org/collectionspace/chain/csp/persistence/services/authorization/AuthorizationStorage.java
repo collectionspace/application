@@ -323,8 +323,15 @@ public class AuthorizationStorage extends GenericStorage {
 				gleaned=getGleanedValue(cache,r.getServicesURL()+"/"+filePath,good);
 			}
 			
-			if(gleaned==null)
+			if (gleaned == null) {
+				// If the field was optional, but we go no value, go ahead and remove it
+				// from the to_get set, so we do not fan out below.
+				if (view_search_optional.contains(good)) {
+					to_get.remove(fieldname);
+				}
 				continue;
+			}
+			
 			if(xxx_view_deurn.contains(good))
 				gleaned=xxx_deurn(gleaned);
 			
