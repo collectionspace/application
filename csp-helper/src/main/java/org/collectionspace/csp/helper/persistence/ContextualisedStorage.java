@@ -22,6 +22,16 @@ public interface ContextualisedStorage {
 	public static final String WORKFLOW_SUBRESOURCE = "/workflow";
 
 	/**
+	 * Set the parent storage instance.
+	 */
+	public abstract void setParent(ContextualisedStorage parent);
+	
+	/**
+	 *  Get the parent storage instance.
+	 */
+	public abstract ContextualisedStorage getParent();
+	
+	/**
 	 * Generates JSON string from a file storing the information
 	 * 
 	 * @param filePath - path to the file
@@ -56,7 +66,8 @@ public interface ContextualisedStorage {
 			JSONObject jsonObject,
 			JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException;
 	
-	public JSONObject getPathsJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath, JSONObject restrictions)
+	public JSONObject getPathsJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,
+			JSONObject restrictions)
 		throws ExistException, UnimplementedException, UnderlyingStorageException;
 	
 	public String[] getPaths(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath, JSONObject restrictions)

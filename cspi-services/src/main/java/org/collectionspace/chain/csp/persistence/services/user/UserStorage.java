@@ -58,9 +58,9 @@ public class UserStorage extends GenericStorage {
 	private static final Logger log = LoggerFactory
 			.getLogger(UserStorage.class);
 	
-	public UserStorage(Record r, ServicesConnection conn)
+	public UserStorage(ContextualisedStorage parent, Record r, ServicesConnection conn)
 			throws DocumentException, IOException {
-		super(r, conn);
+		super(parent, r, conn);
 		initializeGlean(r);
 	}
 
@@ -105,6 +105,7 @@ public class UserStorage extends GenericStorage {
 
 
 
+	@Override
 	protected ReturnedURL autoCreateSub(CSPRequestCredentials creds,
 			CSPRequestCache cache, JSONObject jsonObject, Document doc, String savePrefix, Record r)
 			throws JSONException, UnderlyingStorageException,
@@ -126,6 +127,7 @@ public class UserStorage extends GenericStorage {
 	
 
 
+	@Override
 	public void deleteJSON(ContextualisedStorage root,
 			CSPRequestCredentials creds, CSPRequestCache cache, String filePath)
 			throws ExistException, UnimplementedException,
@@ -147,6 +149,7 @@ public class UserStorage extends GenericStorage {
 		
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public JSONObject getPathsJSON(ContextualisedStorage root,
 			CSPRequestCredentials creds, CSPRequestCache cache,
@@ -202,6 +205,7 @@ public class UserStorage extends GenericStorage {
 		}
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public String[] getPaths(ContextualisedStorage root,
 			CSPRequestCredentials creds, CSPRequestCache cache,
@@ -278,6 +282,7 @@ public class UserStorage extends GenericStorage {
 		}
 	}
 
+	@Override
 	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject restrictions)
 			throws ExistException, UnimplementedException,
 			UnderlyingStorageException {
@@ -326,6 +331,7 @@ public class UserStorage extends GenericStorage {
 		}
 	}
 
+	@Override
 	public void updateJSON(ContextualisedStorage root,
 			CSPRequestCredentials creds, CSPRequestCache cache,
 			String filePath, JSONObject jsonObject, JSONObject restrictions) throws ExistException,

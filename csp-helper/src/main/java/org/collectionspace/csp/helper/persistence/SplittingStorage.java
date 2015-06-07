@@ -26,9 +26,10 @@ import org.json.JSONObject;
  */
 public class SplittingStorage implements ContextualisedStorage {
 	private Map<String,ContextualisedStorage> children=new HashMap<String,ContextualisedStorage>();
-
+	private ContextualisedStorage parent;
 	
-	public void addChild(String prefix,ContextualisedStorage store) {
+	protected void addChild(String prefix, ContextualisedStorage store) {
+		store.setParent(this);
 		children.put(prefix,store);
 	}
 
@@ -38,6 +39,22 @@ public class SplittingStorage implements ContextualisedStorage {
 			throw new ExistException("No child storage bound to "+path);
 		return out;
 	}
+	
+	/**
+	 * Set the parent storage instance.
+	 */
+	@Override
+	public void setParent(ContextualisedStorage parent) {
+		this.parent = parent;
+	}
+	
+	/**
+	 *  Get the parent storage instance.
+	 */
+	@Override
+	public ContextualisedStorage getParent() {
+		return parent;
+	}	
 
 	private String[] split(String path,boolean missing_is_blank) throws ExistException { // REM - Please document so I don't have to interpret this parsing code each time.
 		if(path.startsWith("/"))
@@ -66,7 +83,11 @@ public class SplittingStorage implements ContextualisedStorage {
 	 * For each type of storage, this function will get the paths and pagination information, this will be brought together into one object
 	 */
 	@Override
-	public JSONObject getPathsJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restriction) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public JSONObject getPathsJSON(ContextualisedStorage root,
+			CSPRequestCredentials creds,
+			CSPRequestCache cache,
+			String rootPath,
+			JSONObject restriction) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try{
 			
 			//XXX THIS SHOULD BE LOOKED AT AND CHANGED !!!

@@ -46,17 +46,44 @@ import org.slf4j.LoggerFactory;
 public class AuthorizationStorage extends GenericStorage {
 	private static final Logger log=LoggerFactory.getLogger(AuthorizationStorage.class);
 	
-	public AuthorizationStorage(Record r, ServicesConnection conn) throws DocumentException, IOException{
-		super(r,conn);
+	private static final String PAGE_SIZE_PARAM = "pageSize";
+	private static final String ACT_GRP_PARAM = "actGrp";
+	private static final String PERMISSIONS_URI = "permissions";
+	private static final String PERMISSIONS_URI_SUB = "permissions/";	
+	private static final String ALL_PERMISSION_URI = "authorization/permissions?pgSz=0";
+	private static String[] ACTION_GROUPS = {"CRUDL", "CRUL", "RL"}; // The only valid action groups
+	private static HashMap<String, ReturnedDocument> permissionsCache = null;
+	
+	public AuthorizationStorage(ContextualisedStorage parent, Record r, ServicesConnection conn) throws DocumentException, IOException{
+		super(parent, r,conn);
 		initializeGlean(r);
 		Record permissionRecord = r.getSpec().getRecord("permission");
 	}
 
-
-
+	private ReturnedDocument getXMLDocument(RequestMethod method_type, String uri, Document body, CSPRequestCredentials creds, CSPRequestCache cache) throws ConnectionException {
+		ReturnedDocument result = null;
+		
+		if (method_type.equals(RequestMethod.GET) && uri.contains(PERMISSIONS_URI)
+				&& !uri.contains(PERMISSIONS_URI_SUB)) {
+			if (permissionsCache != null) {
+				result = permissionsCache.get(uri);
+			} else {
+				populatePermissionsCache(creds, cache);
+				result = permissionsCache.get(uri);
+			}
+		}
+		
+		if (result == null) {
+			result = conn.getXMLDocument(method_type, uri, body, creds, cache);
+		}
+		
+		return result;
+	}
+	
 	/**
 	 * Remove an object in the Service Layer.
 	 */
+	@Override
 	public void deleteJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, String filePath)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
@@ -109,6 +136,7 @@ public class AuthorizationStorage extends GenericStorage {
 	/**
 	 * Returns a list of csid's from a certain type of record
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public String[] getPaths(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, String rootPath, JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
@@ -116,7 +144,7 @@ public class AuthorizationStorage extends GenericStorage {
 			List<String> out=new ArrayList<String>();
 			String path = getRestrictedPath(r.getServicesURL(), restrictions, "res", "", false, "");
 			
-			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
+			ReturnedDocument all = getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 			if(all.getStatus()!=200){
 				throw new ConnectionException("Bad request in Authorization Storage: status not 200", all.getStatus(),path);
 			}
@@ -137,12 +165,13 @@ public class AuthorizationStorage extends GenericStorage {
 		} catch (JSONException e) {
 			throw new UnderlyingStorageException("Service layer exception"+ e.getLocalizedMessage(),e);
 		}
-	}
+	}	
 
 	/**
 	 * Gets a list of csids of a certain type of record together with the pagination info
 	 * permissions might need to break the mold tho.
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public JSONObject getPathsJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, String rootPath, JSONObject restrictions) 
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
@@ -167,7 +196,7 @@ public class AuthorizationStorage extends GenericStorage {
 			List<String> listitems=new ArrayList<String>();
 			String serviceurl = getRestrictedPath(  r.getServicesURL(),  restrictions, r.getServicesSearchKeyword(), "", false, "");
 			
-			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,serviceurl,null,creds,cache);
+			ReturnedDocument all = getXMLDocument(RequestMethod.GET,serviceurl,null,creds,cache);
 			if(all.getStatus()!=200){
 				throw new ConnectionException("Bad request in Authorization Storage getPathsJSON: status not 200",all.getStatus(),serviceurl);
 			}
@@ -211,6 +240,7 @@ public class AuthorizationStorage extends GenericStorage {
 	}
 
 	
+	@Override
 	public JSONObject retrieveJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, String filePath, JSONObject restrictions)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
@@ -247,6 +277,7 @@ public class AuthorizationStorage extends GenericStorage {
 		}
 	}
 	
+	@Override
 	public JSONObject viewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,String view,String extra, JSONObject restrictions) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 		if("view".equals(view))
 			return miniViewRetrieveJSON(cache,creds,filePath,extra);
@@ -258,13 +289,14 @@ public class AuthorizationStorage extends GenericStorage {
 
 
 
+	@Override
 	public JSONObject refViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject restrictions) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 		try {
 			JSONObject out=new JSONObject();
 			//not all the records need a reference, look in cspace-config.xml for which that don't
 			if(r.hasTermsUsed()){
 				String path = r.getServicesURL()+"/"+filePath+"/authorityrefs";
-				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
+				ReturnedDocument all = getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 				if(all.getStatus()!=200)
 					throw new ConnectionException("Bad request problem in AuthorizationStorage/refViewRetrieve: status not 200",all.getStatus(),path);
 				Document list=all.getDocument();
@@ -399,6 +431,7 @@ public class AuthorizationStorage extends GenericStorage {
 		return out;
 	}
 	
+	@Override
 	public JSONObject simpleRetrieveJSON(CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		String fullpath = r.getServicesURL();
@@ -424,15 +457,47 @@ public class AuthorizationStorage extends GenericStorage {
 		if(r.isMultipart()){
 			throw new UnimplementedException("this functionality is currently only for non multipart xml");
 		}else{
-			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, filePath,null, creds, cache);
+			ReturnedDocument doc = getXMLDocument(RequestMethod.GET, filePath,null, creds, cache);
 			if((doc.getStatus()<200 || doc.getStatus()>=300))
 				throw new ExistException("Does not exist "+filePath);
 
 			return doc.getDocument();
 		}
 	}
+	
+	private void populatePermissionsCache(HashMap<String, ReturnedDocument> permCache, CSPRequestCredentials creds, CSPRequestCache cache,
+			String actionGroup) throws ConnectionException {
+		String uri = String.format("%s&%s=%s", ALL_PERMISSION_URI, ACT_GRP_PARAM, actionGroup);
+		ReturnedDocument permissionsList = conn.getXMLDocument(RequestMethod.GET, uri, null, creds, cache);
+		permCache.put(uri, permissionsList);
+		log.debug(String.format("Cached the following permissions for action group '%s': %s", 
+				actionGroup, permissionsList.getDocument().asXML()));
+	}
+	
+	/*
+	 * Get and cache all the Service layer permissions.
+	 */
+	private void populatePermissionsCache(CSPRequestCredentials creds, CSPRequestCache cache) {
+		synchronized(this) {
+			if (permissionsCache == null) {
+				try {
+					permissionsCache = new HashMap<String, ReturnedDocument>();
+					for (String actionGroup : ACTION_GROUPS) {
+						populatePermissionsCache(permissionsCache, creds, cache, actionGroup);
+					}
+				} catch (Exception e) {
+					log.warn("Could not populate permissions cache.", e);
+				}
+			}
+		}
+	}
+	
 	public JSONObject simpleRetrieveJSONFullPath(CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,
-	UnimplementedException, UnderlyingStorageException {
+			UnimplementedException, UnderlyingStorageException {
+		if (permissionsCache == null) {
+			populatePermissionsCache(creds,cache);
+		}
+		
 		if(filePath.endsWith("/permroles/")){
 			Record thisr = r.getSpec().getRecord("permrole");
 			return simpleRetrieveJSONFullPath( creds, cache, filePath, thisr);
@@ -458,7 +523,7 @@ public class AuthorizationStorage extends GenericStorage {
 					convertToJson(out,doc.getDocument(parts[0]),thisr,"GET",section,"","");
 				}
 			}else{
-				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, filePath,null, creds, cache);
+				ReturnedDocument doc = getXMLDocument(RequestMethod.GET, filePath,null, creds, cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300)){
 					String status = Integer.toString(doc.getStatus());
 					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),filePath);
@@ -492,7 +557,7 @@ public class AuthorizationStorage extends GenericStorage {
 				status = docm.getStatus();
 			}
 			else{ 
-				ReturnedDocument docm = conn.getXMLDocument(RequestMethod.PUT, r.getServicesURL()+"/"+filePath, doc, creds, cache);
+				ReturnedDocument docm = getXMLDocument(RequestMethod.PUT, r.getServicesURL()+"/"+filePath, doc, creds, cache);
 				status = docm.getStatus();
 			}
 			

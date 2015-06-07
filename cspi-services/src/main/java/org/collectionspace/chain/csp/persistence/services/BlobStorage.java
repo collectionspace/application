@@ -34,8 +34,8 @@ public class BlobStorage extends GenericStorage {
 	private static final String ORIGINALJPEG_CONTENT = "OriginalJpeg";
 	private static final CharSequence PUBLISH_URL_SUFFIX = "publish";
 	
-	public BlobStorage(Record r,ServicesConnection conn) throws DocumentException, IOException {	
-		super(r,conn);
+	public BlobStorage(ContextualisedStorage parent, Record r,ServicesConnection conn) throws DocumentException, IOException {	
+		super(parent, r,conn);
 		initializeGlean(r);
 	}
 	
@@ -108,6 +108,7 @@ public class BlobStorage extends GenericStorage {
 		return out;
 	}	
 	
+	@Override
 	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject restrictions) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		JSONObject result = null;

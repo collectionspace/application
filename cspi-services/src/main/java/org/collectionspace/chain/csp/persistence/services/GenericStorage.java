@@ -66,6 +66,7 @@ public class GenericStorage  implements ContextualisedStorage {
 	public final static String SEARCH_ALL_GROUP = "searchAllGroup";
 
 	private static final Logger log=LoggerFactory.getLogger(GenericStorage.class);
+	private ContextualisedStorage parent;
 	
 	protected ServicesConnection conn;
 	protected Record r;
@@ -83,11 +84,28 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws DocumentException
 	 * @throws IOException
 	 */
-	public GenericStorage(Record r,ServicesConnection conn) throws DocumentException, IOException {	
+	public GenericStorage(ContextualisedStorage parent, Record r, ServicesConnection conn) throws DocumentException, IOException {
+		setParent(parent);
 		this.conn=conn;
 		this.r=r;
 	}
 
+	/**
+	 * Set the parent storage instance.
+	 */
+	@Override
+	public void setParent(ContextualisedStorage parent) {
+		this.parent = parent;
+	}
+	
+	/**
+	 *  Get the parent storage instance.
+	 */
+	@Override
+	public ContextualisedStorage getParent() {
+		return parent;
+	}
+	
 	/**
 	 * re intialises empty glean array
 	 * was a quick fix that needs to be looked at again
@@ -1336,6 +1354,7 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * I allowed the specification of record types as sub records caused issues
 	 * possibly should rework to keep record purity and think of a better way of calling the sub record info
 	 */
+	@Override
 	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject, JSONObject restrictions)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		updateJSON( root, creds, cache, filePath,  jsonObject, restrictions, r);
@@ -1586,6 +1605,7 @@ public class GenericStorage  implements ContextualisedStorage {
 	/**
 	 * purposefully unimplemented functionality
 	 */
+	@Override
 	public void createJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("Cannot post to full path");
@@ -1630,6 +1650,7 @@ public class GenericStorage  implements ContextualisedStorage {
 		
 	}
 
+	@Override
 	public void transitionWorkflowJSON(ContextualisedStorage root,CSPRequestCredentials creds,
 			CSPRequestCache cache,String filePath, String workflowTransition) 
 					throws UnderlyingStorageException {
@@ -1678,6 +1699,7 @@ public class GenericStorage  implements ContextualisedStorage {
 		}
 	}
 	
+	@Override
 	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		deleteJSON(root,creds,cache,filePath,r);
@@ -1836,6 +1858,7 @@ public class GenericStorage  implements ContextualisedStorage {
 	/**
 	 * Gets a list of csids of a certain type of record together with the pagination info
 	 */
+	@Override
 	public JSONObject getPathsJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			
@@ -2218,6 +2241,7 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * e.g. for related objs, search etcn and therefore will require a different dataset returned
 	 * @throws  
 	 */
+	@Override
 	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject restrictions) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		try {
@@ -2460,7 +2484,7 @@ public class GenericStorage  implements ContextualisedStorage {
         	}
         }
 		
-		//log.info(subroot.asXML());
+		log.trace(subroot.asXML());
 		return subroot;
 	}
 }

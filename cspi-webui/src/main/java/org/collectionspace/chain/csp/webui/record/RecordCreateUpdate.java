@@ -170,7 +170,7 @@ public class RecordCreateUpdate implements WebMethodWithOps {
 
 		String permbase = spec.getRecordByWebUrl("permission").getID();
 		
-		permitem = getPermID(storage, Generic.ResourceNameServices(spec, resourceName), queryString, permbase, actions);
+		permitem = getPermID(storage, Generic.ResourceNameServices(spec, resourceName), queryString, permbase, actions); // Is this fanout?
 		return permitem;
 	}
 	
@@ -230,37 +230,62 @@ public class RecordCreateUpdate implements WebMethodWithOps {
 		return permitem;
 	}
 	
+	private String getPermIDFromCache(Storage storage, String name, String queryString, String permbase, JSONArray actions) throws JSONException, UIException, ExistException, UnimplementedException, UnderlyingStorageException{
+		return null;
+	}
 
 	private JSONObject getPermID(Storage storage, String name, String queryString, String permbase, JSONArray actions) throws JSONException, UIException, ExistException, UnimplementedException, UnderlyingStorageException{
 
 		JSONObject permitem = new JSONObject();
 		JSONObject permrestrictions = new JSONObject();
-		permrestrictions.put("keywords", name);
+		// permrestrictions.put("keywords", name);
+		permrestrictions.put(WebMethod.PAGE_SIZE_PARAM, "0"); // a page size of 0 will give all the results
 		permrestrictions.put("queryTerm", "actGrp");
 		permrestrictions.put("queryString", queryString);
-		JSONObject data = searcher.getJSON(storage,permrestrictions,"items",permbase);
+		JSONObject data = searcher.getJSON(storage, permrestrictions, "items",
+				permbase); // Fanning out to the Services layer?
 
 		String permid = "";
 		JSONArray items = data.getJSONArray("items");
-		for(int i=0;i<items.length();i++){
+		for (int i = 0; i < items.length(); i++) {
 			JSONObject item = items.getJSONObject(i);
 			String resourcename = item.getString("summary");
 			String actionGroup = item.getString("number");
-			//need to do a double check as the query is an inexact match
-			if(resourcename.equals(name) && actionGroup.equals(queryString)){
-				permid = item.getString("csid");
+			//
+			// Our query to the services did not include the resourceName (we
+			// would have fanned out if we included it), so
+			// will need to filter out the other resources
+			//
+			if (resourcename.equals(name) && actionGroup.equals(queryString)) {
+				if (permid.equals("")) {
+					permid = item.getString("csid");
+				} else {
+					String secondId = item.getString("csid");
+					log.error(String.format("We found two matches for resource '%s' and action group = '%s'",
+							resourcename, actionGroup));
+				}
 			}
 		}
-		if(permid.equals("")){
-
-			//create the permission
+		//
+		// The permission didn't exist, so we need to create it.  In practice,
+		// this should never happen.  The Service layer should already have all
+		// the permissions needed by the App layer.
+		//
+		if (permid.equals("")) {
 			/**
-			 * {
-"effect": "PERMIT",
-"resourceName": "testthing2",
-
-"action":[{"name":"CREATE"},{"name":"READ"},{"name":"UPDATE"},{"name":"DELETE"},{"name":"SEARCH"}]
-}
+			 * The JSON payload to create the perm will look something like this.
+					{
+					    "effect": "PERMIT",
+					    "description": "created because we couldn't find a match",
+					    "action": [
+					        {"name": "CREATE"},
+					        {"name": "READ"},
+					        {"name": "UPDATE"},
+					        {"name": "SEARCH"}
+					    ],
+					    "actionGroup": "CRUL",
+					    "resourceName": "accounts"
+					}			 
 			 */
 					
 			JSONObject permission_add = new JSONObject();
@@ -269,18 +294,23 @@ public class RecordCreateUpdate implements WebMethodWithOps {
 			permission_add.put("resourceName", name);
 			permission_add.put("actionGroup", queryString);
 			permission_add.put("action", actions);
-
-			permid=storage.autocreateJSON(spec.getRecordByWebUrl("permission").getID(),permission_add,null);
-			
+			//
+			// Create a new perm but since we never should need to create new permissions (the Service layer should have
+			// already created all the ones we need), we'll put a warning in the log files.
+			//
+			permid = storage.autocreateJSON(spec.getRecordByWebUrl("permission").getID(),
+					permission_add,
+					null);
+			log.warn(String.format("Missing permission %s:%s was created.", name, queryString));
 		}
 		
-		if(!permid.equals("")){
+		if (!permid.equals("")) {
 			permitem.put("resourceName", name);
 			permitem.put("permissionId", permid);
 			permitem.put("actionGroup", queryString);
-		}
+		} // REM - Need an else clause here with at least a warning that we have a blank/empty permid
+		
 		return permitem;
-
 	}
 	
 
@@ -384,9 +414,10 @@ public class RecordCreateUpdate implements WebMethodWithOps {
 		arfields.put("role", roledata);
 		arfields.put("permission", permdata);
 		accountrole.put("fields", arfields);
-		//log.info("WAAA"+arfields.toString());
-		if(fields!=null)
+
+		if (fields != null) {
 			path=storage.autocreateJSON(spec.getRecordByWebUrl("permrole").getID(),arfields,null);
+		}
 	}
 	
 	private boolean setPayloadField(String fieldName, JSONObject payloadOut, JSONObject fieldsSrc, JSONObject dataSrc, String defaultValue) throws JSONException {

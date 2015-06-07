@@ -26,8 +26,8 @@ import org.json.JSONObject;
 
 public class ServicesIDGenerator implements ContextualisedStorage {
 	private ServicesConnection conn;
-	
 	private static final Map<String,String> generators=new HashMap<String,String>();
+	private ContextualisedStorage parent;
 
 	public ServicesIDGenerator(ServicesConnection conn, Spec spec) { 
 		this.conn=conn;
@@ -39,35 +39,57 @@ public class ServicesIDGenerator implements ContextualisedStorage {
 		}
 	}
 	
+	/**
+	 * Set the parent storage instance.
+	 */
+	@Override
+	public void setParent(ContextualisedStorage parent) {
+		this.parent = parent;
+	}
+	
+	/**
+	 *  Get the parent storage instance.
+	 */
+	@Override
+	public ContextualisedStorage getParent() {
+		return parent;
+	}
+	
 	@Override
 	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject, JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("Invalid method for ids");
 	}
 
+	@Override
 	public void createJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("Invalid method for ids");
 	}
 
+	@Override
 	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("Invalid method for ids");
 	}
 
+	@Override
 	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject, JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("Invalid method for ids");
 	}
 
+	@Override
 	public JSONObject getPathsJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException,
 		UnimplementedException, UnderlyingStorageException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
+	@Override
 	public String[] getPaths(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException,
 			UnimplementedException, UnderlyingStorageException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
 	public void transitionWorkflowJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, 
 			String filePath, String workflowTransition) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("Invalid method for ids");
@@ -77,6 +99,7 @@ public class ServicesIDGenerator implements ContextualisedStorage {
 	 * This function generates a new id for the next inputted object.
 	 * The id in the static list on top is the primary key in the generators_id table on the service layer.
 	 */
+	@Override
 	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			String val=conn.getTextDocument(RequestMethod.POST,"idgenerators/"+generators.get(filePath)+"/ids",null,creds,cache);

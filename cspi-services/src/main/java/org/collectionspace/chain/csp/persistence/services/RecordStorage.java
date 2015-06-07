@@ -37,8 +37,8 @@ public class RecordStorage extends GenericStorage {
 	private ServicesConnection conn;
 	private Record r;
 	
-	public RecordStorage(Record r,ServicesConnection conn) throws DocumentException, IOException {	
-		super(r,conn);
+	public RecordStorage(ContextualisedStorage parent, Record r,ServicesConnection conn) throws DocumentException, IOException {	
+		super(parent, r,conn);
 		initializeGlean(r);
 	}
 
@@ -48,7 +48,7 @@ public class RecordStorage extends GenericStorage {
 	 * 
 	 * XXX should not be used...
 	 */
-	@SuppressWarnings("unchecked")
+	@Override
 	public String[] getPaths(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			Document list=null;

@@ -22,8 +22,27 @@ import org.slf4j.LoggerFactory;
 public class DirectRedirector implements ContextualisedStorage {
 	private static final Logger log=LoggerFactory.getLogger(DirectRedirector.class);
 	private Spec spec;
+	private ContextualisedStorage parent;
 
-	DirectRedirector(Spec spec) { this.spec=spec; }
+	DirectRedirector(Spec spec) {
+		this.spec=spec;
+	}
+	
+	/**
+	 * Set the parent storage instance.
+	 */
+	@Override
+	public void setParent(ContextualisedStorage parent) {
+		this.parent = parent;
+	}
+	
+	/**
+	 *  Get the parent storage instance.
+	 */
+	@Override
+	public ContextualisedStorage getParent() {
+		return parent;
+	}
 	
 	@Override
 	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath, JSONObject jsonObject, JSONObject restrictions)
@@ -31,36 +50,43 @@ public class DirectRedirector implements ContextualisedStorage {
 		throw new UnimplementedException("direct uses get only");
 	}
 
+	@Override
 	public void createJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,JSONObject jsonObject)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("direct uses get only");
 	}
 
+	@Override
 	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("direct uses get only");
 	}
 
+	@Override
 	public JSONObject getPathsJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath, JSONObject restrictions)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("direct uses get only");
 	}
 	
+	@Override
 	public String[] getPaths(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath, JSONObject restrictions)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("direct uses get only");
 	}
 
+	@Override
 	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject, JSONObject restrictions) 
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("direct uses get only");
 	}
 	
+	@Override
 	public void transitionWorkflowJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, 
 			String filePath, String workflowTransition) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("direct uses get only");
 	}
 	
+	@Override
 	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String path, JSONObject restrictions)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		/* Find relevant controller, and call */

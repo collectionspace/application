@@ -10,7 +10,7 @@
     <web-url>all</web-url>
     <authorization-view>false</authorization-view>
     <!-- Need to filter all soft-deleted records when searching -->
-    <hassoftdelete>true</hassoftdelete>
+    <hassoftdelete>false</hassoftdelete>
 
     <structures>
         <structure id="screen">

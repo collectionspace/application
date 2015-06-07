@@ -58,15 +58,15 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 			ServicesConnection conn=new ServicesConnection(base_url,ims_url);
 			for(Record r : spec.getAllRecords()) {
 				if(r.isType("blob") || r.isType("report"))
-					addChild(r.getID(),new BlobStorage(spec.getRecord(r.getID()),conn));
+					addChild(r.getID(), new BlobStorage(this, spec.getRecord(r.getID()),conn));
 				else if(r.isType("userdata"))
-					addChild(r.getID(),new UserStorage(spec.getRecord(r.getID()),conn));
+					addChild(r.getID(),new UserStorage(this, spec.getRecord(r.getID()),conn));
 				else if(r.isType("record") || r.isType("searchall"))
-					addChild(r.getID(),new RecordStorage(spec.getRecord(r.getID()),conn));
+					addChild(r.getID(),new RecordStorage(this, spec.getRecord(r.getID()),conn));
 				else if(r.isType("authority"))
-					addChild(r.getID(),new ConfiguredVocabStorage(spec.getRecord(r.getID()),conn));
+					addChild(r.getID(),new ConfiguredVocabStorage(this, spec.getRecord(r.getID()),conn));
 				else if(r.isType("authorizationdata"))
-					addChild(r.getID(),new AuthorizationStorage(spec.getRecord(r.getID()), conn));
+					addChild(r.getID(),new AuthorizationStorage(this, spec.getRecord(r.getID()), conn));
 			}
 			addChild("direct",new DirectRedirector(spec));
 			addChild("id",new ServicesIDGenerator(conn,spec));
