@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>org.collectionspace</groupId>
 		<artifactId>svcapp</artifactId>
-		<version>4.3-SNAPSHOT</version>
+		<version>4.2-SNAPSHOT</version>
 	</parent>
 
 	<dependencies>
