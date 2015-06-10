@@ -22,9 +22,9 @@
         </options>
     </instance>
     <instance id="vocab-conditionsupport">
-        <web-url>conditionprevioussupport</web-url>
-        <title-ref>conditionprevioussupport</title-ref>
-        <title>Condition Check Previous Support</title>
+        <web-url>conditionsupport</web-url>
+        <title-ref>conditionsupport</title-ref>
+        <title>Condition Check Support</title>
         <options>
             <option id="8mm">8mm</option>
             <option id="16mm"> 16mm</option>
