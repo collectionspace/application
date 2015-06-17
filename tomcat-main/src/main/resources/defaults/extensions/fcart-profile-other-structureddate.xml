@@ -1,0 +1,40 @@
+<record id="structureddate">
+    <section id="structuredDateInformation">
+        <field id="dateEarliestSingleQualifier">
+            <options>
+                <option id="">Please select a value</option>
+                <option id="alteration"> alteration </option>
+                <option id="design">  design </option>
+                <option id="destruction">  destruction </option>
+                <option id="discovery">  discovery </option>
+                <option id="early">  early </option>
+                <option id="execution">  execution </option>
+                <option id="late">  late </option>
+                <option id="mid">  mid </option>
+                <option id="performance">  performance </option>
+                <option id="restoration">  restoration </option>
+                <option id="+">  + </option>
+                <option id="-">  - </option>
+                <option id="+/-">  +/-  </option>
+            </options>
+        </field>
+        <field id="dateLatestQualifier">
+            <options>
+                <option id="">Please select a value</option>
+                <option id="alteration"> alteration </option>
+                <option id="design">  design </option>
+                <option id="destruction">  destruction </option>
+                <option id="discovery">  discovery </option>
+                <option id="early">  early </option>
+                <option id="execution">  execution </option>
+                <option id="late">  late </option>
+                <option id="mid">  mid </option>
+                <option id="performance">  performance </option>
+                <option id="restoration">  restoration </option>
+                <option id="+">  + </option>
+                <option id="-">  - </option>
+                <option id="+/-">  +/-  </option>
+            </options>
+        </field>
+    </section>
+</record>
