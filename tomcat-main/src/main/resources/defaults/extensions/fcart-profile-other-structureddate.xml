@@ -1,6 +1,6 @@
 <record id="structureddate">
     <section id="structuredDateInformation">
-        <field id="dateEarliestSingleQualifier">
+        <field id="`dateEarliestSingleQualifier">
             <options>
                 <option id="">Please select a value</option>
                 <option id="alteration"> alteration </option>

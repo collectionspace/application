@@ -186,7 +186,6 @@
             <option id="period"> period </option>
             <option id="probably"> probably </option>
             <option id="possibly"> possibly </option>
-            <option id="or"> or </option>
             <option id="spans"> spans </option>
         </options>
     </instance>

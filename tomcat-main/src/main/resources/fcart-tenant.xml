@@ -25,7 +25,8 @@
 			<include src="base-procedure-intake.xml"/>
 			<include src="base-procedure-loanin.xml"/>
 			<include src="base-procedure-loanout.xml"/>
-			<include src="base-procedure-media.xml,extensions/fcart-profile-procedure-media.xml"/>
+			<include src="base-procedure-media.xml,extensions/fcart-profile-procedure-media.xml"
+					 merge="xmlmerge.properties"/>
 			<include src="base-procedure-valuationcontrol.xml"/>
 			<include src="base-procedure-movement.xml"/>
 			<include src="base-procedure-objectexit.xml"/>
@@ -63,10 +64,12 @@
 			<include src="base-authz-userrole.xml"/>
 			<include src="base-authz-users.xml"/>
 
-			<include src="base-other-dimension.xml,extensions/fcart-profile-other-dimension.xml"/>
+			<include src="base-other-dimension.xml,extensions/fcart-profile-other-dimension.xml"
+					 merge="xmlmerge.properties" />
 			<include src="base-other-hierarchy.xml"/>
 			<include src="base-other-idgenerator.xml"/>
-			<include src="base-other-structureddate.xml,extensions/fcart-profile-other-structureddate.xml"/>
+			<include src="base-other-structureddate.xml,extensions/fcart-profile-other-structureddate.xml"
+					 merge="xmlmerge.properties" />
 			<include src="base-other-termlist.xml"/>
 			<include src="base-other-termlistitem.xml"/>
 			<include src="base-other-reporting.xml"/>
