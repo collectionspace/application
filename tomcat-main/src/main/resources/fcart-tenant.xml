@@ -12,7 +12,7 @@
 		<records>
 			<enum-blank>Please select a value</enum-blank>
 
-			<include src="base-collectionobject.xml,extensions/variablemedia-collectionobject.xml,extensions/fineart-collectionobject.xml"
+			<include src="base-collectionobject.xml,extensions/variablemedia-collectionobject.xml,extensions/fineart-collectionobject.xml,extensions/fcart-profile-collectionobject.xml"
                      merge="xmlmerge.properties"/>
 			<include src="base-authority.xml"/>
 
@@ -25,7 +25,8 @@
 			<include src="base-procedure-intake.xml"/>
 			<include src="base-procedure-loanin.xml"/>
 			<include src="base-procedure-loanout.xml"/>
-			<include src="base-procedure-media.xml"/>
+			<include src="base-procedure-media.xml,extensions/fcart-profile-procedure-media.xml"
+					 merge="xmlmerge.properties"/>
 			<include src="base-procedure-valuationcontrol.xml"/>
 			<include src="base-procedure-movement.xml"/>
 			<include src="base-procedure-objectexit.xml"/>
@@ -53,7 +54,7 @@
 			<include src="base-authority-work-termList.xml"/>
 			<include src="base-authority-work.xml"/>
 
-			<include src="base-vocabularies.xml"/>
+			<include src="extensions/fcart-profile-vocabularies.xml"/>
 
 			<include src="base-authz-accountrole.xml"/>
 			<include src="base-authz-permission.xml"/>
@@ -63,16 +64,17 @@
 			<include src="base-authz-userrole.xml"/>
 			<include src="base-authz-users.xml"/>
 
-			<include src="base-other-dimension.xml"/>
+			<include src="base-other-dimension.xml,extensions/fcart-profile-other-dimension.xml"
+					 merge="xmlmerge.properties" />
 			<include src="base-other-hierarchy.xml"/>
 			<include src="base-other-idgenerator.xml"/>
-			<include src="base-other-structureddate.xml"/>
+			<include src="base-other-structureddate.xml,extensions/fcart-profile-other-structureddate.xml"
+					 merge="xmlmerge.properties" />
 			<include src="base-other-termlist.xml"/>
 			<include src="base-other-termlistitem.xml"/>
 			<include src="base-other-reporting.xml"/>
 			<include src="base-other-reportingoutput.xml"/>
 			<include src="base-other-searchall.xml"/>
-
 
 		</records>
 
