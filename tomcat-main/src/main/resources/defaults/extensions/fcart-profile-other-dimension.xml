@@ -1,0 +1,81 @@
+<record id="dimension" >
+    <section id="dimensionInformation">
+        <repeat id="measuredPartGroupList/measuredPartGroup">
+            <field id="measuredPart">
+                <options>
+                    <option id="">Please select a value</option>
+                    <option id="base"> base </option>
+                    <option id="columnsperpage">  columns per page </option>
+                    <option id="components">  components </option>
+                    <option id="diameter">  diameter </option>
+                    <option id="folios">  folios </option>
+                    <option id="footprint">  footprint </option>
+                    <option id="frame">  frame </option>
+                    <option id="image">  image </option>
+                    <option id="interior">  interior </option>
+                    <option id="leaves">   leaves </option>
+                    <option id="lid">  lid </option>
+                    <option id="linesperpage">  lines per page </option>
+                    <option id="mat">  mat </option>
+                    <option id="mount">  mount </option>
+                    <option id="overall">  overall </option>
+                    <option id="panel">  panel </option>
+                    <option id="paper">  paper </option>
+                    <option id="patternrepeat">  pattern repeat </option>
+                    <option id="plate">  plate </option>
+                    <option id="platemark">  plate mark </option>
+                    <option id="secondarysupport">  secondary support </option>
+                    <option id="sheet">  sheet </option>
+                    <option id="stories">  stories </option>
+                    <option id="tessera">  tessera </option>
+                </options>
+            </field>
+
+            <repeat id="dimensionSubGroupList/dimensionSubGroup">
+                <field id="dimension">
+                    <options>
+                        <option id="">Please select a value</option>
+                        <option id="area">area</option>
+                        <option id="base">base</option>
+                        <option id="circumference">circumference</option>
+                        <option id="count">count</option>
+                        <option id="depth">depth</option>
+                        <option id="diameter">diameter</option>
+                        <option id="format">format</option>
+                        <option id="height">height</option>
+                        <option id="length">length</option>
+                        <option id="running-time">running time</option>
+                        <option id="scale">scale</option>
+                        <option id="size">size</option>
+                        <option id="shape">shape</option>
+                        <option id="stories">stories</option>
+                        <option id="target">target</option>
+                        <option id="volume">volume</option>
+                        <option id="weight">weight</option>
+                        <option id="width">width</option>
+                    </options>
+                </field>
+                <field id="measurementUnit">
+                    <options>
+                        <option id="">Please select a value</option>
+                        <option id="carats">carats</option>
+                        <option id="centimeters">centimeters</option>
+                        <option id="cubic-centimeters">cubic centimeters</option>
+                        <option id="feet">feet</option>
+                        <option id="inches">inches</option>
+                        <option id="gigabytes">gigabytes</option>
+                        <option id="kilograms">kilograms</option>
+                        <option id="liters">liters</option>
+                        <option id="megabytes">megabytes</option>
+                        <option id="millimeters">millimeters</option>
+                        <option id="meters">meters</option>
+                        <option id="minutes">minutes</option>
+                        <option id="pixels">pixels</option>
+                        <option id="square-feet">square feet</option>
+                        <option id="stories">stories</option>
+                    </options>
+                </field>
+            </repeat>
+        </repeat>
+    </section>
+</record>

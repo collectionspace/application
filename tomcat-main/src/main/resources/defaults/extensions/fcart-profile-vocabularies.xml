@@ -1,0 +1,61 @@
+            <record id="vocab" in-recordlist="no" type="authority,vocabulary" cms-type="default" generate-services-schema="true">
+                <terms-used>false</terms-used>
+                <refobj-used>false</refobj-used>
+                <web-url>vocab</web-url>
+                
+                <services-tenant-auth-plural>Vocabularies</services-tenant-auth-plural>
+                <services-tenant-auth-singular>Vocabulary</services-tenant-auth-singular>
+                <services-tenant-singular>Vocabularyitem</services-tenant-singular>
+                
+                <services-instances-path>vocabularies_common:http://collectionspace.org/services/vocabulary,abstract-common-list/list-item</services-instances-path>
+                <services-single-instance-path>vocabularies_common:http://collectionspace.org/services/vocabulary,vocabularies_common</services-single-instance-path>
+                <services-list-path>http://collectionspace.org/services/vocabulary,abstract-common-list/list-item</services-list-path>
+                
+                <services-record-path>vocabularyitems_common:http://collectionspace.org/services/vocabulary,vocabularyitems_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                <services-url>vocabularies</services-url>
+                <authority-vocab-type>enum</authority-vocab-type>
+                <hassoftdelete>true</hassoftdelete>
+                
+                <structures>
+                    <structure id="screen"></structure>
+                </structures>
+				
+				<include src="domain-vocabularies.xml" strip-root="yes"/>
+				
+				<include src="extensions/fcart-profile-instance-vocabularies.xml" />
+				
+			    <section id="coreInformation">
+			        <include src="core-fields.xml"  strip-root="yes"/>
+			    </section>				
+                
+                <section id="vocabularyInformation">
+                    <field id="displayName" in-title="yes" display-name="yes" mini="summary,number,search,list,relate">
+                        <selector>vocabulary-displayName</selector>
+                        <title-selector>titleBar-displayName</title-selector>
+                    </field>
+                    <field id="termStatus" mini="search,list,relate" seperate_ui_container="true">
+                        <selector>vocabulary-status</selector>
+                        <options>
+			                <option id="active" default="yes">Active</option>
+			                <option id="inactive">Inactive</option>
+                        </options>
+                    </field>
+                    <field id="shortIdentifier">
+                        <selector>vocabulary-shortIdentifier</selector>
+                    </field>
+    				<field id="description"></field>
+                </section>
+				<!-- not used in UI except in autocompletes -->
+                <section id="otherInformation">
+                	<field id="inAuthority"></field>
+                    <field id="deprecatedRefName">
+						<services-tag>refName</services-tag>
+					</field>
+                    <field id="order"></field>
+                    <field id="source"></field>
+                    <field id="sourcePage"></field>
+                    <field id="shortIdentifier" mini="search,list,relate" attributes="GET"></field>
+                    <field id="csid" exists-in-services="false" mini="search,list,relate" attributes="GET"></field>
+                </section>
+            </record>
