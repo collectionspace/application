@@ -51,6 +51,6 @@
 		<field id="approvedForWeb" section="pahma" datatype="boolean">
 			<default>true</default>
 		</field>
-		<field id="primaryDisplay" section="pahma" datatype="boolean"/>
+		<field id="primaryDisplay" section="pahma" mini="search,list,relate" datatype="boolean"/>
 	</section>
 </record>
