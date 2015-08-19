@@ -33,6 +33,7 @@ public class BlobStorage extends GenericStorage {
 	private static final String ORIGINAL_CONTENT = "Original";
 	private static final String ORIGINALJPEG_CONTENT = "OriginalJpeg";
 	private static final CharSequence PUBLISH_URL_SUFFIX = "publish";
+	private static final long DERIVATIVE_TIMEOUT = 5 * 1000;  // Amount of time to wait for view/derivative before giving up.
 	
 	public BlobStorage(Record r,ServicesConnection conn) throws DocumentException, IOException {	
 		super(r,conn);
@@ -65,6 +66,48 @@ public class BlobStorage extends GenericStorage {
 		return result;
 	}
 	
+	private void sleep(long millisecondsToSleep) {
+		try {
+			Thread.sleep(millisecondsToSleep);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Try several times to get an image view.  Views (aka Derivatives) are created asynchronously by Nuxeo in the
+	 * Services layer, so it might take a second or two for them to become available.
+	 * 
+	 * @param url
+	 * @param creds
+	 * @param cache
+	 * @return
+	 * @throws ConnectionException 
+	 */
+	private ReturnUnknown viewRetrieveImg(String view, String url, CSPRequestCredentials creds, CSPRequestCache cache) throws ConnectionException {
+		ReturnUnknown result = null;
+		int attempts = 0;
+		long timeOutValue = System.currentTimeMillis() + DERIVATIVE_TIMEOUT;
+		
+		while (result == null && System.currentTimeMillis() < timeOutValue) {
+			result = conn.getUnknownDocument(RequestMethod.GET, url, null, creds, cache);
+			if (result.getStatus() < 200 || result.getStatus() >= 300) {
+				sleep(500); // Go to sleep for 1/2 second while derivative gets created.
+				result = null;
+			}
+			attempts++;
+		}
+		
+		if (System.currentTimeMillis() > timeOutValue && result == null) {
+			log.warn(String.format("Timed out after trying %s time(s) to retrieve '%s' view/derivative.", attempts, view));
+		} else {
+			log.debug(String.format("Successfully retrieved '%s' view/derivative after %s attempt(s).", view, attempts));
+		}
+				
+		return result;
+	}
+	
 	/*
 	 * This method returns actual blob bits -either the original blob bits or those of a derivative
 	 */
@@ -93,10 +136,12 @@ public class BlobStorage extends GenericStorage {
 				softpath = hierarchicalpath(softpath);
 			}
 			
-			ReturnUnknown doc = conn.getUnknownDocument(RequestMethod.GET, servicesurl+softpath, null, creds, cache);
+			//ReturnUnknown doc = conn.getUnknownDocument(RequestMethod.GET, servicesurl+softpath, null, creds, cache);
+			ReturnUnknown doc = viewRetrieveImg(view, servicesurl+softpath, creds, cache);
 			if (doc.getStatus() < 200 || doc.getStatus() >= 300) {
 				throw new UnderlyingStorageException("Does not exist ", doc.getStatus(), softpath);
 			}
+			
 			out.put("getByteBody", doc.getBytes()); // REM: We're returning an array of bytes here and we probably should be using a stream of bytes
 			out.put("contenttype", doc.getContentType());
 			out.put("contentdisposition", doc.getContentDisposition());
