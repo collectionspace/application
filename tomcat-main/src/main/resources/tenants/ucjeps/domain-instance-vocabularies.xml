@@ -9,4 +9,20 @@
 			<option id="UTM">UTM</option>
 		</options>
 	</instance>
+
+	<instance id="vocab-majorcategories">
+		<web-url>majorcategories</web-url>
+		<title-ref>majorcategories</title-ref>
+		<title>Major Category</title>
+		<options>
+		</options>
+	</instance>
+
+	<instance id="vocab-morphologycategories">
+		<web-url>morphologycategories</web-url>
+		<title-ref>morphologycategories</title-ref>
+		<title>Morphology Category</title>
+		<options>
+		</options>
+	</instance>
 </root>

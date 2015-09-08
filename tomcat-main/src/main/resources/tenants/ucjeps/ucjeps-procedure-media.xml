@@ -11,7 +11,8 @@
 		<field id="publisher" autocomplete="person-person,organization-organization,organization-institution"/>
 		<field id="rightsHolder" autocomplete="person-person,organization-organization,organization-institution"/>
 		
-		<!-- New fields -->
+		<!-- Local fields -->
+		
 		<field id="handwritten" section="ucjeps" ui-search="single">
 			<options>
 				<option id="">Please select a value</option>
@@ -30,5 +31,35 @@
 		<field id="scientificTaxonomy" in-title="yes" mini="summary,search,list,relate" section="ucjeps" autocomplete="taxon-taxon" ui-search="repeatable">
 			<title-selector>titleBar-media-scientificTaxonomy</title-selector>
 		</field>
+		
+		<repeat id="mediaOtherNumberList/mediaOtherNumber" section="ucjeps">
+			<field id="numberValue" section="ucjeps"/>
+			<field id="numberType" seperate_ui_container="true" section="ucjeps">
+				<options>
+					<option id="">Please select a value</option>
+					<option id="lender">Lender</option>
+					<option id="obsolete">Obsolete</option>
+					<option id="previous">Previous</option>
+					<option id="serial">Serial</option>
+					<option id="unknown">Unknown</option>
+				</options>
+			</field>
+		</repeat>
+		
+		<field id="majorCategory" autocomplete="vocab-majorcategories" ui-type="enum" section="ucjeps"/>
+
+		<repeat id="morphologyCategories" section="ucjeps">
+			<field id="morphologyCategory"  autocomplete="vocab-morphologycategories" ui-type="enum" section="ucjeps"/>
+		</repeat>
+		
+		<repeat id="persons" section="ucjeps">
+			<field id="person" autocomplete="person-person" section="ucjeps"/>
+		</repeat>
+		
+		<repeat id="places" section="ucjeps">
+			<field id="place" autocomplete="place-place" section="ucjeps"/>
+		</repeat>
+		
+		<field id="locality" section="ucjeps"/>
 	</section>
 </record>
