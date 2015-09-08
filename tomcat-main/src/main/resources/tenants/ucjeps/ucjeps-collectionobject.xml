@@ -22,6 +22,7 @@
 					<option id="Unknown">Unknown</option>
 					<option id="Collector Number">Collector Number</option>
 					<option id="Exsiccatae Number">Exsiccatae Number</option>
+					<option id="FIMS Identifier">FIMS Identifier</option>
 					<option id="GenBank Code">GenBank Code</option>
 					<option id="Old institution accession number">Old Institution Accession Number</option>
 					<option id="Other Label Number">Other Label Number</option>
