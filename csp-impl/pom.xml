@@ -86,7 +86,7 @@
 	</build>
 	
 	<repositories>
-		<!-- Repository for EL4J modules. -->
+		<!-- Repository for EL4J modules.
 		<repository>
 			<id>el4jReleaseRepositoryExternal</id>
 			<name>External release repository of the EL4J project</name>
@@ -98,6 +98,7 @@
 				<enabled>true</enabled>
 			</releases>
 		</repository>
+		-->
 	</repositories>	
 
 </project>
