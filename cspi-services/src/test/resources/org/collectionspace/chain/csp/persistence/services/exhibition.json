@@ -3,6 +3,21 @@
     "curatorialNote": "Do some curating.",
     "de-urned-type": "Permanent",
     "exhibitionNumber": "EX123",
+    "exhibitionObjectGroup": [
+        {
+            "_primary": true,
+            "exhibitionObjectCase": "Case 1",
+            "exhibitionObjectConsCheckDate": "2015-09-22T00:00:00.000Z",
+            "exhibitionObjectConsTreatment": "Needed",
+            "exhibitionObjectMount": "Not needed",
+            "exhibitionObjectName": "Thing",
+            "exhibitionObjectNote": "Obj note",
+            "exhibitionObjectNumber": "2015.1.1",
+            "exhibitionObjectRotation": "Rotation 1",
+            "exhibitionObjectSection": "Section 1",
+            "exhibitionObjectSeqNum": "2"
+        }
+    ],
     "exhibitionReferenceGroup": [
         {
             "_primary": true,
@@ -11,6 +26,83 @@
             "exhibitionReference": "urn:cspace:core.collectionspace.org:citationauthorities:name(citation):item:name(Reference11429860263344)'Reference 1'",
             "exhibitionReferenceNote": "This is the catalog",
             "exhibitionReferenceType": "urn:cspace:core.collectionspace.org:vocabularies:name(exhibitionreferencetype):item:name(catalog)'Catalog'"
+        }
+    ],
+    "exhibitionSectionGroup": [
+        {
+            "_primary": true,
+            "exhibitionSectionLocation": "There",
+            "exhibitionSectionName": "Section 1",
+            "exhibitionSectionNote": "Remarks",
+            "exhibitionSectionObjects": "Stuff"
+        }
+    ],
+    "exhibitionStatusGroup": [
+        {
+            "_primary": true,
+            "de-urned-exhibitionStatus": "Labels written",
+            "exhibitionStatus": "urn:cspace:core.collectionspace.org:vocabularies:name(exhibitionstatus):item:name(labelswritten)'Labels written'",
+            "exhibitionStatusDate": "2015-09-23T00:00:00.000Z",
+            "exhibitionStatusNote": "status notes"
+        }
+    ],
+    "galleryRotationGroup": [
+        {
+            "_primary": true,
+            "galleryRotationEndDateGroup": {
+                "_primary": true,
+                "dateAssociation": "",
+                "dateDisplayDate": "2000",
+                "dateEarliestScalarValue": "",
+                "dateEarliestSingleCertainty": "",
+                "dateEarliestSingleDay": "",
+                "dateEarliestSingleEra": "",
+                "dateEarliestSingleMonth": "",
+                "dateEarliestSingleQualifier": "",
+                "dateEarliestSingleQualifierUnit": "",
+                "dateEarliestSingleQualifierValue": "",
+                "dateEarliestSingleYear": "",
+                "dateLatestCertainty": "",
+                "dateLatestDay": "",
+                "dateLatestEra": "",
+                "dateLatestMonth": "",
+                "dateLatestQualifier": "",
+                "dateLatestQualifierUnit": "",
+                "dateLatestQualifierValue": "",
+                "dateLatestScalarValue": "",
+                "dateLatestYear": "",
+                "dateNote": "",
+                "datePeriod": "",
+                "scalarValuesComputed": false
+            },
+            "galleryRotationName": "Rotation 1",
+            "galleryRotationNote": "rotation note",
+            "galleryRotationStartDateGroup": {
+                "_primary": true,
+                "dateAssociation": "",
+                "dateDisplayDate": "1999",
+                "dateEarliestScalarValue": "",
+                "dateEarliestSingleCertainty": "",
+                "dateEarliestSingleDay": "",
+                "dateEarliestSingleEra": "",
+                "dateEarliestSingleMonth": "",
+                "dateEarliestSingleQualifier": "",
+                "dateEarliestSingleQualifierUnit": "",
+                "dateEarliestSingleQualifierValue": "",
+                "dateEarliestSingleYear": "",
+                "dateLatestCertainty": "",
+                "dateLatestDay": "",
+                "dateLatestEra": "",
+                "dateLatestMonth": "",
+                "dateLatestQualifier": "",
+                "dateLatestQualifierUnit": "",
+                "dateLatestQualifierValue": "",
+                "dateLatestScalarValue": "",
+                "dateLatestYear": "",
+                "dateNote": "",
+                "datePeriod": "",
+                "scalarValuesComputed": false
+            }
         }
     ],
     "generalNote": "Generally do some things.",
