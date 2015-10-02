@@ -9,6 +9,26 @@
 		<field id="contributor" autocomplete="person-person,organization-organization,organization-institution"/>
 		<field id="creator" autocomplete="person-person,organization-organization,organization-institution"/>
 		<field id="publisher" autocomplete="person-person,organization-organization,organization-institution"/>
+		
+		<repeat id="types">
+			<field id="type">
+				<!-- Replace options-->
+				<options>
+					<option id="" default="yes">Please select a value</option>
+					<option id="dataset">Dataset</option>
+					<option id="Digital Image">Digital Image</option>
+					<option id="document">Document</option>
+					<option id="Illustration">Illustration</option>
+					<option id="moving_image">Moving Image</option>
+					<option id="Scanned Photograph">Scanned Photograph</option>
+					<option id="still_image">Still Image</option>
+					<option id="Slide (Photograph)">Slide (Photograph)</option>
+					<option id="sound">Sound</option>
+				</options>
+			</field>
+		</repeat>
+		
+		<!-- Add organization-institution to autocomplete -->
 		<field id="rightsHolder" autocomplete="person-person,organization-organization,organization-institution"/>
 		
 		<!-- Local fields -->
@@ -37,10 +57,12 @@
 			<field id="numberType" seperate_ui_container="true" section="ucjeps">
 				<options>
 					<option id="">Please select a value</option>
+					<option id="Collector Number">Collector Number</option>
 					<option id="lender">Lender</option>
 					<option id="obsolete">Obsolete</option>
 					<option id="previous">Previous</option>
 					<option id="serial">Serial</option>
+					<option id="Specimen Accession ID">Specimen Accession ID</option>
 					<option id="unknown">Unknown</option>
 				</options>
 			</field>
