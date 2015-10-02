@@ -336,4 +336,16 @@
                             <option id="review">Review</option>
                         </options>
                     </instance>
+                    <instance id="vocab-exhibitionstatus">
+                        <web-url>exhibitionstatus</web-url>
+                        <title-ref>exhibitionstatus</title-ref>
+                        <title>exhibitionstatus</title>
+                        <options>
+                            <option id="themeselected">Theme selected</option>
+                            <option id="preliminaryobjectlistcreated">Preliminary object list created</option>
+                            <option id="sectionsdetermined">Sections determined</option>
+                            <option id="finalobjectlistdetermined">Final object list determined</option>
+                            <option id="labelswritten">Labels written</option>
+                        </options>
+                    </instance>
 </instances>
