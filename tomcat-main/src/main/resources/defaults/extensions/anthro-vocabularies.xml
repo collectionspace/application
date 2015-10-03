@@ -1,0 +1,67 @@
+<instances>
+  <!-- Anthropology Extensions -->
+  <instance id="vocab-nagpraStatus">
+    <web-url>nagpraStatus</web-url>
+    <title-ref>nagpraStatus</title-ref>
+    <title>NAGPRA Status</title>
+    <options>
+      <option id="culturallyAffiliated">Culturally Affiliated</option>
+      <option id="culturallyUnaffiliated">Culturally Unaffiliated</option>
+      <option id="intendedForRepatriation">Intended for Repatriation</option>
+      <option id="pendingRepatriation">Pending Repatriation</option>
+      <option id="repatriated">Repatriated</option>
+      <option id="unknown">Unknown</option>
+    </options>
+  </instance>
+
+  <instance id="vocab-nagpraCategoryDetermination">
+    <web-url>nagpraCategoryDetermination</web-url>
+    <title-ref>nagpraCategoryDetermination</title-ref>
+    <title>NAGPRA Category Determination</title>
+    <options>
+      <option id="affiliatedHumanSkeletalRemains">Affiliated Human Skeletal Remains</option>
+      <option id="unaffiliatedHumanSkeletalRemains">Unaffiliated Human Skeletal Remains</option>
+      <option id="associatedFuneraryObject">Associated Funerary Object</option>
+      <option id="unassociatedFuneraryObject">Unassociated Funerary Object</option>
+      <option id="sacredObject">Sacred Object</option>
+      <option id="objectOfCulturalPatrimony">Object of Cultural Patrimony</option>
+      <option id="subjectToNagpra">Subject to NAGPRA</option>
+      <option id="notSubjectToNagpra">Not Subject to NAGPRA</option>
+      <option id="needsFurtherResearch">Needs Further Research</option>
+      <option id="unknown">unknown</option>
+    </options>
+  </instance>
+
+  <instance id="vocab-accessLimitationType">
+    <web-url>accessLimitationType</web-url>
+    <title-ref>accessLimitationType</title-ref>
+    <title>Access Limitation Type</title>
+    <options>
+      <option id="displayVisual">Display/Visual</option>
+      <option id="explicit">Explicit</option>
+      <option id="handlingGender">Handling: Gender</option>
+      <option id="handlingOther">Handling: Other</option>
+      <option id="lending">Lending</option>
+      <option id="nagpraRelated">NAGPRA Related</option>
+      <option id="onlineSharing">Online Sharing</option>
+      <option id="other">other</option>
+      <option id="publication">Publication</option>
+      <option id="researchAccess">Research/Access</option>
+      <option id="storage">Storage</option>
+      <option id="treatment">Treatment</option>
+    </options>
+  </instance>
+
+  <instance id="vocab-accessLimitationLevel">
+    <web-url>accessLimitationLevel</web-url>
+    <title-ref>accessLimitationLevel</title-ref>
+    <title>Access Limitation Level</title>
+    <options>
+      <option id="legalRequirement">Legal Requirement</option>
+      <option id="preference">Preference</option>
+      <option id="recommendation">Recommendation</option>
+      <option id="museumPolicy">Museum Policy</option>
+      <option id="other">other</option>
+    </options>
+  </instance>
+</instances>

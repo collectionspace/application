@@ -1,0 +1,43 @@
+<record id="collection-object" is-extension="true"  generate-services-schema="true">
+
+  <services-record-path id="anthro">
+      collectionobjects_anthro:http://collectionspace.org/services/collectionobject/domain/collectionobject,collectionobjects_anthro
+  </services-record-path>
+
+  <section id="repatriationNagpraComplianceInformation" section="anthro">
+    <repeat id="nagpraInventoryList/nagpraInventoryGroup" section="anthro">
+      <field id="nagpraInventoryAvailable" section="anthro">
+        <options>
+          <option id="">Please Select a Value</option>
+          <option id="yes"> Yes</option>
+          <option id="no">No</option>
+        </options>
+      </field>
+      <field id="nagpraInventoryAvailableDate" ui-type="date" datatype="date" ui-search="range" section="anthro" />
+    </repeat>
+
+    <field id="nagpraStatus" autocomplete="vocab-nagpraStatus" ui-type="enum" section="anthro" />
+    <repeat id="nagpraCategoryDeterminationRepeat" section="anthro">
+      <field id="nagpraCategoryDetermination" autocomplete="vocab-nagpraCategoryDetermination" ui-type="enum" section="anthro" />
+    </repeat>
+    <repeat id="repatriationNotesRepeat" section="anthro">
+      <field id="repatriationNotes" datatype="largetext" section="anthro" />
+    </repeat>
+    <repeat id="nagpraCulturalDeterminationRepeat" section="anthro">
+      <field id="nagpraCulturalDetermination" datatype="largetext" section="anthro" />
+    </repeat>
+  </section>
+
+  <section id="culturalCareInformation" section="anthro">
+    <field id="culturalCareNotes" datatype="largetext" section="anthro" />
+
+    <repeat id="accessLimitationsList/accessLimitationsGroup" section="anthro">
+      <field id="accessLimitationType" autocomplete="vocab-accessLimitationType" ui-type="enum" section="anthro" />
+      <field id="accessLimitationLevel" autocomplete="vocab-accessLimitationLevel" ui-type="enum" section="anthro" />
+      <field id="accessLimitationDetails" datatype="largetext" section="anthro" />
+      <field id="accessLimitationRequestor" autocomplete="person-person,organization-organization" ui-search="repeatable" section="anthro" />
+      <field id="accessLimitationOrganization" autocomplete="organization-organization" ui-search="repeatable" section="anthro" />
+      <field id="accessLimitationDate" ui-type="date" datatype="date" ui-search="range" section="anthro" />
+    </repeat>
+  </section>
+</record>
