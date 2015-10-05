@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ns2:exhibitions_common xmlns:ns2="http://collectionspace.org/services/exhibition" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <venueGroupList>
+        <venueGroup>
+            <venueAttendance>1999</venueAttendance>
+            <venueOpeningDate>2015-04-24T00:00:00.000Z</venueOpeningDate>
+            <venue>urn:cspace:core.collectionspace.org:placeauthorities:name(place):item:name(Gallery11429860147339)'Gallery 1'</venue>
+            <venueClosingDate>2015-04-25T00:00:00.000Z</venueClosingDate>
+            <venueUrl>http://exhibit.com</venueUrl>
+        </venueGroup>
+    </venueGroupList>
+    <exhibitionReferenceGroupList>
+        <exhibitionReferenceGroup>
+            <exhibitionReference>urn:cspace:core.collectionspace.org:citationauthorities:name(citation):item:name(Reference11429860263344)'Reference 1'</exhibitionReference>
+            <exhibitionReferenceType>urn:cspace:core.collectionspace.org:vocabularies:name(exhibitionreferencetype):item:name(catalog)'Catalog'</exhibitionReferenceType>
+            <exhibitionReferenceNote>This is the catalog</exhibitionReferenceNote>
+        </exhibitionReferenceGroup>
+    </exhibitionReferenceGroupList>
+    <exhibitionObjectGroupList>
+        <exhibitionObjectGroup>
+            <exhibitionObjectMount>Not needed</exhibitionObjectMount>
+            <exhibitionObjectNote>Obj note</exhibitionObjectNote>
+            <exhibitionObjectSection>Section 1</exhibitionObjectSection>
+            <exhibitionObjectConsCheckDate>2015-09-22T00:00:00.000Z</exhibitionObjectConsCheckDate>
+            <exhibitionObjectSeqNum>2</exhibitionObjectSeqNum>
+            <exhibitionObjectRotation>Rotation 1</exhibitionObjectRotation>
+            <exhibitionObjectCase>Case 1</exhibitionObjectCase>
+            <exhibitionObjectName>Thing</exhibitionObjectName>
+            <exhibitionObjectConsTreatment>Needed</exhibitionObjectConsTreatment>
+            <exhibitionObjectNumber>2015.1.1</exhibitionObjectNumber>
+        </exhibitionObjectGroup>
+    </exhibitionObjectGroupList>
+    <organizers>
+        <organizer>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(JohnDoe1429860133232)'John Doe'</organizer>
+    </organizers>
+    <exhibitionStatusGroupList>
+        <exhibitionStatusGroup>
+            <exhibitionStatus>urn:cspace:core.collectionspace.org:vocabularies:name(exhibitionstatus):item:name(labelswritten)'Labels written'</exhibitionStatus>
+            <exhibitionStatusDate>2015-09-23T00:00:00.000Z</exhibitionStatusDate>
+            <exhibitionStatusNote>status notes</exhibitionStatusNote>
+        </exhibitionStatusGroup>
+    </exhibitionStatusGroupList>
+    <type>urn:cspace:core.collectionspace.org:vocabularies:name(exhibitiontype):item:name(permanent)'Permanent'</type>
+    <boilerplateText>Lorem ipsum...</boilerplateText>
+    <generalNote>Generally do some things.</generalNote>
+    <workingGroupList>
+        <workingGroup>
+            <exhibitionPersonGroupList>
+                <exhibitionPersonGroup>
+                    <exhibitionPerson>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(ConnieCurator1429860191889)'Connie Curator'</exhibitionPerson>
+                    <exhibitionPersonRole>urn:cspace:core.collectionspace.org:vocabularies:name(exhibitionpersonrole):item:name(curator)'Curator'</exhibitionPersonRole>
+                </exhibitionPersonGroup>
+                <exhibitionPersonGroup>
+                    <exhibitionPerson>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(EdEducator1429860205520)'Ed Educator'</exhibitionPerson>
+                    <exhibitionPersonRole>urn:cspace:core.collectionspace.org:vocabularies:name(exhibitionpersonrole):item:name(educator)'Educator'</exhibitionPersonRole>
+                </exhibitionPersonGroup>
+            </exhibitionPersonGroupList>
+            <workingGroupTitle>People</workingGroupTitle>
+            <workingGroupNote>These are some people</workingGroupNote>
+        </workingGroup>
+    </workingGroupList>
+    <title>My Exhibition</title>
+    <sponsors>
+        <sponsor>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(AcmeCo1429860126929)'Acme Co.'</sponsor>
+    </sponsors>
+    <curatorialNote>Do some curating.</curatorialNote>
+    <planningNote>Some planning was required</planningNote>
+    <exhibitionNumber>EX123</exhibitionNumber>
+    <galleryRotationGroupList>
+        <galleryRotationGroup>
+            <galleryRotationStartDateGroup>
+                <dateEarliestSingleQualifier/>
+                <scalarValuesComputed>false</scalarValuesComputed>
+                <dateLatestDay/>
+                <dateLatestYear/>
+                <dateAssociation/>
+                <dateEarliestSingleEra/>
+                <dateDisplayDate>1999</dateDisplayDate>
+                <dateEarliestSingleCertainty/>
+                <dateLatestEra/>
+                <dateEarliestSingleQualifierValue/>
+                <dateLatestCertainty/>
+                <dateEarliestSingleYear/>
+                <dateLatestQualifier/>
+                <dateLatestQualifierValue/>
+                <dateEarliestSingleQualifierUnit/>
+                <datePeriod/>
+                <dateEarliestScalarValue/>
+                <dateLatestMonth/>
+                <dateNote/>
+                <dateLatestScalarValue/>
+                <dateLatestQualifierUnit/>
+                <dateEarliestSingleDay/>
+                <dateEarliestSingleMonth/>
+            </galleryRotationStartDateGroup>
+            <galleryRotationNote>rotation note</galleryRotationNote>
+            <galleryRotationEndDateGroup>
+                <dateEarliestSingleQualifier/>
+                <scalarValuesComputed>false</scalarValuesComputed>
+                <dateLatestDay/>
+                <dateLatestYear/>
+                <dateAssociation/>
+                <dateEarliestSingleEra/>
+                <dateDisplayDate>2000</dateDisplayDate>
+                <dateEarliestSingleCertainty/>
+                <dateLatestEra/>
+                <dateEarliestSingleQualifierValue/>
+                <dateLatestCertainty/>
+                <dateEarliestSingleYear/>
+                <dateLatestQualifier/>
+                <dateLatestQualifierValue/>
+                <dateEarliestSingleQualifierUnit/>
+                <datePeriod/>
+                <dateEarliestScalarValue/>
+                <dateLatestMonth/>
+                <dateNote/>
+                <dateLatestScalarValue/>
+                <dateLatestQualifierUnit/>
+                <dateEarliestSingleDay/>
+                <dateEarliestSingleMonth/>
+            </galleryRotationEndDateGroup>
+            <galleryRotationName>Rotation 1</galleryRotationName>
+        </galleryRotationGroup>
+    </galleryRotationGroupList>
+    <exhibitionSectionGroupList>
+        <exhibitionSectionGroup>
+            <exhibitionSectionNote>Remarks</exhibitionSectionNote>
+            <exhibitionSectionObjects>Stuff</exhibitionSectionObjects>
+            <exhibitionSectionLocation>There</exhibitionSectionLocation>
+            <exhibitionSectionName>Section 1</exhibitionSectionName>
+        </exhibitionSectionGroup>
+    </exhibitionSectionGroupList>
+</ns2:exhibitions_common>

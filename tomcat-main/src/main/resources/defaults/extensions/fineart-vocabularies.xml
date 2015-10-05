@@ -1,0 +1,53 @@
+<instances>
+    <instance id="vocab-cataloglevel">
+        <web-url>cataloglevel</web-url>
+        <title-ref>cataloglevel</title-ref>
+        <title>Level of Cataloging</title>
+        <options>
+            <option id="item"> item </option>
+            <option id="volume"> volume </option>
+            <option id="group"> group </option>
+            <option id="subgroup"> subgroup </option>
+            <option id="collection"> collection </option>
+            <option id="series"> series </option>
+            <option id="set"> set </option>
+            <option id="multiples"> multiples </option>
+            <option id="component"> component </option>
+        </options>
+    </instance>
+    <instance id="vocab-conceptrecordtype">
+        <web-url>conceptrecordtype</web-url>
+        <title-ref>conceptrecordtype</title-ref>
+        <title>Concept Record Type</title>
+        <options>
+            <option id="concept"> concept</option>
+            <option id="guideterm">guide term</option>
+            <option id="facet"> facet</option>
+        </options>
+    </instance>
+    <instance id="vocab-othernameflags">
+        <web-url>othernameflags</web-url>
+        <title-ref>othernameflags</title-ref>
+        <title>Other Name Flags</title>
+        <options>
+            <option id="fullterm"> full term</option>
+            <option id="abbreviation"> abbreviation</option>
+            <option id="jargonslang"> jargon/slang</option>
+            <option id="scientificterm"> scientific term</option>
+            <option id="commonterm"> common term</option>
+            <option id="na"> not applicable</option>
+        </options>
+    </instance>
+    <instance id="vocab-conceptrelationtype">
+        <web-url>conceptrelationtype</web-url>
+        <title-ref>conceptrelationtype</title-ref>
+        <title>Concept Relationship Type</title>
+        <options>
+            <option id="distinguishedfrom">distinguished from</option>
+            <option id="usageoverlapswith">usage overlaps with</option>
+            <option id="causitiveactionis">causitive action is</option>
+            <option id="equipmentneededis">equipment needed is</option>
+            <option id="relatedto">related to</option>
+        </options>
+    </instance>
+</instances>

@@ -21,8 +21,8 @@ import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.io.FileUtils;
-
 import org.collectionspace.chain.csp.config.ConfigException;
+import org.collectionspace.services.common.api.FileTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
@@ -40,23 +40,23 @@ import ch.elca.el4j.services.xmlmerge.config.PropertyXPathConfigurer;
 // XXX namespaces in XSLT
 public class AssemblingContentHandler extends DefaultHandler implements ContentHandler {
 
+    private static final class XSLTTag {
+        private String src, root;
+    }
+
+    private static final class IncludeTag {
+        private String src;
+        private String merge;
+        private boolean strip;
+    }
+
     private static final Logger logger = LoggerFactory.getLogger(AssemblingContentHandler.class);
     private static final String XMLMERGE_DEFAULT_PROPS_STR = "matcher.default=ID\n";
     private static final String XSLT_TAG = "xslt";
     private static final String INCLUDE_TAG = "include";
     private static final String DEFINE_TAG = "define";
+	protected static File tempDirectory = setTempDirectory(); // Keep this static so all the XMLMerge files (for each run, that is) end up in the same place
 
-    private static final class XSLTTag {
-
-        private String src, root;
-    }
-
-    private static final class IncludeTag {
-
-        private String src;
-        private String merge;
-        private boolean strip;
-    }
     private AssemblingContentHandler resolve_parent;
     private SAXParserFactory factory;
     private ContentHandler delegated, up;
@@ -69,29 +69,43 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
     private Map<String, XSLTTag> xslt_tags = new HashMap<String, XSLTTag>();
     private Map<String, IncludeTag> include_tags = new HashMap<String, IncludeTag>();
 
-    AssemblingContentHandler(AssemblingParser parser, ContentHandler r) throws ConfigException {
+    private static File setTempDirectory() {
+    	File result = null;
+    	
+    	try {
+    		result = FileTools.createTmpDir("merged-app-config-");
+    	} catch (IOException x) {
+    		logger.debug("Could not create a temp directory in which to store the XMLMerge results of the app config files.", x);
+    	}
+    	
+    	return result;
+    }
+    
+    AssemblingContentHandler(AssemblingParser parser, ContentHandler r) throws ConfigException, IOException {
         this(parser, r, true, false, null);
     }
 
-    AssemblingContentHandler(AssemblingParser parser, ContentHandler r, boolean outer, boolean strip, AssemblingContentHandler rp) throws ConfigException {
-        up = r;
-        factory = SAXParserFactory.newInstance();
-        factory.setNamespaceAware(true);
-        TransformerFactory tf = TransformerFactory.newInstance();
-        if (!tf.getFeature(SAXSource.FEATURE) || !tf.getFeature(SAXResult.FEATURE)) {
-            throw new ConfigException("XSLT not supported");
-        }
-        transfactory = (SAXTransformerFactory) tf;
-        this.outer = outer;
-        this.strip = strip;
-        this.resolve_parent = rp;
-        if (rp != null) {
-            this.tenantname = rp.tenantname;
-        }
-        this.parser = parser;
-    }
+	private AssemblingContentHandler(AssemblingParser parser, ContentHandler r,
+			boolean outer, boolean strip, AssemblingContentHandler rp)
+			throws ConfigException, IOException {
+		up = r;
+		factory = SAXParserFactory.newInstance();
+		factory.setNamespaceAware(true);
+		TransformerFactory tf = TransformerFactory.newInstance();
+		if (!tf.getFeature(SAXSource.FEATURE)
+				|| !tf.getFeature(SAXResult.FEATURE)) {
+			throw new ConfigException("XSLT not supported");
+		}
+		transfactory = (SAXTransformerFactory) tf;
+		this.outer = outer;
+		this.strip = strip;
+		this.resolve_parent = rp;
+		if (rp != null) {
+			this.tenantname = rp.tenantname;
+		}
+		this.parser = parser;
+	}
 
-    // XXX test bad filename
     private void apply_xslt(InputSource xslt, String root) throws SAXException {
         try {
             ContentHandler inner = new AssemblingContentHandler(parser, up, false, false, this);
@@ -108,7 +122,9 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
             throw new SAXException("Could not create inner parser", e);
         } catch (ConfigException e) {
             throw new SAXException("Could not create inner parser", e);
-        }
+        } catch (IOException e) {
+			//logger.debug("Could not create);
+		}
 
     }
 
@@ -142,22 +158,21 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
         /*
          * Save the merge results for debugging purposes.
          */
-        String mergeFilename = "";
         if (logger.isInfoEnabled() == true) {
             try {
                 String outputFileNamePrefix = "/merged-" + loggingPrefix + "-";
                 if (xmlmergeProps != null) {
-                    File mergePropertiesFile = new File(FileUtils.getTempDirectoryPath() + outputFileNamePrefix + ".properties"); //make a copy of the XMLMerge properties used for the merge
+                    File mergePropertiesFile = new File(AssemblingContentHandler.tempDirectory, outputFileNamePrefix + ".properties"); //make a copy of the XMLMerge properties used for the merge
                     ByteArrayInputStream propertiesStream = new ByteArrayInputStream(xmlmergeProps.toString().getBytes());
                     FileUtils.copyInputStreamToFile(propertiesStream, mergePropertiesFile);
                 }
-                mergeFilename = FileUtils.getTempDirectoryPath() + outputFileNamePrefix + ".xml";
-                File mergedOutFile = new File(mergeFilename); //make a copy of the merge results
+                File mergedOutFile = new File(AssemblingContentHandler.tempDirectory, outputFileNamePrefix + ".xml"); //make a copy of the merge results
                 FileUtils.copyInputStreamToFile(result, mergedOutFile);
                 result.reset();
                 logger.info(String.format("XMLMerge results were written to file: %s", mergedOutFile.getAbsolutePath()));
             } catch (IOException e) {
-                logger.info(String.format("Could not write XMLMerge results to file: %s", mergeFilename), e);
+                logger.info(String.format("Could not write XMLMerge results to directory: %s",
+                		AssemblingContentHandler.tempDirectory.getAbsolutePath()), e);
             }
         }
 
@@ -232,7 +247,7 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
     private void apply_include(IncludeTag includeTag) throws SAXException, IOException {
         InputSource includeSrc = null;
 
-        if (includeTag.merge != null && !includeTag.merge.isEmpty()) {
+        if (includeTag.merge != null && !includeTag.merge.isEmpty()) { //FIXME: includeTag.merge could be null so an NPE might be thrown
             includeSrc = apply_merge(includeTag); //merges all the "src" files
         } else {
             includeSrc = find_first_entity(includeTag.src); //returns the first found "src" file
@@ -346,7 +361,7 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
             IOException { // this method returns when it finds the first item in
         // the "all" list
         try {
-            InputSource out = resolveEntity(null, "tenants/" + this.tenantname
+            InputSource out = resolveEntity(null, "tenants/" + this.tenantname //FIXME: this.tenantname might be null, so an NPE could be thrown
                     + "/" + src);
             if (out != null) {
                 return out;
@@ -438,7 +453,8 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
                     up.startElement(uri, localName, qName, attributes);
                 }
             } catch (IOException x) {
-                throw new SAXException("Could not load source");
+            	logger.error(x.getMessage());
+                throw new SAXException("Could not load source.");
             }
         }
     }

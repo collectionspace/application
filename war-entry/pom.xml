@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>war-entry</artifactId>
@@ -9,19 +8,10 @@
 	<parent>
 		<groupId>org.collectionspace</groupId>
 		<artifactId>svcapp</artifactId>
-		<version>4.1.1</version>
+		<version>4.3-SNAPSHOT</version>
 	</parent>
 
 	<profiles>
-		<profile>
-			<id>jboss</id>
-			<properties>
-				<!-- using the jboss 4.2.x container -->
-				<cargo.container>jboss42x</cargo.container>
-				<cspace.server.home>${env.JBOSS_HOME}/server/cspace</cspace.server.home>
-				<config.destination>${cspace.server.home}/conf</config.destination>
-			</properties>
-		</profile>
 		<profile>
 			<id>tomcat</id>
 			<activation>
@@ -31,6 +21,15 @@
 				<!-- using the tomcat 6.x container -->
 				<cargo.container>tomcat6x</cargo.container>
 				<cspace.server.home>${env.CATALINA_HOME}</cspace.server.home>
+				<config.destination>${cspace.server.home}/lib</config.destination>
+			</properties>
+		</profile>
+		<profile>
+			<id>nodeploy</id>
+			<properties>
+				<!-- using the tomcat 6.x container -->
+				<cargo.container>tomcat6x</cargo.container>
+				<cspace.server.home>${temp.war.location}</cspace.server.home>
 				<config.destination>${cspace.server.home}/lib</config.destination>
 			</properties>
 		</profile>
@@ -56,7 +55,7 @@
 			<version>2.1.1</version>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<finalName>collectionspace</finalName>
 		<!-- We need the logging info in the war's classes, so it gets picked up -->
@@ -68,23 +67,14 @@
 				</includes>
 			</resource>
 		</resources>
-		
+
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-					<optimize>true</optimize>
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.1.1</version>
 				<configuration>
-					<outputDirectory>${maven.tomcat.home}</outputDirectory>
+					<outputDirectory>${temp.war.location}</outputDirectory>
 					<archive>
 					</archive>
 				</configuration>
@@ -120,9 +110,7 @@
 						<deployables>
 							<deployable>
 								<!-- location of war file -->
-								<location>
-									${maven.tomcat.home}/${project.build.finalName}.${project.packaging}
-								</location>
+								<location> ${temp.war.location}/${project.build.finalName}.${project.packaging} </location>
 							</deployable>
 						</deployables>
 					</deployer>
@@ -136,6 +124,28 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!-- 
+				Delete the exploded war file directory from the JEE container when a
+				'clean' build is performed
+			-->
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<phase>clean</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<delete dir="${cspace.server.home}/webapps/${project.build.finalName}"/>
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>

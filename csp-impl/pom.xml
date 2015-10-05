@@ -9,17 +9,10 @@
 	<parent>
 		<groupId>org.collectionspace</groupId>
 		<artifactId>svcapp</artifactId>
-		<version>4.1.1</version>
+		<version>4.3-SNAPSHOT</version>
 	</parent>
 
 	<dependencies>
-		<!--
-		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId> 
-			<version>20080701</version>
-		</dependency>
-		-->
 		<!-- EL4J core module. -->
 		<dependency>
 			<groupId>ch.elca.el4j.modules</groupId>
@@ -42,9 +35,7 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.0.1</version>
         </dependency>
-
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>csp-api</artifactId>
@@ -52,32 +43,31 @@
 			<type>jar</type>
 		</dependency>
 		<dependency>
+			<groupId>org.collectionspace.services</groupId>
+			<artifactId>org.collectionspace.services.common-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>		
+		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
-			<version>2.4</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
-			<version>1.1.1</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.5.6</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.5.6</version>
 		</dependency>
-
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -85,15 +75,6 @@
 	<build>
 		<finalName>csp-helper</finalName>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-					<optimize>true</optimize>
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>maven-jetty-plugin</artifactId>
@@ -105,34 +86,19 @@
 	</build>
 	
 	<repositories>
-		<!-- Repository for EL4J modules. -->
+		<!-- Repository for EL4J modules.
 		<repository>
+			<id>el4jReleaseRepositoryExternal</id>
+			<name>External release repository of the EL4J project</name>
+			<url>http://public-el4.elca-services.ch/el4j/maven2repository</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
-			<id>el4jReleaseRepositoryExternal</id>
-			<name>External release repository of the EL4J project</name>
-			<url>http://public-el4.elca-services.ch/el4j/maven2repository</url>
 		</repository>
-		<repository>
-			<id>collectionspace-remote-repos</id>
-			<name>collectionspace-remote-repos</name>
-			<url>http://source.collectionspace.org:8081/artifactory/remote-repos</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>libs-release-local</id>
-			<name>libs-release-local</name>
-			<url>http://source.collectionspace.org:8081/artifactory/libs-release-local</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
+		-->
 	</repositories>	
 
 </project>

@@ -1,6 +1,7 @@
 package org.collectionspace.chain.installation;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -12,17 +13,17 @@ import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.services.common.api.FileTools;
+import org.collectionspace.services.common.api.Tools;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentFactory;
 import org.dom4j.Element;
 import org.dom4j.Namespace;
 import org.dom4j.QName;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.commons.io.FileUtils;
-import org.collectionspace.services.common.api.Tools;
 
 public class Services {
 	private static final Logger log = LoggerFactory.getLogger(Services.class);
@@ -63,6 +64,7 @@ public class Services {
 	protected TenantSpec tenantSpec;
 	protected Boolean defaultonly;
 	protected String domainsection;
+	protected File tempDirectory;
 
 	/**
 	 * not sure how configurable these need to be - they can be made more flexible
@@ -75,13 +77,19 @@ public class Services {
 	"http://collectionspace.org/services/config/tenant.xsd";
 
 	public Services() {
+		// Intentionally left blank?
 	}
-
-	public Services(Spec spec,TenantSpec td, Boolean isdefault) {
+	
+	public Services(Spec spec,TenantSpec td, Boolean isdefault) throws IOException {
 		this.spec = spec;
 		this.tenantSpec = td;
 		this.defaultonly = isdefault;
 		this.domainsection = "common";
+		this.tempDirectory = FileTools.createTmpDir("cspace-bindings-");
+	}
+	
+	public File getTempDirectory() {
+		return this.tempDirectory;
 	}
 
 	public String  doit(String serviceBindingVersion) {
@@ -208,12 +216,14 @@ public class Services {
 				//
 				// Debug-log the generated Service bindings for this App layer record
 				//
-				Element bindingsForRecord = serviceBindingsElement;
-				if (bindingsForRecord != null && !r.isType(RECORD_TYPE_AUTHORITY)) {
-					this.writeToFile(r, bindingsForRecord, false);
+				if (log.isDebugEnabled() == true) {
+					Element bindingsForRecord = serviceBindingsElement;
+					if (bindingsForRecord != null && !r.isType(RECORD_TYPE_AUTHORITY)) {
+						this.writeToFile(r, bindingsForRecord, false);
+					}
 				}
 			} else {
-				log.debug(String.format("'%s.%s' does not require a service binding", tenantName, recordName));
+				log.debug(String.format("'%s.%s' does not require a service binding.", tenantName, recordName));
 			}
 		}
 		
@@ -224,20 +234,30 @@ public class Services {
 	// For debugging purposes, this method writes a service bindings element to disk.
 	//
 	void writeToFile(Record r, Element bindingsForRecord, boolean isAuthority) {
-		String tenantName = this.tenantSpec.getTenant();
-		String recordName = r.getRecordName();
-		if (isAuthority == true) {
-			recordName = r.getServicesTenantAuthPl();
-		}
-		String serviceBindings = bindingsForRecord.asXML();
-		log.trace(String.format("Bindings for Record=%s: %s", recordName, serviceBindings));
-
-		String serviceBindingsFileName = String.format("%s.%s.bindings.xml", tenantName, recordName);
-		File serviceBindingsFile = new File(serviceBindingsFileName);
-		try {
-			FileUtils.writeStringToFile(serviceBindingsFile, serviceBindings);
-		} catch (Exception e) {
-			log.debug(String.format("Could not write service bindings file to: %s", serviceBindingsFileName), e);
+		if (log.isDebugEnabled() == true) {
+			String tenantName = this.tenantSpec.getTenant();
+			String recordName = r.getRecordName();
+			if (isAuthority == true) {
+				recordName = r.getServicesTenantAuthPl();
+			}
+			//
+			// Write out the service bindings if log level is TRACE
+			//
+			String serviceBindings = bindingsForRecord.asXML();
+			log.trace(String.format("Service bindings for record='%s': %s", recordName, serviceBindings));
+			//
+			// Write the service bindings to a file for debugging/troubleshooting.
+			//
+			String serviceBindingsFileName = String.format("%s.%s.bindings.xml", tenantName, recordName);
+			File serviceBindingsFile = new File(getTempDirectory(), serviceBindingsFileName); // Write this to a temp directory for debugging purposes
+			try {
+				FileUtils.writeStringToFile(serviceBindingsFile, serviceBindings);
+				log.debug(String.format("Wrote Service bindings for record='%s' to file: %s",
+						recordName, serviceBindingsFile.getAbsoluteFile()));
+			} catch (Exception e) {
+				log.debug(String.format("Could not write Service bindings for record='%s' to file: %s",
+						recordName, serviceBindingsFile.getAbsoluteFile()), e);
+			}
 		}
 	}
 

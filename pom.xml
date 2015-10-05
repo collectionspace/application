@@ -1,88 +1,261 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+						http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.collectionspace</groupId>
-  <version>4.1.1</version>
-  <artifactId>svcapp</artifactId>
-  <packaging>pom</packaging>
-  <name>Root</name>
-  
-  <modules>
-    <module>general-utils</module>
-    <module>csp-api</module>
-    <module>csp-impl</module>
-    <module>cspi-schema</module>
-    <module>jxutils</module>
-    <module>csp-helper</module>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.collectionspace</groupId>
+	<version>4.3-SNAPSHOT</version>
+	<artifactId>svcapp</artifactId>
+	<packaging>pom</packaging>
+	<name>Root</name>
 
-    <module>cspi-webui</module>
-    <module>cspi-file</module>
-    <module>cspi-services</module>
-    <module>cspi-installation</module>
-
-    <module>tomcat-main</module>
-    <module>war-entry</module>
-  </modules>
-  
 	<properties>
-		<maven.tomcat.home>/tmp</maven.tomcat.home>
+		<temp.war.location>${basedir}/tmp</temp.war.location>
 		<cspace.tool.csmake>csmake</cspace.tool.csmake>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jetty.version>6.1.22</jetty.version>
 	</properties>
-  
-  <!-- The CollectionSpace public Maven repository for "snapshot" artifacts -->
-  <repositories>
-    <repository>
-        <id>libs-snapshot-local</id>
-        <name>libs-snapshot-local</name>
-        <url>http://nightly.collectionspace.org:8081/artifactory/libs-snapshot-local</url>
-		<snapshots>
-			<enabled>true</enabled>
-		</snapshots>
-    </repository>
-  </repositories>
-  
-  <build>
-    <testResources>
-  	  <!-- default -->
-      <testResource>
-        <directory>${project.basedir}/src/test/resources</directory>
-      </testResource>
-  	  <!-- make sure that each project's target/test-classes directory
-	       will have default.xml in it; deliberately in top-level pom.xml
-	       so as not to have references to tomcat-main in child projects -->
-      <testResource>
-        <directory>${project.basedir}/../tomcat-main/src/main/resources</directory>
-      </testResource>
-    </testResources>
-    <plugins>
-	  <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-		<version>2.13</version>
-        <configuration>
-            <!-- need more memory than the default for our unit tests -->
-            <argLine>-Xmx1050m -Dfile.encoding=UTF8</argLine>
-            
-          <excludes>
-            <exclude>**/TestDummyData.java</exclude>
-            <exclude>**/TestGenerateAuthorities.java</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
-	  <plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<version>3.0</version>
-			<configuration>
-				<source>1.6</source>
-				<target>1.6</target>
-				<optimize>true</optimize>
-			</configuration>
-		</plugin>
-    </plugins>
-  </build>
+
+	<distributionManagement>
+		<repository>
+			<id>libs-release-local</id>
+			<name>libs-release-local</name>
+			<url>http://nightly.collectionspace.org:8081/artifactory/libs-release-local</url>
+		</repository>
+		<snapshotRepository>
+			<id>libs-snapshot-local</id>
+			<name>libs-snapshot-local</name>
+			<url>http://nightly.collectionspace.org:8081/artifactory/libs-snapshot-local</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<modules>
+		<module>general-utils</module>
+		<module>csp-api</module>
+		<module>csp-impl</module>
+		<module>cspi-schema</module>
+		<module>jxutils</module>
+		<module>csp-helper</module>
+
+		<module>cspi-webui</module>
+		<module>cspi-file</module>
+		<module>cspi-services</module>
+		<module>cspi-installation</module>
+
+		<module>tomcat-main</module>
+		<module>war-entry</module>
+	</modules>
+
+	<repositories>
+		<repository>
+			<id>collectionspace-remote-repos</id>
+			<name>collectionspace-remote-repos</name>
+			<url>http://nightly.collectionspace.org:8081/artifactory/remote-repos</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>libs-release-local</id>
+			<name>libs-release-local</name>
+			<url>http://nightly.collectionspace.org:8081/artifactory/libs-release-local</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>libs-snapshot-local</id>
+			<name>libs-snapshot-local</name>
+			<url>http://nightly.collectionspace.org:8081/artifactory/libs-snapshot-local</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>repo1</id>
+			<name>Maven repo1</name>
+			<url>http://repo1.maven.org/maven2</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>repo2</id>
+			<name>Maven repo2</name>
+			<url>http://repo2.maven.org/maven2</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>1.2.16</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-servlet-tester</artifactId>
+				<version>${jetty.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>commons-httpclient</groupId>
+				<artifactId>commons-httpclient</artifactId>
+				<version>3.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty</artifactId>
+				<version>${jetty.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>mail</artifactId>
+				<version>1.4.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.json</groupId>
+				<artifactId>json</artifactId>
+				<version>20080701</version>
+			</dependency>
+			<dependency>
+				<groupId>dom4j</groupId>
+				<artifactId>dom4j</artifactId>
+				<version>1.6.1</version>
+				<type>jar</type>
+			</dependency>
+			<dependency>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+				<version>1.1.1</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>1.5.6</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>1.5.6</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+				<version>1.5.6</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>servlet-api</artifactId>
+				<version>2.4</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.7</version>
+				<type>jar</type>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>commons-lang</groupId>
+				<artifactId>commons-lang</artifactId>
+				<version>2.4</version>
+				<type>jar</type>
+			</dependency>
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>2.0.1</version>
+				<type>jar</type>
+			</dependency>
+			<dependency>
+				<groupId>commons-codec</groupId>
+				<artifactId>commons-codec</artifactId>
+				<version>1.3</version>
+				<type>jar</type>
+			</dependency>
+			<dependency>
+				<groupId>jaxen</groupId>
+				<artifactId>jaxen</artifactId>
+				<version>1.1.1</version>
+				<exclusions>
+					<exclusion>
+						<groupId>xerces</groupId>
+						<artifactId>xmlParserAPIs</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.1</version>
+					<configuration>
+						<source>1.7</source>
+						<target>1.7</target>
+						<optimize>true</optimize>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.mortbay.jetty</groupId>
+					<artifactId>maven-jetty-plugin</artifactId>
+					<version>6.1.26</version>
+					<configuration>
+						<contextPath>chain</contextPath>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<testResources>
+			<!-- default -->
+			<testResource>
+				<directory>${project.basedir}/src/test/resources</directory>
+			</testResource>
+			<!-- make sure that each project's target/test-classes directory will 
+				have default.xml in it; deliberately in top-level pom.xml so as not to have 
+				references to tomcat-main in child projects -->
+			<testResource>
+				<directory>${project.basedir}/../tomcat-main/src/main/resources</directory>
+			</testResource>
+		</testResources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.13</version>
+				<configuration>
+					<!-- need more memory than the default for our unit tests -->
+					<argLine>-Xmx1050m -Dfile.encoding=UTF8</argLine>
+
+					<excludes>
+						<exclude>**/TestDummyData.java</exclude>
+						<exclude>**/TestGenerateAuthorities.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

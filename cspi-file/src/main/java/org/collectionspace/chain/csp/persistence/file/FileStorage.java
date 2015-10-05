@@ -12,8 +12,8 @@ import java.io.IOException;
 import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.config.Configurable;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
-import org.collectionspace.chain.csp.config.Rules;
-import org.collectionspace.chain.csp.config.Target;
+import org.collectionspace.chain.csp.config.RuleSet;
+import org.collectionspace.chain.csp.config.RuleTarget;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
@@ -26,7 +26,7 @@ import org.collectionspace.csp.helper.persistence.ProxyStorage;
 /**  SplittingStorage which delegates collection-objects to StubJSONStore
  * 
  */
-public class FileStorage extends ProxyStorage implements Storage, CSP, Configurable, StorageGenerator {
+public class FileStorage extends ProxyStorage implements CSP, Configurable, StorageGenerator {
 	public static String SECTION_PREFIX="org.collectionspace.app.config.persistence.file.";
 	public static String SECTIONED="org.collectionspace.app.config.spec";
 	public static String FILE_ROOT=SECTION_PREFIX+"spec";
@@ -61,11 +61,13 @@ public class FileStorage extends ProxyStorage implements Storage, CSP, Configura
 		}
 	}
 
-	public Storage getStorage(CSPRequestCredentials credentials,CSPRequestCache cache) { return this; }
+	public Storage getStorage(CSPRequestCredentials credentials,CSPRequestCache cache) {
+		return this;
+	}
 
-	public void configure(Rules rules) throws CSPDependencyException {
+	public void configure(RuleSet rules) throws CSPDependencyException {
 		/* MAIN/persistence/file -> FILE */
-		rules.addRule(SECTIONED,new String[]{"persistence","file"},SECTION_PREFIX+"file",null,new Target(){
+		rules.addRule(SECTIONED,new String[]{"persistence","file"},SECTION_PREFIX+"file",null,new RuleTarget(){
 			public Object populate(Object parent, ReadOnlySection milestone) {
 				((ConfigRoot)parent).setRoot(FILE_ROOT,FileStorage.this);
 				((ConfigRoot)parent).setRoot(CSPContext.XXX_SERVICE_NAME,"file"); // XXX should be path-selectable
@@ -78,5 +80,7 @@ public class FileStorage extends ProxyStorage implements Storage, CSP, Configura
 	public void complete_init() throws CSPDependencyException {
 		real_init();
 	}
+	
+	@Override
 	public CSPRequestCredentials createCredentials() { return null; }
 }

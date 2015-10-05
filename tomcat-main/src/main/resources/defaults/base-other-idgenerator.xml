@@ -4,6 +4,9 @@
                 <services-tenant-singular>id</services-tenant-singular>
                 <authorization-view>false</authorization-view>
                 <section id="idGeneratorInformation">
+                    <field id="exhibition">
+                        <selector>29ff8c5e-597a-41c6-a481-6e92dfe0a59f</selector>
+                    </field>
                     <field id="accession">
                         <selector>9dd92952-c384-44dc-a736-95e435c1759c</selector>
                     </field>

@@ -224,6 +224,8 @@ public class TestUIRecords {
 		tester.testUIspec(jetty, "/acquisition/uischema", "acquisition.uischema");
 		tester.testUIspec(jetty, "/conditioncheck-search/uischema", "conditioncheck-search.uischema");
 		tester.testUIspec(jetty, "/conditioncheck/uischema", "conditioncheck.uischema");
+		tester.testUIspec(jetty, "/exhibition-search/uischema", "exhibition-search.uischema");
+		tester.testUIspec(jetty, "/exhibition/uischema", "exhibition.uischema");
 		tester.testUIspec(jetty, "/valuationcontrol-search/uischema", "valuationcontrol-search.uischema");
 		tester.testUIspec(jetty, "/valuationcontrol/uischema", "valuationcontrol.uischema");
 		
@@ -235,6 +237,8 @@ public class TestUIRecords {
 		tester.testUIspec(jetty, "/acquisition-search/uispec", "acquisition-search.uispec");
 		tester.testUIspec(jetty, "/conditioncheck/uispec", "conditioncheck.uispec");
 		tester.testUIspec(jetty, "/conditioncheck-search/uispec", "conditioncheck-search.uispec");
+		tester.testUIspec(jetty, "/exhibition/uispec", "exhibition.uispec");
+		tester.testUIspec(jetty, "/exhibition-search/uispec", "exhibition-search.uispec");
 		tester.testUIspec(jetty, "/valuationcontrol-search/uispec", "valuationcontrol-search.uispec");
 		tester.testUIspec(jetty, "/valuationcontrol/uispec", "valuationcontrol.uispec");
 
@@ -279,6 +283,24 @@ public class TestUIRecords {
 		tester.testUIspec(jetty, "/conditioncheck-search/uispec", "conditioncheck-search.uispec");
 		log.info("Testing Search UISCHEMA");
 		tester.testUIspec(jetty, "/conditioncheck-search/uischema", "conditioncheck-search.uischema");
+	}
+
+
+	/**
+ 	 * Test Exhibition Procedure CRUDL
+ 	 */
+	@Test public void testProcedureExhibition() throws Exception {
+		log.info("Testing exhibition Procedure");
+		tester.testPostGetDelete(jetty, "/exhibition/", tester.exhibitionCreate(), "planningNote");
+		tester.testLists(jetty, "/exhibition/", tester.exhibitionCreate(), "items");
+		log.info("Testing UISCHEMA");
+		tester.testUIspec(jetty, "/exhibition/uischema", "exhibition.uischema");
+		log.info("Testing UISPEC");
+		tester.testUIspec(jetty, "/exhibition/uispec", "exhibition.uispec");
+		log.info("Testing Search UISPEC");
+		tester.testUIspec(jetty, "/exhibition-search/uispec", "exhibition-search.uispec");
+		log.info("Testing Search UISCHEMA");
+		tester.testUIspec(jetty, "/exhibition-search/uischema", "exhibition-search.uischema");
 	}
 
 

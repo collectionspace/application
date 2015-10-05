@@ -29,6 +29,7 @@
       "media",
       "claim",
       "conditioncheck",
+      "exhibition",
       "valuationcontrol"
     ], 
     "type": "array"

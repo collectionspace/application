@@ -200,7 +200,7 @@ public class TestGeneral  {
 	    String message = "Hi, Test Message Contents";
 	    String subject = "A test from collectionspace test suite";
 	    String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
-        Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+        Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());  //REM - Replace.  This is pre-JDK 1.4 code, from the days when JSSE was a separate download.  Fix the imports so they refer to the classes in javax.net.ssl If you really want to get hold of a specific instance, you can use Security.getProvider(name). You'll find the appropriate names in the providers documentation. 
         boolean debug = true;
         
         Properties props = new Properties();

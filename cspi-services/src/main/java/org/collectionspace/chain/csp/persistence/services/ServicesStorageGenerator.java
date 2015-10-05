@@ -10,8 +10,8 @@ package org.collectionspace.chain.csp.persistence.services;
 import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.config.Configurable;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
-import org.collectionspace.chain.csp.config.Rules;
-import org.collectionspace.chain.csp.config.Target;
+import org.collectionspace.chain.csp.config.RuleSet;
+import org.collectionspace.chain.csp.config.RuleTarget;
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.persistence.services.authorization.AuthorizationStorage;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
@@ -42,10 +42,12 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 	private CSPContext ctx;
 	private TenantSpec tenantData;
 	
+	@Override
 	public Storage getStorage(CSPRequestCredentials credentials,CSPRequestCache cache) {
 		return new ServicesStorage(this,credentials,cache);
 	}
 
+	@Override
 	public String getName() { return "persistence.services"; }
 	public String getBase() { return base_url; }
 	public String getIMSBase() { return ims_url; }
@@ -75,15 +77,18 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 		}
 	}
 	
+	@Override
 	public void go(CSPContext ctx) throws CSPDependencyException {
 		ctx.addStorageType("service",this);
 		ctx.addConfigRules(this);
 		this.ctx=ctx;
 	}
 
-	public void configure(Rules rules) throws CSPDependencyException {
+	@Override
+	public void configure(RuleSet rules) throws CSPDependencyException {
 		/* MAIN/persistence/service -> SERVICE */
-		rules.addRule(SECTIONED,new String[]{"persistence","service"},SECTION_PREFIX+"service",null,new Target(){
+		rules.addRule(SECTIONED,new String[]{"persistence","service"},SECTION_PREFIX+"service",null,new RuleTarget(){
+			@Override
 			public Object populate(Object parent, ReadOnlySection milestone) {
 				((ConfigRoot)parent).setRoot(SERVICE_ROOT,ServicesStorageGenerator.this);
 				base_url=(String)milestone.getValue("/url");
@@ -94,14 +99,16 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 			}
 		});
 
-		rules.addRule(SECTION_PREFIX+"service", new String[]{"repository","dateformats","pattern"},SECTION_PREFIX+"dateformat", null, new Target(){
+		rules.addRule(SECTION_PREFIX+"service", new String[]{"repository","dateformats","pattern"},SECTION_PREFIX+"dateformat", null, new RuleTarget(){
+			@Override
 			public Object populate(Object parent, ReadOnlySection milestone) {
 				String format = (String)milestone.getValue("");
 				tenantData.addFormat(format);
 				return this;
 			}
 		});
-		rules.addRule(SECTION_PREFIX+"service", new String[]{"repository","languages","language"},SECTION_PREFIX+"language", null, new Target(){
+		rules.addRule(SECTION_PREFIX+"service", new String[]{"repository","languages","language"},SECTION_PREFIX+"language", null, new RuleTarget(){
+			@Override
 			public Object populate(Object parent, ReadOnlySection milestone) {
 				String lang = (String)milestone.getValue("");
 				tenantData.addLanguage(lang);
@@ -110,8 +117,10 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 		});
 	}
 		
+	@Override
 	public void config_finish() throws CSPDependencyException {}
 	
+	@Override
 	public void complete_init() throws CSPDependencyException {
 		Spec spec=(Spec)ctx.getConfigRoot().getRoot(Spec.SPEC_ROOT);
 		if(spec==null)
@@ -119,6 +128,7 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 		real_init(spec);
 	}
 
+	@Override
 	public CSPRequestCredentials createCredentials() {
 		return new ServicesRequestCredentials();
 	}

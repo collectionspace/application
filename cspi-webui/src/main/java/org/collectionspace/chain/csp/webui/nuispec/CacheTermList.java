@@ -82,8 +82,10 @@ public class CacheTermList {
 					try{
 						data = storage.getPathsJSON(url,restriction);
 					}
-					catch(UnderlyingStorageException e){
+					catch(UnderlyingStorageException e){  
 						// need to initialise this vocab
+						log.error("Could not retreive term list with URL '%s' from Services layer.", url);
+						// REM 8/28/2015 - This code is broken? See https://issues.collectionspace.org/browse/CSPACE-6151 
 						Instance n  = vr.getInstance(vr.getID()+"-"+vocabname);
 						JSONObject fields=new JSONObject("{'displayName':'"+n.getTitle()+"','shortIdentifier':'"+n.getWebURL()+"'}");
 						if(vr.getFieldFullList("termStatus") instanceof Field){

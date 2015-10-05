@@ -44,7 +44,14 @@
         <include src="core-fields.xml" strip-root="yes" />
     </section>
     <section id="exhibitionInformation">
-        <field id="exhibitionNumber" ui-search="repeatable" in-title="yes" mini="number,search,list,relate"/>
+        <field id="exhibitionNumber" ui-search="repeatable" in-title="yes" mini="number,search,list,relate"
+               chooser="yes" seperate_ui_container="true">
+            <container-selector>exhibition-number-patternChooserContainer</container-selector>
+            <options>
+                <option id="exhibition" sample="EXH2015.1.1">Exhibition</option>
+            </options>
+
+        </field>
         <field id="title" ui-search="repeatable" mini="summary,search,list,relate" services-schema-qualify="true"/>
         <field id="type" ui-search="repeatable" autocomplete="vocab-exhibitiontype" ui-type="enum"/>
         
@@ -85,5 +92,56 @@
             <field id="exhibitionReferenceType" autocomplete="vocab-exhibitionreferencetype" ui-type="enum"/>
             <field id="exhibitionReferenceNote"/>
         </repeat>
+        
+        <repeat id="galleryRotationGroupList/galleryRotationGroup">
+            <field id="galleryRotationName"/>
+            <group id="galleryRotationStartDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate"/>
+            <group id="galleryRotationEndDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate"/>
+            <field id="galleryRotationNote"/>
+        </repeat>
+        
+        <section id="exhibitionPlanningInformation">
+            <repeat id="exhibitionSectionGroupList/exhibitionSectionGroup">
+                <field id="exhibitionSectionName"/>
+                <field id="exhibitionSectionLocation"/>
+                <field id="exhibitionSectionObjects"/>
+                <field id="exhibitionSectionNote"/>
+            </repeat>
+        
+            <repeat id="exhibitionStatusGroupList/exhibitionStatusGroup">
+                <field id="exhibitionStatus" autocomplete="vocab-exhibitionstatus" ui-type="enum"/>
+                <field id="exhibitionStatusDate" ui-type="date" datatype="date"/>
+                <field id="exhibitionStatusNote"/>
+            </repeat>
+        </section>
+    
+        <section id="exhibitionObjectInformation">
+            <repeat id="exhibitionObjectGroupList/exhibitionObjectGroup">
+                <field id="exhibitionObjectNumber"/>
+                <field id="exhibitionObjectName"/>
+                <field id="exhibitionObjectConsCheckDate" ui-type="date" datatype="date"/>
+                <field id="exhibitionObjectConsTreatment">
+                    <options>
+                        <option id="" default="yes">Please select a value</option>
+                        <option id="Needed">Needed</option>
+                        <option id="Not needed">Not needed</option>
+                        <option id="Done">Done</option>
+                    </options>
+                </field>
+                <field id="exhibitionObjectMount">
+                    <options>
+                        <option id="" default="yes">Please select a value</option>
+                        <option id="Needed">Needed</option>
+                        <option id="Not needed">Not needed</option>
+                        <option id="Done">Done</option>
+                    </options>
+                </field>
+                <field id="exhibitionObjectSection"/>
+                <field id="exhibitionObjectCase"/>
+                <field id="exhibitionObjectSeqNum"/>
+                <field id="exhibitionObjectRotation"/>
+                <field id="exhibitionObjectNote"/>
+            </repeat>
+        </section>
      </section>
 </record>

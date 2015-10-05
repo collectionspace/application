@@ -16,8 +16,8 @@ import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.Configurable;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
-import org.collectionspace.chain.csp.config.Rules;
-import org.collectionspace.chain.csp.config.Target;
+import org.collectionspace.chain.csp.config.RuleSet;
+import org.collectionspace.chain.csp.config.RuleTarget;
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
@@ -133,9 +133,9 @@ public class WebUI implements CSP, UI, Configurable {
 	}
 
 	@Override
-	public void configure(Rules rules) throws CSPDependencyException {
+	public void configure(RuleSet rules) throws CSPDependencyException {
 		/* MAIN/ui/web -> UI */
-		rules.addRule(SECTIONED,new String[]{"ui","web"},SECTION_PREFIX+"web",null,new Target(){
+		rules.addRule(SECTIONED,new String[]{"ui","web"},SECTION_PREFIX+"web",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				((CoreConfig)parent).setRoot(WEBUI_ROOT,WebUI.this);
@@ -155,7 +155,7 @@ public class WebUI implements CSP, UI, Configurable {
 		
 		/* MAIN/ui/web/mappings ->UI */
 
-		rules.addRule(SECTION_PREFIX+"web", new String[]{"mappings","map"},SECTION_PREFIX+"uimapping", null, new Target(){
+		rules.addRule(SECTION_PREFIX+"web", new String[]{"mappings","map"},SECTION_PREFIX+"uimapping", null, new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				uiMapping = new UIMapping((WebUI)parent,section);
@@ -163,7 +163,7 @@ public class WebUI implements CSP, UI, Configurable {
 				return uiMapping;
 			}
 		});
-		rules.addRule(SECTION_PREFIX+"uimapping", new String[]{"configure","meta"},SECTION_PREFIX+"uimetamapping", null, new Target(){
+		rules.addRule(SECTION_PREFIX+"uimapping", new String[]{"configure","meta"},SECTION_PREFIX+"uimetamapping", null, new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				UIMapping map = (UIMapping)parent;
@@ -370,8 +370,8 @@ public class WebUI implements CSP, UI, Configurable {
 		} catch(UIException e) {
 			throw e;
 		} catch (Exception e) {
-                        log.debug("Error in WebUI.serviceRequest",e);
-                        log.debug(String.format("Request body= %s", ui.getBody()));
+                        log.error("Error in WebUI.serviceRequest",e);
+                        log.error(String.format("Request body= %s", ui.getBody()));
 			throw new UIException("Error in read",e);
 		}
 		throw new UIException("path not used");

@@ -573,33 +573,42 @@ public class TestBase extends TestData {
 		DELETEData(id, jetty);
 
 	}
-	//UI specs
+
+	// UI specs
 	public void testUIspec(ServletTester jetty, String url, String uijson) throws Exception {
-	
-		log.info("testUISpec("+url+", "+uijson+")");
-		HttpTester response;
-		JSONObject generated;
-		JSONObject comparison;
+		log.info("testUISpec(" + url + ", " + uijson + ")");
 		
-		response = GETData(url, jetty);
-		
-		generated = new JSONObject(response.getContent());
-		comparison = new JSONObject(getResourceString(uijson));
-		xxxfixOptions(generated);
-		xxxfixOptions(comparison);
-		
-		// You can use these, Chris, to write stuff out if the spec has changed to alter the test file -- dan
-		//hendecasyllabic:tmp csm22$ cat gschema.out | pbcopy
-		
-		boolean success = JSONUtils.checkJSONEquivOrEmptyStringKey(generated, comparison);
-		if(!success) {
-			log.error("testUIspec("+uijson+") BASELINE from file" + comparison.toString());
-			log.error("testUIspec("+url+") GENERATED from url" + generated.toString());
+		String errMsg = String.format("Failed to create correct uispec for '%s' compared with file '%s'",
+				url, uijson);
+		JSONObject generated = new JSONObject("{}");
+		JSONObject comparison = new JSONObject("{}");
+		boolean success = false;
+
+		try {
+			HttpTester response = GETData(url, jetty);
+
+			generated = new JSONObject(response.getContent());
+			comparison = new JSONObject(getResourceString(uijson));
+			xxxfixOptions(generated);
+			xxxfixOptions(comparison);
+
+			// You can use these, Chris, to write stuff out if the spec has
+			// changed to alter the test file -- dan
+			// hendecasyllabic:tmp csm22$ cat gschema.out | pbcopy
+
+			success = JSONUtils.checkJSONEquivOrEmptyStringKey(generated, comparison);
+		} catch (Exception e) {
+			log.error(errMsg, e);
+			errMsg = String.format("%s. %s", errMsg, e.getMessage()); // Append the exception message to our default error message.
 		}
-		assertTrue("Failed to create correct uispec for " + url, success);
-	
+
+		if (!success) {
+			log.error("testUIspec(" + uijson + ") BASELINE from file" + comparison.toString());
+			log.error("testUIspec(" + url + ") GENERATED from url" + generated.toString());
+		}
+
+		assertTrue(errMsg, success);
 	}
-	
 
 	public JSONArray xxxsorted(JSONArray in) throws Exception {
 		JSONArray out=new JSONArray();

@@ -1,0 +1,316 @@
+{
+    ".csc-exhibition-exhibitionNumber": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "options": {
+                    "elPath": "exhibitionNumbers",
+                    "hidePrimary": true,
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-exhibition-exhibitionNumber": "${{row}.exhibitionNumber}"
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                },
+                "type": "fluid"
+            }
+        ]
+    },
+    ".csc-exhibition-exhibitionNumber-label": {
+        "messagekey": "exhibition-exhibitionNumberLabel"
+    },
+    ".csc-exhibition-organizer": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "options": {
+                    "elPath": "organizers",
+                    "hidePrimary": true,
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-exhibition-organizer": {
+                                    "decorators": [
+                                        {
+                                            "func": "cspace.autocomplete",
+                                            "options": {
+                                                "queryUrl": "../../../tenant/core/exhibition/autocomplete/organizer",
+                                                "vocabUrl": "../../../tenant/core/exhibition/source-vocab/organizer"
+                                            },
+                                            "type": "fluid"
+                                        }
+                                    ],
+                                    "value": "${{row}.organizer}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                },
+                "type": "fluid"
+            }
+        ]
+    },
+    ".csc-exhibition-organizer-label": {
+        "messagekey": "exhibition-organizerLabel"
+    },
+    ".csc-exhibition-sponsor": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "options": {
+                    "elPath": "sponsors",
+                    "hidePrimary": true,
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-exhibition-sponsor": {
+                                    "decorators": [
+                                        {
+                                            "func": "cspace.autocomplete",
+                                            "options": {
+                                                "queryUrl": "../../../tenant/core/exhibition/autocomplete/sponsor",
+                                                "vocabUrl": "../../../tenant/core/exhibition/source-vocab/sponsor"
+                                            },
+                                            "type": "fluid"
+                                        }
+                                    ],
+                                    "value": "${{row}.sponsor}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                },
+                "type": "fluid"
+            }
+        ]
+    },
+    ".csc-exhibition-sponsor-label": {
+        "messagekey": "exhibition-sponsorLabel"
+    },
+    ".csc-exhibition-title": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "options": {
+                    "elPath": "titles",
+                    "hidePrimary": true,
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-exhibition-title": "${{row}.title}"
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                },
+                "type": "fluid"
+            }
+        ]
+    },
+    ".csc-exhibition-title-label": {
+        "messagekey": "exhibition-titleLabel"
+    },
+    ".csc-exhibition-type": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "options": {
+                    "elPath": "types",
+                    "hidePrimary": true,
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-exhibition-type": {
+                                    "decorators": [
+                                        {
+                                            "func": "cspace.termList",
+                                            "options": {
+                                                "elPath": "type",
+                                                "root": "{row}",
+                                                "termListType": "type"
+                                            },
+                                            "type": "fluid"
+                                        }
+                                    ]
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                },
+                "type": "fluid"
+            }
+        ]
+    },
+    ".csc-exhibition-type-label": {
+        "messagekey": "exhibition-typeLabel"
+    },
+    ".csc-exhibition-updatedAt-label": {
+        "messagekey": "exhibition-updatedAtLabel"
+    },
+    ".csc-exhibition-updatedAtEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${updatedAtEnd}"
+    },
+    ".csc-exhibition-updatedAtEnd-label": {
+        "messagekey": "exhibition-updatedAtEndLabel"
+    },
+    ".csc-exhibition-updatedAtStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${updatedAtStart}"
+    },
+    ".csc-exhibition-updatedAtStart-label": {
+        "messagekey": "exhibition-updatedAtStartLabel"
+    },
+    ".csc-exhibition-updatedBy": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "options": {
+                    "elPath": "updatedBys",
+                    "hidePrimary": true,
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-exhibition-updatedBy": "${{row}.updatedBy}"
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                },
+                "type": "fluid"
+            }
+        ]
+    },
+    ".csc-exhibition-updatedBy-label": {
+        "messagekey": "exhibition-updatedByLabel"
+    },
+    ".csc-exhibition-venue-label": {
+        "messagekey": "exhibition-venueLabel"
+    },
+    ".csc-exhibition-venueAttendance-label": {
+        "messagekey": "exhibition-venueAttendanceLabel"
+    },
+    ".csc-exhibition-venueClosingDate-label": {
+        "messagekey": "exhibition-venueClosingDateLabel"
+    },
+    ".csc-exhibition-venueClosingDateEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${venueClosingDateEnd}"
+    },
+    ".csc-exhibition-venueClosingDateEnd-label": {
+        "messagekey": "exhibition-venueClosingDateEndLabel"
+    },
+    ".csc-exhibition-venueClosingDateStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${venueClosingDateStart}"
+    },
+    ".csc-exhibition-venueClosingDateStart-label": {
+        "messagekey": "exhibition-venueClosingDateStartLabel"
+    },
+    ".csc-exhibition-venueGroup": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "options": {
+                    "elPath": "venueGroup",
+                    "hidePrimary": true,
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-exhibition-venue": {
+                                    "decorators": [
+                                        {
+                                            "func": "cspace.autocomplete",
+                                            "options": {
+                                                "queryUrl": "../../../tenant/core/exhibition/autocomplete/venue",
+                                                "vocabUrl": "../../../tenant/core/exhibition/source-vocab/venue"
+                                            },
+                                            "type": "fluid"
+                                        }
+                                    ],
+                                    "value": "${{row}.venue}"
+                                },
+                                ".csc-exhibition-venueClosingDate": {
+                                    "decorators": [
+                                        {
+                                            "func": "cspace.datePicker",
+                                            "type": "fluid"
+                                        }
+                                    ],
+                                    "value": "${{row}.venueClosingDate}"
+                                },
+                                ".csc-exhibition-venueOpeningDate": {
+                                    "decorators": [
+                                        {
+                                            "func": "cspace.datePicker",
+                                            "type": "fluid"
+                                        }
+                                    ],
+                                    "value": "${{row}.venueOpeningDate}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                },
+                "type": "fluid"
+            }
+        ]
+    },
+    ".csc-exhibition-venueOpeningDate-label": {
+        "messagekey": "exhibition-venueOpeningDateLabel"
+    },
+    ".csc-exhibition-venueOpeningDateEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${venueOpeningDateEnd}"
+    },
+    ".csc-exhibition-venueOpeningDateEnd-label": {
+        "messagekey": "exhibition-venueOpeningDateEndLabel"
+    },
+    ".csc-exhibition-venueOpeningDateStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${venueOpeningDateStart}"
+    },
+    ".csc-exhibition-venueOpeningDateStart-label": {
+        "messagekey": "exhibition-venueOpeningDateStartLabel"
+    },
+    ".csc-exhibition-venueUrl-label": {
+        "messagekey": "exhibition-venueUrlLabel"
+    }
+}

@@ -1,0 +1,70 @@
+<record id="collection-object" is-extension="true"  generate-services-schema="true">
+
+    <services-record-path id="variablemedia">
+        collectionobjects_variablemedia:http://collectionspace.org/services/collectionobject/domain/collectionobject,collectionobjects_variablemedia
+    </services-record-path>
+    <section id="descriptionInformation">
+
+        <repeat id="contentWorksList/contentWorksGroup" section="variablemedia">
+            <field id="contentWork" section="variablemedia"
+                   autocomplete="work-work" />
+            <field id="contentWorkType" section="variablemedia"
+                   autocomplete="vocab-worktype" ui-type="enum" />
+            <field id="contentWorkNote" ui-type="largetext" section="variablemedia" />
+        </repeat>
+    </section>
+    <section id="technicalSpecs" section="variablemedia">
+
+        <repeat id="filmVideoComponentsList/filmVideoComponentsGroup" section="variablemedia">
+
+            <field id="originalFormat" section="variablemedia"
+                   autocomplete="vocab-origformat" ui-type="enum" />
+
+            <field id="originalAudioFormat" section="variablemedia"
+                   autocomplete="vocab-origaudioformat" ui-type="enum" />
+        </repeat>
+        <repeat id="copiesProvided" section="variablemedia">
+            <field id="copyProvidedOnAcquisition" section="variablemedia"
+                   autocomplete="vocab-origformat" ui-type="enum" />
+        </repeat>
+
+        <repeat id="digitalWorksList/digitalWorksGroup" section="variablemedia">
+            <field id="programmingLanguage" section="variablemedia"
+                   autocomplete="vocab-programminglanguage" ui-type="enum" />
+            <field id="authoringEnvironment" section="variablemedia"
+                   autocomplete="vocab-authoringenvironment" ui-type="enum" />
+        </repeat>
+
+        <repeat id="compressionSystems" section="variablemedia">
+            <field id="compressionSystem" section="variablemedia"
+                   autocomplete="vocab-compressionsystem" ui-type="enum" />
+        </repeat>
+
+        <repeat id="ratioFormats" section="variablemedia">
+            <field id="ratioFormat" section="variablemedia"
+                   autocomplete="vocab-ratioformat" ui-type="enum" />
+        </repeat>
+
+        <field id="nonStandardCode" section="variablemedia" />
+        <field id="sourceExternalData" section="variablemedia" />
+
+        <repeat id="visualPreferencesList/visualPreferencesGroup" section="variablemedia">
+            <field id="screenResolution" section="variablemedia"
+                   autocomplete="vocab-screenresolution" ui-type="enum" />
+            <field id="colorPalette" section="variablemedia"
+                   autocomplete="vocab-colorpalette" ui-type="enum" />
+        </repeat>
+
+        <repeat id="creationHardwares" section="variablemedia">
+            <field id="creationHardware" section="variablemedia"
+                   autocomplete="vocab-creationhardware" ui-type="enum" />
+        </repeat>
+
+        <repeat id="playbackHardwares" section="variablemedia">
+            <field id="playbackHardware" section="variablemedia"
+                   autocomplete="vocab-playbackhardware" ui-type="enum" />
+        </repeat>
+
+
+    </section>
+   </record>

@@ -12,9 +12,7 @@
     <services-list-path>http://collectionspace.org/services/taxonomy,abstract-common-list/list-item</services-list-path>
     
     <services-record-path>taxon_common:http://collectionspace.org/services/taxonomy,taxon_common</services-record-path>
-    <services-record-path id="collectionspace_core">
-		collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core
-	</services-record-path>
+    <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
     <services-url>taxonomyauthority</services-url>
     <authority-vocab-type>TaxonomyAuthority</authority-vocab-type>
     <authorization-view>true</authorization-view>
