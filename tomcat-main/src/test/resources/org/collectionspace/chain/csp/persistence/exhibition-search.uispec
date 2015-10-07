@@ -200,6 +200,29 @@
     ".csc-exhibition-updatedBy-label": {
         "messagekey": "exhibition-updatedByLabel"
     },
+    ".csc-exhibition-createdAt-label": {
+        "messagekey": "exhibition-createdAtLabel"
+    },
+    ".csc-exhibition-createdAtStart-label": {
+        "messagekey": "exhibition-createdAtStartLabel"
+    },
+    ".csc-exhibition-createdAtStart": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${createdAtStart}"
+    },
+    ".csc-exhibition-createdAtEnd-label": {
+        "messagekey": "exhibition-createdAtEndLabel"
+    },
+    ".csc-exhibition-createdAtEnd": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${createdAtEnd}"
+    },
     ".csc-exhibition-venue-label": {
         "messagekey": "exhibition-venueLabel"
     },

@@ -83,6 +83,12 @@
             "updatedAtStart": {
                 "type": "date"
             },
+            "createdAtStart": {
+                "type": "date"
+            },
+            "createdAtEnd": {
+                "type": "date"
+            },
             "updatedBys": {
                 "items": {
                     "properties": {
