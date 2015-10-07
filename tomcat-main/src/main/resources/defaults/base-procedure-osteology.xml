@@ -1,0 +1,627 @@
+<record id="osteology" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
+    <services-url>osteology</services-url>
+    <services-tenant-plural>Osteology</services-tenant-plural>
+    <services-tenant-singular>Osteology</services-tenant-singular>
+    <services-list-path>abstract-common-list/list-item</services-list-path>
+    <services-record-path>osteology_common:http://collectionspace.org/services/osteology,osteology_common</services-record-path>
+    <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+    <hassoftdelete>true</hassoftdelete>
+    <structures>
+        <structure id="search">
+            <view>
+                <label-section id="messagekeys" show="true"></label-section>
+            </view>
+        </structure>
+        <structure id="screen">
+            <view>
+                <label-section id="messagekeys" show="true"></label-section>
+            </view>
+        </structure>
+        <structure id="tab">
+            <view>
+                <titlebar show="false"></titlebar>
+                <sidebar show="false"></sidebar>
+                <edit-section id="details" show="true"></edit-section>
+                <list-section id="list" show="false"></list-section>
+                <label-section id="messagekeys" show="true"></label-section>
+            </view>
+            <repeat id="list" asSibling="true">
+                <selector>recordList-row:</selector>
+                <field id="summary" ui-type="list">
+                    <selector>related-summary</selector>
+                </field>
+                <field id="number" ui-type="list">
+                    <selector>related-number</selector>
+                </field>
+            </repeat>
+        </structure>
+    </structures>
+    
+    <include src="domain-procedure-osteology.xml" strip-root="yes"/>
+    
+    <row-selector>.csc-recordList-row:</row-selector>
+    <section id="coreInformation">
+        <include src="core-fields.xml" strip-root="yes" />
+    </section>
+    <section id="osteologyInformation">
+        <field id="InventoryID" ui-search="repeatable" in-title="yes" mini="number,search,list,relate"/>
+
+        <repeat id="osteoAgeEstimateGroupList/osteoAgeEstimateGroup">
+            <field id="osteoAgeEstimateLower" ui-type="validated" datatype="float"/>
+            <field id="osteoAgeEstimateUpper" ui-type="validated" datatype="float"/>
+            <group id="osteoAgeEstimateDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate"/>
+            <field id="osteoAgeEstimateAnalyst" autocomplete="person-person"/>
+            <field id="osteoAgeEstimateNote"/>
+        </repeat>
+
+        <repeat id="sexDeterminationGroupList/sexDeterminationGroup">
+            <field id="sexDetermination">
+                <options>
+                    <option id="">Please select a value</option>
+                    <option id="Female">Female</option>
+                    <option id="Probably female">Probably female</option>
+                    <option id="Possibly female">Possibly female</option>
+                    <option id="Male">Male</option>
+                    <option id="Probably male">Probably male</option>
+                    <option id="Possibly male">Possibly male</option>
+                    <option id="Indeterminate">Indeterminate</option>
+                    <option id="Unknown">Unknown</option>
+                </options>
+            </field>
+            <group id="sexDeterminationDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate"/>
+            <field id="sexDeterminationAnalyst" autocomplete="person-person"/>
+            <field id="sexDeterminationNote"/>
+        </repeat>
+        
+        <field id="NotesOnElementInventory"/>
+        <field id="InventoryIsComplete" datatype="boolean"/>
+        <field id="inventoryAnalyst" ui-search="repeatable" autocomplete="person-person"/>
+        <field id="inventoryDate" ui-search="range" mini="summary,search,list,relate" ui-type="date" datatype="date"/>
+
+        <!-- Head -->
+        
+        <field id="Cranium"/>
+        <field id="Frontal_L"/>
+        <field id="Frontal_R"/>
+        <field id="Occipital"/>
+        <field id="Occipital_pars_basilaris"/>
+        <field id="Occipital_L_pars_lateralis"/>
+        <field id="Occipital_R_pars_lateralis"/>
+        <field id="Sphenoid"/>
+        <field id="Vomer"/>
+        <field id="Ethmoid"/>
+        <field id="Parietal_L"/>
+        <field id="Parietal_R"/>
+        <field id="Temporal_L"/>
+        <field id="Temporal_R"/>
+        <field id="Maxilla_L"/>
+        <field id="Maxilla_R"/>
+        <field id="Nasal_L"/>
+        <field id="Nasal_R"/>
+        <field id="Zygomatic_L"/>
+        <field id="Zygomatic_R"/>
+        <field id="Lacrimal_L"/>
+        <field id="Lacrimal_R"/>
+        <field id="Palatine_L"/>
+        <field id="Palatine_R"/>
+        <field id="Mandible_L"/>
+        <field id="Mandible_R"/>
+        <field id="Orbit_L"/>
+        <field id="Orbit_R"/>
+        <field id="Hyoid"/>
+        
+        <!-- Arm -->
+        
+        <field id="Humerus_L_JS_D"/>
+        <field id="Humerus_L_JS_P"/>
+        <field id="Humerus_L_shaft_D"/>
+        <field id="Humerus_L_shaft_M"/>
+        <field id="Humerus_L_shaft_P"/>
+        <field id="Humerus_L_complete"/>
+        
+        <field id="Humerus_R_JS_D"/>
+        <field id="Humerus_R_JS_P"/>
+        <field id="Humerus_R_shaft_D"/>
+        <field id="Humerus_R_shaft_M"/>
+        <field id="Humerus_R_shaft_P"/>
+        <field id="Humerus_R_complete"/>
+        
+        <field id="Radius_L_JS_D"/>
+        <field id="Radius_L_JS_P"/>
+        <field id="Radius_L_shaft_D"/>
+        <field id="Radius_L_shaft_M"/>
+        <field id="Radius_L_shaft_P"/>
+        <field id="Radius_L_complete"/>
+        
+        <field id="Radius_R_JS_D"/>
+        <field id="Radius_R_JS_P"/>
+        <field id="Radius_R_shaft_D"/>
+        <field id="Radius_R_shaft_M"/>
+        <field id="Radius_R_shaft_P"/>
+        <field id="Radius_R_complete"/>
+
+        <field id="Ulna_L_JS_D"/>
+        <field id="Ulna_L_JS_P"/>
+        <field id="Ulna_L_shaft_D"/>
+        <field id="Ulna_L_shaft_M"/>
+        <field id="Ulna_L_shaft_P"/>
+        <field id="Ulna_L_complete"/>
+        
+        <field id="Ulna_R_JS_D"/>
+        <field id="Ulna_R_JS_P"/>
+        <field id="Ulna_R_shaft_D"/>
+        <field id="Ulna_R_shaft_M"/>
+        <field id="Ulna_R_shaft_P"/>
+        <field id="Ulna_R_complete"/>
+        
+        <!-- Leg -->
+        
+        <field id="Femur_L_JS_D"/>
+        <field id="Femur_L_JS_P"/>
+        <field id="Femur_L_shaft_D"/>
+        <field id="Femur_L_shaft_M"/>
+        <field id="Femur_L_shaft_P"/>
+        <field id="Femur_L_complete"/>
+        
+        <field id="Femur_R_JS_D"/>
+        <field id="Femur_R_JS_P"/>
+        <field id="Femur_R_shaft_D"/>
+        <field id="Femur_R_shaft_M"/>
+        <field id="Femur_R_shaft_P"/>
+        <field id="Femur_R_complete"/>
+        
+        <field id="Tibia_L_JS_D"/>
+        <field id="Tibia_L_JS_P"/>
+        <field id="Tibia_L_shaft_D"/>
+        <field id="Tibia_L_shaft_M"/>
+        <field id="Tibia_L_shaft_P"/>
+        <field id="Tibia_L_complete"/>
+        
+        <field id="Tibia_R_JS_D"/>
+        <field id="Tibia_R_JS_P"/>
+        <field id="Tibia_R_shaft_D"/>
+        <field id="Tibia_R_shaft_M"/>
+        <field id="Tibia_R_shaft_P"/>
+        <field id="Tibia_R_complete"/>
+
+        <field id="Fibula_L_JS_D"/>
+        <field id="Fibula_L_JS_P"/>
+        <field id="Fibula_L_shaft_D"/>
+        <field id="Fibula_L_shaft_M"/>
+        <field id="Fibula_L_shaft_P"/>
+        <field id="Fibula_L_complete"/>
+        
+        <field id="Fibula_R_JS_D"/>
+        <field id="Fibula_R_JS_P"/>
+        <field id="Fibula_R_shaft_D"/>
+        <field id="Fibula_R_shaft_M"/>
+        <field id="Fibula_R_shaft_P"/>
+        <field id="Fibula_R_complete"/>
+        
+        <!-- -->
+        
+        <field id="Os_coxae_L"/>
+        <field id="Os_coxae_R"/>
+        <field id="Ischium_L"/>
+        <field id="Ischium_R"/>
+        <field id="Ilium_L"/>
+        <field id="Ilium_R"/>
+        <field id="Pubis_L"/>
+        <field id="Pubis_R"/>
+        <field id="Acetabulum_L"/>
+        <field id="Acetabulum_R"/>
+        <field id="Auricular_surf_L"/>
+        <field id="Auricular_surf_R"/>
+        <field id="Scapula_L"/>
+        <field id="Scapula_R"/>
+        <field id="Glenoid_L"/>
+        <field id="Glenoid_R"/>
+        <field id="Clavicle_L"/>
+        <field id="Clavicle_R"/>
+        <field id="Sternum"/>
+        <field id="Manubrium"/>
+        <field id="Patella_L"/>
+        <field id="Patella_R"/>
+
+        <!-- Wrist -->
+        
+        <field id="Carpals_L_complete"/>
+        <field id="Carpals_R_complete"/>
+        <field id="Scaphoid_L"/>
+        <field id="Scaphoid_R"/>
+        <field id="Lunate_L"/>
+        <field id="Lunate_R"/>
+        <field id="Triquetral_L"/>
+        <field id="Triquetral_R"/>
+        <field id="Pisiform_L"/>
+        <field id="Pisiform_R"/>
+        <field id="Trapezium_L"/>
+        <field id="Trapezium_R"/>
+        <field id="Trapezoid_L"/>
+        <field id="Trapezoid_R"/>
+        <field id="Capitate_L"/>
+        <field id="Capitate_R"/>
+        <field id="Hamate_L"/>
+        <field id="Hamate_R"/>
+        <field id="Sesamoid_L_count_hand"/>
+        <field id="Sesamoid_R_count_hand"/>
+        
+        <!-- Ankle -->
+        
+        <field id="Tarsals_L_complete"/>
+        <field id="Tarsals_R_complete"/>
+        <field id="Talus_L"/>
+        <field id="Talus_R"/>
+        <field id="Calcaneus_L"/>
+        <field id="Calcaneus_R"/>
+        <field id="Navicular_L"/>
+        <field id="Navicular_R"/>
+        <field id="Cuboid_L"/>
+        <field id="Cuboid_R"/>
+        <field id="Med_cuneif_1_L"/>
+        <field id="Med_cuneif_1_R"/>
+        <field id="Int_cuneif_2_L"/>
+        <field id="Int_cuneif_2_R"/>
+        <field id="Lat_cuneif_3_L"/>
+        <field id="Lat_cuneif_3_R"/>
+        <field id="Sesamoid_L_count_foot"/>
+        <field id="Sesamoid_R_count_foot"/> 
+        
+        <!-- Hand -->
+        
+        <field id="MC_L_complete"/>
+        <field id="MC_R_complete"/>
+        <field id="MC_L_count"/>
+        <field id="MC_R_count"/>
+        <field id="MC1_L"/>
+        <field id="MC1_R"/>
+        <field id="MC2_L"/>
+        <field id="MC2_R"/>
+        <field id="MC3_L"/>
+        <field id="MC3_R"/>
+        <field id="MC4_L"/>
+        <field id="MC4_R"/>
+        <field id="MC5_L"/>
+        <field id="MC5_R"/>
+        
+        <field id="Phalanx_P_count_hand"/>
+        <field id="Phalanx_I_count_hand"/>
+        <field id="Phalanx_D_count_hand"/>
+        <field id="Phalanx_juv_count_hand"/>
+        
+        <!-- Foot -->
+        
+        <field id="MT_L_complete"/>
+        <field id="MT_R_complete"/>
+        <field id="MT_L_count"/>
+        <field id="MT_R_count"/>
+        <field id="MT1_L"/>
+        <field id="MT1_R"/>
+        <field id="MT2_L"/>
+        <field id="MT2_R"/>
+        <field id="MT3_L"/>
+        <field id="MT3_R"/>
+        <field id="MT4_L"/>
+        <field id="MT4_R"/>
+        <field id="MT5_L"/>
+        <field id="MT5_R"/>
+
+        <field id="Phalanx_P_count_foot"/>
+        <field id="Phalanx_I_count_foot"/>
+        <field id="Phalanx_D_count_foot"/>
+        <field id="Phalanx_juv_count_foot"/>
+        
+        <!-- Ribs -->
+        
+        <field id="Ribs_L_complete"/>
+        
+        <field id="Rib1_L"/>
+        <field id="Rib1_L_sternal_end_complete"/>
+        <field id="Rib1_L_head_neck_complete"/>
+        
+        <field id="Rib2_L"/>
+        <field id="Rib2_L_sternal_end_complete"/>
+        <field id="Rib2_L_head_neck_complete"/>
+        
+        <field id="Rib3_L"/>
+        <field id="Rib3_L_sternal_end_complete"/>
+        <field id="Rib3_L_head_neck_complete"/>
+        
+        <field id="Rib4_L"/>
+        <field id="Rib4_L_sternal_end_complete"/>
+        <field id="Rib4_L_head_neck_complete"/>
+        
+        <field id="Rib5_L"/>
+        <field id="Rib5_L_sternal_end_complete"/>
+        <field id="Rib5_L_head_neck_complete"/>
+        
+        <field id="Rib6_L"/>
+        <field id="Rib6_L_sternal_end_complete"/>
+        <field id="Rib6_L_head_neck_complete"/>
+        
+        <field id="Rib7_L"/>
+        <field id="Rib7_L_sternal_end_complete"/>
+        <field id="Rib7_L_head_neck_complete"/>
+        
+        <field id="Rib8_L"/>
+        <field id="Rib8_L_sternal_end_complete"/>
+        <field id="Rib8_L_head_neck_complete"/>
+        
+        <field id="Rib9_L"/>
+        <field id="Rib9_L_sternal_end_complete"/>
+        <field id="Rib9_L_head_neck_complete"/>
+        
+        <field id="Rib10_L"/>
+        <field id="Rib10_L_sternal_end_complete"/>
+        <field id="Rib10_L_head_neck_complete"/>
+        
+        <field id="Rib11_L"/>
+        <field id="Rib11_L_sternal_end_complete"/>
+        <field id="Rib11_L_head_neck_complete"/>
+        
+        <field id="Rib12_L"/>
+        <field id="Rib12_L_sternal_end_complete"/>
+        <field id="Rib12_L_head_neck_complete"/>
+        
+        <field id="Ribs_R_complete"/>
+        
+        <field id="Rib1_R"/>
+        <field id="Rib1_R_sternal_end_complete"/>
+        <field id="Rib1_R_head_neck_complete"/>
+        
+        <field id="Rib2_R"/>
+        <field id="Rib2_R_sternal_end_complete"/>
+        <field id="Rib2_R_head_neck_complete"/>
+        
+        <field id="Rib3_R"/>
+        <field id="Rib3_R_sternal_end_complete"/>
+        <field id="Rib3_R_head_neck_complete"/>
+        
+        <field id="Rib4_R"/>
+        <field id="Rib4_R_sternal_end_complete"/>
+        <field id="Rib4_R_head_neck_complete"/>
+        
+        <field id="Rib5_R"/>
+        <field id="Rib5_R_sternal_end_complete"/>
+        <field id="Rib5_R_head_neck_complete"/>
+        
+        <field id="Rib6_R"/>
+        <field id="Rib6_R_sternal_end_complete"/>
+        <field id="Rib6_R_head_neck_complete"/>
+        
+        <field id="Rib7_R"/>
+        <field id="Rib7_R_sternal_end_complete"/>
+        <field id="Rib7_R_head_neck_complete"/>
+        
+        <field id="Rib8_R"/>
+        <field id="Rib8_R_sternal_end_complete"/>
+        <field id="Rib8_R_head_neck_complete"/>
+        
+        <field id="Rib9_R"/>
+        <field id="Rib9_R_sternal_end_complete"/>
+        <field id="Rib9_R_head_neck_complete"/>
+        
+        <field id="Rib10_R"/>
+        <field id="Rib10_R_sternal_end_complete"/>
+        <field id="Rib10_R_head_neck_complete"/>
+        
+        <field id="Rib11_R"/>
+        <field id="Rib11_R_sternal_end_complete"/>
+        <field id="Rib11_R_head_neck_complete"/>
+        
+        <field id="Rib12_R"/>
+        <field id="Rib12_R_sternal_end_complete"/>
+        <field id="Rib12_R_head_neck_complete"/>
+        
+        <!-- Vertebrae -->
+        
+        <field id="Vertebrae_complete"/>
+        
+        <field id="C1_complete"/>
+        <field id="C1_L_arch"/>
+        <field id="C1_R_arch"/>
+        <field id="C2_complete"/>
+        <field id="C2_centrum"/>
+        <field id="C2_L_arch"/>
+        <field id="C2_R_arch"/>
+        <field id="C3_complete"/>
+        <field id="C3_centrum"/>
+        <field id="C3_L_arch"/>
+        <field id="C3_R_arch"/>
+        <field id="C4_complete"/>
+        <field id="C4_centrum"/>
+        <field id="C4_L_arch"/>
+        <field id="C4_R_arch"/>
+        <field id="C5_complete"/>
+        <field id="C5_centrum"/>
+        <field id="C5_L_arch"/>
+        <field id="C5_R_arch"/>
+        <field id="C6_complete"/>
+        <field id="C6_centrum"/>
+        <field id="C6_L_arch"/>
+        <field id="C6_R_arch"/>
+        <field id="C7_complete"/>
+        <field id="C7_centrum"/>
+        <field id="C7_L_arch"/>
+        <field id="C7_R_arch"/>
+        
+        <field id="C_centra_count"/>
+        <field id="C_L_arch_count"/>
+        <field id="C_R_arch_count"/>
+        
+        <field id="T1_complete"/>
+        <field id="T1_centrum"/>
+        <field id="T1_L_arch"/>
+        <field id="T1_R_arch"/>
+        <field id="T2_complete"/>
+        <field id="T2_centrum"/>
+        <field id="T2_L_arch"/>
+        <field id="T2_R_arch"/>
+        <field id="T3_complete"/>
+        <field id="T3_centrum"/>
+        <field id="T3_L_arch"/>
+        <field id="T3_R_arch"/>
+        <field id="T4_complete"/>
+        <field id="T4_centrum"/>
+        <field id="T4_L_arch"/>
+        <field id="T4_R_arch"/>
+        <field id="T5_complete"/>
+        <field id="T5_centrum"/>
+        <field id="T5_L_arch"/>
+        <field id="T5_R_arch"/>
+        <field id="T6_complete"/>
+        <field id="T6_centrum"/>
+        <field id="T6_L_arch"/>
+        <field id="T6_R_arch"/>
+        <field id="T7_complete"/>
+        <field id="T7_centrum"/>
+        <field id="T7_L_arch"/>
+        <field id="T7_R_arch"/>
+        <field id="T8_complete"/>
+        <field id="T8_centrum"/>
+        <field id="T8_L_arch"/>
+        <field id="T8_R_arch"/>
+        <field id="T9_complete"/>
+        <field id="T9_centrum"/>
+        <field id="T9_L_arch"/>
+        <field id="T9_R_arch"/>
+        <field id="T10_complete"/>
+        <field id="T10_centrum"/>
+        <field id="T10_L_arch"/>
+        <field id="T10_R_arch"/>
+        <field id="T11_complete"/>
+        <field id="T11_centrum"/>
+        <field id="T11_L_arch"/>
+        <field id="T11_R_arch"/>
+        <field id="T12_complete"/>
+        <field id="T12_centrum"/>
+        <field id="T12_L_arch"/>
+        <field id="T12_R_arch"/>
+
+        <field id="T_centra_count"/>
+        <field id="T_L_arch_count"/>
+        <field id="T_R_arch_count"/>
+        
+        <field id="L1_complete"/>
+        <field id="L1_centrum"/>
+        <field id="L1_L_arch"/>
+        <field id="L1_R_arch"/>
+        <field id="L2_complete"/>
+        <field id="L2_centrum"/>
+        <field id="L2_L_arch"/>
+        <field id="L2_R_arch"/>
+        <field id="L3_complete"/>
+        <field id="L3_centrum"/>
+        <field id="L3_L_arch"/>
+        <field id="L3_R_arch"/>
+        <field id="L4_complete"/>
+        <field id="L4_centrum"/>
+        <field id="L4_L_arch"/>
+        <field id="L4_R_arch"/>
+        <field id="L5_complete"/>
+        <field id="L5_centrum"/>
+        <field id="L5_L_arch"/>
+        <field id="L5_R_arch"/>
+        
+        <field id="L_centra_count"/>
+        <field id="L_L_arch_count"/>
+        <field id="L_R_arch_count"/>
+        
+        <field id="Sacrum_complete"/>
+        <field id="Sacrum"/>
+        <field id="Sacrum_L_alae"/>
+        <field id="Sacrum_R_alae"/>
+        
+        <field id="S1_complete"/>
+        <field id="S1_centrum"/>
+        <field id="S1_L_ala"/>
+        <field id="S1_R_ala"/>
+        <field id="S2_complete"/>
+        <field id="S2_centrum"/>
+        <field id="S2_L_ala"/>
+        <field id="S2_R_ala"/>
+        <field id="S3_complete"/>
+        <field id="S3_centrum"/>
+        <field id="S3_L_ala"/>
+        <field id="S3_R_ala"/>
+        <field id="S4_complete"/>
+        <field id="S4_centrum"/>
+        <field id="S4_L_ala"/>
+        <field id="S4_R_ala"/>
+        <field id="S5_complete"/>
+        <field id="S5_centrum"/>
+        <field id="S5_L_ala"/>
+        <field id="S5_R_ala"/>
+        
+        <field id="S_centra_count"/>
+        <field id="S_L_ala_count"/>
+        <field id="S_R_ala_count"/>
+        
+        <field id="Coccyx_complete"/>
+        <field id="Coccyx"/>
+        
+        <!-- Teeth -->
+        
+        <field id="Teeth_UM3_R"/>
+        <field id="Teeth_UM2_R"/>
+        <field id="Teeth_UM1_R"/>
+        <field id="Teeth_UP4_R"/>
+        <field id="Teeth_UP3_R"/>
+        <field id="Teeth_UC_R"/>
+        <field id="Teeth_UI2_R"/>
+        <field id="Teeth_UI1_R"/>
+
+        <field id="Teeth_UI1_L"/>
+        <field id="Teeth_UI2_L"/>
+        <field id="Teeth_UC_L"/>
+        <field id="Teeth_UP3_L"/>
+        <field id="Teeth_UP4_L"/>
+        <field id="Teeth_UM1_L"/>
+        <field id="Teeth_UM2_L"/>
+        <field id="Teeth_UM3_L"/>
+        
+        <field id="Teeth_LM3_R"/>
+        <field id="Teeth_LM2_R"/>
+        <field id="Teeth_LM1_R"/>
+        <field id="Teeth_LP4_R"/>
+        <field id="Teeth_LP3_R"/>
+        <field id="Teeth_LC_R"/>
+        <field id="Teeth_LI2_R"/>
+        <field id="Teeth_LI1_R"/>
+
+        <field id="Teeth_LI1_L"/>
+        <field id="Teeth_LI2_L"/>
+        <field id="Teeth_LC_L"/>
+        <field id="Teeth_LP3_L"/>
+        <field id="Teeth_LP4_L"/>
+        <field id="Teeth_LM1_L"/>
+        <field id="Teeth_LM2_L"/>
+        <field id="Teeth_LM3_L"/>
+        
+        <field id="Teeth_decid_Udm2_R"/>
+        <field id="Teeth_decid_Udm1_R"/>
+        <field id="Teeth_decid_Udc_R"/>
+        <field id="Teeth_decid_Udi2_R"/>
+        <field id="Teeth_decid_Udi1_R"/>
+        
+        <field id="Teeth_decid_Udi1_L"/>
+        <field id="Teeth_decid_Udi2_L"/>
+        <field id="Teeth_decid_Udc_L"/>
+        <field id="Teeth_decid_Udm1_L"/>
+        <field id="Teeth_decid_Udm2_L"/>
+        
+        <field id="Teeth_decid_Ldm2_R"/>
+        <field id="Teeth_decid_Ldm1_R"/>
+        <field id="Teeth_decid_Ldc_R"/>
+        <field id="Teeth_decid_Ldi2_R"/>
+        <field id="Teeth_decid_Ldi1_R"/>
+        
+        <field id="Teeth_decid_Ldi1_L"/>
+        <field id="Teeth_decid_Ldi2_L"/>
+        <field id="Teeth_decid_Ldc_L"/>
+        <field id="Teeth_decid_Ldm1_L"/>
+        <field id="Teeth_decid_Ldm2_L"/>
+        
+        <field id="Teeth_immVertFragsCount"/>
+    </section>
+</record>
