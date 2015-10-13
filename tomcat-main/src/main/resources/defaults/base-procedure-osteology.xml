@@ -47,6 +47,7 @@
         <field id="InventoryID" ui-search="repeatable" in-title="yes" mini="number,search,list,relate"/>
 
         <repeat id="osteoAgeEstimateGroupList/osteoAgeEstimateGroup">
+            <field id="osteoAgeEstimateVerbatim"/>
             <field id="osteoAgeEstimateLower" ui-type="validated" datatype="float"/>
             <field id="osteoAgeEstimateUpper" ui-type="validated" datatype="float"/>
             <group id="osteoAgeEstimateDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate"/>
