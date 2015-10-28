@@ -55,6 +55,7 @@
 			<include src="base-authz-users.xml"/>
 			
 			<include src="base-other-dimension.xml,ucjeps-other-dimension.xml" merge="xmlmerge.properties"/>
+			<include src="base-other-locality.xml,ucjeps-other-locality.xml" merge="xmlmerge.properties"/>
 			<include src="base-other-hierarchy.xml"/>
 			<include src="base-other-idgenerator.xml,ucjeps-other-idgenerator.xml" merge="xmlmerge.properties"/>
 			<include src="base-other-structureddate.xml"/>

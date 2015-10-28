@@ -81,7 +81,9 @@
 		<repeat id="places" section="ucjeps">
 			<field id="place" autocomplete="place-place" section="ucjeps"/>
 		</repeat>
-		
-		<field id="locality" section="ucjeps"/>
+	</section>
+	
+ 	<section id="localityInformation">
+		<field id="locality" ui-type="groupfield/locality/selfrenderer" ui-func="cspace.locality" section="ucjeps"></field>
 	</section>
 </record>
