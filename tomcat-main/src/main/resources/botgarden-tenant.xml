@@ -58,6 +58,7 @@
 			<include src="base-authz-users.xml"/>
 			
 			<include src="base-other-dimension.xml"/>
+			<include src="base-other-locality.xml,botgarden-other-locality.xml" merge="xmlmerge.properties"/>
 			<include src="base-other-hierarchy.xml"/>
 			<include src="base-other-idgenerator.xml,botgarden-other-idgenerator.xml" merge="xmlmerge.properties"/>
 			<include src="base-other-structureddate.xml"/>
