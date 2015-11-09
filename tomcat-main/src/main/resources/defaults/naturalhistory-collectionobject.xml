@@ -284,6 +284,7 @@
 					<option id="">Please select a value</option>
 					<option id="lives/grows with">lives/grows with</option>
 					<option id="lives on">lives on</option>
+					<option id="living under">living under</option>
 					<option id="is physically supported by">is physically supported by</option>
 					<option id="is epiphytic on">is epiphytic on</option>
 					<option id="is endophytic in">is endophytic in</option>
