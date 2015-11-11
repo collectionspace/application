@@ -376,4 +376,46 @@
                             <option id="clear">Clear evidence of trepanation</option>
                         </options>
                     </instance>
+                    <instance id="vocab-conservationstatus">
+                        <web-url>conservationstatus</web-url>
+                        <title-ref>conservationstatus</title-ref>
+                        <title>conservationstatus</title>
+                        <options>
+                            <option id="treatmentproposed">Treatment proposed</option>
+                            <option id="treatmentapproved">Treatment approved</option>
+                            <option id="treatmentinprogress">Treatment in progress</option>
+                            <option id="treatmentcomplete">Treatment complete</option>
+                            <option id="analysisproposed">Analysis proposed</option>
+                            <option id="analysisapproved">Analysis approved</option>
+                            <option id="analysisinprogress">Analysis in progress</option>
+                            <option id="analysiscomplete">Analysis complete</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-treatmentpurpose">
+                        <web-url>treatmentpurpose</web-url>
+                        <title-ref>treatmentpurpose</title-ref>
+                        <title>treatmentpurpose</title>
+                        <options>
+                        </options>
+                    </instance>
+                    <instance id="vocab-otherpartyrole">
+                        <web-url>otherpartyrole</web-url>
+                        <title-ref>otherpartyrole</title-ref>
+                        <title>otherpartyrole</title>
+                        <options>
+                            <option id="conservator">Conservator</option>
+                            <option id="technician">Technician</option>
+                            <option id="preparator">Preparator</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-examinationphase">
+                        <web-url>examinationphase</web-url>
+                        <title-ref>examinationphase</title-ref>
+                        <title>examinationphase</title>
+                        <options>
+                            <option id="beforetreatment">before treatment</option>
+                            <option id="duringtreatment">during treatment</option>
+                            <option id="aftertreatment">after treatment</option>
+                        </options>
+                    </instance>
 </instances>
