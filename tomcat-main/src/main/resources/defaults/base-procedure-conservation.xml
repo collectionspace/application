@@ -4,7 +4,7 @@
     <services-tenant-singular>Conservation</services-tenant-singular>
     
     <services-list-path>abstract-common-list/list-item</services-list-path>
-    <services-record-path>loansin_common:http://collectionspace.org/services/conservation,conservation_common</services-record-path>
+    <services-record-path>conservation_common:http://collectionspace.org/services/conservation,conservation_common</services-record-path>
     <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
     <hassoftdelete>true</hassoftdelete>
     
