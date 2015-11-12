@@ -68,7 +68,12 @@
     </section>
 
     <section id="objectTreatmentInformation">
-        <field id="conservationNumber" ui-search="repeatable" mini="number,search,list,relate"/>
+        <field id="conservationNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate" seperate_ui_container="true">
+            <container-selector>conservation-conservationNumber-patternChooserContainer</container-selector>
+            <options>
+              <option id="conservation" sample="CONS2015.1">Conservation Treatment Reference Number</option>
+            </options>
+        </field>
         
         <repeat id="conservationStatusGroupList/conservationStatusGroup">
             <field id="status" autocomplete="vocab-conservationstatus" ui-type="enum"/>
