@@ -76,14 +76,14 @@
         </field>
         
         <repeat id="conservationStatusGroupList/conservationStatusGroup">
-            <field id="status" autocomplete="vocab-conservationstatus" ui-type="enum"/>
-            <field id="statusDate" ui-type="date" datatype="date"/>
+            <field id="status" ui-search="repeatable" autocomplete="vocab-conservationstatus" ui-type="enum"/>
+            <field id="statusDate" ui-search="range" ui-type="date" datatype="date"/>
         </repeat>
         
-        <field id="treatmentPurpose" autocomplete="vocab-treatmentpurpose" ui-type="enum"/>
+        <field id="treatmentPurpose" ui-search="repeatable" autocomplete="vocab-treatmentpurpose" ui-type="enum"/>
         
         <repeat id="conservators">
-            <field id="conservator" autocomplete="person-person"/>
+            <field id="conservator" ui-search="repeatable" autocomplete="person-person"/>
         </repeat>
         
         <repeat id="otherPartyGroupList/otherPartyGroup">
@@ -102,24 +102,24 @@
         <field id="fabricationNote"/>
         <field id="proposedTreatment"/>
         
-        <field id="approvedBy" autocomplete="person-person"/>
-        <field id="approvedDate" ui-type="date" datatype="date"/>
+        <field id="approvedBy" ui-search="repeatable" autocomplete="person-person"/>
+        <field id="approvedDate" ui-search="range" ui-type="date" datatype="date"/>
         
-        <field id="treatmentStartDate" ui-type="date" datatype="date"/>
-        <field id="treatmentEndDate" ui-type="date" datatype="date"/>
+        <field id="treatmentStartDate" ui-search="range" ui-type="date" datatype="date"/>
+        <field id="treatmentEndDate" ui-search="range" ui-type="date" datatype="date"/>
         <field id="treatmentSummary"/>
     </section>
     
     <section id="objectAnalysisInformation">
-        <field id="researcher" autocomplete="person-person"/>
+        <field id="researcher" ui-search="repeatable" autocomplete="person-person"/>
         <field id="proposedAnalysis"/>
-        <field id="proposedAnalysisDate" ui-type="date" datatype="date"/>
+        <field id="proposedAnalysisDate" ui-search="range" ui-type="date" datatype="date"/>
         
         <repeat id="destAnalysisGroupList/destAnalysisGroup">
-            <field id="destAnalysisApprovedDate" ui-type="date" datatype="date"/>
+            <field id="destAnalysisApprovedDate" ui-search="range" ui-type="date" datatype="date"/>
             <field id="destAnalysisApprovalNote"/>
-            <field id="sampleBy" autocomplete="person-person"/>
-            <field id="sampleDate" ui-type="date" datatype="date"/>
+            <field id="sampleBy" ui-search="repeatable" autocomplete="person-person"/>
+            <field id="sampleDate" ui-search="range" ui-type="date" datatype="date"/>
             <field id="sampleDescription"/>
             <field id="sampleReturned" datatype="boolean"/>
             <field id="sampleReturnedLocation" autocomplete="location-location"/>
