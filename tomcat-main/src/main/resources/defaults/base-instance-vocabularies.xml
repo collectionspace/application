@@ -396,6 +396,13 @@
                         <title-ref>treatmentpurpose</title-ref>
                         <title>treatmentpurpose</title>
                         <options>
+                            <option id="appraisal">Appraisal</option>
+                            <option id="damage">Damage</option>
+                            <option id="exhibition">Exhibition</option>
+                            <option id="insurance">Insurance</option>
+                            <option id="loanout">Loan Out</option>
+                            <option id="loanreturn">Loan Return</option>
+                            <option id="purchase">Purchase</option>
                         </options>
                     </instance>
                     <instance id="vocab-otherpartyrole">
