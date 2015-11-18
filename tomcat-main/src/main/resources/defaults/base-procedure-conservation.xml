@@ -71,7 +71,7 @@
         <field id="conservationNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate" seperate_ui_container="true">
             <container-selector>conservation-conservationNumber-patternChooserContainer</container-selector>
             <options>
-              <option id="conservation" sample="CONS2015.1">Conservation Treatment Reference Number</option>
+              <option id="conservation" sample="CT2015.1">Conservation Treatment Reference Number</option>
             </options>
         </field>
         
