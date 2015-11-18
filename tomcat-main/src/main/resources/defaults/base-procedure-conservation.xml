@@ -76,7 +76,7 @@
         </field>
         
         <repeat id="conservationStatusGroupList/conservationStatusGroup">
-            <field id="status" ui-search="repeatable" autocomplete="vocab-conservationstatus" ui-type="enum"/>
+            <field id="status" ui-search="repeatable" mini="summary,search,list,relate" autocomplete="vocab-conservationstatus" ui-type="enum"/>
             <field id="statusDate" ui-search="range" ui-type="date" datatype="date"/>
         </repeat>
         
@@ -122,7 +122,7 @@
             <field id="sampleDate" ui-search="range" ui-type="date" datatype="date"/>
             <field id="sampleDescription"/>
             <field id="sampleReturned" datatype="boolean"/>
-            <field id="sampleReturnedLocation" autocomplete="location-location"/>
+            <field id="sampleReturnedLocation"/>
         </repeat>
     
         <field id="analysisMethod"/>
