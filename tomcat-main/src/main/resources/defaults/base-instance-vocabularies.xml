@@ -334,4 +334,44 @@
                             <option id="review">Review</option>
                         </options>
                     </instance>
+                    <instance id="vocab-cranialdeformationcategory">
+                        <web-url>cranialdeformationcategory</web-url>
+                        <title-ref>cranialdeformationcategory</title-ref>
+                        <title>cranialdeformationcategory</title>
+                        <options>
+                            <option id="tabular">Tabular</option>
+                            <option id="circumferential">Circumferential</option>
+                            <option id="other">Other (describe)</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-trepanationtechnique">
+                        <web-url>trepanationtechnique</web-url>
+                        <title-ref>trepanationtechnique</title-ref>
+                        <title>trepanationtechnique</title>
+                        <options>
+                            <option id="scraping">Scraping</option>
+                            <option id="grooving">Grooving</option>
+                            <option id="boringandcutting">Boring-and-cutting</option>
+                            <option id="rectangularincisions">Rectangular incisions</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-trepanationhealing">
+                        <web-url>trepanationhealing</web-url>
+                        <title-ref>trepanationhealing</title-ref>
+                        <title>trepanationhealing</title>
+                        <options>
+                            <option id="none">No healing</option>
+                            <option id="possible">Possible healing</option>
+                            <option id="definite">Definite evidence for healing</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-trepanationcertainty">
+                        <web-url>trepanationcertainty</web-url>
+                        <title-ref>trepanationcertainty</title-ref>
+                        <title>trepanationcertainty</title>
+                        <options>
+                            <option id="possible">Possible trepanation</option>
+                            <option id="clear">Clear evidence of trepanation</option>
+                        </options>
+                    </instance>
 </instances>
