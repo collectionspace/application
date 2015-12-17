@@ -1,0 +1,12 @@
+<record id="osteology" is-extension="true">
+	<services-record-path id="anthropology">osteology_anthropology:http://collectionspace.org/services/osteology/domain/anthropology,osteology_anthropology</services-record-path>
+
+	<section id="osteologyInformation">
+		<field id="Notes_DentalPathology" section="anthropology"/>
+		<field id="Notes_CranialPathology" section="anthropology"/>
+		<field id="Notes_PostcranialPathology" section="anthropology"/>
+		<field id="Notes_CulturalModifications" section="anthropology"/>
+		<field id="Notes_NHTaphonomicAlterations" section="anthropology"/>
+		<field id="Notes_CuratorialSuffixing" section="anthropology"/>
+	</section>
+</record>
