@@ -32,7 +32,7 @@
     <field id="culturalCareNotes" datatype="largetext" section="anthro" />
 
     <repeat id="accessLimitationsList/accessLimitationsGroup" section="anthro">
-      <field id="accessLimitationType" autocomplete="vocab-accessLimitationType" ui-type="enum" section="anthro" />
+      <field id="accessLimitationType" autocomplete="vocab-accessLimitationType" ui-type="enum" ui-search="repeatable" section="anthro" />
       <field id="accessLimitationLevel" autocomplete="vocab-accessLimitationLevel" ui-type="enum" section="anthro" />
       <field id="accessLimitationDetails" datatype="largetext" section="anthro" />
       <field id="accessLimitationRequestor" autocomplete="person-person,organization-organization" ui-search="repeatable" section="anthro" />
