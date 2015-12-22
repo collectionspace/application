@@ -4,7 +4,7 @@
                 <services-tenant-plural>authorization/roles</services-tenant-plural>
                 <services-tenant-singular>Role</services-tenant-singular>
                 <services-url>authorization/roles</services-url>
-                <services-list-path>roles_list/*</services-list-path>
+                <services-list-path>roles_list/role</services-list-path>
                 <services-record-path>role:http://collectionspace.org/services/authorization,role</services-record-path>
                 <authorization-includes>authorization/roles</authorization-includes>
                 <is-multipart>false</is-multipart>
