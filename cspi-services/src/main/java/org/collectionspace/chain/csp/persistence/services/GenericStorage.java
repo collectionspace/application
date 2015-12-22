@@ -723,10 +723,9 @@ public class GenericStorage  implements ContextualisedStorage {
 						//NEED TO GET A LIST OF ALL THE THINGS
 						JSONArray repeat = new JSONArray();
 						String path = getPath;
-						String node = "/"+sr.getServicesListPath().split("/")[0]+"/*";
 						
 						while(!path.equals("")){
-							JSONObject data = getListView(creds,cache,path,node,"/"+sr.getServicesListPath(),"csid",false,r);
+							JSONObject data = getListView(creds,cache,path,sr.getServicesListPath(),"csid",false,r);
 							if(data.has("listItems")){
 								String[] results = (String[]) data.get("listItems");
 
@@ -1181,13 +1180,12 @@ public class GenericStorage  implements ContextualisedStorage {
 					JSONObject updatecsid = new JSONObject();
 					JSONArray createcsid = new JSONArray();
 					String getPath = serviceurl+filePath + "/" + sr.getServicesURL();
-					String node = "/"+sr.getServicesListPath().split("/")[0]+"/*";
 					
 					Integer subcount = 0;
 					String firstfile = "";
 
 					while(!getPath.equals("")){
-						JSONObject data = getListView(creds,cache,getPath,node,"/"+sr.getServicesListPath(),"csid",false, sr);
+						JSONObject data = getListView(creds,cache,getPath,sr.getServicesListPath(),"csid",false, sr);
 						String[] filepaths = (String[]) data.get("listItems");
 						subcount +=filepaths.length;
 						if(firstfile.equals("") && subcount !=0){
@@ -1890,8 +1888,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			String path = getRestrictedPath(r.getServicesURL(), restrictions, r.getServicesSearchKeyword(), "", 
 											supportsTermCompletion, displayNameFieldID);
 			
-			String node = "/"+r.getServicesListPath().split("/")[0]+"/*";
-			JSONObject data = getListView(creds,cache,path,node,"/"+r.getServicesListPath(),"csid",false,r);
+			JSONObject data = getListView(creds,cache,path,r.getServicesListPath(),"csid",false,r);
 			
 			return data;
 			
@@ -1953,15 +1950,15 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws ConnectionException
 	 * @throws JSONException
 	 */
-	protected JSONObject getListView(CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid, Record r) throws ConnectionException, JSONException {
+	protected JSONObject getListView(CSPRequestCredentials creds,CSPRequestCache cache,String path, String listItemPath, String csidfield, Boolean fullcsid, Record r) throws ConnectionException, JSONException {
 		if(r.hasHierarchyUsed("screen")){
 			path = hierarchicalpath(path);
 		}
 		if(r.hasSoftDeleteMethod()){
-			return getSoftListView(creds,cache,path,nodeName, matchlistitem, csidfield, fullcsid);
+			return getSoftListView(creds,cache,path, listItemPath, csidfield, fullcsid);
 		}
 		else{
-			return getHardListView(creds,cache,path,nodeName, matchlistitem, csidfield, fullcsid);
+			return getHardListView(creds,cache,path, listItemPath, csidfield, fullcsid);
 		}
 	}
 	
@@ -2013,10 +2010,10 @@ public class GenericStorage  implements ContextualisedStorage {
 		return getRepeatableSoftListView(root, creds, cache, path, nodeName, matchlistitem, csidfield, fullcsid, this.view_map);
 	}
 	
-	protected JSONObject getSoftListView(CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
+	protected JSONObject getSoftListView(CSPRequestCredentials creds,CSPRequestCache cache,String path, String listItemPath, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
 		String softdeletepath = softpath(path);
 		
-		return getHardListView(creds,cache,softdeletepath,nodeName, matchlistitem, csidfield, fullcsid);
+		return getHardListView(creds,cache,softdeletepath, listItemPath, csidfield, fullcsid);
 	}
 	
 	/**
@@ -2157,7 +2154,18 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws ConnectionException
 	 * @throws JSONException
 	 */
-	protected JSONObject getHardListView(CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
+	protected JSONObject getHardListView(CSPRequestCredentials creds,CSPRequestCache cache,String path, String listItemPath, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
+		String[] listItemPathElements = listItemPath.split("/");
+		
+		if (listItemPathElements.length != 2) {
+			throw new IllegalArgumentException("Illegal list item path " + listItemPath);
+		}
+		
+		String listNodeName = listItemPathElements[0];
+		String listItemNodeName = listItemPathElements[1];
+
+		String listNodeChildrenSelector = "/"+listNodeName+"/*";
+
 		JSONObject out = new JSONObject();
 		JSONObject pagination = new JSONObject();
 		Document list=null;
@@ -2169,12 +2177,12 @@ public class GenericStorage  implements ContextualisedStorage {
 		}
 		list=all.getDocument();
 		
-		List<Node> nodes=list.selectNodes(nodeName);
-		if(matchlistitem.equals("roles_list/*") || matchlistitem.equals("permissions_list/*")){
+		List<Node> nodes=list.selectNodes(listNodeChildrenSelector);
+		if(listNodeName.equals("roles_list") || listNodeName.equals("permissions_list")){
 			//XXX hack to deal with roles being inconsistent
 			//XXX CSPACE-1887 workaround
 			for(Node node : nodes) {
-				if(node.matches(matchlistitem)){
+				if(listItemNodeName.equals(node.getName())){
 					String csid = node.valueOf( "@csid" );
 					listitems.add(csid);
 				}
@@ -2187,7 +2195,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			String[] allfields = null;
 			String fieldsReturnedName = r.getServicesFieldsPath();
 			for(Node node : nodes) {
-				if(node.matches(matchlistitem)){
+				if(listItemNodeName.equals(node.getName())){
 					List<Node> fields=node.selectNodes("*");
 					String csid="";
 					String urlPlusCSID = null;
