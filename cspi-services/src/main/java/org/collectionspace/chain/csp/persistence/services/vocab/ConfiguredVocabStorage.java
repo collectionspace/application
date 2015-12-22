@@ -651,12 +651,11 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				JSONObject updatecsid = new JSONObject();
 				JSONArray createcsid = new JSONArray();
 				String getPath = savePath + "/" + sr.getServicesURL();
-				String node = "/"+sr.getServicesListPath().split("/")[0]+"/*";
 				Integer subcount = 0;
 				String firstfile = "";
 
 				while(!getPath.equals("")){
-					JSONObject data = getListView(creds,cache,getPath,node,"/"+sr.getServicesListPath(),"csid",false, sr);
+					JSONObject data = getListView(creds,cache,getPath,sr.getServicesListPath(),"csid",false, sr);
 					String[] filepaths = (String[]) data.get("listItems");
 					subcount +=filepaths.length;
 					if(firstfile.equals("") && subcount !=0){
@@ -817,9 +816,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		JSONArray itemarray = new JSONArray();
 //get list view
 
-		String node = "/"+thisr.getServicesListPath().split("/")[0]+"/*";
-		JSONObject data = getListView(creds,cache,filePath,node,"/"+thisr.getServicesListPath(),"csid",false, thisr);
-		
+		JSONObject data = getListView(creds,cache,filePath,thisr.getServicesListPath(),"csid",false, thisr);
 
 		String[] filepaths = (String[]) data.get("listItems");
 		for(String uri : filepaths) {
