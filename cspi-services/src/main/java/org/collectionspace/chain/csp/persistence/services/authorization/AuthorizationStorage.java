@@ -172,9 +172,21 @@ public class AuthorizationStorage extends GenericStorage {
 			}
 			list=all.getDocument();
 			
-			List<Node> nodes=list.selectNodes("/"+r.getServicesListPath().split("/")[0]+"/*");
+			String listItemPath = r.getServicesListPath();
+			String[] listItemPathElements = listItemPath.split("/");
+			
+			if (listItemPathElements.length != 2) {
+				throw new RuntimeException("Illegal list item path " + listItemPath);
+			}
+
+			String listNodeName = listItemPathElements[0];
+			String listItemNodeName = listItemPathElements[1];
+
+			String listNodeChildrenSelector = "/"+listNodeName+"/*";
+
+			List<Node> nodes=list.selectNodes(listNodeChildrenSelector);
 			for(Node node : nodes) {
-				if(node.matches("/"+r.getServicesListPath())){
+				if(listItemNodeName.equals(node.getName())){
 					String csid = node.valueOf( "@csid" );
 					listitems.add(csid);
 					String fullPath = r.getServicesURL()+"/"+csid;
