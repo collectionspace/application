@@ -2291,7 +2291,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			List<Node> nodes=list.selectNodes("/relations-common-list/*");
 
 			for(Node node : nodes) {
-				if(node.matches("/relations-common-list/relation-list-item")){
+				if("relation-list-item".equals(node.getName())){
 					//String test = node.asXML();
 					String relationshipType = node.selectSingleNode("relationshipType").getText();
 					// Be forgiving while waiting for services to complete code.
