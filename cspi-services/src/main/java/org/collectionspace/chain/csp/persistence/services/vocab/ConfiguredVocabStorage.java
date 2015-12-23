@@ -487,13 +487,25 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			if(doc==null)
 				throw new UnderlyingStorageException("Could not retrieve vocabulary items",data.getStatus(),path);
 			String[] tag_parts=r.getServicesListPath().split(",",2);
+			String listItemPath = tag_parts[1]; 
 			
+			String[] listItemPathElements = listItemPath.split("/");
+			
+			if (listItemPathElements.length != 2) {
+				throw new RuntimeException("Illegal list item path " + listItemPath);
+			}
+
+			String listNodeName = listItemPathElements[0];
+			String listItemNodeName = listItemPathElements[1];
+
+			String listNodeChildrenSelector = "/"+listNodeName+"/*";
+
 			JSONObject pagination = new JSONObject();
 			String[] allfields = null;
 			String fieldsReturnedName = r.getServicesFieldsPath();
-			List<Node> nodes = doc.selectNodes("/"+tag_parts[1].split("/")[0]+"/*");
+			List<Node> nodes = doc.selectNodes(listNodeChildrenSelector);
 			for(Node node : nodes){
-				if(node.matches("/"+tag_parts[1])){
+				if(listItemNodeName.equals(node.getName())){
 					// Risky hack - assumes displayName must be at root. Really should
 					// understand that the list results are a different schema from record GET.
 					String dnName = getDisplayNameKey();
