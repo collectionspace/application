@@ -309,7 +309,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 			String xmlroot = "relations-common-list";
 			List<Node> nodes=doc.getDocument().selectNodes("/"+xmlroot+"/*");
 			for(Node node : nodes){
-				if(node.matches("/"+xmlroot+"/relation-list-item")){
+				if("relation-list-item".equals(node.getName())){
 					//if(post_filter(creds,cache,restrictions,node))
 						list.add(node.selectSingleNode("csid").getText());
 						if(isHierarchical){
