@@ -723,10 +723,9 @@ public class GenericStorage  implements ContextualisedStorage {
 						//NEED TO GET A LIST OF ALL THE THINGS
 						JSONArray repeat = new JSONArray();
 						String path = getPath;
-						String node = "/"+sr.getServicesListPath().split("/")[0]+"/*";
 						
 						while(!path.equals("")){
-							JSONObject data = getListView(creds,cache,path,node,"/"+sr.getServicesListPath(),"csid",false,r);
+							JSONObject data = getListView(creds,cache,path,sr.getServicesListPath(),"csid",false,r);
 							if(data.has("listItems")){
 								String[] results = (String[]) data.get("listItems");
 
@@ -1018,10 +1017,7 @@ public class GenericStorage  implements ContextualisedStorage {
 				refObj_view_good.put("terms_sourceField", "sourceField");
 				refObj_view_good.put("terms_refName", "refName");
 				
-				//String nodeName = "authority-ref-doc-list/authority-ref-doc-item";
-				// Need to pick up pagination, etc. 
-				String nodeName = "authority-ref-doc-list/*";
-				JSONObject data = getRepeatableListView(storage,creds,cache,path,nodeName,"/authority-ref-doc-list/authority-ref-doc-item","uri", true, vr, refObj_view_map);//XXX this might be the wrong record to pass to checkf or hard/soft delet listing
+				JSONObject data = getRepeatableListView(storage,creds,cache,path,"authority-ref-doc-list/authority-ref-doc-item","uri", true, vr, refObj_view_map);//XXX this might be the wrong record to pass to checkf or hard/soft delet listing
 				
 				JSONArray recs = data.getJSONArray("listItems");
 				if(data.has("pagination")) {
@@ -1181,13 +1177,12 @@ public class GenericStorage  implements ContextualisedStorage {
 					JSONObject updatecsid = new JSONObject();
 					JSONArray createcsid = new JSONArray();
 					String getPath = serviceurl+filePath + "/" + sr.getServicesURL();
-					String node = "/"+sr.getServicesListPath().split("/")[0]+"/*";
 					
 					Integer subcount = 0;
 					String firstfile = "";
 
 					while(!getPath.equals("")){
-						JSONObject data = getListView(creds,cache,getPath,node,"/"+sr.getServicesListPath(),"csid",false, sr);
+						JSONObject data = getListView(creds,cache,getPath,sr.getServicesListPath(),"csid",false, sr);
 						String[] filepaths = (String[]) data.get("listItems");
 						subcount +=filepaths.length;
 						if(firstfile.equals("") && subcount !=0){
@@ -1890,8 +1885,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			String path = getRestrictedPath(r.getServicesURL(), restrictions, r.getServicesSearchKeyword(), "", 
 											supportsTermCompletion, displayNameFieldID);
 			
-			String node = "/"+r.getServicesListPath().split("/")[0]+"/*";
-			JSONObject data = getListView(creds,cache,path,node,"/"+r.getServicesListPath(),"csid",false,r);
+			JSONObject data = getListView(creds,cache,path,r.getServicesListPath(),"csid",false,r);
 			
 			return data;
 			
@@ -1922,20 +1916,20 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws JSONException
 	 */
 	// CSPACE-5988: Allow view_map to be passed as a parameter, instead of using the instance variable.
-	protected JSONObject getRepeatableListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid, Record r, Map<String,String> view_map) throws ConnectionException, JSONException {
+	protected JSONObject getRepeatableListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String listItemPath, String csidfield, Boolean fullcsid, Record r, Map<String,String> view_map) throws ConnectionException, JSONException {
 		if(r.hasHierarchyUsed("screen")){
 			path = hierarchicalpath(path);
 		}
 		if(r.hasSoftDeleteMethod()){
-			return getRepeatableSoftListView(root,creds,cache,path,nodeName, matchlistitem, csidfield, fullcsid, view_map);
+			return getRepeatableSoftListView(root,creds,cache,path,listItemPath, csidfield, fullcsid, view_map);
 		}
 		else{
-			return getRepeatableHardListView(root,creds,cache,path,nodeName, matchlistitem, csidfield, fullcsid, view_map);
+			return getRepeatableHardListView(root,creds,cache,path,listItemPath, csidfield, fullcsid, view_map);
 		}
 	}
 	
-	protected JSONObject getRepeatableListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid, Record r) throws ConnectionException, JSONException {
-		return getRepeatableListView(root, creds, cache, path, nodeName, matchlistitem, csidfield, fullcsid, r, this.view_map);
+	protected JSONObject getRepeatableListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String listItemPath, String csidfield, Boolean fullcsid, Record r) throws ConnectionException, JSONException {
+		return getRepeatableListView(root, creds, cache, path, listItemPath, csidfield, fullcsid, r, this.view_map);
 	}
 
 	/**
@@ -1953,15 +1947,15 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws ConnectionException
 	 * @throws JSONException
 	 */
-	protected JSONObject getListView(CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid, Record r) throws ConnectionException, JSONException {
+	protected JSONObject getListView(CSPRequestCredentials creds,CSPRequestCache cache,String path, String listItemPath, String csidfield, Boolean fullcsid, Record r) throws ConnectionException, JSONException {
 		if(r.hasHierarchyUsed("screen")){
 			path = hierarchicalpath(path);
 		}
 		if(r.hasSoftDeleteMethod()){
-			return getSoftListView(creds,cache,path,nodeName, matchlistitem, csidfield, fullcsid);
+			return getSoftListView(creds,cache,path, listItemPath, csidfield, fullcsid);
 		}
 		else{
-			return getHardListView(creds,cache,path,nodeName, matchlistitem, csidfield, fullcsid);
+			return getHardListView(creds,cache,path, listItemPath, csidfield, fullcsid);
 		}
 	}
 	
@@ -2003,20 +1997,20 @@ public class GenericStorage  implements ContextualisedStorage {
 	}
 
 	// CSPACE-5988: Allow view_map to be passed as a parameter, instead of using the instance variable.
-	protected JSONObject getRepeatableSoftListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid, Map<String, String> view_map) throws ConnectionException, JSONException {
+	protected JSONObject getRepeatableSoftListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String listItemPath, String csidfield, Boolean fullcsid, Map<String, String> view_map) throws ConnectionException, JSONException {
 		String softdeletepath = softpath(path);
 		
-		return getRepeatableHardListView(root,creds,cache,softdeletepath,nodeName, matchlistitem, csidfield, fullcsid, view_map);
+		return getRepeatableHardListView(root,creds,cache,softdeletepath,listItemPath, csidfield, fullcsid, view_map);
 	}
 
-	protected JSONObject getRepeatableSoftListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
-		return getRepeatableSoftListView(root, creds, cache, path, nodeName, matchlistitem, csidfield, fullcsid, this.view_map);
+	protected JSONObject getRepeatableSoftListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String listItemPath, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
+		return getRepeatableSoftListView(root, creds, cache, path, listItemPath, csidfield, fullcsid, this.view_map);
 	}
 	
-	protected JSONObject getSoftListView(CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
+	protected JSONObject getSoftListView(CSPRequestCredentials creds,CSPRequestCache cache,String path, String listItemPath, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
 		String softdeletepath = softpath(path);
 		
-		return getHardListView(creds,cache,softdeletepath,nodeName, matchlistitem, csidfield, fullcsid);
+		return getHardListView(creds,cache,softdeletepath, listItemPath, csidfield, fullcsid);
 	}
 	
 	/**
@@ -2035,7 +2029,18 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws JSONException
 	 */
 	// CSPACE-5988: Allow view_map to be passed as a parameter, instead of using the instance variable.
-	protected JSONObject getRepeatableHardListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid, Map<String, String> view_map) throws ConnectionException, JSONException {
+	protected JSONObject getRepeatableHardListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String listItemPath, String csidfield, Boolean fullcsid, Map<String, String> view_map) throws ConnectionException, JSONException {
+		String[] listItemPathElements = listItemPath.split("/");
+		
+		if (listItemPathElements.length != 2) {
+			throw new IllegalArgumentException("Illegal list item path " + listItemPath);
+		}
+		
+		String listNodeName = listItemPathElements[0];
+		String listItemNodeName = listItemPathElements[1];
+
+		String listNodeChildrenSelector = "/"+listNodeName+"/*";
+
 		JSONObject out = new JSONObject();
 		JSONObject pagination = new JSONObject();
 		Document list=null;
@@ -2047,12 +2052,12 @@ public class GenericStorage  implements ContextualisedStorage {
 		}
 		list=all.getDocument();
 		
-		List<Node> nodes=list.selectNodes(nodeName);
-		if(matchlistitem.equals("roles_list/*") || matchlistitem.equals("permissions_list/*")){
+		List<Node> nodes=list.selectNodes(listNodeChildrenSelector);
+		if(listNodeName.equals("roles_list") || listNodeName.equals("permissions_list")){
 			//XXX hack to deal with roles being inconsistent
 			//XXX CSPACE-1887 workaround
 			for(Node node : nodes) {
-				if(node.matches(matchlistitem)){
+				if(listItemNodeName.equals(node.getName())){
 					String csid = node.valueOf( "@csid" );
 					JSONObject test = new JSONObject();
 					test.put("csid", csid);
@@ -2067,7 +2072,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			String[] allfields = null;
 			String fieldsReturnedName = r.getServicesFieldsPath();
 			for(Node node : nodes) {
-				if(node.matches(matchlistitem)){
+				if(listItemNodeName.equals(node.getName())){
 					List<Node> fields=node.selectNodes("*");
 					String csid="";
 					String urlPlusCSID = null;
@@ -2139,8 +2144,8 @@ public class GenericStorage  implements ContextualisedStorage {
 		return out;
 	}
 
-	protected JSONObject getRepeatableHardListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
-		return getRepeatableHardListView(root, creds, cache, path, nodeName, matchlistitem, csidfield, fullcsid, this.view_map);
+	protected JSONObject getRepeatableHardListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String listItemPath, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
+		return getRepeatableHardListView(root, creds, cache, path, listItemPath, csidfield, fullcsid, this.view_map);
 	}
 
 	/**
@@ -2157,7 +2162,18 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws ConnectionException
 	 * @throws JSONException
 	 */
-	protected JSONObject getHardListView(CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
+	protected JSONObject getHardListView(CSPRequestCredentials creds,CSPRequestCache cache,String path, String listItemPath, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
+		String[] listItemPathElements = listItemPath.split("/");
+		
+		if (listItemPathElements.length != 2) {
+			throw new IllegalArgumentException("Illegal list item path " + listItemPath);
+		}
+		
+		String listNodeName = listItemPathElements[0];
+		String listItemNodeName = listItemPathElements[1];
+
+		String listNodeChildrenSelector = "/"+listNodeName+"/*";
+
 		JSONObject out = new JSONObject();
 		JSONObject pagination = new JSONObject();
 		Document list=null;
@@ -2169,12 +2185,12 @@ public class GenericStorage  implements ContextualisedStorage {
 		}
 		list=all.getDocument();
 		
-		List<Node> nodes=list.selectNodes(nodeName);
-		if(matchlistitem.equals("roles_list/*") || matchlistitem.equals("permissions_list/*")){
+		List<Node> nodes=list.selectNodes(listNodeChildrenSelector);
+		if(listNodeName.equals("roles_list") || listNodeName.equals("permissions_list")){
 			//XXX hack to deal with roles being inconsistent
 			//XXX CSPACE-1887 workaround
 			for(Node node : nodes) {
-				if(node.matches(matchlistitem)){
+				if(listItemNodeName.equals(node.getName())){
 					String csid = node.valueOf( "@csid" );
 					listitems.add(csid);
 				}
@@ -2187,7 +2203,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			String[] allfields = null;
 			String fieldsReturnedName = r.getServicesFieldsPath();
 			for(Node node : nodes) {
-				if(node.matches(matchlistitem)){
+				if(listItemNodeName.equals(node.getName())){
 					List<Node> fields=node.selectNodes("*");
 					String csid="";
 					String urlPlusCSID = null;
@@ -2283,7 +2299,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			List<Node> nodes=list.selectNodes("/relations-common-list/*");
 
 			for(Node node : nodes) {
-				if(node.matches("/relations-common-list/relation-list-item")){
+				if("relation-list-item".equals(node.getName())){
 					//String test = node.asXML();
 					String relationshipType = node.selectSingleNode("relationshipType").getText();
 					// Be forgiving while waiting for services to complete code.
