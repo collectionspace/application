@@ -52,5 +52,15 @@
 			<default>true</default>
 		</field>
 		<field id="primaryDisplay" section="pahma" mini="search,list,relate" datatype="boolean"/>
+		
+		<field id="documentationImage" section="pahma" datatype="boolean"/>
+		<field id="documentationImageSearch" section="pahma" datatype="boolean" ui-search="repeatable" exists-in-services="false">
+			 <services-tag>documentationImage</services-tag>
+			 <options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			 </options>
+		</field>
 	</section>
 </record>
