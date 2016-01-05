@@ -4,7 +4,7 @@
                 <services-tenant-plural>authorization/permissions</services-tenant-plural>
                 <services-tenant-singular>Permission</services-tenant-singular>
                 <services-url>authorization/permissions</services-url>
-                <services-list-path>permissions_list/*</services-list-path>
+                <services-list-path>permissions_list/permission</services-list-path>
 								<services-record-path>permissions_common:http://collectionspace.org/services/authorization/perms,permission</services-record-path>
                 <authorization-includes>authorization/permissions</authorization-includes>
                 <authorization-view>false</authorization-view>
