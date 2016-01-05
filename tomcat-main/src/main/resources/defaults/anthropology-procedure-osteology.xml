@@ -1,0 +1,39 @@
+<record id="osteology" is-extension="true">
+	<services-record-path id="anthropology">osteology_anthropology:http://collectionspace.org/services/osteology/domain/anthropology,osteology_anthropology</services-record-path>
+
+	<section id="osteologyInformation">
+		<field id="Notes_DentalPathology" section="anthropology"/>
+		<field id="Notes_CranialPathology" section="anthropology"/>
+		<field id="Notes_PostcranialPathology" section="anthropology"/>
+		<field id="Notes_CulturalModifications" section="anthropology"/>
+		<field id="Notes_NHTaphonomicAlterations" section="anthropology"/>
+		<field id="Notes_CuratorialSuffixing" section="anthropology"/>
+	</section>
+
+	<section id="culturalModificationInformation">
+		<section id="cranialDeformationInformation">
+			<field id="cranialDeformationPresent" section="anthropology" datatype="boolean"/>
+
+			<repeat id="cranialDeformationCategories" section="anthropology">
+				<field id="cranialDeformationCategory" section="anthropology" autocomplete="vocab-cranialdeformationcategory" ui-type="enum"/>
+			</repeat>
+
+			<field id="cranialDeformationNote" section="anthropology"/>
+		</section>
+
+		<section id="trepanationInformation">
+			<field id="trepanationPresent" section="anthropology" datatype="boolean"/>
+			<field id="trepanationGeneralNote" section="anthropology"/>
+			
+			<repeat id="trepanationGroupList/trepanationGroup" section="anthropology">
+				<field id="trepanationLocation" section="anthropology"/>
+				<field id="trepanationDimensionMin" section="anthropology" ui-type="validated" datatype="float"/>
+				<field id="trepanationDimensionMax" section="anthropology" ui-type="validated" datatype="float"/>
+				<field id="trepanationTechnique" section="anthropology" autocomplete="vocab-trepanationtechnique" ui-type="enum"/>
+				<field id="trepanationHealing" section="anthropology" autocomplete="vocab-trepanationhealing" ui-type="enum"/>
+				<field id="trepanationCertainty" section="anthropology" autocomplete="vocab-trepanationcertainty" ui-type="enum"/>
+				<field id="trepanationNote" section="anthropology"/>
+			</repeat>
+		</section>
+	</section>
+</record>

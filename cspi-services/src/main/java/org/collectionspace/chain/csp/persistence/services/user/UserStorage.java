@@ -184,8 +184,7 @@ public class UserStorage extends GenericStorage {
 			}
 			
 			
-			String node = "/"+r.getServicesListPath().split("/")[0]+"/*";
-			JSONObject data = getListView(creds,cache,path,node,"/"+r.getServicesListPath(),"csid",false,r);
+			JSONObject data = getListView(creds,cache,path,r.getServicesListPath(),"csid",false,r);
 			
 			return data;
 			
