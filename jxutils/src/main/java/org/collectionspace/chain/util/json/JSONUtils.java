@@ -76,7 +76,9 @@ public class JSONUtils {
 			while(t.hasNext()) {
 				String key=(String)t.next();
 				String temp = checkKey(((JSONObject)a).get(key),test);
-				if(temp != null){ return temp; }
+				if (temp != null) {
+					return temp;
+				}
 			}
 		}
 		
