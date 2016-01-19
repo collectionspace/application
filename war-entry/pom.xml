@@ -58,6 +58,9 @@
 
 	<build>
 		<finalName>collectionspace</finalName>
+		<filters>
+            <filter>../build.properties</filter>
+        </filters>
 		<!-- We need the logging info in the war's classes, so it gets picked up -->
 		<resources>
 			<resource>

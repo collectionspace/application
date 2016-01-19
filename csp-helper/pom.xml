@@ -54,6 +54,9 @@
 
 	<build>
 		<finalName>csp-helper</finalName>
+		<filters>
+            <filter>../build.properties</filter>
+        </filters>		
 		<plugins>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>

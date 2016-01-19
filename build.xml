@@ -2,6 +2,7 @@
   <description>Manage Application layer folders and files containing per-tenant configurations</description>
   
   <!-- Location of the 'tenants' directory for this CollectionSpace source code layer. -->
+  <property environment="env" />
   <property name="src.dir" value="${basedir}" />
   <property name="resources.dir" value="${src.dir}/tomcat-main/src/main/resources"/>
   <property name="tenants.dir" value="${resources.dir}/tenants"/>

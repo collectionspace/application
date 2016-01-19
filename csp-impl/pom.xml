@@ -73,7 +73,10 @@
 	</dependencies>
 
 	<build>
-		<finalName>csp-helper</finalName>
+		<finalName>csp-impl</finalName>
+		<filters>
+            <filter>../build.properties</filter>
+        </filters>
 		<plugins>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>

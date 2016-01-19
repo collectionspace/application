@@ -232,16 +232,46 @@
 			<!-- default -->
 			<testResource>
 				<directory>${project.basedir}/src/test/resources</directory>
+				<filtering>true</filtering>
 			</testResource>
 			<!-- make sure that each project's target/test-classes directory will 
 				have default.xml in it; deliberately in top-level pom.xml so as not to have 
 				references to tomcat-main in child projects -->
 			<testResource>
 				<directory>${project.basedir}/../tomcat-main/src/main/resources</directory>
+				<filtering>true</filtering>
 			</testResource>
 		</testResources>
 
 		<plugins>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<id>check-environment-vars</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<!-- <fail unless="${env.JEE_PORT}"
+									message="Required environment variable JEE_PORT has not been set.  Use 8180 as a default value." /> -->
+								<property environment="env" />
+								<fail message="Failed to set JEE_PORT environment variable.  Set it using 8180 as a default value.">
+									<condition>
+									   <not>
+										 <isset property="env.JEE_PORT"/>
+									   </not>
+									</condition>
+								</fail>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>

@@ -320,7 +320,8 @@ public class TestBase extends TestData {
 		HttpTester out = jettyDo(jetty,"POST","/tenant/"+defaulttenant+url,data);
 		assertEquals(out.getMethod(),null);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
-		assertTrue("Status "+Integer.toString(status)+" was wrong for a POST url: /tenant/"+defaulttenant+url+" with data: "+data +"/n"+out.getContent(),testStatus("POST",status));
+		assertTrue("Status "+Integer.toString(status)+" was wrong for a POST url: /tenant/"+defaulttenant+url+" with data: "+data +"/n"+out.getContent(),
+				testStatus("POST",status));
 		return out;
 	}
 	

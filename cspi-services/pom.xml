@@ -138,7 +138,10 @@
 	</dependencies>
 
 	<build>
-		<finalName>csp-helper</finalName>
+		<finalName>cspi-services</finalName>
+		<filters>
+            <filter>../build.properties</filter>
+        </filters>		
 		<plugins>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>

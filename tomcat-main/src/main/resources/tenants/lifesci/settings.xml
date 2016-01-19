@@ -23,7 +23,7 @@
         <ui-props-cache-timeout>2592000</ui-props-cache-timeout>
     </admin>
     <email>
-        <baseurl>http://localhost:8180</baseurl>
+        <baseurl>http://localhost:@JEE_PORT@</baseurl>
         <from>admin@lifesci.collectionspace.org</from>
         <to></to>
         <!-- if specified then all emails will send to this address - used for debugging -->
@@ -48,7 +48,7 @@
     </email>
     <persistence>
         <service>
-            <url>http://localhost:8180/cspace-services</url>
+            <url>http://localhost:@JEE_PORT@/cspace-services</url>
 			<tenant>
 				<id>2</id>
 				<name>lifesci.collectionspace.org</name>

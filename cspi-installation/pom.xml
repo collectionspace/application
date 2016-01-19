@@ -91,6 +91,9 @@
 
 	<build>
 		<finalName>cspi-installation</finalName>
+		<filters>
+            <filter>../build.properties</filter>
+        </filters>
 	</build>
 
 </project>

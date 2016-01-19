@@ -60,6 +60,9 @@
 
 	<build>
 		<finalName>jxutils</finalName>
+		<filters>
+            <filter>../build.properties</filter>
+        </filters>
 	</build>
 
 </project>

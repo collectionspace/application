@@ -26,7 +26,10 @@
 	</dependencies>
 
 	<build>
-		<finalName>csp-helper</finalName>
+		<finalName>general-utils</finalName>
+		<filters>
+            <filter>../build.properties</filter>
+        </filters>
 		<plugins>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
@@ -35,6 +38,7 @@
 					<contextPath>chain</contextPath>
 				</configuration>
 			</plugin>
+
 		</plugins>
 	</build>
 
