@@ -423,7 +423,9 @@ public class TestService extends ServicesBaseClass {
 
 		ReturnedURL url = conn.getMultipartURL(RequestMethod.POST, personAuthServiceUrl,
 				parts, creds, cache);
-		
+		assertEquals(201, url.getStatus());
+
+		String id = url.getURLTail();
 		log.info(url.getURL());
 
 		String personAuthUrl = url.getURL();
@@ -432,8 +434,14 @@ public class TestService extends ServicesBaseClass {
 		ReturnedMultipartDocument rdocs = conn.getMultipartXMLDocument(RequestMethod.GET, personAuthUrl,
 					null, creds, cache);
 		int status = rdocs.getStatus();
+		assertEquals(200, status);
+
 		Document doc = rdocs.getDocument(personAuthpartname);
 		log.info(doc.asXML());
+
+		// DELETE
+		conn.getNone(RequestMethod.DELETE, "personauthorities/" + id, null,
+				creds, cache);
 	}
 
 	

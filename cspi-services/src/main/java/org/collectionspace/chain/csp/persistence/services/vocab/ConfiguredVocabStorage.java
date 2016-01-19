@@ -487,13 +487,25 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			if(doc==null)
 				throw new UnderlyingStorageException("Could not retrieve vocabulary items",data.getStatus(),path);
 			String[] tag_parts=r.getServicesListPath().split(",",2);
+			String listItemPath = tag_parts[1]; 
 			
+			String[] listItemPathElements = listItemPath.split("/");
+			
+			if (listItemPathElements.length != 2) {
+				throw new RuntimeException("Illegal list item path " + listItemPath);
+			}
+
+			String listNodeName = listItemPathElements[0];
+			String listItemNodeName = listItemPathElements[1];
+
+			String listNodeChildrenSelector = "/"+listNodeName+"/*";
+
 			JSONObject pagination = new JSONObject();
 			String[] allfields = null;
 			String fieldsReturnedName = r.getServicesFieldsPath();
-			List<Node> nodes = doc.selectNodes("/"+tag_parts[1].split("/")[0]+"/*");
+			List<Node> nodes = doc.selectNodes(listNodeChildrenSelector);
 			for(Node node : nodes){
-				if(node.matches("/"+tag_parts[1])){
+				if(listItemNodeName.equals(node.getName())){
 					// Risky hack - assumes displayName must be at root. Really should
 					// understand that the list results are a different schema from record GET.
 					String dnName = getDisplayNameKey();
@@ -651,12 +663,11 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				JSONObject updatecsid = new JSONObject();
 				JSONArray createcsid = new JSONArray();
 				String getPath = savePath + "/" + sr.getServicesURL();
-				String node = "/"+sr.getServicesListPath().split("/")[0]+"/*";
 				Integer subcount = 0;
 				String firstfile = "";
 
 				while(!getPath.equals("")){
-					JSONObject data = getListView(creds,cache,getPath,node,"/"+sr.getServicesListPath(),"csid",false, sr);
+					JSONObject data = getListView(creds,cache,getPath,sr.getServicesListPath(),"csid",false, sr);
 					String[] filepaths = (String[]) data.get("listItems");
 					subcount +=filepaths.length;
 					if(firstfile.equals("") && subcount !=0){
@@ -817,9 +828,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		JSONArray itemarray = new JSONArray();
 //get list view
 
-		String node = "/"+thisr.getServicesListPath().split("/")[0]+"/*";
-		JSONObject data = getListView(creds,cache,filePath,node,"/"+thisr.getServicesListPath(),"csid",false, thisr);
-		
+		JSONObject data = getListView(creds,cache,filePath,thisr.getServicesListPath(),"csid",false, thisr);
 
 		String[] filepaths = (String[]) data.get("listItems");
 		for(String uri : filepaths) {
