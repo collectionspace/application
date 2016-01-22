@@ -163,6 +163,13 @@ public class StreamUIRequest implements UIRequest {
 		}
 	}
 
+	public void sendUnknown(InputStream data, String contenttype, String contentDisposition) throws UIException {
+		try {
+			IOUtils.copy(data, out);
+		} catch (IOException e) {
+			throw new UIException("Cannot write data",e);
+		}
+	}
 	
 	public void sendJSONResponse(JSONObject data) throws UIException {
 		println(out,data.toString());

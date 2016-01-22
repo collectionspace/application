@@ -187,11 +187,21 @@ public class ServicesConnection {
 
 				out.setResponse(method,response);
 			} catch(ConnectionException e) {
+				method.releaseConnection();
 				throw new ConnectionException(e.getMessage(),e.status,base_url+"/"+uri,e);
 			} catch (Exception e) {
+				method.releaseConnection();
 				throw new ConnectionException(e.getMessage(),0,base_url+"/"+uri,e);
 			} finally {
-				method.releaseConnection();
+				// Don't release the connection, since the associated input stream has not yet been
+				// read. That stream is an instance of AutoCloseInputStream, which will automatically
+				// release the connection once it has been read to the end. In theory we shouldn't
+				// have to explicitly release it.
+				// method.releaseConnection();
+				
+				if (log.isTraceEnabled()) {
+					log.trace("HTTP connection pool size: " + manager.getConnectionsInPool());
+				}
 				
 				if (log.isWarnEnabled()) {
 					if (manager.getConnectionsInPool() >= MAX_SERVICES_CONNECTIONS) {

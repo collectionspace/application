@@ -6,6 +6,7 @@
  */
 package org.collectionspace.csp.api.ui;
 
+import java.io.InputStream;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
@@ -31,6 +32,7 @@ public interface UIRequest {
 	public void sendURLReponse(String url) throws UIException;
 	public void sendUnknown(byte[] data, String contenttype, String contentDisposition) throws UIException;
 	public void sendUnknown(String data, String contenttype, String contentDisposition) throws UIException;
+	public void sendUnknown(InputStream data, String contenttype, String contentDisposition) throws UIException;
 	public void sendJSONResponse(JSONObject out) throws UIException;
 	public void sendJSONResponse(JSONArray out) throws UIException;
 
