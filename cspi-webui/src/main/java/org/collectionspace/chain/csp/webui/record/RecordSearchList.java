@@ -316,6 +316,7 @@ public class RecordSearchList implements WebMethod {
         	// Until CSPACE-4785 gets resolved, we'll tread "permission" requests
         	// as a special case.
         	//
+        	restriction.put("pageSize", 400);
         	results = getJSON(storage, restriction, key, base);
         	log.debug(results.toString());
         } else if (r.getID().equals("reports")) {
