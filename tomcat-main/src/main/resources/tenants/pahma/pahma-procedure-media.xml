@@ -33,6 +33,7 @@
 					<option id="document">document</option>
 					<option id="image">image</option>
 					<option id="slide">slide</option>
+					<option id="audio">audio</option>
 					<option id="video">video</option>
 				</options>
 			</field>
