@@ -1,0 +1,513 @@
+{
+    ".csc-conservation-approvedBy": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "options": {
+                    "elPath": "approvedBys",
+                    "hidePrimary": true,
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conservation-approvedBy": {
+                                    "decorators": [
+                                        {
+                                            "func": "cspace.autocomplete",
+                                            "options": {
+                                                "queryUrl": "../../../tenant/core/conservation/autocomplete/approvedBy",
+                                                "vocabUrl": "../../../tenant/core/conservation/source-vocab/approvedBy"
+                                            },
+                                            "type": "fluid"
+                                        }
+                                    ],
+                                    "value": "${{row}.approvedBy}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                },
+                "type": "fluid"
+            }
+        ]
+    },
+    ".csc-conservation-approvedBy-label": {
+        "messagekey": "conservation-approvedByLabel"
+    },
+    ".csc-conservation-approvedDate-label": {
+        "messagekey": "conservation-approvedDateLabel"
+    },
+    ".csc-conservation-approvedDateEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${approvedDateEnd}"
+    },
+    ".csc-conservation-approvedDateEnd-label": {
+        "messagekey": "conservation-approvedDateEndLabel"
+    },
+    ".csc-conservation-approvedDateStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${approvedDateStart}"
+    },
+    ".csc-conservation-approvedDateStart-label": {
+        "messagekey": "conservation-approvedDateStartLabel"
+    },
+    ".csc-conservation-conservationNumber": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "options": {
+                    "elPath": "conservationNumbers",
+                    "hidePrimary": true,
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conservation-conservationNumber": "${{row}.conservationNumber}"
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                },
+                "type": "fluid"
+            }
+        ]
+    },
+    ".csc-conservation-conservationNumber-label": {
+        "messagekey": "conservation-conservationNumberLabel"
+    },
+    ".csc-conservation-conservationStatusGroup": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "options": {
+                    "elPath": "conservationStatusGroup",
+                    "hidePrimary": true,
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conservation-status": {
+                                    "decorators": [
+                                        {
+                                            "func": "cspace.termList",
+                                            "options": {
+                                                "elPath": "status",
+                                                "root": "{row}",
+                                                "termListType": "status"
+                                            },
+                                            "type": "fluid"
+                                        }
+                                    ]
+                                },
+                                ".csc-conservation-statusDate": {
+                                    "decorators": [
+                                        {
+                                            "func": "cspace.datePicker",
+                                            "type": "fluid"
+                                        }
+                                    ],
+                                    "value": "${{row}.statusDate}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                },
+                "type": "fluid"
+            }
+        ]
+    },
+    ".csc-conservation-conservator": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "options": {
+                    "elPath": "conservators",
+                    "hidePrimary": true,
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conservation-conservator": {
+                                    "decorators": [
+                                        {
+                                            "func": "cspace.autocomplete",
+                                            "options": {
+                                                "queryUrl": "../../../tenant/core/conservation/autocomplete/conservator",
+                                                "vocabUrl": "../../../tenant/core/conservation/source-vocab/conservator"
+                                            },
+                                            "type": "fluid"
+                                        }
+                                    ],
+                                    "value": "${{row}.conservator}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                },
+                "type": "fluid"
+            }
+        ]
+    },
+    ".csc-conservation-conservator-label": {
+        "messagekey": "conservation-conservatorLabel"
+    },
+    ".csc-conservation-destAnalysisApprovalNote-label": {
+        "messagekey": "conservation-destAnalysisApprovalNoteLabel"
+    },
+    ".csc-conservation-destAnalysisApprovedDate-label": {
+        "messagekey": "conservation-destAnalysisApprovedDateLabel"
+    },
+    ".csc-conservation-destAnalysisApprovedDateEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${destAnalysisApprovedDateEnd}"
+    },
+    ".csc-conservation-destAnalysisApprovedDateEnd-label": {
+        "messagekey": "conservation-destAnalysisApprovedDateEndLabel"
+    },
+    ".csc-conservation-destAnalysisApprovedDateStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${destAnalysisApprovedDateStart}"
+    },
+    ".csc-conservation-destAnalysisApprovedDateStart-label": {
+        "messagekey": "conservation-destAnalysisApprovedDateStartLabel"
+    },
+    ".csc-conservation-destAnalysisGroup": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "options": {
+                    "elPath": "destAnalysisGroup",
+                    "hidePrimary": true,
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conservation-destAnalysisApprovedDate": {
+                                    "decorators": [
+                                        {
+                                            "func": "cspace.datePicker",
+                                            "type": "fluid"
+                                        }
+                                    ],
+                                    "value": "${{row}.destAnalysisApprovedDate}"
+                                },
+                                ".csc-conservation-sampleBy": {
+                                    "decorators": [
+                                        {
+                                            "func": "cspace.autocomplete",
+                                            "options": {
+                                                "queryUrl": "../../../tenant/core/conservation/autocomplete/sampleBy",
+                                                "vocabUrl": "../../../tenant/core/conservation/source-vocab/sampleBy"
+                                            },
+                                            "type": "fluid"
+                                        }
+                                    ],
+                                    "value": "${{row}.sampleBy}"
+                                },
+                                ".csc-conservation-sampleDate": {
+                                    "decorators": [
+                                        {
+                                            "func": "cspace.datePicker",
+                                            "type": "fluid"
+                                        }
+                                    ],
+                                    "value": "${{row}.sampleDate}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                },
+                "type": "fluid"
+            }
+        ]
+    },
+    ".csc-conservation-proposedAnalysisDate-label": {
+        "messagekey": "conservation-proposedAnalysisDateLabel"
+    },
+    ".csc-conservation-proposedAnalysisDateEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${proposedAnalysisDateEnd}"
+    },
+    ".csc-conservation-proposedAnalysisDateEnd-label": {
+        "messagekey": "conservation-proposedAnalysisDateEndLabel"
+    },
+    ".csc-conservation-proposedAnalysisDateStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${proposedAnalysisDateStart}"
+    },
+    ".csc-conservation-proposedAnalysisDateStart-label": {
+        "messagekey": "conservation-proposedAnalysisDateStartLabel"
+    },
+    ".csc-conservation-researcher": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "options": {
+                    "elPath": "researchers",
+                    "hidePrimary": true,
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conservation-researcher": {
+                                    "decorators": [
+                                        {
+                                            "func": "cspace.autocomplete",
+                                            "options": {
+                                                "queryUrl": "../../../tenant/core/conservation/autocomplete/researcher",
+                                                "vocabUrl": "../../../tenant/core/conservation/source-vocab/researcher"
+                                            },
+                                            "type": "fluid"
+                                        }
+                                    ],
+                                    "value": "${{row}.researcher}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                },
+                "type": "fluid"
+            }
+        ]
+    },
+    ".csc-conservation-researcher-label": {
+        "messagekey": "conservation-researcherLabel"
+    },
+    ".csc-conservation-sampleBy-label": {
+        "messagekey": "conservation-sampleByLabel"
+    },
+    ".csc-conservation-sampleDate-label": {
+        "messagekey": "conservation-sampleDateLabel"
+    },
+    ".csc-conservation-sampleDateEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${sampleDateEnd}"
+    },
+    ".csc-conservation-sampleDateEnd-label": {
+        "messagekey": "conservation-sampleDateEndLabel"
+    },
+    ".csc-conservation-sampleDateStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${sampleDateStart}"
+    },
+    ".csc-conservation-sampleDateStart-label": {
+        "messagekey": "conservation-sampleDateStartLabel"
+    },
+    ".csc-conservation-sampleDescription-label": {
+        "messagekey": "conservation-sampleDescriptionLabel"
+    },
+    ".csc-conservation-sampleReturned-label": {
+        "messagekey": "conservation-sampleReturnedLabel"
+    },
+    ".csc-conservation-sampleReturnedLocation-label": {
+        "messagekey": "conservation-sampleReturnedLocationLabel"
+    },
+    ".csc-conservation-status-label": {
+        "messagekey": "conservation-statusLabel"
+    },
+    ".csc-conservation-statusDate-label": {
+        "messagekey": "conservation-statusDateLabel"
+    },
+    ".csc-conservation-statusDateEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${statusDateEnd}"
+    },
+    ".csc-conservation-statusDateEnd-label": {
+        "messagekey": "conservation-statusDateEndLabel"
+    },
+    ".csc-conservation-statusDateStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${statusDateStart}"
+    },
+    ".csc-conservation-statusDateStart-label": {
+        "messagekey": "conservation-statusDateStartLabel"
+    },
+    ".csc-conservation-treatmentEndDate-label": {
+        "messagekey": "conservation-treatmentEndDateLabel"
+    },
+    ".csc-conservation-treatmentEndDateEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${treatmentEndDateEnd}"
+    },
+    ".csc-conservation-treatmentEndDateEnd-label": {
+        "messagekey": "conservation-treatmentEndDateEndLabel"
+    },
+    ".csc-conservation-treatmentEndDateStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${treatmentEndDateStart}"
+    },
+    ".csc-conservation-treatmentEndDateStart-label": {
+        "messagekey": "conservation-treatmentEndDateStartLabel"
+    },
+    ".csc-conservation-treatmentPurpose": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "options": {
+                    "elPath": "treatmentPurposes",
+                    "hidePrimary": true,
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conservation-treatmentPurpose": {
+                                    "decorators": [
+                                        {
+                                            "func": "cspace.termList",
+                                            "options": {
+                                                "elPath": "treatmentPurpose",
+                                                "root": "{row}",
+                                                "termListType": "treatmentPurpose"
+                                            },
+                                            "type": "fluid"
+                                        }
+                                    ]
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                },
+                "type": "fluid"
+            }
+        ]
+    },
+    ".csc-conservation-treatmentPurpose-label": {
+        "messagekey": "conservation-treatmentPurposeLabel"
+    },
+    ".csc-conservation-treatmentStartDate-label": {
+        "messagekey": "conservation-treatmentStartDateLabel"
+    },
+    ".csc-conservation-treatmentStartDateEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${treatmentStartDateEnd}"
+    },
+    ".csc-conservation-treatmentStartDateEnd-label": {
+        "messagekey": "conservation-treatmentStartDateEndLabel"
+    },
+    ".csc-conservation-treatmentStartDateStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${treatmentStartDateStart}"
+    },
+    ".csc-conservation-treatmentStartDateStart-label": {
+        "messagekey": "conservation-treatmentStartDateStartLabel"
+    },
+    ".csc-conservation-updatedAt-label": {
+        "messagekey": "conservation-updatedAtLabel"
+    },
+    ".csc-conservation-updatedAtEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${updatedAtEnd}"
+    },
+    ".csc-conservation-updatedAtEnd-label": {
+        "messagekey": "conservation-updatedAtEndLabel"
+    },
+    ".csc-conservation-updatedAtStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${updatedAtStart}"
+    },
+    ".csc-conservation-updatedAtStart-label": {
+        "messagekey": "conservation-updatedAtStartLabel"
+    },
+    ".csc-conservation-updatedBy": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "options": {
+                    "elPath": "updatedBys",
+                    "hidePrimary": true,
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-conservation-updatedBy": "${{row}.updatedBy}"
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                },
+                "type": "fluid"
+            }
+        ]
+    },
+    ".csc-conservation-updatedBy-label": {
+        "messagekey": "conservation-updatedByLabel"
+    }
+}

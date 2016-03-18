@@ -34,6 +34,9 @@
                      <field id="conditioncheck">
                         <selector>585af100-1a35-11e2-892e-0800200c9a66</selector>
                     </field>
+                    <field id="conservation">
+                        <selector>aad54202-404d-4f19-ada9-8b1e378ad1b2</selector>
+                    </field>
                     <!-- 'location' below pertains to 'generic locations' stored -->
                     <!-- in Location/Movement/Inventory records, rather than to -->
                     <!-- Storage Location authority term records -->
