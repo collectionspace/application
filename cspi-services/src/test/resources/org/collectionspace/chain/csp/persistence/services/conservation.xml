@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:conservation_common xmlns:ns2="http://collectionspace.org/services/conservation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <proposedAnalysisDate>2015-11-18T00:00:00.000Z</proposedAnalysisDate>
+    <analysisResults>results</analysisResults>
+    <examinationGroupList>
+        <examinationGroup>
+            <examinationNote>exam notes</examinationNote>
+            <examinationDate>2015-11-18T00:00:00.000Z</examinationDate>
+            <examinationPhase>urn:cspace:core.collectionspace.org:vocabularies:name(examinationphase):item:name(beforetreatment)'before treatment'</examinationPhase>
+            <examinationStaff>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(StephanieStaffer1447888190914)'Stephanie Staffer'</examinationStaff>
+        </examinationGroup>
+    </examinationGroupList>
+    <proposedTreatment>proposed treatment</proposedTreatment>
+    <proposedAnalysis>proposed analysis</proposedAnalysis>
+    <approvedDate>2015-11-19T00:00:00.000Z</approvedDate>
+    <approvedBy>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(AprilApprover1447888275559)'April Approver'</approvedBy>
+    <conservators>
+        <conservator>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(ConnieConservator1447888151236)'Connie Conservator'</conservator>
+    </conservators>
+    <researcher>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(RebeccaResearcher1447888298162)'Rebecca Researcher'</researcher>
+    <treatmentPurpose>urn:cspace:core.collectionspace.org:vocabularies:name(treatmentpurpose):item:name(exhibition)'Exhibition'</treatmentPurpose>
+    <fabricationNote>fab notes</fabricationNote>
+    <treatmentEndDate>2015-11-19T00:00:00.000Z</treatmentEndDate>
+    <treatmentStartDate>2015-11-17T00:00:00.000Z</treatmentStartDate>
+    <treatmentSummary>treatment summary</treatmentSummary>
+    <destAnalysisGroupList>
+        <destAnalysisGroup>
+            <sampleDescription>sample description</sampleDescription>
+            <destAnalysisApprovedDate>2015-11-18T00:00:00.000Z</destAnalysisApprovedDate>
+            <sampleBy>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(SamSampler1447888325147)'Sam Sampler'</sampleBy>
+            <sampleDate>2015-11-18T00:00:00.000Z</sampleDate>
+            <destAnalysisApprovalNote>approval notes</destAnalysisApprovalNote>
+            <sampleReturnedLocation>location</sampleReturnedLocation>
+            <sampleReturned>true</sampleReturned>
+        </destAnalysisGroup>
+    </destAnalysisGroupList>
+    <otherPartyGroupList>
+        <otherPartyGroup>
+            <otherPartyNote>note</otherPartyNote>
+            <otherPartyRole>urn:cspace:core.collectionspace.org:vocabularies:name(otherpartyrole):item:name(preparator)'Preparator'</otherPartyRole>
+            <otherParty>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(PaulPreparator1447888162377)'Paul Preparator'</otherParty>
+        </otherPartyGroup>
+    </otherPartyGroupList>
+    <analysisMethod>methodology</analysisMethod>
+    <conservationStatusGroupList>
+        <conservationStatusGroup>
+            <status>urn:cspace:core.collectionspace.org:vocabularies:name(conservationstatus):item:name(analysisproposed)'Analysis proposed'</status>
+            <statusDate>2015-11-18T00:00:00.000Z</statusDate>
+        </conservationStatusGroup>
+    </conservationStatusGroupList>
+    <conservationNumber>CT2015.1</conservationNumber>
+</ns2:conservation_common>
