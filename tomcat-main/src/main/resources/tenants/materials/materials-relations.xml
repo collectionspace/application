@@ -1,0 +1,10 @@
+<relationships>
+    <relation id="broaderContext">
+        <sourceTypes>location,locationauthorities,personauthorities,person,citationauthorities,citation,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities,collection-object,work,workauthorities,material,materialauthorities</sourceTypes>
+        <destinationTypes>location,locationauthorities,personauthorities,person,citationauthorities,citation,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities,collection-object,work,workauthorities,material,materialauthorities</destinationTypes>
+    </relation>
+    <relation id="narrowerContexts">
+        <sourceTypes>location,locationauthorities,personauthorities,person,citationauthorities,citation,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities,collection-object,work,workauthorities,material,materialauthorities</sourceTypes>
+        <destinationTypes>location,locationauthorities,personauthorities,person,citationauthorities,citation,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities,collection-object,work,workauthorities,material,materialauthorities</destinationTypes>
+    </relation>
+</relationships>
