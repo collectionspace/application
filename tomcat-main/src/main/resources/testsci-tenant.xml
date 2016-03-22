@@ -1,8 +1,8 @@
-<cspace-config tenantname="lifesci">
+<cspace-config tenantname="testsci">
 
 	<tenantid>2</tenantid>
 	<version>11</version>
-	<include src="settings.xml,local-lifesci-settings.xml" merge="xmlmerge-settings.properties" 
+	<include src="settings.xml,local-testsci-settings.xml" merge="xmlmerge-settings.properties" 
 		strip-root="yes" />
 
 	<spec>
@@ -27,7 +27,7 @@
 			<include src="base-procedure-loanout.xml" />
 			<include src="base-procedure-media.xml" />
 			<include src="base-procedure-valuationcontrol.xml" />
-			<include src="base-procedure-movement.xml,lifesci-procedure-movement.xml"
+			<include src="base-procedure-movement.xml,testsci-procedure-movement.xml"
 				merge="xmlmerge.properties" />
 			<include src="base-procedure-objectexit.xml" />
 			<include src="base-procedure-conservation.xml"/>
@@ -38,31 +38,31 @@
 			<!-- IMPORTANT: *-termList.xml files MUST precede their equivalent files. -->
 			<!--  -->
 			<include src="base-authority-location-termList.xml" />
-			<include src="base-authority-location.xml,lifesci-authority-location.xml"
+			<include src="base-authority-location.xml,testsci-authority-location.xml"
 				merge="xmlmerge.properties" /> <!-- Perform an XML merge -->
 
 			<include src="base-authority-organization-termList.xml" />
-			<include src="base-authority-organization.xml,lifesci-authority-organization.xml"
+			<include src="base-authority-organization.xml,testsci-authority-organization.xml"
 				merge="xmlmerge.properties" /> <!-- Perform an XML merge -->
 
 			<include src="base-authority-person-termList.xml" />
-			<include src="base-authority-person.xml,lifesci-authority-person.xml"
+			<include src="base-authority-person.xml,testsci-authority-person.xml"
 				merge="xmlmerge.properties" /> <!-- Perform an XML merge -->
                                 
                         <include src="base-authority-citation-termList.xml"/>
-			<include src="base-authority-citation.xml,lifesci-authority-citation.xml"
+			<include src="base-authority-citation.xml,testsci-authority-citation.xml"
 				merge="xmlmerge.properties" /> <!-- Perform an XML merge -->
 
 			<include src="base-authority-place-termList.xml" />
-			<include src="base-authority-place.xml,lifesci-authority-place.xml"
+			<include src="base-authority-place.xml,testsci-authority-place.xml"
 				merge="xmlmerge.properties" /> <!-- Perform an XML merge -->
 
 			<include src="base-authority-taxon-termList.xml" />
-			<include src="base-authority-taxon.xml,lifesci-authority-taxon.xml"
+			<include src="base-authority-taxon.xml,testsci-authority-taxon.xml"
 				merge="xmlmerge.properties" /> <!-- Perform an XML merge -->
 
 			<include src="base-authority-concept-termList.xml" />
-			<include src="base-authority-concept.xml,lifesci-authority-concept.xml"
+			<include src="base-authority-concept.xml,testsci-authority-concept.xml"
 				merge="xmlmerge.properties" /> <!-- Perform an XML merge -->
 			<include src="base-authority-work-termList.xml"/>
 			<include src="base-authority-work.xml"/>

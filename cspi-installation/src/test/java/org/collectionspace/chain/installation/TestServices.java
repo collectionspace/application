@@ -65,7 +65,7 @@ public class TestServices {
 	@Test 
 	public void testServices(){
 
-		String configfile = "lifesci-tenant.xml";
+		String configfile = "testsci-tenant.xml";
 		String recordtype = "collectionobjects"; //these are service names for the record/procedure
 		String domain = "collectionspace_core"; // this is either domain or collectionspace_core
 		String maketype = "core"; // this is either delta or core
