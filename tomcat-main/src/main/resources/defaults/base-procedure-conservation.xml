@@ -1,0 +1,135 @@
+<record id="conservation" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
+    <services-url>conservation</services-url>
+    <services-tenant-plural>Conservation</services-tenant-plural>
+    <services-tenant-singular>Conservation</services-tenant-singular>
+    
+    <services-list-path>abstract-common-list/list-item</services-list-path>
+    <services-record-path>conservation_common:http://collectionspace.org/services/conservation,conservation_common</services-record-path>
+    <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+    <hassoftdelete>true</hassoftdelete>
+    
+    <structures>
+        <structure id="search">
+            <view>
+                <label-section id="messagekeys" show="true"></label-section>
+            </view>
+        </structure>
+        <structure id="screen">
+            <view>
+                <titlebar show="false"></titlebar>
+                <sidebar show="false">
+                    <repeat id="termsUsed" show="true"></repeat>
+                    <repeat id="relatedProcedures" show="true"></repeat>
+                    <repeat id="relatedObjects" show="true"></repeat>
+                </sidebar>
+                <edit-section show="true"></edit-section>
+                <list-section show="false"></list-section>
+                <label-section id="messagekeys" show="true"></label-section>
+            </view>
+            <repeat id="termsUsed" asSibling="true">
+                <selector>recordList-row:</selector>
+                <field id="linktext" ui-type="linktext">
+                    <selector>related-number</selector>
+                </field>
+                <field id="recordtype" ui-type="list">
+                    <selector>related-recordtype</selector>
+                </field>
+                <field id="sourceFieldName" ui-type="list">
+                    <selector>related-field</selector>
+                </field>
+            </repeat>
+        </structure>
+        <structure id="tab">
+            <view>
+                <titlebar show="false"></titlebar>
+                <sidebar show="false"></sidebar>
+                <edit-section id="details" show="true"></edit-section>
+                <list-section id="list" show="false"></list-section>
+                <label-section id="messagekeys" show="true"></label-section>
+            </view>
+            <repeat id="list" asSibling="true">
+                <selector>recordList-row:</selector>
+                <field id="summary" ui-type="list">
+                    <selector>related-summary</selector>
+                </field>
+                <field id="number" ui-type="list">
+                    <selector>related-number</selector>
+                </field>
+            </repeat>
+        </structure>
+    </structures>
+    
+    <include src="domain-procedure-conservation.xml" strip-root="yes"/>
+    
+    <row-selector>.csc-recordList-row:</row-selector>
+
+    <section id="coreInformation">
+        <include src="core-fields.xml"  strip-root="yes" />
+    </section>
+
+    <section id="objectTreatmentInformation">
+        <field id="conservationNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate" seperate_ui_container="true">
+            <container-selector>conservation-conservationNumber-patternChooserContainer</container-selector>
+            <options>
+              <option id="conservation" sample="CT2015.1">Conservation Treatment Reference Number</option>
+            </options>
+        </field>
+        
+        <repeat id="conservationStatusGroupList/conservationStatusGroup">
+            <field id="status" ui-search="repeatable" mini="summary,search,list,relate" autocomplete="vocab-conservationstatus" ui-type="enum"/>
+            <field id="statusDate" ui-search="range" ui-type="date" datatype="date"/>
+        </repeat>
+        
+        <field id="treatmentPurpose" ui-search="repeatable" autocomplete="vocab-treatmentpurpose" ui-type="enum"/>
+        
+        <repeat id="conservators">
+            <field id="conservator" ui-search="repeatable" autocomplete="person-person"/>
+        </repeat>
+        
+        <repeat id="otherPartyGroupList/otherPartyGroup">
+            <field id="otherParty" autocomplete="person-person"/>
+            <field id="otherPartyRole" autocomplete="vocab-otherpartyrole" ui-type="enum"/>
+            <field id="otherPartyNote"/>
+        </repeat>
+        
+        <repeat id="examinationGroupList/examinationGroup">
+            <field id="examinationStaff" autocomplete="person-person"/>
+            <field id="examinationPhase" autocomplete="vocab-examinationphase" ui-type="enum"/>
+            <field id="examinationDate" ui-type="date" datatype="date"/>
+            <field id="examinationNote"/>
+        </repeat>
+        
+        <field id="fabricationNote"/>
+        <field id="proposedTreatment"/>
+        
+        <field id="approvedBy" ui-search="repeatable" autocomplete="person-person"/>
+        <field id="approvedDate" ui-search="range" ui-type="date" datatype="date"/>
+        
+        <field id="treatmentStartDate" ui-search="range" ui-type="date" datatype="date"/>
+        <field id="treatmentEndDate" ui-search="range" ui-type="date" datatype="date"/>
+        <field id="treatmentSummary"/>
+    </section>
+    
+    <section id="objectAnalysisInformation">
+        <field id="researcher" ui-search="repeatable" autocomplete="person-person"/>
+        <field id="proposedAnalysis"/>
+        <field id="proposedAnalysisDate" ui-search="range" ui-type="date" datatype="date"/>
+        
+        <repeat id="destAnalysisGroupList/destAnalysisGroup">
+            <field id="destAnalysisApprovedDate" ui-search="range" ui-type="date" datatype="date"/>
+            <field id="destAnalysisApprovalNote"/>
+            <field id="sampleBy" ui-search="repeatable" autocomplete="person-person"/>
+            <field id="sampleDate" ui-search="range" ui-type="date" datatype="date"/>
+            <field id="sampleDescription"/>
+            <field id="sampleReturned" datatype="boolean"/>
+            <field id="sampleReturnedLocation"/>
+        </repeat>
+    
+        <field id="analysisMethod"/>
+        <field id="analysisResults"/>
+    </section>
+    
+    <!-- The following sections are used to generate labels. -->
+    
+    <section id="approvalInformation"/>
+</record>

@@ -1,0 +1,186 @@
+{
+    "conservation": {
+        "properties": {
+            "approvedBys": {
+                "items": {
+                    "properties": {
+                        "_primary": {
+                            "default": true,
+                            "type": "boolean"
+                        },
+                        "approvedBy": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
+            "approvedDateEnd": {
+                "type": "date"
+            },
+            "approvedDateStart": {
+                "type": "date"
+            },
+            "conservationNumbers": {
+                "items": {
+                    "properties": {
+                        "_primary": {
+                            "default": true,
+                            "type": "boolean"
+                        },
+                        "conservationNumber": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
+            "conservationStatusGroup": {
+                "items": {
+                    "properties": {
+                        "_primary": {
+                            "default": true,
+                            "type": "boolean"
+                        },
+                        "status": {
+                            "default": "",
+                            "type": "string"
+                        },
+                        "statusDate": {
+                            "type": "date"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
+            "conservators": {
+                "items": {
+                    "properties": {
+                        "_primary": {
+                            "default": true,
+                            "type": "boolean"
+                        },
+                        "conservator": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
+            "destAnalysisApprovedDateEnd": {
+                "type": "date"
+            },
+            "destAnalysisApprovedDateStart": {
+                "type": "date"
+            },
+            "destAnalysisGroup": {
+                "items": {
+                    "properties": {
+                        "_primary": {
+                            "default": true,
+                            "type": "boolean"
+                        },
+                        "destAnalysisApprovedDate": {
+                            "type": "date"
+                        },
+                        "sampleBy": {
+                            "type": "string"
+                        },
+                        "sampleDate": {
+                            "type": "date"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
+            "proposedAnalysisDateEnd": {
+                "type": "date"
+            },
+            "proposedAnalysisDateStart": {
+                "type": "date"
+            },
+            "researchers": {
+                "items": {
+                    "properties": {
+                        "_primary": {
+                            "default": true,
+                            "type": "boolean"
+                        },
+                        "researcher": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
+            "sampleDateEnd": {
+                "type": "date"
+            },
+            "sampleDateStart": {
+                "type": "date"
+            },
+            "statusDateEnd": {
+                "type": "date"
+            },
+            "statusDateStart": {
+                "type": "date"
+            },
+            "treatmentEndDateEnd": {
+                "type": "date"
+            },
+            "treatmentEndDateStart": {
+                "type": "date"
+            },
+            "treatmentPurposes": {
+                "items": {
+                    "properties": {
+                        "_primary": {
+                            "default": true,
+                            "type": "boolean"
+                        },
+                        "treatmentPurpose": {
+                            "default": "",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
+            "treatmentStartDateEnd": {
+                "type": "date"
+            },
+            "treatmentStartDateStart": {
+                "type": "date"
+            },
+            "updatedAtEnd": {
+                "type": "date"
+            },
+            "updatedAtStart": {
+                "type": "date"
+            },
+            "updatedBys": {
+                "items": {
+                    "properties": {
+                        "_primary": {
+                            "default": true,
+                            "type": "boolean"
+                        },
+                        "updatedBy": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            }
+        },
+        "type": "object"
+    }
+}

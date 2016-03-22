@@ -101,6 +101,7 @@ public class TestService extends ServicesBaseClass {
 		testXMLJSON(spec, "group", "group.xml", "group.json");
 		testXMLJSON(spec, "media", "media.xml", "mediaJSON.json");
 		testXMLJSON(spec, "conditioncheck", "conditioncheck.xml", "conditioncheck.json");
+		testXMLJSON(spec, "conservation", "conservation.xml", "conservation.json");
 		testXMLJSON(spec, "exhibition", "exhibition.xml", "exhibition.json");
 
 		testXMLJSON(spec, "role", "role.xml", "role.json");
@@ -159,6 +160,7 @@ public class TestService extends ServicesBaseClass {
 		testJSONXML(spec, "objectexit", "objectexit.xml", "objectexit.json");
 		testJSONXML(spec, "group", "group.xml", "group.json");
 		testJSONXML(spec, "conditioncheck", "conditioncheck.xml", "conditioncheck.json");
+		testJSONXML(spec, "conservation", "conservation.xml", "conservation.json");
 		testJSONXML(spec, "exhibition", "exhibition.xml", "exhibition.json");
 
 		testJSONXML(spec, "role", "role.xml", "role.json");
@@ -706,6 +708,8 @@ public class TestService extends ServicesBaseClass {
 				"groups_common/title", "This is my group");
 		testPostGetDelete("conditionchecks/", "conditionchecks_common", "conditioncheck.xml",
 				"conditionchecks_common/conditionCheckRefNumber", "CC2013.001");
+		testPostGetDelete("conservation/", "conservation_common", "conservation.xml",
+				"conservation_common/conservationNumber", "CT2015.1");
 		testPostGetDelete("exhibitions/", "exhibitions_common", "exhibition.xml",
 				"exhibitions_common/exhibitionNumber", "EX123");
 
