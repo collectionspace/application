@@ -1,0 +1,8 @@
+<record id="collection-object">
+    <section id="descriptionInformation">
+        <repeat id="materialGroupList/materialGroup">
+            <!-- Add autocomplete -->
+            <field id="material" autocomplete="material-material"/>
+        </repeat>
+    </section>
+</record>
