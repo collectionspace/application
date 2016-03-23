@@ -18,6 +18,6 @@
 		<field id="primaryDisplay" section="bampfa" datatype="boolean" mini="search,list,relate"/>
 		<field id="imageNumber" section="bampfa" datatype="integer" ui-type="validated" mini="number,search,list,relate" ui-search="range"/>
 		<field id="computedOrderNumber" section="bampfa" mini="search,list,relate" ui-type="computed" ui-func="bampfa.computeMediaOrderNumber" ui-args="primaryDisplay,imageNumber" ui-readonly="true"/>
-		<field id="pictionId" section="bampfa" ui-readonly="true"/>
+		<field id="pictionId" section="bampfa" datatype="integer" ui-readonly="true"/>
 	</section>
 </record>
