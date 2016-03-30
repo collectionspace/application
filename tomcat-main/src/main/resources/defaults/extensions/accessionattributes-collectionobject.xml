@@ -1,0 +1,78 @@
+<record id="collection-object" is-extension="true"  generate-services-schema="true">
+  <services-record-path id="accessionattributes">
+    collectionobjects_accessionattributes:http://collectionspace.org/services/collectionobject/domain/accessionattributes,collectionobjects_accessionattributes
+  </services-record-path>
+
+  <section id="descriptionInformation">
+    <section id="accessionAttributesInformation" section="accessionattributes">
+        <field id="flowerColor" section="accessionattributes"/>
+        <field id="fruitColor" section="accessionattributes"/>
+        <field id="securityRisk" section="accessionattributes"/>
+        
+        <field id="propagationHistory" seperate_ui_container="true" section="accessionattributes">
+          <options>
+            <option id="">Please select a value</option>
+            <option id="apomictic-cloning">Apomictic cloning</option>
+            <option id="controlled-breeding">Controlled breeding</option>
+            <option id="derived-asexually">Derived asexually</option>
+            <option id="individual-wild-plant">Individual wild plant</option>
+            <option id="isolated-self-pollinated">Isolated self-pollinated</option>
+            <option id="open-breeding">Open breeding</option>
+            <option id="sexual-reproduction">Sexual reproduction</option>
+            <option id="vegetative-reproduction">Vegetative reproduction</option>
+            <option id="unknown">Unknown</option>
+          </options>
+        </field>
+        
+        <field id="breedingSystem" seperate_ui_container="true" section="accessionattributes">
+          <options>
+            <option id="">Please select a value</option>
+            <option id="agamospermy">Agamospermy</option>
+            <option id="both">Both</option>
+            <option id="female">Female</option>
+            <option id="dioecious-and-unknown-sex">Dioecious and unknown sex</option>
+            <option id="male">Male</option>
+            <option id="monoecious-and-self-compatible">Monoecious and self-compatible</option>
+            <option id="monoecious-and-self-incompatible">Monoecious and self-incompatible</option>
+            <option id="unknown">Unknown</option>
+          </options>
+        </field>
+        
+        <field id="classUse" datatype="boolean" section="accessionattributes"/>
+        <field id="researchUse" datatype="boolean" section="accessionattributes"/>
+        <field id="distribution" datatype="boolean" section="accessionattributes"/>
+        <field id="ignoreRedDot" datatype="boolean" section="accessionattributes"/>
+        <field id="fragrance" datatype="boolean" section="accessionattributes"/>
+
+        <section id="flowers" section="accessionattributes">
+          <field id="flowersJan" datatype="boolean" section="accessionattributes"/>
+          <field id="flowersFeb" datatype="boolean" section="accessionattributes"/>
+          <field id="flowersMar" datatype="boolean" section="accessionattributes"/>
+          <field id="flowersApr" datatype="boolean" section="accessionattributes"/>
+          <field id="flowersMay" datatype="boolean" section="accessionattributes"/>
+          <field id="flowersJun" datatype="boolean" section="accessionattributes"/>
+          <field id="flowersJul" datatype="boolean" section="accessionattributes"/>
+          <field id="flowersAug" datatype="boolean" section="accessionattributes"/>
+          <field id="flowersSep" datatype="boolean" section="accessionattributes"/>
+          <field id="flowersOct" datatype="boolean" section="accessionattributes"/>
+          <field id="flowersNov" datatype="boolean" section="accessionattributes"/>
+          <field id="flowersDec" datatype="boolean" section="accessionattributes"/>
+        </section>
+
+        <section id="fruits" section="accessionattributes">
+          <field id="fruitsJan" datatype="boolean" section="accessionattributes"/>
+          <field id="fruitsFeb" datatype="boolean" section="accessionattributes"/>
+          <field id="fruitsMar" datatype="boolean" section="accessionattributes"/>
+          <field id="fruitsApr" datatype="boolean" section="accessionattributes"/>
+          <field id="fruitsMay" datatype="boolean" section="accessionattributes"/>
+          <field id="fruitsJun" datatype="boolean" section="accessionattributes"/>
+          <field id="fruitsJul" datatype="boolean" section="accessionattributes"/>
+          <field id="fruitsAug" datatype="boolean" section="accessionattributes"/>
+          <field id="fruitsSep" datatype="boolean" section="accessionattributes"/>
+          <field id="fruitsOct" datatype="boolean" section="accessionattributes"/>
+          <field id="fruitsNov" datatype="boolean" section="accessionattributes"/>
+          <field id="fruitsDec" datatype="boolean" section="accessionattributes"/>
+        </section>
+    </section>
+  </section>
+</record>

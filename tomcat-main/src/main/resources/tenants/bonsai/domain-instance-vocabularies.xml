@@ -1,0 +1,51 @@
+<instances>
+    <include src="extensions/livingplant-vocabularies.xml" strip-root="yes"/>
+    <instance id="vocab-futuretreatment">
+        <web-url>futuretreatment</web-url>
+        <title-ref>futuretreatment</title-ref>
+        <title>Future treatment</title>
+        <options>
+            <option id="carving">Carving</option>
+            <option id="deadwood">Deadwood treatment</option>
+            <option id="decandling">Decandling</option>
+            <option id="pinching">Pinching</option>
+            <option id="repotting">Repotting</option>
+            <option id="restyling">Restyling</option>
+            <option id="thinning">Thinning</option>
+            <option id="trimming">Trimming</option>
+            <option id="wiring">Wiring</option>
+        </options>
+    </instance>
+    <instance id="vocab-potstyle">
+        <web-url>potstyle</web-url>
+        <title-ref>potstyle</title-ref>
+        <title>Style of pot</title>
+        <options>
+            <option id="unspecified">Unspecified</option>
+        </options>
+    </instance>
+    <instance id="vocab-treatmentperformed">
+        <web-url>treatmentperformed</web-url>
+        <title-ref>treatmentperformed</title-ref>
+        <title>Treatment Performed</title>
+        <options>
+            <option id="carving">Carving</option>
+            <option id="deadwood">Deadwood treatment</option>
+            <option id="decandling">Decandling</option>
+            <option id="pinching">Pinching</option>
+            <option id="repotting">Repotting</option>
+            <option id="restyling">Restyling</option>
+            <option id="thinning">Thinning</option>
+            <option id="trimming">Trimming</option>
+            <option id="wiring">Wiring</option>
+        </options>
+    </instance>
+    <instance id="vocab-treetype">
+        <web-url>treetype</web-url>
+        <title-ref>treetype</title-ref>
+        <title>Type of tree</title>
+        <options>
+            <option id="unspecified">Unspecified</option>
+        </options>
+    </instance>
+</instances>
