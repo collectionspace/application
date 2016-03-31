@@ -24,5 +24,6 @@
 		<xs:element name="vocabType" type="xs:string"/>
 		<xs:element name="source" type="xs:string"/>
 		<xs:element name="description" type="xs:string"/>
+		<xs:element name="rev" type="xs:integer"/>
 </xs:schema>
 

@@ -97,5 +97,6 @@
 		</field>
         <field id="shortIdentifier" mini="search,list,relate" attributes="GET" services-should-index="true"></field>
         <field id="csid" exists-in-services="false" mini="search,list,relate" attributes="GET"></field>
+		<field id="rev" datatype="integer"/>
     </section>
 </record>

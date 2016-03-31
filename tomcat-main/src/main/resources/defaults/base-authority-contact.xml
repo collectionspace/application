@@ -358,6 +358,7 @@
 			       	<field id="inAuthority"></field>
 			    	<field id="inItem"></field>
 			        <field id="displayName"></field>
+					<field id="rev" datatype="integer"/>
 		    	</section>
                 
             </record>

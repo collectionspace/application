@@ -36,18 +36,17 @@
 	
 	<include src="domain-other-termlist.xml" strip-root="yes"/>
 	
-
     <section id="termListInformation">
     	
-    	<field id="displayName" mini="summary,list" services-should-index="true"></field>
-    	<field id="shortIdentifier" mini="number,list" services-should-index="true"></field>
-    	<field id="vocabType" mini="list"></field>
-    	<field id="name"></field>
-    	<field id="source"></field>
-		<field id="sourcePage"></field>
-    	<field id="description"></field>
-		
-		
+	<field id="displayName" mini="summary,list" services-should-index="true"></field>
+	<field id="shortIdentifier" mini="number,list" services-should-index="true"></field>
+	<field id="vocabType" mini="list"></field>
+	<field id="name"></field>
+	<field id="source"></field>
+	<field id="sourcePage"></field>
+	<field id="description"></field>
+	<field id="rev" datatype="integer"></field>
+			
     <repeat id="usedBys" as-expander="true">
         <field id="usedBy" ui-type="decorated"></field>
     </repeat>

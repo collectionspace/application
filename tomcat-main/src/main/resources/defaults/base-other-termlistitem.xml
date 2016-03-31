@@ -31,6 +31,7 @@
     <section id="termListItemInformation">
     	<field id="_subrecordcsid"></field> <!-- What is this field? -->
     	<field id="inAuthority" services-should-index="true"></field>
+		<field id="rev" datatype="integer"/>
 		<field id="displayName" mini="summary" services-should-index="true"></field>
 		<field id="source"></field>
 		<field id="sourcePage"></field>
