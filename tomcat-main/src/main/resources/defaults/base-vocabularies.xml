@@ -57,6 +57,6 @@
                     <field id="sourcePage"></field>
                     <field id="shortIdentifier" mini="search,list,relate" attributes="GET"></field>
                     <field id="csid" exists-in-services="false" mini="search,list,relate" attributes="GET"></field>
-					<field id="rev" datatype="integer"/>
+					<field id="rev" mini="list" datatype="integer"/>
                 </section>
             </record>

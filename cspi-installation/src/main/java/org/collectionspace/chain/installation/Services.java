@@ -723,6 +723,11 @@ public class Services {
 			Element validatorHandlerElement = el.addElement(new QName("validatorHandler", nameSpace));
 			validatorHandlerElement.addText(validatorHandlerName);
 			
+			//<service:clientHandler>
+			String clientHandlerName = r.getServicesClientHandler(isAuthority);
+			Element clientHandlerElement = el.addElement(new QName("clientHandler", nameSpace));
+			clientHandlerElement.addText(clientHandlerName);		
+			
 			//<service:initHandler> which fields need to be modified in the nuxeo db
 			doInitHandler(r, el, this.nsservices, isAuthority);
 	

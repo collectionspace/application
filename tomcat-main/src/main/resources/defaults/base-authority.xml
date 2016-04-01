@@ -6,6 +6,6 @@
 	    <field id="vocabType" mini="list"/>
 	    <field id="source"/>
 	    <field id="description"/>
-		<field id="rev" datatype="integer"/>
+		<field id="rev" mini="list" datatype="integer"/>
     </section>
 </record>

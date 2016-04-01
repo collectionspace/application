@@ -854,6 +854,7 @@ public class Record implements FieldParent {
 
 	/*
 	 * Gets the Service's document model validation handler by using standard naming conventions.
+	 * For example, org.collectionspace.services.collectionobject.nuxeo.CollectionObjectValidatorHandler
 	 */	
 	public String getServicesValidatorHandler(Boolean isAuthority) {
 		String result = utils.getString("services-validator");
@@ -869,6 +870,25 @@ public class Record implements FieldParent {
 
 		return result;
 	}
+	
+	//
+	// For example, org.collectionspace.services.client.CollectionObjectClient
+	//
+	public String getServicesClientHandler(Boolean isAuthority) {
+		String result = utils.getString("services-client");
+
+		if (result == null) {
+			result = "org.collectionspace.services.client." + utils.getString("services-tenant-singular")
+					+ "Client";
+		}
+		
+		if (isAuthority == true) {
+			result = getAuthorityForm(result);
+		}
+
+		return result;
+	}
+	
 
 	public String getServicesRepositoryDomain() {
 		return utils.getString("services-repo-domain");
