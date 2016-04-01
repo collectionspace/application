@@ -1,4 +1,6 @@
-<record id="acquisition">
+<record id="acquisition" is-extension="true">
+	<services-record-path id="pahma">acquisitions_pahma:http://collectionspace.org/services/acquisition/local/pahma,acquisitions_pahma</services-record-path>
+
 	<section id="acquisitionInformation">
 		<field id="acquisitionReferenceNumber">
 			<!-- Change options -->
@@ -80,6 +82,13 @@
 					<blank-value>(none selected)</blank-value>
 				</enum>
 			</field>
+		</repeat>
+		
+		<!-- Local fields -->
+		
+		<repeat id="acquisitionDonorGroupList/acquisitionDonorGroup" section="pahma">
+			<field id="donor" section="pahma" ui-search="repeatable" autocomplete="person-person,organization-organization"/>
+			<field id="donorAnon" section="pahma" datatype="boolean"/>
 		</repeat>
 	</section>
 </record>
