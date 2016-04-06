@@ -1,0 +1,3 @@
+<root>
+    <include src="extensions/naturalhistory-vocabularies.xml" strip-root="yes" />
+</root>

@@ -1,0 +1,26 @@
+<instances>
+    <instance id="vocab-majortaxongroup">
+        <web-url>majortaxongroup</web-url>
+        <title-ref>majortaxongroup</title-ref>
+        <title>Major Taxonomic Group</title>
+        <options>
+            <option id="spermatophytes">Spermatophytes</option>
+            <option id="pteridophytes">Pteridophytes</option>
+            <option id="algae">Algae</option>
+            <option id="bryophytes">Bryophytes</option>
+            <option id="fungi">Fungi</option>
+            <option id="lichen">Lichen</option>
+            <option id="na">n/a</option>
+            <option id="misc">misc</option>
+        </options>
+    </instance>
+    <instance id="vocab-objectkind">
+        <web-url>objectkind</web-url>
+        <title-ref>objectkind</title-ref>
+        <title>Object Kind</title>
+        <options>
+            <option id="sheet">Sheet</option>
+            <option id="jar">Jar</option>
+        </options>
+    </instance>
+</instances>
