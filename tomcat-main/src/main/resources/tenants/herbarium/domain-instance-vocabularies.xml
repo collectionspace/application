@@ -1,3 +1,14 @@
 <root>
     <include src="extensions/naturalhistory-vocabularies.xml" strip-root="yes" />
+
+    <instance id="vocab-transportmethod">
+        <web-url>transportmethod</web-url>
+        <title-ref>transportmethod</title-ref>
+        <title>Transport Method</title>
+        <options>
+            <option id="surface">surface</option>
+            <option id="hand">hand-carried</option>
+            <option id="air">air</option>
+        </options>
+    </instance>
 </root>
