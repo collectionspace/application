@@ -23,4 +23,52 @@
             <option id="jar">Jar</option>
         </options>
     </instance>
+    <instance id="vocab-taxonqualifier">
+        <web-url>taxonqualifier</web-url>
+        <title-ref>taxonqualifier</title-ref>
+        <title>Taxonomic Identification Qualifier</title>
+        <options>
+            <option id="unknown">unknown</option>
+            <option id="aff">aff.</option>
+            <option id="auct">auct.</option>
+            <option id="cf">cf.</option>
+            <option id="cv">cv.</option>
+            <option id="complex">complex</option>
+            <option id="fide">fide</option>
+            <option id="forsan">forsan</option>
+            <option id="group">group</option>
+            <option id="hybrid">hybrid (X)</option>
+            <option id="indet">indet.</option>
+            <option id="ined">ined.</option>
+            <option id="intermediate">intermediate</option>
+            <option id="sensu">sensu</option>
+            <option id="sensulato">sensu lato</option>
+            <option id="sensustricto">sensu stricto</option>
+            <option id="infrageneric">unnamed infrageneric hybrid/intermediate</option>
+            <option id="infrageneric_unknown">unnamed infrageneric hybrid/intermediate - parents unknown</option>
+            <option id="intergeneric">unnamed intergeneric hybrid/intermediate</option>
+            <option id="intergeneric_unknown">unnamed intergeneric hybrid/intermediate - parents unknown</option>
+            <option id="infraspecific">unnamed infraspecific hybrid/intermediate</option>
+            <option id="infraspecific_unknown">unnamed infraspecific hybrid/intermediate - parents unknown</option>
+            <option id="vide">vide</option>
+            <option id="question">? </option> <!-- display name must have at least 2 characters -->
+            <option id="exclamation">! </option> <!-- display name must have at least 2 characters -->
+        </options>
+    </instance>
+    <instance id="vocab-taxonkind">
+        <web-url>taxonkind</web-url>
+        <title-ref>taxonkind</title-ref>
+        <title>Taxonomic Identification Kind</title>
+        <options>
+            <option id="original_label">original label determination</option>
+            <option id="fide">fide</option>
+            <option id="nomenclatural_change">nomenclatural change</option>
+            <option id="taxonomic_change">taxonomic change</option>
+            <option id="annotation_filed">annotation as filed</option>
+            <option id="previously_filed">previously filed as</option>
+            <option id="id_or_reid">identification or reidentification</option>
+            <option id="variant">variant name</option>
+            <option id="stet">stet</option>
+        </options>
+    </instance>
 </instances>
