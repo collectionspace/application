@@ -4,10 +4,15 @@
             "default": {},
             "type": "object"
         },
+        "termsUsed": {
+            "default": [],
+            "type": "array"
+        },
         "csid": {"type": "string"},
         "fields": {
             "properties": {
                 "tenantId": {"type": "string"},
+                "rev": {"type": "string"},
                 "citationGroup": {
                     "items": {
                         "properties": {
@@ -42,17 +47,36 @@
                 "updatedBy": {"type": "string"},
                 "shortIdentifier": {"type": "string"},
                 "updatedAt": {"type": "date"},
-                "inAuthority": {"type": "string"},
-                "createdBy": {"type": "string"},
                 "scopeNote": {"type": "string"},
+                "createdBy": {"type": "string"},
+                "inAuthority": {"type": "string"},
                 "conceptTermGroup": {
                     "items": {
                         "properties": {
+                            "termPrefForLang": {
+                                "default": false,
+                                "type": "boolean"
+                            },
                             "termName": {"type": "string"},
+                            "_primary": {
+                                "default": true,
+                                "type": "boolean"
+                            },
+                            "termType": {
+                                "default": "",
+                                "type": "string"
+                            },
+                            "termDisplayName": {"type": "string"},
                             "termSource": {"type": "string"},
+                            "termFormattedDisplayName": {"type": "string"},
+                            "termStatus": {
+                                "default": "provisional",
+                                "type": "string"
+                            },
                             "termSourceID": {"type": "string"},
+                            "termQualifier": {"type": "string"},
+                            "termSourceDetail": {"type": "string"},
                             "termSourceNote": {"type": "string"},
-                            "termFormattedDisplayName": {"type": "string"}, 
                             "termLanguage": {
                                 "default": "",
                                 "type": "string"
@@ -60,26 +84,7 @@
                             "historicalStatus": {
                                 "default": "current",
                                 "type": "string"
-                            },
-                            "termPrefForLang": {
-                                "default": false,
-                                "type": "boolean"
-                            },
-                            "_primary": {
-                                "default": true,
-                                "type": "boolean"
-                            },
-                            "termDisplayName": {"type": "string"},
-                            "termType": {
-                                "default": "",
-                                "type": "string"
-                            },
-                            "termStatus": {
-                                "default": "provisional",
-                                "type": "string"
-                            },
-                            "termQualifier": {"type": "string"},
-                            "termSourceDetail": {"type": "string"}
+                            }
                         },
                         "type": "object"
                     },
@@ -143,10 +148,6 @@
                 }
             },
             "type": "object"
-      }, 
-      "termsUsed": {
-        "default": [], 
-        "type": "array"
         }
     },
     "type": "object"

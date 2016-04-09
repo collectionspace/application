@@ -17,6 +17,7 @@
                     },
                     "type": "array"
                 },
+                "rev": {"type": "string"},
                 "source": {"type": "string"},
                 "description": {"type": "string"},
                 "name": {"type": "string"},
@@ -28,6 +29,7 @@
                                 "default": true,
                                 "type": "boolean"
                             },
+                            "rev": {"type": "string"},
                             "_subrecordcsid": {"type": "string"},
                             "inAuthority": {"type": "string"},
                             "source": {"type": "string"},
