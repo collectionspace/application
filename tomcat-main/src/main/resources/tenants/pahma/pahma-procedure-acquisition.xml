@@ -88,7 +88,7 @@
 		
 		<repeat id="acquisitionDonorGroupList/acquisitionDonorGroup" section="pahma">
 			<field id="donor" section="pahma" ui-search="repeatable" autocomplete="person-person,organization-organization"/>
-			<field id="donorAnon" section="pahma" datatype="boolean"/>
+			<field id="donorAnon" section="pahma" ui-search="repeatable" datatype="boolean"/>
 		</repeat>
 	</section>
 </record>
