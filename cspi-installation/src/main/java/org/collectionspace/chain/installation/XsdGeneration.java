@@ -77,8 +77,9 @@ public class XsdGeneration {
 	private static final String SERVICE_NAME_LOWERCASE_VAR = "${ServiceName_LowerCase}";	
 	
 	private static final String DOCTYPE_DEFAULT_LIFECYCLE = "cs_default";
-        private static final String DOCTYPE_LOCKING_LIFECYCLE = "cs_locking";
-        private static final String DOCTYPE_LIFECYCLE_VAR = "${Lifecycle}";
+    private static final String DOCTYPE_LOCKING_LIFECYCLE = "cs_locking"; // Used for Movement records
+    private static final String DOCTYPE_SAS_LIFECYCLE = "cs_sas"; // Used for Shared Authority records
+    private static final String DOCTYPE_LIFECYCLE_VAR = "${Lifecycle}";
 	
 	private static final String BUNDLE_SYM_NAME = "${BundleSymbolicName}";
 	private static final String AUTH_BUNDLE_SYM_NAME = "${AuthBundleSymbolicName}";
@@ -330,6 +331,7 @@ public class XsdGeneration {
 			File outputDir) throws Exception {
 		boolean isAuthorityItemType = record.isAuthorityItemType();
                 boolean supportsLocking = record.supportsLocking();
+                boolean supportsSAS = record.supportsSAS();
                 String serviceName = record.getServicesTenantSg();
 		String tenantName = record.getSpec().getAdminData().getTenantName();
 		String docTypeName = record.getServicesTenantDoctype(false); // 'false' means we're not treating the record as an authority
@@ -363,13 +365,18 @@ public class XsdGeneration {
 				HashMap<String, String> substitutionMap = new HashMap<String, String>();
 				substitutionMap.put(SERVICE_NAME_VAR, serviceName);
 				substitutionMap.put(SERVICE_NAME_LOWERCASE_VAR, serviceName.toLowerCase());
-                                if (supportsLocking) {
-                                    substitutionMap.put(DOCTYPE_LIFECYCLE_VAR, DOCTYPE_LOCKING_LIFECYCLE);
-                                } else {
-                                    substitutionMap.put(DOCTYPE_LIFECYCLE_VAR, DOCTYPE_DEFAULT_LIFECYCLE);
-                                }
-                                substitutionMap.put(DOCTYPE_NAME_VAR, docTypeName);
+				// Set the document workflow lifecycle type
+                if (supportsLocking) {
+                    substitutionMap.put(DOCTYPE_LIFECYCLE_VAR, DOCTYPE_LOCKING_LIFECYCLE);
+                } else if (supportsSAS) {
+                    substitutionMap.put(DOCTYPE_LIFECYCLE_VAR, DOCTYPE_SAS_LIFECYCLE);
+                } else {
+                    substitutionMap.put(DOCTYPE_LIFECYCLE_VAR, DOCTYPE_DEFAULT_LIFECYCLE);
+                }
+                // Set the resource/document type names
+                substitutionMap.put(DOCTYPE_NAME_VAR, docTypeName);
 				substitutionMap.put(DOCTYPE_NAME_LOWERCASE_VAR, docTypeName.toLowerCase());
+				// Authority items require additional names
 				if (isAuthorityItemType == true) {
 					String authoritySchemaName = FilenameUtils.removeExtension(getAuthoritiesCommonName(record));
 					substitutionMap.put(AUTHORITY_SCHEMA_NAME_VAR, authoritySchemaName.toLowerCase());		
