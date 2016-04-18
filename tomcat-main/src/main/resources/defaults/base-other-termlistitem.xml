@@ -31,7 +31,6 @@
     <section id="termListItemInformation">
     	<field id="_subrecordcsid"></field> <!-- What is this field? -->
     	<field id="inAuthority" services-should-index="true"></field>
-		<field id="rev" mini="list" datatype="integer"/>
 		<field id="displayName" mini="summary" services-should-index="true"></field>
 		<field id="source"></field>
 		<field id="sourcePage"></field>
@@ -44,6 +43,11 @@
                 <option id="inactive">Inactive</option>
             </options>
 		</field>
+		<!-- SAS related fields -->
+		<field id="rev" mini="list" datatype="integer"/>
+		<field id="sas" mini="list" datatype="boolean"/>
+		<field id="proposed" mini="list" datatype="boolean"/>
+		<field id="deprecated" mini="list" datatype="boolean"/>
 	</section>
 	
 </record>
