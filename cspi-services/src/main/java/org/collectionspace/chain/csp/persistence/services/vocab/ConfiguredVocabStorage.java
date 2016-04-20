@@ -300,7 +300,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				if(!VOCAB_WILDCARD.equals(vocab)) {
 					vocab = RefName.shortIdToPath(vocab);
 				}
-				csid=parts[1];	
+				csid = (parts.length > 1) ? parts[1] : null;
 				num = 2;
 			}		
 			
@@ -324,6 +324,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		}
 		
 	}
+	
 	private String generateURL(String vocab,String path,String extrapath,Record myr) throws ExistException, ConnectionException, UnderlyingStorageException {
 		String url = myr.getServicesURL()+"/"+vocab+"/items/"+path+extrapath;
 		return url;
@@ -331,14 +332,89 @@ public class ConfiguredVocabStorage extends GenericStorage {
 	
 	public JSONObject simpleRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String vocab, String csid) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException{
 		JSONObject out=new JSONObject();
-		out=get(storage, creds,cache,vocab,csid,conn.getIMSBase());
-		//cache.setCached(getClass(),new String[]{"csidfor",vocab,csid},out.get("csid"));//cos csid might be a refname at this point..
-		//cache.setCached(getClass(),new String[]{"namefor",vocab,csid},out.get(getDisplayNameKey()));
-		//cache.setCached(getClass(),new String[]{"reffor",vocab,csid},out.get("refid"));
-		//cache.setCached(getClass(),new String[]{"shortId",vocab,csid},out.get("shortIdentifier"));
+		
+		if (csid == null) {
+			out = getInstance(storage, creds, cache, vocab, conn.getIMSBase());
+		}
+		else {
+			out=get(storage, creds,cache,vocab,csid,conn.getIMSBase());
+			//cache.setCached(getClass(),new String[]{"csidfor",vocab,csid},out.get("csid"));//cos csid might be a refname at this point..
+			//cache.setCached(getClass(),new String[]{"namefor",vocab,csid},out.get(getDisplayNameKey()));
+			//cache.setCached(getClass(),new String[]{"reffor",vocab,csid},out.get("refid"));
+			//cache.setCached(getClass(),new String[]{"shortId",vocab,csid},out.get("shortIdentifier"));
+		}
+		
 		return out;
 	}
 	
+	private JSONObject getInstance(ContextualisedStorage storage, CSPRequestCredentials creds, CSPRequestCache cache, String vocab, String ims_url) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException {
+		String url = this.r.getServicesURL()+ "/" + vocab;
+		String csid = "";
+		JSONObject out = new JSONObject();
+		String softurl = url;
+		
+		if(r.hasSoftDeleteMethod()){
+			softurl = softpath(url);
+		}
+		if(r.hasHierarchyUsed("screen")){
+			softurl = hierarchicalpath(softurl);
+		}
+			
+		ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,softurl,null,creds,cache);
+
+		if (doc.getStatus() == 404) {
+			throw new ExistException("Does not exist " + softurl);
+		}
+		
+		if (doc.getStatus() == 403) {
+			// permission error
+			return out;
+		}
+		
+		if (doc.getStatus () > 299) {
+			throw new UnderlyingStorageException("Could not retrieve vocabulary status="+doc.getStatus(),
+					doc.getStatus(), softurl);
+		}
+		
+		String name = null;
+		String refid = null;
+		String shortIdentifier = "";
+		
+		for(String section : r.getServicesRecordPathKeys()) {
+			String path = r.getServicesInstancesPath(section);
+			
+			if (path == null) {
+				path = r.getServicesRecordPath(section);
+			}
+
+			String[] record_path = path.split(":",2);
+			String[] tag_path = record_path[1].split(",",2);
+			Document result = doc.getDocument(record_path[0]);
+	
+			if("common".equals(section)) { // XXX hardwired :(
+				name = result.selectSingleNode(tag_path[1] + "/displayName").getText();
+				
+				if (result.selectSingleNode(tag_path[1]+"/shortIdentifier") != null) {
+					shortIdentifier = result.selectSingleNode(tag_path[1] + "/shortIdentifier").getText();
+				}
+				
+				refid = result.selectSingleNode(tag_path[1] + "/refName").getText();
+				
+				csid=result.selectSingleNode(tag_path[1]+"/csid").getText();
+			}
+			else{
+				XmlJsonConversion.convertToJson(out, r, result, "GET", section, csid, ims_url);
+			}
+		}
+		
+		out.put("displayName", name);
+		out.put("csid", csid);
+		out.put("refid", refid);
+		out.put("shortIdentifier", shortIdentifier);
+		
+		return out;
+	}
+
 	private JSONObject get(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String vocab,String csid,String ims_url) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException {
 		String url = generateURL(vocab,csid,"",this.r);
 		return get(storage,creds,cache,url,ims_url);

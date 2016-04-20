@@ -6,7 +6,9 @@
  */
 package org.collectionspace.chain.csp.webui.nuispec;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
@@ -20,6 +22,7 @@ import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.chain.csp.schema.Schemas;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.schema.UISpecRunContext;
+import org.collectionspace.chain.csp.webui.authorities.VocabulariesRead;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
@@ -38,6 +41,7 @@ public class UISchema extends SchemaStructure implements WebMethod {
 	protected Record record;
 	protected Storage storage;
 	private Schemas schema;
+	private Map<String, String> workflowStateCache = new HashMap<String, String>();
 
 	public UISchema(Record r, String sview) {
 		super(r, sview);
@@ -535,6 +539,10 @@ public class UISchema extends SchemaStructure implements WebMethod {
 								orderProp.put("type", "integer");
 								orderProp.put("default", cardinal);
 								instanceProps.put("order", orderProp);
+								JSONObject workflowState = new JSONObject();
+								workflowState.put("type", "string");
+								workflowState.put("default", getWorkflowState(storage, ins));
+								instanceProps.put("workflowState", workflowState);
 								instanceInfo.put("type", "object");
 								instanceInfo.put("properties", instanceProps);
 								authInfoProps.put(ins.getWebURL(), instanceInfo);
@@ -679,6 +687,33 @@ public class UISchema extends SchemaStructure implements WebMethod {
 		}
 		return out;
 	}
+	
+	private String getWorkflowState(Storage storage, Instance authorityInstance) throws UIException {
+		String cacheKey = authorityInstance.getWebURL();
+		
+		// Cache workflow states by instance id. The app layer already expects instance ids to be
+		// unique across authorities in other places.
+		
+		if (workflowStateCache.containsKey(cacheKey)) {
+			return workflowStateCache.get(cacheKey);
+		}
+		
+		VocabulariesRead vocabulariesRead = new VocabulariesRead(authorityInstance, VocabulariesRead.GET_BASIC_INFO);
+		JSONObject instanceData = vocabulariesRead.getInstance(storage);
+		
+		String workflowState = null;
+		
+		try {
+			workflowState = instanceData.getJSONObject("fields").getString("workflow");
+		}
+		catch(JSONException e) {
+		}
+
+		workflowStateCache.put(cacheKey, workflowState);
+		
+		return workflowState;
+	}
+	
 	/**
 	 * Create the search uischemas
 	 * @param storage
