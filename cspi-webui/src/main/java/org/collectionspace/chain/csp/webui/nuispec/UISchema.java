@@ -704,6 +704,14 @@ public class UISchema extends SchemaStructure implements WebMethod {
 		String workflowState = null;
 		
 		try {
+			if (instanceData.has("isError") && instanceData.getBoolean("isError")) {
+				return null;
+			}
+		}
+		catch(JSONException e) {
+		}
+
+		try {
 			workflowState = instanceData.getJSONObject("fields").getString("workflow");
 		}
 		catch(JSONException e) {
