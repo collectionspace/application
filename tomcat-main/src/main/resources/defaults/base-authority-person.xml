@@ -1,6 +1,6 @@
 <record id="person" type="authority" cms-type="default" generate-services-schema="true"
 		services-prefetch-fields="persons_common:personTermGroupList/0/termDisplayName,persons_common:refName,persons_common:shortIdentifier">
-                <terms-used>true</terms-used>
+    <terms-used>true</terms-used>
     <web-url>person</web-url>
     
     <services-tenant-auth-singular>Personauthority</services-tenant-auth-singular>
@@ -18,7 +18,6 @@
     <hassoftdelete>true</hassoftdelete>
 	<supportsSharedAuthorityServer>true</supportsSharedAuthorityServer>
 
-    
     <structures>
         <structure id="search">
             <view>
