@@ -657,13 +657,14 @@ public class Services {
 	 * we need to create the two corresponding service bindings from the one Application record.
 	 */
 	private void addAuthorities(Record r, Element el, String serviceBindingVersion) {		
-		// Add the bindings for the Authority/Vocabulary item
+		// Add the bindings for the Authority/Vocabulary item.
 		Element bindingsForAuthorityItemx = el.addElement(new QName("serviceBindings", nstenant));
 		bindingsForAuthorityItemx.addAttribute("name", r.getServicesTenantPl());
 		bindingsForAuthorityItemx.addAttribute("id", r.getServicesTenantPl());
 		bindingsForAuthorityItemx.addAttribute("type", RECORD_TYPE_AUTHORITY);
-		
 		bindingsForAuthorityItemx.addAttribute("version", serviceBindingVersion);
+		bindingsForAuthorityItemx.addAttribute(Record.SUPPORTS_REPLICATING, Boolean.toString(r.supportsReplicating()));
+
 		addServiceBinding(r, bindingsForAuthorityItemx, nsservices, false, serviceBindingVersion);
 		if (log.isDebugEnabled() == true) {
 			this.writeToFile(r, bindingsForAuthorityItemx, false);
@@ -674,8 +675,9 @@ public class Services {
 		bindingsForAuthority.addAttribute("name", r.getServicesTenantAuthPl());
 		bindingsForAuthority.addAttribute("id", r.getServicesTenantAuthPl());
 		bindingsForAuthority.addAttribute("type", RECORD_TYPE_UTILITY);
-		
 		bindingsForAuthority.addAttribute("version", serviceBindingVersion);
+		bindingsForAuthority.addAttribute(Record.SUPPORTS_REPLICATING, Boolean.toString(r.supportsReplicating()));
+
 		addServiceBinding(r, bindingsForAuthority, nsservices, true, serviceBindingVersion);
 		if (log.isDebugEnabled() == true) {
 			this.writeToFile(r, bindingsForAuthority, true);

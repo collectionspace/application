@@ -45,7 +45,8 @@
 	<field id="source"></field>
 	<field id="sourcePage"></field>
 	<field id="description"></field>
-	<field id="rev" mini="list" datatype="integer"></field>
+	<field id="rev" mini="list" datatype="integer"/>
+	<field id="sas" mini="list" datatype="boolean"/>
 			
     <repeat id="usedBys" as-expander="true">
         <field id="usedBy" ui-type="decorated"></field>
