@@ -78,7 +78,7 @@ public class XsdGeneration {
 	
 	private static final String DOCTYPE_DEFAULT_LIFECYCLE = "cs_default";
     private static final String DOCTYPE_LOCKING_LIFECYCLE = "cs_locking"; // Used for Movement records
-    private static final String DOCTYPE_SAS_LIFECYCLE = "cs_sas"; // Used for Shared Authority records
+    private static final String DOCTYPE_REPLICATING_LIFECYCLE = "cs_replicating"; // Used for Shared Authority records
     private static final String DOCTYPE_LIFECYCLE_VAR = "${Lifecycle}";
 	
 	private static final String BUNDLE_SYM_NAME = "${BundleSymbolicName}";
@@ -331,7 +331,7 @@ public class XsdGeneration {
 			File outputDir) throws Exception {
 		boolean isAuthorityItemType = record.isAuthorityItemType();
                 boolean supportsLocking = record.supportsLocking();
-                boolean supportsSAS = record.supportsSAS();
+                boolean supportsReplicating = record.supportsReplicating();
                 String serviceName = record.getServicesTenantSg();
 		String tenantName = record.getSpec().getAdminData().getTenantName();
 		String docTypeName = record.getServicesTenantDoctype(false); // 'false' means we're not treating the record as an authority
@@ -368,8 +368,8 @@ public class XsdGeneration {
 				// Set the document workflow lifecycle type
                 if (supportsLocking) {
                     substitutionMap.put(DOCTYPE_LIFECYCLE_VAR, DOCTYPE_LOCKING_LIFECYCLE);
-                } else if (supportsSAS) {
-                    substitutionMap.put(DOCTYPE_LIFECYCLE_VAR, DOCTYPE_SAS_LIFECYCLE);
+                } else if (supportsReplicating) {
+                    substitutionMap.put(DOCTYPE_LIFECYCLE_VAR, DOCTYPE_REPLICATING_LIFECYCLE);
                 } else {
                     substitutionMap.put(DOCTYPE_LIFECYCLE_VAR, DOCTYPE_DEFAULT_LIFECYCLE);
                 }

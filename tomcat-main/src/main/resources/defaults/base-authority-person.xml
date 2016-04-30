@@ -16,7 +16,7 @@
     <services-url>personauthorities</services-url>
     <authority-vocab-type>PersonAuthority</authority-vocab-type>
     <hassoftdelete>true</hassoftdelete>
-	<supportsSharedAuthorityServer>true</supportsSharedAuthorityServer>
+	<supportsReplicating>true</supportsReplicating>
 
     <structures>
         <structure id="search">

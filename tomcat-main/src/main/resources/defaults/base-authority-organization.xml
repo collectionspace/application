@@ -16,7 +16,7 @@
     <services-url>orgauthorities</services-url>
     <authority-vocab-type>OrgAuthority</authority-vocab-type>
     <hassoftdelete>true</hassoftdelete>
-    <supportsSharedAuthorityServer>true</supportsSharedAuthorityServer>
+    <supportsReplicating>true</supportsReplicating>
     
     <structures>
         <structure id="search">

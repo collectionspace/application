@@ -663,6 +663,7 @@ public class Services {
 		bindingsForAuthorityItemx.addAttribute("id", r.getServicesTenantPl());
 		bindingsForAuthorityItemx.addAttribute("type", RECORD_TYPE_AUTHORITY);
 		bindingsForAuthorityItemx.addAttribute("version", serviceBindingVersion);
+		bindingsForAuthorityItemx.addAttribute(Record.SUPPORTS_REPLICATING, Boolean.toString(r.supportsReplicating()));
 
 		addServiceBinding(r, bindingsForAuthorityItemx, nsservices, false, serviceBindingVersion);
 		if (log.isDebugEnabled() == true) {
@@ -675,7 +676,7 @@ public class Services {
 		bindingsForAuthority.addAttribute("id", r.getServicesTenantAuthPl());
 		bindingsForAuthority.addAttribute("type", RECORD_TYPE_UTILITY);
 		bindingsForAuthority.addAttribute("version", serviceBindingVersion);
-		bindingsForAuthorityItemx.addAttribute(Record.SUPPORTS_SAS, Boolean.toString(r.supportsSAS()));
+		bindingsForAuthority.addAttribute(Record.SUPPORTS_REPLICATING, Boolean.toString(r.supportsReplicating()));
 
 		addServiceBinding(r, bindingsForAuthority, nsservices, true, serviceBindingVersion);
 		if (log.isDebugEnabled() == true) {
