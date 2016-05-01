@@ -244,12 +244,16 @@
                     "default": "",
                     "type": "string"
                 },
+                "deprecated": {
+                    "default": false,
+                    "type": "boolean"
+                },
                 "vCoordinates": {"type": "string"},
-                "vLatitude": {"type": "string"},
                 "vUnitofMeasure": {
                     "default": "",
                     "type": "string"
                 },
+                "vLatitude": {"type": "string"},
                 "placeGeoRefGroup": {
                     "items": {
                         "properties": {
@@ -357,8 +361,16 @@
                 "inAuthority": {"type": "string"},
                 "broaderContext": {"type": "string"},
                 "vElevation": {"type": "string"},
+                "sas": {
+                    "default": false,
+                    "type": "boolean"
+                },
                 "minDepthInMeters": {"type": "float"},
                 "refName": {"type": "string"},
+                "proposed": {
+                    "default": false,
+                    "type": "boolean"
+                },
                 "placeID": {"type": "string"},
                 "equivalentContexts": {
                     "items": {

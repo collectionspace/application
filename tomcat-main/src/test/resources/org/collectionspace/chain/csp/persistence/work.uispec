@@ -155,10 +155,84 @@
     },
     "recordEditor": {
         ".csc-work-publisher-label": {"messagekey": "work-publisherLabel"},
-        ".csc-work-tenantId-label": {"messagekey": "work-tenantIdLabel"},
-        ".csc-work-coreInformation-label": {"messagekey": "work-coreInformationLabel"},
-        ".csc-work-tenantId": "${fields.tenantId}",
         ".csc-work-uri": "${fields.uri}",
+        ".csc-work-creatorType-label": {"messagekey": "work-creatorTypeLabel"},
+        ".csc-work-rev-label": {"messagekey": "work-revLabel"},
+        ".csc-work-deprecated-label": {"messagekey": "work-deprecatedLabel"},
+        ".csc-work-createdAt-label": {"messagekey": "work-createdAtLabel"},
+        ".csc-work-inAuthority": "${fields.inAuthority}",
+        ".csc-work-updatedBy-label": {"messagekey": "work-updatedByLabel"},
+        ".csc-work-workType-label": {"messagekey": "work-workTypeLabel"},
+        ".csc-work-updatedAt": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.updatedAt}"
+        },
+        ".csc-work-updatedAt-label": {"messagekey": "work-updatedAtLabel"},
+        ".csc-work-shortIdentifier-label": {"messagekey": "work-shortIdentifierLabel"},
+        ".csc-work-preferredWork-label": {"messagekey": "work-preferredWorkLabel"},
+        ".csc-workDateGroup-workDate": {"decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {"expander": {
+                    "tree": {".csc-workDateGroup-workDate": {
+                        "decorators": [{
+                            "func": "cspace.structuredDate",
+                            "type": "fluid",
+                            "options": {
+                                "root": "{row}",
+                                "elPath": "dateDisplayDate",
+                                "elPaths": {
+                                    "dateEarliestSingleQualifier": "dateEarliestSingleQualifier",
+                                    "scalarValuesComputed": "scalarValuesComputed",
+                                    "dateLatestDay": "dateLatestDay",
+                                    "dateLatestYear": "dateLatestYear",
+                                    "dateAssociation": "dateAssociation",
+                                    "dateEarliestSingleEra": "dateEarliestSingleEra",
+                                    "dateDisplayDate": "dateDisplayDate",
+                                    "dateEarliestSingleCertainty": "dateEarliestSingleCertainty",
+                                    "dateLatestEra": "dateLatestEra",
+                                    "dateEarliestSingleQualifierValue": "dateEarliestSingleQualifierValue",
+                                    "dateLatestCertainty": "dateLatestCertainty",
+                                    "dateEarliestSingleYear": "dateEarliestSingleYear",
+                                    "dateLatestQualifier": "dateLatestQualifier",
+                                    "dateLatestQualifierValue": "dateLatestQualifierValue",
+                                    "dateEarliestSingleQualifierUnit": "dateEarliestSingleQualifierUnit",
+                                    "datePeriod": "datePeriod",
+                                    "dateEarliestScalarValue": "dateEarliestScalarValue",
+                                    "dateLatestMonth": "dateLatestMonth",
+                                    "dateNote": "dateNote",
+                                    "dateLatestScalarValue": "dateLatestScalarValue",
+                                    "dateLatestQualifierUnit": "dateLatestQualifierUnit",
+                                    "dateEarliestSingleDay": "dateEarliestSingleDay",
+                                    "dateEarliestSingleMonth": "dateEarliestSingleMonth"
+                                }
+                            }
+                        }],
+                        "value": "${{row}.dateDisplayDate}"
+                    }},
+                    "type": "fluid.noexpand"
+                }},
+                "elPath": "fields.workDateGroup"
+            }
+        }]},
+        ".csc-work-shortIdentifier": "${fields.shortIdentifier}",
+        ".csc-work-workHistoryNote": "${fields.workHistoryNote}",
+        ".csc-work-deprecatedRefName-label": {"messagekey": "work-deprecatedRefNameLabel"},
+        ".csc-work-deprecatedRefName": "${fields.deprecatedRefName}",
+        ".csc-work-updatedBy": "${fields.updatedBy}",
+        ".csc-work-rev": "${fields.rev}",
+        ".csc-work-sas": "${fields.sas}",
+        ".csc-work-csid": "${fields.csid}",
+        ".csc-work-otherInformation-label": {"messagekey": "work-otherInformationLabel"},
+        ".csc-work-workHistoryNote-label": {"messagekey": "work-workHistoryNoteLabel"},
+        ".csc-work-tenantId-label": {"messagekey": "work-tenantIdLabel"},
+        ".csc-work-proposed": "${fields.proposed}",
+        ".csc-work-tenantId": "${fields.tenantId}",
+        ".csc-work-coreInformation-label": {"messagekey": "work-coreInformationLabel"},
         ".csc-work-creatorGroup": {"decorators": [{
             "func": "cspace.makeRepeatable",
             "type": "fluid",
@@ -191,7 +265,7 @@
                 "elPath": "fields.creatorGroup"
             }
         }]},
-        ".csc-work-csid-label": {"messagekey": "work-csidLabel"},
+        ".csc-work-refName": "${fields.refName}",
         ".csc-work-createdAt": {
             "decorators": [{
                 "func": "cspace.datePicker",
@@ -199,25 +273,13 @@
             }],
             "value": "${fields.createdAt}"
         },
-        ".csc-work-refName": "${fields.refName}",
-        ".csc-work-creatorType-label": {"messagekey": "work-creatorTypeLabel"},
-        ".csc-work-uri-label": {"messagekey": "work-uriLabel"},
-        ".csc-work-rev-label": {"messagekey": "work-revLabel"},
+        ".csc-work-csid-label": {"messagekey": "work-csidLabel"},
+        ".csc-work-deprecated": "${fields.deprecated}",
         ".csc-workDateGroup-workDate-label": {"messagekey": "workDateGroup-workDateLabel"},
-        ".csc-work-createdAt-label": {"messagekey": "work-createdAtLabel"},
+        ".csc-work-uri-label": {"messagekey": "work-uriLabel"},
         ".csc-work-creator-label": {"messagekey": "work-creatorLabel"},
         ".csc-work-domaindata-label": {"messagekey": "work-domaindataLabel"},
         ".csc-work-workDateGroup-label": {"messagekey": "work-workDateGroupLabel"},
-        ".csc-work-inAuthority": "${fields.inAuthority}",
-        ".csc-work-updatedBy-label": {"messagekey": "work-updatedByLabel"},
-        ".csc-work-workType-label": {"messagekey": "work-workTypeLabel"},
-        ".csc-work-updatedAt": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }],
-            "value": "${fields.updatedAt}"
-        },
         ".csc-work-creatorGroup-label": {"messagekey": "work-creatorGroupLabel"},
         ".csc-preferred-workAuthority": {"decorators": [{
             "func": "cspace.preferred",
@@ -299,66 +361,13 @@
                 "type": "fluid.noexpand"
             }}}
         }]},
-        ".csc-work-updatedAt-label": {"messagekey": "work-updatedAtLabel"},
-        ".csc-work-shortIdentifier-label": {"messagekey": "work-shortIdentifierLabel"},
         ".csc-work-refName-label": {"messagekey": "work-refNameLabel"},
-        ".csc-work-preferredWork-label": {"messagekey": "work-preferredWorkLabel"},
-        ".csc-workDateGroup-workDate": {"decorators": [{
-            "func": "cspace.makeRepeatable",
-            "type": "fluid",
-            "options": {
-                "repeatTree": {"expander": {
-                    "tree": {".csc-workDateGroup-workDate": {
-                        "decorators": [{
-                            "func": "cspace.structuredDate",
-                            "type": "fluid",
-                            "options": {
-                                "root": "{row}",
-                                "elPath": "dateDisplayDate",
-                                "elPaths": {
-                                    "dateEarliestSingleQualifier": "dateEarliestSingleQualifier",
-                                    "scalarValuesComputed": "scalarValuesComputed",
-                                    "dateLatestDay": "dateLatestDay",
-                                    "dateLatestYear": "dateLatestYear",
-                                    "dateAssociation": "dateAssociation",
-                                    "dateEarliestSingleEra": "dateEarliestSingleEra",
-                                    "dateDisplayDate": "dateDisplayDate",
-                                    "dateEarliestSingleCertainty": "dateEarliestSingleCertainty",
-                                    "dateLatestEra": "dateLatestEra",
-                                    "dateEarliestSingleQualifierValue": "dateEarliestSingleQualifierValue",
-                                    "dateLatestCertainty": "dateLatestCertainty",
-                                    "dateEarliestSingleYear": "dateEarliestSingleYear",
-                                    "dateLatestQualifier": "dateLatestQualifier",
-                                    "dateLatestQualifierValue": "dateLatestQualifierValue",
-                                    "dateEarliestSingleQualifierUnit": "dateEarliestSingleQualifierUnit",
-                                    "datePeriod": "datePeriod",
-                                    "dateEarliestScalarValue": "dateEarliestScalarValue",
-                                    "dateLatestMonth": "dateLatestMonth",
-                                    "dateNote": "dateNote",
-                                    "dateLatestScalarValue": "dateLatestScalarValue",
-                                    "dateLatestQualifierUnit": "dateLatestQualifierUnit",
-                                    "dateEarliestSingleDay": "dateEarliestSingleDay",
-                                    "dateEarliestSingleMonth": "dateEarliestSingleMonth"
-                                }
-                            }
-                        }],
-                        "value": "${{row}.dateDisplayDate}"
-                    }},
-                    "type": "fluid.noexpand"
-                }},
-                "elPath": "fields.workDateGroup"
-            }
-        }]},
-        ".csc-work-shortIdentifier": "${fields.shortIdentifier}",
+        ".csc-work-proposed-label": {"messagekey": "work-proposedLabel"},
         ".csc-work-workAuthorityInformation-label": {"messagekey": "work-workAuthorityInformationLabel"},
         ".csc-work-inAuthority-label": {"messagekey": "work-inAuthorityLabel"},
         ".csc-work-createdBy-label": {"messagekey": "work-createdByLabel"},
-        ".csc-work-workHistoryNote": "${fields.workHistoryNote}",
-        ".csc-work-deprecatedRefName-label": {"messagekey": "work-deprecatedRefNameLabel"},
         ".csc-work-createdBy": "${fields.createdBy}",
         ".csc-work-publisherType-label": {"messagekey": "work-publisherTypeLabel"},
-        ".csc-work-deprecatedRefName": "${fields.deprecatedRefName}",
-        ".csc-work-updatedBy": "${fields.updatedBy}",
         ".csc-work-publisherGroup": {"decorators": [{
             "func": "cspace.makeRepeatable",
             "type": "fluid",
@@ -391,10 +400,7 @@
                 "elPath": "fields.publisherGroup"
             }
         }]},
-        ".csc-work-rev": "${fields.rev}",
         ".csc-work-publisherGroup-label": {"messagekey": "work-publisherGroupLabel"},
-        ".csc-work-csid": "${fields.csid}",
-        ".csc-work-otherInformation-label": {"messagekey": "work-otherInformationLabel"},
         ".csc-work-workType": {"decorators": [{
             "func": "cspace.termList",
             "type": "fluid",
@@ -403,6 +409,6 @@
                 "termListType": "workType"
             }
         }]},
-        ".csc-work-workHistoryNote-label": {"messagekey": "work-workHistoryNoteLabel"}
+        ".csc-work-sas-label": {"messagekey": "work-sasLabel"}
     }
 }

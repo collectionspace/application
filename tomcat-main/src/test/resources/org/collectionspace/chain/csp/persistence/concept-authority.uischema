@@ -12,7 +12,6 @@
         "fields": {
             "properties": {
                 "tenantId": {"type": "string"},
-                "rev": {"type": "string"},
                 "citationGroup": {
                     "items": {
                         "properties": {
@@ -27,6 +26,7 @@
                     },
                     "type": "array"
                 },
+                "rev": {"type": "string"},
                 "relatedTerms": {
                     "items": {
                         "properties": {
@@ -40,16 +40,9 @@
                     },
                     "type": "array"
                 },
-                "scopeNoteSourceDetail": {"type": "string"},
-                "deprecatedRefName": {"type": "string"},
-                "csid": {"type": "string"},
-                "uri": {"type": "string"},
                 "updatedBy": {"type": "string"},
                 "shortIdentifier": {"type": "string"},
-                "updatedAt": {"type": "date"},
                 "scopeNote": {"type": "string"},
-                "createdBy": {"type": "string"},
-                "inAuthority": {"type": "string"},
                 "conceptTermGroup": {
                     "items": {
                         "properties": {
@@ -90,10 +83,8 @@
                     },
                     "type": "array"
                 },
-                "broaderContext": {"type": "string"},
-                "createdAt": {"type": "date"},
                 "description": {"type": "string"},
-                "refName": {"type": "string"},
+                "createdAt": {"type": "date"},
                 "additionalSourceGroup": {
                     "items": {
                         "properties": {
@@ -105,19 +96,6 @@
                             "additionalSource": {"type": "string"},
                             "additionalSourceID": {"type": "string"},
                             "additionalSourceNote": {"type": "string"}
-                        },
-                        "type": "object"
-                    },
-                    "type": "array"
-                },
-                "equivalentContexts": {
-                    "items": {
-                        "properties": {
-                            "_primary": {
-                                "default": true,
-                                "type": "boolean"
-                            },
-                            "equivalentContext": {"type": "string"}
                         },
                         "type": "object"
                     },
@@ -145,6 +123,40 @@
                 "broaderContextType": {
                     "default": "",
                     "type": "string"
+                },
+                "deprecated": {
+                    "default": false,
+                    "type": "boolean"
+                },
+                "scopeNoteSourceDetail": {"type": "string"},
+                "deprecatedRefName": {"type": "string"},
+                "csid": {"type": "string"},
+                "uri": {"type": "string"},
+                "updatedAt": {"type": "date"},
+                "inAuthority": {"type": "string"},
+                "createdBy": {"type": "string"},
+                "broaderContext": {"type": "string"},
+                "sas": {
+                    "default": false,
+                    "type": "boolean"
+                },
+                "refName": {"type": "string"},
+                "proposed": {
+                    "default": false,
+                    "type": "boolean"
+                },
+                "equivalentContexts": {
+                    "items": {
+                        "properties": {
+                            "_primary": {
+                                "default": true,
+                                "type": "boolean"
+                            },
+                            "equivalentContext": {"type": "string"}
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
                 }
             },
             "type": "object"

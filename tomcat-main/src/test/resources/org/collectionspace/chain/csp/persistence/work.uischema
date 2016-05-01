@@ -44,13 +44,10 @@
                     },
                     "type": "array"
                 },
-                "deprecatedRefName": {"type": "string"},
                 "workType": {
                     "default": "",
                     "type": "string"
                 },
-                "csid": {"type": "string"},
-                "uri": {"type": "string"},
                 "workTermGroup": {
                     "items": {
                         "properties": {
@@ -85,6 +82,36 @@
                     "type": "array"
                 },
                 "updatedBy": {"type": "string"},
+                "shortIdentifier": {"type": "string"},
+                "createdAt": {"type": "date"},
+                "narrowerContexts": {
+                    "items": {
+                        "properties": {
+                            "narrowerContext": {"type": "string"},
+                            "_primary": {
+                                "default": true,
+                                "type": "boolean"
+                            },
+                            "narrowerContextType": {
+                                "default": "",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "broaderContextType": {
+                    "default": "",
+                    "type": "string"
+                },
+                "deprecated": {
+                    "default": false,
+                    "type": "boolean"
+                },
+                "deprecatedRefName": {"type": "string"},
+                "csid": {"type": "string"},
+                "uri": {"type": "string"},
                 "creatorGroup": {
                     "items": {
                         "properties": {
@@ -103,12 +130,18 @@
                     "type": "array"
                 },
                 "updatedAt": {"type": "date"},
-                "shortIdentifier": {"type": "string"},
-                "createdBy": {"type": "string"},
                 "inAuthority": {"type": "string"},
+                "createdBy": {"type": "string"},
+                "sas": {
+                    "default": false,
+                    "type": "boolean"
+                },
                 "broaderContext": {"type": "string"},
-                "createdAt": {"type": "date"},
                 "refName": {"type": "string"},
+                "proposed": {
+                    "default": false,
+                    "type": "boolean"
+                },
                 "equivalentContexts": {
                     "items": {
                         "properties": {
@@ -117,23 +150,6 @@
                                 "type": "boolean"
                             },
                             "equivalentContext": {"type": "string"}
-                        },
-                        "type": "object"
-                    },
-                    "type": "array"
-                },
-                "narrowerContexts": {
-                    "items": {
-                        "properties": {
-                            "narrowerContext": {"type": "string"},
-                            "_primary": {
-                                "default": true,
-                                "type": "boolean"
-                            },
-                            "narrowerContextType": {
-                                "default": "",
-                                "type": "string"
-                            }
                         },
                         "type": "object"
                     },
@@ -200,10 +216,6 @@
                         "type": "object"
                     },
                     "type": "array"
-                },
-                "broaderContextType": {
-                    "default": "",
-                    "type": "string"
                 }
             },
             "type": "object"

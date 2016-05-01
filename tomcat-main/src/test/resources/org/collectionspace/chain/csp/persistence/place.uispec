@@ -154,8 +154,10 @@
         ".csc-hierarchy-relatedTerm-label": {"messagekey": "hierarchy-relatedTermLabel"}
     },
     "recordEditor": {
+        ".csc-place-deprecated": "${fields.deprecated}",
         ".csc-place-vDistanceAboveSurface-label": {"messagekey": "place-vDistanceAboveSurfaceLabel"},
         ".csc-place-vSpatialReferenceSystem-label": {"messagekey": "place-vSpatialReferenceSystemLabel"},
+        ".csc-place-proposed-label": {"messagekey": "place-proposedLabel"},
         ".csc-place-placeType-label": {"messagekey": "place-placeTypeLabel"},
         ".csc-place-maxDepthInMeters-label": {"messagekey": "place-maxDepthInMetersLabel"},
         ".csc-place-deprecatedRefName-label": {"messagekey": "place-deprecatedRefNameLabel"},
@@ -349,6 +351,7 @@
             }
         }]},
         ".csc-place-updatedBy-label": {"messagekey": "place-updatedByLabel"},
+        ".csc-place-proposed": "${fields.proposed}",
         ".csc-place-placeSource": "${fields.placeSource}",
         ".csc-place-maxDepthInMeters": {
             "decorators": [{
@@ -403,11 +406,10 @@
             "selection": "${fields.vUnitofMeasure}"
         },
         ".csc-place-footprintSRS-label": {"messagekey": "place-footprintSRSLabel"},
-        ".csc-place-geoRefPlaceName-label": {"messagekey": "place-geoRefPlaceNameLabel"},
         ".csc-place-otherInformation-label": {"messagekey": "place-otherInformationLabel"},
+        ".csc-place-geoRefPlaceName-label": {"messagekey": "place-geoRefPlaceNameLabel"},
         ".csc-place-minElevationInMeters-label": {"messagekey": "place-minElevationInMetersLabel"},
         ".csc-place-inAuthority-label": {"messagekey": "place-inAuthorityLabel"},
-        ".csc-place-placeSource-label": {"messagekey": "place-placeSourceLabel"},
         ".csc-place-minDistanceAboveSurfaceInMeters": {
             "decorators": [{
                 "func": "cspace.inputValidator",
@@ -419,6 +421,7 @@
             }],
             "value": "${fields.minDistanceAboveSurfaceInMeters}"
         },
+        ".csc-place-placeSource-label": {"messagekey": "place-placeSourceLabel"},
         ".csc-place-decimalLatitude-label": {"messagekey": "place-decimalLatitudeLabel"},
         ".csc-place-vSpatialReferenceSystem": {
             "default": "",
@@ -455,6 +458,7 @@
         },
         ".csc-place-vElevation": "${fields.vElevation}",
         ".csc-place-vCoordSys-label": {"messagekey": "place-vCoordSysLabel"},
+        ".csc-place-sas": "${fields.sas}",
         ".csc-place-rev-label": {"messagekey": "place-revLabel"},
         ".csc-place-vCoordSourceRefId": "${fields.vCoordSourceRefId}",
         ".csc-place-decimalLongitude-label": {"messagekey": "place-decimalLongitudeLabel"},
@@ -502,8 +506,8 @@
             "value": "${fields.minDepthInMeters}"
         },
         ".csc-place-pointRadiusSpatialFit-label": {"messagekey": "place-pointRadiusSpatialFitLabel"},
-        ".csc-place-shortIdentifier-label": {"messagekey": "place-shortIdentifierLabel"},
         ".csc-place-placeID-label": {"messagekey": "place-placeIDLabel"},
+        ".csc-place-shortIdentifier-label": {"messagekey": "place-shortIdentifierLabel"},
         ".csc-place-vLongitude-label": {"messagekey": "place-vLongitudeLabel"},
         ".csc-place-vElevation-label": {"messagekey": "place-vElevationLabel"},
         ".csc-place-domaindata-label": {"messagekey": "place-domaindataLabel"},
@@ -591,6 +595,7 @@
         ".csc-place-geoReferencedBy-label": {"messagekey": "place-geoReferencedByLabel"},
         ".csc-place-vDepth-label": {"messagekey": "place-vDepthLabel"},
         ".csc-place-uri-label": {"messagekey": "place-uriLabel"},
+        ".csc-place-deprecated-label": {"messagekey": "place-deprecatedLabel"},
         ".csc-place-placeID": "${fields.placeID}",
         ".csc-place-vUnitofMeasure-label": {"messagekey": "place-vUnitofMeasureLabel"},
         ".csc-place-geoRefProtocol-label": {"messagekey": "place-geoRefProtocolLabel"},
@@ -656,6 +661,7 @@
         }]},
         ".csc-place-inAuthority": "${fields.inAuthority}",
         ".csc-place-refName-label": {"messagekey": "place-refNameLabel"},
+        ".csc-place-sas-label": {"messagekey": "place-sasLabel"},
         ".csc-place-deprecatedRefName": "${fields.deprecatedRefName}",
         ".csc-place-minElevationInMeters": {
             "decorators": [{
