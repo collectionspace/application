@@ -1,24 +1,27 @@
 {
-  "shortIdentifier": "bob",
-  "accessNote": "accessNote",
-  "address": "address",
-  "securityNote": "securityNote",
-  "locTermGroup": [{
-    "_primary": true,
-    "termPrefForLang": false,
-    "termDisplayName": "My Building",
-    "termStatus": "termStatus"
-  }],
-  "conditionGroup": [
-    {
-      "_primary": true,
-      "conditionNote": "qqq",
-      "conditionNoteDate": "2011-05-03"
-    },
-    {
-      "conditionNote": "aaa",
-      "conditionNoteDate": "2011-05-25"
-    }
-  ],
-  "locationType": "building"
+    "deprecated": false,
+    "locTermGroup": [{
+        "termPrefForLang": false,
+        "_primary": true,
+        "termDisplayName": "My Building",
+        "termStatus": "termStatus"
+    }],
+    "shortIdentifier": "bob",
+    "accessNote": "accessNote",
+    "address": "address",
+    "sas": false,
+    "securityNote": "securityNote",
+    "locationType": "building",
+    "proposed": false,
+    "conditionGroup": [
+        {
+            "_primary": true,
+            "conditionNote": "qqq",
+            "conditionNoteDate": "2011-05-03"
+        },
+        {
+            "conditionNote": "aaa",
+            "conditionNoteDate": "2011-05-25"
+        }
+    ]
 }

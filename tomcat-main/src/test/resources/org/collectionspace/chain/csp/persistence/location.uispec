@@ -250,6 +250,7 @@
             }}}
         }]},
         ".csc-location-conditionGroup-label": {"messagekey": "location-conditionGroupLabel"},
+        ".csc-location-proposed": "${fields.proposed}",
         ".csc-location-conditionGroup": {"decorators": [{
             "func": "cspace.makeRepeatable",
             "type": "fluid",
@@ -275,14 +276,16 @@
         ".csc-location-otherInformation-label": {"messagekey": "location-otherInformationLabel"},
         ".csc-location-deprecatedRefName-label": {"messagekey": "location-deprecatedRefNameLabel"},
         ".csc-location-preferredLocation-label": {"messagekey": "location-preferredLocationLabel"},
+        ".csc-location-deprecated-label": {"messagekey": "location-deprecatedLabel"},
         ".csc-location-locationType-label": {"messagekey": "location-locationTypeLabel"},
         ".csc-location-shortIdentifier": "${fields.shortIdentifier}",
-        ".csc-location-createdBy": "${fields.createdBy}",
         ".csc-location-updatedBy": "${fields.updatedBy}",
+        ".csc-location-createdBy": "${fields.createdBy}",
         ".csc-location-locationTermInformation-label": {"messagekey": "location-locationTermInformationLabel"},
         ".csc-location-rev": "${fields.rev}",
         ".csc-location-rev-label": {"messagekey": "location-revLabel"},
         ".csc-location-uri": "${fields.uri}",
+        ".csc-location-proposed-label": {"messagekey": "location-proposedLabel"},
         ".csc-location-accessNote-label": {"messagekey": "location-accessNoteLabel"},
         ".csc-location-accessNote": "${fields.accessNote}",
         ".csc-location-createdAt": {
@@ -292,6 +295,7 @@
             }],
             "value": "${fields.createdAt}"
         },
+        ".csc-location-sas": "${fields.sas}",
         ".csc-location-type": {"decorators": [{
             "func": "cspace.termList",
             "type": "fluid",
@@ -312,9 +316,11 @@
         ".csc-location-tenantId": "${fields.tenantId}",
         ".csc-location-conditionNote-label": {"messagekey": "location-conditionNoteLabel"},
         ".csc-location-domaindata-label": {"messagekey": "location-domaindataLabel"},
-        ".csc-location-deprecatedRefName": "${fields.deprecatedRefName}",
-        ".csc-location-refName": "${fields.refName}",
+        ".csc-location-sas-label": {"messagekey": "location-sasLabel"},
         ".csc-location-csid-label": {"messagekey": "location-csidLabel"},
+        ".csc-location-deprecatedRefName": "${fields.deprecatedRefName}",
+        ".csc-location-deprecated": "${fields.deprecated}",
+        ".csc-location-refName": "${fields.refName}",
         ".csc-location-updatedAt": {
             "decorators": [{
                 "func": "cspace.datePicker",
