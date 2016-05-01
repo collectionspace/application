@@ -20,24 +20,40 @@
                 "rev": {"type": "string"},
                 "source": {"type": "string"},
                 "description": {"type": "string"},
+                "sas": {
+                    "default": false,
+                    "type": "boolean"
+                },
                 "name": {"type": "string"},
                 "terms": {
                     "items": {
                         "properties": {
+                            "deprecated": {
+                                "default": false,
+                                "type": "boolean"
+                            },
+                            "rev": {"type": "string"},
+                            "_subrecordcsid": {"type": "string"},
                             "shortIdentifier": {"type": "string"},
                             "_primary": {
                                 "default": true,
                                 "type": "boolean"
                             },
-                            "rev": {"type": "string"},
-                            "_subrecordcsid": {"type": "string"},
-                            "inAuthority": {"type": "string"},
-                            "source": {"type": "string"},
                             "order": {"type": "string"},
+                            "source": {"type": "string"},
+                            "inAuthority": {"type": "string"},
+                            "sas": {
+                                "default": false,
+                                "type": "boolean"
+                            },
                             "description": {"type": "string"},
                             "termStatus": {
                                 "default": "active",
                                 "type": "string"
+                            },
+                            "proposed": {
+                                "default": false,
+                                "type": "boolean"
                             },
                             "displayName": {"type": "string"},
                             "sourcePage": {"type": "string"}

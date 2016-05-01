@@ -159,6 +159,7 @@
         ".csc-person-updatedBy-label": {"messagekey": "person-updatedByLabel"},
         ".csc-person-createdAt-label": {"messagekey": "person-createdAtLabel"},
         ".csc-personAuthority-deathPlace": "${fields.deathPlace}",
+        ".csc-person-deprecatedRefName": "${fields.deprecatedRefName}",
         ".csc-personAuthority-birthDate": {
             "decorators": [{
                 "func": "cspace.structuredDate",
@@ -194,7 +195,7 @@
             }],
             "value": "${fields.birthDateGroup.dateDisplayDate}"
         },
-        ".csc-person-deprecatedRefName": "${fields.deprecatedRefName}",
+        ".csc-contact-proposed": "${fields.contact.proposed}",
         ".csc-contact-createdBy": "${fields.contact.createdBy}",
         ".csc-person-updatedAt": {
             "decorators": [{
@@ -233,6 +234,7 @@
                 "elPath": "fields.contact.telephoneNumberGroup"
             }
         }]},
+        ".csc-person-sas-label": {"messagekey": "person-sasLabel"},
         ".csc-person-birthDateGroup-label": {"messagekey": "person-birthDateGroupLabel"},
         ".csc-personAuthority-gender": {
             "default": "",
@@ -249,6 +251,7 @@
             "selection": "${fields.gender}"
         },
         ".csc-contact-contactInformation-label": {"messagekey": "contact-contactInformationLabel"},
+        ".csc-contact-sas-label": {"messagekey": "contact-sasLabel"},
         ".csc-contact-faxNumberGroup": {"decorators": [{
             "func": "cspace.makeRepeatable",
             "type": "fluid",
@@ -358,6 +361,7 @@
         ".csc-person-gender-label": {"messagekey": "person-genderLabel"},
         ".csc-person-uri": "${fields.uri}",
         ".csc-contact-webAddressGroup-label": {"messagekey": "contact-webAddressGroupLabel"},
+        ".csc-contact-sas": "${fields.contact.sas}",
         ".csc-person-tenantId-label": {"messagekey": "person-tenantIdLabel"},
         ".csc-person-updatedBy": "${fields.updatedBy}",
         ".csc-person-occupation-label": {"messagekey": "person-occupationLabel"},
@@ -398,13 +402,17 @@
         ".csc-person-csid": "${fields.csid}",
         ".csc-contact-displayName": "${fields.contact.displayName}",
         ".csc-contact-addressMunicipality-label": {"messagekey": "contact-addressMunicipalityLabel"},
+        ".csc-person-proposed-label": {"messagekey": "person-proposedLabel"},
         ".csc-contact-refName": "${fields.contact.refName}",
         ".csc-contact-uri": "${fields.contact.uri}",
+        ".csc-person-proposed": "${fields.proposed}",
         ".csc-person-contact-label": {"messagekey": "person-contactLabel"},
         ".csc-contact-emailGroup-label": {"messagekey": "contact-emailGroupLabel"},
         ".csc-contact-rev-label": {"messagekey": "contact-revLabel"},
+        ".csc-person-sas": "${fields.sas}",
         ".csc-contact-webAddressType-label": {"messagekey": "contact-webAddressTypeLabel"},
         ".csc-contact-csid-label": {"messagekey": "contact-csidLabel"},
+        ".csc-contact-deprecated-label": {"messagekey": "contact-deprecatedLabel"},
         ".csc-person-groups-label": {"messagekey": "person-groupsLabel"},
         ".csc-contact-addressGroup-label": {"messagekey": "contact-addressGroupLabel"},
         ".csc-contact-addressPlace1-label": {"messagekey": "contact-addressPlace1Label"},
@@ -970,6 +978,7 @@
         ".csc-contact-faxNumberType-label": {"messagekey": "contact-faxNumberTypeLabel"},
         ".csc-contact-faxNumberGroup-label": {"messagekey": "contact-faxNumberGroupLabel"},
         ".csc-contact-tenantId-label": {"messagekey": "contact-tenantIdLabel"},
+        ".csc-contact-displayName-label": {"messagekey": "contact-displayNameLabel"},
         ".csc-personAuthority-occupation": {"decorators": [{
             "func": "cspace.makeRepeatable",
             "type": "fluid",
@@ -981,7 +990,6 @@
                 "elPath": "fields.occupations"
             }
         }]},
-        ".csc-contact-displayName-label": {"messagekey": "contact-displayNameLabel"},
         ".csc-person-nameNote-label": {"messagekey": "person-nameNoteLabel"},
         ".csc-person-deprecatedRefName-label": {"messagekey": "person-deprecatedRefNameLabel"},
         ".csc-person-coreInformation-label": {"messagekey": "person-coreInformationLabel"},
@@ -1138,6 +1146,7 @@
         ".csc-person-nationality-label": {"messagekey": "person-nationalityLabel"},
         ".csc-contact-faxNumber-label": {"messagekey": "contact-faxNumberLabel"},
         ".csc-person-createdBy": "${fields.createdBy}",
+        ".csc-person-deprecated": "${fields.deprecated}",
         ".csc-contact-updatedAt-label": {"messagekey": "contact-updatedAtLabel"},
         ".csc-contact-tenantId": "${fields.contact.tenantId}",
         ".csc-contact-createdAt-label": {"messagekey": "contact-createdAtLabel"},
@@ -1147,6 +1156,7 @@
         ".csc-person-schoolsOrStyles-label": {"messagekey": "person-schoolsOrStylesLabel"},
         ".csc-person-tenantId": "${fields.tenantId}",
         ".csc-person-nationalities-label": {"messagekey": "person-nationalitiesLabel"},
+        ".csc-contact-deprecated": "${fields.contact.deprecated}",
         ".csc-contact-webAddress-label": {"messagekey": "contact-webAddressLabel"},
         ".csc-contact-email-label": {"messagekey": "contact-emailLabel"},
         ".csc-contact-updatedBy": "${fields.contact.updatedBy}",
@@ -1178,8 +1188,10 @@
             }],
             "value": "${fields.contact.updatedAt}"
         },
+        ".csc-contact-proposed-label": {"messagekey": "contact-proposedLabel"},
         ".csc-contact-refName-label": {"messagekey": "contact-refNameLabel"},
         ".csc-person-deathDateGroup-label": {"messagekey": "person-deathDateGroupLabel"},
+        ".csc-person-preferredPerson-label": {"messagekey": "person-preferredPersonLabel"},
         ".csc-personAuthority-group": {"decorators": [{
             "func": "cspace.makeRepeatable",
             "type": "fluid",
@@ -1191,7 +1203,7 @@
                 "elPath": "fields.groups"
             }
         }]},
-        ".csc-person-preferredPerson-label": {"messagekey": "person-preferredPersonLabel"},
+        ".csc-person-deprecated-label": {"messagekey": "person-deprecatedLabel"},
         ".csc-personAuthority-nationality": {"decorators": [{
             "func": "cspace.makeRepeatable",
             "type": "fluid",

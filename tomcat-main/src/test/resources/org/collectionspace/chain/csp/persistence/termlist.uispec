@@ -1,10 +1,12 @@
 {
     "details": {
         ".csc-termlist-csid-label": {"messagekey": "termlist-csidLabel"},
+        ".csc-termlistitem-deprecated-label": {"messagekey": "termlistitem-deprecatedLabel"},
         ".csc-termlist-rev": "${fields.rev}",
         ".csc-termlist-name": "${fields.name}",
         ".csc-termlistitem-description-label": {"messagekey": "termlistitem-descriptionLabel"},
         ".csc-termlistitem-termListItemInformation-label": {"messagekey": "termlistitem-termListItemInformationLabel"},
+        ".csc-termlistitem-sas-label": {"messagekey": "termlistitem-sasLabel"},
         ".csc-termlist-rev-label": {"messagekey": "termlist-revLabel"},
         ".csc-termlistitem-source-label": {"messagekey": "termlistitem-sourceLabel"},
         ".csc-termlist-usedBy-label": {"messagekey": "termlist-usedByLabel"},
@@ -15,15 +17,11 @@
             "options": {
                 "repeatTree": {"expander": {
                     "tree": {
-                        ".csc-termlistitem-rev": "${{row}.rev}",
-                        ".csc-termlistitem-displayName": "${{row}.displayName}",
                         ".csc-termlistitem-order": "${{row}.order}",
-                        ".csc-termlistitem-inAuthority": "${{row}.inAuthority}",
-                        ".csc-termlistitem-sourcePage": "${{row}.sourcePage}",
+                        ".csc-termlistitem-sas": "${{row}.sas}",
                         ".csc-termlistitem-description": "${{row}.description}",
-                        ".csc-termlistitem-source": "${{row}.source}",
                         ".csc-termlistitem-_subrecordcsid": "${{row}._subrecordcsid}",
-                        ".csc-termlistitem-shortIdentifier": "${{row}.shortIdentifier}",
+                        ".csc-termlistitem-deprecated": "${{row}.deprecated}",
                         ".csc-termlistitem-termStatus": {
                             "default": "active",
                             "optionnames": [
@@ -35,7 +33,14 @@
                                 "inactive"
                             ],
                             "selection": "${{row}.termStatus}"
-                        }
+                        },
+                        ".csc-termlistitem-rev": "${{row}.rev}",
+                        ".csc-termlistitem-displayName": "${{row}.displayName}",
+                        ".csc-termlistitem-proposed": "${{row}.proposed}",
+                        ".csc-termlistitem-inAuthority": "${{row}.inAuthority}",
+                        ".csc-termlistitem-sourcePage": "${{row}.sourcePage}",
+                        ".csc-termlistitem-source": "${{row}.source}",
+                        ".csc-termlistitem-shortIdentifier": "${{row}.shortIdentifier}"
                     },
                     "type": "fluid.noexpand"
                 }},
@@ -58,9 +63,12 @@
             "pathAs": "row",
             "controlledBy": "fields.usedBys"
         },
+        ".csc-termlist-sas-label": {"messagekey": "termlist-sasLabel"},
+        ".csc-termlistitem-proposed-label": {"messagekey": "termlistitem-proposedLabel"},
         ".csc-termlist-usedBys-label": {"messagekey": "termlist-usedBysLabel"},
         ".csc-termlist-sourcePage-label": {"messagekey": "termlist-sourcePageLabel"},
         ".csc-termlistitem-sourcePage-label": {"messagekey": "termlistitem-sourcePageLabel"},
+        ".csc-termlist-sas": "${fields.sas}",
         ".csc-termlist-terms-label": {"messagekey": "termlist-termsLabel"},
         ".csc-termlist-vocabType-label": {"messagekey": "termlist-vocabTypeLabel"},
         ".csc-termlistitem-inAuthority-label": {"messagekey": "termlistitem-inAuthorityLabel"},
