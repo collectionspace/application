@@ -280,6 +280,43 @@
             }
         }]},
         ".csc-contact-telephoneNumberGroup-label": {"messagekey": "contact-telephoneNumberGroupLabel"},
+        ".csc-organization-organizationRecordType": {
+            "decorators": [
+                {
+                    "func": "cspace.makeRepeatable",
+                    "options": {
+                        "repeatTree": {
+                            "expander": {
+                                "tree": {
+                                    ".csc-organization-organizationRecordType": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.termList",
+                                                "options": {
+                                                    "termListType": "organizationRecordType",
+                                                    "root": "{row}",
+                                                    "elPath": "organizationRecordType"
+                                                },
+                                                "type": "fluid"
+                                            }
+                                        ]
+                                    }
+                                },
+                                "type": "fluid.noexpand"
+                            }
+                        },
+                        "elPath": "fields.organizationRecordTypes"
+                    },
+                    "type": "fluid"
+                }
+            ]
+        },
+        ".csc-organization-organizationRecordType-label": {
+             "messagekey": "organization-organizationRecordTypeLabel"
+        },
+        ".csc-organization-organizationRecordTypes-label": {
+            "messagekey": "organization-organizationRecordTypesLabel"
+        },
         ".csc-organization-createdBy-label": {"messagekey": "organization-createdByLabel"},
         ".csc-organization-updatedAt-label": {"messagekey": "organization-updatedAtLabel"},
         ".csc-organization-tenantId-label": {"messagekey": "organization-tenantIdLabel"},

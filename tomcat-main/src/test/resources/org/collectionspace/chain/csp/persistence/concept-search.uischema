@@ -22,6 +22,22 @@
             },
             "type": "array"
         },
+        "conceptRecordTypes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "conceptRecordType": {
+                "default": "",
+                "type": "string"
+              },
+              "_primary": {
+                "default": true,
+                "type": "boolean"
+              }
+            }
+          }
+        },
         "updatedAtEnd": {"type": "date"},
         "updatedBys": {
             "items": {

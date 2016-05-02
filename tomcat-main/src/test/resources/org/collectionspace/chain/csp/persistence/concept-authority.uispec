@@ -303,6 +303,43 @@
         },
         ".csc-concept-rev-label": {"messagekey": "concept-revLabel"},
         ".csc-concept-description": "${fields.description}",
+        ".csc-concept-conceptRecordTypes-label": {
+          "messagekey": "concept-conceptRecordTypesLabel"
+        },
+        ".csc-concept-conceptRecordType-label": {
+          "messagekey": "concept-conceptRecordTypeLabel"
+        },
+        ".csc-concept-conceptRecordType": {
+          "decorators": [
+            {
+              "func": "cspace.makeRepeatable",
+              "options": {
+                "repeatTree": {
+                  "expander": {
+                    "tree": {
+                      ".csc-concept-conceptRecordType": {
+                        "decorators": [
+                          {
+                            "func": "cspace.termList",
+                            "options": {
+                              "termListType": "conceptRecordType",
+                              "root": "{row}",
+                              "elPath": "conceptRecordType"
+                            },
+                            "type": "fluid"
+                          }
+                        ]
+                      }
+                    },
+                    "type": "fluid.noexpand"
+                  }
+                },
+                "elPath": "fields.conceptRecordTypes"
+              },
+              "type": "fluid"
+            }
+          ]
+        },
         ".csc-concept-tenantId-label": {"messagekey": "concept-tenantIdLabel"},
         ".csc-concept-csid": "${fields.csid}",
         ".csc-concept-additionalSourceID-label": {"messagekey": "concept-additionalSourceIDLabel"},
@@ -310,7 +347,6 @@
         ".csc-concept-proposed": "${fields.proposed}",
         ".csc-concept-updatedAt-label": {"messagekey": "concept-updatedAtLabel"},
         ".csc-conceptAuthority-scopeNoteSource": "${fields.scopeNoteSource}",
-        ".csc-concept-recordType": "${fields.recordType}",
         ".csc-conceptAuthority-scopeNoteSourceDetail": "${fields.scopeNoteSourceDetail}",
         ".csc-concept-citationGroup": {"decorators": [{
             "func": "cspace.makeRepeatable",
@@ -332,7 +368,6 @@
         ".csc-concept-proposed-label": {"messagekey": "concept-proposedLabel"},
         ".csc-concept-createdBy": "${fields.createdBy}",
         ".csc-concept-updatedBy": "${fields.updatedBy}",
-        ".csc-concept-recordType-label": {"messagekey": "concept-recordTypeLabel"},
         ".csc-concept-createdBy-label": {"messagekey": "concept-createdByLabel"},
         ".csc-conceptAuthority-scopeNote": "${fields.scopeNote}",
         ".csc-concept-createdAt-label": {"messagekey": "concept-createdAtLabel"},

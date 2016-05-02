@@ -81,5 +81,10 @@
         "agent": "",
         "note": ""
     }],
+    "citationRecordTypes": [{
+        "_primary": true,
+        "citationRecordType": "urn:cspace:core.collectionspace.org:vocabularies:name(citationtermtype):item:name(birthcert)'Birth certificate'",
+        "de-urned-citationRecordType": "Birth certificate"
+    }],
     "citationNote": "This is a citation note."
 }

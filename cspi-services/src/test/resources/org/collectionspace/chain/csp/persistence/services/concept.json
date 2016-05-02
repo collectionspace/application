@@ -16,6 +16,11 @@
     }],
     "sas": false,
     "proposed": false,
+    "conceptRecordTypes": [{
+        "_primary": true,
+        "conceptRecordType": "urn:cspace:core.collectionspace.org:vocabularies:name(concepttype):item:name(commonname)'common name'",
+        "de-urned-conceptRecordType": "common name"  
+    }],
     "additionalSourceGroup": [{
         "_primary": true,
         "additionalSource": "source"

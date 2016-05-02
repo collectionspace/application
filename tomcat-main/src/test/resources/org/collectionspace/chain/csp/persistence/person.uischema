@@ -407,6 +407,22 @@
                 "uri": {"type": "string"},
                 "deathPlace": {"type": "string"},
                 "updatedAt": {"type": "date"},
+                "personRecordTypes": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "personRecordType": {
+                        "default": "",
+                        "type": "string"
+                      },
+                      "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                },
                 "inAuthority": {"type": "string"},
                 "createdBy": {"type": "string"},
                 "broaderContext": {"type": "string"},
