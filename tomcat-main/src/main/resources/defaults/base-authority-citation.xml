@@ -62,6 +62,10 @@
                ui-func="cspace.preferred">
                <selector>preferred-citationAuthority</selector>
         </field>
+
+        <repeat id="citationRecordTypes">
+            <field id="citationRecordType" ui-search="repeatable" autocomplete="vocab-citationtermtype" ui-type="enum"/>
+        </repeat>
         
         <repeat id="citationPublicationInfoGroupList/citationPublicationInfoGroup" >          
             <field id="publisher" ui-search="repeatable"

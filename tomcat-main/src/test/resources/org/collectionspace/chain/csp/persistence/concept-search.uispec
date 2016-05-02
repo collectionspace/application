@@ -21,6 +21,41 @@
             "hidePrimary": true
         }
     }]},
+    ".csc-concept-conceptRecordType-label": {
+      "messagekey": "concept-conceptRecordTypeLabel"
+    },
+    ".csc-concept-conceptRecordType": {
+      "decorators": [
+        {
+          "func": "cspace.makeRepeatable",
+          "options": {
+            "repeatTree": {
+              "expander": {
+                "tree": {
+                  ".csc-concept-conceptRecordType": {
+                    "decorators": [
+                      {
+                        "func": "cspace.termList",
+                        "options": {
+                          "termListType": "conceptRecordType",
+                          "root": "{row}",
+                          "elPath": "conceptRecordType"
+                        },
+                        "type": "fluid"
+                      }
+                    ]
+                  }
+                },
+                "type": "fluid.noexpand"
+              }
+            },
+            "elPath": "conceptRecordTypes",
+            "hidePrimary": true
+          },
+          "type": "fluid"
+        }
+      ]
+    },
     ".csc-concept-termSource-label": {"messagekey": "preferredCA-termSourceLabel"},
     ".csc-concept-updatedAtEnd-label": {"messagekey": "concept-updatedAtEndLabel"},
     ".csc-concept-termType-label": {"messagekey": "preferredCA-termTypeLabel"},

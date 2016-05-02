@@ -60,6 +60,9 @@
         <field id="preferredOrganization" ui-type="groupfield/preferredOA/selfrenderer" ui-func="cspace.preferred">
             <selector>preferred-orgAuthority</selector>
         </field>
+        <repeat id="organizationRecordTypes">
+            <field id="organizationRecordType" ui-search="repeatable" autocomplete="vocab-organizationtype" ui-type="enum"/>
+        </repeat>
         <field id="foundingDateGroup" in-title="yes" ui-type="groupfield/structureddate" 
             ui-search="range" primarykey="foundingDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
             <selector>organizationAuthority-foundingDate</selector>

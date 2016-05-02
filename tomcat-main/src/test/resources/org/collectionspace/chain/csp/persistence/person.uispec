@@ -411,6 +411,43 @@
         ".csc-contact-rev-label": {"messagekey": "contact-revLabel"},
         ".csc-person-sas": "${fields.sas}",
         ".csc-contact-webAddressType-label": {"messagekey": "contact-webAddressTypeLabel"},
+        ".csc-person-personRecordType": {
+          "decorators": [
+            {
+              "func": "cspace.makeRepeatable",
+              "options": {
+                "repeatTree": {
+                  "expander": {
+                    "tree": {
+                      ".csc-person-personRecordType": {
+                        "decorators": [
+                          {
+                            "func": "cspace.termList",
+                            "options": {
+                              "termListType": "personRecordType",
+                              "root": "{row}",
+                              "elPath": "personRecordType"
+                            },
+                            "type": "fluid"
+                          }
+                        ]
+                      }
+                    },
+                    "type": "fluid.noexpand"
+                  }
+                },
+                "elPath": "fields.personRecordTypes"
+              },
+              "type": "fluid"
+            }
+          ]
+        },
+        ".csc-person-personRecordType-label": {
+          "messagekey": "person-personRecordTypeLabel"
+        },
+        ".csc-person-personRecordTypes-label": {
+          "messagekey": "person-personRecordTypesLabel"
+        },
         ".csc-contact-csid-label": {"messagekey": "contact-csidLabel"},
         ".csc-contact-deprecated-label": {"messagekey": "contact-deprecatedLabel"},
         ".csc-person-groups-label": {"messagekey": "person-groupsLabel"},

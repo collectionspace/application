@@ -18,6 +18,9 @@
 			<termSourceDetail></termSourceDetail>
 		</citationTermGroup>
 	</citationTermGroupList>
+	<citationRecordTypes>
+		<citationRecordType>urn:cspace:core.collectionspace.org:vocabularies:name(citationtermtype):item:name(birthcert)'Birth certificate'</citationRecordType>
+	</citationRecordTypes>
 	<citationPublicationInfoGroupList>
 		<citationPublicationInfoGroup>
 			<edition>5th</edition>

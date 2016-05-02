@@ -73,7 +73,9 @@
         <field id="scopeNoteSourceDetail">
             <selector>conceptAuthority-scopeNoteSourceDetail</selector>
         </field>
-        <field id="recordType"></field>
+        <repeat id="conceptRecordTypes">
+            <field id="conceptRecordType" ui-search="repeatable" autocomplete="vocab-concepttype" ui-type="enum"/>
+        </repeat>
         <repeat id="citationGroupList/citationGroup">
             <!-- citationSource will be a Citation Authority autocomplete field when that service is implemented -->
             <field id="citationSource"></field>

@@ -14,6 +14,9 @@
 			<termPrefForLang>true</termPrefForLang>
 		</conceptTermGroup>
 	</conceptTermGroupList>
+	<conceptRecordTypes>
+		<conceptRecordType>urn:cspace:core.collectionspace.org:vocabularies:name(concepttype):item:name(commonname)'common name'</conceptRecordType>
+	</conceptRecordTypes>
 	<citationGroupList>
 		<citationGroup>
 			<citationSource>source</citationSource>

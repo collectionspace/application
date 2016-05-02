@@ -53,6 +53,10 @@
             <selector>preferred-materialAuthority</selector>
         </field>
         
+        <repeat id="materialRecordTypes">
+            <field id="materialRecordType" ui-search="repeatable" autocomplete="vocab-materialtype" ui-type="enum"/>
+        </repeat>
+        
         <field id="familyName" ui-search="repeatable" autocomplete="concept-materialclassification"/>
         <field id="className" ui-search="repeatable" autocomplete="concept-materialclassification"/>
         <field id="genericName" ui-search="repeatable" autocomplete="concept-materialclassification"/>
