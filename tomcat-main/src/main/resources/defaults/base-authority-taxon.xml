@@ -62,6 +62,9 @@
         <field id="preferredTaxon" ui-type="groupfield/preferredTA/selfrenderer" ui-func="cspace.preferred">
             <selector>preferred-taxonAuthority</selector>
         </field>
+        <repeat id="taxonRecordTypes">
+            <field id="taxonRecordType" ui-search="repeatable" autocomplete="vocab-taxontype" ui-type="enum"/>
+        </repeat>
         <field id="taxonRank" ui-search="repeatable" seperate_ui_container="true">
             <options>
                 <option id="" default="yes">Please select a value</option>

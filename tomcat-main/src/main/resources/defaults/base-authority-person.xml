@@ -60,6 +60,9 @@
         <field id="preferredPerson" ui-type="groupfield/preferredPA/selfrenderer" ui-func="cspace.preferred">
             <selector>preferred-personAuthority</selector>
         </field>
+        <repeat id="personRecordTypes">
+            <field id="personRecordType" ui-search="repeatable" autocomplete="vocab-persontermtype" ui-type="enum"/>
+        </repeat>
         <field id="birthDateGroup" in-title="yes" ui-type="groupfield/structureddate" 
             ui-search="range" primarykey="birthDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
             <selector>personAuthority-birthDate</selector>
