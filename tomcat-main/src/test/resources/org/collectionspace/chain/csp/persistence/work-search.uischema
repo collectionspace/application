@@ -74,7 +74,11 @@
             }, 
             "termName": {
               "type": "string"
-            }, 
+            },
+            "termFlag": {
+                "default": "",
+                "type": "string"
+            },
             "termStatus": {
               "default": "", 
               "type": "string"

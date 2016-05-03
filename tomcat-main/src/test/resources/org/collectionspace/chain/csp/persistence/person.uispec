@@ -1045,6 +1045,20 @@
                         "options": {
                             "repeatTree": {"expander": {
                                 "tree": {
+                                    ".csc-personAuthority-termFlag": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.termList",
+                                                "options": {
+                                                    "termListType": "termFlag",
+                                                    "root": "{row}",
+                                                    "elPath": "termFlag"
+                                                },
+                                                "type": "fluid"
+                                            }
+                                        ]
+                                    },
+                                    
                                     ".csc-personAuthority-surName": "${{row}.surName}",
                                     ".csc-personAuthority-termName": "${{row}.termName}",
                                     ".csc-personAuthority-salutation": {
@@ -1157,6 +1171,9 @@
                             "elPath": "fields.personTermGroup"
                         }
                     }]},
+                    ".csc-preferredPA-termFlag-label": {
+                        "messagekey": "preferredPA-termFlagLabel"
+                    },
                     ".csc-preferredPA-termSourceNote-label": {"messagekey": "preferredPA-termSourceNoteLabel"},
                     ".csc-preferredPA-salutation-label": {"messagekey": "preferredPA-salutationLabel"},
                     ".csc-preferredPA-termQualifier-label": {"messagekey": "preferredPA-termQualifierLabel"},

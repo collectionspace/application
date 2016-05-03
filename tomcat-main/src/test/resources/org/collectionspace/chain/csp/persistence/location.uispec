@@ -218,6 +218,19 @@
                                         }],
                                         "value": "${{row}.termSource}"
                                     },
+                                    ".csc-locationAuthority-termFlag": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.termList",
+                                                "options": {
+                                                    "termListType": "termFlag",
+                                                    "root": "{row}",
+                                                    "elPath": "termFlag"
+                                                },
+                                                "type": "fluid"
+                                            }
+                                        ]
+                                    },
                                     ".csc-locationAuthority-termSourceNote": "${{row}.termSourceNote}",
                                     ".csc-locationAuthority-termPrefForLang": "${{row}.termPrefForLang}",
                                     ".csc-locationAuthority-termStatus": {
@@ -244,7 +257,10 @@
                     }]},
                     ".csc-preferredSLA-locTermGroup-label": {"messagekey": "preferredSLA-locTermGroupLabel"},
                     ".csc-preferredSLA-termSourceDetail-label": {"messagekey": "preferredSLA-termSourceDetailLabel"},
-                    ".csc-preferredSLA-termDisplayName-label": {"messagekey": "preferredSLA-termDisplayNameLabel"}
+                    ".csc-preferredSLA-termDisplayName-label": {"messagekey": "preferredSLA-termDisplayNameLabel"},
+                    ".csc-preferredSLA-termFlag-label": {
+                        "messagekey": "preferredSLA-termFlagLabel"
+                    }
                 },
                 "type": "fluid.noexpand"
             }}}

@@ -59,6 +59,10 @@
                                 "default": "",
                                 "type": "string"
                             },
+                            "termFlag": {
+                                "default": "",
+                                "type": "string"
+                            },
                             "termDisplayName": {"type": "string"},
                             "termSource": {"type": "string"},
                             "termFormattedDisplayName": {"type": "string"},

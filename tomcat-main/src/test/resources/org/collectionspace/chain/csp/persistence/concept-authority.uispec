@@ -228,6 +228,19 @@
                                     },
                                     ".csc-conceptAuthority-termFormattedDisplayName": "${{row}.termFormattedDisplayName}",
                                     ".csc-conceptAuthority-termSourceNote": "${{row}.termSourceNote}",
+                                    ".csc-conceptAuthority-termFlag": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.termList",
+                                                "options": {
+                                                    "termListType": "termFlag",
+                                                    "root": "{row}",
+                                                    "elPath": "termFlag"
+                                                },
+                                                "type": "fluid"
+                                            }
+                                        ]
+                                    },
                                     ".csc-conceptAuthority-termDisplayName": "${{row}.termDisplayName}",
                                     ".csc-conceptAuthority-termSource": {
                                         "decorators": [{
@@ -259,6 +272,9 @@
                     ".csc-preferredCA-termSourceDetail-label": {"messagekey": "preferredCA-termSourceDetailLabel"},
                     ".csc-preferredCA-termStatus-label": {"messagekey": "preferredCA-termStatusLabel"},
                     ".csc-preferredCA-termSourceNote-label": {"messagekey": "preferredCA-termSourceNoteLabel"},
+                    ".csc-preferredCA-termFlag-label": {
+                        "messagekey": "preferredCA-termFlagLabel"
+                    },
                     ".csc-preferredCA-termLanguage-label": {"messagekey": "preferredCA-termLanguageLabel"},
                     ".csc-preferredCA-termDisplayName-label": {"messagekey": "preferredCA-termDisplayNameLabel"}
                 },

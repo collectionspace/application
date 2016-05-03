@@ -1076,6 +1076,9 @@
                     ".csc-preferredOA-termStatus-label": {"messagekey": "preferredOA-termStatusLabel"},
                     ".csc-preferredOA-additionsToName-label": {"messagekey": "preferredOA-additionsToNameLabel"},
                     ".csc-preferredOA-termSource-label": {"messagekey": "preferredOA-termSourceLabel"},
+                    ".csc-preferredOA-termFlag-label": {
+                        "messagekey": "preferredOA-termFlagLabel"
+                    },
                     ".csc-preferredOA-termLanguage-label": {"messagekey": "preferredOA-termLanguageLabel"},
                     ".csc-preferredOA-termType-label": {"messagekey": "preferredOA-termTypeLabel"},
                     ".csc-preferredOA-termSourceID-label": {"messagekey": "preferredOA-termSourceIDLabel"},
@@ -1120,6 +1123,19 @@
                                             }
                                         }],
                                         "value": "${{row}.termSource}"
+                                    },
+                                    ".csc-orgAuthority-termFlag": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.termList",
+                                                "options": {
+                                                    "termListType": "termFlag",
+                                                    "root": "{row}",
+                                                    "elPath": "termFlag"
+                                                },
+                                                "type": "fluid"
+                                            }
+                                        ]
                                     },
                                     ".csc-orgAuthority-termStatus": {
                                         "default": "provisional",

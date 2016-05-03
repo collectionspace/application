@@ -69,7 +69,11 @@
                                 "type": "string"
                             },
                             "foreName": {"type": "string"},
-                            "nameAdditions": {"type": "string"}
+                            "nameAdditions": {"type": "string"},
+                            "termFlag": {
+                                "default": "",
+                                "type": "string"
+                            }
                         },
                         "type": "object"
                     },
