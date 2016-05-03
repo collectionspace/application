@@ -97,7 +97,7 @@ public class WebLogin implements WebMethod {
 			try {
 				WebReset webReset = new WebReset(false, false);
 				webReset.configure(ui, spec);
-				webReset.run(in, new String[0]);
+				webReset.run(in, new String[0], false);
 			} catch (Throwable t) {
 				log.error(t.getMessage());
 			}
