@@ -110,6 +110,19 @@
                         ],
                         "selection": "${{row}.termStatus}"
                     },
+                    ".csc-placeAuthority-termFlag": {
+                        "decorators": [
+                            {
+                                "func": "cspace.termList",
+                                "options": {
+                                    "termListType": "termFlag",
+                                    "root": "{row}",
+                                    "elPath": "termFlag"
+                                },
+                                "type": "fluid"
+                            }
+                        ]
+                    },
                     ".csc-placeAuthority-termDisplayName": "${{row}.termDisplayName}",
                     ".csc-placeAuthority-termLanguage": {"decorators": [{
                         "func": "cspace.termList",
@@ -205,6 +218,9 @@
             "type": "fluid"
         }],
         "value": "${updatedAtEnd}"
+    },
+    ".csc-place-termFlag-label": {
+        "messagekey": "preferredPlace-termFlagLabel"
     },
     ".csc-place-termPrefForLang-label": {"messagekey": "preferredPlace-termPrefForLangLabel"},
     ".csc-place-updatedAt-label": {"messagekey": "place-updatedAtLabel"},

@@ -750,6 +750,19 @@
                                         "selection": "${{row}.termType}"
                                     },
                                     ".csc-placeAuthority-termPrefForLang": "${{row}.termPrefForLang}",
+                                    ".csc-placeAuthority-termFlag": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.termList",
+                                                "options": {
+                                                    "termListType": "termFlag",
+                                                    "root": "{row}",
+                                                    "elPath": "termFlag"
+                                                },
+                                                "type": "fluid"
+                                            }
+                                        ]
+                                    },
                                     ".csc-placeAuthority-termDisplayName": "${{row}.termDisplayName}",
                                     ".csc-placeAuthority-termFormattedDisplayName": "${{row}.termFormattedDisplayName}",
                                     ".csc-placeAuthority-termSourceNote": "${{row}.termSourceNote}",
@@ -830,6 +843,9 @@
                     ".csc-preferredPlace-termSourceID-label": {"messagekey": "preferredPlace-termSourceIDLabel"},
                     ".csc-preferredPlace-termStatus-label": {"messagekey": "preferredPlace-termStatusLabel"},
                     ".csc-preferredPlace-termQualifier-label": {"messagekey": "preferredPlace-termQualifierLabel"},
+                    ".csc-preferredPlace-termFlag-label": {
+                        "messagekey": "preferredPlace-termFlagLabel"
+                    },
                     ".csc-preferredPlace-nameAbbrev-label": {"messagekey": "preferredPlace-nameAbbrevLabel"}
                 },
                 "type": "fluid.noexpand"

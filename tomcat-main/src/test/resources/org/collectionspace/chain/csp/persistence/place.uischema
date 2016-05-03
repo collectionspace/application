@@ -51,6 +51,10 @@
                                 "type": "boolean"
                             },
                             "termDisplayName": {"type": "string"},
+                            "termFlag": {
+                                "default": "",
+                                "type": "string"
+                            },
                             "termType": {
                                 "default": "",
                                 "type": "string"

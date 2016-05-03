@@ -433,4 +433,94 @@
                         <options>
                         </options>
                     </instance>
+                    <instance id="vocab-citationtermflag">
+                        <web-url>citationtermflag</web-url>
+                        <title-ref>citationtermflag</title-ref>
+                        <title>Citation Term Flags</title>
+                        <options>
+                            <option id="abbreviation">abbreviation</option>
+                            <option id="common">common term</option>
+                            <option id="full">full term</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-concepttermflag">
+                        <web-url>concepttermflag</web-url>
+                        <title-ref>concepttermflag</title-ref>
+                        <title>Concept Term Flags</title>
+                        <options>
+                            <option id="abbreviation">abbreviation</option>
+                            <option id="common">common term</option>
+                            <option id="full">full term</option>
+                            <option id="jargonslang">jargon/slang</option>
+                            <option id="scientific">scientific term</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-locationtermflag">
+                        <web-url>locationtermflag</web-url>
+                        <title-ref>locationtermflag</title-ref>
+                        <title>Location Term Flags</title>
+                        <options>
+                            <option id="abbreviation">abbreviation</option>
+                            <option id="full">full term</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-orgtermflag">
+                        <web-url>orgtermflag</web-url>
+                        <title-ref>orgtermflag</title-ref>
+                        <title>Organization Term Flags</title>
+                        <options>
+                            <option id="official">official name</option>
+                            <option id="popular">popular name</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-persontermflag">
+                        <web-url>persontermflag</web-url>
+                        <title-ref>persontermflag</title-ref>
+                        <title>Person Term Flags</title>
+                        <options>
+                            <option id="birth">birth name</option>
+                            <option id="pseudonym">pseudonym</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-placetermflag">
+                        <web-url>placetermflag</web-url>
+                        <title-ref>placetermflag</title-ref>
+                        <title>Place Term Flags</title>
+                        <options>
+                            <option id="iso">ISO 3-number</option>
+                            <option id="official">official name</option>
+                            <option id="pseudonym">pseudonym</option>
+                            <option id="site">site name</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-taxontermflag">
+                        <web-url>taxontermflag</web-url>
+                        <title-ref>taxontermflag</title-ref>
+                        <title>Taxon Term Flags</title>
+                        <options>
+                        </options>
+                    </instance>
+                    <instance id="vocab-worktermflag">
+                        <web-url>worktermflag</web-url>
+                        <title-ref>worktermflag</title-ref>
+                        <title>Work Term Flags</title>
+                        <options>
+                            <option id="assigned">assigned by artist</option>
+                            <option id="collection">collection</option>
+                            <option id="generic">generic</option>
+                            <option id="popular">popular</option>
+                            <option id="series">series</option>
+                            <option id="trade">trade</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-materialtermflag">
+                        <web-url>materialtermflag</web-url>
+                        <title-ref>materialtermflag</title-ref>
+                        <title>Material Term Flags</title>
+                        <options>
+                            <option id="abbreviation">abbreviation</option>
+                            <option id="commercial">commercial</option>
+                            <option id="common">common</option>
+                        </options>
+                    </instance>
 </instances>

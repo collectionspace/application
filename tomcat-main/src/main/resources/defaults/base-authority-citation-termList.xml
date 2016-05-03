@@ -17,6 +17,9 @@
 				ui-type="enum">
 				<selector>citationAuthority-termType</selector>
 			</field>
+			<field id="termFlag" ui-search="repeatable" autocomplete="vocab-citationtermflag" ui-type="enum">
+				<selector>citationAuthority-termFlag</selector>
+			</field>
 			<field id="termStatus" ui-search="repeatable"
 				seperate_ui_container="true" mini="search,list,relate">
 				<selector>citationAuthority-termStatus</selector>

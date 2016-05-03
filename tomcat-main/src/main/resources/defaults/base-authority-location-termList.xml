@@ -21,6 +21,9 @@
                     <option id="used for term">used for term</option>
                 </options>
             </field>
+            <field id="termFlag" ui-search="repeatable" autocomplete="vocab-locationtermflag" ui-type="enum">
+                <selector>locationAuthority-termFlag</selector>
+            </field>
             <field id="termStatus" ui-search="repeatable" seperate_ui_container="true" mini="search,list,relate">
                 <selector>locationAuthority-termStatus</selector>
                 <options>

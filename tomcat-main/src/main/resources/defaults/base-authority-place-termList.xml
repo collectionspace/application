@@ -25,6 +25,9 @@
                     <option id="spelling-variant">Spelling variant</option>
                 </options>
             </field>
+            <field id="termFlag" ui-search="repeatable" autocomplete="vocab-placetermflag" ui-type="enum">
+                <selector>placeAuthority-termFlag</selector>
+            </field>
             <field id="termStatus" ui-search="repeatable" seperate_ui_container="true"
                 mini="search,list,relate">
                 <selector>placeAuthority-termStatus</selector>

@@ -75,6 +75,10 @@
                             "termLanguage": {
                                 "default": "",
                                 "type": "string"
+                            },
+                            "termFlag": {
+                                "default": "",
+                                "type": "string"
                             }
                         },
                         "type": "object"
