@@ -39,6 +39,7 @@ import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.*;
 import org.collectionspace.chain.csp.persistence.services.RefName.Tools;
+import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.TTYOutputter;
 import org.collectionspace.csp.api.ui.UIException;

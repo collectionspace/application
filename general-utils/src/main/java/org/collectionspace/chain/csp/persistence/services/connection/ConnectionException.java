@@ -28,6 +28,7 @@ public class ConnectionException extends Exception {
 	public ConnectionException(String message, Throwable cause) {
 		super(message, cause);
 	}
+	
 	public ConnectionException(String message, Integer status, String url) {
 		super(message);
 		this.url = url;

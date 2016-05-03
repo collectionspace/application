@@ -94,6 +94,13 @@ public class WebLogin implements WebMethod {
 		uiSession.setValue(UISession.TENANT,tenantId);
 		in.reset();
 		if(testSuccess(in.getStorage(), tenantId)) {
+			try {
+				WebReset webReset = new WebReset(false, false);
+				webReset.configure(ui, spec);
+				webReset.run(in, new String[0]);
+			} catch (Throwable t) {
+				log.error(t.getMessage());
+			}
 			request.setRedirectPath(login_dest.split("/"));
 		} else {
 			uiSession.setValue(UISession.USERID,"");  // REM - 2/7/2013: If we got here that means we failed to authenticate with the Services (or another "storage" container), so I would think we should kill any existing session and not just null out the username and password fields.
