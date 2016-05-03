@@ -417,16 +417,15 @@ public class WebReset implements WebMethod {
 
 	public void run(Object in,String[] tail) throws UIException {
 		Request q=(Request)in;
-		
-		initialiseAll(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));	
-		if (this.populate) {
-			reset(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
-		}
-		
+				
 		//
 		// Synchronize this code (on the class) so we don't accidentally start more than one thread that is trying to initialize things.
 		//
-    	synchronized(this.getClass()) {        
+    	synchronized(this.getClass()) {
+    		initialiseAll(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));	
+    		if (this.populate) {
+    			reset(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
+    		}
     	}
 	}
 
