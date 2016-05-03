@@ -31,6 +31,9 @@
                     <option id="rejected">Rejected</option>
                 </options>
             </field>
+            <field id="termFlag" ui-search="repeatable" autocomplete="vocab-materialtermflag" ui-type="enum">
+                <selector>materialAuthority-termFlag</selector>
+            </field>
             <field id="termQualifier">
                 <selector>materialAuthority-termQualifier</selector>
             </field>
