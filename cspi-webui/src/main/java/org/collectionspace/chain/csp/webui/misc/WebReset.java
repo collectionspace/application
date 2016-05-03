@@ -12,6 +12,7 @@ import java.io.InputStream;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
+import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Option;
@@ -65,23 +66,24 @@ public class WebReset implements WebMethod {
 	}
 
 	private void initialiseAll(Storage storage,UIRequest request,String path) throws UIException { 
-		TTYOutputter tty=request.getTTYOutputter();
+//		TTYOutputter tty=request.getTTYOutputter();
+		TTYOutputter tty = null;
 		try{
 			log.info("Initialise vocab/auth entries");
-			tty.line("Initialise vocab/auth entries");
+//			tty.line("Initialise vocab/auth entries");
 			// Delete existing vocab entries
 			JSONObject myjs = new JSONObject();
 			myjs.put("pageSize", "10");
 			myjs.put("pageNum", "0");
 			JSONObject data = storage.getPathsJSON("/",null);
 			String[] paths = (String[]) data.get("listItems");
-			for(String dir : paths) {
-				try{
-					if(this.spec.hasRecord(dir)){
+			for (String dir : paths) {
+				try {
+					if (this.spec.hasRecord(dir)) {
 						Record r = this.spec.getRecord(dir);
 						if(r.isType("authority")){
 							log.info("testing Authority " +dir);
-							tty.line("testing Authority  " + dir);
+//							tty.line("testing Authority  " + dir);
 							for(Instance n : r.getAllInstances()) {
 
 								avi = new AuthoritiesVocabulariesInitialize(n, populate);
@@ -113,17 +115,17 @@ public class WebReset implements WebMethod {
 							}
 						}
 					}
-				}
-				catch(Exception e){
-					tty.line("that was weird but probably not a problem " + e.getMessage());
+				} catch(Exception e) {
+					if (e.getCause() instanceof ConnectionException) {
+						tty.line("Authentication Error: You'll need to login to the correct CollectionSpace tenant before trying to initialize the default vocabularies and authorities.\n");
+					}
 					log.warn("initialiseAll() exception: " + e.getMessage());
+					break; // no need to continue if the user hasn't authenticated
 				}
 			}
-
-		
 		} catch (ExistException e) {
 			log.info("ExistException "+ e.getLocalizedMessage());
-			tty.line("ExistException "+ e.getLocalizedMessage());
+//			tty.line("ExistException "+ e.getLocalizedMessage());
 			throw new UIException("Existence problem",e);
 		} catch (UnimplementedException e) {
 			log.info("UnimplementedException "+ e.getLocalizedMessage());
@@ -415,11 +417,17 @@ public class WebReset implements WebMethod {
 
 	public void run(Object in,String[] tail) throws UIException {
 		Request q=(Request)in;
-		initialiseAll(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
-
-		if(this.populate){
+		
+		initialiseAll(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));	
+		if (this.populate) {
 			reset(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
 		}
+		
+		//
+		// Synchronize this code (on the class) so we don't accidentally start more than one thread that is trying to initialize things.
+		//
+    	synchronized(this.getClass()) {        
+    	}
 	}
 
 	public void configure() throws ConfigException {}
