@@ -7,6 +7,7 @@
 package org.collectionspace.chain.csp.webui.misc;
 
 import org.collectionspace.chain.csp.config.ConfigException;
+import org.collectionspace.chain.csp.schema.AdminData;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
@@ -93,11 +94,21 @@ public class WebLogin implements WebMethod {
 		uiSession.setValue(UISession.PASSWORD,password);
 		uiSession.setValue(UISession.TENANT,tenantId);
 		in.reset();
-		if(testSuccess(in.getStorage(), tenantId)) {
+		if (testSuccess(in.getStorage(), tenantId)) {
 			try {
+				/*
+				 * If enabled, this code would attempt to initialize/reload the default authorities and term lists.  It would attempt to
+				 * do this with the credentials just used to successfully login.  If the credentials did not suffice to perform the init/reload
+				 * then the user would be redirected to an error page rather than the default post-login landing page.
+				 * 
+				 * This may be a safer (better?) approach then the current one.  The current approach uses the tenant admin credentials stored
+				 * in the Application layer's config.  Since keeping these credentials in the config is a security vulnerability, we may need
+				 * stop using them and rely on this apporach for init/reloading the default authorities and term lists.
+				 * 
 				WebReset webReset = new WebReset(false, false);
 				webReset.configure(ui, spec);
 				webReset.run(in, new String[0], false);
+				*/
 			} catch (Throwable t) {
 				log.error(t.getMessage());
 			}

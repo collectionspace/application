@@ -80,7 +80,7 @@ public class CSPManagerImpl implements CSPManager {
 			}
 			// Run the post-config init tasks
 			for(Configurable config : config_csps) {
-				config.complete_init();
+				config.complete_init(this);
 			}
 		} catch (ConfigException e) {
 			throw new CSPDependencyException(e); // XXX			

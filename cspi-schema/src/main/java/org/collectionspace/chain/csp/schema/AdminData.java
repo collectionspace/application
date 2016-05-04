@@ -8,7 +8,6 @@ package org.collectionspace.chain.csp.schema;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

@@ -9,6 +9,7 @@ package org.collectionspace.chain.csp.webui.misc;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
@@ -145,8 +146,18 @@ public class WebReset implements WebMethod {
 			logInitMessage(responseMessage, "UnimplementedException " + e.getLocalizedMessage(), modifyResponse);
 			throw new UIException("Unimplemented ",e);
 		} catch (UnderlyingStorageException x) {
-			logInitMessage(responseMessage, "UnderlyingStorageException " + x.getLocalizedMessage(), modifyResponse);
-			throw new UIException("Problem storing:" + x.getLocalizedMessage(), x.getStatus(), x.getUrl(), x);
+			if (x.getStatus() == HttpStatus.SC_UNAUTHORIZED) {
+				initializationFailed = true;
+				logInitMessage(responseMessage,
+						"\n*** ERROR *** You will need to login to the correct tenant before attempting to initialize the default vocabularies and authorities.\n",
+						modifyResponse);
+				logInitMessage(responseMessage, "\nDetailed error code:\n\t" + x.getStatus(), modifyResponse);
+				logInitMessage(responseMessage, "\nRequest target:\n\t" + x.getUrl(), modifyResponse);						
+				logInitMessage(responseMessage, "\nDetailed error message:\n\t" + x.getMessage(), modifyResponse);
+			} else {
+				logInitMessage(responseMessage, "UnderlyingStorageException " + x.getLocalizedMessage(), modifyResponse);
+				throw new UIException("Problem storing:" + x.getLocalizedMessage(), x.getStatus(), x.getUrl(), x);
+			}
 		} catch (JSONException e) {
 			logInitMessage(responseMessage, "JSONException " + e.getLocalizedMessage(), modifyResponse);
 			throw new UIException("Invalid JSON",e);
@@ -437,6 +448,26 @@ public class WebReset implements WebMethod {
 	}
 
 	/**
+	 * 
+	 * @param storage
+	 * @param uiRequest
+	 * @param tail
+	 * @param modifyResponse
+	 * @throws UIException
+	 */
+	public void run(Storage storage, UIRequest uiRequest, String[] tail, boolean modifyResponse) throws UIException {
+		//
+		// Synchronize this code (on the class) so we don't accidentally start more than one thread that is trying to initialize things.
+		//
+    	synchronized(this.getClass()) {
+    		initialiseAll(storage, uiRequest, StringUtils.join(tail,"/"), modifyResponse);	
+    		if (this.populate) {
+    			reset(storage, uiRequest, StringUtils.join(tail,"/"));
+    		}
+    	}
+	}
+	
+	/**
 	 * The 'modifyResponse' param tells us whether or not to add our output to the HTTP response.  We'll
 	 * only do this if there is a direct request to the /authorities/initialize URL.
 	 * 
@@ -445,17 +476,9 @@ public class WebReset implements WebMethod {
 	 * @param modifyResponse
 	 * @throws UIException
 	 */
-	public void run(Object in,String[] tail, boolean modifyResponse) throws UIException {
-		Request q=(Request)in;
-		//
-		// Synchronize this code (on the class) so we don't accidentally start more than one thread that is trying to initialize things.
-		//
-    	synchronized(this.getClass()) {
-    		initialiseAll(q.getStorage(), q.getUIRequest(), StringUtils.join(tail,"/"), modifyResponse);	
-    		if (this.populate) {
-    			reset(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
-    		}
-    	}
+	public void run(Object in, String[] tail, boolean modifyResponse) throws UIException {
+		Request request = (Request)in;
+   		run(request.getStorage(), request.getUIRequest(), tail, modifyResponse);	
 	}
 	
 	@Override

@@ -21,6 +21,9 @@ import org.collectionspace.chain.csp.persistence.services.vocab.ConfiguredVocabS
 import org.collectionspace.chain.csp.schema.AdminData;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.csp.webui.main.WebUI;
+import org.collectionspace.chain.csp.webui.misc.WebReset;
+import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
@@ -28,6 +31,8 @@ import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.StorageGenerator;
+import org.collectionspace.csp.api.ui.UIException;
+import org.collectionspace.csp.helper.core.RequestCache;
 import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
 import org.collectionspace.csp.helper.persistence.SplittingStorage;
 import org.slf4j.Logger;
@@ -53,7 +58,27 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 	public String getIMSBase() { return ims_url; }
 	public TenantSpec getTenantData() { return tenantData; }
 
-	private void real_init(Spec spec) throws CSPDependencyException {
+	private void initializeAuthorities(CSPManager cspManager, Spec spec) {
+		AdminData ad = spec.getAdminData();
+		String adminUsername = ad.getAuthUser();
+		String adminPass = ad.getAuthPass();
+		//request.getSession().setValue(UISession.USERID,ad.getAuthUser());
+		//request.getSession().setValue(UISession.PASSWORD,ad.getAuthPass());
+		CSPRequestCredentials creds = this.createCredentials();
+		creds.setCredential(CRED_USERID,spec.getAdminData().getAuthUser());
+		creds.setCredential(CRED_PASSWORD,spec.getAdminData().getAuthPass());
+
+		WebReset webReset = new WebReset(false, false);
+		webReset.configure((WebUI) cspManager.getUI(""), spec);
+		try {
+			webReset.run(getStorage(creds, new RequestCache()), null, new String[0], false);
+		} catch (UIException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void real_init(CSPManager cspManager, Spec spec) throws CSPDependencyException {
 		try {
 			ServicesConnection conn=new ServicesConnection(base_url,ims_url);
 			for(Record r : spec.getAllRecords()) {
@@ -71,6 +96,9 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 			addChild("direct",new DirectRedirector(spec));
 			addChild("id",new ServicesIDGenerator(conn,spec));
 			addChild("relations",new ServicesRelationStorage(conn,spec));
+			
+			//
+			initializeAuthorities(cspManager, spec);
 			
 		} catch (Exception e) {
 			throw new CSPDependencyException("Could not set target",e); // XXX wrong type
@@ -118,14 +146,17 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 	}
 		
 	@Override
-	public void config_finish() throws CSPDependencyException {}
+	public void config_finish() throws CSPDependencyException {
+		// Intentionally blank
+	}
 	
 	@Override
-	public void complete_init() throws CSPDependencyException {
-		Spec spec=(Spec)ctx.getConfigRoot().getRoot(Spec.SPEC_ROOT);
-		if(spec==null)
+	public void complete_init(CSPManager cspManager) throws CSPDependencyException {
+		Spec spec = (Spec)ctx.getConfigRoot().getRoot(Spec.SPEC_ROOT);
+		if (spec == null) {
 			throw new CSPDependencyException("Could not load spec");
-		real_init(spec);
+		}
+		real_init(cspManager, spec);
 	}
 
 	@Override

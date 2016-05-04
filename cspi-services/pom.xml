@@ -46,6 +46,13 @@
 			<version>${project.version}</version>
 			<type>jar</type>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.collectionspace</groupId>
+			<artifactId>cspi-webui</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+		</dependency>		
 
 		<dependency>
 			<groupId>org.collectionspace</groupId>

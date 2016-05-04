@@ -64,6 +64,7 @@ import org.collectionspace.chain.csp.webui.relate.RelateDelete;
 import org.collectionspace.chain.csp.webui.relate.RelateRead;
 import org.collectionspace.chain.csp.webui.relate.RelateSearchList;
 import org.collectionspace.chain.pathtrie.Trie;
+import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
@@ -372,7 +373,7 @@ public class WebUI implements CSP, UI, Configurable {
 	}
 
 	@Override
-	public void complete_init() throws CSPDependencyException {
+	public void complete_init(CSPManager cspManager) throws CSPDependencyException {
 		Spec spec = (Spec) ctx.getConfigRoot().getRoot(Spec.SPEC_ROOT);
 		if (spec == null)
 			throw new CSPDependencyException("Could not load spec");
