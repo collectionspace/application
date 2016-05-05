@@ -25,8 +25,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.commons.io.FileUtils;
 
-public class Services {
-	private static final Logger log = LoggerFactory.getLogger(Services.class);
+public class ServiceBindingsGeneration {
+	private static final Logger log = LoggerFactory.getLogger(ServiceBindingsGeneration.class);
 	
 	private static final String RECORD_TYPE_VOCABULARY = "vocabulary";
 	private static final String RECORD_TYPE_AUTHORITY = "authority";
@@ -76,11 +76,11 @@ public class Services {
 	protected String schemaloc = "http://collectionspace.org/services/config/tenant " +
 	"http://collectionspace.org/services/config/tenant.xsd";
 
-	public Services() {
+	public ServiceBindingsGeneration() {
 		// Intentionally left blank?
 	}
 	
-	public Services(Spec spec,TenantSpec td, Boolean isdefault) throws IOException {
+	public ServiceBindingsGeneration(Spec spec,TenantSpec td, Boolean isdefault) throws IOException {
 		this.spec = spec;
 		this.tenantSpec = td;
 		this.defaultonly = isdefault;
@@ -664,6 +664,7 @@ public class Services {
 		bindingsForAuthorityItemx.addAttribute("type", RECORD_TYPE_AUTHORITY);
 		bindingsForAuthorityItemx.addAttribute("version", serviceBindingVersion);
 		bindingsForAuthorityItemx.addAttribute(Record.SUPPORTS_REPLICATING, Boolean.toString(r.supportsReplicating()));
+		bindingsForAuthorityItemx.addAttribute(Record.REQUIRES_UNIQUE_SHORTID, Boolean.TRUE.toString());
 
 		addServiceBinding(r, bindingsForAuthorityItemx, nsservices, false, serviceBindingVersion);
 		if (log.isDebugEnabled() == true) {
@@ -677,6 +678,7 @@ public class Services {
 		bindingsForAuthority.addAttribute("type", RECORD_TYPE_UTILITY);
 		bindingsForAuthority.addAttribute("version", serviceBindingVersion);
 		bindingsForAuthority.addAttribute(Record.SUPPORTS_REPLICATING, Boolean.toString(r.supportsReplicating()));
+		bindingsForAuthority.addAttribute(Record.REQUIRES_UNIQUE_SHORTID, Boolean.TRUE.toString());
 
 		addServiceBinding(r, bindingsForAuthority, nsservices, true, serviceBindingVersion);
 		if (log.isDebugEnabled() == true) {

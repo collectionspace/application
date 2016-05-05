@@ -269,7 +269,7 @@ public class XsdGeneration {
 				throw new Exception(errMsg);
 			}
 		} else if (generationType.equals(CommonAPI.GENERATE_BINDINGS)) { // Create the service bindings.
-			Services tenantbob = new Services(createSpec(cspm), getTenantData(cspm),false);
+			ServiceBindingsGeneration tenantbob = new ServiceBindingsGeneration(createSpec(cspm), getTenantData(cspm),false);
 			tenantBindings = tenantbob.doit(serviceBindingsVersion);
 		} else {
 			throw new Exception("Unknown generation type requested.");
@@ -911,7 +911,7 @@ public class XsdGeneration {
 			cspm.go(); // Do more initialization of our CSPManagerImpl instance (i.e., cspm)
 			File configBase = configFile.getParentFile();
 			cspm.setConfigBase(configBase); // Saves a copy of the base config directory
-			cspm.configure(getSource(configFile), new ConfigFinder(null, configBase));
+			cspm.configure(getSource(configFile), new ConfigFinder(null, configBase), true);
 			this.setConfigBase(configBase);
 			result = cspm;
 		} catch (CSPDependencyException e) {

@@ -484,8 +484,10 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 			Document doc=data.getDocument();
 
-			if(doc==null)
+			if (doc == null) {
 				throw new UnderlyingStorageException("Could not retrieve vocabulary items",data.getStatus(),path);
+			}
+			
 			String[] tag_parts=r.getServicesListPath().split(",",2);
 			String listItemPath = tag_parts[1]; 
 			

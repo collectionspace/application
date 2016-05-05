@@ -108,7 +108,7 @@ public class ServicesBaseClass {
 		cspm.register(new Spec());
 		cspm.register(new ServicesStorageGenerator());
 		cspm.go();
-		cspm.configure(getRootSource(),new ConfigFinder(null));
+		cspm.configure(getRootSource(), new ConfigFinder(null), false);
 		return cspm;
 		
 	}

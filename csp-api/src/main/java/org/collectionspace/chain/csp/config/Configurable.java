@@ -12,5 +12,5 @@ import org.collectionspace.csp.api.core.CSPDependencyException;
 public interface Configurable {
 	public void configure(RuleSet rules) throws CSPDependencyException;
 	public void config_finish() throws CSPDependencyException;
-	public void complete_init(CSPManager cspManager) throws CSPDependencyException;
+	public void complete_init(CSPManager cspManager, boolean forXsdGeneration) throws CSPDependencyException;
 }

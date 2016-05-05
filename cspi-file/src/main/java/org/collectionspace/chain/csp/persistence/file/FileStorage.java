@@ -89,7 +89,7 @@ public class FileStorage extends ProxyStorage implements CSP, Configurable, Stor
 	}
 	
 	@Override
-	public void complete_init(CSPManager cspManager) throws CSPDependencyException {
+	public void complete_init(CSPManager cspManager, boolean forXsdGeneration) throws CSPDependencyException {
 		real_init();
 	}
 	

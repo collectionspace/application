@@ -95,7 +95,7 @@ public class TestData {
 				cspm.go();
 				tester.getAttribute("config-filename");
 				String filename=(String)tester.getAttribute("config-filename");
-				cspm.configure(getSource(filename),new ConfigFinder(null));
+				cspm.configure(getSource(filename), new ConfigFinder(null), false);
 			} catch (CSPDependencyException e) {
 				log.info("CSPManagerImpl failed");
 				log.info(tester.getAttribute("config-filename").toString());

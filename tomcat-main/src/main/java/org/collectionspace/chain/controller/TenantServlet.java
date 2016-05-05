@@ -153,7 +153,7 @@ public class TenantServlet extends HttpServlet {
 			if(cfg_stream==null) {
 				locked_down="Cannot find cspace config xml file";
 			} else {
-				tenantCSPM.get(tenantId).configure(cfg_stream,cfg);
+				tenantCSPM.get(tenantId).configure(cfg_stream,cfg,false);
 			}
 		} catch (UnsupportedEncodingException e) {
 			throw new CSPDependencyException("Config has bad character encoding",e);

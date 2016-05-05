@@ -41,9 +41,11 @@ public class CSPManagerImpl implements CSPManager {
 		log.trace("Created another instance of CSPManagerImpl class.");
 		configBase = null;
 	}
-	
+		
 	@Override
-	public void addStorageType(String name, StorageGenerator store) { storage.put(name,store); }
+	public void addStorageType(String name, StorageGenerator store) {
+		storage.put(name,store);
+	}
 	
 	@Override
 	public void register(final CSP in) { 
@@ -66,7 +68,7 @@ public class CSPManagerImpl implements CSPManager {
 	}
 
 	@Override
-	public void configure(InputSource in,EntityResolver er) throws CSPDependencyException {
+	public void configure(InputSource in, EntityResolver er, boolean forXsdGeneration) throws CSPDependencyException {
 		RuleSetImpl rules=new RuleSetImpl();
 		for (Configurable config : config_csps) {
 			config.configure(rules);
@@ -79,8 +81,8 @@ public class CSPManagerImpl implements CSPManager {
 				config.config_finish();
 			}
 			// Run the post-config init tasks
-			for(Configurable config : config_csps) {
-				config.complete_init(this);
+			for (Configurable config : config_csps) {
+				config.complete_init(this, forXsdGeneration);
 			}
 		} catch (ConfigException e) {
 			throw new CSPDependencyException(e); // XXX			
