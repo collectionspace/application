@@ -38,6 +38,10 @@
 	
     <section id="termListInformation">
     	
+	<field id="workflow" exists-in-services="false" services-derived="true" section="collectionspace_core" attributes="GET" mini="search,list">
+		<services-tag>workflowState</services-tag>
+	</field>
+	
 	<field id="displayName" mini="summary,list" services-should-index="true"></field>
 	<field id="shortIdentifier" mini="number,list" services-should-index="true"></field>
 	<field id="vocabType" mini="list"></field>

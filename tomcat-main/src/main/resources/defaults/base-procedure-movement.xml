@@ -48,10 +48,6 @@
 				
                 <section id="coreInformation">
                     <include src="core-fields.xml"  strip-root="yes" />
-					<field id="workflow" exists-in-services="false" services-derived="true"
-                                               section="collectionspace_core" attributes="GET" mini="search,list">
-						<services-tag>workflowState</services-tag>
-					</field>
                 </section>
 				
                 <section id="currentLocationHeader"></section> <!-- temp until better way to do group headers -->
