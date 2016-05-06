@@ -184,7 +184,7 @@ public class ServiceBindingsGeneration {
 
 			if (shouldGenerateServiceBinding(r) == true) {
 				Element serviceBindingsElement = null;
-				if (r.isType(RECORD_TYPE_RECORD) == true) {
+				if (r.isType(RECORD_TYPE_RECORD) == true) { // Records can be of several types -i.e., can be both a "record" type and a "vocabulary" type
 					String rtype = getServiceBindingType(r);
 					// e.g., <tenant:serviceBindings name="CollectionObjects" type="object" version="0.1">
 					serviceBindingsElement = ele.addElement(new QName("serviceBindings", nstenant));
@@ -192,6 +192,9 @@ public class ServiceBindingsGeneration {
 					serviceBindingsElement.addAttribute("name", r.getServicesTenantPl());
 					serviceBindingsElement.addAttribute("type", rtype);
 					serviceBindingsElement.addAttribute("version", serviceBindingVersion);
+					if (r.isType(RECORD_TYPE_VOCABULARY) == true) {
+						serviceBindingsElement.addAttribute(Record.REQUIRES_UNIQUE_SHORTID, Boolean.TRUE.toString()); // Vocabularies and vocabulary items need unique short IDs
+					}
 					addServiceBinding(r, serviceBindingsElement, nsservices, false, serviceBindingVersion);
 				} else if (r.isType(RECORD_TYPE_AUTHORITY)) {
 					// e.g., <tenant:serviceBindings id="Persons" name="Persons" type="authority" version="0.1">

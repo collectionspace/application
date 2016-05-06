@@ -167,7 +167,7 @@ public class WebReset implements WebMethod {
 		// If the caller is requesting we add our messages to the HTTP request response, then create a
 		// TTY out instance and add our messages.
 		//
-		if (modifyResponse == true) {
+		if (modifyResponse == true && request != null) {
 			TTYOutputter tty = request.getTTYOutputter();
 			tty.line(responseMessage.toString());
 		}
