@@ -704,7 +704,7 @@ public class UISchema extends SchemaStructure implements WebMethod {
 		String workflowState = null;
 		
 		try {
-			if (instanceData.has("isError") && instanceData.getBoolean("isError")) {
+			if (!instanceData.has("csid") || (instanceData.has("isError") && instanceData.getBoolean("isError"))) {
 				return null;
 			}
 		}

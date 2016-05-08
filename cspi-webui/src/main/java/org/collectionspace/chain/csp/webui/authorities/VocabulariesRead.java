@@ -389,10 +389,13 @@ public class VocabulariesRead implements WebMethod {
 			
 			if(getInfoMode == GET_FULL_INFO || getInfoMode == GET_BASIC_INFO) {
 				JSONObject fields=storage.retrieveJSON(refPath, restriction);
-				String csid = fields.getString("csid");
+				
+				if (fields.has("csid")) {
+					String csid = fields.getString("csid");
 
-				out.put("fields",fields);
-				out.put("csid", csid);
+					out.put("fields",fields);
+					out.put("csid", csid);
+				}
 			}
 		} catch (ExistException e) {
 			UIException uiexception =  new UIException(e.getMessage(),e);
