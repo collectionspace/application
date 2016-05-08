@@ -498,6 +498,8 @@
                         <title-ref>taxontermflag</title-ref>
                         <title>Taxon Term Flags</title>
                         <options>
+                            <option id="valid">valid</option>
+                            <option id="invalid">invalid</option>
                         </options>
                     </instance>
                     <instance id="vocab-worktermflag">
