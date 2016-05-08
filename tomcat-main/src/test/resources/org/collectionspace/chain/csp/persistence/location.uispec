@@ -301,6 +301,10 @@
         ".csc-location-rev": "${fields.rev}",
         ".csc-location-rev-label": {"messagekey": "location-revLabel"},
         ".csc-location-uri": "${fields.uri}",
+        ".csc-location-workflow": "${fields.workflow}", 
+        ".csc-location-workflow-label": {
+          "messagekey": "location-workflowLabel"
+        }, 
         ".csc-location-proposed-label": {"messagekey": "location-proposedLabel"},
         ".csc-location-accessNote-label": {"messagekey": "location-accessNoteLabel"},
         ".csc-location-accessNote": "${fields.accessNote}",

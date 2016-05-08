@@ -43,6 +43,10 @@
     ".csc-objectexit-createdBy-label": {"messagekey": "objectexit-createdByLabel"},
     ".csc-objectexit-domaindata-label": {"messagekey": "objectexit-domaindataLabel"},
     ".csc-objectexit-uri": "${fields.uri}",
+    ".csc-objectexit-workflow": "${fields.workflow}", 
+    ".csc-objectexit-workflow-label": {
+      "messagekey": "objectexit-workflowLabel"
+    }, 
     ".csc-objectexit-currentOwner": {
         "decorators": [{
             "func": "cspace.autocomplete",

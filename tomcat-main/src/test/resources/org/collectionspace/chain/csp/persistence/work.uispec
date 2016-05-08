@@ -156,6 +156,10 @@
     "recordEditor": {
         ".csc-work-publisher-label": {"messagekey": "work-publisherLabel"},
         ".csc-work-uri": "${fields.uri}",
+        ".csc-work-workflow": "${fields.workflow}", 
+        ".csc-work-workflow-label": {
+          "messagekey": "work-workflowLabel"
+        }, 
         ".csc-work-creatorType-label": {"messagekey": "work-creatorTypeLabel"},
         ".csc-work-rev-label": {"messagekey": "work-revLabel"},
         ".csc-work-deprecated-label": {"messagekey": "work-deprecatedLabel"},

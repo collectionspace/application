@@ -58,6 +58,9 @@
                 "title": {"type": "string"},
                 "description": {"type": "string"},
                 "createdAt": {"type": "date"},
+                "workflow": {
+                    "type": "string"
+                },
                 "contributor": {"type": "string"},
                 "name": {"type": "string"},
                 "length": {"type": "string"},

@@ -86,6 +86,9 @@
                     "type": "array"
                 },
                 "updatedBy": {"type": "string"},
+                "workflow": {
+                    "type": "string"
+                },
                 "shortIdentifier": {"type": "string"},
                 "createdAt": {"type": "date"},
                 "narrowerContexts": {

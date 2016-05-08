@@ -47,6 +47,9 @@
                     "type": "string"
                 },
                 "createdAt": {"type": "date"},
+                "workflow": {
+                    "type": "string"
+                },
                 "creditLine": {"type": "string"},
                 "fieldCollectionEventNames": {
                     "items": {

@@ -4,6 +4,13 @@
         ".csc-termlistitem-deprecated-label": {"messagekey": "termlistitem-deprecatedLabel"},
         ".csc-termlist-rev": "${fields.rev}",
         ".csc-termlist-name": "${fields.name}",
+        ".csc-termlist-workflow": "${fields.workflow}",
+        ".csc-termlistitem-workflow-label": {
+          "messagekey": "termlistitem-workflowLabel"
+        },
+        ".csc-termlist-workflow-label": {
+          "messagekey": "termlist-workflowLabel"
+        },
         ".csc-termlistitem-description-label": {"messagekey": "termlistitem-descriptionLabel"},
         ".csc-termlistitem-termListItemInformation-label": {"messagekey": "termlistitem-termListItemInformationLabel"},
         ".csc-termlistitem-sas-label": {"messagekey": "termlistitem-sasLabel"},
@@ -37,6 +44,7 @@
                         ".csc-termlistitem-rev": "${{row}.rev}",
                         ".csc-termlistitem-displayName": "${{row}.displayName}",
                         ".csc-termlistitem-proposed": "${{row}.proposed}",
+                        ".csc-termlistitem-workflow": "${{row}.workflow}",
                         ".csc-termlistitem-inAuthority": "${{row}.inAuthority}",
                         ".csc-termlistitem-sourcePage": "${{row}.sourcePage}",
                         ".csc-termlistitem-source": "${{row}.source}",

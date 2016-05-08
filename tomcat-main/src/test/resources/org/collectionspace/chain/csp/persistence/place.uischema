@@ -214,6 +214,9 @@
                 },
                 "minDistanceAboveSurfaceInMeters": {"type": "float"},
                 "updatedBy": {"type": "string"},
+                "workflow": {
+                    "type": "string"
+                },
                 "vDepth": {"type": "string"},
                 "shortIdentifier": {"type": "string"},
                 "maxDistanceAboveSurfaceInMeters": {"type": "float"},
