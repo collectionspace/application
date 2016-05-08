@@ -323,6 +323,14 @@
         ".csc-contact-telephoneNumber-label": {"messagekey": "contact-telephoneNumberLabel"},
         ".csc-organization-proposed-label": {"messagekey": "organization-proposedLabel"},
         ".csc-organization-uri-label": {"messagekey": "organization-uriLabel"},
+        ".csc-organization-workflow": "${fields.workflow}", 
+        ".csc-organization-workflow-label": {
+          "messagekey": "organization-workflowLabel"
+        }, 
+        ".csc-contact-workflow": "${fields.contact.workflow}",
+        ".csc-contact-workflow-label": {
+            "messagekey": "contact-workflowLabel"
+        },
         ".csc-organization-shortIdentifier-label": {"messagekey": "organization-shortIdentifierLabel"},
         ".csc-contact-webAddressGroup-label": {"messagekey": "contact-webAddressGroupLabel"},
         ".csc-contact-sas": "${fields.contact.sas}",

@@ -365,6 +365,10 @@
             "value": "${fields.maxDepthInMeters}"
         },
         ".csc-place-uri": "${fields.uri}",
+        ".csc-place-workflow": "${fields.workflow}", 
+        ".csc-place-workflow-label": {
+          "messagekey": "place-workflowLabel"
+        }, 
         ".csc-place-placeOwnerGroup-label": {"messagekey": "place-placeOwnerGroupLabel"},
         ".csc-place-tenantId": "${fields.tenantId}",
         ".csc-place-placeGeoRefGroup-label": {"messagekey": "place-placeGeoRefGroupLabel"},

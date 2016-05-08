@@ -70,6 +70,7 @@
     ".csc-media-blobCsid-label": {"messagekey": "media-blobCsidLabel"},
     ".csc-media-fileInformation-label": {"messagekey": "media-fileInformationLabel"},
     ".csc-blobs-uri": "${fields.blobs.0.uri}",
+    ".csc-blobs-workflow": "${fields.blobs.0.workflow}",
     ".csc-media-coverage": "${fields.coverage}",
     ".csc-media-contributor": {
         "decorators": [{
@@ -605,6 +606,10 @@
     ".csc-media-title-label": {"messagekey": "media-titleLabel"},
     ".csc-blobs-refName": "${fields.blobs.0.refName}",
     ".csc-media-uri": "${fields.uri}",
+    ".csc-media-workflow": "${fields.workflow}", 
+    ".csc-media-workflow-label": {
+      "messagekey": "media-workflowLabel"
+    }, 
     ".csc-media-identificationNumber-container": {"decorators": [{
         "func": "cspace.numberPatternChooser",
         "type": "fluid",

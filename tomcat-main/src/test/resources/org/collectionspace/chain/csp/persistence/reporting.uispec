@@ -33,6 +33,10 @@
             "value": "${fields.updatedAt}"
         },
         ".csc-reports-uri": "${fields.uri}",
+        ".csc-reports-workflow": "${fields.workflow}", 
+        ".csc-reports-workflow-label": {
+          "messagekey": "reports-workflowLabel"
+        }, 
         ".csc-reports-createdBy": "${fields.createdBy}",
         ".csc-reports-supportsNoContext": "${fields.supportsNoContext}",
         ".csc-reports-updatedAt-label": {"messagekey": "reports-updatedAtLabel"},

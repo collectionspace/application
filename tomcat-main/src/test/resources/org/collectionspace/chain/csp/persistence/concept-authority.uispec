@@ -305,6 +305,10 @@
         }]},
         ".csc-concept-otherInformation-label": {"messagekey": "concept-otherInformationLabel"},
         ".csc-concept-uri": "${fields.uri}",
+        ".csc-concept-workflow": "${fields.workflow}", 
+        ".csc-concept-workflow-label": {
+          "messagekey": "concept-workflowLabel"
+        }, 
         ".csc-concept-additionalSource-label": {"messagekey": "concept-additionalSourceLabel"},
         ".csc-concept-domaindata-label": {"messagekey": "concept-domaindataLabel"},
         ".csc-concept-refName-label": {"messagekey": "concept-refNameLabel"},

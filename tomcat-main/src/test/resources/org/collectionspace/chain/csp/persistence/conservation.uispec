@@ -509,6 +509,10 @@
         ".csc-conservation-uri": "${fields.uri}",
         ".csc-conservation-uri-label": {
             "messagekey": "conservation-uriLabel"
+        },
+        ".csc-conservation-workflow": "${fields.workflow}", 
+        ".csc-conservation-workflow-label": {
+          "messagekey": "conservation-workflowLabel"
         }
     }
 }

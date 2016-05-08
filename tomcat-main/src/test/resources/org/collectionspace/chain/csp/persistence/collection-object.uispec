@@ -2390,6 +2390,10 @@
     ".csc-collection-object-uri-label": {
       "messagekey": "collection-object-uriLabel"
     }, 
+    ".csc-collection-object-workflow": "${fields.workflow}", 
+    ".csc-collection-object-workflow-label": {
+      "messagekey": "collection-object-workflowLabel"
+    }, 
     ".csc-collection-object-usage-label": {
       "messagekey": "collection-object-usageLabel"
     }, 

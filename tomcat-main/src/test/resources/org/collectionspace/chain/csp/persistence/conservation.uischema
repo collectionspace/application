@@ -61,6 +61,9 @@
                     "createdBy": {
                         "type": "string"
                     },
+                    "workflow": {
+                        "type": "string"
+                    },
                     "destAnalysisGroup": {
                         "items": {
                             "properties": {

@@ -67,6 +67,10 @@
             "value": "${fields.valueRenewalDate}"
         },
         ".csc-valuationcontrol-uri": "${fields.uri}",
+        ".csc-valuationcontrol-workflow": "${fields.workflow}", 
+        ".csc-valuationcontrol-workflow-label": {
+          "messagekey": "valuationcontrol-workflowLabel"
+        }, 
         ".csc-valuationcontrol-valueNote": "${fields.valueNote}",
         ".csc-valuationcontrol-valueAmounts-label": {
             "messagekey": "valuationcontrol-valueAmountsLabel"

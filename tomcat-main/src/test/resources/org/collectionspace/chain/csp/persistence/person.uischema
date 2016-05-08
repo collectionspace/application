@@ -163,6 +163,9 @@
                             "type": "array"
                         },
                         "rev": {"type": "string"},
+                        "workflow": {
+                            "type": "string"
+                        },
                         "emailGroup": {
                             "items": {
                                 "properties": {
@@ -409,6 +412,9 @@
                     "type": "object"
                 },
                 "uri": {"type": "string"},
+                "workflow": {
+                    "type": "string"
+                },
                 "deathPlace": {"type": "string"},
                 "updatedAt": {"type": "date"},
                 "personRecordTypes": {

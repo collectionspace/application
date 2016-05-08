@@ -360,6 +360,14 @@
         ".csc-person-shortIdentifier-label": {"messagekey": "person-shortIdentifierLabel"},
         ".csc-person-gender-label": {"messagekey": "person-genderLabel"},
         ".csc-person-uri": "${fields.uri}",
+        ".csc-person-workflow": "${fields.workflow}", 
+        ".csc-person-workflow-label": {
+          "messagekey": "person-workflowLabel"
+        }, 
+        ".csc-contact-workflow": "${fields.contact.workflow}",
+        ".csc-contact-workflow-label": {
+            "messagekey": "contact-workflowLabel"
+        },
         ".csc-contact-webAddressGroup-label": {"messagekey": "contact-webAddressGroupLabel"},
         ".csc-contact-sas": "${fields.contact.sas}",
         ".csc-person-tenantId-label": {"messagekey": "person-tenantIdLabel"},

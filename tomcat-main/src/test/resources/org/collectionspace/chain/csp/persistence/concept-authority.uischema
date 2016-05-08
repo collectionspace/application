@@ -41,6 +41,9 @@
                     "type": "array"
                 },
                 "updatedBy": {"type": "string"},
+                "workflow": {
+                    "type": "string"
+                },
                 "shortIdentifier": {"type": "string"},
                 "scopeNote": {"type": "string"},
                 "conceptTermGroup": {
