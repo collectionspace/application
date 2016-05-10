@@ -402,7 +402,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				
 				csid=result.selectSingleNode(tag_path[1]+"/csid").getText();
 			}
-			else{
+			else if ("collectionspace_core".equals(section)) {
 				XmlJsonConversion.convertToJson(out, r, result, "GET", section, csid, ims_url);
 			}
 		}
