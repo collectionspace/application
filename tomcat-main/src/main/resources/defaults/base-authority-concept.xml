@@ -54,6 +54,17 @@
             <title-ref>activity</title-ref>
             <title>Activity Concepts</title>
         </instance>
+        <!-- For materials authority -->
+        <instance id="concept-materialclassification">
+            <web-url>materialclassification</web-url>
+            <title-ref>materialclassification</title-ref>
+            <title>Material Classifications</title>
+        </instance>
+        <instance id="concept-materialformtype">
+            <web-url>materialformtype</web-url>
+            <title-ref>materialformtype</title-ref>
+            <title>Material Form Types</title>
+        </instance>
     </instances>
 	
 	<section id="coreInformation">
