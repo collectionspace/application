@@ -43,12 +43,12 @@
     <include src="domain-authority-work.xml" strip-root="yes"/>
 
     <instances id="work">
-        <instance id="work-work">
+        <instance id="work-work" create-unreferenced="true">
             <web-url>work</web-url>
             <title-ref>work</title-ref>
             <title>Local Works</title>
         </instance>
-        <instance id="work-cona_work">
+        <instance id="work-cona_work" create-unreferenced="true">
             <web-url>cona_work</web-url>
             <title-ref>cona_work</title-ref>
             <title>CONA Works</title>

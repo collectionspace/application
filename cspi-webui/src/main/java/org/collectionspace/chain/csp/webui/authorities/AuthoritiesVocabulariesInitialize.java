@@ -50,6 +50,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 	private boolean append;
 	private Instance n;
 	private Record r;
+	private Spec spec;
 	private boolean modifyResponse = true;
 	private int failedPosts = 0; // If this value is > 0 after the init is complete than the default authorities and term lists have not been properly initialized.
 	
@@ -127,23 +128,23 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		try {
 			storage.getPathsJSON(url,new JSONObject()).toString();
 			if (tty != null) {
-				log.info("Instance " + instance.getID() + " Exists.");
-				tty.append("Instance " + instance.getID() + " Exists.\n");
+				log.info("Instance " + instance.getID() + " exists.");
+				tty.append("Instance " + instance.getID() + " exists.\n");
 			}
 		} catch (UnderlyingStorageException e) {
 			if (e.getStatus() == HttpStatus.SC_NOT_FOUND) {
 				failedPosts++; // assume we're going to fail
-				log.info("need to create Instance " + n.getID());
+				log.info("need to create instance " + n.getID());
 				if (tty != null) {
-					tty.append("need to create Instance " + n.getID() + '\n');
+					tty.append("need to create instance " + n.getID() + '\n');
 				}
 				JSONObject fields = new JSONObject("{'displayName':'" + instance.getTitle() + "', 'shortIdentifier':'" + instance.getWebURL() + "'}");
 				String base = record.getID();
 				storage.autocreateJSON(base, fields, null);
 				failedPosts--; // We succeeded, so subtract our assumed failure
-				log.info("Instance " + instance.getID() + " Created.");
+				log.info("Instance " + instance.getID() + " created.");
 				if (tty != null) {
-					tty.append("Instance " + instance.getID() + " Created.\n");
+					tty.append("Instance " + instance.getID() + " created.\n");
 				}
 			} else if (e.getStatus() == HttpStatus.SC_FORBIDDEN) {
 				result = -1; // We don't have the permissions needed to see if the instance exists.
@@ -382,7 +383,9 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		}
 	}
 	
-	public void configure(WebUI ui, Spec spec) {}
+	public void configure(WebUI ui, Spec spec) {
+		this.spec = spec;
+	}
 
 	public void run(Object in, String[] tail) throws UIException {
 		Request q=(Request)in;

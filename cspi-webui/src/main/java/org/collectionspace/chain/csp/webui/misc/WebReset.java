@@ -89,26 +89,31 @@ public class WebReset implements WebMethod {
 					if (this.spec.hasRecord(dir)) {
 						Record record = this.spec.getRecord(dir);
 						if (record.isType("authority") == true) {
-							logInitMessage(responseMessage, "testing Authority " + dir + "\n", modifyResponse);
+							logInitMessage(responseMessage, "testing authority " + dir + "\n", modifyResponse);
 							for (Instance instance : record.getAllInstances()) {
-								avi = new AuthoritiesVocabulariesInitialize(instance, populate, modifyResponse);
-								Option[] allOpts = instance.getAllOptions();
-								try {
-									if (avi.createIfMissingAuthority(storage, responseMessage, record, instance) == -1) {
-										log.warn(String.format("The currently authenticated user does not have sufficient permission to determine if the '%s' authority/term-list is properly initialized.",
-												instance.getID()));
-										initializationUnknown = true; // since the logged in user doesn't have the correct perms, we can't verify that the authorities and term lists have been properly initialized
-									} else {
-										//
-										// Create the missing items.
-										//
-										avi.fillVocab(storage, record, instance, responseMessage, allOpts, true);
+								if (instance.getCreateUnreferenced() || isInstanceReferenced(instance)) {
+									avi = new AuthoritiesVocabulariesInitialize(instance, populate, modifyResponse);
+									Option[] allOpts = instance.getAllOptions();
+									try {
+										if (avi.createIfMissingAuthority(storage, responseMessage, record, instance) == -1) {
+											log.warn(String.format("The currently authenticated user does not have sufficient permission to determine if the '%s' authority/term-list is properly initialized.",
+													instance.getID()));
+											initializationUnknown = true; // since the logged in user doesn't have the correct perms, we can't verify that the authorities and term lists have been properly initialized
+										} else {
+											//
+											// Create the missing items.
+											//
+											avi.fillVocab(storage, record, instance, responseMessage, allOpts, true);
+										}
+									} catch (Exception e) {
+										if (avi.success() == false) {
+											initializationFailed = true;
+										}
+										throw e;
 									}
-								} catch (Exception e) {
-									if (avi.success() == false) {
-										initializationFailed = true;
-									}
-									throw e;
+								}
+								else {
+									logInitMessage(responseMessage, "Instance " + instance.getID() + " is not referenced\n", modifyResponse);
 								}
 							}
 						}
@@ -173,6 +178,23 @@ public class WebReset implements WebMethod {
 		}
 		
 		return !initializationFailed; // report success if we didn't see a failure
+	}
+	
+	/**
+	 * Returns true if the authority instance is referenced by a field
+	 * (in any record type).
+	 */
+	private boolean isInstanceReferenced(Instance instance) {
+		boolean found = false;
+		
+		for (Record record : spec.getAllRecords()) {
+			if (record.getSpec().hasTermlist(instance.getID())) {
+				found = true;
+				break;
+			}
+		}
+		
+		return found;
 	}
 	
 	private static JSONObject createTrivialAuthItem(String termGroup, String name) throws JSONException {
