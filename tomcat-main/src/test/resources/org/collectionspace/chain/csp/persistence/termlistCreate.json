@@ -1,15 +1,37 @@
 {
-        "displayName": "Term List Currency",
-        "shortIdentifier": "TermListCurrency",
-        "description": "This is a term list used for currency",
-        "source": "This is some source",
-        "terms": [
-            {"shortIdentifier": "A","displayName": "USD", "description": "US Dollar", "source": "US", "sourcePage": "", "termStatus": "inactive"},
-            {"shortIdentifier": "B","displayName": "GBP", "description": "Great Britain Pound", "source": "GB", "sourcePage": "123", "termStatus": "active", "_primary": true},
-            {"shortIdentifier": "C","displayName": "EUR", "description": "Euro", "termSource": "EU", "sourcePage": "", "termStatus": "active"}
-        ],
-        "usedBys": [
-            {"usedBy": "Purchase currency"},
-            {"usedBy": "Other currency"}
-        ]
+    "displayName": "Term List Currency",
+    "shortIdentifier": "TermListCurrency",
+    "description": "This is a term list used for currency",
+    "source": "This is some source",
+    "terms": [
+        {
+            "shortIdentifier": "A",
+            "displayName": "USD",
+            "description": "US Dollar",
+            "source": "US",
+            "sourcePage": "",
+            "termStatus": "inactive"
+        },
+        {
+            "shortIdentifier": "B",
+            "displayName": "GBP",
+            "description": "Great Britain Pound",
+            "source": "GB",
+            "sourcePage": "123",
+            "termStatus": "active",
+            "_primary": true
+        },
+        {
+            "shortIdentifier": "C",
+            "displayName": "EUR",
+            "description": "Euro",
+            "termSource": "EU",
+            "sourcePage": "",
+            "termStatus": "active"
+        }
+    ],
+    "usedBys": [
+        {"usedBy": "Purchase currency"},
+        {"usedBy": "Other currency"}
+    ]
 }
