@@ -1136,52 +1136,52 @@ public class GenericStorage  implements ContextualisedStorage {
 				if(sr.isRealRecord()){//only deal with ones which are separate Records in the services
 
 					//get list of existing subrecords
-					JSONObject existingcsid = new JSONObject();
-					JSONObject updatecsid = new JSONObject();
-					JSONArray createcsid = new JSONArray();
+					JSONObject toDeleteList = new JSONObject();
+					JSONObject toUpdateList = new JSONObject();
+					JSONArray toCreateList = new JSONArray();
 					String getPath = serviceurl+filePath + "/" + sr.getServicesURL();
 					
 					Integer subcount = 0;
 					String firstfile = "";
-
-					while(!getPath.equals("")){
-						JSONObject data = getListView(creds,cache,getPath,sr.getServicesListPath(),"csid",false, sr);
-						String[] filepaths = (String[]) data.get("listItems");
-						subcount +=filepaths.length;
-						if(firstfile.equals("") && subcount !=0){
+					String[] filepaths = null;
+					while (!getPath.equals("")) {
+						JSONObject data = getListView(creds, cache, getPath, sr.getServicesListPath(), "csid", false, sr);
+						filepaths = (String[]) data.get("listItems");
+						subcount += filepaths.length;
+						if (firstfile.equals("") && subcount != 0) {
 							firstfile = filepaths[0];
 						}
-						//need to paginate
-						for(String uri : filepaths) {
+						// need to paginate // if(sr.getID().equals("termlistitem"))
+						for (String uri : filepaths) {
 							String path = uri;
-							if(path!=null && path.startsWith("/"))
-								path=path.substring(1);
-							existingcsid.put(path,"original");
+							if (path != null && path.startsWith("/")) {
+								path = path.substring(1);
+							}
+							toDeleteList.put(path, "original");
 						}
-						if(data.has("pagination")){
+						
+						if (data.has("pagination")) {
 							Integer ps = Integer.valueOf(data.getJSONObject("pagination").getString("pageSize"));
 							Integer pn = Integer.valueOf(data.getJSONObject("pagination").getString("pageNum"));
 							Integer ti = Integer.valueOf(data.getJSONObject("pagination").getString("totalItems"));
-							if(ti > (ps * (pn +1))){
+							if (ti > (ps * (pn + 1))) {
 								JSONObject pgRestrictions = new JSONObject();
 								pgRestrictions.put("pageSize", Integer.toString(ps));
 								pgRestrictions.put("pageNum", Integer.toString(pn + 1));
 
 								getPath = getRestrictedPath(getPath, pgRestrictions, sr.getServicesSearchKeyword(), "", false, "");
-								//need more values
-							}
-							else{
+								// need more values
+							} else {
 								getPath = "";
 							}
 						}
 					}
 
 					//how does that compare to what we need
-					if(sr.isType("authority")){
+					if (sr.isType("authority")) {
 						//XXX need to use configuredVocabStorage
-					}
-					else{
-						if(fs instanceof Field){
+					} else {
+						if (fs instanceof Field){
 							JSONObject subdata = new JSONObject();
 							//loop thr jsonObject and find the fields I need
 							for(FieldSet subfs: sr.getAllFieldTopLevel("PUT")){
@@ -1191,15 +1191,14 @@ public class GenericStorage  implements ContextualisedStorage {
 								}
 							}
 
-							if(subcount ==0){
+							if (subcount == 0){
 								//create
-								createcsid.put(subdata);
-							}
-							else{
+								toCreateList.put(subdata);
+							} else {
 								//update - there should only be one
 								String firstcsid = firstfile;
-								updatecsid.put(firstcsid, subdata);
-								existingcsid.remove(firstcsid);
+								toUpdateList.put(firstcsid, subdata);
+								toDeleteList.remove(firstcsid);
 							}
 						}
 						else if(fs instanceof Group){//JSONObject
@@ -1211,90 +1210,88 @@ public class GenericStorage  implements ContextualisedStorage {
 									if(((JSONObject) subdata).has("_subrecordcsid")){
 										String thiscsid = ((JSONObject) subdata).getString("_subrecordcsid");
 										//update
-										if(existingcsid.has(thiscsid)){
-											updatecsid.put(thiscsid, (JSONObject) subdata);
-											existingcsid.remove(thiscsid);
+										if(toDeleteList.has(thiscsid)){
+											toUpdateList.put(thiscsid, (JSONObject) subdata);
+											toDeleteList.remove(thiscsid);
 										}
 										else{
 											//something has gone wrong... best just create it from scratch
-											createcsid.put(subdata);
+											toCreateList.put(subdata);
 										}
 									}
 									else{
 										//create
-										createcsid.put(subdata);
+										toCreateList.put(subdata);
 									}
 								}
 							}
-						}
-						else{//JSONArray Repeat
+						} else {//JSONArray Repeat
 							//need to find if we have csid's for each one
 							if(jsonObject.has(fs.getID())){
 								Object subdata = jsonObject.get(fs.getID());
-								if(subdata instanceof JSONArray){
-									JSONArray subarray = (JSONArray)subdata;
+								if (subdata instanceof JSONArray) {
+									JSONArray subarray = (JSONArray) subdata;
 
-									for(int i=0;i<subarray.length();i++) {
+									for (int i = 0; i < subarray.length(); i++) {
 										JSONObject subrecord = subarray.getJSONObject(i);
-										if(((JSONObject) subrecord).has("_subrecordcsid")){
-											String thiscsid = ((JSONObject) subrecord).getString("_subrecordcsid");
-											//update
-											if(existingcsid.has(thiscsid)){
-												updatecsid.put(thiscsid, (JSONObject) subrecord);
-												existingcsid.remove(thiscsid);
+										if (subrecord.has("_subrecordcsid") == true) {
+											String thiscsid = subrecord.getString("_subrecordcsid");
+											// update
+											if (toDeleteList.has(thiscsid)) {
+												toUpdateList.put(thiscsid, subrecord);
+												toDeleteList.remove(thiscsid);
+											} else {
+												// something has gone wrong... no existing records match the CSID being passed in, so
+												// we will try to create a new record.  Could fail if a record with the same short ID already exists
+												toCreateList.put(subrecord);
 											}
-											else{
-												//something has gone wrong... best just create it from scratch
-												createcsid.put(subrecord);
+										} else if(subrecord.has("shortIdentifier") == true) {
+											String thisShortID = subrecord.getString("shortIdentifier");
+											// update
+											String thiscsid = lookupCsid(cache, filepaths, serviceurl, thisShortID); // See if we can find a matching short ID in the current list of items
+											if (thiscsid != null) {
+												toUpdateList.put(thiscsid, subrecord);
+												toDeleteList.remove(thiscsid);
+											} else {
+												//
+												// Since we couldn't find an existing record with that short ID, we need to create it.
+												//
+												toCreateList.put(subrecord);
 											}
-										}
-										else{
-											//create
-											createcsid.put(subrecord);
+										} else {
+											// create since we couldn't look for existing records via CSID or Short ID
+											toCreateList.put(subrecord);
 										}
 									}
 								}
 							}
 						}
 						
-
 						String savePath = serviceurl+filePath + "/" + sr.getServicesURL()+"/";
-						
+
 						//do delete JSONObject existingcsid = new JSONObject();
-						Iterator<String> rit=existingcsid.keys();
-						while(rit.hasNext()) {
-							String key=rit.next();
-							//should we delete or do we need to check that it is used? e.g. termlists
-							if(sr.getID().equals("termlistitem")){
-								//
-								String subpath = savePath+key+"/refObjs";
-								JSONObject test =  refObjViewRetrieveJSON(root,creds,cache,subpath, new JSONObject(), sr);
-								if(test.has("items") && (test.getJSONArray("items").length() > 0)){
-									throw new ExistException("Term List in use - can not delete: "+key);
-								}
-							}
-							deleteJSON(root,creds,cache,key,savePath,sr);
+						Iterator<String> rit = toDeleteList.keys();
+						while (rit.hasNext()) {
+							String key = rit.next();
+							deleteJSON(root,creds,cache,key,savePath,sr); // will fail if this record is a term having active references -i.e., one or more non-deleted records reference it.
 						}
 						
 						//do update JSONObject updatecsid = new JSONObject();
-						Iterator<String> keys = updatecsid.keys();
-						while(keys.hasNext()) {
-							String key=keys.next();
-							JSONObject value = updatecsid.getJSONObject(key);
+						Iterator<String> keys = toUpdateList.keys();
+						while (keys.hasNext()) {
+							String key = keys.next();
+							JSONObject value = toUpdateList.getJSONObject(key);
 							JSONObject subrRestrictions = new JSONObject();
-							updateJSON( root, creds, cache, key,  value, subrRestrictions, sr, savePath);
+							updateJSON(root, creds, cache, key, value, subrRestrictions, sr, savePath);
 						}
-						
 						
 						//do create JSONArray createcsid = new JSONArray();
-						for(int i=0;i<createcsid.length();i++){
-							JSONObject value = createcsid.getJSONObject(i);
-							subautocreateJSON(root,creds,cache,sr,value,savePath);
+						for (int i = 0; i < toCreateList.length(); i++) {
+							JSONObject value = toCreateList.getJSONObject(i);
+							subautocreateJSON(root, creds, cache, sr, value, savePath);
 						}
 					}
-					
 				}
-				
 			}
 			//if(status==404)
 			//	throw new ExistException("Not found: "+serviceurl+filePath);
@@ -1309,6 +1306,27 @@ public class GenericStorage  implements ContextualisedStorage {
 		}
 	}
 	
+	/*
+	 * Look for the CSID of a record with the short ID from the gleaned list of values
+	 */
+	private String lookupCsid(CSPRequestCache cache, String[] uriList, String gleaningPath, String shortId) {
+		String result = null;
+		
+		for (String uri : uriList) {
+			String key = uri;
+			if (key != null && key.startsWith("/")) {
+				key = key.substring(1);
+			}
+			String gleanedShortID = getGleanedValue(cache, gleaningPath + key, "shortIdentifier");
+			if (shortId.equals(gleanedShortID) == true) {
+				result = key;
+				break;
+			}
+		}
+		
+		return result;
+	}
+
 	/**
 	 * guess service url based on record type and call the function with more parameters
 	 * @param root
@@ -2169,12 +2187,14 @@ public class GenericStorage  implements ContextualisedStorage {
 				if(listItemNodeName.equals(node.getName())){
 					List<Node> fields=node.selectNodes("*");
 					String csid="";
+					String extraFieldValue = "";
 					String urlPlusCSID = null;
 					if(node.selectSingleNode(csidfield)!=null){
 						csid=node.selectSingleNode(csidfield).getText();
 						urlPlusCSID = r.getServicesURL()+"/"+csid;
 						setGleanedValue(cache,urlPlusCSID,"csid",csid);
 					}
+
 					for(Node field : fields) {
 						if(csidfield.equals(field.getName())) {
 							if(!fullcsid){
