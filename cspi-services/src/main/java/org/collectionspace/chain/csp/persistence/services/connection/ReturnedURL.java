@@ -8,6 +8,10 @@ package org.collectionspace.chain.csp.persistence.services.connection;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.HttpStatus;
+
+import org.collectionspace.csp.api.persistence.ExistException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,15 +36,21 @@ public class ReturnedURL implements Returned {
 
 	public void setResponse(HttpMethod method, int status) throws Exception {
 		String possiblemessg = method.getResponseBodyAsString();
-		Header location=method.getResponseHeader("Location");
-		if(location==null){
-			if(possiblemessg!=""){
+		Header location = method.getResponseHeader("Location");
+		
+		if (status == HttpStatus.SC_CONFLICT) {
+			throw new ExistException("Record exists already. Can't create a duplicate: " + 
+					possiblemessg != null ? possiblemessg : "Unknown reason.", status);
+		}
+		
+		if (location == null) {
+			if (possiblemessg != "") {
 				throw new ConnectionException(possiblemessg, status, "");
 			}
-			throw new ConnectionException("Missing location header "+method.getResponseBodyAsString(),status,"");
+			throw new ConnectionException("Missing location header " + method.getResponseBodyAsString(), status, "");
 		}
-		url=location.getValue();
-		this.status=status;
+		url = location.getValue();
+		this.status = status;
 	}
 	
 	public void relativize(String base_url) {
