@@ -381,7 +381,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				String path=r.getServicesRecordPath(section);
 				String[] record_path=path.split(":",2);
 				String[] tag_path=record_path[1].split(",",2);
-				Document result=doc.getDocument(record_path[0]);
+				Document result=doc.getDocument(record_path[0].trim());
 
 
 				if("common".equals(section)) { // XXX hardwired :(

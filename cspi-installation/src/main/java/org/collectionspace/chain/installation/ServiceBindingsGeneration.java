@@ -193,7 +193,8 @@ public class ServiceBindingsGeneration {
 					serviceBindingsElement.addAttribute("type", rtype);
 					serviceBindingsElement.addAttribute("version", serviceBindingVersion);
 					if (r.isType(RECORD_TYPE_VOCABULARY) == true) {
-						serviceBindingsElement.addAttribute(Record.REQUIRES_UNIQUE_SHORTID, Boolean.TRUE.toString()); // Vocabularies and vocabulary items need unique short IDs
+						serviceBindingsElement.addAttribute(Record.REQUIRES_UNIQUE_SHORTID, Boolean.TRUE.toString()); // Vocabularies need unique short IDs
+						serviceBindingsElement.addAttribute(Record.SUPPORTS_REPLICATING, Boolean.toString(r.supportsReplicating()));  //  they also need to support replication
 					}
 					addServiceBinding(r, serviceBindingsElement, nsservices, false, serviceBindingVersion);
 				} else if (r.isType(RECORD_TYPE_AUTHORITY)) {
