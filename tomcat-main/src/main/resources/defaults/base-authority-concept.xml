@@ -16,6 +16,7 @@
     <services-url>conceptauthorities</services-url>
     <authority-vocab-type>ConceptAuthority</authority-vocab-type>
     <hassoftdelete>true</hassoftdelete>
+	<supportsReplicating>true</supportsReplicating>
     
     <structures>
         <structure id="search">

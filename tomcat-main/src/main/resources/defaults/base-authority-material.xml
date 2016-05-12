@@ -16,7 +16,8 @@
     <services-url>materialauthorities</services-url>
     <authority-vocab-type>MaterialAuthority</authority-vocab-type>
     <hassoftdelete>true</hassoftdelete>
-    
+    <supportsReplicating>true</supportsReplicating>
+
     <structures>
         <structure id="search">
             <view>
