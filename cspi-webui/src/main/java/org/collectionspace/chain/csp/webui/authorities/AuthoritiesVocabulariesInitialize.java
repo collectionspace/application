@@ -128,8 +128,8 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		try {
 			storage.getPathsJSON(url,new JSONObject()).toString();
 			if (tty != null) {
-				log.info("Instance " + instance.getID() + " exists.");
-				tty.append("Instance " + instance.getID() + " exists.\n");
+				log.info("--- Instance " + instance.getID() + " Exists.");
+				tty.append("--- Instance " + instance.getID() + " Exists.\n");
 			}
 		} catch (UnderlyingStorageException e) {
 			if (e.getStatus() == HttpStatus.SC_NOT_FOUND) {
@@ -293,9 +293,6 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		// step away if we have nothing to add
 		//
 		if (allOpts != null && allOpts.length > 0) {
-			if (tty != null) {
-				tty.append("get list from Service layer\n");
-			}
 			// get list from Service layer
 			JSONObject results = new JSONObject();
 			Integer pageNum = 0;
@@ -320,11 +317,6 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 
 			// compare
 			results = fulldata.getJSONObject("shortIdentifiers");
-
-			// only add if term is not already present
-			if (tty != null) {
-				tty.append("only add if term is not already present\n");
-			}
 
 			for (Option opt : allOpts) {
 				String name = opt.getName();

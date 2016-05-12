@@ -40,6 +40,7 @@ public class Record implements FieldParent {
 
 	public static final String SUPPORTS_LOCKING = "supportslocking";
 	public static final String SUPPORTS_REPLICATING = "supportsReplicating";
+	public static final String REQUIRES_UNIQUE_SHORTID = "requiresUniqueShortId";
 	public static final String SUPPORTS_VERSIONING = "supportsversioning";
 	public static final String RANGE_START_SUFFIX = "Start";
 	public static final String RANGE_END_SUFFIX = "End";
@@ -925,7 +926,7 @@ public class Record implements FieldParent {
 	}
 
 	public String getServicesRecordPath(String name) {
-		return services_record_paths.get(name);
+		return services_record_paths.get(name).trim();
 	}
 
 	public String getServicesSchemaName(String sectionName) {

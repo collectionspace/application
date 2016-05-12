@@ -74,7 +74,7 @@ public class CoreConfig implements CSP, Configurable, ConfigRoot {
 	}
 	
 	@Override
-	public void complete_init(CSPManager cspManager) {
+	public void complete_init(CSPManager cspManager, boolean forXsdGeneration) {
 		// Intentionally blank
 	}
 }

@@ -54,7 +54,7 @@ public class TestServices {
 		cspm.register(new ServicesStorageGenerator());
 		try {
 			cspm.go();
-			cspm.configure(getSource(filename),new ConfigFinder(null));
+			cspm.configure(getSource(filename),new ConfigFinder(null),false);
 		} catch (CSPDependencyException e) {
 			log.error("CSPManagerImpl failed");
 			log.error(e.getLocalizedMessage() );

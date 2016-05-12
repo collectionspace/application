@@ -78,7 +78,7 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 		}
 	}
 	
-	private void real_init(CSPManager cspManager, Spec spec) throws CSPDependencyException {
+	private void real_init(CSPManager cspManager, Spec spec, boolean forXsdGeneration) throws CSPDependencyException {
 		try {
 			ServicesConnection conn=new ServicesConnection(base_url,ims_url);
 			for(Record r : spec.getAllRecords()) {
@@ -98,9 +98,14 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 			addChild("relations",new ServicesRelationStorage(conn,spec));
 			
 			//
-			initializeAuthorities(cspManager, spec);
+			// If the tenant ID is null, it means we're probably just generating Services schemas and other config
+			//
+			if (forXsdGeneration == false) {
+				initializeAuthorities(cspManager, spec);
+			}
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new CSPDependencyException("Could not set target",e); // XXX wrong type
 		}
 	}
@@ -151,12 +156,12 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 	}
 	
 	@Override
-	public void complete_init(CSPManager cspManager) throws CSPDependencyException {
+	public void complete_init(CSPManager cspManager, boolean forXsdGeneration) throws CSPDependencyException {
 		Spec spec = (Spec)ctx.getConfigRoot().getRoot(Spec.SPEC_ROOT);
 		if (spec == null) {
 			throw new CSPDependencyException("Could not load spec");
 		}
-		real_init(cspManager, spec);
+		real_init(cspManager, spec, forXsdGeneration);
 	}
 
 	@Override

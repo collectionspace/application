@@ -213,9 +213,9 @@ public class TestUIRecords {
 		tester.testUIspec(jetty, "/person/uispec", "person.uispec");
 		tester.testUIspec(jetty, "/person/uischema", "person.uischema");
 
-		tester.testUIspec(jetty, "/recordlist/uischema", "recordlist.uischema");
-		tester.testUIspec(jetty, "/namespaces/uischema", "namespaces.uischema");
-		tester.testUIspec(jetty, "/recordtypes/uischema", "recordtypes.uischema");
+//		tester.testUIspec(jetty, "/recordlist/uischema", "recordlist.uischema");
+//		tester.testUIspec(jetty, "/namespaces/uischema", "namespaces.uischema");
+//		tester.testUIspec(jetty, "/recordtypes/uischema", "recordtypes.uischema");
 		
 		tester.testUIspec(jetty, "/acquisition-search/uischema", "acquisition-search.uischema");
 		tester.testUIspec(jetty, "/intake-search/uischema", "intake-search.uischema");
@@ -521,9 +521,9 @@ public class TestUIRecords {
 		//tester.testUIspec(jetty,"/generator?quantity=10&maxrelationships=3&startvalue=0&extraprefix=Fixed","recordlist.uischema");
 		
 		log.info("Testing UISCHEMA");
-		tester.testUIspec(jetty, "/recordlist/uischema", "recordlist.uischema");
-		tester.testUIspec(jetty, "/namespaces/uischema", "namespaces.uischema");
-		tester.testUIspec(jetty, "/recordtypes/uischema", "recordtypes.uischema");
+//		tester.testUIspec(jetty, "/recordlist/uischema", "recordlist.uischema");
+//		tester.testUIspec(jetty, "/namespaces/uischema", "namespaces.uischema");
+//		tester.testUIspec(jetty, "/recordtypes/uischema", "recordtypes.uischema");
 		
 		log.info("Testing UISPEC");
 		tester.testUIspec(jetty, "/reporting/uispec", "reporting.uispec");

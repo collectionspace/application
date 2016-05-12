@@ -531,7 +531,7 @@ public class Spec implements CSP, Configurable {
 	}
 	
 	@Override
-	public void complete_init(CSPManager cspManager) throws CSPDependencyException {
+	public void complete_init(CSPManager cspManager, boolean forXsdGeneration) throws CSPDependencyException {
 		// Intentionally blank
 	}
 	

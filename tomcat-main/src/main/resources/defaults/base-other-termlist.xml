@@ -8,9 +8,9 @@
     <services-tenant-singular>Vocabulary</services-tenant-singular>
 	<services-list-path>abstract-common-list/list-item</services-list-path>
     <services-record-path id="common">vocabularies_common:http://collectionspace.org/services/vocabulary,vocabularies_common</services-record-path>
-                
    	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
     <hassoftdelete>true</hassoftdelete>
+    <supportsReplicating>true</supportsReplicating>
 	           	
     <structures>
         <structure id="screen">

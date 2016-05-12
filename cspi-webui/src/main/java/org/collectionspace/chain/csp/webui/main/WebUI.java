@@ -373,7 +373,7 @@ public class WebUI implements CSP, UI, Configurable {
 	}
 
 	@Override
-	public void complete_init(CSPManager cspManager) throws CSPDependencyException {
+	public void complete_init(CSPManager cspManager, boolean forXsdGeneration) throws CSPDependencyException {
 		Spec spec = (Spec) ctx.getConfigRoot().getRoot(Spec.SPEC_ROOT);
 		if (spec == null)
 			throw new CSPDependencyException("Could not load spec");

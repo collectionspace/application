@@ -72,6 +72,12 @@ public class WebReset implements WebMethod {
 		}
 	}
 
+	private void logException(UnderlyingStorageException e, StringBuffer responseMessage, boolean modifyResponse) {
+		logInitMessage(responseMessage, "\nDetailed error code:\n\t" + e.getStatus(), modifyResponse);
+		logInitMessage(responseMessage, "\nRequest target:\n\t" + e.getUrl(), modifyResponse);						
+		logInitMessage(responseMessage, "\nDetailed error message:\n\t" + e.getMessage(), modifyResponse);		
+	}
+
 	private boolean initialiseAll(Storage storage, UIRequest request, String path, boolean modifyResponse) throws UIException {
 		StringBuffer responseMessage = new StringBuffer();
 		boolean initializationFailed = false;
@@ -126,21 +132,30 @@ public class WebReset implements WebMethod {
 					if (e.getCause() instanceof ConnectionException) {
 						if (initializationFailed == true) {
 							modifyResponse = true;
+							if (e.getStatus() == HttpStatus.SC_UNAUTHORIZED || e.getStatus() == HttpStatus.SC_FORBIDDEN) {
 							logInitMessage(responseMessage,
-									"\n*** ERROR *** CollectionSpace has not been properly initialized: The CollectionSpace administrator will need to login to the correct tenant and initialize the default vocabularies and authorities.\n",
+										"\nSummary:\n\t*** ERROR *** CollectionSpace has not been properly initialized: The CollectionSpace administrator needs to login to the correct tenant and initialize the default term lists and authorities.\n\n",
 									modifyResponse);
-							logInitMessage(responseMessage, "\nDetailed error code:\n\t" + e.getStatus(), modifyResponse);
-							logInitMessage(responseMessage, "\nRequest target:\n\t" + e.getUrl(), modifyResponse);						
-							logInitMessage(responseMessage, "\nDetailed error message:\n\t" + e.getCause().getMessage(), modifyResponse);
+							} else if (e.getStatus() == HttpStatus.SC_CONFLICT) {
+								logInitMessage(responseMessage,
+										"\nSummary:\n\t*** ERROR *** CollectionSpace attempted to create a new term list or term list item which had a non-unique short identifier." +
+												" New term lists and/or term list items must have unique short identifiers across all term lists: The CollectionSpace administrator needs to change the non-unique short identifier and restart CollectionSpace.\n\n",
+										modifyResponse);
+								logException(e, responseMessage, modifyResponse);
+								continue; // continue the for-loop since this is a non-fatal error, we can continue trying to initialize other terms and term lists
+							} else {
+								logInitMessage(responseMessage,
+										"\nSummary:\n\t*** ERROR *** CollectionSpace has not been properly initialized: Ask the CollectionSpace administrator to login to the correct tenant and initialize the default term lists and authorities.\n\n",
+										modifyResponse);
+							}
 						} else if (initializationUnknown == true) {
 							log.warn("The currently logged in user does not have the correct permissions to determin whether or not the default authorities and term lists have been properly initialized.");
 						} else {
 							throw e; // Should never get here unless we've got a bug in our code
 						}
-					} else {
-						throw e;
 					}
-					log.error("initialiseAll() exception: " + e.getCause().getMessage());
+					
+					logException(e, responseMessage, modifyResponse);
 					break; // no need to continue if the user hasn't authenticated or has incorrect permissions
 				}
 			}
@@ -154,11 +169,9 @@ public class WebReset implements WebMethod {
 			if (x.getStatus() == HttpStatus.SC_UNAUTHORIZED) {
 				initializationFailed = true;
 				logInitMessage(responseMessage,
-						"\n*** ERROR *** You will need to login to the correct tenant before attempting to initialize the default vocabularies and authorities.\n",
+						"\n*** ERROR *** You need to be logged in to the correct tenant with the proper credentials before attempting to initialize the default term lists and authorities.\n",
 						modifyResponse);
-				logInitMessage(responseMessage, "\nDetailed error code:\n\t" + x.getStatus(), modifyResponse);
-				logInitMessage(responseMessage, "\nRequest target:\n\t" + x.getUrl(), modifyResponse);						
-				logInitMessage(responseMessage, "\nDetailed error message:\n\t" + x.getMessage(), modifyResponse);
+				logException(x, responseMessage, modifyResponse);
 			} else {
 				logInitMessage(responseMessage, "UnderlyingStorageException " + x.getLocalizedMessage(), modifyResponse);
 				throw new UIException("Problem storing:" + x.getLocalizedMessage(), x.getStatus(), x.getUrl(), x);
@@ -172,7 +185,7 @@ public class WebReset implements WebMethod {
 		// If the caller is requesting we add our messages to the HTTP request response, then create a
 		// TTY out instance and add our messages.
 		//
-		if (modifyResponse == true) {
+		if (modifyResponse == true && request != null) {
 			TTYOutputter tty = request.getTTYOutputter();
 			tty.line(responseMessage.toString());
 		}
