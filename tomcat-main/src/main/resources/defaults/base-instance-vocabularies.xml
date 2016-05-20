@@ -945,4 +945,15 @@
                         <options>
                         </options>
                     </instance>
+                    <instance id="vocab-addresstype">
+                        <web-url>addresstype</web-url>
+                        <title-ref>addresstype</title-ref>
+                        <title>Address Types</title>
+                        <options>
+                            <option id="business">business</option>
+                            <option id="intersection">intersection</option>
+                            <option id="personal">personal</option>
+                            <option id="streetaddress">street address</option>
+                        </options>
+                    </instance>
 </instances>

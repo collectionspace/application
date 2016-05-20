@@ -222,6 +222,40 @@
                 "maxDistanceAboveSurfaceInMeters": {"type": "float"},
                 "vCoordSource": {"type": "string"},
                 "createdAt": {"type": "date"},
+                "addrGroup": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "addressCountry": {
+                        "type": "string"
+                      },
+                      "addressPlace2": {
+                        "type": "string"
+                      },
+                      "addressPlace1": {
+                        "type": "string"
+                      },
+                      "addressType": {
+                        "default": "",
+                        "type": "string"
+                      },
+                      "addressMunicipality": {
+                        "type": "string"
+                      },
+                      "addressPostCode": {
+                        "type": "string"
+                      },
+                      "addressStateOrProvince": {
+                        "type": "string"
+                      },
+                      "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                },
                 "maxElevationInMeters": {"type": "float"},
                 "placeSource": {"type": "string"},
                 "narrowerContexts": {

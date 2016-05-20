@@ -86,5 +86,19 @@
             "dateEarliestSingleDay": "21",
             "dateEarliestSingleMonth": "7"
         }
+    ],
+    "addrGroup": [
+      {
+        "addressCountry": "",
+        "de-urned-addressType": "personal",
+        "addressPlace2": "",
+        "addressPlace1": "123 Telegraph Ave.",
+        "addressType": "urn:cspace:core.collectionspace.org:vocabularies:name(addresstype):item:name(personal)'personal'",
+        "addressMunicipality": "urn:cspace:core.collectionspace.org:placeauthorities:name(place):item:name(Berkeley1463718674206)'Berkeley'",
+        "addressPostCode": "",
+        "addressStateOrProvince": "",
+        "de-urned-addressMunicipality": "Berkeley",
+        "_primary": true
+      }
     ]
 }

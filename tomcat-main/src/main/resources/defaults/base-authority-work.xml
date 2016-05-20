@@ -78,6 +78,7 @@
             <field id="publisher" ui-search="repeatable" autocomplete="person-person,organization-organization"/>
             <field id="publisherType" autocomplete="vocab-workpublishertype" ui-type="enum"/>
         </repeat>
+        <field id="address" ui-type="groupfield/address/selfrenderer" ui-func="cspace.address"/>
     </section>
     <!-- not used in UI except in autocompletes -->
     <section id="otherInformation">
