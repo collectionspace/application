@@ -446,6 +446,126 @@
             "selection": "${fields.vSpatialReferenceSystem}"
         },
         ".csc-place-vLatitude-label": {"messagekey": "place-vLatitudeLabel"},
+        ".csc-place-address": {
+          "decorators": [
+            {
+              "func": "cspace.address",
+              "options": {
+                "protoTree": {
+                  "expander": {
+                    "tree": {
+                      ".csc-address-addressCountry-label": {
+                        "messagekey": "address-addressCountryLabel"
+                      },
+                      ".csc-address-addrGroup-label": {
+                        "messagekey": "address-addrGroupLabel"
+                      },
+                      ".csc-address-addressInformation-label": {
+                        "messagekey": "address-addressInformationLabel"
+                      },
+                      ".csc-address-addressType-label": {
+                        "messagekey": "address-addressTypeLabel"
+                      },
+                      ".csc-address-addrGroup": {
+                        "decorators": [
+                          {
+                            "func": "cspace.makeRepeatable",
+                            "options": {
+                              "repeatTree": {
+                                "expander": {
+                                  "tree": {
+                                    ".csc-address-addressStateOrProvince": {
+                                      "decorators": [
+                                        {
+                                          "func": "cspace.autocomplete",
+                                          "options": {
+                                            "queryUrl": "../../../tenant/core/address/autocomplete/addressStateOrProvince",
+                                            "vocabUrl": "../../../tenant/core/address/source-vocab/addressStateOrProvince"
+                                          },
+                                          "type": "fluid"
+                                        }
+                                      ],
+                                      "value": "${{row}.addressStateOrProvince}"
+                                    },
+                                    ".csc-address-addressPostCode": "${{row}.addressPostCode}",
+                                    ".csc-address-addressType": {
+                                      "decorators": [
+                                        {
+                                          "func": "cspace.termList",
+                                          "options": {
+                                            "termListType": "addressType",
+                                            "root": "{row}",
+                                            "elPath": "addressType"
+                                          },
+                                          "type": "fluid"
+                                        }
+                                      ]
+                                    },
+                                    ".csc-address-addressMunicipality": {
+                                      "decorators": [
+                                        {
+                                          "func": "cspace.autocomplete",
+                                          "options": {
+                                            "queryUrl": "../../../tenant/core/address/autocomplete/addressMunicipality",
+                                            "vocabUrl": "../../../tenant/core/address/source-vocab/addressMunicipality"
+                                          },
+                                          "type": "fluid"
+                                        }
+                                      ],
+                                      "value": "${{row}.addressMunicipality}"
+                                    },
+                                    ".csc-address-addressCountry": {
+                                      "decorators": [
+                                        {
+                                          "func": "cspace.autocomplete",
+                                          "options": {
+                                            "queryUrl": "../../../tenant/core/address/autocomplete/addressCountry",
+                                            "vocabUrl": "../../../tenant/core/address/source-vocab/addressCountry"
+                                          },
+                                          "type": "fluid"
+                                        }
+                                      ],
+                                      "value": "${{row}.addressCountry}"
+                                    },
+                                    ".csc-address-addressPlace2": "${{row}.addressPlace2}",
+                                    ".csc-address-addressPlace1": "${{row}.addressPlace1}"
+                                  },
+                                  "type": "fluid.noexpand"
+                                }
+                              },
+                              "elPath": "fields.addrGroup"
+                            },
+                            "type": "fluid"
+                          }
+                        ]
+                      },
+                      ".csc-address-addressPlace1-label": {
+                        "messagekey": "address-addressPlace1Label"
+                      },
+                      ".csc-address-addressMunicipality-label": {
+                        "messagekey": "address-addressMunicipalityLabel"
+                      },
+                      ".csc-address-addressStateOrProvince-label": {
+                        "messagekey": "address-addressStateOrProvinceLabel"
+                      },
+                      ".csc-address-addressPostCode-label": {
+                        "messagekey": "address-addressPostCodeLabel"
+                      },
+                      ".csc-address-addressPlace2-label": {
+                        "messagekey": "address-addressPlace2Label"
+                      }
+                    },
+                    "type": "fluid.noexpand"
+                  }
+                }
+              },
+              "type": "fluid"
+            }
+          ]
+        },
+        ".csc-place-address-label": {
+          "messagekey": "place-addressLabel"
+        },
         ".csc-place-createdAt": {
             "decorators": [{
                 "func": "cspace.datePicker",

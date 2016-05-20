@@ -86,4 +86,15 @@
 			<dateLatestScalarValue></dateLatestScalarValue>
 		</workDateGroup>
 	</workDateGroupList>
+	<addrGroupList>
+		<addrGroup>
+			<addressCountry/>
+			<addressPlace2/>
+			<addressPlace1>123 Telegraph Ave.</addressPlace1>
+			<addressType>urn:cspace:core.collectionspace.org:vocabularies:name(addresstype):item:name(personal)'personal'</addressType>
+			<addressMunicipality>urn:cspace:core.collectionspace.org:placeauthorities:name(place):item:name(Berkeley1463718674206)'Berkeley'</addressMunicipality>
+			<addressPostCode/>
+			<addressStateOrProvince/>
+		</addrGroup>
+	</addrGroupList>
 </ns2:works_common>

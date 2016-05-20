@@ -113,6 +113,8 @@
                    primarykey="dateDisplayDate" ui-func="cspace.structuredDate"/>
             <field id="ownershipNote"/>
         </repeat>
+        
+        <field id="address" ui-type="groupfield/address/selfrenderer" ui-func="cspace.address"/>
     </section>
     <section id="localityInformation">
         <field id="vCoordinates"/>

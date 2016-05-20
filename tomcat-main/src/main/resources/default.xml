@@ -58,6 +58,7 @@
       <include src="base-authz-users.xml"/>
 
       <include src="base-other-dimension.xml"/>
+      <include src="base-other-address.xml"/>
       <include src="base-other-hierarchy.xml"/>
       <include src="base-other-idgenerator.xml"/>
       <include src="base-other-structureddate.xml"/>
