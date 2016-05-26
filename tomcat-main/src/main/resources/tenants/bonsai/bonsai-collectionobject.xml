@@ -1,0 +1,18 @@
+<record id="collection-object">
+  <section id="identificationInformation">
+    <field id="taxon" autocomplete="taxon-taxon,taxon-common_ta"/>
+    <field id="commonName" ui-search="repeatable"/>
+    <field id="japaneseName" ui-search="repeatable"/>
+    <field id="nativeSpecies" datatype="boolean"/>
+    <field id="sponsor" ui-search="repeatable"/>
+    <field id="sponsorStartDate" ui-search="range" ui-type="date" datatype="date"/>
+    <field id="sponsorEndDate" ui-search="range" ui-type="date" datatype="date"/>
+    <repeat id="assignedVolunteers">
+      <field id="assignedVolunteer" autocomplete="person-person,person-ulan_pa"/>
+    </repeat>
+  </section>
+  <section id="descriptionInformation">
+    <field id="potStyle" autocomplete="vocab-potstyle" ui-type="enum"/>
+    <field id="treeType" autocomplete="vocab-treetype" ui-type="enum"/>
+  </section>
+</record>

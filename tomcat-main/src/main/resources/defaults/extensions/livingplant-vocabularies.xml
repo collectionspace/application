@@ -1,0 +1,34 @@
+<instances>
+    <instance id="vocab-fertilizerused">
+      <web-url>fertilizerused</web-url>
+      <title-ref>fertilizerused</title-ref>
+      <title>Fertilizer Used</title>
+      <options>
+        <option id="unspecified">Unspecified</option>
+      </options>
+    </instance>
+    <instance id="vocab-pestordiseaseobserved">
+      <web-url>pestordiseaseobserved</web-url>
+      <title-ref>pestordiseaseobserved</title-ref>
+      <title>Pest or disease observed</title>
+      <options>
+        <option id="mites">Mites</option>
+        <option id="aphids">Aphids</option>
+        <option id="scale">Scale</option>
+        <option id="whitefly">Whitefly</option>
+        <option id="leaf_hopper">Leaf Hopper</option>
+        <option id="wolley_adelphid">Wolley Adelphid</option>
+        <option id="phytophthora">Phytophthora</option>
+      </options>
+    </instance>
+    <instance id="vocab-soilmix">
+      <web-url>soilmix</web-url>
+      <title-ref>soilmix</title-ref>
+      <title>Soil Mix</title>
+      <options>
+        <option id="1_akadama_1_pumic_1_lava">1 Akadama-1 Pumic-1 Lava</option>
+        <option id="2_akadama_1_pumic_1_lava">2 Akadama-1 Pumic-1 Lava</option>
+        <option id="3_akadama_1_pumic_1_lava">3 Akadama-1 Pumic-1 Lava</option>
+      </options>
+    </instance>
+</instances>
