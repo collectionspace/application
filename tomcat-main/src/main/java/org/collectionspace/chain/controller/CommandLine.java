@@ -532,10 +532,8 @@ public class CommandLine {
 					SERVICE_BINDINGS_VERSION);
 			dumpServiceArtifactMetadata(tenantConfigFile, xsdMetadata); // debugging output
 		} catch (Exception e) {
-			result = e.getMessage();
-			if (logger.isDebugEnabled() == true) {
-				logger.debug(result, e);
-			}
+			logger.error(String.format("Error encountered generating service bindings for '%s' tenant configuration.", tenantConfigFile.getAbsolutePath()),
+				e);
 		}
 		
 		return result;
@@ -576,10 +574,8 @@ public class CommandLine {
 						tenantConfigFile));
 			}
 		} catch (Exception e) {
-			result = e.getMessage();
-			if (logger.isDebugEnabled() == true) {
-				logger.debug(result, e);
-			}
+			logger.error(String.format("Error encountered generating service bindings for tenant '%s' configuration.", tenantConfigFile.getAbsolutePath()),
+					e);
 		}
 		
 		return result;
