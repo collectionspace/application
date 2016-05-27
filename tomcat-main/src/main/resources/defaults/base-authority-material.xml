@@ -58,9 +58,11 @@
             <field id="materialRecordType" ui-search="repeatable" autocomplete="vocab-materialtype" ui-type="enum"/>
         </repeat>
         
-        <field id="familyName" ui-search="repeatable" autocomplete="concept-materialclassification"/>
-        <field id="className" ui-search="repeatable" autocomplete="concept-materialclassification"/>
-        <field id="genericName" ui-search="repeatable" autocomplete="concept-materialclassification"/>
+        <repeat id="materialCompositionGroupList/materialCompositionGroup">
+            <field id="materialCompositionFamilyName" ui-search="repeatable" autocomplete="concept-materialclassification"/>
+            <field id="materialCompositionClassName" ui-search="repeatable" autocomplete="concept-materialclassification"/>
+            <field id="materialCompositionGenericName" ui-search="repeatable" autocomplete="concept-materialclassification"/>
+        </repeat>
 
         <field id="description"/>
         
@@ -102,14 +104,26 @@
             <field id="additionalResource" autocomplete="vocab-materialresource" ui-type="enum"/>
             <field id="additionalResourceNote"/>
         </repeat>
+
+        <repeat id="materialTermAttributionContributingGroupList/materialTermAttributionContributingGroup">
+            <field id="materialTermAttributionContributingOrganization" ui-search="repeatable" autocomplete="organization-organization"/>
+            <field id="materialTermAttributionContributingPerson" ui-search="repeatable" autocomplete="person-person"/>
+            <field id="materialTermAttributionContributingDate" ui-search="repeatable" ui-type="date" datatype="date"/>
+        </repeat>
+
+        <repeat id="materialTermAttributionEditingGroupList/materialTermAttributionEditingGroup">
+            <field id="materialTermAttributionEditingOrganization" ui-search="repeatable" autocomplete="organization-organization"/>
+            <field id="materialTermAttributionEditingPerson" ui-search="repeatable" autocomplete="person-person"/>
+            <field id="materialTermAttributionEditingNote" ui-search="repeatable"/>
+            <field id="materialTermAttributionEditingDate" ui-search="repeatable" ui-type="date" datatype="date"/>
+        </repeat>
     </section>
     
     <section id="formInformation">
         <field id="commonForm" autocomplete="vocab-materialform" ui-type="enum"/>
         
         <repeat id="formTypeGroupList/formTypeGroup">
-            <field id="formType" autocomplete="concept-materialformtype"/>
-            <field id="formSubtype" autocomplete="concept-materialformtype"/>
+            <field id="formType" autocomplete="vocab-materialformtype" ui-type="enum"/>
         </repeat>
         
         <repeat id="typicalSizeGroupList/typicalSizeGroup">
