@@ -1,5 +1,5 @@
 <cspace-config tenantname="materials">
-	<tenantid>3</tenantid>
+	<tenantid>2000</tenantid>
 	<version>11</version>
 
 	<include src="settings.xml,local-materials-settings.xml" merge="xmlmerge-settings.properties" strip-root="yes" />
