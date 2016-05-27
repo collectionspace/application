@@ -2,7 +2,7 @@
     <admin>
         <username>admin@herbarium.collectionspace.org</username>
         <password>Administrator</password>
-        <tenant>3000</tenant>
+        <tenant>4000</tenant>
         <tenantname>herbarium</tenantname>
         <cookievalidformins>60</cookievalidformins>
         <!-- termLists, autocomplete instance lists, specs, and schemas,
@@ -50,7 +50,7 @@
         <service>
             <url>http://localhost:@JEE_PORT@/cspace-services</url>
             <tenant>
-                <id>3000</id>
+                <id>4000</id>
                 <name>herbarium.collectionspace.org</name>
                 <domain>herbarium</domain>
                 <version>0.1</version>

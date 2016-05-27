@@ -1,5 +1,5 @@
 <cspace-config tenantname="herbarium">
-	<tenantid>3000</tenantid>
+	<tenantid>4000</tenantid>
 	<version>11</version>
 	<include src="settings.xml,local-herbarium-settings.xml" merge="xmlmerge-settings.properties" strip-root="yes"/>
 
@@ -53,6 +53,7 @@
 			<include src="base-authz-users.xml"/>
 
 			<include src="base-other-dimension.xml"/>
+			<include src="base-other-address.xml"/>
 			<include src="base-other-hierarchy.xml"/>
 			<include src="base-other-idgenerator.xml"/>
 			<include src="base-other-structureddate.xml"/>
