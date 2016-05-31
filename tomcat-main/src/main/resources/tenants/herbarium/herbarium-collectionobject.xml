@@ -1,0 +1,74 @@
+<record id="collection-object" is-extension="true">
+	<services-record-path id="herbarium">collectionobjects_herbarium:http://collectionspace.org/services/collectionobject/local/herbarium,collectionobjects_herbarium</services-record-path>
+
+	<section id="identificationInformation">
+		<repeat id="localNameGroupList/localNameGroup" section="herbarium">
+			<field id="localName" section="herbarium"/>
+			<field id="localNameLanguage" section="herbarium" autocomplete="vocab-languages" ui-type="enum">
+				<enum>
+					<default>eng</default>
+					<blank-value>Please select a value</blank-value>
+				</enum>
+			</field>
+		</repeat>
+		
+		<repeat id="hybridParentGroupList/hybridParentGroup" section="herbarium">
+			<field id="hybridParent" section="herbarium" autocomplete="taxon-taxon"/>
+			<field id="hybridParentQualifier" section="herbarium" seperate_ui_container="true" autocomplete="vocab-hybridparentqualifier" ui-type="enum"/>
+		</repeat>
+		
+		<field id="hybridName" section="herbarium"/>
+		
+		<field id="labelHeader" section="herbarium" autocomplete="concept-labeltext"/>
+		<field id="labelFooter" section="herbarium" autocomplete="concept-labeltext"/>
+
+		<field id="sheetNumber" ui-type="validated" datatype="integer" section="herbarium"/>
+		<field id="sheetCount" ui-type="validated" datatype="integer" section="herbarium"/>
+
+		<repeat id="typeSpecimenGroupList/typeSpecimenGroup" section="herbarium">
+			<field id="typeSpecimenKind" ui-search="repeatable" section="herbarium" mini="search,list" seperate_ui_container="true" autocomplete="vocab-typespecimenkind" ui-type="enum"/>
+			<field id="typeSpecimenAssertionBy" section="herbarium" autocomplete="organization-organization"/>
+			<field id="typeSpecimenReference" section="herbarium"/>
+			<field id="typeSpecimenRefPage" section="herbarium"/>
+			<field id="typeSpecimenBasionym" section="herbarium" autocomplete="taxon-taxon"/>
+			<field id="typeSpecimenNotes" section="herbarium"/>
+		</repeat>
+	</section>
+	
+	<section id="descriptionInformation">
+		<field id="handwritten" section="herbarium">
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="Unknown">Unknown</option>
+				<option id="yes">Yes</option>
+				<option id="no">No</option>
+			</options>
+		</field>
+		
+		<field id="postToPublic" section="herbarium">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="no">No</option>
+				<option id="yes" default="yes">Yes</option>
+			</options>
+		</field>
+		
+		<repeat id="annotationGroupList/annotationGroup" section="herbarium">
+			<field id="annotationType" section="herbarium" autocomplete="vocab-annotationtype" ui-type="enum"/>
+			<field id="annotationNote" section="herbarium"/>
+			<field id="annotationDate" section="herbarium" datatype="date" ui-type="date"/>
+			<field id="annotationAuthor" section="herbarium" autocomplete="person-person"/>
+		</repeat>
+	</section>
+	
+	<section id="objectCollectionInformation">
+		<field id="habitat" section="herbarium"/>
+	</section>
+
+	<section id="localityInformation">
+		<repeat id="collectionLocationGroupList/collectionLocationGroup" section="herbarium">
+			<field id="collectionLocationVerbatim" section="herbarium"></field>
+			<field id="collectionLocation" autocomplete="place-place" section="herbarium"/>
+		</repeat>
+	</section>
+</record>

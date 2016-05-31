@@ -71,4 +71,39 @@
             <option id="stet">stet</option>
         </options>
     </instance>
+    <instance id="vocab-typespecimenkind">
+        <web-url>typespecimenkind</web-url>
+        <title-ref>typespecimenkind</title-ref>
+        <title>Type Specimen Kind</title>
+        <options>
+            <option id="unspecified">Unspecified type</option>
+            <option id="allotype">Allotype</option>
+            <option id="cotype">Cotype</option>
+            <option id="epitype">Epitype</option>
+            <option id="fragment">Fragment</option>
+            <option id="holosyntype">Holosyntype</option>
+            <option id="holotype">Holotype</option>
+            <option id="isocotype">Isocotype</option>
+            <option id="isolectoparatype">Isolectoparatype</option>
+            <option id="isolectotype">Isolectotype</option>
+            <option id="isoneotype">Isoneotype</option>
+            <option id="isoparatype">Isoparatype</option>
+            <option id="isosyntype">Isosyntype</option>
+            <option id="isotype">Isotype</option>
+            <option id="lectoparatype">Lectoparatype</option>
+            <option id="lectotype">Lectotype</option>
+            <option id="neotype">Neotype</option>
+            <option id="non_type">Non-type</option>
+            <option id="non_visum_isotype">Non-visum Isotype</option>
+            <option id="paralectotype">Paralectotype</option>
+            <option id="paratype">Paratype</option>
+            <option id="pictotype">Pictotype</option>
+            <option id="possible_type">Possible Type</option>
+            <option id="standard">Standard</option>
+            <option id="syntype">Syntype</option>
+            <option id="topotype">Topotype</option>
+            <option id="type">Type</option>
+            <option id="visum_isotype">Visum Isotype</option>
+        </options>
+    </instance>
 </instances>
