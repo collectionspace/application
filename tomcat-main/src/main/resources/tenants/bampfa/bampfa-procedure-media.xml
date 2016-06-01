@@ -19,5 +19,13 @@
 		<field id="imageNumber" section="bampfa" datatype="integer" ui-type="validated" mini="number,search,list,relate" ui-search="range"/>
 		<field id="computedOrderNumber" section="bampfa" mini="search,list,relate" ui-type="computed" ui-func="bampfa.computeMediaOrderNumber" ui-args="primaryDisplay,imageNumber" ui-readonly="true"/>
 		<field id="pictionId" section="bampfa" datatype="integer" ui-readonly="true"/>
+		<field id="websiteDisplayLevel" section="bampfa">
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="No public display">No public display</option>
+				<option id="Display thumbnail only">Display thumbnail only</option>
+				<option id="Display larger size">Display larger size</option>
+			</options>
+		</field>
 	</section>
 </record>
