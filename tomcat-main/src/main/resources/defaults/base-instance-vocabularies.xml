@@ -658,12 +658,12 @@
                         <title-ref>acousticalproperties</title-ref>
                         <title>acousticalproperties</title>
                         <options>
-                            <option id="sound_absorption_reflective">Sound absorption - reflective</option>
-                            <option id="sound_absorption_neutral">Sound absorption - neutral</option>
-                            <option id="sound_absorption_absorbent">Sound absorption - absorbent</option>
-                            <option id="sound_isolation_insulator">Sound isolation - insulator</option>
-                            <option id="sound_isolation_neutral">Sound isolation - neutral</option>
-                            <option id="sound_isolation_conductor">Sound isolation - conductor</option>
+                            <option id="sound_absorption_reflective">sound absorption - reflective</option>
+                            <option id="sound_absorption_neutral">sound absorption - neutral</option>
+                            <option id="sound_absorption_absorbent">sound absorption - absorbent</option>
+                            <option id="sound_isolation_insulator">sound isolation - insulator</option>
+                            <option id="sound_isolation_neutral">sound isolation - neutral</option>
+                            <option id="sound_isolation_conductor">sound isolation - conductor</option>
                         </options>
                     </instance>
                     <instance id="vocab-durabilityproperties">
@@ -671,27 +671,28 @@
                         <title-ref>durabilityproperties</title-ref>
                         <title>durabilityproperties</title>
                         <options>
-                            <option id="abrasion_resistant">Abrasion resistant</option>
-                            <option id="dimensionally_stable">Dimensionally-stable</option>
-                            <option id="fade_resistant">Fade resistant</option>
-                            <option id="heat_resistant">Heat resistant</option>
-                            <option id="impact_resistant">Impact resistant</option>
-                            <option id="lightfastness">Lightfastness</option>
-                            <option id="shock_damping">Shock-damping</option>
-                            <option id="stain_resistant">Stain resistant</option>
-                            <option id="tear_resistant">Tear resistant</option>
-                            <option id="waterproof">Waterproof</option>
-                            <option id="fire_resistant">Fire resistant</option>
-                            <option id="water_resistant">Water resistant</option>
-                            <option id="freeze_thaw_resistant">Freeze/thaw resistant</option>
-                            <option id="chemical_resistant">Chemical resistant (acid and alkaline)</option>
-                            <option id="corrosion_resistant">Corrosion resistant</option>
+                            <option id="abrasion_resistant">abrasion resistant</option>
+                            <option id="dimensionally_stable">dimensionally-stable</option>
+                            <option id="fade_resistant">fade resistant</option>
+                            <option id="heat_resistant">heat resistant</option>
+                            <option id="impact_resistant">impact resistant</option>
+                            <option id="lightfastness">lightfastness</option>
+                            <option id="shock_damping">shock-damping</option>
+                            <option id="stain_resistant">stain resistant</option>
+                            <option id="tear_resistant">tear resistant</option>
+                            <option id="waterproof">waterproof</option>
+                            <option id="fire_resistant">fire resistant</option>
+                            <option id="water_resistant">water resistant</option>
+                            <option id="water_repellent">water-repellent</option>
+                            <option id="freeze_thaw_resistant">freeze/thaw resistant</option>
+                            <option id="chemical_resistant">chemical resistant (acid and alkaline)</option>
+                            <option id="corrosion_resistant">corrosion resistant</option>
                             <option id="uv_resistant">UV resistant</option>
-                            <option id="fungal_resistant">Fungal resistant</option>
-                            <option id="bacterial_resistant">Bacterial resistant</option>
-                            <option id="animal_resistant">Animal resistant</option>
-                            <option id="emi_shielding">Electromagnetic interference shielding (EMI)</option>
-                            <option id="rf_shielding">Radio frequency shielding</option>
+                            <option id="fungal_resistant">fungal resistant</option>
+                            <option id="bacterial_resistant">bacterial resistant</option>
+                            <option id="animal_resistant">animal resistant</option>
+                            <option id="emi_interference">electromagnetic interference (EMI)</option>
+                            <option id="rf_shielding">radio frequency shielding</option>
                         </options>
                     </instance>
                     <instance id="vocab-electricalproperties">
@@ -699,10 +700,10 @@
                         <title-ref>electricalproperties</title-ref>
                         <title>electricalproperties</title>
                         <options>
-                            <option id="anti_static">Anti-static</option>
-                            <option id="electrical_resistivity_conductor">Electrical resistivity - conductor</option>
-                            <option id="electrical_resistivity_semiconductor">Electrical resistivity - semiconductor</option>
-                            <option id="electrical_resistivity_insulator">Electrical resistivity - insulator</option>
+                            <option id="anti_static">anti-static</option>
+                            <option id="electrical_resistivity_conductor">electrical resistivity - conductor</option>
+                            <option id="electrical_resistivity_semiconductor">electrical resistivity - semiconductor</option>
+                            <option id="electrical_resistivity_insulator">electrical resistivity - insulator</option>
                         </options>
                     </instance>
                     <instance id="vocab-mechanicalproperties">
@@ -710,16 +711,16 @@
                         <title-ref>mechanicalproperties</title-ref>
                         <title>mechanicalproperties</title>
                         <options>
-                            <option id="density">Density</option>
-                            <option id="compressive_strength">Compressive strength</option>
-                            <option id="tensile_strength">Tensile strength</option>
-                            <option id="yield_strength">Yield strength</option>
-                            <option id="bending_strength">Bending strength</option>
-                            <option id="shear_strength">Shear strength</option>
-                            <option id="elongation">Elongation</option>
-                            <option id="hardness">Hardness</option>
-                            <option id="youngs_modulus">Young's modulus</option>
-                            <option id="fatigue_limit">Fatigue limit</option>
+                            <option id="density">density</option>
+                            <option id="compressive_strength">compressive strength</option>
+                            <option id="tensile_strength">tensile strength</option>
+                            <option id="yield_strength">yield strength</option>
+                            <option id="bending_strength">bending strength</option>
+                            <option id="shear_strength">shear strength</option>
+                            <option id="elongation">elongation</option>
+                            <option id="hardness">hardness</option>
+                            <option id="youngs_modulus">young's modulus</option>
+                            <option id="fatigue_limit">fatigue limit</option>
                         </options>
                     </instance>
                     <instance id="vocab-hygrothermalproperties">
@@ -727,15 +728,15 @@
                         <title-ref>hygrothermalproperties</title-ref>
                         <title>hygrothermalproperties</title>
                         <options>
-                            <option id="thermal_resistivity">Thermal resistivity</option>
-                            <option id="thermal_expansion_coefficient">Thermal expansion coefficient</option>
-                            <option id="melting_point">Melting point</option>
-                            <option id="specific_heat">Specific heat</option>
-                            <option id="emissivity">Emissivity</option>
-                            <option id="water_absorption">Water absorption</option>
-                            <option id="porosity">Porosity</option>
-                            <option id="flammability">Flammability</option>
-                            <option id="vapor_permeability">Vapor permeability</option>
+                            <option id="thermal_resistivity">thermal resistivity</option>
+                            <option id="thermal_expansion_coefficient">thermal expansion coefficient</option>
+                            <option id="melting_point">melting point</option>
+                            <option id="specific_heat">specific heat</option>
+                            <option id="emissivity">emissivity</option>
+                            <option id="water_absorption">water absorption</option>
+                            <option id="porosity">porosity</option>
+                            <option id="flammability">flammability</option>
+                            <option id="vapor_permeability">vapor permeability</option>
                         </options>
                     </instance>
                     <instance id="vocab-opticalproperties">
@@ -743,16 +744,16 @@
                         <title-ref>opticalproperties</title-ref>
                         <title>opticalproperties</title>
                         <options>
-                            <option id="iridescent">Iridescent</option>
-                            <option id="light_diffusing">Light diffusing</option>
-                            <option id="light_emitting">Light emitting</option>
-                            <option id="prismatic">Prismatic</option>
-                            <option id="transparency_opaque">Transparency - opaque</option>
-                            <option id="transparency_translucent">Transparency - translucent</option>
-                            <option id="transparency_transparent">Transparency - transparent</option>
-                            <option id="reflectance_specular">Reflectance - specular (glossy)</option>
-                            <option id="reflectance_medium">Reflectance - medium (satin)</option>
-                            <option id="reflectance_diffuse">Reflectance - diffuse (matte)</option>
+                            <option id="iridescent">iridescent</option>
+                            <option id="light_diffusing">light diffusing</option>
+                            <option id="light_emitting">light emitting</option>
+                            <option id="prismatic">prismatic</option>
+                            <option id="transparency_opaque">transparency - opaque</option>
+                            <option id="transparency_translucent">transparency - translucent</option>
+                            <option id="transparency_transparent">transparency - transparent</option>
+                            <option id="reflectance_specular">reflectance - specular (glossy)</option>
+                            <option id="reflectance_medium">reflectance - medium (satin)</option>
+                            <option id="reflectance_diffuse">reflectance - diffuse (matte)</option>
                         </options>
                     </instance>
                     <instance id="vocab-sensorialproperties">
@@ -760,23 +761,23 @@
                         <title-ref>sensorialproperties</title-ref>
                         <title>sensorialproperties</title>
                         <options>
-                            <option id="vision_colorfulness_low">Vision - colorfulness (low)</option>
-                            <option id="vision_colorfulness_medium">Vision - colorfulness (medium)</option>
-                            <option id="vision_colorfulness_intensity_medium">Vision - colorfulness intensity (medium)</option>
-                            <option id="vision_intensity_high">Vision - intensity (high)</option>
-                            <option id="taste_bitter">Taste - bitter</option>
-                            <option id="taste_salty">Taste - salty</option>
-                            <option id="taste_sour">Taste - sour</option>
-                            <option id="taste_spicy">Taste - spicy</option>
-                            <option id="taste_sweet">Taste - sweet</option>
-                            <option id="touch_soft">Touch - soft</option>
-                            <option id="touch_hard">Touch - hard</option>
-                            <option id="touch_lightweight">Touch - lightweight</option>
-                            <option id="touch_heavy">Touch - heavy</option>
-                            <option id="touch_smooth">Touch - smooth</option>
-                            <option id="touch_rough">Touch - rough</option>
-                            <option id="touch_sticky">Touch - sticky</option>
-                            <option id="smell_odorous">Smell - odorous</option>
+                            <option id="vision_colorfulness_low">vision - colorfulness (low)</option>
+                            <option id="vision_colorfulness_medium">vision - colorfulness (medium)</option>
+                            <option id="vision_colorfulness_intensity_medium">vision - colorfulness intensity (medium)</option>
+                            <option id="vision_intensity_high">vision - intensity (high)</option>
+                            <option id="taste_bitter">taste - bitter</option>
+                            <option id="taste_salty">taste - salty</option>
+                            <option id="taste_sour">taste - sour</option>
+                            <option id="taste_spicy">taste - spicy</option>
+                            <option id="taste_sweet">taste - sweet</option>
+                            <option id="touch_soft">touch - soft</option>
+                            <option id="touch_hard">touch - hard</option>
+                            <option id="touch_lightweight">touch - lightweight</option>
+                            <option id="touch_heavy">touch - heavy</option>
+                            <option id="touch_smooth">touch - smooth</option>
+                            <option id="touch_rough">touch - rough</option>
+                            <option id="touch_sticky">touch - sticky</option>
+                            <option id="smell_odorous">smell - odorous</option>
                         </options>
                     </instance>
                     <instance id="vocab-smartmaterialproperties">
@@ -784,20 +785,20 @@
                         <title-ref>smartmaterialproperties</title-ref>
                         <title>smartmaterialproperties</title>
                         <options>
-                            <option id="dichroic">Dichroic</option>
-                            <option id="electroluminescent">Electroluminescent</option>
-                            <option id="magnetorheological">Magnetorheological</option>
-                            <option id="phase_changing">Phase changing</option>
-                            <option id="photocatalytic">Photocatalytic</option>
-                            <option id="photochromatic">Photochromatic</option>
-                            <option id="photoluminescent">Photoluminescent</option>
-                            <option id="photovoltaic">Photovoltaic</option>
-                            <option id="self_cleaning">Self-cleaning</option>
-                            <option id="self_healing">Self-healing</option>
-                            <option id="self_leveling">Self-leveling</option>
-                            <option id="shape_memory">Shape memory</option>
-                            <option id="thermochromatic">Thermochromatic</option>
-                            <option id="time_releasing">Time-releasing</option>
+                            <option id="dichroic">dichroic</option>
+                            <option id="electroluminescent">electroluminescent</option>
+                            <option id="magnetorheological">magnetorheological</option>
+                            <option id="phase_changing">phase changing</option>
+                            <option id="photocatalytic">photocatalytic</option>
+                            <option id="photochromatic">photochromatic</option>
+                            <option id="photoluminescent">photoluminescent</option>
+                            <option id="photovoltaic">photovoltaic</option>
+                            <option id="self_cleaning">self-cleaning</option>
+                            <option id="self_healing">self-healing</option>
+                            <option id="self_leveling">self-leveling</option>
+                            <option id="shape_memory">shape memory</option>
+                            <option id="thermochromatic">thermochromatic</option>
+                            <option id="time_releasing">time-releasing</option>
                         </options>
                     </instance>
                     <instance id="vocab-additionalproperties">
@@ -805,21 +806,21 @@
                         <title-ref>additionalproperties</title-ref>
                         <title>additionalproperties</title>
                         <options>
-                            <option id="acoustic">Acoustic</option>
-                            <option id="ductile">Ductile</option>
-                            <option id="elastic">Elastic</option>
-                            <option id="flexible">Flexible</option>
-                            <option id="hydrophilic">Hydrophilic</option>
-                            <option id="magnetic">Magnetic</option>
-                            <option id="water_absorbent">Water absorbent</option>
-                            <option id="non_stick">Non-stick</option>
-                            <option id="nutrient_providing">Nutrient-providing</option>
-                            <option id="water_permeable">Water permeable</option>
-                            <option id="rot_resistant">Rot resistant</option>
-                            <option id="slip_resistant">Slip resistant</option>
-                            <option id="soluble">Soluble</option>
-                            <option id="temperature_control">Temperature control</option>
-                            <option id="antimicrobial">Antimicrobial</option>
+                            <option id="acoustic">acoustic</option>
+                            <option id="ductile">ductile</option>
+                            <option id="elastic">elastic</option>
+                            <option id="flexible">flexible</option>
+                            <option id="hydrophilic">hydrophilic</option>
+                            <option id="magnetic">magnetic</option>
+                            <option id="water_absorbent">water absorbent</option>
+                            <option id="non_stick">non-stick</option>
+                            <option id="nutrient_providing">nutrient-providing</option>
+                            <option id="water_permeable">water permeable</option>
+                            <option id="rot_resistant">rot resistant</option>
+                            <option id="slip_resistant">slip resistant</option>
+                            <option id="soluble">soluble</option>
+                            <option id="temperature_control">temperature control</option>
+                            <option id="antimicrobial">antimicrobial</option>
                         </options>
                     </instance>
                     <instance id="vocab-mechanicalpropertyunits">
@@ -888,13 +889,13 @@
                         <title-ref>castingprocesses</title-ref>
                         <title>castingprocesses</title>
                         <options>
-                            <option id="die_casting">Die casting</option>
-                            <option id="floating">Floating</option>
-                            <option id="investment_casting">Investment casting</option>
-                            <option id="sand_casting">Sand casting</option>
-                            <option id="slip_casting">Slip casting</option>
-                            <option id="centrifugal_casting">Centrifugal casting</option>
-                            <option id="slumping">Slumping</option>
+                            <option id="die_casting">die casting</option>
+                            <option id="floating">floating</option>
+                            <option id="investment_casting">investment casting</option>
+                            <option id="sand_casting">sand casting</option>
+                            <option id="slip_casting">slip casting</option>
+                            <option id="centrifugal_casting">centrifugal casting</option>
+                            <option id="slumping">slumping</option>
                         </options>
                     </instance>
                     <instance id="vocab-deformingprocesses">
@@ -902,27 +903,28 @@
                         <title-ref>deformingprocesses</title-ref>
                         <title>deformingprocesses</title>
                         <options>
-                            <option id="aeration">Aeration</option>
-                            <option id="corrugating">Corrugating</option>
-                            <option id="expanding">Expanding</option>
-                            <option id="melting">Melting</option>
-                            <option id="perforating">Perforating</option>
-                            <option id="spinning">Spinning</option>
-                            <option id="extrusion">Extrusion</option>
-                            <option id="pultrusion">Pultrusion</option>
-                            <option id="shearing">Shearing</option>
-                            <option id="bending">Bending</option>
-                            <option id="inflating">Inflating</option>
-                            <option id="rolling">Rolling</option>
-                            <option id="stamping">Stamping</option>
-                            <option id="pressing">Pressing</option>
-                            <option id="embossing">Embossing</option>
-                            <option id="blowing">Blowing</option>
-                            <option id="jiggering">Jiggering</option>
-                            <option id="jollying">Jollying</option>
-                            <option id="forging">Forging</option>
-                            <option id="diecutting">Diecutting</option>
-                            <option id="rotary_swaging">Rotary swaging</option>
+                            <option id="aeration">aeration</option>
+                            <option id="corrugating">corrugating</option>
+                            <option id="expanding">expanding</option>
+                            <option id="melting">melting</option>
+                            <option id="perforating">perforating</option>
+                            <option id="spinning">spinning</option>
+                            <option id="extrusion">extrusion</option>
+                            <option id="pultrusion">pultrusion</option>
+                            <option id="shearing">shearing</option>
+                            <option id="bending">bending</option>
+                            <option id="inflating">inflating</option>
+                            <option id="rolling">rolling</option>
+                            <option id="stamping">stamping</option>
+                            <option id="pressing">pressing</option>
+                            <option id="embossing">embossing</option>
+                            <option id="blowing">blowing</option>
+                            <option id="jiggering">jiggering</option>
+                            <option id="jollying">jollying</option>
+                            <option id="forging">forging</option>
+                            <option id="diecutting">diecutting</option>
+                            <option id="rotary_swaging">rotary swaging</option>
+                            <option id="vacuum_melting">vacuum melting</option>
                         </options>
                     </instance>
                     <instance id="vocab-joiningprocesses">
@@ -930,23 +932,23 @@
                         <title-ref>joiningprocesses</title-ref>
                         <title>joiningprocesses</title>
                         <options>
-                            <option id="felting">Felting</option>
-                            <option id="heat_bonding">Heat-Bonding</option>
-                            <option id="laminating">Laminating</option>
-                            <option id="nonwoven">Nonwoven</option>
-                            <option id="polymerizing">Polymerizing</option>
-                            <option id="spun_bonding">Spun-bonding</option>
-                            <option id="stacking">Stacking</option>
+                            <option id="felting">felting</option>
+                            <option id="heat_bonding">heat-Bonding</option>
+                            <option id="laminating">laminating</option>
+                            <option id="nonwoven">nonwoven</option>
+                            <option id="polymerizing">polymerizing</option>
+                            <option id="spun_bonding">spun-bonding</option>
+                            <option id="stacking">stacking</option>
                             <option id="welding">welding</option>
-                            <option id="soldering">Soldering</option>
-                            <option id="bonding">Bonding</option>
-                            <option id="doweling">Doweling</option>
-                            <option id="fastening">Fastening</option>
-                            <option id="flexible_adhesives">Flexible adhesives</option>
-                            <option id="rigid_adhesives">Rigid adhesives</option>
-                            <option id="knitting">Knitting</option>
-                            <option id="weaving">Weaving</option>
-                            <option id="filament_winding">Filament winding</option>
+                            <option id="soldering">soldering</option>
+                            <option id="bonding">bonding</option>
+                            <option id="doweling">doweling</option>
+                            <option id="fastening">fastening</option>
+                            <option id="flexible_adhesives">flexible adhesives</option>
+                            <option id="rigid_adhesives">rigid adhesives</option>
+                            <option id="knitting">knitting</option>
+                            <option id="weaving">weaving</option>
+                            <option id="filament_winding">filament winding</option>
                         </options>
                     </instance>
                     <instance id="vocab-machiningprocesses">
@@ -954,22 +956,23 @@
                         <title-ref>machiningprocesses</title-ref>
                         <title>machiningprocesses</title>
                         <options>
-                            <option id="milling">Milling</option>
-                            <option id="drilling">Drilling</option>
-                            <option id="grinding">Grinding</option>
-                            <option id="punching">Punching</option>
-                            <option id="lathing">Lathing</option>
-                            <option id="blanking">Blanking</option>
-                            <option id="nibbling">Nibbling</option>
-                            <option id="cnc_cutting">CNC cutting</option>
-                            <option id="oxyacetylene_cutting">Oxyacetylene cutting</option>
-                            <option id="laser_beam_cutting">Laser-beam cutting</option>
-                            <option id="water_jet_cutting">Water-jet cutting</option>
-                            <option id="plasma_arc_cutting">Plasma-arc cutting</option>
-                            <option id="wire_cutting">Wire cutting</option>
-                            <option id="water_jet_abrasion">Water-jet abrasion</option>
-                            <option id="ebm">Electron-beam machining (EBM)</option>
-                            <option id="wedm">Wire electrical discharge machining (W-EDM)</option>
+                            <option id="milling">milling</option>
+                            <option id="drilling">drilling</option>
+                            <option id="grinding">grinding</option>
+                            <option id="punching">punching</option>
+                            <option id="lathing">lathing</option>
+                            <option id="blanking">blanking</option>
+                            <option id="nibbling">nibbling</option>
+                            <option id="cnc_cutting">CNC-cutting</option>
+                            <option id="cnc_routing">CNC-routing</option>
+                            <option id="oxyacetylene_cutting">oxyacetylene cutting</option>
+                            <option id="laser_beam_cutting">laser-beam cutting</option>
+                            <option id="water_jet_cutting">water-jet cutting</option>
+                            <option id="plasma_arc_cutting">plasma-arc cutting</option>
+                            <option id="wire_cutting">wire cutting</option>
+                            <option id="water_jet_abrasion">water-jet abrasion</option>
+                            <option id="ebm">electron-beam machining (EBM)</option>
+                            <option id="wedm">wire electrical discharge machining (W-EDM)</option>
                         </options>
                     </instance>
                     <instance id="vocab-moldingprocesses">
@@ -977,28 +980,28 @@
                         <title-ref>moldingprocesses</title-ref>
                         <title>moldingprocesses</title>
                         <options>
-                            <option id="blow_molding">Blow molding</option>
-                            <option id="compression_molding">Compression molding</option>
-                            <option id="injection_molding">Injection molding</option>
-                            <option id="rotational_molding">Rotational molding</option>
-                            <option id="dip_molding">Dip molding</option>
-                            <option id="powder_molding">Powder molding</option>
-                            <option id="contact_molding">Contact molding</option>
-                            <option id="foam_molding">Foam molding</option>
-                            <option id="autoclave_molding">Autoclave molding</option>
-                            <option id="transfer_molding">Transfer molding</option>
-                            <option id="electroforming">Electroforming</option>
-                            <option id="thermoforming">Thermoforming</option>
-                            <option id="vacuum_forming">Vacuum forming</option>
-                            <option id="cavity_forming">Cavity forming</option>
-                            <option id="bubble_forming">Bubble forming</option>
-                            <option id="diaphragm_forming">Diaphragm forming</option>
-                            <option id="back_pressure_forming">Back-pressure forming</option>
-                            <option id="explosive_forming">Explosive forming</option>
-                            <option id="hydroforming_or_fluid_forming">Hydroforming or fluid forming</option>
-                            <option id="vip">Vacuum infusion forming (VIP)</option>
-                            <option id="hip">Hot isostatic pressing (HIP)</option>
-                            <option id="cip">Cold isostatic pressing (CIP)</option>
+                            <option id="blow_molding">blow molding</option>
+                            <option id="compression_molding">compression molding</option>
+                            <option id="injection_molding">injection molding</option>
+                            <option id="rotational_molding">rotational molding</option>
+                            <option id="dip_molding">dip molding</option>
+                            <option id="powder_molding">powder molding</option>
+                            <option id="contact_molding">contact molding</option>
+                            <option id="foam_molding">foam molding</option>
+                            <option id="autoclave_molding">autoclave molding</option>
+                            <option id="transfer_molding">transfer molding</option>
+                            <option id="electroforming">electroforming</option>
+                            <option id="thermoforming">thermoforming</option>
+                            <option id="vacuum_forming">vacuum forming</option>
+                            <option id="cavity_forming">cavity forming</option>
+                            <option id="bubble_forming">bubble forming</option>
+                            <option id="diaphragm_forming">diaphragm forming</option>
+                            <option id="back_pressure_forming">back-pressure forming</option>
+                            <option id="explosive_forming">explosive forming</option>
+                            <option id="hydroforming_or_fluid_forming">hydroforming or fluid forming</option>
+                            <option id="vip">vacuum infusion forming (VIP)</option>
+                            <option id="hip">hot isostatic pressing (HIP)</option>
+                            <option id="cip">cold isostatic pressing (CIP)</option>
                         </options>
                     </instance>
                     <instance id="vocab-rapidprototypingprocesses">
@@ -1006,18 +1009,20 @@
                         <title-ref>rapidprototypingprocesses</title-ref>
                         <title>rapidprototypingprocesses</title>
                         <options>
-                            <option id="printing">Printing</option>
-                            <option id="vacuum_deposition">Vacuum deposition</option>
-                            <option id="physical_vapor_deposition">Physical vapor deposition</option>
-                            <option id="weaving">Weaving</option>
+                            <option id="printing">printing</option>
+                            <option id="vacuum_deposition">vacuum deposition</option>
+                            <option id="physical_vapor_deposition">physical vapor deposition (PVD)</option>
+                            <option id="weaving">weaving</option>
+                            <option id="weaving_3d">weaving (3D)</option>
                             <option id="3d_printing">3D printing</option>
-                            <option id="stl">Stereolithography (STL)</option>
-                            <option id="fdm">Fused deposition modeling (FDM)</option>
-                            <option id="laminated_object_manufacturing">Laminated object manufacturing</option>
-                            <option id="contour_crafting">Contour crafting</option>
-                            <option id="laser_sintering">Laser sintering</option>
-                            <option id="sls">Selective laser sintering (SLS)</option>
-                            <option id="slm">Selective laser melting (SLM)</option>
+                            <option id="stl">stereolithography (STL)</option>
+                            <option id="fdm">fused deposition modeling (FDM)</option>
+                            <option id="laminated_object_manufacturing">laminated object manufacturing</option>
+                            <option id="contour_crafting">contour crafting</option>
+                            <option id="sintering">sintering</option>
+                            <option id="laser_sintering">laser sintering</option>
+                            <option id="sls">selective laser sintering (SLS)</option>
+                            <option id="slm">selective laser melting (SLM)</option>
                         </options>
                     </instance>
                     <instance id="vocab-surfacingprocesses">
@@ -1025,24 +1030,24 @@
                         <title-ref>surfacingprocesses</title-ref>
                         <title>surfacingprocesses</title>
                         <options>
-                            <option id="acid_washing">Acid-washing</option>
-                            <option id="coating">Coating</option>
-                            <option id="etching">Etching</option>
-                            <option id="photolithography">Photolithography</option>
-                            <option id="sandblasting">Sandblasting</option>
-                            <option id="spraying">Spraying</option>
-                            <option id="anodizing">Anodizing</option>
-                            <option id="galvanizing">Galvanizing</option>
-                            <option id="inkjet_printing">Inkjet printing</option>
-                            <option id="spray_painting">Spray painting</option>
-                            <option id="pad_printing">Pad printing</option>
-                            <option id="silk_screen_printing">Silk screen printing</option>
-                            <option id="cubic_printing">Cubic printing</option>
-                            <option id="photo_etching">Photo-etching</option>
-                            <option id="calendering">Calendering</option>
-                            <option id="over_mold_surfacing">Over-mold surfacing</option>
-                            <option id="laser_hardening">Laser hardening</option>
-                            <option id="flame_hardening">Flame hardening</option>
+                            <option id="acid_washing">acid-washing</option>
+                            <option id="coating">coating</option>
+                            <option id="etching">etching</option>
+                            <option id="photolithography">photolithography</option>
+                            <option id="sandblasting">sandblasting</option>
+                            <option id="spraying">spraying</option>
+                            <option id="anodizing">anodizing</option>
+                            <option id="galvanizing">galvanizing</option>
+                            <option id="inkjet_printing">inkjet printing</option>
+                            <option id="spray_painting">spray painting</option>
+                            <option id="pad_printing">pad printing</option>
+                            <option id="silk_screen_printing">silk screen printing</option>
+                            <option id="cubic_printing">cubic printing</option>
+                            <option id="photo_etching">photo-etching</option>
+                            <option id="calendering">calendering</option>
+                            <option id="over_mold_surfacing">over-mold surfacing</option>
+                            <option id="laser_hardening">laser hardening</option>
+                            <option id="flame_hardening">flame hardening</option>
                         </options>
                     </instance>
                     <instance id="vocab-additionalprocesses">
@@ -1050,12 +1055,17 @@
                         <title-ref>additionalprocesses</title-ref>
                         <title>additionalprocesses</title>
                         <options>
-                            <option id="acetylation">Acetylation</option>
-                            <option id="casting">Casting</option>
-                            <option id="firing">Firing</option>
-                            <option id="harvesting">Harvesting</option>
-                            <option id="mixing">Mixing</option>
-                            <option id="pigmenting">Pigmenting</option>
+                            <option id="acetylation">acetylation</option>
+                            <option id="casting">casting</option>
+                            <option id="firing">firing</option>
+                            <option id="harvesting">harvesting</option>
+                            <option id="mixing">mixing</option>
+                            <option id="pigmenting">pigmenting</option>
+                            <option id="poured_in_place">poured-in-place</option>
+                            <option id="pressure_treating">pressure treating</option>
+                            <option id="pyrolysis">pyrolysis</option>
+                            <option id="recycled">recycled</option>
+                            <option id="tanning">tanning</option>
                         </options>
                     </instance>
                     <instance id="vocab-addresstype">
