@@ -2,6 +2,8 @@
 	<services-record-path id="herbarium">collectionobjects_herbarium:http://collectionspace.org/services/collectionobject/local/herbarium,collectionobjects_herbarium</services-record-path>
 
 	<section id="identificationInformation">
+		<!-- Local fields -->
+
 		<repeat id="localNameGroupList/localNameGroup" section="herbarium">
 			<field id="localName" section="herbarium"/>
 			<field id="localNameLanguage" section="herbarium" autocomplete="vocab-languages" ui-type="enum">
@@ -36,15 +38,20 @@
 	</section>
 	
 	<section id="descriptionInformation">
-		<field id="handwritten" section="herbarium">
-			<options>
-				<option id="" default="yes">Please select a value</option>
-				<option id="Unknown">Unknown</option>
-				<option id="yes">Yes</option>
-				<option id="no">No</option>
-			</options>
+		<!-- Change to use a dynamic term list -->
+		<field id="phase" autocomplete="vocab-botanicalphase" ui-type="enum">
+			<options/>
 		</field>
 		
+		<repeat id="forms">
+			<!-- Change to use a dynamic term list -->
+			<field id="form" autocomplete="vocab-herbariumform" ui-type="enum">
+				<options/>
+			</field>
+		</repeat>
+
+		<!-- Local fields -->
+
 		<field id="postToPublic" section="herbarium">
 			<options>
 				<option id="">Please select a value</option>
@@ -52,23 +59,22 @@
 				<option id="yes" default="yes">Yes</option>
 			</options>
 		</field>
-		
-		<repeat id="annotationGroupList/annotationGroup" section="herbarium">
-			<field id="annotationType" section="herbarium" autocomplete="vocab-annotationtype" ui-type="enum"/>
-			<field id="annotationNote" section="herbarium"/>
-			<field id="annotationDate" section="herbarium" datatype="date" ui-type="date"/>
-			<field id="annotationAuthor" section="herbarium" autocomplete="person-person"/>
-		</repeat>
 	</section>
 	
 	<section id="objectCollectionInformation">
 		<field id="habitat" section="herbarium"/>
+
+		<repeat id="associatedTaxaGroupList/associatedTaxaGroup" section="herbarium">
+			<field id="assocTaxon" section="herbarium" autocomplete="taxon-taxon"/>
+			<field id="assocTaxonCommonName" section="herbarium"/>
+			<field id="assocTaxonInteraction" section="herbarium" autocomplete="vocab-assoctaxoninteraction" ui-type="enum"/>
+		</repeat>
 	</section>
 
 	<section id="localityInformation">
-		<repeat id="collectionLocationGroupList/collectionLocationGroup" section="herbarium">
+		<repeat id="localityGroupList/localityGroup" section="herbarium">
 			<field id="collectionLocationVerbatim" section="herbarium"></field>
-			<field id="collectionLocation" autocomplete="place-place" section="herbarium"/>
+			<field id="collectionPlace" autocomplete="place-place" section="herbarium"/>
 		</repeat>
 	</section>
 </record>

@@ -47,4 +47,55 @@
             <option id="vegetation_type_map_project">Vegetation Type Map Project</option>
         </options>
     </instance>
+    <instance id="vocab-botanicalphase">
+        <web-url>botanicalphase</web-url>
+        <title-ref>botanicalphase</title-ref>
+        <title>Botanical Phases</title>
+        <options>
+            <option id="unknown">Unknown</option>
+            <option id="cone">Cone</option>
+            <option id="flowering">Flowering</option>
+            <option id="flowering_fruiting">Flowering/Fruiting</option>
+            <option id="fruiting">Fruiting</option>
+            <option id="gametophyte">Gametophyte</option>
+            <option id="juvenile">Juvenile</option>
+            <option id="reproductive">Reproductive</option>
+            <option id="spores_sporangia">Spores/Sporangia</option>
+            <option id="sporophyte">Sporophyte</option>
+            <option id="tetrasporophyte">Tetrasporophyte</option>
+            <option id="vegetative_non_reproductive">Vegetative (non-reproductive)</option>
+        </options>
+    </instance>
+    <instance id="vocab-herbariumform">
+        <web-url>herbariumform</web-url>
+        <title-ref>herbariumform</title-ref>
+        <title>Herbarium Forms</title>
+        <options>
+            <option id="unknown">Unknown</option>
+            <option id="mounted_on_paper" default="yes">Mounted on Paper</option>
+            <option id="loose_in_packet">Loose in packet</option>
+            <option id="stored_in_box_bag">Stored in a Box or Bag</option>
+            <option id="preserved_in_liquid">Preserved in Liquid</option>
+            <option id="microscope_slide_preparation">Microscope Slide Preparation</option>
+            <option id="photograph">Photograph</option>
+            <option id="illustration">Illustration</option>
+            <option id="photocopy">Photocopy</option>
+            <option id="box">Box</option>
+            <option id="bag">Bag</option>
+            <option id="map">Map</option>
+        </options>
+    </instance>
+    <instance id="vocab-assoctaxoninteraction">
+        <web-url>assoctaxoninteraction</web-url>
+        <title-ref>assoctaxoninteraction</title-ref>
+        <title>Associated Taxon Interactions</title>
+        <options>
+            <option id="lives_grows_with">lives/grows with</option>
+            <option id="lives_on">lives on</option>
+            <option id="living_under">living under</option>
+            <option id="physically_supported_by">is physically supported by</option>
+            <option id="epiphytic_on">is epiphytic on</option>
+            <option id="endophytic_in">is endophytic in</option>
+        </options>
+    </instance>
 </root>
