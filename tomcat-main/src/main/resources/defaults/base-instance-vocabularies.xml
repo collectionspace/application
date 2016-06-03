@@ -633,8 +633,8 @@
                             <option id="honeycomb_flexible">honeycomb - flexible</option>
                             <option id="cord">cord</option>
                             <option id="cord_rope">cord - rope</option>
-                            <option id="core_thread">core - thread</option>
-                            <option id="core_tape">core - tape</option>
+                            <option id="cord_thread">cord - thread</option>
+                            <option id="cord_tape">cord - tape</option>
                             <option id="profile">profile</option>
                             <option id="profile_hollow">profile - hollow</option>
                             <option id="profile_open">profile - open</option>
@@ -1020,7 +1020,6 @@
                             <option id="laminated_object_manufacturing">laminated object manufacturing</option>
                             <option id="contour_crafting">contour crafting</option>
                             <option id="sintering">sintering</option>
-                            <option id="laser_sintering">laser sintering</option>
                             <option id="sls">selective laser sintering (SLS)</option>
                             <option id="slm">selective laser melting (SLM)</option>
                         </options>
