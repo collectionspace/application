@@ -1,0 +1,126 @@
+<root>
+    <include src="extensions/naturalhistory-vocabularies.xml" strip-root="yes" />
+
+    <instance id="vocab-transportmethod">
+        <web-url>transportmethod</web-url>
+        <title-ref>transportmethod</title-ref>
+        <title>Transport Method</title>
+        <options>
+            <option id="surface">surface</option>
+            <option id="hand">hand-carried</option>
+            <option id="air">air</option>
+        </options>
+    </instance>
+    <instance id="vocab-hybridparentqualifier">
+        <web-url>hybridparentqualifier</web-url>
+        <title-ref>hybridparentqualifier</title-ref>
+        <title>Hybrid Parent Qualifier</title>
+        <options>
+            <option id="unknown">unknown</option>
+            <option id="cf">cf.</option>
+            <option id="fide">fide</option>
+            <option id="forsan">forsan</option>
+            <option id="group">group</option>
+            <option id="hybrid">hybrid (X)</option>
+            <option id="sensu">sensu</option>
+            <option id="sensu_lato">sensu lato</option>
+            <option id="sensu_stricto">sensu stricto</option>
+            <option id="series">series</option>
+            <option id="vide">vide</option>
+            <option id="intermediate">intermediate</option>
+            <option id="question">? </option> <!-- display name must have at least 2 characters -->
+        </options>
+    </instance>
+    <instance id="vocab-annotationtype">
+        <web-url>annotationtype</web-url>
+        <title-ref>annotationtype</title-ref>
+        <title>Annotation Type</title>
+        <options>
+            <option id="additional_taxa">additional taxa</option>
+            <option id="deaccession">deaccession</option>
+            <option id="holotype_location">holotype location</option>
+            <option id="image_made">image made</option>
+            <option id="nomenclature">nomenclature</option>
+            <option id="number_collision">number collision</option>
+            <option id="population_biology">population biology</option>
+            <option id="type">type</option>
+            <option id="vegetation_type_map_project">Vegetation Type Map Project</option>
+        </options>
+    </instance>
+    <instance id="vocab-botanicalphase">
+        <web-url>botanicalphase</web-url>
+        <title-ref>botanicalphase</title-ref>
+        <title>Botanical Phases</title>
+        <options>
+            <option id="unknown">Unknown</option>
+            <option id="cone">Cone</option>
+            <option id="flowering">Flowering</option>
+            <option id="flowering_fruiting">Flowering/Fruiting</option>
+            <option id="fruiting">Fruiting</option>
+            <option id="gametophyte">Gametophyte</option>
+            <option id="juvenile">Juvenile</option>
+            <option id="reproductive">Reproductive</option>
+            <option id="spores_sporangia">Spores/Sporangia</option>
+            <option id="sporophyte">Sporophyte</option>
+            <option id="tetrasporophyte">Tetrasporophyte</option>
+            <option id="vegetative_non_reproductive">Vegetative (non-reproductive)</option>
+        </options>
+    </instance>
+    <instance id="vocab-herbariumform">
+        <web-url>herbariumform</web-url>
+        <title-ref>herbariumform</title-ref>
+        <title>Herbarium Forms</title>
+        <options>
+            <option id="unknown">Unknown</option>
+            <option id="mounted_on_paper" default="yes">Mounted on Paper</option>
+            <option id="loose_in_packet">Loose in packet</option>
+            <option id="stored_in_box_bag">Stored in a Box or Bag</option>
+            <option id="preserved_in_liquid">Preserved in Liquid</option>
+            <option id="microscope_slide_preparation">Microscope Slide Preparation</option>
+            <option id="photograph">Photograph</option>
+            <option id="illustration">Illustration</option>
+            <option id="photocopy">Photocopy</option>
+            <option id="box">Box</option>
+            <option id="bag">Bag</option>
+            <option id="map">Map</option>
+        </options>
+    </instance>
+    <instance id="vocab-assoctaxoninteraction">
+        <web-url>assoctaxoninteraction</web-url>
+        <title-ref>assoctaxoninteraction</title-ref>
+        <title>Associated Taxon Interactions</title>
+        <options>
+            <option id="lives_grows_with">lives/grows with</option>
+            <option id="lives_on">lives on</option>
+            <option id="living_under">living under</option>
+            <option id="physically_supported_by">is physically supported by</option>
+            <option id="epiphytic_on">is epiphytic on</option>
+            <option id="endophytic_in">is endophytic in</option>
+        </options>
+    </instance>
+    <instance id="vocab-taxonmajorgroup">
+        <web-url>taxonmajorgroup</web-url>
+        <title-ref>taxonmajorgroup</title-ref>
+        <title>Major Groups</title>
+        <options>
+            <option id="spermatophytes">Spermatophytes</option>
+            <option id="pteridophytes">Pteridophytes</option>
+            <option id="algae">Algae</option>
+            <option id="bryophytes">Bryophytes</option>
+            <option id="fungi">Fungi</option>
+            <option id="lichen">Lichen</option>
+            <option id="na">n/a</option>
+            <option id="misc">misc</option>
+        </options>
+    </instance>
+    <instance id="vocab-taxonrelatedtermtype">
+        <web-url>taxonrelatedtermtype</web-url>
+        <title-ref>taxonrelatedtermtype</title-ref>
+        <title>Related Term Types</title>
+        <options>
+            <option id="synonym">Synonym</option>
+            <option id="female_hybrid_parent">Female Hybrid Parent</option>
+            <option id="male_hybrid_parent">Male Hybrid Parent</option>
+        </options>
+    </instance>
+</root>

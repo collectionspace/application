@@ -1,0 +1,109 @@
+<instances>
+    <instance id="vocab-majortaxongroup">
+        <web-url>majortaxongroup</web-url>
+        <title-ref>majortaxongroup</title-ref>
+        <title>Major Taxonomic Group</title>
+        <options>
+            <option id="spermatophytes">Spermatophytes</option>
+            <option id="pteridophytes">Pteridophytes</option>
+            <option id="algae">Algae</option>
+            <option id="bryophytes">Bryophytes</option>
+            <option id="fungi">Fungi</option>
+            <option id="lichen">Lichen</option>
+            <option id="na">n/a</option>
+            <option id="misc">misc</option>
+        </options>
+    </instance>
+    <instance id="vocab-objectkind">
+        <web-url>objectkind</web-url>
+        <title-ref>objectkind</title-ref>
+        <title>Object Kind</title>
+        <options>
+            <option id="sheet">Sheet</option>
+            <option id="jar">Jar</option>
+        </options>
+    </instance>
+    <instance id="vocab-taxonqualifier">
+        <web-url>taxonqualifier</web-url>
+        <title-ref>taxonqualifier</title-ref>
+        <title>Taxonomic Identification Qualifier</title>
+        <options>
+            <option id="unknown">unknown</option>
+            <option id="aff">aff.</option>
+            <option id="auct">auct.</option>
+            <option id="cf">cf.</option>
+            <option id="cv">cv.</option>
+            <option id="complex">complex</option>
+            <option id="fide">fide</option>
+            <option id="forsan">forsan</option>
+            <option id="group">group</option>
+            <option id="hybrid">hybrid (X)</option>
+            <option id="indet">indet.</option>
+            <option id="ined">ined.</option>
+            <option id="intermediate">intermediate</option>
+            <option id="sensu">sensu</option>
+            <option id="sensulato">sensu lato</option>
+            <option id="sensustricto">sensu stricto</option>
+            <option id="infrageneric">unnamed infrageneric hybrid/intermediate</option>
+            <option id="infrageneric_unknown">unnamed infrageneric hybrid/intermediate - parents unknown</option>
+            <option id="intergeneric">unnamed intergeneric hybrid/intermediate</option>
+            <option id="intergeneric_unknown">unnamed intergeneric hybrid/intermediate - parents unknown</option>
+            <option id="infraspecific">unnamed infraspecific hybrid/intermediate</option>
+            <option id="infraspecific_unknown">unnamed infraspecific hybrid/intermediate - parents unknown</option>
+            <option id="vide">vide</option>
+            <option id="question">? </option> <!-- display name must have at least 2 characters -->
+            <option id="exclamation">! </option> <!-- display name must have at least 2 characters -->
+        </options>
+    </instance>
+    <instance id="vocab-taxonkind">
+        <web-url>taxonkind</web-url>
+        <title-ref>taxonkind</title-ref>
+        <title>Taxonomic Identification Kind</title>
+        <options>
+            <option id="original_label">original label determination</option>
+            <option id="fide">fide</option>
+            <option id="nomenclatural_change">nomenclatural change</option>
+            <option id="taxonomic_change">taxonomic change</option>
+            <option id="annotation_filed">annotation as filed</option>
+            <option id="previously_filed">previously filed as</option>
+            <option id="id_or_reid">identification or reidentification</option>
+            <option id="variant">variant name</option>
+            <option id="stet">stet</option>
+        </options>
+    </instance>
+    <instance id="vocab-typespecimenkind">
+        <web-url>typespecimenkind</web-url>
+        <title-ref>typespecimenkind</title-ref>
+        <title>Type Specimen Kind</title>
+        <options>
+            <option id="unspecified">Unspecified type</option>
+            <option id="allotype">Allotype</option>
+            <option id="cotype">Cotype</option>
+            <option id="epitype">Epitype</option>
+            <option id="fragment">Fragment</option>
+            <option id="holosyntype">Holosyntype</option>
+            <option id="holotype">Holotype</option>
+            <option id="isocotype">Isocotype</option>
+            <option id="isolectoparatype">Isolectoparatype</option>
+            <option id="isolectotype">Isolectotype</option>
+            <option id="isoneotype">Isoneotype</option>
+            <option id="isoparatype">Isoparatype</option>
+            <option id="isosyntype">Isosyntype</option>
+            <option id="isotype">Isotype</option>
+            <option id="lectoparatype">Lectoparatype</option>
+            <option id="lectotype">Lectotype</option>
+            <option id="neotype">Neotype</option>
+            <option id="non_type">Non-type</option>
+            <option id="non_visum_isotype">Non-visum Isotype</option>
+            <option id="paralectotype">Paralectotype</option>
+            <option id="paratype">Paratype</option>
+            <option id="pictotype">Pictotype</option>
+            <option id="possible_type">Possible Type</option>
+            <option id="standard">Standard</option>
+            <option id="syntype">Syntype</option>
+            <option id="topotype">Topotype</option>
+            <option id="type">Type</option>
+            <option id="visum_isotype">Visum Isotype</option>
+        </options>
+    </instance>
+</instances>
