@@ -98,4 +98,29 @@
             <option id="endophytic_in">is endophytic in</option>
         </options>
     </instance>
+    <instance id="vocab-taxonmajorgroup">
+        <web-url>taxonmajorgroup</web-url>
+        <title-ref>taxonmajorgroup</title-ref>
+        <title>Major Groups</title>
+        <options>
+            <option id="spermatophytes">Spermatophytes</option>
+            <option id="pteridophytes">Pteridophytes</option>
+            <option id="algae">Algae</option>
+            <option id="bryophytes">Bryophytes</option>
+            <option id="fungi">Fungi</option>
+            <option id="lichen">Lichen</option>
+            <option id="na">n/a</option>
+            <option id="misc">misc</option>
+        </options>
+    </instance>
+    <instance id="vocab-taxonrelatedtermtype">
+        <web-url>taxonrelatedtermtype</web-url>
+        <title-ref>taxonrelatedtermtype</title-ref>
+        <title>Related Term Types</title>
+        <options>
+            <option id="synonym">Synonym</option>
+            <option id="female_hybrid_parent">Female Hybrid Parent</option>
+            <option id="male_hybrid_parent">Male Hybrid Parent</option>
+        </options>
+    </instance>
 </root>
