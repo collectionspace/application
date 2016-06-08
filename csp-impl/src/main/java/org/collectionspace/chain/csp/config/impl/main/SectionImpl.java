@@ -41,7 +41,7 @@ public class SectionImpl implements Section {
 	public Object getValue(String key) { return map.get(key); }
 	void addChild(SectionImpl m) { children.add(m); }
 	
-	public void buildTargets(Object payload) {
+	public void buildTargets(Object payload) throws Exception {
 		if(target!=null)
 			payload=target.populate(payload,this);
 		for(SectionImpl m : children)

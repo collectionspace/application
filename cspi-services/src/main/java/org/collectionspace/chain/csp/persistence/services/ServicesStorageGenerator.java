@@ -35,6 +35,7 @@ import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.helper.core.RequestCache;
 import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
 import org.collectionspace.csp.helper.persistence.SplittingStorage;
+import org.collectionspace.chain.csp.persistence.services.TenantSpec.RemoteClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +46,7 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 	public static String SERVICE_ROOT=SECTION_PREFIX+"service";
 	private String base_url,ims_url;
 	private CSPContext ctx;
-	private TenantSpec tenantData;
+	private TenantSpec tenantSpec;
 	
 	@Override
 	public Storage getStorage(CSPRequestCredentials credentials,CSPRequestCache cache) {
@@ -56,7 +57,7 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 	public String getName() { return "persistence.services"; }
 	public String getBase() { return base_url; }
 	public String getIMSBase() { return ims_url; }
-	public TenantSpec getTenantData() { return tenantData; }
+	public TenantSpec getTenantData() { return tenantSpec; }
 
 	private void initializeAuthorities(CSPManager cspManager, Spec spec) {
 		AdminData ad = spec.getAdminData();
@@ -127,8 +128,38 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 				base_url=(String)milestone.getValue("/url");
 				((ConfigRoot)parent).setRoot(CSPContext.XXX_SERVICE_NAME,"service");  // XXX should be path-selectable
 				ims_url=(String)milestone.getValue("/ims-url");
-				tenantData = new TenantSpec(milestone);
+				tenantSpec = new TenantSpec(milestone);
 				return ServicesStorageGenerator.this;
+			}
+		});
+		
+		rules.addRule(SECTION_PREFIX+"service", new String[]{"remoteclients","remoteclient"},SECTION_PREFIX + "remoteclient", null, new RuleTarget(){
+			@Override
+			public Object populate(Object parent, ReadOnlySection milestone) throws Exception {
+				String name = (String)milestone.getValue("/name");
+				String url = (String)milestone.getValue("/url");
+				String username = (String)milestone.getValue("/user");
+				String password = (String)milestone.getValue("/password");
+				
+				String sslString = (String)milestone.getValue("/ssl");
+				boolean ssl = false;
+				if (sslString != null && sslString.equalsIgnoreCase(Boolean.toString(true))) {
+					ssl = true;
+				}
+				
+				String authString = (String)milestone.getValue("/auth");
+				boolean auth = false;
+				if (authString != null && authString.equalsIgnoreCase(Boolean.toString(true))) {
+					auth = true;
+				}
+				
+				String tenantId = (String)milestone.getValue("/tenantId");
+				String tenantName = (String)milestone.getValue("/tenantName");
+
+				RemoteClient remoteClient = tenantSpec.new RemoteClient(name, url, username, password, ssl, auth, tenantId, tenantName);
+				tenantSpec.addRemoteClient(remoteClient);
+
+				return this;
 			}
 		});
 
@@ -136,15 +167,16 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 			@Override
 			public Object populate(Object parent, ReadOnlySection milestone) {
 				String format = (String)milestone.getValue("");
-				tenantData.addFormat(format);
+				tenantSpec.addFormat(format);
 				return this;
 			}
 		});
+		
 		rules.addRule(SECTION_PREFIX+"service", new String[]{"repository","languages","language"},SECTION_PREFIX+"language", null, new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection milestone) {
 				String lang = (String)milestone.getValue("");
-				tenantData.addLanguage(lang);
+				tenantSpec.addLanguage(lang);
 				return this;
 			}
 		});

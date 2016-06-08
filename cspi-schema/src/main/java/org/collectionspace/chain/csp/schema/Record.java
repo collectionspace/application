@@ -40,6 +40,7 @@ public class Record implements FieldParent {
 
 	public static final String SUPPORTS_LOCKING = "supportslocking";
 	public static final String SUPPORTS_REPLICATING = "supportsReplicating";
+	public static final String REMOTECLIENT_CONFIG_NAME = "remoteClientConfigName";
 	public static final String REQUIRES_UNIQUE_SHORTID = "requiresUniqueShortId";
 	public static final String SUPPORTS_VERSIONING = "supportsversioning";
 	public static final String RANGE_START_SUFFIX = "Start";
@@ -227,6 +228,7 @@ public class Record implements FieldParent {
 		utils.initBoolean(section, "hassoftdelete", false);
 		utils.initBoolean(section, SUPPORTS_LOCKING, false);
 		utils.initBoolean(section, SUPPORTS_REPLICATING, false);
+		utils.initStrings(section, REMOTECLIENT_CONFIG_NAME, "");
 		utils.initBoolean(section, SUPPORTS_VERSIONING, false);
 
 		//(17:06) The services singular tag should probably be "ServicesDocumentType"
@@ -712,6 +714,10 @@ public class Record implements FieldParent {
 	
 	public boolean supportsReplicating() {
 		return utils.getBoolean(SUPPORTS_REPLICATING);
+	}
+
+	public String getRemoteClientConfigName() {
+		return utils.getString(REMOTECLIENT_CONFIG_NAME);
 	}
 
 	public boolean supportsVersioning() {
