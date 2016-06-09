@@ -532,8 +532,8 @@ public class CommandLine {
 					SERVICE_BINDINGS_VERSION);
 			dumpServiceArtifactMetadata(tenantConfigFile, xsdMetadata); // debugging output
 		} catch (Exception e) {
-			logger.error(String.format("Error encountered generating service bindings for '%s' tenant configuration.", tenantConfigFile.getAbsolutePath()),
-				e);
+			result = String.format("Error encountered generating service bindings for '%s' tenant configuration.",
+					tenantConfigFile.getAbsolutePath());
 		}
 		
 		return result;
@@ -574,8 +574,8 @@ public class CommandLine {
 						tenantConfigFile));
 			}
 		} catch (Exception e) {
-			logger.error(String.format("Error encountered generating service bindings for tenant '%s' configuration.", tenantConfigFile.getAbsolutePath()),
-					e);
+			result = String.format("Error encountered generating service bindings for tenant '%s' configuration.",
+					tenantConfigFile.getAbsolutePath());
 		}
 		
 		return result;
@@ -651,14 +651,14 @@ public class CommandLine {
 			// First generate the Service bundles -i.e., the Nuxeo doctype and schema bundles
 			//
 			errMsg = generateServiceBundles(tenantConfigFile);
-			if (errMsg != null) {
+			if (errMsg != null  && errMsg.isEmpty() == false) {
 				logFailureAndExit(errMsg);
 			}				
 			//
 			// Now generate the service bindings
 			//
 			errMsg = generateServiceBindings(tenantConfigFile);
-			if (errMsg != null) {
+			if (errMsg != null  && errMsg.isEmpty() == false) {
 				logFailureAndExit(errMsg);
 			}				
 		}

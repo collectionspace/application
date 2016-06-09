@@ -1,7 +1,7 @@
 <settings>
 	<admin>
 		<username>admin@core.collectionspace.org</username>
-		<password>Administrator</password>
+		<password>${CSPACE_CORE_ADMIN_PASSWORD}</password>
 		<tenant>1</tenant>
 		<tenantname>core</tenantname>
 		<cookievalidformins>60</cookievalidformins>
@@ -72,8 +72,8 @@
 				<remoteclient>
 					<name>default</name>
 					<url>http://localhost:8180/cspace-services/</url>
-					<user>admin@testsci.collectionspace.org</user>
-					<password>Administrator</password>
+					<user>${CSPACE_CLIENT_SAS_USER}</user>
+					<password>${CSPACE_CLIENT_SAS_PASSWORD}</password>
 					<ssl>false</ssl>
 					<auth>true</auth>
 					<tenantId>2</tenantId>
