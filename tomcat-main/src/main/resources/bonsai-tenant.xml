@@ -26,7 +26,7 @@
       <include src="base-procedure-media.xml"/>
       <include src="base-procedure-valuationcontrol.xml"/>
       <include src="base-procedure-movement.xml"/>
-      <include src="base-procedure-objectexit.xml"/>
+      <include src="base-procedure-objectexit.xml,bonsai-objectexit.xml" merge="xmlmerge.properties"/>
       <include src="base-procedure-conservation.xml,bonsai-conservation.xml,extensions/livingplant-procedure-conservation.xml" merge="xmlmerge.properties"/>
 
       <include src="base-authority-contact.xml"/>

@@ -1,16 +1,19 @@
-<record id="collection-object">
+<record id="collection-object" is-extension="true">
+  <services-record-path id="bonsai">collectionobjects_bonsai:http://collectionspace.org/services/collectionobject/local/bonsai,collectionobjects_bonsai</services-record-path>
+
   <section id="identificationInformation">
-    <field id="taxon" autocomplete="taxon-taxon,taxon-common_ta"/>
-    <field id="commonName" ui-search="repeatable"/>
-    <field id="japaneseName" ui-search="repeatable"/>
-    <field id="nativeSpecies" datatype="boolean"/>
-    <field id="sponsor" ui-search="repeatable"/>
-    <field id="sponsorStartDate" ui-search="range" ui-type="date" datatype="date"/>
-    <field id="sponsorEndDate" ui-search="range" ui-type="date" datatype="date"/>
-    <repeat id="assignedVolunteers">
-      <field id="assignedVolunteer" autocomplete="person-person,person-ulan_pa"/>
+    <field id="taxon" autocomplete="taxon-taxon,taxon-common_ta" section="bonsai"/>
+    <field id="commonName" ui-search="repeatable" section="bonsai"/>
+    <field id="japaneseName" ui-search="repeatable" section="bonsai"/>
+    <field id="nativeSpecies" datatype="boolean" section="bonsai"/>
+    <field id="sponsor" ui-search="repeatable" section="bonsai"/>
+    <field id="sponsorStartDate" ui-search="range" ui-type="date" datatype="date" section="bonsai"/>
+    <field id="sponsorEndDate" ui-search="range" ui-type="date" datatype="date" section="bonsai"/>
+    <repeat id="assignedVolunteers" section="bonsai">
+      <field id="assignedVolunteer" autocomplete="person-person,person-ulan_pa" section="bonsai"/>
     </repeat>
 
+    <!-- add terms -->
     <field id="collection" ui-search="repeatable" seperate_ui_container="true">
       <selector>object-identification-collection</selector>
       <options>
@@ -24,9 +27,11 @@
       </options>
     </field>
   </section>
+
   <section id="descriptionInformation">
-    <field id="potStyle" autocomplete="vocab-potstyle" ui-type="enum"/>
-    <field id="treeType" autocomplete="vocab-treetype" ui-type="enum"/>
+
+    <field id="potStyle" autocomplete="vocab-potstyle" ui-type="enum" section="bonsai"/>
+    <field id="treeType" autocomplete="vocab-treetype" ui-type="enum" section="bonsai"/>
 
     <section id="contentInformation">
       <repeat id="contentPlaces">
