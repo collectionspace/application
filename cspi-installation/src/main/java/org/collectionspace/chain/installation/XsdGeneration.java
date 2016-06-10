@@ -12,23 +12,19 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import org.apache.commons.io.FilenameUtils;
-
 import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorageGenerator;
 import org.collectionspace.chain.csp.persistence.services.TenantSpec;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
-
 import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.container.impl.CSPManagerImpl;
 import org.collectionspace.csp.helper.core.ConfigFinder;
 import org.collectionspace.csp.helper.test.TestConfigFinder;
-
 import org.collectionspace.services.client.AbstractServiceClientImpl;
 import org.collectionspace.services.common.api.CommonAPI;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
@@ -212,7 +208,7 @@ public class XsdGeneration {
 			String schemaVersion, 
 			File bundlesOutputDir, 
 			String serviceBindingsVersion) throws Exception {		
-		CSPManager cspm=getServiceManager(configfile);
+		CSPManager cspm = getServiceManager(configfile);		
 		Spec spec = createSpec(cspm);
 		setSpec(spec);
 
@@ -900,23 +896,19 @@ public class XsdGeneration {
 		return td;
 	}
 	
-	private CSPManager getServiceManager(File configFile) {
+	private CSPManager getServiceManager(File configFile) throws Exception {
 		CSPManager result = null;
 		
 		CSPManager cspm = new CSPManagerImpl();
 		cspm.register(new CoreConfig());
 		cspm.register(new Spec());
 		cspm.register(new ServicesStorageGenerator());
-		try {
-			cspm.go(); // Do more initialization of our CSPManagerImpl instance (i.e., cspm)
-			File configBase = configFile.getParentFile();
-			cspm.setConfigBase(configBase); // Saves a copy of the base config directory
-			cspm.configure(getSource(configFile), new ConfigFinder(null, configBase), true);
-			this.setConfigBase(configBase);
-			result = cspm;
-		} catch (CSPDependencyException e) {
-			log.error("CSPManagerImpl initialization failed.", e);
-		}
+		cspm.go(); // Do more initialization of our CSPManagerImpl instance (i.e., cspm)
+		File configBase = configFile.getParentFile();
+		cspm.setConfigBase(configBase); // Saves a copy of the base config directory
+		cspm.configure(getSource(configFile), new ConfigFinder(null, configBase), true);
+		this.setConfigBase(configBase);
+		result = cspm;
 		
 		return result;
 	}

@@ -19,14 +19,12 @@
                 },
                 "rev": {"type": "string"},
                 "source": {"type": "string"},
-                "description": {"type": "string"},
-                "workflow": {
-                    "type": "string"
-                },
+                "remoteClientConfigName": {"type": "string"},
                 "sas": {
                     "default": false,
                     "type": "boolean"
                 },
+                "description": {"type": "string"},
                 "name": {"type": "string"},
                 "terms": {
                     "items": {
@@ -36,10 +34,8 @@
                                 "type": "boolean"
                             },
                             "rev": {"type": "string"},
-                            "workflow": {
-                                "type": "string"
-                            },
                             "_subrecordcsid": {"type": "string"},
+                            "workflow": {"type": "string"},
                             "shortIdentifier": {"type": "string"},
                             "_primary": {
                                 "default": true,
@@ -70,6 +66,7 @@
                 },
                 "displayName": {"type": "string"},
                 "vocabType": {"type": "string"},
+                "workflow": {"type": "string"},
                 "sourcePage": {"type": "string"}
             },
             "type": "object"
