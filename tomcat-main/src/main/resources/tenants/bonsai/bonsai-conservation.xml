@@ -1,5 +1,5 @@
 <record id="conservation" is-extension="true">
-  <services-record-path id="bonsai">conservations_bonsai:http://collectionspace.org/services/conservation/local/bonsai,conservations_bonsai</services-record-path>
+  <services-record-path id="bonsai">conservation_bonsai:http://collectionspace.org/services/conservation/local/bonsai,conservation_bonsai</services-record-path>
 
   <section id="objectTreatmentInformation">
     <repeat id="treatmentsPerformed" section="bonsai">
