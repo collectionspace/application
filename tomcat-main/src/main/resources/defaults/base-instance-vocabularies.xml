@@ -933,7 +933,7 @@
                         <title>joiningprocesses</title>
                         <options>
                             <option id="felting">felting</option>
-                            <option id="heat_bonding">heat-Bonding</option>
+                            <option id="heat_bonding">heat-bonding</option>
                             <option id="laminating">laminating</option>
                             <option id="nonwoven">nonwoven</option>
                             <option id="polymerizing">polymerizing</option>
@@ -1012,7 +1012,6 @@
                             <option id="printing">printing</option>
                             <option id="vacuum_deposition">vacuum deposition</option>
                             <option id="physical_vapor_deposition">physical vapor deposition (PVD)</option>
-                            <option id="weaving">weaving</option>
                             <option id="weaving_3d">weaving (3D)</option>
                             <option id="3d_printing">3D printing</option>
                             <option id="stl">stereolithography (STL)</option>
