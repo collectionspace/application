@@ -56,14 +56,20 @@
 			<field id="numberValue" section="ucjeps"/>
 			<field id="numberType" seperate_ui_container="true" section="ucjeps">
 				<options>
-					<option id="">Please select a value</option>
+					<option id="" default="yes">Please select a value</option>
+					<option id="Unknown">Unknown</option>
 					<option id="Collector Number">Collector Number</option>
-					<option id="lender">Lender</option>
-					<option id="obsolete">Obsolete</option>
-					<option id="previous">Previous</option>
-					<option id="serial">Serial</option>
-					<option id="Specimen Accession ID">Specimen Accession ID</option>
-					<option id="unknown">Unknown</option>
+					<option id="Exsiccatae Number">Exsiccatae Number</option>
+					<option id="FIMS Identifier">FIMS Identifier</option>
+					<option id="GenBank Code">GenBank Code</option>
+					<option id="National Park Service Accession Number">National Park Service Accession Number</option>
+					<option id="Nectandra Working Group Number">Nectandra Working Group Number</option>
+					<option id="Old institution accession number">Old Institution Accession Number</option>
+					<option id="Old NPS catalog number">Old NPS catalog number</option>
+					<option id="Other Label Number">Other Label Number</option>
+					<option id="Page Number">Page Number</option>
+					<option id="Taxonomic Serial Number">Taxonomic Serial Number</option>
+					<option id="U.C. Botanical Garden Accession Number">U.C. Botanical Garden Accession Number</option>
 				</options>
 			</field>
 		</repeat>
