@@ -948,6 +948,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			String g3=getGleanedValue(cache,cachelistitem,dnName);
 			String g4=getGleanedValue(cache,cachelistitem,"csid");
 			String g5=getGleanedValue(cache,cachelistitem,"termStatus");
+			String g6=getGleanedValue(cache,cachelistitem,"workflow");
 			if(g1==null|| g2==null||g3==null||g4==null||g5==null){
 				if(log.isWarnEnabled()) {
 					StringBuilder sb = new StringBuilder();
@@ -987,6 +988,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			out.put("refid", g1);
 			out.put("csid", g4);
 			out.put("termStatus", g5);
+			out.put("workflow", g6);
 			//out.put("authorityid", cached.get("authorityid"));
 			out.put("shortIdentifier", g2);
 			out.put("recordtype",r.getWebURL());
