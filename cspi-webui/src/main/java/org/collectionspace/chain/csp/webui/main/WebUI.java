@@ -27,6 +27,7 @@ import org.collectionspace.chain.csp.webui.authorities.AuthoritiesVocabulariesIn
 import org.collectionspace.chain.csp.webui.authorities.AuthoritiesVocabulariesSearchList;
 import org.collectionspace.chain.csp.webui.authorities.VocabulariesCreateUpdate;
 import org.collectionspace.chain.csp.webui.authorities.VocabulariesDelete;
+import org.collectionspace.chain.csp.webui.authorities.VocabulariesWorkflowTransition;
 import org.collectionspace.chain.csp.webui.authorities.VocabulariesRead;
 import org.collectionspace.chain.csp.webui.external.UIMapping;
 import org.collectionspace.chain.csp.webui.external.UIMeta;
@@ -290,6 +291,7 @@ public class WebUI implements CSP, UI, Configurable {
 					addMethod(Operation.CREATE, new String[] { "vocabularies", n.getWebURL() }, 0, new VocabulariesCreateUpdate(n, true));
 					addMethod(Operation.UPDATE, new String[] { "vocabularies", n.getWebURL() }, 1, new VocabulariesCreateUpdate(n, false));
 					addMethod(Operation.DELETE, new String[] { "vocabularies", n.getWebURL() }, 0, new VocabulariesDelete(n));
+					addMethod(Operation.UPDATE, new String[] { "vocabularies", n.getWebURL(), "workflow" }, 2, new VocabulariesWorkflowTransition(n));
 					addMethod(Operation.READ, new String[] { "vocabularies", n.getWebURL(), "source-vocab" }, 1, new VocabRedirector(r));
 				}
 			} else if (r.isType("record") || r.isType("blob") || r.isType("authorizationdata")) {

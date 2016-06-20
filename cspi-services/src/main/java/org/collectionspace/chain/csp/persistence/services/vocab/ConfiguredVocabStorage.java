@@ -681,6 +681,25 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		}	
 	}
 	
+	public void transitionWorkflowJSON(ContextualisedStorage root, CSPRequestCredentials creds,
+		CSPRequestCache cache, String filePath, String serviceurl, String workflowTransition) 
+				throws UnderlyingStorageException {
+		String vocab = RefName.shortIdToPath(filePath.split("/")[0]);
+		String url = null;
+		
+		try {
+			url = generateURL(vocab,filePath.split("/")[1],"",this.r);
+		}
+		catch(ExistException e) {
+			throw new UnderlyingStorageException("Exist exception"+e.getLocalizedMessage(),e.getStatus(),url,e);
+		}
+		catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Connection exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
+		}
+		
+		super.transitionWorkflowJSON(root, creds, cache, "", url, workflowTransition);
+	}
+
 	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,
 			String filePath, JSONObject jsonObject, JSONObject restrictions,
 			Record thisr, String serviceurl)
