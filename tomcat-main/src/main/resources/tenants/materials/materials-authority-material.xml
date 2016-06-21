@@ -1,0 +1,10 @@
+<record id="material" type="authority">
+    <instances id="material">
+        <instance id="material-material">
+            <web-url>material</web-url>
+            <title-ref>material</title-ref>
+            <title>Local Materials</title>
+            <nptAllowed>false</nptAllowed>
+        </instance>
+    </instances>
+</record>
