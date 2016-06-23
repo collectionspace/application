@@ -11,6 +11,7 @@
    	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
     <hassoftdelete>true</hassoftdelete>
     <supportsReplicating>true</supportsReplicating>
+	<remoteClientConfigName>default</remoteClientConfigName>
 	           	
     <structures>
         <structure id="screen">

@@ -13,6 +13,7 @@
 	<services-list-path>abstract-common-list/list-item</services-list-path>
     <hassoftdelete>true</hassoftdelete>
     <supportsReplicating>true</supportsReplicating>
+	<remoteClientConfigName>default</remoteClientConfigName>
 	
 	<structures>
         <structure id="screen">
