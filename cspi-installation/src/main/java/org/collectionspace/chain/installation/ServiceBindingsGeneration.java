@@ -294,11 +294,17 @@ public class ServiceBindingsGeneration {
 				ele = remoteClientElement.addElement(new QName("password", nstenant));
 				ele.addText(remoteClient.getPassword());
 				
-				ele = remoteClientElement.addElement(new QName("tenantId", nstenant));
-				ele.addText(remoteClient.getTenantId());
+				// Optional
+				if (remoteClient.getTenantId() != null) {
+					ele = remoteClientElement.addElement(new QName("tenantId", nstenant));
+					ele.addText(remoteClient.getTenantId());
+				}
 				
-				ele = remoteClientElement.addElement(new QName("tenantName", nstenant));
-				ele.addText(remoteClient.getTenantName());
+				// Optional
+				if (remoteClient.getTenantName() != null) {
+					ele = remoteClientElement.addElement(new QName("tenantName", nstenant));
+					ele.addText(remoteClient.getTenantName());
+				}
 				
 				ele = remoteClientElement.addElement(new QName("ssl", nstenant));
 				ele.addText(remoteClient.getSSL());

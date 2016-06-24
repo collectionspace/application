@@ -73,13 +73,11 @@
 			<remoteclients>
 				<remoteclient>
 					<name>default</name>
-					<url>${CSPACE_CLIENT_SAS_URL}</url>
-					<user>${CSPACE_CLIENT_SAS_USER}</user>
-					<password>${CSPACE_CLIENT_SAS_PASSWORD}</password>
-					<ssl>${CSPACE_CLIENT_SAS_SSL}</ssl>
+					<url>${CSPACE_CLIENT_SAS_URL_OPT}</url>
+					<user>${CSPACE_CLIENT_SAS_USER_OPT}</user>
+					<password>${CSPACE_CLIENT_SAS_PASSWORD_OPT}</password>
+					<ssl>${CSPACE_CLIENT_SAS_SSL_OPT}</ssl>
 					<auth>true</auth>
-					<tenantId>2</tenantId>
-					<tenantName>testsci.collectionspace.org</tenantName>
 				</remoteclient>
 			</remoteclients>			
             <ims-url>/collectionspace/tenant/materials/</ims-url>
