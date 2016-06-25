@@ -681,6 +681,25 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		}	
 	}
 	
+	public void transitionWorkflowJSON(ContextualisedStorage root, CSPRequestCredentials creds,
+		CSPRequestCache cache, String filePath, String serviceurl, String workflowTransition) 
+				throws UnderlyingStorageException {
+		String vocab = RefName.shortIdToPath(filePath.split("/")[0]);
+		String url = null;
+		
+		try {
+			url = generateURL(vocab,filePath.split("/")[1],"",this.r);
+		}
+		catch(ExistException e) {
+			throw new UnderlyingStorageException("Exist exception"+e.getLocalizedMessage(),e.getStatus(),url,e);
+		}
+		catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Connection exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
+		}
+		
+		super.transitionWorkflowJSON(root, creds, cache, "", url, workflowTransition);
+	}
+
 	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,
 			String filePath, JSONObject jsonObject, JSONObject restrictions,
 			Record thisr, String serviceurl)
@@ -948,6 +967,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			String g3=getGleanedValue(cache,cachelistitem,dnName);
 			String g4=getGleanedValue(cache,cachelistitem,"csid");
 			String g5=getGleanedValue(cache,cachelistitem,"termStatus");
+			String g6=getGleanedValue(cache,cachelistitem,"workflow");
 			if(g1==null|| g2==null||g3==null||g4==null||g5==null){
 				if(log.isWarnEnabled()) {
 					StringBuilder sb = new StringBuilder();
@@ -987,6 +1007,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			out.put("refid", g1);
 			out.put("csid", g4);
 			out.put("termStatus", g5);
+			out.put("workflow", g6);
 			//out.put("authorityid", cached.get("authorityid"));
 			out.put("shortIdentifier", g2);
 			out.put("recordtype",r.getWebURL());
