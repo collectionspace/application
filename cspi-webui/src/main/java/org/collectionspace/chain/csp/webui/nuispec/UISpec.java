@@ -396,6 +396,38 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @throws JSONException 
 	 */
         @Override
+	protected void actualWorkflowStateField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+		String fieldSelector = getSelector(fs,context);
+		JSONArray decorators = getExistingDecoratorsArray(out, fieldSelector);
+		out.put(fieldSelector,actualWorkflowState(fs,context, decorators));
+	}
+	
+	private JSONObject actualWorkflowState(FieldSet fs,UISpecRunContext context, JSONArray decorators) throws JSONException {
+		JSONObject out=new JSONObject();
+		Field f = (Field)fs;
+		JSONObject decorator=getDecorator("fluid",null,"cspace.util.workflowToStyleFieldConverter",null,f.isReadOnly());
+		if(!f.isRefactored()){
+			if(f.hasContainer()){
+				decorator.put("container",getSelector(f,context));
+			}
+		}
+		if(decorators==null) {
+			decorators=new JSONArray();
+		}
+		decorators.put(decorator);
+		out.put(DECORATORS_KEY,decorators);
+		out.put("value", actualFieldEntry(f,context));
+		return out;
+	}
+	
+	/**
+	 * Overwrite with output you need for this thing you are doing
+	 * @param out
+	 * @param fs
+	 * @param context
+	 * @throws JSONException 
+	 */
+        @Override
 	protected void actualExternalURLField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
 		String fieldSelector = getSelector(fs,context);
 		JSONArray decorators = getExistingDecoratorsArray(out, fieldSelector);

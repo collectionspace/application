@@ -94,6 +94,13 @@ public class UISchema extends SchemaStructure implements WebMethod {
 		out.put(getSelector(fs,context),validator);
 	}
 	
+	protected void actualWorkflowStateField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+		String datatype = "string";
+		JSONObject workflowStateField = new JSONObject();
+		actualSchemaObject(datatype, null, null, null, workflowStateField);
+		out.put(getSelector(fs,context),workflowStateField);
+	}
+	
 	protected void actualExternalURLField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
 		String datatype = "string";
 		JSONObject urlfield = new JSONObject();

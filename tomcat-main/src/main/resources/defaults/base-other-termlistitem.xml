@@ -31,7 +31,7 @@
 	
 
     <section id="termListItemInformation">
-		<field id="workflow" exists-in-services="false" services-derived="true" section="collectionspace_core" attributes="GET" mini="search,list">
+		<field id="workflow" exists-in-services="false" services-derived="true" section="collectionspace_core" attributes="GET" mini="search,list" ui-type="workflowState">
 			<services-tag>workflowState</services-tag>
 		</field>
     	<field id="_subrecordcsid"></field> <!-- What is this field? -->

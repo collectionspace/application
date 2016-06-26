@@ -196,7 +196,9 @@ public class SchemaStructure {
 			actualExternalURLField(out, fs, context);
 		} else if("valueDeURNed".equalsIgnoreCase(uiType)){
 			actualDeURNedField(out, fs, context);
-                } else if(fs.isASelfRenderer()){	// also based upon uiType
+		} else if("workflowState".equalsIgnoreCase(uiType)){
+			actualWorkflowStateField(out, fs, context);
+		} else if(fs.isASelfRenderer()){	// also based upon uiType
 			actualSelfRendererField(out, fs, context);
 		} else{
 			actualField(out, fs, context);
@@ -237,6 +239,15 @@ public class SchemaStructure {
 	 * @throws JSONException 
 	 */
 	protected void actualValidatedField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+	}
+	/**
+	 * Overwrite with output you need for this thing you are doing
+	 * @param out
+	 * @param fs
+	 * @param context
+	 * @throws JSONException 
+	 */
+	protected void actualWorkflowStateField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
 	}
 	/**
 	 * 
@@ -295,6 +306,8 @@ public class SchemaStructure {
 			actualDateField(out, fs, context);
 		} else if("validated".equals(uiType)){
 			actualValidatedField(out, fs, context);
+		} else if("workflowState".equals(uiType)){
+			actualWorkflowStateField(out, fs, context);
 		} else if("externalURL".equalsIgnoreCase(uiType)){
 			actualExternalURLField(out, fs, context);
 		} else if("valueDeurned".equalsIgnoreCase(uiType)){
