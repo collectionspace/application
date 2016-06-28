@@ -664,7 +664,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				// The url we compute already has the filepath built in, so just pass an empty
 				// filepath, and it will work out.
 				String emptyFilepath = "";
-				transitionWorkflowJSON(root, creds, cache, emptyFilepath, url, WORKFLOW_TRANSITION_DELETE);
+				super.transitionWorkflowJSON(root, creds, cache, emptyFilepath, url, WORKFLOW_TRANSITION_DELETE);
 			}
 			else{
 				int status=conn.getNone(RequestMethod.DELETE,url,null,creds,cache);
