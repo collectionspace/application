@@ -91,7 +91,7 @@ public class TenantServlet extends HttpServlet {
 	protected final String MIME_AUDIO = "audio/";
 	protected final String MIME_VIDIO = "vidio/";
 	protected final String MIME_IMAGE = "image/";
-	protected final String MIME_JSON = "text/javascript";
+	protected final String MIME_JSON = "application/javascript";
 	protected final String MIME_HTML = "text/html";
 	protected final String MIME_CSS = "text/css";
 	protected final String MIME_PLAIN = "text/plain";
