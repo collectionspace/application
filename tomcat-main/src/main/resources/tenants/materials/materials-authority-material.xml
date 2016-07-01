@@ -6,5 +6,11 @@
             <title>Local Materials</title>
             <nptAllowed>false</nptAllowed>
         </instance>
+        <instance id="material-material_shared">
+            <web-url>material_shared</web-url>
+            <title-ref>material_shared</title-ref>
+            <title>Shared Materials</title>
+            <nptAllowed>false</nptAllowed>
+        </instance>
     </instances>
 </record>

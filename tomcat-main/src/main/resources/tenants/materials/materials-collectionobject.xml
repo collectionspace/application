@@ -51,7 +51,7 @@
 
       <repeat id="materialGroupList/materialGroup">
           <!-- Add autocomplete -->
-          <field id="material" autocomplete="material-material"/>
+          <field id="material" autocomplete="material-material,material-material_shared"/>
       </repeat>
     </section>
 </record>
