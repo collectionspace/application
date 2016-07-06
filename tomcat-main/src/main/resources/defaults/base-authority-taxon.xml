@@ -88,7 +88,7 @@
             </options>
         </field>
         <repeat id="taxonAuthorGroupList/taxonAuthorGroup" has-primary="yes">
-            <field id="taxonAuthor" ui-search="repeatable" autocomplete="person-person"/>
+            <field id="taxonAuthor" ui-search="repeatable" autocomplete="person-person,person-person_shared"/>
             <field id="taxonAuthorType" seperate_ui_container="true">
                 <options>
                     <option id="" default="yes">Please select a value</option>

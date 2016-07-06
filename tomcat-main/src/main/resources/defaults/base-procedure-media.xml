@@ -57,8 +57,8 @@
 					
 					<field id="dimension" ui-type="groupfield/dimension/selfrenderer"  ui-func="cspace.dimension"></field>
                     <field id="title" ui-search="repeatable" mini="summary,search,list,relate" services-schema-qualify="true"></field> <!-- Need to qualify the field name for the Services since 'title' is ambiguous. -->
-                    <field id="contributor" autocomplete="person-person,organization-organization"></field>
-                    <field id="creator" ui-search="repeatable" autocomplete="person-person,organization-organization"></field>
+                    <field id="contributor" autocomplete="person-person,person-person_shared,organization-organization"></field>
+                    <field id="creator" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization"></field>
                     <repeat id="languages">
                         <services-tag>languageList</services-tag>
                         <field id="language" ui-search="repeatable" autocomplete="vocab-languages" ui-type="enum">
@@ -67,7 +67,7 @@
                         </enum>
 						</field>
                     </repeat>
-                    <field id="publisher" ui-search="repeatable" autocomplete="person-person,organization-organization"></field>
+                    <field id="publisher" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization"></field>
                     <repeat id="relations">
                         <services-tag>relationList</services-tag>
                         <field id="relation"></field>
@@ -103,7 +103,7 @@
                         <services-tag>subjectList</services-tag>
                         <field id="subject" ui-search="repeatable"></field>
                     </repeat>
-                    <field id="rightsHolder" ui-search="repeatable" autocomplete="person-person,organization-organization"></field>
+                    <field id="rightsHolder" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization"></field>
                     <field id="description"></field>
                 </section>
                 <!-- not used in ui yet -->

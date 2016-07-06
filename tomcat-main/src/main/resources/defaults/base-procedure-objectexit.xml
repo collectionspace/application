@@ -54,10 +54,10 @@
                             <option id="objectexit" sample="EX2010.1">Object Exit</option>
                         </options>
                     </field>
-                    <field id="currentOwner" ui-search="repeatable" autocomplete="person-person,organization-organization"
+                    <field id="currentOwner" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization"
                            mini="summary,list" in-title="yes" services-setter="setCurrentOwner">
                     </field>
-                    <field id="depositor" ui-search="repeatable" autocomplete="person-person,organization-organization"></field>
+                    <field id="depositor" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization"></field>
                     <field id="exitDateGroup" ui-type="groupfield/structureddate" 
                         ui-search="range" ui-func="cspace.structuredDate"
                         primarykey="exitDateGroup.dateDisplayDate">

@@ -96,7 +96,7 @@
                             <option id="research">Research</option>
                         </options>
                     </field>
-                    <field id="movementContact" ui-search="repeatable" autocomplete="person-person"></field>
+                    <field id="movementContact" ui-search="repeatable" autocomplete="person-person,person-person_shared"></field>
                     <repeat id="movementMethods">
                         <field id="movementMethod" ui-search="repeatable">
                             <selector>movement-movementMethods</selector>
@@ -133,7 +133,7 @@
                         </options>
                     </field>
 					<repeat id="inventoryContactList">
-                        <field id="inventoryContact" autocomplete="person-person" ui-search="repeatable">
+                        <field id="inventoryContact" autocomplete="person-person,person-person_shared" ui-search="repeatable">
                         </field>
 					</repeat>
                 </section>

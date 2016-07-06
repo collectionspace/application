@@ -77,7 +77,7 @@
         </repeat>
         
         <repeat id="materialProductionPersonGroupList/materialProductionPersonGroup">
-            <field id="materialProductionPerson" autocomplete="person-person"/>
+            <field id="materialProductionPerson" autocomplete="person-person,person-person_shared"/>
             <field id="materialProductionPersonRole" autocomplete="vocab-materialproductionrole" ui-type="enum"/>
         </repeat>
         
@@ -108,13 +108,13 @@
 
         <repeat id="materialTermAttributionContributingGroupList/materialTermAttributionContributingGroup">
             <field id="materialTermAttributionContributingOrganization" ui-search="repeatable" autocomplete="organization-organization"/>
-            <field id="materialTermAttributionContributingPerson" ui-search="repeatable" autocomplete="person-person"/>
+            <field id="materialTermAttributionContributingPerson" ui-search="repeatable" autocomplete="person-person,person-person_shared"/>
             <field id="materialTermAttributionContributingDate" ui-search="repeatable" ui-type="date" datatype="date"/>
         </repeat>
 
         <repeat id="materialTermAttributionEditingGroupList/materialTermAttributionEditingGroup">
             <field id="materialTermAttributionEditingOrganization" ui-search="repeatable" autocomplete="organization-organization"/>
-            <field id="materialTermAttributionEditingPerson" ui-search="repeatable" autocomplete="person-person"/>
+            <field id="materialTermAttributionEditingPerson" ui-search="repeatable" autocomplete="person-person,person-person_shared"/>
             <field id="materialTermAttributionEditingNote" ui-search="repeatable"/>
             <field id="materialTermAttributionEditingDate" ui-search="repeatable" ui-type="date" datatype="date"/>
         </repeat>

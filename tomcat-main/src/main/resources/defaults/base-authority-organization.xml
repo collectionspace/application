@@ -92,7 +92,7 @@
             </field>
         </repeat>
         <repeat id="contactNames">
-            <field id="contactName" autocomplete="person-person">
+            <field id="contactName" autocomplete="person-person,person-person_shared">
                 <selector>orgAuthority-contactName</selector>
             </field>
         </repeat>

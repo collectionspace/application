@@ -24,7 +24,7 @@
           <selector>living-plant-fertilization-application-date</selector>
         </field>
         
-        <field id="appliedBy" autocomplete="person-person" section="livingplant">
+        <field id="appliedBy" autocomplete="person-person,person-person_shared" section="livingplant">
           <selector>living-plant-fertilization-applied-by</selector>
         </field>
         
@@ -54,7 +54,7 @@
           <selector>living-plant-pests-and-disease-observed</selector>
         </field>
 
-        <field id="identifiedBy" autocomplete="person-person" section="livingplant">
+        <field id="identifiedBy" autocomplete="person-person,person-person_shared" section="livingplant">
           <selector>living-plant-pests-and-disease-identified-by</selector>
         </field>
 
@@ -66,7 +66,7 @@
           <selector>living-plant-pests-and-disease-treated-with</selector>
         </field>
 
-        <field id="treatedBy" autocomplete="person-person" section="livingplant">
+        <field id="treatedBy" autocomplete="person-person,person-person_shared" section="livingplant">
           <selector>living-plant-pests-and-disease-treated-by</selector>
         </field>
 
@@ -93,7 +93,7 @@
         <selector>living-plant-repotting-date-repotted</selector>
       </field>
 
-      <field id="performedBy" autocomplete="person-person" section="livingplant">
+      <field id="performedBy" autocomplete="person-person,person-person_shared" section="livingplant">
         <selector>living-plant-repotting-performed-by</selector>
       </field>
 

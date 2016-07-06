@@ -13,4 +13,13 @@
             <nptAllowed>false</nptAllowed>
         </instance>
     </instances>
+    
+    <section id="materialAuthorityInformation">
+        <repeat id="materialCompositionGroupList/materialCompositionGroup">
+            <field id="materialCompositionFamilyName" ui-search="repeatable" autocomplete="concept-materialclassification, concept-materialclassification_shared"/>
+            <field id="materialCompositionClassName" ui-search="repeatable" autocomplete="concept-materialclassification, concept-materialclassification_shared"/>
+            <field id="materialCompositionGenericName" ui-search="repeatable" autocomplete="concept-materialclassification, concept-materialclassification_shared"/>
+        </repeat>
+    </section>
+    
 </record>

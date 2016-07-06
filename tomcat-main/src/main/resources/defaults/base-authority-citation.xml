@@ -83,7 +83,7 @@
 			      
         <repeat id="citationAgentInfoGroupList/citationAgentInfoGroup" >          
             <field id="agent" ui-search="repeatable"
-                   autocomplete="person-person, person-ulan_pa, organization-organization">
+                   autocomplete="person-person, person-person_shared, person-ulan_pa,  organization-organization">
             </field>
             <field id="role" autocomplete="vocab-agentinfo" ui-type="enum"></field>
             <field id="note"></field>			           

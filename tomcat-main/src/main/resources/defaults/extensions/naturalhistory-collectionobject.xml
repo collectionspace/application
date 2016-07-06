@@ -5,7 +5,7 @@
 		<repeat id="determinationHistoryGroupList/determinationHistoryGroup" section="naturalhistory_extension">
 			<field id="determinationTaxon" section="naturalhistory_extension" ui-search="repeatable" mini="summary,search,list,relate" autocomplete="taxon-taxon"/>
 			<field id="determinationQualifier" section="naturalhistory_extension" seperate_ui_container="true" autocomplete="vocab-taxonqualifier" ui-type="enum"/>
-			<field id="determinationBy" section="naturalhistory_extension" autocomplete="person-person"/>
+			<field id="determinationBy" section="naturalhistory_extension" autocomplete="person-person,person-person_shared"/>
 			
 			<group id="determinationDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate" section="naturalhistory_extension">
 				<!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->

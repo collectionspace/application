@@ -459,7 +459,7 @@
         </field>
       </repeat>
       <repeat id="contentPersons">
-        <field id="contentPerson" autocomplete="person-person,person-ulan_pa">
+        <field id="contentPerson" autocomplete="person-person,person-person_shared,person-ulan_pa">
           <selector>object-description-content-person</selector>
         </field>
       </repeat>
@@ -594,7 +594,7 @@
           <selector>object-description-inscription-description</selector>
         </field>
         <field id="inscriptionDescriptionInscriber" ui-search="repeatable"
-          autocomplete="person-person,organization-organization">
+          autocomplete="person-person,person-person_shared,organization-organization">
           <selector>object-description-inscription-description-inscriber</selector>
         </field>
         <!-- CSPACE-4894: inscriptionDescriptionDateGroup isn't actually searchable, but need ui-search="range" to prevent uispec generation from erroring. -->
@@ -678,7 +678,7 @@
     </repeat>
     <repeat id="objectProductionPersonGroupList/objectProductionPersonGroup">
       <!-- selector>object-production-objectProductionPersonGroup</selector -->
-      <field id="objectProductionPerson" ui-search="repeatable" autocomplete="person-person">
+      <field id="objectProductionPerson" ui-search="repeatable" autocomplete="person-person,person-person_shared">
         <selector>object-production-person</selector>
       </field>
       <field id="objectProductionPersonRole"/>
@@ -704,7 +704,7 @@
       <field id="usageNote"/>
     </repeat>
     <repeat id="owners">
-      <field id="owner" autocomplete="person-person,organization-organization">
+      <field id="owner" autocomplete="person-person,person-person_shared,organization-organization">
         <selector>object-history-association-owner</selector>
       </field>
     </repeat>
@@ -794,7 +794,7 @@
         <field id="assocPeopleNote"/>
       </repeat>
       <repeat id="assocPersonGroupList/assocPersonGroup">
-        <field id="assocPerson" autocomplete="person-person"/>
+        <field id="assocPerson" autocomplete="person-person,person-person_shared"/>
         <field id="assocPersonType"/>
         <field id="assocPersonNote"/>
       </repeat>
@@ -816,7 +816,7 @@
         </field>
       </repeat>
       <repeat id="assocEventPersons">
-        <field id="assocEventPerson" autocomplete="person-person">
+        <field id="assocEventPerson" autocomplete="person-person,person-person_shared">
           <selector>object-history-association-event-person</selector>
         </field>
       </repeat>
@@ -892,10 +892,10 @@
     <field id="fieldCollectionNumber"/>
     <field id="fieldCollectionPlace" autocomplete="place-place,place-tgn_place"/>
     <repeat id="fieldCollectionSources">
-      <field id="fieldCollectionSource" autocomplete="person-person"/>
+      <field id="fieldCollectionSource" autocomplete="person-person,person-person_shared"/>
     </repeat>
     <repeat id="fieldCollectors">
-      <field id="fieldCollector" autocomplete="person-person,organization-organization"/>
+      <field id="fieldCollector" autocomplete="person-person,person-person_shared,organization-organization"/>
     </repeat>
     <repeat id="fieldColEventNames">
       <field id="fieldColEventName" ui-search="repeatable"/>

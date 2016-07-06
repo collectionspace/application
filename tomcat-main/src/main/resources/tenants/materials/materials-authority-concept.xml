@@ -24,6 +24,12 @@
             <title>Material Classifications</title>
             <nptAllowed>false</nptAllowed>
         </instance>
+        <instance id="concept-materialclassification_shared">
+            <web-url>materialclassification_shared</web-url>
+            <title-ref>materialclassification_shared</title-ref>
+            <title>Shared Material Classifications</title>
+            <nptAllowed>false</nptAllowed>
+        </instance>
         <instance id="concept-materialformtype">
             <web-url>materialformtype</web-url>
             <title-ref>materialformtype</title-ref>

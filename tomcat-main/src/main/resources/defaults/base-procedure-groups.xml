@@ -67,7 +67,7 @@
                             <option id="prints-drawings">Prints and Drawings</option>
                         </options>
                     </field>
-                    <field id="owner" ui-search="repeatable" autocomplete="person-person"
+                    <field id="owner" ui-search="repeatable" autocomplete="person-person,person-person_shared"
                            mini="summary,list" in-title="yes" services-schema-qualify="true">
                     </field>
                 </section>
