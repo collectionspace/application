@@ -1,0 +1,9 @@
+<record id="preferredPA" is-extension="true">
+    <section id="termInformation">
+        <repeat id="personTermGroupList/personTermGroup">
+            <field id="termQualifier" autocomplete="vocab-persontermqualifier" ui-type="enum">
+            	<!-- adding vocab-persontermqualifier -->
+            </field>
+        </repeat>
+    </section>
+</record>
