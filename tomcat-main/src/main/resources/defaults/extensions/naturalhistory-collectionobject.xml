@@ -34,7 +34,7 @@
 				<field id="scalarValuesComputed" section="naturalhistory_extension"/>
 			</group>
 			
-			<field id="determinationInstitution" section="naturalhistory_extension" autocomplete="organization-organization"/>
+			<field id="determinationInstitution" section="naturalhistory_extension" autocomplete="organization-organization,organization-organization_shared"/>
 			<field id="determinationKind" section="naturalhistory_extension" seperate_ui_container="true" autocomplete="vocab-taxonkind" ui-type="enum"/>
 			<field id="determinationReference" section="naturalhistory_extension"/>
 			<field id="determinationRefPage" section="naturalhistory_extension"/>

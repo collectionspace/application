@@ -21,10 +21,10 @@
             <field id="addressType" autocomplete="vocab-addresstype" ui-type="enum"/>
             <field id="addressPlace1"/>
             <field id="addressPlace2"/>
-            <field id="addressMunicipality" autocomplete="place-place,place-tgn_place"/>
-            <field id="addressStateOrProvince" autocomplete="place-place,place-tgn_place"/>
+            <field id="addressMunicipality" autocomplete="place-place,place-place_shared,place-tgn_place"/>
+            <field id="addressStateOrProvince" autocomplete="place-place,place-place_shared,place-tgn_place"/>
             <field id="addressPostCode"/>
-            <field id="addressCountry" autocomplete="place-place,place-tgn_place"/>
+            <field id="addressCountry" autocomplete="place-place,place-place_shared,place-tgn_place"/>
         </repeat>
     </section>
 </record>

@@ -6,6 +6,12 @@
             <title>Local Places</title>
             <nptAllowed>false</nptAllowed>
         </instance>
+        <instance id="place-place_shared">
+            <web-url>place_shared</web-url>
+            <title-ref>place_shared</title-ref>
+            <title>Shared Places</title>
+            <nptAllowed>false</nptAllowed>
+        </instance>		
         <instance id="place-tgn_place">
             <web-url>tgn_place</web-url>
             <title-ref>tgn_place</title-ref>

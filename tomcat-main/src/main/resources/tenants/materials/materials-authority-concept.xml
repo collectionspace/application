@@ -12,6 +12,12 @@
             <title>Material Concepts</title>
             <nptAllowed>false</nptAllowed>
         </instance>
+        <instance id="concept-material_ca_shared">
+            <web-url>material_ca_shared</web-url>
+            <title-ref>material_ca_shared</title-ref>
+            <title>Shared Material Concepts</title>
+            <nptAllowed>false</nptAllowed>
+        </instance>
         <instance id="concept-activity">
             <web-url>activity</web-url>
             <title-ref>activity</title-ref>

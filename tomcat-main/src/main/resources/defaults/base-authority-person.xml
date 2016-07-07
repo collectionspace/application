@@ -30,8 +30,8 @@
                 <label-section id="messagekeys" show="true"></label-section>
                 <hierarchy-section show="true">
             		<options>
-                		<option id="narrowerContext">person-person</option>
-                		<option id="broaderContext">person-person</option>
+                		<option id="narrowerContext">person-person,person-person_shared</option>
+                		<option id="broaderContext">person-person,person-person_shared</option>
 					</options>
 				</hierarchy-section>
             </view>

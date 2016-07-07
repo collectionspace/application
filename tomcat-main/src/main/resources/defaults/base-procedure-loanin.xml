@@ -88,7 +88,7 @@
                         </options>
                     </field>
                     <repeat id="lenderGroupList/lenderGroup">
-                        <field id="lender" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization" in-title="yes" mini="summary,search,list">
+                        <field id="lender" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared" in-title="yes" mini="summary,search,list">
                             <selector>loanIn-lender</selector>
                         </field>
                         <field id="lendersAuthorizer" autocomplete="person-person,person-person_shared">

@@ -99,14 +99,14 @@
         </repeat>
         <field id="taxonYear" ui-search="repeatable"/>
         <repeat id="taxonCitationList" has-primary="yes" services-type-anonymous="false">
-            <field id="taxonCitation" autocomplete="citation-citation,citation-worldcat" ui-search="repeatable"/>
+            <field id="taxonCitation" autocomplete="citation-citation,citation-citation_shared,citation-worldcat" ui-search="repeatable"/>
         </repeat>
         <field id="taxonNote"/>
         <field id="taxonIsNamedHybrid" datatype="boolean" ui-search="repeatable"></field>
         <repeat id="commonNameGroupList/commonNameGroup" has-primary="yes">
             <field id="commonName" ui-search="repeatable"/>
             <field id="commonNameLanguage" autocomplete="vocab-languages" ui-type="enum"/>
-            <field id="commonNameSource" autocomplete="citation-citation"/>
+            <field id="commonNameSource" autocomplete="citation-citation,citation-citation_shared"/>
             <field id="commonNameSourceDetail"/>
         </repeat>
     </section>

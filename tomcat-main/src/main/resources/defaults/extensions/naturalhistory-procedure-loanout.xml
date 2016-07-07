@@ -25,7 +25,7 @@
 	<section id="transferInformation">
 		<repeat id="transferGroupList/transferGroup" section="naturalhistory_extension">
 			<field id="transferDate" section="naturalhistory_extension" ui-type="date" datatype="date"/>
-			<field id="transferOrg" section="naturalhistory_extension" autocomplete="organization-organization"/>
+			<field id="transferOrg" section="naturalhistory_extension" autocomplete="organization-organization,organization-organization_shared"/>
 			<field id="transferPerson" section="naturalhistory_extension" autocomplete="person-person,person-person_shared"/>
 			<field id="transferDirector" section="naturalhistory_extension" autocomplete="person-person,person-person_shared"/>
 			<field id="transferQuantity" section="naturalhistory_extension" ui-type="validated" datatype="integer"/>

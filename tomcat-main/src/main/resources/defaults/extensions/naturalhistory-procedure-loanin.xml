@@ -13,7 +13,7 @@
 		<repeat id="transferOutGroupList/transferOutGroup" section="naturalhistory_extension">
 			<field id="transferOutDate" section="naturalhistory_extension" ui-type="date" datatype="date"/>
 			<field id="transferOutQuantity" section="naturalhistory_extension" ui-type="validated" datatype="integer"/>
-			<field id="transferOutOrg" section="naturalhistory_extension" autocomplete="organization-organization"/>
+			<field id="transferOutOrg" section="naturalhistory_extension" autocomplete="organization-organization,organization-organization_shared"/>
 			<field id="transferOutPerson" section="naturalhistory_extension" autocomplete="person-person,person-person_shared"/>
 			<field id="transferOutDirector" section="naturalhistory_extension" autocomplete="person-person,person-person_shared"/>
 			<field id="transferOutNotes" section="naturalhistory_extension"/>

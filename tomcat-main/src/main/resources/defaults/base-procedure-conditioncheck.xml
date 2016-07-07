@@ -140,7 +140,7 @@
                 <option id="conditioncheck" sample="CC2012.1.1">Condition Check</option>
             </options>
         </field>
-        <field id="conditionChecker" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization"></field>
+        <field id="conditionChecker" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"></field>
     </section>
     <section id="objectRequirementInformation">
         <field id="displayRecommendations"></field>

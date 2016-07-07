@@ -29,8 +29,8 @@
                 <label-section id="messagekeys" show="true"/>
                 <hierarchy-section show="true">
                     <options>
-                        <option id="narrowerContext">organization-organization</option>
-                        <option id="broaderContext">organization-organization</option>
+                        <option id="narrowerContext">organization-organization,organization-organization_shared</option>
+                        <option id="broaderContext">organization-organization,organization-organization_shared</option>
                     </options>
                 </hierarchy-section>
             </view>

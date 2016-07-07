@@ -107,7 +107,7 @@
         <field id="placeNote" ui-search="repeatable"/>
         
         <repeat id="placeOwnerGroupList/placeOwnerGroup">
-            <field id="owner" autocomplete="person-person,person-person_shared,organization-organization"
+            <field id="owner" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"
                    ui-search="repeatable"/>
             <group id="ownershipDateGroup" ui-type="groupfield/structureddate"
                    primarykey="dateDisplayDate" ui-func="cspace.structuredDate"/>
@@ -198,7 +198,7 @@
             <field id="footprintWKT"/>
             <field id="footprintSRS"/>
             <field id="footprintSpatialFit"/>
-            <field id="geoReferencedBy" autocomplete="person-person,person-person_shared,organization-organization"/>
+            <field id="geoReferencedBy" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"/>
             <group id="geoRefDateGroup" ui-type="groupfield/structureddate"
                    primarykey="dateDisplayDate" ui-func="cspace.structuredDate"/>
             <field id="geoRefProtocol">

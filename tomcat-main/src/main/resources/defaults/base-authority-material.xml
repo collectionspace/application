@@ -72,7 +72,7 @@
         </repeat>
 
         <repeat id="materialProductionOrganizationGroupList/materialProductionOrganizationGroup">
-            <field id="materialProductionOrganization" autocomplete="organization-organization"/>
+            <field id="materialProductionOrganization" autocomplete="organization-organization,organization-organization_shared"/>
             <field id="materialProductionOrganizationRole" autocomplete="vocab-materialproductionrole" ui-type="enum"/>
         </repeat>
         
@@ -82,17 +82,17 @@
         </repeat>
         
         <repeat id="materialProductionPlaceGroupList/materialProductionPlaceGroup">
-            <field id="materialProductionPlace" autocomplete="place-place"/>
+            <field id="materialProductionPlace" autocomplete="place-place,place-place_shared"/>
             <field id="materialProductionPlaceRole" autocomplete="vocab-materialproductionrole" ui-type="enum"/>
         </repeat>
         
         <repeat id="featuredApplicationGroupList/featuredApplicationGroup">
-            <field id="featuredApplication" autocomplete="work-work"/>
+            <field id="featuredApplication" autocomplete="work-work,work-work_shared"/>
             <field id="featuredApplicationNote"/>
         </repeat>
         
         <repeat id="materialCitationGroupList/materialCitationGroup">
-            <field id="materialCitationSource" autocomplete="citation-citation"/>
+            <field id="materialCitationSource" autocomplete="citation-citation,citation-citation_shared"/>
             <field id="materialCitationSourceDetail"/>
         </repeat>
         
@@ -107,13 +107,13 @@
         </repeat>
 
         <repeat id="materialTermAttributionContributingGroupList/materialTermAttributionContributingGroup">
-            <field id="materialTermAttributionContributingOrganization" ui-search="repeatable" autocomplete="organization-organization"/>
+            <field id="materialTermAttributionContributingOrganization" ui-search="repeatable" autocomplete="organization-organization,organization-organization_shared"/>
             <field id="materialTermAttributionContributingPerson" ui-search="repeatable" autocomplete="person-person,person-person_shared"/>
             <field id="materialTermAttributionContributingDate" ui-search="repeatable" ui-type="date" datatype="date"/>
         </repeat>
 
         <repeat id="materialTermAttributionEditingGroupList/materialTermAttributionEditingGroup">
-            <field id="materialTermAttributionEditingOrganization" ui-search="repeatable" autocomplete="organization-organization"/>
+            <field id="materialTermAttributionEditingOrganization" ui-search="repeatable" autocomplete="organization-organization,organization-organization_shared"/>
             <field id="materialTermAttributionEditingPerson" ui-search="repeatable" autocomplete="person-person,person-person_shared"/>
             <field id="materialTermAttributionEditingNote" ui-search="repeatable"/>
             <field id="materialTermAttributionEditingDate" ui-search="repeatable" ui-type="date" datatype="date"/>

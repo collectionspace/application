@@ -7,7 +7,7 @@
 
         <repeat id="contentWorksList/contentWorksGroup" section="variablemedia">
             <field id="contentWork" section="variablemedia"
-                   autocomplete="work-work" />
+                   autocomplete="work-work,work-work_shared" />
             <field id="contentWorkType" section="variablemedia"
                    autocomplete="vocab-worktype" ui-type="enum" />
             <field id="contentWorkNote" ui-type="largetext" section="variablemedia" />

@@ -47,7 +47,7 @@
             <field id="termPrefForLang" datatype="boolean">
                 <selector>placeAuthority-termPrefForLang</selector>
             </field>
-            <field id="termSource" autocomplete="citation-citation,citation-worldcat">
+            <field id="termSource" autocomplete="citation-citation,citation-citation_shared,citation-worldcat">
                 <selector>placeAuthority-termSource</selector>
             </field>
             <field id="termSourceDetail">
