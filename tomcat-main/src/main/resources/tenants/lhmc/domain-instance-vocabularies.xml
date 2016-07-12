@@ -66,16 +66,6 @@
             <option id="returned">Returned</option>
         </options>
     </instance>
-    <instance id="vocab-persontermqualifier">
-        <web-url>persontermqualifier</web-url>
-        <title-ref>persontermqualifier</title-ref>
-        <title>Person Authority Term Qualifier</title>
-        <options>
-            <option id="maiden_name">Maiden Name</option>
-            <option id="nickname">Nickname</option>
-            <option id="pseudonym">Pseudonym</option>
-        </options>
-    </instance>
     <instance id="vocab-personrelationship">
         <web-url>personrelationship</web-url>
         <title-ref>personrelationship</title-ref>
