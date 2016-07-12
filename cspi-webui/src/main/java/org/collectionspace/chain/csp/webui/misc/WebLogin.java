@@ -12,7 +12,9 @@ import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
+import org.collectionspace.csp.api.persistence.ConflictException;
 import org.collectionspace.csp.api.persistence.Storage;
+import org.collectionspace.csp.api.persistence.UnauthorizedException;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.collectionspace.csp.api.ui.UISession;
@@ -23,42 +25,48 @@ import org.slf4j.LoggerFactory;
 
 public class WebLogin implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(WebLogin.class);
+	private static final String LOGIN_CONNECTION_ERR = "login-connectionError";
+	private static final String LOGIN_CONFLICT_ERR = "login-conflictError";
+	private static final String LOGIN_FAIL_ERR = "fail";
 	private String login_dest,login_failed_dest,tenantid;
 	private Spec spec;
-	private WebUI ui;
 	
-	public WebLogin(WebUI ui,Spec spec) {
+	public WebLogin(WebUI ui, Spec spec) {
 		this.spec=spec;
-		this.ui=ui;
 		this.tenantid = spec.getAdminData().getTenant();
 	}
-	
-	private boolean testSuccess(Storage storage, String tenant) {
 
+	/**
+	 * If successful, returns null; otherwise, returns an error message.
+	 * @param storage
+	 * @param tenant
+	 * @return
+	 */
+	private String loginAttempt(Storage storage, String tenant) {
+		String result = LOGIN_FAIL_ERR; // null equals success
+		
 		try {
 			String base = spec.getRecordByWebUrl("userperm").getID();
 			JSONObject activePermissions = storage.retrieveJSON(base + "/0/", new JSONObject());
-			
-			if(activePermissions.has("isError")){
-				if(activePermissions.getBoolean("isError")== false){
-					return false;
-				}
-			}
 
-			//check tenant
-			if(activePermissions.has("account")){
+			// check tenant
+			if (activePermissions.has("account")) {
 				JSONObject acc = activePermissions.getJSONObject("account");
-				if(acc.has("tenantId")){
-					if(acc.getString("tenantId").equals(tenant)){
-						return true;
+				if (acc.has("tenantId")) {
+					if (acc.getString("tenantId").equals(tenant)) {
+						result = null;
 					}
 				}
 			}
-			return false;
+		} catch (UnauthorizedException ue) {
+			result = LOGIN_FAIL_ERR;
+		} catch (ConflictException e) {
+			result = LOGIN_CONFLICT_ERR;
 		} catch (Exception e) {
-			return false;
-		}
+			result = LOGIN_CONNECTION_ERR;
+	}
 		
+		return result;
 	}
 	
 	private void login(Request in) throws UIException { // Temporary hack for Mars
@@ -67,16 +75,16 @@ public class WebLogin implements WebMethod {
 		String password=request.getRequestArgument(PASSWORD_PARAM);
 		String tenantId=tenantid;
 	
-		if(username ==  null){
+		if (username ==  null) {
 			JSONObject data = new JSONObject();
-			if(request.isJSON()){
+			if (request.isJSON()) {
 				data=request.getJSONBody();
-			}
-			else{
+			} else {
 				data=request.getPostBody();
 			}
-		// XXX stop defaulting to GET request when UI layer stops doing login via GET
-			if(data.has("userid")){
+			//
+			// Stop defaulting to GET request when UI layer stops doing login via GET
+			if (data.has("userid")) {
 				try {
 					username=data.getString("userid");
 					password=data.getString("password");
@@ -89,12 +97,15 @@ public class WebLogin implements WebMethod {
 				}
 			}
 		}
+		
 		UISession uiSession = request.getSession();
 		uiSession.setValue(UISession.USERID,username);
 		uiSession.setValue(UISession.PASSWORD,password);
 		uiSession.setValue(UISession.TENANT,tenantId);
 		in.reset();
-		if (testSuccess(in.getStorage(), tenantId)) {
+		
+		String logingErrMsg = loginAttempt(in.getStorage(), tenantId);
+		if (logingErrMsg == null) {
 			try {
 				/*
 				 * If enabled, this code would attempt to initialize/reload the default authorities and term lists.  It would attempt to
@@ -111,14 +122,17 @@ public class WebLogin implements WebMethod {
 				*/
 			} catch (Throwable t) {
 				log.error(t.getMessage());
+				throw t;
 			}
 			request.setRedirectPath(login_dest.split("/"));
 		} else {
+			log.error(String.format("Login attempt to tenant '%s' with username '%s' failed.",
+					tenantId, username));
 			uiSession.setValue(UISession.USERID,"");  // REM - 2/7/2013: If we got here that means we failed to authenticate with the Services (or another "storage" container), so I would think we should kill any existing session and not just null out the username and password fields.
 			uiSession.setValue(UISession.PASSWORD,"");
 			uiSession.setValue(UISession.TENANT,"");
 			request.setRedirectPath(login_failed_dest.split("/"));
-			request.setRedirectArgument("result","fail");
+			request.setRedirectArgument("result", logingErrMsg);
 		}
 	}
 		

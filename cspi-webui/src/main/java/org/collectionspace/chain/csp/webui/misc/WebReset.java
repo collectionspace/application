@@ -511,7 +511,7 @@ public class WebReset implements WebMethod {
 	 * @param modifyResponse
 	 * @throws UIException
 	 */
-	public void run(Object in, String[] tail, boolean modifyResponse) throws UIException {
+	private void run(Object in, String[] tail, boolean modifyResponse) throws UIException {
 		Request request = (Request)in;
    		run(request.getStorage(), request.getUIRequest(), tail, modifyResponse);	
 	}

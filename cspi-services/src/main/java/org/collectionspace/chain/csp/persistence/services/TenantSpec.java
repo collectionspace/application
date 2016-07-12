@@ -1,5 +1,5 @@
 package org.collectionspace.chain.csp.persistence.services;
-import java.util.HashSet;
+
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -15,6 +15,7 @@ import org.collectionspace.chain.csp.schema.Util;
 				<name>hearstmuseum.berkeley.edu</name>
 				<version>0.1</version>
 				<display-name>Phoebe A. Hearst Museum of Anthropology</display-name>
+				<createDisabled>false</createDisabled>
 			</tenant>
 			<repository>
 				<domain>pahma-domain</domain>
@@ -38,6 +39,7 @@ public class TenantSpec {
 	private static final String DEFAULT_INDEX_HANDLER = "org.collectionspace.services.common.init.AddIndices";
 	private String tenantId;
 	private String tenant, tenantDisplay, tenantVersion;
+	private boolean createDisabled;
 	private String storageName;
 	private String repositoryName;
 	private String repositoryClient;
@@ -135,7 +137,9 @@ public class TenantSpec {
 		repositoryDomain = "default-domain";
 		tenantId = Util.getStringOrDefault(section,"/tenant/id","-1");
 		tenant = Util.getStringOrDefault(section,"/tenant/name","collectionspace.org");
-		tenantDisplay = Util.getStringOrDefault(section,"/tenant/display-name","CollectionSpace Demo");
+		tenantDisplay = Util.getStringOrDefault(section,"/tenant/display-name","Unnamed Tenant - Fixe Me");
+		createDisabled = Util.getBooleanOrDefault(section, "/tenant/create-disabled", true);
+		
 		tenantVersion = Util.getStringOrDefault(section,"/tenant/version","1.0");
 		storageName = Util.getStringOrDefault(section,"/repository/domain", repositoryDomain);
 		repositoryName = Util.getStringOrDefault(section,"/repository/name", "");
@@ -232,6 +236,10 @@ public class TenantSpec {
 
 	public String getTenantDisplay(){
 		return tenantDisplay;
+	}
+	
+	public boolean getCreateDisabled() {
+		return createDisabled;
 	}
 	
 	public TenantSpec getTenantData() {

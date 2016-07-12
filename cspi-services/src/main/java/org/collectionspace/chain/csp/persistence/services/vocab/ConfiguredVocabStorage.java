@@ -156,25 +156,31 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		return specifier;
 	}
 
-	private Document createEntry(String section,String namespace,String root_tag,JSONObject data,String vocab,String refname, Record r, Boolean isAuth) throws UnderlyingStorageException, ConnectionException, ExistException, JSONException {
-		Document out=XmlJsonConversion.convertToXml(r,data,section,"POST",isAuth);
-		if(section.equals("common")){//XXX not great... but not sure how else to differentiate
-			if(out!=null){
-				Element root=out.getRootElement();
-				Element vocabtag=root.addElement("inAuthority");
-				if(vocab!=null){
-					vocabtag.addText(vocab);
+	private Document createEntry(String section, String namespace, String root_tag, JSONObject data, String vocab, String refname, Record r, Boolean isAuth) throws UnderlyingStorageException,
+			ConnectionException, ExistException, JSONException {
+		Document out = XmlJsonConversion.convertToXml(r, data, section, "POST", isAuth);
+		if (section.equals("common")) {// XXX not great... but not sure how else
+										// to differentiate
+			if (out != null) {
+				Element root = out.getRootElement();
+				if (vocab != null && !vocab.isEmpty()) {
+					Element vocabtag = root.addElement("inAuthority");
+					if (vocab != null) {
+						vocabtag.addText(vocab);
+					}
 				}
-				if(refname!=null){
-				//	CSPACE-4460
-				//	Element refnametag=root.addElement("refName");
-				//	refnametag.addText(refname);
+				
+				if (refname != null) {
+					// CSPACE-4460
+					// Element refnametag=root.addElement("refName");
+					// refnametag.addText(refname);
 				}
-				if(r.isType("compute-displayname")) {
-					Element dnc=root.addElement("displayNameComputed");
+				
+				if (r.isType("compute-displayname")) {
+					Element dnc = root.addElement("displayNameComputed");
 					dnc.addText("false");
 				}
-				//log.info("create Configured Vocab Entry"+out.asXML());
+				// log.info("create Configured Vocab Entry"+out.asXML());
 			}
 		}
 		return out;

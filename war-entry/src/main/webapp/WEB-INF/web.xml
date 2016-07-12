@@ -47,7 +47,7 @@
 </filter-mapping>
 
   <!-- INFO if you're really paranoid about performance, comment out the following
-       filter blocks; otherwise leave them in and use log4j.properties to control logging --> 
+       filter blocks; otherwise leave them in and use log4j.properties to control logging
   <filter>
     <filter-name>PerformanceLoggingFilter</filter-name>
     <filter-class>org.collectionspace.chain.controller.filters.PerflogFilter</filter-class>
@@ -57,5 +57,6 @@
     <filter-name>PerformanceLoggingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  -->
 
 </web-app>

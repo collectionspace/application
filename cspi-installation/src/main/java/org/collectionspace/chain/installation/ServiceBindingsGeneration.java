@@ -160,6 +160,7 @@ public class ServiceBindingsGeneration {
 			ele.addAttribute("id", this.tenantSpec.getTenantId());
 			ele.addAttribute("name", this.tenantSpec.getTenant());
 			ele.addAttribute("displayName", this.tenantSpec.getTenantDisplay());
+			ele.addAttribute("createDisabled", Boolean.toString(this.tenantSpec.getCreateDisabled()));
 		}
 		ele.addAttribute("version", this.tenantSpec.getTenantVersion());
 

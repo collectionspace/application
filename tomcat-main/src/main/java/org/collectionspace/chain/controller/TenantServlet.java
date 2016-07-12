@@ -84,9 +84,12 @@ public class TenantServlet extends HttpServlet {
 	private static final long serialVersionUID = -4343156244448081917L;
 	private static final String SERVER_HOME_PROPERTY = "catalina.base";
 	private static final String PUBLISHED_DIR = "/cspace/published";
-	protected Map<String, CSPManagerImpl> tenantCSPM = new HashMap<String, CSPManagerImpl>();
-	protected Map<String, Boolean> tenantInit = new HashMap<String, Boolean>();
-	protected Map<String, UIUmbrella> tenantUmbrella = new HashMap<String, UIUmbrella>();
+	//
+	// Static and shared by all Servlet instances
+	//
+	protected static Map<String, CSPManagerImpl> tenantCSPM = new HashMap<String, CSPManagerImpl>();
+	protected static Map<String, Boolean> tenantInit = new HashMap<String, Boolean>();
+	protected static Map<String, UIUmbrella> tenantUmbrella = new HashMap<String, UIUmbrella>();
 	
 	protected final String MIME_AUDIO = "audio/";
 	protected final String MIME_VIDIO = "vidio/";
@@ -169,22 +172,28 @@ public class TenantServlet extends HttpServlet {
 	 * @param tenantId
 	 * @throws BadRequestException
 	 */
-	protected synchronized void setup(String tenantId) throws BadRequestException {
-		if(tenantInit.containsKey(tenantId) && tenantInit.get(tenantId))
-			return;
-		try {
-			// Register csps
-			register_csps(tenantId);
-			tenantCSPM.get(tenantId).go(); // Start up CSPs
-			load_config(getServletContext(),tenantId);
-		} catch (IOException e) {
-			throw new BadRequestException("Cannot load config "+e,e);
-		} catch (DocumentException e) {
-			throw new BadRequestException("Cannot load backend "+e,e);
-		} catch (CSPDependencyException e) {
-			throw new BadRequestException("Cannot initialise CSPs "+e,e);
+	protected void setup(String tenantId) throws BadRequestException {
+		
+		synchronized(HttpServlet.class) {
+			if (tenantInit.containsKey(tenantId) && tenantInit.get(tenantId)) {
+				return;
+			}
+			
+			try {
+				// Register csps
+				register_csps(tenantId);
+				tenantCSPM.get(tenantId).go(); // Start up CSPs
+				load_config(getServletContext(),tenantId);
+			} catch (IOException e) {
+				throw new BadRequestException("Cannot load config "+e,e);
+			} catch (DocumentException e) {
+				throw new BadRequestException("Cannot load backend "+e,e);
+			} catch (CSPDependencyException e) {
+				throw new BadRequestException("Cannot initialise CSPs "+e,e);
+			}
+			
+			tenantInit.put(tenantId,true);
 		}
-		tenantInit.put(tenantId,true);
 	}
 	
 	/**
@@ -201,9 +210,7 @@ public class TenantServlet extends HttpServlet {
 	 * @throws BadRequestException
 	 */
 	protected void serviceWTenant(String tenantid, List<String> pathparts, String initcheck, HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws ServletException, IOException, BadRequestException {
-		
-
-		if(locked_down!=null) {
+		if (locked_down != null) {
 			//this ended up with a status 200 hmmmm not great so changed it to return a 400... hopefully that wont break anythign else
 
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Servlet is locked down in a hard fail because of fatal error: "+locked_down);
@@ -213,11 +220,10 @@ public class TenantServlet extends HttpServlet {
 		
 		//reinit if url = /chain/init
 		
-		if(initcheck.equals("init")){
+		if (initcheck.equals("init")) {
 			tenantCSPM.put(tenantid, new CSPManagerImpl());
 			tenantInit.put(tenantid, false);
 			setup(tenantid);
-
 			
 			ConfigFinder cfg=new ConfigFinder(getServletContext());
 			try {
@@ -230,12 +236,12 @@ public class TenantServlet extends HttpServlet {
 				servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, "cspace-config re-loadedfailed");
 			}
 			
-			
 			return;
 		}
 		
-		if(!tenantInit.containsKey(tenantid) || !tenantInit.get(tenantid))
+		if (!tenantInit.containsKey(tenantid) || !tenantInit.get(tenantid)) {
 			setup(tenantid);
+		}
 		
 		if(locked_down!=null) {
 			//this ended up with a status 200 hmmmm not great so changed it to return a 400... hopefully that wont break anythign else

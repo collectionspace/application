@@ -9,7 +9,6 @@ package org.collectionspace.chain.csp.persistence.services.authorization;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -23,14 +22,15 @@ import org.collectionspace.chain.csp.persistence.services.connection.ConnectionE
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMultipartDocument;
-import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.util.json.JSONUtils;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.core.CSPRequestCredentials;
+import org.collectionspace.csp.api.persistence.ConflictException;
 import org.collectionspace.csp.api.persistence.ExistException;
+import org.collectionspace.csp.api.persistence.UnauthorizedException;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
@@ -455,32 +455,39 @@ public class AuthorizationStorage extends GenericStorage {
 		return simpleRetrieveJSONFullPath( creds, cache, filePath, r);
 	}
 	
-	public JSONObject simpleRetrieveJSONFullPath(CSPRequestCredentials creds,CSPRequestCache cache,String filePath, Record thisr) throws ExistException,
-			UnimplementedException, UnderlyingStorageException {
+	public JSONObject simpleRetrieveJSONFullPath(CSPRequestCredentials creds, CSPRequestCache cache, String filePath, Record thisr) throws ExistException, UnimplementedException,
+			UnderlyingStorageException {
 		try {
-			JSONObject out=new JSONObject();
-			if(thisr.isMultipart()){
-				ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,filePath,null,creds,cache);
-				if((doc.getStatus()<200 || doc.getStatus()>=300))
-					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),filePath);
-				for(String section : thisr.getServicesRecordPathKeys()) {
-					String path=thisr.getServicesRecordPath(section);
-					String[] parts=path.split(":",2);
-					convertToJson(out,doc.getDocument(parts[0]),thisr,"GET",section,"","");
+			JSONObject out = new JSONObject();
+			if (thisr.isMultipart()) {
+				ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET, filePath, null, creds, cache);
+				if ((doc.getStatus() < 200 || doc.getStatus() >= 300))
+					throw new UnderlyingStorageException("Does not exist ", doc.getStatus(), filePath);
+				for (String section : thisr.getServicesRecordPathKeys()) {
+					String path = thisr.getServicesRecordPath(section);
+					String[] parts = path.split(":", 2);
+					convertToJson(out, doc.getDocument(parts[0]), thisr, "GET", section, "", "");
 				}
-			}else{
-				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, filePath,null, creds, cache);
-				if((doc.getStatus()<200 || doc.getStatus()>=300)){
-					String status = Integer.toString(doc.getStatus());
-					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),filePath);
+			} else {
+				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, filePath, null, creds, cache);
+				if ((doc.getStatus() < 200 || doc.getStatus() >= 300)) {
+					if (doc.getStatus() == 401) {
+						throw new UnauthorizedException("Username and/or password are invalid.", doc.getStatus(), filePath);
+					} else if (doc.getStatus() == 409) {
+						throw new ConflictException("Conflict with request. The user's tenant may be disabled. Contact your CollectionSpace administrator.",
+								doc.getStatus(), filePath);
+					} else {
+						String status = Integer.toString(doc.getStatus());
+						throw new UnderlyingStorageException("Does not exist ", doc.getStatus(), filePath);
+					}
 				}
-				convertToJson(out,doc.getDocument(),thisr,"GET","common","");
+				convertToJson(out, doc.getDocument(), thisr, "GET", "common", "");
 			}
 			return out;
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Service layer exception"+ e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
+			throw new UnderlyingStorageException("Service layer exception" + e.getLocalizedMessage(), e.getStatus(), e.getUrl(), e);
 		} catch (JSONException e) {
-			throw new UnderlyingStorageException("Service layer exception"+ e.getLocalizedMessage(),e);
+			throw new UnderlyingStorageException("Service layer exception" + e.getLocalizedMessage(), e);
 		}
 	}
 
