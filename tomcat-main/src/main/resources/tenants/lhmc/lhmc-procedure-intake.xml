@@ -25,6 +25,6 @@
         <field id="inventoriedBy" autocomplete="person-person,person-person_shared,person-ulan_pa" section="lhmc" />
     </section>
     <section id="conditionInformation">
-        <field id="condition" autocomplate="vocab-condition" ui-type="enum" section="lhmc" />
+        <field id="intakeCondition" autocomplete="vocab-condition" ui-type="enum" section="lhmc" />
     </section>
 </record>

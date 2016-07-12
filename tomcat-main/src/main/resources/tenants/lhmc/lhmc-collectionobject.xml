@@ -22,6 +22,11 @@
                 </options>
             </field>
         </repeat>
+        <section id="contentInformation">
+            <repeat id="contentPlaces">
+                <field id="contentPlace" autocomplete="place-place,place-tgn_place" />
+            </repeat>
+        </section>
         <section id="textualInscriptionInformation">
             <repeat id="textualInscriptionGroupList/textualInscriptionGroup">
                 <field id="inscriptionContentType" seperate_ui_container="true">
@@ -51,5 +56,18 @@
                 </field>
             </repeat>
         </section>
-  </section>
+    </section>
+    <section id="objectProductionInformation">
+        <repeat id="objectProductionPlaceGroupList/objectProductionPlaceGroup">
+            <field id="objectProductionPlace" autocomplete="place-place,place-tgn_place" ui-search="repeatable" />
+        </repeat>
+    </section>
+    <section id="objectHistoryAssociationInformation">
+        <field id="ownershipPlace" autocomplete="place-place,place-tgn_place" />
+        <section id="associationInformation">
+            <repeat id="assocPlaceGroupList/assocPlaceGroup">
+                <field id="assocPlace" autocomplete="place-place,place-tgn_place" />
+            </repeat>
+        </section>
+    </section>
 </record>
