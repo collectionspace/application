@@ -49,6 +49,11 @@ public class SectionImpl implements Section {
 	}
 
 	@Override
+	public Object getRawValue(String key) {
+		return map.get(key);
+	}
+	
+	@Override
 	public Object getValue(String key) {
 		Object result = map.get(key);
 		

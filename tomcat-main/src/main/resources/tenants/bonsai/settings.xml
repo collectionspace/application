@@ -48,28 +48,29 @@
     </email>
     <persistence>
         <service>
-            <url>http://localhost:@JEE_PORT@/cspace-services</url>
-      <tenant>
-        <id>3000</id>
-        <name>bonsai.collectionspace.org</name>
-        <version>0.1</version>
-        <display-name>Collectionspace Bonsai Tenant</display-name>
-      </tenant>
-      <repository>
-        <domain>bonsai</domain>
-        <name>bonsai</name>
-        <client>nuxeo-java</client>
-        <dateformats>
-          <pattern>MM/dd/yyyy</pattern>
-          <pattern>MMM dd, yyyy</pattern>
-          <pattern>dd.MM.yyyy</pattern>
-        </dateformats>
-        <languages>
-          <language>en</language>
-        </languages>
-        <indexHandler>org.collectionspace.services.common.init.AddIndices</indexHandler>
-      </repository>
-      <ims-url>/collectionspace/tenant/bonsai/</ims-url> <!-- XXX should be in separate IMS section -->
+			<url>http://localhost:@JEE_PORT@/cspace-services</url>
+			<tenant>
+				<id>3000</id>
+				<name>bonsai.collectionspace.org</name>
+				<version>0.1</version>
+				<display-name>Collectionspace Bonsai Tenant</display-name>
+				<create-disabled>${CSPACE_TENANT_CREATE_DISABLED_OPT}</create-disabled>
+			</tenant>
+			<repository>
+				<domain>bonsai</domain>
+				<name>bonsai</name>
+				<client>nuxeo-java</client>
+				<dateformats>
+					<pattern>MM/dd/yyyy</pattern>
+					<pattern>MMM dd, yyyy</pattern>
+					<pattern>dd.MM.yyyy</pattern>
+				</dateformats>
+				<languages>
+					<language>en</language>
+				</languages>
+				<indexHandler>org.collectionspace.services.common.init.AddIndices</indexHandler>
+			</repository>
+			<ims-url>/collectionspace/tenant/bonsai/</ims-url> <!-- XXX should be in separate IMS section -->
         </service>
     </persistence>
     <ui>
