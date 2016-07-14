@@ -1077,4 +1077,39 @@
                             <option id="streetaddress">street address</option>
                         </options>
                     </instance>
+                    <instance id="vocab-deaccessionapprovalgroup">
+                        <web-url>deaccessionapprovalgroup</web-url>
+                        <title-ref>deaccessionapprovalgroup</title-ref>
+                        <title>Deaccession Approval Group</title>
+                        <options>
+                            <option id="collection_committee">collection committee</option>
+                            <option id="executive_committee">executive committee</option>
+                            <option id="board_of_trustees">board of trustees</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-deaccessionapprovalstatus">
+                        <web-url>deaccessionapprovalstatus</web-url>
+                        <title-ref>deaccessionapprovalstatus</title-ref>
+                        <title>Deaccession Approval Status</title>
+                        <options>
+                            <option id="approved">approved</option>
+                            <option id="not_approved">not approved</option>
+                            <option id="not_required">not required</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-disposalmethod">
+                        <web-url>disposalmethod</web-url>
+                        <title-ref>disposalmethod</title-ref>
+                        <title>Disposal Method</title>
+                        <options>
+                            <option id="destruction">destruction</option>
+                            <option id="donation">donation</option>
+                            <option id="exchange">exchange</option>
+                            <option id="private_sale">private sale</option>
+                            <option id="public_auction">public auction</option>
+                            <option id="repatriation">repatriation</option>
+                            <option id="return_to_donor">return to donor</option>
+                            <option id="transfer">transfer</option>
+                        </options>
+                    </instance>
 </instances>
