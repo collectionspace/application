@@ -1,0 +1,29 @@
+<instances>
+    <instance id="vocab-limitationtype">
+        <web-url>limitationtype</web-url>
+        <title-ref>limitationtype</title-ref>
+        <title>Access Limitation Type</title>
+        <options>
+            <option id="display_visual">display/visual</option>
+            <option id="handling_gender">handling - gender</option>
+            <option id="handling_other">handling - other</option>
+            <option id="lending">lending</option>
+            <option id="publication">publication</option>
+            <option id="research_access">research/access</option>
+            <option id="storage">storage</option>
+            <option id="treatment">treatment</option>
+            <option id="unknown">unknown</option>
+        </options>
+    </instance>
+    <instance id="vocab-limitationlevel">
+        <web-url>limitationlevel</web-url>
+        <title-ref>limitationlevel</title-ref>
+        <title>Access Limitation Level</title>
+        <options>
+            <option id="preference">preference</option>
+            <option id="recommendation">recommendation</option>
+            <option id="restriction">restriction</option>
+            <option id="unknown">unknown</option>
+        </options>
+    </instance>
+</instances>

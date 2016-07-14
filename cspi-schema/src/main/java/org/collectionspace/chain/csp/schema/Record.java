@@ -932,7 +932,10 @@ public class Record implements FieldParent {
 	}
 
 	public String getServicesRecordPath(String name) {
-		return services_record_paths.get(name).trim();
+		if (services_record_paths.get(name) != null){
+			return services_record_paths.get(name).trim();
+		}
+		return null;
 	}
 
 	public String getServicesSchemaName(String sectionName) {
