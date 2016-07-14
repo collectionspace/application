@@ -38,7 +38,7 @@ import org.slf4j.LoggerFactory;
 // XXX Add useful info to ConnectionException on way out
 
 public class ServicesConnection {
-	public static final int MAX_SERVICES_CONNECTIONS = 20;
+	public static final int MAX_SERVICES_CONNECTIONS = 40;
 
 	private static final Logger log=LoggerFactory.getLogger(ServicesConnection.class);
 	private static final Logger perflog=LoggerFactory.getLogger("org.collectionspace.perflog");
