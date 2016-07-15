@@ -33,6 +33,7 @@ import org.collectionspace.chain.csp.schema.AdminData;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.csp.api.core.CSPDependencyException;
+import org.collectionspace.csp.api.persistence.UnauthorizedException;
 import org.collectionspace.csp.api.ui.UI;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIUmbrella;
@@ -208,8 +209,10 @@ public class TenantServlet extends HttpServlet {
 	 * @throws ServletException
 	 * @throws IOException
 	 * @throws BadRequestException
+	 * @throws UnauthorizedException 
 	 */
-	protected void serviceWTenant(String tenantid, List<String> pathparts, String initcheck, HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws ServletException, IOException, BadRequestException {
+	protected void serviceWTenant(String tenantid, List<String> pathparts, String initcheck, HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws ServletException, 
+			IOException, BadRequestException, UnauthorizedException {
 		if (locked_down != null) {
 			//this ended up with a status 200 hmmmm not great so changed it to return a 400... hopefully that wont break anythign else
 
@@ -324,6 +327,8 @@ public class TenantServlet extends HttpServlet {
 			
 			serviceWTenant(tenant, p, checkinit, servlet_request, servlet_response);
 			
+		} catch (UnauthorizedException x) {
+			servlet_response.sendError(HttpServletResponse.SC_UNAUTHORIZED, getStackTrace(x));
 		} catch (BadRequestException x) {
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, getStackTrace(x));
 		}
@@ -336,8 +341,9 @@ public class TenantServlet extends HttpServlet {
 	 * @param ui
 	 * @param req
 	 * @throws UIException
+	 * @throws UnauthorizedException 
 	 */
-	protected void serve_composite(UI ui,WebUIRequest req) throws UIException {
+	protected void serve_composite(UI ui,WebUIRequest req) throws UIException, UnauthorizedException {
 		try {
 			// Extract JSON request payload
 			JSONObject in=req.getJSONBody();

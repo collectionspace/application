@@ -71,6 +71,7 @@ import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.persistence.StorageGenerator;
+import org.collectionspace.csp.api.persistence.UnauthorizedException;
 import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.UI;
 import org.collectionspace.csp.api.ui.UIException;
@@ -387,7 +388,7 @@ public class WebUI implements CSP, UI, Configurable {
 	}
 
 	@Override
-	public void serviceRequest(UIRequest ui) throws UIException {
+	public void serviceRequest(UIRequest ui) throws UIException, UnauthorizedException {
 		CSPRequestCache cache = new RequestCache();
 		String[] path = ui.getPrincipalPath();
 		Request r = new Request(xxx_storage, cache, ui);
@@ -400,6 +401,8 @@ public class WebUI implements CSP, UI, Configurable {
 				return;
 		} catch (UIException e) {
 			throw e;
+		} catch (UnauthorizedException ue) {
+			throw ue;
 		} catch (Exception e) {
 			log.error("Error in WebUI.serviceRequest", e);
 			log.error(String.format("Request body= %s", ui.getBody()));
