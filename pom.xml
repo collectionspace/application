@@ -33,17 +33,90 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
   
-  <!-- The CollectionSpace public Maven repository for "snapshot" artifacts -->
-  <repositories>
-    <repository>
-        <id>libs-snapshot-local</id>
-        <name>libs-snapshot-local</name>
-        <url>http://nightly.collectionspace.org:8081/artifactory/libs-snapshot-local</url>
-		<snapshots>
-			<enabled>true</enabled>
-		</snapshots>
-    </repository>
-  </repositories>
+    <repositories>
+            <repository>
+                    <id>collectionspace-remote-repos</id>
+                    <name>collectionspace-remote-repos</name>
+                    <url>http://nightly.collectionspace.org:8081/artifactory/remote-repos</url>
+                    <snapshots>
+                            <enabled>false</enabled>
+                    </snapshots>
+            </repository>
+            <repository>
+                    <id>libs-release-local</id>
+                    <name>libs-release-local</name>
+                    <url>http://nightly.collectionspace.org:8081/artifactory/libs-release-local</url>
+                    <snapshots>
+                            <enabled>false</enabled>
+                    </snapshots>
+            </repository>
+            <repository>
+                    <id>libs-snapshot-local</id>
+                    <name>libs-snapshot-local</name>
+                    <url>http://nightly.collectionspace.org:8081/artifactory/libs-snapshot-local</url>
+                    <snapshots>
+                            <enabled>true</enabled>
+                    </snapshots>
+            </repository>
+            <repository>
+                    <id>repo1</id>
+                    <name>Maven repo1</name>
+                    <url>http://repo1.maven.org/maven2</url>
+                    <snapshots>
+                            <enabled>false</enabled>
+                    </snapshots>
+            </repository>
+            <repository>
+                    <id>repo2</id>
+                    <name>Maven repo2</name>
+                    <url>http://repo2.maven.org/maven2</url>
+                    <snapshots>
+                            <enabled>false</enabled>
+                    </snapshots>
+            </repository>
+    </repositories>
+
+    <pluginRepositories>
+            <pluginRepository>
+                    <id>collectionspace-remote-repos</id>
+                    <name>collectionspace-remote-repos</name>
+                    <url>http://nightly.collectionspace.org:8081/artifactory/remote-repos</url>
+                    <snapshots>
+                            <enabled>false</enabled>
+                    </snapshots>
+            </pluginRepository>
+            <pluginRepository>
+                    <snapshots>
+                            <enabled>false</enabled>
+                    </snapshots>
+                    <id>central</id>
+                    <name>plugins-release</name>
+                    <url>http://nightly.collectionspace.org:8081/artifactory/plugins-release</url>
+            </pluginRepository>
+            <pluginRepository>
+                    <id>repo1</id>
+                    <name>Maven repo1</name>
+                    <url>http://repo1.maven.org/maven2</url>
+                    <snapshots>
+                            <enabled>false</enabled>
+                    </snapshots>
+            </pluginRepository>
+            <pluginRepository>
+                    <id>maven repo</id>
+                    <name>maven repo</name>
+                    <url>http://repo2.maven.org/maven2</url>
+                    <snapshots>
+                            <enabled>false</enabled>
+                    </snapshots>
+            </pluginRepository>
+            <pluginRepository>
+                    <id>maven2-repository.dev.java.net</id>
+                    <url>http://download.java.net/maven/2</url>
+                    <snapshots>
+                            <enabled>false</enabled>
+                    </snapshots>
+            </pluginRepository>
+    </pluginRepositories>   
   
   <build>
     <testResources>
