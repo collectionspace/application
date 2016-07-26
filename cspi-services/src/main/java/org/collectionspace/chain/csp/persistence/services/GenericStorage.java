@@ -331,11 +331,8 @@ public class GenericStorage  implements ContextualisedStorage {
             if (deurned.isEmpty()) {
                 return in;
             }
-            try {
-                 return URLDecoder.decode(deurned, "UTF8");  
-            } catch (UnsupportedEncodingException e) {
-                 throw new UnderlyingStorageException("Could not de-urn Display Name because UTF8 decoding is not supported");
-            }
+            
+            return deurned;
 	}
 	
 	/**
