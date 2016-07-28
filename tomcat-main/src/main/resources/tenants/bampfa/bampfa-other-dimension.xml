@@ -10,10 +10,10 @@
 					<options>
 						<option id="">Please select a value</option>
 						<option id="carats">carats</option>
-						<option id="centimeters">centimeters</option>
+						<option id="cm.">cm.</option>
 						<option id="cubic-centimeters">cubic centimeters</option>
 						<option id="feet">feet</option>
-						<option id="inches" default="yes">inches</option>
+						<option id="in." default="yes">in.</option>
 						<option id="kilograms">kilograms</option>
 						<option id="liters">liters</option>
 						<option id="millimeters">millimeters</option>
