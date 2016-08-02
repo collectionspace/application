@@ -465,27 +465,30 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				String[] tag_path=record_path[1].split(",",2);
 				Document result=doc.getDocument(record_path[0].trim());
 
-
-				if("common".equals(section)) { // XXX hardwired :(
-					String dnXPath = getDisplayNameXPath();
-					name=result.selectSingleNode(tag_path[1]+"/"+dnXPath).getText();
-					if(result.selectSingleNode(tag_path[1]+"/shortIdentifier")!=null){
-						shortIdentifier = result.selectSingleNode(tag_path[1]+"/shortIdentifier").getText();
-					}
-					refid=result.selectSingleNode(tag_path[1]+"/refName").getText();
-					// We need to replace this with the same model as for displayName
-					if(result.selectSingleNode(tag_path[1]+"/termStatus") != null){
-					termStatus=result.selectSingleNode(tag_path[1]+"/termStatus").getText();
+				if (result != null) {
+					if("common".equals(section)) { // XXX hardwired :(
+						String dnXPath = getDisplayNameXPath();
+						name=result.selectSingleNode(tag_path[1]+"/"+dnXPath).getText();
+						if(result.selectSingleNode(tag_path[1]+"/shortIdentifier")!=null){
+							shortIdentifier = result.selectSingleNode(tag_path[1]+"/shortIdentifier").getText();
+						}
+						refid=result.selectSingleNode(tag_path[1]+"/refName").getText();
+						// We need to replace this with the same model as for displayName
+						if(result.selectSingleNode(tag_path[1]+"/termStatus") != null){
+						termStatus=result.selectSingleNode(tag_path[1]+"/termStatus").getText();
+						}
+						else{
+							termStatus = "";
+						}
+						csid=result.selectSingleNode(tag_path[1]+"/csid").getText();
+						parentcsid = result.selectSingleNode(tag_path[1]+"/inAuthority").getText();
+						XmlJsonConversion.convertToJson(out,r,result,"GET",section,csid,ims_url);	
 					}
 					else{
-						termStatus = "";
+						XmlJsonConversion.convertToJson(out,r,result,"GET",section,csid,ims_url);
 					}
-					csid=result.selectSingleNode(tag_path[1]+"/csid").getText();
-					parentcsid = result.selectSingleNode(tag_path[1]+"/inAuthority").getText();
-					XmlJsonConversion.convertToJson(out,r,result,"GET",section,csid,ims_url);	
-				}
-				else{
-					XmlJsonConversion.convertToJson(out,r,result,"GET",section,csid,ims_url);
+				} else {
+					log.warn(String.format("XML Payload for '%s' was missing part '%s'.", url, record_path[0]));
 				}
 			}
 			
