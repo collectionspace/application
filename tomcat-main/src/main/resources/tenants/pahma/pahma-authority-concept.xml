@@ -37,4 +37,13 @@
 			<title>Object Names</title>
 		</instance>
 	</instances>
+
+	<section id="conceptAuthorityInformation">
+		<repeat id="citationGroupList/citationGroup">
+            <field id="citationSource" 
+            		autocomplete="citation-citation">
+            	</field>
+        </repeat>
+	</section>
 </record>
+
