@@ -58,6 +58,7 @@
 				<options>
 					<option id="" default="yes">Please select a value</option>
 					<option id="Unknown">Unknown</option>
+					<option id="Cleared leaf ref. coll. no.">Cleared leaf ref. coll. no.</option>
 					<option id="Collector Number">Collector Number</option>
 					<option id="Exsiccatae Number">Exsiccatae Number</option>
 					<option id="FIMS Identifier">FIMS Identifier</option>
