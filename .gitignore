@@ -16,6 +16,5 @@ tomcat-main/src/main/resources/tenants/core/cow.xml
 target/
 .DS_Store
 *.bindings.xml
-logs/
 war-entry/tmp/
 
