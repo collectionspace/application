@@ -1,4 +1,6 @@
-<record id="intake">
+<record id="intake" is_extension="true">
+	<services-record-path id="pahma">intakes_pahma:http://collectionspace.org/services/intake/local/pahma,intakes_pahma</services-record-path>
+
 	<section id="objectEntryInformation">
 		<field id="entryNumber">
 			<!-- Change options -->
@@ -24,6 +26,10 @@
 				</enum>
 			</field>
 		</repeat>
+        
+        <field id="expectedReturnDate" section="pahma" ui-search="range" ui-type="date" datatype="date">
+            <container-selector>intake-expectedReturnDate-container</container-selector>
+        </field>
 	</section>
 	<section id="objectCollectionInformation">
 		<repeat id="fieldCollectionMethods">
