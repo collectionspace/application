@@ -22,7 +22,8 @@
 		</field>
 		<repeat id="acquisitionSources">
 			<!-- Add concept-concept to autocomplete -->
-			<field id="acquisitionSource" autocomplete="person-person,organization-organization,concept-concept"/>
+			<!-- Unset mini attribute -->
+			<field id="acquisitionSource" autocomplete="person-person,organization-organization,concept-concept" mini="" />
 		</repeat>
 		<repeat id="owners">
 			<!-- Add ui-search, and add concept-concept to autocomplete -->
@@ -87,7 +88,7 @@
 		<!-- Local fields -->
 		
 		<repeat id="acquisitionDonorGroupList/acquisitionDonorGroup" section="pahma">
-			<field id="donor" section="pahma" ui-search="repeatable" autocomplete="person-person,organization-organization"/>
+			<field id="donor" section="pahma" ui-search="repeatable" autocomplete="person-person,organization-organization" mini="summary,search,list,relate"/>
 			<field id="donorAnon" section="pahma" ui-search="repeatable" datatype="boolean"/>
 		</repeat>
 	</section>
