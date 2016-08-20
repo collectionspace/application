@@ -61,8 +61,8 @@
 			<field id="hybridParent" autocomplete="taxon-taxon,taxon-unverified"/>
 		</repeat>
 		<!-- Tie labelHeader and labelFooter to Concept Authority -->
-		<field id="labelHeader" autocomplete="concept-concept"/>
-		<field id="labelFooter" autocomplete="concept-concept"/>
+		<field id="labelHeader" autocomplete="concept-concept" ui-search="repeatable"/>
+		<field id="labelFooter" autocomplete="concept-concept" ui-search="repeatable"/>
 		
 		<repeat id="typeSpecimenGroupList/typeSpecimenGroup">
 			<!-- Change autocomplete to organization-determination -->
