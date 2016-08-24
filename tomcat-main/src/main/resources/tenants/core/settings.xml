@@ -54,7 +54,7 @@
 				<name>core.collectionspace.org</name>
 				<version>0.1</version>
 				<display-name>Collectionspace Core Tenant</display-name>
-				<create-disabled>false</create-disabled>
+				<create-disabled>${CSPACE_CORE_CREATE_DISABLED_OPT}</create-disabled>
 			</tenant>
 			<repository>
 				<domain>core-domain</domain>
