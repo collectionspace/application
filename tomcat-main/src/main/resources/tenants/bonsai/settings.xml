@@ -54,7 +54,7 @@
 				<name>bonsai.collectionspace.org</name>
 				<version>0.1</version>
 				<display-name>Collectionspace Bonsai Tenant</display-name>
-				<create-disabled>${CSPACE_TENANT_CREATE_DISABLED_OPT}</create-disabled>
+				<create-disabled>${CSPACE_BONSAI_CREATE_DISABLED_OPT}</create-disabled>
 			</tenant>
 			<repository>
 				<domain>bonsai</domain>
