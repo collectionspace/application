@@ -40,10 +40,9 @@
 
 	<section id="conceptAuthorityInformation">
 		<repeat id="citationGroupList/citationGroup">
-            <field id="citationSource" 
-            		autocomplete="citation-citation">
-            	</field>
-        </repeat>
+    		<!-- Add autocomplete -->
+			<field id="citationSource" autocomplete="citation-citation"/>
+		</repeat>
 	</section>
 </record>
 
