@@ -9,7 +9,7 @@
 
   <section id="objectAnalysisInformation">
     <repeat id="futureTreatmentGroupList/futureTreatmentGroup" section="bonsai">
-      <field id="futureTreatment" autocomplete="vocab-futuretreatment" ui-type="enum" section="bonsai"/>
+      <field id="futureTreatment" autocomplete="vocab-futuretreatment" ui-search="single" ui-type="enum" section="bonsai"/>
       <field id="futureTreatmentDate" ui-search="range" ui-type="date" datatype="date" section="bonsai"/>
       <field id="futureTreatmentNote" section="bonsai"/>
     </repeat>

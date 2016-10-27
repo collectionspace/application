@@ -2,7 +2,7 @@
   <services-record-path id="bonsai">collectionobjects_bonsai:http://collectionspace.org/services/collectionobject/local/bonsai,collectionobjects_bonsai</services-record-path>
 
   <section id="identificationInformation">
-    <field id="taxon" autocomplete="taxon-taxon,taxon-common_ta" section="bonsai"/>
+    <field id="taxon" autocomplete="taxon-taxon,taxon-common_ta" ui-search="repeatable" section="bonsai"/>
     <field id="commonName" ui-search="repeatable" section="bonsai"/>
     <field id="japaneseName" ui-search="repeatable" section="bonsai"/>
     <field id="nativeSpecies" datatype="boolean" section="bonsai"/>
@@ -30,8 +30,8 @@
 
   <section id="descriptionInformation">
 
-    <field id="potStyle" autocomplete="vocab-potstyle" ui-type="enum" section="bonsai"/>
-    <field id="treeType" autocomplete="vocab-treetype" ui-type="enum" section="bonsai"/>
+    <field id="potStyle" autocomplete="vocab-potstyle" ui-search="single" ui-type="enum" section="bonsai"/>
+    <field id="treeType" autocomplete="vocab-treetype" ui-search="single" ui-type="enum" section="bonsai"/>
 
     <section id="contentInformation">
       <repeat id="contentPlaces">
