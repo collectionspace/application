@@ -54,6 +54,10 @@
 					</artifactId>
 					<groupId>org.collectionspace.services</groupId>
 				</exclusion>
+				<exclusion>
+					<artifactId>jaxb-impl</artifactId>
+					<groupId>com.sun.xml.bind</groupId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
