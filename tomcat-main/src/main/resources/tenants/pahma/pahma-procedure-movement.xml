@@ -8,56 +8,8 @@
 	<section id="movementControlInformation">
         <!-- <field id="movementReferenceNumber" mini="search,list,relate,terms" ui-type="computed" ui-args="currentLocation" ui-func="pahma.computeReferenceNumber" ui-readonly="true"/> -->
 	    
-		<field id="reasonForMove">
-			<!-- Change options -->
-			<options>
-				<option id="" default="yes">(none selected)</option>
-				<option id="(not entered)">(not entered)</option>
-				<option id="Inventory">Inventory</option>
-				<option id="GeneralCollManagement">General Collections Management</option>
-				<option id="Research">Research</option>
-				<option id="NAGPRA">NAGPRA</option>
-				<option id="pershelflabel">per shelf label</option>
-				<option id="NewHomeLocation">New Home Location</option>
-				<option id="Loan">Loan</option>
-				<option id="Exhibit">Exhibit</option>
-				<option id="ClassUse">Class Use</option>
-				<option id="PhotoRequest">Photo Request</option>
-				<option id="Tour">Tour</option>
-				<option id="Conservation">Conservation</option>
-				<option id="CulturalHeritage">cultural heritage</option>
-				<option id="Object relocation">Object relocation</option>
-				<option id="spot inventory">spot inventory</option>
-				<option id="">----------------------------</option>
-				<option id="2012 HGB surge pre-move inventory">2012 HGB surge pre-move inventory</option>
-				<option id="2014 Marchant inventory and move">2014 Marchant inventory and move</option>
-				<option id="AsianTextileGrant">Asian Textile Grant</option>
-				<option id="BasketryRehousingProj">Basketry Rehousing Proj</option>
-				<option id="BORProj">BOR Proj</option>
-				<option id="BuildingMaintenance">Building Maintenance: Seismic</option>
-				<option id="CaliforniaArchaeologyProj">California Archaeology Proj</option>
-				<option id="CatNumIssueInvestigation">Cat. No. Issue Investigation</option>
-				<option id="DuctCleaningProj">Duct Cleaning Proj</option>
-				<option id="FederalCurationAct">Federal Curation Act</option>
-				<option id="FireAlarmProj">Fire Alarm Proj</option>
-				<option id="FirstTimeStorage">First Time Storage</option>
-				<option id="FoundinColl">Found in Collections</option>
-				<option id="HearstGymBasementMoveKroeber20">Hearst Gym Basement move to Kroeber 20A</option>
-				<option id="HGB Surge">HGB Surge</option>
-				<option id="Kro20MezzLWeaponProj2011">Kro20Mezz LWeapon Proj 2011</option>
-				<option id="Kroeber20AMoveRegatta">Kroeber 20A move to Regatta</option>
-				<option id="MarchantFlood2007">Marchant Flood 12/2007</option>
-				<option id="NAAGVisit">Native Am Adv Grp Visit</option>
-				<option id="NEHEgyptianCollectionGrant">NEH Egyptian Collection Grant</option>
-				<option id="Regattamovein">Regatta move-in</option>
-				<option id="Regattapremoveinventory">Regatta pre-move inventory</option>
-				<option id="Regattapremoveobjectprep">Regatta pre-move object prep.</option>
-				<option id="Regattapremovestaging">Regatta pre-move staging</option>
-				<option id="SATgrant">SAT grant</option>
-				<option id="TemporaryStorage">Temporary Storage</option>
-				<option id="TextileRehousingProj">Textile Rehousing Proj</option>
-				<option id="YorubaMLNGrant">Yoruba MLN Grant</option>
-			</options>
+		<field id="reasonForMove" autocomplete="vocab-reasonformove" ui-type="enum">
+			<!-- Converted to dynamic -->
 		</field>
 		<repeat id="movementMethods">
 			<field id="movementMethod">

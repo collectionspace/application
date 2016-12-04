@@ -9,40 +9,9 @@
 	</instances>
 
 	<section id="taxonNameAuthorityInformation">
-		<field id="taxonRank">
-			<!-- Change options -->
-			<options>
-				<option id="" default="yes">(none selected)</option>
-				<option id="domain">domain</option>
-				<option id="kingdom">kingdom</option>
-				<option id="subkingdom">subkingdom</option>
-				<option id="infrakingdom">infrakingdom</option>
-				<option id="superphylum">superphylum</option>
-				<option id="phylum">phylum</option>
-				<option id="subphylum">subphylum</option>
-				<option id="infraphylum">infraphylum</option>
-				<option id="division">division</option>
-				<option id="subdivision">subdivision</option>
-				<option id="infradivision">infradivision</option>
-				<option id="superclass">superclass</option>
-				<option id="class">class</option>
-				<option id="subclass">subclass</option>
-				<option id="infraclass">infraclass</option>
-				<option id="superorder">superorder</option>
-				<option id="order">order</option>
-				<option id="suborder">suborder</option>
-				<option id="infraorder">infraorder</option>
-				<option id="section">section</option>
-				<option id="subsection">subsection</option>
-				<option id="superfamily">superfamily</option>
-				<option id="family">family</option>
-				<option id="subfamily">subfamily</option>
-				<option id="tribe">tribe</option>
-				<option id="subtribe">subtribe</option>
-				<option id="genus">genus</option>
-				<option id="species">species</option>
-				<option id="subspecies">subspecies</option>
-			</options>
+		<field id="taxonRank" autocomplete="vocab-taxonrank" ui-type="enum">
+			<!-- Converted to dynamic -->
+
 		</field>
 		<field id="taxonCurrency">
 			<!-- Change options -->
