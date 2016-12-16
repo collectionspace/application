@@ -87,7 +87,7 @@
 			</snapshots>
 		</repository>
 	</repositories>
-	
+
 	<pluginRepositories>
 		<pluginRepository>
 			<id>collectionspace-remote-repos</id>
@@ -128,7 +128,7 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</pluginRepository>
-	</pluginRepositories>	
+	</pluginRepositories>
 
 	<dependencyManagement>
 		<dependencies>
@@ -300,19 +300,19 @@
 							<tasks>
 								<!-- <fail unless="${env.JEE_PORT}"
 									message="Required environment variable JEE_PORT has not been set.  Use 8180 as a default value." /> -->
-								<property environment="env" />
+								<property environment="env"></property>
 								<fail message="Failed to set JEE_PORT environment variable.  Set it using 8180 as a default value.">
 									<condition>
-									   <not>
-										 <isset property="env.JEE_PORT"/>
-									   </not>
+										<not>
+											<isset property="env.JEE_PORT"></isset>
+										</not>
 									</condition>
 								</fail>
 							</tasks>
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>			
+			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

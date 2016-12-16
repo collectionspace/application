@@ -14,8 +14,8 @@
 	<dependencies>
 		<dependency>
 			<groupId>commons-collections</groupId>
-  			<artifactId>commons-collections</artifactId>
-  			<version>3.2.2</version>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.collectionspace.services</groupId>
@@ -177,8 +177,8 @@
 	<build>
 		<finalName>tomcat-main</finalName>
 		<filters>
-            <filter>../build.properties</filter>
-        </filters>
+			<filter>../build.properties</filter>
+		</filters>
 		<resources>
 			<resource>
 				<!-- Exclude config files, since these get deployed into tomcat's lib 

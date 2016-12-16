@@ -18,6 +18,10 @@
     value="${tenants.dir}/${template.tenant.shortname}/${settings.file.name}"/>
   <property name="tenant.settings.file" value="${tenants.dir}/${tenant.shortname}/${settings.file.name}"/>
   
+	<target name="bamboo">
+		<ant antfile="war-entry/build.xml" target="bamboo" inheritAll="false" />
+	</target>
+	
   <!-- This target inherits from an existing target in the imported
        utility routines buildfile, and adds its own behavior specific to this
        CollectionSpace source code layer. -->

@@ -8,7 +8,7 @@
 	<property name="app_trunk" location=".." />
 	<property name="app_resources_dir" location="${app_trunk}/tomcat-main/src/main/resources"/>
 	<property name="cspace.tool.csmake" value="csmake" />
-
+	
 	<target name="post_build_tasks"
         description="Various post-build tasks"
         depends="deploy_cspace_config, retrieve_jar">
@@ -66,6 +66,14 @@
 	<target name="retrieve_jar" description="Retrieves the JAR for command-line use">
 		<copy file="${app_trunk}/tomcat-main/target/${cspace.tool.csmake}.jar"
             tofile="${config_destination}/${cspace.tool.csmake}.jar"/>
+	</target>
+	
+	<!-- For the Bamboo CI builds only. Make the csmake.jar tool simpler to reach when performing the
+		Services 'deploy' target.
+	-->
+	<target name="bamboo" description="Retrieves the JAR for command-line use in Bamboo">
+		<copy file="${app_trunk}/tomcat-main/target/${cspace.tool.csmake}.jar"
+			tofile="../../${cspace.tool.csmake}.jar"/>
 	</target>
 	
 </project>
