@@ -73,7 +73,7 @@
 	-->
 	<target name="bamboo" description="Retrieves the JAR for command-line use in Bamboo">
 		<copy file="${app_trunk}/tomcat-main/target/${cspace.tool.csmake}.jar"
-			tofile="../../${cspace.tool.csmake}.jar"/>
+			tofile="../../application/tomcat-main/target/${cspace.tool.csmake}.jar"/>
 	</target>
 	
 </project>
