@@ -552,7 +552,8 @@ public class RecordCreateUpdate implements WebMethodWithOps {
 			throw new UIException("Unimplemented exception: "+x,x);
 		} catch (UnderlyingStorageException x) {
 			UIException uiexception =  new UIException(x.getMessage(),x.getStatus(),x.getUrl(),x);
-			request.sendJSONResponse(uiexception.getJSON());
+			request.setFailure(true, uiexception);
+			request.sendJSONResponse(uiexception.getJSON());			
 		}catch (Exception x) {
 			throw new UIException(x);
 		}

@@ -37,20 +37,21 @@ public class ReturnedURL implements Returned {
 	public void setResponse(HttpMethod method, int status) throws Exception {
 		String possiblemessg = method.getResponseBodyAsString();
 		Header location = method.getResponseHeader("Location");
-		
+		this.status = status;
+
 		if (status == HttpStatus.SC_CONFLICT) {
 			throw new ExistException("Record exists already. Can't create a duplicate: " + 
 					possiblemessg != null ? possiblemessg : "Unknown reason.", status);
 		}
-		
+
 		if (location == null) {
 			if (possiblemessg != "") {
 				throw new ConnectionException(possiblemessg, status, "");
 			}
 			throw new ConnectionException("Missing location header " + method.getResponseBodyAsString(), status, "");
 		}
+		
 		url = location.getValue();
-		this.status = status;
 	}
 	
 	public void relativize(String base_url) {
