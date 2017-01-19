@@ -24,5 +24,6 @@
 		<field id="scientificTaxonomy" in-title="yes" mini="summary,search,list,relate" section="botgarden" autocomplete="taxon-taxon" ui-search="repeatable">
 			<title-selector>titleBar-media-scientificTaxonomy</title-selector>
 		</field>
+		<field id="imageNumber" section="botgarden" datatype="integer" ui-type="validated" mini="search,list,relate" ui-search="range"/>
 	</section>
 </record>
