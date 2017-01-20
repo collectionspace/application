@@ -59,10 +59,21 @@
   
   <target name="update-text-in-tenant-settings"
     depends="update-tenant-id-in-tenant-settings,
+    update-disabled-flag-in-tenant-settings,
     update-tenant-internet-domain-in-tenant-settings,
     update-tenant-shortname-in-tenant-settings">
   </target>
   
+  <target name="update-disabled-flag-in-tenant-settings">
+	<!-- Ensure that even if the template tenant is disabled, -->
+	<!-- the new, cloned tenant will always be created as 'enabled'. -->
+	<replaceregexp
+	    file="${tenant.settings.file}"
+	    match="&lt;create-disabled&gt;(.*)&lt;/create-disabled&gt;"
+	    replace="&lt;create-disabled&gt;false&lt;/create-disabled&gt;">
+	</replaceregexp>
+  </target>
+			
   <target name="update-tenant-id-in-tenant-settings">
     <replaceregexp
       file="${tenant.settings.file}"
