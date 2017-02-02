@@ -680,25 +680,8 @@
 				</field>
 			</repeat>
 			<repeat id="contentPositions">
-				<!-- Change options -->
-				<field id="contentPosition">
-					<options>
-						<option id="">(none selected)</option>
-						<option id="back">back</option>
-						<option id="base">base</option>
-						<option id="bottom">bottom</option>
-						<option id="front">front</option>
-						<option id="inside">inside</option>
-						<option id="left">left</option>
-						<option id="obverse">obverse</option>
-						<option id="outside">outside</option>
-						<option id="recto">recto</option>
-						<option id="reverse">reverse</option>
-						<option id="right">right</option>
-						<option id="rim">rim</option>
-						<option id="top">top</option>
-						<option id="verso">verso</option>
-					</options>
+				<field id="contentPosition" autocomplete="vocab-contentposition" ui-type="enum">
+					<!-- Converted to dynamic -->
 				</field>
 			</repeat>
 			<repeat id="contentObjectGroupList/contentObjectGroup">
@@ -810,22 +793,9 @@
 						<blank-value>(none selected)</blank-value>
 					</enum>
 				</field>
-				<field id="inscriptionContentPosition">
-					<!-- Change options -->
-					<options>
-						<option id="">(none selected)</option>
-						<option id="In exergue of coin">In exergue of coin</option>
-						<option id="On obverse of coin">On obverse of coin</option>
-						<option id="On obverse of coin, before">On obverse of coin, before</option>
-						<option id="On obverse of coin, behind">On obverse of coin, behind</option>
-						<option id="On reverse of coin">On reverse of coin</option>
-						<option id="On reverse of coin, above">On reverse of coin, above</option>
-						<option id="On reverse of coin, before">On reverse of coin, before</option>
-						<option id="On reverse of coin, behind">On reverse of coin, behind</option>
-						<option id="On reverse of coin, below">On reverse of coin, below</option>
-						<option id="On reverse of coin, beneath">On reverse of coin, beneath</option>
-						<option id="verso">verso</option>
-					</options>
+
+				<field id="inscriptionContentPosition" autocomplete="vocab-inscriptionposition" ui-type="enum">
+					<!-- Converted to dynamic -->
 				</field>
 				<field id="inscriptionContentScript">
 					<!-- Change options -->
@@ -876,28 +846,9 @@
 						<option id="tattoo">tattoo</option>
 					</options>
 				</field>
-				<field id="inscriptionContentMethod">
-					<!-- Add options -->
-					<options>
-						<option id="">(none selected)</option>
-						<option id="abrasion">abrasion</option>
-						<option id="appliqué">appliqué</option>
-						<option id="brushing">brushing</option>
-						<option id="carving">carving</option>
-						<option id="chiseling">chiseling</option>
-						<option id="combing">combing</option>
-						<option id="drilling">drilling</option>
-						<option id="embossing">embossing</option>
-						<option id="engraving">engraving</option>
-						<option id="etching">etching</option>
-						<option id="Hammered dies">hammered dies</option>
-						<option id="incision">incision</option>
-						<option id="painting">painting</option>
-						<option id="penAndInk">pen and ink</option>
-						<option id="printing">printing</option>
-						<option id="punching">punching</option>
-						<option id="pyrography">pyrography</option>
-					</options>
+
+				<field id="inscriptionContentMethod" autocomplete="vocab-inscriptionmethod" ui-type="enum">
+					<!-- Converted to dynamic -->
 				</field>
 			</repeat>
 		</section>
@@ -905,26 +856,9 @@
 			<repeat id="nonTextualInscriptionGroupList/nonTextualInscriptionGroup">
 				<!-- Remove ui-search, and add concept-concept and concept-archculture to autocomplete -->
 				<field id="inscriptionDescriptionInscriber" ui-search="" autocomplete="person-person,organization-organization,concept-concept,concept-archculture"/>
-				<field id="inscriptionDescriptionPosition">
-					<!-- Change options -->
-					<options>
-						<option id="">(none selected)</option>
-						<option id="back">back</option>
-						<option id="base">base</option>
-						<option id="bottom">bottom</option>
-						<option id="front">front</option>
-						<option id="inside">inside</option>
-						<option id="left">left</option>
-						<option id="obverse">obverse</option>
-						<option id="outside">outside</option>
-						<option id="recto">recto</option>
-						<option id="reverse">reverse</option>
-						<option id="right">right</option>
-						<option id="rim">rim</option>
-						<option id="top">top</option>
-						<option id="verso">verso</option>
-					</options>
-				</field>
+				<field id="inscriptionDescriptionPosition" autocomplete="vocab-contentposition" ui-type="enum">
+					<!-- Converted to dynamic -->
+  				</field>
 				<field id="inscriptionDescriptionType">
 					<!-- Change options -->
 					<options>
@@ -947,29 +881,9 @@
 					</options>
 				</field>
 				<!-- Remove ui-search -->
-				<field id="inscriptionDescriptionMethod" ui-search="">
-					<!-- Add options -->
-					<options>
-						<option id="">(none selected)</option>
-						<option id="abrasion">abrasion</option>
-						<option id="appliqué">appliqué</option>
-						<option id="brushing">brushing</option>
-						<option id="carving">carving</option>
-						<option id="chiseling">chiseling</option>
-						<option id="combing">combing</option>
-						<option id="drilling">drilling</option>
-						<option id="embossing">embossing</option>
-						<option id="engraving">engraving</option>
-						<option id="etching">etching</option>
-						<option id="Hammered dies">hammered dies</option>
-						<option id="incision">incision</option>
-						<option id="painting">painting</option>
-						<option id="penAndInk">pen and ink</option>
-						<option id="printing">printing</option>
-						<option id="punching">punching</option>
-						<option id="pyrography">pyrography</option>
-					</options>
-				</field>
+				<field id="inscriptionDescriptionMethod" ui-search="" autocomplete="vocab-inscriptionmethod" ui-type="enum">
+					<!-- Converted to dynamic -->
+  				</field>
 			</repeat>
 		</section>
 	</section>

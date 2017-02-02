@@ -131,4 +131,153 @@
 			<option id="survey">survey</option>
 		</options>
 	</instance>
+	<instance id="vocab-inscriptionposition">
+		<web-url>inscriptionposition</web-url>
+		<title-ref>inscriptionposition</title-ref>
+		<title>inscriptionposition</title>
+		<options>
+			<option id="inscrpos01">In exergue of coin</option>
+			<option id="inscrpos02">On obverse of coin</option>
+			<option id="inscrpos03">On obverse of coin, before</option>
+			<option id="inscrpos04">On obverse of coin, behind</option>
+			<option id="inscrpos05">On reverse of coin</option>
+			<option id="inscrpos06">On reverse of coin, above</option>
+			<option id="inscrpos07">On reverse of coin, before</option>
+			<option id="inscrpos08">On reverse of coin, behind</option>
+			<option id="inscrpos09">On reverse of coin, below</option>
+			<option id="inscrpos10">On reverse of coin, beneath</option>
+			<option id="inscrpos11">verso</option>
+		</options>
+	</instance>
+	<instance id="vocab-contentposition">
+		<web-url>contentposition</web-url>
+		<title-ref>contentposition</title-ref>
+		<title>contentposition</title>
+		<options>
+			<option id="contpos01">back</option>
+			<option id="contpos02">base</option>
+			<option id="contpos03">bottom</option>
+			<option id="contpos04">front</option>
+			<option id="contpos05">inside</option>
+			<option id="contpos06">left</option>
+			<option id="contpos07">obverse</option>
+			<option id="contpos08">outside</option>
+			<option id="contpos09">recto</option>
+			<option id="contpos10">reverse</option>
+			<option id="contpos11">right</option>
+			<option id="contpos12">rim</option>
+			<option id="contpos13">top</option>
+			<option id="contpos14">verso</option>
+		</options>
+	</instance>
+	<instance id="vocab-inscriptionmethod">
+		<web-url>inscriptionmethod</web-url>
+		<title-ref>inscriptionmethod</title-ref>
+		<title>inscriptionmethod</title>
+		<options>
+			<option id="inscmethod01">abrasion</option>
+			<option id="inscmethod02">appliqué</option>
+			<option id="inscmethod03">brushing</option>
+			<option id="inscmethod04">carving</option>
+			<option id="inscmethod05">chiseling</option>
+			<option id="inscmethod06">combing</option>
+			<option id="inscmethod07">drilling</option>
+			<option id="inscmethod08">embossing</option>
+			<option id="inscmethod09">engraving</option>
+			<option id="inscmethod10">etching</option>
+			<option id="inscmethod11">hammered dies</option>
+			<option id="inscmethod12">incision</option>
+			<option id="inscmethod13">painting</option>
+			<option id="inscmethod14">pen and ink</option>
+			<option id="inscmethod15">printing</option>
+			<option id="inscmethod16">punching</option>
+			<option id="inscmethod17">pyrography</option>
+		</options>
+	</instance>
+	<instance id="vocab-taxonrank">
+        <web-url>taxonrank</web-url>
+        <title-ref>taxonrank</title-ref>
+        <title>taxonrank</title>
+        <options>
+			<option id="taxonrank01">domain</option>
+			<option id="taxonrank02">kingdom</option>
+			<option id="taxonrank03">subkingdom</option>
+			<option id="taxonrank04">infrakingdom</option>
+			<option id="taxonrank05">superphylum</option>
+			<option id="taxonrank06">phylum</option>
+			<option id="taxonrank07">subphylum</option>
+			<option id="taxonrank08">infraphylum</option>
+			<option id="taxonrank09">division</option>
+			<option id="taxonrank10">subdivision</option>
+			<option id="taxonrank11">infradivision</option>
+			<option id="taxonrank12">superclass</option>
+			<option id="taxonrank13">class</option>
+			<option id="taxonrank14">subclass</option>
+			<option id="taxonrank15">infraclass</option>
+			<option id="taxonrank16">superorder</option>
+			<option id="taxonrank17">order</option>
+			<option id="taxonrank18">suborder</option>
+			<option id="taxonrank19">infraorder</option>
+			<option id="taxonrank20">section</option>
+			<option id="taxonrank21">subsection</option>
+			<option id="taxonrank22">superfamily</option>
+			<option id="taxonrank23">family</option>
+			<option id="taxonrank24">subfamily</option>
+			<option id="taxonrank25">tribe</option>
+			<option id="taxonrank26">subtribe</option>
+			<option id="taxonrank27">genus</option>
+			<option id="taxonrank28">species</option>
+			<option id="taxonrank29">subspecies</option>
+        </options>
+    </instance>
+	<instance id="vocab-reasonformove">
+        <web-url>reasonformove</web-url>
+        <title-ref>reasonformove</title-ref>
+        <title>reasonformove</title>
+    	<options>
+			<option id="movereason01">Inventory</option>
+			<option id="movereason02">General Collections Management</option>
+			<option id="movereason03">Research</option>
+			<option id="movereason04">NAGPRA</option>
+			<option id="movereason05">per shelf label</option>
+			<option id="movereason06">New Home Location</option>
+			<option id="movereason07">Loan</option>
+			<option id="movereason08">Exhibit</option>
+			<option id="movereason09">Class Use</option>
+			<option id="movereason10">Photo Request</option>
+			<option id="movereason11">Tour</option>
+			<option id="movereason12">Conservation</option>
+			<option id="movereason13">cultural heritage</option>
+			<option id="movereason14">Object relocation</option>
+			<option id="movereason15">spot inventory</option>
+			<option id="movereason16">2012 HGB surge pre-move inventory</option>
+			<option id="movereason17">2014 Marchant inventory and move</option>
+			<option id="movereason18">Asian Textile Grant</option>
+			<option id="movereason19">Basketry Rehousing Proj</option>
+			<option id="movereason20">BOR Proj</option>
+			<option id="movereason21">Building Maintenance: Seismic</option>
+			<option id="movereason22">California Archaeology Proj</option>
+			<option id="movereason23">Cat. No. Issue Investigation</option>
+			<option id="movereason24">Duct Cleaning Proj</option>
+			<option id="movereason25">Federal Curation Act</option>
+			<option id="movereason26">Fire Alarm Proj</option>
+			<option id="movereason27">First Time Storage</option>
+			<option id="movereason28">Found in Collections</option>
+			<option id="movereason29">Hearst Gym Basement move to Kroeber 20A</option>
+			<option id="movereason30">HGB Surge</option>
+			<option id="movereason31">Kro20Mezz LWeapon Proj 2011</option>
+			<option id="movereason32">Kroeber 20A move to Regatta</option>
+			<option id="movereason33">Marchant Flood 12/2007</option>
+			<option id="movereason34">Native Am Adv Grp Visit</option>
+			<option id="movereason35">NEH Egyptian Collection Grant</option>
+			<option id="movereason36">Regatta move-in</option>
+			<option id="movereason37">Regatta pre-move inventory</option>
+			<option id="movereason38">Regatta pre-move object prep.</option>
+			<option id="movereason39">Regatta pre-move staging</option>
+			<option id="movereason40">SAT grant</option>
+			<option id="movereason41">Temporary Storage</option>
+			<option id="movereason42">Textile Rehousing Proj</option>
+			<option id="movereason43">Yoruba MLN Grant</option>
+		</options>
+	</instance>
 </instances>
