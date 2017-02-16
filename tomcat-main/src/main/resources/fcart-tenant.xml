@@ -55,7 +55,9 @@
 			<include src="base-authority-work-termList.xml"/>
 			<include src="base-authority-work.xml"/>
 
-			<include src="extensions/fcart-profile-vocabularies.xml"/>
+			<!-- <include src="extensions/fcart-profile-vocabularies.xml"/> -->
+			<include src="base-vocabularies.xml,extensions/fcart-profile-vocabularies.xml"
+				merge="xmlmerge.properties" />
 
 			<include src="base-authz-accountrole.xml"/>
 			<include src="base-authz-permission.xml"/>
