@@ -26,7 +26,7 @@
 
 	<include src="domain-vocabularies.xml" strip-root="yes"></include>
 
-	<include src="base-instance-vocabularies.xml"></include>
+	<include id="instances" src="base-instance-vocabularies.xml"></include>
 
 	<section id="coreInformation">
 		<include src="core-fields.xml" strip-root="yes"></include>
