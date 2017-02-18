@@ -2,6 +2,12 @@
   <services-record-path id="naturalhistory">collectionobjects_naturalhistory:http://collectionspace.org/services/collectionobject/domain/naturalhistory,collectionobjects_naturalhistory</services-record-path>
 
   <section id="identificationInformation">
+  	<field id="collection" ui-search="repeatable" seperate_ui_container="true" autocomplete="vocab-collectiontype" ui-type="enum">
+  		<selector>object-identification-collection</selector>
+  		<enum>
+  			<blank-value>Please select a value</blank-value>
+  		</enum>
+  	</field>  	
     <repeat id="taxonomicIdentGroupList/taxonomicIdentGroup" section="naturalhistory">
       <field id="taxon" section="naturalhistory" mini="list" autocomplete="taxon-taxon,taxon-common_ta">
         <selector>taxonomic-identification-taxon</selector>

@@ -12,11 +12,8 @@
 		<records>
 			<enum-blank>Please select a value</enum-blank>
 			<include src="base-authority.xml"/>
-			<include src="base-collectionobject.xml" />
-			<include
-				src="base-collectionobject.xml,naturalhistory-collectionobject.xml"
+			<include src="base-collectionobject.xml,testsci-collectionobject.xml"
 				merge="xmlmerge.properties" />
-
 			<include src="base-procedure-acquisition.xml" />
 			<include src="base-procedure-blobs.xml" />
 			<include src="base-procedure-conditioncheck.xml"/>
