@@ -21,41 +21,8 @@
 	
 	<section id="taxonNameAuthorityInformation">
 		<!-- Add mini, and change options -->
-		<field id="taxonRank" mini="summary">
-			<options>
-				<option id="" default="yes">Please select a value</option>
-				<option id="unknown">unknown</option>
-				<option id="class">class</option>
-				<option id="cultivar">cultivar</option>
-				<option id="division">division</option>
-				<option id="family">family</option>
-				<option id="form">form</option>
-				<option id="genus">genus</option>
-				<option id="grex">grex</option>
-				<option id="group">group</option>
-				<option id="kingdom">kingdom</option>
-				<option id="nothomorph">nothomorph</option>
-				<option id="order">order</option>
-				<option id="proles">proles</option>
-				<option id="race">race</option>
-				<option id="section">section</option>
-				<option id="series">series</option>
-				<option id="species">species</option>
-				<option id="subclass">subclass</option>
-				<option id="subdivision">subdivision</option>
-				<option id="subfamily">subfamily</option>
-				<option id="subform">subform</option>
-				<option id="subgenus">subgenus</option>
-				<option id="subkingdom">subkingdom</option>
-				<option id="suborder">suborder</option>
-				<option id="subsection">subsection</option>
-				<option id="subseries">subseries</option>
-				<option id="subspecies">subspecies</option>
-				<option id="subtribe">subtribe</option>
-				<option id="subvariety">subvariety</option>
-				<option id="tribe">tribe</option>
-				<option id="variety">variety</option>
-			</options>
+		<field id="taxonRank" mini="summary" autocomplete="vocab-taxonrank" ui-type="enum">
+		<!-- Converted to dynamic -->
 		</field>
 		<repeat id="taxonAuthorGroupList/taxonAuthorGroup">
 			<!-- Change autocomplete to organization-nomenclature -->

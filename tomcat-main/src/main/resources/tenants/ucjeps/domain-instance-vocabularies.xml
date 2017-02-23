@@ -25,4 +25,84 @@
 		<options>
 		</options>
 	</instance>
+
+	<instance id="vocab-numbertype">
+		<web-url>numbertype</web-url>
+		<title-ref>numbertype</title-ref>
+		<title>numbertype</title>
+		<options>
+			<option id="numbertype01">Unknown</option>
+			<option id="numbertype02">Cleared leaf ref. coll. no.</option>
+			<option id="numbertype03">Collector Number</option>
+			<option id="numbertype04">Exsiccatae Number</option>
+			<option id="numbertype05">FIMS Identifier</option>
+			<option id="numbertype06">GenBank Code</option>
+			<option id="numbertype07">National Park Service Accession Number</option>
+			<option id="numbertype08">Nectandra Working Group Number</option>
+			<option id="numbertype09" from-static-id="Old institution accession number">Old Institution Accession Number</option>
+			<option id="numbertype10">Old NPS catalog number</option>
+			<option id="numbertype11">Other Label Number</option>
+			<option id="numbertype12">Page Number</option>
+			<option id="numbertype13">Taxonomic Serial Number</option>
+			<option id="numbertype14">U.C. Botanical Garden Accession Number</option>
+		</options>
+	</instance>
+
+	<instance id="vocab-objectphase">
+		<web-url>objectphase</web-url>
+		<title-ref>objectphase</title-ref>
+		<title>objectphase</title>
+		<options>
+			<option id="objectphase01">Unknown</option>
+			<option id="objectphase02">Cone</option>
+			<option id="objectphase03">Flowering</option>
+			<option id="objectphase04">Flowering/Fruiting</option>
+			<option id="objectphase05">Fruiting</option>
+			<option id="objectphase06">Gametophyte</option>
+			<option id="objectphase07">Juvenile</option>
+			<option id="objectphase08">Reproductive</option>
+			<option id="objectphase09">Spores/Sporangia</option>
+			<option id="objectphase10">Sporophyte</option>
+			<option id="objectphase11">Tetrasporophyte</option>
+			<option id="objectphase12">Vegetative (non-reproductive)</option>
+		</options>
+	</instance>
+	<instance id="vocab-taxonrank">
+		<web-url>taxonrank</web-url>
+		<title-ref>taxonrank</title-ref>
+		<title>taxonrank</title>
+		<options>
+			<option id="taxonrank01">unknown</option>
+			<option id="taxonrank02">class</option>
+			<option id="taxonrank03">cultivar</option>
+			<option id="taxonrank04">division</option>
+			<option id="taxonrank05">family</option>
+			<option id="taxonrank06">form</option>
+			<option id="taxonrank07">genus</option>
+			<option id="taxonrank08">grex</option>
+			<option id="taxonrank09">group</option>
+			<option id="taxonrank10">kingdom</option>
+			<option id="taxonrank11">nothomorph</option>
+			<option id="taxonrank12">order</option>
+			<option id="taxonrank13">proles</option>
+			<option id="taxonrank14">race</option>
+			<option id="taxonrank15">section</option>
+			<option id="taxonrank16">series</option>
+			<option id="taxonrank17">species</option>
+			<option id="taxonrank18">subclass</option>
+			<option id="taxonrank19">subdivision</option>
+			<option id="taxonrank20">subfamily</option>
+			<option id="taxonrank21">subform</option>
+			<option id="taxonrank22">subgenus</option>
+			<option id="taxonrank23">subkingdom</option>
+			<option id="taxonrank24">suborder</option>
+			<option id="taxonrank25">subsection</option>
+			<option id="taxonrank26">subseries</option>
+			<option id="taxonrank27">subspecies</option>
+			<option id="taxonrank28">subtribe</option>
+			<option id="taxonrank29">subvariety</option>
+			<option id="taxonrank30">tribe</option>
+			<option id="taxonrank31">variety</option>
+		</options>
+	</instance>
 </root>
