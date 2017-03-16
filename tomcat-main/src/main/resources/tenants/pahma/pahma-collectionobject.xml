@@ -728,32 +728,9 @@
 				<field id="contentPlace" autocomplete="place-place"/>
 			</repeat>
 			<repeat id="contentScripts">
-				<field id="contentScript">
+				<field id="contentScript" autocomplete="vocab-depictedscripttype" ui-type="enum">
 					<!-- Change options -->
-					<options>
-						<option id="">(none selected)</option>
-						<option id="beneventanScript">Beneventan script</option>
-						<option id="blackletter">blackletter</option>
-						<option id="carolingianMiniscule">Carolingian miniscule</option>
-						<option id="chanceryHand">chancery hand</option>
-						<option id="courtHand">court hand</option>
-						<option id="germanicMiniscule">Germanic miniscule</option>
-						<option id="gothicScript">Gothic script</option>
-						<option id="unspecifiedHandwriting">handwriting (unspecified)</option>
-						<option id="humanistMiniscule">humanist miniscule</option>
-						<option id="insularScript">insular script</option>
-						<option id="libraryHand">library hand</option>
-						<option id="merovingianScript">Merovingian script</option>
-						<option id="palmerMethod">Palmer method</option>
-						<option id="romanCursive">Roman cursive</option>
-						<option id="roundHand">round hand</option>
-						<option id="uncialScript">uncial script</option>
-						<option id="secretaryHand">secretary hand</option>
-						<option id="rusticCapitals">rustic capitals</option>
-						<option id="spencerianMethod">Spencerian method</option>
-						<option id="squareCapitals">square capitals</option>
-						<option id="visigothicScript">Visigothic script</option>
-					</options>
+					<!--Changed to dynamic-->
 				</field>
 			</repeat>
 			<repeat id="contentOrganizations">

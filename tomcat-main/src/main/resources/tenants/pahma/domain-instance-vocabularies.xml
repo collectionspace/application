@@ -281,4 +281,101 @@
 			<option id="movereason44">(not entered)</option>
 		</options>
 	</instance>
+	<instance id="vocab-movementmethod">
+	    <web-url>movementmethod</web-url>
+        <title-ref>movementmethod</title-ref>
+        <title>movementmethod</title>
+		<options>
+				<option id="movemethod01">by cart (rubbermaid)</option>
+				<option id="movemethod02">by hand</option>
+				<option id="movemethod03">by "bathtub" cart</option>
+				<option id="movemethod04">by hydraulic lift</option>
+				<option id="movemethod05">by pallet jack</option>
+				<option id="movemethod06">by forklift</option>
+				<option id="movemethod07">by van/truck</option>
+				<option id="movemethod08">By crane</option>
+				<option id="movemethod09">Other (specify in notes)</option>
+		</options>
+	</instance>
+	<instance id="vocab-annotationtype">
+		<web-url>annotationtype</web-url>
+		<title-ref>annotationtype</title-ref>
+		<title>annotationtype</title>
+		<options>
+			<option id="annottype01">ACC file code</option>
+			<option id="annottype02">Accession note</option>
+			<option id="annottype03">AxesOrient/clock: reverse</option>
+			<option id="annottype04">Card information</option>
+			<option id="annottype05">Cataloging notes</option>
+			<option id="annottype06">CD id</option>
+			<option id="annottype07">Collection type</option>
+			<option id="annottype08">Component prep comments</option>
+			<option id="annottype09">Condition notes</option>
+			<option id="annottype10">Conservation notes</option>
+			<option id="annottype11">Control possible</option>
+			<option id="annottype12">Cultural modification note</option>
+			<option id="annottype13">Curatorial remarks</option>
+			<option id="annottype14">Data entry notes</option>
+			<option id="annottype15">Data error</option>
+			<option id="annottype16">Deaccession notes</option>
+			<option id="annottype17">Denomination</option>
+			<option id="annottype18">Destructive sampling notes</option>
+			<option id="annottype19">Inventory remarks</option>
+			<option id="annottype20">Loan notes</option>
+			<option id="annottype21">Minting</option>
+			<option id="annottype22">NAGPRA archaeological evidence</option>
+			<option id="annottype23">NAGPRA background statement</option>
+			<option id="annottype24">NAGPRA bioevaluation data</option>
+			<option id="annottype25">NAGPRA inventory collection history</option>
+			<option id="annottype26">NAGPRA inventory consultation</option>
+			<option id="annottype27">NAGPRA location comment</option>
+			<option id="annottype28">NAGPRA research comments</option>
+			<option id="annottype29">NAGPRA updated curation summary</option>
+			<option id="annottype30">NSF grant osteology data</option>
+			<option id="annottype31">NSF recataloging data</option>
+			<option id="annottype32">Object count note</option>
+			<option id="annottype33">Obverse type</option>
+			<option id="annottype34">Original ledger comments</option>
+			<option id="annottype35">Pathology notes</option>
+			<option id="annottype36">Phase completed</option>
+			<option id="annottype37">Photo roll</option>
+			<option id="annottype38">Registration remark</option>
+			<option id="annottype39">Researcher comments</option>
+			<option id="annottype40">Reverse type</option>
+			<option id="annottype41">Special collection</option>
+			<option id="annottype42">Storage location notes</option>
+			<option id="annottype43">Supplemental information</option>
+			<option id="annottype44">TMS curatorial remarks</option>
+			<option id="annottype45">TMS edition field</option>
+			<option id="annottype46">Verbatim ledger</option>
+		</options>
+	</instance>
+	<instance id="vocab-depictedscripttype">
+	    <web-url>depictedscripttype</web-url>
+        <title-ref>depictedscripttype</title-ref>
+        <title>depictedscripttype</title>
+		<options>
+			<option id="beneventanScript">Beneventan script</option>
+			<option id="blackletter">blackletter</option>
+			<option id="carolingianMiniscule">Carolingian miniscule</option>
+			<option id="chanceryHand">chancery hand</option>
+			<option id="courtHand">court hand</option>
+			<option id="germanicMiniscule">Germanic miniscule</option>
+			<option id="gothicScript">Gothic script</option>
+			<option id="unspecifiedHandwriting">handwriting (unspecified)</option>
+			<option id="humanistMiniscule">humanist miniscule</option>
+			<option id="insularScript">insular script</option>
+			<option id="libraryHand">library hand</option>
+			<option id="merovingianScript">Merovingian script</option>
+			<option id="palmerMethod">Palmer method</option>
+			<option id="romanCursive">Roman cursive</option>
+			<option id="roundHand">round hand</option>
+			<option id="uncialScript">uncial script</option>
+			<option id="secretaryHand">secretary hand</option>
+			<option id="rusticCapitals">rustic capitals</option>
+			<option id="spencerianMethod">Spencerian method</option>
+			<option id="squareCapitals">square capitals</option>
+			<option id="visigothicScript">Visigothic script</option>
+		</options>
+	</instance>
 </instances>
