@@ -1,0 +1,343 @@
+<record id="collection-object" is-extension="true">
+	<services-record-path id="botgarden">collectionobjects_botgarden:http://collectionspace.org/services/collectionobject/local/botgarden,collectionobjects_botgarden</services-record-path>
+	
+	<section id="coreInformation">
+		<!-- Remove mini -->
+		<field id="nametitle" mini=""/>
+	</section>
+	
+	<section id="identificationInformation">
+		<field id="objectNumber">
+			<options>
+				<!-- Add UC and JEPS id generators -->
+				<option id="uc-accession" sample="UC100000">UC Accession</option>
+				<option id="jeps-accession" sample="JEPS100000">Jepson Accession</option>
+			</options>
+		</field>
+
+		<!-- 
+			Create an app-layer-only field for use on advanced search to do range search on objectNumber,
+			in addition to wildcard search. The exists-in-services="false" attribute prevents the field
+			from being saved in the record editor, but still allows it to be used as a search filter.
+			(Adding query-behavior="ignore" would prevent it from being used as a search filter.)
+		-->
+		<field id="objectNumberRangeSearch" ui-search="range" exists-in-services="false">
+			<services-tag>objectNumber</services-tag>
+		</field>
+		
+		<repeat id="otherNumberList/otherNumber">
+			<field id="numberType">
+				<options>
+					<option id="" default="yes">Please select a value</option>
+					<option id="Unknown">Unknown</option>
+					<option id="Collector Number">Collector Number</option>
+					<option id="Exsiccatae Number">Exsiccatae Number</option>
+					<option id="GenBank Code">GenBank Code</option>
+					<option id="Old institution accession number">Old Institution Accession Number</option>
+					<option id="Other Label Number">Other Label Number</option>
+					<option id="U.C. Botanical Garden Accession Number">U.C. Botanical Garden Accession Number</option>
+				</options>
+			</field>
+		</repeat>
+		<field id="collection">
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="Unknown">Unknown</option>
+				<option id="Jepson Herbarium">Jepson Herbarium</option>
+				<option id="University of California Herbarium">University Herbarium, University of California, Berkeley (UC)</option>
+				<option id="University of California- Santa Barbara">University of California- Santa Barbara</option>
+				<option id="Herbarium (UCSC)">Herbarium (UCSC)</option>
+				<option id="University of California">University of California</option>
+				<option id="DHN">DHN</option>
+			</options>
+		</field>
+		<!-- Remove ui-search -->
+		<field id="recordStatus" ui-search="">
+			<!-- Change options -->
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="none">None</option>
+				<option id="partial">Partial</option>
+				<option id="complete">Complete</option>
+				<option id="unknown">Unknown</option>
+		 	</options>
+		</field>
+		<repeat id="taxonomicIdentGroupList/taxonomicIdentGroup">
+			<!-- Change organization-organization to organization-group_org -->
+			<field id="identBy" autocomplete="person-person,organization-group_org"/>
+			<field id="identKind">
+				<options>
+					<option id="">Please select a value</option>
+					<option id="determination">determination</option>
+					<option id="received as">received as</option>
+					<option id="synonym">synonym</option>
+					<option id="valid term">valid term</option>
+					<option id="correction">correction</option>
+					<option id="verification">verification</option>										   
+					<option id="hybrid">hybrid</option>
+				</options>
+			</field>
+		</repeat>
+		<field id="labelHeader" autocomplete="concept-concept"/>
+		<field id="labelFooter" autocomplete="concept-concept"/>
+		
+		<repeat id="typeSpecimenGroupList/typeSpecimenGroup">
+			<!-- Change autocomplete -->
+			<field id="typeSpecimenAssertionBy" autocomplete="person-person"/>
+		</repeat>
+	
+		<field id="source" ui-search="repeatable"/>
+
+		<!-- Local fields -->
+		
+		<field id="deadFlag" section="botgarden" ui-search="single">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false" default="yes">No</option>
+			</options>
+		</field>
+		<field id="deadDate" datatype="date" section="botgarden"/>
+		<field id="deadDateSearch" ui-search="range" ui-type="date" exists-in-services="false" section="botgarden">
+			<services-tag>deadDate</services-tag>
+		</field>
+			
+	</section>
+	
+	<section id="descriptionInformation">
+		<field id="phase">
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="Unknown">Unknown</option>
+				<option id="Cone">Cone</option>
+				<option id="Flowering">Flowering</option>
+				<option id="Flowering/Fruiting">Flowering/Fruiting</option>
+				<option id="Fruiting">Fruiting</option>
+				<option id="Gametophyte">Gametophyte</option>
+				<option id="Juvenile">Juvenile</option>
+				<option id="Spores/Sporangia">Spores/Sporangia</option>
+				<option id="Sporophyte">Sporophyte</option>
+				<option id="Tetrasporophyte">Tetrasporophyte</option>
+				<option id="Vegetative (non-reproductive)">Vegetative (non-reproductive)</option>
+			</options>
+		</field>
+		<repeat id="forms">
+			<field id="form">
+				<options>
+					<option id="" default="yes">Please select a value</option>
+					<option id="Unknown">Unknown</option>
+					<option id="Mounted on Paper">Mounted on Paper</option>
+					<option id="Stored in a Box or Bag">Stored in a Box or Bag</option>
+					<option id="Preserved in Liquid">Preserved in Liquid</option>
+					<option id="Microscope Slide Preparation">Microscope Slide Preparation</option>
+					<option id="Photograph">Photograph</option>
+					<option id="Illustration">Illustration</option>
+					<option id="Photocopy">Photocopy</option>
+					<option id="Box">Box</option>
+					<option id="Bag">Bag</option>
+					<option id="Map">Map</option>
+				</options>			
+			</field>
+		</repeat>
+		<repeat id="annotationGroupList/annotationGroup">
+			<!-- Add groups to autocomplete -->
+			<field id="annotationAuthor" autocomplete="person-person,organization-group_org"/>
+		</repeat>
+		
+		<!-- naturalhistory fields -->
+		
+		<!-- Add ui-search -->
+		<field id="provenanceType" ui-search="repeatable">
+			<!-- Change options -->
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="W-wild source">W-wild source</option>
+				<option id="Z-cultivated from wild source">Z-cultivated from wild source</option>
+				<option id="G-not wild source">G-not wild source</option>
+				<option id="U-unknown">U-unknown</option>
+			</options>
+		</field>
+		
+		<!-- Local fields -->
+		
+		<field id="handwritten" section="botgarden">
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="Unknown">Unknown</option>
+				<option id="yes">Yes</option>
+				<option id="no">No</option>
+			</options>
+		</field>
+		<field id="postToPublic" section="botgarden">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="no">No</option>
+				<option id="yes" default="yes">Yes</option>
+			</options>
+		</field>
+		
+		<field id="cbdRestriction" datatype="boolean" section="botgarden"/>
+
+		<field id="flowerColor" section="botgarden"/>
+		<field id="fruitColor" section="botgarden"/>
+		<field id="propagationHistory" section="botgarden">
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="individual wild plant">individual wild plant</option>
+				<option id="sexual reproduction">sexual reproduction</option>
+				<option id="open breeding">open breeding</option>
+				<option id="controlled breeding">controlled breeding</option>
+				<option id="isolated self-polinated">isolated self-polinated</option>
+				<option id="derived asexually">derived asexually</option>
+				<option id="vegetative reproduction">vegetative reproduction</option>
+				<option id="apomictic cloning">apomictic cloning</option>
+				<option id="unknown">unknown</option>
+			</options>
+		</field>
+		<field id="breedingSystem" section="botgarden">
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="male">male</option>
+				<option id="female">female</option>
+				<option id="both">both</option>
+				<option id="dioecious and unknown sex">dioecious and unknown sex</option>
+				<option id="monoecious and self-compatible">monoecious and self-compatible</option>
+				<option id="monoecious and self-incompatible">monoecious and self-incompatible</option>
+				<option id="agamospermy">agamospermy</option>
+				<option id="unknown">unknown</option>
+			</options>
+		</field>
+		<field id="classUse" datatype="boolean" section="botgarden"/>
+		<field id="researchUse" datatype="boolean" section="botgarden"/>
+		<field id="ignoreRedDot" datatype="boolean" section="botgarden"/>
+		<field id="fragrance" datatype="boolean" section="botgarden"/>
+		<field id="flowersJan" section="botgarden">
+			<options>
+				<option id="No" default="yes">No</option>
+				<option id="Some">Some</option>
+				<option id="Many">Many</option>
+			</options>
+		</field>
+		<field id="flowersFeb" section="botgarden">
+			<options>
+				<option id="No" default="yes">No</option>
+				<option id="Some">Some</option>
+				<option id="Many">Many</option>
+			</options>
+		</field>
+		<field id="flowersMar" section="botgarden">
+			<options>
+				<option id="No" default="yes">No</option>
+				<option id="Some">Some</option>
+				<option id="Many">Many</option>
+			</options>
+		</field>
+		<field id="flowersApr" section="botgarden">
+			<options>
+				<option id="No" default="yes">No</option>
+				<option id="Some">Some</option>
+				<option id="Many">Many</option>
+			</options>
+		</field>
+		<field id="flowersMay" section="botgarden">
+			<options>
+				<option id="No" default="yes">No</option>
+				<option id="Some">Some</option>
+				<option id="Many">Many</option>
+			</options>
+		</field>
+		<field id="flowersJun" section="botgarden">
+			<options>
+				<option id="No" default="yes">No</option>
+				<option id="Some">Some</option>
+				<option id="Many">Many</option>
+			</options>
+		</field>
+		<field id="flowersJul" section="botgarden">
+			<options>
+				<option id="No" default="yes">No</option>
+				<option id="Some">Some</option>
+				<option id="Many">Many</option>
+			</options>
+		</field>
+		<field id="flowersAug" section="botgarden">
+			<options>
+				<option id="No" default="yes">No</option>
+				<option id="Some">Some</option>
+				<option id="Many">Many</option>
+			</options>
+		</field>
+		<field id="flowersSep" section="botgarden">
+			<options>
+				<option id="No" default="yes">No</option>
+				<option id="Some">Some</option>
+				<option id="Many">Many</option>
+			</options>
+		</field>
+		<field id="flowersOct" section="botgarden">
+			<options>
+				<option id="No" default="yes">No</option>
+				<option id="Some">Some</option>
+				<option id="Many">Many</option>
+			</options>
+		</field>
+		<field id="flowersNov" section="botgarden">
+			<options>
+				<option id="No" default="yes">No</option>
+				<option id="Some">Some</option>
+				<option id="Many">Many</option>
+			</options>
+		</field>
+		<field id="flowersDec" section="botgarden">
+			<options>
+				<option id="No" default="yes">No</option>
+				<option id="Some">Some</option>
+				<option id="Many">Many</option>
+			</options>
+		</field>
+		<field id="fruitsJan" datatype="boolean" section="botgarden"/>
+		<field id="fruitsFeb" datatype="boolean" section="botgarden"/>
+		<field id="fruitsMar" datatype="boolean" section="botgarden"/>
+		<field id="fruitsApr" datatype="boolean" section="botgarden"/>
+		<field id="fruitsMay" datatype="boolean" section="botgarden"/>
+		<field id="fruitsJun" datatype="boolean" section="botgarden"/>
+		<field id="fruitsJul" datatype="boolean" section="botgarden"/>
+		<field id="fruitsAug" datatype="boolean" section="botgarden"/>
+		<field id="fruitsSep" datatype="boolean" section="botgarden"/>
+		<field id="fruitsOct" datatype="boolean" section="botgarden"/>
+		<field id="fruitsNov" datatype="boolean" section="botgarden"/>
+		<field id="fruitsDec" datatype="boolean" section="botgarden"/>
+	</section>
+	
+	<section id="objectHistoryAssociationInformation">
+		<section id="associationInformation">
+			<repeat id="assocConceptGroupList/assocConceptGroup">
+				<!-- Remove autocomplete -->
+				<field id="assocConcept" autocomplete=""/>
+			</repeat>
+		</section>
+	</section>
+
+	<section id="referenceInformation">
+		<repeat id="referenceGroupList/referenceGroup">
+			<!-- Remove autocomplete -->
+			<field id="reference" autocomplete=""/>
+		</repeat>
+	</section>
+
+	<section id="objectCollectionInformation">
+		<repeat id="fieldCollectors">
+			<!-- Add ui-search, and change autocomplete to organization-collector -->
+			<field id="fieldCollector" autocomplete="organization-collector" ui-search="repeatable"/>
+		</repeat>
+		<!-- Change autocomplete -->
+		<field id="fieldCollectionNumberAssignor" autocomplete="person-person,organization-collector"/>
+	</section>
+
+	<section id="accessionUseInformation">
+		<repeat id="accessionUseGroupList/accessionUseGroup">
+			<!-- Add autocomplete -->
+			<field id="usedIn" autocomplete="concept-class_ca,concept-research_ca" ui-search="repeatable"/>
+		</repeat>
+	</section>
+</record>
