@@ -54,24 +54,8 @@
 		
 		<repeat id="mediaOtherNumberList/mediaOtherNumber" section="ucjeps">
 			<field id="numberValue" section="ucjeps"/>
-			<field id="numberType" seperate_ui_container="true" section="ucjeps">
-				<options>
-					<option id="" default="yes">Please select a value</option>
-					<option id="Unknown">Unknown</option>
-					<option id="Cleared leaf ref. coll. no.">Cleared leaf ref. coll. no.</option>
-					<option id="Collector Number">Collector Number</option>
-					<option id="Exsiccatae Number">Exsiccatae Number</option>
-					<option id="FIMS Identifier">FIMS Identifier</option>
-					<option id="GenBank Code">GenBank Code</option>
-					<option id="National Park Service Accession Number">National Park Service Accession Number</option>
-					<option id="Nectandra Working Group Number">Nectandra Working Group Number</option>
-					<option id="Old institution accession number">Old Institution Accession Number</option>
-					<option id="Old NPS catalog number">Old NPS catalog number</option>
-					<option id="Other Label Number">Other Label Number</option>
-					<option id="Page Number">Page Number</option>
-					<option id="Taxonomic Serial Number">Taxonomic Serial Number</option>
-					<option id="U.C. Botanical Garden Accession Number">U.C. Botanical Garden Accession Number</option>
-				</options>
+			<field id="numberType" seperate_ui_container="true" section="ucjeps" autocomplete="vocab-numbertype" ui-type="enum">
+        	<!-- Converted to dynamic -->
 			</field>
 		</repeat>
 		
