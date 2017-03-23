@@ -489,4 +489,20 @@
 			<option id="objentryreason04">loan</option>
 		</options>
 	</instance>
+	<instance id="vocab-accaquisitionmethod">
+		<web-url>accaquisitionmethod</web-url>
+		<title-ref>accaquisitionmethod</title-ref>
+		<title>accaquisitionmethod</title>
+		<options>
+			<option id="aqcmethod01" default="yes">gift</option>
+			<option id="aqcmethod02">bequest</option>
+			<option id="aqcmethod03">exchange</option>
+			<option id="aqcmethod04">purchase</option>
+			<option id="aqcmethod05">transfer</option>
+			<option id="aqcmethod06" from-static-id="foundInCollections">found in collections</option>
+			<option id="aqcmethod07">unknown</option>
+		</options>
+	</instance>
+
+
 </instances>
