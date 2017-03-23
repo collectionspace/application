@@ -11,37 +11,15 @@
 		<field id="currentOwner" ui-search="" mini="" in-title=""/>
 		
 		<repeat id="exitMethods">
-			<field id="exitMethod">
+			<field id="exitMethod" autocomplete="vocab-objexitmethod" ui-type="enum">
 				<!-- Change options -->
-				<options>
-					<option id="" default="yes">(none selected)</option>
-					<option id="courier">courier</option>
-					<option id="inperson">in person</option>
-					<option id="post">post</option>
-				</options>
+				<!-- Converted to dynamic-->
 			</field>
 		</repeat>
 		
-		<field id="exitReason">
+		<field id="exitReason" autocomplete="vocab-objexitreason" ui-type="enum">
 			<!-- Change options -->
-			<options>
-				<option id="" default="yes">(none selected)</option>
-				<option id="auctioned-or-sold">auctioned or sold</option>
-				<option id="destructive-testing">destructive testing</option>
-				<option id="destroyed">destroyed</option>
-				<option id="discarded">discarded</option>
-				<option id="exchanged">exchanged</option>
-				<option id="lost">lost</option>
-				<option id="recalled-by-federal-agency">recalled by federal agency</option>
-				<option id="recataloged">recataloged</option>
-				<option id="repatriated">repatriated</option>
-				<option id="returned-to-original-owner">returned to original owner</option>
-				<option id="returnofloan">return of loan</option>
-				<option id="sold">sold</option>
-				<option id="stolen">stolen</option>
-				<option id="transferred">transferred</option>
-				<option id="unknown">unknown</option>
-			</options>
+			<!-- Converted to dynamic  -->
 		</field>
 		
 		<repeat id="newOwnerList" section="anthropology">

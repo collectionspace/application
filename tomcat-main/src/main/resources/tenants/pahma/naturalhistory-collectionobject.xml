@@ -86,7 +86,7 @@
 
 		<repeat id="annotationGroupList/annotationGroup" section="naturalhistory">
 			<field id="annotationType" section="naturalhistory" autocomplete="vocab-annotationtype" ui-type="enum">
-				<!--<selector>collection-object-annotationType</selector>-->
+				<selector>collection-object-annotationType</selector>
 				<!--Converted to Dynamic -->
 			</field>
 			<field id="annotationNote" section="naturalhistory">

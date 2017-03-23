@@ -8,15 +8,9 @@
 				<option id="pahma-intake" sample="IN 2012.1.1">Entry</option>
 			</options>
 		</field>
-		<field id="entryReason">
+		<field id="entryReason" autocomplete="vocab-objentryreason" ui-type="enum">
 			<!-- Change options -->
-			<options>
-				<option id="" default="yes">(none selected)</option>
-				<option id="enquiry">enquiry</option>
-				<option id="consideration">consideration</option>
-				<option id="commission">commission</option>
-				<option id="loan">loan</option>
-			</options>
+			<!-- Converted to dynamic -->
 		</field>
 		<repeat id="entryMethods">
 			<field id="entryMethod">

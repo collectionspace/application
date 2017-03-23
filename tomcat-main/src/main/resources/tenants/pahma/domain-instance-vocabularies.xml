@@ -378,4 +378,115 @@
 			<option id="visigothicScript">Visigothic script</option>
 		</options>
 	</instance>
+	<instance id="vocab-inscriptiontype">
+	    <web-url>inscriptiontype</web-url>
+        <title-ref>inscriptiontype</title-ref>
+        <title>inscriptiontype</title>
+		<options>
+			<option id="inscrconttype01">abecedarium</option>
+			<option id="inscrconttype02">brand</option>
+			<option id="inscrconttype03">coin inscription</option>
+			<option id="inscrconttype04">decoration</option>
+			<option id="inscrconttype05">epitaph</option>
+			<option id="inscrconttype06">estate stamp</option>
+			<option id="inscrconttype07">ex libris</option>
+			<option id="inscrconttype08">graffiti</option>
+			<option id="inscrconttype09">inlaid</option>
+			<option id="inscrconttype10">label</option>
+			<option id="inscrconttype11">maker's mark</option>
+			<option id="inscrconttype12">memento mori</option>
+			<option id="inscrconttype13">monumental inscription</option>
+			<option id="inscrconttype14">ostracon</option>
+			<option id="inscrconttype15">tattoo</option>
+		</options>
+	</instance>
+	<instance id="vocab-assocorgtype">
+	    <web-url>assocorgtype</web-url>
+        <title-ref>assocorgtype</title-ref>
+        <title>assocorgtype</title>
+		<options>
+			<option id="assocorgtype01">donor</option>
+			<option id="assocorgtype02">endorser</option>
+			<option id="assocorgtype03">landowner</option>
+			<option id="assocorgtype04">seller</option>
+			<option id="assocorgtype05">sponsor</option>
+			<option id="assocorgtype06">user</option>
+		</options>
+	</instance>
+	<instance id="vocab-assocpersontype">
+	    <web-url>assocpersontype</web-url>
+        <title-ref>assocpersontype</title-ref>
+        <title>assocpersontype</title>
+		<options>
+			<option id="assocpersontype01">dealer</option>
+			<option id="assocpersontype02">donor</option>
+			<option id="assocpersontype03">in memoriam</option>
+			<option id="assocpersontype04">in-urned</option>
+			<option id="assocpersontype05">informant</option>
+			<option id="assocpersontype06">inspector</option>
+			<option id="assocpersontype07">patron</option>
+			<option id="assocpersontype08">photograph requestor</option>
+			<option id="assocpersontype09">seller</option>
+			<option id="assocpersontype10">transferree</option>
+			<option id="assocpersontype11">transferrer</option>
+		</options>
+	</instance>
+	<instance id="vocab-assocplacetype">
+	    <web-url>assocplacetype</web-url>
+        <title-ref>assocplacetype</title-ref>
+        <title>assocplacetype</title>
+		<options>
+			<option id="assocplacetype01">auctioned in/at</option>
+			<option id="assocplacetype02">excavated at</option>
+			<option id="assocplacetype03">found at</option>
+			<option id="assocplacetype04">native to</option>
+			<option id="assocplacetype05">purchased in/at</option>
+			<option id="assocplacetype06">recovered from</option>
+			<option id="assocplacetype07">quarried from</option>
+			<option id="assocplacetype08">used in/at</option>
+		</options>
+	</instance>
+	<instance id="vocab-objexitmethod">
+	    <web-url>objexitmethod</web-url>
+        <title-ref>objexitmethod</title-ref>
+        <title>objexitmethod</title>
+		<options>
+			<option id="objexitmethod01">courier</option>
+			<option id="objexitmethod02">in person</option>
+			<option id="objexitmethod03">post</option>
+		</options>
+	</instance>
+	<instance id="vocab-objexitreason">
+	    <web-url>objexitreason</web-url>
+        <title-ref>objexitreason</title-ref>
+        <title>objexitreason</title>
+		<options>
+			<option id="exitreason01">auctioned or sold</option>
+			<option id="exitreason02">destructive testing</option>
+			<option id="exitreason03">destroyed</option>
+			<option id="exitreason04">discarded</option>
+			<option id="exitreason05">exchanged</option>
+			<option id="exitreason06">lost</option>
+			<option id="exitreason07">recalled by federal agency</option>
+			<option id="exitreason08">recataloged</option>
+			<option id="exitreason09">repatriated</option>
+			<option id="exitreason10">returned to original owner</option>
+			<option id="exitreason11">return of loan</option>
+			<option id="exitreason12">sold</option>
+			<option id="exitreason13">stolen</option>
+			<option id="exitreason14">transferred</option>
+			<option id="exitreason15">unknown</option>
+		</options>
+	</instance>
+	<instance id="vocab-objentryreason">
+	    <web-url>objentryreason</web-url>
+        <title-ref>objentryreason</title-ref>
+        <title>objentryreason</title>
+		<options>
+			<option id="objentryreason01">enquiry</option>
+			<option id="objentryreason02">consideration</option>
+			<option id="objentryreason03">commission</option>
+			<option id="objentryreason04">loan</option>
+		</options>
+	</instance>
 </instances>

@@ -801,27 +801,9 @@
 						<option id="visigothicScript">Visigothic script</option>
 					</options>
 				</field>
-				<field id="inscriptionContentType">
+				<field id="inscriptionContentType" autocomplete="vocab-inscriptiontype" ui-type="enum">
 					<!-- Change options -->
-					<options>
-						<option id="">(none selected)</option>
-						<option id="abecedarium">abecedarium</option>
-						<option id="brand">brand</option>
-						<option id="coinInscription">coin inscription</option>
-						<option id="decoration">decoration</option>
-						<!-- <option id="embossment">embossment</option> --> <!-- REPETITIVE, GIVEN EMBOSSING AS AN INSCRIPTION METHOD -->
-						<option id="epitaph">epitaph</option>
-						<option id="estateStamp">estate stamp</option>
-						<option id="exLibris">ex libris</option>
-						<option id="graffiti">graffiti</option>
-						<option id="inlaid">inlaid</option>
-						<option id="label">label</option>
-						<option id="makersMark">maker's mark</option>
-						<option id="mementoMori">memento mori</option>
-						<option id="monumentalInscription">monumental inscription</option>
-						<option id="ostracon">ostracon</option>
-						<option id="tattoo">tattoo</option>
-					</options>
+					<!-- Changed to dynamic -->
 				</field>
 
 				<field id="inscriptionContentMethod" autocomplete="vocab-inscriptionmethod" ui-type="enum">
@@ -1035,19 +1017,10 @@
 			<repeat id="assocOrganizationGroupList/assocOrganizationGroup">
 				<!-- Add ui-search -->
 				<field id="assocOrganization" ui-search="repeatable"/>
-				<field id="assocOrganizationType">
-					<!-- Add selector -->
+				<field id="assocOrganizationType" autocomplete="vocab-assocorgtype" ui-type="enum">
 					<selector>collection-object-assocOrganizationType</selector>
-					<!-- Add options -->
-					<options>
-						<option id="" default="yes">(none selected)</option>
-						<option id="donor">donor</option>
-						<option id="endorser">endorser</option>
-						<option id="landowner">landowner</option>
-						<option id="seller">seller</option>
-						<option id="sponsor">sponsor</option>
-						<option id="user">user</option>
-					</options>
+					<!-- Converted to Dynamic-->
+
 				</field>
 			</repeat>
 			<repeat id="assocPeopleGroupList/assocPeopleGroup">
@@ -1075,48 +1048,19 @@
 			<repeat id="assocPersonGroupList/assocPersonGroup">
 				<!-- Add ui-search -->
 				<field id="assocPerson" ui-search="repeatable"/>
-				<field id="assocPersonType">
+				<field id="assocPersonType" autocomplete="vocab-assocpersontype" ui-type="enum">
 					<!-- Add selector -->
 					<selector>collection-object-assocPersonType</selector>
 					<!-- Add options -->
-					<options>
-						<option id="" default="yes">(none selected)</option>
-						<option id="dealer">dealer</option>
-						<option id="donor">donor</option>
-						<option id="in memoriam">in memoriam</option>
-						<option id="in-urned">in-urned</option>
-						<option id="informant">informant</option>
-						<option id="inspector">inspector</option>
-						<option id="patron">patron</option>
-						<option id="photograph requestor">photograph requestor</option>
-						<option id="seller">seller</option>
-						<option id="transferree">transferree</option>
-						<option id="transferrer">transferrer</option>
-					</options>
 				</field>
 			</repeat>
 			<repeat id="assocPlaceGroupList/assocPlaceGroup">
 				<!-- Add autocomplete and ui-search -->
 				<field id="assocPlace" autocomplete="place-place" ui-search="repeatable"/>
-				<field id="assocPlaceType">
+				<field id="assocPlaceType" autocomplete="vocab-assocplacetype" ui-type="enum">
 					<!-- Add selector -->
 					<selector>collection-object-assocPlaceType</selector>
 					<!-- Add options -->
-					<options>
-						<option id="" default="yes">(none selected)</option>
-						<option id="auctioned">auctioned in/at</option>
-						<!--
-						<option id="blessingLocation">blessed at</option>
-						<option id="consecration">consecrated at</option>
-						-->
-						<option id="excavated">excavated at</option>
-						<option id="found">found at</option>
-						<option id="nativeTo">native to</option>
-						<option id="purchased">purchased in/at</option>
-						<option id="recovered">recovered from</option>
-						<option id="quarried">quarried from</option>
-						<option id="used">used in/at</option>
-					</options>
 				</field>
 			</repeat>
 			<field id="assocEventNameType">
