@@ -286,15 +286,15 @@
         <title-ref>movementmethod</title-ref>
         <title>movementmethod</title>
 		<options>
-				<option id="movemethod01">by cart (rubbermaid)</option>
-				<option id="movemethod02">by hand</option>
-				<option id="movemethod03">by "bathtub" cart</option>
-				<option id="movemethod04">by hydraulic lift</option>
-				<option id="movemethod05">by pallet jack</option>
-				<option id="movemethod06">by forklift</option>
-				<option id="movemethod07">by van/truck</option>
-				<option id="movemethod08">By crane</option>
-				<option id="movemethod09">Other (specify in notes)</option>
+				<option id="movemethod01" from-static-id="rubbermaid">by cart (rubbermaid)</option>
+				<option id="movemethod02" from-static-id="handcarried">by hand</option>
+				<option id="movemethod03" from-static-id="bathtubcart">by "bathtub" cart</option>
+				<option id="movemethod04" from-static-id="hydrauliclift">by hydraulic lift</option>
+				<option id="movemethod05" from-static-id="palletjack">by pallet jack</option>
+				<option id="movemethod06" from-static-id="forklift">by forklift</option>
+				<option id="movemethod07" from-static-id="vantruck">by van/truck</option>
+				<option id="movemethod08" from-static-id="crane">By crane</option>
+				<option id="movemethod09" from-static-id="other">Other (specify in notes)</option>
 		</options>
 	</instance>
 	<instance id="vocab-annotationtype">
@@ -355,27 +355,27 @@
         <title-ref>depictedscripttype</title-ref>
         <title>depictedscripttype</title>
 		<options>
-			<option id="beneventanScript">Beneventan script</option>
-			<option id="blackletter">blackletter</option>
-			<option id="carolingianMiniscule">Carolingian miniscule</option>
-			<option id="chanceryHand">chancery hand</option>
-			<option id="courtHand">court hand</option>
-			<option id="germanicMiniscule">Germanic miniscule</option>
-			<option id="gothicScript">Gothic script</option>
-			<option id="unspecifiedHandwriting">handwriting (unspecified)</option>
-			<option id="humanistMiniscule">humanist miniscule</option>
-			<option id="insularScript">insular script</option>
-			<option id="libraryHand">library hand</option>
-			<option id="merovingianScript">Merovingian script</option>
-			<option id="palmerMethod">Palmer method</option>
-			<option id="romanCursive">Roman cursive</option>
-			<option id="roundHand">round hand</option>
-			<option id="uncialScript">uncial script</option>
-			<option id="secretaryHand">secretary hand</option>
-			<option id="rusticCapitals">rustic capitals</option>
-			<option id="spencerianMethod">Spencerian method</option>
-			<option id="squareCapitals">square capitals</option>
-			<option id="visigothicScript">Visigothic script</option>
+			<option id="depictedtype01" from-static-id="beneventanScript">Beneventan script</option>
+			<option id="depictedtype02" from-static-id="blackletter">blackletter</option>
+			<option id="depictedtype03" from-static-id="carolingianMiniscule">Carolingian miniscule</option>
+			<option id="depictedtype04" from-static-id="chanceryHand">chancery hand</option>
+			<option id="depictedtype05" from-static-id="courtHand">court hand</option>
+			<option id="depictedtype06" from-static-id="germanicMiniscule">Germanic miniscule</option>
+			<option id="depictedtype07" from-static-id="gothicScript">Gothic script</option>
+			<option id="depictedtype08" from-static-id="unspecifiedHandwriting">handwriting (unspecified)</option>
+			<option id="depictedtype09" from-static-id="humanistMiniscule">humanist miniscule</option>
+			<option id="depictedtype10" from-static-id="insularScript">insular script</option>
+			<option id="depictedtype11" from-static-id="libraryHand">library hand</option>
+			<option id="depictedtype12" from-static-id="merovingianScript">Merovingian script</option>
+			<option id="depictedtype13" from-static-id="palmerMethod">Palmer method</option>
+			<option id="depictedtype14" from-static-id="romanCursive">Roman cursive</option>
+			<option id="depictedtype15" from-static-id="roundHand">round hand</option>
+			<option id="depictedtype16" from-static-id="uncialScript">uncial script</option>
+			<option id="depictedtype17" from-static-id="secretaryHand">secretary hand</option>
+			<option id="depictedtype18" from-static-id="rusticCapitals">rustic capitals</option>
+			<option id="depictedtype19" from-static-id="spencerianMethod">Spencerian method</option>
+			<option id="depictedtype20" from-static-id="squareCapitals">square capitals</option>
+			<option id="depictedtype21" from-static-id="visigothicScript">Visigothic script</option>
 		</options>
 	</instance>
 	<instance id="vocab-inscriptiontype">
@@ -385,17 +385,17 @@
 		<options>
 			<option id="inscrconttype01">abecedarium</option>
 			<option id="inscrconttype02">brand</option>
-			<option id="inscrconttype03">coin inscription</option>
+			<option id="inscrconttype03" from-static-id="coinInscription">coin inscription</option>
 			<option id="inscrconttype04">decoration</option>
 			<option id="inscrconttype05">epitaph</option>
-			<option id="inscrconttype06">estate stamp</option>
-			<option id="inscrconttype07">ex libris</option>
+			<option id="inscrconttype06" from-static-id="estateStamp">estate stamp</option>
+			<option id="inscrconttype07" from-static-id="exLibris">ex libris</option>
 			<option id="inscrconttype08">graffiti</option>
 			<option id="inscrconttype09">inlaid</option>
 			<option id="inscrconttype10">label</option>
-			<option id="inscrconttype11">maker's mark</option>
-			<option id="inscrconttype12">memento mori</option>
-			<option id="inscrconttype13">monumental inscription</option>
+			<option id="inscrconttype11" from-static-id="makersMark">maker's mark</option>
+			<option id="inscrconttype12" from-static-id="mementoMori">memento mori</option>
+			<option id="inscrconttype13" from-static-id="monumentalInscription">monumental inscription</option>
 			<option id="inscrconttype14">ostracon</option>
 			<option id="inscrconttype15">tattoo</option>
 		</options>
@@ -436,14 +436,14 @@
         <title-ref>assocplacetype</title-ref>
         <title>assocplacetype</title>
 		<options>
-			<option id="assocplacetype01">auctioned in/at</option>
-			<option id="assocplacetype02">excavated at</option>
-			<option id="assocplacetype03">found at</option>
-			<option id="assocplacetype04">native to</option>
-			<option id="assocplacetype05">purchased in/at</option>
-			<option id="assocplacetype06">recovered from</option>
-			<option id="assocplacetype07">quarried from</option>
-			<option id="assocplacetype08">used in/at</option>
+			<option id="assocplacetype01" from-static-id="auctioned">auctioned in/at</option>
+			<option id="assocplacetype02" from-static-id="excavated">excavated at</option>
+			<option id="assocplacetype03" from-static-id="found">found at</option>
+			<option id="assocplacetype04" from-static-id="nativeTo">native to</option>
+			<option id="assocplacetype05" from-static-id="purchased">purchased in/at</option>
+			<option id="assocplacetype06" from-static-id="recovered">recovered from</option>
+			<option id="assocplacetype07" from-static-id="quarried">quarried from</option>
+			<option id="assocplacetype08" from-static-id="used">used in/at</option>
 		</options>
 	</instance>
 	<instance id="vocab-objexitmethod">
@@ -452,7 +452,7 @@
         <title>objexitmethod</title>
 		<options>
 			<option id="objexitmethod01">courier</option>
-			<option id="objexitmethod02">in person</option>
+			<option id="objexitmethod02" from-static-id="inperson">in person</option>
 			<option id="objexitmethod03">post</option>
 		</options>
 	</instance>
@@ -461,17 +461,17 @@
         <title-ref>objexitreason</title-ref>
         <title>objexitreason</title>
 		<options>
-			<option id="exitreason01">auctioned or sold</option>
-			<option id="exitreason02">destructive testing</option>
+			<option id="exitreason01" from-static-id="auctioned-or-sold">auctioned or sold</option>
+			<option id="exitreason02" from-static-id="destructive-testing">destructive testing</option>
 			<option id="exitreason03">destroyed</option>
 			<option id="exitreason04">discarded</option>
 			<option id="exitreason05">exchanged</option>
 			<option id="exitreason06">lost</option>
-			<option id="exitreason07">recalled by federal agency</option>
+			<option id="exitreason07" from-static-id="recalled-by-federal-agency">recalled by federal agency</option>
 			<option id="exitreason08">recataloged</option>
 			<option id="exitreason09">repatriated</option>
-			<option id="exitreason10">returned to original owner</option>
-			<option id="exitreason11">return of loan</option>
+			<option id="exitreason10" from-static-id="returned-to-original-owner">returned to original owner</option>
+			<option id="exitreason11" from-static-id="returnofloan">return of loan</option>
 			<option id="exitreason12">sold</option>
 			<option id="exitreason13">stolen</option>
 			<option id="exitreason14">transferred</option>
