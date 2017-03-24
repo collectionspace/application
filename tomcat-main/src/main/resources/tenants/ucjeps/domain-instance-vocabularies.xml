@@ -105,4 +105,18 @@
 			<option id="taxonrank31">variety</option>
 		</options>
 	</instance>
+	<instance id="vocab-georefsource">
+		<web-url>georefsource</web-url>
+		<title-ref>georefsource</title-ref>
+		<title>georefsource</title>
+		<options>
+			<option id="georefsource01">BerkeleyMapper</option>
+			<option id="georefsource02">GPS</option>
+			<option id="georefsource03">Coords from Gayle I. Hansen</option>
+			<option id="georefsource04">GEOLocate</option>
+			<option id="georefsource05">Google Earth</option>
+			<option id="georefsource06">Terrain Navigator</option>
+			<option id="georefsource07">BioGeomancer</option>
+		</options>
+	</instance>
 </root>
