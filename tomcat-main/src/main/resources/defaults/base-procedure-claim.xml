@@ -1,0 +1,76 @@
+<record id="claim" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
+	<services-url>claims</services-url>
+    <services-tenant-singular>Claim</services-tenant-singular>
+    <services-tenant-plural>Claims</services-tenant-plural>
+    <web-url>claim</web-url>
+    <tab-url>claim-tab</tab-url>	
+
+	<services-list-path>abstract-common-list/list-item</services-list-path>
+	<services-record-path>claims_common:http://collectionspace.org/services/claim,claims_common</services-record-path>
+	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+	<hassoftdelete>true</hassoftdelete>
+
+	<structures>
+        <structure id="search">
+            <view>
+                <label-section id="messagekeys" show="true"></label-section>
+            </view>
+        </structure>
+		<structure id="screen">
+			<view>
+				<label-section id="messagekeys" show="true"></label-section>
+			</view>
+		</structure>
+		<structure id="tab">
+			<view>
+				<titlebar show="false"></titlebar>
+				<sidebar show="false"></sidebar>
+				<edit-section id="details" show="true"></edit-section>
+				<list-section id="list" show="false"></list-section>
+				<label-section id="messagekeys" show="true"></label-section>
+			</view>
+			<repeat id="list" asSibling="true">
+				<selector>recordList-row:</selector>
+				<field id="summary" ui-type="list">
+					<selector>related-summary</selector>
+				</field>
+				<field id="number" ui-type="list">
+					<selector>related-number</selector>
+				</field>
+			</repeat>
+		</structure>
+	</structures>
+	
+	<include src="domain-procedure-claim.xml" strip-root="yes"/>
+	
+	<row-selector>.csc-recordList-row:</row-selector>
+	
+	<section id="coreInformation">
+		<include src="core-fields.xml"  strip-root="yes" />
+	</section>
+	
+	<section id="claimInformation"> 
+		<field id="claimNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate" seperate_ui_container="true">
+			<title-selector>titleBar-claimNumber</title-selector>
+            <container-selector>claim-claimNumber-container</container-selector>
+			<options>
+				<option id="claim" sample="CL 2011.1">Claim</option>
+			</options>
+		</field>
+		
+		<repeat id="responsibleDepartments">
+			<field id="responsibleDepartment"></field>
+		</repeat>
+
+		<repeat id="claimClaimantGroupList/claimClaimantGroup"> <!-- CORE -->
+			<field id="filedBy" autocomplete="person-person,organization-organization"></field> <!-- CORE -->
+			<field id="filedOnBehalfOf" mini="summary,search,list,relate" autocomplete="person-person,organization-organization"></field> <!-- CORE -->
+			<field id="claimantNote"></field> <!-- SUGGESTED CORE -->
+		</repeat>
+		
+		<repeat id="claimReceivedGroupList/claimReceivedGroup"> <!-- CORE and SUGGESTED CORE -->
+			<field id="claimReceivedDate" ui-search="range" ui-type="date" datatype="date"></field> <!-- CORE -->
+			<field id="claimReceivedNote"></field> <!-- SUGGESTED CORE -->
+		</repeat>
+	</section>
+</record>
