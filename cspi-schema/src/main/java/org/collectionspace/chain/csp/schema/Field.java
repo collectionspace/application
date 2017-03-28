@@ -296,9 +296,19 @@ public class Field extends FieldSetImpl {
 	@Override
 	public Record getSelfRendererRecord() {
 		String parts[] = getUIType().split("/");
-		if(parts.length!=3 || !SELFRENDERER.equals(parts[2]))  //FIXME: This is horribly opaque code! We need to document this.
+		if (parts.length!=3 || !SELFRENDERER.equals(parts[2])) { //FIXME: This is horribly opaque code! We need to document this.
+			String msg = String.format("'%s' field named '%s' has missing or incorrect UI type declaration of '%s'.",
+					SELFRENDERER, this.getID(), getUIType());
+			log.error(msg);
 			return null;
+		}
 		Record subrecord = getRecord().getSpec().getRecordByServicesUrl(parts[1]);
+		if (subrecord == null) {
+			String msg = String.format("'%s' field named '%s' is looking for but cannot find an instance for record type '%s' in the current spec.", 
+					SELFRENDERER, this.getID(), parts[1]);
+			log.error(msg);
+		}
+		
 		return subrecord;
 	}
 	
