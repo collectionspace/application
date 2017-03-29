@@ -44,6 +44,8 @@ public class AssemblingParser {
 	InputSource getMain() { return main; }
 	
 	public void parse(Result out) throws ConfigException {
+		String errMsg = String.format("Config Generation: '%s' - Exception raised during parsing.", 
+				this.getMain().getPublicId());
 		try {
 			String rootpath=AssemblingParser.class.getPackage().getName().replaceAll("\\.","/")+"/"+root_file;
 			InputStream root=Thread.currentThread().getContextClassLoader().getResourceAsStream(rootpath); // load the file at org/collectionspace/chain/csp/config/impl/parser/root.xml
@@ -54,13 +56,13 @@ public class AssemblingParser {
 			reader.setContentHandler(new AssemblingContentHandler(this,xform));
 			reader.parse(new InputSource(root));
 		} catch(IOException e) {
-			throw new ConfigException("Exception raised during parsing",e);
+			throw new ConfigException(errMsg, e);
 		} catch (ParserConfigurationException e) {
-			throw new ConfigException("Exception raised during parsing",e);
+			throw new ConfigException(errMsg, e);
 		} catch (SAXException e) {
-			throw new ConfigException("Exception raised during parsing",e);
+			throw new ConfigException(errMsg, e);
 		} catch (TransformerConfigurationException e) {
-			throw new ConfigException("Exception raised during parsing",e);
+			throw new ConfigException(errMsg, e);
 		}
 	}
 }

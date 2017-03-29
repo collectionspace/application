@@ -40,6 +40,8 @@ import ch.elca.el4j.services.xmlmerge.config.PropertyXPathConfigurer;
 // XXX namespaces in XSLT
 public class AssemblingContentHandler extends DefaultHandler implements ContentHandler {
 
+    private static final Logger logger = LoggerFactory.getLogger(AssemblingContentHandler.class);
+
     private static final class XSLTTag {
         private String src, root;
     }
@@ -50,7 +52,6 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
         private boolean strip;
     }
 
-    private static final Logger logger = LoggerFactory.getLogger(AssemblingContentHandler.class);
     private static final String XMLMERGE_DEFAULT_PROPS_STR = "matcher.default=ID\n";
     private static final String XSLT_TAG = "xslt";
     private static final String INCLUDE_TAG = "include";
@@ -68,17 +69,26 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
     private AssemblingParser parser;
     private Map<String, XSLTTag> xslt_tags = new HashMap<String, XSLTTag>();
     private Map<String, IncludeTag> include_tags = new HashMap<String, IncludeTag>();
+	private String srcFileName = null;
 
+	public String getSrcFileName() {
+		return this.srcFileName;
+	}
+	
     private static File setTempDirectory() {
     	File result = null;
     	
     	try {
     		result = FileTools.createTmpDir("merged-app-config-");
     	} catch (IOException x) {
-    		logger.debug("Could not create a temp directory in which to store the XMLMerge results of the app config files.", x);
+    		logger.debug("Config generation: Could not create a temp directory in which to store the XMLMerge results of the app config files.", x);
     	}
     	
     	return result;
+    }
+    
+    public static File getTempDirectory() {
+    	return tempDirectory;
     }
     
     AssemblingContentHandler(AssemblingParser parser, ContentHandler r) throws ConfigException, IOException {
@@ -103,10 +113,15 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 		if (rp != null) {
 			this.tenantname = rp.tenantname;
 		}
+		if (parser.getMain().getPublicId() != null) {
+			this.srcFileName = parser.getMain().getPublicId();
+		}
 		this.parser = parser;
 	}
 
     private void apply_xslt(InputSource xslt, String root) throws SAXException {
+    	String errMsg = String.format("Config Generation: '%s' - Could not create inner parser.",
+    			getSrcFileName());
         try {
             ContentHandler inner = new AssemblingContentHandler(parser, up, false, false, this);
             TransformerHandler transformer = transfactory.newTransformerHandler(new StreamSource(xslt.getByteStream()));
@@ -119,26 +134,28 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
             delegated_root = root;
             delegated_depth = 1;
         } catch (TransformerConfigurationException e) {
-            throw new SAXException("Could not create inner parser", e);
+            throw new SAXException(errMsg, e);
         } catch (ConfigException e) {
-            throw new SAXException("Could not create inner parser", e);
+            throw new SAXException(errMsg, e);
         } catch (IOException e) {
-			//logger.debug("Could not create);
+            throw new SAXException(errMsg, e);
 		}
-
     }
 
     private void apply_include(InputSource src, boolean strip) throws SAXException {
+    	String errMsg = String.format("Config Generation: '%s' - Could not create inner parser.",
+    			getSrcFileName());
+
         try {
             SAXParser sp = factory.newSAXParser();
             DefaultHandler inner = new AssemblingContentHandler(parser, up, false, strip, this);
             sp.parse(src, inner);
         } catch (ParserConfigurationException e) {
-            throw new SAXException("Could not create inner parser", e);
+            throw new SAXException(errMsg, e);
         } catch (ConfigException e) {
-            throw new SAXException("Could not create inner parser", e);
+            throw new SAXException(errMsg, e);
         } catch (IOException e) {
-            throw new SAXException("Could not create inner parser", e);
+            throw new SAXException(errMsg, e);
         }
     }
 
@@ -169,10 +186,10 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
                 File mergedOutFile = new File(AssemblingContentHandler.tempDirectory, outputFileNamePrefix + ".xml"); //make a copy of the merge results
                 FileUtils.copyInputStreamToFile(result, mergedOutFile);
                 result.reset();
-                logger.info(String.format("XMLMerge results were written to file: %s", mergedOutFile.getAbsolutePath()));
+                logger.info(String.format("Config Generation: '%s' - XMLMerge results were written to file: %s", getSrcFileName(), mergedOutFile.getAbsolutePath()));
             } catch (IOException e) {
-                logger.info(String.format("Could not write XMLMerge results to directory: %s",
-                		AssemblingContentHandler.tempDirectory.getAbsolutePath()), e);
+                logger.info(String.format("Config Generation: '%s' - Could not write XMLMerge results to directory: %s",
+                		getSrcFileName(), AssemblingContentHandler.tempDirectory.getAbsolutePath()), e);
             }
         }
 
@@ -192,7 +209,9 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
                 result.load(inputSource.getByteStream());
             } // FIXME: REM - Add an 'else' clause with a warning log entry here -i.e., the stream is empty the input source is null
         } catch (Exception e) {
-            logger.debug("Could not find the XMLMerge properties file named: " + resourceName);
+        	String msg = String.format("Config Generation: '%s' - Could not find the XMLMerge properties file named: %s.", 
+        			getSrcFileName(), resourceName);
+            logger.debug(msg);
         }
 
         return result;
@@ -209,7 +228,9 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
                     inputSources.remove(inputSource);
                 }
             } catch (IOException e) {
-                logger.warn("Encountered an exception while converting InputSource array to InputStream array", e);
+            	String msg = String.format("Config Generation: '%s' - Encountered an exception while converting InputSource array to InputStream array.",
+            			getSrcFileName());
+                logger.warn(msg, e);
             }
         }
         InputStream[] inputStreams = new InputStream[inputSources.size()]; //now create the InputStream[] array for XMLMerge
@@ -231,7 +252,8 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
                 mergedStream = merge(includeTag.src.replace(',', '_'), // peform the merge
                         xmlmergeProps, toArray(inputSources));
             } catch (AbstractXmlMergeException e) {
-                String msg = "Could not merge the include files: " + includeTag.src;
+                String msg = String.format("Config Generation: '%s' - Could not merge the include files: ",
+                		getSrcFileName(), includeTag.src);
                 logger.warn(msg);
                 throw new IOException(msg, e);
             }
@@ -409,18 +431,23 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
             if (inputSource != null) {
                 result.add(inputSource);
             } else {
-                logger.warn("Source file for \"Include\" tag could not be found: " + src);
+            	String msg = String.format("Config Generation: '%s' - Source file for \"Include\" tag could not be found: '%s'.", 
+            			getSrcFileName(), src);
+                logger.warn(msg);
             }
         }
 
         if (result.isEmpty() == true) {
-            logger.warn("All source files for \"Include\" tag could not be found: " + all);
+        	String msg = String.format("Config Generation: '%s' - All source files for \"Include\" tag could not be found: '%s'.",
+        			getSrcFileName(), all);
+            logger.warn(msg);
         }
 
         return result;
     }
 
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    @Override
+	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         depth++;
         if (depth == 1 && strip) {
             return;
@@ -459,7 +486,8 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
         }
     }
 
-    public void endElement(String uri, String localName, String qName) throws SAXException {
+    @Override
+	public void endElement(String uri, String localName, String qName) throws SAXException {
         depth--;
         if (depth == 0 && strip) {
             return;
@@ -485,7 +513,8 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
         up.endElement(uri, localName, qName);
     }
 
-    public void characters(char[] ch, int start, int length) throws SAXException {
+    @Override
+	public void characters(char[] ch, int start, int length) throws SAXException {
         if (delegated_depth > 0) {
             delegated.characters(ch, start, length);
         } else {
@@ -493,19 +522,22 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
         }
     }
 
-    public void startDocument() throws SAXException {
+    @Override
+	public void startDocument() throws SAXException {
         if (outer) {
             up.startDocument();
         }
     }
 
-    public void endDocument() throws SAXException {
+    @Override
+	public void endDocument() throws SAXException {
         if (outer) {
             up.endDocument();
         }
     }
 
-    public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
+    @Override
+	public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
         return parser.getEntityResolver().resolveEntity(publicId, systemId);
     }
 }

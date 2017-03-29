@@ -73,8 +73,15 @@ public class CSPManagerImpl implements CSPManager {
 		for (Configurable config : config_csps) {
 			config.configure(rules);
 		}
+		
+		if (forXsdGeneration == true) {
+			String msg = String.format("Config Generation: '%s' - ### Generating Service configuration from '%s'.", 
+					in.getPublicId(), in.getPublicId());
+			log.info(msg);
+		}
+		
 		try {
-			ConfigParser parser = new ConfigParser(rules,er);
+			ConfigParser parser = new ConfigParser(rules, er);
 			parser.parse(in);
 			// Finish up all the config-related tasks
 			for(Configurable config : config_csps) {
@@ -85,7 +92,9 @@ public class CSPManagerImpl implements CSPManager {
 				config.complete_init(this, forXsdGeneration);
 			}
 		} catch (ConfigException e) {
-			throw new CSPDependencyException(e); // XXX			
+			String msg = String.format("Config Generation: '%s' - Trouble parsing configuration files.", 
+					in.getPublicId());
+			throw new CSPDependencyException(msg, e); // XXX			
 		}
 	}
 	

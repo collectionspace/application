@@ -105,6 +105,7 @@ public class XsdGeneration {
 	
 	private String tenantBindings = null;
 	private File configBase = null;
+	private File configFile = null;
 	private Spec spec;
 
 	public Spec getSpec() {
@@ -215,6 +216,9 @@ public class XsdGeneration {
 		// 1. Setup a hashmap to keep track of which records and bundles we've already processed.
 		// 2. Loop through all the known record types
 		if (generationType.equals(CommonAPI.GENERATE_BUNDLES)) { // if 'true' then generate the schema and doctype bundles
+			log.info(""); // just a spacer in the log output
+			log.info(String.format("Config Generation: '%s' - ### Generating Service bundles from '%s'.", 
+					configfile.getName(), configfile.getAbsolutePath()));
 			boolean docTypesCreated = true;
 			for (Record record : spec.getAllRecords()) {
 				if (log.isDebugEnabled() == true) {
@@ -233,18 +237,20 @@ public class XsdGeneration {
 							try {
 								createSchemaBundle(record, definedSchema, definedSchemaList, bundlesOutputDir);
 								getServiceSchemas().put(definedSchema, definedSchemaList.get(definedSchema)); // Store a copy of the schema that was generated
-								log.debug(String.format("New Services schema '%s' defined in Application configuration record '%s'.",
-										definedSchema, record.getID()));
+								log.info(String.format("Config Generation: '%s' - New Services schema '%s' defined in Application configuration record '%s'.",
+										configfile.getName(), definedSchema, record.getID()));
 							} catch (Exception e) {
 								schemasCreated = false;
 								// TODO Auto-generated catch block
-								log.error(String.format("Could not create schema bundle for '%s'.", definedSchema), e);
+								log.error(String.format("Config Generation: '%s' - Could not create schema bundle for '%s'.",
+										configfile.getName(), definedSchema), e);
 							}
 						} else {
 							// Otherwise, it already exists so emit a warning just in case it shouldn't have been redefined.
-							log.warn(String.format("Services schema '%s' defined in record '%s', but was previously defined in another record.",
-									definedSchema, record.getID()));
-							log.trace(String.format("Redefined services schema is: %s", definedSchemaList.get(definedSchema)));
+							log.warn(String.format("Config Generation: '%s' - Services schema '%s' defined in record '%s', but was previously defined in another record.",
+									configfile.getName(), definedSchema, record.getID()));
+							log.trace(String.format("Config Generation: '%s' - Redefined services schema is: %s", 
+									configfile.getName(), definedSchemaList.get(definedSchema)));
 						}
 					}
 					//
@@ -254,21 +260,26 @@ public class XsdGeneration {
 						createDocumentTypeBundle(record, definedSchemaList, bundlesOutputDir);
 					} else {
 						docTypesCreated = false;
-						log.error(String.format("Failed to create all the required schema bundles for App record ID='%s'.", record.getID()));
+						log.error(String.format("Config Generation: '%s' - Failed to create all the required schema bundles for App record ID='%s'.",
+								configfile.getName(), record.getID()));
 					}
 				}
 			}
 			
 			if (docTypesCreated == false) {
-				String errMsg = String.format("Not all required document and schema bundles were created for the App config file '%s'.  See the log file for details.",
-						configfile.getAbsolutePath());
+				String errMsg = String.format("Config Generation: '%s' - Not all required document and schema bundles were created for the App config file '%s'.  See the log file for details.",
+						configfile.getName(), configfile.getAbsolutePath());
 				throw new Exception(errMsg);
 			}
 		} else if (generationType.equals(CommonAPI.GENERATE_BINDINGS)) { // Create the service bindings.
-			ServiceBindingsGeneration tenantbob = new ServiceBindingsGeneration(createSpec(cspm), getTenantData(cspm),false);
+			log.info(""); // just a spacer in the log output
+			log.info(String.format("Config Generation: '%s' - ### Generating Service bindings from '%s'.", 
+					configfile.getName(), configfile.getAbsolutePath()));
+			ServiceBindingsGeneration tenantbob = new ServiceBindingsGeneration(getConfigFile(), createSpec(cspm), getTenantData(cspm),false);
 			tenantBindings = tenantbob.doit(serviceBindingsVersion);
 		} else {
-			throw new Exception("Unknown generation type requested.");
+			throw new Exception(String.format("Config Generation: '%s' - Unknown generation type '%s' requested.", 
+					configfile.getName(), generationType));
 		}
 	}
 	
@@ -280,7 +291,8 @@ public class XsdGeneration {
 		for (String schemaName : definedSchemaList.keySet()) {
 			String bundleName = getServiceSchemaBundles().get(schemaName);
 			if (bundleName != null && bundleName.isEmpty() == false) {
-				log.debug(String.format("Included in Require-Bundle list entry: '%s'", bundleName));
+				log.debug(String.format("Config Generation: '%s' - Included in Require-Bundle list entry: '%s'",
+						this.getConfigFile().getName(), bundleName));
 				strBuf.append(bundleName);
 				strBuf.append(lineSeparator);
 			} else {
@@ -350,8 +362,8 @@ public class XsdGeneration {
 		if (getServiceDoctypeBundles().containsKey(docTypeName) == false) {
 			File doctypeTemplatesDir = new File(this.getConfigBase() + "/" + templateDirPrefix + NUXEO_DOCTYPE_TEMPLATES_DIR);
 			if (doctypeTemplatesDir.exists() == true) {
-				log.debug(String.format("### Creating Nuxeo document type ${NuxeoDocTypeName}='%s' in bundle: '%s'",
-						docTypeName, bundleName));
+				log.info(String.format("Config Generation: '%s' - Creating Nuxeo document type ${NuxeoDocTypeName}='%s' in bundle: '%s'",
+						this.getConfigFile().getName(), docTypeName, bundleName));
 				ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(bundleName));
 				//
 				// Create the manifest file from the doctype template
@@ -419,7 +431,8 @@ public class XsdGeneration {
 				getServiceDoctypeBundles().put(docTypeName, bundleName);
 			}
 		} else {
-			String errMsg = String.format("Nuxeo document type '%s' already exists.  Skipping creation.", docTypeName);
+			String errMsg = String.format("Config Generation: '%s' - Nuxeo document type '%s' already exists.  Skipping creation.",
+					this.getConfigFile().getName(), docTypeName);
 			throw new Exception(errMsg);
 		}
 	}
@@ -497,7 +510,8 @@ public class XsdGeneration {
 		// Check that the OSGI-INF directory exists
 		File osgiDir = new File(osgiInfTemplatesDir.getAbsolutePath() + "/" + OSGI_INF_DIR);
 		if (osgiDir.exists() == false || osgiDir.isDirectory() == false) {
-			throw new Exception(String.format("The %s directory '%s' is missing.", OSGI_INF_DIR, osgiDir.getAbsolutePath()));
+			throw new Exception(String.format("Config Generation: '%s' - The %s directory '%s' is missing.", OSGI_INF_DIR, 
+					this.getConfigFile().getName(), osgiDir.getAbsolutePath()));
 		}
 		// Create the "OSGI-INF" directory in the output jar/zip file
 		zos.putNextEntry(new ZipEntry(OSGI_INF_DIR + "/"));
@@ -510,7 +524,8 @@ public class XsdGeneration {
 				processTemplateFile(osgiFile, substitutionMap, zos, kNOT_AN_OSGI_MANIFEST);	
 				zos.closeEntry();
 			} else {
-				log.error(String.format("Ignoring directory '%s' while processing OSGI-INF files.", osgiFile.getAbsolutePath()));
+				log.error(String.format("Config Generation: '%s' - Ignoring directory '%s' while processing OSGI-INF files.", 
+						this.getConfigFile().getName(), osgiFile.getAbsolutePath()));
 			}
 		}
 	}
@@ -558,8 +573,8 @@ public class XsdGeneration {
 		File parentAuthorityTemplate = new File(schemaTypeTemplatesDir.getAbsolutePath() + "/" + SCHEMAS_DIR + "/" +
 				NUXEO_PARENT_AUTHORITY_TEMPLATE);
 		if (parentAuthorityTemplate.exists() == false) {
-			throw new Exception(String.format("The %s template '%s' is missing.", NUXEO_PARENT_AUTHORITY_TEMPLATE, 
-					parentAuthorityTemplate.getAbsolutePath()));
+			throw new Exception(String.format("Config Generation: '%s' - The %s template '%s' is missing.",
+					this.getConfigFile().getName(), NUXEO_PARENT_AUTHORITY_TEMPLATE, parentAuthorityTemplate.getAbsolutePath()));
 		}
 		
 		String authoritieCommonName = getAuthoritiesCommonName(record).toLowerCase();
@@ -595,7 +610,8 @@ public class XsdGeneration {
 			}
 			zos.closeEntry(); // flush and close the "schemas" entry in the zip/jar file
 		} else {
-			String errMsg = String.format("The contents for the schema '%s' is empty or missing.", schemaName);
+			String errMsg = String.format("Config Generation: '%s' - The contents for the schema '%s' is empty or missing.",
+					this.getConfigFile().getName(), schemaName);
 			log.error(errMsg);
 			throw new Exception(errMsg);
 		}
@@ -603,7 +619,8 @@ public class XsdGeneration {
 	
 	private void createManifestFile(File metaInfTemplate, HashMap<String, String> substitutionMap, ZipOutputStream zos) throws Exception {
 		if (metaInfTemplate.exists() == false) {
-			throw new Exception(String.format("The manifest template file '%s' is missing:", metaInfTemplate.getAbsolutePath()));
+			throw new Exception(String.format("Config Generation: '%s' - The manifest template file '%s' is missing:",
+					this.getConfigFile().getName(), metaInfTemplate.getAbsolutePath()));
 		}
 		// Create the "META-INF" directory in the output jar/bundle zip file
 		zos.putNextEntry(new ZipEntry(META_INF_DIR + "/"));
@@ -664,9 +681,8 @@ public class XsdGeneration {
 			
 			if (schemaTypeTemplatesDir.exists() == true) {
 				File outputFile = new File(bundleName);
-				if (log.isDebugEnabled() == true) {
-					log.debug(String.format("Creating new jar file: '%s'", outputFile.getAbsolutePath()));
-				}
+				log.info(String.format("Config Generation: '%s' - Creating new jar file: '%s'", 
+						this.getConfigFile().getName(), outputFile.getAbsolutePath()));
 				ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(outputFile));
 				//
 				// Create the manifest file from the schema type template
@@ -715,13 +731,13 @@ public class XsdGeneration {
 				//
 				getServiceSchemaBundles().put(schemaName, bundleSymbolicName); // keep track of the bundles we've created
 			} else {
-				String errMsg = String.format("The '%s' directory is missing looging for it at '%s'.", NUXEO_SCHEMA_TYPE_TEMPLATES_DIR,
-						schemaTypeTemplatesDir.getAbsolutePath());
+				String errMsg = String.format("Config Generation: '%s' - The '%s' directory is missing looging for it at '%s'.", 
+						this.getConfigFile().getName(), NUXEO_SCHEMA_TYPE_TEMPLATES_DIR, schemaTypeTemplatesDir.getAbsolutePath());
 				throw new Exception(errMsg);
 			}
 		} else {
-			log.warn(String.format("Nuxeo schema '%s' is being redefined in record '%s'.  Ignoring redefinition and *not* creating a new extension point bundle for the schema.",
-					schemaName, record.getID()));
+			log.warn(String.format("Config Generation: '%s' - Nuxeo schema '%s' is being redefined in record '%s'.  Ignoring redefinition and *not* creating a new extension point bundle for the schema.",
+					this.getConfigFile().getName(), schemaName, record.getID()));
 		}
 	}
 
@@ -777,15 +793,16 @@ public class XsdGeneration {
 				zos.write(result.getBytes(), 0, result.getBytes().length);
 			}
 		} else {
-			String errMsg = String.format("The file '%s' was empty or missing.", templateFile.getAbsoluteFile());
+			String errMsg = String.format("Config Generation - The file '%s' was empty or missing.",
+					templateFile.getAbsoluteFile());
 			if (bufferExceeded > 1) {
-				errMsg = String.format("The file '%s' was too large to fit in our memory buffer.  It needs to be less than %d bytes, but was at least %d bytes in size.",
+				errMsg = String.format("Config Generation - The file '%s' was too large to fit in our memory buffer.  It needs to be less than %d bytes, but was at least %d bytes in size.",
 						templateFile.getAbsoluteFile(), MAX_CONFIG_FILE_SIZE, fileSize);
 			}
 			throw new Exception(errMsg);
 		}
 		
-		log.debug(String.format("The processed file is:\n%s", result));
+		log.debug(String.format("Config Generation - The processed file is:\n%s", result));
 		return result;
 	}
 	
@@ -845,6 +862,7 @@ public class XsdGeneration {
 		try {
 			inputStream = new FileInputStream(file);
 			result = new InputSource(inputStream);
+			result.setPublicId(file.getName());
 		} catch (FileNotFoundException e) {
 			log.error(String.format("Could not create an InputSource instance from file '%s'.", file.getAbsolutePath()), e);
 		}
@@ -908,16 +926,25 @@ public class XsdGeneration {
 		cspm.setConfigBase(configBase); // Saves a copy of the base config directory
 		cspm.configure(getSource(configFile), new ConfigFinder(null, configBase), true);
 		this.setConfigBase(configBase);
+		this.setConfigFile(configFile);
 		result = cspm;
 		
 		return result;
 	}
 
-	private void setConfigBase(File configBase) {
+	protected void setConfigBase(File configBase) {
 		this.configBase = configBase;
 	}
 	
-	private File getConfigBase() {
+	protected File getConfigBase() {
 		return this.configBase;
+	}
+	
+	protected void setConfigFile(File configFile) {
+		this.configFile = configFile;
+	}
+	
+	protected File getConfigFile() {
+		return this.configFile;
 	}
 }

@@ -60,6 +60,7 @@ public class ServiceBindingsGeneration {
 
 	private static final String RECORD_NAME_VOCAB = "vocab";
 	
+	protected File configFile;
 	protected Spec spec;
 	protected TenantSpec tenantSpec;
 	protected Boolean defaultonly;
@@ -81,7 +82,8 @@ public class ServiceBindingsGeneration {
 		// Intentionally left blank?
 	}
 	
-	public ServiceBindingsGeneration(Spec spec,TenantSpec td, Boolean isdefault) throws IOException {
+	public ServiceBindingsGeneration(File configFile, Spec spec,TenantSpec td, Boolean isdefault) throws IOException {
+		this.configFile = configFile;
 		this.spec = spec;
 		this.tenantSpec = td;
 		this.defaultonly = isdefault;
@@ -113,11 +115,12 @@ public class ServiceBindingsGeneration {
 					result = RECORD_TYPE_VOCABULARY;	// termlistitem is *not* in the "record list"			
 				}
 			} else {
-				log.trace(String.format("Record '%s' is neither an object nor a vocabulary.  Please verify it is a procedure.", record.getRecordName()));
+				log.debug(String.format("Config Generation: '%s' - Record '%s' is neither an object nor a vocabulary.  Please verify it is a procedure.", 
+						getConfigFile().getName(), record.getRecordName()));
 			}
 		} else {
-			log.warn(String.format("Record '%s' is not of type 'record'.  We're going to assume it is a 'procedure' but please verify by hand.",
-					record.getRecordName()));
+			log.warn(String.format("Config Generation: '%s' - Record '%s' is not of type 'record'.  We're going to assume it is a 'procedure' but please verify by hand.",
+					getConfigFile().getName(), record.getRecordName()));
 		}
 		
 		return result;
@@ -182,9 +185,12 @@ public class ServiceBindingsGeneration {
 		// loop over each record type and add a <tenant:serviceBindings> element
 		for (Record r : this.spec.getAllRecords()) {
 			String tenantName = this.tenantSpec.getTenant();
+			String tenantId = this.tenantSpec.getTenantId();
 			String recordName = r.getRecordName();
-			if (log.isDebugEnabled() == true) {
-				log.debug(String.format("Processing App record '%s'", recordName));
+			
+			if (log.isDebugEnabled()) {
+				log.debug(String.format("Config Generation: '%s' - Processing potential service bindings for record type '%s'", 
+						getConfigFile().getName(), recordName));
 			}
 
 			if (shouldGenerateServiceBinding(r) == true) {
@@ -219,12 +225,12 @@ public class ServiceBindingsGeneration {
 				} else if (r.isType(RECORD_TYPE_AUTHORIZATIONDATA)) {
 					// ignore at the moment as they are so non standard
 					// addAuthorization(r,ele);
-					log.debug(String.format("Ignoring record '%s:%s' at the moment as it is of type '%s' and so non-standard",
-							tenantName, r.getRecordName(), RECORD_TYPE_AUTHORIZATIONDATA));
+					log.debug(String.format("Config Generation: '%s' - Ignoring record '%s:%s' at the moment as it is of type '%s' and so non-standard",
+							getConfigFile().getName(), tenantName, r.getRecordName(), RECORD_TYPE_AUTHORIZATIONDATA));
 				} else {
 					// Should never get here
-					log.warn(String.format("Record '%s.%s' is of an unknown type so we could not create a service binding for it.",
-							tenantName, recordName));
+					log.warn(String.format("Config Generation: '%s' - Record '%s.%s' is of an unknown type so we could not create a service binding for it.",
+							getConfigFile().getName(), tenantName, recordName));
 				}
 				//
 				// Debug-log the generated Service bindings for this App layer record
@@ -232,11 +238,12 @@ public class ServiceBindingsGeneration {
 				if (log.isDebugEnabled() == true) {
 					Element bindingsForRecord = serviceBindingsElement;
 					if (bindingsForRecord != null && !r.isType(RECORD_TYPE_AUTHORITY)) {
-						this.writeToFile(r, bindingsForRecord, false);
+						this.debugWriteToFile(r, bindingsForRecord, false);
 					}
 				}
 			} else {
-				log.debug(String.format("'%s.%s' does not require a service binding.", tenantName, recordName));
+				log.info(String.format("Config Generation: '%s' - Skipping record '%s' because it does not require a service binding.",
+						getConfigFile().getName(), recordName));
 			}
 		}
 		
@@ -246,7 +253,7 @@ public class ServiceBindingsGeneration {
 	//
 	// For debugging purposes, this method writes a service bindings element to disk.
 	//
-	void writeToFile(Record r, Element bindingsForRecord, boolean isAuthority) {
+	void debugWriteToFile(Record r, Element bindingsForRecord, boolean isAuthority) {
 		if (log.isDebugEnabled() == true) {
 			String tenantName = this.tenantSpec.getTenant();
 			String recordName = r.getRecordName();
@@ -257,7 +264,7 @@ public class ServiceBindingsGeneration {
 			// Write out the service bindings if log level is TRACE
 			//
 			String serviceBindings = bindingsForRecord.asXML();
-			log.trace(String.format("Service bindings for record='%s': %s", recordName, serviceBindings));
+			log.trace(String.format("Config Generation: '%s' - Service bindings for record='%s': %s", getConfigFile().getName(), recordName, serviceBindings));
 			//
 			// Write the service bindings to a file for debugging/troubleshooting.
 			//
@@ -265,11 +272,11 @@ public class ServiceBindingsGeneration {
 			File serviceBindingsFile = new File(getTempDirectory(), serviceBindingsFileName); // Write this to a temp directory for debugging purposes
 			try {
 				FileUtils.writeStringToFile(serviceBindingsFile, serviceBindings);
-				log.debug(String.format("Wrote Service bindings for record='%s' to file: %s",
-						recordName, serviceBindingsFile.getAbsoluteFile()));
+				log.debug(String.format("Config Generation: '%s' - Wrote Service bindings for record='%s' to file: %s",
+						getConfigFile().getName(), recordName, serviceBindingsFile.getAbsoluteFile()));
 			} catch (Exception e) {
-				log.debug(String.format("Could not write Service bindings for record='%s' to file: %s",
-						recordName, serviceBindingsFile.getAbsoluteFile()), e);
+				log.debug(String.format("Config Generation: '%s' - Could not write Service bindings for record='%s' to file: %s",
+						getConfigFile().getName(), recordName, serviceBindingsFile.getAbsoluteFile()), e);
 			}
 		}
 	}
@@ -436,7 +443,8 @@ public class ServiceBindingsGeneration {
 				result = true;
 			}
 		} else {
-			log.trace(String.format("Ignoring FieldSet instance '%s:%s'", Arrays.toString(f.getIDPath()), f.getID()));
+			log.trace(String.format("Config Generation: '%s' - Ignoring FieldSet instance '%s:%s'",
+					getConfigFile().getName(), Arrays.toString(f.getIDPath()), f.getID()));
 		}
 		
 		return result;
@@ -715,7 +723,7 @@ public class ServiceBindingsGeneration {
 
 		addServiceBinding(r, bindingsForAuthorityItemx, nsservices, false, serviceBindingVersion);
 		if (log.isDebugEnabled() == true) {
-			this.writeToFile(r, bindingsForAuthorityItemx, false);
+			this.debugWriteToFile(r, bindingsForAuthorityItemx, false);
 		}
 
 		// Add the bindings for the Authority/Vocabulary.
@@ -733,7 +741,7 @@ public class ServiceBindingsGeneration {
 
 		addServiceBinding(r, bindingsForAuthority, nsservices, true, serviceBindingVersion);
 		if (log.isDebugEnabled() == true) {
-			this.writeToFile(r, bindingsForAuthority, true);
+			this.debugWriteToFile(r, bindingsForAuthority, true);
 		}
 	}
 	
@@ -794,9 +802,16 @@ public class ServiceBindingsGeneration {
 			
 			//<service:object>
 			doServiceObject(r, el, this.nsservices, isAuthority, serviceBindingVersion);
+			
+			if (log.isInfoEnabled()) {
+				String msg = String.format("Config Generation: '%s' - Created service bindings for record type '%s'.", 
+						this.getConfigFile().getName(), r.getRecordName());
+				log.info(msg);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error(String.format("Could not create service bindings for record '%s' in namespace '%s'.", r.getRecordName(), nameSpace.toString()));
+			log.error(String.format("Config Generation: '%s' - Could not create service bindings for record '%s'.", 
+					getConfigFile().getName(), r.getRecordName()));
 		}
 	}
 	
@@ -949,7 +964,8 @@ public class ServiceBindingsGeneration {
 
 		FieldSet[] allMiniSummaryList = r.getAllMiniSummaryList();
 		if (allMiniSummaryList == null) {
-			log.error(String.format("allMiniSummaryList for record '%s' is null.", r.getRecordName()));
+			log.error(String.format("Config Generation: '%s' - allMiniSummaryList for record '%s' is null.", 
+					getConfigFile().getName(), r.getRecordName()));
 		}
 		String section;
 		for (FieldSet fs : allMiniSummaryList) {
@@ -1004,11 +1020,11 @@ public class ServiceBindingsGeneration {
 			//
 			String parentRecordName = repeat.getRecord().getRecordName();
 			if (servicesTag != null && !servicesTag.equals(parts[0])) {
-				log.warn(String.format("Potential internal error.  The Services tag '%s' does not match the field name '%s' for Repeat field '%s:%s.'",
-						servicesTag, parts[0], parentRecordName, repeat.getfullID()));
+				log.warn(String.format("Config Generation: '%s' - Potential internal error.  The Services tag '%s' does not match the field name '%s' for Repeat field '%s:%s.'",
+						getConfigFile().getName(), servicesTag, parts[0], parentRecordName, repeat.getfullID()));
 			} else if (servicesTag == null) {
-				log.warn(String.format("Internal error.  Services tag '%s' was null for Repeat field '%s:%s'.",
-						servicesTag, parentRecordName, repeat.getfullID()));
+				log.warn(String.format("Config Generation: '%s' - Internal error.  Services tag '%s' was null for Repeat field '%s:%s'.",
+						getConfigFile().getName(), servicesTag, parentRecordName, repeat.getfullID()));
 			}
 		}
 		
@@ -1076,6 +1092,10 @@ public class ServiceBindingsGeneration {
 		}
 		
 		return result;
+	}
+	
+	protected File getConfigFile() {
+		return this.configFile;
 	}
 	
 	/*

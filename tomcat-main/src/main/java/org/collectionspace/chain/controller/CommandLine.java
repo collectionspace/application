@@ -31,7 +31,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.impl.SLF4JLog;
 import org.apache.log4j.Level;
-
+import org.collectionspace.chain.csp.config.impl.parser.AssemblingContentHandler;
 import org.collectionspace.chain.installation.XsdGeneration;
 import org.collectionspace.csp.helper.core.ConfigFinder;
 import org.collectionspace.services.common.api.JEEServerDeployment;
@@ -96,7 +96,7 @@ public class CommandLine {
 
 		if (logger instanceof org.slf4j.impl.Log4jLoggerAdapter) {
 			try {
-				Class loggerIntrospected = logger.getClass();
+				Class<? extends Logger> loggerIntrospected = logger.getClass();
 				Field fields[] = loggerIntrospected.getDeclaredFields();
 				for (int i = 0; i < fields.length; i++) {
 					String fieldName = fields[i].getName();
@@ -569,14 +569,18 @@ public class CommandLine {
 				String mergedTenantBindingsFilename = getBindingsOutputDir().getAbsolutePath() + File.separator
 						+ tenantName + "-" + JEEServerDeployment.TENANT_BINDINGS_PROTOTYPE_FILENAME;
 				FileUtils.writeStringToFile(new File(mergedTenantBindingsFilename), mergedTenantBindings);
-				logger.info(String.format("Wrote merged tenant bindings to: '%s'", mergedTenantBindingsFilename));
+				if (logger.isInfoEnabled()) {
+					logger.info("***");
+					logger.info(String.format("Config Generation: '%s' - Wrote merged tenant bindings to: '%s'", 
+							tenantConfigFile.getName(), mergedTenantBindingsFilename));
+				}
 			} else {
-				throw new Exception(String.format("Could not create merged tenant bindings for file %s",
-						tenantConfigFile));
+				throw new Exception(String.format("Config Generation: '%s' - Could not create merged tenant bindings for file %s",
+						tenantConfigFile.getName(), tenantConfigFile));
 			}
 		} catch (Exception e) {
-			result = String.format("Error encountered generating service bindings for tenant '%s' configuration.",
-					tenantConfigFile.getAbsolutePath());
+			result = String.format("Config Generation: '%s' - Error encountered generating service bindings for tenant '%s' configuration.",
+					tenantConfigFile.getName(), tenantConfigFile.getAbsolutePath());
 			logger.error(result, e);
 		}
 		
@@ -587,7 +591,7 @@ public class CommandLine {
 		//
 		// By default, we'll provide verbose messages to the user
 		//
-		changeLoggerLevel(Level.ERROR);
+		changeLoggerLevel(Level.INFO);
 		
 		//
 		// If the user used the '-s' command line argument then we switch to "silent" or "suppress" messages mode.
@@ -610,7 +614,7 @@ public class CommandLine {
 		//
 		// Set our logging/output level
 		//
-		//setLoggingLevel();
+		setLoggingLevel();
 
 		//
 		// Find the Services' configuration base directory
@@ -649,6 +653,13 @@ public class CommandLine {
 		//
 		String errMsg = null;
 		for (File tenantConfigFile : tenantConfigFileList) {
+			
+			String logMsg = String.format("Config Generation: '%s' - ### Started processing tenant configuration file '%s'.", 
+					tenantConfigFile.getName(), tenantConfigFile.getAbsolutePath());
+			logger.info("###");
+			logger.info(logMsg);
+			logger.info("###");
+			
 			//
 			// First generate the Service bundles -i.e., the Nuxeo doctype and schema bundles
 			//
@@ -662,13 +673,20 @@ public class CommandLine {
 			errMsg = generateServiceBindings(tenantConfigFile);
 			if (errMsg != null  && errMsg.isEmpty() == false) {
 				logFailureAndExit(errMsg);
-			}				
+			}
+			
+			logMsg = String.format("Config Generation: '%s' - ### Finished processing tenant configuration file '%s'.", 
+					tenantConfigFile.getName(), tenantConfigFile.getAbsolutePath());
+			logger.info(logMsg);
+			logger.info("***\n");
 		}
 
 		//
 		// We made it!
 		//
-		logger.info("Execution success.");
+		logger.info("Config Generation - Execution success.");
+		logger.info(String.format("Service artifacts written out to '%s'.", getBaseOutputDir().getAbsolutePath()));
+		logger.info(String.format("Temporary XMLMerge files were written out to '%s'.", AssemblingContentHandler.getTempDirectory()));
 	}
 
 	/*
