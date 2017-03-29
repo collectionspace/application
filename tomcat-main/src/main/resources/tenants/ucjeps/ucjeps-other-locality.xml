@@ -279,6 +279,9 @@
 			<!-- Configure decimalLatitude and decimalLongitude to be computed -->
 			<field id="decimalLatitude" ui-type="computed" ui-func="cspace.georef.dms2decimal" ui-args="vLatitude" ui-readonly="true"/>
 			<field id="decimalLongitude" ui-type="computed" ui-func="cspace.georef.dms2decimal" ui-args="vLongitude" ui-readonly="true"/>
+			<field id="geoRefSource" autocomplete="vocab-georefsource" ui-type="enum">
+			<!-- Converted to dynamic -->
+			</field>
 		</repeat>
     </section>
 </record>
