@@ -289,4 +289,27 @@
   ".csc-work-workType-label": {
     "messagekey": "work-workTypeLabel"
   }
+  ".csc-work-createdAtStart": {
+      "decorators": [{
+          "func": "cspace.datePicker",
+          "type": "fluid"
+      }],
+      "value": "${createdAtStart}"
+  },
+  ".csc-work-createdAt-label": {
+      "messagekey": "work-createdAtLabel"
+  },
+  ".csc-work-createdAtStart-label": {
+      "messagekey": "work-createdAtStartLabel"
+  },
+  ".csc-work-createdAtEnd": {
+      "decorators": [{
+          "func": "cspace.datePicker",
+          "type": "fluid"
+      }],
+      "value": "${createdAtEnd}"
+  },
+  ".csc-work-createdAtEnd-label": {
+      "messagekey": "work-createdAtEndLabel"
+  },
 }

@@ -96,6 +96,9 @@
             "hidePrimary": true
         }
     }]},
+        ".csc-acquisition-createdAtStart-label": {
+        "messagekey": "acquisition-createdAtStartLabel"
+    },
     ".csc-acquisition-accessionDateGroupEnd": {
         "decorators": [{
             "func": "cspace.datePicker",
@@ -117,6 +120,9 @@
     ".csc-acquisition-acquisitionFundingValue-label": {"messagekey": "acquisition-acquisitionFundingValueLabel"},
     ".csc-acquisition-acquisitionDateGroupEnd-label": {"messagekey": "acquisition-acquisitionDateGroupEndLabel"},
     ".csc-acquisition-updatedBy-label": {"messagekey": "acquisition-updatedByLabel"},
+        ".csc-acquisition-createdAtEnd-label": {
+        "messagekey": "acquisition-createdAtEndLabel"
+    },
     ".csc-acquisition-fieldCollectionEventName": {"decorators": [{
         "func": "cspace.makeRepeatable",
         "type": "fluid",
@@ -129,6 +135,13 @@
             "hidePrimary": true
         }
     }]},
+    ".csc-acquisition-createdAtEnd": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${createdAtEnd}"
+    },    
     ".csc-acquisition-acquisition-method": {"decorators": [{
         "func": "cspace.makeRepeatable",
         "type": "fluid",
@@ -196,6 +209,16 @@
             "type": "fluid"
         }],
         "value": "${acquisitionDateGroupEnd}"
+    },
+    ".csc-acquisition-createdAt-label": {
+        "messagekey": "acquisition-createdAtLabel"
+    },
+    ".csc-acquisition-createdAtStart": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${createdAtStart}"
     },
     ".csc-acquisition-objectPurchasePriceValueEnd": {
         "decorators": [{

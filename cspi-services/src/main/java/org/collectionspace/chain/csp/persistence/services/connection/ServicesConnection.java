@@ -187,14 +187,24 @@ public class ServicesConnection {
 
 				out.setResponse(method, response);
 			} catch (ConnectionException ce) {
+				method.releaseConnection();
 				throw new ConnectionException(ce.getMessage(), ce.getStatus(), base_url + "/" + uri, ce);
 			} catch (ExistException ee) {
+				method.releaseConnection();
 				throw new ConnectionException(ee.getMessage(), ee.getStatus(), base_url + "/" + uri, ee);
 			} catch (Exception e) {
+				method.releaseConnection();
 				throw new ConnectionException(e.getMessage(), 0, base_url + "/" + uri, e);
 			} finally {
-				method.releaseConnection();
-
+				// Don't release the connection, since the associated input stream has not yet been
+				// read. That stream is an instance of AutoCloseInputStream, which will automatically
+				// release the connection once it has been read to the end. In theory we shouldn't
+				// have to explicitly release it -i.e., using method.releaseConnection();
+				
+				if (log.isTraceEnabled()) {
+					log.trace("HTTP connection pool size: " + manager.getConnectionsInPool());
+				}
+				
 				if (log.isWarnEnabled()) {
 					if (manager.getConnectionsInPool() >= MAX_SERVICES_CONNECTIONS) {
 						log.warn("reached max services connection limit of " + MAX_SERVICES_CONNECTIONS);
@@ -259,6 +269,12 @@ public class ServicesConnection {
 		return out;
 	}
 
+	public ReturnedDocument getBatchDocument(RequestMethod method_type,String uri,Document body,CSPRequestCredentials creds,CSPRequestCache cache) throws ConnectionException {
+		ReturnedDocument out=new ReturnedDocument();
+		doRequest(out,method_type,uri,makeDocumentSource(body),creds,cache);
+		return out;
+	}
+	
 	public ReturnedURL getPublishedReportDocumentURL(RequestMethod method_type,String uri,Document body,CSPRequestCredentials creds,CSPRequestCache cache) throws ConnectionException {
 		ReturnedURL out=new ReturnedURL();
 		doRequest(out,method_type,uri,makeDocumentSource(body),creds,cache);

@@ -844,7 +844,7 @@ public class ServiceBindingsGeneration {
 		String name = in.getServicesTag(); // Start by assuming it's just a plain scalar field, so we would just return the name
 		
 		//
-		// Debug
+		// Debug info
 		//
 		String[] fullName = in.getIDPath();
 		boolean isPartOfGroup = in.getParent() instanceof Group;
@@ -1052,8 +1052,8 @@ public class ServiceBindingsGeneration {
 	 */
 	private boolean createAuthRefOrTermRef(Element auth, Namespace types, Record r, String section, FieldSet in) {
 		boolean result = false;
-		String fieldName = in.getID();
-                String sec = in.getSection(); // for debugging - remove after
+		String fieldName = in.getID(); // for debugging - remove after
+        String sec = in.getSection(); // for debugging - remove after
 		
                 // Ignore passed-in section, in order to create authRefs and termRefs for every section
 		if (isAuthOrTermRef(in) && in.getSection().equals(section)) {
@@ -1118,17 +1118,20 @@ public class ServiceBindingsGeneration {
 			String fieldName = in.getID() + ":" + in.getLabel(); // for debugging only
 
 			if (in.isASelfRenderer() == true) {
-				String fieldSetServicesType = in.getServicesType(false /* not NS qualified */);
-				Spec recordSpec = in.getRecord().getSpec();
-				Record subRecord = recordSpec.getRecord(fieldSetServicesType); // find a record that corresponds to the fieldset's service type
-				//
-				// Iterate through each field of the subrecord
-				//
-				boolean createdAuths = doAuthRefsAndTermRefs(auth, types, subRecord, section); // Recursive call
-				if (createdAuths == true) {
-					result = true; // Let the caller know we created at least one auth/term reference
-				}
+				if (in.getSection().equals(section)) {
+					String fieldSetServicesType = in.getServicesType(false /* not NS qualified */);
+					Spec recordSpec = in.getRecord().getSpec();
+					Record subRecord = recordSpec.getRecord(fieldSetServicesType); // find a record that corresponds to the fieldset's service type
+					String subSection = "common"; // the fields in an included subrecord should always be in the "common" section
 					
+					//
+					// Iterate through each field of the subrecord
+					//
+					boolean createdAuths = doAuthRefsAndTermRefs(auth, types, subRecord, subSection); // Recursive call
+					if (createdAuths == true) {
+						result = true; // Let the caller know we created at least one auth/term reference
+					}
+				}
 			} else {
 				boolean createdAuths = createAuthRefOrTermRef(auth, types, r, section, in);
 				if (createdAuths == true) {

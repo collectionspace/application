@@ -17,7 +17,6 @@ import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.authorities.AuthoritiesVocabulariesInitialize;
 import org.collectionspace.chain.csp.webui.main.Request;
-import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebMethodWithOps;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.chain.csp.webui.misc.Generic;
@@ -465,7 +464,37 @@ public class RecordCreateUpdate implements WebMethodWithOps {
 				// Invoke a report
 				//
 				ReportUtils.invokeReport(this, storage, request, path);
-			} else {
+			} 
+			else if (this.record.getID().equals("batchoutput")) {
+				//do a read instead of a create as reports are special and evil
+
+				JSONObject fields = data.optJSONObject("fields");
+				JSONObject payload = new JSONObject();
+				payload.put("mode", "single");
+
+				if (fields.has("mode")) {
+					payload.put("mode", fields.getString("mode"));
+				}
+				if (fields.has("docType")) {
+					String type = spec.getRecordByWebUrl(fields.getString("docType")).getServicesTenantSg();
+					payload.put("docType", type);
+				}
+				if (fields.has("singleCSID")) {
+					payload.put("singleCSID", fields.getString("singleCSID"));
+				} else if (fields.has("groupCSID")) {
+					payload.put("singleCSID", fields.getString("csid"));
+				}
+
+				JSONObject out = storage.retrieveJSON(base + "/" + path, payload);
+
+				byte[] data_array = (byte[]) out.get("getByteBody");
+				String contentDisp = out.has("contentdisposition") ? out.getString("contentdisposition") : null;
+				request.sendUnknown(data_array, out.getString("contenttype"), contentDisp);
+				request.setCacheMaxAgeSeconds(0); // Ensure we do not cache report output.
+				//request.sendJSONResponse(out);
+				request.setOperationPerformed(create ? Operation.CREATE : Operation.UPDATE);
+			}			
+			else {
 				//
 				// <Please document this clause.>
 				//

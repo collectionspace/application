@@ -58,6 +58,9 @@
                     <field id="media">
                         <selector>cd91d8b8-f346-4925-a425-93e02bd1c5c9</selector>
                     </field>
+                    <field id="claim">
+                        <selector>a253d167-4f1a-4be3-a477-a2bd8a30cd7f</selector>
+                    </field>
                     <!-- The following ID generators are not obviously used -->
                     <field id="accession-activity">
                         <selector>1a67470b-19b1-4ae3-88d4-2a0aa936270e</selector>

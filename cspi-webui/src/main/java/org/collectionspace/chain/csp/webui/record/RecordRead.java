@@ -16,7 +16,6 @@ import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.Relationship;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
-import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebMethodWithOps;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.chain.csp.webui.misc.Generic;
@@ -424,8 +423,6 @@ public class RecordRead implements WebMethodWithOps {
 		return fields;
 	}
 	
-
-	
 	private void store_get(Storage storage,UIRequest request,String path) throws Exception {
 		// Get the data
 		try {
@@ -436,25 +433,40 @@ public class RecordRead implements WebMethodWithOps {
 				byte[] bob = (byte[])outputJSON.get("getByteBody"); 
 				String getByteBody = bob.toString();
 				request.sendUnknown(getByteBody, content, contentDisp);
-			} else if(record.getID().equals("output")) {
+			} 
+			else if(record.getID().equals("output")) {
 				//
 				// Invoke a report
 				//
 				ReportUtils.invokeReport(this, storage, request, path);
-			} else {
+			}
+			else if (record.getID().equals("batchoutput")) {
+				String[] bits = path.split("/");
+				JSONObject payload = new JSONObject();
+				if (bits.length > 1 && !bits[1].equals("output")) {
+					payload.put("mode", "single");
+					String type = spec.getRecordByWebUrl(bits[1]).getServicesTenantDoctype(false);
+					payload.put("docType", type);
+					payload.put("singleCSID", bits[2]);
+					path = bits[0];
+				}
+				JSONObject out = storage.retrieveJSON(base + "/" + path, payload);
+				request.sendJSONResponse(out);
+			}			
+			else {
 				JSONObject outputJSON = getJSON(storage,path);
 				outputJSON.put("csid",path);
 				// Write the requested JSON out
 				request.sendJSONResponse(outputJSON);
 			}
 		} catch (JSONException e1) {
-			throw new UIException("Cannot add csid",e1);
+			throw new UIException("Cannot add csid", e1);
 		} catch (ExistException e) {
-			throw new UIException("Cannot add csid",e);
+			throw new UIException("Cannot add csid", e);
 		} catch (UnimplementedException e) {
-			throw new UIException("Cannot add csid",e);
+			throw new UIException("Cannot add csid", e);
 		} catch (UnderlyingStorageException e) {
-			throw new UIException("Cannot add csid",e);
+			throw new UIException("Cannot add csid", e);
 		}
 	}
 	

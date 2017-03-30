@@ -99,6 +99,15 @@ public class UISchema extends SchemaStructure implements WebMethod {
 	}
 	
 	@Override
+	protected void actualComputedField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+		String datatype = ((Field)fs).getDataType();
+		if(datatype.equals("")){datatype="string";}
+		JSONObject computed = new JSONObject();
+		actualSchemaObject(datatype, null, null, null, computed);
+		out.put(getSelector(fs,context),computed);
+	}	
+	
+	@Override
 	protected void actualWorkflowStateField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
 		String datatype = "string";
 		JSONObject workflowStateField = new JSONObject();

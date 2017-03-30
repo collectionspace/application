@@ -59,6 +59,19 @@
     ".csc-concept-termSource-label": {"messagekey": "preferredCA-termSourceLabel"},
     ".csc-concept-updatedAtEnd-label": {"messagekey": "concept-updatedAtEndLabel"},
     ".csc-concept-termType-label": {"messagekey": "preferredCA-termTypeLabel"},
+    ".csc-concept-createdAtStart": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${createdAtStart}"
+    },
+    ".csc-concept-createdAtEnd-label": {
+        "messagekey": "concept-createdAtEndLabel"
+    },
+    ".csc-concept-createdAt-label": {
+        "messagekey": "concept-createdAtLabel"
+    },
     ".csc-concept-termLanguage-label": {"messagekey": "preferredCA-termLanguageLabel"},
     ".csc-concept-updatedAt-label": {"messagekey": "concept-updatedAtLabel"},
     ".csc-preferredCA-conceptTermGroup": {"decorators": [{
@@ -135,4 +148,14 @@
     },
     ".csc-concept-termQualifier-label": {"messagekey": "preferredCA-termQualifierLabel"},
     ".csc-concept-updatedAtStart-label": {"messagekey": "concept-updatedAtStartLabel"}
+	".csc-concept-createdAtEnd": {
+		"decorators": [{
+			"func": "cspace.datePicker",
+			"type": "fluid"
+		}],
+		"value": "${createdAtEnd}"
+	},
+	".csc-concept-createdAtStart-label": {
+		"messagekey": "concept-createdAtStartLabel"
+	}
 }

@@ -149,6 +149,16 @@
         }
     }]},
     ".csc-intake-entryNumber-label": {"messagekey": "intake-entryNumberLabel"},
+    ".csc-intake-createdAtStart-label": {
+        "messagekey": "intake-createdAtStartLabel"
+    },
+    ".csc-intake-createdAtEnd": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${createdAtEnd}"
+    },
     ".csc-intake-updatedAtEnd": {
         "decorators": [{
             "func": "cspace.datePicker",
@@ -211,4 +221,18 @@
     ".csc-intake-entryDateStart-label": {"messagekey": "intake-entryDateStartLabel"},
     ".csc-intake-entryReason-label": {"messagekey": "intake-entryReasonLabel"},
     ".csc-intake-currentLocationNote-label": {"messagekey": "intake-currentLocationNoteLabel"}
+    ".csc-intake-createdAtStart": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${createdAtStart}"
+    },
+    ".csc-intake-currentLocationNote-label": {"messagekey": "intake-currentLocationNoteLabel"},
+    ".csc-intake-createdAtEnd-label": {
+        "messagekey": "intake-createdAtEndLabel"
+    },
+    ".csc-intake-createdAt-label": {
+        "messagekey": "intake-createdAtLabel"
+    }
 }

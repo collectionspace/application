@@ -4,22 +4,23 @@
         <password>Administrator</password>
         <tenant>1</tenant>
         <tenantname>core</tenantname>
-				<cookievalidformins>60</cookievalidformins>
-				<!-- termLists, autocomplete instance lists, specs, and schemas,
-						 static UI elements, etc.
-						 will cache for a month (60*60*24*30) by default -->
+		<cookievalidformins>60</cookievalidformins>
+		<!--
+			termLists, autocomplete instance lists, specs, and schemas,
+			static UI elements, etc will cache for a month (60*60*24*30) by default
+		-->
         <termlist-cache-timeout>2592000</termlist-cache-timeout>
         <autocompletelist-cache-timeout>2592000</autocompletelist-cache-timeout>
         <reportlist-cache-timeout>2592000</reportlist-cache-timeout>
-				<!-- This is for user-uploaded media, not static UI images -->
+		<!-- This is for user-uploaded media, not static UI images -->
         <uploaded-media-cache-timeout>2592000</uploaded-media-cache-timeout>
         <uispecschema-cache-timeout>2592000</uispecschema-cache-timeout>
         <ui-html-cache-timeout>2592000</ui-html-cache-timeout>
         <ui-css-cache-timeout>2592000</ui-css-cache-timeout>
-				<ui-js-cache-timeout>2592000</ui-js-cache-timeout>
-				<!-- This is for static UI images like icons, not uploaded images -->
-				<ui-media-cache-timeout>2592000</ui-media-cache-timeout>
-				<!-- This is for the message bundles properties -->
+		<ui-js-cache-timeout>2592000</ui-js-cache-timeout>
+		<!-- This is for static UI images like icons, not uploaded images -->
+		<ui-media-cache-timeout>2592000</ui-media-cache-timeout>
+		<!-- This is for the message bundles properties -->
         <ui-props-cache-timeout>2592000</ui-props-cache-timeout>
     </admin>
     <email>
@@ -61,15 +62,15 @@
             <find-page>myCollectionSpace</find-page>
             <tmp-schema-path />
 			<mappings>
-				<map>
+				<map id="record">
 					<recordtype>record</recordtype>
 					<file>/core/record.html</file>
 				</map>
-				<map>
+				<map id="authority">
 					<recordtype>authority</recordtype>
 					<file>/core/record.html</file>
 				</map>
-				<map>
+				<map id="procedure">
 					<url></url>
 					<recordtype>procedure</recordtype>
 					<file>/core/record.html</file>

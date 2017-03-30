@@ -44,7 +44,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class AuthorizationStorage extends GenericStorage {
-	private static final Logger log=LoggerFactory.getLogger(AuthorizationStorage.class);
+	private static final Logger log = LoggerFactory.getLogger(AuthorizationStorage.class);
 	
 	public AuthorizationStorage(Record r, ServicesConnection conn) throws DocumentException, IOException{
 		super(r,conn);
@@ -52,11 +52,10 @@ public class AuthorizationStorage extends GenericStorage {
 		Record permissionRecord = r.getSpec().getRecord("permission");
 	}
 
-
-
 	/**
 	 * Remove an object in the Service Layer.
 	 */
+	@Override
 	public void deleteJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, String filePath)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
@@ -109,6 +108,7 @@ public class AuthorizationStorage extends GenericStorage {
 	/**
 	 * Returns a list of csid's from a certain type of record
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public String[] getPaths(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, String rootPath, JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
@@ -143,6 +143,7 @@ public class AuthorizationStorage extends GenericStorage {
 	 * Gets a list of csids of a certain type of record together with the pagination info
 	 * permissions might need to break the mold tho.
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public JSONObject getPathsJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, String rootPath, JSONObject restrictions) 
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
@@ -150,7 +151,7 @@ public class AuthorizationStorage extends GenericStorage {
 			JSONObject out = new JSONObject();
 
 			// PLS: why on earth would reports be routed through AuthStorage?!?!
-			if(r.getID().equals("reports")){
+			if (r.getID().equals("reports") || r.getID().equals("batch")) {
 
 				String path = getRestrictedPath(r.getServicesURL(), restrictions, r.getServicesSearchKeyword(), "", false, "");
 				
@@ -221,43 +222,42 @@ public class AuthorizationStorage extends GenericStorage {
 		}
 	}
 
-	
-	public JSONObject retrieveJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, String filePath, JSONObject restrictions)
-	throws ExistException, UnimplementedException, UnderlyingStorageException {
+	@Override
+	public JSONObject retrieveJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache,
+			String filePath, JSONObject restrictions)
+			throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			String[] parts = filePath.split("/");
-			
-			if(parts.length > 2){
+
+			if (parts.length > 2) {
 				Spec s = r.getSpec();
 				//{csid}/userrole/{csid}
-				if(s.hasRecordByWebUrl(parts[1])){
+				if (s.hasRecordByWebUrl(parts[1])) {
 					String path = s.getRecordByWebUrl(parts[1]).getServicesURL();
-					int len = parts.length -1 ;
-					for(int i=0; i<len;i++){
+					int len = parts.length - 1;
+					for (int i = 0; i < len; i++) {
 						path = path.replace("*", parts[i]);
 						i++;
 					}
 					filePath = path + "/" + parts[len];
-					return simpleRetrieveJSONFullPath(creds,cache,filePath,s.getRecordByWebUrl(parts[1]).getRecord());
-				}
-				else{
+					return simpleRetrieveJSONFullPath(creds, cache, filePath, s.getRecordByWebUrl(parts[1]).getRecord());
+				} else {
 					//{csid}/refobj/bob
 					String extra = "";
-					if(parts.length==3){
+					if (parts.length == 3) {
 						extra = parts[2];
 					}
-					return viewRetrieveJSON(root,creds,cache,parts[0],parts[1],extra,restrictions);
-				} 
+					return viewRetrieveJSON(root, creds, cache, parts[0], parts[1], extra, restrictions);
+				}
+			} else {
+				return simpleRetrieveJSON(creds, cache, filePath);
 			}
-			else {
-				return simpleRetrieveJSON(creds,cache,filePath);
-			}
-			
-		} catch(JSONException x) {
-			throw new UnderlyingStorageException("Error building JSON",x);
+		} catch (JSONException x) {
+			throw new UnderlyingStorageException("Error building JSON", x);
 		}
 	}
 	
+	@Override
 	public JSONObject viewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,String view,String extra, JSONObject restrictions) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 		if("view".equals(view))
 			return miniViewRetrieveJSON(cache,creds,filePath,extra);
@@ -269,6 +269,7 @@ public class AuthorizationStorage extends GenericStorage {
 
 
 
+	@Override
 	public JSONObject refViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject restrictions) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 		try {
 			JSONObject out=new JSONObject();
@@ -410,6 +411,7 @@ public class AuthorizationStorage extends GenericStorage {
 		return out;
 	}
 	
+	@Override
 	public JSONObject simpleRetrieveJSON(CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		String fullpath = r.getServicesURL();

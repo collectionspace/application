@@ -31,6 +31,7 @@
           "media", 
           "movement", 
           "objectexit",
+          "claim",
           "conditioncheck",
           "conservation",
           "exhibition",

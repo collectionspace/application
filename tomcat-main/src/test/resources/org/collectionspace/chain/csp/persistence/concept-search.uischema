@@ -1,5 +1,8 @@
 {"concept": {
     "properties": {
+        "createdAtStart": {
+            "type": "date"
+        },    
         "conceptTermGroup": {
             "items": {
                 "properties": {
@@ -55,6 +58,9 @@
                 "type": "object"
             },
             "type": "array"
+        },
+        "createdAtEnd": {
+            "type": "date"
         },
         "updatedAtStart": {"type": "date"}
     },

@@ -1,4 +1,7 @@
 {
+    ".csc-place-createdAtStart-label": {
+        "messagekey": "place-createdAtStartLabel"
+    },
     ".csc-place-placeType": {"decorators": [{
         "func": "cspace.makeRepeatable",
         "type": "fluid",
@@ -141,13 +144,26 @@
             "hidePrimary": true
         }
     }]},
+    ".csc-place-createdAtEnd-label": {
+        "messagekey": "place-createdAtEndLabel"
+    },
     ".csc-place-updatedBy-label": {"messagekey": "place-updatedByLabel"},
     ".csc-place-termQualifier-label": {"messagekey": "preferredPlace-termQualifierLabel"},
     ".csc-place-termDisplayName-label": {"messagekey": "preferredPlace-termDisplayNameLabel"},
     ".csc-place-placeType-label": {"messagekey": "place-placeTypeLabel"},
+    ".csc-place-createdAt-label": {
+        "messagekey": "place-createdAtLabel"
+    },
     ".csc-place-updatedAtStart-label": {"messagekey": "place-updatedAtStartLabel"},
     ".csc-place-ownershipDateGroup-label": {"messagekey": "placeOwnerGroup-ownershipDateGroupLabel"},
     ".csc-place-termType-label": {"messagekey": "preferredPlace-termTypeLabel"},
+    ".csc-place-createdAtEnd": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${createdAtEnd}"
+    },
     ".csc-place-termStatus-label": {"messagekey": "preferredPlace-termStatusLabel"},
     ".csc-place-termSourceID-label": {"messagekey": "preferredPlace-termSourceIDLabel"},
     ".csc-place-placeNote": {"decorators": [{
@@ -224,6 +240,13 @@
     },
     ".csc-place-termPrefForLang-label": {"messagekey": "preferredPlace-termPrefForLangLabel"},
     ".csc-place-updatedAt-label": {"messagekey": "place-updatedAtLabel"},
+    ".csc-place-createdAtStart": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${createdAtStart}"
+    },
     ".csc-place-placeNote-label": {"messagekey": "place-placeNoteLabel"},
     ".csc-place-updatedAtEnd-label": {"messagekey": "place-updatedAtEndLabel"},
     ".csc-place-nameAbbrev-label": {"messagekey": "preferredPlace-nameAbbrevLabel"},

@@ -34,6 +34,7 @@ import org.collectionspace.chain.csp.webui.external.UIMeta;
 import org.collectionspace.chain.csp.webui.mediablob.BlobCreateUpdate;
 import org.collectionspace.chain.csp.webui.mediablob.BlobRead;
 import org.collectionspace.chain.csp.webui.misc.RecordTraverser;
+import org.collectionspace.chain.csp.webui.misc.StructuredDateParser;
 import org.collectionspace.chain.csp.webui.misc.VocabRedirector;
 import org.collectionspace.chain.csp.webui.misc.WebAuto;
 import org.collectionspace.chain.csp.webui.misc.WebAutoComplete;
@@ -238,14 +239,16 @@ public class WebUI implements CSP, UI, Configurable {
 		addMethod(Operation.CREATE, new String[] { "passwordreset" }, 0, new UserDetailsReset(false, spec));
 		addMethod(Operation.CREATE, new String[] { "resetpassword" }, 0, new UserDetailsReset(true, spec));
 		addMethod(Operation.READ, new String[] { "adjacentRecords" }, 2, new RecordTraverser(spec));
+		addMethod(Operation.READ,new String[]{"parseDate"},0,new StructuredDateParser());
 
 		for (Schemas s : spec.getAllSchemas()) {
 			addMethod(Operation.READ, new String[] { s.getWebURL(), "uischema" }, 0, new UISchema(spec, s));
 		}
 		addMethod(Operation.READ, new String[] { "generator" }, 0, new DataGenerator(spec));
 		Record mediaR = spec.getRecord(MEDIA_RECORD_ID);
-		if (mediaR == null)
+		if (mediaR == null) {
 			log.error("No media record configured!!!");
+		}
 		for (Record r : spec.getAllRecords()) {
 			addMethod(Operation.READ, new String[] { r.getWebURL(), "generator" }, 0, new DataGenerator(r, "screen"));
 			addMethod(Operation.READ, new String[] { r.getWebURL(), "serviceschema" }, 0, new ServicesXsd(r, "common"));

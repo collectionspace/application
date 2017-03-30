@@ -1,11 +1,15 @@
 package org.collectionspace.chain.csp.webui.record;
 
+import java.io.InputStream;
+
 import org.collectionspace.chain.csp.webui.main.WebMethodWithOps;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -117,9 +121,9 @@ public class ReportUtils {
 			request.sendURLReponse((String)out.get("Location"));
 		} else {
 			// They've asked for the report back, so we need to build up a response containing the report					
-			byte[] data_array = (byte[])out.get("getByteBody");
+			InputStream data = (InputStream) out.get("body");
 			String contentDisp = out.has("contentdisposition")?out.getString("contentdisposition"):null;
-			request.sendUnknown(data_array,out.getString("contenttype"), contentDisp);
+			request.sendUnknown(data, out.getString("contenttype"), contentDisp);
 			request.setCacheMaxAgeSeconds(0);	// Ensure we do not cache report output.
 			//request.sendJSONResponse(out);
 		}

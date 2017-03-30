@@ -1,6 +1,9 @@
 {"acquisition": {
     "properties": {
         "objectPurchasePriceValueStart": {"type": "string"},
+                "createdAtStart": {
+            "type": "date"
+        },
         "acquisitionSources": {
             "items": {
                 "properties": {
@@ -75,6 +78,9 @@
             "type": "array"
         },
         "accessionDateGroupEnd": {"type": "string"},
+        "createdAtEnd": {
+            "type": "date"
+        },
         "updatedBys": {
             "items": {
                 "properties": {

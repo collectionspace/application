@@ -81,18 +81,18 @@
             <find-page>myCollectionSpace</find-page>
             <tmp-schema-path />
       <mappings>
-        <map>
+        <map id="record">
           <recordtype>record</recordtype>
           <file>/bonsai/html/record.html</file>
         </map>
-        <map>
+        <map id="authority">
           <recordtype>authority</recordtype>
           <file>/bonsai/html/record.html</file>
           <configure>
             <meta id="recordType">{instance/web-url}</meta>
           </configure>
         </map>
-        <map>
+        <map id="procedure">
           <url></url>
           <recordtype>procedure</recordtype>
           <file>/bonsai/html/record.html</file>

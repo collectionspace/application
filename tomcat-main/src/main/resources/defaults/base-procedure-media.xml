@@ -110,7 +110,7 @@
                 <section id="otherInformation">
                     <field id="uri"></field>
                     <field id="sourceUrl"></field>
-                    <field id="blobCsid" mini="list"></field>					
+                    <field id="blobCsid" mini="search,list,relate"></field>					
                     <field id="imgThumb" attributes="GET" mini="search,list,relate" exists-in-services="false">
                         <use-csid id="blobCsid">ims;download/;/Thumbnail</use-csid>
                     </field>

@@ -12,7 +12,6 @@ import org.collectionspace.chain.csp.config.Configurable;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.RuleSet;
 import org.collectionspace.chain.csp.config.RuleTarget;
-import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.persistence.services.authorization.AuthorizationStorage;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.chain.csp.persistence.services.relation.ServicesRelationStorage;
@@ -83,7 +82,7 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 		try {
 			ServicesConnection conn=new ServicesConnection(base_url,ims_url);
 			for(Record r : spec.getAllRecords()) {
-				if(r.isType("blob") || r.isType("report"))
+				if(r.isType("blob") || r.isType("report") || r.isType("batch"))
 					addChild(r.getID(),new BlobStorage(spec.getRecord(r.getID()),conn));
 				else if(r.isType("userdata"))
 					addChild(r.getID(),new UserStorage(spec.getRecord(r.getID()),conn));
