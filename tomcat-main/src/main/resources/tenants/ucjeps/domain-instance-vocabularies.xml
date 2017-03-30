@@ -117,6 +117,7 @@
 			<option id="georefsource05">Google Earth</option>
 			<option id="georefsource06">Terrain Navigator</option>
 			<option id="georefsource07">BioGeomancer</option>
+			<option id="georefsource08">GoogleMaps via BerkeleyMapper</option>
 		</options>
 	</instance>
 </root>
