@@ -99,6 +99,7 @@
 			</options>
 		</field>
 	    <field id="taggedBy" autocomplete="person-person"/>
+	    <field id="propBy" autocomplete="person-person"/>
 		<field id="propComments"/>
 		<field id="numStarted" ui-type="validated" datatype="integer"/>
 		<repeat id="scarStratGroupList/scarStratGroup">

@@ -1,7 +1,8 @@
 <cspace-config tenantname="botgarden">
-	<tenantid>35</tenantid>
+	<tenantid>3500</tenantid>
 	<version>11</version>
-	<include src="settings.xml,botgarden-settings.xml,host-settings.xml" merge="xmlmerge-settings.properties" strip-root="yes"/>
+    <include src="settings.xml,local-core-settings.xml" merge="xmlmerge-settings.properties" 
+        strip-root="yes" />
 
 	<spec>
 		<include src="base-relations.xml"/>
