@@ -84,7 +84,7 @@ public class WebReset implements WebMethod {
 		boolean initializationUnknown = false;
 		
 		try {
-			logInitMessage(responseMessage, "Initialise vocab/auth entries\n", modifyResponse);
+			logInitMessage(responseMessage, "Initializing vocab/auth entries...", modifyResponse);
 			JSONObject myjs = new JSONObject();
 			myjs.put("pageSize", "10");
 			myjs.put("pageNum", "0");
@@ -95,11 +95,11 @@ public class WebReset implements WebMethod {
 					if (this.spec.hasRecord(dir)) {
 						Record record = this.spec.getRecord(dir);
 						if (record.isType("authority") == true) {
-							logInitMessage(responseMessage, "testing authority " + dir + "\n", modifyResponse);
 							for (Instance instance : record.getAllInstances()) {
 								if (instance.getCreateUnreferenced() || isInstanceReferenced(instance)) {
 									avi = new AuthoritiesVocabulariesInitialize(instance, populate, modifyResponse);
 									Option[] allOpts = instance.getAllOptions();
+									boolean creatingTerm = false;
 									try {
 										if (avi.createIfMissingAuthority(storage, responseMessage, record, instance) == -1) {
 											log.warn(String.format("The currently authenticated user does not have sufficient permission to determine if the '%s' authority/term-list is properly initialized.",
@@ -109,7 +109,16 @@ public class WebReset implements WebMethod {
 											//
 											// Create the missing items.
 											//
+											creatingTerm = true;
 											avi.fillVocab(storage, record, instance, responseMessage, allOpts, true);
+										}
+									} catch (UnderlyingStorageException e) {
+										if (e.getStatus() == HttpStatus.SC_CONFLICT) {
+											// This means the authority/vocabulary instance already exists in the backend, so move on to the next instance.
+											log.warn(String.format("A short ID for the authority/vocabulary instance '%s' already exists.", instance.getID()));
+											continue; // Not a fatal error.
+										} else {
+											throw e;
 										}
 									} catch (Exception e) {
 										if (avi.success() == false) {
@@ -119,7 +128,7 @@ public class WebReset implements WebMethod {
 									}
 								}
 								else {
-									logInitMessage(responseMessage, "Instance " + instance.getID() + " is not referenced\n", modifyResponse);
+									logInitMessage(responseMessage, "Instance " + instance.getID() + " is not referenced.", modifyResponse);
 								}
 							}
 						}
@@ -133,16 +142,9 @@ public class WebReset implements WebMethod {
 						if (initializationFailed == true) {
 							modifyResponse = true;
 							if (e.getStatus() == HttpStatus.SC_UNAUTHORIZED || e.getStatus() == HttpStatus.SC_FORBIDDEN) {
-							logInitMessage(responseMessage,
-										"\nSummary:\n\t*** ERROR *** CollectionSpace has not been properly initialized: The CollectionSpace administrator needs to login to the correct tenant and initialize the default term lists and authorities.\n\n",
-									modifyResponse);
-							} else if (e.getStatus() == HttpStatus.SC_CONFLICT) {
 								logInitMessage(responseMessage,
-										"\nSummary:\n\t*** ERROR *** CollectionSpace attempted to create a new term list or term list item which had a non-unique short identifier." +
-												" New term lists and/or term list items must have unique short identifiers across all term lists: The CollectionSpace administrator needs to change the non-unique short identifier and restart CollectionSpace.\n\n",
+											"\nSummary:\n\t*** ERROR *** CollectionSpace has not been properly initialized: The CollectionSpace administrator needs to login to the correct tenant and initialize the default term lists and authorities.\n\n",
 										modifyResponse);
-								logException(e, responseMessage, modifyResponse);
-								continue; // continue the for-loop since this is a non-fatal error, we can continue trying to initialize other terms and term lists
 							} else {
 								logInitMessage(responseMessage,
 										"\nSummary:\n\t*** ERROR *** CollectionSpace has not been properly initialized: Ask the CollectionSpace administrator to login to the correct tenant and initialize the default term lists and authorities.\n\n",
@@ -340,9 +342,6 @@ public class WebReset implements WebMethod {
 									storage.getPathsJSON(url,new JSONObject()).toString();
 								}
 								catch (UnderlyingStorageException x) {
-	
-									log.info("need to create Instance " + n.getID());
-									tty.line("need to create Instance " + n.getID());
 									JSONObject fields=new JSONObject("{'displayName':'"+n.getTitle()+"','shortIdentifier':'"+n.getWebURL()+"'}");
 									String base=r.getID();
 									storage.autocreateJSON(base,fields,null);

@@ -47,8 +47,9 @@ import org.slf4j.LoggerFactory;
  */
 public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 	private static final Logger log = LoggerFactory.getLogger(AuthoritiesVocabulariesInitialize.class);
+	
 	private boolean append;
-	private Instance n;
+	private Instance fInstance;
 	private Record r;
 	private Spec spec;
 	private boolean modifyResponse = true;
@@ -56,7 +57,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 	
 	public AuthoritiesVocabulariesInitialize(Instance n, Boolean append, boolean modifyResponse) {
 		this.append = append;
-		this.n = n;
+		this.fInstance = n;
 		this.r = n.getRecord();
 		this.modifyResponse = modifyResponse;
 	}
@@ -64,7 +65,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 	public AuthoritiesVocabulariesInitialize(Record r, Boolean append) {
 		this.append = append;
 		this.r = r;
-		this.n = null;
+		this.fInstance = null;
 	}
 	
 	public boolean success() {
@@ -134,9 +135,9 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		} catch (UnderlyingStorageException e) {
 			if (e.getStatus() == HttpStatus.SC_NOT_FOUND) {
 				failedPosts++; // assume we're going to fail
-				log.info("need to create instance " + n.getID());
+				log.info("Need to create instance " + fInstance.getID());
 				if (tty != null) {
-					tty.append("need to create instance " + n.getID() + '\n');
+					tty.append("Need to create instance " + fInstance.getID() + '\n');
 				}
 				JSONObject fields = new JSONObject("{'displayName':'" + instance.getTitle() + "', 'shortIdentifier':'" + instance.getWebURL() + "'}");
 				String base = record.getID();
@@ -158,8 +159,8 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 	
 	private void initializeVocab(Storage storage, UIRequest request, String path) throws UIException {
 		try {
-			if (n == null) {
-				// For now simply loop thr all the instances one after the other.
+			if (fInstance == null) {
+				// For now simply loop through all the instances one after the other.
 				for (Instance instance : r.getAllInstances()) {
 					log.info(instance.getID());
 					//does instance exist?
@@ -170,8 +171,8 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 					resetvocabdata(storage, request, instance);
 				}
 			} else {
-				log.info(n.getID());
-				resetvocabdata(storage, request, this.n);
+				log.info(fInstance.getID());
+				resetvocabdata(storage, request, this.fInstance);
 			}
 		} catch (JSONException e) {
 			throw new UIException("Cannot generate JSON",e);
@@ -296,7 +297,9 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 			// get list from Service layer
 			JSONObject results = new JSONObject();
 			Integer pageNum = 0;
-			Integer pageSize = 100;
+			Integer pageSize = 0; 	// Setting the pageSize to 0 means the Services layer will return ALL the terms in one request.
+									// The "paging" code here is broken.  It's made some false assumptions about the order in which terms are returned from the Services layer.
+									// In short, setting the pageSize to 0 is a workaround to the bugs in the paging code.
 			JSONObject fulldata = list_vocab(results, instance, storage, null, pageSize, pageNum, thisr);
 
 			while (!fulldata.isNull("pagination")) {
@@ -323,15 +326,10 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 				String shortIdentifier = opt.getID();
 
 				if (shortIdentifier == null || shortIdentifier.equals("")) {
-					shortIdentifier = name.replaceAll("\\W", "").toLowerCase();
+					shortIdentifier = name.trim().replaceAll("\\W", "").toLowerCase();
 				}
 
 				if (!results.has(shortIdentifier)) {
-					if (tty != null) {
-						tty.append("adding term " + name + '\n');
-						log.info("adding term " + name);
-					}
-
 					// create it if term is not already present
 					JSONObject data = new JSONObject();
 					data.put("displayName", name);
@@ -343,15 +341,33 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 					String url = thisr.getID() + "/" + instance.getTitleRef();
 
 					failedPosts++; // assume we're going to fail and an exception will be thrown
-					storage.autocreateJSON(url, data, null);
-					failedPosts--; // we succeeded so we can remove our assumed failure
-					
-					results.remove(shortIdentifier);
+					try {
+						storage.autocreateJSON(url, data, null);
+						failedPosts--; // we succeeded so we can remove our assumed failure
+						if (tty != null) {
+							String msg = String.format("Added term %s:'%s' with short ID='%s'.", instance.getTitleRef(), name, shortIdentifier);
+							tty.append(msg + '\n');
+							log.info(msg);
+						}						
+					} catch (UnderlyingStorageException e) {
+						if (e.getStatus() == HttpStatus.SC_CONFLICT) {
+							log.error("Terms must have unique short identifiers. The CollectionSpace administrator needs to change the non-unique short identifier and restart CollectionSpace.");
+							String msg = String.format("CollectionSpace attempted to create the term %s:'%s' using a non-unique short identifier of '%s'.",
+									instance.getTitleRef(), name, shortIdentifier);
+							log.error(msg);
+							log.error(String.format("Failed JSON payload:%s", data.toString()));
+						} else {
+							throw e;
+						}
+					}
 				} else {
 					// remove from results so can delete everything else if
 					// necessary in next stage
 					// though has issues with duplicates
 					results.remove(shortIdentifier);
+					String msg = String.format("Tried to create term %s:'%s' with short ID='%s', but a term with that short ID already exists.",
+							instance.getTitleRef(), name, shortIdentifier);
+					log.debug(msg);
 				}
 			}
 
@@ -367,18 +383,20 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 					failedPosts--; // we succeeded so remove our assumed failure
 					
 					if (tty != null) {
-						log.info("deleting term " + key);
-						tty.append("deleting term " + key + '\n');
+						log.info("Deleting term " + key);
+						tty.append("Deleting term " + key + '\n');
 					}
 				}
 			}
 		}
 	}
 	
+	@Override
 	public void configure(WebUI ui, Spec spec) {
 		this.spec = spec;
 	}
 
+	@Override
 	public void run(Object in, String[] tail) throws UIException {
 		Request q=(Request)in;
 		initializeVocab(q.getStorage(), q.getUIRequest(), StringUtils.join(tail,"/"));

@@ -72,6 +72,9 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 	private String srcFileName = null;
 
 	public String getSrcFileName() {
+		if (this.srcFileName == null) {
+			logger.debug("AssemblingContentHandler.getSrcFileName() is returning null.");
+		}
 		return this.srcFileName;
 	}
 	
