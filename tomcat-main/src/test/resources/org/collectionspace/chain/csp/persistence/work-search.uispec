@@ -288,7 +288,7 @@
   }, 
   ".csc-work-workType-label": {
     "messagekey": "work-workTypeLabel"
-  }
+  },
   ".csc-work-createdAtStart": {
       "decorators": [{
           "func": "cspace.datePicker",

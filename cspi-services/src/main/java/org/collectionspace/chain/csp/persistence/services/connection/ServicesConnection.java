@@ -187,15 +187,13 @@ public class ServicesConnection {
 
 				out.setResponse(method, response);
 			} catch (ConnectionException ce) {
-				method.releaseConnection();
 				throw new ConnectionException(ce.getMessage(), ce.getStatus(), base_url + "/" + uri, ce);
 			} catch (ExistException ee) {
-				method.releaseConnection();
 				throw new ConnectionException(ee.getMessage(), ee.getStatus(), base_url + "/" + uri, ee);
 			} catch (Exception e) {
-				method.releaseConnection();
 				throw new ConnectionException(e.getMessage(), 0, base_url + "/" + uri, e);
 			} finally {
+				method.releaseConnection();
 				// Don't release the connection, since the associated input stream has not yet been
 				// read. That stream is an instance of AutoCloseInputStream, which will automatically
 				// release the connection once it has been read to the end. In theory we shouldn't

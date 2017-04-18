@@ -282,7 +282,7 @@
     },
     ".csc-conditioncheck-conditionCheckAssessmentDateEnd-label": {
         "messagekey": "conditioncheck-conditionCheckAssessmentDateEndLabel"
-    }
+    },
     ".csc-conditioncheck-createdAt-label": {
       "messagekey": "conditioncheck-createdAtLabel"
     },

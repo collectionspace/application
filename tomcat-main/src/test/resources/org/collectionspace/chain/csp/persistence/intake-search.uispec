@@ -220,7 +220,7 @@
     ".csc-intake-currentLocation-label": {"messagekey": "intake-currentLocationLabel"},
     ".csc-intake-entryDateStart-label": {"messagekey": "intake-entryDateStartLabel"},
     ".csc-intake-entryReason-label": {"messagekey": "intake-entryReasonLabel"},
-    ".csc-intake-currentLocationNote-label": {"messagekey": "intake-currentLocationNoteLabel"}
+    ".csc-intake-currentLocationNote-label": {"messagekey": "intake-currentLocationNoteLabel"},
     ".csc-intake-createdAtStart": {
         "decorators": [{
             "func": "cspace.datePicker",

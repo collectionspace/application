@@ -79,8 +79,8 @@
             },
             "valueRenewalDateEnd": {
                 "type": "date"
-            }
-                        "createdAtStart": {
+            },
+            "createdAtStart": {
               "type": "date"
             },
             "createdAtEnd": {

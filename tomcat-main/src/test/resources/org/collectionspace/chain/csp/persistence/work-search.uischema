@@ -103,7 +103,7 @@
           "type": "object"
         }, 
         "type": "array"
-      }
+      },
       "createdAtStart": {
           "type": "date"
       },

@@ -198,7 +198,7 @@
     },
     ".csc-valuationcontrol-updatedBy-label": {
         "messagekey": "valuationcontrol-updatedByLabel"
-    }
+    },
     ".csc-valuationcontrol-createdAt-label": {
       "messagekey": "valuationcontrol-createdAtLabel"
     },

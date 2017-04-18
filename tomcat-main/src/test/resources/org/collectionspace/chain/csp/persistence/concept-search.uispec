@@ -147,7 +147,7 @@
         "value": "${updatedAtStart}"
     },
     ".csc-concept-termQualifier-label": {"messagekey": "preferredCA-termQualifierLabel"},
-    ".csc-concept-updatedAtStart-label": {"messagekey": "concept-updatedAtStartLabel"}
+    ".csc-concept-updatedAtStart-label": {"messagekey": "concept-updatedAtStartLabel"},
 	".csc-concept-createdAtEnd": {
 		"decorators": [{
 			"func": "cspace.datePicker",

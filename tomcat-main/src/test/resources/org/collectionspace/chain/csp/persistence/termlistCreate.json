@@ -1,6 +1,6 @@
 {
     "displayName": "Term List Currency",
-    "shortIdentifier": "TermListCurrency",
+    "shortIdentifier": "TestTermListCurrency",
     "description": "This is a term list used for currency",
     "source": "This is some source",
     "terms": [

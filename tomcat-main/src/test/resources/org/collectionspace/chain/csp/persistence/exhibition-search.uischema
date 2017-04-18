@@ -1,137 +1,109 @@
-{
-    "exhibition": {
-        "properties": {
-            "exhibitionNumbers": {
-                "items": {
-                    "properties": {
-                        "_primary": {
-                            "default": true,
-                            "type": "boolean"
-                        },
-                        "exhibitionNumber": {
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
-                },
-                "type": "array"
-            },
-            "organizers": {
-                "items": {
-                    "properties": {
-                        "_primary": {
-                            "default": true,
-                            "type": "boolean"
-                        },
-                        "organizer": {
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
-                },
-                "type": "array"
-            },
-            "sponsors": {
-                "items": {
-                    "properties": {
-                        "_primary": {
-                            "default": true,
-                            "type": "boolean"
-                        },
-                        "sponsor": {
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
-                },
-                "type": "array"
-            },
-            "titles": {
-                "items": {
-                    "properties": {
-                        "_primary": {
-                            "default": true,
-                            "type": "boolean"
-                        },
-                        "title": {
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
-                },
-                "type": "array"
-            },
-            "types": {
-                "items": {
-                    "properties": {
-                        "_primary": {
-                            "default": true,
-                            "type": "boolean"
-                        },
-                        "type": {
-                            "default": "",
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
-                },
-                "type": "array"
-            },
-            "updatedAtEnd": {
-                "type": "date"
-            },
-            "updatedAtStart": {
-                "type": "date"
-            },
-            "updatedBys": {
-                "items": {
-                    "properties": {
-                        "_primary": {
-                            "default": true,
-                            "type": "boolean"
-                        },
-                        "updatedBy": {
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
-                },
-                "type": "array"
-            },
-            "venueClosingDateEnd": {
-                "type": "date"
-            },
-            "venueClosingDateStart": {
-                "type": "date"
-            },
-            "venueGroup": {
-                "items": {
-                    "properties": {
-                        "_primary": {
-                            "default": true,
-                            "type": "boolean"
-                        },
-                        "venue": {
-                            "type": "string"
-                        },
-                        "venueClosingDate": {
-                            "type": "date"
-                        },
-                        "venueOpeningDate": {
-                            "type": "date"
-                        }
-                    },
-                    "type": "object"
-                },
-                "type": "array"
-            },
-            "venueOpeningDateEnd": {
-                "type": "date"
-            },
-            "venueOpeningDateStart": {
-                "type": "date"
+{"exhibition": {
+    "type": "object",
+    "properties": {
+        "createdAtStart": {"type": "date"},
+        "updatedBys": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "updatedBy": {"type": "string"},
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    }
+                }
             }
         },
-        "type": "object"
+        "types": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    }
+                }
+            }
+        },
+        "venueClosingDateEnd": {"type": "date"},
+        "updatedAtEnd": {"type": "date"},
+        "venueClosingDateStart": {"type": "date"},
+        "venueOpeningDateEnd": {"type": "date"},
+        "titles": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "title": {"type": "string"},
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    }
+                }
+            }
+        },
+        "updatedAtStart": {"type": "date"},
+        "exhibitionNumbers": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "exhibitionNumber": {"type": "string"},
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    }
+                }
+            }
+        },
+        "sponsors": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "sponsor": {"type": "string"},
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    }
+                }
+            }
+        },
+        "organizers": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "organizer": {"type": "string"},
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    }
+                }
+            }
+        },
+        "venueOpeningDateStart": {"type": "date"},
+        "venueGroup": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "venue": {"type": "string"},
+                    "venueOpeningDate": {"type": "date"},
+                    "venueClosingDate": {"type": "date"},
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    }
+                }
+            }
+        },
+        "createdAtEnd": {"type": "date"}
     }
-}
+}}
