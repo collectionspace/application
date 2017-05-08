@@ -32,7 +32,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.impl.SLF4JLog;
 import org.apache.log4j.Level;
 import org.collectionspace.chain.csp.config.impl.parser.AssemblingContentHandler;
-import org.collectionspace.chain.installation.XsdGeneration;
+import org.collectionspace.chain.installation.ServiceConfigGeneration;
 import org.collectionspace.csp.helper.core.ConfigFinder;
 import org.collectionspace.services.common.api.JEEServerDeployment;
 import org.collectionspace.services.common.api.CommonAPI;
@@ -87,6 +87,8 @@ public class CommandLine {
 	private static File bindingsOutputDir;
 	private static File bundlesOutputDir;
 	private static File baseOutputDir;
+	
+	private static Map<String, ServiceConfigGeneration> serviceBundlesInfo = new HashMap<String, ServiceConfigGeneration>();
 
 	private static final String XMLMERGE_DEFAULT_PROPS_STR = "matcher.default=ID\n";
 
@@ -501,15 +503,15 @@ public class CommandLine {
 		}
 	}
 	
-	private static final void dumpServiceArtifactMetadata(File tenantConfigFile, XsdGeneration xsdMetadata) {
+	private static final void dumpServiceArtifactMetadata(File tenantConfigFile, ServiceConfigGeneration xsdMetadata) throws Exception {
 		if (logger.isDebugEnabled() == true) {
 			logger.debug(String.format("Schema types defined in config: %s", tenantConfigFile.getAbsolutePath()));
-			HashMap<String, String> xsdschemas = xsdMetadata.getServiceSchemas();
+			Map<String, String> xsdschemas = xsdMetadata.getDefinedSchemas();
 			for (String schemaName : xsdschemas.keySet()) {
 				logger.debug(String.format("\tSchema file name: %s", schemaName));
 			}
 
-			HashMap<String, String> doctypes = xsdMetadata.getServiceDoctypeBundles();
+			Map<String, String> doctypes = xsdMetadata.getServiceDoctypeBundles();
 			logger.debug(String.format("Document types defined in config: %s", tenantConfigFile.getAbsolutePath()));
 			for (String doctypeName : doctypes.keySet()) {
 				logger.debug(String.format("\tDocument type file name: %s", doctypeName));
@@ -526,10 +528,11 @@ public class CommandLine {
 		//
 		// Generate all the Service schemas from the Application layer's configuration records
 		//
-		XsdGeneration xsdMetadata = null;
+		ServiceConfigGeneration xsdMetadata = null;
 		try {
-			xsdMetadata = new XsdGeneration(tenantConfigFile, CommonAPI.GENERATE_BUNDLES, SERVICE_SCHEMA_VERSION, getBundlesOutputDir(),
+			xsdMetadata = new ServiceConfigGeneration(serviceBundlesInfo, tenantConfigFile, CommonAPI.GENERATE_BUNDLES, SERVICE_SCHEMA_VERSION, getBundlesOutputDir(),
 					SERVICE_BINDINGS_VERSION);
+			serviceBundlesInfo.put(tenantConfigFile.getName(), xsdMetadata);
 			dumpServiceArtifactMetadata(tenantConfigFile, xsdMetadata); // debugging output
 		} catch (Exception e) {
 			result = String.format("Error encountered generating service bindings for '%s' tenant configuration.",
@@ -546,9 +549,9 @@ public class CommandLine {
 	private static final String generateServiceBindings(File tenantConfigFile) {
 		String result = null;
 		
-		XsdGeneration tenantBindingsMetadata = null;
+		ServiceConfigGeneration tenantBindingsMetadata = null;
 		try {
-			tenantBindingsMetadata = new XsdGeneration(tenantConfigFile, CommonAPI.GENERATE_BINDINGS, SERVICE_SCHEMA_VERSION, null,
+			tenantBindingsMetadata = new ServiceConfigGeneration(serviceBundlesInfo, tenantConfigFile, CommonAPI.GENERATE_BINDINGS, SERVICE_SCHEMA_VERSION, null,
 					SERVICE_BINDINGS_VERSION);
 			String tenantName = tenantBindingsMetadata.getSpec().getAdminData().getTenantName();
 

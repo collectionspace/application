@@ -40,5 +40,19 @@
 			<field id="determinationRefPage" section="naturalhistory_extension"/>
 			<field id="determinationNote" section="naturalhistory_extension"/>
 		</repeat>
+	    
+	    <repeat id="typeSpecimenGroupList/typeSpecimenGroup" section="naturalhistory_extension">
+	        <field id="typeSpecimenKind" ui-search="repeatable" section="naturalhistory_extension" mini="search,list" seperate_ui_container="true" autocomplete="vocab-typespecimenkind" ui-type="enum"/>
+	        <field id="typeSpecimenAssertionBy" section="naturalhistory_extension" autocomplete="person-person"/>
+	        <field id="typeSpecimenReference" section="naturalhistory_extension"/>
+	        <field id="typeSpecimenRefPage" section="naturalhistory_extension"/>
+	        <field id="typeSpecimenBasionym" section="naturalhistory_extension" autocomplete="taxon-taxon"/>
+	        <field id="typeSpecimenNotes" section="naturalhistory_extension"/>
+	    </repeat>	    
 	</section>
+    
+    <section id="localityInformation">
+        <field id="locality" ui-type="groupfield/locality/selfrenderer" ui-func="cspace.locality" section="naturalhistory_extension"></field>
+        <field id="vegetationType" autocomplete="vocab-vegetationtype" ui-type="enum" section="naturalhistory_extension"/>
+    </section>
 </record>

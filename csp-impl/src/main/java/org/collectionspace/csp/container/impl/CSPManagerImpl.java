@@ -77,7 +77,7 @@ public class CSPManagerImpl implements CSPManager {
 		if (forXsdGeneration == true) {
 			String msg = String.format("Config Generation: '%s' - ### Generating Service configuration from '%s'.", 
 					in.getPublicId(), in.getPublicId());
-			log.info(msg);
+			log.trace(msg);
 		}
 		
 		try {

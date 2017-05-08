@@ -242,7 +242,7 @@ public class ServiceBindingsGeneration {
 					}
 				}
 			} else {
-				log.info(String.format("Config Generation: '%s' - Skipping record '%s' because it does not require a service binding.",
+				log.trace(String.format("Config Generation: '%s' - Skipping record '%s' because it does not require a service binding.",
 						getConfigFile().getName(), recordName));
 			}
 		}
@@ -803,10 +803,10 @@ public class ServiceBindingsGeneration {
 			//<service:object>
 			doServiceObject(r, el, this.nsservices, isAuthority, serviceBindingVersion);
 			
-			if (log.isInfoEnabled()) {
+			if (log.isTraceEnabled()) {
 				String msg = String.format("Config Generation: '%s' - Created service bindings for record type '%s'.", 
 						this.getConfigFile().getName(), r.getRecordName());
-				log.info(msg);
+				log.trace(msg);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

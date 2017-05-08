@@ -1,7 +1,7 @@
 <cspace-config tenantname="core">
 
   <version>11</version>
-	<include src="settings.xml,local-settings.xml" merge="xmlmerge.properties" 
+    <include src="settings.xml,local-settings.xml" required="false" merge="xmlmerge.properties" 
 		strip-root="yes" />
 
   <spec>

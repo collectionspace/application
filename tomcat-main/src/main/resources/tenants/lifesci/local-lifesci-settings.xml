@@ -1,9 +1,0 @@
-<settings>
-    <admin>
-        <!-- This is an example of overriding (often on a temporary basis) specific settings in -->
-        <!-- a tenant's settings.xml file with replacement settings in a local settings file. -->
-        <!-- Set caching of term lists to one day (60*60*24), rather than -->
-        <!-- to the default of one month. -->
-        <termlist-cache-timeout>86400</termlist-cache-timeout>
-    </admin>
-</settings>

@@ -18,7 +18,7 @@
 			<option>roots</option>
 		</options>
 	</instance>
-	<instance id="vocab-collectionobjectvegetationtype">
+    <instance id="vocab-vegetationtype">
 		<web-url>vegetationtype</web-url>
 		<title-ref>vegetationtype</title-ref>
 		<title>vegetationType</title>

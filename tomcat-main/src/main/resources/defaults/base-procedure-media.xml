@@ -108,7 +108,9 @@
                 </section>
                 <!-- not used in ui yet -->
                 <section id="otherInformation">
-                    <field id="uri"></field>
+                    <field id="mediaUri">
+                        <services-tag>uri</services-tag>
+                    </field>
                     <field id="sourceUrl"></field>
                     <field id="blobCsid" mini="search,list,relate"></field>					
                     <field id="imgThumb" attributes="GET" mini="search,list,relate" exists-in-services="false">

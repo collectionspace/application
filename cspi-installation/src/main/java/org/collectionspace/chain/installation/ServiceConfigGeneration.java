@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -30,8 +31,8 @@ import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 
 
-public class XsdGeneration {
-	private static final Logger log = LoggerFactory.getLogger(XsdGeneration.class);
+public class ServiceConfigGeneration {
+	private static final Logger log = LoggerFactory.getLogger(ServiceConfigGeneration.class);
 		
 	private static final String EOL = "\r\n"; // <CR><LF>
 	private static final int MAX_CONFIG_FILE_SIZE = 100 * 1024;
@@ -99,14 +100,70 @@ public class XsdGeneration {
 	private static final String NX_PLUGIN_NAME = "nx_plugin_out";
 	private static final int MAX_OSGI_LINE_LEN = 72;
 	
-	private HashMap<String, String> serviceSchemas = new HashMap<String, String>();
-	private HashMap<String, String> serviceSchemaBundles = new HashMap<String, String>();
-	private HashMap<String, String> serviceDoctypeBundles = new HashMap<String, String>();
+	// generated config (schemas and complex types) for other tenants.  We use this to check for redefinitions of schemas and complex types.
+	// The map's key is the top level tenant config file name -e.g., "botgarden-tenant.xml"
+	private Map<String, ServiceConfigGeneration> tenantConfigMap;
+	
+	// keeps track of schemas defined in each record
+	private Map<Record, Map<String,String>> recordDefinedSchemasMap = new HashMap<Record, Map<String, String>>(); // Map<Record, Map<SchemaName, XSD>>
+	
+	// keeps track of XSD defined complex types defined in each record.
+	private Map<Record, Map<String, Map<String, String>>> recordDefinedComplexTypesMap = new HashMap<Record, Map<String, Map<String, String>>>(); // Map<Record, Map<SchemaName, Map<TypeName, XSD>>>
+	
+	// keeps track of Schemas defined in a tenant
+	private Map<String, Map<Record, Map<String, String>>> tenantSchemasMap = new HashMap<String, Map<Record, Map<String, String>>>(); // Map<TenantName, Map<Record, Map<SchemaName, XSD>>>
+	
+	private Map<String, String> serviceSchemaBundles = new HashMap<String, String>();
+	private Map<String, String> serviceDoctypeBundles = new HashMap<String, String>();
 	
 	private String tenantBindings = null;
 	private File configBase = null;
 	private File configFile = null;
 	private Spec spec;
+	
+	public Map<String, String> getDefinedSchemas() throws Exception {
+		Map<String, String> result = new HashMap<String, String>();
+		
+		for (Record record : this.spec.getAllRecords()) {
+			Map<String, String> schemaMap = getRecordDefinedSchemasMap().get(record); // get a map of all the schemas in defined in the record
+			for (String schemaName : schemaMap.keySet()) {
+				if (schemaMap.get(schemaName) == null) {
+					result.put(schemaName, schemaMap.get(schemaName));
+				} else {
+					String msg = String.format("Schema named '%s' is defined more than once while processing config for '%s'.",
+							schemaName, this.getConfigFile().getName());
+					throw new Exception(msg);
+				}
+			}
+		}
+		
+		return result;
+	}
+	
+	public boolean isExistingSchema(Record currentRecord, String schemaName, String xsdDef) throws Exception {
+		boolean result = false;
+		
+		for (Record record : this.spec.getAllRecords()) {
+			Map<String, String> schemaMap = getRecordDefinedSchemasMap().get(record);
+			for (String skemaName : schemaMap.keySet()) {
+				String existingXsdDef = schemaMap.get(skemaName);
+				if (existingXsdDef != null) {
+					result = true;
+					if (areXsdSnippetsEqual(existingXsdDef, xsdDef) == false) {
+						String msg = String.format("Config Generation: '%s' - Services schema '%s' defined in record '%s' was previously defined differently in a record '%s' of tenant ID=%s.",
+								configFile.getName(), schemaName, currentRecord.getID(), record.getID(), record.getSpec().getTenantID());
+						throw new Exception(msg);
+					} else {
+						// Otherwise, it already exists so emit a warning just in case it shouldn't have been redefined.
+						log.warn(String.format("Config Generation: '%s' - Services schema '%s' defined in record '%s', but was previously defined in record '%s' of tenant ID='%s'.",
+								configFile.getName(), schemaName, currentRecord.getID(), record.getID(), record.getSpec().getTenantID()));
+					}
+				}
+			}
+		}
+		
+		return result;
+	}
 
 	public Spec getSpec() {
 		return this.spec;
@@ -120,18 +177,38 @@ public class XsdGeneration {
 		return this.tenantBindings;
 	}
 	
-	public HashMap<String, String> getServiceSchemas() {
-		return serviceSchemas;
+	public Map<String, ServiceConfigGeneration> getTenantConfigMap() {
+		return this.tenantConfigMap;
 	}
 	
-	public HashMap<String, String> getServiceSchemaBundles() {
+//	public Map<String, String> getExistingServiceSchemas() {
+//		return serviceSchemas;
+//	}
+	
+	public Map<String, String> getServiceSchemaBundles() {
 		return serviceSchemaBundles;
 	}
 	
-	public HashMap<String, String> getServiceDoctypeBundles() {
+	public Map<String, String> getServiceDoctypeBundles() {
 		return serviceDoctypeBundles;
 	}
 	
+	/**
+	 * Returns a map containing all the complex XSD types defined on a per record basis.
+	 * @return
+	 */	
+	public Map<Record, Map<String, Map<String, String>>> getRecordDefinedComplexTypesMap() {
+		return recordDefinedComplexTypesMap;
+	}
+	
+	/**
+	 * Returns a map containing all the schemas defined on a per record basis.
+	 * @return
+	 */
+	public Map<Record, Map<String, String>> getRecordDefinedSchemasMap() {
+		return recordDefinedSchemasMap;
+	}
+		
 	private void dumpRecordServiceInfo(Record record) {
 		PrintStream out = System.out;
 
@@ -203,65 +280,61 @@ public class XsdGeneration {
 	 * Depending up the 'generationType' passed in, this method creates either the Service bindings or the Service's Nuxeo doctype and
 	 * Nuxeo schema bundles
 	 */
-	public XsdGeneration(
+	public ServiceConfigGeneration(
+			Map<String, ServiceConfigGeneration> tenantConfigMap,
 			File configfile, 
 			String generationType, 
 			String schemaVersion, 
 			File bundlesOutputDir, 
-			String serviceBindingsVersion) throws Exception {		
+			String serviceBindingsVersion) throws Exception {
+		this.tenantConfigMap = tenantConfigMap;		
 		CSPManager cspm = getServiceManager(configfile);		
 		Spec spec = createSpec(cspm);
 		setSpec(spec);
 
-		// 1. Setup a hashmap to keep track of which records and bundles we've already processed.
-		// 2. Loop through all the known record types
 		if (generationType.equals(CommonAPI.GENERATE_BUNDLES)) { // if 'true' then generate the schema and doctype bundles
-			log.info(""); // just a spacer in the log output
 			log.info(String.format("Config Generation: '%s' - ### Generating Service bundles from '%s'.", 
-					configfile.getName(), configfile.getAbsolutePath()));
+					configfile.getName(), configfile.getPath()));
+			
 			boolean docTypesCreated = true;
-			for (Record record : spec.getAllRecords()) {
+			for (Record record : spec.getAllRecords()) {  // For each record in the current spec (tenant config), create related Service bundle (schema and Nuxeo doctype declaration).
+				record.setConfigFileName(configFile.getName());
 				if (log.isDebugEnabled() == true) {
 					dumpRecordServiceInfo(record);
 				}
+				
 				if (shouldGenerateBundles(record) == true) {
-					MakeXsd catlog = new MakeXsd(getTenantData(cspm));
-					HashMap<String, String> definedSchemaList = catlog.getDefinedSchemas(
-							record, schemaVersion);
-					// For each schema defined in the configuration record, check to see if it was already
-					// defined in another record.
-					boolean schemasCreated = true;
-					for (String definedSchema : definedSchemaList.keySet()) {
-						if (getServiceSchemas().containsKey(definedSchema) == false) {
-							// If the newly defined schema doesn't already exist in our master list then add it
-							try {
-								createSchemaBundle(record, definedSchema, definedSchemaList, bundlesOutputDir);
-								getServiceSchemas().put(definedSchema, definedSchemaList.get(definedSchema)); // Store a copy of the schema that was generated
-								log.info(String.format("Config Generation: '%s' - New Services schema '%s' defined in Application configuration record '%s'.",
-										configfile.getName(), definedSchema, record.getID()));
-							} catch (Exception e) {
-								schemasCreated = false;
-								// TODO Auto-generated catch block
-								log.error(String.format("Config Generation: '%s' - Could not create schema bundle for '%s'.",
-										configfile.getName(), definedSchema), e);
-							}
-						} else {
-							// Otherwise, it already exists so emit a warning just in case it shouldn't have been redefined.
-							log.warn(String.format("Config Generation: '%s' - Services schema '%s' defined in record '%s', but was previously defined in another record.",
-									configfile.getName(), definedSchema, record.getID()));
-							log.trace(String.format("Config Generation: '%s' - Redefined services schema is: %s", 
-									configfile.getName(), definedSchemaList.get(definedSchema)));
+					MakeXsd xsdGenerator = new MakeXsd(this, getTenantData(cspm));
+					Map<String, String> newSchemasMap = xsdGenerator.generateSchemasForRecord(record, schemaVersion);
+					
+					if (newSchemasMap.isEmpty() == false) {
+						getRecordDefinedSchemasMap().put(record, newSchemasMap);
+						if (xsdGenerator.getSchemaDefinedComplexTypes().isEmpty() == false) {
+							getRecordDefinedComplexTypesMap().put(record, xsdGenerator.getSchemaDefinedComplexTypes()); // We need to keep track of all Group type (aka, xsd complex type) definitions to prevent accidental duplicates
 						}
-					}
-					//
-					// Create the Nuxeo bundle document type
-					//
-					if (schemasCreated == true) {
-						createDocumentTypeBundle(record, definedSchemaList, bundlesOutputDir);
-					} else {
-						docTypesCreated = false;
-						log.error(String.format("Config Generation: '%s' - Failed to create all the required schema bundles for App record ID='%s'.",
-								configfile.getName(), record.getID()));
+
+						boolean schemasCreated = true;
+						for (String newSchemaName : newSchemasMap.keySet()) {
+								// If the newly defined schema doesn't already exist in our master list then add it
+								try {
+									createSchemaBundle(record, newSchemaName, newSchemasMap, bundlesOutputDir);
+								} catch (Exception e) {
+									schemasCreated = false;
+									log.error(String.format("Config Generation: '%s' - Could not create schema bundle for schema '%s' defined in record '%s'.",
+											configfile.getName(), newSchemaName, record.getID()), e);
+								}
+							}
+						//
+						// Create the Nuxeo bundle document type
+						//
+						if (schemasCreated == true) {
+							createDocumentTypeBundle(record, newSchemasMap, bundlesOutputDir);
+						} else {
+							docTypesCreated = false;
+							log.error(String.format("Config Generation: '%s' - Failed to create all the required schema bundles for App record ID='%s'.",
+									configfile.getName(), record.getID()));
+						}
+
 					}
 				}
 			}
@@ -272,9 +345,8 @@ public class XsdGeneration {
 				throw new Exception(errMsg);
 			}
 		} else if (generationType.equals(CommonAPI.GENERATE_BINDINGS)) { // Create the service bindings.
-			log.info(""); // just a spacer in the log output
 			log.info(String.format("Config Generation: '%s' - ### Generating Service bindings from '%s'.", 
-					configfile.getName(), configfile.getAbsolutePath()));
+					configfile.getName(), configfile.getPath()));
 			ServiceBindingsGeneration tenantbob = new ServiceBindingsGeneration(getConfigFile(), createSpec(cspm), getTenantData(cspm),false);
 			tenantBindings = tenantbob.doit(serviceBindingsVersion);
 		} else {
@@ -282,8 +354,8 @@ public class XsdGeneration {
 					configfile.getName(), generationType));
 		}
 	}
-	
-	private String getRequiredBundlesList(Record record, HashMap<String, String> definedSchemaList) throws Exception {
+		
+	private String getRequiredBundlesList(Record record, Map<String, String> definedSchemaList) throws Exception {
 		String result = null;
 		StringBuffer strBuf = new StringBuffer();
 		final String lineSeparator = "," + EOL + " "; // Need to start a new line with a <space> char
@@ -310,7 +382,7 @@ public class XsdGeneration {
 		return result;
 	}
 	
-	private String getSchemaElementsList(Record record, HashMap<String, String> definedSchemaList) throws Exception {
+	private String getSchemaElementsList(Record record, Map<String, String> definedSchemaList) throws Exception {
 		String result = null;
 		StringBuffer strBuf = new StringBuffer();
 		
@@ -335,7 +407,7 @@ public class XsdGeneration {
 	}
 	
 	private void createDocumentTypeBundle(Record record,
-			HashMap<String, String> definedSchemaList,
+			Map<String, String> definedSchemaList,
 			File outputDir) throws Exception {
 		boolean isAuthorityItemType = record.isAuthorityItemType();
                 boolean supportsLocking = record.supportsLocking();
@@ -359,10 +431,10 @@ public class XsdGeneration {
 		if (isAuthorityItemType == true) {
 			templateDirPrefix = NUXEO_AUTH_TEMPLATES_PREFIX; // use the Authority based templates
 		}		
-		if (getServiceDoctypeBundles().containsKey(docTypeName) == false) {
+		if (doesDoctypeBundleAlreadyExist(docTypeName) == false) {
 			File doctypeTemplatesDir = new File(this.getConfigBase() + "/" + templateDirPrefix + NUXEO_DOCTYPE_TEMPLATES_DIR);
 			if (doctypeTemplatesDir.exists() == true) {
-				log.info(String.format("Config Generation: '%s' - Creating Nuxeo document type ${NuxeoDocTypeName}='%s' in bundle: '%s'",
+				log.info(String.format("Config Generation: '%s' - New Services document type ${NuxeoDocTypeName}='%s' created in bundle: '%s'",
 						this.getConfigFile().getName(), docTypeName, bundleName));
 				ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(bundleName));
 				//
@@ -433,7 +505,7 @@ public class XsdGeneration {
 		} else {
 			String errMsg = String.format("Config Generation: '%s' - Nuxeo document type '%s' already exists.  Skipping creation.",
 					this.getConfigFile().getName(), docTypeName);
-			throw new Exception(errMsg);
+			log.trace(errMsg);
 		}
 	}
 
@@ -565,7 +637,7 @@ public class XsdGeneration {
 	 */
 	private void createParentAuthorityEntry(Record record, 
 			File schemaTypeTemplatesDir,
-			HashMap<String, String> substitutionMap,
+			Map<String, String> substitutionMap,
 			ZipOutputStream zos) throws Exception {
 		//
 		// Ensure that the parent authority template exists in the "schemas' directory
@@ -587,10 +659,10 @@ public class XsdGeneration {
 	 */
 	private void createSchemaFiles(Record record,
 			File schemaTypeTemplatesDir,
-			HashMap<String, String> substitutionMap,
+			Map<String, String> substitutionMap,
 			ZipOutputStream zos,
 			String schemaName,
-			HashMap<String, String>definedSchemaList) throws Exception {
+			Map<String, String>definedSchemaList) throws Exception {
 		String contentString = definedSchemaList.get(schemaName);
 		
 		if (contentString != null && contentString.isEmpty() == false) {
@@ -617,7 +689,7 @@ public class XsdGeneration {
 		}
 	}
 	
-	private void createManifestFile(File metaInfTemplate, HashMap<String, String> substitutionMap, ZipOutputStream zos) throws Exception {
+	private void createManifestFile(File metaInfTemplate, Map<String, String> substitutionMap, ZipOutputStream zos) throws Exception {
 		if (metaInfTemplate.exists() == false) {
 			throw new Exception(String.format("Config Generation: '%s' - The manifest template file '%s' is missing:",
 					this.getConfigFile().getName(), metaInfTemplate.getAbsolutePath()));
@@ -649,9 +721,47 @@ public class XsdGeneration {
 		return result;
 	}
 	
-	private void createSchemaBundle(Record record,
+	private boolean doesSchemaBundleAlreadyExist(String schemaName) {
+		boolean result = getServiceSchemaBundles().containsKey(schemaName); // Check to see if we're already created it in the current tenant's config
+		
+		if (result == false) { // Check to see if we've defined it in another tenant already
+			for (String configFileName : tenantConfigMap.keySet()) {
+				ServiceConfigGeneration tenantConfig = tenantConfigMap.get(configFileName);
+				if (tenantConfig.getServiceSchemaBundles().get(schemaName) != null) {
+					String msg = String.format("Config Generation: '%s' - Skipping schema bundle creation.  An identical schema bundle for '%s' was already created using the tenant config from '%s'.", 
+							this.getConfigFile().getName(), schemaName, configFileName);
+					log.trace(msg);
+					return true;
+				}
+			}
+		}
+		
+		return result;
+	}
+	
+	private boolean doesDoctypeBundleAlreadyExist(String docTypeName) {
+		boolean result = getServiceDoctypeBundles().containsKey(docTypeName);
+		
+		if (result == false) {
+			for (String configFileName : tenantConfigMap.keySet()) {
+				ServiceConfigGeneration tenantConfig = tenantConfigMap.get(configFileName);
+				if (tenantConfig.getServiceDoctypeBundles().get(docTypeName) != null) {
+					String msg = String.format("Config Generation: '%s' - Skipping doctype bundle creation.  An identical doctype bundle for '%s' was already created using the tenant config from '%s'.", 
+							this.getConfigFile().getName(), docTypeName, configFileName);
+					log.trace(msg);
+					return true;
+				}
+
+			}
+		}
+		
+		return result;
+	}
+	
+	private void createSchemaBundle(
+			Record record,
 			String schemaName,
-			HashMap<String, String>definedSchemaList,
+			Map<String, String>definedSchemaList,
 			File outputDir) throws Exception {
 		String serviceName = record.getServicesTenantSg();
 		String schemaNameNoFileExt = FilenameUtils.removeExtension(schemaName);
@@ -664,12 +774,21 @@ public class XsdGeneration {
 		if (isGlobalSchema(schemaNameNoFileExt) == true) {
 			bundleName = DEFAULT_BUNDLE_PREAMBLE + "." + SHARED_QUALIFIER + "." + SCHEMA_BUNDLE_QUALIFIER + "." + schemaNameNoFileExt;
 		}
-		bundleName = outputDir.getAbsolutePath() + "/" + bundleName + JAR_EXT;
+		bundleName = outputDir.getAbsolutePath() + "/" + bundleName + JAR_EXT;		
 		
+		//
+		// Setup other related names
+		String serviceNameVar = serviceName;				
+		if (isGlobalSchema(schemaNameNoFileExt) == true) {
+			serviceNameVar = SCHEMA_BUNDLE_QUALIFIER;
+		}
+		String bundleSymbolicName = DEFAULT_SYM_BUNDLE_PREAMBLE + "." + serviceNameVar.toLowerCase()  + "." +
+				schemaNameNoFileExt.toLowerCase();
+
 		//
 		// Before creating a new bundle, make sure we haven't already created a bundle for this schema extension.
 		//
-		if (getServiceSchemaBundles().containsKey(schemaName) == false) {
+		if (doesSchemaBundleAlreadyExist(schemaName) == false) {
 			//
 			// Find the correct templates directory to use
 			//
@@ -681,7 +800,7 @@ public class XsdGeneration {
 			
 			if (schemaTypeTemplatesDir.exists() == true) {
 				File outputFile = new File(bundleName);
-				log.info(String.format("Config Generation: '%s' - Creating new jar file: '%s'", 
+				log.trace(String.format("Config Generation: '%s' - Creating new jar file: '%s'", 
 						this.getConfigFile().getName(), outputFile.getAbsolutePath()));
 				ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(outputFile));
 				//
@@ -689,15 +808,9 @@ public class XsdGeneration {
 				//
 				File metaInfTemplate = new File(schemaTypeTemplatesDir + "/" + META_INF_DIR + "/" + MANIFEST_FILE);
 				// Setup the hash map for the variable substitutions
-				String serviceNameVar = serviceName;				
-				if (isGlobalSchema(schemaNameNoFileExt) == true) {
-					serviceNameVar = SCHEMA_BUNDLE_QUALIFIER;
-				}
 				HashMap<String, String> substitutionMap = new HashMap<String, String>();
 				// Symbolic bundle name
 				// org.collectionspace.${ServiceName_LowerCase}.${SchemaName_LowerCase}
-				String bundleSymbolicName = DEFAULT_SYM_BUNDLE_PREAMBLE + "." + serviceNameVar.toLowerCase()  + "." +
-						schemaNameNoFileExt.toLowerCase();
 				substitutionMap.put(BUNDLE_SYM_NAME, bundleSymbolicName);
 				substitutionMap.put(SERVICE_NAME_VAR, serviceNameVar);
 				substitutionMap.put(SERVICE_NAME_LOWERCASE_VAR, serviceNameVar.toLowerCase());
@@ -726,19 +839,26 @@ public class XsdGeneration {
 				// We're finished adding entries so close the zip output stream
 				//
 				zos.close();
+				
 				//
-				// Keep track of the schema bundles we've created
+				// Log the event
 				//
-				getServiceSchemaBundles().put(schemaName, bundleSymbolicName); // keep track of the bundles we've created
+				log.info(String.format("Config Generation: '%s' - New Services schema bundle for '%s' defined in Application configuration record '%s': '%s'",
+						this.getConfigFile().getName(), schemaName, record.getID(), outputFile.getPath()));
 			} else {
-				String errMsg = String.format("Config Generation: '%s' - The '%s' directory is missing looging for it at '%s'.", 
+				String errMsg = String.format("Config Generation: '%s' - The '%s' directory is missing at '%s'.", 
 						this.getConfigFile().getName(), NUXEO_SCHEMA_TYPE_TEMPLATES_DIR, schemaTypeTemplatesDir.getAbsolutePath());
 				throw new Exception(errMsg);
 			}
 		} else {
-			log.warn(String.format("Config Generation: '%s' - Nuxeo schema '%s' is being redefined in record '%s'.  Ignoring redefinition and *not* creating a new extension point bundle for the schema.",
+			log.trace(String.format("Config Generation: '%s' - Skipping schema bundle creation. A Nuxeo schema bundle for the schema '%s' declared in '%s' already exists.",
 					this.getConfigFile().getName(), schemaName, record.getID()));
 		}
+
+		//
+		// Keep track of the schema bundles we've processed
+		//
+		getServiceSchemaBundles().put(schemaName, bundleSymbolicName); // keep track of the bundles we've created
 	}
 
 
@@ -760,7 +880,7 @@ public class XsdGeneration {
 	}
 	
 	private static String processTemplateFile(File templateFile,
-			HashMap<String, String> substitutionMap,
+			Map<String, String> substitutionMap,
 			ZipOutputStream zos,
 			boolean isOSGIManifest) throws Exception {
 		String result = null;
@@ -947,4 +1067,9 @@ public class XsdGeneration {
 	protected File getConfigFile() {
 		return this.configFile;
 	}
+	
+	boolean areXsdSnippetsEqual(String source, String target) {
+		return MakeXsd.areXsdSnippetsEqual(getConfigFile().getName(), source, target);
+	}
+
 }

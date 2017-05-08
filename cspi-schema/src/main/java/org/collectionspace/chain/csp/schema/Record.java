@@ -54,6 +54,7 @@ public class Record implements FieldParent {
 
 	protected SchemaUtils utils = new SchemaUtils();
 
+	private String configFileSrcName = null; // The tenant config file name -e.g, botgarden-tenant.xml
 	private Map<String, Structure> structure = new HashMap<String, Structure>();
 	private Map<String, Map<String, String>> uisection = new HashMap<String, Map<String, String>>();
 	private List<FieldSet> selfRenderers = new ArrayList<FieldSet>();
@@ -105,6 +106,14 @@ public class Record implements FieldParent {
 	private Map<String, String> services_instances_paths = new HashMap<String, String>();
 	private Map<String, Field> services_filter_param = new HashMap<String, Field>();
 
+	public String getConfigFileName() {
+		return this.configFileSrcName;
+	}
+	
+	public void setConfigFileName(String fileName) {
+		this.configFileSrcName = fileName;
+	}
+	
 	public Record getLastAuthorityProxy() {
 		return this.lastAuthoriyProxy;
 	}
@@ -531,7 +540,11 @@ public class Record implements FieldParent {
 	}
 
 	/** end field functions **/
-
+	@Override
+	public String toString() {
+		return getID();
+	}
+	
 	@Override
 	public String getID() {
 		return utils.getString("@id");

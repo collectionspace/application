@@ -15,12 +15,17 @@ import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 
 import org.collectionspace.chain.csp.config.ConfigException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
 public class AssemblingParser {
+	private static final Logger logger = LoggerFactory.getLogger(AssemblingParser.class);
+	
 	private EntityResolver er;
 	private String root_file="root.xml";
 	private SAXParserFactory factory;
@@ -53,7 +58,11 @@ public class AssemblingParser {
 			XMLReader reader = parser.getXMLReader();
 			TransformerHandler xform=transfactory.newTransformerHandler();
 			xform.setResult(out);
-			reader.setContentHandler(new AssemblingContentHandler(this,xform));
+			
+			AssemblingContentHandler assemblingContentHandler = new AssemblingContentHandler(this,xform);
+			logger.info(String.format("Temporary XMLMerge files will be written out to '%s'.", AssemblingContentHandler.getTempDirectory()));
+			
+			reader.setContentHandler(assemblingContentHandler);
 			reader.parse(new InputSource(root));
 		} catch(IOException e) {
 			throw new ConfigException(errMsg, e);

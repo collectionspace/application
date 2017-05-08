@@ -1,8 +1,0 @@
-<record id="preferredCI">
-	<section id="termInformation">
-		<repeat id="citationTermGroupList/citationTermGroup">
-			<!-- Remove autocomplete -->
-			<field id="termSource" autocomplete=""/>
-		</repeat>
-	</section>
-</record>

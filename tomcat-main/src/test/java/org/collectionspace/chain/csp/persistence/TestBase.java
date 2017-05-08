@@ -9,6 +9,7 @@ package org.collectionspace.chain.csp.persistence;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -19,6 +20,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
+import org.aspectj.util.FileUtil;
 import org.collectionspace.chain.controller.TenantServlet;
 import org.collectionspace.chain.storage.UTF8SafeHttpTester;
 import org.collectionspace.chain.util.json.JSONUtils;
@@ -582,30 +584,40 @@ public class TestBase extends TestData {
 		String errMsg = String.format("Failed to create correct uispec for '%s' compared with file '%s'",
 				url, uijson);
 		JSONObject generated = new JSONObject("{}");
-		JSONObject comparison = new JSONObject("{}");
+		JSONObject baseline = new JSONObject("{}");
 		boolean success = false;
 
 		try {
 			HttpTester response = GETData(url, jetty);
 
 			generated = new JSONObject(response.getContent());
-			comparison = new JSONObject(getResourceString(uijson));
+			baseline = new JSONObject(getResourceString(uijson));
 			xxxfixOptions(generated);
-			xxxfixOptions(comparison);
+			xxxfixOptions(baseline);
 
 			// You can use these, Chris, to write stuff out if the spec has
 			// changed to alter the test file -- dan
 			// hendecasyllabic:tmp csm22$ cat gschema.out | pbcopy
 
-			success = JSONUtils.checkJSONEquivOrEmptyStringKey(generated, comparison);
+			success = JSONUtils.checkJSONEquivOrEmptyStringKey(generated, baseline);
 		} catch (Exception e) {
 			log.error(errMsg, e);
 			errMsg = String.format("%s. %s", errMsg, e.getMessage()); // Append the exception message to our default error message.
 		}
 
 		if (!success) {
-			log.error("testUIspec(" + uijson + ") BASELINE from file" + comparison.toString());
-			log.error("testUIspec(" + url + ") GENERATED from url" + generated.toString());
+			File tempDir = FileUtil.getTempDir(uijson);
+			// Baseline spec
+			File baselineFile = new File(tempDir, uijson + ".baseline.json");			
+			FileUtil.writeAsString(baselineFile, baseline.toString());
+			
+			// Generated spec
+			File generatedFile = new File(tempDir, uijson + ".generated.json");
+			FileUtil.writeAsString(generatedFile, generated.toString());
+
+			log.error("The following baseline and generated UI specs did not match:");
+			log.error("testUIspec(" + uijson + ") BASELINE from file" + baselineFile.getPath());
+			log.error("testUIspec(" + url + ") GENERATED from url" + generatedFile.getPath());
 		}
 
 		assertTrue(errMsg, success);

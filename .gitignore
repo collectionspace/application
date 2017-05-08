@@ -17,4 +17,4 @@ target/
 .DS_Store
 *.bindings.xml
 war-entry/tmp/
-
+*.xlsx

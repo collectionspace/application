@@ -1,225 +1,225 @@
 {"media": {
+    "type": "object",
     "properties": {
-        "relations": {
-            "default": {},
-            "type": "object"
-        },
+        "csid": {"type": "string"},
         "termsUsed": {
             "default": [],
             "type": "array"
         },
-        "csid": {"type": "string"},
+        "relations": {
+            "default": {},
+            "type": "object"
+        },
         "fields": {
+            "type": "object",
             "properties": {
-                "tenantId": {"type": "string"},
-                "dateModified": {"type": "string"},
-                "copyrightStatement": {"type": "string"},
-                "externalMediaUrl": {"type": "string"},
-                "location": {"type": "string"},
-                "subjects": {
-                    "items": {
-                        "properties": {
-                            "_primary": {
-                                "default": true,
-                                "type": "boolean"
-                            },
-                            "subject": {"type": "string"}
-                        },
-                        "type": "object"
-                    },
-                    "type": "array"
-                },
-                "data": {"type": "string"},
-                "blobCsid": {"type": "string"},
-                "imgThumb": {"type": "string"},
-                "digest": {"type": "string"},
                 "rightsHolder": {"type": "string"},
-                "sourceUrl": {"type": "string"},
-                "publisher": {"type": "string"},
-                "creator": {"type": "string"},
-                "updatedBy": {"type": "string"},
-                "id": {"type": "string"},
-                "languages": {
-                    "items": {
-                        "properties": {
-                            "_primary": {
-                                "default": true,
-                                "type": "boolean"
-                            },
-                            "language": {
-                                "default": "urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'",
-                                "type": "string"
-                            }
-                        },
-                        "type": "object"
-                    },
-                    "type": "array"
-                },
-                "title": {"type": "string"},
+                "copyrightStatement": {"type": "string"},
+                "data": {"type": "string"},
+                "externalMediaUrl": {"type": "string"},
                 "description": {"type": "string"},
+                "source": {"type": "string"},
+                "blobCsid": {"type": "string"},
+                "mimeType": {"type": "string"},
+                "title": {"type": "string"},
+                "sourceUrl": {"type": "string"},
                 "createdAt": {"type": "date"},
-                "workflow": {
-                    "type": "string"
-                },
+                "dateCreated": {"type": "string"},
                 "contributor": {"type": "string"},
-                "name": {"type": "string"},
-                "length": {"type": "string"},
-                "encoding": {"type": "string"},
+                "digest": {"type": "string"},
+                "imgOrig": {"type": "string"},
+                "id": {"type": "string"},
+                "refName": {"type": "string"},
+                "updatedAt": {"type": "date"},
+                "coverage": {"type": "string"},
+                "externalUrl": {"type": "string"},
+                "creator": {"type": "string"},
                 "types": {
+                    "type": "array",
                     "items": {
+                        "type": "object",
                         "properties": {
-                            "_primary": {
-                                "default": true,
-                                "type": "boolean"
-                            },
                             "type": {
                                 "default": "",
                                 "type": "string"
-                            }
-                        },
-                        "type": "object"
-                    },
-                    "type": "array"
-                },
-                "mimeType": {"type": "string"},
-                "imgMedium": {"type": "string"},
-                "format": {"type": "string"},
-                "repositoryId": {"type": "string"},
-                "uri": {"type": "string"},
-                "updatedAt": {"type": "date"},
-                "imgOrig": {"type": "string"},
-                "createdBy": {"type": "string"},
-                "source": {"type": "string"},
-                "coverage": {"type": "string"},
-                "relations": {
-                    "items": {
-                        "properties": {
+                            },
                             "_primary": {
                                 "default": true,
                                 "type": "boolean"
-                            },
-                            "relation": {"type": "string"}
-                        },
-                        "type": "object"
-                    },
-                    "type": "array"
+                            }
+                        }
+                    }
                 },
-                "refName": {"type": "string"},
-                "dateGroup": {
+                "updatedBy": {"type": "string"},
+                "workflow": {"type": "string"},
+                "languages": {
+                    "type": "array",
                     "items": {
+                        "type": "object",
                         "properties": {
-                            "dateEarliestSingleQualifier": {
-                                "default": "",
+                            "language": {
+                                "default": "urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'",
                                 "type": "string"
                             },
+                            "_primary": {
+                                "default": true,
+                                "type": "boolean"
+                            }
+                        }
+                    }
+                },
+                "imgThumb": {"type": "string"},
+                "dateGroup": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
                             "scalarValuesComputed": {
                                 "default": "true",
                                 "type": "string"
                             },
-                            "dateLatestDay": {"type": "integer"},
-                            "dateLatestYear": {"type": "integer"},
-                            "dateAssociation": {"type": "string"},
-                            "dateEarliestSingleEra": {
-                                "default": "",
-                                "type": "string"
-                            },
-                            "dateDisplayDate": {"type": "string"},
                             "dateEarliestSingleCertainty": {
                                 "default": "",
                                 "type": "string"
                             },
-                            "dateLatestEra": {
-                                "default": "",
-                                "type": "string"
-                            },
-                            "dateEarliestSingleQualifierValue": {"type": "integer"},
-                            "dateLatestCertainty": {
-                                "default": "",
-                                "type": "string"
-                            },
-                            "dateEarliestSingleYear": {"type": "integer"},
-                            "dateLatestQualifier": {
-                                "default": "",
-                                "type": "string"
-                            },
-                            "dateLatestQualifierValue": {"type": "integer"},
                             "dateEarliestSingleQualifierUnit": {
                                 "default": "",
                                 "type": "string"
                             },
-                            "datePeriod": {"type": "string"},
-                            "dateEarliestScalarValue": {"type": "date"},
-                            "_primary": {
-                                "default": true,
-                                "type": "boolean"
-                            },
-                            "dateLatestMonth": {"type": "integer"},
-                            "dateNote": {"type": "string"},
+                            "dateDisplayDate": {"type": "string"},
                             "dateLatestScalarValue": {"type": "date"},
-                            "dateLatestQualifierUnit": {
+                            "dateEarliestSingleQualifierValue": {"type": "integer"},
+                            "datePeriod": {"type": "string"},
+                            "dateLatestEra": {
                                 "default": "",
                                 "type": "string"
                             },
                             "dateEarliestSingleDay": {"type": "integer"},
-                            "dateEarliestSingleMonth": {"type": "integer"}
-                        },
-                        "type": "object"
-                    },
-                    "type": "array"
-                },
-                "filename": {"type": "string"},
-                "dateCreated": {"type": "string"},
-                "measuredPartGroup": {
-                    "items": {
-                        "properties": {
+                            "dateEarliestSingleQualifier": {
+                                "default": "",
+                                "type": "string"
+                            },
                             "_primary": {
                                 "default": true,
                                 "type": "boolean"
+                            },
+                            "dateEarliestSingleYear": {"type": "integer"},
+                            "dateLatestCertainty": {
+                                "default": "",
+                                "type": "string"
+                            },
+                            "dateAssociation": {"type": "string"},
+                            "dateLatestDay": {"type": "integer"},
+                            "dateEarliestSingleMonth": {"type": "integer"},
+                            "dateEarliestSingleEra": {
+                                "default": "",
+                                "type": "string"
+                            },
+                            "dateLatestYear": {"type": "integer"},
+                            "dateLatestQualifierUnit": {
+                                "default": "",
+                                "type": "string"
+                            },
+                            "dateNote": {"type": "string"},
+                            "dateLatestQualifierValue": {"type": "integer"},
+                            "dateLatestQualifier": {
+                                "default": "",
+                                "type": "string"
+                            },
+                            "dateEarliestScalarValue": {"type": "date"},
+                            "dateLatestMonth": {"type": "integer"}
+                        }
+                    }
+                },
+                "subjects": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "subject": {"type": "string"},
+                            "_primary": {
+                                "default": true,
+                                "type": "boolean"
+                            }
+                        }
+                    }
+                },
+                "mediaUri": {"type": "string"},
+                "length": {"type": "string"},
+                "format": {"type": "string"},
+                "dateModified": {"type": "string"},
+                "encoding": {"type": "string"},
+                "uri": {"type": "string"},
+                "imgMedium": {"type": "string"},
+                "filename": {"type": "string"},
+                "createdBy": {"type": "string"},
+                "blobUri": {"type": "string"},
+                "tenantId": {"type": "string"},
+                "name": {"type": "string"},
+                "repositoryId": {"type": "string"},
+                "publisher": {"type": "string"},
+                "identificationNumber": {"type": "string"},
+                "location": {"type": "string"},
+                "relations": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "relation": {"type": "string"},
+                            "_primary": {
+                                "default": true,
+                                "type": "boolean"
+                            }
+                        }
+                    }
+                },
+                "measuredPartGroup": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "dimensionSubGroup": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "dimensionNote": {"type": "string"},
+                                        "valueQualifier": {"type": "string"},
+                                        "valueDate": {"type": "date"},
+                                        "measuredBy": {"type": "string"},
+                                        "dimension": {
+                                            "default": "",
+                                            "type": "string"
+                                        },
+                                        "value": {"type": "float"},
+                                        "measurementMethod": {
+                                            "default": "",
+                                            "type": "string"
+                                        },
+                                        "measurementUnit": {
+                                            "default": "",
+                                            "type": "string"
+                                        },
+                                        "_primary": {
+                                            "default": true,
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
                             },
                             "dimensionSummary": {"type": "string"},
                             "measuredPart": {
                                 "default": "",
                                 "type": "string"
                             },
-                            "dimensionSubGroup": {
-                                "items": {
-                                    "properties": {
-                                        "_primary": {
-                                            "default": true,
-                                            "type": "boolean"
-                                        },
-                                        "dimension": {
-                                            "default": "",
-                                            "type": "string"
-                                        },
-                                        "measuredBy": {"type": "string"},
-                                        "valueDate": {"type": "date"},
-                                        "measurementUnit": {
-                                            "default": "",
-                                            "type": "string"
-                                        },
-                                        "value": {"type": "float"},
-                                        "dimensionNote": {"type": "string"},
-                                        "valueQualifier": {"type": "string"},
-                                        "measurementMethod": {
-                                            "default": "",
-                                            "type": "string"
-                                        }
-                                    },
-                                    "type": "object"
-                                },
-                                "type": "array"
+                            "_primary": {
+                                "default": true,
+                                "type": "boolean"
                             }
-                        },
-                        "type": "object"
-                    },
-                    "type": "array"
-                },
-                "externalUrl": {"type": "string"},
-                "identificationNumber": {"type": "string"}
-            },
-            "type": "object"
+                        }
+                    }
+                }
+            }
         }
-    },
-    "type": "object"
+    }
 }}

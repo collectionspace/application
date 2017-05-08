@@ -1,5 +1,5 @@
 <record id="collection-object" is-extension="true" generate-services-schema="true">
-  <services-record-path id="naturalhistory">collectionobjects_naturalhistory:http://collectionspace.org/services/collectionobject/domain/naturalhistory,collectionobjects_naturalhistory</services-record-path>
+  <services-record-path id="testsci">collectionobjects_testsci:http://collectionspace.org/services/collectionobject/domain/testsci,collectionobjects_testsci</services-record-path>
 
   <section id="identificationInformation">
   	<field id="collection" ui-search="repeatable" seperate_ui_container="true" autocomplete="vocab-collectiontype" ui-type="enum">
@@ -8,11 +8,11 @@
   			<blank-value>Please select a value</blank-value>
   		</enum>
   	</field>  	
-    <repeat id="taxonomicIdentGroupList/taxonomicIdentGroup" section="naturalhistory">
-      <field id="taxon" section="naturalhistory" mini="list" autocomplete="taxon-taxon,taxon-common_ta">
+    <repeat id="taxonomicIdentGroupList/taxonomicIdentGroup" section="testsci">
+      <field id="taxon" section="testsci" mini="list" autocomplete="taxon-taxon,taxon-common_ta">
         <selector>taxonomic-identification-taxon</selector>
       </field>
-      <field id="qualifier" section="naturalhistory" seperate_ui_container="true">
+      <field id="qualifier" section="testsci" seperate_ui_container="true">
         <selector>taxonomic-identification-qualifier</selector>
         <options>
           <option id="">Please select a value</option>
@@ -23,17 +23,17 @@
           <option id="questionable">questionable</option>
         </options>
       </field>
-      <field id="identBy" section="naturalhistory"
+      <field id="identBy" section="testsci"
         autocomplete="person-person,organization-organization">
         <selector>taxonomic-identification-ident-by</selector>
       </field>
-      <field id="identDate" section="naturalhistory" ui-type="date">
+      <field id="identDate" section="testsci" ui-type="date">
         <selector>taxonomic-identification-ident-date</selector>
       </field>
-      <field id="institution" section="naturalhistory" autocomplete="organization-organization">
+      <field id="institution" section="testsci" autocomplete="organization-organization">
         <selector>taxonomic-identification-institution</selector>
       </field>
-      <field id="identKind" section="naturalhistory" seperate_ui_container="true">
+      <field id="identKind" section="testsci" seperate_ui_container="true">
         <selector>taxonomic-identification-ident-kind</selector>
         <options>
           <option id="">Please select a value</option>
@@ -43,25 +43,25 @@
           <option id="taxonomic_change">taxonomic change </option>
         </options>
       </field>
-      <field id="reference" section="naturalhistory">
+      <field id="reference" section="testsci">
         <selector>taxonomic-identification-reference</selector>
       </field>
-      <field id="refPage" section="naturalhistory">
+      <field id="refPage" section="testsci">
         <selector>taxonomic-identification-reference-page</selector>
       </field>
-      <field id="notes" section="naturalhistory">
+      <field id="notes" section="testsci">
         <selector>taxonomic-identification-notes</selector>
       </field>
     </repeat>
     <!-- <repeat id="titleGroupList/titleGroup">
       <services-tag>nh_titleGroupList/nh_titleGroup</services-tag>
-      <field id="titleNote" section="naturalhistory">
+      <field id="titleNote" section="testsci">
         <selector>object-identification-object-title-note</selector>
       </field>
     </repeat> -->
   </section>
 
   <section id="objectCollectionInformation">
-    <field id="fieldLocVerbatim" section="naturalhistory" ui-search="repeatable"></field>
+    <field id="fieldLocVerbatim" section="testsci" ui-search="repeatable"></field>
   </section>
 </record>

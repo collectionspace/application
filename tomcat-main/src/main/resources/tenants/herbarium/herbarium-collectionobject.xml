@@ -27,6 +27,7 @@
 		<field id="sheetNumber" ui-type="validated" datatype="integer" section="herbarium"/>
 		<field id="sheetCount" ui-type="validated" datatype="integer" section="herbarium"/>
 
+        <!-- Now defined in "naturalhistory-collectionobject.xml" extension
 		<repeat id="typeSpecimenGroupList/typeSpecimenGroup" section="herbarium">
 			<field id="typeSpecimenKind" ui-search="repeatable" section="herbarium" mini="search,list" seperate_ui_container="true" autocomplete="vocab-typespecimenkind" ui-type="enum"/>
 			<field id="typeSpecimenAssertionBy" section="herbarium" autocomplete="organization-organization"/>
@@ -35,6 +36,7 @@
 			<field id="typeSpecimenBasionym" section="herbarium" autocomplete="taxon-taxon"/>
 			<field id="typeSpecimenNotes" section="herbarium"/>
 		</repeat>
+		-->
 	</section>
 	
 	<section id="descriptionInformation">
@@ -68,13 +70,6 @@
 			<field id="assocTaxon" section="herbarium" autocomplete="taxon-taxon"/>
 			<field id="assocTaxonCommonName" section="herbarium"/>
 			<field id="assocTaxonInteraction" section="herbarium" autocomplete="vocab-assoctaxoninteraction" ui-type="enum"/>
-		</repeat>
-	</section>
-
-	<section id="localityInformation">
-		<repeat id="localityGroupList/localityGroup" section="herbarium">
-			<field id="collectionLocationVerbatim" section="herbarium"></field>
-			<field id="collectionPlace" autocomplete="place-place" section="herbarium"/>
 		</repeat>
 	</section>
 </record>

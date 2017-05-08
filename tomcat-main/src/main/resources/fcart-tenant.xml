@@ -1,8 +1,7 @@
 <cspace-config tenantname="fcart">
-
     <tenantid>1000</tenantid>
 	<version>11</version>
-	<include src="settings.xml,local-fcart-settings.xml" merge="xmlmerge-settings.properties" 
+    <include src="settings.xml,local-fcart-settings.xml" required="false" merge="xmlmerge-settings.properties" 
 		strip-root="yes" />
 
 	<spec>

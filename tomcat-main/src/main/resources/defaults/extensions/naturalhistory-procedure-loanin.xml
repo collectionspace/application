@@ -1,14 +1,16 @@
 <record id="loanin" is-extension="true">
 	<services-record-path id="naturalhistory_extension">loansin_naturalhistory_extension:http://collectionspace.org/services/loanin/domain/naturalhistory_extension,loansin_naturalhistory_extension</services-record-path>
 	
-	<section id="returnInformation">
-		<repeat id="returnGroupList/returnGroup" section="naturalhistory_extension">
-			<field id="returnDate" section="naturalhistory_extension" ui-type="date" datatype="date"/>
-			<field id="returnQuantity" section="naturalhistory_extension" ui-type="validated" datatype="integer"/>
-			<field id="returnNotes" section="naturalhistory_extension"/>
-		</repeat>
-	</section>
-
+    <section id="returnInformation">
+        <repeat id="returnGroupList/returnGroup" section="naturalhistory_extension">
+            <field id="returnObjectNumbers" section="naturalhistory_extension"/>
+            <field id="returnQuantity" section="naturalhistory_extension" ui-type="validated" datatype="integer"/>
+            <field id="returnDate" section="naturalhistory_extension" ui-type="date" datatype="date"/>
+            <field id="returnNotes" section="naturalhistory_extension"/>
+            <field id="returnDetermination" section="naturalhistory_extension" autocomplete="taxon-taxon"/>
+        </repeat>
+    </section>
+    
 	<section id="transferOutInformation">
 		<repeat id="transferOutGroupList/transferOutGroup" section="naturalhistory_extension">
 			<field id="transferOutDate" section="naturalhistory_extension" ui-type="date" datatype="date"/>

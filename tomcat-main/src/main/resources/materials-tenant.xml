@@ -2,10 +2,10 @@
 	<tenantid>2000</tenantid>
 	<version>11</version>
 
-	<include src="settings.xml,local-materials-settings.xml" merge="xmlmerge-settings.properties" strip-root="yes" />
+    <include src="settings.xml,local-materials-settings.xml" required="false" merge="xmlmerge-settings.properties" strip-root="yes" />
 
 	<spec>
-		<include src="base-relations.xml,materials-relations.xml" merge="xmlmerge.properties"/>
+		<include src="base-relations.xml"/>
 		<include src="base-schemas.xml"/>
 
 		<records>

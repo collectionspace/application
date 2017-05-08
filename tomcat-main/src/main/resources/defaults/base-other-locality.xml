@@ -2873,6 +2873,10 @@
             </field>
             <field id="geoRefRemarks"/>
             <field id="geoRefPlaceName"/>
+            
+            <!-- From Herbarium profile -->
+            <field id="collectionLocationVerbatim"></field>
+            <field id="collectionPlace" autocomplete="place-place"/>
         </repeat>
     </section>
     

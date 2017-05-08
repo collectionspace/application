@@ -1,7 +1,7 @@
 <cspace-config tenantname="herbarium">
 	<tenantid>4000</tenantid>
 	<version>11</version>
-	<include src="settings.xml,local-herbarium-settings.xml" merge="xmlmerge-settings.properties" strip-root="yes"/>
+    <include src="settings.xml,local-herbarium-settings.xml" required="false" merge="xmlmerge-settings.properties" strip-root="yes"/>
 
 	<spec>
 		<include src="base-relations.xml"/>
@@ -11,7 +11,6 @@
 			<enum-blank>Please select a value</enum-blank>
 
 			<include src="base-collectionobject.xml,extensions/naturalhistory-collectionobject.xml,herbarium-collectionobject.xml" merge="xmlmerge.properties"/>
-			<include src="base-authority.xml"/>
 
 			<include src="base-procedure-blobs.xml"/>
 			<include src="base-procedure-conditioncheck.xml"/>
@@ -24,7 +23,8 @@
 			<include src="base-procedure-valuationcontrol.xml"/>
 			<include src="base-procedure-movement.xml"/>
 
-			<include src="base-authority-contact.xml"/>
+		    <include src="base-authority.xml"/>
+		    <include src="base-authority-contact.xml"/>
 			<include src="base-authority-location-termList.xml"/>
 			<include src="base-authority-location.xml"/>
 			<include src="base-authority-organization-termList.xml"/>
@@ -53,6 +53,7 @@
 			<include src="base-authz-users.xml"/>
 
 			<include src="base-other-dimension.xml"/>
+		    <include src="base-other-locality.xml"/>
 			<include src="base-other-address.xml"/>
 			<include src="base-other-hierarchy.xml"/>
 			<include src="base-other-idgenerator.xml"/>

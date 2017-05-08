@@ -13,7 +13,4 @@
             <field id="publicationsPersonNote" section="lhmc" />
         </repeat>
     </section>
-    <section id="contactInformation">
-        <field id="address" ui-type="groupfield/address/selfrenderer" ui-func="cspace.address" />
-    </section>
 </record>

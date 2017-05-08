@@ -47,9 +47,55 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
     }
 
     private static final class IncludeTag {
+    	Attributes attributes;
+    	private boolean required = true;
         private String src;
         private String merge;
         private boolean strip;
+        
+        /**
+         * Create a new IncludeTag instance initialized with an Attributes instance.
+         * 
+         * @param attributes
+         * @throws IOException
+         */
+        IncludeTag(Attributes attrs) throws IOException {
+        	attributes = attrs;
+            required = false;
+            strip = false;
+            
+            if (attributes.getLength() > 0) {
+                required = stringToBoolean(attributes.getValue("required"), true);
+                strip = stringToBoolean(attributes.getValue("strip-root"));
+                merge = attributes.getValue("merge");
+                src = attributes.getValue("src");
+                if (src == null || src.length() == 0) {
+                	String msg = String.format("Attempted to create a new IncludeTag that contained an empty 'src' attribute/tag.",
+                			attributes.toString());
+                	throw new IOException(msg);
+                }            	
+            }
+        }
+        
+        boolean isRequired() {
+        	return required;
+        }
+        
+        @Override
+		public
+        String toString() {
+        	String result = "Include tag with no attributes.";
+        	
+        	if (attributes.getLength() > 0) {
+	        	result = String.format("merge:'%s' required:%s src:'%s' strip:%s", 
+	        			attributes.getValue("merge"), 
+	        			attributes.getValue("required"),
+	        			attributes.getValue("src"),
+	        			attributes.getValue("strip-root"));
+        	}
+        	
+        	return result;
+        }
     }
 
     private static final String XMLMERGE_DEFAULT_PROPS_STR = "matcher.default=ID\n";
@@ -94,6 +140,21 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
     	return tempDirectory;
     }
     
+    public static File getTempDirectory(String leafDir) throws IOException {
+    	File result = null;
+    	
+    	String newDirStr = getTempDirectory().getPath() + File.separatorChar + leafDir.split("\\.")[0];
+    	result = new File(newDirStr);
+    	if (result.exists() == false) {
+    		if (result.mkdir() == false) {
+    			throw new IOException(String.format("Could not create a new directory named: %s.", 
+    					newDirStr));
+    		}
+    	}
+    	
+    	return result;
+    }
+    
     AssemblingContentHandler(AssemblingParser parser, ContentHandler r) throws ConfigException, IOException {
         this(parser, r, true, false, null);
     }
@@ -118,6 +179,8 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 		}
 		if (parser.getMain().getPublicId() != null) {
 			this.srcFileName = parser.getMain().getPublicId();
+		} else {
+			logger.warn("Could not find source file name.");
 		}
 		this.parser = parser;
 	}
@@ -162,7 +225,7 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
         }
     }
 
-    private InputStream merge(String loggingPrefix, Properties xmlmergeProps, InputStream[] inputStreams) throws AbstractXmlMergeException {
+    private InputStream merge(String loggingPrefix, Properties xmlmergeProps, InputStream[] inputStreams) throws AbstractXmlMergeException, IOException {
         InputStream result = null;
         //
         // If we have an XMLMerge properties file then use it -otherwise, use a default set of props.
@@ -182,17 +245,22 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
             try {
                 String outputFileNamePrefix = "/merged-" + loggingPrefix + "-";
                 if (xmlmergeProps != null) {
-                    File mergePropertiesFile = new File(AssemblingContentHandler.tempDirectory, outputFileNamePrefix + ".properties"); //make a copy of the XMLMerge properties used for the merge
+                    File mergePropertiesFile = new File(getTempDirectory(getSrcFileName()), 
+                    		outputFileNamePrefix + ".properties"); //make a copy of the XMLMerge properties used for the merge
+                    
+                    //debug
+                    File tempDir = getTempDirectory(getSrcFileName());
+                    
                     ByteArrayInputStream propertiesStream = new ByteArrayInputStream(xmlmergeProps.toString().getBytes());
                     FileUtils.copyInputStreamToFile(propertiesStream, mergePropertiesFile);
                 }
-                File mergedOutFile = new File(AssemblingContentHandler.tempDirectory, outputFileNamePrefix + ".xml"); //make a copy of the merge results
+                File mergedOutFile = new File(getTempDirectory(getSrcFileName()), outputFileNamePrefix + ".xml"); //make a copy of the merge results
                 FileUtils.copyInputStreamToFile(result, mergedOutFile);
                 result.reset();
-                logger.info(String.format("Config Generation: '%s' - XMLMerge results were written to file: %s", getSrcFileName(), mergedOutFile.getAbsolutePath()));
+                logger.trace(String.format("Config Generation: '%s' - XMLMerge results were written to file: %s", getSrcFileName(), mergedOutFile.getAbsolutePath()));
             } catch (IOException e) {
                 logger.info(String.format("Config Generation: '%s' - Could not write XMLMerge results to directory: %s",
-                		getSrcFileName(), AssemblingContentHandler.tempDirectory.getAbsolutePath()), e);
+                		getSrcFileName(), getTempDirectory(getSrcFileName()).getAbsolutePath()), e);
             }
         }
 
@@ -247,12 +315,13 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
     private InputSource apply_merge(IncludeTag includeTag) throws SAXException, IOException {
         InputSource result = null;
 
-        ArrayList<InputSource> inputSources = this.find_all_entities(includeTag.src); // try to find all the files that are part of the "src" attribute
+        ArrayList<InputSource> inputSources = this.find_all_entities(includeTag); // try to find all the files that are part of the "src" attribute
         if (inputSources != null && inputSources.isEmpty() == false) {
             InputStream mergedStream = null;
             try {
                 Properties xmlmergeProps = getXMLMergeProperties(includeTag.merge); //the "merge" attribute contains the name of the XMLMerge properties file
-                mergedStream = merge(includeTag.src.replace(',', '_'), // peform the merge
+                String src = includeTag.src.replaceAll("\\s+","");
+                mergedStream = merge(src.replace(',', '_'), // peform the merge
                         xmlmergeProps, toArray(inputSources));
             } catch (AbstractXmlMergeException e) {
                 String msg = String.format("Config Generation: '%s' - Could not merge the include files: ",
@@ -318,16 +387,14 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
         }
     }
 
-    private IncludeTag isIncludeTag(String localName, Attributes attributes) throws SAXException {
+    private IncludeTag isIncludeTag(String localName, Attributes attributes) throws SAXException, IOException {
         IncludeTag out = resolveIncludeTag(localName);
         if (out != null) {
             return out;
         }
+        
         if (INCLUDE_TAG.equals(localName)) {
-            out = new IncludeTag();
-            out.src = attributes.getValue("src");
-            out.merge = attributes.getValue("merge");
-            out.strip = stringToBoolean(attributes.getValue("strip-root"));
+            out = new IncludeTag(attributes);
             return out;
         } else {
             return null;
@@ -335,11 +402,21 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
     }
 
     private static boolean stringToBoolean(String in) {
+        return stringToBoolean(in, false);
+    }
+    
+    /**
+     * Returns the 'defaultValue' if not set (i.e., is NULL)
+     * @param in
+     * @param defaultValue
+     * @return
+     */
+    private static boolean stringToBoolean(String in, boolean defaultValue) {
         if (in != null) {
-            in = in.toLowerCase();
+            in = in.toLowerCase().trim();
             return (in.equals("yes") || in.equals("true"));
         }
-        return false;
+        return defaultValue;
     }
 
     private void processXSLTDefine(Attributes attr) throws SAXException {
@@ -353,18 +430,17 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
         xslt_tags.put(name, tag);
     }
 
-    private void processIncludeDefine(Attributes attr) throws SAXException {
-        IncludeTag tag = new IncludeTag();
-        tag.src = attr.getValue("src");
-        tag.strip = stringToBoolean(attr.getValue("strip-root"));
+    private void processIncludeDefine(Attributes attr) throws SAXException, IOException {
+        IncludeTag includeTag = new IncludeTag(attr);
+                
         String name = attr.getValue("tag");
         if (name == null || "".equals(name)) {
             throw new SAXException("Tag has no name in definition");
         }
-        include_tags.put(name, tag);
+        include_tags.put(name, includeTag);
     }
 
-    private boolean processDefines(String localName, Attributes attributes) throws SAXException {
+    private boolean processDefines(String localName, Attributes attributes) throws SAXException, IOException {
         if (!DEFINE_TAG.equals(localName)) {
             return false;
         }
@@ -417,6 +493,7 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
     private InputSource find_first_entity(String all) throws SAXException, IOException { // this method returns when it finds the first item in the "all" list
         InputSource result = null;
         for (String src : all.split(",")) {
+        	src = src.trim();
             result = find_entity(src);
             if (result != null) {
                 return result;
@@ -426,10 +503,14 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
         throw new SAXException(all + " file(s) not found.");
     }
 
-    private ArrayList<InputSource> find_all_entities(String all) throws SAXException, IOException {
+    private ArrayList<InputSource> find_all_entities(IncludeTag includeTag) throws SAXException, IOException {
+    	String all = includeTag.src;
         ArrayList<InputSource> result = new ArrayList<InputSource>();
+        ArrayList<String> missingFiles = new ArrayList<String>();
+        
         InputSource inputSource = null;
         for (String src : all.split(",")) {
+        	src = src.trim();
             inputSource = find_entity(src);
             if (inputSource != null) {
                 result.add(inputSource);
@@ -437,13 +518,17 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
             	String msg = String.format("Config Generation: '%s' - Source file for \"Include\" tag could not be found: '%s'.", 
             			getSrcFileName(), src);
                 logger.warn(msg);
+                missingFiles.add(src);
             }
         }
 
-        if (result.isEmpty() == true) {
-        	String msg = String.format("Config Generation: '%s' - All source files for \"Include\" tag could not be found: '%s'.",
-        			getSrcFileName(), all);
+        if (result.isEmpty() == true  || missingFiles.isEmpty() == false) {
+        	String msg = String.format("Config Generation: '%s' - These source files for an \"Include\" tag could not be found: '%s'.",
+        			getSrcFileName(), missingFiles.toString());
             logger.warn(msg);
+            if (includeTag.isRequired() == true) {
+            	throw new IOException(msg);
+            }
         }
 
         return result;
@@ -460,31 +545,32 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
             delegated_depth++;
             return;
         } else {
+        	IncludeTag includeTag = null;
             try {
                 if (processDefines(localName, attributes)) {
                     return;
                 }
                 XSLTTag xslt = isXSLTTag(localName, attributes);
-                IncludeTag include = isIncludeTag(localName, attributes);
+                includeTag = isIncludeTag(localName, attributes);
                 if (localName.equals("cspace-config")) {
                     this.tenantname = attributes.getValue("tenantname");
                 }
                 if (xslt != null) {
                     apply_xslt(resolveEntity(null, xslt.src), xslt.root);
-                } else if (include != null) {
-                    if ("@".equals(include.src)) {
-                        apply_include(parser.getMain(), include.strip);
+                } else if (includeTag != null) {
+                    if ("@".equals(includeTag.src)) {
+                        apply_include(parser.getMain(), includeTag.strip);
                     } else //apply_include(find_entity(include.src),include.strip); //put merge code here when "merge" REM
                     {
-                        apply_include(include);
+                        apply_include(includeTag);
                     }
-                    logger.debug("Including: " + include.src);
+                    logger.debug("Including: " + includeTag.src);
                 } else {
                     up.startElement(uri, localName, qName, attributes);
                 }
             } catch (IOException x) {
             	logger.error(x.getMessage());
-                throw new SAXException("Could not load source.");
+                throw new SAXException("Could not load source from Include tag: " + includeTag);
             }
         }
     }
@@ -495,6 +581,7 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
         if (depth == 0 && strip) {
             return;
         }
+        
         if (delegated_depth > 0) {
             delegated_depth--;
             if (delegated_depth > 0) {
@@ -509,10 +596,17 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
         }
         // XXX should check skipped tags instead, to make it more robust to internal definitions
         XSLTTag xslt = isXSLTTag(localName, new AttributesImpl());
-        IncludeTag include = isIncludeTag(localName, new AttributesImpl());
+        IncludeTag include;
+		try {
+			include = isIncludeTag(localName, new AttributesImpl());
+		} catch (IOException e) {
+			throw new SAXException(e);
+		}
+		
         if (include != null || xslt != null || DEFINE_TAG.equals(localName)) {
             return;
         }
+        
         up.endElement(uri, localName, qName);
     }
 

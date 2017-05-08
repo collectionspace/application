@@ -37,8 +37,11 @@ public class ConfigParser {
 			if("core.xml".equals(systemId) || "root.xml".equals(systemId)) {
 				String path=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+systemId;
 				InputStream in=Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
-				if(in!=null)
-					return new InputSource(in);
+				if (in != null) {
+					InputSource result = new InputSource(in);
+					result.setPublicId(path);
+					return result;
+				}
 			}
 			return er.resolveEntity(publicId,systemId);
 		}
@@ -62,6 +65,8 @@ public class ConfigParser {
 			p.parse(new SAXResult(content_handler));
 			TreeNode tree=handler.getTree(); //at this point, we have pieced together the set of config/settings files for "target" building -i.e., creates our internal data model of the App configuration
 			TreeNode tree_root=TreeNode.create_tag("ROOT");
+			tree_root.dump();
+
 			tree_root.addChild(tree);
 			tree_root.claim(rules,"ROOT",null,null);
 			SectionImpl ms_root=new SectionImpl(null,"ROOT",null);
