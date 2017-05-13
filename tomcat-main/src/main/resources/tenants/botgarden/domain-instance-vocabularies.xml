@@ -1,5 +1,17 @@
 <?xml version="1.0"?>
 <root>
+    <include src="extensions/naturalhistory-vocabularies.xml" strip-root="yes" />
+    <instance id="vocab-provenanceType">
+        <web-url>provenancetype</web-url>
+        <title-ref>provenancetype</title-ref>
+        <title>provenanceType</title>
+        <options>
+            <option id="wildsource">W-wild source</option>
+            <option id="cultivatedwildsource">Z-cultivated from wild source</option>
+            <option id="notwildsource">G-not wild source</option>
+            <option id="unknownsource">U-unknown</option>
+        </options>
+    </instance>
 	<instance id="vocab-collectionobjectmaterialtype">
 		<web-url>materialtype</web-url>
 		<title-ref>materialtype</title-ref>

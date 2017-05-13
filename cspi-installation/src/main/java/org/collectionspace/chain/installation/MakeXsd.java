@@ -768,8 +768,23 @@ public class MakeXsd {
 		this.currentSchemaName = schemaName;
 		Document doc = DocumentFactory.getInstance().createDocument();
 		
-		Namespace ns = new Namespace("xs", "http://www.w3.org/2001/XMLSchema");
-		String[] parts = record.getServicesRecordPath(schemaName).split(":", 2);
+		String servicesRecordPath = null;
+		String[] parts = null;
+		try {
+			servicesRecordPath = record.getServicesRecordPath(schemaName);
+			parts = servicesRecordPath.split(":", 2);
+		} catch (NullPointerException e) {
+			String msg;
+			if (servicesRecordPath == null) {
+				msg = String.format("Missing '<services-record-path>' config element declaration for schema/section '%s' in record '%s'.",
+						schemaName, record.toString());
+			} else {
+				msg = String.format("Could not split services record path for record '%s' with schema '%s'.",
+						record.toString(), schemaName);
+			}
+			throw new Exception(msg, e);
+		}
+		
 		String[] rootel = parts[1].split(",");
 		Element root = doc.addElement(new QName("schema", new Namespace("xs",
 				"http://www.w3.org/2001/XMLSchema")));
@@ -779,6 +794,7 @@ public class MakeXsd {
 		root.addAttribute("version", schemaVersion);
 
 		// add top level items
+		Namespace ns = new Namespace("xs", "http://www.w3.org/2001/XMLSchema");
 		for (FieldSet fs : record.getAllFieldTopLevel("")) {
 			try {
 				if (fs.getSection().equalsIgnoreCase(schemaName) == true) {
