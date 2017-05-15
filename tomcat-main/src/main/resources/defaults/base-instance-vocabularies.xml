@@ -346,4 +346,93 @@
                             <option id="labelswritten">Labels written</option>
                         </options>
                     </instance>
+                    <instance id="vocab-cranialdeformationcategory">
+                        <web-url>cranialdeformationcategory</web-url>
+                        <title-ref>cranialdeformationcategory</title-ref>
+                        <title>cranialdeformationcategory</title>
+                        <options>
+                            <option id="tabular">Tabular</option>
+                            <option id="circumferential">Circumferential</option>
+                            <option id="other">Other (describe)</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-trepanationtechnique">
+                        <web-url>trepanationtechnique</web-url>
+                        <title-ref>trepanationtechnique</title-ref>
+                        <title>trepanationtechnique</title>
+                        <options>
+                            <option id="scraping">Scraping</option>
+                            <option id="grooving">Grooving</option>
+                            <option id="boringandcutting">Boring-and-cutting</option>
+                            <option id="rectangularincisions">Rectangular incisions</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-trepanationhealing">
+                        <web-url>trepanationhealing</web-url>
+                        <title-ref>trepanationhealing</title-ref>
+                        <title>trepanationhealing</title>
+                        <options>
+                            <option id="none">No healing</option>
+                            <option id="possible">Possible healing</option>
+                            <option id="definite">Definite evidence for healing</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-trepanationcertainty">
+                        <web-url>trepanationcertainty</web-url>
+                        <title-ref>trepanationcertainty</title-ref>
+                        <title>trepanationcertainty</title>
+                        <options>
+                            <option id="possible">Possible trepanation</option>
+                            <option id="clear">Clear evidence of trepanation</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-conservationstatus">
+                        <web-url>conservationstatus</web-url>
+                        <title-ref>conservationstatus</title-ref>
+                        <title>conservationstatus</title>
+                        <options>
+                            <option id="treatmentproposed">Treatment proposed</option>
+                            <option id="treatmentapproved">Treatment approved</option>
+                            <option id="treatmentinprogress">Treatment in progress</option>
+                            <option id="treatmentcomplete">Treatment complete</option>
+                            <option id="analysisproposed">Analysis proposed</option>
+                            <option id="analysisapproved">Analysis approved</option>
+                            <option id="analysisinprogress">Analysis in progress</option>
+                            <option id="analysiscomplete">Analysis complete</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-treatmentpurpose">
+                        <web-url>treatmentpurpose</web-url>
+                        <title-ref>treatmentpurpose</title-ref>
+                        <title>treatmentpurpose</title>
+                        <options>
+                            <option id="appraisal">Appraisal</option>
+                            <option id="damage">Damage</option>
+                            <option id="exhibition">Exhibition</option>
+                            <option id="insurance">Insurance</option>
+                            <option id="loanout">Loan Out</option>
+                            <option id="loanreturn">Loan Return</option>
+                            <option id="purchase">Purchase</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-otherpartyrole">
+                        <web-url>otherpartyrole</web-url>
+                        <title-ref>otherpartyrole</title-ref>
+                        <title>otherpartyrole</title>
+                        <options>
+                            <option id="conservator">Conservator</option>
+                            <option id="technician">Technician</option>
+                            <option id="preparator">Preparator</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-examinationphase">
+                        <web-url>examinationphase</web-url>
+                        <title-ref>examinationphase</title-ref>
+                        <title>examinationphase</title>
+                        <options>
+                            <option id="beforetreatment">before treatment</option>
+                            <option id="duringtreatment">during treatment</option>
+                            <option id="aftertreatment">after treatment</option>
+                        </options>
+                    </instance>
 </instances>

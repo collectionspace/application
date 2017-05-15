@@ -45,6 +45,12 @@ public class MakeXsd {
 		String fieldSetServicesType = fieldSet.getServicesType(false /* not NS qualified */);
 		Spec spec = fieldSet.getRecord().getSpec();
 		Record record = spec.getRecord(fieldSetServicesType); // find a record that corresponds to the fieldset's service type
+		
+		if (record == null) {
+			fieldSetServicesType = fieldSet.getServicesGroupType(false);
+			record = spec.getRecord(fieldSetServicesType);
+		}
+		
 		String servicesType = record.getServicesType();
 		
 		//

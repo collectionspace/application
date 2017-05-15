@@ -21,6 +21,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.collectionspace.chain.util.misc.JSON;
@@ -267,7 +268,17 @@ public class CompositeWebUIRequestPart implements UIRequest {
 			throw new UIException("Could not write data",e);
 		}
 	}
-	
+
+	public void sendUnknown(InputStream data, String contenttype, String contentDisposition) throws UIException {
+		mime_type_out=contenttype;
+		try {
+			IOUtils.copy(data, body_out);
+			body_out.flush();
+		} catch (IOException e) {
+			throw new UIException("Could not write data",e);
+		}
+	}
+
 	@Override
 	public void sendJSONResponse(JSONObject data) throws UIException {
 		mime_type_out="text/json;charset=UTF-8";

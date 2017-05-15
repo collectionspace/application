@@ -191,7 +191,7 @@ public class BlobStorage extends GenericStorage {
 					//
 					response = conn.getReportDocument(RequestMethod.POST, "reports/"+filePath, doc, creds, cache);
 					ReturnUnknown returnUnknown = (ReturnUnknown)response;
-					out.put("getByteBody", returnUnknown.getBytes());
+					out.put("body", returnUnknown.getBodyAsStream());
 					out.put("contenttype", returnUnknown.getContentType());
 					out.put("contentdisposition", returnUnknown.getContentDisposition());
 				}

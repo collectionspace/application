@@ -1038,17 +1038,20 @@ public class Services {
 			String fieldName = in.getID() + ":" + in.getLabel(); // for debugging only
 
 			if (in.isASelfRenderer() == true) {
-				String fieldSetServicesType = in.getServicesType(false /* not NS qualified */);
-				Spec recordSpec = in.getRecord().getSpec();
-				Record subRecord = recordSpec.getRecord(fieldSetServicesType); // find a record that corresponds to the fieldset's service type
-				//
-				// Iterate through each field of the subrecord
-				//
-				boolean createdAuths = doAuthRefsAndTermRefs(auth, types, subRecord, section); // Recursive call
-				if (createdAuths == true) {
-					result = true; // Let the caller know we created at least one auth/term reference
-				}
+				if (in.getSection().equals(section)) {
+					String fieldSetServicesType = in.getServicesType(false /* not NS qualified */);
+					Spec recordSpec = in.getRecord().getSpec();
+					Record subRecord = recordSpec.getRecord(fieldSetServicesType); // find a record that corresponds to the fieldset's service type
+					String subSection = "common"; // the fields in an included subrecord should always be in the "common" section
 					
+					//
+					// Iterate through each field of the subrecord
+					//
+					boolean createdAuths = doAuthRefsAndTermRefs(auth, types, subRecord, subSection); // Recursive call
+					if (createdAuths == true) {
+						result = true; // Let the caller know we created at least one auth/term reference
+					}
+				}
 			} else {
 				boolean createdAuths = createAuthRefOrTermRef(auth, types, r, section, in);
 				if (createdAuths == true) {
