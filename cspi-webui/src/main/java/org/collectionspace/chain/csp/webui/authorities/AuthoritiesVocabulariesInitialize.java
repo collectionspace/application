@@ -15,6 +15,7 @@ import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.httpclient.HttpStatus;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Option;
@@ -30,6 +31,7 @@ import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.TTYOutputter;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,21 +46,30 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class AuthoritiesVocabulariesInitialize implements WebMethod  {
-	private static final Logger log=LoggerFactory.getLogger(AuthoritiesVocabulariesInitialize.class);
-	private boolean append;
-	private Instance n;
-	private Record r;
+	private static final Logger log = LoggerFactory.getLogger(AuthoritiesVocabulariesInitialize.class);
 	
-
-	public AuthoritiesVocabulariesInitialize(Instance n, Boolean append) {
+	private boolean append;
+	private Instance fInstance;
+	private Record r;
+	private Spec spec;
+	private boolean modifyResponse = true;
+	private int failedPosts = 0; // If this value is > 0 after the init is complete than the default authorities and term lists have not been properly initialized.
+	
+	public AuthoritiesVocabulariesInitialize(Instance n, Boolean append, boolean modifyResponse) {
 		this.append = append;
-		this.n = n;
+		this.fInstance = n;
 		this.r = n.getRecord();
+		this.modifyResponse = modifyResponse;
 	}
+	
 	public AuthoritiesVocabulariesInitialize(Record r, Boolean append) {
 		this.append = append;
 		this.r = r;
-		this.n = null;
+		this.fInstance = null;
+	}
+	
+	public boolean success() {
+		return failedPosts == 0;
 	}
 	
 	private JSONObject getTermData(Storage storage,String auth_type,String inst_type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
@@ -66,9 +77,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		JSONObject out=storage.retrieveJSON(auth_type+"/"+inst_type+"/"+csid+"/view", new JSONObject());
 		return out;
 	}
-		
-	
-	
+
 	private JSONObject list_vocab(JSONObject shortIdentifiers,Instance n,Storage storage,String param, Integer pageSize, Integer pageNum, Record thisr) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject restriction=new JSONObject();
 		if(param!=null){
@@ -85,11 +94,9 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		restriction.put("deleted", true);
 		String url = thisr.getID()+"/"+n.getTitleRef();
 		JSONObject data = null;
-		try{
+		try {
 			data = storage.getPathsJSON(url,restriction);
-		}
-		catch (UnderlyingStorageException x) {
-
+		} catch (UnderlyingStorageException x) {
 			JSONObject fields=new JSONObject("{'displayName':'"+n.getTitle()+"','shortIdentifier':'"+n.getWebURL()+"'}");
 			if(thisr.getFieldFullList("termStatus") instanceof Field){
 				fields.put("termStatus", ((Field)thisr.getFieldFullList("termStatus")).getOptionDefault());
@@ -98,75 +105,74 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 			storage.autocreateJSON(base,fields, null);
 			data = storage.getPathsJSON(url,restriction);
 		}
-		//if(data.has("isError")&& data.getBoolean("isError")){
-			/*
-			 *                     <instance id="vocab-languages">
-                        <web-url>languages</web-url>
-                        <title-ref>languages</title-ref>
-                        <title>Languages</title>
-                       */
-			//create the vocab
-				//create the vocab
-		//	JSONObject fields=new JSONObject("{'displayName':'"+n.getTitle()+"','shortIdentifier':'"+n.getWebURL()+"'}");
-
-		//	String base=thisr.getID();
-		//	storage.autocreateJSON(base,fields);
-		//	
-		//}
 		
 		String[] results = (String[]) data.get("listItems");
 		/* Get a view of each */
-		for(String result : results) {
+		for (String result : results) {
 			//change csid into shortIdentifier
 			JSONObject termData = getTermData(storage,thisr.getID(),n.getTitleRef(),result);
-			
 			shortIdentifiers.put(termData.getString("shortIdentifier"),result);
 		}
+		
 		JSONObject alldata = new JSONObject();
 		alldata.put("shortIdentifiers", shortIdentifiers);
 		alldata.put("pagination",  data.getJSONObject("pagination"));
+		
 		return alldata;
 	}
 	
-	public void createIfMissingAuthority(Storage storage, TTYOutputter tty, Record r1, Instance n1) throws ExistException, UnimplementedException, UIException, JSONException, UnderlyingStorageException{
+	public int createIfMissingAuthority(Storage storage, StringBuffer tty, Record record, Instance instance)
+			throws ExistException, UnimplementedException, UIException, JSONException, UnderlyingStorageException {
+		int result = HttpStatus.SC_OK;
 		
-		String url = r1.getID()+"/"+n1.getTitleRef();
-		try{
+		String url = record.getID() + "/" + instance.getTitleRef();
+		try {
 			storage.getPathsJSON(url,new JSONObject()).toString();
-			if(tty != null){
-				log.info("Instance " + n1.getID()+ " Exists");
-				tty.line("Instance " + n1.getID()+ " Exists");
+			if (tty != null) {
+				log.info("--- Instance " + instance.getID() + " Exists.");
+				tty.append("--- Instance " + instance.getID() + " Exists.\n");
+			}
+		} catch (UnderlyingStorageException e) {
+			if (e.getStatus() == HttpStatus.SC_NOT_FOUND) {
+				failedPosts++; // assume we're going to fail
+				log.info("Need to create instance " + fInstance.getID());
+				if (tty != null) {
+					tty.append("Need to create instance " + fInstance.getID() + '\n');
+				}
+				JSONObject fields = new JSONObject("{'displayName':'" + instance.getTitle() + "', 'shortIdentifier':'" + instance.getWebURL() + "'}");
+				String base = record.getID();
+				storage.autocreateJSON(base, fields, null);
+				failedPosts--; // We succeeded, so subtract our assumed failure
+				log.info("Instance " + instance.getID() + " created.");
+				if (tty != null) {
+					tty.append("Instance " + instance.getID() + " created.\n");
+				}
+			} else if (e.getStatus() == HttpStatus.SC_FORBIDDEN) {
+				result = -1; // We don't have the permissions needed to see if the instance exists.
+			} else {
+				throw e;
 			}
 		}
-		catch (UnderlyingStorageException x) {
-			if(tty != null){
-				log.info("need to create Instance " + n.getID());
-				tty.line("need to create Instance " + n.getID());
-			}
-			JSONObject fields=new JSONObject("{'displayName':'"+n1.getTitle()+"','shortIdentifier':'"+n1.getWebURL()+"'}");
-			String base=r1.getID();
-			storage.autocreateJSON(base, fields, null);
-			if(tty != null){
-				log.info("Instance " + n1.getID() + " Created");
-				tty.line("Instance " + n1.getID() + " Created");
-			}
-		}	
-				
+		
+		return result;
 	}
 	
-	private void initializeVocab(Storage storage,UIRequest request,String path) throws UIException {
-		try{
-			if(n==null) {
-				// For now simply loop thr all the instances one after the other.
-				for(Instance n2 : r.getAllInstances()) {
-					log.info(n2.getID());
+	private void initializeVocab(Storage storage, UIRequest request, String path) throws UIException {
+		try {
+			if (fInstance == null) {
+				// For now simply loop through all the instances one after the other.
+				for (Instance instance : r.getAllInstances()) {
+					log.info(instance.getID());
 					//does instance exist?
-					createIfMissingAuthority(storage,null, this.r, n2);
-					resetvocabdata(storage, request, n2);
+					if (createIfMissingAuthority(storage, null, this.r, instance) == -1) {
+						log.warn(String.format("The currently authenticated user does not have sufficient permission to determine if the '%s' authority/term-list is properly initialized.",
+								instance.getID()));
+					}
+					resetvocabdata(storage, request, instance);
 				}
 			} else {
-				log.info(n.getID());
-				resetvocabdata(storage, request, this.n);
+				log.info(fInstance.getID());
+				resetvocabdata(storage, request, this.fInstance);
 			}
 		} catch (JSONException e) {
 			throw new UIException("Cannot generate JSON",e);
@@ -225,21 +231,21 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 	}
 	
 	private void resetvocabdata(Storage storage,UIRequest request, Instance instance) throws UIException, ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
-		TTYOutputter tty=request.getTTYOutputter();
+		StringBuffer tty = new StringBuffer();
 
-		tty.line("Initializing Vocab "+instance.getID());
+		tty.append("Initializing Vocab " + instance.getID() + '\n');
 		//Where do we get the list from?
 		//from Spec
 		Option[] allOpts = instance.getAllOptions();
 		
 		//but first check: do we have a path?
 		Set<String> args = request.getAllRequestArgument();
-		if(args.contains("datapath")){
-			tty.line("Using Datapath ");
+		if (args.contains("datapath")) {
+			tty.append("Using Datapath \n");
 			//remove all opts from instance as we have a path
-			if(allOpts != null && allOpts.length > 0){
-				tty.line("Removing all opts from instance as we have a path");
-				for(Option opt : allOpts){
+			if (allOpts != null && allOpts.length > 0) {
+				tty.append("Removing all opts from instance as we have a path\n");
+				for (Option opt : allOpts) {
 					String name = opt.getName();
 					String shortIdentifier = opt.getID();
 					String sample = opt.getSample();
@@ -251,16 +257,15 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 			//add from path
 			String value = request.getRequestArgument("datapath");
 			//log.info("getting data from path: "+value);
-			try{
-				tty.line("Getting data from path: "+value);
+			try {
+				tty.append("Getting data from path: " + value + '\n');
 				String names = getResource(value);
 				for (String line : names.split("\n")) {
 					line = line.trim();
 					String bits[] = line.split("\\|");
-					if(bits.length>1){
+					if (bits.length > 1) {
 						instance.addOption(bits[0], bits[1], null, false);
-					}
-					else{
+					} else {
 						instance.addOption(null, line, null, false);
 					}
 				}
@@ -271,103 +276,129 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		}
 
 		fillVocab(storage, r, instance, tty, allOpts, this.append);
+		
+		if (this.modifyResponse == true) {
+			TTYOutputter ttyOut = request.getTTYOutputter();
+			ttyOut.line(tty.toString());
+		}
 
 	}
 	
-	public void fillVocab(Storage storage, Record thisr,
-			Instance instance, TTYOutputter tty, Option[] allOpts, Boolean appendit)
-			throws UIException, ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
-		//step away if we have nothing
-		if(allOpts != null && allOpts.length > 0){
-
-			if(tty!= null){
-				tty.line("get list from Service layer");
-			}
-			//get list from Service layer
+	public void fillVocab(Storage storage,
+			Record thisr,
+			Instance instance, 
+			StringBuffer tty, 
+			Option[] allOpts, 
+			Boolean appendit) throws UIException, ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		//
+		// step away if we have nothing to add
+		//
+		if (allOpts != null && allOpts.length > 0) {
+			// get list from Service layer
 			JSONObject results = new JSONObject();
-				Integer pageNum = 0;
-				Integer pageSize = 100;
-				JSONObject fulldata= list_vocab(results,instance,storage,null, pageSize,pageNum, thisr);
+			Integer pageNum = 0;
+			Integer pageSize = 0; 	// Setting the pageSize to 0 means the Services layer will return ALL the terms in one request.
+									// The "paging" code here is broken.  It's made some false assumptions about the order in which terms are returned from the Services layer.
+									// In short, setting the pageSize to 0 is a workaround to the bugs in the paging code.
+			JSONObject fulldata = list_vocab(results, instance, storage, null, pageSize, pageNum, thisr);
 
-				while(!fulldata.isNull("pagination")){
-					Integer total = fulldata.getJSONObject("pagination").getInt("totalItems");
-					pageSize = fulldata.getJSONObject("pagination").getInt("pageSize");
-					Integer itemsInPage = fulldata.getJSONObject("pagination").getInt("itemsInPage");
-					pageNum = fulldata.getJSONObject("pagination").getInt("pageNum");
-					results=fulldata.getJSONObject("shortIdentifiers");
+			while (!fulldata.isNull("pagination")) {
+				Integer total = fulldata.getJSONObject("pagination").getInt("totalItems");
+				pageSize = fulldata.getJSONObject("pagination").getInt("pageSize");
+				Integer itemsInPage = fulldata.getJSONObject("pagination").getInt("itemsInPage");
+				pageNum = fulldata.getJSONObject("pagination").getInt("pageNum");
+				results = fulldata.getJSONObject("shortIdentifiers");
+
+				pageNum++;
+				// are there more results
+				if (total > (pageSize * (pageNum))) {
+					fulldata = list_vocab(results, instance, storage, null, pageSize, pageNum, thisr);
+				} else {
+					break;
+				}
+			}
+
+			// compare
+			results = fulldata.getJSONObject("shortIdentifiers");
+
+			for (Option opt : allOpts) {
+				String name = opt.getName();
+				String shortIdentifier = opt.getID();
+
+				if (shortIdentifier == null || shortIdentifier.equals("")) {
+					shortIdentifier = name.trim().replaceAll("\\W", "").toLowerCase();
+				}
+
+				if (!results.has(shortIdentifier)) {
+					// create it if term is not already present
+					JSONObject data = new JSONObject();
+					data.put("displayName", name);
+					data.put("description", opt.getDesc());
+					data.put("shortIdentifier", shortIdentifier);
+					if (thisr.getFieldFullList("termStatus") instanceof Field) {
+						data.put("termStatus", ((Field) thisr.getFieldFullList("termStatus")).getOptionDefault());
+					}
+					String url = thisr.getID() + "/" + instance.getTitleRef();
+
+					failedPosts++; // assume we're going to fail and an exception will be thrown
+					try {
+						storage.autocreateJSON(url, data, null);
+						failedPosts--; // we succeeded so we can remove our assumed failure
+						if (tty != null) {
+							String msg = String.format("Added term %s:'%s' with short ID='%s'.", instance.getTitleRef(), name, shortIdentifier);
+							tty.append(msg + '\n');
+							log.info(msg);
+						}						
+					} catch (UnderlyingStorageException e) {
+						if (e.getStatus() == HttpStatus.SC_CONFLICT) {
+							log.error("Terms must have unique short identifiers. The CollectionSpace administrator needs to change the non-unique short identifier and restart CollectionSpace.");
+							String msg = String.format("CollectionSpace attempted to create the term %s:'%s' using a non-unique short identifier of '%s'.",
+									instance.getTitleRef(), name, shortIdentifier);
+							log.error(msg);
+							log.error(String.format("Failed JSON payload:%s", data.toString()));
+						} else {
+							throw e;
+						}
+					}
+				} else {
+					// remove from results so can delete everything else if
+					// necessary in next stage
+					// though has issues with duplicates
+					results.remove(shortIdentifier);
+					String msg = String.format("Tried to create term %s:'%s' with short ID='%s', but a term with that short ID already exists.",
+							instance.getTitleRef(), name, shortIdentifier);
+					log.debug(msg);
+				}
+			}
+
+			if (!appendit) {
+				// delete everything that is not in options
+				Iterator<String> rit = results.keys();
+				while (rit.hasNext()) {
+					String key = rit.next();
+					String csid = results.getString(key);
 					
-					pageNum++;
-					//are there more results
-					if(total > (pageSize * (pageNum))){
-						fulldata= list_vocab(results, instance, storage, null, pageSize, pageNum, thisr);
-					}
-					else{
-						break;
-					}
-				}
-
-				//compare
-				results= fulldata.getJSONObject("shortIdentifiers");
-
-				//only add if term is not already present
-				if(tty!= null){
-					tty.line("only add if term is not already present");
-				}
-				for(Option opt : allOpts){
-					String name = opt.getName();
-					String shortIdentifier = opt.getID();
-
-					if(shortIdentifier == null || shortIdentifier.equals("")){
-						//XXX here until the service layer does this
-						shortIdentifier = name.replaceAll("\\W", "").toLowerCase();
-					}
+					failedPosts++; // assume we're going to fail and an exception will be thrown
+					storage.deleteJSON(thisr.getID() + "/" + instance.getTitleRef() + "/" + csid);
+					failedPosts--; // we succeeded so remove our assumed failure
 					
-					if(!results.has(shortIdentifier)){
-						if(tty!= null){
-							tty.line("adding term "+name);
-							log.info("adding term "+name);
-						}
-						
-						//create it if term is not already present
-						JSONObject data=new JSONObject();
-						data.put("displayName", name);
-						data.put("description", opt.getDesc());
-						data.put("shortIdentifier", shortIdentifier);
-						if(thisr.getFieldFullList("termStatus") instanceof Field){
-							data.put("termStatus", ((Field)thisr.getFieldFullList("termStatus")).getOptionDefault());
-						}
-						String url = thisr.getID()+"/"+instance.getTitleRef();
-
-						storage.autocreateJSON(url,data,null);
-						results.remove(shortIdentifier);
-					}
-					else{
-						//remove from results so can delete everything else if necessary in next stage
-						//tho has issues with duplicates
-						results.remove(shortIdentifier);
+					if (tty != null) {
+						log.info("Deleting term " + key);
+						tty.append("Deleting term " + key + '\n');
 					}
 				}
-				if(!appendit){
-					//delete everything that is not in options
-					Iterator<String> rit=results.keys();
-					while(rit.hasNext()) {
-						String key=rit.next();
-						String csid = results.getString(key);
-						storage.deleteJSON(thisr.getID()+"/"+instance.getTitleRef()+"/"+csid);
-						if(tty!= null){
-							log.info("deleting term "+key);
-							tty.line("deleting term "+key);
-						}
-					}
-				}
-
+			}
 		}
 	}
 	
-	public void configure(WebUI ui, Spec spec) {}
+	@Override
+	public void configure(WebUI ui, Spec spec) {
+		this.spec = spec;
+	}
 
+	@Override
 	public void run(Object in, String[] tail) throws UIException {
 		Request q=(Request)in;
-		initializeVocab(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
+		initializeVocab(q.getStorage(), q.getUIRequest(), StringUtils.join(tail,"/"));
 	}
 }

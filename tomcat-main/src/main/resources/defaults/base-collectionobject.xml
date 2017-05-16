@@ -410,7 +410,7 @@
         </field>
       </repeat>
       <repeat id="contentConcepts">
-        <field id="contentConcept" autocomplete="concept-concept,concept-material_ca">
+        <field id="contentConcept" autocomplete="concept-concept,concept-material_ca,concept-material_ca_shared">
           <selector>object-description-content-concept</selector>
         </field>
       </repeat>
@@ -459,7 +459,7 @@
         </field>
       </repeat>
       <repeat id="contentPersons">
-        <field id="contentPerson" autocomplete="person-person,person-ulan_pa">
+        <field id="contentPerson" autocomplete="person-person,person-person_shared,person-ulan_pa">
           <selector>object-description-content-person</selector>
         </field>
       </repeat>
@@ -485,7 +485,7 @@
       </repeat>
       <repeat id="contentOrganizations">
         <field id="contentOrganization"
-          autocomplete="organization-organization,organization-ulan_oa">
+          autocomplete="organization-organization,organization-organization_shared,organization-ulan_oa">
           <selector>object-description-content-organization</selector>
         </field>
       </repeat>
@@ -517,7 +517,7 @@
           <selector>object-description-inscription-content</selector>
         </field>
         <field id="inscriptionContentInscriber"
-          autocomplete="person-person,organization-organization" ui-search="repeatable">
+          autocomplete="person-person,organization-organization,organization-organization_shared" ui-search="repeatable">
           <selector>object-description-inscription-content-inscriber</selector>
         </field>
         <field id="inscriptionContentLanguage" autocomplete="vocab-languages" ui-type="enum">
@@ -594,7 +594,7 @@
           <selector>object-description-inscription-description</selector>
         </field>
         <field id="inscriptionDescriptionInscriber" ui-search="repeatable"
-          autocomplete="person-person,organization-organization">
+          autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared">
           <selector>object-description-inscription-description-inscriber</selector>
         </field>
         <!-- CSPACE-4894: inscriptionDescriptionDateGroup isn't actually searchable, but need ui-search="range" to prevent uispec generation from erroring. -->
@@ -678,7 +678,7 @@
     </repeat>
     <repeat id="objectProductionPersonGroupList/objectProductionPersonGroup">
       <!-- selector>object-production-objectProductionPersonGroup</selector -->
-      <field id="objectProductionPerson" ui-search="repeatable" autocomplete="person-person">
+      <field id="objectProductionPerson" ui-search="repeatable" autocomplete="person-person,person-person_shared">
         <selector>object-production-person</selector>
       </field>
       <field id="objectProductionPersonRole"/>
@@ -686,7 +686,7 @@
     <repeat id="objectProductionOrganizationGroupList/objectProductionOrganizationGroup">
       <!-- selector>collection-object-objectProductionOrganizationGroup</selector -->
       <field id="objectProductionOrganization" ui-search="repeatable"
-        autocomplete="organization-organization">
+        autocomplete="organization-organization,organization-organization_shared">
         <selector>object-production-organization</selector>
       </field>
       <field id="objectProductionOrganizationRole"/>
@@ -704,7 +704,7 @@
       <field id="usageNote"/>
     </repeat>
     <repeat id="owners">
-      <field id="owner" autocomplete="person-person,organization-organization">
+      <field id="owner" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared">
         <selector>object-history-association-owner</selector>
       </field>
     </repeat>
@@ -782,7 +782,7 @@
         <field id="assocCulturalContextNote"/>
       </repeat>
       <repeat id="assocOrganizationGroupList/assocOrganizationGroup">
-        <field id="assocOrganization" autocomplete="organization-organization"/>
+        <field id="assocOrganization" autocomplete="organization-organization,organization-organization_shared"/>
         <!-- CSPACE-2927: This new 'type' field may need to provide terms from a controlled -->
         <!-- vocabulary; needs functional clarification from Megan, et al. -->
         <field id="assocOrganizationType"/>
@@ -794,7 +794,7 @@
         <field id="assocPeopleNote"/>
       </repeat>
       <repeat id="assocPersonGroupList/assocPersonGroup">
-        <field id="assocPerson" autocomplete="person-person"/>
+        <field id="assocPerson" autocomplete="person-person,person-person_shared"/>
         <field id="assocPersonType"/>
         <field id="assocPersonNote"/>
       </repeat>
@@ -806,7 +806,7 @@
       <field id="assocEventName"/>
       <field id="assocEventNameType"/>
       <repeat id="assocEventOrganizations">
-        <field id="assocEventOrganization" autocomplete="organization-organization">
+        <field id="assocEventOrganization" autocomplete="organization-organization,organization-organization_shared">
           <selector>object-history-association-event-organization</selector>
         </field>
       </repeat>
@@ -816,7 +816,7 @@
         </field>
       </repeat>
       <repeat id="assocEventPersons">
-        <field id="assocEventPerson" autocomplete="person-person">
+        <field id="assocEventPerson" autocomplete="person-person,person-person_shared">
           <selector>object-history-association-event-person</selector>
         </field>
       </repeat>
@@ -875,7 +875,7 @@
   <!-- CSPACE-3501: reference and catalog number combined into a repeatable group; catalog number renamed reference note -->
   <section id="referenceInformation">
     <repeat id="referenceGroupList/referenceGroup">
-      <field id="reference" autocomplete="citation-citation,citation-worldcat"/>
+      <field id="reference" autocomplete="citation-citation,citation-citation_shared,citation-worldcat"/>
       <field id="referenceNote"/>
     </repeat>
   </section>
@@ -890,12 +890,12 @@
     </repeat>
     <field id="fieldCollectionNote"/>
     <field id="fieldCollectionNumber"/>
-    <field id="fieldCollectionPlace" autocomplete="place-place,place-tgn_place"/>
+    <field id="fieldCollectionPlace" autocomplete="place-place,place-place_shared,place-tgn_place"/>
     <repeat id="fieldCollectionSources">
-      <field id="fieldCollectionSource" autocomplete="person-person"/>
+      <field id="fieldCollectionSource" autocomplete="person-person,person-person_shared"/>
     </repeat>
     <repeat id="fieldCollectors">
-      <field id="fieldCollector" autocomplete="person-person,organization-organization"/>
+      <field id="fieldCollector" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"/>
     </repeat>
     <repeat id="fieldColEventNames">
       <field id="fieldColEventName" ui-search="repeatable"/>

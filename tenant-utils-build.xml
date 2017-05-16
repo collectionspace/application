@@ -1,9 +1,13 @@
 <project name="tenant-utils" basedir=".">
   <description>Utilities for managing folders and files containing per-tenant configurations</description>
   
-  <!-- Import this Ant build file into any other Ant build file
-       via '<import file="./tenant-mgmt-build.xml"/>' -->
+  <!-- Note to developers: for consistency of maintenance and behavior, changes
+       made to this Ant buildfile, tenant-utils-build.xml, should be propagated
+       to each instance of this file across all three of CollectionSpace's
+       build layers: services, application, and ui. -->
   
+  <!-- Import this Ant build file into any other Ant build file
+       via '<import file="./tenant-utils-build.xml"/>' -->
   <!-- If a 'tenant.properties' file is provided, values for
        properties used in this Ant buildfile will be read
        from that file. -->
@@ -24,6 +28,8 @@
     delete-files-in-cloned-tenant,
     update-text-in-cloned-tenant"
     description="Make a copy ('clone') of an existing tenant (effectively using it as a template) to create a new tenant">
+    <echo message="A directory for your newly-cloned '${tenant.shortname}' tenant has been successfully created as '${tenants.dir}/${tenant.shortname}' ..."/>
+    <echo message="You can add or modify files in that directory to configure that tenant's settings ..."/>
   </target>
   
   <!-- Main sub-targets -->
@@ -106,7 +112,7 @@
   </target>
    
   <target name="check-property-value-is-not-blank">
-    <fail message="'${property-to-check}' property is defined, but its value is blank (is empty or contains only whitespace characters). This property must contain a non-blank value, and must match the name of an existing tenant. Its value is usually set in either a 'tenant.properties' file, present in the same directory as this Ant build.xml file, or by adding a '-D${property-to-check}=somevalue' argument when running 'ant clone-tenant'.">
+    <fail message="'${property-to-check}' property is defined, but its value is blank (is empty or contains only whitespace characters). This property must contain a non-blank value. Its value is usually set in either a 'tenant.properties' file, present in the same directory as this Ant build.xml file, or by adding a '-D${property-to-check}=somevalue' argument when running 'ant clone-tenant'.">
       <condition>
           <equals arg1="${property-to-check-value}" arg2="" trim="true"/>
       </condition>

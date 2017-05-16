@@ -12,7 +12,6 @@ import org.collectionspace.chain.csp.persistence.services.connection.RequestMeth
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnUnknown;
 import org.collectionspace.chain.csp.persistence.services.connection.Returned;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
-import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMultipartDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.chain.csp.schema.Record;
@@ -153,6 +152,7 @@ public class BlobStorage extends GenericStorage {
 		return out;
 	}	
 	
+	@Override
 	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject restrictions) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		JSONObject result = null;
@@ -202,8 +202,7 @@ public class BlobStorage extends GenericStorage {
 				}
 				
 				result = out;
-			}
-			else if(r.isType("batch")){
+			} else if (r.isType("batch")) {
 				Document doc = null;
 				Map<String,Document> parts=new HashMap<String,Document>();
 				for(String section : r.getServicesRecordPathKeys()) {
@@ -228,8 +227,7 @@ public class BlobStorage extends GenericStorage {
 				
 				JSONObject out = new JSONObject();
 				this.convertToJson(out, doc2.getDocument(), r.getSpec().getRecord("invocationresults"), "", "invocationResults", filePath);
-                
-				result = out;
+				return out;	
 			} else {
 				//
 				// We're being asked for an image or some other attachment.

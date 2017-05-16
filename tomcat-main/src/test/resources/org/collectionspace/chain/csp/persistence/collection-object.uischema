@@ -1424,6 +1424,9 @@
                     "type": "array"
                 },
                 "csid": {"type": "string"},
+                "workflow": {
+                    "type": "string"
+                },
                 "objectProductionPeopleGroup": {
                     "items": {
                         "properties": {

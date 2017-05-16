@@ -9,16 +9,17 @@ package org.collectionspace.chain.csp.webui.misc;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
+import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Option;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.authorities.AuthoritiesVocabulariesInitialize;
-import org.collectionspace.chain.csp.webui.authorities.VocabulariesRead;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
@@ -63,83 +64,152 @@ public class WebReset implements WebMethod {
 		stream.close();		
 		return data;
 	}
+	
+	private void logInitMessage(StringBuffer buffer, String message, boolean modifyResponse) {
+		log.info(message);
+		if (modifyResponse == true) {
+			buffer.append(message);
+		}
+	}
 
-	private void initialiseAll(Storage storage,UIRequest request,String path) throws UIException { 
-		TTYOutputter tty=request.getTTYOutputter();
-		try{
-			log.info("Initialise vocab/auth entries");
-			tty.line("Initialise vocab/auth entries");
-			// Delete existing vocab entries
+	private void logException(UnderlyingStorageException e, StringBuffer responseMessage, boolean modifyResponse) {
+		logInitMessage(responseMessage, "\nDetailed error code:\n\t" + e.getStatus(), modifyResponse);
+		logInitMessage(responseMessage, "\nRequest target:\n\t" + e.getUrl(), modifyResponse);						
+		logInitMessage(responseMessage, "\nDetailed error message:\n\t" + e.getMessage(), modifyResponse);		
+	}
+
+	private boolean initialiseAll(Storage storage, UIRequest request, String path, boolean modifyResponse) throws UIException {
+		StringBuffer responseMessage = new StringBuffer();
+		boolean initializationFailed = false;
+		boolean initializationUnknown = false;
+		
+		try {
+			logInitMessage(responseMessage, "Initializing vocab/auth entries...", modifyResponse);
 			JSONObject myjs = new JSONObject();
 			myjs.put("pageSize", "10");
 			myjs.put("pageNum", "0");
-			JSONObject data = storage.getPathsJSON("/",null);
+			JSONObject data = storage.getPathsJSON("/", null);
 			String[] paths = (String[]) data.get("listItems");
-			for(String dir : paths) {
-				try{
-					if(this.spec.hasRecord(dir)){
-						Record r = this.spec.getRecord(dir);
-						if(r.isType("authority")){
-							log.info("testing Authority " +dir);
-							tty.line("testing Authority  " + dir);
-							for(Instance n : r.getAllInstances()) {
-
-								avi = new AuthoritiesVocabulariesInitialize(n, populate);
-								Option[] allOpts = n.getAllOptions();
-
-								avi.createIfMissingAuthority(storage,tty, r, n);
-								avi.fillVocab(storage, r, n, tty, allOpts, true);
-								//avi.initializeVocab(storage,request,path);
-								
-								
-								/*
-								String url = r.getID()+"/"+n.getTitleRef();
-								try{
-									storage.getPathsJSON(url,new JSONObject()).toString();
-									log.info("Instance " + n.getID()+ " Exists");
-									tty.line("Instance " + n.getID()+ " Exists");
+			for (String dir : paths) {
+				try {
+					if (this.spec.hasRecord(dir)) {
+						Record record = this.spec.getRecord(dir);
+						if (record.isType("authority") == true) {
+							for (Instance instance : record.getAllInstances()) {
+								if (instance.getCreateUnreferenced() || isInstanceReferenced(instance)) {
+									avi = new AuthoritiesVocabulariesInitialize(instance, populate, modifyResponse);
+									Option[] allOpts = instance.getAllOptions();
+									boolean creatingTerm = false;
+									try {
+										if (avi.createIfMissingAuthority(storage, responseMessage, record, instance) == -1) {
+											log.warn(String.format("The currently authenticated user does not have sufficient permission to determine if the '%s' authority/term-list is properly initialized.",
+													instance.getID()));
+											initializationUnknown = true; // since the logged in user doesn't have the correct perms, we can't verify that the authorities and term lists have been properly initialized
+										} else {
+											//
+											// Create the missing items.
+											//
+											creatingTerm = true;
+											avi.fillVocab(storage, record, instance, responseMessage, allOpts, true);
+										}
+									} catch (UnderlyingStorageException e) {
+										if (e.getStatus() == HttpStatus.SC_CONFLICT) {
+											// This means the authority/vocabulary instance already exists in the backend, so move on to the next instance.
+											log.warn(String.format("A short ID for the authority/vocabulary instance '%s' already exists.", instance.getID()));
+											continue; // Not a fatal error.
+										} else {
+											throw e;
+										}
+									} catch (Exception e) {
+										if (avi.success() == false) {
+											initializationFailed = true;
+										}
+										throw e;
+									}
 								}
-								catch (UnderlyingStorageException x) {
-		
-									log.info("need to create Instance " + n.getID());
-									tty.line("need to create Instance " + n.getID());
-									JSONObject fields=new JSONObject("{'displayName':'"+n.getTitle()+"','shortIdentifier':'"+n.getWebURL()+"'}");
-									String base=r.getID();
-									storage.autocreateJSON(base,fields);
-									log.info("Instance " + n.getID() + " Created");
-									tty.line("Instance " + n.getID() + " Created");
-								}	
-								*/						
+								else {
+									logInitMessage(responseMessage, "Instance " + instance.getID() + " is not referenced.", modifyResponse);
+								}
 							}
 						}
 					}
-				}
-				catch(Exception e){
-					tty.line("that was weird but probably not a problem " + e.getMessage());
-					log.warn("initialiseAll() exception: " + e.getMessage());
+				} catch(UnderlyingStorageException e) {
+					//
+					// If we get here, the system is either in an unknown or incomplete initialization state.  If it's incomplete, we'll put up
+					// a message.
+					//
+					if (e.getCause() instanceof ConnectionException) {
+						if (initializationFailed == true) {
+							modifyResponse = true;
+							if (e.getStatus() == HttpStatus.SC_UNAUTHORIZED || e.getStatus() == HttpStatus.SC_FORBIDDEN) {
+								logInitMessage(responseMessage,
+											"\nSummary:\n\t*** ERROR *** CollectionSpace has not been properly initialized: The CollectionSpace administrator needs to login to the correct tenant and initialize the default term lists and authorities.\n\n",
+										modifyResponse);
+							} else {
+								logInitMessage(responseMessage,
+										"\nSummary:\n\t*** ERROR *** CollectionSpace has not been properly initialized: Ask the CollectionSpace administrator to login to the correct tenant and initialize the default term lists and authorities.\n\n",
+										modifyResponse);
+							}
+						} else if (initializationUnknown == true) {
+							log.warn("The currently logged in user does not have the correct permissions to determin whether or not the default authorities and term lists have been properly initialized.");
+						} else {
+							throw e; // Should never get here unless we've got a bug in our code
+						}
+					}
+					
+					logException(e, responseMessage, modifyResponse);
+					break; // no need to continue if the user hasn't authenticated or has incorrect permissions
 				}
 			}
-
-		
 		} catch (ExistException e) {
-			log.info("ExistException "+ e.getLocalizedMessage());
-			tty.line("ExistException "+ e.getLocalizedMessage());
-			throw new UIException("Existence problem",e);
+			logInitMessage(responseMessage, "ExistException " + e.getLocalizedMessage(), modifyResponse);
+			throw new UIException("Existence problem", e);
 		} catch (UnimplementedException e) {
-			log.info("UnimplementedException "+ e.getLocalizedMessage());
-			tty.line("UnimplementedException "+ e.getLocalizedMessage());
+			logInitMessage(responseMessage, "UnimplementedException " + e.getLocalizedMessage(), modifyResponse);
 			throw new UIException("Unimplemented ",e);
 		} catch (UnderlyingStorageException x) {
-			log.info("UnderlyingStorageException "+ x.getLocalizedMessage());
-			tty.line("UnderlyingStorageException "+ x.getLocalizedMessage());
-			throw new UIException("Problem storing"+x.getLocalizedMessage(),x.getStatus(),x.getUrl(),x);
+			if (x.getStatus() == HttpStatus.SC_UNAUTHORIZED) {
+				initializationFailed = true;
+				logInitMessage(responseMessage,
+						"\n*** ERROR *** You need to be logged in to the correct tenant with the proper credentials before attempting to initialize the default term lists and authorities.\n",
+						modifyResponse);
+				logException(x, responseMessage, modifyResponse);
+			} else {
+				logInitMessage(responseMessage, "UnderlyingStorageException " + x.getLocalizedMessage(), modifyResponse);
+				throw new UIException("Problem storing:" + x.getLocalizedMessage(), x.getStatus(), x.getUrl(), x);
+			}
 		} catch (JSONException e) {
-			log.info("JSONException "+ e.getLocalizedMessage());
-			tty.line("JSONException "+ e.getLocalizedMessage());
+			logInitMessage(responseMessage, "JSONException " + e.getLocalizedMessage(), modifyResponse);
 			throw new UIException("Invalid JSON",e);
-		} 
+		}
 		
+		//
+		// If the caller is requesting we add our messages to the HTTP request response, then create a
+		// TTY out instance and add our messages.
+		//
+		if (modifyResponse == true && request != null) {
+			TTYOutputter tty = request.getTTYOutputter();
+			tty.line(responseMessage.toString());
+		}
 		
+		return !initializationFailed; // report success if we didn't see a failure
+	}
+	
+	/**
+	 * Returns true if the authority instance is referenced by a field
+	 * (in any record type).
+	 */
+	private boolean isInstanceReferenced(Instance instance) {
+		boolean found = false;
+		
+		for (Record record : spec.getAllRecords()) {
+			if (record.getSpec().hasTermlist(instance.getID())) {
+				found = true;
+				break;
+			}
+		}
+		
+		return found;
 	}
 	
 	private static JSONObject createTrivialAuthItem(String termGroup, String name) throws JSONException {
@@ -152,7 +222,7 @@ public class WebReset implements WebMethod {
 		return item;
 	}
 	
-	private void reset(Storage storage,UIRequest request,String path) throws UIException { 
+	private void reset(Storage storage, UIRequest request, String path) throws UIException { 
 		//remember to log into the front end before trying to run this
 		JSONObject data = new JSONObject();
 		TTYOutputter tty=request.getTTYOutputter();
@@ -272,9 +342,6 @@ public class WebReset implements WebMethod {
 									storage.getPathsJSON(url,new JSONObject()).toString();
 								}
 								catch (UnderlyingStorageException x) {
-	
-									log.info("need to create Instance " + n.getID());
-									tty.line("need to create Instance " + n.getID());
 									JSONObject fields=new JSONObject("{'displayName':'"+n.getTitle()+"','shortIdentifier':'"+n.getWebURL()+"'}");
 									String base=r.getID();
 									storage.autocreateJSON(base,fields,null);
@@ -410,19 +477,54 @@ public class WebReset implements WebMethod {
 				
 			}
 		}
+		
 		return data;
 	}
 
-	public void run(Object in,String[] tail) throws UIException {
-		Request q=(Request)in;
-		initialiseAll(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
-
-		if(this.populate){
-			reset(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
-		}
+	/**
+	 * 
+	 * @param storage
+	 * @param uiRequest
+	 * @param tail
+	 * @param modifyResponse
+	 * @throws UIException
+	 */
+	public void run(Storage storage, UIRequest uiRequest, String[] tail, boolean modifyResponse) throws UIException {
+		//
+		// Synchronize this code (on the class) so we don't accidentally start more than one thread that is trying to initialize things.
+		//
+    	synchronized(this.getClass()) {
+    		initialiseAll(storage, uiRequest, StringUtils.join(tail,"/"), modifyResponse);	
+    		if (this.populate) {
+    			reset(storage, uiRequest, StringUtils.join(tail,"/"));
+    		}
+    	}
+	}
+	
+	/**
+	 * The 'modifyResponse' param tells us whether or not to add our output to the HTTP response.  We'll
+	 * only do this if there is a direct request to the /authorities/initialize URL.
+	 * 
+	 * @param in
+	 * @param tail
+	 * @param modifyResponse
+	 * @throws UIException
+	 */
+	private void run(Object in, String[] tail, boolean modifyResponse) throws UIException {
+		Request request = (Request)in;
+   		run(request.getStorage(), request.getUIRequest(), tail, modifyResponse);	
+	}
+	
+	@Override
+	public void run(Object in, String[] tail) throws UIException {
+		run(in, tail, true);
 	}
 
-	public void configure() throws ConfigException {}
+	public void configure() throws ConfigException {
+		// Intentionally left blank
+	}
+	
+	@Override
 	public void configure(WebUI ui,Spec spec) {
 		this.spec = spec;
 	}

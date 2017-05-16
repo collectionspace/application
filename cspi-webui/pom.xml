@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>org.collectionspace</groupId>
 		<artifactId>svcapp</artifactId>
-		<version>4.3-SNAPSHOT</version>
+		<version>4.5-SNAPSHOT</version>
 	</parent>
 
 	<dependencies>
@@ -37,6 +37,12 @@
 			<groupId>org.collectionspace.services</groupId>
 			<artifactId>org.collectionspace.services.common-api</artifactId>
 			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.collectionspace.services</groupId>
+		    <artifactId>org.collectionspace.services.structureddate</artifactId>
+		    <version>${project.version}</version>
 		</dependency>
 
 		<dependency>
@@ -101,7 +107,10 @@
 	</dependencies>
 
 	<build>
-		<finalName>csp-helper</finalName>
+		<finalName>cspi-webui</finalName>
+		<filters>
+            <filter>../build.properties</filter>
+        </filters>
 		<plugins>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>

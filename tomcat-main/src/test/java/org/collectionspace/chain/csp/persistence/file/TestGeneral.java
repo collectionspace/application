@@ -72,10 +72,10 @@ public class TestGeneral  {
 	public void test2() throws Exception{
 		
 		JSONObject user = new JSONObject();
-			user.put("userid", "admin@lifesci.collectionspace.org");
+			user.put("userid", "admin@testsci.collectionspace.org");
 			user.put("password", "Administrator");
 
-		//ServletTester jetty=setupJetty("lifesci", user);
+		//ServletTester jetty=setupJetty("testsci", user);
 		//ServletTester jetty=setupJetty(false,"tenant2.xml");
 	//	http://nightly.collectionspace.org/collectionspace/tenant/core/invokereport/88b3bdb5-a7fd-4e39-aaa1
 	//	String csid = "/reporting/search?doctype=Acquisition";
@@ -106,9 +106,9 @@ public class TestGeneral  {
 		HttpTester out;
 		//loanedObjectStatus
 
-		//out = jettyDo(jetty, "GET", "/tenant/lifesci/authorities/vocab/initialize", null);
+		//out = jettyDo(jetty, "GET", "/tenant/testsci/authorities/vocab/initialize", null);
 
-		//out = jettyDo(jetty, "GET", "/tenant/lifesci/cataloging/uispec", null);
+		//out = jettyDo(jetty, "GET", "/tenant/testsci/cataloging/uispec", null);
 
 		//out = GETData(csid,  jetty);
 		out = tester.POSTData(csid, test, jetty);

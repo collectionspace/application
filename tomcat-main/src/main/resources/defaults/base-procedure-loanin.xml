@@ -88,21 +88,21 @@
                         </options>
                     </field>
                     <repeat id="lenderGroupList/lenderGroup">
-                        <field id="lender" ui-search="repeatable" autocomplete="person-person,organization-organization" in-title="yes" mini="summary,search,list">
+                        <field id="lender" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared" in-title="yes" mini="summary,search,list">
                             <selector>loanIn-lender</selector>
                         </field>
-                        <field id="lendersAuthorizer" autocomplete="person-person">
+                        <field id="lendersAuthorizer" autocomplete="person-person,person-person_shared">
                             <selector>loanIn-lendersAuthorizer</selector>
                         </field>
                         <field id="lendersAuthorizationDate" ui-type="date" datatype="date">
                             <selector>loanIn-lendersAuthorizerDate</selector>
                         </field>
-                        <field id="lendersContact" autocomplete="person-person">
+                        <field id="lendersContact" autocomplete="person-person,person-person_shared">
                             <selector>loanIn-lendersContact</selector>
                         </field>
                     </repeat>
-                    <field id="borrowersAuthorizer" autocomplete="person-person"></field>
-                    <field id="borrowersContact" autocomplete="person-person"></field>
+                    <field id="borrowersAuthorizer" autocomplete="person-person,person-person_shared"></field>
+                    <field id="borrowersContact" autocomplete="person-person,person-person_shared"></field>
                     <field id="borrowersAuthorizationDate" ui-type="date"  datatype="date"></field>
                     <field id="loanInConditions">
                         <selector>loanIn-loanInConditions</selector>

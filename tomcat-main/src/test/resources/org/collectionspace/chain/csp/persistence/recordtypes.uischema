@@ -33,6 +33,7 @@
           "objectexit",
           "claim",
           "conditioncheck",
+          "conservation",
           "exhibition",
           "valuationcontrol"
         ], 

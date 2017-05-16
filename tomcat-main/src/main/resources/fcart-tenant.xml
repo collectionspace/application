@@ -1,8 +1,7 @@
 <cspace-config tenantname="fcart">
-
     <tenantid>1000</tenantid>
 	<version>11</version>
-	<include src="settings.xml,local-fcart-settings.xml" merge="xmlmerge-settings.properties" 
+    <include src="settings.xml,local-fcart-settings.xml" required="false" merge="xmlmerge-settings.properties" 
 		strip-root="yes" />
 
 	<spec>
@@ -30,6 +29,7 @@
 			<include src="base-procedure-valuationcontrol.xml"/>
 			<include src="base-procedure-movement.xml"/>
 			<include src="base-procedure-objectexit.xml"/>
+			<include src="base-procedure-conservation.xml"/>
 
 			<include src="base-authority-contact.xml"/>
                         <!-- IMPORTANT: *-termList.xml files MUST precede their equivalent files. -->
@@ -54,7 +54,9 @@
 			<include src="base-authority-work-termList.xml"/>
 			<include src="base-authority-work.xml"/>
 
-			<include src="extensions/fcart-profile-vocabularies.xml"/>
+			<!-- <include src="extensions/fcart-profile-vocabularies.xml"/> -->
+			<include src="base-vocabularies.xml,extensions/fcart-profile-vocabularies.xml"
+				merge="xmlmerge.properties" />
 
 			<include src="base-authz-accountrole.xml"/>
 			<include src="base-authz-permission.xml"/>
@@ -66,6 +68,7 @@
 
 			<include src="base-other-dimension.xml,extensions/fcart-profile-other-dimension.xml"
 					 merge="xmlmerge.properties" />
+			<include src="base-other-address.xml"/>					 
 			<include src="base-other-hierarchy.xml"/>
 			<include src="base-other-idgenerator.xml"/>
 			<include src="base-other-structureddate.xml"/>
@@ -73,9 +76,10 @@
 			<include src="base-other-termlistitem.xml"/>
 			<include src="base-other-reporting.xml"/>
 			<include src="base-other-reportingoutput.xml"/>
-			<include src="base-other-searchall.xml"/>
-
+		    <include src="base-other-batch.xml"/>
+		    <include src="base-other-batchoutput.xml"/>
+		    <include src="base-other-invocationresults.xml"/>
+		    <include src="base-other-searchall.xml"/>
 		</records>
-
 	</spec>
 </cspace-config>

@@ -383,6 +383,9 @@
                     "uri": {
                         "type": "string"
                     },
+                    "workflow": {
+                        "type": "string"
+                    },
                     "venueGroup": {
                         "items": {
                             "properties": {

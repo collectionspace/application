@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>org.collectionspace</groupId>
 		<artifactId>svcapp</artifactId>
-		<version>4.3-SNAPSHOT</version>
+		<version>4.5-SNAPSHOT</version>
 	</parent>
 
 	<dependencies>
@@ -73,7 +73,10 @@
 	</dependencies>
 
 	<build>
-		<finalName>csp-helper</finalName>
+		<finalName>csp-impl</finalName>
+		<filters>
+            <filter>../build.properties</filter>
+        </filters>
 		<plugins>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>

@@ -1,64 +1,63 @@
-
-            <record id="role" type="authorizationdata">
-                <web-url>role</web-url>
-                <services-tenant-plural>authorization/roles</services-tenant-plural>
-                <services-tenant-singular>Role</services-tenant-singular>
-                <services-url>authorization/roles</services-url>
-                <services-list-path>roles_list/role</services-list-path>
-                <services-record-path>role:http://collectionspace.org/services/authorization,role</services-record-path>
-                <authorization-includes>authorization/roles</authorization-includes>
-                <is-multipart>false</is-multipart>
-                <terms-used>false</terms-used>
-                <refobj-used>false</refobj-used>
-                <services-search-keyword>r</services-search-keyword>
-                <structures>
-                    <structure id="screen">
-                        <view>
-                            <titlebar show="false"></titlebar>
-                            <sidebar show="false"></sidebar>
-                            <edit-section id="details" show="true"></edit-section>
-                            <list-section id="list" show="true"></list-section>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                        <repeat id="list" asSibling="true">
-                            <selector>recordList-row:</selector>
-                            <field id="number" ui-type="list">
-                                <selector>user-roleList-name</selector>
-                            </field>
-                            <field id="csid" ui-type="list">
-                                <selector>user-roleList-csid</selector>
-                            </field>
-                        </repeat>
-                    </structure>
-                </structures>
-				
-				<include src="domain-authz-role.xml" strip-root="yes"/>
-				
-                <section id="roleInformation">
-                    <field id="roleName">
-                        <selector>role-oldname</selector>
-                    </field>
-                    <field id="displayName" mini="number">
-                        <selector>role-name</selector>
-                    </field>
-                    <field id="roleGroup">
-                        <selector>role-group</selector>
-                    </field>
-                    <field id="description" mini="summary">
-                        <selector>role-description</selector>
-                    </field>
-                    <repeat id="permissions" exists-in-services="false" as-expander="true" as-conditional-expander="true" has-primary="false">
-                        <selector>permissions-record-row</selector>
-                        <field id="permission" ui-type="radio" as-expander="true">
-                            <options>
-                                <option id="none">none</option>
-                                <option id="read">read</option>
-                                <option id="write">write</option>
-                                <option id="delete" default="yes">delete</option>
-                            </options>
-                        </field>
-                        <field id="resourceName">
-                        </field>
-                    </repeat>
-                </section>
-            </record>
+<record id="role" type="authorizationdata">
+    <web-url>role</web-url>
+    <services-tenant-plural>authorization/roles</services-tenant-plural>
+    <services-tenant-singular>Role</services-tenant-singular>
+    <services-url>authorization/roles</services-url>
+    <services-list-path>roles_list/role</services-list-path>
+    <services-record-path>role:http://collectionspace.org/services/authorization,role</services-record-path>
+    <authorization-includes>authorization/roles</authorization-includes>
+    <is-multipart>false</is-multipart>
+    <terms-used>false</terms-used>
+    <refobj-used>false</refobj-used>
+    <services-search-keyword>r</services-search-keyword>
+    <structures>
+        <structure id="screen">
+            <view>
+                <titlebar show="false"></titlebar>
+                <sidebar show="false"></sidebar>
+                <edit-section id="details" show="true"></edit-section>
+                <list-section id="list" show="true"></list-section>
+                <label-section id="messagekeys" show="true"></label-section>
+            </view>
+            <repeat id="list" asSibling="true">
+                <selector>recordList-row:</selector>
+                <field id="number" ui-type="list">
+                    <selector>user-roleList-name</selector>
+                </field>
+                <field id="csid" ui-type="list">
+                    <selector>user-roleList-csid</selector>
+                </field>
+            </repeat>
+        </structure>
+    </structures>
+    
+	<include src="domain-authz-role.xml" strip-root="yes"/>
+    
+    <section id="roleInformation">
+        <field id="roleName">
+            <selector>role-oldname</selector>
+        </field>
+        <field id="displayName" mini="number">
+            <selector>role-name</selector>
+        </field>
+        <field id="roleGroup">
+            <selector>role-group</selector>
+        </field>
+        <field id="description" mini="summary">
+            <selector>role-description</selector>
+        </field>
+        <repeat id="permissions" exists-in-services="false" as-expander="true" as-conditional-expander="true" has-primary="false">
+            <selector>permissions-record-row</selector>
+            <field id="permission" ui-type="radio" as-expander="true">
+                <options>
+                    <option id="none">none</option>
+                    <option id="read">read</option>
+                    <option id="write">write</option>
+                    <option id="delete" default="yes">delete</option>
+                </options>
+            </field>
+            <field id="resourceName">
+            </field>
+        </repeat>
+    </section>
+</record>

@@ -1,7 +1,7 @@
 <cspace-config tenantname="core">
 
   <version>11</version>
-	<include src="settings.xml,local-settings.xml" merge="xmlmerge-settings.properties" 
+    <include src="settings.xml,local-settings.xml" required="false" merge="xmlmerge.properties" 
 		strip-root="yes" />
 
   <spec>
@@ -60,6 +60,7 @@
       <include src="base-authz-users.xml"/>
 
       <include src="base-other-dimension.xml"/>
+      <include src="base-other-address.xml"/>
       <include src="base-other-hierarchy.xml"/>
       <include src="base-other-idgenerator.xml"/>
       <include src="base-other-structureddate.xml"/>
@@ -72,6 +73,5 @@
       <include src="base-other-invocationresults.xml"/>
       <include src="base-other-searchall.xml"/>
     </records>
-
   </spec>
 </cspace-config>

@@ -21,6 +21,7 @@ import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.RuleSet;
 import org.collectionspace.chain.csp.config.RuleTarget;
 import org.collectionspace.chain.csp.inner.CoreConfig;
+import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
@@ -528,8 +529,11 @@ public class Spec implements CSP, Configurable {
 			r.config_finish(this);
 		}
 	}
+	
 	@Override
-	public void complete_init() throws CSPDependencyException {}
+	public void complete_init(CSPManager cspManager, boolean forXsdGeneration) throws CSPDependencyException {
+		// Intentionally blank
+	}
 	
 	public Map<String,String> ui_url_to_id(){
 		Map<String,String> url_to_type=new HashMap<String,String>();

@@ -191,6 +191,11 @@ public class Repeat extends FieldSetImpl implements FieldParent {
 	public SchemaUtils getUtils() {
 		return utils;
 	}
+	
+	@Override
+	public String toString() {
+		return this.getID();
+	}
 
 	public String getfullID() {
 		return utils.getString("fullid");

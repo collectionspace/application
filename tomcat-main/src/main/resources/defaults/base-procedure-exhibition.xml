@@ -56,15 +56,17 @@
         <field id="type" ui-search="repeatable" autocomplete="vocab-exhibitiontype" ui-type="enum"/>
         
         <repeat id="sponsors">
-            <field id="sponsor" ui-search="repeatable" autocomplete="person-person,person-ulan_pa,organization-organization,organization-ulan_oa"/>
+            <field id="sponsor" ui-search="repeatable" autocomplete="person-person,person-person_shared,person-ulan_pa,organization-organization,organization-organization_shared,organization-ulan_oa"/>
         </repeat>
         
         <repeat id="organizers">
-            <field id="organizer" ui-search="repeatable" autocomplete="person-person,person-ulan_pa,organization-organization,organization-ulan_oa"/>
+            <field id="organizer" ui-search="repeatable" autocomplete="person-person,person-person_shared,person-ulan_pa,organization-organization,organization-organization_shared,organization-ulan_oa"/>
         </repeat>
         
         <repeat id="venueGroupList/venueGroup">
-            <field id="venue" ui-search="repeatable" autocomplete="organization-organization,organization-ulan_oa,location-location,location-offsite_sla,place-place,place-tgn_place"/>
+            <field id="venue" ui-search="repeatable"
+				autocomplete="organization-organization,organization-organization_shared,organization-ulan_oa,location-location,location-offsite_sla,place-place,place-place_shared,place-tgn_place"
+			/>
             <field id="venueOpeningDate" ui-search="range" ui-type="date" datatype="date"/>
             <field id="venueClosingDate" ui-search="range" ui-type="date" datatype="date"/>
             <field id="venueAttendance"/>
@@ -80,7 +82,7 @@
             <field id="workingGroupNote"/>
             
             <repeat id="exhibitionPersonGroupList/exhibitionPersonGroup">
-                <field id="exhibitionPerson" autocomplete="person-person,person-ulan_pa,organization-organization,organization-ulan_oa"/>
+                <field id="exhibitionPerson" autocomplete="person-person,person-person_shared,person-ulan_pa,organization-organization,organization-organization_shared,organization-ulan_oa"/>
                 <field id="exhibitionPersonRole" autocomplete="vocab-exhibitionpersonrole" ui-type="enum"/>
             </repeat>
         </repeat>
@@ -88,7 +90,7 @@
         <field id="boilerplateText"/>
         
         <repeat id="exhibitionReferenceGroupList/exhibitionReferenceGroup">
-            <field id="exhibitionReference" autocomplete="citation-citation,citation-worldcat"/>
+            <field id="exhibitionReference" autocomplete="citation-citation,citation-citation_shared,citation-worldcat"/>
             <field id="exhibitionReferenceType" autocomplete="vocab-exhibitionreferencetype" ui-type="enum"/>
             <field id="exhibitionReferenceNote"/>
         </repeat>

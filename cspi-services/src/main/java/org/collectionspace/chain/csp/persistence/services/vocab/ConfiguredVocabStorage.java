@@ -28,7 +28,6 @@ import org.collectionspace.chain.csp.schema.FieldParent;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Record;
-import org.collectionspace.chain.csp.schema.Relationship;
 import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.chain.util.json.JSONUtils;
 import org.collectionspace.csp.api.core.CSPRequestCache;
@@ -40,7 +39,6 @@ import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
 import org.collectionspace.services.common.api.RefName;
 import org.dom4j.DocumentException;
 import org.dom4j.Document;
-import org.dom4j.DocumentFactory;
 import org.dom4j.Element;
 import org.dom4j.Node;
 import org.json.JSONArray;
@@ -156,25 +154,31 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		return specifier;
 	}
 
-	private Document createEntry(String section,String namespace,String root_tag,JSONObject data,String vocab,String refname, Record r, Boolean isAuth) throws UnderlyingStorageException, ConnectionException, ExistException, JSONException {
-		Document out=XmlJsonConversion.convertToXml(r,data,section,"POST",isAuth);
-		if(section.equals("common")){//XXX not great... but not sure how else to differentiate
-			if(out!=null){
-				Element root=out.getRootElement();
-				Element vocabtag=root.addElement("inAuthority");
-				if(vocab!=null){
-					vocabtag.addText(vocab);
+	private Document createEntry(String section, String namespace, String root_tag, JSONObject data, String vocab, String refname, Record r, Boolean isAuth) throws UnderlyingStorageException,
+			ConnectionException, ExistException, JSONException {
+		Document out = XmlJsonConversion.convertToXml(r, data, section, "POST", isAuth);
+		if (section.equals("common")) {// XXX not great... but not sure how else
+										// to differentiate
+			if (out != null) {
+				Element root = out.getRootElement();
+				if (vocab != null && !vocab.isEmpty()) {
+					Element vocabtag = root.addElement("inAuthority");
+					if (vocab != null) {
+						vocabtag.addText(vocab);
+					}
 				}
-				if(refname!=null){
-				//	CSPACE-4460
-				//	Element refnametag=root.addElement("refName");
-				//	refnametag.addText(refname);
+				
+				if (refname != null) {
+					// CSPACE-4460
+					// Element refnametag=root.addElement("refName");
+					// refnametag.addText(refname);
 				}
-				if(r.isType("compute-displayname")) {
-					Element dnc=root.addElement("displayNameComputed");
+				
+				if (r.isType("compute-displayname")) {
+					Element dnc = root.addElement("displayNameComputed");
 					dnc.addText("false");
 				}
-				//log.info("create Configured Vocab Entry"+out.asXML());
+				// log.info("create Configured Vocab Entry"+out.asXML());
 			}
 		}
 		return out;
@@ -285,6 +289,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 	
 
 	
+	@Override
 	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath, JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			Integer num = 0;
@@ -300,7 +305,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				if(!VOCAB_WILDCARD.equals(vocab)) {
 					vocab = RefName.shortIdToPath(vocab);
 				}
-				csid=parts[1];	
+				csid = (parts.length > 1) ? parts[1] : null;
 				num = 2;
 			}		
 			
@@ -324,6 +329,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		}
 		
 	}
+	
 	private String generateURL(String vocab,String path,String extrapath,Record myr) throws ExistException, ConnectionException, UnderlyingStorageException {
 		String url = myr.getServicesURL()+"/"+vocab+"/items/"+path+extrapath;
 		return url;
@@ -331,14 +337,89 @@ public class ConfiguredVocabStorage extends GenericStorage {
 	
 	public JSONObject simpleRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String vocab, String csid) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException{
 		JSONObject out=new JSONObject();
-		out=get(storage, creds,cache,vocab,csid,conn.getIMSBase());
-		//cache.setCached(getClass(),new String[]{"csidfor",vocab,csid},out.get("csid"));//cos csid might be a refname at this point..
-		//cache.setCached(getClass(),new String[]{"namefor",vocab,csid},out.get(getDisplayNameKey()));
-		//cache.setCached(getClass(),new String[]{"reffor",vocab,csid},out.get("refid"));
-		//cache.setCached(getClass(),new String[]{"shortId",vocab,csid},out.get("shortIdentifier"));
+		
+		if (csid == null) {
+			out = getInstance(storage, creds, cache, vocab, conn.getIMSBase());
+		}
+		else {
+			out=get(storage, creds,cache,vocab,csid,conn.getIMSBase());
+			//cache.setCached(getClass(),new String[]{"csidfor",vocab,csid},out.get("csid"));//cos csid might be a refname at this point..
+			//cache.setCached(getClass(),new String[]{"namefor",vocab,csid},out.get(getDisplayNameKey()));
+			//cache.setCached(getClass(),new String[]{"reffor",vocab,csid},out.get("refid"));
+			//cache.setCached(getClass(),new String[]{"shortId",vocab,csid},out.get("shortIdentifier"));
+		}
+		
 		return out;
 	}
 	
+	private JSONObject getInstance(ContextualisedStorage storage, CSPRequestCredentials creds, CSPRequestCache cache, String vocab, String ims_url) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException {
+		String url = this.r.getServicesURL()+ "/" + vocab;
+		String csid = "";
+		JSONObject out = new JSONObject();
+		String softurl = url;
+		
+		if(r.hasSoftDeleteMethod()){
+			softurl = softpath(url);
+		}
+		if(r.hasHierarchyUsed("screen")){
+			softurl = hierarchicalpath(softurl);
+		}
+			
+		ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,softurl,null,creds,cache);
+
+		if (doc.getStatus() == 404) {
+			throw new ExistException("Does not exist " + softurl);
+		}
+		
+		if (doc.getStatus() == 403) {
+			// permission error
+			return out;
+		}
+		
+		if (doc.getStatus () > 299) {
+			throw new UnderlyingStorageException("Could not retrieve vocabulary status="+doc.getStatus(),
+					doc.getStatus(), softurl);
+		}
+		
+		String name = null;
+		String refid = null;
+		String shortIdentifier = "";
+		
+		for(String section : r.getServicesRecordPathKeys()) {
+			String path = r.getServicesInstancesPath(section);
+			
+			if (path == null) {
+				path = r.getServicesRecordPath(section);
+			}
+
+			String[] record_path = path.split(":",2);
+			String[] tag_path = record_path[1].split(",",2);
+			Document result = doc.getDocument(record_path[0]);
+	
+			if("common".equals(section)) { // XXX hardwired :(
+				name = result.selectSingleNode(tag_path[1] + "/displayName").getText();
+				
+				if (result.selectSingleNode(tag_path[1]+"/shortIdentifier") != null) {
+					shortIdentifier = result.selectSingleNode(tag_path[1] + "/shortIdentifier").getText();
+				}
+				
+				refid = result.selectSingleNode(tag_path[1] + "/refName").getText();
+				
+				csid=result.selectSingleNode(tag_path[1]+"/csid").getText();
+			}
+			else if ("collectionspace_core".equals(section)) {
+				XmlJsonConversion.convertToJson(out, r, result, "GET", section, csid, ims_url);
+			}
+		}
+		
+		out.put("displayName", name);
+		out.put("csid", csid);
+		out.put("refid", refid);
+		out.put("shortIdentifier", shortIdentifier);
+		
+		return out;
+	}
+
 	private JSONObject get(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String vocab,String csid,String ims_url) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException {
 		String url = generateURL(vocab,csid,"",this.r);
 		return get(storage,creds,cache,url,ims_url);
@@ -381,29 +462,32 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				String path=r.getServicesRecordPath(section);
 				String[] record_path=path.split(":",2);
 				String[] tag_path=record_path[1].split(",",2);
-				Document result=doc.getDocument(record_path[0]);
+				Document result=doc.getDocument(record_path[0].trim());
 
-
-				if("common".equals(section)) { // XXX hardwired :(
-					String dnXPath = getDisplayNameXPath();
-					name=result.selectSingleNode(tag_path[1]+"/"+dnXPath).getText();
-					if(result.selectSingleNode(tag_path[1]+"/shortIdentifier")!=null){
-						shortIdentifier = result.selectSingleNode(tag_path[1]+"/shortIdentifier").getText();
-					}
-					refid=result.selectSingleNode(tag_path[1]+"/refName").getText();
-					// We need to replace this with the same model as for displayName
-					if(result.selectSingleNode(tag_path[1]+"/termStatus") != null){
-					termStatus=result.selectSingleNode(tag_path[1]+"/termStatus").getText();
+				if (result != null) {
+					if("common".equals(section)) { // XXX hardwired :(
+						String dnXPath = getDisplayNameXPath();
+						name=result.selectSingleNode(tag_path[1]+"/"+dnXPath).getText();
+						if(result.selectSingleNode(tag_path[1]+"/shortIdentifier")!=null){
+							shortIdentifier = result.selectSingleNode(tag_path[1]+"/shortIdentifier").getText();
+						}
+						refid=result.selectSingleNode(tag_path[1]+"/refName").getText();
+						// We need to replace this with the same model as for displayName
+						if(result.selectSingleNode(tag_path[1]+"/termStatus") != null){
+						termStatus=result.selectSingleNode(tag_path[1]+"/termStatus").getText();
+						}
+						else{
+							termStatus = "";
+						}
+						csid=result.selectSingleNode(tag_path[1]+"/csid").getText();
+						parentcsid = result.selectSingleNode(tag_path[1]+"/inAuthority").getText();
+						XmlJsonConversion.convertToJson(out,r,result,"GET",section,csid,ims_url);	
 					}
 					else{
-						termStatus = "";
+						XmlJsonConversion.convertToJson(out,r,result,"GET",section,csid,ims_url);
 					}
-					csid=result.selectSingleNode(tag_path[1]+"/csid").getText();
-					parentcsid = result.selectSingleNode(tag_path[1]+"/inAuthority").getText();
-					XmlJsonConversion.convertToJson(out,r,result,"GET",section,csid,ims_url);	
-				}
-				else{
-					XmlJsonConversion.convertToJson(out,r,result,"GET",section,csid,ims_url);
+				} else {
+					log.warn(String.format("XML Payload for '%s' was missing part '%s'.", url, record_path[0]));
 				}
 			}
 			
@@ -455,6 +539,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 	/**
 	 * Returns JSON containing pagenumber, pagesize, itemsinpage, totalitems and the list of items itself 
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public JSONObject getPathsJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
@@ -484,8 +569,10 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 			Document doc=data.getDocument();
 
-			if(doc==null)
+			if (doc == null) {
 				throw new UnderlyingStorageException("Could not retrieve vocabulary items",data.getStatus(),path);
+			}
+			
 			String[] tag_parts=r.getServicesListPath().split(",",2);
 			String listItemPath = tag_parts[1]; 
 			
@@ -576,6 +663,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		}
 	}
 	
+	@Override
 	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {			
@@ -586,7 +674,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				// The url we compute already has the filepath built in, so just pass an empty
 				// filepath, and it will work out.
 				String emptyFilepath = "";
-				transitionWorkflowJSON(root, creds, cache, emptyFilepath, url, WORKFLOW_TRANSITION_DELETE);
+				super.transitionWorkflowJSON(root, creds, cache, emptyFilepath, url, WORKFLOW_TRANSITION_DELETE);
 			}
 			else{
 				int status=conn.getNone(RequestMethod.DELETE,url,null,creds,cache);
@@ -603,6 +691,27 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		}	
 	}
 	
+	@Override
+	public void transitionWorkflowJSON(ContextualisedStorage root, CSPRequestCredentials creds,
+		CSPRequestCache cache, String filePath, String serviceurl, String workflowTransition) 
+				throws UnderlyingStorageException {
+		String vocab = RefName.shortIdToPath(filePath.split("/")[0]);
+		String url = null;
+		
+		try {
+			url = generateURL(vocab,filePath.split("/")[1],"",this.r);
+		}
+		catch(ExistException e) {
+			throw new UnderlyingStorageException("Exist exception"+e.getLocalizedMessage(),e.getStatus(),url,e);
+		}
+		catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Connection exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
+		}
+		
+		super.transitionWorkflowJSON(root, creds, cache, "", url, workflowTransition);
+	}
+
+	@Override
 	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,
 			String filePath, JSONObject jsonObject, JSONObject restrictions,
 			Record thisr, String serviceurl)
@@ -824,6 +933,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		String url = generateURL(vocab,csid,"",this.r);
 		return get(storage,creds,cache,url,filePath,thisr);
 	}
+	
 	private JSONArray get(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String url,String filePath, Record thisr) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException {
 		JSONArray itemarray = new JSONArray();
 //get list view
@@ -853,6 +963,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 	}
 	
 
+	@Override
 	protected JSONObject miniViewAbstract(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,JSONObject out, String servicepath, String filePath) throws UnderlyingStorageException{
 		try{
 			//actually use cache
@@ -870,6 +981,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			String g3=getGleanedValue(cache,cachelistitem,dnName);
 			String g4=getGleanedValue(cache,cachelistitem,"csid");
 			String g5=getGleanedValue(cache,cachelistitem,"termStatus");
+			String g6=getGleanedValue(cache,cachelistitem,"workflow");
 			if(g1==null|| g2==null||g3==null||g4==null||g5==null){
 				if(log.isWarnEnabled()) {
 					StringBuilder sb = new StringBuilder();
@@ -909,6 +1021,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			out.put("refid", g1);
 			out.put("csid", g4);
 			out.put("termStatus", g5);
+			out.put("workflow", g6);
 			//out.put("authorityid", cached.get("authorityid"));
 			out.put("shortIdentifier", g2);
 			out.put("recordtype",r.getWebURL());

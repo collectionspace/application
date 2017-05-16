@@ -54,10 +54,10 @@
                             <option id="objectexit" sample="EX2010.1">Object Exit</option>
                         </options>
                     </field>
-                    <field id="currentOwner" ui-search="repeatable" autocomplete="person-person,organization-organization"
+                    <field id="currentOwner" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"
                            mini="summary,list" in-title="yes" services-setter="setCurrentOwner">
                     </field>
-                    <field id="depositor" ui-search="repeatable" autocomplete="person-person,organization-organization"></field>
+                    <field id="depositor" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"></field>
                     <field id="exitDateGroup" ui-type="groupfield/structureddate" 
                         ui-search="range" ui-func="cspace.structuredDate"
                         primarykey="exitDateGroup.dateDisplayDate">
@@ -83,5 +83,36 @@
                         </options>
                     </field>
                     <field id="packingNote"></field>
+                </section>
+                <!-- New Deaccession and Disposal section added for v4.4 -->
+                <section id="deaccessionAndDisplosalInformation">
+                    <field id="displosalNewObjectNumber"/>
+                    <repeat id="deacApprovalGroupList/deacApprovalGroup">
+                        <field id="deaccessionApprovalGroup" autocomplete="vocab-deaccessionapprovalgroup" ui-type="enum"/>
+                        <field id="deaccessionApprovalStatus" autocomplete="vocab-deaccessionapprovalstatus" ui-type="enum"/>
+                        <field id="deaccessionApprovalDate" ui-type="date" datatype="date"/>
+                    </repeat>
+                    <field id="deaccessionAuthorizer" autocomplete="person-person"/>
+                    <field id="authorizationDate" ui-type="date" datatype="date"/>
+                    <field id="deaccessionDate" ui-type="date" datatype="date"/>
+                    <field id="disposalDate" ui-type="date" datatype="date"/>
+                    <field id="disposalMethod" autocomplete="vocab-disposalmethod" ui-type="enum"/>
+                    <field id="displosalReason"/>
+                    <field id="displosalProvisos"/>
+                    <field id="disposalProposedRecipient" autocomplete="person-person,organization-organization"/>
+                    <field id="disposalRecipient" autocomplete="person-person,organization-organization"/>
+                    <field id="displosalNote"/>
+                    <field id="disposalCurrency" autocomplete="vocab-currency" ui-type="enum">
+                        <enum>
+                            <default>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'</default>
+                        </enum>
+                    </field>
+                    <field id="displosalValue" ui-type="validated" datatype="float"/>
+                    <field id="groupDisposalCurrency" autocomplete="vocab-currency" ui-type="enum">
+                        <enum>
+                            <default>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'</default>
+                        </enum>
+                    </field>
+                    <field id="groupDisplosalValue" ui-type="validated" datatype="float"/>
                 </section>
             </record>

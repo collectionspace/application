@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.collectionspace.chain.csp.persistence.services.TenantSpec;
+import org.collectionspace.chain.csp.persistence.services.TenantSpec.RemoteClient;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldParent;
 import org.collectionspace.chain.csp.schema.FieldSet;
@@ -15,7 +16,6 @@ import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.services.common.api.FileTools;
 import org.collectionspace.services.common.api.Tools;
-
 import org.dom4j.Document;
 import org.dom4j.DocumentFactory;
 import org.dom4j.Element;
@@ -25,8 +25,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.commons.io.FileUtils;
 
-public class Services {
-	private static final Logger log = LoggerFactory.getLogger(Services.class);
+public class ServiceBindingsGeneration {
+	private static final Logger log = LoggerFactory.getLogger(ServiceBindingsGeneration.class);
 	
 	private static final String RECORD_TYPE_VOCABULARY = "vocabulary";
 	private static final String RECORD_TYPE_AUTHORITY = "authority";
@@ -60,6 +60,7 @@ public class Services {
 
 	private static final String RECORD_NAME_VOCAB = "vocab";
 	
+	protected File configFile;
 	protected Spec spec;
 	protected TenantSpec tenantSpec;
 	protected Boolean defaultonly;
@@ -69,18 +70,20 @@ public class Services {
 	/**
 	 * not sure how configurable these need to be - they can be made more flexible
 	 */
+	protected Namespace nsxsi = new Namespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");  
 	protected Namespace nstenant = new Namespace("tenant", "http://collectionspace.org/services/config/tenant"); // http://collectionspace.org/services/config/tenant
 	protected Namespace nsservices = new Namespace("service", "http://collectionspace.org/services/config/service"); 
-	protected Namespace nsxsi = new Namespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");  
 	protected Namespace nstypes = new Namespace("types", "http://collectionspace.org/services/config/types"); 
+	
 	protected String schemaloc = "http://collectionspace.org/services/config/tenant " +
 	"http://collectionspace.org/services/config/tenant.xsd";
 
-	public Services() {
+	public ServiceBindingsGeneration() {
 		// Intentionally left blank?
 	}
 	
-	public Services(Spec spec,TenantSpec td, Boolean isdefault) throws IOException {
+	public ServiceBindingsGeneration(File configFile, Spec spec,TenantSpec td, Boolean isdefault) throws IOException {
+		this.configFile = configFile;
 		this.spec = spec;
 		this.tenantSpec = td;
 		this.defaultonly = isdefault;
@@ -112,11 +115,12 @@ public class Services {
 					result = RECORD_TYPE_VOCABULARY;	// termlistitem is *not* in the "record list"			
 				}
 			} else {
-				log.trace(String.format("Record '%s' is neither an object nor a vocabulary.  Please verify it is a procedure.", record.getRecordName()));
+				log.debug(String.format("Config Generation: '%s' - Record '%s' is neither an object nor a vocabulary.  Please verify it is a procedure.", 
+						getConfigFile().getName(), record.getRecordName()));
 			}
 		} else {
-			log.warn(String.format("Record '%s' is not of type 'record'.  We're going to assume it is a 'procedure' but please verify by hand.",
-					record.getRecordName()));
+			log.warn(String.format("Config Generation: '%s' - Record '%s' is not of type 'record'.  We're going to assume it is a 'procedure' but please verify by hand.",
+					getConfigFile().getName(), record.getRecordName()));
 		}
 		
 		return result;
@@ -159,6 +163,7 @@ public class Services {
 			ele.addAttribute("id", this.tenantSpec.getTenantId());
 			ele.addAttribute("name", this.tenantSpec.getTenant());
 			ele.addAttribute("displayName", this.tenantSpec.getTenantDisplay());
+			ele.addAttribute("createDisabled", Boolean.toString(this.tenantSpec.getCreateDisabled()));
 		}
 		ele.addAttribute("version", this.tenantSpec.getTenantVersion());
 
@@ -170,6 +175,9 @@ public class Services {
 		    rele.addAttribute("repositoryName", this.tenantSpec.getRepositoryName());
                 }
 		rele.addAttribute("repositoryClient", this.tenantSpec.getRepositoryClient());
+		
+		// Set remote clients
+		makeRemoteClients(ele);
 
 		// add in <tenant:properties> if required
 		makeProperties(ele);
@@ -177,14 +185,17 @@ public class Services {
 		// loop over each record type and add a <tenant:serviceBindings> element
 		for (Record r : this.spec.getAllRecords()) {
 			String tenantName = this.tenantSpec.getTenant();
+			String tenantId = this.tenantSpec.getTenantId();
 			String recordName = r.getRecordName();
-			if (log.isDebugEnabled() == true) {
-				log.debug(String.format("Processing App record '%s'", recordName));
+			
+			if (log.isDebugEnabled()) {
+				log.debug(String.format("Config Generation: '%s' - Processing potential service bindings for record type '%s'", 
+						getConfigFile().getName(), recordName));
 			}
 
 			if (shouldGenerateServiceBinding(r) == true) {
 				Element serviceBindingsElement = null;
-				if (r.isType(RECORD_TYPE_RECORD) == true) {
+				if (r.isType(RECORD_TYPE_RECORD) == true) { // Records can be of several types -i.e., can be both a "record" type and a "vocabulary" type
 					String rtype = getServiceBindingType(r);
 					// e.g., <tenant:serviceBindings name="CollectionObjects" type="object" version="0.1">
 					serviceBindingsElement = ele.addElement(new QName("serviceBindings", nstenant));
@@ -192,6 +203,14 @@ public class Services {
 					serviceBindingsElement.addAttribute("name", r.getServicesTenantPl());
 					serviceBindingsElement.addAttribute("type", rtype);
 					serviceBindingsElement.addAttribute("version", serviceBindingVersion);
+					if (r.isType(RECORD_TYPE_VOCABULARY) == true) {
+						serviceBindingsElement.addAttribute(Record.REQUIRES_UNIQUE_SHORTID, Boolean.TRUE.toString()); // Vocabularies need unique short IDs
+						serviceBindingsElement.addAttribute(Record.SUPPORTS_REPLICATING, Boolean.toString(r.supportsReplicating()));  //  they also need to support replication
+						String remoteClientConfigName = r.getRemoteClientConfigName();
+						if (remoteClientConfigName != null && remoteClientConfigName.isEmpty() == false) {
+							serviceBindingsElement.addAttribute(Record.REMOTECLIENT_CONFIG_NAME, remoteClientConfigName);
+						}
+					}
 					addServiceBinding(r, serviceBindingsElement, nsservices, false, serviceBindingVersion);
 				} else if (r.isType(RECORD_TYPE_AUTHORITY)) {
 					// e.g., <tenant:serviceBindings id="Persons" name="Persons" type="authority" version="0.1">
@@ -206,12 +225,12 @@ public class Services {
 				} else if (r.isType(RECORD_TYPE_AUTHORIZATIONDATA)) {
 					// ignore at the moment as they are so non standard
 					// addAuthorization(r,ele);
-					log.debug(String.format("Ignoring record '%s:%s' at the moment as it is of type '%s' and so non-standard",
-							tenantName, r.getRecordName(), RECORD_TYPE_AUTHORIZATIONDATA));
+					log.debug(String.format("Config Generation: '%s' - Ignoring record '%s:%s' at the moment as it is of type '%s' and so non-standard",
+							getConfigFile().getName(), tenantName, r.getRecordName(), RECORD_TYPE_AUTHORIZATIONDATA));
 				} else {
 					// Should never get here
-					log.warn(String.format("Record '%s.%s' is of an unknown type so we could not create a service binding for it.",
-							tenantName, recordName));
+					log.warn(String.format("Config Generation: '%s' - Record '%s.%s' is of an unknown type so we could not create a service binding for it.",
+							getConfigFile().getName(), tenantName, recordName));
 				}
 				//
 				// Debug-log the generated Service bindings for this App layer record
@@ -219,11 +238,12 @@ public class Services {
 				if (log.isDebugEnabled() == true) {
 					Element bindingsForRecord = serviceBindingsElement;
 					if (bindingsForRecord != null && !r.isType(RECORD_TYPE_AUTHORITY)) {
-						this.writeToFile(r, bindingsForRecord, false);
+						this.debugWriteToFile(r, bindingsForRecord, false);
 					}
 				}
 			} else {
-				log.debug(String.format("'%s.%s' does not require a service binding.", tenantName, recordName));
+				log.trace(String.format("Config Generation: '%s' - Skipping record '%s' because it does not require a service binding.",
+						getConfigFile().getName(), recordName));
 			}
 		}
 		
@@ -233,7 +253,7 @@ public class Services {
 	//
 	// For debugging purposes, this method writes a service bindings element to disk.
 	//
-	void writeToFile(Record r, Element bindingsForRecord, boolean isAuthority) {
+	void debugWriteToFile(Record r, Element bindingsForRecord, boolean isAuthority) {
 		if (log.isDebugEnabled() == true) {
 			String tenantName = this.tenantSpec.getTenant();
 			String recordName = r.getRecordName();
@@ -244,7 +264,7 @@ public class Services {
 			// Write out the service bindings if log level is TRACE
 			//
 			String serviceBindings = bindingsForRecord.asXML();
-			log.trace(String.format("Service bindings for record='%s': %s", recordName, serviceBindings));
+			log.trace(String.format("Config Generation: '%s' - Service bindings for record='%s': %s", getConfigFile().getName(), recordName, serviceBindings));
 			//
 			// Write the service bindings to a file for debugging/troubleshooting.
 			//
@@ -252,55 +272,89 @@ public class Services {
 			File serviceBindingsFile = new File(getTempDirectory(), serviceBindingsFileName); // Write this to a temp directory for debugging purposes
 			try {
 				FileUtils.writeStringToFile(serviceBindingsFile, serviceBindings);
-				log.debug(String.format("Wrote Service bindings for record='%s' to file: %s",
-						recordName, serviceBindingsFile.getAbsoluteFile()));
+				log.debug(String.format("Config Generation: '%s' - Wrote Service bindings for record='%s' to file: %s",
+						getConfigFile().getName(), recordName, serviceBindingsFile.getAbsoluteFile()));
 			} catch (Exception e) {
-				log.debug(String.format("Could not write Service bindings for record='%s' to file: %s",
-						recordName, serviceBindingsFile.getAbsoluteFile()), e);
+				log.debug(String.format("Config Generation: '%s' - Could not write Service bindings for record='%s' to file: %s",
+						getConfigFile().getName(), recordName, serviceBindingsFile.getAbsoluteFile()), e);
 			}
 		}
 	}
 
+	private void makeRemoteClients(Element tenantBindingElement) {
+		RemoteClient[] remoteClientList = tenantSpec.getRemoteClients();
+		
+		if (remoteClientList != null && remoteClientList.length > 0) {
+			Element remoteClientsElement = tenantBindingElement.addElement(new QName("remoteClientConfigurations", nstenant));
+			for (TenantSpec.RemoteClient remoteClient : remoteClientList) {
+				Element remoteClientElement = remoteClientsElement.addElement(new QName("remoteClientConfig", nstenant));			
+				Element ele;
+				
+				ele = remoteClientElement.addElement(new QName("name", nstenant));
+				ele.addText(remoteClient.getName());
+				
+				ele = remoteClientElement.addElement(new QName("url", nstenant));
+				ele.addText(remoteClient.getUrl());
+				
+				ele = remoteClientElement.addElement(new QName("user", nstenant));
+				ele.addText(remoteClient.getUser());
+				
+				ele = remoteClientElement.addElement(new QName("password", nstenant));
+				ele.addText(remoteClient.getPassword());
+				
+				// Optional
+				if (remoteClient.getTenantId() != null) {
+					ele = remoteClientElement.addElement(new QName("tenantId", nstenant));
+					ele.addText(remoteClient.getTenantId());
+				}
+				
+				// Optional
+				if (remoteClient.getTenantName() != null) {
+					ele = remoteClientElement.addElement(new QName("tenantName", nstenant));
+					ele.addText(remoteClient.getTenantName());
+				}
+				
+				ele = remoteClientElement.addElement(new QName("ssl", nstenant));
+				ele.addText(remoteClient.getSSL());
+				
+				ele = remoteClientElement.addElement(new QName("auth", nstenant));
+				ele.addText(remoteClient.getAuth());
+			}
+		}
+	}
+	
 	/**
 	 * Add in date formats and languages if required
 	 * @param ele
 	 */
-	private void makeProperties(Element ele){
+	private void makeProperties(Element tenantBindingElement) {
 		Boolean showLang = true;
 		Boolean showDate = true;
 		if (!this.defaultonly) {
-			if(this.tenantSpec.isDefaultLanguage()){
+			if (tenantSpec.isDefaultLanguage()) {
 				showLang = false;
 			}
-			if(this.tenantSpec.isDefaultDate()){
+			if (tenantSpec.isDefaultDate()) {
 				showDate = false;
 			}
 		}
-		
-		if (showDate || showLang) {
-			Element pele = ele.addElement(new QName("properties", nstenant));
-			if (showDate) {
-				for (String dateformat : this.tenantSpec.getDateFormats()) {
 
-					Element tele = pele.addElement(new QName("item",
-							this.nstypes));
-					Element tele2 = tele.addElement(new QName("key",
-							this.nstypes));
-					Element tele3 = tele.addElement(new QName("value",
-							this.nstypes));
+		if (showDate || showLang) {
+			Element pele = tenantBindingElement.addElement(new QName("properties", nstenant));
+			if (showDate) {
+				for (String dateformat : tenantSpec.getDateFormats()) {
+					Element tele = pele.addElement(new QName("item", this.nstypes));
+					Element tele2 = tele.addElement(new QName("key", this.nstypes));
+					Element tele3 = tele.addElement(new QName("value", this.nstypes));
 					tele2.addText("datePattern");
 					tele3.addText(dateformat);
 				}
 			}
 			if (showLang) {
-				for (String lang : this.tenantSpec.getLanguages()) {
-
-					Element tele = pele.addElement(new QName("item",
-							this.nstypes));
-					Element tele2 = tele.addElement(new QName("key",
-							this.nstypes));
-					Element tele3 = tele.addElement(new QName("value",
-							this.nstypes));
+				for (String lang : tenantSpec.getLanguages()) {
+					Element tele = pele.addElement(new QName("item", this.nstypes));
+					Element tele2 = tele.addElement(new QName("key", this.nstypes));
+					Element tele3 = tele.addElement(new QName("value", this.nstypes));
 					tele2.addText("localeLanguage");
 					tele3.addText(lang);
 				}
@@ -389,7 +443,8 @@ public class Services {
 				result = true;
 			}
 		} else {
-			log.trace(String.format("Ignoring FieldSet instance '%s:%s'", Arrays.toString(f.getIDPath()), f.getID()));
+			log.trace(String.format("Config Generation: '%s' - Ignoring FieldSet instance '%s:%s'",
+					getConfigFile().getName(), Arrays.toString(f.getIDPath()), f.getID()));
 		}
 		
 		return result;
@@ -657,16 +712,18 @@ public class Services {
 	 * we need to create the two corresponding service bindings from the one Application record.
 	 */
 	private void addAuthorities(Record r, Element el, String serviceBindingVersion) {		
-		// Add the bindings for the Authority/Vocabulary item
+		// Add the bindings for the Authority/Vocabulary item.
 		Element bindingsForAuthorityItemx = el.addElement(new QName("serviceBindings", nstenant));
 		bindingsForAuthorityItemx.addAttribute("name", r.getServicesTenantPl());
 		bindingsForAuthorityItemx.addAttribute("id", r.getServicesTenantPl());
 		bindingsForAuthorityItemx.addAttribute("type", RECORD_TYPE_AUTHORITY);
-		
 		bindingsForAuthorityItemx.addAttribute("version", serviceBindingVersion);
+		bindingsForAuthorityItemx.addAttribute(Record.SUPPORTS_REPLICATING, Boolean.toString(r.supportsReplicating()));
+		bindingsForAuthorityItemx.addAttribute(Record.REQUIRES_UNIQUE_SHORTID, Boolean.TRUE.toString());
+
 		addServiceBinding(r, bindingsForAuthorityItemx, nsservices, false, serviceBindingVersion);
 		if (log.isDebugEnabled() == true) {
-			this.writeToFile(r, bindingsForAuthorityItemx, false);
+			this.debugWriteToFile(r, bindingsForAuthorityItemx, false);
 		}
 
 		// Add the bindings for the Authority/Vocabulary.
@@ -674,11 +731,17 @@ public class Services {
 		bindingsForAuthority.addAttribute("name", r.getServicesTenantAuthPl());
 		bindingsForAuthority.addAttribute("id", r.getServicesTenantAuthPl());
 		bindingsForAuthority.addAttribute("type", RECORD_TYPE_UTILITY);
-		
 		bindingsForAuthority.addAttribute("version", serviceBindingVersion);
+		bindingsForAuthority.addAttribute(Record.SUPPORTS_REPLICATING, Boolean.toString(r.supportsReplicating()));
+		bindingsForAuthority.addAttribute(Record.REQUIRES_UNIQUE_SHORTID, Boolean.TRUE.toString());
+		String remoteClientConfigName = r.getRemoteClientConfigName();
+		if (remoteClientConfigName != null && remoteClientConfigName.isEmpty() == false) {
+			bindingsForAuthority.addAttribute(Record.REMOTECLIENT_CONFIG_NAME, remoteClientConfigName);
+		}
+
 		addServiceBinding(r, bindingsForAuthority, nsservices, true, serviceBindingVersion);
 		if (log.isDebugEnabled() == true) {
-			this.writeToFile(r, bindingsForAuthority, true);
+			this.debugWriteToFile(r, bindingsForAuthority, true);
 		}
 	}
 	
@@ -723,6 +786,11 @@ public class Services {
 			Element validatorHandlerElement = el.addElement(new QName("validatorHandler", nameSpace));
 			validatorHandlerElement.addText(validatorHandlerName);
 			
+			//<service:clientHandler>
+			String clientHandlerName = r.getServicesClientHandler(isAuthority);
+			Element clientHandlerElement = el.addElement(new QName("clientHandler", nameSpace));
+			clientHandlerElement.addText(clientHandlerName);		
+			
 			//<service:initHandler> which fields need to be modified in the nuxeo db
 			doInitHandler(r, el, this.nsservices, isAuthority);
 	
@@ -734,9 +802,16 @@ public class Services {
 			
 			//<service:object>
 			doServiceObject(r, el, this.nsservices, isAuthority, serviceBindingVersion);
+			
+			if (log.isTraceEnabled()) {
+				String msg = String.format("Config Generation: '%s' - Created service bindings for record type '%s'.", 
+						this.getConfigFile().getName(), r.getRecordName());
+				log.trace(msg);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error(String.format("Could not create service bindings for record '%s' in namespace '%s'.", r.getRecordName(), nameSpace.toString()));
+			log.error(String.format("Config Generation: '%s' - Could not create service bindings for record '%s'.", 
+					getConfigFile().getName(), r.getRecordName()));
 		}
 	}
 	
@@ -769,7 +844,7 @@ public class Services {
 		String name = in.getServicesTag(); // Start by assuming it's just a plain scalar field, so we would just return the name
 		
 		//
-		// Debug
+		// Debug info
 		//
 		String[] fullName = in.getIDPath();
 		boolean isPartOfGroup = in.getParent() instanceof Group;
@@ -889,7 +964,8 @@ public class Services {
 
 		FieldSet[] allMiniSummaryList = r.getAllMiniSummaryList();
 		if (allMiniSummaryList == null) {
-			log.error(String.format("allMiniSummaryList for record '%s' is null.", r.getRecordName()));
+			log.error(String.format("Config Generation: '%s' - allMiniSummaryList for record '%s' is null.", 
+					getConfigFile().getName(), r.getRecordName()));
 		}
 		String section;
 		for (FieldSet fs : allMiniSummaryList) {
@@ -944,11 +1020,11 @@ public class Services {
 			//
 			String parentRecordName = repeat.getRecord().getRecordName();
 			if (servicesTag != null && !servicesTag.equals(parts[0])) {
-				log.warn(String.format("Potential internal error.  The Services tag '%s' does not match the field name '%s' for Repeat field '%s:%s.'",
-						servicesTag, parts[0], parentRecordName, repeat.getfullID()));
+				log.warn(String.format("Config Generation: '%s' - Potential internal error.  The Services tag '%s' does not match the field name '%s' for Repeat field '%s:%s.'",
+						getConfigFile().getName(), servicesTag, parts[0], parentRecordName, repeat.getfullID()));
 			} else if (servicesTag == null) {
-				log.warn(String.format("Internal error.  Services tag '%s' was null for Repeat field '%s:%s'.",
-						servicesTag, parentRecordName, repeat.getfullID()));
+				log.warn(String.format("Config Generation: '%s' - Internal error.  Services tag '%s' was null for Repeat field '%s:%s'.",
+						getConfigFile().getName(), servicesTag, parentRecordName, repeat.getfullID()));
 			}
 		}
 		
@@ -976,8 +1052,8 @@ public class Services {
 	 */
 	private boolean createAuthRefOrTermRef(Element auth, Namespace types, Record r, String section, FieldSet in) {
 		boolean result = false;
-		String fieldName = in.getID();
-                String sec = in.getSection(); // for debugging - remove after
+		String fieldName = in.getID(); // for debugging - remove after
+        String sec = in.getSection(); // for debugging - remove after
 		
                 // Ignore passed-in section, in order to create authRefs and termRefs for every section
 		if (isAuthOrTermRef(in) && in.getSection().equals(section)) {
@@ -1016,6 +1092,10 @@ public class Services {
 		}
 		
 		return result;
+	}
+	
+	protected File getConfigFile() {
+		return this.configFile;
 	}
 	
 	/*

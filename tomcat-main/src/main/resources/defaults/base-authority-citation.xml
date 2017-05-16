@@ -29,8 +29,8 @@
                 <label-section id="messagekeys" show="true"></label-section>
                 <hierarchy-section show="true">
                     <options>
-                        <option id="narrowerContext">citation-citation,citation-worldcat</option>
-                        <option id="broaderContext">citation-citation,citation-worldcat</option>
+                        <option id="narrowerContext">citation-citation,citation-citation_shared,citation-worldcat</option>
+                        <option id="broaderContext">citation-citation,citation-citation_shared,citation-worldcat</option>
                     </options>
                 </hierarchy-section>
             </view>
@@ -62,13 +62,17 @@
                ui-func="cspace.preferred">
                <selector>preferred-citationAuthority</selector>
         </field>
+
+        <repeat id="citationRecordTypes">
+            <field id="citationRecordType" ui-search="repeatable" autocomplete="vocab-citationtermtype" ui-type="enum"/>
+        </repeat>
         
         <repeat id="citationPublicationInfoGroupList/citationPublicationInfoGroup" >          
             <field id="publisher" ui-search="repeatable"
-                   autocomplete="organization-organization">
+                   autocomplete="organization-organization,organization-organization_shared">
             </field>
             <field id="publicationPlace" ui-search="repeatable"
-                   autocomplete="place-place, place-tgn_place">
+                   autocomplete="place-place,place-place_shared,place-tgn_place">
             </field>
             <group id="publicationDate" ui-type="groupfield/structureddate"
                    primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
@@ -79,7 +83,7 @@
 			      
         <repeat id="citationAgentInfoGroupList/citationAgentInfoGroup" >          
             <field id="agent" ui-search="repeatable"
-                   autocomplete="person-person, person-ulan_pa, organization-organization">
+                   autocomplete="person-person,person-person_shared, person-ulan_pa,organization-organization,organization-organization_shared">
             </field>
             <field id="role" autocomplete="vocab-agentinfo" ui-type="enum"></field>
             <field id="note"></field>			           
@@ -97,7 +101,7 @@
 			       
         <repeat id="citationRelatedTermsGroupList/citationRelatedTermsGroup" >          
             <field id="relatedTerm" ui-search="repeatable"
-                   autocomplete="concept-concept,concept-material_ca,concept-activity">
+                   autocomplete="concept-concept,concept-material_ca,concept-material_ca_shared,concept-activity">
             </field>                     
             <field id="relationType" autocomplete="vocab-relationtype" ui-type="enum"></field>          		          		           
         </repeat>
@@ -112,6 +116,11 @@
 		</field>
         <field id="shortIdentifier" mini="search,list,relate" attributes="GET" services-should-index="true"></field>
         <field id="csid" exists-in-services="false" mini="search,list,relate" attributes="GET"></field>
+        <!-- SAS related fields -->
+		<field id="rev" mini="list" datatype="integer"/>
+		<field id="sas" mini="list" datatype="boolean"/>
+		<field id="proposed" mini="list" datatype="boolean"/>
+		<field id="deprecated" mini="list" datatype="boolean"/>
     </section>
 				
 </record>

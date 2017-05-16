@@ -78,7 +78,7 @@ public class TestService extends ServicesBaseClass {
 		cspm.register(new ServicesStorageGenerator());
 		cspm.go();
 		// argh - test break when config changes *sob*
-		cspm.configure(getRootSource(), new ConfigFinder(null));
+		cspm.configure(getRootSource(), new ConfigFinder(null),false);
 		ConfigRoot root = cspm.getConfigRoot();
 		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
 
@@ -101,6 +101,7 @@ public class TestService extends ServicesBaseClass {
 		testXMLJSON(spec, "group", "group.xml", "group.json");
 		testXMLJSON(spec, "media", "media.xml", "mediaJSON.json");
 		testXMLJSON(spec, "conditioncheck", "conditioncheck.xml", "conditioncheck.json");
+		testXMLJSON(spec, "conservation", "conservation.xml", "conservation.json");
 		testXMLJSON(spec, "exhibition", "exhibition.xml", "exhibition.json");
 
 		testXMLJSON(spec, "role", "role.xml", "role.json");
@@ -129,7 +130,7 @@ public class TestService extends ServicesBaseClass {
 		cspm.register(new ServicesStorageGenerator());
 		cspm.go();
 		// argh - test break when config changes *sob*
-		cspm.configure(getRootSource(),new ConfigFinder(null));
+		cspm.configure(getRootSource(),new ConfigFinder(null),false);
 		ConfigRoot root = cspm.getConfigRoot();
 		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
 
@@ -159,6 +160,7 @@ public class TestService extends ServicesBaseClass {
 		testJSONXML(spec, "objectexit", "objectexit.xml", "objectexit.json");
 		testJSONXML(spec, "group", "group.xml", "group.json");
 		testJSONXML(spec, "conditioncheck", "conditioncheck.xml", "conditioncheck.json");
+		testJSONXML(spec, "conservation", "conservation.xml", "conservation.json");
 		testJSONXML(spec, "exhibition", "exhibition.xml", "exhibition.json");
 
 		testJSONXML(spec, "role", "role.xml", "role.json");
@@ -423,7 +425,9 @@ public class TestService extends ServicesBaseClass {
 
 		ReturnedURL url = conn.getMultipartURL(RequestMethod.POST, personAuthServiceUrl,
 				parts, creds, cache);
-		
+		assertEquals(201, url.getStatus());
+
+		String id = url.getURLTail();
 		log.info(url.getURL());
 
 		String personAuthUrl = url.getURL();
@@ -432,8 +436,14 @@ public class TestService extends ServicesBaseClass {
 		ReturnedMultipartDocument rdocs = conn.getMultipartXMLDocument(RequestMethod.GET, personAuthUrl,
 					null, creds, cache);
 		int status = rdocs.getStatus();
+		assertEquals(200, status);
+
 		Document doc = rdocs.getDocument(personAuthpartname);
 		log.info(doc.asXML());
+
+		// DELETE
+		conn.getNone(RequestMethod.DELETE, "personauthorities/" + id, null,
+				creds, cache);
 	}
 
 	
@@ -698,6 +708,8 @@ public class TestService extends ServicesBaseClass {
 				"groups_common/title", "This is my group");
 		testPostGetDelete("conditionchecks/", "conditionchecks_common", "conditioncheck.xml",
 				"conditionchecks_common/conditionCheckRefNumber", "CC2013.001");
+		testPostGetDelete("conservation/", "conservation_common", "conservation.xml",
+				"conservation_common/conservationNumber", "CT2015.1");
 		testPostGetDelete("exhibitions/", "exhibitions_common", "exhibition.xml",
 				"exhibitions_common/exhibitionNumber", "EX123");
 

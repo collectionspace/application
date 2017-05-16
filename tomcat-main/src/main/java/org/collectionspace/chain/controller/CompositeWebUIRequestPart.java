@@ -77,9 +77,11 @@ public class CompositeWebUIRequestPart implements UIRequest {
 		}
 	}
 	
+	@Override
 	public int getCacheMaxAgeSeconds() {
 		return 0;
 	}
+	@Override
 	public void setCacheMaxAgeSeconds(int cacheMaxAgeSeconds) {
 		// Ignore this for now. Caching composite requests is not really clear.
 	}
@@ -167,9 +169,11 @@ public class CompositeWebUIRequestPart implements UIRequest {
 			throw new UIException("Cannot get request body, JSONException",e);
 		}
 	}
+	@Override
 	public byte[] getbyteBody() throws UIException {
 		return null;
 	}
+	@Override
 	public String getFileName() throws UIException{
 		return "";
 	}
@@ -180,6 +184,7 @@ public class CompositeWebUIRequestPart implements UIRequest {
 		return jsonString;
 	}
 
+	@Override
 	public String getContentType() throws UIException{
 		return null;
 	}
@@ -222,6 +227,7 @@ public class CompositeWebUIRequestPart implements UIRequest {
 	@Override
 	public UISession getSession() throws UIException { return parent.getSession(); }
 
+	@Override
 	public  HttpSession getHttpSession() { return null; }
 
 
@@ -251,6 +257,7 @@ public class CompositeWebUIRequestPart implements UIRequest {
 		pw.flush();
 	}
 	
+	@Override
 	public void sendUnknown(String data, String contenttype, String contentDisposition) throws UIException {
 
 		mime_type_out=contenttype;
@@ -259,6 +266,7 @@ public class CompositeWebUIRequestPart implements UIRequest {
 		pw.flush();
 	}
 
+	@Override
 	public void sendUnknown(byte[] data, String contenttype, String contentDisposition) throws UIException {
 		mime_type_out=contenttype;
 		try {
@@ -279,6 +287,17 @@ public class CompositeWebUIRequestPart implements UIRequest {
 		}
 	}
 
+	@Override
+	public void sendUnknown(InputStream data, String contenttype, String contentDisposition) throws UIException {
+		mime_type_out=contenttype;
+		try {
+			IOUtils.copy(data, body_out);
+			body_out.flush();
+		} catch (IOException e) {
+			throw new UIException("Could not write data",e);
+		}
+	}
+	
 	@Override
 	public void sendJSONResponse(JSONObject data) throws UIException {
 		mime_type_out="text/json;charset=UTF-8";

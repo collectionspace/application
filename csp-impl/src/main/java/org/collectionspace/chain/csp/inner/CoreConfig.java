@@ -14,6 +14,7 @@ import org.collectionspace.chain.csp.config.Configurable;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.RuleSet;
 import org.collectionspace.chain.csp.config.RuleTarget;
+import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 
@@ -22,20 +23,24 @@ public class CoreConfig implements CSP, Configurable, ConfigRoot {
 	private Map<String, Object> roots = new HashMap<String, Object>();
 	public static String SECTIONED = "org.collectionspace.app.config.spec";
 
+	@Override
 	public void go(CSPContext ctx) {
 		ctx.addConfigRules(this);
 		ctx.setConfigRoot(this);
 		ctx.addConfigRules(this);
 	}
 
+	@Override
 	public String getName() {
 		return "config.core";
 	}
 
+	@Override
 	public void configure(RuleSet rules) {
 
 		rules.addRule("ROOT", new String[] { "collection-space" },
 				"org.collectionspace.app.cfg.main", null, new RuleTarget() {
+					@Override
 					public Object populate(Object parent, ReadOnlySection milestone) {
 						return this;
 					}
@@ -44,6 +49,7 @@ public class CoreConfig implements CSP, Configurable, ConfigRoot {
 		rules.addRule("org.collectionspace.app.cfg.main",
 				new String[] { "cspace-config" }, SECTIONED, null,
 				new RuleTarget() {
+					@Override
 					public Object populate(Object parent, ReadOnlySection section) {
 						return CoreConfig.this;
 					}
@@ -52,19 +58,23 @@ public class CoreConfig implements CSP, Configurable, ConfigRoot {
 
 	}
 
+	@Override
 	public void setRoot(String key, Object value) {
 		roots.put(key, value);
 	}
 
+	@Override
 	public Object getRoot(String key) {
 		return roots.get(key);
 	}
 
+	@Override
 	public void config_finish() {
-		//FIXME: Why is this empty?
+		// Intentionally blank
 	}
-
-	public void complete_init() {
-		//FIXME: Why is this empty?
+	
+	@Override
+	public void complete_init(CSPManager cspManager, boolean forXsdGeneration) {
+		// Intentionally blank
 	}
 }

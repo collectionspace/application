@@ -7,5 +7,5 @@
 package org.collectionspace.chain.csp.config;
 
 public interface RuleTarget {
-	public Object populate(Object parent,ReadOnlySection milestone);
+	public Object populate(Object parent,ReadOnlySection milestone) throws Exception;
 }

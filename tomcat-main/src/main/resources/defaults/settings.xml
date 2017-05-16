@@ -23,7 +23,7 @@
         <ui-props-cache-timeout>172800</ui-props-cache-timeout> <!-- 48 hours -->
     </admin>
     <email>
-        <baseurl>http://localhost:8180</baseurl>
+        <baseurl>http://localhost:@JEE_PORT@</baseurl>
         <from>admin@core.collectionspace.org</from>
         <to></to>
         <!-- if specified then all emails will send to this address - used for debugging -->
@@ -47,7 +47,7 @@
     </email>
     <persistence>
         <service>
-            <url>http://localhost:8180/cspace-services</url>
+            <url>http://localhost:@JEE_PORT@/cspace-services</url>
 			<config-tenant></config-tenant>
 			<config-bindings></config-bindings>
 			<ims-url>/collectionspace/tenant/core/</ims-url> <!-- XXX should be in separate IMS section -->

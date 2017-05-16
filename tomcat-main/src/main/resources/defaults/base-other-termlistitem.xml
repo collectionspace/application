@@ -10,8 +10,10 @@
     <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
     <services-dochandler>org.collectionspace.services.vocabulary.nuxeo.VocabularyItemDocumentModelHandler</services-dochandler>
     <services-validator>org.collectionspace.services.vocabulary.nuxeo.VocabularyItemValidatorHandler</services-validator>
-    <hassoftdelete>true</hassoftdelete>
 	<services-list-path>abstract-common-list/list-item</services-list-path>
+    <hassoftdelete>true</hassoftdelete>
+    <supportsReplicating>true</supportsReplicating>
+	<remoteClientConfigName>default</remoteClientConfigName>
 	
 	<structures>
         <structure id="screen">
@@ -29,6 +31,9 @@
 	
 
     <section id="termListItemInformation">
+		<field id="workflow" exists-in-services="false" services-derived="true" section="collectionspace_core" attributes="GET" mini="search,list" ui-type="workflowState">
+			<services-tag>workflowState</services-tag>
+		</field>
     	<field id="_subrecordcsid"></field> <!-- What is this field? -->
     	<field id="inAuthority" services-should-index="true"></field>
 		<field id="displayName" mini="summary" services-should-index="true"></field>
@@ -43,6 +48,11 @@
                 <option id="inactive">Inactive</option>
             </options>
 		</field>
+		<!-- SAS related fields -->
+		<field id="rev" mini="list" datatype="integer"/>
+		<field id="sas" mini="list" datatype="boolean"/>
+		<field id="proposed" mini="list" datatype="boolean"/>
+		<field id="deprecated" mini="list" datatype="boolean"/>
 	</section>
 	
 </record>

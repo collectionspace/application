@@ -21,6 +21,41 @@
             "hidePrimary": true
         }
     }]},
+    ".csc-concept-conceptRecordType-label": {
+      "messagekey": "concept-conceptRecordTypeLabel"
+    },
+    ".csc-concept-conceptRecordType": {
+      "decorators": [
+        {
+          "func": "cspace.makeRepeatable",
+          "options": {
+            "repeatTree": {
+              "expander": {
+                "tree": {
+                  ".csc-concept-conceptRecordType": {
+                    "decorators": [
+                      {
+                        "func": "cspace.termList",
+                        "options": {
+                          "termListType": "conceptRecordType",
+                          "root": "{row}",
+                          "elPath": "conceptRecordType"
+                        },
+                        "type": "fluid"
+                      }
+                    ]
+                  }
+                },
+                "type": "fluid.noexpand"
+              }
+            },
+            "elPath": "conceptRecordTypes",
+            "hidePrimary": true
+          },
+          "type": "fluid"
+        }
+      ]
+    },
     ".csc-concept-termSource-label": {"messagekey": "preferredCA-termSourceLabel"},
     ".csc-concept-updatedAtEnd-label": {"messagekey": "concept-updatedAtEndLabel"},
     ".csc-concept-termType-label": {"messagekey": "preferredCA-termTypeLabel"},
@@ -63,6 +98,19 @@
                         ],
                         "selection": "${{row}.termStatus}"
                     },
+                    ".csc-conceptAuthority-termFlag": {
+                        "decorators": [
+                            {
+                                "func": "cspace.termList",
+                                "options": {
+                                    "termListType": "termFlag",
+                                    "root": "{row}",
+                                    "elPath": "termFlag"
+                                },
+                                "type": "fluid"
+                            }
+                        ]
+                    },
                     ".csc-conceptAuthority-termName": "${{row}.termName}",
                     ".csc-conceptAuthority-termLanguage": {"decorators": [{
                         "func": "cspace.termList",
@@ -84,6 +132,9 @@
     ".csc-concept-termPrefForLang-label": {"messagekey": "preferredCA-termPrefForLangLabel"},
     ".csc-concept-termSourceID-label": {"messagekey": "preferredCA-termSourceIDLabel"},
     ".csc-concept-termDisplayName-label": {"messagekey": "preferredCA-termDisplayNameLabel"},
+    ".csc-concept-termFlag-label": {
+        "messagekey": "preferredCA-termFlagLabel"
+    },
     ".csc-concept-updatedBy-label": {"messagekey": "concept-updatedByLabel"},
     ".csc-concept-termSourceNote-label": {"messagekey": "preferredCA-termSourceNoteLabel"},
     ".csc-concept-termFormattedDisplayName-label": {"messagekey": "preferredCA-termFormattedDisplayNameLabel"},

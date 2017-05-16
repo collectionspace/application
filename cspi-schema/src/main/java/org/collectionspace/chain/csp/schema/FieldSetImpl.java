@@ -101,6 +101,11 @@ public abstract class FieldSetImpl implements FieldSet {
 	}
 	
 	@Override
+	public String toString() {
+		return getID();
+	}
+	
+	@Override
 	public String getParentID() {
 		return utils.getString("parentID");
 	}

@@ -14,6 +14,7 @@ import org.collectionspace.chain.csp.config.Configurable;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.RuleSet;
 import org.collectionspace.chain.csp.config.RuleTarget;
+import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
@@ -42,8 +43,10 @@ public class FileStorage extends ProxyStorage implements CSP, Configurable, Stor
 
 	public String getStoreRoot() { return root; }
 
+	@Override
 	public String getName() { return "persistence.file"; }
 
+	@Override
 	public void go(CSPContext ctx) throws CSPDependencyException {
 		ctx.addStorageType("file",this);
 		ctx.addConfigRules(this);
@@ -61,13 +64,16 @@ public class FileStorage extends ProxyStorage implements CSP, Configurable, Stor
 		}
 	}
 
+	@Override
 	public Storage getStorage(CSPRequestCredentials credentials,CSPRequestCache cache) {
 		return this;
 	}
 
+	@Override
 	public void configure(RuleSet rules) throws CSPDependencyException {
 		/* MAIN/persistence/file -> FILE */
 		rules.addRule(SECTIONED,new String[]{"persistence","file"},SECTION_PREFIX+"file",null,new RuleTarget(){
+			@Override
 			public Object populate(Object parent, ReadOnlySection milestone) {
 				((ConfigRoot)parent).setRoot(FILE_ROOT,FileStorage.this);
 				((ConfigRoot)parent).setRoot(CSPContext.XXX_SERVICE_NAME,"file"); // XXX should be path-selectable
@@ -76,8 +82,14 @@ public class FileStorage extends ProxyStorage implements CSP, Configurable, Stor
 			}
 		});	
 	}
-	public void config_finish() throws CSPDependencyException {}
-	public void complete_init() throws CSPDependencyException {
+	
+	@Override
+	public void config_finish() throws CSPDependencyException {
+		// Intentionally empty
+	}
+	
+	@Override
+	public void complete_init(CSPManager cspManager, boolean forXsdGeneration) throws CSPDependencyException {
 		real_init();
 	}
 	

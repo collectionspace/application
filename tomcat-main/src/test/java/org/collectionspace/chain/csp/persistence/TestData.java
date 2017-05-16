@@ -39,6 +39,7 @@ public class TestData {
 
 	public final String acquisitionCreate(){ return addData("acquisitionCreate.json").toString(); };
 	public final String conditioncheckCreate(){ return addData("conditioncheckCreate.json").toString(); };
+	public final String conservationCreate(){ return addData("conservationCreate.json").toString(); };
 	public final String exhibitionCreate(){ return addData("exhibitionCreate.json").toString(); };
 	public final String intakeCreate(){ return addData("intakeCreate.json").toString(); };
 	public final String loaninCreate(){ return addData("loaninCreate.json").toString(); };
@@ -94,7 +95,7 @@ public class TestData {
 				cspm.go();
 				tester.getAttribute("config-filename");
 				String filename=(String)tester.getAttribute("config-filename");
-				cspm.configure(getSource(filename),new ConfigFinder(null));
+				cspm.configure(getSource(filename), new ConfigFinder(null), false);
 			} catch (CSPDependencyException e) {
 				log.info("CSPManagerImpl failed");
 				log.info(tester.getAttribute("config-filename").toString());

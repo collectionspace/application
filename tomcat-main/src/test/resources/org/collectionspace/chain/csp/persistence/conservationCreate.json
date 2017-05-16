@@ -1,0 +1,65 @@
+{
+    "analysisMethod": "methodology",
+    "analysisResults": "results",
+    "approvedBy": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(AprilApprover1447888275559)'April Approver'",
+    "approvedDate": "2015-11-19T00:00:00.000Z",
+    "conservationNumber": "CT2015.1",
+    "conservationStatusGroup": [
+        {
+            "_primary": true,
+            "de-urned-status": "Analysis proposed",
+            "status": "urn:cspace:core.collectionspace.org:vocabularies:name(conservationstatus):item:name(analysisproposed)'Analysis proposed'",
+            "statusDate": "2015-11-18T00:00:00.000Z"
+        }
+    ],
+    "conservators": [
+        {
+            "_primary": true,
+            "conservator": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(ConnieConservator1447888151236)'Connie Conservator'",
+            "de-urned-conservator": "Connie Conservator"
+        }
+    ],
+    "destAnalysisGroup": [
+        {
+            "_primary": true,
+            "de-urned-sampleBy": "Sam Sampler",
+            "destAnalysisApprovalNote": "approval notes",
+            "destAnalysisApprovedDate": "2015-11-18T00:00:00.000Z",
+            "sampleBy": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(SamSampler1447888325147)'Sam Sampler'",
+            "sampleDate": "2015-11-18T00:00:00.000Z",
+            "sampleDescription": "sample description",
+            "sampleReturned": true,
+            "sampleReturnedLocation": "location"
+        }
+    ],
+    "examinationGroup": [
+        {
+            "_primary": true,
+            "de-urned-examinationPhase": "before treatment",
+            "de-urned-examinationStaff": "Stephanie Staffer",
+            "examinationDate": "2015-11-18T00:00:00.000Z",
+            "examinationNote": "exam notes",
+            "examinationPhase": "urn:cspace:core.collectionspace.org:vocabularies:name(examinationphase):item:name(beforetreatment)'before treatment'",
+            "examinationStaff": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(StephanieStaffer1447888190914)'Stephanie Staffer'"
+        }
+    ],
+    "fabricationNote": "fab notes",
+    "otherPartyGroup": [
+        {
+            "_primary": true,
+            "de-urned-otherParty": "Paul Preparator",
+            "de-urned-otherPartyRole": "Preparator",
+            "otherParty": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(PaulPreparator1447888162377)'Paul Preparator'",
+            "otherPartyNote": "note",
+            "otherPartyRole": "urn:cspace:core.collectionspace.org:vocabularies:name(otherpartyrole):item:name(preparator)'Preparator'"
+        }
+    ],
+    "proposedAnalysis": "proposed analysis",
+    "proposedAnalysisDate": "2015-11-18T00:00:00.000Z",
+    "proposedTreatment": "proposed treatment",
+    "researcher": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(RebeccaResearcher1447888298162)'Rebecca Researcher'",
+    "treatmentEndDate": "2015-11-19T00:00:00.000Z",
+    "treatmentPurpose": "urn:cspace:core.collectionspace.org:vocabularies:name(treatmentpurpose):item:name(exhibition)'Exhibition'",
+    "treatmentStartDate": "2015-11-17T00:00:00.000Z",
+    "treatmentSummary": "treatment summary"
+}

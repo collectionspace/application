@@ -61,8 +61,10 @@ public class StreamUIRequest implements UIRequest {
 		print(stream,x+"\n");
 	}
 
+	@Override
 	public TTYOutputter getTTYOutputter() {
 		return new TTYOutputter(){
+			@Override
 			public void flush() throws UIException { 
 				try {
 					out.flush();
@@ -71,6 +73,7 @@ public class StreamUIRequest implements UIRequest {
 				}
 			}
 
+			@Override
 			public void line(String text) throws UIException {
 				println(out,text);
 			}
@@ -79,6 +82,7 @@ public class StreamUIRequest implements UIRequest {
 
 	public Object getUnderlyingObject(String name) throws UIException { throw new UIException("No underlying object"); }
 
+	@Override
 	public String[] getPrincipalPath() throws UIException { return path; }
 
 	private String exception_to_text(Throwable e) {
@@ -99,14 +103,17 @@ public class StreamUIRequest implements UIRequest {
 		}
 	}
 
+	@Override
 	public int getCacheMaxAgeSeconds() {
 		return 0;
 	}
+	@Override
 	public void setCacheMaxAgeSeconds(int cacheMaxAgeSeconds) {
 		// Ignore this for now. Need to figure out how to set cache for things like report outputs (probably never)
 		// and image blobs (perhaps aggressively?).
 	}
 
+	@Override
 	public void setFailure(boolean isit, Exception why) throws UIException {
 		if(!isit) {
 			/* Not a failure */
@@ -120,41 +127,51 @@ public class StreamUIRequest implements UIRequest {
 	}
 
 	// XXX summarize
+	@Override
 	public void setOperationPerformed(Operation op) throws UIException {
 		println(err,"Operation performed was : "+op.toString());
 	}
 
+	@Override
 	public void deleteRedirectArgument(String key) throws UIException {
 		rargs.remove(key);
 	}
 
+	@Override
 	public String getRedirectArgument(String key) throws UIException {
 		return rargs.get(key);
 	}
 
+	@Override
 	public void setRedirectArgument(String key, String value) throws UIException {
 		rargs.put(key,value);
 	}
 
+	@Override
 	public void setRedirectPath(String[] in) throws UIException {
 		rpath=in;
 		secondary_redirect=false;
 	}
 
+	@Override
 	public String getRequestArgument(String key) throws UIException {
 		return qargs.get(key);
 	}
+	@Override
 	public Set<String> getAllRequestArgument() throws UIException {
 		return qargs.keySet();
 	}
 
+	@Override
 	public void sendXMLResponse(String data) throws UIException {
 		println(out,data);
 	}
+	@Override
 	public void sendUnknown(String data, String contenttype, String contentDisposition) throws UIException {
 		println(out,data);
 	}
 	
+	@Override
 	public void sendUnknown(byte[] data, String contenttype, String contentDisposition) throws UIException {
 		try {
 			out.write(data);
@@ -163,6 +180,7 @@ public class StreamUIRequest implements UIRequest {
 		}
 	}
 
+	@Override
 	public void sendUnknown(InputStream data, String contenttype, String contentDisposition) throws UIException {
 		try {
 			IOUtils.copy(data, out);
@@ -171,15 +189,19 @@ public class StreamUIRequest implements UIRequest {
 		}
 	}
 	
+	@Override
 	public void sendJSONResponse(JSONObject data) throws UIException {
 		println(out,data.toString());
 	}
+	@Override
 	public void sendJSONResponse(JSONArray data) throws UIException {
 		println(out,data.toString());
 	}
 
+	@Override
 	public Operation getRequestedOperation() throws UIException { return request; }
 
+	@Override
 	public JSONObject getJSONBody() throws UIException {
 		try {
 			if(in.hasNext())
@@ -190,21 +212,26 @@ public class StreamUIRequest implements UIRequest {
 			throw new UIException("Bad JSON on standard input",e);
 		}
 	}
+	@Override
 	public String getBody() throws UIException {
 
 		if(in.hasNext())
 			return in.nextLine();
 		return null;
 	}
+	@Override
 	public String getContentType() throws UIException{
 		return null;
 	}
+	@Override
 	public byte[] getbyteBody() throws UIException {
 		return null;
 	}
+	@Override
 	public String getFileName() throws UIException{
 		return "";
 	}
+	@Override
 	public JSONObject getPostBody() throws UIException {
 		try {
 			if(in.hasNext())
@@ -215,19 +242,24 @@ public class StreamUIRequest implements UIRequest {
 			throw new UIException("Bad JSON on standard input",e);
 		}
 	}
+	@Override
 	public Boolean isJSON(){
 		
 		return true;
 	}
 
+	@Override
 	public void setSecondaryRedirectPath(String[] in) throws UIException {
 		rpath=in;
 		secondary_redirect=true;
 	}
 
+	@Override
 	public UISession getSession() { return null; } // XXX support this?
+	@Override
 	public  HttpSession getHttpSession() { return null; }
 
+	@Override
 	public void sendURLReponse(String url) throws UIException {
 		println(out, url);
 	}

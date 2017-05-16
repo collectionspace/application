@@ -8,7 +8,7 @@ package org.collectionspace.chain.csp.webui.main;
 
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.pathtrie.TrieMethod;
-import org.collectionspace.csp.api.ui.Operation;
+import org.collectionspace.csp.api.persistence.UnauthorizedException;
 import org.collectionspace.csp.api.ui.UIException;
 
 public interface WebMethod extends TrieMethod {
@@ -30,5 +30,5 @@ public interface WebMethod extends TrieMethod {
 	public void configure(WebUI ui,Spec spec);
 	
 	@Override
-	public void run(Object in,String[] tail) throws UIException;
+	public void run(Object in,String[] tail) throws UIException, UnauthorizedException;
 }

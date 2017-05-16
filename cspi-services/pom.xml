@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>org.collectionspace</groupId>
 		<artifactId>svcapp</artifactId>
-		<version>4.3-SNAPSHOT</version>
+		<version>4.5-SNAPSHOT</version>
 	</parent>
 
 	<dependencies>
@@ -16,6 +16,13 @@
 		<dependency>
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
+			<type>jar</type>
+		</dependency>
+
+		<dependency>
+			<groupId>org.collectionspace</groupId>
+			<artifactId>general-utils</artifactId>
+			<version>${project.version}</version>
 			<type>jar</type>
 		</dependency>
 
@@ -39,6 +46,13 @@
 			<version>${project.version}</version>
 			<type>jar</type>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.collectionspace</groupId>
+			<artifactId>cspi-webui</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+		</dependency>		
 
 		<dependency>
 			<groupId>org.collectionspace</groupId>
@@ -138,7 +152,10 @@
 	</dependencies>
 
 	<build>
-		<finalName>csp-helper</finalName>
+		<finalName>cspi-services</finalName>
+		<filters>
+            <filter>../build.properties</filter>
+        </filters>		
 		<plugins>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>

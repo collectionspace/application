@@ -29,8 +29,9 @@ public class ReturnUnknown  implements Returned {
 	public String getContentDisposition() { return contentDisposition; }
 	@Override public int getStatus() { return status; }
 
+	@Override
 	public void setResponse(HttpMethod method, int status) throws IOException, DocumentException {
-		this.status=status;
+		this.status = status;
 		stream = method.getResponseBodyAsStream();
 		if (status >= 400 || stream == null) {
 			log.error("Error get content with HTTP Status code:" + Integer.toString(status) + "Got error: " + stream != null ? IOUtils.toString(stream) : "<emtpy content>");

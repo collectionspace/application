@@ -1,1093 +1,983 @@
 {
-  "hierarchy": {
-    ".csc-hierarchy-broaderContext": {
-      "decorators": [
-        {
-          "func": "cspace.autocomplete", 
-          "options": {
-            "queryUrl": "../../../tenant/core/vocabularies/place/autocomplete/broaderContext", 
-            "vocabUrl": "../../../tenant/core/vocabularies/place/source-vocab/broaderContext"
-          }, 
-          "type": "fluid"
-        }, 
-        {
-          "func": "cspace.externalURL", 
-          "type": "fluid"
-        }
-      ], 
-      "value": "${fields.broaderContext}"
-    }, 
-    ".csc-hierarchy-broaderContext-label": {
-      "messagekey": "hierarchy-broaderContextLabel"
-    }, 
-    ".csc-hierarchy-broaderContextType": {
-      "optionlist": [
-        "set", 
-        "derivative", 
-        "separable-part", 
-        "non-separable-part", 
-        "recto", 
-        "verso"
-      ], 
-      "optionnames": [
-        "Set", 
-        "Work (derivative)", 
-        "Work (separable part)", 
-        "Work (non-separable part)", 
-        "Work (recto)", 
-        "Work (verso)"
-      ], 
-      "selection": "${fields.broaderContextType}"
-    }, 
-    ".csc-hierarchy-broaderContextType-label": {
-      "messagekey": "hierarchy-broaderContextTypeLabel"
-    }, 
-    ".csc-hierarchy-domaindata-label": {
-      "messagekey": "hierarchy-domaindataLabel"
-    }, 
-    ".csc-hierarchy-equivalentContext-label": {
-      "messagekey": "hierarchy-equivalentContextLabel"
-    }, 
-    ".csc-hierarchy-equivalentContexts-label": {
-      "messagekey": "hierarchy-equivalentContextsLabel"
-    }, 
-    ".csc-hierarchy-equivalentInformation-label": {
-      "messagekey": "hierarchy-equivalentInformationLabel"
-    }, 
-    ".csc-hierarchy-hierarchyInformation-label": {
-      "messagekey": "hierarchy-hierarchyInformationLabel"
-    }, 
-    ".csc-hierarchy-narrowerContext-label": {
-      "messagekey": "hierarchy-narrowerContextLabel"
-    }, 
-    ".csc-hierarchy-narrowerContextType-label": {
-      "messagekey": "hierarchy-narrowerContextTypeLabel"
-    }, 
-    ".csc-hierarchy-narrowerContexts": {
-      "decorators": [
-        {
-          "func": "cspace.makeRepeatable", 
-          "options": {
-            "elPath": "fields.narrowerContexts", 
-            "repeatTree": {
-              "expander": {
+    "hierarchy": {
+        ".csc-hierarchy-narrowerContext-label": {"messagekey": "hierarchy-narrowerContextLabel"},
+        ".csc-hierarchy-equivalentContext-label": {"messagekey": "hierarchy-equivalentContextLabel"},
+        ".csc-hierarchy-equivalentInformation-label": {"messagekey": "hierarchy-equivalentInformationLabel"},
+        ".csc-hierarchy-broaderContextType-label": {"messagekey": "hierarchy-broaderContextTypeLabel"},
+        ".csc-hierarchy-narrowerContextType-label": {"messagekey": "hierarchy-narrowerContextTypeLabel"},
+        ".csc-hierarchy-broaderContextType": {
+            "optionnames": [
+                "Set",
+                "Work (derivative)",
+                "Work (separable part)",
+                "Work (non-separable part)",
+                "Work (recto)",
+                "Work (verso)"
+            ],
+            "optionlist": [
+                "set",
+                "derivative",
+                "separable-part",
+                "non-separable-part",
+                "recto",
+                "verso"
+            ],
+            "selection": "${fields.broaderContextType}"
+        },
+        ".csc-hierarchy-narrowerContexts": {"decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {"expander": {
+                    "tree": {
+                        ".csc-hierarchy-narrowerContext": {
+                            "decorators": [
+                                {
+                                    "func": "cspace.autocomplete",
+                                    "type": "fluid",
+                                    "options": {
+                                        "queryUrl": "../../../tenant/core/vocabularies/place/autocomplete/narrowerContext",
+                                        "vocabUrl": "../../../tenant/core/vocabularies/place/source-vocab/narrowerContext",
+                                        "invokers": {"selectMatch": {"funcName": "cspace.autocomplete.selectMatchConfirm"}},
+                                        "strings": {"narrowerChange": "Warning: %narrower currently has broader term %broader."}
+                                    }
+                                },
+                                {
+                                    "func": "cspace.externalURL",
+                                    "type": "fluid"
+                                }
+                            ],
+                            "value": "${{row}.narrowerContext}"
+                        },
+                        ".csc-hierarchy-narrowerContextType": {
+                            "optionnames": [
+                                "Item in a set",
+                                "Derivative",
+                                "Separable part",
+                                "Non-separable part",
+                                "Recto",
+                                "Verso"
+                            ],
+                            "optionlist": [
+                                "set",
+                                "derivative",
+                                "separable-part",
+                                "non-separable-part",
+                                "recto",
+                                "verso"
+                            ],
+                            "selection": "${{row}.narrowerContextType}"
+                        }
+                    },
+                    "type": "fluid.noexpand"
+                }},
+                "elPath": "fields.narrowerContexts"
+            }
+        }]},
+        ".csc-hierarchy-broaderContext": {
+            "decorators": [
+                {
+                    "func": "cspace.autocomplete",
+                    "type": "fluid",
+                    "options": {
+                        "queryUrl": "../../../tenant/core/vocabularies/place/autocomplete/broaderContext",
+                        "vocabUrl": "../../../tenant/core/vocabularies/place/source-vocab/broaderContext"
+                    }
+                },
+                {
+                    "func": "cspace.externalURL",
+                    "type": "fluid"
+                }
+            ],
+            "value": "${fields.broaderContext}"
+        },
+        ".csc-hierarchy-broaderContext-label": {"messagekey": "hierarchy-broaderContextLabel"},
+        "expander": [
+            {
+                "trueTree": {".csc-hierarchy-equivalentContext-label": {"messagekey": "hierarchy-equivalentContextLabel"}},
+                "condition": {
+                    "funcName": "cspace.hierarchy.assertEquivalentContexts",
+                    "args": {"equivalentContexts": "${fields.equivalentContexts}"}
+                },
+                "type": "fluid.renderer.condition",
+                "falseTree": {".csc-hierarchy-equivalentContext-label": {"decorators": {
+                    "classes": "hidden",
+                    "type": "addClass"
+                }}}
+            },
+            {
+                "repeatID": ".csc-hierarchy-equivalentContext:",
                 "tree": {
-                  ".csc-hierarchy-narrowerContext": {
                     "decorators": [
-                      {
-                        "func": "cspace.autocomplete", 
-                        "options": {
-                          "invokers": {
-                            "selectMatch": {
-                              "funcName": "cspace.autocomplete.selectMatchConfirm"
+                        {
+                            "classes": "cs-hierarchy-equivalentContext",
+                            "type": "addClass"
+                        },
+                        {
+                            "func": "cspace.externalURL",
+                            "type": "fluid"
+                        }
+                    ],
+                    "value": "${{row}.equivalentContext}"
+                },
+                "type": "fluid.renderer.repeat",
+                "pathAs": "row",
+                "controlledBy": "fields.equivalentContexts"
+            }
+        ],
+        ".csc-hierarchy-domaindata-label": {"messagekey": "hierarchy-domaindataLabel"},
+        ".csc-hierarchy-relatedTerms-label": {"messagekey": "hierarchy-relatedTermsLabel"},
+        ".csc-hierarchy-narrowerContexts-label": {"messagekey": "hierarchy-narrowerContextsLabel"},
+        ".csc-hierarchy-hierarchyInformation-label": {"messagekey": "hierarchy-hierarchyInformationLabel"},
+        ".csc-hierarchy-relatedTerm": {"decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {"expander": {
+                    "tree": {".csc-hierarchy-relatedTerm": {
+                        "decorators": [{
+                            "func": "cspace.autocomplete",
+                            "type": "fluid",
+                            "options": {
+                                "queryUrl": "../../../tenant/core/vocabularies/place/autocomplete/relatedTerm",
+                                "vocabUrl": "../../../tenant/core/vocabularies/place/source-vocab/relatedTerm"
                             }
-                          }, 
-                          "queryUrl": "../../../tenant/core/vocabularies/place/autocomplete/narrowerContext", 
-                          "strings": {
-                            "narrowerChange": "Warning: %narrower currently has broader term %broader."
-                          }, 
-                          "vocabUrl": "../../../tenant/core/vocabularies/place/source-vocab/narrowerContext"
-                        }, 
-                        "type": "fluid"
-                      }, 
-                      {
-                        "func": "cspace.externalURL", 
-                        "type": "fluid"
-                      }
-                    ], 
-                    "value": "${{row}.narrowerContext}"
-                  }, 
-                  ".csc-hierarchy-narrowerContextType": {
-                    "optionlist": [
-                      "set", 
-                      "derivative", 
-                      "separable-part", 
-                      "non-separable-part", 
-                      "recto", 
-                      "verso"
-                    ], 
-                    "optionnames": [
-                      "Item in a set", 
-                      "Derivative", 
-                      "Separable part", 
-                      "Non-separable part", 
-                      "Recto", 
-                      "Verso"
-                    ], 
-                    "selection": "${{row}.narrowerContextType}"
-                  }
-                }, 
-                "type": "fluid.noexpand"
-              }
+                        }],
+                        "value": "${{row}.relatedTerm}"
+                    }},
+                    "type": "fluid.noexpand"
+                }},
+                "elPath": "fields.relatedTerms"
             }
-          }, 
-          "type": "fluid"
-        }
-      ]
-    }, 
-    ".csc-hierarchy-narrowerContexts-label": {
-      "messagekey": "hierarchy-narrowerContextsLabel"
-    }, 
-    ".csc-hierarchy-relatedTerm": {
-      "decorators": [
-        {
-          "func": "cspace.makeRepeatable", 
-          "options": {
-            "elPath": "fields.relatedTerms", 
-            "repeatTree": {
-              "expander": {
-                "tree": {
-                  ".csc-hierarchy-relatedTerm": {
-                    "decorators": [
-                      {
-                        "func": "cspace.autocomplete", 
-                        "options": {
-                          "queryUrl": "../../../tenant/core/vocabularies/place/autocomplete/relatedTerm", 
-                          "vocabUrl": "../../../tenant/core/vocabularies/place/source-vocab/relatedTerm"
-                        }, 
-                        "type": "fluid"
-                      }
-                    ], 
-                    "value": "${{row}.relatedTerm}"
-                  }
-                }, 
-                "type": "fluid.noexpand"
-              }
+        }]},
+        ".csc-hierarchy-equivalentContexts-label": {"messagekey": "hierarchy-equivalentContextsLabel"},
+        ".csc-hierarchy-relatedTerm-label": {"messagekey": "hierarchy-relatedTermLabel"}
+    },
+    "recordEditor": {
+        ".csc-place-deprecated": "${fields.deprecated}",
+        ".csc-place-vDistanceAboveSurface-label": {"messagekey": "place-vDistanceAboveSurfaceLabel"},
+        ".csc-place-vSpatialReferenceSystem-label": {"messagekey": "place-vSpatialReferenceSystemLabel"},
+        ".csc-place-proposed-label": {"messagekey": "place-proposedLabel"},
+        ".csc-place-placeType-label": {"messagekey": "place-placeTypeLabel"},
+        ".csc-place-maxDepthInMeters-label": {"messagekey": "place-maxDepthInMetersLabel"},
+        ".csc-place-deprecatedRefName-label": {"messagekey": "place-deprecatedRefNameLabel"},
+        ".csc-place-csid-label": {"messagekey": "place-csidLabel"},
+        ".csc-place-coordPrecision-label": {"messagekey": "place-coordPrecisionLabel"},
+        ".csc-place-vCoordSys": {
+            "default": "",
+            "optionnames": [
+                "Please select a value",
+                "Altitude depth",
+                "Latitude and longitude",
+                "National Grid reference",
+                "Universal Transverse Mercator (UTM)"
+            ],
+            "optionlist": [
+                "",
+                "altitude-depth",
+                "latitude-longitude",
+                "national-grid-reference",
+                "utm"
+            ],
+            "selection": "${fields.vCoordSys}"
+        },
+        ".csc-place-placeNote": "${fields.placeNote}",
+        ".csc-placeOwnerGroup-ownershipDateGroup-label": {"messagekey": "placeOwnerGroup-ownershipDateGroupLabel"},
+        ".csc-place-geodeticDatum-label": {"messagekey": "place-geodeticDatumLabel"},
+        ".csc-place-footprintWKT-label": {"messagekey": "place-footprintWKTLabel"},
+        ".csc-place-csid": "${fields.csid}",
+        ".csc-place-vCoordinates-label": {"messagekey": "place-vCoordinatesLabel"},
+        ".csc-place-geoRefVerificationStatus-label": {"messagekey": "place-geoRefVerificationStatusLabel"},
+        ".csc-place-vDepth": "${fields.vDepth}",
+        ".csc-place-minDepthInMeters-label": {"messagekey": "place-minDepthInMetersLabel"},
+        ".csc-place-footprintSpatialFit-label": {"messagekey": "place-footprintSpatialFitLabel"},
+        ".csc-place-minDistanceAboveSurfaceInMeters-label": {"messagekey": "place-minDistanceAboveSurfaceInMetersLabel"},
+        ".csc-place-localityInformation-label": {"messagekey": "place-localityInformationLabel"},
+        ".csc-placeGeoRefGroup-geoRefDateGroup-label": {"messagekey": "placeGeoRefGroup-geoRefDateGroupLabel"},
+        ".csc-place-updatedAt-label": {"messagekey": "place-updatedAtLabel"},
+        ".csc-place-coordUncertaintyInMeters-label": {"messagekey": "place-coordUncertaintyInMetersLabel"},
+        ".csc-place-vLongitude": "${fields.vLongitude}",
+        ".csc-place-rev": "${fields.rev}",
+        ".csc-place-placeGeoRefGroup": {"decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {"expander": {
+                    "tree": {
+                        ".csc-place-geoRefSource": "${{row}.geoRefSource}",
+                        ".csc-place-decimalLatitude": {
+                            "decorators": [{
+                                "func": "cspace.inputValidator",
+                                "type": "fluid",
+                                "options": {
+                                    "label": "place-decimalLatitudeLabel",
+                                    "type": "float"
+                                }
+                            }],
+                            "value": "${{row}.decimalLatitude}"
+                        },
+                        ".csc-place-pointRadiusSpatialFit": "${{row}.pointRadiusSpatialFit}",
+                        ".csc-place-geoRefRemarks": "${{row}.geoRefRemarks}",
+                        ".csc-place-coordUncertaintyInMeters": {
+                            "decorators": [{
+                                "func": "cspace.inputValidator",
+                                "type": "fluid",
+                                "options": {
+                                    "label": "place-coordUncertaintyInMetersLabel",
+                                    "type": "integer"
+                                }
+                            }],
+                            "value": "${{row}.coordUncertaintyInMeters}"
+                        },
+                        ".csc-place-footprintSpatialFit": "${{row}.footprintSpatialFit}",
+                        ".csc-placeGeoRefGroup-geoRefDateGroup": {
+                            "decorators": [{
+                                "func": "cspace.structuredDate",
+                                "type": "fluid",
+                                "options": {
+                                    "root": "{row}",
+                                    "elPath": "geoRefDateGroup.dateDisplayDate",
+                                    "elPaths": {
+                                        "dateEarliestSingleQualifier": "geoRefDateGroup.dateEarliestSingleQualifier",
+                                        "scalarValuesComputed": "geoRefDateGroup.scalarValuesComputed",
+                                        "dateLatestDay": "geoRefDateGroup.dateLatestDay",
+                                        "dateLatestYear": "geoRefDateGroup.dateLatestYear",
+                                        "dateAssociation": "geoRefDateGroup.dateAssociation",
+                                        "dateEarliestSingleEra": "geoRefDateGroup.dateEarliestSingleEra",
+                                        "dateDisplayDate": "geoRefDateGroup.dateDisplayDate",
+                                        "dateEarliestSingleCertainty": "geoRefDateGroup.dateEarliestSingleCertainty",
+                                        "dateLatestEra": "geoRefDateGroup.dateLatestEra",
+                                        "dateEarliestSingleQualifierValue": "geoRefDateGroup.dateEarliestSingleQualifierValue",
+                                        "dateLatestCertainty": "geoRefDateGroup.dateLatestCertainty",
+                                        "dateEarliestSingleYear": "geoRefDateGroup.dateEarliestSingleYear",
+                                        "dateLatestQualifier": "geoRefDateGroup.dateLatestQualifier",
+                                        "dateLatestQualifierValue": "geoRefDateGroup.dateLatestQualifierValue",
+                                        "dateEarliestSingleQualifierUnit": "geoRefDateGroup.dateEarliestSingleQualifierUnit",
+                                        "datePeriod": "geoRefDateGroup.datePeriod",
+                                        "dateEarliestScalarValue": "geoRefDateGroup.dateEarliestScalarValue",
+                                        "dateLatestMonth": "geoRefDateGroup.dateLatestMonth",
+                                        "dateNote": "geoRefDateGroup.dateNote",
+                                        "dateLatestScalarValue": "geoRefDateGroup.dateLatestScalarValue",
+                                        "dateLatestQualifierUnit": "geoRefDateGroup.dateLatestQualifierUnit",
+                                        "dateEarliestSingleDay": "geoRefDateGroup.dateEarliestSingleDay",
+                                        "dateEarliestSingleMonth": "geoRefDateGroup.dateEarliestSingleMonth"
+                                    }
+                                }
+                            }],
+                            "value": "${{row}.geoRefDateGroup.dateDisplayDate}"
+                        },
+                        ".csc-place-geoReferencedBy": {
+                            "decorators": [{
+                                "func": "cspace.autocomplete",
+                                "type": "fluid",
+                                "options": {
+                                    "queryUrl": "../../../tenant/core/vocabularies/place/autocomplete/geoReferencedBy",
+                                    "vocabUrl": "../../../tenant/core/vocabularies/place/source-vocab/geoReferencedBy"
+                                }
+                            }],
+                            "value": "${{row}.geoReferencedBy}"
+                        },
+                        ".csc-place-geoRefVerificationStatus": {
+                            "default": "",
+                            "optionnames": [
+                                "Please select a value",
+                                "Unverified",
+                                "Verified by data custodian",
+                                "Verified by contributor"
+                            ],
+                            "optionlist": [
+                                "",
+                                "unverified",
+                                "verified-data-custodian",
+                                "verified-contributor"
+                            ],
+                            "selection": "${{row}.geoRefVerificationStatus}"
+                        },
+                        ".csc-place-decimalLongitude": {
+                            "decorators": [{
+                                "func": "cspace.inputValidator",
+                                "type": "fluid",
+                                "options": {
+                                    "label": "place-decimalLongitudeLabel",
+                                    "type": "float"
+                                }
+                            }],
+                            "value": "${{row}.decimalLongitude}"
+                        },
+                        ".csc-place-geoRefPlaceName": "${{row}.geoRefPlaceName}",
+                        ".csc-place-footprintSRS": "${{row}.footprintSRS}",
+                        ".csc-place-geodeticDatum": {
+                            "default": "",
+                            "optionnames": [
+                                "Please select a value",
+                                "EPSG:4326-WGS84",
+                                "EPSG:4269-NAD83",
+                                "EPSG:4267-NAD27",
+                                "Unknown"
+                            ],
+                            "optionlist": [
+                                "",
+                                "epsg4326-wgs84",
+                                "epsg4269-nad83",
+                                "epsg4267-nad27",
+                                "unknown"
+                            ],
+                            "selection": "${{row}.geodeticDatum}"
+                        },
+                        ".csc-place-coordPrecision": "${{row}.coordPrecision}",
+                        ".csc-place-footprintWKT": "${{row}.footprintWKT}",
+                        ".csc-place-geoRefProtocol": {
+                            "default": "",
+                            "optionnames": [
+                                "Please select a value",
+                                "Chapman,\n                        Wieczorek 2006, Guide to Best Practices for Georeferencing",
+                                "MaNIS/HerpNet/ORNIS\n                        Georeferencing Guidelines",
+                                "Georeferencing For Dummies",
+                                "BioGeomancer"
+                            ],
+                            "optionlist": [
+                                "",
+                                "chapman-wieczorek-2006-guide-best-practices-georeferencing",
+                                "manis-herpnet-ornis-georeferencing-guidelines",
+                                "georeferencing-dummies",
+                                "biogeomancer"
+                            ],
+                            "selection": "${{row}.geoRefProtocol}"
+                        }
+                    },
+                    "type": "fluid.noexpand"
+                }},
+                "elPath": "fields.placeGeoRefGroup"
             }
-          }, 
-          "type": "fluid"
-        }
-      ]
-    }, 
-    ".csc-hierarchy-relatedTerm-label": {
-      "messagekey": "hierarchy-relatedTermLabel"
-    }, 
-    ".csc-hierarchy-relatedTerms-label": {
-      "messagekey": "hierarchy-relatedTermsLabel"
-    }, 
-    "expander": [
-      {
-        "condition": {
-          "args": {
-            "equivalentContexts": "${fields.equivalentContexts}"
-          }, 
-          "funcName": "cspace.hierarchy.assertEquivalentContexts"
+        }]},
+        ".csc-place-updatedBy-label": {"messagekey": "place-updatedByLabel"},
+        ".csc-place-proposed": "${fields.proposed}",
+        ".csc-place-placeSource": "${fields.placeSource}",
+        ".csc-place-maxDepthInMeters": {
+            "decorators": [{
+                "func": "cspace.inputValidator",
+                "type": "fluid",
+                "options": {
+                    "label": "place-maxDepthInMetersLabel",
+                    "type": "float"
+                }
+            }],
+            "value": "${fields.maxDepthInMeters}"
+        },
+        ".csc-place-uri": "${fields.uri}",
+        ".csc-place-workflow": "${fields.workflow}", 
+        ".csc-place-workflow-label": {
+          "messagekey": "place-workflowLabel"
         }, 
-        "falseTree": {
-          ".csc-hierarchy-equivalentContext-label": {
-            "decorators": {
-              "classes": "hidden", 
-              "type": "addClass"
-            }
-          }
-        }, 
-        "trueTree": {
-          ".csc-hierarchy-equivalentContext-label": {
-            "messagekey": "hierarchy-equivalentContextLabel"
-          }
-        }, 
-        "type": "fluid.renderer.condition"
-      }, 
-      {
-        "controlledBy": "fields.equivalentContexts", 
-        "pathAs": "row", 
-        "repeatID": ".csc-hierarchy-equivalentContext:", 
-        "tree": {
+        ".csc-place-placeOwnerGroup-label": {"messagekey": "place-placeOwnerGroupLabel"},
+        ".csc-place-tenantId": "${fields.tenantId}",
+        ".csc-place-placeGeoRefGroup-label": {"messagekey": "place-placeGeoRefGroupLabel"},
+        ".csc-place-geoRefRemarks-label": {"messagekey": "place-geoRefRemarksLabel"},
+        ".csc-place-geoReferenceInformation-label": {"messagekey": "place-geoReferenceInformationLabel"},
+        ".csc-place-vUnitofMeasure": {
+            "optionnames": [
+                "Please select a value",
+                "acres",
+                "centimeters",
+                "feet",
+                "hectares",
+                "inches",
+                "kilometers",
+                "meters",
+                "miles",
+                "millimeters",
+                "square feet",
+                "square meters",
+                "square yards",
+                "stories"
+            ],
+            "optionlist": [
+                "",
+                "acres",
+                "centimeters",
+                "feet",
+                "hectares",
+                "inches",
+                "kilometers",
+                "meters",
+                "miles",
+                "millimeters",
+                "square-feet",
+                "square-meters",
+                "square-yards",
+                "stories"
+            ],
+            "selection": "${fields.vUnitofMeasure}"
+        },
+        ".csc-place-footprintSRS-label": {"messagekey": "place-footprintSRSLabel"},
+        ".csc-place-otherInformation-label": {"messagekey": "place-otherInformationLabel"},
+        ".csc-place-geoRefPlaceName-label": {"messagekey": "place-geoRefPlaceNameLabel"},
+        ".csc-place-minElevationInMeters-label": {"messagekey": "place-minElevationInMetersLabel"},
+        ".csc-place-inAuthority-label": {"messagekey": "place-inAuthorityLabel"},
+        ".csc-place-minDistanceAboveSurfaceInMeters": {
+            "decorators": [{
+                "func": "cspace.inputValidator",
+                "type": "fluid",
+                "options": {
+                    "label": "place-minDistanceAboveSurfaceInMetersLabel",
+                    "type": "float"
+                }
+            }],
+            "value": "${fields.minDistanceAboveSurfaceInMeters}"
+        },
+        ".csc-place-placeSource-label": {"messagekey": "place-placeSourceLabel"},
+        ".csc-place-decimalLatitude-label": {"messagekey": "place-decimalLatitudeLabel"},
+        ".csc-place-vSpatialReferenceSystem": {
+            "default": "",
+            "optionnames": [
+                "Please select a value",
+                "EPSG:4326-WGS84",
+                "EPSG:4269-NAD83",
+                "EPSG:4267-NAD27",
+                "Unknown"
+            ],
+            "optionlist": [
+                "",
+                "epsg4326-wgs84",
+                "epsg4269-nad83",
+                "epsg4267-nad27",
+                "unknown"
+            ],
+            "selection": "${fields.vSpatialReferenceSystem}"
+        },
+        ".csc-place-vLatitude-label": {"messagekey": "place-vLatitudeLabel"},
+        ".csc-place-address": {
           "decorators": [
             {
-              "classes": "cs-hierarchy-equivalentContext", 
-              "type": "addClass"
-            }, 
-            {
-              "func": "cspace.externalURL", 
+              "func": "cspace.address",
+              "options": {
+                "protoTree": {
+                  "expander": {
+                    "tree": {
+                      ".csc-address-addressCountry-label": {
+                        "messagekey": "address-addressCountryLabel"
+                      },
+                      ".csc-address-addrGroup-label": {
+                        "messagekey": "address-addrGroupLabel"
+                      },
+                      ".csc-address-addressInformation-label": {
+                        "messagekey": "address-addressInformationLabel"
+                      },
+                      ".csc-address-addressType-label": {
+                        "messagekey": "address-addressTypeLabel"
+                      },
+                      ".csc-address-addrGroup": {
+                        "decorators": [
+                          {
+                            "func": "cspace.makeRepeatable",
+                            "options": {
+                              "repeatTree": {
+                                "expander": {
+                                  "tree": {
+                                    ".csc-address-addressStateOrProvince": {
+                                      "decorators": [
+                                        {
+                                          "func": "cspace.autocomplete",
+                                          "options": {
+                                            "queryUrl": "../../../tenant/core/address/autocomplete/addressStateOrProvince",
+                                            "vocabUrl": "../../../tenant/core/address/source-vocab/addressStateOrProvince"
+                                          },
+                                          "type": "fluid"
+                                        }
+                                      ],
+                                      "value": "${{row}.addressStateOrProvince}"
+                                    },
+                                    ".csc-address-addressPostCode": "${{row}.addressPostCode}",
+                                    ".csc-address-addressType": {
+                                      "decorators": [
+                                        {
+                                          "func": "cspace.termList",
+                                          "options": {
+                                            "termListType": "addressType",
+                                            "root": "{row}",
+                                            "elPath": "addressType"
+                                          },
+                                          "type": "fluid"
+                                        }
+                                      ]
+                                    },
+                                    ".csc-address-addressMunicipality": {
+                                      "decorators": [
+                                        {
+                                          "func": "cspace.autocomplete",
+                                          "options": {
+                                            "queryUrl": "../../../tenant/core/address/autocomplete/addressMunicipality",
+                                            "vocabUrl": "../../../tenant/core/address/source-vocab/addressMunicipality"
+                                          },
+                                          "type": "fluid"
+                                        }
+                                      ],
+                                      "value": "${{row}.addressMunicipality}"
+                                    },
+                                    ".csc-address-addressCountry": {
+                                      "decorators": [
+                                        {
+                                          "func": "cspace.autocomplete",
+                                          "options": {
+                                            "queryUrl": "../../../tenant/core/address/autocomplete/addressCountry",
+                                            "vocabUrl": "../../../tenant/core/address/source-vocab/addressCountry"
+                                          },
+                                          "type": "fluid"
+                                        }
+                                      ],
+                                      "value": "${{row}.addressCountry}"
+                                    },
+                                    ".csc-address-addressPlace2": "${{row}.addressPlace2}",
+                                    ".csc-address-addressPlace1": "${{row}.addressPlace1}"
+                                  },
+                                  "type": "fluid.noexpand"
+                                }
+                              },
+                              "elPath": "fields.addrGroup"
+                            },
+                            "type": "fluid"
+                          }
+                        ]
+                      },
+                      ".csc-address-addressPlace1-label": {
+                        "messagekey": "address-addressPlace1Label"
+                      },
+                      ".csc-address-addressMunicipality-label": {
+                        "messagekey": "address-addressMunicipalityLabel"
+                      },
+                      ".csc-address-addressStateOrProvince-label": {
+                        "messagekey": "address-addressStateOrProvinceLabel"
+                      },
+                      ".csc-address-addressPostCode-label": {
+                        "messagekey": "address-addressPostCodeLabel"
+                      },
+                      ".csc-address-addressPlace2-label": {
+                        "messagekey": "address-addressPlace2Label"
+                      }
+                    },
+                    "type": "fluid.noexpand"
+                  }
+                }
+              },
               "type": "fluid"
             }
-          ], 
-          "value": "${{row}.equivalentContext}"
-        }, 
-        "type": "fluid.renderer.repeat"
-      }
-    ]
-  }, 
-  "recordEditor": {
-    ".csc-place-coordPrecision-label": {
-      "messagekey": "place-coordPrecisionLabel"
-    }, 
-    ".csc-place-coordUncertaintyInMeters-label": {
-      "messagekey": "place-coordUncertaintyInMetersLabel"
-    }, 
-    ".csc-place-coreInformation-label": {
-      "messagekey": "place-coreInformationLabel"
-    }, 
-    ".csc-place-createdAt": {
-      "decorators": [
-        {
-          "func": "cspace.datePicker", 
-          "type": "fluid"
-        }
-      ], 
-      "value": "${fields.createdAt}"
-    }, 
-    ".csc-place-createdAt-label": {
-      "messagekey": "place-createdAtLabel"
-    }, 
-    ".csc-place-createdBy": "${fields.createdBy}", 
-    ".csc-place-createdBy-label": {
-      "messagekey": "place-createdByLabel"
-    }, 
-    ".csc-place-csid": "${fields.csid}", 
-    ".csc-place-csid-label": {
-      "messagekey": "place-csidLabel"
-    }, 
-    ".csc-place-decimalLatitude-label": {
-      "messagekey": "place-decimalLatitudeLabel"
-    }, 
-    ".csc-place-decimalLongitude-label": {
-      "messagekey": "place-decimalLongitudeLabel"
-    }, 
-    ".csc-place-deprecatedRefName": "${fields.deprecatedRefName}", 
-    ".csc-place-deprecatedRefName-label": {
-      "messagekey": "place-deprecatedRefNameLabel"
-    }, 
-    ".csc-place-domaindata-label": {
-      "messagekey": "place-domaindataLabel"
-    }, 
-    ".csc-place-footprintSRS-label": {
-      "messagekey": "place-footprintSRSLabel"
-    }, 
-    ".csc-place-footprintSpatialFit-label": {
-      "messagekey": "place-footprintSpatialFitLabel"
-    }, 
-    ".csc-place-footprintWKT-label": {
-      "messagekey": "place-footprintWKTLabel"
-    }, 
-    ".csc-place-geoRefPlaceName-label": {
-      "messagekey": "place-geoRefPlaceNameLabel"
-    }, 
-    ".csc-place-geoRefProtocol-label": {
-      "messagekey": "place-geoRefProtocolLabel"
-    }, 
-    ".csc-place-geoRefRemarks-label": {
-      "messagekey": "place-geoRefRemarksLabel"
-    }, 
-    ".csc-place-geoRefSource-label": {
-      "messagekey": "place-geoRefSourceLabel"
-    }, 
-    ".csc-place-geoRefVerificationStatus-label": {
-      "messagekey": "place-geoRefVerificationStatusLabel"
-    }, 
-    ".csc-place-geoReferenceInformation-label": {
-      "messagekey": "place-geoReferenceInformationLabel"
-    }, 
-    ".csc-place-geoReferencedBy-label": {
-      "messagekey": "place-geoReferencedByLabel"
-    }, 
-    ".csc-place-geodeticDatum-label": {
-      "messagekey": "place-geodeticDatumLabel"
-    }, 
-    ".csc-place-inAuthority": "${fields.inAuthority}", 
-    ".csc-place-inAuthority-label": {
-      "messagekey": "place-inAuthorityLabel"
-    }, 
-    ".csc-place-localityInformation-label": {
-      "messagekey": "place-localityInformationLabel"
-    }, 
-    ".csc-place-maxDepthInMeters": {
-      "decorators": [{
-        "func": "cspace.inputValidator",
-        "type": "fluid",
-        "options": {
-          "label": "place-maxDepthInMetersLabel",
-          "type": "float"
-        }
-      }],
-      "value": "${fields.maxDepthInMeters}"
-    },
-    ".csc-place-maxDepthInMeters-label": {
-      "messagekey": "place-maxDepthInMetersLabel"
-    }, 
-    ".csc-place-maxDistanceAboveSurfaceInMeters": {
-      "decorators": [{
-        "func": "cspace.inputValidator",
-        "type": "fluid",
-        "options": {
-          "label": "place-maxDistanceAboveSurfaceInMetersLabel",
-          "type": "float"
-        }
-      }],
-      "value": "${fields.maxDistanceAboveSurfaceInMeters}"
-    },
-    ".csc-place-maxDistanceAboveSurfaceInMeters-label": {
-      "messagekey": "place-maxDistanceAboveSurfaceInMetersLabel"
-    }, 
-    ".csc-place-maxElevationInMeters": {
-      "decorators": [{
-        "func": "cspace.inputValidator",
-        "type": "fluid",
-        "options": {
-          "label": "place-maxElevationInMetersLabel",
-          "type": "float"
-        }
-      }],
-      "value": "${fields.maxElevationInMeters}"
-    },
-    ".csc-place-maxElevationInMeters-label": {
-      "messagekey": "place-maxElevationInMetersLabel"
-    }, 
-    ".csc-place-minDepthInMeters": {
-      "decorators": [{
-        "func": "cspace.inputValidator",
-        "type": "fluid",
-        "options": {
-          "label": "place-minDepthInMetersLabel",
-          "type": "float"
-        }
-      }],
-      "value": "${fields.minDepthInMeters}"
-    },
-    ".csc-place-minDepthInMeters-label": {
-      "messagekey": "place-minDepthInMetersLabel"
-    }, 
-    ".csc-place-minDistanceAboveSurfaceInMeters": {
-      "decorators": [{
-        "func": "cspace.inputValidator",
-        "type": "fluid",
-        "options": {
-          "label": "place-minDistanceAboveSurfaceInMetersLabel",
-          "type": "float"
-        }
-      }],
-      "value": "${fields.minDistanceAboveSurfaceInMeters}"
-    },
-    ".csc-place-minDistanceAboveSurfaceInMeters-label": {
-      "messagekey": "place-minDistanceAboveSurfaceInMetersLabel"
-    }, 
-    ".csc-place-minElevationInMeters": {
-      "decorators": [{
-        "func": "cspace.inputValidator",
-        "type": "fluid",
-        "options": {
-          "label": "place-minElevationInMetersLabel",
-          "type": "float"
-        }
-      }],
-      "value": "${fields.minElevationInMeters}"
-    }, 
-    ".csc-place-minElevationInMeters-label": {
-      "messagekey": "place-minElevationInMetersLabel"
-    }, 
-    ".csc-place-otherInformation-label": {
-      "messagekey": "place-otherInformationLabel"
-    }, 
-    ".csc-place-owner-label": {
-      "messagekey": "place-ownerLabel"
-    }, 
-    ".csc-place-ownershipNote-label": {
-      "messagekey": "place-ownershipNoteLabel"
-    }, 
-    ".csc-place-placeAuthorityInformation-label": {
-      "messagekey": "place-placeAuthorityInformationLabel"
-    }, 
-    ".csc-place-placeGeoRefGroup": {
-      "decorators": [
-        {
-          "func": "cspace.makeRepeatable", 
-          "options": {
-            "elPath": "fields.placeGeoRefGroup", 
-            "repeatTree": {
-              "expander": {
-                "tree": {
-                  ".csc-place-coordPrecision": "${{row}.coordPrecision}", 
-                  ".csc-place-coordUncertaintyInMeters": {
-                    "decorators": [{
-                      "func": "cspace.inputValidator",
-                      "options": {
-                        "label": "place-coordUncertaintyInMetersLabel",
-                        "type": "integer"
-                      },
-                      "type": "fluid"
-                    }],
-                    "value": "${{row}.coordUncertaintyInMeters}"
-                  },
-                  ".csc-place-decimalLatitude": {
-                    "decorators": [{
-                      "func": "cspace.inputValidator",
-                      "type": "fluid",
-                      "options": {
-                        "label": "place-decimalLatitudeLabel",
-                        "type": "float"
-                      }
-                    }],
-                    "value": "${{row}.decimalLatitude}"
-                  },
-                  ".csc-place-decimalLongitude": {
-                    "decorators": [{
-                      "func": "cspace.inputValidator",
-                      "type": "fluid",
-                      "options": {
-                        "label": "place-decimalLongitudeLabel",
-                        "type": "float"
-                      }
-                    }],
-                    "value": "${{row}.decimalLongitude}"
-                  },
-                  ".csc-place-footprintSRS": "${{row}.footprintSRS}", 
-                  ".csc-place-footprintSpatialFit": "${{row}.footprintSpatialFit}", 
-                  ".csc-place-footprintWKT": "${{row}.footprintWKT}", 
-                  ".csc-place-geoRefPlaceName": "${{row}.geoRefPlaceName}", 
-                  ".csc-place-geoRefProtocol": {
-                    "default": "", 
-                    "optionlist": [
-                      "", 
-                      "chapman-wieczorek-2006-guide-best-practices-georeferencing", 
-                      "manis-herpnet-ornis-georeferencing-guidelines", 
-                      "georeferencing-dummies", 
-                      "biogeomancer"
-                    ], 
-                    "optionnames": [
-                      "Please select a value", 
-                      "Chapman,\n                        Wieczorek 2006, Guide to Best Practices for Georeferencing", 
-                      "MaNIS/HerpNet/ORNIS\n                        Georeferencing Guidelines", 
-                      "Georeferencing For Dummies", 
-                      "BioGeomancer"
-                    ], 
-                    "selection": "${{row}.geoRefProtocol}"
-                  }, 
-                  ".csc-place-geoRefRemarks": "${{row}.geoRefRemarks}", 
-                  ".csc-place-geoRefSource": "${{row}.geoRefSource}", 
-                  ".csc-place-geoRefVerificationStatus": {
-                    "default": "", 
-                    "optionlist": [
-                      "", 
-                      "unverified", 
-                      "verified-data-custodian", 
-                      "verified-contributor"
-                    ], 
-                    "optionnames": [
-                      "Please select a value", 
-                      "Unverified", 
-                      "Verified by data custodian", 
-                      "Verified by contributor"
-                    ], 
-                    "selection": "${{row}.geoRefVerificationStatus}"
-                  }, 
-                  ".csc-place-geoReferencedBy": {
-                    "decorators": [
-                      {
-                        "func": "cspace.autocomplete", 
-                        "options": {
-                          "queryUrl": "../../../tenant/core/vocabularies/place/autocomplete/geoReferencedBy", 
-                          "vocabUrl": "../../../tenant/core/vocabularies/place/source-vocab/geoReferencedBy"
-                        }, 
-                        "type": "fluid"
-                      }
-                    ], 
-                    "value": "${{row}.geoReferencedBy}"
-                  }, 
-                  ".csc-place-geodeticDatum": {
-                    "default": "", 
-                    "optionlist": [
-                      "", 
-                      "epsg4326-wgs84", 
-                      "epsg4269-nad83", 
-                      "epsg4267-nad27", 
-                      "unknown"
-                    ], 
-                    "optionnames": [
-                      "Please select a value", 
-                      "EPSG:4326-WGS84", 
-                      "EPSG:4269-NAD83", 
-                      "EPSG:4267-NAD27", 
-                      "Unknown"
-                    ], 
-                    "selection": "${{row}.geodeticDatum}"
-                  }, 
-                  ".csc-place-pointRadiusSpatialFit": "${{row}.pointRadiusSpatialFit}", 
-                  ".csc-placeGeoRefGroup-geoRefDateGroup": {
-                    "decorators": [
-                      {
-                        "func": "cspace.structuredDate", 
-                        "options": {
-                          "elPath": "geoRefDateGroup.dateDisplayDate", 
-                          "elPaths": {
-                            "dateAssociation": "geoRefDateGroup.dateAssociation", 
-                            "dateDisplayDate": "geoRefDateGroup.dateDisplayDate", 
-                            "dateEarliestScalarValue": "geoRefDateGroup.dateEarliestScalarValue", 
-                            "dateEarliestSingleCertainty": "geoRefDateGroup.dateEarliestSingleCertainty", 
-                            "dateEarliestSingleDay": "geoRefDateGroup.dateEarliestSingleDay", 
-                            "dateEarliestSingleEra": "geoRefDateGroup.dateEarliestSingleEra", 
-                            "dateEarliestSingleMonth": "geoRefDateGroup.dateEarliestSingleMonth", 
-                            "dateEarliestSingleQualifier": "geoRefDateGroup.dateEarliestSingleQualifier", 
-                            "dateEarliestSingleQualifierUnit": "geoRefDateGroup.dateEarliestSingleQualifierUnit", 
-                            "dateEarliestSingleQualifierValue": "geoRefDateGroup.dateEarliestSingleQualifierValue", 
-                            "dateEarliestSingleYear": "geoRefDateGroup.dateEarliestSingleYear", 
-                            "dateLatestCertainty": "geoRefDateGroup.dateLatestCertainty", 
-                            "dateLatestDay": "geoRefDateGroup.dateLatestDay", 
-                            "dateLatestEra": "geoRefDateGroup.dateLatestEra", 
-                            "dateLatestMonth": "geoRefDateGroup.dateLatestMonth", 
-                            "dateLatestQualifier": "geoRefDateGroup.dateLatestQualifier", 
-                            "dateLatestQualifierUnit": "geoRefDateGroup.dateLatestQualifierUnit", 
-                            "dateLatestQualifierValue": "geoRefDateGroup.dateLatestQualifierValue", 
-                            "dateLatestScalarValue": "geoRefDateGroup.dateLatestScalarValue", 
-                            "dateLatestYear": "geoRefDateGroup.dateLatestYear", 
-                            "dateNote": "geoRefDateGroup.dateNote", 
-                            "datePeriod": "geoRefDateGroup.datePeriod", 
-                            "scalarValuesComputed": "geoRefDateGroup.scalarValuesComputed"
-                          }, 
-                          "root": "{row}"
-                        }, 
-                        "type": "fluid"
-                      }
-                    ], 
-                    "value": "${{row}.geoRefDateGroup.dateDisplayDate}"
-                  }
-                }, 
-                "type": "fluid.noexpand"
-              }
-            }
-          }, 
-          "type": "fluid"
-        }
-      ]
-    }, 
-    ".csc-place-placeGeoRefGroup-label": {
-      "messagekey": "place-placeGeoRefGroupLabel"
-    }, 
-    ".csc-place-placeID": "${fields.placeID}", 
-    ".csc-place-placeID-label": {
-      "messagekey": "place-placeIDLabel"
-    }, 
-    ".csc-place-placeNote": "${fields.placeNote}", 
-    ".csc-place-placeNote-label": {
-      "messagekey": "place-placeNoteLabel"
-    }, 
-    ".csc-place-placeOwnerGroup": {
-      "decorators": [
-        {
-          "func": "cspace.makeRepeatable", 
-          "options": {
-            "elPath": "fields.placeOwnerGroup", 
-            "repeatTree": {
-              "expander": {
-                "tree": {
-                  ".csc-place-owner": {
-                    "decorators": [
-                      {
-                        "func": "cspace.autocomplete", 
-                        "options": {
-                          "queryUrl": "../../../tenant/core/vocabularies/place/autocomplete/owner", 
-                          "vocabUrl": "../../../tenant/core/vocabularies/place/source-vocab/owner"
-                        }, 
-                        "type": "fluid"
-                      }
-                    ], 
-                    "value": "${{row}.owner}"
-                  }, 
-                  ".csc-place-ownershipNote": "${{row}.ownershipNote}", 
-                  ".csc-placeOwnerGroup-ownershipDateGroup": {
-                    "decorators": [
-                      {
-                        "func": "cspace.structuredDate", 
-                        "options": {
-                          "elPath": "ownershipDateGroup.dateDisplayDate", 
-                          "elPaths": {
-                            "dateAssociation": "ownershipDateGroup.dateAssociation", 
-                            "dateDisplayDate": "ownershipDateGroup.dateDisplayDate", 
-                            "dateEarliestScalarValue": "ownershipDateGroup.dateEarliestScalarValue", 
-                            "dateEarliestSingleCertainty": "ownershipDateGroup.dateEarliestSingleCertainty", 
-                            "dateEarliestSingleDay": "ownershipDateGroup.dateEarliestSingleDay", 
-                            "dateEarliestSingleEra": "ownershipDateGroup.dateEarliestSingleEra", 
-                            "dateEarliestSingleMonth": "ownershipDateGroup.dateEarliestSingleMonth", 
-                            "dateEarliestSingleQualifier": "ownershipDateGroup.dateEarliestSingleQualifier", 
-                            "dateEarliestSingleQualifierUnit": "ownershipDateGroup.dateEarliestSingleQualifierUnit", 
-                            "dateEarliestSingleQualifierValue": "ownershipDateGroup.dateEarliestSingleQualifierValue", 
-                            "dateEarliestSingleYear": "ownershipDateGroup.dateEarliestSingleYear", 
-                            "dateLatestCertainty": "ownershipDateGroup.dateLatestCertainty", 
-                            "dateLatestDay": "ownershipDateGroup.dateLatestDay", 
-                            "dateLatestEra": "ownershipDateGroup.dateLatestEra", 
-                            "dateLatestMonth": "ownershipDateGroup.dateLatestMonth", 
-                            "dateLatestQualifier": "ownershipDateGroup.dateLatestQualifier", 
-                            "dateLatestQualifierUnit": "ownershipDateGroup.dateLatestQualifierUnit", 
-                            "dateLatestQualifierValue": "ownershipDateGroup.dateLatestQualifierValue", 
-                            "dateLatestScalarValue": "ownershipDateGroup.dateLatestScalarValue", 
-                            "dateLatestYear": "ownershipDateGroup.dateLatestYear", 
-                            "dateNote": "ownershipDateGroup.dateNote", 
-                            "datePeriod": "ownershipDateGroup.datePeriod", 
-                            "scalarValuesComputed": "ownershipDateGroup.scalarValuesComputed"
-                          }, 
-                          "root": "{row}"
-                        }, 
-                        "type": "fluid"
-                      }
-                    ], 
-                    "value": "${{row}.ownershipDateGroup.dateDisplayDate}"
-                  }
-                }, 
-                "type": "fluid.noexpand"
-              }
-            }
-          }, 
-          "type": "fluid"
-        }
-      ]
-    }, 
-    ".csc-place-placeOwnerGroup-label": {
-      "messagekey": "place-placeOwnerGroupLabel"
-    }, 
-    ".csc-place-placeSource": "${fields.placeSource}", 
-    ".csc-place-placeSource-label": {
-      "messagekey": "place-placeSourceLabel"
-    }, 
-    ".csc-place-placeType": {
-      "default": "", 
-      "optionlist": [
-        "", 
-        "autonomous-region", 
-        "borough", 
-        "city", 
-        "collection-site", 
-        "continent", 
-        "country", 
-        "country-code", 
-        "county", 
-        "dependent-state", 
-        "deserted-settlement", 
-        "district-national", 
-        "general-region", 
-        "governorate", 
-        "inhabited-place", 
-        "island", 
-        "island-group", 
-        "locality", 
-        "metropolitan-area", 
-        "municipality", 
-        "nation", 
-        "national-division", 
-        "neighborhood", 
-        "occupied-territory", 
-        "prefecture", 
-        "province", 
-        "region", 
-        "state", 
-        "state-province", 
-        "territory", 
-        "union-territory", 
-        "unitary-authority", 
-        "urban-prefecture", 
-        "water-body"
-      ], 
-      "optionnames": [
-        "Please select a value", 
-        "Autonomous region", 
-        "Borough", 
-        "City", 
-        "Collection site", 
-        "Continent", 
-        "Country", 
-        "Country code", 
-        "County", 
-        "Dependent state", 
-        "Deserted settlement", 
-        "District (national)", 
-        "General region", 
-        "Governorate", 
-        "Inhabited place", 
-        "Island", 
-        "Island group", 
-        "Locality", 
-        "Metropolitan area", 
-        "Municipality", 
-        "Nation", 
-        "National division", 
-        "Neighborhood", 
-        "Occupied territory", 
-        "Prefecture", 
-        "Province", 
-        "Region", 
-        "State", 
-        "State province", 
-        "Territory", 
-        "Union territory", 
-        "Unitary authority", 
-        "Urban prefecture", 
-        "Water body"
-      ], 
-      "selection": "${fields.placeType}"
-    }, 
-    ".csc-place-placeType-label": {
-      "messagekey": "place-placeTypeLabel"
-    }, 
-    ".csc-place-pointRadiusSpatialFit-label": {
-      "messagekey": "place-pointRadiusSpatialFitLabel"
-    }, 
-    ".csc-place-preferredPlace-label": {
-      "messagekey": "place-preferredPlaceLabel"
-    }, 
-    ".csc-place-refName": "${fields.refName}", 
-    ".csc-place-refName-label": {
-      "messagekey": "place-refNameLabel"
-    }, 
-    ".csc-place-shortIdentifier": "${fields.shortIdentifier}", 
-    ".csc-place-shortIdentifier-label": {
-      "messagekey": "place-shortIdentifierLabel"
-    }, 
-    ".csc-place-tenantId": "${fields.tenantId}", 
-    ".csc-place-tenantId-label": {
-      "messagekey": "place-tenantIdLabel"
-    }, 
-    ".csc-place-updatedAt": {
-      "decorators": [
-        {
-          "func": "cspace.datePicker", 
-          "type": "fluid"
-        }
-      ], 
-      "value": "${fields.updatedAt}"
-    }, 
-    ".csc-place-updatedAt-label": {
-      "messagekey": "place-updatedAtLabel"
-    }, 
-    ".csc-place-updatedBy": "${fields.updatedBy}", 
-    ".csc-place-updatedBy-label": {
-      "messagekey": "place-updatedByLabel"
-    }, 
-    ".csc-place-uri": "${fields.uri}", 
-    ".csc-place-uri-label": {
-      "messagekey": "place-uriLabel"
-    }, 
-    ".csc-place-vCoordSource": "${fields.vCoordSource}", 
-    ".csc-place-vCoordSource-label": {
-      "messagekey": "place-vCoordSourceLabel"
-    }, 
-    ".csc-place-vCoordSourceRefId": "${fields.vCoordSourceRefId}", 
-    ".csc-place-vCoordSourceRefId-label": {
-      "messagekey": "place-vCoordSourceRefIdLabel"
-    }, 
-    ".csc-place-vCoordSys": {
-      "default": "", 
-      "optionlist": [
-        "", 
-        "altitude-depth", 
-        "latitude-longitude", 
-        "national-grid-reference", 
-        "utm"
-      ], 
-      "optionnames": [
-        "Please select a value", 
-        "Altitude depth", 
-        "Latitude and longitude", 
-        "National Grid reference", 
-        "Universal Transverse Mercator (UTM)"
-      ], 
-      "selection": "${fields.vCoordSys}"
-    }, 
-    ".csc-place-vCoordSys-label": {
-      "messagekey": "place-vCoordSysLabel"
-    }, 
-    ".csc-place-vCoordinates": "${fields.vCoordinates}", 
-    ".csc-place-vCoordinates-label": {
-      "messagekey": "place-vCoordinatesLabel"
-    }, 
-    ".csc-place-vDepth": "${fields.vDepth}", 
-    ".csc-place-vDepth-label": {
-      "messagekey": "place-vDepthLabel"
-    }, 
-    ".csc-place-vDistanceAboveSurface": "${fields.vDistanceAboveSurface}", 
-    ".csc-place-vDistanceAboveSurface-label": {
-      "messagekey": "place-vDistanceAboveSurfaceLabel"
-    }, 
-    ".csc-place-vElevation": "${fields.vElevation}", 
-    ".csc-place-vElevation-label": {
-      "messagekey": "place-vElevationLabel"
-    }, 
-    ".csc-place-vLatitude": "${fields.vLatitude}", 
-    ".csc-place-vLatitude-label": {
-      "messagekey": "place-vLatitudeLabel"
-    }, 
-    ".csc-place-vLongitude": "${fields.vLongitude}", 
-    ".csc-place-vLongitude-label": {
-      "messagekey": "place-vLongitudeLabel"
-    }, 
-    ".csc-place-vSpatialReferenceSystem": {
-      "default": "", 
-      "optionlist": [
-        "", 
-        "epsg4326-wgs84", 
-        "epsg4269-nad83", 
-        "epsg4267-nad27", 
-        "unknown"
-      ], 
-      "optionnames": [
-        "Please select a value", 
-        "EPSG:4326-WGS84", 
-        "EPSG:4269-NAD83", 
-        "EPSG:4267-NAD27", 
-        "Unknown"
-      ], 
-      "selection": "${fields.vSpatialReferenceSystem}"
-    }, 
-    ".csc-place-vSpatialReferenceSystem-label": {
-      "messagekey": "place-vSpatialReferenceSystemLabel"
-    }, 
-    ".csc-place-vUnitofMeasure": {
-      "optionlist": [
-        "", 
-        "acres", 
-        "centimeters", 
-        "feet", 
-        "hectares", 
-        "inches", 
-        "kilometers", 
-        "meters", 
-        "miles", 
-        "millimeters", 
-        "square-feet", 
-        "square-meters", 
-        "square-yards", 
-        "stories"
-      ], 
-      "optionnames": [
-        "Please select a value", 
-        "acres", 
-        "centimeters", 
-        "feet", 
-        "hectares", 
-        "inches", 
-        "kilometers", 
-        "meters", 
-        "miles", 
-        "millimeters", 
-        "square feet", 
-        "square meters", 
-        "square yards", 
-        "stories"
-      ], 
-      "selection": "${fields.vUnitofMeasure}"
-    }, 
-    ".csc-place-vUnitofMeasure-label": {
-      "messagekey": "place-vUnitofMeasureLabel"
-    }, 
-    ".csc-placeGeoRefGroup-geoRefDateGroup-label": {
-      "messagekey": "placeGeoRefGroup-geoRefDateGroupLabel"
-    }, 
-    ".csc-placeOwnerGroup-ownershipDateGroup-label": {
-      "messagekey": "placeOwnerGroup-ownershipDateGroupLabel"
-    }, 
-    ".csc-preferred-placeAuthority": {
-      "decorators": [
-        {
-          "func": "cspace.preferred", 
-          "options": {
-            "protoTree": {
-              "expander": {
-                "tree": {
-                  ".csc-placeTermGroup-nameDateGroup-label": {
-                    "messagekey": "placeTermGroup-nameDateGroupLabel"
-                  }, 
-                  ".csc-preferredPlace-historicalStatus-label": {
-                    "messagekey": "preferredPlace-historicalStatusLabel"
-                  }, 
-                  ".csc-preferredPlace-nameAbbrev-label": {
-                    "messagekey": "preferredPlace-nameAbbrevLabel"
-                  }, 
-                  ".csc-preferredPlace-nameNote-label": {
-                    "messagekey": "preferredPlace-nameNoteLabel"
-                  }, 
-                  ".csc-preferredPlace-placeTermGroup": {
-                    "decorators": [
-                      {
-                        "func": "cspace.makeRepeatable", 
-                        "options": {
-                          "elPath": "fields.placeTermGroup", 
-                          "repeatTree": {
-                            "expander": {
-                              "tree": {
-                                ".csc-placeAuthority-historicalStatus": {
-                                  "default": "current", 
-                                  "optionlist": [
-                                    "current", 
-                                    "historical", 
-                                    "both"
-                                  ], 
-                                  "optionnames": [
-                                    "Current", 
-                                    "Historical", 
-                                    "Both"
-                                  ], 
-                                  "selection": "${{row}.historicalStatus}"
-                                }, 
-                                ".csc-placeAuthority-nameAbbrev": "${{row}.nameAbbrev}", 
-                                ".csc-placeAuthority-nameDateGroup": {
-                                  "decorators": [
-                                    {
-                                      "func": "cspace.structuredDate", 
-                                      "options": {
-                                        "elPath": "nameDateGroup.dateDisplayDate", 
-                                        "elPaths": {
-                                          "dateAssociation": "nameDateGroup.dateAssociation", 
-                                          "dateDisplayDate": "nameDateGroup.dateDisplayDate", 
-                                          "dateEarliestScalarValue": "nameDateGroup.dateEarliestScalarValue", 
-                                          "dateEarliestSingleCertainty": "nameDateGroup.dateEarliestSingleCertainty", 
-                                          "dateEarliestSingleDay": "nameDateGroup.dateEarliestSingleDay", 
-                                          "dateEarliestSingleEra": "nameDateGroup.dateEarliestSingleEra", 
-                                          "dateEarliestSingleMonth": "nameDateGroup.dateEarliestSingleMonth", 
-                                          "dateEarliestSingleQualifier": "nameDateGroup.dateEarliestSingleQualifier", 
-                                          "dateEarliestSingleQualifierUnit": "nameDateGroup.dateEarliestSingleQualifierUnit", 
-                                          "dateEarliestSingleQualifierValue": "nameDateGroup.dateEarliestSingleQualifierValue", 
-                                          "dateEarliestSingleYear": "nameDateGroup.dateEarliestSingleYear", 
-                                          "dateLatestCertainty": "nameDateGroup.dateLatestCertainty", 
-                                          "dateLatestDay": "nameDateGroup.dateLatestDay", 
-                                          "dateLatestEra": "nameDateGroup.dateLatestEra", 
-                                          "dateLatestMonth": "nameDateGroup.dateLatestMonth", 
-                                          "dateLatestQualifier": "nameDateGroup.dateLatestQualifier", 
-                                          "dateLatestQualifierUnit": "nameDateGroup.dateLatestQualifierUnit", 
-                                          "dateLatestQualifierValue": "nameDateGroup.dateLatestQualifierValue", 
-                                          "dateLatestScalarValue": "nameDateGroup.dateLatestScalarValue", 
-                                          "dateLatestYear": "nameDateGroup.dateLatestYear", 
-                                          "dateNote": "nameDateGroup.dateNote", 
-                                          "datePeriod": "nameDateGroup.datePeriod", 
-                                          "scalarValuesComputed": "nameDateGroup.scalarValuesComputed"
-                                        }, 
-                                        "root": "{row}"
-                                      }, 
-                                      "type": "fluid"
+          ]
+        },
+        ".csc-place-address-label": {
+          "messagekey": "place-addressLabel"
+        },
+        ".csc-place-createdAt": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.createdAt}"
+        },
+        ".csc-place-updatedAt": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.updatedAt}"
+        },
+        ".csc-place-vElevation": "${fields.vElevation}",
+        ".csc-place-vCoordSys-label": {"messagekey": "place-vCoordSysLabel"},
+        ".csc-place-sas": "${fields.sas}",
+        ".csc-place-rev-label": {"messagekey": "place-revLabel"},
+        ".csc-place-vCoordSourceRefId": "${fields.vCoordSourceRefId}",
+        ".csc-place-decimalLongitude-label": {"messagekey": "place-decimalLongitudeLabel"},
+        ".csc-place-maxDistanceAboveSurfaceInMeters": {
+            "decorators": [{
+                "func": "cspace.inputValidator",
+                "type": "fluid",
+                "options": {
+                    "label": "place-maxDistanceAboveSurfaceInMetersLabel",
+                    "type": "float"
+                }
+            }],
+            "value": "${fields.maxDistanceAboveSurfaceInMeters}"
+        },
+        ".csc-place-coreInformation-label": {"messagekey": "place-coreInformationLabel"},
+        ".csc-place-maxElevationInMeters-label": {"messagekey": "place-maxElevationInMetersLabel"},
+        ".csc-place-maxDistanceAboveSurfaceInMeters-label": {"messagekey": "place-maxDistanceAboveSurfaceInMetersLabel"},
+        ".csc-place-owner-label": {"messagekey": "place-ownerLabel"},
+        ".csc-place-ownershipNote-label": {"messagekey": "place-ownershipNoteLabel"},
+        ".csc-place-shortIdentifier": "${fields.shortIdentifier}",
+        ".csc-place-updatedBy": "${fields.updatedBy}",
+        ".csc-place-vLatitude": "${fields.vLatitude}",
+        ".csc-place-createdBy-label": {"messagekey": "place-createdByLabel"},
+        ".csc-place-vCoordSourceRefId-label": {"messagekey": "place-vCoordSourceRefIdLabel"},
+        ".csc-place-maxElevationInMeters": {
+            "decorators": [{
+                "func": "cspace.inputValidator",
+                "type": "fluid",
+                "options": {
+                    "label": "place-maxElevationInMetersLabel",
+                    "type": "float"
+                }
+            }],
+            "value": "${fields.maxElevationInMeters}"
+        },
+        ".csc-place-minDepthInMeters": {
+            "decorators": [{
+                "func": "cspace.inputValidator",
+                "type": "fluid",
+                "options": {
+                    "label": "place-minDepthInMetersLabel",
+                    "type": "float"
+                }
+            }],
+            "value": "${fields.minDepthInMeters}"
+        },
+        ".csc-place-pointRadiusSpatialFit-label": {"messagekey": "place-pointRadiusSpatialFitLabel"},
+        ".csc-place-placeID-label": {"messagekey": "place-placeIDLabel"},
+        ".csc-place-shortIdentifier-label": {"messagekey": "place-shortIdentifierLabel"},
+        ".csc-place-vLongitude-label": {"messagekey": "place-vLongitudeLabel"},
+        ".csc-place-vElevation-label": {"messagekey": "place-vElevationLabel"},
+        ".csc-place-domaindata-label": {"messagekey": "place-domaindataLabel"},
+        ".csc-place-geoRefSource-label": {"messagekey": "place-geoRefSourceLabel"},
+        ".csc-place-placeType": {
+            "default": "",
+            "optionnames": [
+                "Please select a value",
+                "Autonomous region",
+                "Borough",
+                "City",
+                "Collection site",
+                "Continent",
+                "Country",
+                "Country code",
+                "County",
+                "Dependent state",
+                "Deserted settlement",
+                "District (national)",
+                "General region",
+                "Governorate",
+                "Inhabited place",
+                "Island",
+                "Island group",
+                "Locality",
+                "Metropolitan area",
+                "Municipality",
+                "Nation",
+                "National division",
+                "Neighborhood",
+                "Occupied territory",
+                "Prefecture",
+                "Province",
+                "Region",
+                "State",
+                "State province",
+                "Territory",
+                "Union territory",
+                "Unitary authority",
+                "Urban prefecture",
+                "Water body"
+            ],
+            "optionlist": [
+                "",
+                "autonomous-region",
+                "borough",
+                "city",
+                "collection-site",
+                "continent",
+                "country",
+                "country-code",
+                "county",
+                "dependent-state",
+                "deserted-settlement",
+                "district-national",
+                "general-region",
+                "governorate",
+                "inhabited-place",
+                "island",
+                "island-group",
+                "locality",
+                "metropolitan-area",
+                "municipality",
+                "nation",
+                "national-division",
+                "neighborhood",
+                "occupied-territory",
+                "prefecture",
+                "province",
+                "region",
+                "state",
+                "state-province",
+                "territory",
+                "union-territory",
+                "unitary-authority",
+                "urban-prefecture",
+                "water-body"
+            ],
+            "selection": "${fields.placeType}"
+        },
+        ".csc-place-vDistanceAboveSurface": "${fields.vDistanceAboveSurface}",
+        ".csc-place-tenantId-label": {"messagekey": "place-tenantIdLabel"},
+        ".csc-place-createdAt-label": {"messagekey": "place-createdAtLabel"},
+        ".csc-place-preferredPlace-label": {"messagekey": "place-preferredPlaceLabel"},
+        ".csc-place-geoReferencedBy-label": {"messagekey": "place-geoReferencedByLabel"},
+        ".csc-place-vDepth-label": {"messagekey": "place-vDepthLabel"},
+        ".csc-place-uri-label": {"messagekey": "place-uriLabel"},
+        ".csc-place-deprecated-label": {"messagekey": "place-deprecatedLabel"},
+        ".csc-place-placeID": "${fields.placeID}",
+        ".csc-place-vUnitofMeasure-label": {"messagekey": "place-vUnitofMeasureLabel"},
+        ".csc-place-geoRefProtocol-label": {"messagekey": "place-geoRefProtocolLabel"},
+        ".csc-place-placeOwnerGroup": {"decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {"expander": {
+                    "tree": {
+                        ".csc-place-ownershipNote": "${{row}.ownershipNote}",
+                        ".csc-placeOwnerGroup-ownershipDateGroup": {
+                            "decorators": [{
+                                "func": "cspace.structuredDate",
+                                "type": "fluid",
+                                "options": {
+                                    "root": "{row}",
+                                    "elPath": "ownershipDateGroup.dateDisplayDate",
+                                    "elPaths": {
+                                        "dateEarliestSingleQualifier": "ownershipDateGroup.dateEarliestSingleQualifier",
+                                        "scalarValuesComputed": "ownershipDateGroup.scalarValuesComputed",
+                                        "dateLatestDay": "ownershipDateGroup.dateLatestDay",
+                                        "dateLatestYear": "ownershipDateGroup.dateLatestYear",
+                                        "dateAssociation": "ownershipDateGroup.dateAssociation",
+                                        "dateEarliestSingleEra": "ownershipDateGroup.dateEarliestSingleEra",
+                                        "dateDisplayDate": "ownershipDateGroup.dateDisplayDate",
+                                        "dateEarliestSingleCertainty": "ownershipDateGroup.dateEarliestSingleCertainty",
+                                        "dateLatestEra": "ownershipDateGroup.dateLatestEra",
+                                        "dateEarliestSingleQualifierValue": "ownershipDateGroup.dateEarliestSingleQualifierValue",
+                                        "dateLatestCertainty": "ownershipDateGroup.dateLatestCertainty",
+                                        "dateEarliestSingleYear": "ownershipDateGroup.dateEarliestSingleYear",
+                                        "dateLatestQualifier": "ownershipDateGroup.dateLatestQualifier",
+                                        "dateLatestQualifierValue": "ownershipDateGroup.dateLatestQualifierValue",
+                                        "dateEarliestSingleQualifierUnit": "ownershipDateGroup.dateEarliestSingleQualifierUnit",
+                                        "datePeriod": "ownershipDateGroup.datePeriod",
+                                        "dateEarliestScalarValue": "ownershipDateGroup.dateEarliestScalarValue",
+                                        "dateLatestMonth": "ownershipDateGroup.dateLatestMonth",
+                                        "dateNote": "ownershipDateGroup.dateNote",
+                                        "dateLatestScalarValue": "ownershipDateGroup.dateLatestScalarValue",
+                                        "dateLatestQualifierUnit": "ownershipDateGroup.dateLatestQualifierUnit",
+                                        "dateEarliestSingleDay": "ownershipDateGroup.dateEarliestSingleDay",
+                                        "dateEarliestSingleMonth": "ownershipDateGroup.dateEarliestSingleMonth"
                                     }
-                                  ], 
-                                  "value": "${{row}.nameDateGroup.dateDisplayDate}"
-                                }, 
-                                ".csc-placeAuthority-nameNote": "${{row}.nameNote}", 
-                                ".csc-placeAuthority-termDisplayName": "${{row}.termDisplayName}", 
-                                ".csc-placeAuthority-termLanguage": {
-                                  "decorators": [
-                                    {
-                                      "func": "cspace.termList", 
-                                      "options": {
-                                        "elPath": "termLanguage", 
-                                        "root": "{row}", 
-                                        "termListType": "termLanguage"
-                                      }, 
-                                      "type": "fluid"
-                                    }
-                                  ]
-                                }, 
-                                ".csc-placeAuthority-termName": "${{row}.termName}", 
-                                ".csc-placeAuthority-termPrefForLang": "${{row}.termPrefForLang}", 
-                                ".csc-placeAuthority-termQualifier": "${{row}.termQualifier}", 
-                                ".csc-placeAuthority-termSource": {
-                                  "decorators": [
-                                    {
-                                      "func": "cspace.autocomplete", 
-                                      "options": {
-                                        "queryUrl": "../../../tenant/core/preferredPlace/autocomplete/termSource", 
-                                        "vocabUrl": "../../../tenant/core/preferredPlace/source-vocab/termSource"
-                                      }, 
-                                      "type": "fluid"
-                                    }
-                                  ], 
-                                  "value": "${{row}.termSource}"
-                                }, 
-                                ".csc-placeAuthority-termSourceDetail": "${{row}.termSourceDetail}", 
-                                ".csc-placeAuthority-termSourceID": "${{row}.termSourceID}", 
-                                ".csc-placeAuthority-termSourceNote": "${{row}.termSourceNote}", 
-                                ".csc-placeAuthority-termFormattedDisplayName": "${{row}.termFormattedDisplayName}", 
-                                ".csc-placeAuthority-termStatus": {
-                                  "default": "provisional", 
-                                  "optionlist": [
-                                    "provisional", 
-                                    "under review", 
-                                    "accepted", 
-                                    "rejected"
-                                  ], 
-                                  "optionnames": [
-                                    "Provisional", 
-                                    "Under Review", 
-                                    "Accepted", 
-                                    "Rejected"
-                                  ], 
-                                  "selection": "${{row}.termStatus}"
-                                }, 
-                                ".csc-placeAuthority-termType": {
-                                  "optionlist": [
-                                    "", 
-                                    "common", 
-                                    "technical-scientific", 
-                                    "native", 
-                                    "non-native", 
-                                    "local", 
-                                    "descriptive", 
-                                    "spelling-variant"
-                                  ], 
-                                  "optionnames": [
-                                    "Please select a value", 
-                                    "Common name", 
-                                    "Technical or scientific name", 
-                                    "Native name", 
-                                    "Non-native name", 
-                                    "Local name", 
-                                    "Descriptive name", 
-                                    "Spelling variant"
-                                  ], 
-                                  "selection": "${{row}.termType}"
                                 }
-                              }, 
-                              "type": "fluid.noexpand"
-                            }
-                          }
-                        }, 
-                        "type": "fluid"
-                      }
-                    ]
-                  }, 
-                  ".csc-preferredPlace-placeTermGroup-label": {
-                    "messagekey": "preferredPlace-placeTermGroupLabel"
-                  }, 
-                  ".csc-preferredPlace-termDisplayName-label": {
-                    "messagekey": "preferredPlace-termDisplayNameLabel"
-                  }, 
-                  ".csc-preferredPlace-termInformation-label": {
-                    "messagekey": "preferredPlace-termInformationLabel"
-                  }, 
-                  ".csc-preferredPlace-termLanguage-label": {
-                    "messagekey": "preferredPlace-termLanguageLabel"
-                  }, 
-                  ".csc-preferredPlace-termName-label": {
-                    "messagekey": "preferredPlace-termNameLabel"
-                  }, 
-                  ".csc-preferredPlace-termPrefForLang-label": {
-                    "messagekey": "preferredPlace-termPrefForLangLabel"
-                  }, 
-                  ".csc-preferredPlace-termQualifier-label": {
-                    "messagekey": "preferredPlace-termQualifierLabel"
-                  }, 
-                  ".csc-preferredPlace-termSource-label": {
-                    "messagekey": "preferredPlace-termSourceLabel"
-                  }, 
-                  ".csc-preferredPlace-termSourceDetail-label": {
-                    "messagekey": "preferredPlace-termSourceDetailLabel"
-                  }, 
-                  ".csc-preferredPlace-termSourceID-label": {
-                    "messagekey": "preferredPlace-termSourceIDLabel"
-                  }, 
-                  ".csc-preferredPlace-termSourceNote-label": {
-                    "messagekey": "preferredPlace-termSourceNoteLabel"
-                  }, 
-                  ".csc-preferredPlace-termFormattedDisplayName-label": {
-                    "messagekey": "preferredPlace-termFormattedDisplayNameLabel"
-                  }, 
-                  ".csc-preferredPlace-termStatus-label": {
-                    "messagekey": "preferredPlace-termStatusLabel"
-                  }, 
-                  ".csc-preferredPlace-termType-label": {
-                    "messagekey": "preferredPlace-termTypeLabel"
-                  }
-                }, 
-                "type": "fluid.noexpand"
-              }
+                            }],
+                            "value": "${{row}.ownershipDateGroup.dateDisplayDate}"
+                        },
+                        ".csc-place-owner": {
+                            "decorators": [{
+                                "func": "cspace.autocomplete",
+                                "type": "fluid",
+                                "options": {
+                                    "queryUrl": "../../../tenant/core/vocabularies/place/autocomplete/owner",
+                                    "vocabUrl": "../../../tenant/core/vocabularies/place/source-vocab/owner"
+                                }
+                            }],
+                            "value": "${{row}.owner}"
+                        }
+                    },
+                    "type": "fluid.noexpand"
+                }},
+                "elPath": "fields.placeOwnerGroup"
             }
-          }, 
-          "type": "fluid"
-        }
-      ]
+        }]},
+        ".csc-place-inAuthority": "${fields.inAuthority}",
+        ".csc-place-refName-label": {"messagekey": "place-refNameLabel"},
+        ".csc-place-sas-label": {"messagekey": "place-sasLabel"},
+        ".csc-place-deprecatedRefName": "${fields.deprecatedRefName}",
+        ".csc-place-minElevationInMeters": {
+            "decorators": [{
+                "func": "cspace.inputValidator",
+                "type": "fluid",
+                "options": {
+                    "label": "place-minElevationInMetersLabel",
+                    "type": "float"
+                }
+            }],
+            "value": "${fields.minElevationInMeters}"
+        },
+        ".csc-place-vCoordSource": "${fields.vCoordSource}",
+        ".csc-place-refName": "${fields.refName}",
+        ".csc-place-createdBy": "${fields.createdBy}",
+        ".csc-preferred-placeAuthority": {"decorators": [{
+            "func": "cspace.preferred",
+            "type": "fluid",
+            "options": {"protoTree": {"expander": {
+                "tree": {
+                    ".csc-placeTermGroup-nameDateGroup-label": {"messagekey": "placeTermGroup-nameDateGroupLabel"},
+                    ".csc-preferredPlace-placeTermGroup": {"decorators": [{
+                        "func": "cspace.makeRepeatable",
+                        "type": "fluid",
+                        "options": {
+                            "repeatTree": {"expander": {
+                                "tree": {
+                                    ".csc-placeAuthority-nameAbbrev": "${{row}.nameAbbrev}",
+                                    ".csc-placeAuthority-nameDateGroup": {
+                                        "decorators": [{
+                                            "func": "cspace.structuredDate",
+                                            "type": "fluid",
+                                            "options": {
+                                                "root": "{row}",
+                                                "elPath": "nameDateGroup.dateDisplayDate",
+                                                "elPaths": {
+                                                    "dateEarliestSingleQualifier": "nameDateGroup.dateEarliestSingleQualifier",
+                                                    "scalarValuesComputed": "nameDateGroup.scalarValuesComputed",
+                                                    "dateLatestDay": "nameDateGroup.dateLatestDay",
+                                                    "dateLatestYear": "nameDateGroup.dateLatestYear",
+                                                    "dateAssociation": "nameDateGroup.dateAssociation",
+                                                    "dateEarliestSingleEra": "nameDateGroup.dateEarliestSingleEra",
+                                                    "dateDisplayDate": "nameDateGroup.dateDisplayDate",
+                                                    "dateEarliestSingleCertainty": "nameDateGroup.dateEarliestSingleCertainty",
+                                                    "dateLatestEra": "nameDateGroup.dateLatestEra",
+                                                    "dateEarliestSingleQualifierValue": "nameDateGroup.dateEarliestSingleQualifierValue",
+                                                    "dateLatestCertainty": "nameDateGroup.dateLatestCertainty",
+                                                    "dateEarliestSingleYear": "nameDateGroup.dateEarliestSingleYear",
+                                                    "dateLatestQualifier": "nameDateGroup.dateLatestQualifier",
+                                                    "dateLatestQualifierValue": "nameDateGroup.dateLatestQualifierValue",
+                                                    "dateEarliestSingleQualifierUnit": "nameDateGroup.dateEarliestSingleQualifierUnit",
+                                                    "datePeriod": "nameDateGroup.datePeriod",
+                                                    "dateEarliestScalarValue": "nameDateGroup.dateEarliestScalarValue",
+                                                    "dateLatestMonth": "nameDateGroup.dateLatestMonth",
+                                                    "dateNote": "nameDateGroup.dateNote",
+                                                    "dateLatestScalarValue": "nameDateGroup.dateLatestScalarValue",
+                                                    "dateLatestQualifierUnit": "nameDateGroup.dateLatestQualifierUnit",
+                                                    "dateEarliestSingleDay": "nameDateGroup.dateEarliestSingleDay",
+                                                    "dateEarliestSingleMonth": "nameDateGroup.dateEarliestSingleMonth"
+                                                }
+                                            }
+                                        }],
+                                        "value": "${{row}.nameDateGroup.dateDisplayDate}"
+                                    },
+                                    ".csc-placeAuthority-termType": {
+                                        "optionnames": [
+                                            "Please select a value",
+                                            "Common name",
+                                            "Technical or scientific name",
+                                            "Native name",
+                                            "Non-native name",
+                                            "Local name",
+                                            "Descriptive name",
+                                            "Spelling variant"
+                                        ],
+                                        "optionlist": [
+                                            "",
+                                            "common",
+                                            "technical-scientific",
+                                            "native",
+                                            "non-native",
+                                            "local",
+                                            "descriptive",
+                                            "spelling-variant"
+                                        ],
+                                        "selection": "${{row}.termType}"
+                                    },
+                                    ".csc-placeAuthority-termPrefForLang": "${{row}.termPrefForLang}",
+                                    ".csc-placeAuthority-termFlag": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.termList",
+                                                "options": {
+                                                    "termListType": "termFlag",
+                                                    "root": "{row}",
+                                                    "elPath": "termFlag"
+                                                },
+                                                "type": "fluid"
+                                            }
+                                        ]
+                                    },
+                                    ".csc-placeAuthority-termDisplayName": "${{row}.termDisplayName}",
+                                    ".csc-placeAuthority-termFormattedDisplayName": "${{row}.termFormattedDisplayName}",
+                                    ".csc-placeAuthority-termSourceNote": "${{row}.termSourceNote}",
+                                    ".csc-placeAuthority-termName": "${{row}.termName}",
+                                    ".csc-placeAuthority-termQualifier": "${{row}.termQualifier}",
+                                    ".csc-placeAuthority-termSourceDetail": "${{row}.termSourceDetail}",
+                                    ".csc-placeAuthority-termStatus": {
+                                        "default": "provisional",
+                                        "optionnames": [
+                                            "Provisional",
+                                            "Under Review",
+                                            "Accepted",
+                                            "Rejected"
+                                        ],
+                                        "optionlist": [
+                                            "provisional",
+                                            "under review",
+                                            "accepted",
+                                            "rejected"
+                                        ],
+                                        "selection": "${{row}.termStatus}"
+                                    },
+                                    ".csc-placeAuthority-termSource": {
+                                        "decorators": [{
+                                            "func": "cspace.autocomplete",
+                                            "type": "fluid",
+                                            "options": {
+                                                "queryUrl": "../../../tenant/core/preferredPlace/autocomplete/termSource",
+                                                "vocabUrl": "../../../tenant/core/preferredPlace/source-vocab/termSource"
+                                            }
+                                        }],
+                                        "value": "${{row}.termSource}"
+                                    },
+                                    ".csc-placeAuthority-nameNote": "${{row}.nameNote}",
+                                    ".csc-placeAuthority-termLanguage": {"decorators": [{
+                                        "func": "cspace.termList",
+                                        "type": "fluid",
+                                        "options": {
+                                            "root": "{row}",
+                                            "elPath": "termLanguage",
+                                            "termListType": "termLanguage"
+                                        }
+                                    }]},
+                                    ".csc-placeAuthority-termSourceID": "${{row}.termSourceID}",
+                                    ".csc-placeAuthority-historicalStatus": {
+                                        "default": "current",
+                                        "optionnames": [
+                                            "Current",
+                                            "Historical",
+                                            "Both"
+                                        ],
+                                        "optionlist": [
+                                            "current",
+                                            "historical",
+                                            "both"
+                                        ],
+                                        "selection": "${{row}.historicalStatus}"
+                                    }
+                                },
+                                "type": "fluid.noexpand"
+                            }},
+                            "elPath": "fields.placeTermGroup"
+                        }
+                    }]},
+                    ".csc-preferredPlace-termSource-label": {"messagekey": "preferredPlace-termSourceLabel"},
+                    ".csc-preferredPlace-termSourceNote-label": {"messagekey": "preferredPlace-termSourceNoteLabel"},
+                    ".csc-preferredPlace-termFormattedDisplayName-label": {"messagekey": "preferredPlace-termFormattedDisplayNameLabel"},
+                    ".csc-preferredPlace-termSourceDetail-label": {"messagekey": "preferredPlace-termSourceDetailLabel"},
+                    ".csc-preferredPlace-nameNote-label": {"messagekey": "preferredPlace-nameNoteLabel"},
+                    ".csc-preferredPlace-termName-label": {"messagekey": "preferredPlace-termNameLabel"},
+                    ".csc-preferredPlace-termType-label": {"messagekey": "preferredPlace-termTypeLabel"},
+                    ".csc-preferredPlace-termInformation-label": {"messagekey": "preferredPlace-termInformationLabel"},
+                    ".csc-preferredPlace-termLanguage-label": {"messagekey": "preferredPlace-termLanguageLabel"},
+                    ".csc-preferredPlace-termPrefForLang-label": {"messagekey": "preferredPlace-termPrefForLangLabel"},
+                    ".csc-preferredPlace-termDisplayName-label": {"messagekey": "preferredPlace-termDisplayNameLabel"},
+                    ".csc-preferredPlace-placeTermGroup-label": {"messagekey": "preferredPlace-placeTermGroupLabel"},
+                    ".csc-preferredPlace-historicalStatus-label": {"messagekey": "preferredPlace-historicalStatusLabel"},
+                    ".csc-preferredPlace-termSourceID-label": {"messagekey": "preferredPlace-termSourceIDLabel"},
+                    ".csc-preferredPlace-termStatus-label": {"messagekey": "preferredPlace-termStatusLabel"},
+                    ".csc-preferredPlace-termQualifier-label": {"messagekey": "preferredPlace-termQualifierLabel"},
+                    ".csc-preferredPlace-termFlag-label": {
+                        "messagekey": "preferredPlace-termFlagLabel"
+                    },
+                    ".csc-preferredPlace-nameAbbrev-label": {"messagekey": "preferredPlace-nameAbbrevLabel"}
+                },
+                "type": "fluid.noexpand"
+            }}}
+        }]},
+        ".csc-place-placeNote-label": {"messagekey": "place-placeNoteLabel"},
+        ".csc-place-placeAuthorityInformation-label": {"messagekey": "place-placeAuthorityInformationLabel"},
+        ".csc-place-vCoordinates": "${fields.vCoordinates}",
+        ".csc-place-vCoordSource-label": {"messagekey": "place-vCoordSourceLabel"}
     }
-  }
 }

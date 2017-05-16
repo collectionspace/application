@@ -26,6 +26,7 @@ import org.apache.commons.io.input.TeeInputStream;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorageGenerator;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.core.CSPRequestCredentials;
+import org.collectionspace.csp.api.persistence.ExistException;
 import org.dom4j.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -152,52 +153,51 @@ public class ServicesConnection {
 	}
 
 	// XXX eugh! error case control-flow nightmare
-	private void doRequest(Returned out,RequestMethod method_type,String uri,RequestDataSource src,CSPRequestCredentials creds,CSPRequestCache cache) throws ConnectionException {
-		InputStream body_data=null;
-		if(src!=null) {
-			body_data=src.getStream();
+	private void doRequest(Returned out, RequestMethod method_type, String uri, RequestDataSource src, CSPRequestCredentials creds, CSPRequestCache cache) throws ConnectionException {
+		InputStream body_data = null;
+		if (src != null) {
+			body_data = src.getStream();
 		}
 		try {
-			HttpMethod method=createMethod(method_type,uri,body_data);
-			if(body_data!=null) {
-				method.setRequestHeader("Content-Type",src.getMIMEType());
+			HttpMethod method = createMethod(method_type, uri, body_data);
+			if (body_data != null) {
+				method.setRequestHeader("Content-Type", src.getMIMEType());
 				// XXX Not sure if or when this ever actually writes to stderr?
-				body_data=new TeeInputStream(body_data,System.err);
+				body_data = new TeeInputStream(body_data, System.err);
 			}
 			try {
-				HttpClient client=makeClient(creds,cache);
+				HttpClient client = makeClient(creds, cache);
 
 				String requestContext = null;
-				if(perflog.isDebugEnabled()) {
+				if (perflog.isDebugEnabled()) {
 					// TODO add more context, e.g. session id?
-					requestContext  = "HttpClient@" + Integer.toHexString(client.hashCode());
+					requestContext = "HttpClient@" + Integer.toHexString(client.hashCode());
 					requestContext += "/CSPRequestCache@" + Integer.toHexString(cache.hashCode()) + ",";
-					//String queryString = method.getQueryString();
-					perflog.debug(System.currentTimeMillis()+",\""+Thread.currentThread().getName()+"\",app,svc," + requestContext
-							+ method.getName() + " " + method.getURI()
-							//+ (queryString!=null ? queryString : "")
-									);
+					// String queryString = method.getQueryString();
+					perflog.debug(System.currentTimeMillis() + ",\"" + Thread.currentThread().getName() + "\",app,svc," + requestContext + method.getName() + " " + method.getURI()
+					// + (queryString!=null ? queryString : "")
+					);
 				}
 
-				int response=client.executeMethod(method);
+				int response = client.executeMethod(method);
 
-				if(perflog.isDebugEnabled()) {
-					perflog.debug(System.currentTimeMillis()+",\""+Thread.currentThread().getName()+"\",svc,app," + requestContext + "HttpClient.executeMethod done");
+				if (perflog.isDebugEnabled()) {
+					perflog.debug(System.currentTimeMillis() + ",\"" + Thread.currentThread().getName() + "\",svc,app," + requestContext + "HttpClient.executeMethod done");
 				}
 
-				out.setResponse(method,response);
-			} catch(ConnectionException e) {
-				method.releaseConnection();
-				throw new ConnectionException(e.getMessage(),e.status,base_url+"/"+uri,e);
+				out.setResponse(method, response);
+			} catch (ConnectionException ce) {
+				throw new ConnectionException(ce.getMessage(), ce.getStatus(), base_url + "/" + uri, ce);
+			} catch (ExistException ee) {
+				throw new ConnectionException(ee.getMessage(), ee.getStatus(), base_url + "/" + uri, ee);
 			} catch (Exception e) {
-				method.releaseConnection();
-				throw new ConnectionException(e.getMessage(),0,base_url+"/"+uri,e);
+				throw new ConnectionException(e.getMessage(), 0, base_url + "/" + uri, e);
 			} finally {
+				method.releaseConnection();
 				// Don't release the connection, since the associated input stream has not yet been
 				// read. That stream is an instance of AutoCloseInputStream, which will automatically
 				// release the connection once it has been read to the end. In theory we shouldn't
-				// have to explicitly release it.
-				// method.releaseConnection();
+				// have to explicitly release it -i.e., using method.releaseConnection();
 				
 				if (log.isTraceEnabled()) {
 					log.trace("HTTP connection pool size: " + manager.getConnectionsInPool());
@@ -206,8 +206,9 @@ public class ServicesConnection {
 				if (log.isWarnEnabled()) {
 					if (manager.getConnectionsInPool() >= MAX_SERVICES_CONNECTIONS) {
 						log.warn("reached max services connection limit of " + MAX_SERVICES_CONNECTIONS);
-					
-						// Delete closed connections from the pool, so that the warning will cease
+
+						// Delete closed connections from the pool, so that the
+						// warning will cease
 						// once a connection becomes available.
 						manager.deleteClosedConnections();
 					}
@@ -271,7 +272,7 @@ public class ServicesConnection {
 		doRequest(out,method_type,uri,makeDocumentSource(body),creds,cache);
 		return out;
 	}
-
+	
 	public ReturnedURL getPublishedReportDocumentURL(RequestMethod method_type,String uri,Document body,CSPRequestCredentials creds,CSPRequestCache cache) throws ConnectionException {
 		ReturnedURL out=new ReturnedURL();
 		doRequest(out,method_type,uri,makeDocumentSource(body),creds,cache);

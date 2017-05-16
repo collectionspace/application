@@ -78,6 +78,7 @@ public class Field extends FieldSetImpl {
 		this.initialiseVariables(section,null);
 	}
 	*/
+	@Override
 	protected void initialiseVariables(ReadOnlySection section, String tempid) {
 		super.initialiseVariables(section, tempid); // REM - 8/3/2013: Adding this call to our parent so common strings and bools get initialized
 		
@@ -112,7 +113,7 @@ public class Field extends FieldSetImpl {
 
 		utils.initStrings(section,"@ui-func", "");
 		utils.initStrings(section,"@ui-args", "");
-		utils.initStrings(section,"@ui-search-args", "");		
+		utils.initStrings(section,"@ui-search-args", "");
 		utils.initStrings(section,"@ui-type", "plain");
 		utils.initStrings(section,"@ui-search", "");
 		utils.initStrings(section,"@query-behavior", QUERY_BEHAVIOR_NORMAL);
@@ -149,8 +150,7 @@ public class Field extends FieldSetImpl {
 		utils.initStrings(section,"services-tag", utils.getString("@id"));
 		utils.initBoolean(section,"@services-schema-qualify", false);
 		
-		Set<String> minis = Util.getSetOrDefault(section, "/@mini",
-				new String[] { "" });
+		Set<String> minis = Util.getSetOrDefault(section, "/@mini", new String[] { "" });
 		if (minis.contains("number")) {
 			this.parent.getRecord().setMiniNumber(this);
 		}
@@ -164,12 +164,11 @@ public class Field extends FieldSetImpl {
 			this.parent.getRecord().addMiniDataSet(this, s);
 		}
 
-		String sortKey = Util.getStringOrDefault(section, "/@sortKey", "");
-		
+		String sortKey = Util.getStringOrDefault(section, "/@sortKey", "");		
 		if (StringUtils.isNotEmpty(sortKey)) {
 			this.parent.getRecord().setSortKey(utils.getString("@id"), sortKey);
 		}
-		
+
 		utils.initBoolean(section,"@display-name",false);
 		if (utils.getBoolean("@display-name"))
 			this.parent.getRecord().setDisplayName(this);
@@ -214,12 +213,15 @@ public class Field extends FieldSetImpl {
 	public SchemaUtils getUtils() {
 		return utils;
 	}
+	
 	public String getAutocompleteSelector() {
 		return utils.getString("autocomplete-selector");
 	}
+	
 	public String getAutocompleteFuncName() {
 		return utils.getString("autocomplete-options/funcName");
 	}
+	
 	public String getAutocompleteStrings() {
 		return utils.getString("autocomplete-options/strings");
 	}
@@ -245,16 +247,19 @@ public class Field extends FieldSetImpl {
 	public String getDecoratorSelector() {
 		return utils.getString("decoratorselector");
 	}
+	
 	@Override
 	public String getLabel() {
 		return utils.getString("label");
 	}
 	public void setLabel(String val) {
-		utils.setString("label",val);
+		utils.setString("label", val);
 	}
+	
 	public String getUIprefix(){
 		return getPreSelector() + utils.getString("parentID") + "-";
 	}
+	
 	public String getUILabelSelector(String id){
 		return getUIprefix() +  id + "-label";
 	}
@@ -267,6 +272,7 @@ public class Field extends FieldSetImpl {
 	public String getUIType() {
 		return utils.getString("@ui-type");
 	}
+	
 	@Override
 	public String getSearchType() {
 		return utils.getString("@ui-search");
@@ -274,6 +280,7 @@ public class Field extends FieldSetImpl {
 	public void setSearchType(String val) {
 		utils.setString("@ui-search",val);
 	}
+	
 	@Override
 	public String getQueryBehavior() {
 		return utils.getString("@query-behavior");
@@ -282,6 +289,21 @@ public class Field extends FieldSetImpl {
 	@Override
 	public String getUIFunc() {
 		return utils.getString("@ui-func");
+	}
+	public void setUIFunc(String val) {
+		utils.setString("@ui-func", val);
+	}
+	
+	public String getUIArgs() {
+		return utils.getString("@ui-args");
+	}
+
+	public void setUIArgs(String val) {
+		utils.setString("@ui-args", val);
+	}
+	
+	public String getUISearchArgs() {
+		return utils.getString("@ui-search-args");
 	}
 
 	public void setUIFunc(String val) {
@@ -323,9 +345,19 @@ public class Field extends FieldSetImpl {
 	@Override
 	public Record getSelfRendererRecord() {
 		String parts[] = getUIType().split("/");
-		if(parts.length!=3 || !SELFRENDERER.equals(parts[2]))  //FIXME: This is horribly opaque code! We need to document this.
+		if (parts.length!=3 || !SELFRENDERER.equals(parts[2])) { //FIXME: This is horribly opaque code! We need to document this.
+			String msg = String.format("'%s' field named '%s' has missing or incorrect UI type declaration of '%s'.",
+					SELFRENDERER, this.getID(), getUIType());
+			log.error(msg);
 			return null;
+		}
 		Record subrecord = getRecord().getSpec().getRecordByServicesUrl(parts[1]);
+		if (subrecord == null) {
+			String msg = String.format("'%s' field named '%s' is looking for but cannot find an instance for record type '%s' in the current spec.", 
+					SELFRENDERER, this.getID(), parts[1]);
+			log.error(msg);
+		}
+		
 		return subrecord;
 	}
 	
@@ -333,18 +365,20 @@ public class Field extends FieldSetImpl {
 	public boolean isExpander() {
 		return utils.getBoolean("@as-expander");
 	}
+	
 	public boolean isInTrueTree(){
 		return utils.getBoolean("@in-trueTree");
 	}
+	
 	@Override
 	public boolean isConditionExpander(){
 		return utils.getBoolean("@as-conditional-expander");
 	}
+
 	@Override
 	public boolean isReadOnly(){
 		return utils.getBoolean("@ui-readonly");
 	}
-
 	public void setReadOnly(boolean val){
 		utils.setBoolean("@ui-readonly", val);
 	}
@@ -410,6 +444,10 @@ public class Field extends FieldSetImpl {
 		return utils.getString("@datatype");
 	}
 	
+	public void setDataType(String val){
+		utils.setString("@datatype", val);
+	}
+
 	public void setDataType(String val){
 		utils.setString("@datatype", val);
 	}

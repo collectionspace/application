@@ -62,6 +62,9 @@
         <field id="preferredTaxon" ui-type="groupfield/preferredTA/selfrenderer" ui-func="cspace.preferred">
             <selector>preferred-taxonAuthority</selector>
         </field>
+        <repeat id="taxonRecordTypes">
+            <field id="taxonRecordType" ui-search="repeatable" autocomplete="vocab-taxontype" ui-type="enum"/>
+        </repeat>
         <field id="taxonRank" ui-search="repeatable" seperate_ui_container="true">
             <options>
                 <option id="" default="yes">Please select a value</option>
@@ -85,7 +88,7 @@
             </options>
         </field>
         <repeat id="taxonAuthorGroupList/taxonAuthorGroup" has-primary="yes">
-            <field id="taxonAuthor" ui-search="repeatable" autocomplete="person-person"/>
+            <field id="taxonAuthor" ui-search="repeatable" autocomplete="person-person,person-person_shared"/>
             <field id="taxonAuthorType" seperate_ui_container="true">
                 <options>
                     <option id="" default="yes">Please select a value</option>
@@ -96,14 +99,14 @@
         </repeat>
         <field id="taxonYear" ui-search="repeatable"/>
         <repeat id="taxonCitationList" has-primary="yes" services-type-anonymous="false">
-            <field id="taxonCitation" autocomplete="citation-citation,citation-worldcat" ui-search="repeatable"/>
+            <field id="taxonCitation" autocomplete="citation-citation,citation-citation_shared,citation-worldcat" ui-search="repeatable"/>
         </repeat>
         <field id="taxonNote"/>
         <field id="taxonIsNamedHybrid" datatype="boolean" ui-search="repeatable"></field>
         <repeat id="commonNameGroupList/commonNameGroup" has-primary="yes">
             <field id="commonName" ui-search="repeatable"/>
             <field id="commonNameLanguage" autocomplete="vocab-languages" ui-type="enum"/>
-            <field id="commonNameSource" autocomplete="citation-citation"/>
+            <field id="commonNameSource" autocomplete="citation-citation,citation-citation_shared"/>
             <field id="commonNameSourceDetail"/>
         </repeat>
     </section>
@@ -117,5 +120,10 @@
 		</field>
         <field id="shortIdentifier" mini="search,list,relate" attributes="GET" services-should-index="true"/>
         <field id="csid" exists-in-services="false" mini="search,list,relate" attributes="GET"/>
+        <!-- SAS related fields -->
+		<field id="rev" mini="list" datatype="integer"/>
+		<field id="sas" mini="list" datatype="boolean"/>
+		<field id="proposed" mini="list" datatype="boolean"/>
+		<field id="deprecated" mini="list" datatype="boolean"/>
     </section>
 </record>

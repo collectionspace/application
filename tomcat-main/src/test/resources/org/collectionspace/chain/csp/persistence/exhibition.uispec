@@ -559,6 +559,10 @@
         ".csc-exhibition-uri-label": {
             "messagekey": "exhibition-uriLabel"
         },
+        ".csc-exhibition-workflow": "${fields.workflow}", 
+        ".csc-exhibition-workflow-label": {
+          "messagekey": "exhibition-workflowLabel"
+        }, 
         ".csc-exhibition-venue-label": {
             "messagekey": "exhibition-venueLabel"
         },

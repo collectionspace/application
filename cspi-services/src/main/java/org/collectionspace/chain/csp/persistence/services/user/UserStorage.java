@@ -10,13 +10,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.codec.binary.Base64;
 import org.collectionspace.chain.csp.persistence.services.GenericStorage;
 import org.collectionspace.chain.csp.persistence.services.XmlJsonConversion;
@@ -36,11 +31,8 @@ import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
-import org.dom4j.Element;
-
 import org.dom4j.Node;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -105,6 +97,7 @@ public class UserStorage extends GenericStorage {
 
 
 
+	@Override
 	protected ReturnedURL autoCreateSub(CSPRequestCredentials creds,
 			CSPRequestCache cache, JSONObject jsonObject, Document doc, String savePrefix, Record r)
 			throws JSONException, UnderlyingStorageException,
@@ -126,6 +119,7 @@ public class UserStorage extends GenericStorage {
 	
 
 
+	@Override
 	public void deleteJSON(ContextualisedStorage root,
 			CSPRequestCredentials creds, CSPRequestCache cache, String filePath)
 			throws ExistException, UnimplementedException,
@@ -147,6 +141,7 @@ public class UserStorage extends GenericStorage {
 		
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public JSONObject getPathsJSON(ContextualisedStorage root,
 			CSPRequestCredentials creds, CSPRequestCache cache,
@@ -183,12 +178,8 @@ public class UserStorage extends GenericStorage {
 				path = hierarchicalpath(path);
 			}
 			
-			
 			JSONObject data = getListView(creds,cache,path,r.getServicesListPath(),"csid",false,r);
-			
 			return data;
-			
-
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception"
 					+ e.getLocalizedMessage(), e.getStatus(), e.getUrl(), e);
@@ -201,6 +192,7 @@ public class UserStorage extends GenericStorage {
 		}
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public String[] getPaths(ContextualisedStorage root,
 			CSPRequestCredentials creds, CSPRequestCache cache,
@@ -277,6 +269,7 @@ public class UserStorage extends GenericStorage {
 		}
 	}
 
+	@Override
 	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject restrictions)
 			throws ExistException, UnimplementedException,
 			UnderlyingStorageException {
@@ -325,6 +318,7 @@ public class UserStorage extends GenericStorage {
 		}
 	}
 
+	@Override
 	public void updateJSON(ContextualisedStorage root,
 			CSPRequestCredentials creds, CSPRequestCache cache,
 			String filePath, JSONObject jsonObject, JSONObject restrictions) throws ExistException,

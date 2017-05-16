@@ -1,0 +1,123 @@
+<record id="conservation" is-extension="true" generate-services-schema="true" type="record,procedure">
+  <services-record-path id="livingplant">conservation_livingplant:http://collectionspace.org/services/conservation/domain/livingplant,conservation_livingplant</services-record-path>
+
+  <section id="livingPlantInformation" section="livingplant">
+    <section id="fertilizationInformation" section="livingplant">
+      <repeat id="fertilizationGroupList/fertilizationGroup" section="livingplant">
+        <field id="fertilizerUsed" autocomplete="vocab-fertilizerused" ui-type="enum" section="livingplant">
+          <selector>living-plant-fertilization-fertilizer-used</selector>
+        </field>
+        
+        <field id="nitrogenPercent" ui-type="validated" datatype="float" section="livingplant">
+          <selector>living-plant-fertilization-nitrogen-percent</selector>
+        </field>
+
+        <field id="phosphorusPercent" ui-type="validated" datatype="float" section="livingplant">
+          <selector>living-plant-fertilization-phosphorus-percent</selector>
+        </field>
+        
+        <field id="potassiumPercent" ui-type="validated" datatype="float" section="livingplant">
+          <selector>living-plant-fertilization-potassium-percent</selector>
+        </field>
+        
+        <field id="applicationDate" ui-search="range" ui-type="date" datatype="date" section="livingplant">
+          <selector>living-plant-fertilization-application-date</selector>
+        </field>
+        
+        <field id="appliedBy" autocomplete="person-person,person-person_shared" section="livingplant">
+          <selector>living-plant-fertilization-applied-by</selector>
+        </field>
+        
+        <field id="amountApplied" section="livingplant">
+          <selector>living-plant-fertilization-amount-applied</selector>
+        </field>
+
+        <field id="nextApplicationDate" ui-search="range" ui-type="date" datatype="date" section="livingplant">
+          <selector>living-plant-fertilization-next-application-date</selector>
+        </field>
+        
+        <repeat id="fertilizersToBeUsed" section="livingplant">
+          <field id="fertilizerToBeUsed" section="livingplant">
+            <selector>living-plant-fertilization-fertilizer-to-be-used</selector>
+          </field>
+        </repeat>
+        
+        <field id="fertilizationNotes" section="livingplant">
+          <selector>living-plant-fertilization-notes</selector>
+        </field>
+      </repeat>
+    </section>
+
+    <section id="pestsAndDiseaseInformation" section="livingplant">
+      <repeat id="pestsAndDiseaseGroupList/pestsAndDiseaseGroup" section="livingplant">
+        <field id="pestOrDiseaseObserved" autocomplete="vocab-pestordiseaseobserved" ui-type="enum" section="livingplant">
+          <selector>living-plant-pests-and-disease-observed</selector>
+        </field>
+
+        <field id="identifiedBy" autocomplete="person-person,person-person_shared" section="livingplant">
+          <selector>living-plant-pests-and-disease-identified-by</selector>
+        </field>
+
+        <field id="dateObserved" ui-search="range" ui-type="date" datatype="date" section="livingplant">
+          <selector>living-plant-pests-and-disease-date-observed</selector>
+        </field>
+
+        <field id="treatedWith" section="livingplant">
+          <selector>living-plant-pests-and-disease-treated-with</selector>
+        </field>
+
+        <field id="treatedBy" autocomplete="person-person,person-person_shared" section="livingplant">
+          <selector>living-plant-pests-and-disease-treated-by</selector>
+        </field>
+
+        <field id="treatmentDate" ui-search="range" ui-type="date" datatype="date" section="livingplant">
+          <selector>living-plant-pests-and-disease-treatment-date</selector>
+        </field>
+
+        <field id="futureTreatment" section="livingplant">
+          <selector>living-plant-pests-and-disease-future-treatment</selector>
+        </field>
+
+        <field id="futureTreatmentDate" ui-search="range" ui-type="date" datatype="date" section="livingplant">
+          <selector>living-plant-pests-and-disease-future-treatment-date</selector>
+        </field>
+
+        <field id="futureTreatmentNotes" section="livingplant">
+          <selector>living-plant-pests-and-disease-future-treatment-notes</selector>
+        </field>
+      </repeat>
+    </section>
+
+    <section id="repottingInformation" section="livingplant">
+      <field id="dateRepotted" ui-search="range" ui-type="date" datatype="date" section="livingplant">
+        <selector>living-plant-repotting-date-repotted</selector>
+      </field>
+
+      <field id="performedBy" autocomplete="person-person,person-person_shared" section="livingplant">
+        <selector>living-plant-repotting-performed-by</selector>
+      </field>
+
+      <field id="soilMix" autocomplete="vocab-soilmix" ui-type="enum" section="livingplant">
+        <selector>living-plant-repotting-soil-mix</selector>
+      </field>
+
+      <field id="container" ui-type="validated" datatype="float" section="livingplant">
+        <selector>living-plant-repotting-container</selector>
+      </field>
+
+      <field id="description" section="livingplant">
+        <selector>living-plant-repotting-description</selector>
+      </field>
+
+      <field id="nextRepotting" ui-search="range" ui-type="date" datatype="date" section="livingplant">
+        <selector>living-plant-repotting-next-repotting</selector>
+      </field>
+
+      <field id="plannedTreatment" section="livingplant">
+        <selector>living-plant-repotting-planned-treatment</selector>
+      </field>
+    </section>
+
+  </section>
+
+</record>

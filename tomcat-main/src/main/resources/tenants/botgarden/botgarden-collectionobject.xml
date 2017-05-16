@@ -1,0 +1,102 @@
+<record id="collection-object" is-extension="true">
+	<services-record-path id="botgarden">collectionobjects_botgarden:http://collectionspace.org/services/collectionobject/local/botgarden,collectionobjects_botgarden</services-record-path>
+	
+	<section id="identificationInformation">
+	    <field id="accessionDate" datatype="date" section="botgarden"/>
+	    <field id="deadFlag" ui-search="single" section="botgarden">
+	        <options>
+	            <option id="">Please select a value</option>
+	            <option id="true">Yes</option>
+	            <option id="false" default="yes">No</option>
+	        </options>
+	    </field>
+	    <field id="deadDate" datatype="date" section="botgarden"/>
+	    <field id="deadDateSearch" ui-search="range" ui-type="date" exists-in-services="false" section="botgarden">
+	        <services-tag>deadDate</services-tag>
+	    </field>
+
+	    <field id="provenanceDataQuality" autocomplete="vocab-provenancedataquality" ui-type="enum" section="botgarden"/>
+	    <field id="provenanceType" autocomplete="vocab-provenanceType" ui-type="enum" section="botgarden"/>
+	    <field id="rare" ui-search="single" section="botgarden">
+	        <options>
+	            <option id="" default="yes">Please select a value</option>
+	            <option id="true">Yes</option>
+	            <option id="false">No</option>
+	        </options>
+	    </field>
+	    <field id="cultivated" ui-search="single" section="botgarden">
+	        <options>
+	            <option id="" default="yes">Please select a value</option>
+	            <option id="true">Yes</option>
+	            <option id="false">No</option>
+	        </options>
+	    </field>
+	    <field id="CBDRestriction" datatype="boolean" section="botgarden"></field>
+	    <field id="requestedBy" autocomplete="person-person,person-person_shared" section="botgarden"/>
+	    <field id="source" ui-search="repeatable" section="botgarden"/>
+	</section>
+	
+	<section id="descriptionInformation">
+	    <field id="phase" autocomplete="vocab-botanicalphase" ui-type="enum"/>
+		<repeat id="forms">
+			<field id="form">
+				<options>
+					<option id="" default="yes">Please select a value</option>
+					<option id="Unknown">Unknown</option>
+					<option id="Mounted on Paper">Mounted on Paper</option>
+					<option id="Stored in a Box or Bag">Stored in a Box or Bag</option>
+					<option id="Preserved in Liquid">Preserved in Liquid</option>
+					<option id="Microscope Slide Preparation">Microscope Slide Preparation</option>
+					<option id="Photograph">Photograph</option>
+					<option id="Illustration">Illustration</option>
+					<option id="Photocopy">Photocopy</option>
+					<option id="Box">Box</option>
+					<option id="Bag">Bag</option>
+					<option id="Map">Map</option>
+				</options>			
+			</field>
+		</repeat>
+		<repeat id="annotationGroupList/annotationGroup">
+			<!-- Add groups to autocomplete -->
+			<field id="annotationAuthor" autocomplete="person-person,organization-group_org"/>
+		</repeat>
+				
+		<!-- Local fields -->
+		
+		<field id="handwritten" section="botgarden">
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="Unknown">Unknown</option>
+				<option id="yes">Yes</option>
+				<option id="no">No</option>
+			</options>
+		</field>
+		<field id="postToPublic" section="botgarden">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="no">No</option>
+				<option id="yes" default="yes">Yes</option>
+			</options>
+		</field>
+	</section>
+	
+	<section id="objectHistoryAssociationInformation">
+		<section id="associationInformation">
+			<repeat id="assocConceptGroupList/assocConceptGroup">
+				<!-- Remove autocomplete -->
+				<field id="assocConcept" autocomplete=""/>
+			</repeat>
+		</section>
+	</section>
+
+	<section id="referenceInformation">
+		<repeat id="referenceGroupList/referenceGroup">
+			<!-- Remove autocomplete -->
+			<field id="reference" autocomplete=""/>
+		</repeat>
+	</section>
+
+	<section id="objectCollectionInformation">
+	    <field id="fieldCollectionNumberAssignor" autocomplete="person-person,organization-collector" section="botgarden"/>
+	</section>    
+</record>

@@ -267,9 +267,9 @@ public class WebUIRequest implements UIRequest {
 	@Override
 	public Set<String> getAllRequestArgument() throws UIException {
 		Set<String> params = new HashSet<String>();
-		Enumeration e = request.getParameterNames();
+		Enumeration<String> e = request.getParameterNames();
 		while (e.hasMoreElements()) {
-			String name = (String)e.nextElement();
+			String name = e.nextElement();
 			params.add(name);
 		}
 		return params;
@@ -330,28 +330,30 @@ public class WebUIRequest implements UIRequest {
 		try {
 			// Need to handle caching before we deal with the binary output. We have to add headers before
 			// we write all the data. 
-			if(cacheMaxAgeSeconds <= 0) {
-				/* By default, we disable caching for now (for IE). We probably want to be cleverer at some point. XXX */
-				response.addHeader("Pragma","no-cache");
-				response.addHeader("Last-Modified",aWhileAgoAsExpectedByExpiresHeader());
-				response.addHeader("Cache-Control","no-store, no-cache, must-revalidate");
-				response.addHeader("Cache-Control","post-check=0, pre-check=0");
+			if (cacheMaxAgeSeconds <= 0) {
+				/*
+				 * By default, we disable caching for now (for IE). We probably
+				 * want to be cleverer at some point. XXX
+				 */
+				response.addHeader("Pragma", "no-cache");
+				response.addHeader("Last-Modified", aWhileAgoAsExpectedByExpiresHeader());
+				response.addHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+				response.addHeader("Cache-Control", "post-check=0, pre-check=0");
 			} else {
 				// Create a cache header per the timeout requested (usu. by the individual request handler)
-				response.addHeader("Cache-Control","max-age="+Integer.toString(cacheMaxAgeSeconds));
+				response.addHeader("Cache-Control", "max-age=" + Integer.toString(cacheMaxAgeSeconds));
 			}
+			
 			/* End of cacheing stuff */
-			if(out_data!=null) {
-				out=response.getWriter();
+			if (out_data != null) {
+				out = response.getWriter();
 				out.print(out_data);
-				out_data=null;
-			}
-			else if(out_binary_data!=null) {
-				out_stream=response.getOutputStream();
+				out_data = null;
+			} else if (out_binary_data != null) {
+				out_stream = response.getOutputStream();
 				out_stream.write(out_binary_data);
-			}
-			else if(out_input_stream!=null) {
-				out_stream=response.getOutputStream();
+			} else if (out_input_stream != null) {
+				out_stream = response.getOutputStream();
 				IOUtils.copy(out_input_stream, out_stream);
 			}
 			
@@ -409,6 +411,7 @@ public class WebUIRequest implements UIRequest {
 		response.setContentType("text/xml;charset=UTF-8");
 		out_data=data;
 	}
+	
 	@Override
 	public void sendUnknown(String data, String contenttype, String contentDisposition) throws UIException {
 		response.setContentType(contenttype);
@@ -416,6 +419,7 @@ public class WebUIRequest implements UIRequest {
 			response.setHeader("Content-Disposition", contentDisposition);
 		out_data=data;
 	}
+	
 	@Override
 	public void sendUnknown(byte[] data, String contenttype, String contentDisposition) throws UIException {
 		response.setContentType(contenttype);
@@ -423,6 +427,15 @@ public class WebUIRequest implements UIRequest {
 			response.setHeader("Content-Disposition", contentDisposition);
 		out_binary_data=data;
 	}
+	
+	@Override
+	public void sendUnknown(InputStream data, String contenttype, String contentDisposition) throws UIException {
+		response.setContentType(contenttype);
+		if(Tools.notEmpty(contentDisposition))
+			response.setHeader("Content-Disposition", contentDisposition);
+		out_input_stream=data;
+	}
+	
 	@Override
 	public void sendUnknown(InputStream data, String contenttype, String contentDisposition) throws UIException {
 		response.setContentType(contenttype);
@@ -435,6 +448,7 @@ public class WebUIRequest implements UIRequest {
 		response.setContentType("text/json;charset=UTF-8");
 		out_data=data.toString();
 	}
+	
 	@Override
 	public void sendJSONResponse(JSONArray data) throws UIException {
 		response.setContentType("text/json;charset=UTF-8");
