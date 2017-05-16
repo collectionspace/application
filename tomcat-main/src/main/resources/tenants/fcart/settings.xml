@@ -54,7 +54,7 @@
 				<name>fcart.collectionspace.org</name>
                 <domain>fcart</domain>
 				<version>0.1</version>
-				<display-name>Collectionspace Fine &amp; Contemporary Art Tenant</display-name>
+				<display-name>CollectionSpace Fine &amp; Contemporary Art Tenant</display-name>
 				<create-disabled>${CSPACE_FCART_CREATE_DISABLED_OPT}</create-disabled>
 			</tenant>
 			<repository>

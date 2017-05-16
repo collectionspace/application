@@ -53,7 +53,7 @@
 				<id>1</id>
 				<name>core.collectionspace.org</name>
 				<version>0.1</version>
-				<display-name>Collectionspace Core Tenant</display-name>
+				<display-name>CollectionSpace Core Tenant</display-name>
 				<create-disabled>${CSPACE_CORE_CREATE_DISABLED_OPT}</create-disabled>
 			</tenant>
 			<repository>
