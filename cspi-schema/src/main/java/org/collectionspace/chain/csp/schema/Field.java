@@ -306,22 +306,6 @@ public class Field extends FieldSetImpl {
 		return utils.getString("@ui-search-args");
 	}
 
-	public void setUIFunc(String val) {
-		utils.setString("@ui-func", val);
-	}
-	
-	public String getUIArgs() {
-		return utils.getString("@ui-args");
-	}
-
-	public void setUIArgs(String val) {
-		utils.setString("@ui-args", val);
-	}
-	
-	public String getUISearchArgs() {
-		return utils.getString("@ui-search-args");
-	}
-	
 	public Boolean isInTitle() {
 		return utils.getBoolean("@in-title");
 	}
@@ -442,10 +426,6 @@ public class Field extends FieldSetImpl {
 	//XXX could be used for validation at the app layer
 	public String getDataType(){
 		return utils.getString("@datatype");
-	}
-	
-	public void setDataType(String val){
-		utils.setString("@datatype", val);
 	}
 
 	public void setDataType(String val){

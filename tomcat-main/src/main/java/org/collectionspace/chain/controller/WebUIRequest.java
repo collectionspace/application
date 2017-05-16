@@ -66,7 +66,7 @@ public class WebUIRequest implements UIRequest {
 	private Operation operation_performed=Operation.READ;
 	private Map<String,String> rargs=new HashMap<String,String>();
 	private PrintWriter out=null;
-	private OutputStream out_stream=null;
+	private OutputStream out_stream=null;//XXX make inputstream output method for blobs
 	private String out_data=null; // We store to allow late changes to headers
 	private byte[] out_binary_data=null;
 	private InputStream out_input_stream=null;
@@ -436,13 +436,6 @@ public class WebUIRequest implements UIRequest {
 		out_input_stream=data;
 	}
 	
-	@Override
-	public void sendUnknown(InputStream data, String contenttype, String contentDisposition) throws UIException {
-		response.setContentType(contenttype);
-		if(Tools.notEmpty(contentDisposition))
-			response.setHeader("Content-Disposition", contentDisposition);
-		out_input_stream=data;
-	}
 	@Override
 	public void sendJSONResponse(JSONObject data) throws UIException {
 		response.setContentType("text/json;charset=UTF-8");

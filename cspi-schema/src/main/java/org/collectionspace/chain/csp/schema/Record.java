@@ -352,17 +352,6 @@ public class Record implements FieldParent {
 			}
 		}
 	}
-	
-	private String suffixUIArgs(String args, String suffix) {
-		String[] elements = args.split(",");
-
-		for (int i=0; i<elements.length; i++) {
-			String element = elements[i];
-			elements[i] = element + suffix;
-		}
-		
-		return StringUtils.join(elements, ",");
-	}
 
 	private String suffixUIArgs(String args, String suffix) {
 		String[] elements = args.split(",");

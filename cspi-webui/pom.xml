@@ -46,12 +46,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.collectionspace.services</groupId>
-			<artifactId>org.collectionspace.services.structureddate</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>general-utils</artifactId>
 			<version>${project.version}</version>

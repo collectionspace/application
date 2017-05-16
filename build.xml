@@ -149,11 +149,6 @@
     <echo message="tenant.internet.domain=${tenant.internet.domain}"/>
   </target>
 
-  <!-- 'environment' must be declared to bring values of system -->
-  <!-- environment variables into Ant, prior to reading any -->
-  <!-- properties files that may reference those values. -->
-  <property environment="env"/>
-
   <!-- Set properties for this build -->
   <property name="config.destination" value="${env.CSPACE_JEESERVER_HOME}/lib" />
   <property name="app.resources.dir" location="tomcat-main/src/main/resources"/>
@@ -227,5 +222,4 @@
       <globmapper from="*-tenant.xml" to="cspace-config-*.xml"/>
     </copy>
   </target>
-
 </project>

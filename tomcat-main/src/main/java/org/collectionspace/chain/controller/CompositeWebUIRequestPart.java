@@ -276,17 +276,7 @@ public class CompositeWebUIRequestPart implements UIRequest {
 			throw new UIException("Could not write data",e);
 		}
 	}
-
-	public void sendUnknown(InputStream data, String contenttype, String contentDisposition) throws UIException {
-		mime_type_out=contenttype;
-		try {
-			IOUtils.copy(data, body_out);
-			body_out.flush();
-		} catch (IOException e) {
-			throw new UIException("Could not write data",e);
-		}
-	}
-
+	
 	@Override
 	public void sendUnknown(InputStream data, String contenttype, String contentDisposition) throws UIException {
 		mime_type_out=contenttype;

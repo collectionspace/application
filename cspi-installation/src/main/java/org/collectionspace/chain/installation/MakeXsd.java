@@ -78,14 +78,12 @@ public class MakeXsd {
 	private String generateFieldGroup(FieldSet fieldSet, Element ele, Namespace ns,	Element root) throws Exception {
 		String fieldSetServicesType = fieldSet.getServicesType(false /* not NS qualified */);
 		Spec spec = fieldSet.getRecord().getSpec();
-		Record record = spec.getRecord(fieldSetServicesType); // find a record that corresponds to the fieldset's service type
+		Record record = spec.getRecord(fieldSetServicesType); // find a record that corresponds to the fieldset's service type		
 		
 		if (record == null) {
 			fieldSetServicesType = fieldSet.getServicesGroupType(false);
-			record = spec.getRecord(fieldSetServicesType);
+			record = spec.getRecord(fieldSetServicesType); // try again, this time try a group type
 		}
-		
-		String servicesType = record.getServicesType();
 		
 		if (record == null) {
 			String msg = String.format("Could not find parent record for field '%s'.",

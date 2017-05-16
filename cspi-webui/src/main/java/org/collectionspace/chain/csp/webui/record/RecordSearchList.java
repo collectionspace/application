@@ -439,29 +439,6 @@ public class RecordSearchList implements WebMethod {
         return results;
     }    
 
-    private JSONObject showBatches(JSONObject data, String type, String key) throws JSONException {
-        JSONObject results = new JSONObject();
-        JSONArray list = new JSONArray();
-        JSONArray names = new JSONArray();
-        JSONArray newFocuses = new JSONArray();
-        
-        if (data.has(key)){
-            JSONArray ja = data.getJSONArray(key);
-    
-            for (int j = 0; j < ja.length(); j++) {
-                list.put(ja.getJSONObject(j).getString("csid"));
-                names.put(ja.getJSONObject(j).getString("number"));
-                
-                JSONObject summarylist = ja.getJSONObject(j).getJSONObject("summarylist");
-                newFocuses.put(summarylist.getBoolean("createsNewFocus"));
-            }
-            results.put("batchlist", list);
-            results.put("batchnames", names);
-            results.put("batchnewfocuses", newFocuses);
-        }
-        return results;
-    }
-
     private void advancedSearch(Storage storage, UIRequest ui, String path, JSONObject params) throws UIException {
 
         try {

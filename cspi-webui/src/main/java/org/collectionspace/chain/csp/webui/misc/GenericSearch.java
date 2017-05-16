@@ -569,6 +569,10 @@ public class GenericSearch {
 					// Leave queryClause empty and fall through
 	            }
 			}
+		} else if(item instanceof Boolean) { 
+			boolean value = ((Boolean)item).booleanValue(); 
+			queryClause = "(" + getSchemaQualifiedSearchSpecifierForField(r, fieldName, fieldSet)
+							  + (value ? " = 1": " = 0") + ")";
 		}
 		
 		return queryClause;
