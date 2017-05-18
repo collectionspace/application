@@ -60,8 +60,12 @@ public class ReturnedMultipartDocument implements Returned {
 		setStatus(status);
 		InputStream stream=method.getResponseBodyAsStream();
 		SAXReader reader=new SAXReader();
-		if(isErrorStatus()) {
-			log.info("Got error : "+IOUtils.toString(stream));
+		if (isErrorStatus()) {
+			String streamMessage = IOUtils.toString(stream);
+			String Credentials401Error = "Incorrect of missing credentials. This request requires HTTP authentication.";
+			String msg = String.format("%s request failed with status code %s: %s: %s", 
+					method.getName(), status, status == 401 ? Credentials401Error : streamMessage, method.getURI());
+			log.warn(msg);
 		}
 		// TODO errorhandling
 		Document doc=null;

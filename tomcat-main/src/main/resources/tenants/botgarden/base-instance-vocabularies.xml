@@ -1,10 +1,5 @@
 <instances>
 					<include src="domain-instance-vocabularies.xml" strip-root="yes"/>
-                    <instance id="vocab-xxx">
-                        <web-url>xxx</web-url>
-                        <title-ref>xxx</title-ref>
-                        <title>Temporary Vocab whilst none exist</title>
-                    </instance>
                     <instance id="vocab-languages">
                         <web-url>languages</web-url>
                         <title-ref>languages</title-ref>
@@ -290,88 +285,4 @@
                                 <option id="facsimile">Facsimile of</option>                                
                         </options>
                     </instance>                                       
-                    <instance id="vocab-exhibitiontype">
-                        <web-url>exhibitiontype</web-url>
-                        <title-ref>exhibitiontype</title-ref>
-                        <title>exhibitiontype</title>
-                        <options>
-                            <option id="permanent">Permanent</option>
-                            <option id="temporary">Temporary</option>
-                            <option id="traveling">Traveling</option>
-                        </options>
-                    </instance>
-                    <instance id="vocab-exhibitionpersonrole">
-                        <web-url>exhibitionpersonrole</web-url>
-                        <title-ref>exhibitionpersonrole</title-ref>
-                        <title>exhibitionpersonrole</title>
-                        <options>
-                            <option id="curator">Curator</option>
-                            <option id="exhibitdesigner">Exhibit designer</option>
-                            <option id="exhibitioncoordinator">Exhibition coordinator</option>
-                            <option id="curatorialassistant">Curatorial assistant</option>
-                            <option id="educator">Educator</option>
-                            <option id="publicprogramscoordinator">Public programs coordinator</option>
-                            <option id="publicist">Publicist</option>
-                            <option id="conservator">Conservator</option>
-                            <option id="preparator">Preparator</option>
-                            <option id="imagemediaresearcher">Image/media researcher</option>
-                            <option id="webdesigner">Web designer</option>
-                            <option id="webdeveloper">Web developer</option>
-                            <option id="sponsor">Sponsor</option>
-                            <option id="organizer">Organizer</option>
-                        </options>
-                    </instance>
-                    <instance id="vocab-exhibitionreferencetype">
-                        <web-url>exhibitionreferencetype</web-url>
-                        <title-ref>exhibitionreferencetype</title-ref>
-                        <title>exhibitionreferencetype</title>
-                        <options>
-                            <option id="catalog">Catalog</option>
-                            <option id="research">Research</option>
-                            <option id="mention">Mention</option>
-                            <option id="newsarticle">News article</option>
-                            <option id="pressrelease">Press release</option>
-                            <option id="review">Review</option>
-                        </options>
-                    </instance>
-                    <instance id="vocab-cranialdeformationcategory">
-                        <web-url>cranialdeformationcategory</web-url>
-                        <title-ref>cranialdeformationcategory</title-ref>
-                        <title>cranialdeformationcategory</title>
-                        <options>
-                            <option id="tabular">Tabular</option>
-                            <option id="circumferential">Circumferential</option>
-                            <option id="other">Other (describe)</option>
-                        </options>
-                    </instance>
-                    <instance id="vocab-trepanationtechnique">
-                        <web-url>trepanationtechnique</web-url>
-                        <title-ref>trepanationtechnique</title-ref>
-                        <title>trepanationtechnique</title>
-                        <options>
-                            <option id="scraping">Scraping</option>
-                            <option id="grooving">Grooving</option>
-                            <option id="boringandcutting">Boring-and-cutting</option>
-                            <option id="rectangularincisions">Rectangular incisions</option>
-                        </options>
-                    </instance>
-                    <instance id="vocab-trepanationhealing">
-                        <web-url>trepanationhealing</web-url>
-                        <title-ref>trepanationhealing</title-ref>
-                        <title>trepanationhealing</title>
-                        <options>
-                            <option id="none">No healing</option>
-                            <option id="possible">Possible healing</option>
-                            <option id="definite">Definite evidence for healing</option>
-                        </options>
-                    </instance>
-                    <instance id="vocab-trepanationcertainty">
-                        <web-url>trepanationcertainty</web-url>
-                        <title-ref>trepanationcertainty</title-ref>
-                        <title>trepanationcertainty</title>
-                        <options>
-                            <option id="possible">Possible trepanation</option>
-                            <option id="clear">Clear evidence of trepanation</option>
-                        </options>
-                    </instance>
 </instances>

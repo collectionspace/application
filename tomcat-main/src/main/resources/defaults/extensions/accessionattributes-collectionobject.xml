@@ -40,18 +40,90 @@
             <field id="ignoreRedDot" datatype="boolean" section="accessionattributes"></field>
             <field id="fragrance" datatype="boolean" section="accessionattributes"></field>
             <section id="flowers" section="accessionattributes">
-                <field id="flowersJan" datatype="boolean" section="accessionattributes"></field>
-                <field id="flowersFeb" datatype="boolean" section="accessionattributes"></field>
-                <field id="flowersMar" datatype="boolean" section="accessionattributes"></field>
-                <field id="flowersApr" datatype="boolean" section="accessionattributes"></field>
-                <field id="flowersMay" datatype="boolean" section="accessionattributes"></field>
-                <field id="flowersJun" datatype="boolean" section="accessionattributes"></field>
-                <field id="flowersJul" datatype="boolean" section="accessionattributes"></field>
-                <field id="flowersAug" datatype="boolean" section="accessionattributes"></field>
-                <field id="flowersSep" datatype="boolean" section="accessionattributes"></field>
-                <field id="flowersOct" datatype="boolean" section="accessionattributes"></field>
-                <field id="flowersNov" datatype="boolean" section="accessionattributes"></field>
-                <field id="flowersDec" datatype="boolean" section="accessionattributes"></field>
+                <field id="flowersJan" section="accessionattributes">
+                    <options>
+                        <option id="No" default="yes">No</option>
+                        <option id="Some">Some</option>
+                        <option id="Many">Many</option>
+                    </options>
+                </field>
+                <field id="flowersFeb" section="accessionattributes">
+                    <options>
+                        <option id="No" default="yes">No</option>
+                        <option id="Some">Some</option>
+                        <option id="Many">Many</option>
+                    </options>
+                </field>
+                <field id="flowersMar" section="accessionattributes">
+                    <options>
+                        <option id="No" default="yes">No</option>
+                        <option id="Some">Some</option>
+                        <option id="Many">Many</option>
+                    </options>
+                </field>
+                <field id="flowersApr" section="accessionattributes">
+                    <options>
+                        <option id="No" default="yes">No</option>
+                        <option id="Some">Some</option>
+                        <option id="Many">Many</option>
+                    </options>
+                </field>
+                <field id="flowersMay" section="accessionattributes">
+                    <options>
+                        <option id="No" default="yes">No</option>
+                        <option id="Some">Some</option>
+                        <option id="Many">Many</option>
+                    </options>
+                </field>
+                <field id="flowersJun" section="accessionattributes">
+                    <options>
+                        <option id="No" default="yes">No</option>
+                        <option id="Some">Some</option>
+                        <option id="Many">Many</option>
+                    </options>
+                </field>
+                <field id="flowersJul" section="accessionattributes">
+                    <options>
+                        <option id="No" default="yes">No</option>
+                        <option id="Some">Some</option>
+                        <option id="Many">Many</option>
+                    </options>
+                </field>
+                <field id="flowersAug" section="accessionattributes">
+                    <options>
+                        <option id="No" default="yes">No</option>
+                        <option id="Some">Some</option>
+                        <option id="Many">Many</option>
+                    </options>
+                </field>
+                <field id="flowersSep" section="accessionattributes">
+                    <options>
+                        <option id="No" default="yes">No</option>
+                        <option id="Some">Some</option>
+                        <option id="Many">Many</option>
+                    </options>
+                </field>
+                <field id="flowersOct" section="accessionattributes">
+                    <options>
+                        <option id="No" default="yes">No</option>
+                        <option id="Some">Some</option>
+                        <option id="Many">Many</option>
+                    </options>
+                </field>
+                <field id="flowersNov" section="accessionattributes">
+                    <options>
+                        <option id="No" default="yes">No</option>
+                        <option id="Some">Some</option>
+                        <option id="Many">Many</option>
+                    </options>
+                </field>
+                <field id="flowersDec" section="accessionattributes">
+                    <options>
+                        <option id="No" default="yes">No</option>
+                        <option id="Some">Some</option>
+                        <option id="Many">Many</option>
+                    </options>
+                </field>
             </section>
             <section id="fruits" section="accessionattributes">
                 <field id="fruitsJan" datatype="boolean" section="accessionattributes"></field>

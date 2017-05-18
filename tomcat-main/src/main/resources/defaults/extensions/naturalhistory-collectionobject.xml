@@ -65,12 +65,24 @@
 	    </repeat>
 
 	    <repeat id="typeSpecimenGroupList/typeSpecimenGroup" section="naturalhistory_extension">
-	        <field id="typeSpecimenKind" ui-search="repeatable" mini="search,list" seperate_ui_container="true" autocomplete="vocab-typespecimenkind" ui-type="enum" section="naturalhistory_extension"/>
-	        <field id="typeSpecimenAssertionBy" section="naturalhistory_extension" autocomplete="person-person"/>
-	        <field id="typeSpecimenReference" section="naturalhistory_extension"/>
-	        <field id="typeSpecimenRefPage" section="naturalhistory_extension"/>
-	        <field id="typeSpecimenBasionym" section="naturalhistory_extension" autocomplete="taxon-taxon"/>
-	        <field id="typeSpecimenNotes" section="naturalhistory_extension"/>
+	        <field id="typeSpecimenKind" ui-search="repeatable" mini="search,list" seperate_ui_container="true" autocomplete="vocab-typespecimenkind" ui-type="enum" section="naturalhistory_extension">
+	            <selector>object-identification-object-typeSpecimenKind</selector>
+	        </field>
+	        <field id="typeSpecimenAssertionBy" section="naturalhistory_extension" autocomplete="person-person">
+	            <selector>object-identification-object-typeSpecimenAssertionBy</selector>
+	        </field>
+	        <field id="typeSpecimenReference" section="naturalhistory_extension">
+	            <selector>object-identification-object-typeSpecimenReference</selector>
+	        </field>
+	        <field id="typeSpecimenRefPage" section="naturalhistory_extension">
+	            <selector>object-identification-object-typeSpecimenRefPage</selector>
+	        </field>
+	        <field id="typeSpecimenBasionym" section="naturalhistory_extension" autocomplete="taxon-taxon">
+	            <selector>object-identification-object-typeSpecimenBasionym</selector>
+	        </field>
+	        <field id="typeSpecimenNotes" section="naturalhistory_extension">
+	            <selector>object-identification-object-typeSpecimenNotes</selector>
+	        </field>
 	    </repeat>
 	    
 	    <!-- Used by the Herbarium profile -->

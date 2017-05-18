@@ -7,7 +7,6 @@
 package org.collectionspace.chain.csp.schema;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +64,6 @@ public class Instance {
 		
 	}
 
-	
 	public Record getRecord() { return record; }
 	public String getID() { return utils.getString("@id"); }
 	public String getTitle() { return utils.getString("title"); }
@@ -75,6 +73,12 @@ public class Instance {
 	public String getUIURL() { return utils.getString("ui-url"); }
 	public boolean getNPTAllowed() { return utils.getBoolean(NPT_ALLOWED); }
 	public boolean getCreateUnreferenced() { return utils.getBoolean("@create-unreferenced"); }
+	
+	// For debugging purposes
+	@Override
+	public	String toString() {
+		return this.getID();
+	}
 	
 	public void addOption(String id,String name,String sample,boolean dfault) {
 		if(id==null){

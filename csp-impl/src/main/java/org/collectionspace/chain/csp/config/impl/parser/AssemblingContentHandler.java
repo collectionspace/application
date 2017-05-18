@@ -247,10 +247,6 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
                 if (xmlmergeProps != null) {
                     File mergePropertiesFile = new File(getTempDirectory(getSrcFileName()), 
                     		outputFileNamePrefix + ".properties"); //make a copy of the XMLMerge properties used for the merge
-                    
-                    //debug
-                    File tempDir = getTempDirectory(getSrcFileName());
-                    
                     ByteArrayInputStream propertiesStream = new ByteArrayInputStream(xmlmergeProps.toString().getBytes());
                     FileUtils.copyInputStreamToFile(propertiesStream, mergePropertiesFile);
                 }
@@ -324,9 +320,9 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
                 mergedStream = merge(src.replace(',', '_'), // peform the merge
                         xmlmergeProps, toArray(inputSources));
             } catch (AbstractXmlMergeException e) {
-                String msg = String.format("Config Generation: '%s' - Could not merge the include files: ",
-                		getSrcFileName(), includeTag.src);
-                logger.warn(msg);
+                String msg = String.format("Config Generation: '%s' - Error while processing %s.  Check the included files for syntax errors. : Could not merge the include files: '%s'.",
+                		e.getMessage(), getSrcFileName(), includeTag.src);
+                logger.error(msg);
                 throw new IOException(msg, e);
             }
             result = new InputSource(mergedStream);

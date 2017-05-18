@@ -2,7 +2,7 @@
 	<services-record-path id="botgarden">collectionobjects_botgarden:http://collectionspace.org/services/collectionobject/local/botgarden,collectionobjects_botgarden</services-record-path>
 	
 	<section id="identificationInformation">
-	    <field id="accessionDate" datatype="date" section="botgarden"/>
+	    <field id="accessionDate" ui-type="date" datatype="date" section="botgarden"/>
 	    <field id="deadFlag" ui-search="single" section="botgarden">
 	        <options>
 	            <option id="">Please select a value</option>
@@ -10,7 +10,7 @@
 	            <option id="false" default="yes">No</option>
 	        </options>
 	    </field>
-	    <field id="deadDate" datatype="date" section="botgarden"/>
+	    <field id="deadDate" ui-type="date" datatype="date" section="botgarden"/>
 	    <field id="deadDateSearch" ui-search="range" ui-type="date" exists-in-services="false" section="botgarden">
 	        <services-tag>deadDate</services-tag>
 	    </field>
@@ -35,7 +35,7 @@
 	    <field id="requestedBy" autocomplete="person-person,person-person_shared" section="botgarden"/>
 	    <field id="source" ui-search="repeatable" section="botgarden"/>
 	</section>
-	
+	    
 	<section id="descriptionInformation">
 	    <field id="phase" autocomplete="vocab-botanicalphase" ui-type="enum"/>
 		<repeat id="forms">
@@ -56,11 +56,21 @@
 				</options>			
 			</field>
 		</repeat>
-		<repeat id="annotationGroupList/annotationGroup">
+	    
+	    <!--  Override "base-collectionobject.xml" file's definition of the autocomplete targets -->
+	    <section id="contentInformation">
+	        <repeat id="contentConcepts">
+	            <field id="contentConcept" autocomplete="concept-concept">
+	                <selector>object-description-content-concept</selector>
+	            </field>
+	        </repeat>
+	    </section>
+
+	    <repeat id="annotationGroupList/annotationGroup" section="annotation">
 			<!-- Add groups to autocomplete -->
-			<field id="annotationAuthor" autocomplete="person-person,organization-group_org"/>
+		    <field id="annotationAuthor" autocomplete="person-person,person-person_shared, organization-group_org"/>
 		</repeat>
-				
+	    				
 		<!-- Local fields -->
 		
 		<field id="handwritten" section="botgarden">

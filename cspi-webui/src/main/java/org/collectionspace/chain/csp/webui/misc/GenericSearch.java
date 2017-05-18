@@ -237,7 +237,16 @@ public class GenericSearch {
 								//convert sortKey
 								fs = r.getFieldFullList(fieldname); // CSPACE-4909: Getting null with fieldname = "movements_common:locationDate"
 							}
-							if(fs.hasMergeData()){ //if this field is made up of multi merged fields in the UI then just pick the first field to sort on as services doesn't search on merged fields.
+							
+							if (fs == null) {
+								String msg = String.format("Undefined field name '%s' specified in query for '%s' records.",
+										fieldname, r.whoamI);
+								UIException e = new UIException(msg);
+								log.error(msg, e);
+								throw e;
+							}
+							
+							if (fs.hasMergeData()) { //if this field is made up of multi merged fields in the UI then just pick the first field to sort on as services doesn't search on merged fields.
 								Field f = (Field)fs;
 								for(String fm : f.getAllMerge()){
 									if(fm!=null){

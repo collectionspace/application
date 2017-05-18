@@ -737,6 +737,19 @@ public class UISchema extends SchemaStructure implements WebMethod {
 		}		
 	}
 	
+	private boolean isInstanceReferenced(Instance instance) {
+		boolean found = false;
+		
+		for (Record record : spec.getAllRecords()) {
+			if (record.getSpec().hasTermlist(instance.getID())) {
+				found = true;
+				break;
+			}
+		}
+		
+		return found;
+	}
+	
 	private String getWorkflowState(Storage storage, Instance authorityInstance) throws UIException {
 		String cacheKey = authorityInstance.getWebURL();
 		
@@ -747,17 +760,26 @@ public class UISchema extends SchemaStructure implements WebMethod {
 			return workflowStateCache.get(cacheKey);
 		}
 		
+		// If the authority/vocab instance is not referenced, then
+		// return null
+		if (isInstanceReferenced(authorityInstance) == false && authorityInstance.getCreateUnreferenced() == false) {
+			String msg = String.format("The authority/vocab instance '%s' is unreferenced and uninitialized in the '%s' tenant.", 
+					authorityInstance.getID(), spec.getTenantName());
+			log.warn(msg);
+			return null;
+		}
+		
 		VocabulariesRead vocabulariesRead = new VocabulariesRead(authorityInstance, VocabulariesRead.GET_BASIC_INFO);
 		JSONObject instanceData = vocabulariesRead.getInstance(storage);
 		
 		String workflowState = null;
-		
 		try {
 			if (!instanceData.has("csid") || (instanceData.has("isError") && instanceData.getBoolean("isError"))) {
 				return null;
 			}
 		}
 		catch(JSONException e) {
+			e.printStackTrace();
 		}
 
 		try {

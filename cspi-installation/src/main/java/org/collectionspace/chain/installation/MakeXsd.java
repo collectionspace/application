@@ -6,15 +6,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.Stack;
-
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
+
 import org.collectionspace.chain.csp.persistence.services.TenantSpec;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldParent;
@@ -23,7 +18,6 @@ import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.csp.api.persistence.Storage;
-import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.services.common.api.FileTools;
 import org.collectionspace.chain.csp.schema.Spec;
 
@@ -34,6 +28,7 @@ import org.dom4j.Namespace;
 import org.dom4j.QName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.xmlunit.diff.DefaultNodeMatcher;
 import org.xmlunit.diff.ElementSelectors;
 import org.xmlunit.matchers.CompareMatcher;
@@ -67,6 +62,10 @@ public class MakeXsd {
 		this.xsdGeneration = xsdGeneration;
 		this.tenantSpec = td;
 //		this.recordDefinedGroupTypes = recordDefinedGroupTypes;
+	}
+	
+	public String getConfigFileName() {
+		return configFileName;
 	}
 	
 	public Map<String, Map<String, String>> getSchemaDefinedComplexTypes() {
