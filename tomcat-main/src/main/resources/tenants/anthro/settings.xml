@@ -52,12 +52,14 @@
 			<tenant>
 				<id>1500</id>
 				<name>anthro.collectionspace.org</name>
+				<domain>anthro</domain>
 				<version>0.1</version>
 				<display-name>CollectionSpace Anthropology Tenant</display-name>
 				<create-disabled>${CSPACE_ANTHRO_CREATE_DISABLED_OPT}</create-disabled>
 			</tenant>
 			<repository>
-				<domain>anthro-domain</domain>
+				<domain>anthro</domain>
+				<name>anthro</name>
 				<client>nuxeo-java</client>
 				<dateformats>
 					<pattern>MM/dd/yyyy</pattern>

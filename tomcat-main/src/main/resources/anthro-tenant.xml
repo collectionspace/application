@@ -16,7 +16,7 @@
 
 			<include src="base-procedure-acquisition.xml"/>
 			<include src="base-procedure-blobs.xml"/>
-			<include src="base-procedure-claim.xml"/>
+			<include src="base-procedure-claim.xml,extensions/nagpra-procedure-claim.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-conditioncheck.xml"/>
 			<include src="base-procedure-exhibition.xml"/>
 			<include src="base-procedure-groups.xml"/>
@@ -46,7 +46,7 @@
 			<include src="base-authority-taxon.xml"/>
 			
 			<include src="base-authority-concept-termList.xml"/>
-			<include src="base-authority-concept.xml"/>
+			<include src="base-authority-concept.xml,anthro-authority-concept.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-work-termList.xml"/>
 			<include src="base-authority-work.xml"/>
 

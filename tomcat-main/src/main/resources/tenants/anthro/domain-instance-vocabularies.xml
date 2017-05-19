@@ -1,0 +1,3 @@
+<root>
+	<include src="extensions/nagpra-vocabularies.xml" strip-root="yes" />
+</root>
