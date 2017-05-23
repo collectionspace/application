@@ -11,7 +11,7 @@
 		<records>
 			<enum-blank>Please select a value</enum-blank>
 
-			<include src="base-collectionobject.xml"/>
+			<include src="base-collectionobject.xml,extensions/annotation-collectionobject.xml,extensions/culturalcare-collectionobject.xml,extensions/nagpra-collectionobject.xml,extensions/naturalhistory-collectionobject.xml,anthro-collectionobject.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority.xml"/>
 
 			<include src="base-procedure-acquisition.xml"/>
@@ -64,6 +64,7 @@
 			<include src="base-other-address.xml"/>
 			<include src="base-other-hierarchy.xml"/>
 			<include src="base-other-idgenerator.xml"/>
+			<include src="base-other-locality.xml" />
 			<include src="base-other-structureddate.xml"/>
 			<include src="base-other-termlist.xml"/>
 			<include src="base-other-termlistitem.xml"/>
