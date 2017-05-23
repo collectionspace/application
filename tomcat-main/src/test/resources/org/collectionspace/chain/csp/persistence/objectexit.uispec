@@ -1,65 +1,60 @@
 {"recordEditor": {
-    ".csc-objectexit-uri-label": {"messagekey": "objectexit-uriLabel"},
-    ".csc-objectexit-exitDateGroup-label": {"messagekey": "objectexit-exitDateGroupLabel"},
-    ".csc-objectexit-displosalValue": {
-        "decorators": [{
-            "func": "cspace.inputValidator",
-            "type": "fluid",
-            "options": {
-                "label": "objectexit-displosalValueLabel",
-                "type": "float"
-            }
-        }],
-        "value": "${fields.displosalValue}"
-    },
-    ".csc-objectexit-deaccessionDate-label": {"messagekey": "objectexit-deaccessionDateLabel"},
-    ".csc-objectexit-packingNote": "${fields.packingNote}",
-    ".csc-objectexit-deaccessionAuthorizer": {
-        "decorators": [{
-            "func": "cspace.autocomplete",
-            "type": "fluid",
-            "options": {
-                "queryUrl": "../../../tenant/core/objectexit/autocomplete/deaccessionAuthorizer",
-                "vocabUrl": "../../../tenant/core/objectexit/source-vocab/deaccessionAuthorizer"
-            }
-        }],
-        "value": "${fields.deaccessionAuthorizer}"
-    },
-    ".csc-objectexit-disposalMethod-label": {"messagekey": "objectexit-disposalMethodLabel"},
-    ".csc-objectexit-displosalValue-label": {"messagekey": "objectexit-displosalValueLabel"},
-    ".csc-objectexit-disposalDate": {
-        "decorators": [{
-            "func": "cspace.datePicker",
-            "type": "fluid"
-        }],
-        "value": "${fields.disposalDate}"
-    },
-    ".csc-objectexit-exitNote": "${fields.exitNote}",
-    ".csc-objectexit-disposalProposedRecipient": {
-        "decorators": [{
-            "func": "cspace.autocomplete",
-            "type": "fluid",
-            "options": {
-                "queryUrl": "../../../tenant/core/objectexit/autocomplete/disposalProposedRecipient",
-                "vocabUrl": "../../../tenant/core/objectexit/source-vocab/disposalProposedRecipient"
-            }
-        }],
-        "value": "${fields.disposalProposedRecipient}"
-    },
-    ".csc-objectexit-disposalDate-label": {"messagekey": "objectexit-disposalDateLabel"},
+    ".csc-objectexit-displosalProvisos-label": {"messagekey": "objectexit-displosalProvisosLabel"},
+    ".csc-objectexit-disposalCurrency-label": {"messagekey": "objectexit-disposalCurrencyLabel"},
     ".csc-objectexit-depositor": {
         "decorators": [{
             "func": "cspace.autocomplete",
-            "type": "fluid",
             "options": {
                 "queryUrl": "../../../tenant/core/objectexit/autocomplete/depositor",
                 "vocabUrl": "../../../tenant/core/objectexit/source-vocab/depositor"
-            }
+            },
+            "type": "fluid"
         }],
         "value": "${fields.depositor}"
     },
-    ".csc-objectexit-summary-label": {"messagekey": "objectexit-summaryLabel"},
-    ".csc-objectexit-refName": "${fields.refName}",
+    ".csc-objectexit-exitQuantity": {
+        "decorators": [{
+            "func": "cspace.inputValidator",
+            "options": {
+                "label": "objectexit-exitQuantityLabel",
+                "type": "integer"
+            },
+            "type": "fluid"
+        }],
+        "value": "${fields.exitQuantity}"
+    },
+    ".csc-objectexit-groupDisposalCurrency-label": {"messagekey": "objectexit-groupDisposalCurrencyLabel"},
+    ".csc-objectexit-exitNumber-label": {"messagekey": "objectexit-exitNumberLabel"},
+    ".csc-objectexit-disposalMethod": {"decorators": [{
+        "func": "cspace.termList",
+        "options": {
+            "termListType": "disposalMethod",
+            "elPath": "fields.disposalMethod"
+        },
+        "type": "fluid"
+    }]},
+    ".csc-objectexit-exitReason-label": {"messagekey": "objectexit-exitReasonLabel"},
+    ".csc-objectexit-groupDisplosalValue-label": {"messagekey": "objectexit-groupDisplosalValueLabel"},
+    ".csc-objectexit-exitReason": {
+        "default": "",
+        "selection": "${fields.exitReason}",
+        "optionlist": [
+            "",
+            "deaccession",
+            "disposal",
+            "returnofloan"
+        ],
+        "optionnames": [
+            "Please select a value",
+            "Deaccession",
+            "Disposal",
+            "Return of Loan"
+        ]
+    },
+    ".csc-objectexit-deacApprovalGroup-label": {"messagekey": "objectexit-deacApprovalGroupLabel"},
+    ".csc-objectexit-deaccessionAuthorizer-label": {"messagekey": "objectexit-deaccessionAuthorizerLabel"},
+    ".csc-objectexit-displosalValue-label": {"messagekey": "objectexit-displosalValueLabel"},
+    ".csc-objectexit-updatedBy-label": {"messagekey": "objectexit-updatedByLabel"},
     ".csc-objectexit-authorizationDate": {
         "decorators": [{
             "func": "cspace.datePicker",
@@ -67,230 +62,146 @@
         }],
         "value": "${fields.authorizationDate}"
     },
-    ".csc-objectexit-disposalRecipient-label": {"messagekey": "objectexit-disposalRecipientLabel"},
-    ".csc-objectexit-updatedAt": {
+    ".csc-objectexit-deaccessionAuthorizer": {
         "decorators": [{
-            "func": "cspace.datePicker",
+            "func": "cspace.autocomplete",
+            "options": {
+                "queryUrl": "../../../tenant/core/objectexit/autocomplete/deaccessionAuthorizer",
+                "vocabUrl": "../../../tenant/core/objectexit/source-vocab/deaccessionAuthorizer"
+            },
             "type": "fluid"
         }],
-        "value": "${fields.updatedAt}"
+        "value": "${fields.deaccessionAuthorizer}"
     },
-    ".csc-objectexit-exitReason-label": {"messagekey": "objectexit-exitReasonLabel"},
-    ".csc-objectexit-disposalMethod": {"decorators": [{
-        "func": "cspace.termList",
-        "type": "fluid",
-        "options": {
-            "elPath": "fields.disposalMethod",
-            "termListType": "disposalMethod"
-        }
-    }]},
-    ".csc-objectexit-tenantId-label": {"messagekey": "objectexit-tenantIdLabel"},
     ".csc-objectexit-exitNumber": "${fields.exitNumber}",
-    ".csc-objectexit-objectexitInformation-label": {"messagekey": "objectexit-objectexitInformationLabel"},
-    ".csc-objectexit-groupDisplosalValue": {
+    ".csc-objectexit-currentOwner": {
+        "decorators": [{
+            "func": "cspace.autocomplete",
+            "options": {
+                "queryUrl": "../../../tenant/core/objectexit/autocomplete/currentOwner",
+                "vocabUrl": "../../../tenant/core/objectexit/source-vocab/currentOwner"
+            },
+            "type": "fluid"
+        }],
+        "value": "${fields.currentOwner}"
+    },
+    ".csc-objectexit-authorizationDate-label": {"messagekey": "objectexit-authorizationDateLabel"},
+    ".csc-objectexit-deaccessionApprovalStatus-label": {"messagekey": "objectexit-deaccessionApprovalStatusLabel"},
+    ".csc-objectexit-disposalProposedRecipient-label": {"messagekey": "objectexit-disposalProposedRecipientLabel"},
+    ".csc-objectexit-displosalValue": {
         "decorators": [{
             "func": "cspace.inputValidator",
-            "type": "fluid",
             "options": {
-                "label": "objectexit-groupDisplosalValueLabel",
+                "label": "objectexit-displosalValueLabel",
                 "type": "float"
-            }
+            },
+            "type": "fluid"
         }],
-        "value": "${fields.groupDisplosalValue}"
+        "value": "${fields.displosalValue}"
     },
-    ".csc-objectexit-disposalCurrency": {"decorators": [{
-        "func": "cspace.termList",
-        "type": "fluid",
-        "options": {
-            "elPath": "fields.disposalCurrency",
-            "termListType": "disposalCurrency"
-        }
-    }]},
+    ".csc-objectexit-deaccessionDate-label": {"messagekey": "objectexit-deaccessionDateLabel"},
+    ".csc-objectexit-workflow": "${fields.workflow}",
     ".csc-objectexit-exitMethods": {"decorators": [{
         "func": "cspace.makeRepeatable",
-        "type": "fluid",
         "options": {
             "repeatTree": {"expander": {
                 "tree": {".csc-objectexit-exitMethods": {
                     "default": "",
-                    "optionnames": [
-                        "Please select a value",
-                        "Courier",
-                        "In Person",
-                        "Post"
-                    ],
+                    "selection": "${{row}.exitMethod}",
                     "optionlist": [
                         "",
                         "courier",
                         "inperson",
                         "post"
                     ],
-                    "selection": "${{row}.exitMethod}"
+                    "optionnames": [
+                        "Please select a value",
+                        "Courier",
+                        "In Person",
+                        "Post"
+                    ]
                 }},
                 "type": "fluid.noexpand"
             }},
             "elPath": "fields.exitMethods"
-        }
+        },
+        "type": "fluid"
     }]},
-    ".csc-objectexit-authorizationDate-label": {"messagekey": "objectexit-authorizationDateLabel"},
-    ".csc-objectexit-exitMethod-label": {"messagekey": "objectexit-exitMethodLabel"},
-    ".csc-objectexit-exitDateGroup": {
-        "decorators": [{
-            "func": "cspace.structuredDate",
-            "type": "fluid",
-            "options": {
-                "elPath": "fields.exitDateGroup.dateDisplayDate",
-                "elPaths": {
-                    "dateEarliestSingleQualifier": "fields.exitDateGroup.dateEarliestSingleQualifier",
-                    "scalarValuesComputed": "fields.exitDateGroup.scalarValuesComputed",
-                    "dateLatestDay": "fields.exitDateGroup.dateLatestDay",
-                    "dateLatestYear": "fields.exitDateGroup.dateLatestYear",
-                    "dateAssociation": "fields.exitDateGroup.dateAssociation",
-                    "dateEarliestSingleEra": "fields.exitDateGroup.dateEarliestSingleEra",
-                    "dateDisplayDate": "fields.exitDateGroup.dateDisplayDate",
-                    "dateEarliestSingleCertainty": "fields.exitDateGroup.dateEarliestSingleCertainty",
-                    "dateLatestEra": "fields.exitDateGroup.dateLatestEra",
-                    "dateEarliestSingleQualifierValue": "fields.exitDateGroup.dateEarliestSingleQualifierValue",
-                    "dateLatestCertainty": "fields.exitDateGroup.dateLatestCertainty",
-                    "dateEarliestSingleYear": "fields.exitDateGroup.dateEarliestSingleYear",
-                    "dateLatestQualifier": "fields.exitDateGroup.dateLatestQualifier",
-                    "dateLatestQualifierValue": "fields.exitDateGroup.dateLatestQualifierValue",
-                    "dateEarliestSingleQualifierUnit": "fields.exitDateGroup.dateEarliestSingleQualifierUnit",
-                    "datePeriod": "fields.exitDateGroup.datePeriod",
-                    "dateEarliestScalarValue": "fields.exitDateGroup.dateEarliestScalarValue",
-                    "dateLatestMonth": "fields.exitDateGroup.dateLatestMonth",
-                    "dateNote": "fields.exitDateGroup.dateNote",
-                    "dateLatestScalarValue": "fields.exitDateGroup.dateLatestScalarValue",
-                    "dateLatestQualifierUnit": "fields.exitDateGroup.dateLatestQualifierUnit",
-                    "dateEarliestSingleDay": "fields.exitDateGroup.dateEarliestSingleDay",
-                    "dateEarliestSingleMonth": "fields.exitDateGroup.dateEarliestSingleMonth"
-                }
-            }
-        }],
-        "value": "${fields.exitDateGroup.dateDisplayDate}"
-    },
-    ".csc-objectexit-disposalProposedRecipient-label": {"messagekey": "objectexit-disposalProposedRecipientLabel"},
-    ".csc-objectexit-displosalNewObjectNumber": "${fields.displosalNewObjectNumber}",
-    ".csc-objectexit-workflow-label": {"messagekey": "objectexit-workflowLabel"},
-    ".csc-objectexit-displosalReason-label": {"messagekey": "objectexit-displosalReasonLabel"},
-    ".csc-objectexit-displosalProvisos-label": {"messagekey": "objectexit-displosalProvisosLabel"},
-    ".csc-objectexit-coreInformation-label": {"messagekey": "objectexit-coreInformationLabel"},
-    ".csc-objectexit-exitNote-label": {"messagekey": "objectexit-exitNoteLabel"},
-    ".csc-objectexit-exitMethods-label": {"messagekey": "objectexit-exitMethodsLabel"},
-    ".csc-objectexit-disposalCurrency-label": {"messagekey": "objectexit-disposalCurrencyLabel"},
-    ".csc-objectexit-updatedAt-label": {"messagekey": "objectexit-updatedAtLabel"},
-    ".csc-objectexit-deaccessionApprovalGroup-label": {"messagekey": "objectexit-deaccessionApprovalGroupLabel"},
-    ".csc-objectexit-groupDisposalCurrency": {"decorators": [{
-        "func": "cspace.termList",
-        "type": "fluid",
-        "options": {
-            "elPath": "fields.groupDisposalCurrency",
-            "termListType": "groupDisposalCurrency"
-        }
-    }]},
-    ".csc-objectexit-updatedBy": "${fields.updatedBy}",
-    ".csc-objectexit-deaccessionApprovalStatus-label": {"messagekey": "objectexit-deaccessionApprovalStatusLabel"},
-    ".csc-objectexit-refName-label": {"messagekey": "objectexit-refNameLabel"},
-    ".csc-objectexit-groupDisposalCurrency-label": {"messagekey": "objectexit-groupDisposalCurrencyLabel"},
-    ".csc-objectexit-displosalReason": "${fields.displosalReason}",
-    ".csc-objectexit-updatedBy-label": {"messagekey": "objectexit-updatedByLabel"},
-    ".csc-objectexit-packingNote-label": {"messagekey": "objectexit-packingNoteLabel"},
-    ".csc-objectexit-createdAt": {
-        "decorators": [{
-            "func": "cspace.datePicker",
-            "type": "fluid"
-        }],
-        "value": "${fields.createdAt}"
-    },
-    ".csc-objectexit-exitNumber-container": {"decorators": [{
-        "func": "cspace.numberPatternChooser",
-        "type": "fluid",
-        "options": {
-            "model": {
-                "names": ["Object Exit"],
-                "list": ["objectexit"],
-                "samples": ["EX2010.1"]
-            },
-            "selectors": {"numberField": ".csc-objectexit-exitNumber"}
-        }
-    }]},
-    ".csc-objectexit-deaccessionApprovalDate-label": {"messagekey": "objectexit-deaccessionApprovalDateLabel"},
-    ".csc-objectexit-deacApprovalGroup-label": {"messagekey": "objectexit-deacApprovalGroupLabel"},
+    ".csc-objectexit-disposalRecipient-label": {"messagekey": "objectexit-disposalRecipientLabel"},
     ".csc-objectexit-deaccessionAndDisplosalInformation-label": {"messagekey": "objectexit-deaccessionAndDisplosalInformationLabel"},
-    ".csc-objectexit-createdBy-label": {"messagekey": "objectexit-createdByLabel"},
-    ".csc-objectexit-domaindata-label": {"messagekey": "objectexit-domaindataLabel"},
-    ".csc-objectexit-deaccessionAuthorizer-label": {"messagekey": "objectexit-deaccessionAuthorizerLabel"},
-    ".csc-objectexit-uri": "${fields.uri}",
-    ".csc-objectexit-displosalNote-label": {"messagekey": "objectexit-displosalNoteLabel"},
-    ".csc-objectexit-currentOwner": {
-        "decorators": [{
-            "func": "cspace.autocomplete",
-            "type": "fluid",
-            "options": {
-                "queryUrl": "../../../tenant/core/objectexit/autocomplete/currentOwner",
-                "vocabUrl": "../../../tenant/core/objectexit/source-vocab/currentOwner"
-            }
-        }],
-        "value": "${fields.currentOwner}"
-    },
-    ".csc-objectexit-currentOwner-label": {"messagekey": "objectexit-currentOwnerLabel"},
-    ".csc-objectexit-displosalNote": "${fields.displosalNote}",
-    ".csc-objectexit-createdAt-label": {"messagekey": "objectexit-createdAtLabel"},
-    ".csc-objectexit-deaccessionDate": {
+    ".csc-objectexit-disposalDate": {
         "decorators": [{
             "func": "cspace.datePicker",
             "type": "fluid"
         }],
-        "value": "${fields.deaccessionDate}"
+        "value": "${fields.disposalDate}"
     },
-    ".csc-objectexit-displosalNewObjectNumber-label": {"messagekey": "objectexit-displosalNewObjectNumberLabel"},
+    ".csc-objectexit-createdAt-label": {"messagekey": "objectexit-createdAtLabel"},
+    ".csc-objectexit-displosalNote": "${fields.displosalNote}",
+    ".csc-objectexit-disposalMethod-label": {"messagekey": "objectexit-disposalMethodLabel"},
+    ".csc-objectexit-uri-label": {"messagekey": "objectexit-uriLabel"},
+    ".csc-objectexit-domaindata-label": {"messagekey": "objectexit-domaindataLabel"},
+    ".csc-objectexit-createdBy-label": {"messagekey": "objectexit-createdByLabel"},
+    ".csc-objectexit-updatedAt-label": {"messagekey": "objectexit-updatedAtLabel"},
+    ".csc-objectexit-disposalCurrency": {"decorators": [{
+        "func": "cspace.termList",
+        "options": {
+            "termListType": "disposalCurrency",
+            "elPath": "fields.disposalCurrency"
+        },
+        "type": "fluid"
+    }]},
     ".csc-objectexit-depositor-label": {"messagekey": "objectexit-depositorLabel"},
-    ".csc-objectexit-groupDisplosalValue-label": {"messagekey": "objectexit-groupDisplosalValueLabel"},
-    ".csc-objectexit-number-label": {"messagekey": "objectexit-numberLabel"},
-    ".csc-objectexit-workflow": "${fields.workflow}",
-    ".csc-objectexit-disposalRecipient": {
+    ".csc-objectexit-displosalReason": "${fields.displosalReason}",
+    ".csc-objectexit-disposalProposedRecipient": {
         "decorators": [{
             "func": "cspace.autocomplete",
-            "type": "fluid",
             "options": {
-                "queryUrl": "../../../tenant/core/objectexit/autocomplete/disposalRecipient",
-                "vocabUrl": "../../../tenant/core/objectexit/source-vocab/disposalRecipient"
-            }
+                "queryUrl": "../../../tenant/core/objectexit/autocomplete/disposalProposedRecipient",
+                "vocabUrl": "../../../tenant/core/objectexit/source-vocab/disposalProposedRecipient"
+            },
+            "type": "fluid"
         }],
-        "value": "${fields.disposalRecipient}"
+        "value": "${fields.disposalProposedRecipient}"
     },
-    ".csc-objectexit-tenantId": "${fields.tenantId}",
-    ".csc-objectexit-exitReason": {
-        "default": "",
-        "optionnames": [
-            "Please select a value",
-            "Deaccession",
-            "Disposal",
-            "Return of Loan"
-        ],
-        "optionlist": [
-            "",
-            "deaccession",
-            "disposal",
-            "returnofloan"
-        ],
-        "selection": "${fields.exitReason}"
+    ".csc-objectexit-packingNote": "${fields.packingNote}",
+    ".csc-objectexit-summary-label": {"messagekey": "objectexit-summaryLabel"},
+    ".csc-objectexit-coreInformation-label": {"messagekey": "objectexit-coreInformationLabel"},
+    ".csc-objectexit-groupDisplosalValue": {
+        "decorators": [{
+            "func": "cspace.inputValidator",
+            "options": {
+                "label": "objectexit-groupDisplosalValueLabel",
+                "type": "float"
+            },
+            "type": "fluid"
+        }],
+        "value": "${fields.groupDisplosalValue}"
     },
-    ".csc-objectexit-createdBy": "${fields.createdBy}",
+    ".csc-objectexit-updatedBy": "${fields.updatedBy}",
+    ".csc-objectexit-displosalProvisos": "${fields.displosalProvisos}",
     ".csc-objectexit-deacApprovalGroup": {"decorators": [{
         "func": "cspace.makeRepeatable",
-        "type": "fluid",
         "options": {
             "repeatTree": {"expander": {
                 "tree": {
+                    ".csc-objectexit-deaccessionApprovalGroup": {"decorators": [{
+                        "func": "cspace.termList",
+                        "options": {
+                            "termListType": "deaccessionApprovalGroup",
+                            "root": "{row}",
+                            "elPath": "deaccessionApprovalGroup"
+                        },
+                        "type": "fluid"
+                    }]},
                     ".csc-objectexit-deaccessionApprovalStatus": {"decorators": [{
                         "func": "cspace.termList",
-                        "type": "fluid",
                         "options": {
+                            "termListType": "deaccessionApprovalStatus",
                             "root": "{row}",
-                            "elPath": "deaccessionApprovalStatus",
-                            "termListType": "deaccessionApprovalStatus"
-                        }
+                            "elPath": "deaccessionApprovalStatus"
+                        },
+                        "type": "fluid"
                     }]},
                     ".csc-objectexit-deaccessionApprovalDate": {
                         "decorators": [{
@@ -298,22 +209,123 @@
                             "type": "fluid"
                         }],
                         "value": "${{row}.deaccessionApprovalDate}"
-                    },
-                    ".csc-objectexit-deaccessionApprovalGroup": {"decorators": [{
-                        "func": "cspace.termList",
-                        "type": "fluid",
-                        "options": {
-                            "root": "{row}",
-                            "elPath": "deaccessionApprovalGroup",
-                            "termListType": "deaccessionApprovalGroup"
-                        }
-                    }]}
+                    }
                 },
                 "type": "fluid.noexpand"
             }},
             "elPath": "fields.deacApprovalGroup"
-        }
+        },
+        "type": "fluid"
     }]},
-    ".csc-objectexit-exitNumber-label": {"messagekey": "objectexit-exitNumberLabel"},
-    ".csc-objectexit-displosalProvisos": "${fields.displosalProvisos}"
+    ".csc-objectexit-deaccessionApprovalGroup-label": {"messagekey": "objectexit-deaccessionApprovalGroupLabel"},
+    ".csc-objectexit-tenantId": "${fields.tenantId}",
+    ".csc-objectexit-refName-label": {"messagekey": "objectexit-refNameLabel"},
+    ".csc-objectexit-disposalDate-label": {"messagekey": "objectexit-disposalDateLabel"},
+    ".csc-objectexit-exitMethod-label": {"messagekey": "objectexit-exitMethodLabel"},
+    ".csc-objectexit-groupDisposalCurrency": {"decorators": [{
+        "func": "cspace.termList",
+        "options": {
+            "termListType": "groupDisposalCurrency",
+            "elPath": "fields.groupDisposalCurrency"
+        },
+        "type": "fluid"
+    }]},
+    ".csc-objectexit-updatedAt": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${fields.updatedAt}"
+    },
+    ".csc-objectexit-exitDateGroup": {
+        "decorators": [{
+            "func": "cspace.structuredDate",
+            "options": {
+                "elPaths": {
+                    "scalarValuesComputed": "fields.exitDateGroup.scalarValuesComputed",
+                    "dateEarliestSingleCertainty": "fields.exitDateGroup.dateEarliestSingleCertainty",
+                    "dateEarliestSingleQualifierUnit": "fields.exitDateGroup.dateEarliestSingleQualifierUnit",
+                    "dateDisplayDate": "fields.exitDateGroup.dateDisplayDate",
+                    "dateLatestScalarValue": "fields.exitDateGroup.dateLatestScalarValue",
+                    "dateEarliestSingleQualifierValue": "fields.exitDateGroup.dateEarliestSingleQualifierValue",
+                    "datePeriod": "fields.exitDateGroup.datePeriod",
+                    "dateLatestEra": "fields.exitDateGroup.dateLatestEra",
+                    "dateEarliestSingleDay": "fields.exitDateGroup.dateEarliestSingleDay",
+                    "dateEarliestSingleQualifier": "fields.exitDateGroup.dateEarliestSingleQualifier",
+                    "dateEarliestSingleYear": "fields.exitDateGroup.dateEarliestSingleYear",
+                    "dateLatestCertainty": "fields.exitDateGroup.dateLatestCertainty",
+                    "dateAssociation": "fields.exitDateGroup.dateAssociation",
+                    "dateLatestDay": "fields.exitDateGroup.dateLatestDay",
+                    "dateEarliestSingleMonth": "fields.exitDateGroup.dateEarliestSingleMonth",
+                    "dateEarliestSingleEra": "fields.exitDateGroup.dateEarliestSingleEra",
+                    "dateLatestYear": "fields.exitDateGroup.dateLatestYear",
+                    "dateLatestQualifierUnit": "fields.exitDateGroup.dateLatestQualifierUnit",
+                    "dateNote": "fields.exitDateGroup.dateNote",
+                    "dateLatestQualifierValue": "fields.exitDateGroup.dateLatestQualifierValue",
+                    "dateLatestQualifier": "fields.exitDateGroup.dateLatestQualifier",
+                    "dateEarliestScalarValue": "fields.exitDateGroup.dateEarliestScalarValue",
+                    "dateLatestMonth": "fields.exitDateGroup.dateLatestMonth"
+                },
+                "elPath": "fields.exitDateGroup.dateDisplayDate"
+            },
+            "type": "fluid"
+        }],
+        "value": "${fields.exitDateGroup.dateDisplayDate}"
+    },
+    ".csc-objectexit-tenantId-label": {"messagekey": "objectexit-tenantIdLabel"},
+    ".csc-objectexit-createdAt": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${fields.createdAt}"
+    },
+    ".csc-objectexit-exitNote-label": {"messagekey": "objectexit-exitNoteLabel"},
+    ".csc-objectexit-displosalNewObjectNumber": "${fields.displosalNewObjectNumber}",
+    ".csc-objectexit-disposalRecipient": {
+        "decorators": [{
+            "func": "cspace.autocomplete",
+            "options": {
+                "queryUrl": "../../../tenant/core/objectexit/autocomplete/disposalRecipient",
+                "vocabUrl": "../../../tenant/core/objectexit/source-vocab/disposalRecipient"
+            },
+            "type": "fluid"
+        }],
+        "value": "${fields.disposalRecipient}"
+    },
+    ".csc-objectexit-exitQuantity-label": {"messagekey": "objectexit-exitQuantityLabel"},
+    ".csc-objectexit-objectexitInformation-label": {"messagekey": "objectexit-objectexitInformationLabel"},
+    ".csc-objectexit-exitMethods-label": {"messagekey": "objectexit-exitMethodsLabel"},
+    ".csc-objectexit-exitNumber-container": {"decorators": [{
+        "func": "cspace.numberPatternChooser",
+        "options": {
+            "model": {
+                "names": ["Object Exit"],
+                "list": ["objectexit"],
+                "samples": ["EX2010.1"]
+            },
+            "selectors": {"numberField": ".csc-objectexit-exitNumber"}
+        },
+        "type": "fluid"
+    }]},
+    ".csc-objectexit-packingNote-label": {"messagekey": "objectexit-packingNoteLabel"},
+    ".csc-objectexit-deaccessionApprovalDate-label": {"messagekey": "objectexit-deaccessionApprovalDateLabel"},
+    ".csc-objectexit-exitDateGroup-label": {"messagekey": "objectexit-exitDateGroupLabel"},
+    ".csc-objectexit-deaccessionDate": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${fields.deaccessionDate}"
+    },
+    ".csc-objectexit-refName": "${fields.refName}",
+    ".csc-objectexit-exitNote": "${fields.exitNote}",
+    ".csc-objectexit-number-label": {"messagekey": "objectexit-numberLabel"},
+    ".csc-objectexit-uri": "${fields.uri}",
+    ".csc-objectexit-createdBy": "${fields.createdBy}",
+    ".csc-objectexit-displosalReason-label": {"messagekey": "objectexit-displosalReasonLabel"},
+    ".csc-objectexit-displosalNewObjectNumber-label": {"messagekey": "objectexit-displosalNewObjectNumberLabel"},
+    ".csc-objectexit-currentOwner-label": {"messagekey": "objectexit-currentOwnerLabel"},
+    ".csc-objectexit-displosalNote-label": {"messagekey": "objectexit-displosalNoteLabel"},
+    ".csc-objectexit-workflow-label": {"messagekey": "objectexit-workflowLabel"}
 }}

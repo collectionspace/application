@@ -73,6 +73,7 @@
                             </options>
                         </field>
                     </repeat>
+                    <field id="exitQuantity" ui-type="validated" datatype="integer"/>
                     <field id="exitNote" ui-search="repeatable"></field>
                     <field id="exitReason" ui-search="repeatable">
                         <options>

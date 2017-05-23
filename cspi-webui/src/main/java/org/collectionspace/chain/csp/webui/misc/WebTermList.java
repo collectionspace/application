@@ -71,8 +71,8 @@ public class WebTermList implements WebMethod {
 				    }
 				}
 			} else {
-				String msg = String.format("Dynamic term list(s) (aka, \"autocomplete\" list) for the field '%s' does not exist.  Check that it is defined in the Application layer configuration.",
-						f.toString());
+				String msg = String.format("Dynamic term list(s) (aka, \"autocomplete\" list) for the field '%s' of record '%s' does not exist.  Check that it is defined in the Application layer configuration.",
+						f.toString(), r.whoamI);
 				log.error(msg);
 			}
 			
