@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <root>
+    <include src="extensions/annotation-vocabularies.xml" strip-root="yes" />
     <include src="extensions/naturalhistory-vocabularies.xml" strip-root="yes" />
     
     <instance id="vocab-propReason">

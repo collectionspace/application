@@ -73,6 +73,8 @@
                         <options>
                             <option id="borehole">borehole</option>
                             <option id="commissioned">commissioned</option>
+                            <option id="donation">donation</option>
+                            <option id="excavation">excavation</option>
                             <option id="exchanged">exchanged</option>
                             <option id="founddead">found dead</option>
                             <option id="metaldetector">metal detector</option>
