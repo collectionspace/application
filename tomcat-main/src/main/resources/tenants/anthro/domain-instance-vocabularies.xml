@@ -1,0 +1,81 @@
+<root>
+	<include src="extensions/annotation-vocabularies.xml" strip-root="yes" />
+	<include src="extensions/culturalcare-vocabularies.xml" strip-root="yes" />
+	<include src="extensions/nagpra-vocabularies.xml" strip-root="yes" />
+	<include src="extensions/naturalhistory-vocabularies.xml" strip-root="yes" />
+
+	<instance id="vocab-prodtechniquetype">
+		<web-url>prodtechniquetype</web-url>
+		<title-ref>prodtechniquetype</title-ref>
+		<title>Production Technique Types</title>
+		<options>
+			<option id="automated">automated</option>
+			<option id="handCrafted">hand-crafted</option>
+		</options>
+	</instance>
+
+	<instance id="vocab-prodplacerole">
+		<web-url>prodplacerole</web-url>
+		<title-ref>prodplacerole</title-ref>
+		<title>Production Place Roles</title>
+		<options>
+			<option id="assembledAt">assembled at/in</option>
+			<option id="built">built at/in</option>
+			<option id="manufactured">manufactured at/in</option>
+			<option id="materialsFrom">material originated from</option>
+			<option id="minted">minted at/in</option>
+			<option id="printed">printed at/in</option>
+		</options>
+	</instance>
+
+	<instance id="vocab-prodpeoplerole">
+		<web-url>prodpeoplerole</web-url>
+		<title-ref>prodpeoplerole</title-ref>
+		<title>Production Cultural Group Roles</title>
+		<options>
+			<option id="designedAfter">designed after</option>
+			<option id="traditionalMakers">traditional makers</option>
+		</options>
+	</instance>
+
+	<instance id="vocab-prodpersonrole">
+		<web-url>prodpersonrole</web-url>
+		<title-ref>prodpersonrole</title-ref>
+		<title>Production Person Roles</title>
+		<options>
+			<option id="accompanist">accompanist</option>
+			<option id="artist">artist</option>
+			<option id="blesser">blesser</option>
+			<option id="carver">carver</option>
+			<option id="demonstrator">demonstrator</option>
+			<option id="designer">designer</option>
+			<option id="documenter">documenter</option>
+			<option id="illustrator">illustrator</option>
+			<option id="maker">maker</option>
+			<option id="materialSupplier">material supplier</option>
+			<option id="narrator">narrator</option>
+			<option id="painter">painter</option>
+			<option id="performer">performer</option>
+			<option id="photographer">photographer</option>
+			<option id="recorder">recorder</option>
+			<option id="ruler">ruler</option>
+			<option id="scribe">scribe</option>
+			<option id="singer">singer</option>
+			<option id="translator">translator</option>
+			<option id="writer">writer</option>
+		</options>
+	</instance>
+
+	<instance id="vocab-prodorgrole">
+		<web-url>prodorgrole</web-url>
+		<title-ref>prodorgrole</title-ref>
+		<title>Production Organization Roles</title>
+		<options>
+			<option id="maker">maker</option>
+			<option id="manufacturer">manufacturer</option>
+			<option id="performer">performer</option>
+			<option id="photographer">photographer</option>
+			<option id="supplier">supplier</option>
+		</options>
+	</instance>
+</root>
