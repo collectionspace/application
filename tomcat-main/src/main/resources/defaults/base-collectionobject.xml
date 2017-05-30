@@ -156,6 +156,15 @@
     </repeat>
     <field id="computedCurrentLocation" ui-type="valueDeURNed" services-readonly="true" authref-in-services="true">
     </field>
+    
+    <field id="publishTo" autocomplete="vocab-publishto" ui-type="enum">
+        <enum>
+            <default>urn:cspace:core.collectionspace.org:vocabularies:name(publishto):item:name(none)'None'</default>
+            <blank-value>Please select a value</blank-value>
+        </enum>
+        <selector>object-identification-publishto</selector>
+    </field>
+    
     <repeat id="titleGroupList/titleGroup">
       <!-- selector>collection-object-titleGroup</selector -->
       <field id="title" ui-search="repeatable" in-title="yes" mini="search,list">
