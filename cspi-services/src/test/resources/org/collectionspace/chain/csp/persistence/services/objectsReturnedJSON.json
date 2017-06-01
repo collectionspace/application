@@ -1,142 +1,240 @@
 {
-    "textualInscriptionGroup": [{
-        "_primary": true,
-        "inscriptionContent": "",
-        "inscriptionContentDateGroup": {
-            "dateEarliestSingleQualifier": "",
-            "scalarValuesComputed": false,
-            "dateLatestYear": "",
-            "dateLatestDay": "",
-            "dateAssociation": "",
-            "dateEarliestSingleEra": "",
-            "dateDisplayDate": "2012",
-            "dateEarliestSingleCertainty": "",
-            "dateLatestEra": "",
-            "dateEarliestSingleQualifierValue": "",
-            "dateLatestCertainty": "",
-            "dateEarliestSingleYear": "2012",
-            "dateLatestQualifier": "",
-            "dateLatestQualifierValue": "",
-            "dateEarliestSingleQualifierUnit": "",
-            "datePeriod": "",
-            "dateEarliestScalarValue": "",
-            "_primary": true,
-            "dateLatestMonth": "",
-            "dateNote": "",
-            "dateLatestScalarValue": "",
-            "dateLatestQualifierUnit": "",
-            "dateEarliestSingleDay": "",
-            "dateEarliestSingleMonth": ""
-        },
-        "inscriptionContentInscriber": "",
-        "inscriptionContentInterpretation": "",
-        "inscriptionContentLanguage": "",
-        "inscriptionContentMethod": "",
-        "inscriptionContentPosition": "",
-        "inscriptionContentScript": "",
-        "inscriptionContentTranslation": "",
-        "inscriptionContentTransliteration": "",
-        "inscriptionContentType": ""
+    "contentDate": {
+        "scalarValuesComputed": false,
+        "dateEarliestSingleCertainty": "",
+        "dateEarliestSingleQualifierUnit": "",
+        "dateDisplayDate": "",
+        "dateLatestScalarValue": "",
+        "dateEarliestSingleQualifierValue": "",
+        "datePeriod": "",
+        "dateLatestEra": "",
+        "dateEarliestSingleDay": "",
+        "dateEarliestSingleQualifier": "",
+        "dateEarliestSingleYear": "1901",
+        "dateLatestCertainty": "",
+        "dateAssociation": "",
+        "dateLatestDay": "",
+        "dateEarliestSingleMonth": "",
+        "dateEarliestSingleEra": "",
+        "dateLatestYear": "",
+        "dateLatestQualifierUnit": "",
+        "dateNote": "",
+        "dateLatestQualifierValue": "",
+        "dateLatestQualifier": "",
+        "dateEarliestScalarValue": "",
+        "dateLatestMonth": ""
+    },
+    "assocCulturalContextGroup": [{
+        "assocCulturalContextNote": "",
+        "assocCulturalContext": "",
+        "assocCulturalContextType": "",
+        "_primary": true
     }],
-    "nonTextualInscriptionGroup": [{
-        "_primary": true,
-        "inscriptionDescription": "",
-        "inscriptionDescriptionDateGroup": {
-            "dateEarliestSingleQualifier": "",
-            "scalarValuesComputed": false,
-            "dateLatestYear": "",
-            "dateLatestDay": "",
-            "dateAssociation": "",
-            "dateEarliestSingleEra": "",
-            "dateDisplayDate": "2012",
-            "dateEarliestSingleCertainty": "",
-            "dateLatestEra": "",
-            "dateEarliestSingleQualifierValue": "",
-            "dateLatestCertainty": "",
-            "dateEarliestSingleYear": "2012",
-            "dateLatestQualifier": "",
-            "dateLatestQualifierValue": "",
-            "dateEarliestSingleQualifierUnit": "",
-            "datePeriod": "",
-            "dateEarliestScalarValue": "",
-            "_primary": true,
-            "dateLatestMonth": "",
-            "dateNote": "",
-            "dateLatestScalarValue": "",
-            "dateLatestQualifierUnit": "",
-            "dateEarliestSingleDay": "",
-            "dateEarliestSingleMonth": ""
+    "nametitle": "Der Ring des Nibelungen",
+    "owners": [{
+        "owner": "",
+        "_primary": true
+    }],
+    "fieldCollectionMethods": [{
+        "fieldCollectionMethod": "",
+        "_primary": true
+    }],
+    "contentActivities": [
+        {
+            "contentActivity": "contentActivity a",
+            "_primary": true
         },
+        {"contentActivity": "contentActivity b"},
+        {"contentActivity": "contentActivity c"}
+    ],
+    "assocPlaceGroup": [{
+        "assocPlaceNote": "",
+        "assocPlace": "",
+        "assocPlaceType": "",
+        "_primary": true
+    }],
+    "contentConcepts": [
+        {
+            "contentConcept": "contentConcept a",
+            "_primary": true
+        },
+        {"contentConcept": "contentConcept b"},
+        {"contentConcept": "contentConcept c"}
+    ],
+    "assocActivityGroup": [{
+        "assocActivity": "",
+        "assocActivityType": "",
+        "assocActivityNote": "",
+        "_primary": true
+    }],
+    "ownersContributionNote": "",
+    "assocEventPlaces": [{
+        "assocEventPlace": "",
+        "_primary": true
+    }],
+    "phase": "",
+    "otherNumber": [
+        {
+            "numberType": "v",
+            "numberValue": "a",
+            "_primary": true
+        },
+        {
+            "numberType": "f",
+            "numberValue": "b"
+        }
+    ],
+    "assocEventName": "",
+    "contentEventNameGroup": [{
+        "contentEventName": "contentEventName",
+        "contentEventNameType": "contentEventNameType",
+        "_primary": true
+    }],
+    "contentObjectGroup": [{
+        "contentObjectType": "contentObjectType",
+        "contentObject": "contentObject",
+        "_primary": true
+    }],
+    "editionNumber": "",
+    "ownershipExchangeMethod": "",
+    "ownershipExchangeNote": "",
+    "fieldCollectionPlace": "",
+    "objectProductionReasons": [],
+    "assocConceptGroup": [{
+        "assocConcept": "",
+        "assocConceptNote": "",
+        "assocConceptType": "",
+        "_primary": true
+    }],
+    "ageQualifier": "ageQualifier",
+    "nonTextualInscriptionGroup": [{
+        "inscriptionDescriptionDateGroup": {
+            "scalarValuesComputed": false,
+            "dateEarliestSingleCertainty": "",
+            "dateEarliestSingleQualifierUnit": "",
+            "dateDisplayDate": "2012",
+            "dateLatestScalarValue": "",
+            "dateEarliestSingleQualifierValue": "",
+            "datePeriod": "",
+            "dateLatestEra": "",
+            "dateEarliestSingleDay": "",
+            "dateEarliestSingleQualifier": "",
+            "_primary": true,
+            "dateEarliestSingleYear": "2012",
+            "dateLatestCertainty": "",
+            "dateAssociation": "",
+            "dateLatestDay": "",
+            "dateEarliestSingleMonth": "",
+            "dateEarliestSingleEra": "",
+            "dateLatestYear": "",
+            "dateLatestQualifierUnit": "",
+            "dateNote": "",
+            "dateLatestQualifierValue": "",
+            "dateLatestQualifier": "",
+            "dateEarliestScalarValue": "",
+            "dateLatestMonth": ""
+        },
+        "inscriptionDescription": "",
         "inscriptionDescriptionInscriber": "",
         "inscriptionDescriptionInterpretation": "",
-        "inscriptionDescriptionMethod": "",
         "inscriptionDescriptionPosition": "",
-        "inscriptionDescriptionType": ""
+        "inscriptionDescriptionMethod": "",
+        "inscriptionDescriptionType": "",
+        "_primary": true
     }],
-    "objectHistoryNote": "",
-    "viewersPersonalResponse": "",
-    "fieldCollectionMethods": [{
-        "_primary": true,
-        "fieldCollectionMethod": ""
+    "copyNumber": "copyNumber",
+    "styles": [{
+        "style": "",
+        "_primary": true
     }],
-    "assocEventPeoples": [{
-        "_primary": true,
-        "assocEventPeople": ""
-    }],
-    "ownershipPlace": "",
+    "physicalDescription": "",
     "responsibleDepartments": [
         {
-            "_primary": true,
-            "responsibleDepartment": "ethnography1"
+            "responsibleDepartment": "ethnography1",
+            "_primary": true
         },
         {"responsibleDepartment": "ethnography2"},
         {"responsibleDepartment": "ethnography"}
     ],
+    "fieldCollectors": [{
+        "fieldCollector": "",
+        "_primary": true
+    }],
+    "objectNumber": "2010.1.9",
+    "ownersPersonalExperience": "",
+    "fieldColEventNames": [{
+        "fieldColEventName": "fieldCollectionEventName",
+        "_primary": true
+    }],
+    "colors": [
+        {
+            "color": "red",
+            "_primary": true
+        },
+        {"color": "green"},
+        {"color": "blue"}
+    ],
+    "contentScripts": [
+        {
+            "contentScript": "contentScript 1",
+            "_primary": true
+        },
+        {"contentScript": "contentScript 2"},
+        {"contentScript": "contentScript 3"}
+    ],
     "ownershipAccess": "",
-    "contentPositions": [{
-        "_primary": true,
-        "contentPosition": "contentPosition"
+    "assocDateGroup": [{
+        "assocDateNote": "",
+        "assocStructuredDateGroup": {
+            "scalarValuesComputed": false,
+            "dateEarliestSingleCertainty": "",
+            "dateEarliestSingleQualifierUnit": "",
+            "dateDisplayDate": "2012",
+            "dateLatestScalarValue": "",
+            "dateEarliestSingleQualifierValue": "",
+            "datePeriod": "",
+            "dateLatestEra": "",
+            "dateEarliestSingleDay": "",
+            "dateEarliestSingleQualifier": "",
+            "_primary": true,
+            "dateEarliestSingleYear": "2012",
+            "dateLatestCertainty": "",
+            "dateAssociation": "",
+            "dateLatestDay": "",
+            "dateEarliestSingleMonth": "",
+            "dateEarliestSingleEra": "",
+            "dateLatestYear": "",
+            "dateLatestQualifierUnit": "",
+            "dateNote": "",
+            "dateLatestQualifierValue": "",
+            "dateLatestQualifier": "",
+            "dateEarliestScalarValue": "",
+            "dateLatestMonth": ""
+        },
+        "assocDateType": "",
+        "_primary": true
     }],
-    "styles": [{
-        "_primary": true,
-        "style": ""
+    "briefDescriptions": [
+        {
+            "briefDescription": "bob",
+            "_primary": true
+        },
+        {"briefDescription": "george"}
+    ],
+    "assocPersonGroup": [{
+        "assocPersonNote": "",
+        "assocPersonType": "",
+        "assocPerson": "",
+        "_primary": true
     }],
-    "nametitle": "Der Ring des Nibelungen",
-    "ownershipExchangeMethod": "",
-    "objectNameGroup": [{
-        "objectNameCurrency": "objectNameCurrency",
-        "_primary": true,
-        "objectNameLanguage": "objectNameLanguage",
-        "objectName": "objectName",
-        "objectNameSystem": "objectNameSystem",
-        "objectNameType": "objectNameType",
-        "objectNameNote": "objectNameNote",
-        "objectNameLevel": "objectNameLevel"
+    "fieldCollectionNumber": "",
+    "sex": "",
+    "assocOrganizationGroup": [{
+        "assocOrganization": "",
+        "assocOrganizationType": "",
+        "assocOrganizationNote": "",
+        "_primary": true
     }],
-    "objectProductionNote": "",
-    "ownershipExchangePriceCurrency": "",
-    "contentObjectGroup": [{
-        "_primary": true,
-        "contentObjectType": "contentObjectType",
-        "contentObject": "contentObject"
-    }],
-    "owners": [{
-        "_primary": true,
-        "owner": ""
-    }],
-    "objectProductionPlaceGroup": [{
-        "_primary": true,
-        "objectProductionPlace": "",
-        "objectProductionPlaceRole": ""
-    }],
-    "ownershipExchangePriceValue": "",
-    "ownersContributionNote": "",
-    "referenceGroup": [{
-        "referenceNote": "referenceNote",
-        "_primary": true,
-        "reference": "reference"
-    }],
-    "objectProductionReasons": [],
     "contentLanguages": [
         {
             "contentLanguage": "English",
@@ -145,364 +243,244 @@
         {"contentLanguage": "POlish"},
         {"contentLanguage": "Russian"}
     ],
-    "assocPlaceGroup": [{
-        "_primary": true,
-        "assocPlace": "",
-        "assocPlaceNote": "",
-        "assocPlaceType": ""
-    }],
-    "collection": "collection",
-    "contentDate": {
-        "dateEarliestSingleQualifier": "",
-        "scalarValuesComputed": false,
-        "dateLatestDay": "",
-        "dateLatestYear": "",
-        "dateAssociation": "",
-        "dateEarliestSingleEra": "",
-        "dateDisplayDate": "",
-        "dateEarliestSingleCertainty": "",
-        "dateLatestEra": "",
-        "dateEarliestSingleQualifierValue": "",
-        "dateLatestCertainty": "",
-        "dateEarliestSingleYear": "1901",
-        "dateLatestQualifier": "",
-        "dateLatestQualifierValue": "",
-        "dateEarliestSingleQualifierUnit": "",
-        "datePeriod": "",
-        "dateEarliestScalarValue": "",
-        "dateLatestMonth": "",
-        "dateNote": "",
-        "dateLatestScalarValue": "",
-        "dateLatestQualifierUnit": "",
-        "dateEarliestSingleDay": "",
-        "dateEarliestSingleMonth": ""
-    },
-    "assocConceptGroup": [{
-        "assocConcept": "",
-        "_primary": true,
-        "assocConceptNote": "",
-        "assocConceptType": ""
-    }],
-    "assocPersonGroup": [{
-        "_primary": true,
-        "assocPersonType": "",
-        "assocPersonNote": "",
-        "assocPerson": ""
-    }],
-    "viewersPersonalExperience": "",
-    "ownersPersonalResponse": "",
-    "ageQualifier": "ageQualifier",
-    "contentEventNameGroup": [{
-        "_primary": true,
-        "contentEventNameType": "contentEventNameType",
-        "contentEventName": "contentEventName"
-    }],
-    "fieldCollectionNote": "",
-    "objectStatusList": [{
-        "_primary": true,
-        "objectStatus": "objectStatus"
-    }],
-    "viewersReferences": [],
-    "assocEventNameType": "",
-    "techniqueGroup": [{
-        "technique": "",
-        "techniqueType": "",
+    "ownershipPlace": "",
+    "objectProductionPersonGroup": [{
+        "objectProductionPerson": "",
+        "objectProductionPersonRole": "",
         "_primary": true
     }],
-    "fieldCollectionNumber": "",
-    "assocEventPersons": [{
-        "_primary": true,
-        "assocEventPerson": ""
+    "recordStatus": "recordStatus",
+    "numberOfObjects": "numberOfObjects",
+    "viewersPersonalResponse": "",
+    "objectHistoryNote": "",
+    "fieldCollectionNote": "",
+    "objectProductionPlaceGroup": [{
+        "objectProductionPlaceRole": "",
+        "objectProductionPlace": "",
+        "_primary": true
     }],
-    "fieldCollectionPlace": "",
-    "fieldCollectionDate": {
-        "dateEarliestSingleQualifier": "",
-        "scalarValuesComputed": false,
-        "dateLatestYear": "",
-        "dateLatestDay": "",
-        "dateAssociation": "",
-        "dateEarliestSingleEra": "",
-        "dateDisplayDate": "2012",
-        "dateEarliestSingleCertainty": "",
-        "dateLatestEra": "",
-        "dateEarliestSingleQualifierValue": "",
-        "dateLatestCertainty": "",
-        "dateEarliestSingleYear": "2012",
-        "dateLatestQualifier": "",
-        "dateLatestQualifierValue": "",
-        "dateEarliestSingleQualifierUnit": "",
-        "datePeriod": "",
-        "dateEarliestScalarValue": "",
-        "dateLatestMonth": "",
-        "dateNote": "",
-        "dateLatestScalarValue": "",
-        "dateLatestQualifierUnit": "",
-        "dateEarliestSingleDay": "",
-        "dateEarliestSingleMonth": ""
-    },
-    "comments": [
+    "assocEventNote": "",
+    "objectProductionDateGroup": [
         {
+            "scalarValuesComputed": false,
+            "dateEarliestSingleCertainty": "about",
+            "dateEarliestSingleQualifierUnit": "days",
+            "dateDisplayDate": "sdf",
+            "dateLatestScalarValue": "",
+            "dateEarliestSingleQualifierValue": "4",
+            "datePeriod": "sdf",
+            "dateLatestEra": "bce",
+            "dateEarliestSingleDay": "3",
+            "dateEarliestSingleQualifier": "-",
             "_primary": true,
-            "comment": "comment a "
+            "dateEarliestSingleYear": "1",
+            "dateLatestCertainty": "approximate",
+            "dateAssociation": "sdf",
+            "dateLatestDay": "22",
+            "dateEarliestSingleMonth": "2",
+            "dateEarliestSingleEra": "bce",
+            "dateLatestYear": "5",
+            "dateLatestQualifierUnit": "month",
+            "dateNote": "sdf",
+            "dateLatestQualifierValue": "2",
+            "dateLatestQualifier": "+",
+            "dateEarliestScalarValue": "",
+            "dateLatestMonth": "11"
         },
-        {"comment": "comment b "},
-        {"comment": "comment c "}
-    ],
-    "contentDescription": "contentDescription",
-    "assocEventName": "",
-    "briefDescriptions": [
         {
-            "_primary": true,
-            "briefDescription": "bob"
-        },
-        {"briefDescription": "george"}
+            "scalarValuesComputed": false,
+            "dateEarliestSingleCertainty": "about",
+            "dateEarliestSingleQualifierUnit": "days",
+            "dateDisplayDate": "wer",
+            "dateLatestScalarValue": "",
+            "dateEarliestSingleQualifierValue": "4",
+            "datePeriod": "werwerwer",
+            "dateLatestEra": "bce",
+            "dateEarliestSingleDay": "21",
+            "dateEarliestSingleQualifier": "-",
+            "dateEarliestSingleYear": "1",
+            "dateLatestCertainty": "approximate",
+            "dateAssociation": "wer",
+            "dateLatestDay": "20",
+            "dateEarliestSingleMonth": "7",
+            "dateEarliestSingleEra": "bce",
+            "dateLatestYear": "1",
+            "dateLatestQualifierUnit": "month",
+            "dateNote": "werwer",
+            "dateLatestQualifierValue": "2",
+            "dateLatestQualifier": "+",
+            "dateEarliestScalarValue": "",
+            "dateLatestMonth": "11"
+        }
     ],
-    "viewersRole": "",
+    "objectProductionOrganizationGroup": [{
+        "objectProductionOrganizationRole": "",
+        "objectProductionOrganization": "",
+        "_primary": true
+    }],
+    "techniqueGroup": [{
+        "techniqueType": "",
+        "technique": "",
+        "_primary": true
+    }],
+    "ownersPersonalResponse": "",
+    "ageUnit": "ageUnit",
+    "assocEventOrganizations": [{
+        "assocEventOrganization": "",
+        "_primary": true
+    }],
+    "assocEventNameType": "",
+    "referenceGroup": [{
+        "reference": "reference",
+        "referenceNote": "referenceNote",
+        "_primary": true
+    }],
+    "contentPeoples": [
+        {
+            "contentPeople": "contentPeople s",
+            "_primary": true
+        },
+        {"contentPeople": "contentPeople g"},
+        {"contentPeople": "contentPeople b"}
+    ],
+    "ownershipExchangePriceValue": "",
+    "contentOtherGroup": [{
+        "contentOtherType": "contentOtherType",
+        "contentOther": "contentOther",
+        "_primary": true
+    }],
+    "collection": "collection",
+    "distinguishingFeatures": "distinguishingFeatures",
+    "objectProductionNote": "",
+    "assocEventPersons": [{
+        "assocEventPerson": "",
+        "_primary": true
+    }],
+    "ownershipCategory": "",
     "materialGroup": [{
-        "materialSource": "",
         "materialName": "",
-        "_primary": true,
+        "material": "",
         "materialComponent": "",
         "materialComponentNote": "",
-        "material": ""
-    }],
-    "ownersPersonalExperience": "",
-    "usageGroup": [{
-        "usageNote": "",
-        "_primary": true,
-        "usage": ""
-    }],
-    "assocActivityGroup": [{
-        "_primary": true,
-        "assocActivityNote": "",
-        "assocActivity": "",
-        "assocActivityType": ""
-    }],
-    "ageUnit": "ageUnit",
-    "assocCulturalContextGroup": [{
-        "_primary": true,
-        "assocCulturalContextType": "",
-        "assocCulturalContext": "",
-        "assocCulturalContextNote": ""
-    }],
-    "contentOrganizations": [
-        {
-            "_primary": true,
-            "contentOrganization": "contentOrganization a"
-        },
-        {"contentOrganization": "contentOrganization s"},
-        {"contentOrganization": "contentOrganization d"},
-        {"contentOrganization": "contentOrganization f"}
-    ],
-    "ownershipCategory": "",
-    "copyNumber": "copyNumber",
-    "ownershipDateGroup": [
-        {
-            "dateEarliestSingleQualifier": "-",
-            "scalarValuesComputed": false,
-            "dateLatestDay": "22",
-            "dateLatestYear": "5",
-            "dateAssociation": "sdf",
-            "dateEarliestSingleEra": "bce",
-            "dateDisplayDate": "sdf",
-            "dateEarliestSingleCertainty": "about",
-            "dateLatestEra": "bce",
-            "dateEarliestSingleQualifierValue": "4",
-            "dateLatestCertainty": "approximate",
-            "dateEarliestSingleYear": "1",
-            "dateLatestQualifier": "+",
-            "dateLatestQualifierValue": "2",
-            "dateEarliestSingleQualifierUnit": "days",
-            "datePeriod": "sdf",
-            "dateEarliestScalarValue": "",
-            "_primary": true,
-            "dateLatestMonth": "11",
-            "dateNote": "sdf",
-            "dateLatestScalarValue": "",
-            "dateLatestQualifierUnit": "month",
-            "dateEarliestSingleDay": "3",
-            "dateEarliestSingleMonth": "2"
-        },
-        {
-            "dateEarliestSingleQualifier": "-",
-            "scalarValuesComputed": false,
-            "dateLatestDay": "20",
-            "dateLatestYear": "1",
-            "dateAssociation": "wer",
-            "dateEarliestSingleEra": "bce",
-            "dateDisplayDate": "wer",
-            "dateEarliestSingleCertainty": "about",
-            "dateLatestEra": "bce",
-            "dateEarliestSingleQualifierValue": "4",
-            "dateLatestCertainty": "approximate",
-            "dateEarliestSingleYear": "1",
-            "dateLatestQualifier": "+",
-            "dateLatestQualifierValue": "2",
-            "dateEarliestSingleQualifierUnit": "days",
-            "datePeriod": "werwerwer",
-            "dateEarliestScalarValue": "",
-            "dateLatestMonth": "11",
-            "dateNote": "werwer",
-            "dateLatestScalarValue": "",
-            "dateLatestQualifierUnit": "month",
-            "dateEarliestSingleDay": "21",
-            "dateEarliestSingleMonth": "7"
-        }
-    ],
-    "contentActivities": [
-        {
-            "_primary": true,
-            "contentActivity": "contentActivity a"
-        },
-        {"contentActivity": "contentActivity b"},
-        {"contentActivity": "contentActivity c"}
-    ],
-    "otherNumber": [
-        {
-            "_primary": true,
-            "numberValue": "a",
-            "numberType": "v"
-        },
-        {
-            "numberValue": "b",
-            "numberType": "f"
-        }
-    ],
-    "age": "age",
-    "contentOtherGroup": [{
-        "contentOther": "contentOther",
-        "_primary": true,
-        "contentOtherType": "contentOtherType"
+        "materialSource": "",
+        "_primary": true
     }],
     "contentPersons": [
         {
-            "_primary": true,
-            "contentPerson": "contentPerson 2"
+            "contentPerson": "contentPerson 2",
+            "_primary": true
         },
         {"contentPerson": "contentPerson 3"},
         {"contentPerson": "contentPerson 4"}
     ],
-    "objectComponentGroup": [{
-        "_primary": true,
-        "objectComponentInformation": "",
-        "objectComponentName": ""
+    "viewersRole": "",
+    "fieldCollectionSources": [{
+        "fieldCollectionSource": "",
+        "_primary": true
     }],
-    "contentScripts": [
-        {
-            "_primary": true,
-            "contentScript": "contentScript 1"
-        },
-        {"contentScript": "contentScript 2"},
-        {"contentScript": "contentScript 3"}
-    ],
-    "objectNumber": "2010.1.9",
-    "colors": [
-        {
-            "_primary": true,
-            "color": "red"
-        },
-        {"color": "green"},
-        {"color": "blue"}
-    ],
     "ownersReferences": [],
-    "physicalDescription": "",
-    "objectProductionDateGroup": [
+    "ownershipDateGroup": [
         {
-            "dateEarliestSingleQualifier": "-",
             "scalarValuesComputed": false,
-            "dateLatestDay": "22",
-            "dateLatestYear": "5",
-            "dateAssociation": "sdf",
-            "dateEarliestSingleEra": "bce",
+            "dateEarliestSingleCertainty": "about",
+            "dateEarliestSingleQualifierUnit": "days",
             "dateDisplayDate": "sdf",
-            "dateEarliestSingleCertainty": "about",
-            "dateLatestEra": "bce",
+            "dateLatestScalarValue": "",
             "dateEarliestSingleQualifierValue": "4",
-            "dateLatestCertainty": "approximate",
-            "dateEarliestSingleYear": "1",
-            "dateLatestQualifier": "+",
-            "dateLatestQualifierValue": "2",
-            "dateEarliestSingleQualifierUnit": "days",
             "datePeriod": "sdf",
-            "dateEarliestScalarValue": "",
-            "_primary": true,
-            "dateLatestMonth": "11",
-            "dateNote": "sdf",
-            "dateLatestScalarValue": "",
-            "dateLatestQualifierUnit": "month",
-            "dateEarliestSingleDay": "3",
-            "dateEarliestSingleMonth": "2"
-        },
-        {
-            "dateEarliestSingleQualifier": "-",
-            "scalarValuesComputed": false,
-            "dateLatestDay": "20",
-            "dateLatestYear": "1",
-            "dateAssociation": "wer",
-            "dateEarliestSingleEra": "bce",
-            "dateDisplayDate": "wer",
-            "dateEarliestSingleCertainty": "about",
             "dateLatestEra": "bce",
-            "dateEarliestSingleQualifierValue": "4",
-            "dateLatestCertainty": "approximate",
+            "dateEarliestSingleDay": "3",
+            "dateEarliestSingleQualifier": "-",
+            "_primary": true,
             "dateEarliestSingleYear": "1",
-            "dateLatestQualifier": "+",
-            "dateLatestQualifierValue": "2",
-            "dateEarliestSingleQualifierUnit": "days",
-            "datePeriod": "werwerwer",
-            "dateEarliestScalarValue": "",
-            "dateLatestMonth": "11",
-            "dateNote": "werwer",
-            "dateLatestScalarValue": "",
+            "dateLatestCertainty": "approximate",
+            "dateAssociation": "sdf",
+            "dateLatestDay": "22",
+            "dateEarliestSingleMonth": "2",
+            "dateEarliestSingleEra": "bce",
+            "dateLatestYear": "5",
             "dateLatestQualifierUnit": "month",
+            "dateNote": "sdf",
+            "dateLatestQualifierValue": "2",
+            "dateLatestQualifier": "+",
+            "dateEarliestScalarValue": "",
+            "dateLatestMonth": "11"
+        },
+        {
+            "scalarValuesComputed": false,
+            "dateEarliestSingleCertainty": "about",
+            "dateEarliestSingleQualifierUnit": "days",
+            "dateDisplayDate": "wer",
+            "dateLatestScalarValue": "",
+            "dateEarliestSingleQualifierValue": "4",
+            "datePeriod": "werwerwer",
+            "dateLatestEra": "bce",
             "dateEarliestSingleDay": "21",
-            "dateEarliestSingleMonth": "7"
+            "dateEarliestSingleQualifier": "-",
+            "dateEarliestSingleYear": "1",
+            "dateLatestCertainty": "approximate",
+            "dateAssociation": "wer",
+            "dateLatestDay": "20",
+            "dateEarliestSingleMonth": "7",
+            "dateEarliestSingleEra": "bce",
+            "dateLatestYear": "1",
+            "dateLatestQualifierUnit": "month",
+            "dateNote": "werwer",
+            "dateLatestQualifierValue": "2",
+            "dateLatestQualifier": "+",
+            "dateEarliestScalarValue": "",
+            "dateLatestMonth": "11"
         }
     ],
-    "contentConcepts": [
+    "viewersReferences": [],
+    "technicalAttributeGroup": [{
+        "technicalAttribute": "",
+        "technicalAttributeMeasurementUnit": "",
+        "technicalAttributeMeasurement": "",
+        "_primary": true
+    }],
+    "contentNote": "contentNote",
+    "fieldCollectionDate": {
+        "scalarValuesComputed": false,
+        "dateEarliestSingleCertainty": "",
+        "dateEarliestSingleQualifierUnit": "",
+        "dateDisplayDate": "2012",
+        "dateLatestScalarValue": "",
+        "dateEarliestSingleQualifierValue": "",
+        "datePeriod": "",
+        "dateLatestEra": "",
+        "dateEarliestSingleDay": "",
+        "dateEarliestSingleQualifier": "",
+        "dateEarliestSingleYear": "2012",
+        "dateLatestCertainty": "",
+        "dateAssociation": "",
+        "dateLatestDay": "",
+        "dateEarliestSingleMonth": "",
+        "dateEarliestSingleEra": "",
+        "dateLatestYear": "",
+        "dateLatestQualifierUnit": "",
+        "dateNote": "",
+        "dateLatestQualifierValue": "",
+        "dateLatestQualifier": "",
+        "dateEarliestScalarValue": "",
+        "dateLatestMonth": ""
+    },
+    "viewersContributionNote": "",
+    "publishToList": [
         {
             "_primary": true,
-            "contentConcept": "contentConcept a"
+            "publishTo": "sesame_street"
         },
-        {"contentConcept": "contentConcept b"},
-        {"contentConcept": "contentConcept c"}
+        {"publishTo": "fred_rogers"}
     ],
-    "fieldColEventNames": [{
-        "_primary": true,
-        "fieldColEventName": "fieldCollectionEventName"
-    }],
-    "assocEventPlaces": [{
-        "_primary": true,
-        "assocEventPlace": ""
-    }],
-    "titleGroup": [
+    "contentOrganizations": [
         {
-            "_primary": true,
-            "title": "Der Ring des Nibelungen",
-            "titleTranslationSubGroup": [
-                {
-                    "_primary": true,
-                    "titleTranslationLanguage": "eng",
-                    "titleTranslation": "The Ring Cycle"
-                },
-                {
-                    "titleTranslationLanguage": "ang",
-                    "titleTranslation": "Ringling Bros. / Barnum and Bailey's epic times"
-                }
-            ],
-            "titleType": "assigned-by-artist",
-            "titleLanguage": "deu"
+            "contentOrganization": "contentOrganization a",
+            "_primary": true
         },
-        {
-            "title": "Das Rheingold - Die Valküre - Siegfried - Götterdämmerung",
-            "titleTranslationSubGroup": [{
-                "_primary": true,
-                "titleTranslationLanguage": "eng",
-                "titleTranslation": "The Rhein Gold - The Valkyrie - Siegfried - Twilight of the Gods"
-            }],
-            "titleType": "collection",
-            "titleLanguage": "German"
-        }
+        {"contentOrganization": "contentOrganization s"},
+        {"contentOrganization": "contentOrganization d"},
+        {"contentOrganization": "contentOrganization f"}
     ],
     "contentPlaces": [
         {
@@ -512,149 +490,190 @@
         {"contentPlace": "contentPlace 2"},
         {"contentPlace": "contentPlace 3"}
     ],
-    "phase": "",
-    "contentNote": "contentNote",
+    "ownershipExchangePriceCurrency": "",
+    "contentDescription": "contentDescription",
+    "assocObjectGroup": [{
+        "assocObject": "",
+        "assocObjectNote": "",
+        "assocObjectType": "",
+        "_primary": true
+    }],
+    "objectStatusList": [{
+        "objectStatus": "objectStatus",
+        "_primary": true
+    }],
+    "comments": [
+        {
+            "comment": "comment a ",
+            "_primary": true
+        },
+        {"comment": "comment b "},
+        {"comment": "comment c "}
+    ],
+    "assocEventPeoples": [{
+        "assocEventPeople": "",
+        "_primary": true
+    }],
+    "objectComponentGroup": [{
+        "objectComponentInformation": "",
+        "objectComponentName": "",
+        "_primary": true
+    }],
+    "inventoryStatusList": [
+        {
+            "inventoryStatus": "good",
+            "_primary": true
+        },
+        {"inventoryStatus": "bad"},
+        {"inventoryStatus": "ugly"}
+    ],
+    "usageGroup": [{
+        "usageNote": "",
+        "usage": "",
+        "_primary": true
+    }],
     "assocPeopleGroup": [{
-        "_primary": true,
         "assocPeople": "",
         "assocPeopleNote": "",
-        "assocPeopleType": ""
+        "assocPeopleType": "",
+        "_primary": true
     }],
-    "contentPeoples": [
-        {
-            "_primary": true,
-            "contentPeople": "contentPeople s"
-        },
-        {"contentPeople": "contentPeople g"},
-        {"contentPeople": "contentPeople b"}
-    ],
-    "sex": "",
-    "assocDateGroup": [{
-        "_primary": true,
-        "assocDateNote": "",
-        "assocDateType": "",
-        "assocStructuredDateGroup": {
-            "dateEarliestSingleQualifier": "",
+    "objectNameGroup": [{
+        "objectNameType": "objectNameType",
+        "objectNameSystem": "objectNameSystem",
+        "objectName": "objectName",
+        "objectNameCurrency": "objectNameCurrency",
+        "objectNameNote": "objectNameNote",
+        "objectNameLevel": "objectNameLevel",
+        "objectNameLanguage": "objectNameLanguage",
+        "_primary": true
+    }],
+    "textualInscriptionGroup": [{
+        "inscriptionContentScript": "",
+        "inscriptionContentInscriber": "",
+        "inscriptionContentTransliteration": "",
+        "inscriptionContentType": "",
+        "inscriptionContentDateGroup": {
             "scalarValuesComputed": false,
-            "dateLatestYear": "",
-            "dateLatestDay": "",
-            "dateAssociation": "",
-            "dateEarliestSingleEra": "",
-            "dateDisplayDate": "2012",
             "dateEarliestSingleCertainty": "",
-            "dateLatestEra": "",
-            "dateEarliestSingleQualifierValue": "",
-            "dateLatestCertainty": "",
-            "dateEarliestSingleYear": "2012",
-            "dateLatestQualifier": "",
-            "dateLatestQualifierValue": "",
             "dateEarliestSingleQualifierUnit": "",
-            "datePeriod": "",
-            "dateEarliestScalarValue": "",
-            "_primary": true,
-            "dateLatestMonth": "",
-            "dateNote": "",
+            "dateDisplayDate": "2012",
             "dateLatestScalarValue": "",
-            "dateLatestQualifierUnit": "",
+            "dateEarliestSingleQualifierValue": "",
+            "datePeriod": "",
+            "dateLatestEra": "",
             "dateEarliestSingleDay": "",
-            "dateEarliestSingleMonth": ""
-        }
+            "dateEarliestSingleQualifier": "",
+            "_primary": true,
+            "dateEarliestSingleYear": "2012",
+            "dateLatestCertainty": "",
+            "dateAssociation": "",
+            "dateLatestDay": "",
+            "dateEarliestSingleMonth": "",
+            "dateEarliestSingleEra": "",
+            "dateLatestYear": "",
+            "dateLatestQualifierUnit": "",
+            "dateNote": "",
+            "dateLatestQualifierValue": "",
+            "dateLatestQualifier": "",
+            "dateEarliestScalarValue": "",
+            "dateLatestMonth": ""
+        },
+        "inscriptionContent": "",
+        "inscriptionContentTranslation": "",
+        "inscriptionContentInterpretation": "",
+        "inscriptionContentPosition": "",
+        "inscriptionContentLanguage": "",
+        "inscriptionContentMethod": "",
+        "_primary": true
     }],
-    "numberOfObjects": "numberOfObjects",
-    "recordStatus": "recordStatus",
-    "technicalAttributeGroup": [{
-        "technicalAttributeMeasurement": "",
-        "technicalAttribute": "",
-        "_primary": true,
-        "technicalAttributeMeasurementUnit": ""
-    }],
-    "objectProductionOrganizationGroup": [{
-        "_primary": true,
-        "objectProductionOrganizationRole": "",
-        "objectProductionOrganization": ""
-    }],
-    "fieldCollectionSources": [{
-        "_primary": true,
-        "fieldCollectionSource": ""
-    }],
-    "forms": [{
-        "_primary": true,
-        "form": ""
-    }],
-    "viewersContributionNote": "",
-    "editionNumber": "",
-    "distinguishingFeatures": "distinguishingFeatures",
-    "objectProductionPersonGroup": [{
-        "_primary": true,
-        "objectProductionPersonRole": "",
-        "objectProductionPerson": ""
-    }],
-    "fieldCollectors": [{
-        "_primary": true,
-        "fieldCollector": ""
-    }],
-    "assocOrganizationGroup": [{
-        "assocOrganizationNote": "",
-        "_primary": true,
-        "assocOrganizationType": "",
-        "assocOrganization": ""
-    }],
+    "viewersPersonalExperience": "",
     "objectProductionPeopleGroup": [{
-        "_primary": true,
         "objectProductionPeople": "",
-        "objectProductionPeopleRole": ""
+        "objectProductionPeopleRole": "",
+        "_primary": true
     }],
-    "assocEventOrganizations": [{
-        "assocEventOrganization": "",
+    "contentPositions": [{
+        "contentPosition": "contentPosition",
         "_primary": true
     }],
     "measuredPartGroup": [
         {
-            "_primary": true,
-            "dimensionSummary": "",
-            "measuredPart": "arm",
             "dimensionSubGroup": [
                 {
-                    "_primary": true,
+                    "dimensionNote": "",
+                    "valueQualifier": "approx.",
+                    "valueDate": "2011-11-08",
                     "measuredBy": "rj",
                     "dimension": "diameter",
-                    "valueDate": "2011-11-08",
-                    "measurementUnit": "cm",
                     "value": "10",
-                    "valueQualifier": "approx.",
-                    "measurementMethod": "eyeball"
+                    "measurementMethod": "eyeball",
+                    "measurementUnit": "cm",
+                    "_primary": true
                 },
                 {
+                    "dimensionNote": "",
+                    "valueQualifier": "approx.",
+                    "valueDate": "2011-11-08",
                     "measuredBy": "rj",
                     "dimension": "length",
-                    "valueDate": "2011-11-08",
-                    "measurementUnit": "cm",
                     "value": "75",
-                    "valueQualifier": "approx.",
-                    "measurementMethod": "eyeball"
+                    "measurementMethod": "eyeball",
+                    "measurementUnit": "cm"
                 }
-            ]
+            ],
+            "dimensionSummary": "",
+            "measuredPart": "arm",
+            "_primary": true
         },
         {
-            "dimensionSummary": "",
-            "measuredPart": "other arm",
             "dimensionSubGroup": [{
-                "_primary": true,
+                "dimensionNote": "",
+                "valueQualifier": "close enough for govt work",
+                "valueDate": "2011-11-08",
                 "measuredBy": "rj",
                 "dimension": "length",
-                "valueDate": "2011-11-08",
-                "measurementUnit": "cm",
                 "value": "80",
-                "valueQualifier": "close enough for govt work",
-                "measurementMethod": "eyeball"
+                "measurementMethod": "eyeball",
+                "measurementUnit": "cm",
+                "_primary": true
+            }],
+            "dimensionSummary": "",
+            "measuredPart": "other arm"
+        }
+    ],
+    "titleGroup": [
+        {
+            "titleType": "assigned-by-artist",
+            "titleLanguage": "deu",
+            "title": "Der Ring des Nibelungen",
+            "titleTranslationSubGroup": [
+                {
+                    "titleTranslation": "The Ring Cycle",
+                    "titleTranslationLanguage": "eng",
+                    "_primary": true
+                },
+                {
+                    "titleTranslation": "Ringling Bros. / Barnum and Bailey's epic times",
+                    "titleTranslationLanguage": "ang"
+                }
+            ],
+            "_primary": true
+        },
+        {
+            "titleType": "collection",
+            "titleLanguage": "German",
+            "title": "Das Rheingold - Die Valküre - Siegfried - Götterdämmerung",
+            "titleTranslationSubGroup": [{
+                "titleTranslation": "The Rhein Gold - The Valkyrie - Siegfried - Twilight of the Gods",
+                "titleTranslationLanguage": "eng",
+                "_primary": true
             }]
         }
     ],
-    "ownershipExchangeNote": "",
-    "assocObjectGroup": [{
-        "_primary": true,
-        "assocObjectType": "",
-        "assocObjectNote": "",
-        "assocObject": ""
-    }]
+    "forms": [{
+        "form": "",
+        "_primary": true
+    }],
+    "age": "age"
 }
