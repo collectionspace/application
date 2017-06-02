@@ -333,4 +333,10 @@ public class CompositeWebUIRequestPart implements UIRequest {
 		pw.print(url);
 		pw.flush();
 	}
+
+	@Override
+	public String getTenant() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

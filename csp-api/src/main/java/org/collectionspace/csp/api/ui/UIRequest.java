@@ -43,6 +43,7 @@ public interface UIRequest {
 	public byte[] getbyteBody() throws UIException;
 	String getFileName() throws UIException;
 	Boolean isJSON() throws UIException;
+	String getTenant(); // returns the tenant domain -e.g., core.collectionspace.org
 
 	public int getCacheMaxAgeSeconds();
 	public void setCacheMaxAgeSeconds(int cacheMaxAgeSeconds);

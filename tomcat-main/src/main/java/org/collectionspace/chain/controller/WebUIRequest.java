@@ -521,4 +521,9 @@ public class WebUIRequest implements UIRequest {
 	public void sendURLReponse(String url) throws UIException {
 		response.setHeader("Location", url);
 	}
+	@Override
+	public String getTenant() {
+		// TODO Auto-generated method stub
+		return this.umbrella.getWebUI().getTenant();
+	}
 }

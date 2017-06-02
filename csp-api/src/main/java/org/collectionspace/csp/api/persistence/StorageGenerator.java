@@ -15,4 +15,5 @@ public interface StorageGenerator {
 	
 	public Storage getStorage(CSPRequestCredentials credentials,CSPRequestCache cache);
 	public CSPRequestCredentials createCredentials();
+	public String getTenant();
 }

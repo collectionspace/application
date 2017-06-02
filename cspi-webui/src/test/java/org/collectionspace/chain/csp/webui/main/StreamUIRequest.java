@@ -264,4 +264,10 @@ public class StreamUIRequest implements UIRequest {
 		println(out, url);
 	}
 
+	@Override
+	public String getTenant() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
