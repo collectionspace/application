@@ -198,8 +198,9 @@ public class ServicesConnection {
 				if (releaseConnection == true) {
 					method.releaseConnection();
 					// Only release the connection if we know the associated response stream has been
-					// read and processed. Response streams are instances of AutoCloseInputStream, which will automatically
-					// close after being read but will also close when the HttpMethod connection is closed.
+					// read and processed. The response streams are instances of AutoCloseInputStream, which will automatically
+					// close after being read. Also, the AutoCloseInputStream response streams will close their corresponding HttpMethod instance connection
+					// once their data has been completely consumed.
 				}
 				
 				if (log.isTraceEnabled()) {

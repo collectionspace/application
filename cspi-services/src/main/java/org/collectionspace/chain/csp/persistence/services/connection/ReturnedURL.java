@@ -36,7 +36,7 @@ public class ReturnedURL implements Returned {
 
 	@Override
 	public boolean setResponse(HttpMethod method, int status) throws Exception {
-		boolean result = true; // it's ok to release the parent connection
+		boolean result = true; // it's ok to release the parent connection since we consume the entire response stream here
 		
 		String possiblemessg = method.getResponseBodyAsString();
 		Header location = method.getResponseHeader("Location");

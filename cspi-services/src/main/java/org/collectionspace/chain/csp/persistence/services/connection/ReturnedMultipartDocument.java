@@ -60,7 +60,7 @@ public class ReturnedMultipartDocument implements Returned {
 	
 	@Override
 	public boolean setResponse(HttpMethod method, int status) throws Exception  {
-		boolean result = true; // it's ok to release the parent connection
+		boolean result = true; // it's ok to release the parent connection since we consume the entire response stream here
 		
 		setStatus(status);
 		InputStream stream=method.getResponseBodyAsStream();

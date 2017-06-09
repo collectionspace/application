@@ -32,7 +32,7 @@ public class ReturnUnknown implements Returned {
 
 	@Override
 	public boolean setResponse(HttpMethod method, int status) throws IOException, DocumentException {
-		boolean result = false; // it's ok to release the parent connection
+		boolean result = false; // it's NOT ok to release the parent connection since we don't consume the entire response stream here
 		
 		this.parentMethod = method;  // save a reference to the parent connection so we can release it later
 		this.status = status;
