@@ -45,6 +45,8 @@ public class ReturnedMultipartDocument implements Returned {
 	public String[] listDocuments() { return docs.keySet().toArray(new String[0]); }
 	public Document getDocument(String name) { return docs.get(name); }
 	private void setStatus(int status) { this.status = status; }
+	
+	@Override
 	public int getStatus() { return status; }
         public boolean isErrorStatus() {
            return ((getStatus() >= ERROR_STATUS_START_VALUE)? true : false);
@@ -56,7 +58,10 @@ public class ReturnedMultipartDocument implements Returned {
 	private void addDocument(String name,Document doc) { docs.put(name,doc); }	
 	
 	
-	public void setResponse(HttpMethod method, int status) throws Exception  {
+	@Override
+	public boolean setResponse(HttpMethod method, int status) throws Exception  {
+		boolean result = true; // it's ok to release the parent connection
+		
 		setStatus(status);
 		InputStream stream=method.getResponseBodyAsStream();
 		SAXReader reader=new SAXReader();
@@ -88,6 +93,8 @@ public class ReturnedMultipartDocument implements Returned {
 	        }
 		}
 		stream.close();
+		
+		return result;
 	}
 	
 }
