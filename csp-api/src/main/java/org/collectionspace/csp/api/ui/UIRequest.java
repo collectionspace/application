@@ -35,6 +35,8 @@ public interface UIRequest {
 	public void sendUnknown(InputStream data, String contenttype, String contentDisposition) throws UIException;
 	public void sendJSONResponse(JSONObject out) throws UIException;
 	public void sendJSONResponse(JSONArray out) throws UIException;
+	public void setStatus(int status);
+	public Integer getStatus();
 
 	JSONObject getJSONBody() throws UIException;
 	JSONObject getPostBody() throws UIException;
