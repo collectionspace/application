@@ -95,4 +95,9 @@ public class FileStorage extends ProxyStorage implements CSP, Configurable, Stor
 	
 	@Override
 	public CSPRequestCredentials createCredentials() { return null; }
+	@Override
+	public String getTenant() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

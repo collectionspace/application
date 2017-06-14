@@ -1,4 +1,14 @@
 <instances>
+    <instance id="vocab-floweringstatus">
+        <web-url>floweringstatus</web-url>
+        <title-ref>floweringstatus</title-ref>
+        <title>Flowering Status</title>
+        <options>
+            <option id="no" default="No">No</option>
+            <option id="some">Some</option>
+            <option id="many">Many</option>
+        </options>
+    </instance>
     <instance id="vocab-fertilizerused">
       <web-url>fertilizerused</web-url>
       <title-ref>fertilizerused</title-ref>

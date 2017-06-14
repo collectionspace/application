@@ -53,7 +53,8 @@ public class StructuredDateParser implements WebMethod {
 			}
 			
 			if (structuredDate != null) {
-				output.put("structuredDate", structuredDateToJSON(structuredDate));
+				String tenantDomain = request.getTenant();
+				output.put("structuredDate", structuredDateToJSON(tenantDomain, structuredDate));
 			}
 		}
 		catch(JSONException e) {
@@ -63,7 +64,7 @@ public class StructuredDateParser implements WebMethod {
 		request.sendJSONResponse(output);
 	}
 	
-	private JSONObject structuredDateToJSON(StructuredDate structuredDate) throws JSONException {
+	private JSONObject structuredDateToJSON(String tenantDomain, StructuredDate structuredDate) throws JSONException {
 		JSONObject json = new JSONObject();
 		
 		String displayDate = structuredDate.getDisplayDate();
@@ -78,14 +79,14 @@ public class StructuredDateParser implements WebMethod {
 		json.put("dateAssociation", (association != null) ? association : "");
 		json.put("datePeriod", (period != null) ? period : "");
 		json.put("dateNote", (note != null) ? note : "");
-		addDateFieldsToJSON(json, earliestSingleDate, "dateEarliestSingle");
-		addDateFieldsToJSON(json, latestDate, "dateLatest");
+		addDateFieldsToJSON(tenantDomain, json, earliestSingleDate, "dateEarliestSingle");
+		addDateFieldsToJSON(tenantDomain, json, latestDate, "dateLatest");
 		json.put("scalarValuesComputed", (scalarValuesComputed != null) ? scalarValuesComputed : false);
 		
 		return json;
 	}
 	
-	private void addDateFieldsToJSON(JSONObject json, Date date, String prefix) throws JSONException {
+	private void addDateFieldsToJSON(String tenantDomain, JSONObject json, Date date, String prefix) throws JSONException {
 		Integer year = null;
 		Integer month = null;
 		Integer day = null;
@@ -109,7 +110,7 @@ public class StructuredDateParser implements WebMethod {
 		json.put(prefix + "Year", (year != null) ? year.toString() : "");
 		json.put(prefix + "Month", (month != null) ? month.toString() : "");
 		json.put(prefix + "Day", (day != null) ? day.toString() : "");
-		json.put(prefix + "Era", (era != null) ? era.toString() : "");
+		json.put(prefix + "Era", (era != null) ? era.toString(tenantDomain) : "");
 		json.put(prefix + "Certainty", (certainty != null) ? certainty.toString() : "");
 		json.put(prefix + "Qualifier", (qualifierType != null) ? qualifierType.toString() : "");
 		json.put(prefix + "QualifierValue", (qualifierValue != null) ? qualifierValue.toString() : "");

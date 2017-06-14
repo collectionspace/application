@@ -129,8 +129,8 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		try {
 			storage.getPathsJSON(url,new JSONObject()).toString();
 			if (tty != null) {
-				log.info("--- Instance " + instance.getID() + " Exists.");
-				tty.append("--- Instance " + instance.getID() + " Exists.\n");
+				log.debug("--- Instance " + instance.getID() + " exists.");
+				tty.append("--- Instance " + instance.getID() + " exists.\n");
 			}
 		} catch (UnderlyingStorageException e) {
 			if (e.getStatus() == HttpStatus.SC_NOT_FOUND) {

@@ -35,6 +35,7 @@ public class StreamUIRequest implements UIRequest {
 	private Operation request;
 	private Map<String,String> rargs=new HashMap<String,String>();
 	private Map<String,String> qargs=new HashMap<String,String>();
+	private Integer status = null;
 
 	public StreamUIRequest(InputStream in,OutputStream out,OutputStream err,Operation request,String[] path,Map<String,String> args) throws IOException {
 		this.ibody=in;
@@ -262,6 +263,22 @@ public class StreamUIRequest implements UIRequest {
 	@Override
 	public void sendURLReponse(String url) throws UIException {
 		println(out, url);
+	}
+
+	@Override
+	public String getTenant() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	@Override
+	public Integer getStatus() {
+		return status;
 	}
 
 }

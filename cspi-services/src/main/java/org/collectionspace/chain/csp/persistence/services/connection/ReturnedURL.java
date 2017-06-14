@@ -34,7 +34,10 @@ public class ReturnedURL implements Returned {
 		return url.substring(last+1);
 	}
 
-	public void setResponse(HttpMethod method, int status) throws Exception {
+	@Override
+	public boolean setResponse(HttpMethod method, int status) throws Exception {
+		boolean result = true; // it's ok to release the parent connection since we consume the entire response stream here
+		
 		String possiblemessg = method.getResponseBodyAsString();
 		Header location = method.getResponseHeader("Location");
 		this.status = status;
@@ -52,6 +55,7 @@ public class ReturnedURL implements Returned {
 		}
 		
 		url = location.getValue();
+		return result;
 	}
 	
 	public void relativize(String base_url) {

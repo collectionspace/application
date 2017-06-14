@@ -165,6 +165,8 @@ public class ServicesConnection {
 				// XXX Not sure if or when this ever actually writes to stderr?
 				body_data = new TeeInputStream(body_data, System.err);
 			}
+			
+			boolean releaseConnection = true;
 			try {
 				HttpClient client = makeClient(creds, cache);
 
@@ -185,7 +187,7 @@ public class ServicesConnection {
 					perflog.debug(System.currentTimeMillis() + ",\"" + Thread.currentThread().getName() + "\",svc,app," + requestContext + "HttpClient.executeMethod done");
 				}
 
-				out.setResponse(method, response);
+				releaseConnection = out.setResponse(method, response);
 			} catch (ConnectionException ce) {
 				throw new ConnectionException(ce.getMessage(), ce.getStatus(), base_url + "/" + uri, ce);
 			} catch (ExistException ee) {
@@ -193,11 +195,13 @@ public class ServicesConnection {
 			} catch (Exception e) {
 				throw new ConnectionException(e.getMessage(), 0, base_url + "/" + uri, e);
 			} finally {
-				method.releaseConnection();
-				// Don't release the connection, since the associated input stream has not yet been
-				// read. That stream is an instance of AutoCloseInputStream, which will automatically
-				// release the connection once it has been read to the end. In theory we shouldn't
-				// have to explicitly release it -i.e., using method.releaseConnection();
+				if (releaseConnection == true) {
+					method.releaseConnection();
+					// Only release the connection if we know the associated response stream has been
+					// read and processed. The response streams are instances of AutoCloseInputStream, which will automatically
+					// close after being read. Also, the AutoCloseInputStream response streams will close their corresponding HttpMethod instance connection
+					// once their data has been completely consumed.
+				}
 				
 				if (log.isTraceEnabled()) {
 					log.trace("HTTP connection pool size: " + manager.getConnectionsInPool());

@@ -1,6 +1,104 @@
 <?xml version="1.0"?>
 <root>
+    <include src="extensions/livingplant-vocabularies.xml" strip-root="yes"/>
+    <include src="extensions/annotation-vocabularies.xml" strip-root="yes" />
     <include src="extensions/naturalhistory-vocabularies.xml" strip-root="yes" />
+    
+    <instance id="vocab-propReason">
+        <web-url>propreason</web-url>
+        <title-ref>propreason</title-ref>
+        <title>propreason</title>
+        <options>
+            <option id="classuse">class use</option>
+            <option id="research">research</option>
+            <option id="gardencollection">garden collection</option>
+            <option id="distribution">distribution</option>
+            <option id="conservation">conservation</option>
+        </options>
+    </instance>
+    
+    <instance id="vocab-propType">
+        <web-url>proptype</web-url>
+        <title-ref>proptype</title-ref>
+        <title>proptype</title>
+        <options>
+            <option id="seed">Seed</option>
+            <option id="cutting">Cutting</option>
+            <option id="livingplant">Living Plant</option>
+            <option id="division">Division</option>
+            <option id="bulbcormtuber">Bulb/Corm/Tuber</option>
+            <option id="graft">Graft</option>
+            <option id="tissueculture">Tissue Culture</option>
+        </options>
+    </instance>
+    
+    <instance id="vocab-scarStrat">
+        <web-url>scarstrat</web-url>
+        <title-ref>scarstrat</title-ref>
+        <title>scarstrat</title>
+        <options>
+            <option id="abrade">abrade</option>
+            <option id="boilingwater">boiling water</option>
+            <option id="GA3">GA3</option>
+            <option id="fire">fire</option>
+            <option id="freeze">freeze</option>
+            <option id="isopropylalcohol">isopropyl alcohol</option>
+            <option id="nick">nick</option>
+            <option id="pericarpremovedbroken">pericarp removed/broken</option>
+            <option id="seedcoatremoved">seed coat removed</option>
+            <option id="sulfuricacid">sulfuric acid</option>
+            <option id="coldstrat">cold strat</option>
+            <option id="warmstrat">warm strat</option>
+            <option id="smoke">smoke</option>
+            <option id="watersoak">water soak</option>
+        </options>
+    </instance>
+    
+    <instance id="vocab-durationUnit">
+        <web-url>durationunit</web-url>
+        <title-ref>durationunit</title-ref>
+        <title>durationunit</title>
+        <options>
+            <option id="hours">Hours</option>
+            <option id="days">Days</option>
+            <option id="weeks">Weeks</option>
+            <option id="months">Months</option>
+        </options>
+    </instance>
+
+    <instance id="vocab-cuttingType">
+        <web-url>cuttingtype</web-url>
+        <title-ref>cuttingtype</title-ref>
+        <title>cuttingtype</title>
+        <options>
+            <option id="softwood">softwood</option>
+            <option id="semihardwood">semi-hardwood</option>
+            <option id="hardwood">hardwood</option>
+            <option id="heel">heel</option>
+            <option id="dormant">dormant</option>
+            <option id="root">root</option>
+        </options>
+    </instance>
+    
+    <instance id="vocab-labelstandtype">
+        <web-url>labelstandtype</web-url>
+        <title-ref>labelstandtype</title-ref>
+        <title>labelstandtype</title>
+        <options>
+            <option id="dowel">dowel</option>
+            <option id="stake">stake</option>
+        </options>
+    </instance>
+    <instance id="vocab-labelsize">
+        <web-url>labelsize</web-url>
+        <title-ref>labelsize</title-ref>
+        <title>labelsize</title>
+        <options>
+            <option id="OneByThree">1x3</option>
+            <option id="OnePointFiveByFive">1.5x5</option>
+            <option id="ThreeByFive">3x5</option>
+        </options>
+    </instance>
     <instance id="vocab-provenanceType">
         <web-url>provenancetype</web-url>
         <title-ref>provenancetype</title-ref>

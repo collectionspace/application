@@ -40,22 +40,9 @@
 			</options>
 		</field>
 
-		<field id="labelSize" section="botgarden">
-			<options>
-				<option id="">Please select a value</option>
-				<option id="1x3">1x3</option>
-				<option id="1.5x5">1.5x5</option>
-				<option id="3x5">3x5</option>
-			</options>
-		</field>
+	    <field id="labelSize" autocomplete="vocab-labelsize" ui-type="enum" section="botgarden"/>
 
-		<field id="labelStandType" section="botgarden">
-			<options>
-				<option id="">Please select a value</option>
-				<option id="dowel">dowel</option>
-				<option id="stake">stake</option>
-			</options>
-		</field>
+	    <field id="labelStandType" autocomplete="vocab-labelstandtype" ui-type="enum" section="botgarden"/>
 
 		<field id="labelCount" ui-type="validated" datatype="integer" section="botgarden"/>
 	</section>

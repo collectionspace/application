@@ -48,6 +48,7 @@ public class CompositeWebUIRequestPart implements UIRequest {
 	private String mime_type_out="";
 	private boolean failure=false;
 	private Exception exception;
+	private Integer status = null;
 	
 	public CompositeWebUIRequestPart(WebUIRequest parent,JSONObject query) throws JSONException, UIException {
 		this.parent=parent;
@@ -332,5 +333,21 @@ public class CompositeWebUIRequestPart implements UIRequest {
 		PrintWriter pw=new PrintWriter(body_out);
 		pw.print(url);
 		pw.flush();
+	}
+
+	@Override
+	public String getTenant() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setStatus(int status) {
+		this.status  = status;
+	}
+
+	@Override
+	public Integer getStatus() {
+		return status;
 	}
 }

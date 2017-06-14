@@ -11,9 +11,15 @@ import org.apache.commons.httpclient.HttpMethod;
 public class ReturnedNone implements Returned {
 	private int status;
 	
-	public void setResponse(HttpMethod method, int status) throws Exception {
+	@Override
+	public boolean setResponse(HttpMethod method, int status) throws Exception {
+		boolean result = true; // it's ok to release the parent connection
+		
 		this.status=status;
+		
+		return result;
 	}
 	
+	@Override
 	public int getStatus() { return status; }
 }

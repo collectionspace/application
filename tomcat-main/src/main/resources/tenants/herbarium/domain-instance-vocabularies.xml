@@ -11,26 +11,6 @@
             <option id="air">air</option>
         </options>
     </instance>
-    <instance id="vocab-hybridparentqualifier">
-        <web-url>hybridparentqualifier</web-url>
-        <title-ref>hybridparentqualifier</title-ref>
-        <title>Hybrid Parent Qualifier</title>
-        <options>
-            <option id="unknown">unknown</option>
-            <option id="cf">cf.</option>
-            <option id="fide">fide</option>
-            <option id="forsan">forsan</option>
-            <option id="group">group</option>
-            <option id="hybrid">hybrid (X)</option>
-            <option id="sensu">sensu</option>
-            <option id="sensu_lato">sensu lato</option>
-            <option id="sensu_stricto">sensu stricto</option>
-            <option id="series">series</option>
-            <option id="vide">vide</option>
-            <option id="intermediate">intermediate</option>
-            <option id="question">? </option> <!-- display name must have at least 2 characters -->
-        </options>
-    </instance>
     <instance id="vocab-herbariumform">
         <web-url>herbariumform</web-url>
         <title-ref>herbariumform</title-ref>
@@ -48,19 +28,6 @@
             <option id="box">Box</option>
             <option id="bag">Bag</option>
             <option id="map">Map</option>
-        </options>
-    </instance>
-    <instance id="vocab-assoctaxoninteraction">
-        <web-url>assoctaxoninteraction</web-url>
-        <title-ref>assoctaxoninteraction</title-ref>
-        <title>Associated Taxon Interactions</title>
-        <options>
-            <option id="lives_grows_with">lives/grows with</option>
-            <option id="lives_on">lives on</option>
-            <option id="living_under">living under</option>
-            <option id="physically_supported_by">is physically supported by</option>
-            <option id="epiphytic_on">is epiphytic on</option>
-            <option id="endophytic_in">is endophytic in</option>
         </options>
     </instance>
     <instance id="vocab-taxonmajorgroup">

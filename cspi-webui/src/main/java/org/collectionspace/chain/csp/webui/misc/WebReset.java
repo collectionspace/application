@@ -128,7 +128,7 @@ public class WebReset implements WebMethod {
 									}
 								}
 								else {
-									logInitMessage(responseMessage, "Instance " + instance.getID() + " is not referenced.", modifyResponse);
+									logInitMessage(responseMessage, "Instance " + instance.getID() + " is defined by not referenced.", modifyResponse);
 								}
 							}
 						}

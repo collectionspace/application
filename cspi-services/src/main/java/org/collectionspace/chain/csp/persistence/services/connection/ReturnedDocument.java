@@ -39,7 +39,9 @@ public class ReturnedDocument implements Returned {
 	}
 
 	@Override
-	public void setResponse(HttpMethod method, int status) throws IOException, DocumentException {
+	public boolean setResponse(HttpMethod method, int status) throws IOException, DocumentException {
+		boolean result = true; // it's ok to release the parent connection since we consume the entire response stream here
+		
 		this.status = status;
 		InputStream stream = method.getResponseBodyAsStream();
 		SAXReader reader = new SAXReader();
@@ -62,5 +64,7 @@ public class ReturnedDocument implements Returned {
 		}
 		stream.close();
 		doc = out;
+		
+		return result;
 	}
 }

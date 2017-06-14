@@ -40,18 +40,18 @@
             <field id="ignoreRedDot" datatype="boolean" section="accessionattributes"></field>
             <field id="fragrance" datatype="boolean" section="accessionattributes"></field>
             <section id="flowers" section="accessionattributes">
-                <field id="flowersJan" datatype="boolean" section="accessionattributes"></field>
-                <field id="flowersFeb" datatype="boolean" section="accessionattributes"></field>
-                <field id="flowersMar" datatype="boolean" section="accessionattributes"></field>
-                <field id="flowersApr" datatype="boolean" section="accessionattributes"></field>
-                <field id="flowersMay" datatype="boolean" section="accessionattributes"></field>
-                <field id="flowersJun" datatype="boolean" section="accessionattributes"></field>
-                <field id="flowersJul" datatype="boolean" section="accessionattributes"></field>
-                <field id="flowersAug" datatype="boolean" section="accessionattributes"></field>
-                <field id="flowersSep" datatype="boolean" section="accessionattributes"></field>
-                <field id="flowersOct" datatype="boolean" section="accessionattributes"></field>
-                <field id="flowersNov" datatype="boolean" section="accessionattributes"></field>
-                <field id="flowersDec" datatype="boolean" section="accessionattributes"></field>
+                <field id="flowersJan" autocomplete="vocab-floweringstatus" ui-type="enum" section="accessionattributes"/>
+                <field id="flowersFeb" autocomplete="vocab-floweringstatus" ui-type="enum" section="accessionattributes"/>
+                <field id="flowersMar" autocomplete="vocab-floweringstatus" ui-type="enum" section="accessionattributes"/>
+                <field id="flowersApr" autocomplete="vocab-floweringstatus" ui-type="enum" section="accessionattributes"/>
+                <field id="flowersMay" autocomplete="vocab-floweringstatus" ui-type="enum" section="accessionattributes"/>
+                <field id="flowersJun" autocomplete="vocab-floweringstatus" ui-type="enum" section="accessionattributes"/>
+                <field id="flowersJul" autocomplete="vocab-floweringstatus" ui-type="enum" section="accessionattributes"/>
+                <field id="flowersAug" autocomplete="vocab-floweringstatus" ui-type="enum" section="accessionattributes"/>
+                <field id="flowersSep" autocomplete="vocab-floweringstatus" ui-type="enum" section="accessionattributes"/>
+                <field id="flowersOct" autocomplete="vocab-floweringstatus" ui-type="enum" section="accessionattributes"/>
+                <field id="flowersNov" autocomplete="vocab-floweringstatus" ui-type="enum" section="accessionattributes"/>
+                <field id="flowersDec" autocomplete="vocab-floweringstatus" ui-type="enum" section="accessionattributes"/>
             </section>
             <section id="fruits" section="accessionattributes">
                 <field id="fruitsJan" datatype="boolean" section="accessionattributes"></field>

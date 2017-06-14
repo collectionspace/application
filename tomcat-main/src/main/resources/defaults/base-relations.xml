@@ -8,8 +8,8 @@
         <object>1</object>
         <showsiblings>equivalentContexts:equivalentContext</showsiblings>
         <directional>false</directional>
-				<!-- Groan - the code that handles generic relations uses services-url 
-						 as the types against which it checks, while the hierarchy code 
+				<!-- Groan - the code that handles generic relations uses services-url
+						 as the types against which it checks, while the hierarchy code
 						 uses the record id. Ugh. -->
         <sourceTypes>location,locationauthorities,personauthorities,person,citationauthorities,citation,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities,collection-object,work,workauthorities,material,materialauthorities</sourceTypes>
         <destinationTypes>location,locationauthorities,personauthorities,person,citationauthorities,citation,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities,collection-object,work,workauthorities,material,materialauthorities</destinationTypes>
@@ -24,8 +24,8 @@
         <object>n</object>
         <childname>narrowerContext</childname>
         <directional>false</directional>
-				<!-- Groan - the code that handles generic relations uses services-url 
-						 as the types against which it checks, while the hierarchy code 
+				<!-- Groan - the code that handles generic relations uses services-url
+						 as the types against which it checks, while the hierarchy code
 						 uses the record id. Ugh. -->
         <sourceTypes>location,locationauthorities,personauthorities,person,citationauthorities,citation,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities,collection-object,work,workauthorities,material,materialauthorities</sourceTypes>
         <destinationTypes>location,locationauthorities,personauthorities,person,citationauthorities,citation,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities,collection-object,work,workauthorities,material,materialauthorities</destinationTypes>
@@ -34,15 +34,15 @@
     <relation id="broader">
         <displayName>has broader term</displayName>
         <directional>true</directional>
-        <type>hierarchical</type>    
-        <sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media,exhibitions,conditionchecks,conservation,valuationcontrols,osteology</sourceTypes>
-        <destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media,exhibitions,conditionchecks,conservation,valuationcontrols,osteology</destinationTypes>
+        <type>hierarchical</type>
+        <sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media,exhibitions,conditionchecks,conservation,valuationcontrols,claims,osteology</sourceTypes>
+        <destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media,exhibitions,conditionchecks,conservation,valuationcontrols,claims,osteology</destinationTypes>
     </relation>
     <relation id="affects">
         <displayName>affects</displayName>
         <directional>false</directional>
-				<!-- Groan - the code that handles generic relations uses services-url 
-						 as the types against which it checks, while the hierarchy code 
+				<!-- Groan - the code that handles generic relations uses services-url
+						 as the types against which it checks, while the hierarchy code
 						 uses the record id. Ugh. -->
         <sourceTypes>collectionobjects,intakes,acquisitions,groups,loansin,loansout,movements,objectexit,media,exhibitions,conditionchecks,conservation,valuationcontrols,claims,osteology</sourceTypes>
         <destinationTypes>collectionobjects,intakes,acquisitions,groups,loansin,loansout,movements,objectexit,media,exhibitions,conditionchecks,conservation,valuationcontrols,claims,osteology</destinationTypes>

@@ -573,7 +573,7 @@ public class RecordCreateUpdate implements WebMethodWithOps {
 					request.setSecondaryRedirectPath(new String[]{url_base,path});
 			}
 		} catch (JSONException x) {
-			throw new UIException("Failed to parse json: "+x,x);
+			throw new UIException("Failed to parse JSON: "+x,x);
 		} catch (ExistException x) {
 			UIException uiexception =  new UIException(x.getMessage(),0,"",x);
 			request.sendJSONResponse(uiexception.getJSON());
@@ -581,6 +581,7 @@ public class RecordCreateUpdate implements WebMethodWithOps {
 			throw new UIException("Unimplemented exception: "+x,x);
 		} catch (UnderlyingStorageException x) {
 			UIException uiexception =  new UIException(x.getMessage(),x.getStatus(),x.getUrl(),x);
+			request.setStatus(x.getStatus());
 			request.setFailure(true, uiexception);
 			request.sendJSONResponse(uiexception.getJSON());			
 		}catch (Exception x) {

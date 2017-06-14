@@ -103,6 +103,10 @@ public class WebUI implements CSP, UI, Configurable {
 	public String getName() {
 		return "ui.webui";
 	}
+	
+	public String getTenant() {
+		return xxx_storage.getTenant();
+	}
 
 	public String getUISpecPath() {
 		return uispec_path;

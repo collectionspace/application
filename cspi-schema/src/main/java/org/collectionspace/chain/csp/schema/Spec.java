@@ -58,6 +58,7 @@ public class Spec implements CSP, Configurable {
 	private Map<String, Structure> structure=new HashMap<String,Structure>();
 	private String version;
 	private String tenantid;
+	private String tenantname;
 	private EmailData ed;
 	private AdminData adminData;
 	
@@ -70,7 +71,11 @@ public class Spec implements CSP, Configurable {
 	
 	public String getTenantID() {
 		return tenantid;
-	}	
+	}
+	
+	public String getTenantName() {
+		return tenantname;
+	}
 
 	@Override
 	public void go(CSPContext ctx) throws CSPDependencyException {
@@ -79,14 +84,13 @@ public class Spec implements CSP, Configurable {
 
 	@Override
 	public void configure(RuleSet rules) {
-
-		
 		
 		/* MAIN/tenantid -> string */
 		rules.addRule(SECTIONED,new String[]{"tenantid"},SECTION_PREFIX+"tenantid",null,new RuleTarget(){
 			@Override
 			public Object populate(Object parent, ReadOnlySection section) {
 				tenantid=(String)section.getValue("");
+				tenantname = (String)section.getParent().getValue("/@tenantname");
 				return this;
 			}
 		});

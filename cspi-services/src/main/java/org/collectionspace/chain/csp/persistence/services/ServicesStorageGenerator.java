@@ -199,4 +199,10 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 	public CSPRequestCredentials createCredentials() {
 		return new ServicesRequestCredentials();
 	}
+
+	@Override
+	public String getTenant() {
+		// TODO Auto-generated method stub
+		return this.getTenantData().getTenant();
+	}
 }

@@ -1,0 +1,154 @@
+<record id="claim" is-extension="true">
+	<services-record-path id="nagpra">claims_nagpra:http://collectionspace.org/services/claim/domain/nagpra,claims_nagpra</services-record-path>
+
+	<section id="claimInformation">
+		<field id="nagpraClaimName" ui-search="repeatable" section="nagpra" in-title="yes" mini="summary,search,list,relate"></field>
+		
+		<repeat id="nagpraClaimTypes" section="nagpra">
+			<field id="nagpraClaimType" ui-search="repeatable" section="nagpra" seperate_ui_container="true" autocomplete="vocab-nagpraclaimtype" ui-type="enum" />
+		</repeat>
+		
+		<repeat id="nagpraClaimAltNameGroupList/nagpraClaimAltNameGroup" section="nagpra">
+			<field id="nagpraClaimAltName" section="nagpra"></field>
+			<field id="nagpraClaimAltNameNote" section="nagpra"></field>
+		</repeat>
+
+		<repeat id="nagpraClaimNotes" section="nagpra">
+			<field id="nagpraClaimNote" section="nagpra"></field>
+		</repeat>
+	</section>
+	
+	<section id="claimAssociationInformation">
+		<repeat id="nagpraClaimSiteGroupList/nagpraClaimSiteGroup" section="nagpra">
+			<field id="nagpraClaimSiteName" section="nagpra" autocomplete="place-place,place-place_shared"></field>
+			<field id="nagpraClaimSiteNote" section="nagpra"></field>
+		</repeat>
+
+		<repeat id="nagpraClaimGroupGroupList/nagpraClaimGroupGroup" section="nagpra">
+			<field id="nagpraClaimGroupName" section="nagpra" autocomplete="concept-ethculture"></field>
+			<field id="nagpraClaimGroupNote" section="nagpra"></field>
+		</repeat>
+
+		<repeat id="nagpraClaimPeriodGroupList/nagpraClaimPeriodGroup" section="nagpra">
+			<group id="nagpraClaimPeriodDateGroup" section="nagpra" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
+				<!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
+				<field id="dateDisplayDate" section="nagpra"/>
+				<field id="dateAssociation" section="nagpra"/>
+				<field id="dateEarliestSingleYear" section="nagpra"/>
+				<field id="dateEarliestSingleMonth" section="nagpra"/>
+				<field id="dateEarliestSingleDay" section="nagpra"/>
+				<field id="dateEarliestSingleEra" section="nagpra"/>
+				<field id="dateEarliestSingleCertainty" section="nagpra"/>
+				<field id="dateEarliestSingleQualifier" section="nagpra"/>
+				<field id="dateEarliestSingleQualifierValue" section="nagpra"/>
+				<field id="dateEarliestSingleQualifierUnit" section="nagpra"/>
+				<field id="dateLatestYear" section="nagpra"/>
+				<field id="dateLatestMonth" section="nagpra"/>
+				<field id="dateLatestDay" section="nagpra"/>
+				<field id="dateLatestEra" section="nagpra"/>
+				<field id="dateLatestCertainty" section="nagpra"/>
+				<field id="dateLatestQualifier" section="nagpra"/>
+				<field id="dateLatestQualifierValue" section="nagpra"/>
+				<field id="dateLatestQualifierUnit" section="nagpra"/>
+				<field id="datePeriod" section="nagpra"/>
+				<field id="dateNote" section="nagpra"/>
+				<field id="dateEarliestScalarValue" section="nagpra"/>
+				<field id="dateLatestScalarValue" section="nagpra"/>
+				<field id="scalarValuesComputed" section="nagpra"/>
+			</group>
+			<field id="nagpraClaimPeriodNote" section="nagpra"/>
+		</repeat>
+	</section>
+
+	<section id="claimProcessingInformation">
+		<repeat id="nagpraClaimInitialResponseGroupList/nagpraClaimInitialResponseGroup" section="nagpra">
+			<field id="nagpraClaimInitialResponseDate" section="nagpra" ui-type="date" datatype="date"></field>
+			<field id="nagpraClaimInitialResponseNote" section="nagpra"></field>
+		</repeat>
+
+		<repeat id="nagpraClaimSentToLocalGroupList/nagpraClaimSentToLocalGroup" section="nagpra">
+			<field id="nagpraClaimSentToLocalDate" section="nagpra" ui-type="date" datatype="date"></field>
+			<field id="nagpraClaimSentToLocalNote" section="nagpra"></field>
+		</repeat>
+
+		<repeat id="nagpraClaimLocalRecGroupList/nagpraClaimLocalRecGroup" section="nagpra">
+			<field id="nagpraClaimLocalRecDate" section="nagpra" ui-type="date" datatype="date"></field>
+			<field id="nagpraClaimLocalRecNote" section="nagpra"></field>
+		</repeat>
+
+		<repeat id="nagpraClaimSentToNatlGroupList/nagpraClaimSentToNatlGroup" section="nagpra">
+			<field id="nagpraClaimSentToNatlDate" section="nagpra" ui-type="date" datatype="date"></field>
+			<field id="nagpraClaimSentToNatlNote" section="nagpra"></field>
+		</repeat>
+
+		<repeat id="nagpraClaimNatlRespGroupList/nagpraClaimNatlRespGroup" section="nagpra">
+			<field id="nagpraClaimNatlRespDate" section="nagpra" ui-type="date" datatype="date"></field>
+			<field id="nagpraClaimNatlRespNote" section="nagpra"></field>
+		</repeat>
+
+		<repeat id="nagpraClaimNatlApprovalGroupList/nagpraClaimNatlApprovalGroup" section="nagpra">
+			<field id="nagpraClaimNatlApprovalDate" section="nagpra" ui-type="date" datatype="date"></field>
+			<field id="nagpraClaimNatlApprovalNote" section="nagpra"></field>
+		</repeat>
+
+		<repeat id="nagpraClaimNoticeGroupList/nagpraClaimNoticeGroup" section="nagpra">
+			<field id="nagpraClaimNoticeDate" section="nagpra" ui-type="date" datatype="date"></field>
+			<field id="nagpraClaimNoticeDateType" section="nagpra" seperate_ui_container="true">
+				<options>
+					<option id="begin">period begins</option>
+					<option id="end">period ends</option>
+				</options>
+			</field>
+			<field id="nagpraClaimNoticeNote" section="nagpra"></field>
+		</repeat>
+
+		<repeat id="nagpraClaimTransferGroupList/nagpraClaimTransferGroup" section="nagpra">
+			<field id="nagpraClaimTransferDate" section="nagpra" ui-type="date" datatype="date"></field>
+			<field id="nagpraClaimTransferNote" section="nagpra"></field>
+		</repeat>
+
+		<field id="dispositionPossibilitiesDiscussed" section="nagpra" datatype="boolean"/>
+		<field id="dispositionPossibilitiesDiscussedNote" section="nagpra"/>
+
+		<field id="surroundingTribesContacted" section="nagpra" datatype="boolean"/>
+		<field id="surroundingTribesContactedNote" section="nagpra"/>
+
+		<field id="workingTeamNotified" section="nagpra" datatype="boolean"/>
+		<field id="workingTeamNotifiedNote" section="nagpra"/>
+
+		<field id="siteFileResearchCompleted" section="nagpra" datatype="boolean"/>
+		<field id="siteFileResearchCompletedNote" section="nagpra"/>
+
+		<field id="accessionFileResearchCompleted" section="nagpra" datatype="boolean"/>
+		<field id="accessionFileResearchCompletedNote" section="nagpra"/>
+
+		<field id="objectsLocatedAndCounted" section="nagpra" datatype="boolean"/>
+		<field id="objectsLocatedAndCountedNote" section="nagpra"/>
+
+		<field id="objectsConsolidated" section="nagpra" datatype="boolean"/>
+		<field id="objectsConsolidatedNote" section="nagpra"/>
+
+		<field id="objectsPhotographed" section="nagpra" datatype="boolean"/>
+		<field id="objectsPhotographedNote" section="nagpra"/>
+
+		<field id="registrationDocumentsDrafted" section="nagpra" datatype="boolean"/>
+		<field id="registrationDocumentsDraftedNote" section="nagpra"/>
+
+		<field id="tribeContactedForPackingPreferences" section="nagpra" datatype="boolean"/>
+		<field id="tribeContactedForPackingPreferencesNote" section="nagpra"/>
+
+		<field id="dateArrangedForTransfer" section="nagpra" datatype="boolean"/>
+		<field id="dateArrangedForTransferNote" section="nagpra"/>
+
+		<field id="objectsMarkedAsDeaccessioned" section="nagpra" datatype="boolean"/>
+		<field id="objectsMarkedAsDeaccessionedNote" section="nagpra"/>
+
+		<field id="documentsArchived" section="nagpra" datatype="boolean"/>
+		<field id="documentsArchivedNote" section="nagpra"/>
+	</section>
+
+	<!-- These are just here to generate message keys for the table/column headers. -->
+	<section id="claimTaskInformation"/>
+	<section id="claimTaskHeader"/>
+	<section id="claimTaskNotesHeader"/>
+</record>
