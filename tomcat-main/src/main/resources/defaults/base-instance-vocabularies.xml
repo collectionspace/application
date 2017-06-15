@@ -218,7 +218,7 @@
             <option id="approximate">Approximate</option>
             <option id="before">Before</option>
             <option id="circa">Circa</option>
-            <option id="probably">Probably</option>
+            <option id="probably">Probably</option> 
             <option id="possibly">Possibly</option>
         </options>
     </instance>
@@ -231,7 +231,7 @@
                 <option id="donor">Donor</option>
                 <option id="employee">Employee</option>
         </options>
-    </instance>
+    </instance>   
     <instance id="vocab-worktype">
         <web-url>worktype</web-url>
         <title-ref>worktype</title-ref>
@@ -270,7 +270,7 @@
             <option id="publisher">Publisher</option>
         </options>
     </instance>
-
+    
     <instance id="vocab-citationtermtype">
         <web-url>citationtermtype</web-url>
         <title-ref>citationtermtype</title-ref>
@@ -300,7 +300,7 @@
     			<option id="letter">Letter</option>
     			<option id="diary">Diary</option>
     			<option id="inventory">Inventory</option>
-    			<option id="verbalopinion">Verbal opinion</option>
+    			<option id="verbalopinion">Verbal opinion</option> 
         </options>
     </instance>
     <instance id="vocab-agentinfo">
@@ -308,18 +308,18 @@
         <title-ref>agentinfotype</title-ref>
         <title>agentinfoType</title>
         <options>
-                <option id="writer">Writer</option>
-                <option id="editor">Editor</option>
+                <option id="writer">Writer</option>  
+                <option id="editor">Editor</option>                                
         </options>
     </instance>
     <instance id="vocab-resourceid">
         <web-url>resourceidtype</web-url>
         <title-ref>resourceidtype</title-ref>
         <title>resourceidType</title>
-        <options>
-                <option id="isbn">ISBN</option>
-                <option id="issn">ISSN</option>
-                <option id="permalink">Permalink</option>
+        <options>                                                                 
+                <option id="isbn">ISBN</option> 
+                <option id="issn">ISSN</option> 				                
+                <option id="permalink">Permalink</option>                                 
         </options>
     </instance>
      <instance id="vocab-relationtype">
@@ -327,12 +327,12 @@
         <title-ref>relationtypetype</title-ref>
         <title>relationtypeType</title>
         <options>
-                <option id="monography">Monography (published in)</option>
-                <option id="magazine">Magazine (published in)</option>
-                <option id="exhibition">Exhibition</option>
-                <option id="facsimile">Facsimile of</option>
+                <option id="monography">Monography (published in)</option> 
+                <option id="magazine">Magazine (published in)</option> 
+                <option id="exhibition">Exhibition</option> 
+                <option id="facsimile">Facsimile of</option>                                
         </options>
-    </instance>
+    </instance>                                       
     <instance id="vocab-exhibitiontype">
         <web-url>exhibitiontype</web-url>
         <title-ref>exhibitiontype</title-ref>
