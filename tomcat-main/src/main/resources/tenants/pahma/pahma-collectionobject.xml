@@ -35,19 +35,8 @@
 				</options>
 			</field>
 		</repeat>
-		<field id="collection">
+		<field id="collection" autocomplete="vocab-objecttype" ui-type="enum">
 			<!-- Change options -->
-			<options>
-				<option id="">(none selected)</option>
-				<option id="(not specified)">(not specified)</option>
-				<option id="none (Registration)">none (Registration)</option>
-				<option id="archaeology">archaeology</option>
-				<option id="ethnography">ethnography</option>
-				<option id="documentation">documentation</option>
-				<option id="sample">sample</option>
-				<option id="indeterminate">indeterminate</option>
-				<option id="unknown">unknown</option>
-			</options>
 		</field>
 		<!-- Remove ui-search -->
 		<field id="recordStatus" ui-search="" >
@@ -209,36 +198,8 @@
 			<field id="pahmaAltNum" section="pahma" ui-search="repeatable" in-tab="yes">
 				<selector>collection-object-pahmaAltNum</selector>
 			</field>
-			<field id="pahmaAltNumType" section="pahma" in-tab="yes" seperate_ui_container="true">
+			<field id="pahmaAltNumType" section="pahma" autocomplete="vocab-pahmaaltnumber" ui-type="enum" in-tab="yes" seperate_ui_container="true">
 				<selector>collection-object-pahmaAltNumType</selector>
-				<options>
-					<option id="" default="yes">(none selected)</option>
-					<option id="additional number">additional number</option>
-					<option id="attributed pahma number">attributed PAHMA number</option>
-					<option id="burial number">burial number</option>
-					<option id="moac subobjid">moac subobjid</option>
-					<option id="museum number (recataloged to)">museum number (recataloged to)</option>
-					<option id="previous number">previous number</option>
-					<option id="previous number (albert bender’s number)">previous number (Albert Bender’s number)</option>
-					<option id="previous number (bascom’s number)">previous number (Bascom’s number)</option>
-					<option id="previous number (collector's original number)">previous number (collector's original number)</option>
-					<option id="previous number (design dept.)">previous number (Design Dept.)</option>
-					<option id="previous number (Lila M. O'Neale)">previous number (Lila M. O'Neale)</option>
-					<option id="previous number (mvc number, mossman-vitale collection)">previous number (MVC number, Mossman-Vitale collection)</option>
-					<option id="previous number (ucas: university of california archaeological survey)">previous number (UCAS: University of California Archaeological Survey)</option>
-					<option id="song number">song number</option>
-					<option id="tag">tag</option>
-					<option id="temporary number">temporary number</option>
-					<option id="(null)">(null)</option>
-					<option id="associated catalog number">associated catalog number</option>
-					<option id="field number">field number</option>
-					<option id="original number">original number</option>
-					<option id="previous museum number (recataloged from)">previous museum number (recataloged from)</option>
-					<option id="previous number (anson blake’s number)">previous number (Anson Blake’s number)</option>
-					<option id="previous number (donor's original number)">previous number (donor's original number)</option>
-					<option id="previous number (uc paleontology department)">previous number (UC Paleontology Department)</option>
-					<option id="tb (temporary basket) number">tb (temporary basket) number</option>
-				</options>
 			</field>
 			<field id="pahmaAltNumNote" section="pahma" in-tab="yes"> <!-- ######## THIS FIELD ADDED BY PAHMA, BUT VALUES DID NOT GET ADDED TO DB ####### -->
 				<selector>collection-object-pahmaAltNumNote</selector>
@@ -861,63 +822,26 @@
 		<repeat id="objectProductionPlaceGroupList/objectProductionPlaceGroup">
 			<!-- Add autocomplete -->
 			<field id="objectProductionPlace" autocomplete="place-place"/>
-			<field id="objectProductionPlaceRole">
+			<field id="objectProductionPlaceRole" autocomplete="productionplacerole" ui-type="enum">
 				<!-- Add selector -->
 				<selector>object-production-place-role</selector>
 				<!-- Add options -->
-				<options>
-					<option id="" default="yes">(none selected)</option>
-					<option id="assembledAt">assembled at/in</option>
-					<option id="built">built at/in</option>
-					<option id="manufactured">manufactured at/in</option>
-					<option id="materialsFrom">material originated from</option>
-					<option id="minted">minted at/in</option>
-					<option id="printed">printed at/in</option>
-				</options>
 			</field>
 		</repeat>
 		<repeat id="objectProductionPeopleGroupList/objectProductionPeopleGroup">
 			<!-- Add autocomplete -->
 			<field id="objectProductionPeople" autocomplete="concept-concept,concept-archculture"/>
-			<field id="objectProductionPeopleRole">
+			<field id="objectProductionPeopleRole" autocomplete="prodcultgrouprole" ui-type="enum">
 				<!-- Add selector -->
 				<selector>object-production-people-role</selector>
 				<!-- Add options -->
-				<options>
-					<option id="" default="yes">(none selected)</option>
-					<option id="designedAfter">designed after</option>
-					<option id="traditionalMakers">traditional makers</option>
-				</options>
 			</field>
 		</repeat>
 		<repeat id="objectProductionPersonGroupList/objectProductionPersonGroup">
-			<field id="objectProductionPersonRole">
+			<field id="objectProductionPersonRole" autocomplete="prodpersonrole" ui-type="enum">
 				<!-- Add selector -->
 				<selector>collection-object-objectProductionPersonRole</selector>
 				<!-- Add options -->
-				<options>
-					<option id="" default="yes">(none selected)</option>
-					<option id="accompanist">accompanist</option>
-					<option id="artist">artist</option>
-					<option id="blesser">blesser</option>
-					<option id="carver">carver</option>
-					<option id="demonstrator">demonstrator</option>
-					<option id="designer">designer</option>
-					<option id="documenter">documenter</option>
-					<option id="illustrator">illustrator</option>
-					<option id="maker">maker</option>
-					<option id="materialSupplier">material supplier</option>
-					<option id="narrator">narrator</option>
-					<option id="painter">painter</option>
-					<option id="performer">performer</option>
-					<option id="photographer">photographer</option>
-					<option id="recorder">recorder</option>
-					<option id="ruler">ruler</option> <!-- For coins: who decreed that the coins would be minted? -->
-					<option id="scribe">scribe</option>
-					<option id="singer">singer</option>
-					<option id="translator">translator</option>
-					<option id="writer">writer</option>
-				</options>
 			</field>
 		</repeat>
 		<repeat id="objectProductionOrganizationGroupList/objectProductionOrganizationGroup">

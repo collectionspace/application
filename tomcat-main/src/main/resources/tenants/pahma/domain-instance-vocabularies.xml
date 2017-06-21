@@ -503,6 +503,117 @@
 			<option id="aqcmethod07">unknown</option>
 		</options>
 	</instance>
-
-
+    <instance id="vocab-pahmaaltnumber">
+        <web-url>pahmaaltnumber</web-url>
+        <title-ref>pahmaaltnumber</title-ref>
+        <title>pahmaaltnumber</title>
+        <options>
+			<option id="altnum00">additional number</option>
+			<option id="altnum01" from-static-id="attributed pahma number">attributed PAHMA number</option>
+			<option id="altnum02">burial number</option>
+			<option id="altnum03">moac subobjid</option>
+			<option id="altnum04">museum number (recataloged to)</option>
+			<option id="altnum05">previous number</option>
+			<option id="altnum06" from-staticid="previous number (albert bender’s number)">previous number (Albert Bender’s number)</option>
+			<option id="altnum07" from-static-id="previous number (bascom’s number)">previous number (Bascom’s number)</option>
+			<option id="altnum08">previous number (collector's original number)</option>
+			<option id="altnum09" from-static-id="previous number (design dept.)">previous number (Design Dept.)</option>
+			<option id="altnum10">previous number (Lila M. O'Neale)</option>
+			<option id="altnum11" from-static-id="previous number (mvc number, mossman-vitale collection)">previous number (MVC number, Mossman-Vitale collection)</option>
+			<option id="altnum12" from-static-id="previous number (ucas: university of california archaeological survey)">previous number (UCAS: University of California Archaeological Survey)</option>
+			<option id="altnum13">song number</option>
+			<option id="altnum14">tag</option>
+			<option id="altnum15">temporary number</option>
+			<option id="altnum16">(null)</option>
+			<option id="altnum17">associated catalog number</option>
+			<option id="altnum18">field number</option>
+			<option id="altnum19">original number</option>
+			<option id="altnum20">previous museum number (recataloged from)</option>
+			<option id="altnum21" from-static-id="previous number (anson blake’s number)">previous number (Anson Blake’s number)</option>
+			<option id="altnum22">previous number (donor's original number)</option>
+			<option id="altnum23" from-static-id="previous number (uc paleontology department)">previous number (UC Paleontology Department)</option>
+			<option id="altnum24">tb (temporary basket) number</option>
+        </options>
+    </instance>
+    <instance id="vocab-objecttype">
+        <web-url>objecttype</web-url>
+        <title-ref>objecttype</title-ref>
+        <title>objecttype</title>
+        <options>
+			<option id="objtype00">(not specified)</option>
+			<option id="objtype01">none (Registration)</option>
+			<option id="objtype02">archaeology</option>
+			<option id="objtype03">ethnography</option>
+			<option id="objtype04">documentation</option>
+			<option id="objtype05">sample</option>
+			<option id="objtype06">indeterminate</option>
+			<option id="objtype07">unknown</option>
+        </options>
+    </instance>
+	<instance id="vocab-productionplacerole">
+        <web-url>productionplacerole</web-url>
+        <title-ref>productionplacerole</title-ref>
+        <title>productionplacerole</title>
+        <options>
+			<option id="prodplacerole01" from-static-id="assembledAt">assembled at/in</option>
+			<option id="prodplacerole02" from-static-id="built">built at/in</option>
+			<option id="prodplacerole03" from-static-id="manufactured">manufactured at/in</option>
+			<option id="prodplacerole04" from-static-id="materialsFrom">material originated from</option>
+			<option id="prodplacerole05" from-static-id="minted">minted at/in</option>
+			<option id="prodplacerole06" from-static-id="printed">printed at/in</option>
+        </options>
+    </instance>
+	<instance id="vocab-prodcultgrouprole">
+        <web-url>prodcultgrouprole</web-url>
+        <title-ref>prodcultgrouprole</title-ref>
+        <title>prodcultgrouprole</title>
+        <options>
+			<option id="prodgrouprole01" from-static-id="designedAfter">designed after</option>
+			<option id="prodgrouprole02" from-static-id="traditionalMakers">traditional makers</option>
+        </options>
+    </instance>
+	<instance id="vocab-prodpersonrole">
+        <web-url>prodpersonrole</web-url>
+        <title-ref>prodpersonrole</title-ref>
+        <title>prodpersonrole</title>
+        <options>
+			<option id="prodpersonrole00">accompanist</option>
+			<option id="prodpersonrole01">artist</option>
+			<option id="prodpersonrole02">blesser</option>
+			<option id="prodpersonrole03">carver</option>
+			<option id="prodpersonrole04">demonstrator</option>
+			<option id="prodpersonrole05">designer</option>
+			<option id="prodpersonrole06">documenter</option>
+			<option id="prodpersonrole07">illustrator</option>
+			<option id="prodpersonrole08">maker</option>
+			<option id="prodpersonrole09" from-static-id="materialSupplier">material supplier</option>
+			<option id="prodpersonrole10">narrator</option>
+			<option id="prodpersonrole11">painter</option>
+			<option id="prodpersonrole12">performer</option>
+			<option id="prodpersonrole13">photographer</option>
+			<option id="prodpersonrole14">recorder</option>
+			<option id="prodpersonrole15">ruler</option> <!-- For coins: who decreed that the coins would be minted? -->
+			<option id="prodpersonrole16">scribe</option>
+			<option id="prodpersonrole17">singer</option>
+			<option id="prodpersonrole18">translator</option>
+			<option id="prodpersonrole19">writer</option>
+        </options>
+    </instance>
+	<instance id="vocab-assocpeople">
+        <web-url>assocpeople</web-url>
+        <title-ref>assocpeople</title-ref>
+        <title>assocpeople</title>
+        <options>
+			<option id="assocpeopletype00" from-static-id="gatheredCollectedBy">gathered/collected by</option>
+			<option id="assocpeopletype01" from-static-id="inspiredBy">inspired by</option>
+			<option id="assocpeopletype02" from-static-id="nagpraCulturalAffiliation">NAGPRA cultural affiliation</option>
+			<option id="assocpeopletype03" from-static-id="traditionalMakers">traditional makers</option>
+			<option id="assocpeopletype04" from-static-id="inTheStyleOf">in the style of</option>
+			<option id="assocpeopletype05" from-static-id="attributedMakers">made by (attributed)</option>
+			<option id="assocpeopletype06">made by</option>
+			<option id="assocpeopletype07" from-static-id="traditionallyMadeBy">traditionally made by</option>
+			<option id="assocpeopletype08" from-static-id="usedButNotMadeBy">used, but not made, by</option>
+			<option id="assocpeopletype09" from-static-id="usedButNotMadeByAttributed">used, but not made, by (attributed)</option>
+        </options>
+    </instance>
 </instances>
