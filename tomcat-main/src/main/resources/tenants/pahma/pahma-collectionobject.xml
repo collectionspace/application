@@ -822,7 +822,7 @@
 		<repeat id="objectProductionPlaceGroupList/objectProductionPlaceGroup">
 			<!-- Add autocomplete -->
 			<field id="objectProductionPlace" autocomplete="place-place"/>
-			<field id="objectProductionPlaceRole" autocomplete="productionplacerole" ui-type="enum">
+			<field id="objectProductionPlaceRole" autocomplete="vocab-productionplacerole" ui-type="enum">
 				<!-- Add selector -->
 				<selector>object-production-place-role</selector>
 				<!-- Add options -->
@@ -831,14 +831,14 @@
 		<repeat id="objectProductionPeopleGroupList/objectProductionPeopleGroup">
 			<!-- Add autocomplete -->
 			<field id="objectProductionPeople" autocomplete="concept-concept,concept-archculture"/>
-			<field id="objectProductionPeopleRole" autocomplete="prodcultgrouprole" ui-type="enum">
+			<field id="objectProductionPeopleRole" autocomplete="vocab-prodcultgrouprole" ui-type="enum">
 				<!-- Add selector -->
 				<selector>object-production-people-role</selector>
 				<!-- Add options -->
 			</field>
 		</repeat>
 		<repeat id="objectProductionPersonGroupList/objectProductionPersonGroup">
-			<field id="objectProductionPersonRole" autocomplete="prodpersonrole" ui-type="enum">
+			<field id="objectProductionPersonRole" autocomplete="vocab-prodpersonrole" ui-type="enum">
 				<!-- Add selector -->
 				<selector>collection-object-objectProductionPersonRole</selector>
 				<!-- Add options -->
