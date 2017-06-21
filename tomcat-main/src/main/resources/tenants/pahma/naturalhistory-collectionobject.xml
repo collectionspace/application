@@ -85,57 +85,9 @@
 		</repeat>
 
 		<repeat id="annotationGroupList/annotationGroup" section="naturalhistory">
-			<field id="annotationType" section="naturalhistory">
+			<field id="annotationType" section="naturalhistory" autocomplete="vocab-annotationtype" ui-type="enum">
 				<selector>collection-object-annotationType</selector>
-				<options>
-					<option id="" default="yes">(none selected)</option>
-					<option id="ACC file code">ACC file code</option>
-					<option id="Accession note">Accession note</option>
-					<option id="AxesOrient/clock: reverse">AxesOrient/clock: reverse</option>
-					<option id="Card information">Card information</option>
-					<option id="Cataloging notes">Cataloging notes</option>
-					<option id="CD id">CD id</option>
-					<option id="Collection type">Collection type</option>
-					<option id="Component prep comments">Component prep comments</option>
-					<option id="Condition notes">Condition notes</option>
-					<option id="Conservation notes">Conservation notes</option>
-					<option id="Control possible">Control possible</option>
-					<option id="Cultural modification note">Cultural modification note</option>
-					<option id="Curatorial remarks">Curatorial remarks</option>
-					<option id="Data entry notes">Data entry notes</option>
-					<option id="Data error">Data error</option>
-					<option id="Deaccession notes">Deaccession notes</option>
-					<option id="Denomination">Denomination</option>
-					<option id="Destructive sampling notes">Destructive sampling notes</option>
-					<option id="Inventory remarks">Inventory remarks</option>
-					<option id="Loan notes">Loan notes</option>
-					<option id="Minting">Minting</option>
-					<option id="NAGPRA archaeological evidence">NAGPRA archaeological evidence</option>
-					<option id="NAGPRA background statement">NAGPRA background statement</option>
-					<option id="NAGPRA bioevaluation data">NAGPRA bioevaluation data</option>
-					<option id="NAGPRA inventory collection history">NAGPRA inventory collection history</option>
-					<option id="NAGPRA inventory consultation">NAGPRA inventory consultation</option>
-					<option id="NAGPRA location comment">NAGPRA location comment</option>
-					<option id="NAGPRA research comments">NAGPRA research comments</option>
-					<option id="NAGPRA updated curation summary">NAGPRA updated curation summary</option>
-					<option id="NSF grant osteology data">NSF grant osteology data</option>
-					<option id="NSF recataloging data">NSF recataloging data</option>
-					<option id="Object count note">Object count note</option>
-					<option id="Obverse type">Obverse type</option>
-					<option id="Original ledger comments">Original ledger comments</option>
-					<option id="Pathology notes">Pathology notes</option>
-					<option id="Phase completed">Phase completed</option>
-					<option id="Photo roll">Photo roll</option>
-					<option id="Registration remark">Registration remark</option>
-					<option id="Researcher comments">Researcher comments</option>
-					<option id="Reverse type">Reverse type</option>
-					<option id="Special collection">Special collection</option>
-					<option id="Storage location notes">Storage location notes</option>
-					<option id="Supplemental information">Supplemental information</option>
-					<option id="TMS curatorial remarks">TMS curatorial remarks</option>
-					<option id="TMS edition field">TMS edition field</option>
-					<option id="Verbatim ledger">Verbatim ledger</option>
-				</options>
+				<!--Converted to Dynamic -->
 			</field>
 			<field id="annotationNote" section="naturalhistory">
 				<selector>collection-object-annotationNote</selector>

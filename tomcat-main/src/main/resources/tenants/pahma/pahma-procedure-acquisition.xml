@@ -8,9 +8,9 @@
 				<option id="pahma-accession" sample="ACC 2012.1.1">Accession</option>
 			</options>
 		</field>
-		<field id="acquisitionMethod">
+		<field id="acquisitionMethod" autocomplete="vocab-accaquisitionmethod" ui-type="enum">
 			<!-- Change options -->
-			<options>
+			<!--<options>
 				<option id="gift" default="yes">gift</option>
 				<option id="bequest">bequest</option>
 				<option id="exchange">exchange</option>
@@ -18,7 +18,7 @@
 				<option id="transfer">transfer</option>
 				<option id="foundInCollections">found in collections</option>
 				<option id="unknown">unknown</option>
-			</options>
+			</options>-->
 		</field>
 		<repeat id="acquisitionSources">
 			<!-- Add concept-concept to autocomplete -->

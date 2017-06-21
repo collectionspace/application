@@ -12,20 +12,8 @@
 			<!-- Converted to dynamic -->
 		</field>
 		<repeat id="movementMethods">
-			<field id="movementMethod">
-				<!-- Change options -->
-				<options>
-					<option id="" default="yes">(none selected)</option>
-					<option id="rubbermaid">by cart (rubbermaid)</option>
-					<option id="handcarried">by hand</option>
-					<option id="bathtubcart">by "bathtub" cart</option>
-					<option id="hydrauliclift">by hydraulic lift</option>
-					<option id="palletjack">by pallet jack</option>
-					<option id="forklift">by forklift</option>
-					<option id="vantruck">by van/truck</option>
-					<option id="crane">By crane</option>
-					<option id="other">Other (specify in notes)</option>
-				</options>
+			<field id="movementMethod" autocomplete="vocab-movementmethod" ui-type="enum">
+			<!--Converted to dynamic -->
 			</field>
 		</repeat>
 	</section>

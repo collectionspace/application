@@ -35,19 +35,8 @@
 				</options>
 			</field>
 		</repeat>
-		<field id="collection">
+		<field id="collection" autocomplete="vocab-objecttype" ui-type="enum">
 			<!-- Change options -->
-			<options>
-				<option id="">(none selected)</option>
-				<option id="(not specified)">(not specified)</option>
-				<option id="none (Registration)">none (Registration)</option>
-				<option id="archaeology">archaeology</option>
-				<option id="ethnography">ethnography</option>
-				<option id="documentation">documentation</option>
-				<option id="sample">sample</option>
-				<option id="indeterminate">indeterminate</option>
-				<option id="unknown">unknown</option>
-			</options>
 		</field>
 		<!-- Remove ui-search -->
 		<field id="recordStatus" ui-search="" >
@@ -209,36 +198,8 @@
 			<field id="pahmaAltNum" section="pahma" ui-search="repeatable" in-tab="yes">
 				<selector>collection-object-pahmaAltNum</selector>
 			</field>
-			<field id="pahmaAltNumType" section="pahma" in-tab="yes" seperate_ui_container="true">
+			<field id="pahmaAltNumType" section="pahma" autocomplete="vocab-pahmaaltnumber" ui-type="enum" in-tab="yes" seperate_ui_container="true">
 				<selector>collection-object-pahmaAltNumType</selector>
-				<options>
-					<option id="" default="yes">(none selected)</option>
-					<option id="additional number">additional number</option>
-					<option id="attributed pahma number">attributed PAHMA number</option>
-					<option id="burial number">burial number</option>
-					<option id="moac subobjid">moac subobjid</option>
-					<option id="museum number (recataloged to)">museum number (recataloged to)</option>
-					<option id="previous number">previous number</option>
-					<option id="previous number (albert bender’s number)">previous number (Albert Bender’s number)</option>
-					<option id="previous number (bascom’s number)">previous number (Bascom’s number)</option>
-					<option id="previous number (collector's original number)">previous number (collector's original number)</option>
-					<option id="previous number (design dept.)">previous number (Design Dept.)</option>
-					<option id="previous number (Lila M. O'Neale)">previous number (Lila M. O'Neale)</option>
-					<option id="previous number (mvc number, mossman-vitale collection)">previous number (MVC number, Mossman-Vitale collection)</option>
-					<option id="previous number (ucas: university of california archaeological survey)">previous number (UCAS: University of California Archaeological Survey)</option>
-					<option id="song number">song number</option>
-					<option id="tag">tag</option>
-					<option id="temporary number">temporary number</option>
-					<option id="(null)">(null)</option>
-					<option id="associated catalog number">associated catalog number</option>
-					<option id="field number">field number</option>
-					<option id="original number">original number</option>
-					<option id="previous museum number (recataloged from)">previous museum number (recataloged from)</option>
-					<option id="previous number (anson blake’s number)">previous number (Anson Blake’s number)</option>
-					<option id="previous number (donor's original number)">previous number (donor's original number)</option>
-					<option id="previous number (uc paleontology department)">previous number (UC Paleontology Department)</option>
-					<option id="tb (temporary basket) number">tb (temporary basket) number</option>
-				</options>
 			</field>
 			<field id="pahmaAltNumNote" section="pahma" in-tab="yes"> <!-- ######## THIS FIELD ADDED BY PAHMA, BUT VALUES DID NOT GET ADDED TO DB ####### -->
 				<selector>collection-object-pahmaAltNumNote</selector>
@@ -728,32 +689,9 @@
 				<field id="contentPlace" autocomplete="place-place"/>
 			</repeat>
 			<repeat id="contentScripts">
-				<field id="contentScript">
+				<field id="contentScript" autocomplete="vocab-depictedscripttype" ui-type="enum">
 					<!-- Change options -->
-					<options>
-						<option id="">(none selected)</option>
-						<option id="beneventanScript">Beneventan script</option>
-						<option id="blackletter">blackletter</option>
-						<option id="carolingianMiniscule">Carolingian miniscule</option>
-						<option id="chanceryHand">chancery hand</option>
-						<option id="courtHand">court hand</option>
-						<option id="germanicMiniscule">Germanic miniscule</option>
-						<option id="gothicScript">Gothic script</option>
-						<option id="unspecifiedHandwriting">handwriting (unspecified)</option>
-						<option id="humanistMiniscule">humanist miniscule</option>
-						<option id="insularScript">insular script</option>
-						<option id="libraryHand">library hand</option>
-						<option id="merovingianScript">Merovingian script</option>
-						<option id="palmerMethod">Palmer method</option>
-						<option id="romanCursive">Roman cursive</option>
-						<option id="roundHand">round hand</option>
-						<option id="uncialScript">uncial script</option>
-						<option id="secretaryHand">secretary hand</option>
-						<option id="rusticCapitals">rustic capitals</option>
-						<option id="spencerianMethod">Spencerian method</option>
-						<option id="squareCapitals">square capitals</option>
-						<option id="visigothicScript">Visigothic script</option>
-					</options>
+					<!--Changed to dynamic-->
 				</field>
 			</repeat>
 			<repeat id="contentOrganizations">
@@ -824,27 +762,9 @@
 						<option id="visigothicScript">Visigothic script</option>
 					</options>
 				</field>
-				<field id="inscriptionContentType">
+				<field id="inscriptionContentType" autocomplete="vocab-inscriptiontype" ui-type="enum">
 					<!-- Change options -->
-					<options>
-						<option id="">(none selected)</option>
-						<option id="abecedarium">abecedarium</option>
-						<option id="brand">brand</option>
-						<option id="coinInscription">coin inscription</option>
-						<option id="decoration">decoration</option>
-						<!-- <option id="embossment">embossment</option> --> <!-- REPETITIVE, GIVEN EMBOSSING AS AN INSCRIPTION METHOD -->
-						<option id="epitaph">epitaph</option>
-						<option id="estateStamp">estate stamp</option>
-						<option id="exLibris">ex libris</option>
-						<option id="graffiti">graffiti</option>
-						<option id="inlaid">inlaid</option>
-						<option id="label">label</option>
-						<option id="makersMark">maker's mark</option>
-						<option id="mementoMori">memento mori</option>
-						<option id="monumentalInscription">monumental inscription</option>
-						<option id="ostracon">ostracon</option>
-						<option id="tattoo">tattoo</option>
-					</options>
+					<!-- Changed to dynamic -->
 				</field>
 
 				<field id="inscriptionContentMethod" autocomplete="vocab-inscriptionmethod" ui-type="enum">
@@ -902,63 +822,26 @@
 		<repeat id="objectProductionPlaceGroupList/objectProductionPlaceGroup">
 			<!-- Add autocomplete -->
 			<field id="objectProductionPlace" autocomplete="place-place"/>
-			<field id="objectProductionPlaceRole">
+			<field id="objectProductionPlaceRole" autocomplete="vocab-productionplacerole" ui-type="enum">
 				<!-- Add selector -->
 				<selector>object-production-place-role</selector>
 				<!-- Add options -->
-				<options>
-					<option id="" default="yes">(none selected)</option>
-					<option id="assembledAt">assembled at/in</option>
-					<option id="built">built at/in</option>
-					<option id="manufactured">manufactured at/in</option>
-					<option id="materialsFrom">material originated from</option>
-					<option id="minted">minted at/in</option>
-					<option id="printed">printed at/in</option>
-				</options>
 			</field>
 		</repeat>
 		<repeat id="objectProductionPeopleGroupList/objectProductionPeopleGroup">
 			<!-- Add autocomplete -->
 			<field id="objectProductionPeople" autocomplete="concept-concept,concept-archculture"/>
-			<field id="objectProductionPeopleRole">
+			<field id="objectProductionPeopleRole" autocomplete="vocab-prodcultgrouprole" ui-type="enum">
 				<!-- Add selector -->
 				<selector>object-production-people-role</selector>
 				<!-- Add options -->
-				<options>
-					<option id="" default="yes">(none selected)</option>
-					<option id="designedAfter">designed after</option>
-					<option id="traditionalMakers">traditional makers</option>
-				</options>
 			</field>
 		</repeat>
 		<repeat id="objectProductionPersonGroupList/objectProductionPersonGroup">
-			<field id="objectProductionPersonRole">
+			<field id="objectProductionPersonRole" autocomplete="vocab-prodpersonrole" ui-type="enum">
 				<!-- Add selector -->
 				<selector>collection-object-objectProductionPersonRole</selector>
 				<!-- Add options -->
-				<options>
-					<option id="" default="yes">(none selected)</option>
-					<option id="accompanist">accompanist</option>
-					<option id="artist">artist</option>
-					<option id="blesser">blesser</option>
-					<option id="carver">carver</option>
-					<option id="demonstrator">demonstrator</option>
-					<option id="designer">designer</option>
-					<option id="documenter">documenter</option>
-					<option id="illustrator">illustrator</option>
-					<option id="maker">maker</option>
-					<option id="materialSupplier">material supplier</option>
-					<option id="narrator">narrator</option>
-					<option id="painter">painter</option>
-					<option id="performer">performer</option>
-					<option id="photographer">photographer</option>
-					<option id="recorder">recorder</option>
-					<option id="ruler">ruler</option> <!-- For coins: who decreed that the coins would be minted? -->
-					<option id="scribe">scribe</option>
-					<option id="singer">singer</option>
-					<option id="translator">translator</option>
-					<option id="writer">writer</option>
-				</options>
 			</field>
 		</repeat>
 		<repeat id="objectProductionOrganizationGroupList/objectProductionOrganizationGroup">
@@ -1058,19 +941,10 @@
 			<repeat id="assocOrganizationGroupList/assocOrganizationGroup">
 				<!-- Add ui-search -->
 				<field id="assocOrganization" ui-search="repeatable"/>
-				<field id="assocOrganizationType">
-					<!-- Add selector -->
+				<field id="assocOrganizationType" autocomplete="vocab-assocorgtype" ui-type="enum">
 					<selector>collection-object-assocOrganizationType</selector>
-					<!-- Add options -->
-					<options>
-						<option id="" default="yes">(none selected)</option>
-						<option id="donor">donor</option>
-						<option id="endorser">endorser</option>
-						<option id="landowner">landowner</option>
-						<option id="seller">seller</option>
-						<option id="sponsor">sponsor</option>
-						<option id="user">user</option>
-					</options>
+					<!-- Converted to Dynamic-->
+
 				</field>
 			</repeat>
 			<repeat id="assocPeopleGroupList/assocPeopleGroup">
@@ -1098,48 +972,19 @@
 			<repeat id="assocPersonGroupList/assocPersonGroup">
 				<!-- Add ui-search -->
 				<field id="assocPerson" ui-search="repeatable"/>
-				<field id="assocPersonType">
+				<field id="assocPersonType" autocomplete="vocab-assocpersontype" ui-type="enum">
 					<!-- Add selector -->
 					<selector>collection-object-assocPersonType</selector>
 					<!-- Add options -->
-					<options>
-						<option id="" default="yes">(none selected)</option>
-						<option id="dealer">dealer</option>
-						<option id="donor">donor</option>
-						<option id="in memoriam">in memoriam</option>
-						<option id="in-urned">in-urned</option>
-						<option id="informant">informant</option>
-						<option id="inspector">inspector</option>
-						<option id="patron">patron</option>
-						<option id="photograph requestor">photograph requestor</option>
-						<option id="seller">seller</option>
-						<option id="transferree">transferree</option>
-						<option id="transferrer">transferrer</option>
-					</options>
 				</field>
 			</repeat>
 			<repeat id="assocPlaceGroupList/assocPlaceGroup">
 				<!-- Add autocomplete and ui-search -->
 				<field id="assocPlace" autocomplete="place-place" ui-search="repeatable"/>
-				<field id="assocPlaceType">
+				<field id="assocPlaceType" autocomplete="vocab-assocplacetype" ui-type="enum">
 					<!-- Add selector -->
 					<selector>collection-object-assocPlaceType</selector>
 					<!-- Add options -->
-					<options>
-						<option id="" default="yes">(none selected)</option>
-						<option id="auctioned">auctioned in/at</option>
-						<!--
-						<option id="blessingLocation">blessed at</option>
-						<option id="consecration">consecrated at</option>
-						-->
-						<option id="excavated">excavated at</option>
-						<option id="found">found at</option>
-						<option id="nativeTo">native to</option>
-						<option id="purchased">purchased in/at</option>
-						<option id="recovered">recovered from</option>
-						<option id="quarried">quarried from</option>
-						<option id="used">used in/at</option>
-					</options>
 				</field>
 			</repeat>
 			<field id="assocEventNameType">

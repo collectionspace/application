@@ -281,4 +281,339 @@
 			<option id="movereason44">(not entered)</option>
 		</options>
 	</instance>
+	<instance id="vocab-movementmethod">
+	    <web-url>movementmethod</web-url>
+        <title-ref>movementmethod</title-ref>
+        <title>movementmethod</title>
+		<options>
+				<option id="movemethod01" from-static-id="rubbermaid">by cart (rubbermaid)</option>
+				<option id="movemethod02" from-static-id="handcarried">by hand</option>
+				<option id="movemethod03" from-static-id="bathtubcart">by "bathtub" cart</option>
+				<option id="movemethod04" from-static-id="hydrauliclift">by hydraulic lift</option>
+				<option id="movemethod05" from-static-id="palletjack">by pallet jack</option>
+				<option id="movemethod06" from-static-id="forklift">by forklift</option>
+				<option id="movemethod07" from-static-id="vantruck">by van/truck</option>
+				<option id="movemethod08" from-static-id="crane">By crane</option>
+				<option id="movemethod09" from-static-id="other">Other (specify in notes)</option>
+		</options>
+	</instance>
+	<instance id="vocab-annotationtype">
+		<web-url>annotationtype</web-url>
+		<title-ref>annotationtype</title-ref>
+		<title>annotationtype</title>
+		<options>
+			<option id="annottype01">ACC file code</option>
+			<option id="annottype02">Accession note</option>
+			<option id="annottype03">AxesOrient/clock: reverse</option>
+			<option id="annottype04">Card information</option>
+			<option id="annottype05">Cataloging notes</option>
+			<option id="annottype06">CD id</option>
+			<option id="annottype07">Collection type</option>
+			<option id="annottype08">Component prep comments</option>
+			<option id="annottype09">Condition notes</option>
+			<option id="annottype10">Conservation notes</option>
+			<option id="annottype11">Control possible</option>
+			<option id="annottype12">Cultural modification note</option>
+			<option id="annottype13">Curatorial remarks</option>
+			<option id="annottype14">Data entry notes</option>
+			<option id="annottype15">Data error</option>
+			<option id="annottype16">Deaccession notes</option>
+			<option id="annottype17">Denomination</option>
+			<option id="annottype18">Destructive sampling notes</option>
+			<option id="annottype19">Inventory remarks</option>
+			<option id="annottype20">Loan notes</option>
+			<option id="annottype21">Minting</option>
+			<option id="annottype22">NAGPRA archaeological evidence</option>
+			<option id="annottype23">NAGPRA background statement</option>
+			<option id="annottype24">NAGPRA bioevaluation data</option>
+			<option id="annottype25">NAGPRA inventory collection history</option>
+			<option id="annottype26">NAGPRA inventory consultation</option>
+			<option id="annottype27">NAGPRA location comment</option>
+			<option id="annottype28">NAGPRA research comments</option>
+			<option id="annottype29">NAGPRA updated curation summary</option>
+			<option id="annottype30">NSF grant osteology data</option>
+			<option id="annottype31">NSF recataloging data</option>
+			<option id="annottype32">Object count note</option>
+			<option id="annottype33">Obverse type</option>
+			<option id="annottype34">Original ledger comments</option>
+			<option id="annottype35">Pathology notes</option>
+			<option id="annottype36">Phase completed</option>
+			<option id="annottype37">Photo roll</option>
+			<option id="annottype38">Registration remark</option>
+			<option id="annottype39">Researcher comments</option>
+			<option id="annottype40">Reverse type</option>
+			<option id="annottype41">Special collection</option>
+			<option id="annottype42">Storage location notes</option>
+			<option id="annottype43">Supplemental information</option>
+			<option id="annottype44">TMS curatorial remarks</option>
+			<option id="annottype45">TMS edition field</option>
+			<option id="annottype46">Verbatim ledger</option>
+		</options>
+	</instance>
+	<instance id="vocab-depictedscripttype">
+	    <web-url>depictedscripttype</web-url>
+        <title-ref>depictedscripttype</title-ref>
+        <title>depictedscripttype</title>
+		<options>
+			<option id="depictedtype01" from-static-id="beneventanScript">Beneventan script</option>
+			<option id="depictedtype02" from-static-id="blackletter">blackletter</option>
+			<option id="depictedtype03" from-static-id="carolingianMiniscule">Carolingian miniscule</option>
+			<option id="depictedtype04" from-static-id="chanceryHand">chancery hand</option>
+			<option id="depictedtype05" from-static-id="courtHand">court hand</option>
+			<option id="depictedtype06" from-static-id="germanicMiniscule">Germanic miniscule</option>
+			<option id="depictedtype07" from-static-id="gothicScript">Gothic script</option>
+			<option id="depictedtype08" from-static-id="unspecifiedHandwriting">handwriting (unspecified)</option>
+			<option id="depictedtype09" from-static-id="humanistMiniscule">humanist miniscule</option>
+			<option id="depictedtype10" from-static-id="insularScript">insular script</option>
+			<option id="depictedtype11" from-static-id="libraryHand">library hand</option>
+			<option id="depictedtype12" from-static-id="merovingianScript">Merovingian script</option>
+			<option id="depictedtype13" from-static-id="palmerMethod">Palmer method</option>
+			<option id="depictedtype14" from-static-id="romanCursive">Roman cursive</option>
+			<option id="depictedtype15" from-static-id="roundHand">round hand</option>
+			<option id="depictedtype16" from-static-id="uncialScript">uncial script</option>
+			<option id="depictedtype17" from-static-id="secretaryHand">secretary hand</option>
+			<option id="depictedtype18" from-static-id="rusticCapitals">rustic capitals</option>
+			<option id="depictedtype19" from-static-id="spencerianMethod">Spencerian method</option>
+			<option id="depictedtype20" from-static-id="squareCapitals">square capitals</option>
+			<option id="depictedtype21" from-static-id="visigothicScript">Visigothic script</option>
+		</options>
+	</instance>
+	<instance id="vocab-inscriptiontype">
+	    <web-url>inscriptiontype</web-url>
+        <title-ref>inscriptiontype</title-ref>
+        <title>inscriptiontype</title>
+		<options>
+			<option id="inscrconttype01">abecedarium</option>
+			<option id="inscrconttype02">brand</option>
+			<option id="inscrconttype03" from-static-id="coinInscription">coin inscription</option>
+			<option id="inscrconttype04">decoration</option>
+			<option id="inscrconttype05">epitaph</option>
+			<option id="inscrconttype06" from-static-id="estateStamp">estate stamp</option>
+			<option id="inscrconttype07" from-static-id="exLibris">ex libris</option>
+			<option id="inscrconttype08">graffiti</option>
+			<option id="inscrconttype09">inlaid</option>
+			<option id="inscrconttype10">label</option>
+			<option id="inscrconttype11" from-static-id="makersMark">maker's mark</option>
+			<option id="inscrconttype12" from-static-id="mementoMori">memento mori</option>
+			<option id="inscrconttype13" from-static-id="monumentalInscription">monumental inscription</option>
+			<option id="inscrconttype14">ostracon</option>
+			<option id="inscrconttype15">tattoo</option>
+		</options>
+	</instance>
+	<instance id="vocab-assocorgtype">
+	    <web-url>assocorgtype</web-url>
+        <title-ref>assocorgtype</title-ref>
+        <title>assocorgtype</title>
+		<options>
+			<option id="assocorgtype01">donor</option>
+			<option id="assocorgtype02">endorser</option>
+			<option id="assocorgtype03">landowner</option>
+			<option id="assocorgtype04">seller</option>
+			<option id="assocorgtype05">sponsor</option>
+			<option id="assocorgtype06">user</option>
+		</options>
+	</instance>
+	<instance id="vocab-assocpersontype">
+	    <web-url>assocpersontype</web-url>
+        <title-ref>assocpersontype</title-ref>
+        <title>assocpersontype</title>
+		<options>
+			<option id="assocpersontype01">dealer</option>
+			<option id="assocpersontype02">donor</option>
+			<option id="assocpersontype03">in memoriam</option>
+			<option id="assocpersontype04">in-urned</option>
+			<option id="assocpersontype05">informant</option>
+			<option id="assocpersontype06">inspector</option>
+			<option id="assocpersontype07">patron</option>
+			<option id="assocpersontype08">photograph requestor</option>
+			<option id="assocpersontype09">seller</option>
+			<option id="assocpersontype10">transferree</option>
+			<option id="assocpersontype11">transferrer</option>
+		</options>
+	</instance>
+	<instance id="vocab-assocplacetype">
+	    <web-url>assocplacetype</web-url>
+        <title-ref>assocplacetype</title-ref>
+        <title>assocplacetype</title>
+		<options>
+			<option id="assocplacetype01" from-static-id="auctioned">auctioned in/at</option>
+			<option id="assocplacetype02" from-static-id="excavated">excavated at</option>
+			<option id="assocplacetype03" from-static-id="found">found at</option>
+			<option id="assocplacetype04" from-static-id="nativeTo">native to</option>
+			<option id="assocplacetype05" from-static-id="purchased">purchased in/at</option>
+			<option id="assocplacetype06" from-static-id="recovered">recovered from</option>
+			<option id="assocplacetype07" from-static-id="quarried">quarried from</option>
+			<option id="assocplacetype08" from-static-id="used">used in/at</option>
+		</options>
+	</instance>
+	<instance id="vocab-objexitmethod">
+	    <web-url>objexitmethod</web-url>
+        <title-ref>objexitmethod</title-ref>
+        <title>objexitmethod</title>
+		<options>
+			<option id="objexitmethod01">courier</option>
+			<option id="objexitmethod02" from-static-id="inperson">in person</option>
+			<option id="objexitmethod03">post</option>
+		</options>
+	</instance>
+	<instance id="vocab-objexitreason">
+	    <web-url>objexitreason</web-url>
+        <title-ref>objexitreason</title-ref>
+        <title>objexitreason</title>
+		<options>
+			<option id="exitreason01" from-static-id="auctioned-or-sold">auctioned or sold</option>
+			<option id="exitreason02" from-static-id="destructive-testing">destructive testing</option>
+			<option id="exitreason03">destroyed</option>
+			<option id="exitreason04">discarded</option>
+			<option id="exitreason05">exchanged</option>
+			<option id="exitreason06">lost</option>
+			<option id="exitreason07" from-static-id="recalled-by-federal-agency">recalled by federal agency</option>
+			<option id="exitreason08">recataloged</option>
+			<option id="exitreason09">repatriated</option>
+			<option id="exitreason10" from-static-id="returned-to-original-owner">returned to original owner</option>
+			<option id="exitreason11" from-static-id="returnofloan">return of loan</option>
+			<option id="exitreason12">sold</option>
+			<option id="exitreason13">stolen</option>
+			<option id="exitreason14">transferred</option>
+			<option id="exitreason15">unknown</option>
+		</options>
+	</instance>
+	<instance id="vocab-objentryreason">
+	    <web-url>objentryreason</web-url>
+        <title-ref>objentryreason</title-ref>
+        <title>objentryreason</title>
+		<options>
+			<option id="objentryreason01">enquiry</option>
+			<option id="objentryreason02">consideration</option>
+			<option id="objentryreason03">commission</option>
+			<option id="objentryreason04">loan</option>
+		</options>
+	</instance>
+	<instance id="vocab-accaquisitionmethod">
+		<web-url>accaquisitionmethod</web-url>
+		<title-ref>accaquisitionmethod</title-ref>
+		<title>accaquisitionmethod</title>
+		<options>
+			<option id="aqcmethod01" default="yes">gift</option>
+			<option id="aqcmethod02">bequest</option>
+			<option id="aqcmethod03">exchange</option>
+			<option id="aqcmethod04">purchase</option>
+			<option id="aqcmethod05">transfer</option>
+			<option id="aqcmethod06" from-static-id="foundInCollections">found in collections</option>
+			<option id="aqcmethod07">unknown</option>
+		</options>
+	</instance>
+    <instance id="vocab-pahmaaltnumber">
+        <web-url>pahmaaltnumber</web-url>
+        <title-ref>pahmaaltnumber</title-ref>
+        <title>pahmaaltnumber</title>
+        <options>
+			<option id="altnum00">additional number</option>
+			<option id="altnum01" from-static-id="attributed pahma number">attributed PAHMA number</option>
+			<option id="altnum02">burial number</option>
+			<option id="altnum03">moac subobjid</option>
+			<option id="altnum04">museum number (recataloged to)</option>
+			<option id="altnum05">previous number</option>
+			<option id="altnum06" from-staticid="previous number (albert bender’s number)">previous number (Albert Bender’s number)</option>
+			<option id="altnum07" from-static-id="previous number (bascom’s number)">previous number (Bascom’s number)</option>
+			<option id="altnum08">previous number (collector's original number)</option>
+			<option id="altnum09" from-static-id="previous number (design dept.)">previous number (Design Dept.)</option>
+			<option id="altnum10">previous number (Lila M. O'Neale)</option>
+			<option id="altnum11" from-static-id="previous number (mvc number, mossman-vitale collection)">previous number (MVC number, Mossman-Vitale collection)</option>
+			<option id="altnum12" from-static-id="previous number (ucas: university of california archaeological survey)">previous number (UCAS: University of California Archaeological Survey)</option>
+			<option id="altnum13">song number</option>
+			<option id="altnum14">tag</option>
+			<option id="altnum15">temporary number</option>
+			<option id="altnum16">(null)</option>
+			<option id="altnum17">associated catalog number</option>
+			<option id="altnum18">field number</option>
+			<option id="altnum19">original number</option>
+			<option id="altnum20">previous museum number (recataloged from)</option>
+			<option id="altnum21" from-static-id="previous number (anson blake’s number)">previous number (Anson Blake’s number)</option>
+			<option id="altnum22">previous number (donor's original number)</option>
+			<option id="altnum23" from-static-id="previous number (uc paleontology department)">previous number (UC Paleontology Department)</option>
+			<option id="altnum24">tb (temporary basket) number</option>
+        </options>
+    </instance>
+    <instance id="vocab-objecttype">
+        <web-url>objecttype</web-url>
+        <title-ref>objecttype</title-ref>
+        <title>objecttype</title>
+        <options>
+			<option id="objtype00">(not specified)</option>
+			<option id="objtype01">none (Registration)</option>
+			<option id="objtype02">archaeology</option>
+			<option id="objtype03">ethnography</option>
+			<option id="objtype04">documentation</option>
+			<option id="objtype05">sample</option>
+			<option id="objtype06">indeterminate</option>
+			<option id="objtype07">unknown</option>
+        </options>
+    </instance>
+	<instance id="vocab-productionplacerole">
+        <web-url>productionplacerole</web-url>
+        <title-ref>productionplacerole</title-ref>
+        <title>productionplacerole</title>
+        <options>
+			<option id="prodplacerole01" from-static-id="assembledAt">assembled at/in</option>
+			<option id="prodplacerole02" from-static-id="built">built at/in</option>
+			<option id="prodplacerole03" from-static-id="manufactured">manufactured at/in</option>
+			<option id="prodplacerole04" from-static-id="materialsFrom">material originated from</option>
+			<option id="prodplacerole05" from-static-id="minted">minted at/in</option>
+			<option id="prodplacerole06" from-static-id="printed">printed at/in</option>
+        </options>
+    </instance>
+	<instance id="vocab-prodcultgrouprole">
+        <web-url>prodcultgrouprole</web-url>
+        <title-ref>prodcultgrouprole</title-ref>
+        <title>prodcultgrouprole</title>
+        <options>
+			<option id="prodgrouprole01" from-static-id="designedAfter">designed after</option>
+			<option id="prodgrouprole02" from-static-id="traditionalMakers">traditional makers</option>
+        </options>
+    </instance>
+	<instance id="vocab-prodpersonrole">
+        <web-url>prodpersonrole</web-url>
+        <title-ref>prodpersonrole</title-ref>
+        <title>prodpersonrole</title>
+        <options>
+			<option id="prodpersonrole00">accompanist</option>
+			<option id="prodpersonrole01">artist</option>
+			<option id="prodpersonrole02">blesser</option>
+			<option id="prodpersonrole03">carver</option>
+			<option id="prodpersonrole04">demonstrator</option>
+			<option id="prodpersonrole05">designer</option>
+			<option id="prodpersonrole06">documenter</option>
+			<option id="prodpersonrole07">illustrator</option>
+			<option id="prodpersonrole08">maker</option>
+			<option id="prodpersonrole09" from-static-id="materialSupplier">material supplier</option>
+			<option id="prodpersonrole10">narrator</option>
+			<option id="prodpersonrole11">painter</option>
+			<option id="prodpersonrole12">performer</option>
+			<option id="prodpersonrole13">photographer</option>
+			<option id="prodpersonrole14">recorder</option>
+			<option id="prodpersonrole15">ruler</option> <!-- For coins: who decreed that the coins would be minted? -->
+			<option id="prodpersonrole16">scribe</option>
+			<option id="prodpersonrole17">singer</option>
+			<option id="prodpersonrole18">translator</option>
+			<option id="prodpersonrole19">writer</option>
+        </options>
+    </instance>
+	<instance id="vocab-assocpeople">
+        <web-url>assocpeople</web-url>
+        <title-ref>assocpeople</title-ref>
+        <title>assocpeople</title>
+        <options>
+			<option id="assocpeopletype00" from-static-id="gatheredCollectedBy">gathered/collected by</option>
+			<option id="assocpeopletype01" from-static-id="inspiredBy">inspired by</option>
+			<option id="assocpeopletype02" from-static-id="nagpraCulturalAffiliation">NAGPRA cultural affiliation</option>
+			<option id="assocpeopletype03" from-static-id="traditionalMakers">traditional makers</option>
+			<option id="assocpeopletype04" from-static-id="inTheStyleOf">in the style of</option>
+			<option id="assocpeopletype05" from-static-id="attributedMakers">made by (attributed)</option>
+			<option id="assocpeopletype06">made by</option>
+			<option id="assocpeopletype07" from-static-id="traditionallyMadeBy">traditionally made by</option>
+			<option id="assocpeopletype08" from-static-id="usedButNotMadeBy">used, but not made, by</option>
+			<option id="assocpeopletype09" from-static-id="usedButNotMadeByAttributed">used, but not made, by (attributed)</option>
+        </options>
+    </instance>
 </instances>
