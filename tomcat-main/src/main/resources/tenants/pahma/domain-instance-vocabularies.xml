@@ -514,7 +514,7 @@
 			<option id="altnum03">moac subobjid</option>
 			<option id="altnum04">museum number (recataloged to)</option>
 			<option id="altnum05">previous number</option>
-			<option id="altnum06" from-staticid="previous number (albert bender’s number)">previous number (Albert Bender’s number)</option>
+			<option id="altnum06" from-static-id="previous number (albert bender’s number)">previous number (Albert Bender’s number)</option>
 			<option id="altnum07" from-static-id="previous number (bascom’s number)">previous number (Bascom’s number)</option>
 			<option id="altnum08">previous number (collector's original number)</option>
 			<option id="altnum09" from-static-id="previous number (design dept.)">previous number (Design Dept.)</option>
