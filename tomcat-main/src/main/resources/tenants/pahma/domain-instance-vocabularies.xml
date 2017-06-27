@@ -501,6 +501,7 @@
 			<option id="aqcmethod05">transfer</option>
 			<option id="aqcmethod06" from-static-id="foundInCollections">found in collections</option>
 			<option id="aqcmethod07">unknown</option>
+			<option id="acqmethod08">loan</option>
 		</options>
 	</instance>
     <instance id="vocab-pahmaaltnumber">
