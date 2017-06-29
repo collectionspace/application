@@ -180,19 +180,8 @@
 
 		<field id="flowerColor" section="botgarden"/>
 		<field id="fruitColor" section="botgarden"/>
-		<field id="propagationHistory" section="botgarden">
-			<options>
-				<option id="" default="yes">Please select a value</option>
-				<option id="individual wild plant">individual wild plant</option>
-				<option id="sexual reproduction">sexual reproduction</option>
-				<option id="open breeding">open breeding</option>
-				<option id="controlled breeding">controlled breeding</option>
-				<option id="isolated self-polinated">isolated self-polinated</option>
-				<option id="derived asexually">derived asexually</option>
-				<option id="vegetative reproduction">vegetative reproduction</option>
-				<option id="apomictic cloning">apomictic cloning</option>
-				<option id="unknown">unknown</option>
-			</options>
+		<field id="propagationHistory" section="botgarden" ui-type="enum" autocomplete="vocab-propagationhist">
+			<!-- Converted to dynamic-->
 		</field>
 		<field id="breedingSystem" section="botgarden">
 			<options>

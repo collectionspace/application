@@ -1217,4 +1217,125 @@
 			<option id="brightLocation">bright location</option>
 		</options>
 	</instance>
+	<instance id="vocab-placetype">
+		<web-url>placetype</web-url>
+		<title-ref>placetype</title-ref>
+		<title>placetype</title>
+		<options>
+			<option id="archipelago">Archipelago</option>
+			<option id="autonomous-region">Autonomous region</option>
+			<option id="city">City</option>
+			<option id="county">County</option>
+			<option id="dept">Dept.</option>
+			<option id="district">District</option>
+			<option id="island">Island</option>
+			<option id="islands">Islands</option>
+			<option id="mountain">Mountain</option>
+			<option id="municipio">Municipio</option>
+			<option id="national-park">National Park</option>
+			<option id="ocean">Ocean</option>
+			<option id="parish">Parish</option>
+			<option id="peninsula">Peninsula</option>
+			<option id="prefecture">Prefecture</option>
+			<option id="province">Province</option>
+			<option id="region">Region</option>
+			<option id="special-administrative-region">Special Administrative Region</option>
+			<option id="state">State</option>
+			<option id="territory">Territory</option>
+			<option id="nation">Nation</option>
+		</options>
+	</instance>
+	<instance id="vocab-propagationhist">
+		<web-url>propagationhist</web-url>
+		<title-ref>propagationhist</title-ref>
+		<title>propagationhist</title>
+		<options>
+			<option id="individual wild plant">individual wild plant</option>
+			<option id="sexual reproduction">sexual reproduction</option>
+			<option id="open breeding">open breeding</option>
+			<option id="controlled breeding">controlled breeding</option>
+			<option id="isolated self-polinated">isolated self-polinated</option>
+			<option id="derived asexually">derived asexually</option>
+			<option id="vegetative reproduction">vegetative reproduction</option>
+			<option id="apomictic cloning">apomictic cloning</option>
+			<option id="unknown">unknown</option>
+		</options>
+	</instance>
+	<instance id="vocab-">
+		<web-url></web-url>
+		<title-ref></title-ref>
+		<title></title>
+		<options>
+		</options>
+	</instance>
+	<instance id="vocab-">
+		<web-url></web-url>
+		<title-ref></title-ref>
+		<title></title>
+		<options>
+		</options>
+	</instance>
+	<instance id="vocab-">
+		<web-url></web-url>
+		<title-ref></title-ref>
+		<title></title>
+		<options>
+		</options>
+	</instance>
+	<instance id="vocab-">
+		<web-url></web-url>
+		<title-ref></title-ref>
+		<title></title>
+		<options>
+		</options>
+	</instance>
+	<instance id="vocab-">
+		<web-url></web-url>
+		<title-ref></title-ref>
+		<title></title>
+		<options>
+		</options>
+	</instance>
+	<instance id="vocab-">
+		<web-url></web-url>
+		<title-ref></title-ref>
+		<title></title>
+		<options>
+		</options>
+	</instance>
+	<instance id="vocab-">
+		<web-url></web-url>
+		<title-ref></title-ref>
+		<title></title>
+		<options>
+		</options>
+	</instance>
+	<instance id="vocab-">
+		<web-url></web-url>
+		<title-ref></title-ref>
+		<title></title>
+		<options>
+		</options>
+	</instance>
+	<instance id="vocab-">
+		<web-url></web-url>
+		<title-ref></title-ref>
+		<title></title>
+		<options>
+		</options>
+	</instance>
+	<instance id="vocab-">
+		<web-url></web-url>
+		<title-ref></title-ref>
+		<title></title>
+		<options>
+		</options>
+	</instance>
+	<instance id="vocab-">
+		<web-url></web-url>
+		<title-ref></title-ref>
+		<title></title>
+		<options>
+		</options>
+	</instance>
 </root>
