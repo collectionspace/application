@@ -1222,27 +1222,27 @@
 		<title-ref>placetype</title-ref>
 		<title>placetype</title>
 		<options>
-			<option id="archipelago">Archipelago</option>
-			<option id="autonomous-region">Autonomous region</option>
-			<option id="city">City</option>
-			<option id="county">County</option>
-			<option id="dept">Dept.</option>
-			<option id="district">District</option>
-			<option id="island">Island</option>
-			<option id="islands">Islands</option>
-			<option id="mountain">Mountain</option>
-			<option id="municipio">Municipio</option>
-			<option id="national-park">National Park</option>
-			<option id="ocean">Ocean</option>
-			<option id="parish">Parish</option>
-			<option id="peninsula">Peninsula</option>
-			<option id="prefecture">Prefecture</option>
-			<option id="province">Province</option>
-			<option id="region">Region</option>
-			<option id="special-administrative-region">Special Administrative Region</option>
-			<option id="state">State</option>
-			<option id="territory">Territory</option>
-			<option id="nation">Nation</option>
+			<option id="placetype00" from-static-id="archipelago">Archipelago</option>
+			<option id="placetype01" from-static-id="autonomous-region">Autonomous region</option>
+			<option id="placetype02" from-static-id="city">City</option>
+			<option id="placetype03" from-static-id="county">County</option>
+			<option id="placetype04" from-static-id="dept">Dept.</option>
+			<option id="placetype05" from-static-id="district">District</option>
+			<option id="placetype06" from-static-id="island">Island</option>
+			<option id="placetype07" from-static-id="islands">Islands</option>
+			<option id="placetype08" from-static-id="mountain">Mountain</option>
+			<option id="placetype09" from-static-id="municipio">Municipio</option>
+			<option id="placetype10" from-static-id="national-park">National Park</option>
+			<option id="placetype11" from-static-id="ocean">Ocean</option>
+			<option id="placetype12" from-static-id="parish">Parish</option>
+			<option id="placetype13" from-static-id="peninsula">Peninsula</option>
+			<option id="placetype14" from-static-id="prefecture">Prefecture</option>
+			<option id="placetype15" from-static-id="province">Province</option>
+			<option id="placetype16" from-static-id="region">Region</option>
+			<option id="placetype17" from-static-id="special-administrative-region">Special Administrative Region</option>
+			<option id="placetype18" from-static-id="state">State</option>
+			<option id="placetype19" from-static-id="territory">Territory</option>
+			<option id="placetype20" from-static-id="nation">Nation</option>
 		</options>
 	</instance>
 	<instance id="vocab-propagationhist">
@@ -1250,92 +1250,105 @@
 		<title-ref>propagationhist</title-ref>
 		<title>propagationhist</title>
 		<options>
-			<option id="individual wild plant">individual wild plant</option>
-			<option id="sexual reproduction">sexual reproduction</option>
-			<option id="open breeding">open breeding</option>
-			<option id="controlled breeding">controlled breeding</option>
-			<option id="isolated self-polinated">isolated self-polinated</option>
-			<option id="derived asexually">derived asexually</option>
-			<option id="vegetative reproduction">vegetative reproduction</option>
-			<option id="apomictic cloning">apomictic cloning</option>
-			<option id="unknown">unknown</option>
+			<option id="propagationhistory00">individual wild plant</option>
+			<option id="propagationhistory01">sexual reproduction</option>
+			<option id="propagationhistory02">open breeding</option>
+			<option id="propagationhistory03">controlled breeding</option>
+			<option id="propagationhistory04">isolated self-polinated</option>
+			<option id="propagationhistory05">derived asexually</option>
+			<option id="propagationhistory06">vegetative reproduction</option>
+			<option id="propagationhistory07">apomictic cloning</option>
+			<option id="propagationhistory08">unknown</option>
 		</options>
 	</instance>
-	<instance id="vocab-">
-		<web-url></web-url>
-		<title-ref></title-ref>
-		<title></title>
+	<instance id="vocab-HigherGeography">
+		<web-url>HigherGeography</web-url>
+		<title-ref>HigherGeography</title-ref>
+		<title>HigherGeography</title>
 		<options>
+			<option id="HigherGeo00" from-static-id="pacificocean">Pacific Ocean</option>
+			<option id="HigherGeo01" from-static-id="NorthAmerica">North America</option>
 		</options>
 	</instance>
-	<instance id="vocab-">
-		<web-url></web-url>
-		<title-ref></title-ref>
-		<title></title>
+	<instance id="vocab-LabelSize">
+		<web-url>LabelSize</web-url>
+		<title-ref>LabelSize</title-ref>
+		<title>LabelSize</title>
 		<options>
+			<option id="labelsize00">1x3</option>
+			<option id="labelsize01">1.5x5</option>
+			<option id="labelsize02">3x5</option>
 		</options>
 	</instance>
-	<instance id="vocab-">
-		<web-url></web-url>
-		<title-ref></title-ref>
-		<title></title>
+	<instance id="vocab-standType">
+		<web-url>standType</web-url>
+		<title-ref>standType</title-ref>
+		<title>standType</title>
 		<options>
+			<option id="standtype00">dowel</option>
+			<option id="standtype01">stake</option>
 		</options>
 	</instance>
-	<instance id="vocab-">
-		<web-url></web-url>
-		<title-ref></title-ref>
-		<title></title>
+	<instance id="vocab-actionCode">
+		<web-url>actionCode</web-url>
+		<title-ref>actionCode</title-ref>
+		<title>actionCode</title>
 		<options>
+			<option id="actCode00">Dead</option>
+			<option id="actCode01" from-static-d="Planted Out">Planted Out</option>
+			<option id="actCode02">Moved</option>
+			<option id="actCode03" from-static-id="Label Request">Label Request</option>
+			<option id="actCode04">Theft</option>
+			<option id="actCode05">Other</option>
+			<option id="actCode06">Revived</option>
 		</options>
 	</instance>
-	<instance id="vocab-">
-		<web-url></web-url>
-		<title-ref></title-ref>
-		<title></title>
+	<instance id="vocab-scarstratification">
+		<web-url>scarstratification</web-url>
+		<title-ref>scarstratification</title-ref>
+		<title>scarstratification</title>
 		<options>
+			<option id="scarstrat00">abrade</option>
+			<option id="scarstrat01" from-static-id="boiling water">boiling water</option>
+			<option id="GA3">GA3</option>
+			<option id="scarstrat03">fire</option>
+			<option id="scarstrat04">freeze</option>
+			<option id="scarstrat05" from-static-id="isopropyl alcohol">isopropyl alcohol</option>
+			<option id="scarstrat06">nick</option>
+			<option id="scarstrat07" from-static-id="pericarp removed broken">pericarp removed/broken</option>
+			<option id="scarstrat08" from-static-id="seed coat removed">seed coat removed</option>
+			<option id="scarstrat09" from-static-id="sulfuric acid">sulfuric acid</option>
+			<option id="scarstrat10" from-static-id="cold strat">cold strat</option>
+			<option id="scarstrat11" from-static-id="warm strat">warm strat</option>
+			<option id="scarstrat12">smoke</option>
+			<option id="scarstrat13" from-static-id="water soak">water soak</option>
 		</options>
 	</instance>
-	<instance id="vocab-">
-		<web-url></web-url>
-		<title-ref></title-ref>
-		<title></title>
+	<instance id="vocab-propagationType">
+		<web-url>propagationType</web-url>
+		<title-ref>propagationType</title-ref>
+		<title>propagationType</title>
 		<options>
+			<option id="propagation00" from-static-id="seed">Seed</option>
+			<option id="propagation01" from-static-id="cutting">Cutting</option>
+			<option id="propagation02" from-static-id="living plant">Living Plant</option>
+			<option id="propagation03" from-static-id="division">Division</option>
+			<option id="propagation04" from-static-id="bulb corm tuber">Bulb/Corm/Tuber</option>
+			<option id="propagation05" from-static-id="graft">Graft</option>
+			<option id="propagation06" from-static-id="tissue culture">Tissue Culture</option>
 		</options>
 	</instance>
-	<instance id="vocab-">
-		<web-url></web-url>
-		<title-ref></title-ref>
-		<title></title>
+	<instance id="vocab-cutType">
+		<web-url>cutType</web-url>
+		<title-ref>cutType</title-ref>
+		<title>cutType</title>
 		<options>
-		</options>
-	</instance>
-	<instance id="vocab-">
-		<web-url></web-url>
-		<title-ref></title-ref>
-		<title></title>
-		<options>
-		</options>
-	</instance>
-	<instance id="vocab-">
-		<web-url></web-url>
-		<title-ref></title-ref>
-		<title></title>
-		<options>
-		</options>
-	</instance>
-	<instance id="vocab-">
-		<web-url></web-url>
-		<title-ref></title-ref>
-		<title></title>
-		<options>
-		</options>
-	</instance>
-	<instance id="vocab-">
-		<web-url></web-url>
-		<title-ref></title-ref>
-		<title></title>
-		<options>
+            <option id="cuttype00">softwood</option>
+            <option id="cuttype01">semi-hardwood</option>
+            <option id="cuttype02">hardwood</option>
+            <option id="cuttype03">heel</option>
+            <option id="cuttype04">dormant</option>
+            <option id="cuttype05">root</option>
 		</options>
 	</instance>
 </root>

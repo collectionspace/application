@@ -15,17 +15,8 @@
 		<field id="movementReferenceNumber" ui-search="" mini=""/>
 		
 		<!-- Add mini=summary and change options -->
-		<field id="reasonForMove" mini="summary">
-			<options>
-				<option id="" default="yes">Please select a value</option>
-				<option id="Dead">Dead</option>
-				<option id="Planted Out">Planted Out</option>
-				<option id="Moved">Moved</option>
-				<option id="Label Request">Label Request</option>
-				<option id="Theft">Theft</option>
-				<option id="Other">Other</option>
-				<option id="Revived">Revived</option>
-			</options>
+		<field id="reasonForMove" mini="summary" ui-type="enum" autocomplete="vocab-actionCode">
+		<!--Converted to Dynamic-->
 		</field>
 	</section>
 	
@@ -40,21 +31,12 @@
 			</options>
 		</field>
 
-		<field id="labelSize" section="botgarden">
-			<options>
-				<option id="">Please select a value</option>
-				<option id="1x3">1x3</option>
-				<option id="1.5x5">1.5x5</option>
-				<option id="3x5">3x5</option>
-			</options>
+		<field id="labelSize" section="botgarden" ui-type="enum" autocomplete="vocab-LabelSize">
+		<!--Convered to Dynamic-->
 		</field>
 
-		<field id="labelStandType" section="botgarden">
-			<options>
-				<option id="">Please select a value</option>
-				<option id="dowel">dowel</option>
-				<option id="stake">stake</option>
-			</options>
+		<field id="labelStandType" section="botgarden" ui-type="enum" autocomplete="vocab-standType">
+		<!--Converted to Dynamic-->
 		</field>
 
 		<field id="labelCount" ui-type="validated" datatype="integer" section="botgarden"/>
