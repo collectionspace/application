@@ -385,7 +385,7 @@
 		<options>
 			<option id="inscrconttype01">abecedarium</option>
 			<option id="inscrconttype02">brand</option>
-			<option id="inscrconttype03" from-static-id="coinInscription">coin inscription</option>
+			<option id="inscrconttype03">coin inscription</option>
 			<option id="inscrconttype04">decoration</option>
 			<option id="inscrconttype05">epitaph</option>
 			<option id="inscrconttype06" from-static-id="estateStamp">estate stamp</option>
