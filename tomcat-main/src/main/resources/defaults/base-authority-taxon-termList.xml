@@ -54,7 +54,7 @@
             <field id="termPrefForLang" datatype="boolean">
                 <selector>taxonAuthority-termPrefForLang</selector>
             </field>
-            <field id="termSource" autocomplete="citation-citation,citation-citation_shared,citation-worldcat" ui-type="enum">
+            <field id="termSource" autocomplete="citation-citation,citation-citation_shared,citation-worldcat">
                 <selector>taxonAuthority-termSource</selector>
             </field>
             <field id="termSourceDetail">
