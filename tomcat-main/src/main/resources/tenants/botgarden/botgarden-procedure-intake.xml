@@ -1,0 +1,8 @@
+<record id="intake">
+    <section id="objectEntryInformation">
+        <field id="entryReason" ui-search="repeatable" seperate_ui_container="true" ui-type="enum" autocomplete="vocab-EntryReason">
+            <selector>intake-entry-reason</selector>
+            <!--Converted to dynamic-->
+        </field>
+    </section>
+</record>

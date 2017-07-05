@@ -1351,4 +1351,45 @@
             <option id="cuttype05">root</option>
 		</options>
 	</instance>
+	<instance id="vocab-DistributionMethod">
+		<web-url>DistributionMethod</web-url>
+		<title-ref>DistributionMethod</title-ref>
+		<title>DistributionMethod</title>
+		<options>
+			<option id="distmethod00" from-static-id="courier">Courier</option>
+			<option id="distmethod01" from-static-id="inperson">In Person</option>
+			<option id="distmethod02" from-static-id="post">Post</option>
+		</options>
+	</instance>
+	<instance id="vocab-DistributionReason">
+		<web-url>DistributionReason</web-url>
+		<title-ref>DistributionReason</title-ref>
+		<title>DistributionReason</title>
+		<options>
+			<option id="distreason00" from-static-id="deaccession">Deaccession</option>
+			<option id="distreason01" from-static-id="disposal">Disposal</option>
+			<option id="distreason02" from-static-id="returnofloan">Return of Loan</option>
+		</options>
+	</instance>
+	<instance id="vocab-EntryReason">
+		<web-url>EntryReason</web-url>
+		<title-ref>EntryReason</title-ref>
+		<title>EntryReason</title>
+		<options>
+			<option id="entryreason00" from-static-id="enquiry">Enquiry</option>
+			<option id="entryreason01" from-static-id="consideration">Consideration</option>
+			<option id="entryreason02" from-static-id="commission">Commission</option>
+			<option id="entryreason03" from-static-id="loan">Loan</option>
+		</options>
+	</instance>
+	<instance id="vocab-AcessUseType">
+		<web-url>AcessUseType</web-url>
+		<title-ref>AcessUseType</title-ref>
+		<title>AcessUseType</title>
+		<options>
+			<option id="usetype00" from-static-id="class">Class</option>
+			<option id="usetype01" from-static-id="research">Research</option>
+			<option id="usetype02" from-static-id="other">Other</option>
+		</options>
+	</instance>
 </root>

@@ -8,7 +8,7 @@
 	</instances>
 	
 	<section id="placeAuthorityInformation">
-		<field id="placeType" autocomplete="vocab-placetype" ui-search="enum">
+		<field id="placeType" ui-type="enum" autocomplete="vocab-placetype" ui-search="repeatable">
 			<!--Converted to dynamic-->
 		</field>
 	</section>

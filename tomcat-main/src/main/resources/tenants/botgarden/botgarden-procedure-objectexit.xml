@@ -4,5 +4,15 @@
 	    <field id="currentOwner" mini="" in-title=""/>
 		<!-- Remove person-person from autocomplete, add mini -->
 		<field id="depositor" autocomplete="organization-organization" mini="summary,list,search,relate" in-title="yes"/>
+
+		 <repeat id="exitMethods">
+			<field id="exitMethod" ui-search="repeatable" ui-type="enum" autocomplete="vocab-DistributionMethod">
+				<selector>objectexit-exitMethods</selector>
+				<!--Converted to dynamic-->
+			</field>
+		</repeat>
+		<field id="exitReason" ui-search="repeatable" ui-type="enum" autocomplete="vocab-DistributionReason">
+			<!--Convered to dynamic-->
+		</field>
 	</section>
 </record>
