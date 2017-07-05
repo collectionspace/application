@@ -1,17 +1,10 @@
-<record id="propagation" is-extension="true">
-	<!--<services-url>propagations</services-url>
-	<services-tenant-plural>Propagations</services-tenant-plural>
-	<services-tenant-singular>Propagation</services-tenant-singular>
-	<services-list-path>abstract-common-list/list-item</services-list-path>
-	<services-record-path>propagations_common:http://collectionspace.org/services/propagation,propagations_common</services-record-path>-->
-	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-	<!--<hassoftdelete>true</hassoftdelete>-->
-
+<record id="propagation">
     <section id="propagationInformation">
-        <repeat id="scarStratGroupList/scarStratGroup">
-			<field id="scarStrat" ui-type="enum" autocomplete="vocab-scarstratification">
+        <field id="propType" ui-search="repeatable" mini="summary,search,list,terms,relate" autocomplete="vocab-propagationType" ui-type="enum"/>
+        <repeat id="scarStratGrocupList/scarStratGroup">
+			<field id="scarStrat" autocomplete="vocab-stratScar" ui-type="enum"/>
             <!--Converted to Dynamic-->
-			</field>
+			<!--</field>-->
 			<field id="duration" ui-type="validated" datatype="integer"/>
 			<field id="durationUnit">
 				<options>
@@ -22,12 +15,13 @@
 					<option id="months">Months</option>
 				</options>
 			</field>
+			<!--Converted to dynamic-->
+			<!--</field>-->
 		</repeat>
-        <field id="propType" ui-search="repeatable" mini="summary,search,list,terms,relate" ui-type="enum" autocomplete="vocab-propagationType">
         <!--Converted to Dynamic-->
-		</field>
-		<field id="cuttingType" ui-type="enum" autocomplete="vocab-cutType">
+		<!--</field>-->
+		<field id="cuttingType" autocomplete="vocab-cutType" ui-type="enum"/>
         <!--Converted to dynamic-->
-		</field>
+		<!--</field>-->
     </section>
 </record>
