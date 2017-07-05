@@ -5,6 +5,18 @@
         <title-ref>xxx</title-ref>
         <title>Temporary Vocab whilst none exist</title>
     </instance>
+    <instance id="vocab-concepttermflag">
+        <web-url>concepttermflag</web-url>
+        <title-ref>concepttermflag</title-ref>
+        <title>Concept Term Flags</title>
+        <options>
+            <option id="abbreviation">abbreviation</option>
+            <option id="common">common term</option>
+            <option id="full">full term</option>
+            <option id="jargonslang">jargon/slang</option>
+            <option id="scientific">scientific term</option>
+        </options>
+    </instance>
     <instance id="vocab-addresstype">
         <web-url>addresstype</web-url>
         <title-ref>addresstype</title-ref>

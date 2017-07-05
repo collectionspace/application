@@ -16,7 +16,7 @@
 	    </field>
 
 	    <field id="provenanceDataQuality" autocomplete="vocab-provenancedataquality" ui-type="enum" section="botgarden"/>
-	    <field id="provenanceType" autocomplete="vocab-provenanceType" ui-type="enum" section="botgarden"/>
+	    <field id="provenanceType" autocomplete="vocab-provenanceType" ui-type="enum" ui-search="single" section="botgarden"/>
 	    <field id="rare" ui-search="single" section="botgarden">
 	        <options>
 	            <option id="" default="yes">Please select a value</option>
@@ -107,6 +107,9 @@
 	</section>
 
 	<section id="objectCollectionInformation">
+	    <repeat id="fieldCollectors">
+	        <field id="fieldCollector" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"/>
+	    </repeat>
 	    <field id="fieldCollectionNumberAssignor" autocomplete="person-person,organization-collector" section="botgarden"/>
 	</section>    
 </record>
