@@ -11,6 +11,28 @@
             <option id="streetaddress">street address</option>
         </options>
     </instance>
+    <instance id="vocab-concepttype">
+        <web-url>concepttype</web-url>
+        <title-ref>concepttype</title-ref>
+        <title>Concept Types</title>
+        <options>
+            <option id="class">class</option>
+            <option id="family">family</option>
+            <option id="generic">generic</option>
+        </options>
+    </instance>
+    <instance id="vocab-organizationtype">
+        <web-url>organizationtype</web-url>
+        <title-ref>organizationtype</title-ref>
+        <title>Organization Types</title>
+        <options>
+            <option id="corporatebody">corporate body</option>
+            <option id="family">family</option>
+            <option id="repository">repository</option>
+            <option id="studio">studio</option>
+            <option id="workshop">workshop</option>
+        </options>
+    </instance>
     <instance id="vocab-languages">
         <web-url>languages</web-url>
         <title-ref>languages</title-ref>

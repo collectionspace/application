@@ -31,7 +31,7 @@
 	            <option id="false">No</option>
 	        </options>
 	    </field>
-	    <field id="CBDRestriction" datatype="boolean" section="botgarden"></field>
+	    <field id="cbdRestriction" datatype="boolean" section="botgarden"/>
 	    <field id="requestedBy" autocomplete="person-person,person-person_shared" section="botgarden"/>
 	    <field id="source" ui-search="repeatable" section="botgarden"/>
 	</section>
