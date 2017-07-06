@@ -1,0 +1,7 @@
+<record id="intake">
+    <section id="objectEntryInformation">
+        <field id="entryReason" ui-type="enum" autocomplete="vocab-EntryReason">
+            <!--Converted to dynamic-->
+        </field>
+    </section>
+</record>

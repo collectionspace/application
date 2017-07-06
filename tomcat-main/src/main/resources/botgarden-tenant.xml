@@ -18,13 +18,13 @@
 			<!-- <include src="base-procedure-claim.xml"/> -->
 			<include src="base-procedure-conditioncheck.xml"/>
 			<include src="base-procedure-groups.xml"/>
-			<include src="base-procedure-intake.xml"/>
+			<include src="base-procedure-intake.xml,botgarden-procedure-intake.xml" merge="xmlmerge.properties"/>
 			<!-- <include src="base-procedure-loanin.xml,naturalhistory-procedure-loanin.xml" merge="xmlmerge.properties"/> -->
 			<include src="base-procedure-loanout.xml,naturalhistory-procedure-loanout.xml,botgarden-procedure-loanout.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-media.xml,botgarden-procedure-media.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-valuationcontrol.xml"/>
 			<include src="base-procedure-movement.xml,botgarden-procedure-movement.xml" merge="xmlmerge.properties"/>
-			<include src="base-procedure-propagation.xml"/>
+			<include src="base-procedure-propagation.xml,botgarden-procedure-propagation.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-pottag.xml"/>
 			<include src="base-procedure-objectexit.xml,naturalhistory-procedure-objectexit.xml,botgarden-procedure-objectexit.xml" merge="xmlmerge.properties"/>
 
