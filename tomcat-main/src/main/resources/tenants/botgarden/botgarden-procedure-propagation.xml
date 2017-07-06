@@ -1,19 +1,8 @@
 <record id="propagation">
     <section id="propagationInformation">
-        <field id="propType" ui-search="repeatable" mini="summary,search,list,terms,relate" autocomplete="vocab-propagationType" ui-type="enum"/>
+        <field id="propType" autocomplete="vocab-propagationType" ui-type="enum"/>
         <repeat id="scarStratGrocupList/scarStratGroup">
 			<field id="scarStrat" autocomplete="vocab-stratScar" ui-type="enum"/>
-            <!--Converted to Dynamic-->
-			<field id="duration" ui-type="validated" datatype="integer"/>
-			<field id="durationUnit">
-				<options>
-					<option id="" default="yes">Please select a value</option>
-					<option id="hours">Hours</option>
-					<option id="days">Days</option>
-					<option id="weeks">Weeks</option>
-					<option id="months">Months</option>
-				</options>
-			</field>
 			<!--Converted to dynamic-->
 		</repeat>
         <!--Converted to Dynamic-->
