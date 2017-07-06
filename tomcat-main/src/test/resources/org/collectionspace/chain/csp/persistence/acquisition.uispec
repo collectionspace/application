@@ -403,6 +403,10 @@
     ".csc-acquisition-createdBy": "${fields.createdBy}",
     ".csc-acquisition-transfer-of-title-number": "${fields.transferOfTitleNumber}",
     ".csc-acquisition-uri": "${fields.uri}",
+    ".csc-acquisition-workflow": "${fields.workflow}", 
+    ".csc-acquisition-workflow-label": {
+      "messagekey": "acquisition-workflowLabel"
+    }, 
     ".csc-acquisition-objectOfferPriceCurrency-label": {"messagekey": "acquisition-objectOfferPriceCurrencyLabel"},
     ".csc-acquisition-acquisitionAuthorizerDate-label": {"messagekey": "acquisition-acquisitionAuthorizerDateLabel"}
 }}

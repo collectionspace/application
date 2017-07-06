@@ -1,72 +1,90 @@
 {
-  "citationAgentInfoGroup": [
-    {
-      "_primary": true
-    }
-  ], 
-  "citationNote": "This is a citation note.", 
-  "citationPublicationInfoGroup": [
-    {
-      "_primary": true, 
-      "de-urned-publicationPlace": "New York, NY", 
-      "de-urned-publisher": "Bigger Book Publishers", 
-      "edition": "5th", 
-      "pages": "359", 
-      "publicationDate": {
-        "_primary": true, 
-        "dateAssociation": "", 
-        "dateDisplayDate": "2001", 
-        "dateEarliestScalarValue": "", 
-        "dateEarliestSingleCertainty": "", 
-        "dateEarliestSingleDay": "", 
-        "dateEarliestSingleEra": "", 
-        "dateEarliestSingleMonth": "", 
-        "dateEarliestSingleQualifier": "", 
-        "dateEarliestSingleQualifierUnit": "", 
-        "dateEarliestSingleQualifierValue": "", 
-        "dateEarliestSingleYear": "2001", 
-        "dateLatestCertainty": "", 
-        "dateLatestDay": "", 
-        "dateLatestEra": "", 
-        "dateLatestMonth": "", 
-        "dateLatestQualifier": "", 
-        "dateLatestQualifierUnit": "", 
-        "dateLatestQualifierValue": "", 
-        "dateLatestScalarValue": "", 
-        "dateLatestYear": "", 
-        "dateNote": "", 
-        "datePeriod": "", 
-        "scalarValuesComputed": true
-      }, 
-      "publicationPlace": "urn:cspace:core.collectionspace.org:placeauthorities:name(tgn_place):item:name(newyorkny11369432454870)'New York, NY'", 
-      "publisher": "urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(biggerbookpublishers11369429687965)'Bigger Book Publishers'"
-    }
-  ], 
-  "citationRelatedTermsGroup": [
-    {
-      "_primary": true
-    }
-  ], 
-  "citationResourceIdentGroup": [
-    {
-      "_primary": true
-    }
-  ], 
-  "citationTermGroup": [
-    {
-      "_primary": true, 
-      "de-urned-termLanguage": "Ancient Greek", 
-      "de-urned-termType": "Atlas", 
-      "termDisplayName": "The Big Book of Absolutely Everything", 
-      "termFullCitation": "The Big Book of Absolutely Everything: Why You Won't Ever Need Another Book Again", 
-      "termLanguage": "urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(grc)'Ancient Greek'", 
-      "termPrefForLang": true, 
-      "termQualifier": "", 
-      "termSectionTitle": "Section title", 
-      "termSourceDetail": "", 
-      "termStatus": "under review", 
-      "termTitle": "", 
-      "termType": "urn:cspace:core.collectionspace.org:vocabularies:name(citationtermtype):item:name(atlas)'Atlas'"
-    }
-  ]
+    "deprecated": false,
+    "citationPublicationInfoGroup": [{
+        "edition": "5th",
+        "_primary": true,
+        "de-urned-publicationPlace": "New York, NY",
+        "publicationPlace": "urn:cspace:core.collectionspace.org:placeauthorities:name(tgn_place):item:name(newyorkny11369432454870)'New York, NY'",
+        "de-urned-publisher": "Bigger Book Publishers",
+        "pages": "359",
+        "publicationDate": {
+            "dateEarliestSingleQualifier": "",
+            "scalarValuesComputed": true,
+            "dateLatestDay": "",
+            "dateLatestYear": "",
+            "dateAssociation": "",
+            "dateEarliestSingleEra": "",
+            "dateDisplayDate": "2001",
+            "dateEarliestSingleCertainty": "",
+            "dateLatestEra": "",
+            "dateEarliestSingleQualifierValue": "",
+            "dateLatestCertainty": "",
+            "dateEarliestSingleYear": "2001",
+            "dateLatestQualifier": "",
+            "dateLatestQualifierValue": "",
+            "dateEarliestSingleQualifierUnit": "",
+            "datePeriod": "",
+            "dateEarliestScalarValue": "",
+            "_primary": true,
+            "dateLatestMonth": "",
+            "dateNote": "",
+            "dateLatestScalarValue": "",
+            "dateLatestQualifierUnit": "",
+            "dateEarliestSingleDay": "",
+            "dateEarliestSingleMonth": ""
+        },
+        "publisher": "urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(biggerbookpublishers11369429687965)'Bigger Book Publishers'"
+    }],
+    "rev": "",
+    "deprecatedRefName": "",
+    "citationTermGroup": [{
+        "termFullCitation": "The Big Book of Absolutely Everything: Why You Won't Ever Need Another Book Again",
+        "termName": "",
+        "termSource": "",
+        "termVolume": "",
+        "termSourceID": "",
+        "termSourceNote": "",
+        "termSubTitle": "",
+        "termLanguage": "urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(grc)'Ancient Greek'",
+        "termPrefForLang": true,
+        "_primary": true,
+        "termIssue": "",
+        "termDisplayName": "The Big Book of Absolutely Everything",
+        "termType": "urn:cspace:core.collectionspace.org:vocabularies:name(citationtermtype):item:name(atlas)'Atlas'",
+        "de-urned-termLanguage": "Ancient Greek",
+        "termSectionTitle": "Section title",
+        "termTitle": "",
+        "de-urned-termType": "Atlas",
+        "termFormattedDisplayName": "",
+        "termStatus": "under review",
+        "termQualifier": "",
+        "termSourceDetail": ""
+    }],
+    "shortIdentifier": "",
+    "inAuthority": "",
+    "citationResourceIdentGroup": [{
+        "_primary": true,
+        "type": "",
+        "resourceIdent": ""
+    }],
+    "sas": false,
+    "refName": "",
+    "proposed": false,
+    "citationRelatedTermsGroup": [{
+        "_primary": true,
+        "relationType": "",
+        "relatedTerm": ""
+    }],
+    "citationAgentInfoGroup": [{
+        "_primary": true,
+        "role": "",
+        "agent": "",
+        "note": ""
+    }],
+    "citationRecordTypes": [{
+        "_primary": true,
+        "citationRecordType": "urn:cspace:core.collectionspace.org:vocabularies:name(citationtermtype):item:name(birthcert)'Birth certificate'",
+        "de-urned-citationRecordType": "Birth certificate"
+    }],
+    "citationNote": "This is a citation note."
 }

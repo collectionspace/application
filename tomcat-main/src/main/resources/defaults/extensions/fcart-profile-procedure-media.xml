@@ -1,0 +1,28 @@
+<record id="media">
+    <section id="mediaInformation">
+        <repeat id="types">
+            <field id="type">
+                <options>
+                    <option id="" default="yes">Please select a value</option>
+                    <option id="contextualimage"> contextual image </option>
+                    <option id="conservationimage">  conservation image </option>
+                    <option id="dataset">  dataset </option>
+                    <option id="digitalimage">  digital image </option>
+                    <option id="document">  document </option>
+                    <option id="documentaryimage">  documentary image </option>
+                    <option id="historicalimage">  historical image </option>
+                    <option id="installationimage">  installation image </option>
+                    <option id="internegative">  internegative </option>
+                    <option id="movingimage">  moving image </option>
+                    <option id="negative">  negative </option>
+                    <option id="photograph">  photograph </option>
+                    <option id="reconstruction">  reconstruction </option>
+                    <option id="slide">  slide </option>
+                    <option id="sound">  sound </option>
+                    <option id="videotape">  videotape </option>
+                    <option id="x-rayphotograph">  X-ray photograph </option>
+                </options>
+            </field>
+        </repeat>
+    </section>
+</record>

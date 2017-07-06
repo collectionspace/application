@@ -6,12 +6,14 @@
  */
 package org.collectionspace.chain.csp.webui.nuispec;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
+import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.lang.StringUtils;
-import org.collectionspace.chain.csp.config.ConfigException;
+
 import org.collectionspace.chain.csp.schema.Field;
-import org.collectionspace.chain.csp.schema.FieldParent;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Instance;
@@ -20,12 +22,16 @@ import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.chain.csp.schema.Schemas;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.schema.UISpecRunContext;
+import org.collectionspace.chain.csp.webui.authorities.VocabulariesRead;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.csp.api.persistence.Storage;
+import org.collectionspace.csp.api.persistence.UnauthorizedException;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.collectionspace.csp.api.ui.UISession;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,6 +44,7 @@ public class UISchema extends SchemaStructure implements WebMethod {
 	protected Record record;
 	protected Storage storage;
 	private Schemas schema;
+	private Map<String, String> workflowStateCache = new HashMap<String, String>();
 
 	public UISchema(Record r, String sview) {
 		super(r, sview);
@@ -60,28 +67,29 @@ public class UISchema extends SchemaStructure implements WebMethod {
 	}
 
 	@Override
-	public void run(Object in, String[] tail) throws UIException {
+	public void run(Object in, String[] tail) throws UIException, UnauthorizedException {
 		Request q = (Request) in;
 		JSONObject out;
-		if(this.record != null){
-			if(this.spectype.equals("search")){
-				out = uisearchschema(q.getStorage(),this.record);
+		if (this.record != null) {
+			if (this.spectype.equals("search")) {
+				out = uisearchschema(q.getStorage(), this.record);
+			} else {
+				out = uirecordschema(q.getStorage(), this.record);
 			}
-			else{
-				out = uirecordschema(q.getStorage(),this.record);
-			}
+		} else {
+			UISession session = q.getUIRequest().getSession();
+			out = uiotherschema(session, q.getStorage(), StringUtils.join(tail, "/"));
 		}
-		else{
-			out = uiotherschema(q.getStorage(),StringUtils.join(tail,"/"));
-		}
+		
 		UIRequest uir = q.getUIRequest();
 		uir.sendJSONResponse(out);
 		int cacheMaxAgeSeconds = spec.getAdminData().getUiSpecSchemaCacheAge();
-		if(cacheMaxAgeSeconds > 0) {
+		if (cacheMaxAgeSeconds > 0) {
 			uir.setCacheMaxAgeSeconds(cacheMaxAgeSeconds);
 		}
 	}
 
+	@Override
 	protected void actualValidatedField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
 		String datatype = ((Field)fs).getDataType();
 		if(datatype.equals("")){datatype="string";}
@@ -90,14 +98,24 @@ public class UISchema extends SchemaStructure implements WebMethod {
 		out.put(getSelector(fs,context),validator);
 	}
 	
+	@Override
 	protected void actualComputedField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
 		String datatype = ((Field)fs).getDataType();
 		if(datatype.equals("")){datatype="string";}
 		JSONObject computed = new JSONObject();
 		actualSchemaObject(datatype, null, null, null, computed);
 		out.put(getSelector(fs,context),computed);
+	}	
+	
+	@Override
+	protected void actualWorkflowStateField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+		String datatype = "string";
+		JSONObject workflowStateField = new JSONObject();
+		actualSchemaObject(datatype, null, null, null, workflowStateField);
+		out.put(getSelector(fs,context),workflowStateField);
 	}
 	
+	@Override
 	protected void actualExternalURLField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
 		String datatype = "string";
 		JSONObject urlfield = new JSONObject();
@@ -105,13 +123,15 @@ public class UISchema extends SchemaStructure implements WebMethod {
 		out.put(getSelector(fs,context),urlfield);
 	}
         
-        protected void actualDeURNedField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+        @Override
+		protected void actualDeURNedField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
 		String datatype = "string";
 		JSONObject deurnedfield = new JSONObject();
 		actualSchemaObject(datatype, null, null, null, deurnedfield);
 		out.put(getSelector(fs,context),deurnedfield);
 	}
 	
+	@Override
 	protected void actualSubRecordField(JSONObject out, FieldSet fs, UISpecRunContext context, Record subr, Boolean repeated, JSONObject parent) throws JSONException{
 
 		if(fs instanceof Group){
@@ -130,12 +150,14 @@ public class UISchema extends SchemaStructure implements WebMethod {
 		actualSchemaObject("object", null, insidebit, null, chooser);
 		out.put(getSelector(fs,context),chooser);
 	}
+	@Override
 	protected void actualChooserField(JSONObject out, FieldSet fs, UISpecRunContext context, Boolean useContainer) throws JSONException{
 		JSONObject chooser = new JSONObject();
 		actualSchemaObject("string", null, null, null, chooser);
 		out.put(getSelector(fs,context),chooser);
 	}
 
+	@Override
 	protected void actualDateField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
 		String type = "date";
 		JSONObject datefield = new JSONObject();
@@ -150,6 +172,7 @@ public class UISchema extends SchemaStructure implements WebMethod {
 	 * @param f
 	 * @throws JSONException
 	 */
+	@Override
 	protected void actualAuthorities(JSONObject out, FieldSet fs, UISpecRunContext context)
 			throws JSONException {
 		if("enum".equals(fs.getUIType())){
@@ -180,9 +203,11 @@ public class UISchema extends SchemaStructure implements WebMethod {
 	 * @param f
 	 * @throws JSONException
 	 */
+	@Override
 	protected void actualFieldNotRefactored(JSONObject out,FieldSet fs, UISpecRunContext context) throws JSONException{
 		actualFieldRefactored(out, fs, context);
 	}
+	@Override
 	protected void 	actualGroupEntry(FieldSet fs, JSONObject out, UISpecRunContext context, JSONObject contents) throws JSONException{
 		if(contents.has("type")){
 			out.put("type", contents.get("type"));// array|object|string
@@ -205,6 +230,7 @@ public class UISchema extends SchemaStructure implements WebMethod {
 	 * @return
 	 * @throws JSONException
 	 */
+	@Override
 	protected Object actualOptionField(Field f,UISpecRunContext context) throws JSONException {
 		String type = "string";
 		String defaultval = f.getOptionDefault();
@@ -220,12 +246,13 @@ public class UISchema extends SchemaStructure implements WebMethod {
 	/**
 	 * specific UISchema realization of this item
 	 */
+	@Override
 	protected void actualSelfRendererField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
 		Object temp = actualFieldEntry(fs,context);
 		if(temp instanceof JSONObject){
 			JSONObject tempo = (JSONObject)temp;
 
-			Iterator rit=tempo.keys();
+			Iterator<?> rit=tempo.keys();
 			while(rit.hasNext()) {
 				String key=(String)rit.next();
 				out.put(key, tempo.get(key));
@@ -255,22 +282,26 @@ public class UISchema extends SchemaStructure implements WebMethod {
 	 * @param context
 	 * @throws JSONException 
 	 */
+	@Override
 	protected void actualField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
 		out.put(getSelector(fs,context),actualFieldEntry(fs,context));
 	}
 
+	@Override
 	protected Object displayAsplain(Field f,UISpecRunContext context) throws JSONException {
 		JSONObject output = new JSONObject();
 		actualSchemaObject("string", null, null, null, output);
 		return output;
 	}
 
+	@Override
 	protected Object displayAsplainlist(Field f) throws JSONException {
 		JSONObject output = new JSONObject();
 		actualSchemaObject("object", new JSONObject(), null, null, output);
 		return output;
 	}
 	
+	@Override
 	protected void makeAStructureDate(FieldSet fs, JSONObject out,
 			JSONObject subexpander, JSONObject options, Record subitems,
 			UISpecRunContext sub, UISpecRunContext mainContext) throws JSONException {
@@ -287,6 +318,7 @@ public class UISchema extends SchemaStructure implements WebMethod {
 		}
 	}	
 	
+	@Override
 	protected void makeAOtherGroup(FieldSet fs, JSONObject out,
 			JSONObject subexpander, JSONObject options, Record subitems,
 			UISpecRunContext sub) throws JSONException {
@@ -339,7 +371,7 @@ public class UISchema extends SchemaStructure implements WebMethod {
 					if(!truerepeat){
 						structuredate = preProtoTree.getJSONObject(getSelector(child,context)).getJSONObject("properties");
 						preProtoTree.remove(getSelector(child,context));
-						Iterator rit=structuredate.keys();
+						Iterator<?> rit=structuredate.keys();
 						while(rit.hasNext()) {
 							String key=(String)rit.next();
 							preProtoTree.put(key, structuredate.get(key));
@@ -377,12 +409,15 @@ public class UISchema extends SchemaStructure implements WebMethod {
 	}
 	
 	
+	@Override
 	protected void makeARepeatSiblingEntry(JSONObject out, Repeat r, UISpecRunContext context) throws JSONException {
 		UISchemaRepeatItem(out, r, context);
 	}
+	@Override
 	protected void makeARepeatNonSiblingEntry(JSONObject out, Repeat r, UISpecRunContext context) throws JSONException{
 		makeARepeatSiblingEntry(out, r, context);
 	}
+	@Override
 	protected void makeASelfRenderer(FieldSet fs, UISpecRunContext context,
 			JSONObject out, JSONObject subexpander, JSONObject options,
 			Record subitems, UISpecRunContext sub) throws JSONException {
@@ -391,6 +426,7 @@ public class UISchema extends SchemaStructure implements WebMethod {
 		}
 	}
 	
+	@Override
 	protected Object actualENUMField(Field f,UISpecRunContext context) throws JSONException {
 		String type = "string";
 		String defaultval = f.getEnumDefault();
@@ -402,6 +438,7 @@ public class UISchema extends SchemaStructure implements WebMethod {
 		return output;
 	}
 	
+	@Override
 	protected Object actualBooleanField(Field f,UISpecRunContext context) throws JSONException {
 		String type = "boolean";
 		String defaultval = f.getDefault();
@@ -491,8 +528,9 @@ public class UISchema extends SchemaStructure implements WebMethod {
 	 * @param params
 	 * @return
 	 * @throws UIException
+	 * @throws UnauthorizedException 
 	 */
-	private JSONObject uiotherschema(Storage storage, String params) throws UIException {
+	private JSONObject uiotherschema(UISession session, Storage storage, String params) throws UIException, UnauthorizedException {
 		JSONObject out = new JSONObject();
 		String sectionname = "";
 		String sectionid = params.toLowerCase();
@@ -522,7 +560,8 @@ public class UISchema extends SchemaStructure implements WebMethod {
 				schema.put("default", recrds);
 				out.put(sectionname, schema);
 			}
-			else if(sectionid.toLowerCase().equals("namespaces")){
+			else if (sectionid.toLowerCase().equals("namespaces")) {
+				assertLoginStatus(session);
 				JSONObject namespaces = new JSONObject();
 				JSONObject namespacesProps = new JSONObject();
 
@@ -543,6 +582,10 @@ public class UISchema extends SchemaStructure implements WebMethod {
 								orderProp.put("type", "integer");
 								orderProp.put("default", cardinal);
 								instanceProps.put("order", orderProp);
+								JSONObject workflowState = new JSONObject();
+								workflowState.put("type", "string");
+								workflowState.put("default", getWorkflowState(storage, ins));
+								instanceProps.put("workflowState", workflowState);
 								instanceInfo.put("type", "object");
 								instanceInfo.put("properties", instanceProps);
 								authInfoProps.put(ins.getWebURL(), instanceInfo);
@@ -687,6 +730,69 @@ public class UISchema extends SchemaStructure implements WebMethod {
 		}
 		return out;
 	}
+	
+	private void assertLoginStatus(UISession uiSession) throws UnauthorizedException {		
+		if (uiSession == null || uiSession.getValue(UISession.USERID) == null) {
+			throw new UnauthorizedException("User must be authenticated to access this resource.", HttpStatus.SC_UNAUTHORIZED, "/namespaces");
+		}		
+	}
+	
+	private boolean isInstanceReferenced(Instance instance) {
+		boolean found = false;
+		
+		for (Record record : spec.getAllRecords()) {
+			if (record.getSpec().hasTermlist(instance.getID())) {
+				found = true;
+				break;
+			}
+		}
+		
+		return found;
+	}
+	
+	private String getWorkflowState(Storage storage, Instance authorityInstance) throws UIException {
+		String cacheKey = authorityInstance.getWebURL();
+		
+		// Cache workflow states by instance id. The app layer already expects instance ids to be
+		// unique across authorities in other places.
+		
+		if (workflowStateCache.containsKey(cacheKey)) {
+			return workflowStateCache.get(cacheKey);
+		}
+		
+		// If the authority/vocab instance is not referenced, then
+		// return null
+		if (isInstanceReferenced(authorityInstance) == false && authorityInstance.getCreateUnreferenced() == false) {
+			String msg = String.format("The authority/vocab instance '%s' is unreferenced and uninitialized in the '%s' tenant.", 
+					authorityInstance.getID(), spec.getTenantName());
+			log.warn(msg);
+			return null;
+		}
+		
+		VocabulariesRead vocabulariesRead = new VocabulariesRead(authorityInstance, VocabulariesRead.GET_BASIC_INFO);
+		JSONObject instanceData = vocabulariesRead.getInstance(storage);
+		
+		String workflowState = null;
+		try {
+			if (!instanceData.has("csid") || (instanceData.has("isError") && instanceData.getBoolean("isError"))) {
+				return null;
+			}
+		}
+		catch(JSONException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			workflowState = instanceData.getJSONObject("fields").getString("workflow");
+		}
+		catch(JSONException e) {
+		}
+
+		workflowStateCache.put(cacheKey, workflowState);
+		
+		return workflowState;
+	}
+	
 	/**
 	 * Create the search uischemas
 	 * @param storage
@@ -743,7 +849,7 @@ public class UISchema extends SchemaStructure implements WebMethod {
 				JSONObject temp = actualSchemaFields(record.getSpec().getRecord("hierarchy"),context);
 				JSONObject prop2 = temp.getJSONObject("properties");
 
-				Iterator rit=prop2.keys();
+				Iterator<?> rit=prop2.keys();
 				while(rit.hasNext()) {
 					String key=(String)rit.next();
 					Object value = prop2.get(key);

@@ -1,0 +1,8 @@
+<record id="collection-object">
+	<section id="objectProductionInformation">
+		<repeat id="objectProductionPlaceGroupList/objectProductionPlaceGroup">
+			<!-- Add autocomplete -->
+			<field id="objectProductionPlace" autocomplete="place-place,place-tgn_place"/>
+		</repeat>
+	</section>
+</record>

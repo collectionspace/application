@@ -96,7 +96,7 @@
             "hidePrimary": true
         }
     }]},
-    ".csc-acquisition-createdAtStart-label": {
+        ".csc-acquisition-createdAtStart-label": {
         "messagekey": "acquisition-createdAtStartLabel"
     },
     ".csc-acquisition-accessionDateGroupEnd": {
@@ -120,7 +120,7 @@
     ".csc-acquisition-acquisitionFundingValue-label": {"messagekey": "acquisition-acquisitionFundingValueLabel"},
     ".csc-acquisition-acquisitionDateGroupEnd-label": {"messagekey": "acquisition-acquisitionDateGroupEndLabel"},
     ".csc-acquisition-updatedBy-label": {"messagekey": "acquisition-updatedByLabel"},
-    ".csc-acquisition-createdAtEnd-label": {
+        ".csc-acquisition-createdAtEnd-label": {
         "messagekey": "acquisition-createdAtEndLabel"
     },
     ".csc-acquisition-fieldCollectionEventName": {"decorators": [{
@@ -141,7 +141,7 @@
             "type": "fluid"
         }],
         "value": "${createdAtEnd}"
-    },
+    },    
     ".csc-acquisition-acquisition-method": {"decorators": [{
         "func": "cspace.makeRepeatable",
         "type": "fluid",

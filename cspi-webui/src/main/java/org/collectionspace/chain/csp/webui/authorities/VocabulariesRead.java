@@ -377,6 +377,41 @@ public class VocabulariesRead implements WebMethod {
 		return out;
 	}
 	
+	public JSONObject getInstance(Storage storage) throws UIException {
+		return getInstance(storage, new JSONObject());
+	}
+
+	private JSONObject getInstance(Storage storage, JSONObject restriction) throws UIException {
+		JSONObject out=new JSONObject();
+
+		try {
+			String refPath = n.getRecord().getID() + "/" + n.getTitleRef() + "/";
+			
+			if(getInfoMode == GET_FULL_INFO || getInfoMode == GET_BASIC_INFO) {
+				JSONObject fields=storage.retrieveJSON(refPath, restriction);
+				
+				if (fields.has("csid")) {
+					String csid = fields.getString("csid");
+
+					out.put("fields",fields);
+					out.put("csid", csid);
+				}
+			}
+		} catch (ExistException e) {
+			UIException uiexception =  new UIException(e.getMessage(),e);
+			return uiexception.getJSON();
+		} catch (UnimplementedException e) {
+			UIException uiexception =  new UIException(e.getMessage(),e);
+			return uiexception.getJSON();
+		} catch (UnderlyingStorageException x) {
+			UIException uiexception =  new UIException(x.getMessage(),x.getStatus(),x.getUrl(),x);
+			return uiexception.getJSON();
+		} catch (JSONException e) {
+			throw new UIException("Could not create JSON"+e,e);
+		}
+		return out;
+	}
+
 	private void store_get(Storage storage,UIRequest request,String path) throws UIException {
 		// Get the data
 		JSONObject restriction = new JSONObject();

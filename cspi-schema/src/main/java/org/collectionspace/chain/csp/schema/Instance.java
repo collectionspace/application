@@ -7,7 +7,6 @@
 package org.collectionspace.chain.csp.schema;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +39,9 @@ public class Instance {
 		utils.initStrings(data.get("web-url"),"web-url", utils.getString("@id"));
 		utils.initStrings(data.get("ui-url"),"ui-url", utils.getString("web-url") + ".html");
 		utils.initStrings(data.get("ui-type"),"@ui-type","plain");
+		String createUnreferencedSpec = data.get("create-unreferenced");
+		Boolean createUnreferenced = (createUnreferencedSpec == null) || Boolean.parseBoolean(createUnreferencedSpec);
+		utils.initBoolean(createUnreferenced, "@create-unreferenced", false);
 		String nptSpec = data.get(NPT_ALLOWED);
 		Boolean nptAllowed = (nptSpec==null) || Boolean.parseBoolean(nptSpec);
 		utils.initBoolean(nptAllowed,NPT_ALLOWED,true);
@@ -55,13 +57,13 @@ public class Instance {
 		utils.initStrings(section,"web-url", utils.getString("@id"));
 		utils.initStrings(section,"ui-url", utils.getString("web-url") + ".html");
 		utils.initStrings(section,"@ui-type","plain");
+		utils.initBoolean(section, "@create-unreferenced", false);
 		utils.initBoolean(section,NPT_ALLOWED,true);
 		option_default = Util.getSetOrDefault(section, "/@default", new String[]{""});
 		
 		
 	}
 
-	
 	public Record getRecord() { return record; }
 	public String getID() { return utils.getString("@id"); }
 	public String getTitle() { return utils.getString("title"); }
@@ -70,7 +72,14 @@ public class Instance {
 	public String getWebURL() { return utils.getString("web-url"); }
 	public String getUIURL() { return utils.getString("ui-url"); }
 	public boolean getNPTAllowed() { return utils.getBoolean(NPT_ALLOWED); }
-
+	public boolean getCreateUnreferenced() { return utils.getBoolean("@create-unreferenced"); }
+	
+	// For debugging purposes
+	@Override
+	public	String toString() {
+		return this.getID();
+	}
+	
 	public void addOption(String id,String name,String sample,boolean dfault) {
 		if(id==null){
 			id = name.replaceAll("\\W", "").toLowerCase();

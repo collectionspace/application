@@ -224,6 +224,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @param f
 	 * @throws JSONException
 	 */
+	@Override
 	protected void actualAuthorities(JSONObject out, FieldSet fs, UISpecRunContext context)
 			throws JSONException {
 		String fieldSelector = getSelector(fs,context);
@@ -344,6 +345,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 		JSONArray decorators = getExistingDecoratorsArray(out, fieldSelector);
 		out.put(fieldSelector,actualDate(fs,context, decorators));
 	}
+        
 	/**
 	 * Generate UISpec JSON needed by the UI to show a rich text editor
 	 * @param f
@@ -381,7 +383,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 		JSONArray decorators = getExistingDecoratorsArray(out, fieldSelector);
 		out.put(fieldSelector,actualRichText(fs,context, decorators));
 	}
-
+        
 	/**
 	 * This is a bit of JSON needed by the UI so they can validate data types like integer,float etc
 	 * CSPACE-4330
@@ -434,11 +436,44 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @throws JSONException 
 	 */
         @Override
+	protected void actualWorkflowStateField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+		String fieldSelector = getSelector(fs,context);
+		JSONArray decorators = getExistingDecoratorsArray(out, fieldSelector);
+		out.put(fieldSelector,actualWorkflowState(fs,context, decorators));
+	}
+	
+	private JSONObject actualWorkflowState(FieldSet fs,UISpecRunContext context, JSONArray decorators) throws JSONException {
+		JSONObject out=new JSONObject();
+		Field f = (Field)fs;
+		JSONObject decorator=getDecorator("fluid",null,"cspace.util.workflowToStyleFieldConverter",null,f.isReadOnly());
+		if(!f.isRefactored()){
+			if(f.hasContainer()){
+				decorator.put("container",getSelector(f,context));
+			}
+		}
+		if(decorators==null) {
+			decorators=new JSONArray();
+		}
+		decorators.put(decorator);
+		out.put(DECORATORS_KEY,decorators);
+		out.put("value", actualFieldEntry(f,context));
+		return out;
+	}
+	
+	/**
+	 * Overwrite with output you need for this thing you are doing
+	 * @param out
+	 * @param fs
+	 * @param context
+	 * @throws JSONException 
+	 */
+    @Override
 	protected void actualExternalURLField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
 		String fieldSelector = getSelector(fs,context);
 		JSONArray decorators = getExistingDecoratorsArray(out, fieldSelector);
 		out.put(fieldSelector,actualExternalURL(fs,context, decorators));
 	}
+	
 	/**
 	 * Generate the JSON needed by the UI to create a computed field.
 	 * @param f
@@ -509,6 +544,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 		out.put("value", actualFieldEntry(f,context));
 		return out;
 	}
+    
 	/**
 	 * Write the JSON structure for a computed field.
 	 * @param out
@@ -516,6 +552,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 	 * @param context
 	 * @throws JSONException 
 	 */
+	@Override
 	protected void actualComputedField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
 		out.put(getSelector(fs,context),generateComputedField(fs,context));
 	}

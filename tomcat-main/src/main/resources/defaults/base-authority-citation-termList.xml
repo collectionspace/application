@@ -17,6 +17,9 @@
 				ui-type="enum">
 				<selector>citationAuthority-termType</selector>
 			</field>
+			<field id="termFlag" ui-search="repeatable" autocomplete="vocab-citationtermflag" ui-type="enum">
+				<selector>citationAuthority-termFlag</selector>
+			</field>
 			<field id="termStatus" ui-search="repeatable"
 				seperate_ui_container="true" mini="search,list,relate">
 				<selector>citationAuthority-termStatus</selector>
@@ -37,7 +40,7 @@
 			<field id="termPrefForLang" datatype="boolean">
 				<selector>citationAuthority-termPrefForLang</selector>
 			</field>
-			<field id="termSource" autocomplete="citation-citation,citation-worldcat">
+			<field id="termSource" autocomplete="citation-citation,citation-citation_shared,citation-worldcat">
 				<selector>citationAuthority-termSource</selector>
 			</field>
 			<field id="termSourceDetail">

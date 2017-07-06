@@ -1,4 +1,4 @@
-
+tomcat-main/plugins/
 .settings/org.eclipse.m2e.core.prefs
 .settings/
 .classpath
@@ -16,5 +16,6 @@ tomcat-main/src/main/resources/tenants/core/cow.xml
 target/
 .DS_Store
 *.bindings.xml
-logs/
-
+war-entry/tmp/
+*.xlsx
+host-settings.xml

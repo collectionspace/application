@@ -1,3 +1,6 @@
+<!--
+	WARNING: This needs to stay in sync with the XSD file at tomcat-main\src\main\resources\auth-nx-plugin-templates\schema-type-templates\schemas\authorities_common.xsd
+-->
 <record id="baseAuthority" in-recordlist="no" separate-record="false" generate-services-schema="false">
     <section>
 	    <field id="displayName" mini="list" services-should-index="true"/>
@@ -6,5 +9,8 @@
 	    <field id="vocabType" mini="list"/>
 	    <field id="source"/>
 	    <field id="description"/>
+		<field id="rev" mini="list" datatype="integer"/>
+		<field id="sas" mini="list" datatype="boolean"/>
+		<field id="remoteClientConfigName"/>
     </section>
 </record>

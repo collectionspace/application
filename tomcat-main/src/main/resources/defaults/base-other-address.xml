@@ -1,0 +1,30 @@
+<!--
+    A reusable complex type for storing address information.
+
+    There is an existing address group in contacts, named addressGroup.
+    
+    This group is different from that group in that some fields are tied to
+    the place authority, instead of being free text or controlled lists.
+    Therefore this group needs to have a different name, so that the
+    addressGroup table doesn't end up having a mix of refnames and non-
+    refnames in some columns.
+    
+    The name of this group is addrGroup. At some point contacts should be
+    converted to use this group as well, and the values in the addressGroup
+    table should be migrated to the addrGroup table. At that point the
+    addressGroup table can be deleted.
+-->
+<record id="address" in-recordlist="no" separate-record="false" services-type="addrGroupList">
+    <hassoftdelete>true</hassoftdelete>
+    <section id="addressInformation">
+        <repeat id="addrGroupList/addrGroup">
+            <field id="addressType" autocomplete="vocab-addresstype" ui-type="enum"/>
+            <field id="addressPlace1"/>
+            <field id="addressPlace2"/>
+            <field id="addressMunicipality" autocomplete="place-place,place-place_shared,place-tgn_place"/>
+            <field id="addressStateOrProvince" autocomplete="place-place,place-place_shared,place-tgn_place"/>
+            <field id="addressPostCode"/>
+            <field id="addressCountry" autocomplete="place-place,place-place_shared,place-tgn_place"/>
+        </repeat>
+    </section>
+</record>

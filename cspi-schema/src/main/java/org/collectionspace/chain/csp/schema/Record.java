@@ -39,6 +39,9 @@ public class Record implements FieldParent {
 	private static final String TYPE_AUTHORITY_LOWERCASE = TYPE_AUTHORITY.toLowerCase();
 
 	public static final String SUPPORTS_LOCKING = "supportslocking";
+	public static final String SUPPORTS_REPLICATING = "supportsReplicating";
+	public static final String REMOTECLIENT_CONFIG_NAME = "remoteClientConfigName";
+	public static final String REQUIRES_UNIQUE_SHORTID = "requiresUniqueShortId";
 	public static final String SUPPORTS_VERSIONING = "supportsversioning";
 	public static final String RANGE_START_SUFFIX = "Start";
 	public static final String RANGE_END_SUFFIX = "End";
@@ -51,6 +54,7 @@ public class Record implements FieldParent {
 
 	protected SchemaUtils utils = new SchemaUtils();
 
+	private String configFileSrcName = null; // The tenant config file name -e.g, botgarden-tenant.xml
 	private Map<String, Structure> structure = new HashMap<String, Structure>();
 	private Map<String, Map<String, String>> uisection = new HashMap<String, Map<String, String>>();
 	private List<FieldSet> selfRenderers = new ArrayList<FieldSet>();
@@ -90,18 +94,26 @@ public class Record implements FieldParent {
 	private Map<String, Map<String, FieldSet>> minidataset = new HashMap<String, Map<String, FieldSet>>();
 	private Spec spec;
 	private FieldSet mini_summary, mini_number, display_name;
-	private String whoamI = ""; // Used for debugging purposes.
+	public String whoamI = ""; // Used for debugging purposes.
 	private HashSet<String> authTypeTokenSet = new HashSet<String>();
 	private Record lastAuthoriyProxy = null; // Used during Service binding generation.  Only the "baseAuthority" record ever uses this member.  Values would be things like PersonAuthority, OrgAuthority, and other authority records.
 
 	// Map field id to id of the field to be used for sorting
 	private Map<String, String> sortKeys = new HashMap<String, String>();
-
+	
 	/* Service stuff */
 	private Map<String, String> services_record_paths = new HashMap<String, String>();
 	private Map<String, String> services_instances_paths = new HashMap<String, String>();
 	private Map<String, Field> services_filter_param = new HashMap<String, Field>();
 
+	public String getConfigFileName() {
+		return this.configFileSrcName;
+	}
+	
+	public void setConfigFileName(String fileName) {
+		this.configFileSrcName = fileName;
+	}
+	
 	public Record getLastAuthorityProxy() {
 		return this.lastAuthoriyProxy;
 	}
@@ -227,6 +239,8 @@ public class Record implements FieldParent {
 		utils.initBoolean(section, "hasdeletemethod", false);
 		utils.initBoolean(section, "hassoftdelete", false);
 		utils.initBoolean(section, SUPPORTS_LOCKING, false);
+		utils.initBoolean(section, SUPPORTS_REPLICATING, false);
+		utils.initStrings(section, REMOTECLIENT_CONFIG_NAME, "");
 		utils.initBoolean(section, SUPPORTS_VERSIONING, false);
 
 		//(17:06) The services singular tag should probably be "ServicesDocumentType"
@@ -259,6 +273,7 @@ public class Record implements FieldParent {
 		return this.whoamI;
 	}
 
+	@Override
 	public boolean isTrueRepeatField() {
 		return false;
 	}
@@ -313,8 +328,8 @@ public class Record implements FieldParent {
 				fed.setSearchType("range");
 				fed.setType(searchf.getUIType());
 				fst.setType(searchf.getUIType());
-
-				if(searchf.getUIType().equals("computed")) {
+				
+				if (searchf.getUIType().equals("computed")) {
 					Field field = (Field) searchf;
 					// Copy the necessary attributes into the start and end fields
 					fst.setUIFunc(field.getUIFunc());
@@ -337,7 +352,7 @@ public class Record implements FieldParent {
 			}
 		}
 	}
-	
+
 	private String suffixUIArgs(String args, String suffix) {
 		String[] elements = args.split(",");
 
@@ -348,7 +363,7 @@ public class Record implements FieldParent {
 		
 		return StringUtils.join(elements, ",");
 	}
-
+	
 	public void addNestedFieldList(String r) {
 		nestedFieldList.put(r, r);
 	}
@@ -525,7 +540,12 @@ public class Record implements FieldParent {
 	}
 
 	/** end field functions **/
-
+	@Override
+	public String toString() {
+		return getID();
+	}
+	
+	@Override
 	public String getID() {
 		return utils.getString("@id");
 	}
@@ -653,6 +673,7 @@ public class Record implements FieldParent {
 		return null;
 	}
 
+	@Override
 	public String enumBlankValue() {
 		return utils.getString("enum-blank");
 	}
@@ -736,6 +757,14 @@ public class Record implements FieldParent {
 
 	public boolean supportsLocking() {
 		return utils.getBoolean(SUPPORTS_LOCKING);
+	}
+	
+	public boolean supportsReplicating() {
+		return utils.getBoolean(SUPPORTS_REPLICATING);
+	}
+
+	public String getRemoteClientConfigName() {
+		return utils.getString(REMOTECLIENT_CONFIG_NAME);
 	}
 
 	public boolean supportsVersioning() {
@@ -885,6 +914,7 @@ public class Record implements FieldParent {
 
 	/*
 	 * Gets the Service's document model validation handler by using standard naming conventions.
+	 * For example, org.collectionspace.services.collectionobject.nuxeo.CollectionObjectValidatorHandler
 	 */	
 	public String getServicesValidatorHandler(Boolean isAuthority) {
 		String result = utils.getString("services-validator");
@@ -900,6 +930,25 @@ public class Record implements FieldParent {
 
 		return result;
 	}
+	
+	//
+	// For example, org.collectionspace.services.client.CollectionObjectClient
+	//
+	public String getServicesClientHandler(Boolean isAuthority) {
+		String result = utils.getString("services-client");
+
+		if (result == null) {
+			result = "org.collectionspace.services.client." + utils.getString("services-tenant-singular")
+					+ "Client";
+		}
+		
+		if (isAuthority == true) {
+			result = getAuthorityForm(result);
+		}
+
+		return result;
+	}
+	
 
 	public String getServicesRepositoryDomain() {
 		return utils.getString("services-repo-domain");
@@ -930,7 +979,10 @@ public class Record implements FieldParent {
 	}
 
 	public String getServicesRecordPath(String name) {
-		return services_record_paths.get(name);
+		if (services_record_paths.get(name) != null){
+			return services_record_paths.get(name).trim();
+		}
+		return null;
 	}
 
 	public String getServicesSchemaName(String sectionName) {
@@ -1341,6 +1393,7 @@ public class Record implements FieldParent {
 		//out.put(this.getID(), record);
 	}
 
+	@Override
 	public Record getRecord() {
 		return this;
 	}

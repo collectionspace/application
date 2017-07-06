@@ -1,1456 +1,1221 @@
 {
-  "hierarchy": {
-    ".csc-hierarchy-broaderContext": {
-      "decorators": [
-        {
-          "func": "cspace.autocomplete", 
-          "options": {
-            "queryUrl": "../../../tenant/core/vocabularies/organization/autocomplete/broaderContext", 
-            "vocabUrl": "../../../tenant/core/vocabularies/organization/source-vocab/broaderContext"
-          }, 
-          "type": "fluid"
-        }, 
-        {
-          "func": "cspace.externalURL", 
-          "type": "fluid"
-        }
-      ], 
-      "value": "${fields.broaderContext}"
-    }, 
-    ".csc-hierarchy-broaderContext-label": {
-      "messagekey": "hierarchy-broaderContextLabel"
-    }, 
-    ".csc-hierarchy-broaderContextType": {
-      "optionlist": [
-        "set", 
-        "derivative", 
-        "separable-part", 
-        "non-separable-part", 
-        "recto", 
-        "verso"
-      ], 
-      "optionnames": [
-        "Set", 
-        "Work (derivative)", 
-        "Work (separable part)", 
-        "Work (non-separable part)", 
-        "Work (recto)", 
-        "Work (verso)"
-      ], 
-      "selection": "${fields.broaderContextType}"
-    }, 
-    ".csc-hierarchy-broaderContextType-label": {
-      "messagekey": "hierarchy-broaderContextTypeLabel"
-    }, 
-    ".csc-hierarchy-domaindata-label": {
-      "messagekey": "hierarchy-domaindataLabel"
-    }, 
-    ".csc-hierarchy-equivalentContext-label": {
-      "messagekey": "hierarchy-equivalentContextLabel"
-    }, 
-    ".csc-hierarchy-equivalentContexts-label": {
-      "messagekey": "hierarchy-equivalentContextsLabel"
-    }, 
-    ".csc-hierarchy-equivalentInformation-label": {
-      "messagekey": "hierarchy-equivalentInformationLabel"
-    }, 
-    ".csc-hierarchy-hierarchyInformation-label": {
-      "messagekey": "hierarchy-hierarchyInformationLabel"
-    }, 
-    ".csc-hierarchy-narrowerContext-label": {
-      "messagekey": "hierarchy-narrowerContextLabel"
-    }, 
-    ".csc-hierarchy-narrowerContextType-label": {
-      "messagekey": "hierarchy-narrowerContextTypeLabel"
-    }, 
-    ".csc-hierarchy-narrowerContexts": {
-      "decorators": [
-        {
-          "func": "cspace.makeRepeatable", 
-          "options": {
-            "elPath": "fields.narrowerContexts", 
-            "repeatTree": {
-              "expander": {
-                "tree": {
-                  ".csc-hierarchy-narrowerContext": {
-                    "decorators": [
-                      {
-                        "func": "cspace.autocomplete", 
-                        "options": {
-                          "invokers": {
-                            "selectMatch": {
-                              "funcName": "cspace.autocomplete.selectMatchConfirm"
-                            }
-                          }, 
-                          "queryUrl": "../../../tenant/core/vocabularies/organization/autocomplete/narrowerContext", 
-                          "strings": {
-                            "narrowerChange": "Warning: %narrower currently has broader term %broader."
-                          }, 
-                          "vocabUrl": "../../../tenant/core/vocabularies/organization/source-vocab/narrowerContext"
-                        }, 
-                        "type": "fluid"
-                      }, 
-                      {
-                        "func": "cspace.externalURL", 
-                        "type": "fluid"
-                      }
-                    ], 
-                    "value": "${{row}.narrowerContext}"
-                  }, 
-                  ".csc-hierarchy-narrowerContextType": {
-                    "optionlist": [
-                      "set", 
-                      "derivative", 
-                      "separable-part", 
-                      "non-separable-part", 
-                      "recto", 
-                      "verso"
-                    ], 
-                    "optionnames": [
-                      "Item in a set", 
-                      "Derivative", 
-                      "Separable part", 
-                      "Non-separable part", 
-                      "Recto", 
-                      "Verso"
-                    ], 
-                    "selection": "${{row}.narrowerContextType}"
-                  }
-                }, 
-                "type": "fluid.noexpand"
-              }
-            }
-          }, 
-          "type": "fluid"
-        }
-      ]
-    }, 
-    ".csc-hierarchy-narrowerContexts-label": {
-      "messagekey": "hierarchy-narrowerContextsLabel"
-    }, 
-    ".csc-hierarchy-relatedTerm": {
-      "decorators": [
-        {
-          "func": "cspace.makeRepeatable", 
-          "options": {
-            "elPath": "fields.relatedTerms", 
-            "repeatTree": {
-              "expander": {
-                "tree": {
-                  ".csc-hierarchy-relatedTerm": {
-                    "decorators": [
-                      {
-                        "func": "cspace.autocomplete", 
-                        "options": {
-                          "queryUrl": "../../../tenant/core/vocabularies/organization/autocomplete/relatedTerm", 
-                          "vocabUrl": "../../../tenant/core/vocabularies/organization/source-vocab/relatedTerm"
-                        }, 
-                        "type": "fluid"
-                      }
-                    ], 
-                    "value": "${{row}.relatedTerm}"
-                  }
-                }, 
-                "type": "fluid.noexpand"
-              }
-            }
-          }, 
-          "type": "fluid"
-        }
-      ]
-    }, 
-    ".csc-hierarchy-relatedTerm-label": {
-      "messagekey": "hierarchy-relatedTermLabel"
-    }, 
-    ".csc-hierarchy-relatedTerms-label": {
-      "messagekey": "hierarchy-relatedTermsLabel"
-    }, 
-    "expander": [
-      {
-        "condition": {
-          "args": {
-            "equivalentContexts": "${fields.equivalentContexts}"
-          }, 
-          "funcName": "cspace.hierarchy.assertEquivalentContexts"
-        }, 
-        "falseTree": {
-          ".csc-hierarchy-equivalentContext-label": {
-            "decorators": {
-              "classes": "hidden", 
-              "type": "addClass"
-            }
-          }
-        }, 
-        "trueTree": {
-          ".csc-hierarchy-equivalentContext-label": {
-            "messagekey": "hierarchy-equivalentContextLabel"
-          }
-        }, 
-        "type": "fluid.renderer.condition"
-      }, 
-      {
-        "controlledBy": "fields.equivalentContexts", 
-        "pathAs": "row", 
-        "repeatID": ".csc-hierarchy-equivalentContext:", 
-        "tree": {
-          "decorators": [
-            {
-              "classes": "cs-hierarchy-equivalentContext", 
-              "type": "addClass"
-            }, 
-            {
-              "func": "cspace.externalURL", 
-              "type": "fluid"
-            }
-          ], 
-          "value": "${{row}.equivalentContext}"
-        }, 
-        "type": "fluid.renderer.repeat"
-      }
-    ]
-  }, 
-  "recordEditor": {
-    ".csc-contact-addressCountry-label": {
-      "messagekey": "contact-addressCountryLabel"
-    }, 
-    ".csc-contact-addressGroup": {
-      "decorators": [
-        {
-          "func": "cspace.makeRepeatable", 
-          "options": {
-            "elPath": "fields.contact.addressGroup", 
-            "repeatTree": {
-              "expander": {
-                "tree": {
-                  ".csc-contact-addressCountry": {
-                    "optionlist": [
-                      "", 
-                      "AF", 
-                      "AX", 
-                      "AL", 
-                      "DZ", 
-                      "AS", 
-                      "AD", 
-                      "AO", 
-                      "AI", 
-                      "AQ", 
-                      "AG", 
-                      "AR", 
-                      "AM", 
-                      "AW", 
-                      "AU", 
-                      "AT", 
-                      "AZ", 
-                      "BS", 
-                      "BH", 
-                      "BD", 
-                      "BB", 
-                      "BY", 
-                      "BE", 
-                      "BZ", 
-                      "BJ", 
-                      "BM", 
-                      "BT", 
-                      "BO", 
-                      "BQ", 
-                      "BA", 
-                      "BW", 
-                      "BV", 
-                      "BR", 
-                      "IO", 
-                      "BN", 
-                      "BG", 
-                      "BF", 
-                      "BI", 
-                      "KH", 
-                      "CM", 
-                      "CA", 
-                      "CV", 
-                      "KY", 
-                      "CF", 
-                      "TD", 
-                      "CL", 
-                      "CN", 
-                      "CX", 
-                      "CC", 
-                      "CO", 
-                      "KM", 
-                      "CG", 
-                      "CD", 
-                      "CK", 
-                      "CR", 
-                      "CI", 
-                      "HR", 
-                      "CU", 
-                      "CW", 
-                      "CY", 
-                      "CZ", 
-                      "DK", 
-                      "DJ", 
-                      "DM", 
-                      "DO", 
-                      "EC", 
-                      "EG", 
-                      "SV", 
-                      "GQ", 
-                      "ER", 
-                      "EE", 
-                      "ET", 
-                      "FK", 
-                      "FO", 
-                      "FJ", 
-                      "FI", 
-                      "FR", 
-                      "GF", 
-                      "PF", 
-                      "TF", 
-                      "GA", 
-                      "GM", 
-                      "GE", 
-                      "DE", 
-                      "GH", 
-                      "GI", 
-                      "GR", 
-                      "GL", 
-                      "GD", 
-                      "GP", 
-                      "GU", 
-                      "GT", 
-                      "GG", 
-                      "GN", 
-                      "GW", 
-                      "GY", 
-                      "HT", 
-                      "HM", 
-                      "VA", 
-                      "HN", 
-                      "HK", 
-                      "HN", 
-                      "IS", 
-                      "IN", 
-                      "ID", 
-                      "IR", 
-                      "IQ", 
-                      "IE", 
-                      "IM", 
-                      "IL", 
-                      "IT", 
-                      "JM", 
-                      "JP", 
-                      "JE", 
-                      "JO", 
-                      "KZ", 
-                      "KE", 
-                      "KI", 
-                      "KP", 
-                      "KR", 
-                      "KW", 
-                      "KG", 
-                      "LA", 
-                      "LV", 
-                      "LB", 
-                      "LS", 
-                      "LR", 
-                      "LY", 
-                      "LI", 
-                      "LT", 
-                      "LU", 
-                      "MO", 
-                      "MK", 
-                      "MG", 
-                      "MW", 
-                      "MY", 
-                      "MV", 
-                      "ML", 
-                      "MT", 
-                      "MH", 
-                      "MQ", 
-                      "MR", 
-                      "MU", 
-                      "YT", 
-                      "MX", 
-                      "FM", 
-                      "MD", 
-                      "MC", 
-                      "MN", 
-                      "ME", 
-                      "MS", 
-                      "MA", 
-                      "MZ", 
-                      "MM", 
-                      "NA", 
-                      "NR", 
-                      "NP", 
-                      "NL", 
-                      "NC", 
-                      "NZ", 
-                      "NI", 
-                      "NE", 
-                      "NG", 
-                      "NU", 
-                      "NF", 
-                      "MP", 
-                      "NO", 
-                      "OM", 
-                      "PK", 
-                      "PW", 
-                      "PS", 
-                      "PA", 
-                      "PG", 
-                      "PY", 
-                      "PE", 
-                      "PH", 
-                      "PN", 
-                      "PL", 
-                      "PT", 
-                      "PR", 
-                      "QA", 
-                      "RE", 
-                      "RO", 
-                      "RU", 
-                      "RW", 
-                      "BL", 
-                      "SH", 
-                      "KN", 
-                      "LC", 
-                      "MF", 
-                      "PM", 
-                      "VC", 
-                      "WS", 
-                      "SM", 
-                      "ST", 
-                      "SA", 
-                      "SN", 
-                      "RS", 
-                      "SC", 
-                      "SL", 
-                      "SG", 
-                      "SX", 
-                      "SK", 
-                      "SI", 
-                      "SB", 
-                      "SO", 
-                      "ZA", 
-                      "GS", 
-                      "SS", 
-                      "ES", 
-                      "LK", 
-                      "SD", 
-                      "SR", 
-                      "SJ", 
-                      "SZ", 
-                      "SE", 
-                      "CH", 
-                      "SY", 
-                      "TW", 
-                      "TJ", 
-                      "TZ", 
-                      "TH", 
-                      "TL", 
-                      "TG", 
-                      "TK", 
-                      "TO", 
-                      "TT", 
-                      "TN", 
-                      "TR", 
-                      "TM", 
-                      "TC", 
-                      "TV", 
-                      "UG", 
-                      "UA", 
-                      "AE", 
-                      "GB", 
-                      "US", 
-                      "UM", 
-                      "UY", 
-                      "UZ", 
-                      "VU", 
-                      "VE", 
-                      "VN", 
-                      "VG", 
-                      "VI", 
-                      "WF", 
-                      "EH", 
-                      "YE", 
-                      "ZM", 
-                      "ZW"
-                    ], 
-                    "optionnames": [
-                      "Please select a value", 
-                      "AFGHANISTAN", 
-                      "\u00c5LAND ISLANDS", 
-                      "ALBANIA", 
-                      "ALGERIA", 
-                      "AMERICAN SAMOA", 
-                      "ANDORRA", 
-                      "ANGOLA", 
-                      "ANGUILLA", 
-                      "ANTARCTICA", 
-                      "ANTIGUA AND BARBUDA", 
-                      "ARGENTINA", 
-                      "ARMENIA", 
-                      "ARUBA", 
-                      "AUSTRALIA", 
-                      "AUSTRIA", 
-                      "AZERBAIJAN", 
-                      "BAHAMAS", 
-                      "BAHRAIN", 
-                      "BANGLADESH", 
-                      "BARBADOS", 
-                      "BELARUS", 
-                      "BELGIUM", 
-                      "BELIZE", 
-                      "BENIN", 
-                      "BERMUDA", 
-                      "BHUTAN", 
-                      "BOLIVIA, PLURINATIONAL STATE OF", 
-                      "BONAIRE, SINT EUSTATIUS AND SABA", 
-                      "BOSNIA AND HERZEGOVINA", 
-                      "BOTSWANA", 
-                      "BOUVET ISLAND", 
-                      "BRAZIL", 
-                      "BRITISH INDIAN OCEAN TERRITORY", 
-                      "BRUNEI DARUSSALAM", 
-                      "BULGARIA", 
-                      "BURKINA FASO", 
-                      "BURUNDI", 
-                      "CAMBODIA", 
-                      "CAMEROON", 
-                      "CANADA", 
-                      "CAPE VERDE", 
-                      "CAYMAN ISLANDS", 
-                      "CENTRAL AFRICAN REPUBLIC", 
-                      "CHAD", 
-                      "CHILE", 
-                      "CHINA", 
-                      "CHRISTMAS ISLAND", 
-                      "COCOS (KEELING) ISLANDS", 
-                      "COLOMBIA", 
-                      "COMOROS", 
-                      "CONGO", 
-                      "CONGO, THE DEMOCRATIC REPUBLIC OF THE", 
-                      "COOK ISLANDS", 
-                      "COSTA RICA", 
-                      "C\u00d4TE D\u2019IVOIRE", 
-                      "CROATIA", 
-                      "CUBA", 
-                      "CURA\u00c7AO", 
-                      "CYPRUS", 
-                      "CZECH REPUBLIC", 
-                      "DENMARK", 
-                      "DJIBOUTI", 
-                      "DOMINICA", 
-                      "DOMINICAN REPUBLIC", 
-                      "ECUADOR", 
-                      "EGYPT", 
-                      "EL SALVADOR", 
-                      "EQUATORIAL GUINEA", 
-                      "ERITREA", 
-                      "ESTONIA", 
-                      "ETHIOPIA", 
-                      "FALKLAND ISLANDS (MALVINAS)", 
-                      "FAROE ISLANDS", 
-                      "FIJI", 
-                      "FINLAND", 
-                      "FRANCE", 
-                      "FRENCH GUIANA", 
-                      "FRENCH POLYNESIA", 
-                      "FRENCH SOUTHERN TERRITORIES", 
-                      "GABON", 
-                      "GAMBIA", 
-                      "GEORGIA", 
-                      "GERMANY", 
-                      "GHANA", 
-                      "GIBRALTAR", 
-                      "GREECE", 
-                      "GREENLAND", 
-                      "GRENADA", 
-                      "GUADELOUPE", 
-                      "GUAM", 
-                      "GUATEMALA", 
-                      "GUERNSEY", 
-                      "GUINEA", 
-                      "GUINEA-BISSAU", 
-                      "GUYANA", 
-                      "HAITI", 
-                      "HEARD ISLAND AND MCDONALD ISLANDS", 
-                      "HOLY SEE (VATICAN CITY STATE)", 
-                      "HONDURAS", 
-                      "HONG KONG", 
-                      "HUNGARY", 
-                      "ICELAND", 
-                      "INDIA", 
-                      "INDONESIA", 
-                      "IRAN, ISLAMIC REPUBLIC OF", 
-                      "IRAQ", 
-                      "IRELAND", 
-                      "ISLE OF MAN", 
-                      "ISRAEL", 
-                      "ITALY", 
-                      "JAMAICA", 
-                      "JAPAN", 
-                      "JERSEY", 
-                      "JORDAN", 
-                      "KAZAKHSTAN", 
-                      "KENYA", 
-                      "KIRIBATI", 
-                      "KOREA, DEMOCRATIC PEOPLE\u2019S REPUBLIC OF", 
-                      "KOREA, REPUBLIC OF", 
-                      "KUWAIT", 
-                      "KYRGYZSTAN", 
-                      "LAO PEOPLE\u2019S DEMOCRATIC REPUBLIC", 
-                      "LATVIA", 
-                      "LEBANON", 
-                      "LESOTHO", 
-                      "LIBERIA", 
-                      "LIBYA", 
-                      "LIECHTENSTEIN", 
-                      "LITHUANIA", 
-                      "LUXEMBOURG", 
-                      "MACAO", 
-                      "MACEDONIA, THE FORMER YUGOSLAV REPUBLIC OF", 
-                      "MADAGASCAR", 
-                      "MALAWI", 
-                      "MALAYSIA", 
-                      "MALDIVES", 
-                      "MALI", 
-                      "MALTA", 
-                      "MARSHALL ISLANDS", 
-                      "MARTINIQUE", 
-                      "MAURITANIA", 
-                      "MAURITIUS", 
-                      "MAYOTTE", 
-                      "MEXICO", 
-                      "MICRONESIA, FEDERATED STATES OF", 
-                      "MOLDOVA, REPUBLIC OF", 
-                      "MONACO", 
-                      "MONGOLIA", 
-                      "MONTENEGRO", 
-                      "MONTSERRAT", 
-                      "MOROCCO", 
-                      "MOZAMBIQUE", 
-                      "MYANMAR", 
-                      "NAMIBIA", 
-                      "NAURU", 
-                      "NEPAL", 
-                      "NETHERLANDS", 
-                      "NEW CALEDONIA", 
-                      "NEW ZEALAND", 
-                      "NICARAGUA", 
-                      "NIGER", 
-                      "NIGERIA", 
-                      "NIUE", 
-                      "NORFOLK ISLAND", 
-                      "NORTHERN MARIANA ISLANDS", 
-                      "NORWAY", 
-                      "OMAN", 
-                      "PAKISTAN", 
-                      "PALAU", 
-                      "PALESTINIAN TERRITORY, OCCUPIED", 
-                      "PANAMA", 
-                      "PAPUA NEW GUINEA", 
-                      "PARAGUAY", 
-                      "PERU", 
-                      "PHILIPPINES", 
-                      "PITCAIRN", 
-                      "POLAND", 
-                      "PORTUGAL", 
-                      "PUERTO RICO", 
-                      "QATAR", 
-                      "R\u00c9UNION", 
-                      "ROMANIA", 
-                      "RUSSIAN FEDERATION", 
-                      "RWANDA", 
-                      "SAINT BARTH\u00c9LEMY", 
-                      "SAINT HELENA, ASCENSION AND TRISTAN DA CUNHA", 
-                      "SAINT KITTS AND NEVIS", 
-                      "SAINT LUCIA", 
-                      "SAINT MARTIN (FRENCH PART)", 
-                      "SAINT PIERRE AND MIQUELON", 
-                      "SAINT VINCENT AND THE GRENADINES", 
-                      "SAMOA", 
-                      "SAN MARINO", 
-                      "SAO TOME AND PRINCIPE", 
-                      "SAUDI ARABIA", 
-                      "SENEGAL", 
-                      "SERBIA", 
-                      "SEYCHELLES", 
-                      "SIERRA LEONE", 
-                      "SINGAPORE", 
-                      "SINT MAARTEN (DUTCH PART)", 
-                      "SLOVAKIA", 
-                      "SLOVENIA", 
-                      "SOLOMON ISLANDS", 
-                      "SOMALIA", 
-                      "SOUTH AFRICA", 
-                      "SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS", 
-                      "SOUTH SUDAN", 
-                      "SPAIN", 
-                      "SRI LANKA", 
-                      "SUDAN", 
-                      "SURINAME", 
-                      "SVALBARD AND JAN MAYEN", 
-                      "SWAZILAND", 
-                      "SWEDEN", 
-                      "SWITZERLAND", 
-                      "SYRIAN ARAB REPUBLIC", 
-                      "TAIWAN, PROVINCE OF CHINA", 
-                      "TAJIKISTAN", 
-                      "TANZANIA, UNITED REPUBLIC OF", 
-                      "THAILAND", 
-                      "TIMOR-LESTE", 
-                      "TOGO", 
-                      "TOKELAU", 
-                      "TONGA", 
-                      "TRINIDAD AND TOBAGO", 
-                      "TUNISIA", 
-                      "TURKEY", 
-                      "TURKMENISTAN", 
-                      "TURKS AND CAICOS ISLANDS", 
-                      "TUVALU", 
-                      "UGANDA", 
-                      "UKRAINE", 
-                      "UNITED ARAB EMIRATES", 
-                      "UNITED KINGDOM", 
-                      "UNITED STATES", 
-                      "UNITED STATES MINOR OUTLYING ISLANDS", 
-                      "URUGUAY", 
-                      "UZBEKISTAN", 
-                      "VANUATU", 
-                      "VENEZUELA, BOLIVARIAN REPUBLIC OF", 
-                      "VIET NAM", 
-                      "VIRGIN ISLANDS, BRITISH", 
-                      "VIRGIN ISLANDS, U.S.", 
-                      "WALLIS AND FUTUNA", 
-                      "WESTERN SAHARA", 
-                      "YEMEN", 
-                      "ZAMBIA", 
-                      "ZIMBABWE"
-                    ], 
-                    "selection": "${{row}.addressCountry}"
-                  }, 
-                  ".csc-contact-addressMunicipality": "${{row}.addressMunicipality}", 
-                  ".csc-contact-addressPlace1": "${{row}.addressPlace1}", 
-                  ".csc-contact-addressPlace2": "${{row}.addressPlace2}", 
-                  ".csc-contact-addressPostCode": "${{row}.addressPostCode}", 
-                  ".csc-contact-addressStateOrProvince": "${{row}.addressStateOrProvince}", 
-                  ".csc-contact-addressType": {
-                    "optionlist": [
-                      "", 
-                      "business", 
-                      "home", 
-                      "other"
-                    ], 
-                    "optionnames": [
-                      "Please select a value", 
-                      "business", 
-                      "home", 
-                      "other"
-                    ], 
-                    "selection": "${{row}.addressType}"
-                  }
-                }, 
-                "type": "fluid.noexpand"
-              }
-            }
-          }, 
-          "type": "fluid"
-        }
-      ]
-    }, 
-    ".csc-contact-addressGroup-label": {
-      "messagekey": "contact-addressGroupLabel"
-    }, 
-    ".csc-contact-addressMunicipality-label": {
-      "messagekey": "contact-addressMunicipalityLabel"
-    }, 
-    ".csc-contact-addressPlace1-label": {
-      "messagekey": "contact-addressPlace1Label"
-    }, 
-    ".csc-contact-addressPlace2-label": {
-      "messagekey": "contact-addressPlace2Label"
-    }, 
-    ".csc-contact-addressPostCode-label": {
-      "messagekey": "contact-addressPostCodeLabel"
-    }, 
-    ".csc-contact-addressStateOrProvince-label": {
-      "messagekey": "contact-addressStateOrProvinceLabel"
-    }, 
-    ".csc-contact-addressType-label": {
-      "messagekey": "contact-addressTypeLabel"
-    }, 
-    ".csc-contact-contactInformation-label": {
-      "messagekey": "contact-contactInformationLabel"
-    }, 
-    ".csc-contact-coreInformation-label": {
-      "messagekey": "contact-coreInformationLabel"
-    }, 
-    ".csc-contact-createdAt": {
-      "decorators": [
-        {
-          "func": "cspace.datePicker", 
-          "type": "fluid"
-        }
-      ], 
-      "value": "${fields.contact.createdAt}"
-    }, 
-    ".csc-contact-createdAt-label": {
-      "messagekey": "contact-createdAtLabel"
-    }, 
-    ".csc-contact-createdBy": "${fields.contact.createdBy}", 
-    ".csc-contact-createdBy-label": {
-      "messagekey": "contact-createdByLabel"
-    }, 
-    ".csc-contact-csid": "${fields.contact.csid}", 
-    ".csc-contact-csid-label": {
-      "messagekey": "contact-csidLabel"
-    }, 
-    ".csc-contact-displayName": "${fields.contact.displayName}", 
-    ".csc-contact-displayName-label": {
-      "messagekey": "contact-displayNameLabel"
-    }, 
-    ".csc-contact-domaindata-label": {
-      "messagekey": "contact-domaindataLabel"
-    }, 
-    ".csc-contact-email-label": {
-      "messagekey": "contact-emailLabel"
-    }, 
-    ".csc-contact-emailGroup": {
-      "decorators": [
-        {
-          "func": "cspace.makeRepeatable", 
-          "options": {
-            "elPath": "fields.contact.emailGroup", 
-            "repeatTree": {
-              "expander": {
-                "tree": {
-                  ".csc-contact-email": "${{row}.email}", 
-                  ".csc-contact-emailType": {
-                    "optionlist": [
-                      "", 
-                      "business", 
-                      "personal", 
-                      "other"
-                    ], 
-                    "optionnames": [
-                      "Please select a value", 
-                      "business", 
-                      "personal", 
-                      "other"
-                    ], 
-                    "selection": "${{row}.emailType}"
-                  }
-                }, 
-                "type": "fluid.noexpand"
-              }
-            }
-          }, 
-          "type": "fluid"
-        }
-      ]
-    }, 
-    ".csc-contact-emailGroup-label": {
-      "messagekey": "contact-emailGroupLabel"
-    }, 
-    ".csc-contact-emailType-label": {
-      "messagekey": "contact-emailTypeLabel"
-    }, 
-    ".csc-contact-faxNumber-label": {
-      "messagekey": "contact-faxNumberLabel"
-    }, 
-    ".csc-contact-faxNumberGroup": {
-      "decorators": [
-        {
-          "func": "cspace.makeRepeatable", 
-          "options": {
-            "elPath": "fields.contact.faxNumberGroup", 
-            "repeatTree": {
-              "expander": {
-                "tree": {
-                  ".csc-contact-faxNumber": "${{row}.faxNumber}", 
-                  ".csc-contact-faxNumberType": {
-                    "optionlist": [
-                      "", 
-                      "business", 
-                      "home", 
-                      "other"
-                    ], 
-                    "optionnames": [
-                      "Please select a value", 
-                      "business", 
-                      "home", 
-                      "other"
-                    ], 
-                    "selection": "${{row}.faxNumberType}"
-                  }
-                }, 
-                "type": "fluid.noexpand"
-              }
-            }
-          }, 
-          "type": "fluid"
-        }
-      ]
-    }, 
-    ".csc-contact-faxNumberGroup-label": {
-      "messagekey": "contact-faxNumberGroupLabel"
-    }, 
-    ".csc-contact-faxNumberType-label": {
-      "messagekey": "contact-faxNumberTypeLabel"
-    }, 
-    ".csc-contact-inAuthority": "${fields.contact.inAuthority}", 
-    ".csc-contact-inAuthority-label": {
-      "messagekey": "contact-inAuthorityLabel"
-    }, 
-    ".csc-contact-inItem": "${fields.contact.inItem}", 
-    ".csc-contact-inItem-label": {
-      "messagekey": "contact-inItemLabel"
-    }, 
-    ".csc-contact-otherInformation-label": {
-      "messagekey": "contact-otherInformationLabel"
-    }, 
-    ".csc-contact-refName": "${fields.contact.refName}", 
-    ".csc-contact-refName-label": {
-      "messagekey": "contact-refNameLabel"
-    }, 
-    ".csc-contact-telephoneNumber-label": {
-      "messagekey": "contact-telephoneNumberLabel"
-    }, 
-    ".csc-contact-telephoneNumberGroup": {
-      "decorators": [
-        {
-          "func": "cspace.makeRepeatable", 
-          "options": {
-            "elPath": "fields.contact.telephoneNumberGroup", 
-            "repeatTree": {
-              "expander": {
-                "tree": {
-                  ".csc-contact-telephoneNumber": "${{row}.telephoneNumber}", 
-                  ".csc-contact-telephoneNumberType": {
-                    "optionlist": [
-                      "", 
-                      "business", 
-                      "home", 
-                      "mobile", 
-                      "other"
-                    ], 
-                    "optionnames": [
-                      "Please select a value", 
-                      "business", 
-                      "home", 
-                      "mobile", 
-                      "other"
-                    ], 
-                    "selection": "${{row}.telephoneNumberType}"
-                  }
-                }, 
-                "type": "fluid.noexpand"
-              }
-            }
-          }, 
-          "type": "fluid"
-        }
-      ]
-    }, 
-    ".csc-contact-telephoneNumberGroup-label": {
-      "messagekey": "contact-telephoneNumberGroupLabel"
-    }, 
-    ".csc-contact-telephoneNumberType-label": {
-      "messagekey": "contact-telephoneNumberTypeLabel"
-    }, 
-    ".csc-contact-tenantId": "${fields.contact.tenantId}", 
-    ".csc-contact-tenantId-label": {
-      "messagekey": "contact-tenantIdLabel"
-    }, 
-    ".csc-contact-updatedAt": {
-      "decorators": [
-        {
-          "func": "cspace.datePicker", 
-          "type": "fluid"
-        }
-      ], 
-      "value": "${fields.contact.updatedAt}"
-    }, 
-    ".csc-contact-updatedAt-label": {
-      "messagekey": "contact-updatedAtLabel"
-    }, 
-    ".csc-contact-updatedBy": "${fields.contact.updatedBy}", 
-    ".csc-contact-updatedBy-label": {
-      "messagekey": "contact-updatedByLabel"
-    }, 
-    ".csc-contact-uri": "${fields.contact.uri}", 
-    ".csc-contact-uri-label": {
-      "messagekey": "contact-uriLabel"
-    }, 
-    ".csc-contact-webAddress-label": {
-      "messagekey": "contact-webAddressLabel"
-    }, 
-    ".csc-contact-webAddressGroup": {
-      "decorators": [
-        {
-          "func": "cspace.makeRepeatable", 
-          "options": {
-            "elPath": "fields.contact.webAddressGroup", 
-            "repeatTree": {
-              "expander": {
-                "tree": {
-                  ".csc-contact-webAddress": "${{row}.webAddress}", 
-                  ".csc-contact-webAddressType": {
-                    "optionlist": [
-                      "", 
-                      "business", 
-                      "personal", 
-                      "other"
-                    ], 
-                    "optionnames": [
-                      "Please select a value", 
-                      "business", 
-                      "personal", 
-                      "other"
-                    ], 
-                    "selection": "${{row}.webAddressType}"
-                  }
-                }, 
-                "type": "fluid.noexpand"
-              }
-            }
-          }, 
-          "type": "fluid"
-        }
-      ]
-    }, 
-    ".csc-contact-webAddressGroup-label": {
-      "messagekey": "contact-webAddressGroupLabel"
-    }, 
-    ".csc-contact-webAddressType-label": {
-      "messagekey": "contact-webAddressTypeLabel"
-    }, 
-    ".csc-orgAuthority-contactName": {
-      "decorators": [
-        {
-          "func": "cspace.makeRepeatable", 
-          "options": {
-            "elPath": "fields.contactNames", 
-            "repeatTree": {
-              "expander": {
-                "tree": {
-                  ".csc-orgAuthority-contactName": {
-                    "decorators": [
-                      {
-                        "func": "cspace.autocomplete", 
-                        "options": {
-                          "queryUrl": "../../../tenant/core/vocabularies/organization/autocomplete/contactName", 
-                          "vocabUrl": "../../../tenant/core/vocabularies/organization/source-vocab/contactName"
-                        }, 
-                        "type": "fluid"
-                      }
-                    ], 
-                    "value": "${{row}.contactName}"
-                  }
-                }, 
-                "type": "fluid.noexpand"
-              }
-            }
-          }, 
-          "type": "fluid"
-        }
-      ]
-    }, 
-    ".csc-orgAuthority-foundingPlace": "${fields.foundingPlace}", 
-    ".csc-orgAuthority-function": {
-      "decorators": [
-        {
-          "func": "cspace.makeRepeatable", 
-          "options": {
-            "elPath": "fields.functions", 
-            "repeatTree": {
-              "expander": {
-                "tree": {
-                  ".csc-orgAuthority-function": "${{row}.function}"
-                }, 
-                "type": "fluid.noexpand"
-              }
-            }
-          }, 
-          "type": "fluid"
-        }
-      ]
-    }, 
-    ".csc-orgAuthority-group": {
-      "decorators": [
-        {
-          "func": "cspace.makeRepeatable", 
-          "options": {
-            "elPath": "fields.groups", 
-            "repeatTree": {
-              "expander": {
-                "tree": {
-                  ".csc-orgAuthority-group": "${{row}.group}"
-                }, 
-                "type": "fluid.noexpand"
-              }
-            }
-          }, 
-          "type": "fluid"
-        }
-      ]
-    }, 
-    ".csc-orgAuthority-history": {
-      "decorators": [
-        {
-          "func": "cspace.makeRepeatable", 
-          "options": {
-            "elPath": "fields.historyNotes", 
-            "repeatTree": {
-              "expander": {
-                "tree": {
-                  ".csc-orgAuthority-history": "${{row}.historyNote}"
-                }, 
-                "type": "fluid.noexpand"
-              }
-            }
-          }, 
-          "type": "fluid"
-        }
-      ]
-    }, 
-    ".csc-organization-contact-label": {
-      "messagekey": "organization-contactLabel"
-    }, 
-    ".csc-organization-contactInformation-label": {
-      "messagekey": "organization-contactInformationLabel"
-    }, 
-    ".csc-organization-contactName-label": {
-      "messagekey": "organization-contactNameLabel"
-    }, 
-    ".csc-organization-contactNames-label": {
-      "messagekey": "organization-contactNamesLabel"
-    }, 
-    ".csc-organization-coreInformation-label": {
-      "messagekey": "organization-coreInformationLabel"
-    }, 
-    ".csc-organization-createdAt": {
-      "decorators": [
-        {
-          "func": "cspace.datePicker", 
-          "type": "fluid"
-        }
-      ], 
-      "value": "${fields.createdAt}"
-    }, 
-    ".csc-organization-createdAt-label": {
-      "messagekey": "organization-createdAtLabel"
-    }, 
-    ".csc-organization-createdBy": "${fields.createdBy}", 
-    ".csc-organization-createdBy-label": {
-      "messagekey": "organization-createdByLabel"
-    }, 
-    ".csc-organization-csid": "${fields.csid}", 
-    ".csc-organization-csid-label": {
-      "messagekey": "organization-csidLabel"
-    }, 
-    ".csc-organization-deprecatedRefName": "${fields.deprecatedRefName}", 
-    ".csc-organization-deprecatedRefName-label": {
-      "messagekey": "organization-deprecatedRefNameLabel"
-    }, 
-    ".csc-organization-dissolutionDateGroup-label": {
-      "messagekey": "organization-dissolutionDateGroupLabel"
-    }, 
-    ".csc-organization-domaindata-label": {
-      "messagekey": "organization-domaindataLabel"
-    }, 
-    ".csc-organization-foundingDateGroup-label": {
-      "messagekey": "organization-foundingDateGroupLabel"
-    }, 
-    ".csc-organization-foundingPlace-label": {
-      "messagekey": "organization-foundingPlaceLabel"
-    }, 
-    ".csc-organization-function-label": {
-      "messagekey": "organization-functionLabel"
-    }, 
-    ".csc-organization-functions-label": {
-      "messagekey": "organization-functionsLabel"
-    }, 
-    ".csc-organization-group-label": {
-      "messagekey": "organization-groupLabel"
-    }, 
-    ".csc-organization-groups-label": {
-      "messagekey": "organization-groupsLabel"
-    }, 
-    ".csc-organization-historyNote-label": {
-      "messagekey": "organization-historyNoteLabel"
-    }, 
-    ".csc-organization-historyNotes-label": {
-      "messagekey": "organization-historyNotesLabel"
-    }, 
-    ".csc-organization-inAuthority": "${fields.inAuthority}", 
-    ".csc-organization-inAuthority-label": {
-      "messagekey": "organization-inAuthorityLabel"
-    }, 
-    ".csc-organization-organizationNameAuthorityInformation-label": {
-      "messagekey": "organization-organizationNameAuthorityInformationLabel"
-    }, 
-    ".csc-organization-otherInformation-label": {
-      "messagekey": "organization-otherInformationLabel"
-    }, 
-    ".csc-organization-preferredOrganization-label": {
-      "messagekey": "organization-preferredOrganizationLabel"
-    }, 
-    ".csc-organization-refName": "${fields.refName}", 
-    ".csc-organization-refName-label": {
-      "messagekey": "organization-refNameLabel"
-    }, 
-    ".csc-organization-shortIdentifier": "${fields.shortIdentifier}", 
-    ".csc-organization-shortIdentifier-label": {
-      "messagekey": "organization-shortIdentifierLabel"
-    }, 
-    ".csc-organization-tenantId": "${fields.tenantId}", 
-    ".csc-organization-tenantId-label": {
-      "messagekey": "organization-tenantIdLabel"
-    }, 
-    ".csc-organization-updatedAt": {
-      "decorators": [
-        {
-          "func": "cspace.datePicker", 
-          "type": "fluid"
-        }
-      ], 
-      "value": "${fields.updatedAt}"
-    }, 
-    ".csc-organization-updatedAt-label": {
-      "messagekey": "organization-updatedAtLabel"
-    }, 
-    ".csc-organization-updatedBy": "${fields.updatedBy}", 
-    ".csc-organization-updatedBy-label": {
-      "messagekey": "organization-updatedByLabel"
-    }, 
-    ".csc-organization-uri": "${fields.uri}", 
-    ".csc-organization-uri-label": {
-      "messagekey": "organization-uriLabel"
-    }, 
-    ".csc-organizationAuthority-dissolutionDate": {
-      "decorators": [
-        {
-          "func": "cspace.structuredDate", 
-          "options": {
-            "elPath": "fields.dissolutionDateGroup.dateDisplayDate", 
-            "elPaths": {
-              "dateAssociation": "fields.dissolutionDateGroup.dateAssociation", 
-              "dateDisplayDate": "fields.dissolutionDateGroup.dateDisplayDate", 
-              "dateEarliestScalarValue": "fields.dissolutionDateGroup.dateEarliestScalarValue", 
-              "dateEarliestSingleCertainty": "fields.dissolutionDateGroup.dateEarliestSingleCertainty", 
-              "dateEarliestSingleDay": "fields.dissolutionDateGroup.dateEarliestSingleDay", 
-              "dateEarliestSingleEra": "fields.dissolutionDateGroup.dateEarliestSingleEra", 
-              "dateEarliestSingleMonth": "fields.dissolutionDateGroup.dateEarliestSingleMonth", 
-              "dateEarliestSingleQualifier": "fields.dissolutionDateGroup.dateEarliestSingleQualifier", 
-              "dateEarliestSingleQualifierUnit": "fields.dissolutionDateGroup.dateEarliestSingleQualifierUnit", 
-              "dateEarliestSingleQualifierValue": "fields.dissolutionDateGroup.dateEarliestSingleQualifierValue", 
-              "dateEarliestSingleYear": "fields.dissolutionDateGroup.dateEarliestSingleYear", 
-              "dateLatestCertainty": "fields.dissolutionDateGroup.dateLatestCertainty", 
-              "dateLatestDay": "fields.dissolutionDateGroup.dateLatestDay", 
-              "dateLatestEra": "fields.dissolutionDateGroup.dateLatestEra", 
-              "dateLatestMonth": "fields.dissolutionDateGroup.dateLatestMonth", 
-              "dateLatestQualifier": "fields.dissolutionDateGroup.dateLatestQualifier", 
-              "dateLatestQualifierUnit": "fields.dissolutionDateGroup.dateLatestQualifierUnit", 
-              "dateLatestQualifierValue": "fields.dissolutionDateGroup.dateLatestQualifierValue", 
-              "dateLatestScalarValue": "fields.dissolutionDateGroup.dateLatestScalarValue", 
-              "dateLatestYear": "fields.dissolutionDateGroup.dateLatestYear", 
-              "dateNote": "fields.dissolutionDateGroup.dateNote", 
-              "datePeriod": "fields.dissolutionDateGroup.datePeriod", 
-              "scalarValuesComputed": "fields.dissolutionDateGroup.scalarValuesComputed"
-            }
-          }, 
-          "type": "fluid"
-        }
-      ], 
-      "value": "${fields.dissolutionDateGroup.dateDisplayDate}"
-    }, 
-    ".csc-organizationAuthority-foundingDate": {
-      "decorators": [
-        {
-          "func": "cspace.structuredDate", 
-          "options": {
-            "elPath": "fields.foundingDateGroup.dateDisplayDate", 
-            "elPaths": {
-              "dateAssociation": "fields.foundingDateGroup.dateAssociation", 
-              "dateDisplayDate": "fields.foundingDateGroup.dateDisplayDate", 
-              "dateEarliestScalarValue": "fields.foundingDateGroup.dateEarliestScalarValue", 
-              "dateEarliestSingleCertainty": "fields.foundingDateGroup.dateEarliestSingleCertainty", 
-              "dateEarliestSingleDay": "fields.foundingDateGroup.dateEarliestSingleDay", 
-              "dateEarliestSingleEra": "fields.foundingDateGroup.dateEarliestSingleEra", 
-              "dateEarliestSingleMonth": "fields.foundingDateGroup.dateEarliestSingleMonth", 
-              "dateEarliestSingleQualifier": "fields.foundingDateGroup.dateEarliestSingleQualifier", 
-              "dateEarliestSingleQualifierUnit": "fields.foundingDateGroup.dateEarliestSingleQualifierUnit", 
-              "dateEarliestSingleQualifierValue": "fields.foundingDateGroup.dateEarliestSingleQualifierValue", 
-              "dateEarliestSingleYear": "fields.foundingDateGroup.dateEarliestSingleYear", 
-              "dateLatestCertainty": "fields.foundingDateGroup.dateLatestCertainty", 
-              "dateLatestDay": "fields.foundingDateGroup.dateLatestDay", 
-              "dateLatestEra": "fields.foundingDateGroup.dateLatestEra", 
-              "dateLatestMonth": "fields.foundingDateGroup.dateLatestMonth", 
-              "dateLatestQualifier": "fields.foundingDateGroup.dateLatestQualifier", 
-              "dateLatestQualifierUnit": "fields.foundingDateGroup.dateLatestQualifierUnit", 
-              "dateLatestQualifierValue": "fields.foundingDateGroup.dateLatestQualifierValue", 
-              "dateLatestScalarValue": "fields.foundingDateGroup.dateLatestScalarValue", 
-              "dateLatestYear": "fields.foundingDateGroup.dateLatestYear", 
-              "dateNote": "fields.foundingDateGroup.dateNote", 
-              "datePeriod": "fields.foundingDateGroup.datePeriod", 
-              "scalarValuesComputed": "fields.foundingDateGroup.scalarValuesComputed"
-            }
-          }, 
-          "type": "fluid"
-        }
-      ], 
-      "value": "${fields.foundingDateGroup.dateDisplayDate}"
-    }, 
-    ".csc-preferred-orgAuthority": {
-      "decorators": [
-        {
-          "func": "cspace.preferred", 
-          "options": {
-            "protoTree": {
-              "expander": {
-                "tree": {
-                  ".csc-preferredOA-additionsToName-label": {
-                    "messagekey": "preferredOA-additionsToNameLabel"
-                  }, 
-                  ".csc-preferredOA-mainBodyName-label": {
-                    "messagekey": "preferredOA-mainBodyNameLabel"
-                  }, 
-                  ".csc-preferredOA-orgTermGroup": {
-                    "decorators": [
-                      {
-                        "func": "cspace.makeRepeatable", 
-                        "options": {
-                          "elPath": "fields.orgTermGroup", 
-                          "repeatTree": {
-                            "expander": {
-                              "tree": {
-                                ".csc-orgAuthority-Qualifier": "${{row}.termQualifier}", 
-                                ".csc-orgAuthority-additionsToName": "${{row}.additionsToName}", 
-                                ".csc-orgAuthority-mainBodyName": "${{row}.mainBodyName}", 
-                                ".csc-orgAuthority-termDisplayName": "${{row}.termDisplayName}", 
-                                ".csc-orgAuthority-termLanguage": {
-                                  "decorators": [
-                                    {
-                                      "func": "cspace.termList", 
-                                      "options": {
-                                        "elPath": "termLanguage", 
-                                        "root": "{row}", 
-                                        "termListType": "termLanguage"
-                                      }, 
-                                      "type": "fluid"
+    "hierarchy": {
+        ".csc-hierarchy-narrowerContext-label": {"messagekey": "hierarchy-narrowerContextLabel"},
+        ".csc-hierarchy-equivalentContext-label": {"messagekey": "hierarchy-equivalentContextLabel"},
+        ".csc-hierarchy-equivalentInformation-label": {"messagekey": "hierarchy-equivalentInformationLabel"},
+        ".csc-hierarchy-broaderContextType-label": {"messagekey": "hierarchy-broaderContextTypeLabel"},
+        ".csc-hierarchy-narrowerContextType-label": {"messagekey": "hierarchy-narrowerContextTypeLabel"},
+        ".csc-hierarchy-broaderContextType": {
+            "optionnames": [
+                "Set",
+                "Work (derivative)",
+                "Work (separable part)",
+                "Work (non-separable part)",
+                "Work (recto)",
+                "Work (verso)"
+            ],
+            "optionlist": [
+                "set",
+                "derivative",
+                "separable-part",
+                "non-separable-part",
+                "recto",
+                "verso"
+            ],
+            "selection": "${fields.broaderContextType}"
+        },
+        ".csc-hierarchy-narrowerContexts": {"decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {"expander": {
+                    "tree": {
+                        ".csc-hierarchy-narrowerContext": {
+                            "decorators": [
+                                {
+                                    "func": "cspace.autocomplete",
+                                    "type": "fluid",
+                                    "options": {
+                                        "queryUrl": "../../../tenant/core/vocabularies/organization/autocomplete/narrowerContext",
+                                        "vocabUrl": "../../../tenant/core/vocabularies/organization/source-vocab/narrowerContext",
+                                        "invokers": {"selectMatch": {"funcName": "cspace.autocomplete.selectMatchConfirm"}},
+                                        "strings": {"narrowerChange": "Warning: %narrower currently has broader term %broader."}
                                     }
-                                  ]
-                                }, 
-                                ".csc-orgAuthority-termName": "${{row}.termName}", 
-                                ".csc-orgAuthority-termPrefForLang": "${{row}.termPrefForLang}", 
-                                ".csc-orgAuthority-termSource": {
-                                  "decorators": [
-                                    {
-                                      "func": "cspace.autocomplete", 
-                                      "options": {
-                                        "queryUrl": "../../../tenant/core/preferredOA/autocomplete/termSource", 
-                                        "vocabUrl": "../../../tenant/core/preferredOA/source-vocab/termSource"
-                                      }, 
-                                      "type": "fluid"
-                                    }
-                                  ], 
-                                  "value": "${{row}.termSource}"
-                                }, 
-                                ".csc-orgAuthority-termSourceDetail": "${{row}.termSourceDetail}", 
-                                ".csc-orgAuthority-termSourceID": "${{row}.termSourceID}", 
-                                ".csc-orgAuthority-termSourceNote": "${{row}.termSourceNote}", 
-                                ".csc-orgAuthority-termFormattedDisplayName": "${{row}.termFormattedDisplayName}", 
-                                ".csc-orgAuthority-termStatus": {
-                                  "default": "provisional", 
-                                  "optionlist": [
-                                    "provisional", 
-                                    "under review", 
-                                    "accepted", 
-                                    "rejected"
-                                  ], 
-                                  "optionnames": [
-                                    "Provisional", 
-                                    "Under Review", 
-                                    "Accepted", 
-                                    "Rejected"
-                                  ], 
-                                  "selection": "${{row}.termStatus}"
-                                }, 
-                                ".csc-orgAuthority-termType": {
-                                  "optionlist": [
-                                    "", 
-                                    "descriptor", 
-                                    "alternate descriptor", 
-                                    "used for term"
-                                  ], 
-                                  "optionnames": [
-                                    "Please select a value", 
-                                    "descriptor", 
-                                    "alternate descriptor", 
-                                    "used for term"
-                                  ], 
-                                  "selection": "${{row}.termType}"
+                                },
+                                {
+                                    "func": "cspace.externalURL",
+                                    "type": "fluid"
                                 }
-                              }, 
-                              "type": "fluid.noexpand"
-                            }
-                          }
-                        }, 
-                        "type": "fluid"
-                      }
-                    ]
-                  }, 
-                  ".csc-preferredOA-orgTermGroup-label": {
-                    "messagekey": "preferredOA-orgTermGroupLabel"
-                  }, 
-                  ".csc-preferredOA-termDisplayName-label": {
-                    "messagekey": "preferredOA-termDisplayNameLabel"
-                  }, 
-                  ".csc-preferredOA-termInformation-label": {
-                    "messagekey": "preferredOA-termInformationLabel"
-                  }, 
-                  ".csc-preferredOA-termLanguage-label": {
-                    "messagekey": "preferredOA-termLanguageLabel"
-                  }, 
-                  ".csc-preferredOA-termName-label": {
-                    "messagekey": "preferredOA-termNameLabel"
-                  }, 
-                  ".csc-preferredOA-termPrefForLang-label": {
-                    "messagekey": "preferredOA-termPrefForLangLabel"
-                  }, 
-                  ".csc-preferredOA-termQualifier-label": {
-                    "messagekey": "preferredOA-termQualifierLabel"
-                  }, 
-                  ".csc-preferredOA-termSource-label": {
-                    "messagekey": "preferredOA-termSourceLabel"
-                  }, 
-                  ".csc-preferredOA-termSourceDetail-label": {
-                    "messagekey": "preferredOA-termSourceDetailLabel"
-                  }, 
-                  ".csc-preferredOA-termSourceID-label": {
-                    "messagekey": "preferredOA-termSourceIDLabel"
-                  }, 
-                  ".csc-preferredOA-termSourceNote-label": {
-                    "messagekey": "preferredOA-termSourceNoteLabel"
-                  },
-                  ".csc-preferredOA-termFormattedDisplayName-label": {
-                    "messagekey": "preferredOA-termFormattedDisplayNameLabel"
-                  },
-                  ".csc-preferredOA-termStatus-label": {
-                    "messagekey": "preferredOA-termStatusLabel"
-                  }, 
-                  ".csc-preferredOA-termType-label": {
-                    "messagekey": "preferredOA-termTypeLabel"
-                  }
-                }, 
-                "type": "fluid.noexpand"
-              }
+                            ],
+                            "value": "${{row}.narrowerContext}"
+                        },
+                        ".csc-hierarchy-narrowerContextType": {
+                            "optionnames": [
+                                "Item in a set",
+                                "Derivative",
+                                "Separable part",
+                                "Non-separable part",
+                                "Recto",
+                                "Verso"
+                            ],
+                            "optionlist": [
+                                "set",
+                                "derivative",
+                                "separable-part",
+                                "non-separable-part",
+                                "recto",
+                                "verso"
+                            ],
+                            "selection": "${{row}.narrowerContextType}"
+                        }
+                    },
+                    "type": "fluid.noexpand"
+                }},
+                "elPath": "fields.narrowerContexts"
             }
-          }, 
-          "type": "fluid"
-        }
-      ]
+        }]},
+        ".csc-hierarchy-broaderContext": {
+            "decorators": [
+                {
+                    "func": "cspace.autocomplete",
+                    "type": "fluid",
+                    "options": {
+                        "queryUrl": "../../../tenant/core/vocabularies/organization/autocomplete/broaderContext",
+                        "vocabUrl": "../../../tenant/core/vocabularies/organization/source-vocab/broaderContext"
+                    }
+                },
+                {
+                    "func": "cspace.externalURL",
+                    "type": "fluid"
+                }
+            ],
+            "value": "${fields.broaderContext}"
+        },
+        ".csc-hierarchy-broaderContext-label": {"messagekey": "hierarchy-broaderContextLabel"},
+        "expander": [
+            {
+                "trueTree": {".csc-hierarchy-equivalentContext-label": {"messagekey": "hierarchy-equivalentContextLabel"}},
+                "condition": {
+                    "funcName": "cspace.hierarchy.assertEquivalentContexts",
+                    "args": {"equivalentContexts": "${fields.equivalentContexts}"}
+                },
+                "type": "fluid.renderer.condition",
+                "falseTree": {".csc-hierarchy-equivalentContext-label": {"decorators": {
+                    "classes": "hidden",
+                    "type": "addClass"
+                }}}
+            },
+            {
+                "repeatID": ".csc-hierarchy-equivalentContext:",
+                "tree": {
+                    "decorators": [
+                        {
+                            "classes": "cs-hierarchy-equivalentContext",
+                            "type": "addClass"
+                        },
+                        {
+                            "func": "cspace.externalURL",
+                            "type": "fluid"
+                        }
+                    ],
+                    "value": "${{row}.equivalentContext}"
+                },
+                "type": "fluid.renderer.repeat",
+                "pathAs": "row",
+                "controlledBy": "fields.equivalentContexts"
+            }
+        ],
+        ".csc-hierarchy-domaindata-label": {"messagekey": "hierarchy-domaindataLabel"},
+        ".csc-hierarchy-relatedTerms-label": {"messagekey": "hierarchy-relatedTermsLabel"},
+        ".csc-hierarchy-narrowerContexts-label": {"messagekey": "hierarchy-narrowerContextsLabel"},
+        ".csc-hierarchy-hierarchyInformation-label": {"messagekey": "hierarchy-hierarchyInformationLabel"},
+        ".csc-hierarchy-relatedTerm": {"decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {"expander": {
+                    "tree": {".csc-hierarchy-relatedTerm": {
+                        "decorators": [{
+                            "func": "cspace.autocomplete",
+                            "type": "fluid",
+                            "options": {
+                                "queryUrl": "../../../tenant/core/vocabularies/organization/autocomplete/relatedTerm",
+                                "vocabUrl": "../../../tenant/core/vocabularies/organization/source-vocab/relatedTerm"
+                            }
+                        }],
+                        "value": "${{row}.relatedTerm}"
+                    }},
+                    "type": "fluid.noexpand"
+                }},
+                "elPath": "fields.relatedTerms"
+            }
+        }]},
+        ".csc-hierarchy-equivalentContexts-label": {"messagekey": "hierarchy-equivalentContextsLabel"},
+        ".csc-hierarchy-relatedTerm-label": {"messagekey": "hierarchy-relatedTermLabel"}
+    },
+    "recordEditor": {
+        ".csc-contact-inAuthority": "${fields.contact.inAuthority}",
+        ".csc-organization-sas-label": {"messagekey": "organization-sasLabel"},
+        ".csc-contact-proposed": "${fields.contact.proposed}",
+        ".csc-contact-createdBy": "${fields.contact.createdBy}",
+        ".csc-contact-telephoneNumberGroup": {"decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {"expander": {
+                    "tree": {
+                        ".csc-contact-telephoneNumberType": {
+                            "optionnames": [
+                                "Please select a value",
+                                "business",
+                                "home",
+                                "mobile",
+                                "other"
+                            ],
+                            "optionlist": [
+                                "",
+                                "business",
+                                "home",
+                                "mobile",
+                                "other"
+                            ],
+                            "selection": "${{row}.telephoneNumberType}"
+                        },
+                        ".csc-contact-telephoneNumber": "${{row}.telephoneNumber}"
+                    },
+                    "type": "fluid.noexpand"
+                }},
+                "elPath": "fields.contact.telephoneNumberGroup"
+            }
+        }]},
+        ".csc-orgAuthority-contactName": {"decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {"expander": {
+                    "tree": {".csc-orgAuthority-contactName": {
+                        "decorators": [{
+                            "func": "cspace.autocomplete",
+                            "type": "fluid",
+                            "options": {
+                                "queryUrl": "../../../tenant/core/vocabularies/organization/autocomplete/contactName",
+                                "vocabUrl": "../../../tenant/core/vocabularies/organization/source-vocab/contactName"
+                            }
+                        }],
+                        "value": "${{row}.contactName}"
+                    }},
+                    "type": "fluid.noexpand"
+                }},
+                "elPath": "fields.contactNames"
+            }
+        }]},
+        ".csc-organization-deprecatedRefName-label": {"messagekey": "organization-deprecatedRefNameLabel"},
+        ".csc-contact-contactInformation-label": {"messagekey": "contact-contactInformationLabel"},
+        ".csc-organization-contact-label": {"messagekey": "organization-contactLabel"},
+        ".csc-organization-dissolutionDateGroup-label": {"messagekey": "organization-dissolutionDateGroupLabel"},
+        ".csc-contact-sas-label": {"messagekey": "contact-sasLabel"},
+        ".csc-contact-faxNumberGroup": {"decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {"expander": {
+                    "tree": {
+                        ".csc-contact-faxNumberType": {
+                            "optionnames": [
+                                "Please select a value",
+                                "business",
+                                "home",
+                                "other"
+                            ],
+                            "optionlist": [
+                                "",
+                                "business",
+                                "home",
+                                "other"
+                            ],
+                            "selection": "${{row}.faxNumberType}"
+                        },
+                        ".csc-contact-faxNumber": "${{row}.faxNumber}"
+                    },
+                    "type": "fluid.noexpand"
+                }},
+                "elPath": "fields.contact.faxNumberGroup"
+            }
+        }]},
+        ".csc-organization-inAuthority-label": {"messagekey": "organization-inAuthorityLabel"},
+        ".csc-contact-createdAt": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.contact.createdAt}"
+        },
+        ".csc-organization-coreInformation-label": {"messagekey": "organization-coreInformationLabel"},
+        ".csc-contact-emailGroup": {"decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {"expander": {
+                    "tree": {
+                        ".csc-contact-emailType": {
+                            "optionnames": [
+                                "Please select a value",
+                                "business",
+                                "personal",
+                                "other"
+                            ],
+                            "optionlist": [
+                                "",
+                                "business",
+                                "personal",
+                                "other"
+                            ],
+                            "selection": "${{row}.emailType}"
+                        },
+                        ".csc-contact-email": "${{row}.email}"
+                    },
+                    "type": "fluid.noexpand"
+                }},
+                "elPath": "fields.contact.emailGroup"
+            }
+        }]},
+        ".csc-contact-telephoneNumberGroup-label": {"messagekey": "contact-telephoneNumberGroupLabel"},
+        ".csc-organization-organizationRecordType": {
+            "decorators": [
+                {
+                    "func": "cspace.makeRepeatable",
+                    "options": {
+                        "repeatTree": {
+                            "expander": {
+                                "tree": {
+                                    ".csc-organization-organizationRecordType": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.termList",
+                                                "options": {
+                                                    "termListType": "organizationRecordType",
+                                                    "root": "{row}",
+                                                    "elPath": "organizationRecordType"
+                                                },
+                                                "type": "fluid"
+                                            }
+                                        ]
+                                    }
+                                },
+                                "type": "fluid.noexpand"
+                            }
+                        },
+                        "elPath": "fields.organizationRecordTypes"
+                    },
+                    "type": "fluid"
+                }
+            ]
+        },
+        ".csc-organization-organizationRecordType-label": {
+             "messagekey": "organization-organizationRecordTypeLabel"
+        },
+        ".csc-organization-organizationRecordTypes-label": {
+            "messagekey": "organization-organizationRecordTypesLabel"
+        },
+        ".csc-organization-createdBy-label": {"messagekey": "organization-createdByLabel"},
+        ".csc-organization-updatedAt-label": {"messagekey": "organization-updatedAtLabel"},
+        ".csc-organization-tenantId-label": {"messagekey": "organization-tenantIdLabel"},
+        ".csc-contact-telephoneNumber-label": {"messagekey": "contact-telephoneNumberLabel"},
+        ".csc-organization-proposed-label": {"messagekey": "organization-proposedLabel"},
+        ".csc-organization-uri-label": {"messagekey": "organization-uriLabel"},
+        ".csc-organization-workflow": "${fields.workflow}", 
+        ".csc-organization-workflow-label": {
+          "messagekey": "organization-workflowLabel"
+        }, 
+        ".csc-contact-workflow": "${fields.contact.workflow}",
+        ".csc-contact-workflow-label": {
+            "messagekey": "contact-workflowLabel"
+        },
+        ".csc-organization-shortIdentifier-label": {"messagekey": "organization-shortIdentifierLabel"},
+        ".csc-contact-webAddressGroup-label": {"messagekey": "contact-webAddressGroupLabel"},
+        ".csc-contact-sas": "${fields.contact.sas}",
+        ".csc-contact-addressType-label": {"messagekey": "contact-addressTypeLabel"},
+        ".csc-orgAuthority-history": {"decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {"expander": {
+                    "tree": {".csc-orgAuthority-history": "${{row}.historyNote}"},
+                    "type": "fluid.noexpand"
+                }},
+                "elPath": "fields.historyNotes"
+            }
+        }]},
+        ".csc-contact-addressPostCode-label": {"messagekey": "contact-addressPostCodeLabel"},
+        ".csc-organization-functions-label": {"messagekey": "organization-functionsLabel"},
+        ".csc-contact-webAddressGroup": {"decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {"expander": {
+                    "tree": {
+                        ".csc-contact-webAddressType": {
+                            "optionnames": [
+                                "Please select a value",
+                                "business",
+                                "personal",
+                                "other"
+                            ],
+                            "optionlist": [
+                                "",
+                                "business",
+                                "personal",
+                                "other"
+                            ],
+                            "selection": "${{row}.webAddressType}"
+                        },
+                        ".csc-contact-webAddress": "${{row}.webAddress}"
+                    },
+                    "type": "fluid.noexpand"
+                }},
+                "elPath": "fields.contact.webAddressGroup"
+            }
+        }]},
+        ".csc-organizationAuthority-foundingDate": {
+            "decorators": [{
+                "func": "cspace.structuredDate",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.foundingDateGroup.dateDisplayDate",
+                    "elPaths": {
+                        "dateEarliestSingleQualifier": "fields.foundingDateGroup.dateEarliestSingleQualifier",
+                        "scalarValuesComputed": "fields.foundingDateGroup.scalarValuesComputed",
+                        "dateLatestDay": "fields.foundingDateGroup.dateLatestDay",
+                        "dateLatestYear": "fields.foundingDateGroup.dateLatestYear",
+                        "dateAssociation": "fields.foundingDateGroup.dateAssociation",
+                        "dateEarliestSingleEra": "fields.foundingDateGroup.dateEarliestSingleEra",
+                        "dateDisplayDate": "fields.foundingDateGroup.dateDisplayDate",
+                        "dateEarliestSingleCertainty": "fields.foundingDateGroup.dateEarliestSingleCertainty",
+                        "dateLatestEra": "fields.foundingDateGroup.dateLatestEra",
+                        "dateEarliestSingleQualifierValue": "fields.foundingDateGroup.dateEarliestSingleQualifierValue",
+                        "dateLatestCertainty": "fields.foundingDateGroup.dateLatestCertainty",
+                        "dateEarliestSingleYear": "fields.foundingDateGroup.dateEarliestSingleYear",
+                        "dateLatestQualifier": "fields.foundingDateGroup.dateLatestQualifier",
+                        "dateLatestQualifierValue": "fields.foundingDateGroup.dateLatestQualifierValue",
+                        "dateEarliestSingleQualifierUnit": "fields.foundingDateGroup.dateEarliestSingleQualifierUnit",
+                        "datePeriod": "fields.foundingDateGroup.datePeriod",
+                        "dateEarliestScalarValue": "fields.foundingDateGroup.dateEarliestScalarValue",
+                        "dateLatestMonth": "fields.foundingDateGroup.dateLatestMonth",
+                        "dateNote": "fields.foundingDateGroup.dateNote",
+                        "dateLatestScalarValue": "fields.foundingDateGroup.dateLatestScalarValue",
+                        "dateLatestQualifierUnit": "fields.foundingDateGroup.dateLatestQualifierUnit",
+                        "dateEarliestSingleDay": "fields.foundingDateGroup.dateEarliestSingleDay",
+                        "dateEarliestSingleMonth": "fields.foundingDateGroup.dateEarliestSingleMonth"
+                    }
+                }
+            }],
+            "value": "${fields.foundingDateGroup.dateDisplayDate}"
+        },
+        ".csc-organization-refName": "${fields.refName}",
+        ".csc-contact-domaindata-label": {"messagekey": "contact-domaindataLabel"},
+        ".csc-organization-createdAt": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.createdAt}"
+        },
+        ".csc-contact-updatedBy-label": {"messagekey": "contact-updatedByLabel"},
+        ".csc-contact-displayName": "${fields.contact.displayName}",
+        ".csc-contact-addressMunicipality-label": {"messagekey": "contact-addressMunicipalityLabel"},
+        ".csc-contact-refName": "${fields.contact.refName}",
+        ".csc-contact-uri": "${fields.contact.uri}",
+        ".csc-organization-csid": "${fields.csid}",
+        ".csc-contact-emailGroup-label": {"messagekey": "contact-emailGroupLabel"},
+        ".csc-contact-rev-label": {"messagekey": "contact-revLabel"},
+        ".csc-organization-tenantId": "${fields.tenantId}",
+        ".csc-contact-webAddressType-label": {"messagekey": "contact-webAddressTypeLabel"},
+        ".csc-contact-csid-label": {"messagekey": "contact-csidLabel"},
+        ".csc-contact-deprecated-label": {"messagekey": "contact-deprecatedLabel"},
+        ".csc-contact-addressGroup-label": {"messagekey": "contact-addressGroupLabel"},
+        ".csc-organization-historyNotes-label": {"messagekey": "organization-historyNotesLabel"},
+        ".csc-contact-addressPlace1-label": {"messagekey": "contact-addressPlace1Label"},
+        ".csc-organization-updatedBy": "${fields.updatedBy}",
+        ".csc-contact-csid": "${fields.contact.csid}",
+        ".csc-contact-rev": "${fields.contact.rev}",
+        ".csc-contact-addressStateOrProvince-label": {"messagekey": "contact-addressStateOrProvinceLabel"},
+        ".csc-organization-organizationNameAuthorityInformation-label": {"messagekey": "organization-organizationNameAuthorityInformationLabel"},
+        ".csc-organization-otherInformation-label": {"messagekey": "organization-otherInformationLabel"},
+        ".csc-organization-domaindata-label": {"messagekey": "organization-domaindataLabel"},
+        ".csc-contact-addressGroup": {"decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {"expander": {
+                    "tree": {
+                        ".csc-contact-addressMunicipality": "${{row}.addressMunicipality}",
+                        ".csc-contact-addressType": {
+                            "optionnames": [
+                                "Please select a value",
+                                "business",
+                                "home",
+                                "other"
+                            ],
+                            "optionlist": [
+                                "",
+                                "business",
+                                "home",
+                                "other"
+                            ],
+                            "selection": "${{row}.addressType}"
+                        },
+                        ".csc-contact-addressCountry": {
+                            "optionnames": [
+                                "Please select a value",
+                                "AFGHANISTAN",
+                                "ÅLAND ISLANDS",
+                                "ALBANIA",
+                                "ALGERIA",
+                                "AMERICAN SAMOA",
+                                "ANDORRA",
+                                "ANGOLA",
+                                "ANGUILLA",
+                                "ANTARCTICA",
+                                "ANTIGUA AND BARBUDA",
+                                "ARGENTINA",
+                                "ARMENIA",
+                                "ARUBA",
+                                "AUSTRALIA",
+                                "AUSTRIA",
+                                "AZERBAIJAN",
+                                "BAHAMAS",
+                                "BAHRAIN",
+                                "BANGLADESH",
+                                "BARBADOS",
+                                "BELARUS",
+                                "BELGIUM",
+                                "BELIZE",
+                                "BENIN",
+                                "BERMUDA",
+                                "BHUTAN",
+                                "BOLIVIA, PLURINATIONAL STATE OF",
+                                "BONAIRE, SINT EUSTATIUS AND SABA",
+                                "BOSNIA AND HERZEGOVINA",
+                                "BOTSWANA",
+                                "BOUVET ISLAND",
+                                "BRAZIL",
+                                "BRITISH INDIAN OCEAN TERRITORY",
+                                "BRUNEI DARUSSALAM",
+                                "BULGARIA",
+                                "BURKINA FASO",
+                                "BURUNDI",
+                                "CAMBODIA",
+                                "CAMEROON",
+                                "CANADA",
+                                "CAPE VERDE",
+                                "CAYMAN ISLANDS",
+                                "CENTRAL AFRICAN REPUBLIC",
+                                "CHAD",
+                                "CHILE",
+                                "CHINA",
+                                "CHRISTMAS ISLAND",
+                                "COCOS (KEELING) ISLANDS",
+                                "COLOMBIA",
+                                "COMOROS",
+                                "CONGO",
+                                "CONGO, THE DEMOCRATIC REPUBLIC OF THE",
+                                "COOK ISLANDS",
+                                "COSTA RICA",
+                                "CÔTE D\u2019IVOIRE",
+                                "CROATIA",
+                                "CUBA",
+                                "CURAÇAO",
+                                "CYPRUS",
+                                "CZECH REPUBLIC",
+                                "DENMARK",
+                                "DJIBOUTI",
+                                "DOMINICA",
+                                "DOMINICAN REPUBLIC",
+                                "ECUADOR",
+                                "EGYPT",
+                                "EL SALVADOR",
+                                "EQUATORIAL GUINEA",
+                                "ERITREA",
+                                "ESTONIA",
+                                "ETHIOPIA",
+                                "FALKLAND ISLANDS (MALVINAS)",
+                                "FAROE ISLANDS",
+                                "FIJI",
+                                "FINLAND",
+                                "FRANCE",
+                                "FRENCH GUIANA",
+                                "FRENCH POLYNESIA",
+                                "FRENCH SOUTHERN TERRITORIES",
+                                "GABON",
+                                "GAMBIA",
+                                "GEORGIA",
+                                "GERMANY",
+                                "GHANA",
+                                "GIBRALTAR",
+                                "GREECE",
+                                "GREENLAND",
+                                "GRENADA",
+                                "GUADELOUPE",
+                                "GUAM",
+                                "GUATEMALA",
+                                "GUERNSEY",
+                                "GUINEA",
+                                "GUINEA-BISSAU",
+                                "GUYANA",
+                                "HAITI",
+                                "HEARD ISLAND AND MCDONALD ISLANDS",
+                                "HOLY SEE (VATICAN CITY STATE)",
+                                "HONDURAS",
+                                "HONG KONG",
+                                "HUNGARY",
+                                "ICELAND",
+                                "INDIA",
+                                "INDONESIA",
+                                "IRAN, ISLAMIC REPUBLIC OF",
+                                "IRAQ",
+                                "IRELAND",
+                                "ISLE OF MAN",
+                                "ISRAEL",
+                                "ITALY",
+                                "JAMAICA",
+                                "JAPAN",
+                                "JERSEY",
+                                "JORDAN",
+                                "KAZAKHSTAN",
+                                "KENYA",
+                                "KIRIBATI",
+                                "KOREA, DEMOCRATIC PEOPLE\u2019S REPUBLIC OF",
+                                "KOREA, REPUBLIC OF",
+                                "KUWAIT",
+                                "KYRGYZSTAN",
+                                "LAO PEOPLE\u2019S DEMOCRATIC REPUBLIC",
+                                "LATVIA",
+                                "LEBANON",
+                                "LESOTHO",
+                                "LIBERIA",
+                                "LIBYA",
+                                "LIECHTENSTEIN",
+                                "LITHUANIA",
+                                "LUXEMBOURG",
+                                "MACAO",
+                                "MACEDONIA, THE FORMER YUGOSLAV REPUBLIC OF",
+                                "MADAGASCAR",
+                                "MALAWI",
+                                "MALAYSIA",
+                                "MALDIVES",
+                                "MALI",
+                                "MALTA",
+                                "MARSHALL ISLANDS",
+                                "MARTINIQUE",
+                                "MAURITANIA",
+                                "MAURITIUS",
+                                "MAYOTTE",
+                                "MEXICO",
+                                "MICRONESIA, FEDERATED STATES OF",
+                                "MOLDOVA, REPUBLIC OF",
+                                "MONACO",
+                                "MONGOLIA",
+                                "MONTENEGRO",
+                                "MONTSERRAT",
+                                "MOROCCO",
+                                "MOZAMBIQUE",
+                                "MYANMAR",
+                                "NAMIBIA",
+                                "NAURU",
+                                "NEPAL",
+                                "NETHERLANDS",
+                                "NEW CALEDONIA",
+                                "NEW ZEALAND",
+                                "NICARAGUA",
+                                "NIGER",
+                                "NIGERIA",
+                                "NIUE",
+                                "NORFOLK ISLAND",
+                                "NORTHERN MARIANA ISLANDS",
+                                "NORWAY",
+                                "OMAN",
+                                "PAKISTAN",
+                                "PALAU",
+                                "PALESTINIAN TERRITORY, OCCUPIED",
+                                "PANAMA",
+                                "PAPUA NEW GUINEA",
+                                "PARAGUAY",
+                                "PERU",
+                                "PHILIPPINES",
+                                "PITCAIRN",
+                                "POLAND",
+                                "PORTUGAL",
+                                "PUERTO RICO",
+                                "QATAR",
+                                "RÉUNION",
+                                "ROMANIA",
+                                "RUSSIAN FEDERATION",
+                                "RWANDA",
+                                "SAINT BARTHÉLEMY",
+                                "SAINT HELENA, ASCENSION AND TRISTAN DA CUNHA",
+                                "SAINT KITTS AND NEVIS",
+                                "SAINT LUCIA",
+                                "SAINT MARTIN (FRENCH PART)",
+                                "SAINT PIERRE AND MIQUELON",
+                                "SAINT VINCENT AND THE GRENADINES",
+                                "SAMOA",
+                                "SAN MARINO",
+                                "SAO TOME AND PRINCIPE",
+                                "SAUDI ARABIA",
+                                "SENEGAL",
+                                "SERBIA",
+                                "SEYCHELLES",
+                                "SIERRA LEONE",
+                                "SINGAPORE",
+                                "SINT MAARTEN (DUTCH PART)",
+                                "SLOVAKIA",
+                                "SLOVENIA",
+                                "SOLOMON ISLANDS",
+                                "SOMALIA",
+                                "SOUTH AFRICA",
+                                "SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS",
+                                "SOUTH SUDAN",
+                                "SPAIN",
+                                "SRI LANKA",
+                                "SUDAN",
+                                "SURINAME",
+                                "SVALBARD AND JAN MAYEN",
+                                "SWAZILAND",
+                                "SWEDEN",
+                                "SWITZERLAND",
+                                "SYRIAN ARAB REPUBLIC",
+                                "TAIWAN, PROVINCE OF CHINA",
+                                "TAJIKISTAN",
+                                "TANZANIA, UNITED REPUBLIC OF",
+                                "THAILAND",
+                                "TIMOR-LESTE",
+                                "TOGO",
+                                "TOKELAU",
+                                "TONGA",
+                                "TRINIDAD AND TOBAGO",
+                                "TUNISIA",
+                                "TURKEY",
+                                "TURKMENISTAN",
+                                "TURKS AND CAICOS ISLANDS",
+                                "TUVALU",
+                                "UGANDA",
+                                "UKRAINE",
+                                "UNITED ARAB EMIRATES",
+                                "UNITED KINGDOM",
+                                "UNITED STATES",
+                                "UNITED STATES MINOR OUTLYING ISLANDS",
+                                "URUGUAY",
+                                "UZBEKISTAN",
+                                "VANUATU",
+                                "VENEZUELA, BOLIVARIAN REPUBLIC OF",
+                                "VIET NAM",
+                                "VIRGIN ISLANDS, BRITISH",
+                                "VIRGIN ISLANDS, U.S.",
+                                "WALLIS AND FUTUNA",
+                                "WESTERN SAHARA",
+                                "YEMEN",
+                                "ZAMBIA",
+                                "ZIMBABWE"
+                            ],
+                            "optionlist": [
+                                "",
+                                "AF",
+                                "AX",
+                                "AL",
+                                "DZ",
+                                "AS",
+                                "AD",
+                                "AO",
+                                "AI",
+                                "AQ",
+                                "AG",
+                                "AR",
+                                "AM",
+                                "AW",
+                                "AU",
+                                "AT",
+                                "AZ",
+                                "BS",
+                                "BH",
+                                "BD",
+                                "BB",
+                                "BY",
+                                "BE",
+                                "BZ",
+                                "BJ",
+                                "BM",
+                                "BT",
+                                "BO",
+                                "BQ",
+                                "BA",
+                                "BW",
+                                "BV",
+                                "BR",
+                                "IO",
+                                "BN",
+                                "BG",
+                                "BF",
+                                "BI",
+                                "KH",
+                                "CM",
+                                "CA",
+                                "CV",
+                                "KY",
+                                "CF",
+                                "TD",
+                                "CL",
+                                "CN",
+                                "CX",
+                                "CC",
+                                "CO",
+                                "KM",
+                                "CG",
+                                "CD",
+                                "CK",
+                                "CR",
+                                "CI",
+                                "HR",
+                                "CU",
+                                "CW",
+                                "CY",
+                                "CZ",
+                                "DK",
+                                "DJ",
+                                "DM",
+                                "DO",
+                                "EC",
+                                "EG",
+                                "SV",
+                                "GQ",
+                                "ER",
+                                "EE",
+                                "ET",
+                                "FK",
+                                "FO",
+                                "FJ",
+                                "FI",
+                                "FR",
+                                "GF",
+                                "PF",
+                                "TF",
+                                "GA",
+                                "GM",
+                                "GE",
+                                "DE",
+                                "GH",
+                                "GI",
+                                "GR",
+                                "GL",
+                                "GD",
+                                "GP",
+                                "GU",
+                                "GT",
+                                "GG",
+                                "GN",
+                                "GW",
+                                "GY",
+                                "HT",
+                                "HM",
+                                "VA",
+                                "HN",
+                                "HK",
+                                "HN",
+                                "IS",
+                                "IN",
+                                "ID",
+                                "IR",
+                                "IQ",
+                                "IE",
+                                "IM",
+                                "IL",
+                                "IT",
+                                "JM",
+                                "JP",
+                                "JE",
+                                "JO",
+                                "KZ",
+                                "KE",
+                                "KI",
+                                "KP",
+                                "KR",
+                                "KW",
+                                "KG",
+                                "LA",
+                                "LV",
+                                "LB",
+                                "LS",
+                                "LR",
+                                "LY",
+                                "LI",
+                                "LT",
+                                "LU",
+                                "MO",
+                                "MK",
+                                "MG",
+                                "MW",
+                                "MY",
+                                "MV",
+                                "ML",
+                                "MT",
+                                "MH",
+                                "MQ",
+                                "MR",
+                                "MU",
+                                "YT",
+                                "MX",
+                                "FM",
+                                "MD",
+                                "MC",
+                                "MN",
+                                "ME",
+                                "MS",
+                                "MA",
+                                "MZ",
+                                "MM",
+                                "NA",
+                                "NR",
+                                "NP",
+                                "NL",
+                                "NC",
+                                "NZ",
+                                "NI",
+                                "NE",
+                                "NG",
+                                "NU",
+                                "NF",
+                                "MP",
+                                "NO",
+                                "OM",
+                                "PK",
+                                "PW",
+                                "PS",
+                                "PA",
+                                "PG",
+                                "PY",
+                                "PE",
+                                "PH",
+                                "PN",
+                                "PL",
+                                "PT",
+                                "PR",
+                                "QA",
+                                "RE",
+                                "RO",
+                                "RU",
+                                "RW",
+                                "BL",
+                                "SH",
+                                "KN",
+                                "LC",
+                                "MF",
+                                "PM",
+                                "VC",
+                                "WS",
+                                "SM",
+                                "ST",
+                                "SA",
+                                "SN",
+                                "RS",
+                                "SC",
+                                "SL",
+                                "SG",
+                                "SX",
+                                "SK",
+                                "SI",
+                                "SB",
+                                "SO",
+                                "ZA",
+                                "GS",
+                                "SS",
+                                "ES",
+                                "LK",
+                                "SD",
+                                "SR",
+                                "SJ",
+                                "SZ",
+                                "SE",
+                                "CH",
+                                "SY",
+                                "TW",
+                                "TJ",
+                                "TZ",
+                                "TH",
+                                "TL",
+                                "TG",
+                                "TK",
+                                "TO",
+                                "TT",
+                                "TN",
+                                "TR",
+                                "TM",
+                                "TC",
+                                "TV",
+                                "UG",
+                                "UA",
+                                "AE",
+                                "GB",
+                                "US",
+                                "UM",
+                                "UY",
+                                "UZ",
+                                "VU",
+                                "VE",
+                                "VN",
+                                "VG",
+                                "VI",
+                                "WF",
+                                "EH",
+                                "YE",
+                                "ZM",
+                                "ZW"
+                            ],
+                            "selection": "${{row}.addressCountry}"
+                        },
+                        ".csc-contact-addressStateOrProvince": "${{row}.addressStateOrProvince}",
+                        ".csc-contact-addressPlace2": "${{row}.addressPlace2}",
+                        ".csc-contact-addressPlace1": "${{row}.addressPlace1}",
+                        ".csc-contact-addressPostCode": "${{row}.addressPostCode}"
+                    },
+                    "type": "fluid.noexpand"
+                }},
+                "elPath": "fields.contact.addressGroup"
+            }
+        }]},
+        ".csc-contact-createdBy-label": {"messagekey": "contact-createdByLabel"},
+        ".csc-contact-uri-label": {"messagekey": "contact-uriLabel"},
+        ".csc-organization-groups-label": {"messagekey": "organization-groupsLabel"},
+        ".csc-organization-historyNote-label": {"messagekey": "organization-historyNoteLabel"},
+        ".csc-organization-contactInformation-label": {"messagekey": "organization-contactInformationLabel"},
+        ".csc-organization-rev": "${fields.rev}",
+        ".csc-organizationAuthority-dissolutionDate": {
+            "decorators": [{
+                "func": "cspace.structuredDate",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.dissolutionDateGroup.dateDisplayDate",
+                    "elPaths": {
+                        "dateEarliestSingleQualifier": "fields.dissolutionDateGroup.dateEarliestSingleQualifier",
+                        "scalarValuesComputed": "fields.dissolutionDateGroup.scalarValuesComputed",
+                        "dateLatestDay": "fields.dissolutionDateGroup.dateLatestDay",
+                        "dateLatestYear": "fields.dissolutionDateGroup.dateLatestYear",
+                        "dateAssociation": "fields.dissolutionDateGroup.dateAssociation",
+                        "dateEarliestSingleEra": "fields.dissolutionDateGroup.dateEarliestSingleEra",
+                        "dateDisplayDate": "fields.dissolutionDateGroup.dateDisplayDate",
+                        "dateEarliestSingleCertainty": "fields.dissolutionDateGroup.dateEarliestSingleCertainty",
+                        "dateLatestEra": "fields.dissolutionDateGroup.dateLatestEra",
+                        "dateEarliestSingleQualifierValue": "fields.dissolutionDateGroup.dateEarliestSingleQualifierValue",
+                        "dateLatestCertainty": "fields.dissolutionDateGroup.dateLatestCertainty",
+                        "dateEarliestSingleYear": "fields.dissolutionDateGroup.dateEarliestSingleYear",
+                        "dateLatestQualifier": "fields.dissolutionDateGroup.dateLatestQualifier",
+                        "dateLatestQualifierValue": "fields.dissolutionDateGroup.dateLatestQualifierValue",
+                        "dateEarliestSingleQualifierUnit": "fields.dissolutionDateGroup.dateEarliestSingleQualifierUnit",
+                        "datePeriod": "fields.dissolutionDateGroup.datePeriod",
+                        "dateEarliestScalarValue": "fields.dissolutionDateGroup.dateEarliestScalarValue",
+                        "dateLatestMonth": "fields.dissolutionDateGroup.dateLatestMonth",
+                        "dateNote": "fields.dissolutionDateGroup.dateNote",
+                        "dateLatestScalarValue": "fields.dissolutionDateGroup.dateLatestScalarValue",
+                        "dateLatestQualifierUnit": "fields.dissolutionDateGroup.dateLatestQualifierUnit",
+                        "dateEarliestSingleDay": "fields.dissolutionDateGroup.dateEarliestSingleDay",
+                        "dateEarliestSingleMonth": "fields.dissolutionDateGroup.dateEarliestSingleMonth"
+                    }
+                }
+            }],
+            "value": "${fields.dissolutionDateGroup.dateDisplayDate}"
+        },
+        ".csc-contact-coreInformation-label": {"messagekey": "contact-coreInformationLabel"},
+        ".csc-organization-foundingPlace-label": {"messagekey": "organization-foundingPlaceLabel"},
+        ".csc-contact-faxNumberType-label": {"messagekey": "contact-faxNumberTypeLabel"},
+        ".csc-contact-faxNumberGroup-label": {"messagekey": "contact-faxNumberGroupLabel"},
+        ".csc-contact-tenantId-label": {"messagekey": "contact-tenantIdLabel"},
+        ".csc-contact-displayName-label": {"messagekey": "contact-displayNameLabel"},
+        ".csc-orgAuthority-group": {"decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {"expander": {
+                    "tree": {".csc-orgAuthority-group": "${{row}.group}"},
+                    "type": "fluid.noexpand"
+                }},
+                "elPath": "fields.groups"
+            }
+        }]},
+        ".csc-organization-updatedAt": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.updatedAt}"
+        },
+        ".csc-orgAuthority-foundingPlace": "${fields.foundingPlace}",
+        ".csc-organization-proposed": "${fields.proposed}",
+        ".csc-organization-createdBy": "${fields.createdBy}",
+        ".csc-organization-sas": "${fields.sas}",
+        ".csc-organization-uri": "${fields.uri}",
+        ".csc-organization-refName-label": {"messagekey": "organization-refNameLabel"},
+        ".csc-orgAuthority-function": {"decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {"expander": {
+                    "tree": {".csc-orgAuthority-function": "${{row}.function}"},
+                    "type": "fluid.noexpand"
+                }},
+                "elPath": "fields.functions"
+            }
+        }]},
+        ".csc-contact-addressPlace2-label": {"messagekey": "contact-addressPlace2Label"},
+        ".csc-contact-faxNumber-label": {"messagekey": "contact-faxNumberLabel"},
+        ".csc-organization-inAuthority": "${fields.inAuthority}",
+        ".csc-organization-foundingDateGroup-label": {"messagekey": "organization-foundingDateGroupLabel"},
+        ".csc-contact-updatedAt-label": {"messagekey": "contact-updatedAtLabel"},
+        ".csc-organization-rev-label": {"messagekey": "organization-revLabel"},
+        ".csc-organization-updatedBy-label": {"messagekey": "organization-updatedByLabel"},
+        ".csc-contact-tenantId": "${fields.contact.tenantId}",
+        ".csc-contact-createdAt-label": {"messagekey": "contact-createdAtLabel"},
+        ".csc-organization-preferredOrganization-label": {"messagekey": "organization-preferredOrganizationLabel"},
+        ".csc-organization-group-label": {"messagekey": "organization-groupLabel"},
+        ".csc-preferred-orgAuthority": {"decorators": [{
+            "func": "cspace.preferred",
+            "type": "fluid",
+            "options": {"protoTree": {"expander": {
+                "tree": {
+                    ".csc-preferredOA-termFormattedDisplayName-label": {"messagekey": "preferredOA-termFormattedDisplayNameLabel"},
+                    ".csc-preferredOA-termSourceDetail-label": {"messagekey": "preferredOA-termSourceDetailLabel"},
+                    ".csc-preferredOA-termStatus-label": {"messagekey": "preferredOA-termStatusLabel"},
+                    ".csc-preferredOA-additionsToName-label": {"messagekey": "preferredOA-additionsToNameLabel"},
+                    ".csc-preferredOA-termSource-label": {"messagekey": "preferredOA-termSourceLabel"},
+                    ".csc-preferredOA-termFlag-label": {
+                        "messagekey": "preferredOA-termFlagLabel"
+                    },
+                    ".csc-preferredOA-termLanguage-label": {"messagekey": "preferredOA-termLanguageLabel"},
+                    ".csc-preferredOA-termType-label": {"messagekey": "preferredOA-termTypeLabel"},
+                    ".csc-preferredOA-termSourceID-label": {"messagekey": "preferredOA-termSourceIDLabel"},
+                    ".csc-preferredOA-termDisplayName-label": {"messagekey": "preferredOA-termDisplayNameLabel"},
+                    ".csc-preferredOA-termQualifier-label": {"messagekey": "preferredOA-termQualifierLabel"},
+                    ".csc-preferredOA-termPrefForLang-label": {"messagekey": "preferredOA-termPrefForLangLabel"},
+                    ".csc-preferredOA-termName-label": {"messagekey": "preferredOA-termNameLabel"},
+                    ".csc-preferredOA-termSourceNote-label": {"messagekey": "preferredOA-termSourceNoteLabel"},
+                    ".csc-preferredOA-mainBodyName-label": {"messagekey": "preferredOA-mainBodyNameLabel"},
+                    ".csc-preferredOA-orgTermGroup": {"decorators": [{
+                        "func": "cspace.makeRepeatable",
+                        "type": "fluid",
+                        "options": {
+                            "repeatTree": {"expander": {
+                                "tree": {
+                                    ".csc-orgAuthority-termType": {
+                                        "optionnames": [
+                                            "Please select a value",
+                                            "descriptor",
+                                            "alternate descriptor",
+                                            "used for term"
+                                        ],
+                                        "optionlist": [
+                                            "",
+                                            "descriptor",
+                                            "alternate descriptor",
+                                            "used for term"
+                                        ],
+                                        "selection": "${{row}.termType}"
+                                    },
+                                    ".csc-orgAuthority-termDisplayName": "${{row}.termDisplayName}",
+                                    ".csc-orgAuthority-termName": "${{row}.termName}",
+                                    ".csc-orgAuthority-termSourceDetail": "${{row}.termSourceDetail}",
+                                    ".csc-orgAuthority-termPrefForLang": "${{row}.termPrefForLang}",
+                                    ".csc-orgAuthority-termSource": {
+                                        "decorators": [{
+                                            "func": "cspace.autocomplete",
+                                            "type": "fluid",
+                                            "options": {
+                                                "queryUrl": "../../../tenant/core/preferredOA/autocomplete/termSource",
+                                                "vocabUrl": "../../../tenant/core/preferredOA/source-vocab/termSource"
+                                            }
+                                        }],
+                                        "value": "${{row}.termSource}"
+                                    },
+                                    ".csc-orgAuthority-termFlag": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.termList",
+                                                "options": {
+                                                    "termListType": "termFlag",
+                                                    "root": "{row}",
+                                                    "elPath": "termFlag"
+                                                },
+                                                "type": "fluid"
+                                            }
+                                        ]
+                                    },
+                                    ".csc-orgAuthority-termStatus": {
+                                        "default": "provisional",
+                                        "optionnames": [
+                                            "Provisional",
+                                            "Under Review",
+                                            "Accepted",
+                                            "Rejected"
+                                        ],
+                                        "optionlist": [
+                                            "provisional",
+                                            "under review",
+                                            "accepted",
+                                            "rejected"
+                                        ],
+                                        "selection": "${{row}.termStatus}"
+                                    },
+                                    ".csc-orgAuthority-termSourceID": "${{row}.termSourceID}",
+                                    ".csc-orgAuthority-additionsToName": "${{row}.additionsToName}",
+                                    ".csc-orgAuthority-mainBodyName": "${{row}.mainBodyName}",
+                                    ".csc-orgAuthority-Qualifier": "${{row}.termQualifier}",
+                                    ".csc-orgAuthority-termSourceNote": "${{row}.termSourceNote}",
+                                    ".csc-orgAuthority-termLanguage": {"decorators": [{
+                                        "func": "cspace.termList",
+                                        "type": "fluid",
+                                        "options": {
+                                            "root": "{row}",
+                                            "elPath": "termLanguage",
+                                            "termListType": "termLanguage"
+                                        }
+                                    }]},
+                                    ".csc-orgAuthority-termFormattedDisplayName": "${{row}.termFormattedDisplayName}"
+                                },
+                                "type": "fluid.noexpand"
+                            }},
+                            "elPath": "fields.orgTermGroup"
+                        }
+                    }]},
+                    ".csc-preferredOA-orgTermGroup-label": {"messagekey": "preferredOA-orgTermGroupLabel"},
+                    ".csc-preferredOA-termInformation-label": {"messagekey": "preferredOA-termInformationLabel"}
+                },
+                "type": "fluid.noexpand"
+            }}}
+        }]},
+        ".csc-contact-deprecated": "${fields.contact.deprecated}",
+        ".csc-contact-webAddress-label": {"messagekey": "contact-webAddressLabel"},
+        ".csc-contact-email-label": {"messagekey": "contact-emailLabel"},
+        ".csc-organization-deprecatedRefName": "${fields.deprecatedRefName}",
+        ".csc-organization-contactNames-label": {"messagekey": "organization-contactNamesLabel"},
+        ".csc-contact-updatedBy": "${fields.contact.updatedBy}",
+        ".csc-organization-csid-label": {"messagekey": "organization-csidLabel"},
+        ".csc-contact-otherInformation-label": {"messagekey": "contact-otherInformationLabel"},
+        ".csc-contact-addressCountry-label": {"messagekey": "contact-addressCountryLabel"},
+        ".csc-organization-contactName-label": {"messagekey": "organization-contactNameLabel"},
+        ".csc-contact-inItem-label": {"messagekey": "contact-inItemLabel"},
+        ".csc-contact-telephoneNumberType-label": {"messagekey": "contact-telephoneNumberTypeLabel"},
+        ".csc-contact-emailType-label": {"messagekey": "contact-emailTypeLabel"},
+        ".csc-organization-function-label": {"messagekey": "organization-functionLabel"},
+        ".csc-organization-shortIdentifier": "${fields.shortIdentifier}",
+        ".csc-contact-inItem": "${fields.contact.inItem}",
+        ".csc-organization-deprecated-label": {"messagekey": "organization-deprecatedLabel"},
+        ".csc-organization-deprecated": "${fields.deprecated}",
+        ".csc-contact-updatedAt": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.contact.updatedAt}"
+        },
+        ".csc-contact-proposed-label": {"messagekey": "contact-proposedLabel"},
+        ".csc-contact-refName-label": {"messagekey": "contact-refNameLabel"},
+        ".csc-organization-createdAt-label": {"messagekey": "organization-createdAtLabel"},
+        ".csc-contact-inAuthority-label": {"messagekey": "contact-inAuthorityLabel"}
     }
-  }
 }

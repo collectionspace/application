@@ -122,6 +122,7 @@ public class WebAutoComplete implements WebMethod {
 						//RefName.AuthorityItem item = RefName.AuthorityItem.parse(refid); 
 						//entry.put("namespace",item.getParentShortIdentifier());
 						entry.put("namespace",data.getString("namespace"));
+						entry.put("workflow", data.getString("workflow"));
 						out.put(entry);
 					}
 				}

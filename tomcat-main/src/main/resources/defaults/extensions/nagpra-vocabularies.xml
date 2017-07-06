@@ -1,0 +1,67 @@
+<instances>
+	<instance id="vocab-nagpraclaimtype">
+		<web-url>nagpraclaimtype</web-url>
+		<title-ref>nagpraclaimtype</title-ref>
+		<title>NAGPRA Claim Types</title>
+		<options>
+			<option id="affiliatedHsr">affiliated human skeletal remains (HSR)</option>
+			<option id="unaffiliatedCuiHsr">unaffiliated human skeletal remains (HSR) (=CUI)</option>
+			<option id="afo">associated funerary object (AFO)</option>
+			<option id="ufo">unassociated funerary object (UFO)</option>
+			<option id="sacredObject">sacred object</option>
+			<option id="objectOfCulturalPatrimony">object of cultural patrimony</option>
+			<option id="nonNagpra">not subject to NAGPRA</option>
+			<option id="needsFurtherResearch">needs further research</option>
+			<option id="unknown">unknown</option>
+		</options>
+	</instance>
+	<instance id="vocab-nagprainventory">
+		<web-url>nagprainventory</web-url>
+		<title-ref>nagprainventory</title-ref>
+		<title>NAGPRA Inventories</title>
+		<options>
+			<option id="notOnAnInventory" default="yes">not on an inventory</option>
+			<option id="inventory1" default="yes">Inventory 1</option>
+			<option id="inventory2" default="yes">Inventory 2</option>
+			<option id="unknown">unknown</option>
+		</options>
+	</instance>
+	<instance id="vocab-nagpracategory">
+		<web-url>nagpracategory</web-url>
+		<title-ref>nagpracategory</title-ref>
+		<title>NAGPRA Categories</title>
+		<options>
+			<option id="nonNagpra" default="yes">not subject to NAGPRA</option>
+			<option id="affiliatedHsr">affiliated human skeletal remains (HSR)</option>
+			<option id="unaffiliatedCuiHsr">unaffiliated human skeletal remains (HSR) (=CUI)</option>
+			<option id="afo">associated funerary object (AFO)</option>
+			<option id="ufo">unassociated funerary object (UFO)</option>
+			<option id="sacredObject">sacred object</option>
+			<option id="objectOfCulturalPatrimony">object of cultural patrimony</option>
+			<option id="subjectToNAGPRA">subject to NAGPRA (unspec.)</option>
+			<option id="needsFurtherResearch">needs further research</option>
+			<option id="unknown">unknown</option>
+		</options>
+	</instance>
+	<instance id="vocab-graveassoccode">
+		<web-url>graveassoccode</web-url>
+		<title-ref>graveassoccode</title-ref>
+		<title>Grave Association Codes</title>
+		<options>
+			<option id="noCode" default="yes">no code assigned</option>
+			<option id="associatedFuneraryObject">1: associated funerary object (AFO)</option>
+			<option id="unassociatedFuneraryObjectWithDesignatedBurial">2: unassociated funerary object (UFO) with designated burial</option> 
+			<option id="unassociatedFuneraryObjectWithUndesignatedBurial">3: unassociated funerary object (UFO) with undesignated burial</option>
+			<option id="unassociatedFuneraryObjectWithCemetery">4: unassociated funerary object (UFO)/cemetery</option>
+			<option id="lacksClearFuneraryStatusNearCemetery">5: lacks clear funerary status/near cemetery</option>
+			<option id="needsFurtherResearch">6: needs further research</option>
+			<option id="codedInError">7: coded in error</option>
+			<option id="needsCheckOfObject">8: needs check of object</option>
+			<option id="wasRecataloged">9: was recataloged</option>
+			<option id="notReportable">10: not reportable</option>
+			<option id="unknownMeaning777">777: __________</option>
+			<option id="needsRecatalog">999: needs recatalog</option>
+			<option id="unknown">unknown</option>
+		</options>
+	</instance>
+</instances>

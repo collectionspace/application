@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <ns2:concepts_common xmlns:ns2="http://collectionspace.org/services/concept">
-  <shortIdentifier>concepttest1</shortIdentifier>
-  <conceptTermGroupList>
-    <conceptTermGroup>
-      <termDisplayName>Concept Test 1 (Qualified)</termDisplayName>
-      <termStatus>termStatus</termStatus>
-      <termQualifier>Qualifier</termQualifier>
-      <termType>Type</termType>
-      <termLanguage>English</termLanguage>
+	<deprecated>false</deprecated>
+	<sas>false</sas>
+	<proposed>false</proposed>
+	<shortIdentifier>concepttest1</shortIdentifier>
+	<conceptTermGroupList>
+		<conceptTermGroup>
+			<termDisplayName>Concept Test 1 (Qualified)</termDisplayName>
+			<termStatus>termStatus</termStatus>
+			<termQualifier>Qualifier</termQualifier>
+			<termType>Type</termType>
+			<termLanguage>English</termLanguage>
 			<termPrefForLang>true</termPrefForLang>
-    </conceptTermGroup>
-  </conceptTermGroupList>
-  <citationGroupList>
-    <citationGroup>
-      <citationSource>source</citationSource>
-    </citationGroup>
-  </citationGroupList>
-  <additionalSourceGroupList>
-    <additionalSourceGroup>
-      <additionalSource>source</additionalSource>
-    </additionalSourceGroup>
-  </additionalSourceGroupList>
+		</conceptTermGroup>
+	</conceptTermGroupList>
+	<conceptRecordTypes>
+		<conceptRecordType>urn:cspace:core.collectionspace.org:vocabularies:name(concepttype):item:name(commonname)'common name'</conceptRecordType>
+	</conceptRecordTypes>
+	<citationGroupList>
+		<citationGroup>
+			<citationSource>source</citationSource>
+		</citationGroup>
+	</citationGroupList>
+	<additionalSourceGroupList>
+		<additionalSourceGroup>
+			<additionalSource>source</additionalSource>
+		</additionalSourceGroup>
+	</additionalSourceGroupList>
 </ns2:concepts_common>

@@ -23,7 +23,20 @@
                     }
                   ]
                 }, 
-                ".csc-workAuthority-termName": "${{row}.termName}", 
+                ".csc-workAuthority-termName": "${{row}.termName}",
+                ".csc-workAuthority-termFlag": {
+                    "decorators": [
+                        {
+                            "func": "cspace.termList",
+                            "options": {
+                                "termListType": "termFlag",
+                                "root": "{row}",
+                                "elPath": "termFlag"
+                            },
+                            "type": "fluid"
+                        }
+                    ]
+                },
                 ".csc-workAuthority-termStatus": {
                   "default": "", 
                   "optionlist": [
@@ -134,6 +147,9 @@
   ".csc-work-termName-label": {
     "messagekey": "preferredWork-termNameLabel"
   }, 
+  ".csc-work-termFlag-label": {
+      "messagekey": "preferredWork-termFlagLabel"
+  },
   ".csc-work-termPrefForLang-label": {
     "messagekey": "preferredWork-termPrefForLangLabel"
   }, 

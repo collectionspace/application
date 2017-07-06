@@ -6,6 +6,9 @@
  */
 package org.collectionspace.csp.api.core;
 
+/*
+ * What does CSP stand for?  CollectionSpace (P)ersistence?
+ */
 public interface CSP {
 	public void go(CSPContext ctx) throws CSPDependencyException;
 	public String getName();

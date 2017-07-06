@@ -9,6 +9,7 @@ package org.collectionspace.chain.csp.persistence;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -19,6 +20,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
+import org.aspectj.util.FileUtil;
 import org.collectionspace.chain.controller.TenantServlet;
 import org.collectionspace.chain.storage.UTF8SafeHttpTester;
 import org.collectionspace.chain.util.json.JSONUtils;
@@ -320,7 +322,8 @@ public class TestBase extends TestData {
 		HttpTester out = jettyDo(jetty,"POST","/tenant/"+defaulttenant+url,data);
 		assertEquals(out.getMethod(),null);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
-		assertTrue("Status "+Integer.toString(status)+" was wrong for a POST url: /tenant/"+defaulttenant+url+" with data: "+data +"/n"+out.getContent(),testStatus("POST",status));
+		assertTrue("Status "+Integer.toString(status)+" was wrong for a POST url: /tenant/"+defaulttenant+url+" with data: "+data +"/n"+out.getContent(),
+				testStatus("POST",status));
 		return out;
 	}
 	
@@ -573,33 +576,52 @@ public class TestBase extends TestData {
 		DELETEData(id, jetty);
 
 	}
-	//UI specs
+
+	// UI specs
 	public void testUIspec(ServletTester jetty, String url, String uijson) throws Exception {
-	
-		log.info("testUISpec("+url+", "+uijson+")");
-		HttpTester response;
-		JSONObject generated;
-		JSONObject comparison;
+		log.info("testUISpec(" + url + ", " + uijson + ")");
 		
-		response = GETData(url, jetty);
-		
-		generated = new JSONObject(response.getContent());
-		comparison = new JSONObject(getResourceString(uijson));
-		xxxfixOptions(generated);
-		xxxfixOptions(comparison);
-		
-		// You can use these, Chris, to write stuff out if the spec has changed to alter the test file -- dan
-		//hendecasyllabic:tmp csm22$ cat gschema.out | pbcopy
-		
-		boolean success = JSONUtils.checkJSONEquivOrEmptyStringKey(generated, comparison);
-		if(!success) {
-			log.error("testUIspec("+uijson+") BASELINE from file" + comparison.toString());
-			log.error("testUIspec("+url+") GENERATED from url" + generated.toString());
+		String errMsg = String.format("Failed to create correct uispec for '%s' compared with file '%s'",
+				url, uijson);
+		JSONObject generated = new JSONObject("{}");
+		JSONObject baseline = new JSONObject("{}");
+		boolean success = false;
+
+		try {
+			HttpTester response = GETData(url, jetty);
+
+			generated = new JSONObject(response.getContent());
+			baseline = new JSONObject(getResourceString(uijson));
+			xxxfixOptions(generated);
+			xxxfixOptions(baseline);
+
+			// You can use these, Chris, to write stuff out if the spec has
+			// changed to alter the test file -- dan
+			// hendecasyllabic:tmp csm22$ cat gschema.out | pbcopy
+
+			success = JSONUtils.checkJSONEquivOrEmptyStringKey(generated, baseline);
+		} catch (Exception e) {
+			log.error(errMsg, e);
+			errMsg = String.format("%s. %s", errMsg, e.getMessage()); // Append the exception message to our default error message.
 		}
-		assertTrue("Failed to create correct uispec for " + url, success);
-	
+
+		if (!success) {
+			File tempDir = FileUtil.getTempDir(uijson);
+			// Baseline spec
+			File baselineFile = new File(tempDir, uijson + ".baseline.json");			
+			FileUtil.writeAsString(baselineFile, baseline.toString());
+			
+			// Generated spec
+			File generatedFile = new File(tempDir, uijson + ".generated.json");
+			FileUtil.writeAsString(generatedFile, generated.toString());
+
+			log.error("The following baseline and generated UI specs did not match:");
+			log.error("testUIspec(" + uijson + ") BASELINE from file" + baselineFile.getPath());
+			log.error("testUIspec(" + url + ") GENERATED from url" + generatedFile.getPath());
+		}
+
+		assertTrue(errMsg, success);
 	}
-	
 
 	public JSONArray xxxsorted(JSONArray in) throws Exception {
 		JSONArray out=new JSONArray();

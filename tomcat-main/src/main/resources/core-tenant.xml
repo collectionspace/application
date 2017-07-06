@@ -1,7 +1,6 @@
 <cspace-config tenantname="core">
-
 	<version>11</version>
-	<include src="settings.xml,local-core-settings.xml" merge="xmlmerge-settings.properties" 
+    <include src="settings.xml,local-core-settings.xml" required="false" merge="xmlmerge-settings.properties" 
 		strip-root="yes" />
 
 	<spec>
@@ -18,6 +17,7 @@
 			<include src="base-procedure-blobs.xml"/>
 			<include src="base-procedure-claim.xml"/>
 			<include src="base-procedure-conditioncheck.xml"/>
+			<include src="base-procedure-osteology.xml"/>
 			<include src="base-procedure-exhibition.xml"/>
 			<include src="base-procedure-groups.xml"/>
 			<include src="base-procedure-intake.xml"/>
@@ -61,6 +61,7 @@
 			<include src="base-authz-users.xml"/>
 
 			<include src="base-other-dimension.xml"/>
+			<include src="base-other-address.xml"/>
 			<include src="base-other-hierarchy.xml"/>
 			<include src="base-other-idgenerator.xml"/>
 			<include src="base-other-structureddate.xml"/>
@@ -68,13 +69,10 @@
 			<include src="base-other-termlistitem.xml"/>
 			<include src="base-other-reporting.xml"/>
 			<include src="base-other-reportingoutput.xml"/>
-			<include src="base-other-batch.xml"/>
-			<include src="base-other-batchoutput.xml"/>
-			<include src="base-other-invocationresults.xml"/>
+		    <include src="base-other-batch.xml"/>
+		    <include src="base-other-batchoutput.xml"/>
+		    <include src="base-other-invocationresults.xml"/>		    
 			<include src="base-other-searchall.xml"/>
-
-
 		</records>
-
 	</spec>
 </cspace-config>

@@ -1,495 +1,357 @@
 {
-  "hierarchy": {
-    ".csc-hierarchy-broaderContext": {
-      "decorators": [
-        {
-          "func": "cspace.autocomplete", 
-          "options": {
-            "queryUrl": "../../../tenant/core/vocabularies/location/autocomplete/broaderContext", 
-            "vocabUrl": "../../../tenant/core/vocabularies/location/source-vocab/broaderContext"
-          }, 
-          "type": "fluid"
-        }, 
-        {
-          "func": "cspace.externalURL", 
-          "type": "fluid"
-        }
-      ], 
-      "value": "${fields.broaderContext}"
-    }, 
-    ".csc-hierarchy-broaderContext-label": {
-      "messagekey": "hierarchy-broaderContextLabel"
-    }, 
-    ".csc-hierarchy-broaderContextType": {
-      "optionlist": [
-        "set", 
-        "derivative", 
-        "separable-part", 
-        "non-separable-part", 
-        "recto", 
-        "verso"
-      ], 
-      "optionnames": [
-        "Set", 
-        "Work (derivative)", 
-        "Work (separable part)", 
-        "Work (non-separable part)", 
-        "Work (recto)", 
-        "Work (verso)"
-      ], 
-      "selection": "${fields.broaderContextType}"
-    }, 
-    ".csc-hierarchy-broaderContextType-label": {
-      "messagekey": "hierarchy-broaderContextTypeLabel"
-    }, 
-    ".csc-hierarchy-domaindata-label": {
-      "messagekey": "hierarchy-domaindataLabel"
-    }, 
-    ".csc-hierarchy-equivalentContext-label": {
-      "messagekey": "hierarchy-equivalentContextLabel"
-    }, 
-    ".csc-hierarchy-equivalentContexts-label": {
-      "messagekey": "hierarchy-equivalentContextsLabel"
-    }, 
-    ".csc-hierarchy-equivalentInformation-label": {
-      "messagekey": "hierarchy-equivalentInformationLabel"
-    }, 
-    ".csc-hierarchy-hierarchyInformation-label": {
-      "messagekey": "hierarchy-hierarchyInformationLabel"
-    }, 
-    ".csc-hierarchy-narrowerContext-label": {
-      "messagekey": "hierarchy-narrowerContextLabel"
-    }, 
-    ".csc-hierarchy-narrowerContextType-label": {
-      "messagekey": "hierarchy-narrowerContextTypeLabel"
-    }, 
-    ".csc-hierarchy-narrowerContexts": {
-      "decorators": [
-        {
-          "func": "cspace.makeRepeatable", 
-          "options": {
-            "elPath": "fields.narrowerContexts", 
-            "repeatTree": {
-              "expander": {
-                "tree": {
-                  ".csc-hierarchy-narrowerContext": {
-                    "decorators": [
-                      {
-                        "func": "cspace.autocomplete", 
-                        "options": {
-                          "invokers": {
-                            "selectMatch": {
-                              "funcName": "cspace.autocomplete.selectMatchConfirm"
-                            }
-                          }, 
-                          "queryUrl": "../../../tenant/core/vocabularies/location/autocomplete/narrowerContext", 
-                          "strings": {
-                            "narrowerChange": "Warning: %narrower currently has broader term %broader."
-                          }, 
-                          "vocabUrl": "../../../tenant/core/vocabularies/location/source-vocab/narrowerContext"
-                        }, 
-                        "type": "fluid"
-                      }, 
-                      {
-                        "func": "cspace.externalURL", 
-                        "type": "fluid"
-                      }
-                    ], 
-                    "value": "${{row}.narrowerContext}"
-                  }, 
-                  ".csc-hierarchy-narrowerContextType": {
-                    "optionlist": [
-                      "set", 
-                      "derivative", 
-                      "separable-part", 
-                      "non-separable-part", 
-                      "recto", 
-                      "verso"
-                    ], 
-                    "optionnames": [
-                      "Item in a set", 
-                      "Derivative", 
-                      "Separable part", 
-                      "Non-separable part", 
-                      "Recto", 
-                      "Verso"
-                    ], 
-                    "selection": "${{row}.narrowerContextType}"
-                  }
-                }, 
-                "type": "fluid.noexpand"
-              }
-            }
-          }, 
-          "type": "fluid"
-        }
-      ]
-    }, 
-    ".csc-hierarchy-narrowerContexts-label": {
-      "messagekey": "hierarchy-narrowerContextsLabel"
-    }, 
-    ".csc-hierarchy-relatedTerm": {
-      "decorators": [
-        {
-          "func": "cspace.makeRepeatable", 
-          "options": {
-            "elPath": "fields.relatedTerms", 
-            "repeatTree": {
-              "expander": {
-                "tree": {
-                  ".csc-hierarchy-relatedTerm": {
-                    "decorators": [
-                      {
-                        "func": "cspace.autocomplete", 
-                        "options": {
-                          "queryUrl": "../../../tenant/core/vocabularies/location/autocomplete/relatedTerm", 
-                          "vocabUrl": "../../../tenant/core/vocabularies/location/source-vocab/relatedTerm"
-                        }, 
-                        "type": "fluid"
-                      }
-                    ], 
-                    "value": "${{row}.relatedTerm}"
-                  }
-                }, 
-                "type": "fluid.noexpand"
-              }
-            }
-          }, 
-          "type": "fluid"
-        }
-      ]
-    }, 
-    ".csc-hierarchy-relatedTerm-label": {
-      "messagekey": "hierarchy-relatedTermLabel"
-    }, 
-    ".csc-hierarchy-relatedTerms-label": {
-      "messagekey": "hierarchy-relatedTermsLabel"
-    }, 
-    "expander": [
-      {
-        "condition": {
-          "args": {
-            "equivalentContexts": "${fields.equivalentContexts}"
-          }, 
-          "funcName": "cspace.hierarchy.assertEquivalentContexts"
-        }, 
-        "falseTree": {
-          ".csc-hierarchy-equivalentContext-label": {
-            "decorators": {
-              "classes": "hidden", 
-              "type": "addClass"
-            }
-          }
-        }, 
-        "trueTree": {
-          ".csc-hierarchy-equivalentContext-label": {
-            "messagekey": "hierarchy-equivalentContextLabel"
-          }
-        }, 
-        "type": "fluid.renderer.condition"
-      }, 
-      {
-        "controlledBy": "fields.equivalentContexts", 
-        "pathAs": "row", 
-        "repeatID": ".csc-hierarchy-equivalentContext:", 
-        "tree": {
-          "decorators": [
-            {
-              "classes": "cs-hierarchy-equivalentContext", 
-              "type": "addClass"
-            }, 
-            {
-              "func": "cspace.externalURL", 
-              "type": "fluid"
-            }
-          ], 
-          "value": "${{row}.equivalentContext}"
-        }, 
-        "type": "fluid.renderer.repeat"
-      }
-    ]
-  }, 
-  "recordEditor": {
-    ".csc-location-accessNote": "${fields.accessNote}", 
-    ".csc-location-accessNote-label": {
-      "messagekey": "location-accessNoteLabel"
-    }, 
-    ".csc-location-address": "${fields.address}", 
-    ".csc-location-address-label": {
-      "messagekey": "location-addressLabel"
-    }, 
-    ".csc-location-conditionGroup": {
-      "decorators": [
-        {
-          "func": "cspace.makeRepeatable", 
-          "options": {
-            "elPath": "fields.conditionGroup", 
-            "repeatTree": {
-              "expander": {
-                "tree": {
-                  ".csc-location-conditionNote": "${{row}.conditionNote}", 
-                  ".csc-location-conditionNoteDate": {
-                    "decorators": [
-                      {
-                        "func": "cspace.datePicker", 
-                        "type": "fluid"
-                      }
-                    ], 
-                    "value": "${{row}.conditionNoteDate}"
-                  }
-                }, 
-                "type": "fluid.noexpand"
-              }
-            }
-          }, 
-          "type": "fluid"
-        }
-      ]
-    }, 
-    ".csc-location-conditionGroup-label": {
-      "messagekey": "location-conditionGroupLabel"
-    }, 
-    ".csc-location-conditionNote-label": {
-      "messagekey": "location-conditionNoteLabel"
-    }, 
-    ".csc-location-conditionNoteDate-label": {
-      "messagekey": "location-conditionNoteDateLabel"
-    }, 
-    ".csc-location-coreInformation-label": {
-      "messagekey": "location-coreInformationLabel"
-    }, 
-    ".csc-location-createdAt": {
-      "decorators": [
-        {
-          "func": "cspace.datePicker", 
-          "type": "fluid"
-        }
-      ], 
-      "value": "${fields.createdAt}"
-    }, 
-    ".csc-location-createdAt-label": {
-      "messagekey": "location-createdAtLabel"
-    }, 
-    ".csc-location-createdBy": "${fields.createdBy}", 
-    ".csc-location-createdBy-label": {
-      "messagekey": "location-createdByLabel"
-    }, 
-    ".csc-location-csid": "${fields.csid}", 
-    ".csc-location-csid-label": {
-      "messagekey": "location-csidLabel"
-    }, 
-    ".csc-location-deprecatedRefName": "${fields.deprecatedRefName}", 
-    ".csc-location-deprecatedRefName-label": {
-      "messagekey": "location-deprecatedRefNameLabel"
-    }, 
-    ".csc-location-domaindata-label": {
-      "messagekey": "location-domaindataLabel"
-    }, 
-    ".csc-location-inAuthority": "${fields.inAuthority}", 
-    ".csc-location-inAuthority-label": {
-      "messagekey": "location-inAuthorityLabel"
-    }, 
-    ".csc-location-locationTermInformation-label": {
-      "messagekey": "location-locationTermInformationLabel"
-    }, 
-    ".csc-location-locationType-label": {
-      "messagekey": "location-locationTypeLabel"
-    }, 
-    ".csc-location-otherInformation-label": {
-      "messagekey": "location-otherInformationLabel"
-    }, 
-    ".csc-location-preferredLocation-label": {
-      "messagekey": "location-preferredLocationLabel"
-    }, 
-    ".csc-location-refName": "${fields.refName}", 
-    ".csc-location-refName-label": {
-      "messagekey": "location-refNameLabel"
-    }, 
-    ".csc-location-securityNote": "${fields.securityNote}", 
-    ".csc-location-securityNote-label": {
-      "messagekey": "location-securityNoteLabel"
-    }, 
-    ".csc-location-shortIdentifier": "${fields.shortIdentifier}", 
-    ".csc-location-shortIdentifier-label": {
-      "messagekey": "location-shortIdentifierLabel"
-    }, 
-    ".csc-location-tenantId": "${fields.tenantId}", 
-    ".csc-location-tenantId-label": {
-      "messagekey": "location-tenantIdLabel"
-    }, 
-    ".csc-location-type": {
-      "decorators": [
-        {
-          "func": "cspace.termList", 
-          "options": {
-            "elPath": "fields.locationType", 
-            "termListType": "locationType"
-          }, 
-          "type": "fluid"
-        }
-      ]
-    }, 
-    ".csc-location-updatedAt": {
-      "decorators": [
-        {
-          "func": "cspace.datePicker", 
-          "type": "fluid"
-        }
-      ], 
-      "value": "${fields.updatedAt}"
-    }, 
-    ".csc-location-updatedAt-label": {
-      "messagekey": "location-updatedAtLabel"
-    }, 
-    ".csc-location-updatedBy": "${fields.updatedBy}", 
-    ".csc-location-updatedBy-label": {
-      "messagekey": "location-updatedByLabel"
-    }, 
-    ".csc-location-uri": "${fields.uri}", 
-    ".csc-location-uri-label": {
-      "messagekey": "location-uriLabel"
-    }, 
-    ".csc-preferred-locationAuthority": {
-      "decorators": [
-        {
-          "func": "cspace.preferred", 
-          "options": {
-            "protoTree": {
-              "expander": {
-                "tree": {
-                  ".csc-preferredSLA-locTermGroup": {
-                    "decorators": [
-                      {
-                        "func": "cspace.makeRepeatable", 
-                        "options": {
-                          "elPath": "fields.locTermGroup", 
-                          "repeatTree": {
-                            "expander": {
-                              "tree": {
-                                ".csc-locationAuthority-termDisplayName": "${{row}.termDisplayName}", 
-                                ".csc-locationAuthority-termLanguage": {
-                                  "decorators": [
-                                    {
-                                      "func": "cspace.termList", 
-                                      "options": {
-                                        "elPath": "termLanguage", 
-                                        "root": "{row}", 
-                                        "termListType": "termLanguage"
-                                      }, 
-                                      "type": "fluid"
+    "hierarchy": {
+        ".csc-hierarchy-narrowerContext-label": {"messagekey": "hierarchy-narrowerContextLabel"},
+        ".csc-hierarchy-equivalentContext-label": {"messagekey": "hierarchy-equivalentContextLabel"},
+        ".csc-hierarchy-equivalentInformation-label": {"messagekey": "hierarchy-equivalentInformationLabel"},
+        ".csc-hierarchy-broaderContextType-label": {"messagekey": "hierarchy-broaderContextTypeLabel"},
+        ".csc-hierarchy-narrowerContextType-label": {"messagekey": "hierarchy-narrowerContextTypeLabel"},
+        ".csc-hierarchy-broaderContextType": {
+            "optionnames": [
+                "Set",
+                "Work (derivative)",
+                "Work (separable part)",
+                "Work (non-separable part)",
+                "Work (recto)",
+                "Work (verso)"
+            ],
+            "optionlist": [
+                "set",
+                "derivative",
+                "separable-part",
+                "non-separable-part",
+                "recto",
+                "verso"
+            ],
+            "selection": "${fields.broaderContextType}"
+        },
+        ".csc-hierarchy-narrowerContexts": {"decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {"expander": {
+                    "tree": {
+                        ".csc-hierarchy-narrowerContext": {
+                            "decorators": [
+                                {
+                                    "func": "cspace.autocomplete",
+                                    "type": "fluid",
+                                    "options": {
+                                        "queryUrl": "../../../tenant/core/vocabularies/location/autocomplete/narrowerContext",
+                                        "vocabUrl": "../../../tenant/core/vocabularies/location/source-vocab/narrowerContext",
+                                        "invokers": {"selectMatch": {"funcName": "cspace.autocomplete.selectMatchConfirm"}},
+                                        "strings": {"narrowerChange": "Warning: %narrower currently has broader term %broader."}
                                     }
-                                  ]
-                                }, 
-                                ".csc-locationAuthority-termName": "${{row}.termName}", 
-                                ".csc-locationAuthority-termPrefForLang": "${{row}.termPrefForLang}", 
-                                ".csc-locationAuthority-termQualifier": "${{row}.termQualifier}", 
-                                ".csc-locationAuthority-termSource": {
-                                  "decorators": [
-                                    {
-                                      "func": "cspace.autocomplete", 
-                                      "options": {
-                                        "queryUrl": "../../../tenant/core/preferredSLA/autocomplete/termSource", 
-                                        "vocabUrl": "../../../tenant/core/preferredSLA/source-vocab/termSource"
-                                      }, 
-                                      "type": "fluid"
-                                    }
-                                  ], 
-                                  "value": "${{row}.termSource}"
-                                }, 
-                                ".csc-locationAuthority-termSourceDetail": "${{row}.termSourceDetail}", 
-                                ".csc-locationAuthority-termSourceID": "${{row}.termSourceID}", 
-                                ".csc-locationAuthority-termSourceNote": "${{row}.termSourceNote}", 
-                                ".csc-locationAuthority-termFormattedDisplayName": "${{row}.termFormattedDisplayName}", 
-                                ".csc-locationAuthority-termStatus": {
-                                  "default": "provisional", 
-                                  "optionlist": [
-                                    "provisional", 
-                                    "under review", 
-                                    "accepted", 
-                                    "rejected"
-                                  ], 
-                                  "optionnames": [
-                                    "Provisional", 
-                                    "Under Review", 
-                                    "Accepted", 
-                                    "Rejected"
-                                  ], 
-                                  "selection": "${{row}.termStatus}"
-                                }, 
-                                ".csc-locationAuthority-termType": {
-                                  "optionlist": [
-                                    "", 
-                                    "descriptor", 
-                                    "alternate descriptor", 
-                                    "used for term"
-                                  ], 
-                                  "optionnames": [
-                                    "Please select a value", 
-                                    "descriptor", 
-                                    "alternate descriptor", 
-                                    "used for term"
-                                  ], 
-                                  "selection": "${{row}.termType}"
+                                },
+                                {
+                                    "func": "cspace.externalURL",
+                                    "type": "fluid"
                                 }
-                              }, 
-                              "type": "fluid.noexpand"
-                            }
-                          }
-                        }, 
-                        "type": "fluid"
-                      }
-                    ]
-                  }, 
-                  ".csc-preferredSLA-locTermGroup-label": {
-                    "messagekey": "preferredSLA-locTermGroupLabel"
-                  }, 
-                  ".csc-preferredSLA-termDisplayName-label": {
-                    "messagekey": "preferredSLA-termDisplayNameLabel"
-                  }, 
-                  ".csc-preferredSLA-termInformation-label": {
-                    "messagekey": "preferredSLA-termInformationLabel"
-                  }, 
-                  ".csc-preferredSLA-termLanguage-label": {
-                    "messagekey": "preferredSLA-termLanguageLabel"
-                  }, 
-                  ".csc-preferredSLA-termName-label": {
-                    "messagekey": "preferredSLA-termNameLabel"
-                  }, 
-                  ".csc-preferredSLA-termPrefForLang-label": {
-                    "messagekey": "preferredSLA-termPrefForLangLabel"
-                  }, 
-                  ".csc-preferredSLA-termQualifier-label": {
-                    "messagekey": "preferredSLA-termQualifierLabel"
-                  }, 
-                  ".csc-preferredSLA-termSource-label": {
-                    "messagekey": "preferredSLA-termSourceLabel"
-                  }, 
-                  ".csc-preferredSLA-termSourceDetail-label": {
-                    "messagekey": "preferredSLA-termSourceDetailLabel"
-                  }, 
-                  ".csc-preferredSLA-termSourceID-label": {
-                    "messagekey": "preferredSLA-termSourceIDLabel"
-                  }, 
-                  ".csc-preferredSLA-termSourceNote-label": {
-                    "messagekey": "preferredSLA-termSourceNoteLabel"
-                  },
-                  ".csc-preferredSLA-termFormattedDisplayName-label": {
-                    "messagekey": "preferredSLA-termFormattedDisplayNameLabel"
-                  }, 
-                  ".csc-preferredSLA-termStatus-label": {
-                    "messagekey": "preferredSLA-termStatusLabel"
-                  }, 
-                  ".csc-preferredSLA-termType-label": {
-                    "messagekey": "preferredSLA-termTypeLabel"
-                  }
-                }, 
-                "type": "fluid.noexpand"
-              }
+                            ],
+                            "value": "${{row}.narrowerContext}"
+                        },
+                        ".csc-hierarchy-narrowerContextType": {
+                            "optionnames": [
+                                "Item in a set",
+                                "Derivative",
+                                "Separable part",
+                                "Non-separable part",
+                                "Recto",
+                                "Verso"
+                            ],
+                            "optionlist": [
+                                "set",
+                                "derivative",
+                                "separable-part",
+                                "non-separable-part",
+                                "recto",
+                                "verso"
+                            ],
+                            "selection": "${{row}.narrowerContextType}"
+                        }
+                    },
+                    "type": "fluid.noexpand"
+                }},
+                "elPath": "fields.narrowerContexts"
             }
-          }, 
-          "type": "fluid"
-        }
-      ]
+        }]},
+        ".csc-hierarchy-broaderContext": {
+            "decorators": [
+                {
+                    "func": "cspace.autocomplete",
+                    "type": "fluid",
+                    "options": {
+                        "queryUrl": "../../../tenant/core/vocabularies/location/autocomplete/broaderContext",
+                        "vocabUrl": "../../../tenant/core/vocabularies/location/source-vocab/broaderContext"
+                    }
+                },
+                {
+                    "func": "cspace.externalURL",
+                    "type": "fluid"
+                }
+            ],
+            "value": "${fields.broaderContext}"
+        },
+        ".csc-hierarchy-broaderContext-label": {"messagekey": "hierarchy-broaderContextLabel"},
+        "expander": [
+            {
+                "trueTree": {".csc-hierarchy-equivalentContext-label": {"messagekey": "hierarchy-equivalentContextLabel"}},
+                "condition": {
+                    "funcName": "cspace.hierarchy.assertEquivalentContexts",
+                    "args": {"equivalentContexts": "${fields.equivalentContexts}"}
+                },
+                "type": "fluid.renderer.condition",
+                "falseTree": {".csc-hierarchy-equivalentContext-label": {"decorators": {
+                    "classes": "hidden",
+                    "type": "addClass"
+                }}}
+            },
+            {
+                "repeatID": ".csc-hierarchy-equivalentContext:",
+                "tree": {
+                    "decorators": [
+                        {
+                            "classes": "cs-hierarchy-equivalentContext",
+                            "type": "addClass"
+                        },
+                        {
+                            "func": "cspace.externalURL",
+                            "type": "fluid"
+                        }
+                    ],
+                    "value": "${{row}.equivalentContext}"
+                },
+                "type": "fluid.renderer.repeat",
+                "pathAs": "row",
+                "controlledBy": "fields.equivalentContexts"
+            }
+        ],
+        ".csc-hierarchy-domaindata-label": {"messagekey": "hierarchy-domaindataLabel"},
+        ".csc-hierarchy-relatedTerms-label": {"messagekey": "hierarchy-relatedTermsLabel"},
+        ".csc-hierarchy-narrowerContexts-label": {"messagekey": "hierarchy-narrowerContextsLabel"},
+        ".csc-hierarchy-hierarchyInformation-label": {"messagekey": "hierarchy-hierarchyInformationLabel"},
+        ".csc-hierarchy-relatedTerm": {"decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {"expander": {
+                    "tree": {".csc-hierarchy-relatedTerm": {
+                        "decorators": [{
+                            "func": "cspace.autocomplete",
+                            "type": "fluid",
+                            "options": {
+                                "queryUrl": "../../../tenant/core/vocabularies/location/autocomplete/relatedTerm",
+                                "vocabUrl": "../../../tenant/core/vocabularies/location/source-vocab/relatedTerm"
+                            }
+                        }],
+                        "value": "${{row}.relatedTerm}"
+                    }},
+                    "type": "fluid.noexpand"
+                }},
+                "elPath": "fields.relatedTerms"
+            }
+        }]},
+        ".csc-hierarchy-equivalentContexts-label": {"messagekey": "hierarchy-equivalentContextsLabel"},
+        ".csc-hierarchy-relatedTerm-label": {"messagekey": "hierarchy-relatedTermLabel"}
+    },
+    "recordEditor": {
+        ".csc-location-address-label": {"messagekey": "location-addressLabel"},
+        ".csc-preferred-locationAuthority": {"decorators": [{
+            "func": "cspace.preferred",
+            "type": "fluid",
+            "options": {"protoTree": {"expander": {
+                "tree": {
+                    ".csc-preferredSLA-termSourceNote-label": {"messagekey": "preferredSLA-termSourceNoteLabel"},
+                    ".csc-preferredSLA-termPrefForLang-label": {"messagekey": "preferredSLA-termPrefForLangLabel"},
+                    ".csc-preferredSLA-termSourceID-label": {"messagekey": "preferredSLA-termSourceIDLabel"},
+                    ".csc-preferredSLA-termInformation-label": {"messagekey": "preferredSLA-termInformationLabel"},
+                    ".csc-preferredSLA-termFormattedDisplayName-label": {"messagekey": "preferredSLA-termFormattedDisplayNameLabel"},
+                    ".csc-preferredSLA-termQualifier-label": {"messagekey": "preferredSLA-termQualifierLabel"},
+                    ".csc-preferredSLA-termName-label": {"messagekey": "preferredSLA-termNameLabel"},
+                    ".csc-preferredSLA-termType-label": {"messagekey": "preferredSLA-termTypeLabel"},
+                    ".csc-preferredSLA-termStatus-label": {"messagekey": "preferredSLA-termStatusLabel"},
+                    ".csc-preferredSLA-termLanguage-label": {"messagekey": "preferredSLA-termLanguageLabel"},
+                    ".csc-preferredSLA-termSource-label": {"messagekey": "preferredSLA-termSourceLabel"},
+                    ".csc-preferredSLA-locTermGroup": {"decorators": [{
+                        "func": "cspace.makeRepeatable",
+                        "type": "fluid",
+                        "options": {
+                            "repeatTree": {"expander": {
+                                "tree": {
+                                    ".csc-locationAuthority-termLanguage": {"decorators": [{
+                                        "func": "cspace.termList",
+                                        "type": "fluid",
+                                        "options": {
+                                            "root": "{row}",
+                                            "elPath": "termLanguage",
+                                            "termListType": "termLanguage"
+                                        }
+                                    }]},
+                                    ".csc-locationAuthority-termSourceID": "${{row}.termSourceID}",
+                                    ".csc-locationAuthority-termQualifier": "${{row}.termQualifier}",
+                                    ".csc-locationAuthority-termDisplayName": "${{row}.termDisplayName}",
+                                    ".csc-locationAuthority-termSourceDetail": "${{row}.termSourceDetail}",
+                                    ".csc-locationAuthority-termName": "${{row}.termName}",
+                                    ".csc-locationAuthority-termFormattedDisplayName": "${{row}.termFormattedDisplayName}",
+                                    ".csc-locationAuthority-termType": {
+                                        "optionnames": [
+                                            "Please select a value",
+                                            "descriptor",
+                                            "alternate descriptor",
+                                            "used for term"
+                                        ],
+                                        "optionlist": [
+                                            "",
+                                            "descriptor",
+                                            "alternate descriptor",
+                                            "used for term"
+                                        ],
+                                        "selection": "${{row}.termType}"
+                                    },
+                                    ".csc-locationAuthority-termSource": {
+                                        "decorators": [{
+                                            "func": "cspace.autocomplete",
+                                            "type": "fluid",
+                                            "options": {
+                                                "queryUrl": "../../../tenant/core/preferredSLA/autocomplete/termSource",
+                                                "vocabUrl": "../../../tenant/core/preferredSLA/source-vocab/termSource"
+                                            }
+                                        }],
+                                        "value": "${{row}.termSource}"
+                                    },
+                                    ".csc-locationAuthority-termFlag": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.termList",
+                                                "options": {
+                                                    "termListType": "termFlag",
+                                                    "root": "{row}",
+                                                    "elPath": "termFlag"
+                                                },
+                                                "type": "fluid"
+                                            }
+                                        ]
+                                    },
+                                    ".csc-locationAuthority-termSourceNote": "${{row}.termSourceNote}",
+                                    ".csc-locationAuthority-termPrefForLang": "${{row}.termPrefForLang}",
+                                    ".csc-locationAuthority-termStatus": {
+                                        "default": "provisional",
+                                        "optionnames": [
+                                            "Provisional",
+                                            "Under Review",
+                                            "Accepted",
+                                            "Rejected"
+                                        ],
+                                        "optionlist": [
+                                            "provisional",
+                                            "under review",
+                                            "accepted",
+                                            "rejected"
+                                        ],
+                                        "selection": "${{row}.termStatus}"
+                                    }
+                                },
+                                "type": "fluid.noexpand"
+                            }},
+                            "elPath": "fields.locTermGroup"
+                        }
+                    }]},
+                    ".csc-preferredSLA-locTermGroup-label": {"messagekey": "preferredSLA-locTermGroupLabel"},
+                    ".csc-preferredSLA-termSourceDetail-label": {"messagekey": "preferredSLA-termSourceDetailLabel"},
+                    ".csc-preferredSLA-termDisplayName-label": {"messagekey": "preferredSLA-termDisplayNameLabel"},
+                    ".csc-preferredSLA-termFlag-label": {
+                        "messagekey": "preferredSLA-termFlagLabel"
+                    }
+                },
+                "type": "fluid.noexpand"
+            }}}
+        }]},
+        ".csc-location-conditionGroup-label": {"messagekey": "location-conditionGroupLabel"},
+        ".csc-location-proposed": "${fields.proposed}",
+        ".csc-location-conditionGroup": {"decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {"expander": {
+                    "tree": {
+                        ".csc-location-conditionNote": "${{row}.conditionNote}",
+                        ".csc-location-conditionNoteDate": {
+                            "decorators": [{
+                                "func": "cspace.datePicker",
+                                "type": "fluid"
+                            }],
+                            "value": "${{row}.conditionNoteDate}"
+                        }
+                    },
+                    "type": "fluid.noexpand"
+                }},
+                "elPath": "fields.conditionGroup"
+            }
+        }]},
+        ".csc-location-tenantId-label": {"messagekey": "location-tenantIdLabel"},
+        ".csc-location-address": "${fields.address}",
+        ".csc-location-otherInformation-label": {"messagekey": "location-otherInformationLabel"},
+        ".csc-location-deprecatedRefName-label": {"messagekey": "location-deprecatedRefNameLabel"},
+        ".csc-location-preferredLocation-label": {"messagekey": "location-preferredLocationLabel"},
+        ".csc-location-deprecated-label": {"messagekey": "location-deprecatedLabel"},
+        ".csc-location-locationType-label": {"messagekey": "location-locationTypeLabel"},
+        ".csc-location-shortIdentifier": "${fields.shortIdentifier}",
+        ".csc-location-updatedBy": "${fields.updatedBy}",
+        ".csc-location-createdBy": "${fields.createdBy}",
+        ".csc-location-locationTermInformation-label": {"messagekey": "location-locationTermInformationLabel"},
+        ".csc-location-rev": "${fields.rev}",
+        ".csc-location-rev-label": {"messagekey": "location-revLabel"},
+        ".csc-location-uri": "${fields.uri}",
+        ".csc-location-workflow": "${fields.workflow}", 
+        ".csc-location-workflow-label": {
+          "messagekey": "location-workflowLabel"
+        }, 
+        ".csc-location-proposed-label": {"messagekey": "location-proposedLabel"},
+        ".csc-location-accessNote-label": {"messagekey": "location-accessNoteLabel"},
+        ".csc-location-accessNote": "${fields.accessNote}",
+        ".csc-location-createdAt": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.createdAt}"
+        },
+        ".csc-location-sas": "${fields.sas}",
+        ".csc-location-type": {"decorators": [{
+            "func": "cspace.termList",
+            "type": "fluid",
+            "options": {
+                "elPath": "fields.locationType",
+                "termListType": "locationType"
+            }
+        }]},
+        ".csc-location-csid": "${fields.csid}",
+        ".csc-location-inAuthority": "${fields.inAuthority}",
+        ".csc-location-createdBy-label": {"messagekey": "location-createdByLabel"},
+        ".csc-location-uri-label": {"messagekey": "location-uriLabel"},
+        ".csc-location-shortIdentifier-label": {"messagekey": "location-shortIdentifierLabel"},
+        ".csc-location-updatedAt-label": {"messagekey": "location-updatedAtLabel"},
+        ".csc-location-securityNote": "${fields.securityNote}",
+        ".csc-location-refName-label": {"messagekey": "location-refNameLabel"},
+        ".csc-location-createdAt-label": {"messagekey": "location-createdAtLabel"},
+        ".csc-location-tenantId": "${fields.tenantId}",
+        ".csc-location-conditionNote-label": {"messagekey": "location-conditionNoteLabel"},
+        ".csc-location-domaindata-label": {"messagekey": "location-domaindataLabel"},
+        ".csc-location-sas-label": {"messagekey": "location-sasLabel"},
+        ".csc-location-csid-label": {"messagekey": "location-csidLabel"},
+        ".csc-location-deprecatedRefName": "${fields.deprecatedRefName}",
+        ".csc-location-deprecated": "${fields.deprecated}",
+        ".csc-location-refName": "${fields.refName}",
+        ".csc-location-updatedAt": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.updatedAt}"
+        },
+        ".csc-location-conditionNoteDate-label": {"messagekey": "location-conditionNoteDateLabel"},
+        ".csc-location-coreInformation-label": {"messagekey": "location-coreInformationLabel"},
+        ".csc-location-securityNote-label": {"messagekey": "location-securityNoteLabel"},
+        ".csc-location-inAuthority-label": {"messagekey": "location-inAuthorityLabel"},
+        ".csc-location-updatedBy-label": {"messagekey": "location-updatedByLabel"}
     }
-  }
 }
