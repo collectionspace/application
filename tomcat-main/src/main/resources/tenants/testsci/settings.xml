@@ -23,7 +23,7 @@
         <ui-props-cache-timeout>2592000</ui-props-cache-timeout>
     </admin>
     <email>
-        <baseurl>http://localhost:@JEE_PORT@</baseurl>
+        <baseurl>http://qa.collectionspace.org:@JEE_PORT@</baseurl>
         <from>admin@testsci.collectionspace.org</from>
         <to></to>
         <!-- if specified then all emails will send to this address - used for debugging -->
