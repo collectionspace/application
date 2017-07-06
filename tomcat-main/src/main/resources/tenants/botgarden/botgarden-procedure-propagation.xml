@@ -2,7 +2,7 @@
     <section id="propagationInformation">
         <field id="propType" autocomplete="vocab-propagationType" ui-type="enum"/>
         <repeat id="scarStratGroupList/scarStratGroup">
-			<field id="scarStrat" autocomplete="vocab-stratScar" ui-type="enum"/>
+			<field id="scarStrat" autocomplete="vocab-scarStrat" ui-type="enum"/>
 			<!--Converted to dynamic-->
 		</repeat>
         <!--Converted to Dynamic-->
