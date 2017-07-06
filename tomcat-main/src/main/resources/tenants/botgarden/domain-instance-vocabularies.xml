@@ -1392,15 +1392,4 @@
 			<option id="usetype02" from-static-id="other">Other</option>
 		</options>
 	</instance>
-	<instance id="vocab-StratDurationUnit">
-		<web-url>StratDurationUnit</web-url>
-		<title-ref>StratDurationUnit</title-ref>
-		<title>StratDurationUnit</title>
-		<options>
-			<option id="hours">Hours</option>
-			<option id="days">Days</option>
-			<option id="weeks">Weeks</option>
-			<option id="months">Months</option>
-		</options>
-	</instance>
 </root>

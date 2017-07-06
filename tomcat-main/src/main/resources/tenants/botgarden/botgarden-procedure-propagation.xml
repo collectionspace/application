@@ -4,7 +4,6 @@
         <repeat id="scarStratGrocupList/scarStratGroup">
 			<field id="scarStrat" autocomplete="vocab-stratScar" ui-type="enum"/>
             <!--Converted to Dynamic-->
-			<!--</field>-->
 			<field id="duration" ui-type="validated" datatype="integer"/>
 			<field id="durationUnit">
 				<options>
@@ -16,12 +15,9 @@
 				</options>
 			</field>
 			<!--Converted to dynamic-->
-			<!--</field>-->
 		</repeat>
         <!--Converted to Dynamic-->
-		<!--</field>-->
 		<field id="cuttingType" autocomplete="vocab-cutType" ui-type="enum"/>
         <!--Converted to dynamic-->
-		<!--</field>-->
     </section>
 </record>
