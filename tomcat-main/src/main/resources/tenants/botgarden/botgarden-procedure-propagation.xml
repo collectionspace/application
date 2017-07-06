@@ -1,7 +1,7 @@
 <record id="propagation">
     <section id="propagationInformation">
         <field id="propType" autocomplete="vocab-propagationType" ui-type="enum"/>
-        <repeat id="scarStratGrocupList/scarStratGroup">
+        <repeat id="scarStratGroupList/scarStratGroup">
 			<field id="scarStrat" autocomplete="vocab-stratScar" ui-type="enum"/>
 			<!--Converted to dynamic-->
 		</repeat>
