@@ -1,7 +1,7 @@
 <cspace-config tenantname="bampfa">
 	<tenantid>55</tenantid>
 	<version>11</version>
-	<include src="settings.xml,bampfa-settings.xml,host-settings.xml" merge="xmlmerge-settings.properties" strip-root="yes"/>
+	<include src="settings.xml,bampfa-settings.xml,host-settings.xml" required="false" merge="xmlmerge-settings.properties" strip-root="yes"/>
 
 	<spec>
 		<include src="base-relations.xml"/>
@@ -17,6 +17,7 @@
 			<include src="base-procedure-blobs.xml"/>
 			<!-- <include src="base-procedure-claim.xml"/> -->
 			<include src="base-procedure-conditioncheck.xml"/>
+			<!-- <include src="base-procedure-exhibition.xml"/> -->
 			<include src="base-procedure-groups.xml,bampfa-procedure-groups.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-intake.xml,bampfa-procedure-intake.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-loanin.xml"/>
@@ -25,6 +26,7 @@
 			<include src="base-procedure-valuationcontrol.xml"/>
 			<include src="base-procedure-movement.xml,bampfa-procedure-movement.xml" merge="xmlmerge.properties"/>
 			<!-- <include src="base-procedure-objectexit.xml"/> -->
+			<!-- <include src="base-procedure-conservation.xml"/> -->
 			<include src="base-authority-contact.xml"/>
 
 			<!-- IMPORTANT: *-termList.xml files MUST precede their equivalent files. -->
@@ -54,6 +56,7 @@
 			<include src="base-authz-users.xml"/>
 
 			<include src="base-other-dimension.xml,bampfa-other-dimension.xml" merge="xmlmerge.properties"/>
+			<include src="base-other-address.xml"/>
 			<include src="base-other-hierarchy.xml"/>
 			<include src="base-other-idgenerator.xml"/>
 			<include src="base-other-structureddate.xml"/>
