@@ -24,6 +24,7 @@
 				<name>bampfa.cspace.berkeley.edu</name>
 				<version>0.1</version>
 				<display-name>CollectionSpace BAM/PFA Tenant</display-name>
+				<create-disabled>${CSPACE_BAMPFA_CREATE_DISABLED_OPT}</create-disabled>
 			</tenant>
 			<repository>
 				<domain>bampfa_domain</domain>
