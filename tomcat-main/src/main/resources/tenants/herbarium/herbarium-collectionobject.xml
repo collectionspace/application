@@ -15,7 +15,7 @@
 		</repeat>
 		
 		<repeat id="herbHybridParentGroupList/herbHybridParentGroup" section="herbarium">
-			<field id="herbHybridParent" section="herbarium" autocomplete="taxon-taxon"/>
+		    <field id="herbHybridParent" section="herbarium" autocomplete="taxon-taxon,taxon-common_ta"/>
 			<field id="herbHybridParentQualifier" section="herbarium" seperate_ui_container="true" autocomplete="vocab-hybridparentqualifier" ui-type="enum"/>
 		</repeat>
 		
@@ -32,7 +32,7 @@
 			<field id="herbTypeSpecimenAssertionBy" section="herbarium" autocomplete="organization-organization"/>
 			<field id="herbTypeSpecimenReference" section="herbarium"/>
 			<field id="herbTypeSpecimenRefPage" section="herbarium"/>
-			<field id="herbTypeSpecimenBasionym" section="herbarium" autocomplete="taxon-taxon"/>
+		    <field id="herbTypeSpecimenBasionym" section="herbarium" autocomplete="taxon-taxon,taxon-common_ta"/>
 			<field id="herbTypeSpecimenNotes" section="herbarium"/>
 		</repeat>
 	</section>
@@ -65,7 +65,7 @@
 		<field id="habitat" section="herbarium"/>
 
 		<repeat id="herbAssociatedTaxaGroupList/herbAassociatedTaxaGroup" section="herbarium">
-			<field id="herbAssocTaxon" section="herbarium" autocomplete="taxon-taxon"/>
+		    <field id="herbAssocTaxon" section="herbarium" autocomplete="taxon-taxon,taxon-common_ta"/>
 		    <field id="herbAssocTaxonCommonName" section="herbarium"/>
 		    <field id="herbAssocTaxonInteraction" section="herbarium" autocomplete="vocab-assoctaxoninteraction" ui-type="enum"/>
 		</repeat>
