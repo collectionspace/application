@@ -13,6 +13,7 @@
                     		<option id="ara">Arabic</option>
 						<option id="hye" desc="An optional description for any vocabulary term can be entered here">Armenian</option>
 							<option id="zho">Chinese</option>
+							<option id="dan">Danish</option>
 							<option id="eng">English</option>
 							<option id="fra">French</option>
 							<option id="deu">German</option>
