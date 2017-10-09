@@ -317,9 +317,9 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
             try {
                 Properties xmlmergeProps = getXMLMergeProperties(includeTag.merge); //the "merge" attribute contains the name of the XMLMerge properties file
                 String src = includeTag.src.replaceAll("\\s+","");
-                mergedStream = merge(src.replace(',', '_'), // peform the merge
+                mergedStream = merge(src.replace(',', '_'), // perform the merge
                         xmlmergeProps, toArray(inputSources));
-            } catch (AbstractXmlMergeException e) {
+            } catch (Throwable e) {
                 String msg = String.format("Config Generation: '%s' - Error while processing %s.  Check the included files for syntax errors. : Could not merge the include files: '%s'.",
                 		e.getMessage(), getSrcFileName(), includeTag.src);
                 logger.error(msg);
