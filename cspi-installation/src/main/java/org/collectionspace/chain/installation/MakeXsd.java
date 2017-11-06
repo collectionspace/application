@@ -47,8 +47,6 @@ public class MakeXsd {
 	private Map<String, Map<String, String>> schemaDefinedComplexTypes = new HashMap<String, Map<String, String>>();  // The list of all Group (complexType) types across all schemas of the current record
 	
 	private static String STRUCTURED_DATE_TYPE = "structuredDateGroup";
-	private static String ADDRESS_TYPE = "XYZ";
-	private static String DIMENSION_TYPE = "PDQ";
 	
 	private static List<String> SHARED_SERVICE_TYPES_LIST = Arrays.asList(STRUCTURED_DATE_TYPE);
 	private String currentSchemaName;

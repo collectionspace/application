@@ -17,6 +17,7 @@ import java.io.FileInputStream;
 import java.io.FilenameFilter;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -445,7 +446,7 @@ public class CommandLine {
 	private static String mergeWithServiceDelta(String generatedBindings) throws Exception {
 		String result = null;
 
-		InputStream generatedBindingsStream = new ByteArrayInputStream(generatedBindings.getBytes());
+		InputStream generatedBindingsStream = new ByteArrayInputStream(generatedBindings.getBytes(StandardCharsets.UTF_8));
 		InputStream serviceBindingsDeltaStream = getServiceBindingsDeltaStream();
 		InputStream[] inputStreams = { generatedBindingsStream, serviceBindingsDeltaStream };
 
