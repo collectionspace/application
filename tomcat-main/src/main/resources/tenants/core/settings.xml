@@ -28,18 +28,18 @@
 		<to></to>
 		<!-- if specified then all emails will send to this address - used for debugging -->
 		<smtp>
-			<host>localhost</host>
-			<port>25</port>
-			<debug>false</debug>
-			<auth enabled="false">
+			<host>smtp.gmail.com</host>
+			<port>587</port>
+			<debug>${CSPACE_CORE_EMAIL_AUTH_DEBUG_OPT}</debug>
+			<auth enabled="true">
 				<!-- set to true if wish to use auth -->
-				<username></username>
-				<password></password>
+			    <username>${CSPACE_CORE_EMAIL_AUTH_USERNAME_OPT}</username>
+			    <password>${CSPACE_CORE_EMAIL_AUTH_PASSWORD_OPT}</password>
 			</auth>
 		</smtp>
 		<passwordreset>
 			<token>
-				<daysvalid>7</daysvalid>
+				<daysvalid>300</daysvalid>
 			</token>
 			<loginpage>/collectionspace/ui/core/html/index.html</loginpage>
 			<subject>CollectionSpace Password reset request</subject>

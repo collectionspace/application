@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import org.collectionspace.chain.csp.persistence.services.TenantSpec;
 import org.collectionspace.chain.csp.persistence.services.TenantSpec.RemoteClient;
+import org.collectionspace.chain.csp.schema.EmailData;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldParent;
 import org.collectionspace.chain.csp.schema.FieldSet;
@@ -183,6 +184,9 @@ public class ServiceBindingsGeneration {
 		
 		// Set remote clients
 		makeRemoteClients(ele);
+		
+		// Set the bindings for email notifications
+		makeEmailBindings(ele);
 
 		// add in <tenant:properties> if required
 		makeProperties(ele);
@@ -327,6 +331,106 @@ public class ServiceBindingsGeneration {
 			}
 		}
 	}
+	
+	/*
+	 * Builds something like the following XML:
+	 *   <tenant:emailConfig>
+            <tenant:baseurl>http://qa.collectionspace.org</tenant:baseurl>
+            <tenant:from>admin@collectionspace.org</tenant:from>
+            <tenant:smtpConfig>
+                <tenant:host>smtp.gmail.com</tenant:host>
+                <tenant:port>587</tenant:port>
+                <tenant:debug>true</tenant:debug>
+                <tenant:smtpAuth enabled="true">
+                    <tenant:username>tom@example.com</tenant:username>
+                    <tenant:password>password123</tenant:password>
+                </tenant:smtpAuth>
+            </tenant:smtpConfig>
+            <tenant:passwordResetConfig>
+                <tenant:tokenExpirationDays>3600</tenant:tokenExpirationSeconds>
+                <tenant:loginpage>/collectionspace/ui/core/html/index.html</tenant:loginpage>
+                <tenant:subject>CollectionSpace Password Reset</tenant:subject>
+                <tenant:message>You've started the process to reset your CollectionSpace account password.</tenant:message>
+            </tenant:passwordResetConfig>
+        </tenant:emailConfig>
+	 */
+	private void makeEmailBindings(Element tenantBindingElement) {
+		EmailData emailData = spec.getEmailData();
+		
+		if (emailData != null) {
+			Element emailConfigElement = tenantBindingElement.addElement(new QName("emailConfig", nstenant));
+			if (emailData.getBaseURL() != null) {
+				Element ele = emailConfigElement.addElement(new QName("baseurl", nstenant));
+				ele.addText(emailData.getBaseURL());
+			}
+			
+			if (emailData.getFromAddress() != null) {
+				Element ele = emailConfigElement.addElement(new QName("from", nstenant));
+				ele.addText(emailData.getFromAddress());
+			}
+			
+			//
+			// Build <tenant:smtpConfig>
+			//
+			Element smtpConfigElement = emailConfigElement.addElement(new QName("smtpConfig", nstenant));
+			if (emailData.getSMTPHost() != null) {
+				Element ele = smtpConfigElement.addElement(new QName("host", nstenant));
+				ele.addText(emailData.getSMTPHost());
+			}
+			
+			if (emailData.getSMTPPort() != null) {
+				Element ele = smtpConfigElement.addElement(new QName("port", nstenant));
+				ele.addText(emailData.getSMTPPort());
+			}
+			
+			if (emailData.doSMTPDebug() != null) {
+				Element ele = smtpConfigElement.addElement(new QName("debug", nstenant));
+				ele.addText(emailData.doSMTPDebug().toString());
+			}
+			
+			//
+			// Build <tenant:smtpAuth enabled="false">
+			//
+			Element smtpAuthElement = smtpConfigElement.addElement(new QName("smtpAuth", nstenant));
+			if (emailData.doSMTPAuth() != null) {
+				smtpAuthElement.addAttribute("enabled", emailData.doSMTPAuth().toString());
+			}
+			
+			if (emailData.getSMTPAuthUsername() != null) {
+				Element ele = smtpAuthElement.addElement(new QName("username", nstenant));
+				ele.addText(emailData.getSMTPAuthUsername());
+			}
+			
+			if (emailData.getSMTPAuthPassword() != null) {
+				Element ele = smtpAuthElement.addElement(new QName("password", nstenant));
+				ele.addText(emailData.getSMTPAuthPassword());
+			}
+			
+			//
+			// Build <tenant:passwordResetConfig>
+			//
+			Element passwordResetElement = emailConfigElement.addElement(new QName("passwordResetConfig", nstenant));
+			if (emailData.getTokenValidForLength() != null) {
+				Element ele = passwordResetElement.addElement(new QName("tokenExpirationSeconds", nstenant));
+				ele.addText(emailData.getTokenValidForLength().toString());
+			}
+			
+			if (emailData.getLoginUrl() != null) {
+				Element ele = passwordResetElement.addElement(new QName("loginpage", nstenant));
+				ele.addText(emailData.getLoginUrl());
+			}
+			
+			if (emailData.getPasswordResetSubject() != null) {
+				Element ele = passwordResetElement.addElement(new QName("subject", nstenant));
+				ele.addText(emailData.getPasswordResetSubject());
+			}
+
+			if (emailData.getPasswordResetMessage() != null) {
+				Element ele = passwordResetElement.addElement(new QName("message", nstenant));
+				ele.addText(emailData.getPasswordResetMessage());
+			}
+		}
+	}	
 	
 	/**
 	 * Add in date formats and languages if required
