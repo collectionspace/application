@@ -4,6 +4,40 @@
     <include src="extensions/annotation-vocabularies.xml" strip-root="yes" />
     <include src="extensions/naturalhistory-vocabularies.xml" strip-root="yes" />
     
+    <instance id="vocab-phaseFormType">
+        <web-url>phaseformtype</web-url>
+        <title-ref>phaseformtype</title-ref>
+        <title>phaseformtype</title>
+        <options>
+            <option id="unknown">Unknown</option>
+            <option id="mountedonpaper">Mounted on Paper</option>
+            <option id="storedinboxorbag">Stored in a Box or Bag</option>
+            <option id="preservedinliquid">Preserved in Liquid</option>
+            <option id="microscopeslidepreparation">Microscope Slide Preparation</option>
+            <option id="photograph">Photograph</option>
+            <option id="illustration">Illustration</option>
+            <option id="photocopy">Photocopy</option>
+            <option id="box">Box</option>
+            <option id="bag">Bag</option>
+            <option id="map">Map</option>
+        </options>
+    </instance>
+    
+    <instance id="vocab-reasonForMove">
+        <web-url>reasonformove</web-url>
+        <title-ref>reasonformove</title-ref>
+        <title>reasonformove</title>
+        <options>
+            <option id="dead">Dead</option>
+            <option id="plantedout">Planted Out</option>
+            <option id="moved">Moved</option>
+            <option id="labelrequest">Label Request</option>
+            <option id="theft">Theft</option>
+            <option id="other">Other</option>
+            <option id="revived">Revived</option>
+        </options>
+    </instance>
+    
     <instance id="vocab-propReason">
         <web-url>propreason</web-url>
         <title-ref>propreason</title-ref>

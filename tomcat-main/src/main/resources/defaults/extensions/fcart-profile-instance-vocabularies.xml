@@ -5,6 +5,86 @@
         <title-ref>xxx</title-ref>
         <title>Temporary Vocab whilst none exist</title>
     </instance>
+    <instance id="vocab-concepttermflag">
+        <web-url>concepttermflag</web-url>
+        <title-ref>concepttermflag</title-ref>
+        <title>Concept Term Flags</title>
+        <options>
+            <option id="abbreviation">abbreviation</option>
+            <option id="common">common term</option>
+            <option id="full">full term</option>
+            <option id="jargonslang">jargon/slang</option>
+            <option id="scientific">scientific term</option>
+        </options>
+    </instance>
+    <instance id="vocab-addresstype">
+        <web-url>addresstype</web-url>
+        <title-ref>addresstype</title-ref>
+        <title>Address Types</title>
+        <options>
+            <option id="business">business</option>
+            <option id="intersection">intersection</option>
+            <option id="personal">personal</option>
+            <option id="streetaddress">street address</option>
+        </options>
+    </instance>
+    <instance id="vocab-publishto">
+        <web-url>publishto</web-url>
+        <title-ref>publishto</title-ref>
+        <title>A publishing destination</title>
+        <options>
+            <option id="all">All</option>
+            <option id="none">None</option>
+            <option id="cultureobject">Culture Object</option>
+            <option id="dpla">DPLA</option>
+            <option id="omeka">Omeka</option>
+        </options>
+    </instance>
+    <instance id="vocab-worktermflag">
+        <web-url>worktermflag</web-url>
+        <title-ref>worktermflag</title-ref>
+        <title>Work Term Flags</title>
+        <options>
+            <option id="assigned">assigned by artist</option>
+            <option id="collection">collection</option>
+            <option id="generic">generic</option>
+            <option id="popular">popular</option>
+            <option id="series">series</option>
+            <option id="trade">trade</option>
+        </options>
+    </instance>
+    <instance id="vocab-inventorystatus">
+        <web-url>inventorystatus</web-url>
+        <title-ref>inventorystatus</title-ref>
+        <title>Inventory Status</title>
+        <options>
+            <option id="unknown">unknown</option>
+            <option id="accessionstatusunclear">accession status unclear</option>
+            <option id="accessioned">accessioned</option>
+            <option id="deaccessioned">deaccessioned</option>
+            <option id="destroyed">destroyed</option>
+            <option id="destructiveanalysis">destructive analysis</option>
+            <option id="discarded">discarded</option>
+            <option id="exchanged">exchanged</option>
+            <option id="intendedfortransfer">intended for transfer</option>
+            <option id="irregularmuseumnumber">irregular museum number</option>
+            <option id="missing">missing</option>
+            <option id="missingininventory">missing in inventory</option>
+            <option id="notcataloged">not cataloged</option>
+            <option id="notlocated">not located</option>
+            <option id="notreceived">not received</option>
+            <option id="numbernotused">number not used</option>
+            <option id="objectmount">object mount</option>
+            <option id="onloan">on loan</option>
+            <option id="partiallydeaccessioned">partially deaccessioned</option>
+            <option id="partiallyexchanged">partially exchanged</option>
+            <option id="partiallyrecataloged">partially recataloged</option>
+            <option id="returnedloanobject">returned loan object</option>
+            <option id="sold">sold</option>
+            <option id="stolen">stolen</option>
+            <option id="transferred">transferred</option>
+        </options>
+    </instance>    
     <instance id="vocab-languages">
         <web-url>languages</web-url>
         <title-ref>languages</title-ref>

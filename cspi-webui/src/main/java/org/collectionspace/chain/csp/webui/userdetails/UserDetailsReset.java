@@ -60,14 +60,14 @@ public class UserDetailsReset implements WebMethod {
 	boolean setnewpassword = false;
 	String base = "users";
 	Spec spec;
+	
 	private static String tokensalt = "74102328UserDetailsReset";
+	
 	public UserDetailsReset(Boolean setnewpassword, Spec spec) { 
 		this.setnewpassword = setnewpassword;
 		this.spec = spec;
 	}
-	
-
-	
+		
 	private Boolean doEmail(String csid, String emailparam, Request in, JSONObject userdetails) throws UIException, JSONException {
 		
 		String token = createToken(csid);
