@@ -78,6 +78,10 @@ public class WebReset implements WebMethod {
 		logInitMessage(responseMessage, "\nDetailed error message:\n\t" + e.getMessage(), modifyResponse);		
 	}
 
+	/*
+	 * Vocab and Auth initialization is now done when the Services layer starts up -see JIRA issue DRYD-177
+	 */
+	@Deprecated
 	private boolean initialiseAll(Storage storage, UIRequest request, String path, boolean modifyResponse) throws UIException {
 		StringBuffer responseMessage = new StringBuffer();
 		boolean initializationFailed = false;
@@ -494,7 +498,8 @@ public class WebReset implements WebMethod {
 		// Synchronize this code (on the class) so we don't accidentally start more than one thread that is trying to initialize things.
 		//
     	synchronized(this.getClass()) {
-    		initialiseAll(storage, uiRequest, StringUtils.join(tail,"/"), modifyResponse);	
+    		// Auth/Vocab init is now down in the Services layer -see JIRA issue DRYD-177
+    		//initialiseAll(storage, uiRequest, StringUtils.join(tail,"/"), modifyResponse);	
     		if (this.populate) {
     			reset(storage, uiRequest, StringUtils.join(tail,"/"));
     		}

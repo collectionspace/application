@@ -38,6 +38,7 @@ public class EmailData {
 			</auth>
 		</smtp>
 		<passwordreset>
+			<loginpage>/collectionspace/ui/core/html/index.html</loginpage>
 			<subject>CollectionSpace Password reset request</subject>
 			<message>A password reset has been requested from this email. If you wish to reset your password please click on this link {{link}}.</message>
 		</passwordreset>

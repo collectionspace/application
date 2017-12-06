@@ -55,7 +55,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 	private Map<String,String> type_to_surl=new HashMap<String,String>();
 	private Map<String,String> surl_to_type=new HashMap<String,String>();
 
-	private static Map<String,Relationship> types=new HashMap<String,Relationship>();
+	private Map<String,Relationship> types=new HashMap<String,Relationship>();
 	
 	static {
 		//needs to be set thr CSPACE-2557

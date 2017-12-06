@@ -7,15 +7,19 @@ import java.util.Arrays;
 
 import org.collectionspace.chain.csp.persistence.services.TenantSpec;
 import org.collectionspace.chain.csp.persistence.services.TenantSpec.RemoteClient;
+import org.collectionspace.chain.csp.schema.EmailData;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldParent;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Group;
+import org.collectionspace.chain.csp.schema.Instance;
+import org.collectionspace.chain.csp.schema.Option;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.services.common.api.FileTools;
 import org.collectionspace.services.common.api.Tools;
+import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.DocumentFactory;
 import org.dom4j.Element;
@@ -36,6 +40,9 @@ public class ServiceBindingsGeneration {
 	private static final String RECORD_TYPE_RECORD = "record";
 	private static final String RECORD_TYPE_USERDATA = "userdata";
 	private static final String RECORD_TYPE_AUTHORIZATIONDATA = "authorizationdata";
+	
+	private static final String RECORD_ID_TERMLIST = "termlist";
+	private static final String RECORD_ID_VOCAB = "vocab";
 	
 	private static final String GROUP_LIST_SUFFIX = "/[0]";
 	private static final String GROUP_XPATH_SUFFIX = "/*";
@@ -58,7 +65,6 @@ public class ServiceBindingsGeneration {
 
 	private static final boolean NOT_NAMESPACED = false;
 
-	private static final String RECORD_NAME_VOCAB = "vocab";
 	
 	protected File configFile;
 	protected Spec spec;
@@ -130,7 +136,7 @@ public class ServiceBindingsGeneration {
 		boolean result = false;
 
 		if ((record.isInRecordList() == true || record.isType(RECORD_TYPE_VOCABULARY) == true)
-				&& !record.getRecordName().equals(RECORD_NAME_VOCAB)) {
+				&& !record.getRecordName().equals(RECORD_ID_VOCAB)) {
 			result = true;
 		}
 
@@ -178,6 +184,9 @@ public class ServiceBindingsGeneration {
 		
 		// Set remote clients
 		makeRemoteClients(ele);
+		
+		// Set the bindings for email notifications
+		makeEmailBindings(ele);
 
 		// add in <tenant:properties> if required
 		makeProperties(ele);
@@ -322,6 +331,106 @@ public class ServiceBindingsGeneration {
 			}
 		}
 	}
+	
+	/*
+	 * Builds something like the following XML:
+	 *   <tenant:emailConfig>
+            <tenant:baseurl>http://qa.collectionspace.org</tenant:baseurl>
+            <tenant:from>admin@collectionspace.org</tenant:from>
+            <tenant:smtpConfig>
+                <tenant:host>smtp.gmail.com</tenant:host>
+                <tenant:port>587</tenant:port>
+                <tenant:debug>true</tenant:debug>
+                <tenant:smtpAuth enabled="true">
+                    <tenant:username>tom@example.com</tenant:username>
+                    <tenant:password>password123</tenant:password>
+                </tenant:smtpAuth>
+            </tenant:smtpConfig>
+            <tenant:passwordResetConfig>
+                <tenant:tokenExpirationDays>3600</tenant:tokenExpirationSeconds>
+                <tenant:loginpage>/collectionspace/ui/core/html/index.html</tenant:loginpage>
+                <tenant:subject>CollectionSpace Password Reset</tenant:subject>
+                <tenant:message>You've started the process to reset your CollectionSpace account password.</tenant:message>
+            </tenant:passwordResetConfig>
+        </tenant:emailConfig>
+	 */
+	private void makeEmailBindings(Element tenantBindingElement) {
+		EmailData emailData = spec.getEmailData();
+		
+		if (emailData != null) {
+			Element emailConfigElement = tenantBindingElement.addElement(new QName("emailConfig", nstenant));
+			if (emailData.getBaseURL() != null) {
+				Element ele = emailConfigElement.addElement(new QName("baseurl", nstenant));
+				ele.addText(emailData.getBaseURL());
+			}
+			
+			if (emailData.getFromAddress() != null) {
+				Element ele = emailConfigElement.addElement(new QName("from", nstenant));
+				ele.addText(emailData.getFromAddress());
+			}
+			
+			//
+			// Build <tenant:smtpConfig>
+			//
+			Element smtpConfigElement = emailConfigElement.addElement(new QName("smtpConfig", nstenant));
+			if (emailData.getSMTPHost() != null) {
+				Element ele = smtpConfigElement.addElement(new QName("host", nstenant));
+				ele.addText(emailData.getSMTPHost());
+			}
+			
+			if (emailData.getSMTPPort() != null) {
+				Element ele = smtpConfigElement.addElement(new QName("port", nstenant));
+				ele.addText(emailData.getSMTPPort());
+			}
+			
+			if (emailData.doSMTPDebug() != null) {
+				Element ele = smtpConfigElement.addElement(new QName("debug", nstenant));
+				ele.addText(emailData.doSMTPDebug().toString());
+			}
+			
+			//
+			// Build <tenant:smtpAuth enabled="false">
+			//
+			Element smtpAuthElement = smtpConfigElement.addElement(new QName("smtpAuth", nstenant));
+			if (emailData.doSMTPAuth() != null) {
+				smtpAuthElement.addAttribute("enabled", emailData.doSMTPAuth().toString());
+			}
+			
+			if (emailData.getSMTPAuthUsername() != null) {
+				Element ele = smtpAuthElement.addElement(new QName("username", nstenant));
+				ele.addText(emailData.getSMTPAuthUsername());
+			}
+			
+			if (emailData.getSMTPAuthPassword() != null) {
+				Element ele = smtpAuthElement.addElement(new QName("password", nstenant));
+				ele.addText(emailData.getSMTPAuthPassword());
+			}
+			
+			//
+			// Build <tenant:passwordResetConfig>
+			//
+			Element passwordResetElement = emailConfigElement.addElement(new QName("passwordResetConfig", nstenant));
+			if (emailData.getTokenValidForLength() != null) {
+				Element ele = passwordResetElement.addElement(new QName("tokenExpirationSeconds", nstenant));
+				ele.addText(emailData.getTokenValidForLength().toString());
+			}
+			
+			if (emailData.getLoginUrl() != null) {
+				Element ele = passwordResetElement.addElement(new QName("loginpage", nstenant));
+				ele.addText(emailData.getLoginUrl());
+			}
+			
+			if (emailData.getPasswordResetSubject() != null) {
+				Element ele = passwordResetElement.addElement(new QName("subject", nstenant));
+				ele.addText(emailData.getPasswordResetSubject());
+			}
+
+			if (emailData.getPasswordResetMessage() != null) {
+				Element ele = passwordResetElement.addElement(new QName("message", nstenant));
+				ele.addText(emailData.getPasswordResetMessage());
+			}
+		}
+	}	
 	
 	/**
 	 * Add in date formats and languages if required
@@ -548,27 +657,27 @@ public class ServiceBindingsGeneration {
      * @param isAuthority
      */
     
-	private void doDocHandlerParams(Record r, Element el, Namespace thisns, Boolean isAuthority) { //FIXME: Rename this method to doDocHandlerParms
+	private void doDocHandlerParams(Record r, Element el, Namespace nsservices2, Boolean isAuthority) {
 		//<service:DocHandlerParams>
-		Element dhele = el.addElement(new QName("DocHandlerParams", thisns));
-		Element pele = dhele.addElement(new QName("params", thisns));
+		Element dhele = el.addElement(new QName("DocHandlerParams", nsservices2));
+		Element pele = dhele.addElement(new QName("params", nsservices2));
 				
 		if (r.hasHierarchyUsed(DEFAULT_HIERARCHY_TYPE) == true && isAuthority == false) {
 			//<service:SupportsHierarchy>true</service:SupportsHierarchy>
-			Element sh_rele = pele.addElement(new QName("SupportsHierarchy", thisns));
+			Element sh_rele = pele.addElement(new QName("SupportsHierarchy", nsservices2));
 			sh_rele.addText("true");
 		}
 		
 		if (r.supportsVersioning() == true) {
 			//<service:SupportsVersioning>true</service:SupportsVersioning>
-			Element sh_rele = pele.addElement(new QName("SupportsVersioning", thisns));
+			Element sh_rele = pele.addElement(new QName("SupportsVersioning", nsservices2));
 			sh_rele.addText("true");
 		}
 
-		doRefnameDisplayNameField(r, pele, thisns);
+		doRefnameDisplayNameField(r, pele, nsservices2);
 		
-		Element lrele = pele.addElement(new QName("ListResultsFields", thisns));
-		doLists(r, lrele, thisns, isAuthority);
+		Element lrele = pele.addElement(new QName("ListResultsFields", nsservices2));
+		doLists(r, lrele, nsservices2, isAuthority);
 	}
 
 	/**
@@ -780,6 +889,11 @@ public class ServiceBindingsGeneration {
 			
 			//<service:DocHandlerParams> include fields to show in list results
 			doDocHandlerParams(r, el, this.nsservices, isAuthority);
+			
+			//<service:AuthorityInstanceList>
+			if (isAuthority == true || r.isType(RECORD_TYPE_VOCABULARY) == true) {
+				doAuthorityInstanceList(r, el, this.nsservices);
+			}
 	
 			//<service:validatorHandler>
 			String validatorHandlerName = r.getServicesValidatorHandler(isAuthority);
@@ -999,6 +1113,52 @@ public class ServiceBindingsGeneration {
 				}
 			}
 		}
+	}
+	
+	private void doAuthorityInstanceList(Record r, Element el, Namespace nsservices2) {
+		Instance[] allInstances = r.getAllInstances();
+		if (r.getID().equalsIgnoreCase(RECORD_ID_TERMLIST) == true) {
+			//
+			// Records "termlist" and "vocab" have special relationship, so we need to do things a little differently.
+			//
+			Record vocabRecord = this.spec.getRecord(RECORD_ID_VOCAB);
+			allInstances = vocabRecord.getAllInstances();
+		}
+		
+		if (allInstances.length > 0) {
+			Element authorityInstanceList = el.addElement(new QName("AuthorityInstanceList", nsservices2));
+			for (Instance instance : allInstances) {
+				Element authorityInstance = authorityInstanceList.addElement(new QName("AuthorityInstance", nsservices2));
+				doAuthorityInstance(instance, r, authorityInstance, nsservices2);
+			}
+		}
+
+	}
+	
+	private void doAuthorityInstance(Instance instance, Record r, Element el, Namespace nsservices2) {
+		Element webUrl = el.addElement(new QName("web-url", nsservices2));
+		webUrl.addText(instance.getWebURL());
+		
+		Element titleRef = el.addElement(new QName("title-ref", nsservices2));
+		titleRef.addText(instance.getTitleRef());
+		
+		Element title = el.addElement(new QName("title", nsservices2));
+		title.addText(instance.getTitle());
+		
+		Option[] allOptions = instance.getAllOptions();
+		if (allOptions.length > 0) {
+			Element termList = el.addElement(new QName("termList", nsservices2));
+			for (Option option : allOptions) {
+				doTerm(option, r, termList, nsservices2);
+			}
+		}
+
+	}
+	
+	private void doTerm(Option option, Record r, Element el, Namespace nsservices2) {
+		Element term = el.addElement(new QName("term", nsservices2));
+		term.addAttribute("id", option.getID());
+		term.addText(option.getName());
 	}
 
 	//

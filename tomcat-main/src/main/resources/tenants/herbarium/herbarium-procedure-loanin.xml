@@ -9,7 +9,7 @@
 		</repeat>
 
 		<repeat id="taxonomyList" section="herbarium">
-			<field id="taxonomy" section="herbarium" autocomplete="taxon-taxon"/>
+		    <field id="taxonomy" section="herbarium" autocomplete="taxon-taxon,taxon-common_ta"/>
 		</repeat>
 
 		<repeat id="objKindList" section="herbarium">
