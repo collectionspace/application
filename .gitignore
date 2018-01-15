@@ -18,3 +18,4 @@ target/
 *.bindings.xml
 war-entry/tmp/
 *.xlsx
+.vscode
