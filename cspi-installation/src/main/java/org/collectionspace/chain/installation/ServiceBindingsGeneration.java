@@ -410,9 +410,17 @@ public class ServiceBindingsGeneration {
 			// Build <tenant:passwordResetConfig>
 			//
 			Element passwordResetElement = emailConfigElement.addElement(new QName("passwordResetConfig", nstenant));
-			if (emailData.getTokenValidForLength() != null) {
+			if (emailData.getTokenExpirationSeconds() != null) {
 				Element ele = passwordResetElement.addElement(new QName("tokenExpirationSeconds", nstenant));
-				ele.addText(emailData.getTokenValidForLength().toString());
+				ele.addText(emailData.getTokenExpirationSeconds().toString());
+			} else if (emailData.getTokenExpirationDays() != null) {
+				//
+				// If the new 'tokenExpirationSeconds' config field is not set, then convert the 'daysvalid' days value
+				// into seconds; otherwise, ignore the 'daysvalid' field and use the configured 'tokenExpirationSeconds' value.
+				//
+				Element ele = passwordResetElement.addElement(new QName("tokenExpirationSeconds", nstenant));
+				Integer secondsValid = emailData.getTokenExpirationDays() * 60 * 60 * 24; // Convert days into seconds
+				ele.addText(emailData.getTokenExpirationSeconds().toString());
 			}
 			
 			if (emailData.getLoginUrl() != null) {

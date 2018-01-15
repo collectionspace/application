@@ -22,7 +22,7 @@ public class EmailData {
 	String baseurl,fromaddress,toaddress,loginurl ;
 	String smtphost,smtpport,smtppass,smtpuser;
 	Boolean smtpdebug,smtpauth;
-	String pswdmsg, pswdsubj, tokenvalid;
+	String pswdmsg, pswdsubj, tokenExpirationDays, tokenExpirationSeconds;
 	
 /* 	<email>
 		<baseurl>hendecasyllabic.local:8180</baseurl>
@@ -59,7 +59,8 @@ public class EmailData {
 		pswdmsg = (String)section.getValue("/passwordreset/message");
 		pswdsubj = (String)section.getValue("/passwordreset/subject");
 		loginurl = (String)section.getValue("/passwordreset/loginpage");
-		tokenvalid = Util.getStringOrDefault(section, "/passwordreset/token/daysvalid", "7");
+		tokenExpirationDays = Util.getStringOrDefault(section, "/passwordreset/token/daysvalid", "7");
+		tokenExpirationSeconds = Util.getStringOrDefault(section, "/passwordreset/token/tokenExpirationSeconds", "301");
 	}
 	
 
@@ -74,7 +75,8 @@ public class EmailData {
 
 	public String getPasswordResetMessage() { return pswdmsg; }
 	public String getPasswordResetSubject() { return pswdsubj; }
-	public Integer getTokenValidForLength() { return Integer.parseInt(tokenvalid); }
+	public Integer getTokenExpirationDays() { return Integer.parseInt(tokenExpirationDays); }
+	public Integer getTokenExpirationSeconds() { return Integer.parseInt(tokenExpirationSeconds); }
 	
 	public Boolean doSMTPAuth() { return smtpauth; }
 	public String getSMTPAuthPassword() { if(smtpauth){ return smtppass;} else {return null;} }
@@ -89,7 +91,8 @@ public class EmailData {
 		record.put("getToAddress", toaddress);
 		record.put("getPasswordResetMessage", pswdmsg);
 		record.put("getPasswordResetSubject", pswdsubj);
-		record.put("getTokenValidForLength", tokenvalid);
+		record.put("getTokenExpirationDays", tokenExpirationDays);
+		record.put("getTokenExpirationSeconds", tokenExpirationSeconds);
 		out.put("EmailData", record);
 	}
 }
