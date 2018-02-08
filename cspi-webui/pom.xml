@@ -41,7 +41,7 @@
 		
 		<dependency>
 		    <groupId>org.collectionspace.services</groupId>
-		    <artifactId>org.collectionspace.services.structureddate</artifactId>
+		    <artifactId>org.collectionspace.services.structureddate.structureddate</artifactId>
 		    <version>${project.version}</version>
 		</dependency>
 

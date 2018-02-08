@@ -37,10 +37,10 @@
     	<field id="_subrecordcsid"></field> <!-- What is this field? -->
     	<field id="inAuthority" services-should-index="true"></field>
 		<field id="displayName" mini="summary" services-should-index="true"></field>
-		<field id="source"></field>
-		<field id="sourcePage"></field>
+        <field id="source" mini="list"></field>
+        <field id="sourcePage" mini="list"></field>
 		<field id="shortIdentifier" mini="number" services-should-index="true"></field>
-		<field id="description"></field>
+        <field id="description" mini="list"></field>
 		<field id="order" mini="list"></field>
 		<field id="termStatus" mini="search,list,relate">
             <options>

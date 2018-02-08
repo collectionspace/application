@@ -11,8 +11,8 @@ import org.collectionspace.services.structureddate.Date;
 import org.collectionspace.services.structureddate.Era;
 import org.collectionspace.services.structureddate.QualifierType;
 import org.collectionspace.services.structureddate.QualifierUnit;
-import org.collectionspace.services.structureddate.StructuredDate;
 import org.collectionspace.services.structureddate.StructuredDateFormatException;
+import org.collectionspace.services.structureddate.StructuredDateInternal;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,11 +34,11 @@ public class StructuredDateParser implements WebMethod {
 		String displayDate = request.getRequestArgument("displayDate");
 
 		JSONObject output = new JSONObject();
-		StructuredDate structuredDate = null;
+		StructuredDateInternal structuredDate = null;
 		StructuredDateFormatException formatException = null;
 		
 		try {
-			structuredDate = StructuredDate.parse(displayDate);
+			structuredDate = StructuredDateInternal.parse(displayDate);
 		}
 		catch(StructuredDateFormatException e) {
 			formatException = e;
@@ -64,7 +64,7 @@ public class StructuredDateParser implements WebMethod {
 		request.sendJSONResponse(output);
 	}
 	
-	private JSONObject structuredDateToJSON(String tenantDomain, StructuredDate structuredDate) throws JSONException {
+	private JSONObject structuredDateToJSON(String tenantDomain, StructuredDateInternal structuredDate) throws JSONException {
 		JSONObject json = new JSONObject();
 		
 		String displayDate = structuredDate.getDisplayDate();
