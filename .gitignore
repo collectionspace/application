@@ -1,3 +1,4 @@
+*.out
 tomcat-main/plugins/
 .settings/org.eclipse.m2e.core.prefs
 .settings/
@@ -18,4 +19,5 @@ target/
 *.bindings.xml
 war-entry/tmp/
 *.xlsx
+.vscode
 host-settings.xml

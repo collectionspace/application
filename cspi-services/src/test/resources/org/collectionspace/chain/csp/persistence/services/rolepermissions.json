@@ -1,6 +1,6 @@
 {
     "role": {
-        "roleName": "ROLE_COLLECTIONS_REGISTRAR",
+        "roleName": "xROLE_COLLECTIONS_REGISTRAR",
         "roleId": "4"
     },
     "permission": [{

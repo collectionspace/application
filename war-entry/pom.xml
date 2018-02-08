@@ -72,6 +72,7 @@
 		</resources>
 
 		<plugins>
+		    <!--
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
@@ -90,18 +91,14 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<!-- cargo plugin -->
 				<groupId>org.codehaus.cargo</groupId>
 				<artifactId>cargo-maven2-plugin</artifactId>
 				<version>1.0</version>
 				<configuration>
 					<wait>false</wait>
-					<!-- specifying the container -->
 					<container>
 						<containerId>${cargo.container}</containerId>
-						<!-- assuming container is already installed -->
 						<type>installed</type>
-						<!-- path to the server -->
 						<home>${cspace.server.home}</home>
 						<timeout>300000</timeout>
 					</container>
@@ -112,7 +109,6 @@
 					<deployer>
 						<deployables>
 							<deployable>
-								<!-- location of war file -->
 								<location> ${temp.war.location}/${project.build.finalName}.${project.packaging} </location>
 							</deployable>
 						</deployables>
@@ -127,6 +123,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			-->
 			<!-- 
 				Delete the exploded war file directory from the JEE container when a
 				'clean' build is performed
@@ -142,6 +139,7 @@
 						</goals>
 						<configuration>
 							<target>
+							    <delete file="${cspace.server.home}/webapps/${project.build.finalName}.${project.packaging}"></delete>
 								<delete dir="${cspace.server.home}/webapps/${project.build.finalName}"></delete>
 							</target>
 						</configuration>

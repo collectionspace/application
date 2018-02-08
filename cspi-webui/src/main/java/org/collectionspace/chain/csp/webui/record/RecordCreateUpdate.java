@@ -422,7 +422,7 @@ public class RecordCreateUpdate implements WebMethodWithOps {
 					String test  = fields.optString("displayName");
 					test = test.toUpperCase();
 					test.replaceAll("\\W", "_");
-					fields.put("roleName", "ROLE_"+test);
+					fields.put("roleName", "xROLE_"+test);
 					data.put("fields", fields);
 				}
 				// If we are updating a role, then we need to clear the userperms cache
