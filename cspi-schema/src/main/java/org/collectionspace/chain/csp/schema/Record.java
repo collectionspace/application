@@ -1140,19 +1140,6 @@ public class Record implements FieldParent {
 		}
 	}
 
-	/**
-	 * For selfrenderer children, like the preferredTerm block in authorities,
-	 * we need to gather up all the declared sortKeys into this parent, so
-	 * that they will be available when searches are performed.
-	 */
-	private void mergeSortKeys() {
-		for (FieldSet fs : selfRenderers) {
-			Record subrecord = fs.getSelfRendererRecord();
-			if (!subrecord.sortKeys.isEmpty())
-				sortKeys.putAll(subrecord.sortKeys);
-		}
-	}
-	
 	public FieldSet getDisplayNameField() {
 		return display_name;
 	}
@@ -1424,7 +1411,6 @@ public class Record implements FieldParent {
 		mergeNestedSummaryLists();
 		mergeNestedMiniLists();
 		mergeSearchLists();
-		mergeSortKeys();
 		buildAuthTypeTokenSet();
 	}
 

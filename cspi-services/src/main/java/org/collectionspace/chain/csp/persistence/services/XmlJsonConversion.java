@@ -36,12 +36,6 @@ import org.slf4j.LoggerFactory;
 public class XmlJsonConversion {
 	private static final Logger log=LoggerFactory.getLogger(XmlJsonConversion.class);
 	private static void addFieldToXml(Element root,Field field,JSONObject in, String permlevel) throws JSONException, UnderlyingStorageException {
-		if (!field.isInServices()) {
-			// Omit fields that do not exist in the services layer.
-			log.debug("Omitting field that does not exist in services: " + field.getID());
-			return;
-		}
-		
 		if (field.isServicesReadOnly()) {
 			// Omit fields that are read-only in the services layer.
 			log.debug("Omitting services-readonly field: " + field.getID());
