@@ -1,11 +1,18 @@
 {
     "details": {
         ".csc-termlist-csid-label": {"messagekey": "termlist-csidLabel"},
+        ".csc-termlistitem-deprecated-label": {"messagekey": "termlistitem-deprecatedLabel"},
         ".csc-termlist-name": "${fields.name}",
+        ".csc-termlist-rev": "${fields.rev}",
+        ".csc-termlist-remoteClientConfigName": "${fields.remoteClientConfigName}",
         ".csc-termlistitem-description-label": {"messagekey": "termlistitem-descriptionLabel"},
+        ".csc-termlist-remoteClientConfigName-label": {"messagekey": "termlist-remoteClientConfigNameLabel"},
         ".csc-termlistitem-termListItemInformation-label": {"messagekey": "termlistitem-termListItemInformationLabel"},
+        ".csc-termlistitem-sas-label": {"messagekey": "termlistitem-sasLabel"},
+        ".csc-termlist-rev-label": {"messagekey": "termlist-revLabel"},
         ".csc-termlistitem-source-label": {"messagekey": "termlistitem-sourceLabel"},
         ".csc-termlist-usedBy-label": {"messagekey": "termlist-usedByLabel"},
+        ".csc-termlist-displayName": "${fields.displayName}",
         ".csc-termlistitem-order-label": {"messagekey": "termlistitem-orderLabel"},
         ".csc-termlist-terms": {"decorators": [{
             "func": "cspace.makeRepeatable",
@@ -13,14 +20,20 @@
             "options": {
                 "repeatTree": {"expander": {
                     "tree": {
-                        ".csc-termlistitem-displayName": "${{row}.displayName}",
                         ".csc-termlistitem-order": "${{row}.order}",
-                        ".csc-termlistitem-inAuthority": "${{row}.inAuthority}",
-                        ".csc-termlistitem-sourcePage": "${{row}.sourcePage}",
+                        ".csc-termlistitem-sas": "${{row}.sas}",
+                        ".csc-termlistitem-workflow": {
+                          "decorators": [
+                            {
+                              "func": "cspace.util.workflowToStyleFieldConverter",
+                              "type": "fluid"
+                            }
+                          ],
+                          "value": "${{row}.workflow}"
+                        },
                         ".csc-termlistitem-description": "${{row}.description}",
-                        ".csc-termlistitem-source": "${{row}.source}",
                         ".csc-termlistitem-_subrecordcsid": "${{row}._subrecordcsid}",
-                        ".csc-termlistitem-shortIdentifier": "${{row}.shortIdentifier}",
+                        ".csc-termlistitem-deprecated": "${{row}.deprecated}",
                         ".csc-termlistitem-termStatus": {
                             "default": "active",
                             "optionnames": [
@@ -32,14 +45,20 @@
                                 "inactive"
                             ],
                             "selection": "${{row}.termStatus}"
-                        }
+                        },
+                        ".csc-termlistitem-rev": "${{row}.rev}",
+                        ".csc-termlistitem-displayName": "${{row}.displayName}",
+                        ".csc-termlistitem-proposed": "${{row}.proposed}",
+                        ".csc-termlistitem-inAuthority": "${{row}.inAuthority}",
+                        ".csc-termlistitem-sourcePage": "${{row}.sourcePage}",
+                        ".csc-termlistitem-source": "${{row}.source}",
+                        ".csc-termlistitem-shortIdentifier": "${{row}.shortIdentifier}"
                     },
                     "type": "fluid.noexpand"
                 }},
                 "elPath": "fields.terms"
             }
         }]},
-        ".csc-termlist-displayName": "${fields.displayName}",
         ".csc-termlistitem-domaindata-label": {"messagekey": "termlistitem-domaindataLabel"},
         ".csc-termlist-termListInformation-label": {"messagekey": "termlist-termListInformationLabel"},
         "expander": {
@@ -55,9 +74,13 @@
             "pathAs": "row",
             "controlledBy": "fields.usedBys"
         },
+        ".csc-termlistitem-workflow-label": {"messagekey": "termlistitem-workflowLabel"},
+        ".csc-termlist-sas-label": {"messagekey": "termlist-sasLabel"},
+        ".csc-termlistitem-proposed-label": {"messagekey": "termlistitem-proposedLabel"},
         ".csc-termlist-usedBys-label": {"messagekey": "termlist-usedBysLabel"},
         ".csc-termlist-sourcePage-label": {"messagekey": "termlist-sourcePageLabel"},
         ".csc-termlistitem-sourcePage-label": {"messagekey": "termlistitem-sourcePageLabel"},
+        ".csc-termlist-sas": "${fields.sas}",
         ".csc-termlist-terms-label": {"messagekey": "termlist-termsLabel"},
         ".csc-termlist-vocabType-label": {"messagekey": "termlist-vocabTypeLabel"},
         ".csc-termlistitem-inAuthority-label": {"messagekey": "termlistitem-inAuthorityLabel"},
@@ -65,17 +88,20 @@
         ".csc-termlist-domaindata-label": {"messagekey": "termlist-domaindataLabel"},
         ".csc-termlistitem-displayName-label": {"messagekey": "termlistitem-displayNameLabel"},
         ".csc-termlistitem-_subrecordcsid-label": {"messagekey": "termlistitem-_subrecordcsidLabel"},
-        ".csc-termlist-sourcePage": "${fields.sourcePage}",
         ".csc-termlist-source-label": {"messagekey": "termlist-sourceLabel"},
-        ".csc-termlist-shortIdentifier": "${fields.shortIdentifier}",
+        ".csc-termlist-sourcePage": "${fields.sourcePage}",
         ".csc-termlist-description-label": {"messagekey": "termlist-descriptionLabel"},
+        ".csc-termlist-shortIdentifier": "${fields.shortIdentifier}",
+        ".csc-termlist-workflow-label": {"messagekey": "termlist-workflowLabel"},
         ".csc-termlist-number-label": {"messagekey": "termlist-numberLabel"},
         ".csc-termlist-description": "${fields.description}",
         ".csc-termlist-source": "${fields.source}",
         ".csc-termlistitem-shortIdentifier-label": {"messagekey": "termlistitem-shortIdentifierLabel"},
         ".csc-termlist-termlistitem-label": {"messagekey": "termlist-termlistitemLabel"},
         ".csc-termlist-shortIdentifier-label": {"messagekey": "termlist-shortIdentifierLabel"},
+        ".csc-termlist-workflow": "${fields.workflow}",
         ".csc-termlistitem-termStatus-label": {"messagekey": "termlistitem-termStatusLabel"},
+        ".csc-termlistitem-rev-label": {"messagekey": "termlistitem-revLabel"},
         ".csc-termlist-vocabType": "${fields.vocabType}",
         ".csc-termlist-name-label": {"messagekey": "termlist-nameLabel"}
     },

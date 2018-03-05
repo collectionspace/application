@@ -1,0 +1,159 @@
+{
+    "boilerplateText": "Lorem ipsum...",
+    "curatorialNote": "Do some curating.",
+    "de-urned-type": "Permanent",
+    "exhibitionNumber": "EX123",
+    "exhibitionObjectGroup": [
+        {
+            "_primary": true,
+            "exhibitionObjectCase": "Case 1",
+            "exhibitionObjectConsCheckDate": "2015-09-22T00:00:00.000Z",
+            "exhibitionObjectConsTreatment": "Needed",
+            "exhibitionObjectMount": "Not needed",
+            "exhibitionObjectName": "Thing",
+            "exhibitionObjectNote": "Obj note",
+            "exhibitionObjectNumber": "2015.1.1",
+            "exhibitionObjectRotation": "Rotation 1",
+            "exhibitionObjectSection": "Section 1",
+            "exhibitionObjectSeqNum": "2"
+        }
+    ],
+    "exhibitionReferenceGroup": [
+        {
+            "_primary": true,
+            "de-urned-exhibitionReference": "Reference 1",
+            "de-urned-exhibitionReferenceType": "Catalog",
+            "exhibitionReference": "urn:cspace:core.collectionspace.org:citationauthorities:name(citation):item:name(Reference11429860263344)'Reference 1'",
+            "exhibitionReferenceNote": "This is the catalog",
+            "exhibitionReferenceType": "urn:cspace:core.collectionspace.org:vocabularies:name(exhibitionreferencetype):item:name(catalog)'Catalog'"
+        }
+    ],
+    "exhibitionSectionGroup": [
+        {
+            "_primary": true,
+            "exhibitionSectionLocation": "There",
+            "exhibitionSectionName": "Section 1",
+            "exhibitionSectionNote": "Remarks",
+            "exhibitionSectionObjects": "Stuff"
+        }
+    ],
+    "exhibitionStatusGroup": [
+        {
+            "_primary": true,
+            "de-urned-exhibitionStatus": "Labels written",
+            "exhibitionStatus": "urn:cspace:core.collectionspace.org:vocabularies:name(exhibitionstatus):item:name(labelswritten)'Labels written'",
+            "exhibitionStatusDate": "2015-09-23T00:00:00.000Z",
+            "exhibitionStatusNote": "status notes"
+        }
+    ],
+    "galleryRotationGroup": [
+        {
+            "_primary": true,
+            "galleryRotationEndDateGroup": {
+                "_primary": true,
+                "dateAssociation": "",
+                "dateDisplayDate": "2000",
+                "dateEarliestScalarValue": "",
+                "dateEarliestSingleCertainty": "",
+                "dateEarliestSingleDay": "",
+                "dateEarliestSingleEra": "",
+                "dateEarliestSingleMonth": "",
+                "dateEarliestSingleQualifier": "",
+                "dateEarliestSingleQualifierUnit": "",
+                "dateEarliestSingleQualifierValue": "",
+                "dateEarliestSingleYear": "",
+                "dateLatestCertainty": "",
+                "dateLatestDay": "",
+                "dateLatestEra": "",
+                "dateLatestMonth": "",
+                "dateLatestQualifier": "",
+                "dateLatestQualifierUnit": "",
+                "dateLatestQualifierValue": "",
+                "dateLatestScalarValue": "",
+                "dateLatestYear": "",
+                "dateNote": "",
+                "datePeriod": "",
+                "scalarValuesComputed": false
+            },
+            "galleryRotationName": "Rotation 1",
+            "galleryRotationNote": "rotation note",
+            "galleryRotationStartDateGroup": {
+                "_primary": true,
+                "dateAssociation": "",
+                "dateDisplayDate": "1999",
+                "dateEarliestScalarValue": "",
+                "dateEarliestSingleCertainty": "",
+                "dateEarliestSingleDay": "",
+                "dateEarliestSingleEra": "",
+                "dateEarliestSingleMonth": "",
+                "dateEarliestSingleQualifier": "",
+                "dateEarliestSingleQualifierUnit": "",
+                "dateEarliestSingleQualifierValue": "",
+                "dateEarliestSingleYear": "",
+                "dateLatestCertainty": "",
+                "dateLatestDay": "",
+                "dateLatestEra": "",
+                "dateLatestMonth": "",
+                "dateLatestQualifier": "",
+                "dateLatestQualifierUnit": "",
+                "dateLatestQualifierValue": "",
+                "dateLatestScalarValue": "",
+                "dateLatestYear": "",
+                "dateNote": "",
+                "datePeriod": "",
+                "scalarValuesComputed": false
+            }
+        }
+    ],
+    "generalNote": "Generally do some things.",
+    "organizers": [
+        {
+            "_primary": true,
+            "de-urned-organizer": "John Doe",
+            "organizer": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(JohnDoe1429860133232)'John Doe'"
+        }
+    ],
+    "planningNote": "Some planning was required",
+    "sponsors": [
+        {
+            "_primary": true,
+            "de-urned-sponsor": "Acme Co.",
+            "sponsor": "urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(AcmeCo1429860126929)'Acme Co.'"
+        }
+    ],
+    "title": "My Exhibition",
+    "type": "urn:cspace:core.collectionspace.org:vocabularies:name(exhibitiontype):item:name(permanent)'Permanent'",
+    "venueGroup": [
+        {
+            "_primary": true,
+            "de-urned-venue": "Gallery 1",
+            "venue": "urn:cspace:core.collectionspace.org:placeauthorities:name(place):item:name(Gallery11429860147339)'Gallery 1'",
+            "venueAttendance": "1999",
+            "venueClosingDate": "2015-04-25T00:00:00.000Z",
+            "venueOpeningDate": "2015-04-24T00:00:00.000Z",
+            "venueUrl": "http://exhibit.com"
+        }
+    ],
+    "workingGroup": [
+        {
+            "_primary": true,
+            "exhibitionPersonGroup": [
+                {
+                    "_primary": true,
+                    "de-urned-exhibitionPerson": "Connie Curator",
+                    "de-urned-exhibitionPersonRole": "Curator",
+                    "exhibitionPerson": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(ConnieCurator1429860191889)'Connie Curator'",
+                    "exhibitionPersonRole": "urn:cspace:core.collectionspace.org:vocabularies:name(exhibitionpersonrole):item:name(curator)'Curator'"
+                },
+                {
+                    "de-urned-exhibitionPerson": "Ed Educator",
+                    "de-urned-exhibitionPersonRole": "Educator",
+                    "exhibitionPerson": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(EdEducator1429860205520)'Ed Educator'",
+                    "exhibitionPersonRole": "urn:cspace:core.collectionspace.org:vocabularies:name(exhibitionpersonrole):item:name(educator)'Educator'"
+                }
+            ],
+            "workingGroupNote": "These are some people",
+            "workingGroupTitle": "People"
+        }
+    ]
+}

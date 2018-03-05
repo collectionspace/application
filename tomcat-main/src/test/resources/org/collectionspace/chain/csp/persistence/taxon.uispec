@@ -5,8 +5,8 @@
         {
           "func": "cspace.autocomplete", 
           "options": {
-            "queryUrl": "../../../tenant/lifesci/vocabularies/taxon/autocomplete/broaderContext", 
-            "vocabUrl": "../../../tenant/lifesci/vocabularies/taxon/source-vocab/broaderContext"
+            "queryUrl": "../../../tenant/testsci/vocabularies/taxon/autocomplete/broaderContext", 
+            "vocabUrl": "../../../tenant/testsci/vocabularies/taxon/source-vocab/broaderContext"
           }, 
           "type": "fluid"
         }, 
@@ -82,11 +82,11 @@
                               "funcName": "cspace.autocomplete.selectMatchConfirm"
                             }
                           }, 
-                          "queryUrl": "../../../tenant/lifesci/vocabularies/taxon/autocomplete/narrowerContext", 
+                          "queryUrl": "../../../tenant/testsci/vocabularies/taxon/autocomplete/narrowerContext", 
                           "strings": {
                             "narrowerChange": "Warning: %narrower currently has broader term %broader."
                           }, 
-                          "vocabUrl": "../../../tenant/lifesci/vocabularies/taxon/source-vocab/narrowerContext"
+                          "vocabUrl": "../../../tenant/testsci/vocabularies/taxon/source-vocab/narrowerContext"
                         }, 
                         "type": "fluid"
                       }, 
@@ -142,8 +142,8 @@
                       {
                         "func": "cspace.autocomplete", 
                         "options": {
-                          "queryUrl": "../../../tenant/lifesci/vocabularies/taxon/autocomplete/relatedTerm", 
-                          "vocabUrl": "../../../tenant/lifesci/vocabularies/taxon/source-vocab/relatedTerm"
+                          "queryUrl": "../../../tenant/testsci/vocabularies/taxon/autocomplete/relatedTerm", 
+                          "vocabUrl": "../../../tenant/testsci/vocabularies/taxon/source-vocab/relatedTerm"
                         }, 
                         "type": "fluid"
                       }
@@ -267,8 +267,8 @@
                                     {
                                       "func": "cspace.autocomplete", 
                                       "options": {
-                                        "queryUrl": "../../../tenant/lifesci/preferredTA/autocomplete/termSource", 
-                                        "vocabUrl": "../../../tenant/lifesci/preferredTA/source-vocab/termSource"
+                                        "queryUrl": "../../../tenant/testsci/preferredTA/autocomplete/termSource", 
+                                        "vocabUrl": "../../../tenant/testsci/preferredTA/source-vocab/termSource"
                                       }, 
                                       "type": "fluid"
                                     }
@@ -404,8 +404,8 @@
                       {
                         "func": "cspace.autocomplete", 
                         "options": {
-                          "queryUrl": "../../../tenant/lifesci/vocabularies/taxon/autocomplete/commonNameSource", 
-                          "vocabUrl": "../../../tenant/lifesci/vocabularies/taxon/source-vocab/commonNameSource"
+                          "queryUrl": "../../../tenant/testsci/vocabularies/taxon/autocomplete/commonNameSource", 
+                          "vocabUrl": "../../../tenant/testsci/vocabularies/taxon/source-vocab/commonNameSource"
                         }, 
                         "type": "fluid"
                       }
@@ -483,8 +483,8 @@
                       {
                         "func": "cspace.autocomplete", 
                         "options": {
-                          "queryUrl": "../../../tenant/lifesci/vocabularies/taxon/autocomplete/taxonAuthor", 
-                          "vocabUrl": "../../../tenant/lifesci/vocabularies/taxon/source-vocab/taxonAuthor"
+                          "queryUrl": "../../../tenant/testsci/vocabularies/taxon/autocomplete/taxonAuthor", 
+                          "vocabUrl": "../../../tenant/testsci/vocabularies/taxon/source-vocab/taxonAuthor"
                         }, 
                         "type": "fluid"
                       }
@@ -534,8 +534,8 @@
                       {
                         "func": "cspace.autocomplete", 
                         "options": {
-                          "queryUrl": "../../../tenant/lifesci/vocabularies/taxon/autocomplete/taxonCitation", 
-                          "vocabUrl": "../../../tenant/lifesci/vocabularies/taxon/source-vocab/taxonCitation"
+                          "queryUrl": "../../../tenant/testsci/vocabularies/taxon/autocomplete/taxonCitation", 
+                          "vocabUrl": "../../../tenant/testsci/vocabularies/taxon/source-vocab/taxonCitation"
                         }, 
                         "type": "fluid"
                       }

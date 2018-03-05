@@ -1,0 +1,1 @@
+This directory is for test log files from the cspi-services module.

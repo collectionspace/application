@@ -12,8 +12,9 @@ import java.io.IOException;
 import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.config.Configurable;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
-import org.collectionspace.chain.csp.config.Rules;
-import org.collectionspace.chain.csp.config.Target;
+import org.collectionspace.chain.csp.config.RuleSet;
+import org.collectionspace.chain.csp.config.RuleTarget;
+import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
@@ -26,7 +27,7 @@ import org.collectionspace.csp.helper.persistence.ProxyStorage;
 /**  SplittingStorage which delegates collection-objects to StubJSONStore
  * 
  */
-public class FileStorage extends ProxyStorage implements Storage, CSP, Configurable, StorageGenerator {
+public class FileStorage extends ProxyStorage implements CSP, Configurable, StorageGenerator {
 	public static String SECTION_PREFIX="org.collectionspace.app.config.persistence.file.";
 	public static String SECTIONED="org.collectionspace.app.config.spec";
 	public static String FILE_ROOT=SECTION_PREFIX+"spec";
@@ -42,8 +43,10 @@ public class FileStorage extends ProxyStorage implements Storage, CSP, Configura
 
 	public String getStoreRoot() { return root; }
 
+	@Override
 	public String getName() { return "persistence.file"; }
 
+	@Override
 	public void go(CSPContext ctx) throws CSPDependencyException {
 		ctx.addStorageType("file",this);
 		ctx.addConfigRules(this);
@@ -61,11 +64,16 @@ public class FileStorage extends ProxyStorage implements Storage, CSP, Configura
 		}
 	}
 
-	public Storage getStorage(CSPRequestCredentials credentials,CSPRequestCache cache) { return this; }
+	@Override
+	public Storage getStorage(CSPRequestCredentials credentials,CSPRequestCache cache) {
+		return this;
+	}
 
-	public void configure(Rules rules) throws CSPDependencyException {
+	@Override
+	public void configure(RuleSet rules) throws CSPDependencyException {
 		/* MAIN/persistence/file -> FILE */
-		rules.addRule(SECTIONED,new String[]{"persistence","file"},SECTION_PREFIX+"file",null,new Target(){
+		rules.addRule(SECTIONED,new String[]{"persistence","file"},SECTION_PREFIX+"file",null,new RuleTarget(){
+			@Override
 			public Object populate(Object parent, ReadOnlySection milestone) {
 				((ConfigRoot)parent).setRoot(FILE_ROOT,FileStorage.this);
 				((ConfigRoot)parent).setRoot(CSPContext.XXX_SERVICE_NAME,"file"); // XXX should be path-selectable
@@ -74,9 +82,22 @@ public class FileStorage extends ProxyStorage implements Storage, CSP, Configura
 			}
 		});	
 	}
-	public void config_finish() throws CSPDependencyException {}
-	public void complete_init() throws CSPDependencyException {
+	
+	@Override
+	public void config_finish() throws CSPDependencyException {
+		// Intentionally empty
+	}
+	
+	@Override
+	public void complete_init(CSPManager cspManager, boolean forXsdGeneration) throws CSPDependencyException {
 		real_init();
 	}
+	
+	@Override
 	public CSPRequestCredentials createCredentials() { return null; }
+	@Override
+	public String getTenant() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -133,6 +133,15 @@
         </titleGroup>
     </titleGroupList>
     <recordStatus>recordStatus</recordStatus>
+    <publishToList>
+        <publishTo>sesame_street</publishTo>
+        <publishTo>fred_rogers</publishTo>
+    </publishToList>
+    <inventoryStatusList>
+        <inventoryStatus>good</inventoryStatus>
+        <inventoryStatus>bad</inventoryStatus>
+        <inventoryStatus>ugly</inventoryStatus>
+    </inventoryStatusList>
     <!-- Object Description Information -->
     <age>age</age>
     <ageQualifier>ageQualifier</ageQualifier>

@@ -1,7 +1,7 @@
 {"acquisition": {
     "properties": {
         "objectPurchasePriceValueStart": {"type": "string"},
-        "createdAtStart": {
+                "createdAtStart": {
             "type": "date"
         },
         "acquisitionSources": {

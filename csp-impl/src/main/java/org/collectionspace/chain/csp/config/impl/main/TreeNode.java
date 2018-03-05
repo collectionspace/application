@@ -22,7 +22,7 @@ import java.util.UUID;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.SectionGenerator;
-import org.collectionspace.chain.csp.config.Target;
+import org.collectionspace.chain.csp.config.RuleTarget;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +34,7 @@ public class TreeNode {
 	private boolean is_text=false,is_claimed;
 	private SectionGenerator claim_step;
 	private String claim_name;
-	private Target claim_target;
+	private RuleTarget claim_target;
 	
 	private TreeNode() {}
 	
@@ -68,7 +68,7 @@ public class TreeNode {
 	String getName() { return text; }
 	TreeNode getParent() { return parent; }
 
-	private void match_all_children(RulesImpl rules,String name,List<String> path) {
+	private void match_all_children(RuleSetImpl rules,String name,List<String> path) {
 		for(TreeNode child : children) {
 			path.add(child.getName());
 			child.match(rules,name,path);
@@ -76,7 +76,7 @@ public class TreeNode {
 		}
 	}
 	
-	public void claim(RulesImpl rules,String name,SectionGenerator step,Target target) {
+	public void claim(RuleSetImpl rules,String name,SectionGenerator step,RuleTarget target) {
 		log.debug("Node "+text+" claimed by "+name);
 		this.claim_step=step;
 		this.claim_name=name;
@@ -85,7 +85,7 @@ public class TreeNode {
 		match_all_children(rules,name,new ArrayList<String>());
 	}
 	
-	private void match(RulesImpl rules,String name,List<String> part) {
+	private void match(RuleSetImpl rules,String name,List<String> part) {
 		Rule r=rules.matchRules(name,part);
 		if(r==null) {
 			log.debug("Node "+text+" is subsidiary claim of "+name+" with suffix "+StringUtils.join(part,"/"));

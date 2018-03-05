@@ -72,12 +72,12 @@
                             <option id="loanout" sample="LO2010.1">Loan Out</option>
                         </options>
                     </field>
-                    <field id="borrower" ui-search="repeatable" autocomplete="person-person,organization-organization" mini="summary,list" in-title="yes">
+                    <field id="borrower" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared" mini="summary,list" in-title="yes">
                         <selector>loanOut-borrower</selector>
                     </field>
-                    <field id="borrowersAuthorizer" autocomplete="person-person"></field>
+                    <field id="borrowersAuthorizer" autocomplete="person-person,person-person_shared"></field>
                     <field id="borrowersAuthorizationDate"  ui-type="date" datatype="date"></field>
-                    <field id="borrowersContact" autocomplete="person-person">
+                    <field id="borrowersContact" autocomplete="person-person,person-person_shared">
                         <selector>loanOut-borrowersContact</selector>
                     </field>
                     <field id="specialConditionsOfLoan">
@@ -96,10 +96,10 @@
                             <option id="longtermcollectionsmanagementandstorage">Long-term collections management and storage</option>
                         </options>
                     </field>
-                    <field id="lendersAuthorizer" autocomplete="person-person">
+                    <field id="lendersAuthorizer" autocomplete="person-person,person-person_shared">
                         <selector>loanOut-lendersAuthorizer</selector>
                     </field>
-                    <field id="lendersContact" autocomplete="person-person">
+                    <field id="lendersContact" autocomplete="person-person,person-person_shared">
                         <selector>loanOut-lendersContact</selector>
                     </field>
                     <field id="lendersAuthorizationDate" ui-type="date" datatype="date">

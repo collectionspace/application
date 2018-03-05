@@ -1,52 +1,58 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <ns2:citations_common xmlns:ns2="http://collectionspace.org/services/citation">
-  <citationTermGroupList>
-      <citationTermGroup>
-        <termFullCitation>The Big Book of Absolutely Everything: Why You Won't Ever Need Another Book Again</termFullCitation>
-        <termLanguage>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(grc)'Ancient Greek'</termLanguage>
-        <termPrefForLang>true</termPrefForLang>
-        <termDisplayName>The Big Book of Absolutely Everything</termDisplayName>
-        <termType>urn:cspace:core.collectionspace.org:vocabularies:name(citationtermtype):item:name(atlas)'Atlas'</termType>
-        <termSectionTitle>Section title</termSectionTitle>
-        <termTitle />
-        <termStatus>under review</termStatus>
-        <termFormattedDisplayName />
-        <termQualifier />
-        <termSourceDetail />
-      </citationTermGroup>
-  </citationTermGroupList>
-  <citationPublicationInfoGroupList>
-    <citationPublicationInfoGroup>
-        <edition>5th</edition>
-        <publicationPlace>urn:cspace:core.collectionspace.org:placeauthorities:name(tgn_place):item:name(newyorkny11369432454870)'New York, NY'</publicationPlace>
-        <pages>359</pages>
-        <publicationDate>
-            <dateEarliestSingleQualifier />
-            <scalarValuesComputed>true</scalarValuesComputed>
-            <dateLatestDay />
-            <dateLatestYear />
-            <dateAssociation />
-            <dateEarliestSingleEra />
-            <dateDisplayDate>2001</dateDisplayDate>
-            <dateEarliestSingleCertainty />
-            <dateLatestEra />
-            <dateEarliestSingleQualifierValue />
-            <dateLatestCertainty />
-            <dateEarliestSingleYear>2001</dateEarliestSingleYear>
-            <dateLatestQualifier />
-            <dateLatestQualifierValue />
-            <dateEarliestSingleQualifierUnit />
-            <datePeriod />
-            <dateEarliestScalarValue />
-            <dateLatestMonth />
-            <dateNote />
-            <dateLatestScalarValue />
-            <dateLatestQualifierUnit />
-            <dateEarliestSingleDay />
-            <dateEarliestSingleMonth />
-        </publicationDate>
-        <publisher>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(biggerbookpublishers11369429687965)'Bigger Book Publishers'</publisher>
-      </citationPublicationInfoGroup>
-    </citationPublicationInfoGroupList>
-    <citationNote>This is a citation note.</citationNote>
+	<deprecated>false</deprecated>
+	<sas>false</sas>
+	<proposed>false</proposed>
+	<citationTermGroupList>
+		<citationTermGroup>
+			<termFullCitation>The Big Book of Absolutely Everything: Why You Won't Ever Need Another Book Again</termFullCitation>
+			<termLanguage>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(grc)'Ancient Greek'</termLanguage>
+			<termPrefForLang>true</termPrefForLang>
+			<termDisplayName>The Big Book of Absolutely Everything</termDisplayName>
+			<termType>urn:cspace:core.collectionspace.org:vocabularies:name(citationtermtype):item:name(atlas)'Atlas'</termType>
+			<termSectionTitle>Section title</termSectionTitle>
+			<termTitle></termTitle>
+			<termStatus>under review</termStatus>
+			<termFormattedDisplayName></termFormattedDisplayName>
+			<termQualifier></termQualifier>
+			<termSourceDetail></termSourceDetail>
+		</citationTermGroup>
+	</citationTermGroupList>
+	<citationRecordTypes>
+		<citationRecordType>urn:cspace:core.collectionspace.org:vocabularies:name(citationtermtype):item:name(birthcert)'Birth certificate'</citationRecordType>
+	</citationRecordTypes>
+	<citationPublicationInfoGroupList>
+		<citationPublicationInfoGroup>
+			<edition>5th</edition>
+			<publicationPlace>urn:cspace:core.collectionspace.org:placeauthorities:name(tgn_place):item:name(newyorkny11369432454870)'New York, NY'</publicationPlace>
+			<pages>359</pages>
+			<publicationDate>
+				<dateEarliestSingleQualifier></dateEarliestSingleQualifier>
+				<scalarValuesComputed>true</scalarValuesComputed>
+				<dateLatestDay></dateLatestDay>
+				<dateLatestYear></dateLatestYear>
+				<dateAssociation></dateAssociation>
+				<dateEarliestSingleEra></dateEarliestSingleEra>
+				<dateDisplayDate>2001</dateDisplayDate>
+				<dateEarliestSingleCertainty></dateEarliestSingleCertainty>
+				<dateLatestEra></dateLatestEra>
+				<dateEarliestSingleQualifierValue></dateEarliestSingleQualifierValue>
+				<dateLatestCertainty></dateLatestCertainty>
+				<dateEarliestSingleYear>2001</dateEarliestSingleYear>
+				<dateLatestQualifier></dateLatestQualifier>
+				<dateLatestQualifierValue></dateLatestQualifierValue>
+				<dateEarliestSingleQualifierUnit></dateEarliestSingleQualifierUnit>
+				<datePeriod></datePeriod>
+				<dateEarliestScalarValue></dateEarliestScalarValue>
+				<dateLatestMonth></dateLatestMonth>
+				<dateNote></dateNote>
+				<dateLatestScalarValue></dateLatestScalarValue>
+				<dateLatestQualifierUnit></dateLatestQualifierUnit>
+				<dateEarliestSingleDay></dateEarliestSingleDay>
+				<dateEarliestSingleMonth></dateEarliestSingleMonth>
+			</publicationDate>
+			<publisher>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(biggerbookpublishers11369429687965)'Bigger Book Publishers'</publisher>
+		</citationPublicationInfoGroup>
+	</citationPublicationInfoGroupList>
+	<citationNote>This is a citation note.</citationNote>
 </ns2:citations_common>

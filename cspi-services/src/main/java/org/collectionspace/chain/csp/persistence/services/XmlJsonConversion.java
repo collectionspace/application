@@ -15,7 +15,6 @@ import java.util.Stack;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.schema.Field;
-import org.collectionspace.chain.csp.schema.FieldParent;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Instance;
@@ -628,27 +627,26 @@ public class XmlJsonConversion {
 		return temp;
 	}
 	//merges in the pseudo sub records 'groupfields' with the normal fields unless they need to be nested
-	private static List<FieldSet> getChildrenWithGroupFields(Repeat parent, String operation){
+	private static List<FieldSet> getChildrenWithGroupFields(Repeat parent, String operation) {
 		List<FieldSet> children = new ArrayList<FieldSet>();
 
-		if(parent.getUIType().startsWith("groupfield")){
+		if (parent.getUIType().startsWith("groupfield")) {
 			String parts[] = parent.getUIType().split("/");
 			Record subitems = parent.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
-			for(FieldSet fd : subitems.getAllFieldTopLevel(operation)) {
+			for (FieldSet fd : subitems.getAllFieldTopLevel(operation)) {
 				children.add(fd);
 			}
 		}
-		
-		
-		for(FieldSet fs : parent.getChildren(operation)) {
 
-			if(fs.getUIType().startsWith("groupfield")){
+		for (FieldSet fs : parent.getChildren(operation)) {
+
+			if (fs.getUIType().startsWith("groupfield")) {
 				String parts[] = fs.getUIType().split("/");
 				Record subitems = fs.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
-				
-				if(fs instanceof Group){
-					if(((Group)fs).getXxxServicesNoRepeat()){
-						for(FieldSet fd : subitems.getAllFieldTopLevel(operation)) {
+
+				if (fs instanceof Group) {
+					if (((Group) fs).getXxxServicesNoRepeat()) {
+						for (FieldSet fd : subitems.getAllFieldTopLevel(operation)) {
 							children.add(fd); //non-nested groupfields?
 						}
 						// A hack to get structured dates in extensions working. The children added in the above
@@ -657,22 +655,19 @@ public class XmlJsonConversion {
 						// put the fields in the group in the configuration file, with the correct section (the 
 						// workaround described in CSPACE-5085). This code allows the same workaround to work for
 						// groups with xxx-services-no-repeat set to true.
-						for(FieldSet fd : ((Group)fs).getChildren(operation)) {
+						for (FieldSet fd : ((Group)fs).getChildren(operation)) {
 							children.add(fd);
 						}
-					}
-					else{
+					} else {
 						//this one should be nested
 						children.add(fs);
 					}
-				}
-				else{
-					for(FieldSet fd : subitems.getAllFieldTopLevel(operation)) {
+				} else {
+					for (FieldSet fd : subitems.getAllFieldTopLevel(operation)) {
 						children.add(fd); //what about nested groupfields?
 					}
 				}
-			}
-			else{
+			} else {
 				children.add(fs);
 			}
 		}
@@ -944,9 +939,7 @@ public class XmlJsonConversion {
 					}
 				}
 			}
-			
 		}
-
 		return tempSon;
 	}
 

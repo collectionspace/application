@@ -63,12 +63,19 @@ public class WebTermList implements WebMethod {
 				}
 			}
 			JSONArray result = new JSONArray();
-			for(Instance ins : f.getAllAutocompleteInstances()){
-				JSONArray getallnames = ctl.get(storage, ins.getTitleRef(), vb);
-				for (int i = 0; i < getallnames.length(); i++) {
-			        result.put(getallnames.get(i));
-			    }
+			if (f.getAllAutocompleteInstances() != null && f.getAllAutocompleteInstances()[0] != null) {
+				for(Instance ins : f.getAllAutocompleteInstances()) {
+					JSONArray getallnames = ctl.get(storage, ins.getTitleRef(), vb);
+					for (int i = 0; i < getallnames.length(); i++) {
+				        result.put(getallnames.get(i));
+				    }
+				}
+			} else {
+				String msg = String.format("Dynamic term list(s) (aka, \"autocomplete\" list) for the field '%s' of record '%s' does not exist.  Check that it is defined in the Application layer configuration.",
+						f.toString(), r.whoamI);
+				log.error(msg);
 			}
+			
 			JSONObject out =  generateENUMField(storage, f, result, false);
 			request.sendJSONResponse(out);
 			int cacheMaxAgeSeconds = spec.getAdminData().getTermListCacheAge();

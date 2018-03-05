@@ -28,6 +28,9 @@
                     <option id="used for term">Used for Term</option>
                 </options>
             </field>
+            <field id="termFlag" ui-search="repeatable" autocomplete="vocab-taxontermflag" ui-type="enum">
+                <selector>taxonAuthority-termFlag</selector>
+            </field>
             <field id="termStatus" ui-search="repeatable" seperate_ui_container="true"
                 mini="search,list,relate">
                 <selector>taxonAuthority-termStatus</selector>
@@ -51,7 +54,7 @@
             <field id="termPrefForLang" datatype="boolean">
                 <selector>taxonAuthority-termPrefForLang</selector>
             </field>
-            <field id="termSource" autocomplete="citation-citation,citation-worldcat">
+            <field id="termSource" autocomplete="citation-citation,citation-citation_shared,citation-worldcat">
                 <selector>taxonAuthority-termSource</selector>
             </field>
             <field id="termSourceDetail">

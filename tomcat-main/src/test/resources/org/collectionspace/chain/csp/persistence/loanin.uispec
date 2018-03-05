@@ -147,6 +147,10 @@
         "value": "${fields.loanInDate}"
     },
     ".csc-loanin-uri-label": {"messagekey": "loanin-uriLabel"},
+    ".csc-loanin-workflow": "${fields.workflow}", 
+    ".csc-loanin-workflow-label": {
+      "messagekey": "loanin-workflowLabel"
+    }, 
     ".csc-loanin-domaindata-label": {"messagekey": "loanin-domaindataLabel"},
     ".csc-loanin-createdAt": {
         "decorators": [{

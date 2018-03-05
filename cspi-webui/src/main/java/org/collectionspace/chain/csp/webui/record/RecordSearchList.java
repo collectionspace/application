@@ -8,7 +8,9 @@ package org.collectionspace.chain.csp.webui.record;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.apache.commons.lang.StringUtils;
+
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
@@ -23,6 +25,7 @@ import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.collectionspace.services.common.api.RefName;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,6 +45,7 @@ public class RecordSearchList implements WebMethod {
     private Map<String, String> type_to_url = new HashMap<String, String>();
     private String searchAllGroup;
     private final static String UNKNOWN_RECORD_TYPE = "UNKNOWN";
+	private static final int MAX_PERMISSIONS_PAGESIZE = 400;
 
     public RecordSearchList(Record r, int mode) {
         this(r, mode, null);
@@ -287,6 +291,7 @@ public class RecordSearchList implements WebMethod {
     	
     	return result;
     }
+    
     /**
      * This function is the general function that calls the correct funtions to
      * get all the data that the UI requested and get it in the correct format
@@ -316,8 +321,9 @@ public class RecordSearchList implements WebMethod {
         	// Until CSPACE-4785 gets resolved, we'll tread "permission" requests
         	// as a special case.
         	//
-        	restriction.put("pageSize", 400);
+        	restriction.put("pageSize", MAX_PERMISSIONS_PAGESIZE);
         	results = getJSON(storage, restriction, key, base);
+        	log.warn(String.format("Due to issue CSPACE-4785, we can retrieve only the first %d permission records.", MAX_PERMISSIONS_PAGESIZE));
         	log.debug(results.toString());
         } else if (r.getID().equals("reports")) {
             String type = "";
@@ -409,7 +415,7 @@ public class RecordSearchList implements WebMethod {
         }
         return results;
     }
-
+    
     private JSONObject showBatches(JSONObject data, String type, String key) throws JSONException {
         JSONObject results = new JSONObject();
         JSONArray list = new JSONArray();
@@ -431,7 +437,7 @@ public class RecordSearchList implements WebMethod {
             results.put("batchnewfocuses", newFocuses);
         }
         return results;
-    }
+    }    
 
     private void advancedSearch(Storage storage, UIRequest ui, String path, JSONObject params) throws UIException {
 

@@ -2,7 +2,7 @@
 <ns2:permission_role xmlns:ns2="http://collectionspace.org/services/authorization">
   <role>
     <roleId>4</roleId>
-    <roleName>ROLE_COLLECTIONS_REGISTRAR</roleName>
+    <roleName>xROLE_COLLECTIONS_REGISTRAR</roleName>
   </role>
   <permission>
   	<actionGroup>read</actionGroup>

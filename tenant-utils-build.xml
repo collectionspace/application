@@ -1,0 +1,142 @@
+<project name="tenant-utils" basedir=".">
+  <description>Utilities for managing folders and files containing per-tenant configurations</description>
+  
+  <!-- Note to developers: for consistency of maintenance and behavior, changes
+       made to this Ant buildfile, tenant-utils-build.xml, should be propagated
+       to each instance of this file across all three of CollectionSpace's
+       build layers: services, application, and ui. -->
+  
+  <!-- Import this Ant build file into any other Ant build file
+       via '<import file="./tenant-utils-build.xml"/>' -->
+  <!-- If a 'tenant.properties' file is provided, values for
+       properties used in this Ant buildfile will be read
+       from that file. -->
+  <!-- Values for these properties can instead, or also, be
+       provided at the command line when invoking Ant, via
+       one or more arguments similar to:
+       -Dvariable.name=somevalue -->
+  <!-- Where there are conflicts, values provided via the command line
+       are used in preference to those provided in the properties file. -->
+  <property file="tenant.properties" />
+  
+  <!-- Main target -->
+  
+  <target name="clone-tenant"
+    depends="clone-template-folder,
+    clone-other-template-files,
+    rename-files-in-cloned-tenant,
+    delete-files-in-cloned-tenant,
+    update-text-in-cloned-tenant"
+    description="Make a copy ('clone') of an existing tenant (effectively using it as a template) to create a new tenant">
+    <echo message="A directory for your newly-cloned '${tenant.shortname}' tenant has been successfully created as '${tenants.dir}/${tenant.shortname}' ..."/>
+    <echo message="You can add or modify files in that directory to configure that tenant's settings ..."/>
+  </target>
+  
+  <!-- Main sub-targets -->
+
+  <target name="clone-template-folder"
+    depends="template-tenant-does-not-exist-error-check,tenant-already-exists-error-check">
+    <echo message="Cloning configuration from template tenant folder '${template.tenant.shortname}' to new tenant folder '${tenant.shortname}' ..."/>
+    <copy todir="${tenants.dir}/${tenant.shortname}">
+      <fileset dir="${tenants.dir}/${template.tenant.shortname}"/>
+    </copy>
+  </target>
+
+  <!-- This (essentially empty) target can be inherited and overridden by
+       any Ant buildfile that imports this tenant-utils buildfile. -->
+  <target name="clone-other-template-files" depends="clone-template-folder">
+    <echo message="Cloning other template files, where applicable ..."/>
+  </target>
+  
+  <!-- This (essentially empty) target can be inherited and overridden by
+       any Ant buildfile that imports this tenant-utils buildfile. -->
+  <target name="rename-files-in-cloned-tenant" depends="clone-other-template-files">
+    <echo message="Renaming files, where applicable ..."/>
+  </target>
+  
+  <!-- This (essentially empty) target can be inherited and overridden by
+       any Ant buildfile that imports this tenant-utils buildfile. -->
+  <target name="delete-files-in-cloned-tenant" depends="rename-files-in-cloned-tenant">
+    <echo message="Deleting files, where applicable ..."/>
+  </target>  
+
+  <!-- This (essentially empty) target can be inherited and overridden by
+       any Ant buildfile that imports this tenant-utils buildfile. -->
+  <target name="update-text-in-cloned-tenant" depends="delete-files-in-cloned-tenant">
+    <echo message="Updating text in the newly-cloned tenant ..."/>
+  </target>
+
+  <!-- Utility targets -->
+  
+  <target name="check-template-properties">
+    <echo message="Checking that required template properties have been set ..."/>
+    <!-- Short name of the existing tenant to use as a template, when
+         creating a new tenant -->
+    <antcall target="check-property-is-defined">
+      <param name="property-to-check" value="template.tenant.shortname"/>
+    </antcall>
+    <antcall target="check-property-value-is-not-blank">
+      <param name="property-to-check" value="template.tenant.shortname"/>
+      <param name="property-to-check-value" value="${template.tenant.shortname}"/>
+    </antcall>
+    <echo message="template.tenant.shortname=${template.tenant.shortname}"/>
+  </target>  
+  
+  <target name="check-tenant-properties">
+    <echo message="Checking that required tenant properties have been set ..."/>
+    <!-- Short name of the new tenant to create -->
+    <antcall target="check-property-is-defined">
+      <param name="property-to-check" value="tenant.shortname"/>
+    </antcall>
+    <antcall target="check-property-value-is-not-blank">
+      <param name="property-to-check" value="tenant.shortname"/>
+      <param name="property-to-check-value" value="${tenant.shortname}"/>
+    </antcall>
+    <echo message="tenant.shortname=${tenant.shortname}"/>
+  </target>
+  
+  <!-- Check that any required per-tenant properties, beyond the tenant shortname,
+       have been defined and are non-blank.
+       This (essentially empty) target can be inherited and overridden by
+       any Ant buildfile that imports this tenant-utils buildfile. -->
+  <target name="check-tenant-extended-properties">
+    <echo message="Checking that any required tenant extended properties have been set ..."/>
+  </target>
+ 
+  <target name="check-property-is-defined">
+    <fail message="'${property-to-check}' property is not defined. It is usually defined in either a 'tenant.properties' file, present in the same directory as this Ant build.xml file, or by adding a '-D${property-to-check}=somevalue' argument when running 'ant clone-tenant'.">
+      <condition>
+          <not><isset property="${property-to-check}"/></not>
+      </condition>
+    </fail>
+  </target>
+   
+  <target name="check-property-value-is-not-blank">
+    <fail message="'${property-to-check}' property is defined, but its value is blank (is empty or contains only whitespace characters). This property must contain a non-blank value. Its value is usually set in either a 'tenant.properties' file, present in the same directory as this Ant build.xml file, or by adding a '-D${property-to-check}=somevalue' argument when running 'ant clone-tenant'.">
+      <condition>
+          <equals arg1="${property-to-check-value}" arg2="" trim="true"/>
+      </condition>
+    </fail>
+  </target>
+  
+  <target name="template-exists" depends="check-template-properties">
+    <condition property="template.exists">
+      <available file="${tenants.dir}/${template.tenant.shortname}" type="dir"/>
+    </condition>
+  </target>
+  
+  <target name="tenant-exists" depends="check-tenant-properties,check-tenant-extended-properties">
+    <condition property="tenant.exists">
+      <available file="${tenants.dir}/${tenant.shortname}" type="dir"/>
+    </condition>
+  </target>
+  
+  <target name="template-tenant-does-not-exist-error-check" depends="template-exists" unless="${template.exists}">
+    <fail message="Could not find 'template' tenant folder '${template.tenant.shortname}' in ${tenants.dir} ...   Check the name of the 'template' tenant, which must match the name of an existing tenant. Its value is usually set in a 'template.tenant.shortname' property, either in a 'tenant.properties' file, present in the same directory as this Ant build.xml file, or by adding a '-Dtemplate.tenant.shortname=somevalue' argument when running 'ant clone-tenant'."/>
+  </target>
+  
+  <target name="tenant-already-exists-error-check" depends="tenant-exists" if="${tenant.exists}">
+    <fail message="Tenant folder '${tenant.shortname}' already exists as ${tenants.dir}/${tenant.shortname} ... To create a new tenant named '${tenant.shortname}', please move the existing folder outside of the CollectionSpace source code tree and re-run 'ant clone-tenant'. Or you can create a new tenant with a different name, by changing the 'tenant.shortname' value, in either a 'tenant.properties' file, present in the same directory as this Ant build.xml file, or by adding a '-Dtenant.shortname=somevalue' argument when running 'ant clone-tenant'."/>
+  </target>
+  
+</project>

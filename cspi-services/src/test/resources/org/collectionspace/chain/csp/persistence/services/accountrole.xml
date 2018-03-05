@@ -7,10 +7,10 @@
     </account>
     <role>
       <roleId>35d93b3b-8c30-4712-bae2-97820ff59626</roleId>
-      <roleName>ROLE_TENANT_ADMINISTRATOR</roleName>
+      <roleName>xROLE_TENANT_ADMINISTRATOR</roleName>
     </role>
     <role>
       <roleId>35d93b3b-8c30-4712-bae2-97820ff59626</roleId>
-      <roleName>ROLE_TENANT_ADMINISTRATOR</roleName>
+      <roleName>xROLE_TENANT_ADMINISTRATOR</roleName>
     </role>
 </ns2:account_role>

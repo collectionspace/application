@@ -17,25 +17,45 @@
                     },
                     "type": "array"
                 },
+                "rev": {"type": "string"},
                 "source": {"type": "string"},
+                "remoteClientConfigName": {"type": "string"},
+                "sas": {
+                    "default": false,
+                    "type": "boolean"
+                },
                 "description": {"type": "string"},
                 "name": {"type": "string"},
                 "terms": {
                     "items": {
                         "properties": {
+                            "deprecated": {
+                                "default": false,
+                                "type": "boolean"
+                            },
+                            "rev": {"type": "string"},
+                            "_subrecordcsid": {"type": "string"},
+                            "workflow": {"type": "string"},
                             "shortIdentifier": {"type": "string"},
                             "_primary": {
                                 "default": true,
                                 "type": "boolean"
                             },
-                            "_subrecordcsid": {"type": "string"},
-                            "inAuthority": {"type": "string"},
-                            "source": {"type": "string"},
                             "order": {"type": "string"},
+                            "source": {"type": "string"},
+                            "inAuthority": {"type": "string"},
+                            "sas": {
+                                "default": false,
+                                "type": "boolean"
+                            },
                             "description": {"type": "string"},
                             "termStatus": {
                                 "default": "active",
                                 "type": "string"
+                            },
+                            "proposed": {
+                                "default": false,
+                                "type": "boolean"
                             },
                             "displayName": {"type": "string"},
                             "sourcePage": {"type": "string"}
@@ -46,6 +66,7 @@
                 },
                 "displayName": {"type": "string"},
                 "vocabType": {"type": "string"},
+                "workflow": {"type": "string"},
                 "sourcePage": {"type": "string"}
             },
             "type": "object"

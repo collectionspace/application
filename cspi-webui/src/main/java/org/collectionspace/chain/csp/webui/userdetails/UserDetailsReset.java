@@ -60,14 +60,14 @@ public class UserDetailsReset implements WebMethod {
 	boolean setnewpassword = false;
 	String base = "users";
 	Spec spec;
+	
 	private static String tokensalt = "74102328UserDetailsReset";
+	
 	public UserDetailsReset(Boolean setnewpassword, Spec spec) { 
 		this.setnewpassword = setnewpassword;
 		this.spec = spec;
 	}
-	
-
-	
+		
 	private Boolean doEmail(String csid, String emailparam, Request in, JSONObject userdetails) throws UIException, JSONException {
 		
 		String token = createToken(csid);
@@ -179,7 +179,7 @@ public class UserDetailsReset implements WebMethod {
 	private boolean tokenExpired(String token, String match) throws UIException{ 
 		
 		EmailData ed = spec.getEmailData();
-		Integer lengthTokenIsValidFor = ed.getTokenValidForLength();
+		Integer lengthTokenIsValidFor = ed.getTokenExpirationDays();
 		//token is what we got from the user, match is what we created 
 		//Get the date from when the token was created by dividing token by match 
 		Long dateFromToken = (Long.parseLong(token)*100000) / Long.parseLong(match, 16); 

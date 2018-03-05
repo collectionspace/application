@@ -9,11 +9,8 @@ package org.collectionspace.chain.csp.persistence.services.relation;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
@@ -58,7 +55,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 	private Map<String,String> type_to_surl=new HashMap<String,String>();
 	private Map<String,String> surl_to_type=new HashMap<String,String>();
 
-	private static Map<String,Relationship> types=new HashMap<String,Relationship>();
+	private Map<String,Relationship> types=new HashMap<String,Relationship>();
 	
 	static {
 		//needs to be set thr CSPACE-2557
@@ -192,16 +189,19 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		}
 	}
 
+	@Override
 	public void createJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath, JSONObject jsonObject)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("Cannot create relations to path");
 	}
 
+	@Override
 	public void transitionWorkflowJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, 
 			String filePath, String workflowTransition) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("Workflow not supported on relations");
 	}
 	
+	@Override
 	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
@@ -285,6 +285,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		return true;
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public JSONObject getPathsJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String rootPath,JSONObject restrictions)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
@@ -383,6 +384,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		out.put(nameKey, nameValue);
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public String[] getPaths(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String rootPath,JSONObject restrictions)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
@@ -406,6 +408,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		}
 	}
 
+	@Override
 	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath, JSONObject restrictions)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
@@ -435,6 +438,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		}
 	}
 
+	@Override
 	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath,JSONObject data, JSONObject restrictions) 
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {

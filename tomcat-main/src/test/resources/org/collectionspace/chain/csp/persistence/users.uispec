@@ -103,6 +103,10 @@
     ".csc-users-uri-label": {
       "messagekey": "users-uriLabel"
     }, 
+    ".csc-users-workflow": "${fields.workflow}", 
+    ".csc-users-workflow-label": {
+      "messagekey": "users-workflowLabel"
+    }, 
     ".csc-users-userId-label": {
       "messagekey": "users-userIdLabel"
     }, 

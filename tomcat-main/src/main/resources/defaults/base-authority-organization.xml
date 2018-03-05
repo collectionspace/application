@@ -1,17 +1,23 @@
-<record id="organization" type="authority" cms-type="default" generate-services-schema="true">
+<record id="organization" type="authority" cms-type="default" 
+    generate-services-schema="true">
     <terms-used>true</terms-used>
     <web-url>organization</web-url>
+    
     <services-tenant-auth-plural>Orgauthorities</services-tenant-auth-plural>
     <services-tenant-auth-singular>Orgauthority</services-tenant-auth-singular>
     <services-tenant-singular>Organization</services-tenant-singular>
-    <services-instances-path>orgauthorities_common:http://collectionspace.org/services/organization,abstract-common-list/list-item</services-instances-path>    <services-single-instance-path>orgauthorities_common:http://collectionspace.org/services/organization,orgauthorities_common</services-single-instance-path>
+    
+    <services-instances-path>orgauthorities_common:http://collectionspace.org/services/organization,abstract-common-list/list-item</services-instances-path>
+    <services-single-instance-path>orgauthorities_common:http://collectionspace.org/services/organization,orgauthorities_common</services-single-instance-path>
     <services-list-path>http://collectionspace.org/services/organization,abstract-common-list/list-item</services-list-path>
+    
     <services-record-path>organizations_common:http://collectionspace.org/services/organization,organizations_common</services-record-path>
-    <services-record-path id="collectionspace_core"
-        >collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+    <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
     <services-url>orgauthorities</services-url>
     <authority-vocab-type>OrgAuthority</authority-vocab-type>
     <hassoftdelete>true</hassoftdelete>
+    <supportsReplicating>true</supportsReplicating>
+    
     <structures>
         <structure id="search">
             <view>
@@ -23,8 +29,8 @@
                 <label-section id="messagekeys" show="true"/>
                 <hierarchy-section show="true">
                     <options>
-                        <option id="narrowerContext">organization-organization</option>
-                        <option id="broaderContext">organization-organization</option>
+                        <option id="narrowerContext">organization-organization,organization-organization_shared</option>
+                        <option id="broaderContext">organization-organization,organization-organization_shared</option>
                     </options>
                 </hierarchy-section>
             </view>
@@ -54,6 +60,9 @@
         <field id="preferredOrganization" ui-type="groupfield/preferredOA/selfrenderer" ui-func="cspace.preferred">
             <selector>preferred-orgAuthority</selector>
         </field>
+        <repeat id="organizationRecordTypes">
+            <field id="organizationRecordType" ui-search="repeatable" autocomplete="vocab-organizationtype" ui-type="enum"/>
+        </repeat>
         <field id="foundingDateGroup" in-title="yes" ui-type="groupfield/structureddate" 
             ui-search="range" primarykey="foundingDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
             <selector>organizationAuthority-foundingDate</selector>
@@ -83,7 +92,7 @@
             </field>
         </repeat>
         <repeat id="contactNames">
-            <field id="contactName" autocomplete="person-person">
+            <field id="contactName" autocomplete="person-person,person-person_shared">
                 <selector>orgAuthority-contactName</selector>
             </field>
         </repeat>
@@ -100,5 +109,10 @@
 		</field>
         <field id="shortIdentifier" mini="search,list,relate" attributes="GET" services-should-index="true"/>
         <field id="csid" exists-in-services="false" mini="search,list,relate" attributes="GET"/>
+        <!-- SAS related fields -->
+		<field id="rev" mini="list" datatype="integer"/>
+		<field id="sas" mini="list" datatype="boolean"/>
+		<field id="proposed" mini="list" datatype="boolean"/>
+		<field id="deprecated" mini="list" datatype="boolean"/>
     </section>
 </record>

@@ -25,7 +25,9 @@
                     <field id="length" attributes="GET"></field>
                     <field id="digest"></field>
                     <field id="repositoryId"></field>
-                    <field id="uri"></field>
+                    <field id="blobUri">
+                        <services-tag>uri</services-tag>
+                    </field>
                     <field id="id" exists-in-services="false"></field>
 					<field id="dimension" ui-type="groupfield/dimension/selfrenderer" in-trueTree="true" ui-readonly="true"  ui-func="cspace.dimension"  ></field>
                     <field id="imgThumb" attributes="GET" mini="search,list,relate" exists-in-services="false" services-derived="true">
