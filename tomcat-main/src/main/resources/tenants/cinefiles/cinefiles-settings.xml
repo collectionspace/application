@@ -24,6 +24,7 @@
 				<name>cinefiles.cspace.berkeley.edu</name>
 				<version>0.1</version>
 				<display-name>CollectionSpace CineFiles Tenant</display-name>
+				<create-disabled>${CSPACE_CINEFILES_CREATE_DISABLED_OPT}</create-disabled>
 			</tenant>
 			<repository>
 				<domain>cinefiles_domain</domain>

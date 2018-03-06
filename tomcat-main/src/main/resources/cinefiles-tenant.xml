@@ -1,7 +1,7 @@
 <cspace-config tenantname="cinefiles">
 	<tenantid>50</tenantid>
 	<version>11</version>
-	<include src="settings.xml,cinefiles-settings.xml,host-settings.xml" merge="xmlmerge-settings.properties" strip-root="yes"/>
+	<include src="settings.xml,cinefiles-settings.xml,host-settings.xml" required="false" merge="xmlmerge-settings.properties" strip-root="yes"/>
 
 	<spec>
 		<include src="base-relations.xml"/>
@@ -9,7 +9,7 @@
 
 		<records>
 			<enum-blank>Please select a value</enum-blank>
-			
+
 			<include src="base-collectionobject.xml,cinefiles-collectionobject.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority.xml"/>
 
@@ -18,7 +18,7 @@
 			<include src="base-procedure-groups.xml,cinefiles-procedure-groups.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-media.xml,cinefiles-procedure-media.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-valuationcontrol.xml"/>
-			
+
 			<include src="base-authority-contact.xml,cinefiles-authority-contact.xml" merge="xmlmerge.properties"/>
 
 			<!-- IMPORTANT: *-termList.xml files MUST precede their equivalent files. -->
@@ -48,6 +48,7 @@
 			<include src="base-authz-users.xml"/>
 
 			<include src="base-other-dimension.xml"/>
+			<include src="base-other-address.xml"/>
 			<include src="base-other-hierarchy.xml"/>
 			<include src="base-other-idgenerator.xml,cinefiles-other-idgenerator.xml" merge="xmlmerge.properties"/>
 			<include src="base-other-structureddate.xml"/>
