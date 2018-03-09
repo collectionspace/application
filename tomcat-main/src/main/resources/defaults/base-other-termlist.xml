@@ -39,7 +39,7 @@
 	
     <section id="termListInformation">
     	
-	<field id="workflow" exists-in-services="false" services-derived="true" section="collectionspace_core" attributes="GET" mini="search,list">
+	<field id="workflow" exists-in-services="false" services-derived="true" section="collectionspace_core" attributes="GET" mini="search">
 		<services-tag>workflowState</services-tag>
 	</field>
 	
