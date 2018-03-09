@@ -31,7 +31,7 @@
 	
 
     <section id="termListItemInformation">
-		<field id="workflow" exists-in-services="false" services-derived="true" section="collectionspace_core" attributes="GET" mini="search,list" ui-type="workflowState">
+		<field id="workflow" exists-in-services="false" services-derived="true" section="collectionspace_core" attributes="GET" mini="search" ui-type="workflowState">
 			<services-tag>workflowState</services-tag>
 		</field>
     	<field id="_subrecordcsid"></field> <!-- What is this field? -->
@@ -53,6 +53,7 @@
 		<field id="sas" mini="list" datatype="boolean"/>
 		<field id="proposed" mini="list" datatype="boolean"/>
 		<field id="deprecated" mini="list" datatype="boolean"/>
+        <field id="referenced" mini="list" exists-in-services="false" services-derived="true"/>
 	</section>
 	
 </record>
