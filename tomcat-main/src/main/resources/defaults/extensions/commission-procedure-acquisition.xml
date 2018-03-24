@@ -1,0 +1,20 @@
+<record id="acquisition" is-extension="true">
+    <services-record-path id="commission">acquisitions_commission:http://collectionspace.org/services/acquisition/domain/commission,acquisitions_commission</services-record-path>
+
+    <section id="commissionInformation">
+        <repeat id="commissioningBodyList" services-type-anonymous="false" section="commission">
+            <field id="commissioningBody" section="commission" />
+        </repeat>
+
+        <field id="commissionDate" ui-type="groupfield/structureddate" section="commission" />
+
+        <repeat id="commissionBudgetGroupList/commissionBudgetGroup" section="commission">
+            <field id="commissionBudgetType" section="commission" />
+            <field id="commissionBudgetTypeNote" section="commission" />
+            <field id="commissionProjectedValueCurrency" section="commission" />
+            <field id="commissionProjectedValueAmount" datatype="float" section="commission" />
+            <field id="commissionActualValueCurrency" section="commission" />
+            <field id="commissionActualValueAmount" datatype="float" section="commission" />
+        </repeat>
+    </section>
+</record>
