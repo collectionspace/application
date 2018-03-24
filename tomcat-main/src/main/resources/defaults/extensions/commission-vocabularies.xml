@@ -1,0 +1,21 @@
+<instances>
+	<instance id="vocab-budgettype">
+		<web-url>budgettype</web-url>
+		<title-ref>budgettype</title-ref>
+		<title>Budget Types</title>
+		<options>
+			<option id="proposal_stipend">proposal stipend</option>
+			<option id="artist_fee">artist fee</option>
+			<option id="professional_fees">professional fees</option>
+			<option id="materials">materials</option>
+			<option id="fabrication">fabrication</option>
+			<option id="installation">installation</option>
+			<option id="administration">administration</option>
+			<option id="insurance">insurance</option>
+			<option id="permits">permits</option>
+			<option id="dedication">dedication</option>
+			<option id="maintenance">maintenance</option>
+			<option id="miscellaneous">miscellaneous</option>
+		</options>
+	</instance>
+</instances>
