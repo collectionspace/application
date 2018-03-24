@@ -7,7 +7,7 @@
 		<!-- Replacement for collection, to make repeating. -->
 
 		<repeat id="publicartCollections" section="publicart">
-			<field id="publicartCollection" section="publicart"/>
+			<field id="publicartCollection" section="publicart" />
 		</repeat>
 	</section>
 
@@ -17,33 +17,7 @@
 		<!-- Replacement for productionDateGroupList/productionDateGroup, to add type. -->
 
 		<repeat id="publicartProductionDateGroupList/publicartProductionDateGroup" section="publicart">
-			<group id="publicartProductionStructDateGroup" section="anthro" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
-				<!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
-				<field id="dateDisplayDate" section="anthro"/>
-				<field id="dateAssociation" section="anthro"/>
-				<field id="dateEarliestSingleYear" section="anthro"/>
-				<field id="dateEarliestSingleMonth" section="anthro"/>
-				<field id="dateEarliestSingleDay" section="anthro"/>
-				<field id="dateEarliestSingleEra" section="anthro"/>
-				<field id="dateEarliestSingleCertainty" section="anthro"/>
-				<field id="dateEarliestSingleQualifier" section="anthro"/>
-				<field id="dateEarliestSingleQualifierValue" section="anthro"/>
-				<field id="dateEarliestSingleQualifierUnit" section="anthro"/>
-				<field id="dateLatestYear" section="anthro"/>
-				<field id="dateLatestMonth" section="anthro"/>
-				<field id="dateLatestDay" section="anthro"/>
-				<field id="dateLatestEra" section="anthro"/>
-				<field id="dateLatestCertainty" section="anthro"/>
-				<field id="dateLatestQualifier" section="anthro"/>
-				<field id="dateLatestQualifierValue" section="anthro"/>
-				<field id="dateLatestQualifierUnit" section="anthro"/>
-				<field id="datePeriod" section="anthro"/>
-				<field id="dateNote" section="anthro"/>
-				<field id="dateEarliestScalarValue" section="anthro"/>
-				<field id="dateLatestScalarValue" section="anthro"/>
-				<field id="scalarValuesComputed" section="anthro"/>
-			</group>
-
+			<group id="publicartProductionStructDateGroup" section="publicart" ui-type="groupfield/structureddate" />
 			<field id="publicartProductionDateType" section="publicart"/>
 		</repeat>
 
