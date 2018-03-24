@@ -13,7 +13,7 @@
 			<include src="base-collectionobject.xml,publicart-collectionobject.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority.xml"/>
 
-			<include src="base-procedure-acquisition.xml"/>
+			<include src="base-procedure-acquisition.xml,publicart-procedure-acquisition.xml,extensions/commission-procedure-acquisition.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-blobs.xml"/>
 			<include src="base-procedure-conditioncheck.xml"/>
 			<include src="base-procedure-exhibition.xml"/>
