@@ -1,4 +1,4 @@
-<!-- Change conceptType options. -->
+<!-- Change options of conceptType, inventorystatus. -->
 <instances>
     <include src="domain-instance-vocabularies.xml" strip-root="yes"/>
     <instance id="vocab-inventorystatus">
@@ -6,31 +6,9 @@
         <title-ref>inventorystatus</title-ref>
         <title>Inventory Status</title>
         <options>
-            <option id="unknown">unknown</option>
-            <option id="accessionstatusunclear">accession status unclear</option>
-            <option id="accessioned">accessioned</option>
-            <option id="deaccessioned">deaccessioned</option>
-            <option id="destroyed">destroyed</option>
-            <option id="destructiveanalysis">destructive analysis</option>
-            <option id="discarded">discarded</option>
-            <option id="exchanged">exchanged</option>
-            <option id="intendedfortransfer">intended for transfer</option>
-            <option id="irregularmuseumnumber">irregular museum number</option>
-            <option id="missing">missing</option>
-            <option id="missingininventory">missing in inventory</option>
-            <option id="notcataloged">not cataloged</option>
-            <option id="notlocated">not located</option>
-            <option id="notreceived">not received</option>
-            <option id="numbernotused">number not used</option>
-            <option id="objectmount">object mount</option>
+            <option id="permanent">permanent</option>
             <option id="onloan">on loan</option>
-            <option id="partiallydeaccessioned">partially deaccessioned</option>
-            <option id="partiallyexchanged">partially exchanged</option>
-            <option id="partiallyrecataloged">partially recataloged</option>
-            <option id="returnedloanobject">returned loan object</option>
-            <option id="sold">sold</option>
-            <option id="stolen">stolen</option>
-            <option id="transferred">transferred</option>
+            <option id="temporary">temporary</option>
         </options>
     </instance>
     <instance id="vocab-publishto">

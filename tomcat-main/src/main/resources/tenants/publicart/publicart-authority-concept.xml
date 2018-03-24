@@ -1,7 +1,7 @@
 <record id="concept">
     <!--
-        Replace instances (delete activity, materialclassification, materialformtype, add
-        worktype)
+        Replace instances (delete activity, materialclassification, materialformtype; add
+        worktype, ethculture)
     -->
     <instances id="concept">
         <instance id="concept-concept">
@@ -18,6 +18,11 @@
             <web-url>worktype</web-url>
             <title-ref>worktype</title-ref>
             <title>Work Types</title>
+        </instance>
+        <instance id="concept-ethculture">
+            <web-url>ethculture</web-url>
+            <title-ref>ethculture</title-ref>
+            <title>Ethnographic Cultures</title>
         </instance>
     </instances>
 </record>
