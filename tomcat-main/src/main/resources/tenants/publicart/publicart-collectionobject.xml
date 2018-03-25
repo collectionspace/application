@@ -2,12 +2,28 @@
 	<services-record-path id="publicart">collectionobjects_publicart:http://collectionspace.org/services/collectionobject/local/publicart,collectionobjects_publicart</services-record-path>
 
 	<section id="identificationInformation">
+		<repeat id="responsibleDepartments">
+			<!-- Add autocomplete, ui-type -->
+			<field id="responsibleDepartment" autocomplete="true" ui-type="enum" />
+		</repeat>
+
+		<repeat id="objectNameList/objectNameGroup">
+			<!-- Add autocomplete -->
+			<field id="objectName" autocomplete="true" />
+		</repeat>
+
 		<!-- Local fields -->
 
 		<!-- Replacement for collection, to make repeating. -->
-
 		<repeat id="publicartCollections" section="publicart">
-			<field id="publicartCollection" section="publicart" />
+			<field id="publicartCollection" autocomplete="true" section="publicart" />
+		</repeat>
+	</section>
+
+	<section id="descriptionInformation">
+		<repeat id="materialGroupList/materialGroup">
+			<!-- Add autocomplete -->
+			<field id="material" autocomplete="true" />
 		</repeat>
 	</section>
 
@@ -15,17 +31,15 @@
 		<!-- Local fields -->
 
 		<!-- Replacement for productionDateGroupList/productionDateGroup, to add type. -->
-
 		<repeat id="publicartProductionDateGroupList/publicartProductionDateGroup" section="publicart">
 			<group id="publicartProductionDate" section="publicart" ui-type="groupfield/structureddate" />
-			<field id="publicartProductionDateType" section="publicart"/>
+			<field id="publicartProductionDateType" autocomplete="true" ui-type="enum" section="publicart"/>
 		</repeat>
 
 		<!-- Replacement for productionPersonGroupList/productionPersonGroup, to add type. -->
-
 		<repeat id="publicartProductionPersonGroupList/publicartProductionPersonGroup" section="publicart">
-			<field id="publicartProductionPerson" section="publicart"/>
-			<field id="publicartProductionPersonRole" section="publicart"/>
+			<field id="publicartProductionPerson" autocomplete="true" section="publicart"/>
+			<field id="publicartProductionPersonRole" autocomplete="true" ui-type="enum" section="publicart"/>
 			<field id="publicartProductionPersonType" section="publicart"/>
 		</repeat>
 	</section>
