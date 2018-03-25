@@ -17,7 +17,7 @@
 		<!-- Replacement for productionDateGroupList/productionDateGroup, to add type. -->
 
 		<repeat id="publicartProductionDateGroupList/publicartProductionDateGroup" section="publicart">
-			<group id="publicartProductionStructDateGroup" section="publicart" ui-type="groupfield/structureddate" />
+			<group id="publicartProductionDate" section="publicart" ui-type="groupfield/structureddate" />
 			<field id="publicartProductionDateType" section="publicart"/>
 		</repeat>
 
