@@ -22,7 +22,7 @@
 			<include src="base-procedure-loanin.xml"/>
 			<include src="base-procedure-loanout.xml"/>
 			<include src="base-procedure-media.xml"/>
-			<include src="base-procedure-valuationcontrol.xml"/>
+			<include src="base-procedure-valuationcontrol.xml,publicart-procedure-valuationcontrol.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-movement.xml"/>
 			<include src="base-procedure-objectexit.xml"/>
 			<include src="base-procedure-conservation.xml,publicart-procedure-conservation.xml" merge="xmlmerge.properties"/>
