@@ -5,12 +5,12 @@
         <!-- Local fields -->
 
         <field id="conservationPriorityLevel" section="publicart" />
-        <field id="proposedTreatmentEstCurrency" section="publicart" />
+        <field id="proposedTreatmentEstCurrency" autocomplete="true" ui-type="enum" section="publicart" />
         <field id="proposedTreatmentEstValue" datatype="float" section="publicart" />
         <field id="proposedTreatmentStartDate" datatype="date" section="publicart" />
         <field id="proposedTreatmentEndDate" datatype="date" section="publicart" />
         <field id="proposedTreatmentContractRestrictions" section="publicart" />
-        <field id="treatmentCostCurrency" section="publicart" />
+        <field id="treatmentCostCurrency" autocomplete="true" ui-type="enum" section="publicart" />
         <field id="treatmentCostValue" datatype="float" section="publicart" />
     </section>
 
