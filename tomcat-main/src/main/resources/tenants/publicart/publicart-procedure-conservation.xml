@@ -1,0 +1,18 @@
+<record id="conservation" is-extension="true">
+    <services-record-path id="publicart">conservation_publicart:http://collectionspace.org/services/conservation/local/publicart,conservation_publicart</services-record-path>
+
+    <section id="objectTreatmentInformation">
+        <field id="conservationPriorityLevel" section="publicart" />
+        <field id="proposedTreatmentEstCurrency" section="publicart" />
+        <field id="proposedTreatmentEstValue" datatype="float" section="publicart" />
+        <field id="proposedTreatmentStartDate" datatype="date" section="publicart" />
+        <field id="proposedTreatmentEndDate" datatype="date" section="publicart" />
+        <field id="proposedTreatmentContractRestrictions" section="publicart" />
+        <field id="treatmentCostCurrency" section="publicart" />
+        <field id="treatmentCostValue" datatype="float" section="publicart" />
+    </section>
+
+    <section id="objectAnalysisInformation">
+        <field id="analysisRecommendations" section="publicart" />
+    </section>
+</record>
