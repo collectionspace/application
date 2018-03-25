@@ -2,6 +2,8 @@
     <services-record-path id="publicart">conservation_publicart:http://collectionspace.org/services/conservation/local/publicart,conservation_publicart</services-record-path>
 
     <section id="objectTreatmentInformation">
+        <!-- Local fields -->
+
         <field id="conservationPriorityLevel" section="publicart" />
         <field id="proposedTreatmentEstCurrency" section="publicart" />
         <field id="proposedTreatmentEstValue" datatype="float" section="publicart" />
@@ -13,6 +15,8 @@
     </section>
 
     <section id="objectAnalysisInformation">
+        <!-- Local fields -->
+
         <field id="analysisRecommendations" section="publicart" />
     </section>
 </record>
