@@ -1,9 +1,9 @@
 <root>
     <include src="extensions/commission-vocabularies.xml" strip-root="yes"/>
-    <instance id="vocab-department">
-        <web-url>department</web-url>
-        <title-ref>department</title-ref>
-        <title>Departments</title>
+    <instance id="vocab-program">
+        <web-url>program</web-url>
+        <title-ref>program</title-ref>
+        <title>Programs</title>
         <options>
             <option id="percent_for_art">percent for art</option>
             <option id="art_on_loan">art on loan</option>
