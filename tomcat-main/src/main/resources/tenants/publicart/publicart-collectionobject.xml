@@ -1,10 +1,20 @@
 <record id="collection-object" is-extension="true">
 	<services-record-path id="publicart">collectionobjects_publicart:http://collectionspace.org/services/collectionobject/local/publicart,collectionobjects_publicart</services-record-path>
 
+	<section id="coreInformation">
+		<!-- Remove summary from mini -->
+		<field id="nametitle" mini="search,list,relate" />
+	</section>
+
 	<section id="identificationInformation">
 		<repeat id="responsibleDepartments">
 			<!-- Add autocomplete, ui-type -->
 			<field id="responsibleDepartment" autocomplete="true" ui-type="enum" />
+		</repeat>
+
+		<repeat id="titleGroupList/titleGroup">
+			<!-- Add summary to mini -->
+			<field id="title" mini="summary,search,list" />
 		</repeat>
 
 		<repeat id="objectNameList/objectNameGroup">
