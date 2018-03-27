@@ -1091,7 +1091,7 @@ public class ServiceBindingsGeneration {
 		}
 		String section;
 		for (FieldSet fs : allMiniSummaryList) {
-			if (fs.isInServices() && !fs.excludeFromServicesList()) {
+			if ((fs.isInServices() && !fs.excludeFromServicesList()) || fs.isServicesDerived()) {
 				String fieldNamePath = this.getFullyQualifiedFieldPath(fs);
 				section = fs.getSection();
 				//
