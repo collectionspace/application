@@ -12,6 +12,9 @@
 			<field id="responsibleDepartment" autocomplete="true" ui-type="enum" />
 		</repeat>
 
+		<!-- Add mini -->
+		<field id="computedCurrentLocation" mini="search,list" />
+
 		<repeat id="titleGroupList/titleGroup">
 			<!-- Add summary to mini -->
 			<field id="title" mini="summary,search,list" />
