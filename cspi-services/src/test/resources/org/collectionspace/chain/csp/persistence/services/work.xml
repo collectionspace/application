@@ -1,86 +1,100 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <ns2:works_common xmlns:ns2="http://collectionspace.org/services/work">
-    <shortIdentifier>worktest1</shortIdentifier>
-    <workHistoryNote>history note goes here</workHistoryNote>
-    <workType>work type goes here</workType>
-    <creatorGroupList>
-        <creatorGroup>
-            <creator>Frank Oz</creator>
-            <creatorType>director</creatorType>
-        </creatorGroup>
-    </creatorGroupList>
-    <publisherGroupList>
-        <publisherGroup>
-            <publisher>TriStar Pictures</publisher>
-            <publisherType>distributor</publisherType>
-        </publisherGroup>
-    </publisherGroupList>
-    <workTermGroupList>
-        <workTermGroup>
-            <termDisplayName>Muppets Take Manhattan (1984)</termDisplayName>
-            <termName>Muppets Take Manhattan</termName>
-            <termLanguage>english</termLanguage>
-            <termPrefForLang>false</termPrefForLang>
-            <termType>term type</termType>
-            <termQualifier>term qualifier</termQualifier>
-            <termSource>other</termSource>
-            <termSourceID>12345</termSourceID>
-            <termSourceDetail>term source detail</termSourceDetail>
-            <termSourceNote>source note goes here</termSourceNote>
-            <termFormattedDisplayName>Muppets Take Manhattan (1984)</termFormattedDisplayName>
-            <termStatus>complete</termStatus>
-        </workTermGroup>
-    </workTermGroupList>
-    <workDateGroupList>
-        <workDateGroup>
-            <dateEarliestSingleQualifier>-</dateEarliestSingleQualifier>
-            <dateLatestDay>22</dateLatestDay>
-            <dateLatestYear>5</dateLatestYear>
-            <dateAssociation>sdf</dateAssociation>
-            <dateEarliestSingleEra>bce</dateEarliestSingleEra>
-            <dateDisplayDate>sdf</dateDisplayDate>
-            <dateEarliestSingleCertainty>about</dateEarliestSingleCertainty>
-            <dateLatestEra>bce</dateLatestEra>
-            <dateEarliestSingleQualifierValue>4</dateEarliestSingleQualifierValue>
-            <dateLatestCertainty>approximate</dateLatestCertainty>
-            <dateEarliestSingleYear>1</dateEarliestSingleYear>
-            <dateLatestQualifier>+</dateLatestQualifier>
-            <dateLatestQualifierValue>2</dateLatestQualifierValue>
-            <dateEarliestSingleQualifierUnit>days</dateEarliestSingleQualifierUnit>
-            <datePeriod>sdf</datePeriod>
-            <dateLatestMonth>11</dateLatestMonth>
-            <dateNote>sdf</dateNote>
-            <dateLatestQualifierUnit>month</dateLatestQualifierUnit>
-            <dateEarliestSingleDay>3</dateEarliestSingleDay>
-            <dateEarliestSingleMonth>2</dateEarliestSingleMonth>
-            <scalarValuesComputed>false</scalarValuesComputed>
-            <dateEarliestScalarValue></dateEarliestScalarValue>
-            <dateLatestScalarValue></dateLatestScalarValue>
-        </workDateGroup>
-        <workDateGroup>
-            <dateEarliestSingleQualifier>-</dateEarliestSingleQualifier>
-            <dateLatestDay>20</dateLatestDay>
-            <dateLatestYear>1</dateLatestYear>
-            <dateAssociation>wer</dateAssociation>
-            <dateEarliestSingleEra>bce</dateEarliestSingleEra>
-            <dateDisplayDate>wer</dateDisplayDate>
-            <dateEarliestSingleCertainty>about</dateEarliestSingleCertainty>
-            <dateLatestEra>bce</dateLatestEra>
-            <dateEarliestSingleQualifierValue>4</dateEarliestSingleQualifierValue>
-            <dateLatestCertainty>approximate</dateLatestCertainty>
-            <dateEarliestSingleYear>1</dateEarliestSingleYear>
-            <dateLatestQualifier>+</dateLatestQualifier>
-            <dateLatestQualifierValue>2</dateLatestQualifierValue>
-            <dateEarliestSingleQualifierUnit>days</dateEarliestSingleQualifierUnit>
-            <datePeriod>werwerwer</datePeriod>
-            <dateLatestMonth>11</dateLatestMonth>
-            <dateNote>werwer</dateNote>
-            <dateLatestQualifierUnit>month</dateLatestQualifierUnit>
-            <dateEarliestSingleDay>21</dateEarliestSingleDay>
-            <dateEarliestSingleMonth>7</dateEarliestSingleMonth>
-            <scalarValuesComputed>false</scalarValuesComputed>
-            <dateEarliestScalarValue></dateEarliestScalarValue>
-            <dateLatestScalarValue></dateLatestScalarValue>
-        </workDateGroup>
-    </workDateGroupList>
+	<shortIdentifier>worktest1</shortIdentifier>
+	<deprecated>false</deprecated>
+	<sas>false</sas>
+	<proposed>false</proposed>
+	<workHistoryNote>history note goes here</workHistoryNote>
+	<workType>work type goes here</workType>
+	<creatorGroupList>
+		<creatorGroup>
+			<creator>Frank Oz</creator>
+			<creatorType>director</creatorType>
+		</creatorGroup>
+	</creatorGroupList>
+	<publisherGroupList>
+		<publisherGroup>
+			<publisher>TriStar Pictures</publisher>
+			<publisherType>distributor</publisherType>
+		</publisherGroup>
+	</publisherGroupList>
+	<workTermGroupList>
+		<workTermGroup>
+			<termDisplayName>Muppets Take Manhattan (1984)</termDisplayName>
+			<termName>Muppets Take Manhattan</termName>
+			<termLanguage>english</termLanguage>
+			<termPrefForLang>false</termPrefForLang>
+			<termType>term type</termType>
+			<termQualifier>term qualifier</termQualifier>
+			<termSource>other</termSource>
+			<termSourceID>12345</termSourceID>
+			<termSourceDetail>term source detail</termSourceDetail>
+			<termSourceNote>source note goes here</termSourceNote>
+			<termFormattedDisplayName>Muppets Take Manhattan (1984)</termFormattedDisplayName>
+			<termStatus>complete</termStatus>
+		</workTermGroup>
+	</workTermGroupList>
+	<workDateGroupList>
+		<workDateGroup>
+			<dateEarliestSingleQualifier>-</dateEarliestSingleQualifier>
+			<dateLatestDay>22</dateLatestDay>
+			<dateLatestYear>5</dateLatestYear>
+			<dateAssociation>sdf</dateAssociation>
+			<dateEarliestSingleEra>bce</dateEarliestSingleEra>
+			<dateDisplayDate>sdf</dateDisplayDate>
+			<dateEarliestSingleCertainty>about</dateEarliestSingleCertainty>
+			<dateLatestEra>bce</dateLatestEra>
+			<dateEarliestSingleQualifierValue>4</dateEarliestSingleQualifierValue>
+			<dateLatestCertainty>approximate</dateLatestCertainty>
+			<dateEarliestSingleYear>1</dateEarliestSingleYear>
+			<dateLatestQualifier>+</dateLatestQualifier>
+			<dateLatestQualifierValue>2</dateLatestQualifierValue>
+			<dateEarliestSingleQualifierUnit>days</dateEarliestSingleQualifierUnit>
+			<datePeriod>sdf</datePeriod>
+			<dateLatestMonth>11</dateLatestMonth>
+			<dateNote>sdf</dateNote>
+			<dateLatestQualifierUnit>month</dateLatestQualifierUnit>
+			<dateEarliestSingleDay>3</dateEarliestSingleDay>
+			<dateEarliestSingleMonth>2</dateEarliestSingleMonth>
+			<scalarValuesComputed>false</scalarValuesComputed>
+			<dateEarliestScalarValue></dateEarliestScalarValue>
+			<dateLatestScalarValue></dateLatestScalarValue>
+		</workDateGroup>
+		<workDateGroup>
+			<dateEarliestSingleQualifier>-</dateEarliestSingleQualifier>
+			<dateLatestDay>20</dateLatestDay>
+			<dateLatestYear>1</dateLatestYear>
+			<dateAssociation>wer</dateAssociation>
+			<dateEarliestSingleEra>bce</dateEarliestSingleEra>
+			<dateDisplayDate>wer</dateDisplayDate>
+			<dateEarliestSingleCertainty>about</dateEarliestSingleCertainty>
+			<dateLatestEra>bce</dateLatestEra>
+			<dateEarliestSingleQualifierValue>4</dateEarliestSingleQualifierValue>
+			<dateLatestCertainty>approximate</dateLatestCertainty>
+			<dateEarliestSingleYear>1</dateEarliestSingleYear>
+			<dateLatestQualifier>+</dateLatestQualifier>
+			<dateLatestQualifierValue>2</dateLatestQualifierValue>
+			<dateEarliestSingleQualifierUnit>days</dateEarliestSingleQualifierUnit>
+			<datePeriod>werwerwer</datePeriod>
+			<dateLatestMonth>11</dateLatestMonth>
+			<dateNote>werwer</dateNote>
+			<dateLatestQualifierUnit>month</dateLatestQualifierUnit>
+			<dateEarliestSingleDay>21</dateEarliestSingleDay>
+			<dateEarliestSingleMonth>7</dateEarliestSingleMonth>
+			<scalarValuesComputed>false</scalarValuesComputed>
+			<dateEarliestScalarValue></dateEarliestScalarValue>
+			<dateLatestScalarValue></dateLatestScalarValue>
+		</workDateGroup>
+	</workDateGroupList>
+	<addrGroupList>
+		<addrGroup>
+			<addressCountry/>
+			<addressPlace2/>
+			<addressPlace1>123 Telegraph Ave.</addressPlace1>
+			<addressType>urn:cspace:core.collectionspace.org:vocabularies:name(addresstype):item:name(personal)'personal'</addressType>
+			<addressMunicipality>urn:cspace:core.collectionspace.org:placeauthorities:name(place):item:name(Berkeley1463718674206)'Berkeley'</addressMunicipality>
+			<addressPostCode/>
+			<addressStateOrProvince/>
+		</addrGroup>
+	</addrGroupList>
 </ns2:works_common>

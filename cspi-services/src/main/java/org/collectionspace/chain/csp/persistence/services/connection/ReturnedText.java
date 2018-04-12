@@ -12,13 +12,19 @@ public class ReturnedText implements Returned {
 	private String text;
 	private int status;
 	
-	public void setResponse(HttpMethod method, int status) throws Exception {
+	@Override
+	public boolean setResponse(HttpMethod method, int status) throws Exception {
+		boolean result = true; // it's ok to release the parent connection since we consume the entire response stream here
+		
 		text=method.getResponseBodyAsString();
 		this.status = status;
+		
+		return result;
 	}
 
 	public String getText() { return text; }
 
+	@Override
 	public int getStatus() {
 		return status;
 	}

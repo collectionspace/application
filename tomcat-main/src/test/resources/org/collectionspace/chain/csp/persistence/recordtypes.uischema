@@ -33,6 +33,8 @@
           "objectexit",
           "claim",
           "conditioncheck",
+          "conservation",
+          "exhibition",
           "valuationcontrol"
         ], 
         "type": "array"

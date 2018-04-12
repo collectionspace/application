@@ -17,7 +17,7 @@
 	                        </options>
 	                    </field>
 	                    <repeat id="dimensionSubGroupList/dimensionSubGroup">
-	                    	<field id="measuredBy"  autocomplete="person-person,organization-organization"></field>
+	                    	<field id="measuredBy"  autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"></field>
 	                        <field id="dimension" seperate_ui_container="true">
 	                            <options>
 	                                <option id="">Please select a value</option>

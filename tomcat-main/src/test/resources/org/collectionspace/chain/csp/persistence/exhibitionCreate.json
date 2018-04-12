@@ -1,0 +1,46 @@
+{
+    "exhibitionNumber": "EX 100",
+    "exhibitionReferenceGroup": [
+        {
+            "_primary": true,
+            "exhibitionReferenceType": ""
+        }
+    ],
+    "organizers": [
+        {
+            "_primary": true
+        }
+    ],
+    "planningNote": "There was a plan.",
+    "sponsors": [
+        {
+            "_primary": true
+        }
+    ],
+    "title": "The Exhibition",
+    "type": "urn:cspace:testsci.collectionspace.org:vocabularies:name(exhibitiontype):item:name(permanent)'Permanent'",
+    "venueGroup": [
+        {
+            "_primary": true,
+            "venue": "urn:cspace:testsci.collectionspace.org:placeauthorities:name(place):item:name(Mars1430787684521)'Mars'"
+        }
+    ],
+    "workingGroup": [
+        {
+            "_primary": true,
+            "exhibitionPersonGroup": [
+                {
+                    "_primary": true,
+                    "exhibitionPerson": "urn:cspace:testsci.collectionspace.org:personauthorities:name(person):item:name(ConnieCurator1430787581143)'Connie Curator'",
+                    "exhibitionPersonRole": "urn:cspace:testsci.collectionspace.org:vocabularies:name(exhibitionpersonrole):item:name(curator)'Curator'"
+                },
+                {
+                    "_primary": false,
+                    "exhibitionPerson": "urn:cspace:testsci.collectionspace.org:personauthorities:name(person):item:name(PaulPublicist1430787651406)'Paul Publicist'",
+                    "exhibitionPersonRole": "urn:cspace:testsci.collectionspace.org:vocabularies:name(exhibitionpersonrole):item:name(publicist)'Publicist'"
+                }
+            ],
+            "workingGroupTitle": "People"
+        }
+    ]
+}

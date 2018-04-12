@@ -42,7 +42,7 @@ public class TestSchema {
 		try {
 			cspm.go();
 			InputSource configsource = getSource("config.xml"); //finds "src/main/resources/default.xml" when running tests
-			cspm.configure(configsource,new ConfigFinder(null));//pieces together the set of config/settings files for parsing
+			cspm.configure(configsource,new ConfigFinder(null),false);//pieces together the set of config/settings files for parsing
 		} catch (CSPDependencyException e) {
 			log.error("CSPManagerImpl failed");
 			log.error(e.getLocalizedMessage() );

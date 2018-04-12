@@ -1,18 +1,18 @@
 {
     "placeNote": "Tigers and sleeping bags.",
+    "rev": "",
     "placeTermGroup": [{
         "termName": "Gloncey",
         "termSource": "Coughlin",
         "termSourceID": "REM",
         "termSourceNote": "Montclair",
-        "termFormattedDisplayName": "Gloncey Land",
-        "termLanguage": "urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(grc)'Ancient\n                Greek'",
+        "termLanguage": "urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(grc)'Ancient Greek'",
         "historicalStatus": "current",
         "termPrefForLang": true,
         "_primary": true,
-        "de-urned-termLanguage": "Ancient\n                Greek",
         "termDisplayName": "Gloncey Land",
         "termType": "common",
+        "de-urned-termLanguage": "Ancient Greek",
         "nameDateGroup": {
             "dateEarliestSingleQualifier": "",
             "scalarValuesComputed": true,
@@ -40,15 +40,15 @@
             "dateEarliestSingleMonth": ""
         },
         "nameAbbrev": "GL",
-        "termStatus": "provisional",
         "nameNote": "Tigers abound",
+        "termFormattedDisplayName": "Gloncey Land",
+        "termStatus": "provisional",
         "termQualifier": "The Great",
         "termSourceDetail": "Ricky"
     }],
-    "vLongitude": "128",
     "maxDepthInMeters": "111",
+    "vLongitude": "128",
     "vSpatialReferenceSystem": "epsg4326-wgs84",
-    "minElevationInMeters": "1",
     "placeOwnerGroup": [
         {
             "_primary": true,
@@ -114,6 +114,7 @@
             "de-urned-owner": "Olympics"
         }
     ],
+    "minElevationInMeters": "1",
     "minDistanceAboveSurfaceInMeters": "1",
     "vDepth": "129",
     "shortIdentifier": "GlonceyLand1357679703360",
@@ -124,10 +125,11 @@
     "vDistanceAboveSurface": "123",
     "vCoordSourceRefId": "Twins",
     "placeType": "autonomous-region",
+    "deprecated": false,
     "vCoordinates": "12.23",
     "vLatitude": "23.12",
     "vUnitofMeasure": "centimeters",
-    "deprecatedRefName": "urn:cspace:core.collectionspace.org:placeauthorities:name(place):item:name(GlonceyLand1357679703360)'Gloncey\n        Land'",
+    "deprecatedRefName": "urn:cspace:core.collectionspace.org:placeauthorities:name(place):item:name(GlonceyLand1357679703360)'Gloncey Land'",
     "placeGeoRefGroup": [
         {
             "geoReferencedBy": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(Micky1357679586781)'Micky'",
@@ -219,9 +221,26 @@
             "pointRadiusSpatialFit": "7"
         }
     ],
+    "addrGroup": [
+      {
+        "addressCountry": "",
+        "de-urned-addressType": "personal",
+        "addressPlace2": "",
+        "addressPlace1": "123 Telegraph Ave.",
+        "addressType": "urn:cspace:core.collectionspace.org:vocabularies:name(addresstype):item:name(personal)'personal'",
+        "addressMunicipality": "urn:cspace:core.collectionspace.org:placeauthorities:name(place):item:name(Berkeley1463718674206)'Berkeley'",
+        "addressPostCode": "",
+        "addressStateOrProvince": "",
+        "de-urned-addressMunicipality": "Berkeley",
+        "_primary": true
+      }
+    ],
     "inAuthority": "d0cbb89e-642c-42be-8e12",
     "vCoordSys": "altitude-depth",
+    "sas": false,
     "vElevation": "7837",
     "minDepthInMeters": "1",
-    "refName": "urn:cspace:core.collectionspace.org:placeauthorities:name(place):item:name(GlonceyLand1357679703360)'Gloncey\n        Land'"
+    "refName": "urn:cspace:core.collectionspace.org:placeauthorities:name(place):item:name(GlonceyLand1357679703360)'Gloncey Land'",
+    "proposed": false,
+    "placeID": ""
 }

@@ -1,11 +1,10 @@
 {
     "exitNote": "This object has been declared a World Heritage Nuisance and must be disposed of forthwith.",
-    "currentOwner": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'",
     "exitDateGroup": {
         "dateEarliestSingleQualifier": "",
         "scalarValuesComputed": true,
-        "dateLatestYear": "",
         "dateLatestDay": "",
+        "dateLatestYear": "",
         "dateAssociation": "",
         "dateEarliestSingleEra": "",
         "dateDisplayDate": "July 1, 2010",
@@ -26,19 +25,19 @@
         "dateEarliestSingleDay": "",
         "dateEarliestSingleMonth": ""
     },
+    "currentOwner": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'",
     "exitMethods": [
         {
             "_primary": true,
             "exitMethod": "courier"
         },
-        {
-            "exitMethod": "post"
-        }
+        {"exitMethod": "post"}
     ],
     "exitNumber": "EX2011.5",
     "packingNote": "Packed really, really, really well.  Sealed in thick layers of aluminium foil and holiday wrapping paper.",
-    "exitReason": "disposal",
+    "deacApprovalGroup": [{"_primary": true}],
     "de-urned-currentOwner": "TEST4",
+    "exitReason": "disposal",
     "depositor": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'",
     "de-urned-depositor": "TEST4"
 }

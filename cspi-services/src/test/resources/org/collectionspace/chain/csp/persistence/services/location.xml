@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <ns2:locations_common xmlns:ns2="http://collectionspace.org/services/location">
-  <shortIdentifier>bob</shortIdentifier>
-  <accessNote>accessNote</accessNote>
-  <address>address</address>
-  <securityNote>securityNote</securityNote>
-  <conditionGroupList>
-    <conditionGroup>
-      <conditionNote>qqq</conditionNote>
-      <conditionNoteDate>2011-05-03</conditionNoteDate>
-    </conditionGroup>
-    <conditionGroup>
-      <conditionNote>aaa</conditionNote>
-      <conditionNoteDate>2011-05-25</conditionNoteDate>
-    </conditionGroup>
-  </conditionGroupList>
-  <locationType>building</locationType>
-  <locTermGroupList>
-    <locTermGroup>
-      <termDisplayName>My Building</termDisplayName>
+	<deprecated>false</deprecated>
+	<sas>false</sas>
+	<proposed>false</proposed>
+	<shortIdentifier>bob</shortIdentifier>
+	<accessNote>accessNote</accessNote>
+	<address>address</address>
+	<securityNote>securityNote</securityNote>
+	<conditionGroupList>
+		<conditionGroup>
+			<conditionNote>qqq</conditionNote>
+			<conditionNoteDate>2011-05-03</conditionNoteDate>
+		</conditionGroup>
+		<conditionGroup>
+			<conditionNote>aaa</conditionNote>
+			<conditionNoteDate>2011-05-25</conditionNoteDate>
+		</conditionGroup>
+	</conditionGroupList>
+	<locationType>building</locationType>
+	<locTermGroupList>
+		<locTermGroup>
+			<termDisplayName>My Building</termDisplayName>
 			<termStatus>termStatus</termStatus>
 			<termPrefForLang>false</termPrefForLang>
-    </locTermGroup>
-  </locTermGroupList>
+		</locTermGroup>
+	</locTermGroupList>
 </ns2:locations_common>

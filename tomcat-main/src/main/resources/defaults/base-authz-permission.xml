@@ -1,33 +1,30 @@
-
-            <record id="permission" in-recordlist="no" type="authorizationdata">
-                <web-url>permission</web-url>
-                <services-tenant-plural>authorization/permissions</services-tenant-plural>
-                <services-tenant-singular>Permission</services-tenant-singular>
-                <services-url>authorization/permissions</services-url>
-                <services-list-path>permissions_list/permission</services-list-path>
-								<services-record-path>permissions_common:http://collectionspace.org/services/authorization/perms,permission</services-record-path>
-                <authorization-includes>authorization/permissions</authorization-includes>
-                <authorization-view>false</authorization-view>
-                <is-multipart>false</is-multipart>
-                <services-search-keyword>res</services-search-keyword>
-                <structures>
-                    <structure id="screen">
-                        <view>
-                            <titlebar show="false"></titlebar>
-                            <sidebar show="false"></sidebar>
-                        </view>
-                    </structure>
-                </structures>
-				
-				<include src="domain-authz-permission.xml" strip-root="yes"/>
-				
-                <terms-used>false</terms-used>
-                <section id="permissionInformation">
-                    <repeat id="actions/action" has-primary="false" xxx-hack-authorization="true">
-                        <field id="name"></field>
-                    </repeat>
-                    <field id="effect"></field>
-                    <field id="actionGroup" mini="number"></field>
-                    <field id="resourceName" mini="summary"></field>
-                </section>
-            </record>
+<record id="permission" in-recordlist="no" type="authorizationdata">
+    <web-url>permission</web-url>
+    <services-tenant-plural>authorization/permissions</services-tenant-plural>
+    <services-tenant-singular>Permission</services-tenant-singular>
+    <services-url>authorization/permissions</services-url>
+    <services-list-path>permissions_list/permission</services-list-path>
+	<services-record-path>permissions_common:http://collectionspace.org/services/authorization/perms,permission</services-record-path>
+    <authorization-includes>authorization/permissions</authorization-includes>
+    <authorization-view>false</authorization-view>
+    <is-multipart>false</is-multipart>
+    <services-search-keyword>res</services-search-keyword>
+    <structures>
+        <structure id="screen">
+            <view>
+                <titlebar show="false"></titlebar>
+                <sidebar show="false"></sidebar>
+            </view>
+        </structure>
+    </structures>
+	<include src="domain-authz-permission.xml" strip-root="yes"/>
+    <terms-used>false</terms-used>
+    <section id="permissionInformation">
+        <repeat id="actions/action" has-primary="false" xxx-hack-authorization="true">
+            <field id="name"></field>
+        </repeat>
+        <field id="effect"></field>
+        <field id="actionGroup" mini="number"></field>
+        <field id="resourceName" mini="summary"></field>
+    </section>
+</record>

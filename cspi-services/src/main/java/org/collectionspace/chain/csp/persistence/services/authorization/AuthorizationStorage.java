@@ -9,7 +9,6 @@ package org.collectionspace.chain.csp.persistence.services.authorization;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -23,14 +22,15 @@ import org.collectionspace.chain.csp.persistence.services.connection.ConnectionE
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMultipartDocument;
-import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.util.json.JSONUtils;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.core.CSPRequestCredentials;
+import org.collectionspace.csp.api.persistence.ConflictException;
 import org.collectionspace.csp.api.persistence.ExistException;
+import org.collectionspace.csp.api.persistence.UnauthorizedException;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
@@ -44,7 +44,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class AuthorizationStorage extends GenericStorage {
-	private static final Logger log=LoggerFactory.getLogger(AuthorizationStorage.class);
+	private static final Logger log = LoggerFactory.getLogger(AuthorizationStorage.class);
 	
 	public AuthorizationStorage(Record r, ServicesConnection conn) throws DocumentException, IOException{
 		super(r,conn);
@@ -52,11 +52,10 @@ public class AuthorizationStorage extends GenericStorage {
 		Record permissionRecord = r.getSpec().getRecord("permission");
 	}
 
-
-
 	/**
 	 * Remove an object in the Service Layer.
 	 */
+	@Override
 	public void deleteJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, String filePath)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
@@ -109,6 +108,7 @@ public class AuthorizationStorage extends GenericStorage {
 	/**
 	 * Returns a list of csid's from a certain type of record
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public String[] getPaths(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, String rootPath, JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
@@ -143,6 +143,7 @@ public class AuthorizationStorage extends GenericStorage {
 	 * Gets a list of csids of a certain type of record together with the pagination info
 	 * permissions might need to break the mold tho.
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public JSONObject getPathsJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, String rootPath, JSONObject restrictions) 
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
@@ -150,7 +151,7 @@ public class AuthorizationStorage extends GenericStorage {
 			JSONObject out = new JSONObject();
 
 			// PLS: why on earth would reports be routed through AuthStorage?!?!
-			if(r.getID().equals("reports") || r.getID().equals("batch")){
+			if (r.getID().equals("reports") || r.getID().equals("batch")) {
 
 				String path = getRestrictedPath(r.getServicesURL(), restrictions, r.getServicesSearchKeyword(), "", false, "");
 				
@@ -221,43 +222,42 @@ public class AuthorizationStorage extends GenericStorage {
 		}
 	}
 
-	
-	public JSONObject retrieveJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, String filePath, JSONObject restrictions)
-	throws ExistException, UnimplementedException, UnderlyingStorageException {
+	@Override
+	public JSONObject retrieveJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache,
+			String filePath, JSONObject restrictions)
+			throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			String[] parts = filePath.split("/");
-			
-			if(parts.length > 2){
+
+			if (parts.length > 2) {
 				Spec s = r.getSpec();
 				//{csid}/userrole/{csid}
-				if(s.hasRecordByWebUrl(parts[1])){
+				if (s.hasRecordByWebUrl(parts[1])) {
 					String path = s.getRecordByWebUrl(parts[1]).getServicesURL();
-					int len = parts.length -1 ;
-					for(int i=0; i<len;i++){
+					int len = parts.length - 1;
+					for (int i = 0; i < len; i++) {
 						path = path.replace("*", parts[i]);
 						i++;
 					}
 					filePath = path + "/" + parts[len];
-					return simpleRetrieveJSONFullPath(creds,cache,filePath,s.getRecordByWebUrl(parts[1]).getRecord());
-				}
-				else{
+					return simpleRetrieveJSONFullPath(creds, cache, filePath, s.getRecordByWebUrl(parts[1]).getRecord());
+				} else {
 					//{csid}/refobj/bob
 					String extra = "";
-					if(parts.length==3){
+					if (parts.length == 3) {
 						extra = parts[2];
 					}
-					return viewRetrieveJSON(root,creds,cache,parts[0],parts[1],extra,restrictions);
-				} 
+					return viewRetrieveJSON(root, creds, cache, parts[0], parts[1], extra, restrictions);
+				}
+			} else {
+				return simpleRetrieveJSON(creds, cache, filePath);
 			}
-			else {
-				return simpleRetrieveJSON(creds,cache,filePath);
-			}
-			
-		} catch(JSONException x) {
-			throw new UnderlyingStorageException("Error building JSON",x);
+		} catch (JSONException x) {
+			throw new UnderlyingStorageException("Error building JSON", x);
 		}
 	}
 	
+	@Override
 	public JSONObject viewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,String view,String extra, JSONObject restrictions) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 		if("view".equals(view))
 			return miniViewRetrieveJSON(cache,creds,filePath,extra);
@@ -269,6 +269,7 @@ public class AuthorizationStorage extends GenericStorage {
 
 
 
+	@Override
 	public JSONObject refViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject restrictions) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 		try {
 			JSONObject out=new JSONObject();
@@ -410,6 +411,7 @@ public class AuthorizationStorage extends GenericStorage {
 		return out;
 	}
 	
+	@Override
 	public JSONObject simpleRetrieveJSON(CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		String fullpath = r.getServicesURL();
@@ -455,32 +457,39 @@ public class AuthorizationStorage extends GenericStorage {
 		return simpleRetrieveJSONFullPath( creds, cache, filePath, r);
 	}
 	
-	public JSONObject simpleRetrieveJSONFullPath(CSPRequestCredentials creds,CSPRequestCache cache,String filePath, Record thisr) throws ExistException,
-			UnimplementedException, UnderlyingStorageException {
+	public JSONObject simpleRetrieveJSONFullPath(CSPRequestCredentials creds, CSPRequestCache cache, String filePath, Record thisr) throws ExistException, UnimplementedException,
+			UnderlyingStorageException {
 		try {
-			JSONObject out=new JSONObject();
-			if(thisr.isMultipart()){
-				ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,filePath,null,creds,cache);
-				if((doc.getStatus()<200 || doc.getStatus()>=300))
-					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),filePath);
-				for(String section : thisr.getServicesRecordPathKeys()) {
-					String path=thisr.getServicesRecordPath(section);
-					String[] parts=path.split(":",2);
-					convertToJson(out,doc.getDocument(parts[0]),thisr,"GET",section,"","");
+			JSONObject out = new JSONObject();
+			if (thisr.isMultipart()) {
+				ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET, filePath, null, creds, cache);
+				if ((doc.getStatus() < 200 || doc.getStatus() >= 300))
+					throw new UnderlyingStorageException("Does not exist ", doc.getStatus(), filePath);
+				for (String section : thisr.getServicesRecordPathKeys()) {
+					String path = thisr.getServicesRecordPath(section);
+					String[] parts = path.split(":", 2);
+					convertToJson(out, doc.getDocument(parts[0]), thisr, "GET", section, "", "");
 				}
-			}else{
-				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, filePath,null, creds, cache);
-				if((doc.getStatus()<200 || doc.getStatus()>=300)){
-					String status = Integer.toString(doc.getStatus());
-					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),filePath);
+			} else {
+				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, filePath, null, creds, cache);
+				if ((doc.getStatus() < 200 || doc.getStatus() >= 300)) {
+					if (doc.getStatus() == 401) {
+						throw new UnauthorizedException("Username and/or password are invalid.", doc.getStatus(), filePath);
+					} else if (doc.getStatus() == 409) {
+						throw new ConflictException("Conflict with request. The user's tenant may be disabled. Contact your CollectionSpace administrator.",
+								doc.getStatus(), filePath);
+					} else {
+						String status = Integer.toString(doc.getStatus());
+						throw new UnderlyingStorageException("Does not exist ", doc.getStatus(), filePath);
+					}
 				}
-				convertToJson(out,doc.getDocument(),thisr,"GET","common","");
+				convertToJson(out, doc.getDocument(), thisr, "GET", "common", "");
 			}
 			return out;
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Service layer exception"+ e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
+			throw new UnderlyingStorageException("Service layer exception" + e.getLocalizedMessage(), e.getStatus(), e.getUrl(), e);
 		} catch (JSONException e) {
-			throw new UnderlyingStorageException("Service layer exception"+ e.getLocalizedMessage(),e);
+			throw new UnderlyingStorageException("Service layer exception" + e.getLocalizedMessage(), e);
 		}
 	}
 

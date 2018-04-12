@@ -1,0 +1,21 @@
+<record id="collection-object">
+	<services-record-path id="nagpra">collectionobjects_nagpra:http://collectionspace.org/services/collectionobject/domain/nagpra,collectionobjects_nagpra</services-record-path>
+
+	<section id="nagpraInformation">
+		<repeat id="nagpraInventoryNames" section="nagpra">
+			<field id="nagpraInventoryName" section="nagpra" seperate_ui_container="true" ui-search="repeatable" autocomplete="vocab-nagprainventory" ui-type="enum" />
+		</repeat>
+		<repeat id="nagpraCategories" section="nagpra">
+			<field id="nagpraCategory" section="nagpra" seperate_ui_container="true" ui-search="repeatable" autocomplete="vocab-nagpracategory" ui-type="enum" />
+		</repeat>
+		<repeat id="graveAssocCodes" section="nagpra">
+			<field id="graveAssocCode" section="nagpra" seperate_ui_container="true" ui-search="repeatable" autocomplete="vocab-graveassoccode" ui-type="enum" />
+		</repeat>
+		<repeat id="nagpraCulturalDeterminations" section="nagpra">
+			<field id="nagpraCulturalDetermination" section="nagpra" />
+		</repeat>
+		<repeat id="repatriationNotes" section="nagpra">
+			<field id="repatriationNote" section="nagpra" />
+		</repeat>
+	</section>
+</record>

@@ -107,12 +107,14 @@
         <field id="placeNote" ui-search="repeatable"/>
         
         <repeat id="placeOwnerGroupList/placeOwnerGroup">
-            <field id="owner" autocomplete="person-person,organization-organization"
+            <field id="owner" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"
                    ui-search="repeatable"/>
             <group id="ownershipDateGroup" ui-type="groupfield/structureddate"
                    primarykey="dateDisplayDate" ui-func="cspace.structuredDate"/>
             <field id="ownershipNote"/>
         </repeat>
+        
+        <field id="address" ui-type="groupfield/address/selfrenderer" ui-func="cspace.address"/>
     </section>
     <section id="localityInformation">
         <field id="vCoordinates"/>
@@ -196,7 +198,7 @@
             <field id="footprintWKT"/>
             <field id="footprintSRS"/>
             <field id="footprintSpatialFit"/>
-            <field id="geoReferencedBy" autocomplete="person-person,organization-organization"/>
+            <field id="geoReferencedBy" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"/>
             <group id="geoRefDateGroup" ui-type="groupfield/structureddate"
                    primarykey="dateDisplayDate" ui-func="cspace.structuredDate"/>
             <field id="geoRefProtocol">
@@ -237,5 +239,10 @@
 		</field>
         <field id="shortIdentifier" mini="search,list,relate" attributes="GET" services-should-index="true"/>
         <field id="csid" exists-in-services="false" mini="search,list,relate" attributes="GET"/>
+        <!-- SAS related fields -->
+		<field id="rev" mini="list" datatype="integer"/>
+		<field id="sas" mini="list" datatype="boolean"/>
+		<field id="proposed" mini="list" datatype="boolean"/>
+		<field id="deprecated" mini="list" datatype="boolean"/>
     </section>
 </record>

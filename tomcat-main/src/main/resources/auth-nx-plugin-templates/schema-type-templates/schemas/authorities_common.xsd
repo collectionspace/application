@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-
 <!--
     ${AuthorityNameSingular} schema (XSD)
     
     Entity  : ${AuthorityNameSingular}
     Part    : Common
-    Used for: Nuxeo schema type
-    
-    $LastChangedRevision$
-    $LastChangedDate$
+    Used for: Nuxeo schema type    
+-->
+
+<!--
+	WARNING: This needs to stay in sync with the XSD file at tomcat-main\src\main\resources\defaults\base-authority.xml
 -->
 
 <xs:schema 
@@ -16,13 +16,15 @@
   xmlns:ns="http://collectionspace.org/services/${AuthorityItemNameSingular}"
   xmlns="http://collectionspace.org/services/${AuthorityItemNameSingular}"
   targetNamespace="http://collectionspace.org/services/${AuthorityItemNameSingular}"
-  version="${Version}"
->
-		<xs:element name="displayName" type="xs:string"/>
-		<xs:element name="refName" type="xs:string"/>
-		<xs:element name="shortIdentifier" type="xs:string"/>
-		<xs:element name="vocabType" type="xs:string"/>
-		<xs:element name="source" type="xs:string"/>
-		<xs:element name="description" type="xs:string"/>
+  version="${Version}">
+	<xs:element name="displayName" type="xs:string"/>
+	<xs:element name="refName" type="xs:string"/>
+	<xs:element name="shortIdentifier" type="xs:string"/>
+	<xs:element name="vocabType" type="xs:string"/>
+	<xs:element name="source" type="xs:string"/>
+	<xs:element name="description" type="xs:string"/>
+	<xs:element name="rev" type="xs:integer"/>
+	<xs:element name="sas" type="xs:boolean"/>
+	<xs:element name="remoteClientConfigName" type="xs:string"/>
 </xs:schema>
 

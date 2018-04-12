@@ -14,10 +14,13 @@ import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 
+/*
+ * I wonder what "CSP" stands for? Maybe CollectionSpace (P)ersistence manager?
+ */
 public interface CSPManager extends CSPContext {
 	public void register(CSP in);
 	public void go() throws CSPDependencyException;
-	public void configure(InputSource in,EntityResolver er) throws CSPDependencyException;
+	public void configure(InputSource in, EntityResolver er, boolean forXsdGeneration) throws CSPDependencyException;
 	public void setConfigBase(File file);
 	public File getConfigBase();
 }

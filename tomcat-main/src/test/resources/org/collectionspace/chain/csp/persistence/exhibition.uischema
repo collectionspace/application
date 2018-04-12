@@ -1,0 +1,467 @@
+{
+    "exhibition": {
+        "properties": {
+            "csid": {
+                "type": "string"
+            },
+            "fields": {
+                "properties": {
+                    "boilerplateText": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "date"
+                    },
+                    "createdBy": {
+                        "type": "string"
+                    },
+                    "curatorialNote": {
+                        "type": "string"
+                    },
+                    "exhibitionNumber": {
+                        "type": "string"
+                    },
+                    "exhibitionObjectGroup": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "exhibitionObjectCase": {
+                                    "type": "string"
+                                },
+                                "exhibitionObjectConsCheckDate": {
+                                    "type": "date"
+                                },
+                                "exhibitionObjectConsTreatment": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "exhibitionObjectMount": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "exhibitionObjectName": {
+                                    "type": "string"
+                                },
+                                "exhibitionObjectNote": {
+                                    "type": "string"
+                                },
+                                "exhibitionObjectNumber": {
+                                    "type": "string"
+                                },
+                                "exhibitionObjectRotation": {
+                                    "type": "string"
+                                },
+                                "exhibitionObjectSection": {
+                                    "type": "string"
+                                },
+                                "exhibitionObjectSeqNum": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "exhibitionReferenceGroup": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "exhibitionReference": {
+                                    "type": "string"
+                                },
+                                "exhibitionReferenceNote": {
+                                    "type": "string"
+                                },
+                                "exhibitionReferenceType": {
+                                    "default": "",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "exhibitionSectionGroup": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "exhibitionSectionLocation": {
+                                    "type": "string"
+                                },
+                                "exhibitionSectionName": {
+                                    "type": "string"
+                                },
+                                "exhibitionSectionNote": {
+                                    "type": "string"
+                                },
+                                "exhibitionSectionObjects": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "exhibitionStatusGroup": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "exhibitionStatus": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "exhibitionStatusDate": {
+                                    "type": "date"
+                                },
+                                "exhibitionStatusNote": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "galleryRotationGroup": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "galleryRotationEndDateGroup": {
+                                    "properties": {
+                                        "_primary": {
+                                            "default": true,
+                                            "type": "boolean"
+                                        },
+                                        "dateAssociation": {
+                                            "type": "string"
+                                        },
+                                        "dateDisplayDate": {
+                                            "type": "string"
+                                        },
+                                        "dateEarliestScalarValue": {
+                                            "type": "date"
+                                        },
+                                        "dateEarliestSingleCertainty": {
+                                            "default": "",
+                                            "type": "string"
+                                        },
+                                        "dateEarliestSingleDay": {
+                                            "type": "integer"
+                                        },
+                                        "dateEarliestSingleEra": {
+                                            "default": "",
+                                            "type": "string"
+                                        },
+                                        "dateEarliestSingleMonth": {
+                                            "type": "integer"
+                                        },
+                                        "dateEarliestSingleQualifier": {
+                                            "default": "",
+                                            "type": "string"
+                                        },
+                                        "dateEarliestSingleQualifierUnit": {
+                                            "default": "",
+                                            "type": "string"
+                                        },
+                                        "dateEarliestSingleQualifierValue": {
+                                            "type": "integer"
+                                        },
+                                        "dateEarliestSingleYear": {
+                                            "type": "integer"
+                                        },
+                                        "dateLatestCertainty": {
+                                            "default": "",
+                                            "type": "string"
+                                        },
+                                        "dateLatestDay": {
+                                            "type": "integer"
+                                        },
+                                        "dateLatestEra": {
+                                            "default": "",
+                                            "type": "string"
+                                        },
+                                        "dateLatestMonth": {
+                                            "type": "integer"
+                                        },
+                                        "dateLatestQualifier": {
+                                            "default": "",
+                                            "type": "string"
+                                        },
+                                        "dateLatestQualifierUnit": {
+                                            "default": "",
+                                            "type": "string"
+                                        },
+                                        "dateLatestQualifierValue": {
+                                            "type": "integer"
+                                        },
+                                        "dateLatestScalarValue": {
+                                            "type": "date"
+                                        },
+                                        "dateLatestYear": {
+                                            "type": "integer"
+                                        },
+                                        "dateNote": {
+                                            "type": "string"
+                                        },
+                                        "datePeriod": {
+                                            "type": "string"
+                                        },
+                                        "scalarValuesComputed": {
+                                            "default": "true",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "galleryRotationName": {
+                                    "type": "string"
+                                },
+                                "galleryRotationNote": {
+                                    "type": "string"
+                                },
+                                "galleryRotationStartDateGroup": {
+                                    "properties": {
+                                        "_primary": {
+                                            "default": true,
+                                            "type": "boolean"
+                                        },
+                                        "dateAssociation": {
+                                            "type": "string"
+                                        },
+                                        "dateDisplayDate": {
+                                            "type": "string"
+                                        },
+                                        "dateEarliestScalarValue": {
+                                            "type": "date"
+                                        },
+                                        "dateEarliestSingleCertainty": {
+                                            "default": "",
+                                            "type": "string"
+                                        },
+                                        "dateEarliestSingleDay": {
+                                            "type": "integer"
+                                        },
+                                        "dateEarliestSingleEra": {
+                                            "default": "",
+                                            "type": "string"
+                                        },
+                                        "dateEarliestSingleMonth": {
+                                            "type": "integer"
+                                        },
+                                        "dateEarliestSingleQualifier": {
+                                            "default": "",
+                                            "type": "string"
+                                        },
+                                        "dateEarliestSingleQualifierUnit": {
+                                            "default": "",
+                                            "type": "string"
+                                        },
+                                        "dateEarliestSingleQualifierValue": {
+                                            "type": "integer"
+                                        },
+                                        "dateEarliestSingleYear": {
+                                            "type": "integer"
+                                        },
+                                        "dateLatestCertainty": {
+                                            "default": "",
+                                            "type": "string"
+                                        },
+                                        "dateLatestDay": {
+                                            "type": "integer"
+                                        },
+                                        "dateLatestEra": {
+                                            "default": "",
+                                            "type": "string"
+                                        },
+                                        "dateLatestMonth": {
+                                            "type": "integer"
+                                        },
+                                        "dateLatestQualifier": {
+                                            "default": "",
+                                            "type": "string"
+                                        },
+                                        "dateLatestQualifierUnit": {
+                                            "default": "",
+                                            "type": "string"
+                                        },
+                                        "dateLatestQualifierValue": {
+                                            "type": "integer"
+                                        },
+                                        "dateLatestScalarValue": {
+                                            "type": "date"
+                                        },
+                                        "dateLatestYear": {
+                                            "type": "integer"
+                                        },
+                                        "dateNote": {
+                                            "type": "string"
+                                        },
+                                        "datePeriod": {
+                                            "type": "string"
+                                        },
+                                        "scalarValuesComputed": {
+                                            "default": "true",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "generalNote": {
+                        "type": "string"
+                    },
+                    "organizers": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "organizer": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "planningNote": {
+                        "type": "string"
+                    },
+                    "refName": {
+                        "type": "string"
+                    },
+                    "sponsors": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "sponsor": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "tenantId": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "updatedAt": {
+                        "type": "date"
+                    },
+                    "updatedBy": {
+                        "type": "string"
+                    },
+                    "uri": {
+                        "type": "string"
+                    },
+                    "workflow": {
+                        "type": "string"
+                    },
+                    "venueGroup": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "venue": {
+                                    "type": "string"
+                                },
+                                "venueAttendance": {
+                                    "type": "string"
+                                },
+                                "venueClosingDate": {
+                                    "type": "date"
+                                },
+                                "venueOpeningDate": {
+                                    "type": "date"
+                                },
+                                "venueUrl": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "workingGroup": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "exhibitionPersonGroup": {
+                                    "items": {
+                                        "properties": {
+                                            "_primary": {
+                                                "default": true,
+                                                "type": "boolean"
+                                            },
+                                            "exhibitionPerson": {
+                                                "type": "string"
+                                            },
+                                            "exhibitionPersonRole": {
+                                                "default": "",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "type": "array"
+                                },
+                                "workingGroupNote": {
+                                    "type": "string"
+                                },
+                                "workingGroupTitle": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    }
+                },
+                "type": "object"
+            },
+            "relations": {
+                "default": {},
+                "type": "object"
+            },
+            "termsUsed": {
+                "default": [],
+                "type": "array"
+            }
+        },
+        "type": "object"
+    }
+}

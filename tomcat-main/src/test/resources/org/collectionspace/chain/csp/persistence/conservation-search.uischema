@@ -1,0 +1,136 @@
+{"conservation": {
+    "type": "object",
+    "properties": {
+        "updatedAtEnd": {"type": "date"},
+        "approvedDateEnd": {"type": "date"},
+        "conservationStatusGroup": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "statusDate": {"type": "date"},
+                    "status": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    }
+                }
+            }
+        },
+        "statusDateEnd": {"type": "date"},
+        "sampleDateStart": {"type": "date"},
+        "updatedAtStart": {"type": "date"},
+        "treatmentEndDateEnd": {"type": "date"},
+        "destAnalysisApprovedDateEnd": {"type": "date"},
+        "treatmentStartDateEnd": {"type": "date"},
+        "proposedAnalysisDateStart": {"type": "date"},
+        "approvedDateStart": {"type": "date"},
+        "createdAtEnd": {"type": "date"},
+        "createdAtStart": {"type": "date"},
+        "treatmentStartDateStart": {"type": "date"},
+        "sampleDateEnd": {"type": "date"},
+        "updatedBys": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "updatedBy": {"type": "string"},
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    }
+                }
+            }
+        },
+        "researchers": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "researcher": {"type": "string"},
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    }
+                }
+            }
+        },
+        "approvedBys": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "approvedBy": {"type": "string"},
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    }
+                }
+            }
+        },
+        "statusDateStart": {"type": "date"},
+        "conservators": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "conservator": {"type": "string"},
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    }
+                }
+            }
+        },
+        "treatmentEndDateStart": {"type": "date"},
+        "conservationNumbers": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "conservationNumber": {"type": "string"},
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    }
+                }
+            }
+        },
+        "destAnalysisApprovedDateStart": {"type": "date"},
+        "proposedAnalysisDateEnd": {"type": "date"},
+        "destAnalysisGroup": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "sampleBy": {"type": "string"},
+                    "destAnalysisApprovedDate": {"type": "date"},
+                    "sampleDate": {"type": "date"},
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    }
+                }
+            }
+        },
+        "treatmentPurposes": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "treatmentPurpose": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    }
+                }
+            }
+        }
+    }
+}}

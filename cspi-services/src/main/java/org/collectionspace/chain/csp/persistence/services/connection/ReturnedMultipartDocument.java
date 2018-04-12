@@ -45,6 +45,8 @@ public class ReturnedMultipartDocument implements Returned {
 	public String[] listDocuments() { return docs.keySet().toArray(new String[0]); }
 	public Document getDocument(String name) { return docs.get(name); }
 	private void setStatus(int status) { this.status = status; }
+	
+	@Override
 	public int getStatus() { return status; }
         public boolean isErrorStatus() {
            return ((getStatus() >= ERROR_STATUS_START_VALUE)? true : false);
@@ -56,12 +58,19 @@ public class ReturnedMultipartDocument implements Returned {
 	private void addDocument(String name,Document doc) { docs.put(name,doc); }	
 	
 	
-	public void setResponse(HttpMethod method, int status) throws Exception  {
+	@Override
+	public boolean setResponse(HttpMethod method, int status) throws Exception  {
+		boolean result = true; // it's ok to release the parent connection since we consume the entire response stream here
+		
 		setStatus(status);
 		InputStream stream=method.getResponseBodyAsStream();
 		SAXReader reader=new SAXReader();
-		if(isErrorStatus()) {
-			log.info("Got error : "+IOUtils.toString(stream));
+		if (isErrorStatus()) {
+			String streamMessage = IOUtils.toString(stream);
+			String Credentials401Error = "Incorrect of missing credentials. This request requires HTTP authentication.";
+			String msg = String.format("%s request failed with status code %s: %s: %s", 
+					method.getName(), status, status == 401 ? Credentials401Error : streamMessage, method.getURI());
+			log.warn(msg);
 		}
 		// TODO errorhandling
 		Document doc=null;
@@ -84,6 +93,8 @@ public class ReturnedMultipartDocument implements Returned {
 	        }
 		}
 		stream.close();
+		
+		return result;
 	}
 	
 }

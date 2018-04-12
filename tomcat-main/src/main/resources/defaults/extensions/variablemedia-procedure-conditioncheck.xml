@@ -1,0 +1,53 @@
+<record id="conditioncheck" is-extension="true" generate-services-schema="true" type="record,procedure">
+
+    <!-- Information about your extension schema goes here -->
+    <services-record-path id="variablemedia">conditionchecks_variablemedia:http://collectionspace.org/services/conditioncheck/domain/variablemedia,conditionchecks_variablemedia</services-record-path>
+
+    <section id="technicalChanges" section="variablemedia">
+        <repeat id="technicalChangesGroupList/technicalChangesGroup" section="variablemedia">
+            <field id="technicalChange" section="variablemedia" ui-search="repeatable"
+                   autocomplete="vocab-technicalchange" ui-type="enum" />
+
+            <field id="technicalChangeReason" section="variablemedia" ui-search="repeatable"
+                   autocomplete="vocab-technicalchangereason" ui-type="enum" />
+
+            <group id="technicalChangeDate" section="variablemedia" ui-type="groupfield/structureddate"
+                   primarykey="dateDisplayDate"
+                   ui-func="cspace.structuredDate">
+                <!-- These fields are defined here as a workaround to CSPACE-5085.
+       See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
+                <field id="dateDisplayDate" section="variablemedia"/>
+                <field id="dateAssociation" section="variablemedia"/>
+                <field id="dateEarliestSingleYear" section="variablemedia"/>
+                <field id="dateEarliestSingleMonth" section="variablemedia"/>
+                <field id="dateEarliestSingleDay" section="variablemedia"/>
+                <field id="dateEarliestSingleEra" section="variablemedia"/>
+                <field id="dateEarliestSingleCertainty" section="variablemedia"/>
+                <field id="dateEarliestSingleQualifier" section="variablemedia"/>
+                <field id="dateEarliestSingleQualifierValue" section="variablemedia"/>
+                <field id="dateEarliestSingleQualifierUnit" section="variablemedia"/>
+                <field id="dateLatestYear" section="variablemedia"/>
+                <field id="dateLatestMonth" section="variablemedia"/>
+                <field id="dateLatestDay" section="variablemedia"/>
+                <field id="dateLatestEra" section="variablemedia"/>
+                <field id="dateLatestCertainty" section="variablemedia"/>
+                <field id="dateLatestQualifier" section="variablemedia"/>
+                <field id="dateLatestQualifierValue" section="variablemedia"/>
+                <field id="dateLatestQualifierUnit" section="variablemedia"/>
+                <field id="datePeriod" section="variablemedia"/>
+                <field id="dateNote" section="variablemedia"/>
+                <field id="dateEarliestScalarValue" section="variablemedia"/>
+                <field id="dateLatestScalarValue" section="variablemedia"/>
+                <field id="scalarValuesComputed" section="variablemedia"/>
+            </group>
+
+            <field id="technicalChangeNote" section="variablemedia" />
+
+            <field id="previousSupport" section="variablemedia" ui-search="repeatable"
+                   autocomplete="vocab-conditionsupport" ui-type="enum" />
+
+            <field id="newSupport" section="variablemedia" ui-search="repeatable"
+                   autocomplete="vocab-conditionsupport" ui-type="enum" />
+        </repeat>
+    </section>
+</record>

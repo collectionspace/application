@@ -1,0 +1,59 @@
+<record id="concept" is-extension="true">
+    <services-record-path id="fineart">
+        concepts_fineart:http://collectionspace.org/services/concept/domain/fineart,concepts_fineart
+    </services-record-path>
+    <section id="conceptAuthorityInformation">
+
+        <field id="conceptRecordType" section="fineart"
+               autocomplete="vocab-conceptrecordtype" ui-type="enum"  />
+
+        <field id="otherNameFlags" section="fineart"
+               autocomplete="vocab-othernameflags" ui-type="enum" />
+
+        <field id="conceptTermDateGroup" ui-type="groupfield/structureddate"
+               primarykey="conceptTermDateGroup.dateDisplayDate" ui-func="cspace.structuredDate"
+               section="fineart" />
+
+        <repeat id="relatedConceptsGroupList/relatedConceptsGroup" section="fineart">
+
+            <field id="relatedConcept" section="fineart"
+                   autocomplete="concept-concept" />
+
+            <field id="conceptRelationType" section="fineart"
+                   autocomplete="vocab-conceptrelationtype" ui-type="enum"  />
+
+            <group id="conceptRelationDateGroup" section="fineart"
+                   ui-type="groupfield/structureddate" ui-func="cspace.structuredDate"
+                   primarykey="dateDisplayDate">
+                <!-- These fields are defined here as a workaround to CSPACE-5085.
+                See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
+                <field id="dateDisplayDate" section="fineart"/>
+                <field id="dateAssociation" section="fineart"/>
+                <field id="dateEarliestSingleYear" section="fineart"/>
+                <field id="dateEarliestSingleMonth" section="fineart"/>
+                <field id="dateEarliestSingleDay" section="fineart"/>
+                <field id="dateEarliestSingleEra" section="fineart"/>
+                <field id="dateEarliestSingleCertainty" section="fineart"/>
+                <field id="dateEarliestSingleQualifier" section="fineart"/>
+                <field id="dateEarliestSingleQualifierValue" section="fineart"/>
+                <field id="dateEarliestSingleQualifierUnit" section="fineart"/>
+                <field id="dateLatestYear" section="fineart"/>
+                <field id="dateLatestMonth" section="fineart"/>
+                <field id="dateLatestDay" section="fineart"/>
+                <field id="dateLatestEra" section="fineart"/>
+                <field id="dateLatestCertainty" section="fineart"/>
+                <field id="dateLatestQualifier" section="fineart"/>
+                <field id="dateLatestQualifierValue" section="fineart"/>
+                <field id="dateLatestQualifierUnit" section="fineart"/>
+                <field id="datePeriod" section="fineart"/>
+                <field id="dateNote" section="fineart"/>
+                <field id="dateEarliestScalarValue" section="fineart"/>
+                <field id="dateLatestScalarValue" section="fineart"/>
+                <field id="scalarValuesComputed" section="fineart"/>
+            </group>
+        </repeat>
+
+        <field id="conceptRemarks" ui-type="largetext" section="fineart" />
+
+    </section>
+</record>

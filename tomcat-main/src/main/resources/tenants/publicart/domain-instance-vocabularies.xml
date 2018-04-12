@@ -1,0 +1,62 @@
+<root>
+    <include src="extensions/commission-vocabularies.xml" strip-root="yes"/>
+    <instance id="vocab-program">
+        <web-url>program</web-url>
+        <title-ref>program</title-ref>
+        <title>Programs</title>
+        <options>
+            <option id="percent_for_art">percent for art</option>
+            <option id="art_on_loan">art on loan</option>
+            <option id="relocatable_works">relocatable works</option>
+            <option id="mural_art_program">mural art program</option>
+            <option id="utility_box_program">utility box program</option>
+            <option id="art_in_transit_program">art in transit program</option>
+            <option id="neighborhood_art_program">neighborhood art program</option>
+        </options>
+    </instance>
+    <instance id="vocab-proddatetype">
+        <web-url>proddatetype</web-url>
+        <title-ref>proddatetype</title-ref>
+        <title>Production Date Types</title>
+        <options>
+            <option id="commission">commission</option>
+            <option id="creation">creation</option>
+            <option id="installation">installation</option>
+            <option id="restoration">restoration</option>
+            <option id="removal">removal</option>
+            <option id="reinstallation">re-installation</option>
+            <option id="dedication">dedication</option>
+            <option id="onview">on view</option>
+        </options>
+    </instance>
+    <instance id="vocab-prodpersonrole">
+        <web-url>prodpersonrole</web-url>
+        <title-ref>prodpersonrole</title-ref>
+        <title>Production Person Roles</title>
+        <options>
+            <option id="artist">artist</option>
+            <option id="fabricator">fabricator</option>
+            <option id="designer">designer</option>
+            <option id="architect">architect</option>
+            <option id="assistant">assistant</option>
+            <option id="volunteer">volunteer</option>
+            <option id="consultant">consultant</option>
+            <option id="electrician">electrician</option>
+            <option id="engineer">engineer</option>
+        </options>
+    </instance>
+    <instance id="vocab-socialmediatype">
+        <web-url>socialmediatype</web-url>
+        <title-ref>socialmediatype</title-ref>
+        <title>Social Media Types</title>
+        <options>
+            <option id="facebook">Facebook</option>
+            <option id="flickr">Flickr</option>
+            <option id="instagram">Instagram</option>
+            <option id="tumblr">Tumblr</option>
+            <option id="reddit">Reddit</option>
+            <option id="twitter">Twitter</option>
+            <option id="youtube">YouTube</option>
+        </options>
+    </instance>
+</root>

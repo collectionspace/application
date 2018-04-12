@@ -43,12 +43,12 @@
     <include src="domain-authority-work.xml" strip-root="yes"/>
 
     <instances id="work">
-        <instance id="work-work">
+        <instance id="work-work" create-unreferenced="true">
             <web-url>work</web-url>
             <title-ref>work</title-ref>
             <title>Local Works</title>
         </instance>
-        <instance id="work-cona_work">
+        <instance id="work-cona_work" create-unreferenced="true">
             <web-url>cona_work</web-url>
             <title-ref>cona_work</title-ref>
             <title>CONA Works</title>
@@ -71,13 +71,14 @@
                    ui-search="range" ui-func="cspace.structuredDate"/>
         </repeat>
         <repeat id="creatorGroupList/creatorGroup">
-            <field id="creator" ui-search="repeatable" autocomplete="person-person,organization-organization"/>
+            <field id="creator" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"/>
             <field id="creatorType" autocomplete="vocab-workcreatortype" ui-type="enum"/>
         </repeat>
         <repeat id="publisherGroupList/publisherGroup">
-            <field id="publisher" ui-search="repeatable" autocomplete="person-person,organization-organization"/>
+            <field id="publisher" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"/>
             <field id="publisherType" autocomplete="vocab-workpublishertype" ui-type="enum"/>
         </repeat>
+        <field id="address" ui-type="groupfield/address/selfrenderer" ui-func="cspace.address"/>
     </section>
     <!-- not used in UI except in autocompletes -->
     <section id="otherInformation">
@@ -87,5 +88,10 @@
 		</field>
         <field id="shortIdentifier" mini="search,list,relate" attributes="GET" services-should-index="true"/>
         <field id="csid" exists-in-services="false" mini="search,list,relate" attributes="GET"/>
+        <!-- SAS related fields -->
+		<field id="rev" mini="list" datatype="integer"/>
+		<field id="sas" mini="list" datatype="boolean"/>
+		<field id="proposed" mini="list" datatype="boolean"/>
+		<field id="deprecated" mini="list" datatype="boolean"/>
     </section>
 </record>

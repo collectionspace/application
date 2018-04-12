@@ -29,6 +29,10 @@
                         "default": "",
                         "type": "string"
                     },
+                    "termFlag": {
+                        "default": "",
+                        "type": "string"
+                    },
                     "termLanguage": {
                         "default": "",
                         "type": "string"

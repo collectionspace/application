@@ -1,10 +1,10 @@
 {
     "role": [{
-        "roleName": "ROLE_TENANT_ADMINISTRATOR",
+        "roleName": "xROLE_TENANT_ADMINISTRATOR",
         "roleId": "35d93b3b-8c30-4712-bae2-97820ff59626"
     },
 	{
-        "roleName": "ROLE_TENANT_ADMINISTRATOR",
+        "roleName": "xROLE_TENANT_ADMINISTRATOR",
         "roleId": "35d93b3b-8c30-4712-bae2-97820ff59626"
     }],
     "account": {

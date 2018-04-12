@@ -15,6 +15,9 @@
             <field id="termType">
                 <selector>workAuthority-termType</selector>
             </field>
+            <field id="termFlag" ui-search="repeatable" autocomplete="vocab-worktermflag" ui-type="enum">
+                <selector>workAuthority-termFlag</selector>
+            </field>
             <field id="termStatus" ui-search="repeatable" seperate_ui_container="true"
                 mini="search,list,relate">
                 <selector>workAuthority-termStatus</selector>
@@ -34,7 +37,7 @@
             <field id="termPrefForLang" datatype="boolean">
                 <selector>workAuthority-termPrefForLang</selector>
             </field>
-            <field id="termSource" autocomplete="citation-citation,citation-worldcat">
+            <field id="termSource" autocomplete="citation-citation,citation-citation_shared,citation-worldcat">
                 <selector>workAuthority-termSource</selector>
             </field>
             <field id="termSourceDetail">
