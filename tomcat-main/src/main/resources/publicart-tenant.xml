@@ -16,12 +16,12 @@
 			<include src="base-procedure-acquisition.xml,publicart-procedure-acquisition.xml,extensions/commission-procedure-acquisition.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-blobs.xml"/>
 			<include src="base-procedure-conditioncheck.xml,publicart-procedure-conditioncheck.xml" merge="xmlmerge.properties"/>
-			<include src="base-procedure-exhibition.xml,publicart-procedure-exhibition.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-exhibition.xml"/>
 			<include src="base-procedure-groups.xml"/>
 			<include src="base-procedure-intake.xml"/>
 			<include src="base-procedure-loanin.xml"/>
 			<include src="base-procedure-loanout.xml"/>
-			<include src="base-procedure-media.xml"/>
+			<include src="base-procedure-media.xml,publicart-procedure-media.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-valuationcontrol.xml,publicart-procedure-valuationcontrol.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-movement.xml"/>
 			<include src="base-procedure-objectexit.xml"/>
