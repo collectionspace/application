@@ -1,7 +1,7 @@
-<cspace-config tenantname="botgarden">
+<cspace-config tenantname="ucbg">
 	<tenantid>35</tenantid>
 	<version>11</version>
-	<include src="settings.xml,botgarden-settings.xml,host-settings.xml" merge="xmlmerge-settings.properties" strip-root="yes"/>
+	<include src="settings.xml,botgarden-settings.xml,host-settings.xml" required="false" merge="xmlmerge-settings.properties" strip-root="yes"/>
 
 	<spec>
 		<include src="base-relations.xml"/>
@@ -29,7 +29,7 @@
 			<include src="base-procedure-objectexit.xml,naturalhistory-procedure-objectexit.xml,botgarden-procedure-objectexit.xml" merge="xmlmerge.properties"/>
 
 			<include src="base-authority-contact.xml"/>
-            
+
 			<include src="base-authority-location-termList.xml,botgarden-authority-location-termList.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-location.xml,botgarden-authority-location.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-organization-termList.xml,botgarden-authority-organization-termList.xml" merge="xmlmerge.properties"/>
@@ -46,9 +46,9 @@
 			<include src="base-authority-concept.xml,naturalhistory-authority-concept.xml,botgarden-authority-concept.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-work-termList.xml,botgarden-authority-work-termList.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-work.xml"/>
-			
+
 			<include src="base-vocabularies.xml"/>
-			
+
 			<include src="base-authz-accountrole.xml"/>
 			<include src="base-authz-permission.xml"/>
 			<include src="base-authz-permrole.xml"/>
@@ -56,8 +56,9 @@
 			<include src="base-authz-userperm.xml"/>
 			<include src="base-authz-userrole.xml"/>
 			<include src="base-authz-users.xml"/>
-			
+
 			<include src="base-other-dimension.xml"/>
+			<include src="base-other-address.xml"/>
 			<include src="base-other-locality.xml,botgarden-other-locality.xml" merge="xmlmerge.properties"/>
 			<include src="base-other-hierarchy.xml"/>
 			<include src="base-other-idgenerator.xml,botgarden-other-idgenerator.xml" merge="xmlmerge.properties"/>

@@ -8,7 +8,7 @@
     <admin>
         <username>admin@botgarden.cspace.berkeley.edu</username>
         <tenant>35</tenant>
-        <tenantname>botgarden</tenantname>
+        <tenantname>ucbg</tenantname>
     </admin>
     <email>
         <from>admin@botgarden.cspace.berkeley.edu</from>
@@ -23,7 +23,8 @@
                 <id>35</id>
                 <name>botgarden.cspace.berkeley.edu</name>
                 <version>0.1</version>
-                <display-name>CollectionSpace BotGarden Tenant</display-name>
+                <display-name>CollectionSpace UC Botanical Garden Tenant</display-name>
+                <create-disabled>${CSPACE_UCBG_CREATE_DISABLED_OPT}</create-disabled>
             </tenant>
             <repository>
                 <domain>botgarden_domain</domain>
