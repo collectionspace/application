@@ -81,4 +81,17 @@
             <option id="transportation_enhancement_program">transportation enhancement program</option>
         </options>
     </instance>
+    <instance id="vocab-valuationsourcerole">
+        <web-url>valuationsourcerole</web-url>
+        <title-ref>valuationsourcerole</title-ref>
+        <title>Valuation Source Roles</title>
+        <options>
+            <option id="artist">artist</option>
+            <option id="owner">owner</option>
+            <option id="appraiser">appraiser</option>
+            <option id="insurance_agent">insurance agent</option>
+            <option id="artist_agent">artist agent</option>
+            <option id="auction_house">auction house</option>
+        </options>
+    </instance>
 </root>
