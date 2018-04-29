@@ -1,10 +1,12 @@
 <!-- Change options of conceptType, inventorystatus. -->
+<!-- Change title of inventorystatus. -->
+<!-- Comment out unused term lists. -->
 <instances>
     <include src="domain-instance-vocabularies.xml" strip-root="yes"/>
     <instance id="vocab-inventorystatus">
         <web-url>inventorystatus</web-url>
         <title-ref>inventorystatus</title-ref>
-        <title>Inventory Status</title>
+        <title>Installation Types</title>
         <options>
             <option id="permanent">permanent</option>
             <option id="onloan">on loan</option>
@@ -436,20 +438,20 @@
             <option id="workshop">workshop</option>
         </options>
     </instance>
-    <instance id="vocab-taxontype">
+    <!-- <instance id="vocab-taxontype">
         <web-url>taxontype</web-url>
         <title-ref>taxontype</title-ref>
         <title>Taxon Types</title>
         <options>
         </options>
-    </instance>
-    <instance id="vocab-materialtype">
+    </instance> -->
+    <!-- <instance id="vocab-materialtype">
         <web-url>materialtype</web-url>
         <title-ref>materialtype</title-ref>
         <title>Material Types</title>
         <options>
         </options>
-    </instance>
+    </instance> -->
     <instance id="vocab-citationtermflag">
         <web-url>citationtermflag</web-url>
         <title-ref>citationtermflag</title-ref>
@@ -510,7 +512,7 @@
             <option id="site">site name</option>
         </options>
     </instance>
-    <instance id="vocab-taxontermflag">
+    <!-- <instance id="vocab-taxontermflag">
         <web-url>taxontermflag</web-url>
         <title-ref>taxontermflag</title-ref>
         <title>Taxon Term Flags</title>
@@ -518,7 +520,7 @@
             <option id="valid">valid</option>
             <option id="invalid">invalid</option>
         </options>
-    </instance>
+    </instance> -->
     <instance id="vocab-worktermflag">
         <web-url>worktermflag</web-url>
         <title-ref>worktermflag</title-ref>
@@ -532,7 +534,7 @@
             <option id="trade">trade</option>
         </options>
     </instance>
-    <instance id="vocab-materialtermflag">
+    <!-- <instance id="vocab-materialtermflag">
         <web-url>materialtermflag</web-url>
         <title-ref>materialtermflag</title-ref>
         <title>Material Term Flags</title>
@@ -541,8 +543,8 @@
             <option id="commercial">commercial</option>
             <option id="common">common</option>
         </options>
-    </instance>
-    <instance id="vocab-materialuse">
+    </instance> -->
+    <!-- <instance id="vocab-materialuse">
         <web-url>materialuse</web-url>
         <title-ref>materialuse</title-ref>
         <title>materialuse</title>
@@ -568,8 +570,8 @@
             <option id="waterproofing">waterproofing</option>
             <option id="weatherproofing">weatherproofing</option>
         </options>
-    </instance>
-    <instance id="vocab-materialproductionrole">
+    </instance> -->
+    <!-- <instance id="vocab-materialproductionrole">
         <web-url>materialproductionrole</web-url>
         <title-ref>materialproductionrole</title-ref>
         <title>materialproductionrole</title>
@@ -578,8 +580,8 @@
             <option id="manufacturer">manufacturer</option>
             <option id="origin">origin</option>
         </options>
-    </instance>
-    <instance id="vocab-materialresource">
+    </instance> -->
+    <!-- <instance id="vocab-materialresource">
         <web-url>materialresource</web-url>
         <title-ref>materialresource</title-ref>
         <title>materialresource</title>
@@ -587,8 +589,8 @@
             <option id="csi">CSI</option>
             <option id="granta">Granta</option>
         </options>
-    </instance>
-    <instance id="vocab-materialform">
+    </instance> -->
+    <!-- <instance id="vocab-materialform">
         <web-url>materialform</web-url>
         <title-ref>materialform</title-ref>
         <title>materialform</title>
@@ -627,8 +629,8 @@
             <option id="veneer">veneer</option>
             <option id="wire">wire</option>
         </options>
-    </instance>
-    <instance id="vocab-materialformtype">
+    </instance> -->
+    <!-- <instance id="vocab-materialformtype">
         <web-url>materialformtype</web-url>
         <title-ref>materialformtype</title-ref>
         <title>materialformtype</title>
@@ -671,8 +673,8 @@
             <option id="semisolid_gel">semisolid - gel</option>
             <option id="semisolid_paste">semisolid - paste</option>
         </options>
-    </instance>
-    <instance id="vocab-acousticalproperties">
+    </instance> -->
+    <!-- <instance id="vocab-acousticalproperties">
         <web-url>acousticalproperties</web-url>
         <title-ref>acousticalproperties</title-ref>
         <title>acousticalproperties</title>
@@ -684,8 +686,8 @@
             <option id="sound_isolation_neutral">sound isolation - neutral</option>
             <option id="sound_isolation_conductor">sound isolation - conductor</option>
         </options>
-    </instance>
-    <instance id="vocab-durabilityproperties">
+    </instance> -->
+    <!-- <instance id="vocab-durabilityproperties">
         <web-url>durabilityproperties</web-url>
         <title-ref>durabilityproperties</title-ref>
         <title>durabilityproperties</title>
@@ -713,8 +715,8 @@
             <option id="emi_interference">electromagnetic interference (EMI)</option>
             <option id="rf_shielding">radio frequency shielding</option>
         </options>
-    </instance>
-    <instance id="vocab-electricalproperties">
+    </instance> -->
+    <!-- <instance id="vocab-electricalproperties">
         <web-url>electricalproperties</web-url>
         <title-ref>electricalproperties</title-ref>
         <title>electricalproperties</title>
@@ -724,8 +726,8 @@
             <option id="electrical_resistivity_semiconductor">electrical resistivity - semiconductor</option>
             <option id="electrical_resistivity_insulator">electrical resistivity - insulator</option>
         </options>
-    </instance>
-    <instance id="vocab-mechanicalproperties">
+    </instance> -->
+    <!-- <instance id="vocab-mechanicalproperties">
         <web-url>mechanicalproperties</web-url>
         <title-ref>mechanicalproperties</title-ref>
         <title>mechanicalproperties</title>
@@ -741,8 +743,8 @@
             <option id="youngs_modulus">young's modulus</option>
             <option id="fatigue_limit">fatigue limit</option>
         </options>
-    </instance>
-    <instance id="vocab-hygrothermalproperties">
+    </instance> -->
+    <!-- <instance id="vocab-hygrothermalproperties">
         <web-url>hygrothermalproperties</web-url>
         <title-ref>hygrothermalproperties</title-ref>
         <title>hygrothermalproperties</title>
@@ -757,8 +759,8 @@
             <option id="flammability">flammability</option>
             <option id="vapor_permeability">vapor permeability</option>
         </options>
-    </instance>
-    <instance id="vocab-opticalproperties">
+    </instance> -->
+    <!-- <instance id="vocab-opticalproperties">
         <web-url>opticalproperties</web-url>
         <title-ref>opticalproperties</title-ref>
         <title>opticalproperties</title>
@@ -774,8 +776,8 @@
             <option id="reflectance_medium">reflectance - medium (satin)</option>
             <option id="reflectance_diffuse">reflectance - diffuse (matte)</option>
         </options>
-    </instance>
-    <instance id="vocab-sensorialproperties">
+    </instance> -->
+    <!-- <instance id="vocab-sensorialproperties">
         <web-url>sensorialproperties</web-url>
         <title-ref>sensorialproperties</title-ref>
         <title>sensorialproperties</title>
@@ -798,8 +800,8 @@
             <option id="touch_sticky">touch - sticky</option>
             <option id="smell_odorous">smell - odorous</option>
         </options>
-    </instance>
-    <instance id="vocab-smartmaterialproperties">
+    </instance> -->
+    <!-- <instance id="vocab-smartmaterialproperties">
         <web-url>smartmaterialproperties</web-url>
         <title-ref>smartmaterialproperties</title-ref>
         <title>smartmaterialproperties</title>
@@ -819,8 +821,8 @@
             <option id="thermochromatic">thermochromatic</option>
             <option id="time_releasing">time-releasing</option>
         </options>
-    </instance>
-    <instance id="vocab-additionalproperties">
+    </instance> -->
+    <!-- <instance id="vocab-additionalproperties">
         <web-url>additionalproperties</web-url>
         <title-ref>additionalproperties</title-ref>
         <title>additionalproperties</title>
@@ -841,31 +843,31 @@
             <option id="temperature_control">temperature control</option>
             <option id="antimicrobial">antimicrobial</option>
         </options>
-    </instance>
-    <instance id="vocab-mechanicalpropertyunits">
+    </instance> -->
+    <!-- <instance id="vocab-mechanicalpropertyunits">
         <web-url>mechanicalpropertyunits</web-url>
         <title-ref>mechanicalpropertyunits</title-ref>
         <title>mechanicalpropertyunits</title>
         <options>
             <option id="kg_per_m3">kg/m³</option>
             <option id="MPa">MPa</option>
-            <option id="pct">% (percent)</option> <!-- display name must have at least 2 characters -->
+            <option id="pct">% (percent)</option>
             <option id="HV">HV</option>
         </options>
-    </instance>
-    <instance id="vocab-hygrothermalpropertyunits">
+    </instance> -->
+    <!-- <instance id="vocab-hygrothermalpropertyunits">
         <web-url>hygrothermalpropertyunits</web-url>
         <title-ref>hygrothermalpropertyunits</title-ref>
         <title>hygrothermalpropertyunits</title>
         <options>
-            <option id="m_degC_per_W">m°C/W</option> <!-- thermal resistivity -->
-            <option id="microstrain_per_degC">μstrain/°C</option> <!-- coefficient of thermal expansion -->
-            <option id="J_per_kg_degC">J/kg°C</option> <!-- specific heat -->
-            <option id="pct">% (percent)</option> <!-- display name must have at least 2 characters -->
+            <option id="m_degC_per_W">m°C/W</option>
+            <option id="microstrain_per_degC">μstrain/°C</option>
+            <option id="J_per_kg_degC">J/kg°C</option>
+            <option id="pct">% (percent)</option>
             <option id="degC">°C</option>
         </options>
-    </instance>
-    <instance id="vocab-recycledcontentqualifiers">
+    </instance> -->
+    <!-- <instance id="vocab-recycledcontentqualifiers">
         <web-url>recycledcontentqualifiers</web-url>
         <title-ref>recycledcontentqualifiers</title-ref>
         <title>recycledcontentqualifiers</title>
@@ -874,8 +876,8 @@
             <option id="postindustrial">Post industrial</option>
             <option id="unknown">Unknown</option>
         </options>
-    </instance>
-    <instance id="vocab-lifecyclecomponents">
+    </instance> -->
+    <!-- <instance id="vocab-lifecyclecomponents">
         <web-url>lifecyclecomponents</web-url>
         <title-ref>lifecyclecomponents</title-ref>
         <title>lifecyclecomponents</title>
@@ -885,8 +887,8 @@
             <option id="recyclable">Recyclable</option>
             <option id="renewable_resource">Renewable resource</option>
         </options>
-    </instance>
-    <instance id="vocab-energyunits">
+    </instance> -->
+    <!-- <instance id="vocab-energyunits">
         <web-url>energyunits</web-url>
         <title-ref>energyunits</title-ref>
         <title>energyunits</title>
@@ -894,16 +896,16 @@
             <option id="MJ_per_kg">MJ/kg</option>
             <option id="tCO2">tCO₂</option>
         </options>
-    </instance>
-    <instance id="vocab-ecologicalcertifications">
+    </instance> -->
+    <!-- <instance id="vocab-ecologicalcertifications">
         <web-url>ecologicalcertifications</web-url>
         <title-ref>ecologicalcertifications</title-ref>
         <title>ecologicalcertifications</title>
         <options>
             <option id="leed">LEED</option>
         </options>
-    </instance>
-    <instance id="vocab-castingprocesses">
+    </instance> -->
+    <!-- <instance id="vocab-castingprocesses">
         <web-url>castingprocesses</web-url>
         <title-ref>castingprocesses</title-ref>
         <title>castingprocesses</title>
@@ -916,8 +918,8 @@
             <option id="centrifugal_casting">centrifugal casting</option>
             <option id="slumping">slumping</option>
         </options>
-    </instance>
-    <instance id="vocab-deformingprocesses">
+    </instance> -->
+    <!-- <instance id="vocab-deformingprocesses">
         <web-url>deformingprocesses</web-url>
         <title-ref>deformingprocesses</title-ref>
         <title>deformingprocesses</title>
@@ -945,8 +947,8 @@
             <option id="rotary_swaging">rotary swaging</option>
             <option id="vacuum_melting">vacuum melting</option>
         </options>
-    </instance>
-    <instance id="vocab-joiningprocesses">
+    </instance> -->
+    <!-- <instance id="vocab-joiningprocesses">
         <web-url>joiningprocesses</web-url>
         <title-ref>joiningprocesses</title-ref>
         <title>joiningprocesses</title>
@@ -969,8 +971,8 @@
             <option id="weaving">weaving</option>
             <option id="filament_winding">filament winding</option>
         </options>
-    </instance>
-    <instance id="vocab-machiningprocesses">
+    </instance> -->
+    <!-- <instance id="vocab-machiningprocesses">
         <web-url>machiningprocesses</web-url>
         <title-ref>machiningprocesses</title-ref>
         <title>machiningprocesses</title>
@@ -993,8 +995,8 @@
             <option id="ebm">electron-beam machining (EBM)</option>
             <option id="wedm">wire electrical discharge machining (W-EDM)</option>
         </options>
-    </instance>
-    <instance id="vocab-moldingprocesses">
+    </instance> -->
+    <!-- <instance id="vocab-moldingprocesses">
         <web-url>moldingprocesses</web-url>
         <title-ref>moldingprocesses</title-ref>
         <title>moldingprocesses</title>
@@ -1022,8 +1024,8 @@
             <option id="hip">hot isostatic pressing (HIP)</option>
             <option id="cip">cold isostatic pressing (CIP)</option>
         </options>
-    </instance>
-    <instance id="vocab-rapidprototypingprocesses">
+    </instance> -->
+    <!-- <instance id="vocab-rapidprototypingprocesses">
         <web-url>rapidprototypingprocesses</web-url>
         <title-ref>rapidprototypingprocesses</title-ref>
         <title>rapidprototypingprocesses</title>
@@ -1041,8 +1043,8 @@
             <option id="sls">selective laser sintering (SLS)</option>
             <option id="slm">selective laser melting (SLM)</option>
         </options>
-    </instance>
-    <instance id="vocab-surfacingprocesses">
+    </instance> -->
+    <!-- <instance id="vocab-surfacingprocesses">
         <web-url>surfacingprocesses</web-url>
         <title-ref>surfacingprocesses</title-ref>
         <title>surfacingprocesses</title>
@@ -1066,8 +1068,8 @@
             <option id="laser_hardening">laser hardening</option>
             <option id="flame_hardening">flame hardening</option>
         </options>
-    </instance>
-    <instance id="vocab-additionalprocesses">
+    </instance> -->
+    <!-- <instance id="vocab-additionalprocesses">
         <web-url>additionalprocesses</web-url>
         <title-ref>additionalprocesses</title-ref>
         <title>additionalprocesses</title>
@@ -1084,7 +1086,7 @@
             <option id="recycled">recycled</option>
             <option id="tanning">tanning</option>
         </options>
-    </instance>
+    </instance> -->
     <instance id="vocab-addresstype">
         <web-url>addresstype</web-url>
         <title-ref>addresstype</title-ref>
