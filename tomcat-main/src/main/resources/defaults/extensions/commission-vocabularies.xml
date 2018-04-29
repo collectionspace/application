@@ -16,6 +16,7 @@
 			<option id="dedication">dedication</option>
 			<option id="maintenance">maintenance</option>
 			<option id="miscellaneous">miscellaneous</option>
+			<option id="total_project">total project</option>
 		</options>
 	</instance>
 </instances>
