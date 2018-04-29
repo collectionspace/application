@@ -1,4 +1,4 @@
-<!-- Change options of conceptType, inventorystatus. -->
+<!-- Change options of conceptType, inventorystatus, publishto. -->
 <!-- Change title of inventorystatus. -->
 <!-- Comment out unused term lists. -->
 <instances>
@@ -18,11 +18,8 @@
         <title-ref>publishto</title-ref>
         <title>A publishing destination</title>
         <options>
-            <option id="all">All</option>
             <option id="none">None</option>
-            <option id="cultureobject">Culture Object</option>
-            <option id="dpla">DPLA</option>
-            <option id="omeka">Omeka</option>
+            <option id="paa">Public Art Archive</option>
         </options>
     </instance>
     <instance id="vocab-languages">
