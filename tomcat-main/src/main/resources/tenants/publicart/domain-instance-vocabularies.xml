@@ -59,4 +59,26 @@
             <option id="youtube">YouTube</option>
         </options>
     </instance>
+    <instance id="vocab-acquisitionmethod">
+        <web-url>acquisitionmethod</web-url>
+        <title-ref>acquisitionmethod</title-ref>
+        <title>Acquisition Methods</title>
+        <options>
+            <option id="developers">developers</option>
+            <option id="direct_purchase">direct purchase</option>
+            <option id="donations">donations</option>
+            <option id="foundation_grant">foundation grant</option>
+            <option id="grant">grant</option>
+            <option id="in_kind">in-kind</option>
+            <option id="municipal_bonds">municipal bonds</option>
+            <option id="percent_for_art">percent for art</option>
+            <option id="private">private</option>
+            <option id="private_and_public">private and public</option>
+            <option id="public_art_ordinance">public art ordinance</option>
+            <option id="state_appropriations">state appropriations</option>
+            <option id="tax_appropriation">tax appropriation</option>
+            <option id="tax_increment_finance">tax increment finance</option>
+            <option id="transportation_enhancement_program">transportation enhancement program</option>
+        </options>
+    </instance>
 </root>
