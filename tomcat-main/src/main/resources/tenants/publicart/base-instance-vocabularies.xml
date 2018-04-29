@@ -1,4 +1,4 @@
-<!-- Change options of conceptType, inventorystatus, publishto. -->
+<!-- Change options of conceptType, inventorystatus, publishto, conditioncheckreason. -->
 <!-- Change title of inventorystatus. -->
 <!-- Comment out unused term lists. -->
 <instances>
@@ -138,11 +138,13 @@
         <title-ref>conditioncheckreason</title-ref>
         <title>Condition Check Reason</title>
         <options>
-            <option id="consideration">Consideration</option>
-            <option id="damagedintransit">Damaged in transit</option>
-            <option id="enquiry">Enquiry</option>
-            <option id="loanin">Loan in</option>
-            <option id="conservation">Conservation</option>
+            <option id="consideration">consideration</option>
+            <option id="damagedintransit">damaged in transit</option>
+            <option id="enquiry">enquiry</option>
+            <option id="loanin">loan in</option>
+            <option id="conservation">conservation</option>
+            <option id="inventory">inventory</option>
+            <option id="cleaning">cleaning</option>
         </options>
     </instance>
     <instance id="vocab-locationtype">
