@@ -1,4 +1,4 @@
-<!-- Change options of conceptType, inventorystatus, organizationtype, publishto. -->
+<!-- Change options of conceptType, inventorystatus, organizationtype, persontermtype, publishto. -->
 <!-- Change title of inventorystatus. -->
 <!-- Comment out unused term lists. -->
 <instances>
@@ -205,9 +205,30 @@
         <title-ref>persontermtype</title-ref>
         <title>personTermType</title>
         <options>
-                <option id="artist">Artist</option>
-                <option id="donor">Donor</option>
-                <option id="employee">Employee</option>
+            <option id="artist">artist</option>
+            <option id="donor">donor</option>
+            <option id="employee">employee</option>
+            <option id="administrator">administrator</option>
+            <option id="architect">architect</option>
+            <option id="art_director">art director</option>
+            <option id="associated_architect">associated architect</option>
+            <option id="bureaucrat">bureaucrat</option>
+            <option id="commissioner">commissioner</option>
+            <option id="conservator">conservator</option>
+            <option id="curator">curator</option>
+            <option id="designer">designer</option>
+            <option id="government_employee">government employee</option>
+            <option id="industrial_engineer">industrial engineer</option>
+            <option id="interior_designer">interior designer</option>
+            <option id="landscapist">landscapist</option>
+            <option id="landscape_architect">landscape architect</option>
+            <option id="musician">musician</option>
+            <option id="owner">owner</option>
+            <option id="partner">partner</option>
+            <option id="project_architect">project architect</option>
+            <option id="project_administrator">project administrator</option>
+            <option id="supervising_architect">supervising architect</option>
+            <option id="engineer">engineer</option>
         </options>
     </instance>
     <instance id="vocab-worktype">
