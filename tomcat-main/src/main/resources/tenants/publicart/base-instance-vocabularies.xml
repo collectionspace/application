@@ -1,4 +1,4 @@
-<!-- Change options of conceptType, inventorystatus, publishto. -->
+<!-- Change options of conceptType, inventorystatus, organizationtype, publishto. -->
 <!-- Change title of inventorystatus. -->
 <!-- Comment out unused term lists. -->
 <instances>
@@ -433,6 +433,12 @@
             <option id="repository">repository</option>
             <option id="studio">studio</option>
             <option id="workshop">workshop</option>
+            <option id="firm">firm</option>
+            <option id="non_profit_organization">non-profit organization</option>
+            <option id="municipal_entity">municipal entity</option>
+            <option id="state_entity">state entity</option>
+            <option id="federal_entity">federal entity</option>
+            <option id="foundation">foundation</option>
         </options>
     </instance>
     <!-- <instance id="vocab-taxontype">
