@@ -43,26 +43,12 @@
 		<title-ref>prodpersonrole</title-ref>
 		<title>Production Person Roles</title>
 		<options>
-			<option id="accompanist">accompanist</option>
 			<option id="artist">artist</option>
-			<option id="blesser">blesser</option>
-			<option id="carver">carver</option>
-			<option id="demonstrator">demonstrator</option>
+			<option id="author">author</option>
+			<option id="creator">creator</option>
 			<option id="designer">designer</option>
-			<option id="documenter">documenter</option>
-			<option id="illustrator">illustrator</option>
 			<option id="maker">maker</option>
-			<option id="materialSupplier">material supplier</option>
-			<option id="narrator">narrator</option>
-			<option id="painter">painter</option>
-			<option id="performer">performer</option>
 			<option id="photographer">photographer</option>
-			<option id="recorder">recorder</option>
-			<option id="ruler">ruler</option>
-			<option id="scribe">scribe</option>
-			<option id="singer">singer</option>
-			<option id="translator">translator</option>
-			<option id="writer">writer</option>
 		</options>
 	</instance>
 
@@ -71,11 +57,10 @@
 		<title-ref>prodorgrole</title-ref>
 		<title>Production Organization Roles</title>
 		<options>
+			<option id="author">author</option>
+			<option id="creator">creator</option>
 			<option id="maker">maker</option>
-			<option id="manufacturer">manufacturer</option>
-			<option id="performer">performer</option>
-			<option id="photographer">photographer</option>
-			<option id="supplier">supplier</option>
+			<option id="publisher">publisher</option>
 		</options>
 	</instance>
 </root>
