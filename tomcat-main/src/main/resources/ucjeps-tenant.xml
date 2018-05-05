@@ -1,7 +1,7 @@
 <cspace-config tenantname="ucjeps">
 	<tenantid>20</tenantid>
 	<version>11</version>
-	<include src="settings.xml,ucjeps-settings.xml,host-settings.xml" merge="xmlmerge-settings.properties" strip-root="yes"/>
+	<include src="settings.xml,ucjeps-settings.xml,host-settings.xml" required="false" merge="xmlmerge-settings.properties" strip-root="yes"/>
 
 	<spec>
 		<include src="base-relations.xml"/>
@@ -43,9 +43,9 @@
 			<include src="base-authority-concept.xml,ucjeps-authority-concept.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-work-termList.xml,ucjeps-authority-work-termList.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-work.xml"/>
-			
+
 			<include src="base-vocabularies.xml"/>
-			
+
 			<include src="base-authz-accountrole.xml"/>
 			<include src="base-authz-permission.xml"/>
 			<include src="base-authz-permrole.xml"/>
@@ -53,9 +53,10 @@
 			<include src="base-authz-userperm.xml"/>
 			<include src="base-authz-userrole.xml"/>
 			<include src="base-authz-users.xml"/>
-			
+
 			<include src="base-other-dimension.xml,ucjeps-other-dimension.xml" merge="xmlmerge.properties"/>
 			<include src="base-other-locality.xml,ucjeps-other-locality.xml" merge="xmlmerge.properties"/>
+			<include src="base-other-address.xml"/>
 			<include src="base-other-hierarchy.xml"/>
 			<include src="base-other-idgenerator.xml,ucjeps-other-idgenerator.xml" merge="xmlmerge.properties"/>
 			<include src="base-other-structureddate.xml"/>
