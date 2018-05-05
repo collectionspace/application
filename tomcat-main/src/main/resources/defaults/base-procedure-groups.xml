@@ -7,6 +7,7 @@
                 <services-record-path>groups_common:http://collectionspace.org/services/group,groups_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 <hassoftdelete>true</hassoftdelete>
+
                 <structures>
                     <structure id="search">
                         <view>
@@ -66,7 +67,7 @@
                             <option id="prints-drawings">Prints and Drawings</option>
                         </options>
                     </field>
-                    <field id="owner" ui-search="repeatable" autocomplete="person-person"
+                    <field id="owner" ui-search="repeatable" autocomplete="person-person,person-person_shared"
                            mini="summary,list" in-title="yes" services-schema-qualify="true">
                     </field>
                 </section>

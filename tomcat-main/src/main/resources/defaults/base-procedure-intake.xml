@@ -76,10 +76,10 @@
                     <field id="returnDate" ui-search="range" ui-type="date" datatype="date">
                         <container-selector>intake-returnDate-container</container-selector>
                     </field>
-                    <field id="currentOwner" in-title="yes" mini="summary,search,list,relate" ui-search="repeatable" autocomplete="person-person,organization-organization">
+                    <field id="currentOwner" in-title="yes" mini="summary,search,list,relate" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared">
                         <selector>intake-current-owner</selector>
                     </field>
-                    <field id="depositor" ui-search="repeatable" autocomplete="person-person,organization-organization">
+                    <field id="depositor" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared">
                         <selector>intake-depositor</selector>
                     </field>
                     <field id="depositorsRequirements">
@@ -103,10 +103,10 @@
                     <field id="fieldCollectionNumber"></field>
                     <field id="fieldCollectionPlace"></field>
                     <repeat id="fieldCollectionSources">
-                        <field id="fieldCollectionSource" autocomplete="person-person"></field>
+                        <field id="fieldCollectionSource" autocomplete="person-person,person-person_shared"></field>
                     </repeat>
                     <repeat id="fieldCollectors">
-                        <field id="fieldCollector" autocomplete="person-person,organization-organization"></field>
+                        <field id="fieldCollector" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"></field>
                     </repeat>
                     <repeat id="fieldCollectionEventNames">
                         <field id="fieldCollectionEventName" ui-search="repeatable" >
@@ -115,7 +115,7 @@
                     </repeat>
                 </section>
                 <section id="valuationInformation">
-                    <field id="valuer" autocomplete="person-person,organization-organization"></field>
+                    <field id="valuer" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"></field>
                     <field id="valuationReferenceNumber">
                         <selector>intake-valuation-reference-number</selector>
                     </field>
@@ -123,7 +123,7 @@
                 <section id="insuranceInformation">
                     <repeat id="insurers">
                         <selector>intake-insurer</selector>
-                        <field id="insurer" autocomplete="person-person,organization-organization"></field>
+                        <field id="insurer" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"></field>
                     </repeat>
                     <field id="insurancePolicyNumber">
                         <selector>intake-insurance-policy-number</selector>
@@ -167,7 +167,7 @@
                         <field id="conditionCheckReason" autocomplete="vocab-conditioncheckreason" ui-type="enum"></field>
                     </repeat>
                     <repeat id="conditionCheckersOrAssessors">
-                        <field id="conditionCheckerOrAssessor" autocomplete="person-person,organization-organization"></field>
+                        <field id="conditionCheckerOrAssessor" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"></field>
                     </repeat>
                     <field id="conditionCheckNote">
                         <selector>intake-condition-check-note</selector>

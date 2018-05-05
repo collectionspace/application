@@ -48,6 +48,9 @@
                     "uri": {
                         "type": "string"
                     },
+                    "workflow": {
+                        "type": "string"
+                    },
                     "updatedBy": {
                         "type": "string"
                     },

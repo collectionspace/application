@@ -8,6 +8,10 @@ package org.collectionspace.chain.csp.persistence.services.connection;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.HttpStatus;
+
+import org.collectionspace.csp.api.persistence.ExistException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,17 +34,28 @@ public class ReturnedURL implements Returned {
 		return url.substring(last+1);
 	}
 
-	public void setResponse(HttpMethod method, int status) throws Exception {
+	@Override
+	public boolean setResponse(HttpMethod method, int status) throws Exception {
+		boolean result = true; // it's ok to release the parent connection since we consume the entire response stream here
+		
 		String possiblemessg = method.getResponseBodyAsString();
-		Header location=method.getResponseHeader("Location");
-		if(location==null){
-			if(possiblemessg!=""){
+		Header location = method.getResponseHeader("Location");
+		this.status = status;
+
+		if (status == HttpStatus.SC_CONFLICT) {
+			throw new ExistException("Record exists already. Can't create a duplicate: " + 
+					possiblemessg != null ? possiblemessg : "Unknown reason.", status);
+		}
+
+		if (location == null) {
+			if (possiblemessg != "") {
 				throw new ConnectionException(possiblemessg, status, "");
 			}
-			throw new ConnectionException("Missing location header "+method.getResponseBodyAsString(),status,"");
+			throw new ConnectionException("Missing location header " + method.getResponseBodyAsString(), status, "");
 		}
-		url=location.getValue();
-		this.status=status;
+		
+		url = location.getValue();
+		return result;
 	}
 	
 	public void relativize(String base_url) {

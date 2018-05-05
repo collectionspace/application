@@ -16,6 +16,8 @@
     <services-url>conceptauthorities</services-url>
     <authority-vocab-type>ConceptAuthority</authority-vocab-type>
     <hassoftdelete>true</hassoftdelete>
+	<supportsReplicating>true</supportsReplicating>
+	<remoteClientConfigName>default</remoteClientConfigName>
     
     <structures>
         <structure id="search">
@@ -54,6 +56,17 @@
             <title-ref>activity</title-ref>
             <title>Activity Concepts</title>
         </instance>
+        <!-- For materials authority -->
+        <instance id="concept-materialclassification">
+            <web-url>materialclassification</web-url>
+            <title-ref>materialclassification</title-ref>
+            <title>Material Classifications</title>
+        </instance>
+        <instance id="concept-materialformtype">
+            <web-url>materialformtype</web-url>
+            <title-ref>materialformtype</title-ref>
+            <title>Material Form Types</title>
+        </instance>
     </instances>
 	
 	<section id="coreInformation">
@@ -73,7 +86,9 @@
         <field id="scopeNoteSourceDetail">
             <selector>conceptAuthority-scopeNoteSourceDetail</selector>
         </field>
-        <field id="recordType"></field>
+        <repeat id="conceptRecordTypes">
+            <field id="conceptRecordType" ui-search="repeatable" autocomplete="vocab-concepttype" ui-type="enum"/>
+        </repeat>
         <repeat id="citationGroupList/citationGroup">
             <!-- citationSource will be a Citation Authority autocomplete field when that service is implemented -->
             <field id="citationSource"></field>
@@ -97,5 +112,10 @@
 		</field>
         <field id="shortIdentifier" mini="search,list,relate" attributes="GET" services-should-index="true"></field>
         <field id="csid" exists-in-services="false" mini="search,list,relate" attributes="GET"></field>
+        <!-- SAS related fields -->
+		<field id="rev" mini="list" datatype="integer"/>
+		<field id="sas" mini="list" datatype="boolean"/>
+		<field id="proposed" mini="list" datatype="boolean"/>
+		<field id="deprecated" mini="list" datatype="boolean"/>
     </section>
 </record>

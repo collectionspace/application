@@ -13,8 +13,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.collectionspace.chain.csp.config.ReadOnlySection;
-import org.collectionspace.chain.csp.config.Rules;
-import org.collectionspace.chain.csp.config.Target;
+import org.collectionspace.chain.csp.config.RuleSet;
+import org.collectionspace.chain.csp.config.RuleTarget;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 /**

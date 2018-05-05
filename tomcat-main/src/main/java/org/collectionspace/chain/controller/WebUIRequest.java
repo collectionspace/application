@@ -66,7 +66,7 @@ public class WebUIRequest implements UIRequest {
 	private Operation operation_performed=Operation.READ;
 	private Map<String,String> rargs=new HashMap<String,String>();
 	private PrintWriter out=null;
-	private OutputStream out_stream=null;
+	private OutputStream out_stream=null;//XXX make inputstream output method for blobs
 	private String out_data=null; // We store to allow late changes to headers
 	private byte[] out_binary_data=null;
 	private InputStream out_input_stream=null;
@@ -78,6 +78,7 @@ public class WebUIRequest implements UIRequest {
 	private WebUIUmbrella umbrella;
 	private WebUISession session;
 	private boolean solidified=false;
+	private Integer status = null;
 
 	private void initRequest(UIUmbrella umbrella,HttpServletRequest request,HttpServletResponse response, List<String> p) throws IOException, UIException{
 		this.request=request;
@@ -267,9 +268,9 @@ public class WebUIRequest implements UIRequest {
 	@Override
 	public Set<String> getAllRequestArgument() throws UIException {
 		Set<String> params = new HashSet<String>();
-		Enumeration e = request.getParameterNames();
+		Enumeration<String> e = request.getParameterNames();
 		while (e.hasMoreElements()) {
-			String name = (String)e.nextElement();
+			String name = e.nextElement();
 			params.add(name);
 		}
 		return params;
@@ -289,13 +290,13 @@ public class WebUIRequest implements UIRequest {
 		return Operation.READ;
 	}
 
-	private void set_status() {
-		switch(operation_performed) {
-		case CREATE:
-			response.setStatus(201);
-			break;
-		default:
-			response.setStatus(200);
+	private void setSuccessStatus() {
+		switch (operation_performed) {
+			case CREATE:
+				response.setStatus(201);
+				break;
+			default:
+				response.setStatus(200);
 		}
 	}
 
@@ -330,44 +331,62 @@ public class WebUIRequest implements UIRequest {
 		try {
 			// Need to handle caching before we deal with the binary output. We have to add headers before
 			// we write all the data. 
-			if(cacheMaxAgeSeconds <= 0) {
-				/* By default, we disable caching for now (for IE). We probably want to be cleverer at some point. XXX */
-				response.addHeader("Pragma","no-cache");
-				response.addHeader("Last-Modified",aWhileAgoAsExpectedByExpiresHeader());
-				response.addHeader("Cache-Control","no-store, no-cache, must-revalidate");
-				response.addHeader("Cache-Control","post-check=0, pre-check=0");
+			if (cacheMaxAgeSeconds <= 0) {
+				/*
+				 * By default, we disable caching for now (for IE). We probably
+				 * want to be cleverer at some point. XXX
+				 */
+				response.addHeader("Pragma", "no-cache");
+				response.addHeader("Last-Modified", aWhileAgoAsExpectedByExpiresHeader());
+				response.addHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+				response.addHeader("Cache-Control", "post-check=0, pre-check=0");
 			} else {
 				// Create a cache header per the timeout requested (usu. by the individual request handler)
-				response.addHeader("Cache-Control","max-age="+Integer.toString(cacheMaxAgeSeconds));
+				response.addHeader("Cache-Control", "max-age=" + Integer.toString(cacheMaxAgeSeconds));
 			}
+			
 			/* End of cacheing stuff */
-			if(out_data!=null) {
-				out=response.getWriter();
+			if (out_data != null) {
+				out = response.getWriter();
 				out.print(out_data);
-				out_data=null;
-			}
-			else if(out_binary_data!=null) {
-				out_stream=response.getOutputStream();
+			} else if (out_binary_data != null) {
+				out_stream = response.getOutputStream();
 				out_stream.write(out_binary_data);
-			}
-			else if(out_input_stream!=null) {
-				out_stream=response.getOutputStream();
+			} else if (out_input_stream != null) {
+				out_stream = response.getOutputStream();
 				IOUtils.copy(out_input_stream, out_stream);
 			}
 			
-			if(solidified) {
-				if(close)
+			if (solidified) {
+				if (close) {
 					close();
+				}
 				return;
 			}
-			solidified=true;
-			if(failure) {
+			
+			solidified = true;
+			if (failure) {
 				// Failed
-				response.setStatus(400);
-				if(failing_exception!=null)
-					response.sendError(400,ExceptionUtils.getFullStackTrace(failing_exception));
-				else
-					response.sendError(400,"No underlying exception");
+				int status = getStatus() == null ? 400 : getStatus();
+				response.setStatus(status);
+				//
+				// If we haven't already set a response for the the UI layer, send a stack trace.
+				//
+				if (out_data == null) {
+					if (failing_exception != null) {
+						response.sendError(status, ExceptionUtils.getFullStackTrace(failing_exception));
+					} else {
+						response.sendError(status, "No underlying exception");
+					}
+				} else {
+					//
+					// If we've setup an error message in the response, then we don't need to return an HTTP status error code.
+					// The client (the UI layer) will parse the response and recognize it contains an error response.
+					//
+					if (out_data.contains("isError")) {
+						setSuccessStatus();
+					}
+				}
 			} else {
 				// Success
 				setSession();
@@ -389,18 +408,20 @@ public class WebUIRequest implements UIRequest {
 						path.append(URLEncoder.encode(e.getValue(),"UTF-8"));
 					}
 					if(secondary_redirect)
-						set_status();
+						setSuccessStatus();
 					else
 						response.setStatus(303);
 					response.setHeader("Location",path.toString());
 				} else {
-					set_status();
+					setSuccessStatus();
 				}
 			}
 			if(close)
 				close();
 		} catch (IOException e) {
 			throw new UIException("Could not send error",e);
+		} finally {
+			out_data = null; // reset the out_data field for possible additional requests?
 		}
 	}
 
@@ -409,6 +430,7 @@ public class WebUIRequest implements UIRequest {
 		response.setContentType("text/xml;charset=UTF-8");
 		out_data=data;
 	}
+	
 	@Override
 	public void sendUnknown(String data, String contenttype, String contentDisposition) throws UIException {
 		response.setContentType(contenttype);
@@ -416,6 +438,7 @@ public class WebUIRequest implements UIRequest {
 			response.setHeader("Content-Disposition", contentDisposition);
 		out_data=data;
 	}
+	
 	@Override
 	public void sendUnknown(byte[] data, String contenttype, String contentDisposition) throws UIException {
 		response.setContentType(contenttype);
@@ -423,6 +446,7 @@ public class WebUIRequest implements UIRequest {
 			response.setHeader("Content-Disposition", contentDisposition);
 		out_binary_data=data;
 	}
+	
 	@Override
 	public void sendUnknown(InputStream data, String contenttype, String contentDisposition) throws UIException {
 		response.setContentType(contenttype);
@@ -430,11 +454,13 @@ public class WebUIRequest implements UIRequest {
 			response.setHeader("Content-Disposition", contentDisposition);
 		out_input_stream=data;
 	}
+	
 	@Override
 	public void sendJSONResponse(JSONObject data) throws UIException {
 		response.setContentType("text/json;charset=UTF-8");
 		out_data=data.toString();
 	}
+	
 	@Override
 	public void sendJSONResponse(JSONArray data) throws UIException {
 		response.setContentType("text/json;charset=UTF-8");
@@ -513,5 +539,20 @@ public class WebUIRequest implements UIRequest {
 	@Override
 	public void sendURLReponse(String url) throws UIException {
 		response.setHeader("Location", url);
+	}
+	@Override
+	public String getTenant() {
+		// TODO Auto-generated method stub
+		return this.umbrella.getWebUI().getTenant();
+	}
+	
+	@Override
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	
+	@Override
+	public Integer getStatus() {
+		return status;
 	}
 }

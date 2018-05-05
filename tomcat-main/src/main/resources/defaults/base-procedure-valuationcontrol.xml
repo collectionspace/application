@@ -58,7 +58,7 @@
         </repeat>
         <field id="valueDate" ui-search="range" ui-type="date" datatype="date"/>
         <field id="valueRenewalDate" ui-search="range" ui-type="date" datatype="date"/>
-        <field id="valueSource" ui-search="repeatable" autocomplete="person-person,organization-organization"/>
+        <field id="valueSource" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"/>
         <field id="valueType" ui-search="repeatable" in-title="yes" mini="summary,search,list,relate">
             <options>
                 <option id="">Please select a value</option>

@@ -17,7 +17,6 @@ import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.authorities.AuthoritiesVocabulariesInitialize;
 import org.collectionspace.chain.csp.webui.main.Request;
-import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebMethodWithOps;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.chain.csp.webui.misc.Generic;
@@ -423,7 +422,7 @@ public class RecordCreateUpdate implements WebMethodWithOps {
 					String test  = fields.optString("displayName");
 					test = test.toUpperCase();
 					test.replaceAll("\\W", "_");
-					fields.put("roleName", "ROLE_"+test);
+					fields.put("roleName", "xROLE_"+test);
 					data.put("fields", fields);
 				}
 				// If we are updating a role, then we need to clear the userperms cache
@@ -466,36 +465,35 @@ public class RecordCreateUpdate implements WebMethodWithOps {
 				//
 				ReportUtils.invokeReport(this, storage, request, path);
 			} 
-			else if(this.record.getID().equals("batchoutput")){
+			else if (this.record.getID().equals("batchoutput")) {
 				//do a read instead of a create as reports are special and evil
 
-				JSONObject fields=data.optJSONObject("fields");
+				JSONObject fields = data.optJSONObject("fields");
 				JSONObject payload = new JSONObject();
 				payload.put("mode", "single");
 
-				if(fields.has("mode")){
+				if (fields.has("mode")) {
 					payload.put("mode", fields.getString("mode"));
 				}
-				if(fields.has("docType")){
+				if (fields.has("docType")) {
 					String type = spec.getRecordByWebUrl(fields.getString("docType")).getServicesTenantSg();
 					payload.put("docType", type);
 				}
-				if(fields.has("singleCSID")){
+				if (fields.has("singleCSID")) {
 					payload.put("singleCSID", fields.getString("singleCSID"));
-				}
-				else if(fields.has("groupCSID")){
+				} else if (fields.has("groupCSID")) {
 					payload.put("singleCSID", fields.getString("csid"));
 				}
-				
-				JSONObject out=storage.retrieveJSON(base+"/"+path,payload);
 
-				byte[] data_array = (byte[])out.get("getByteBody");
-				String contentDisp = out.has("contentdisposition")?out.getString("contentdisposition"):null;
-				request.sendUnknown(data_array,out.getString("contenttype"), contentDisp);
-				request.setCacheMaxAgeSeconds(0);	// Ensure we do not cache report output.
+				JSONObject out = storage.retrieveJSON(base + "/" + path, payload);
+
+				byte[] data_array = (byte[]) out.get("getByteBody");
+				String contentDisp = out.has("contentdisposition") ? out.getString("contentdisposition") : null;
+				request.sendUnknown(data_array, out.getString("contenttype"), contentDisp);
+				request.setCacheMaxAgeSeconds(0); // Ensure we do not cache report output.
 				//request.sendJSONResponse(out);
-				request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
-			}
+				request.setOperationPerformed(create ? Operation.CREATE : Operation.UPDATE);
+			}			
 			else {
 				//
 				// <Please document this clause.>
@@ -575,7 +573,7 @@ public class RecordCreateUpdate implements WebMethodWithOps {
 					request.setSecondaryRedirectPath(new String[]{url_base,path});
 			}
 		} catch (JSONException x) {
-			throw new UIException("Failed to parse json: "+x,x);
+			throw new UIException("Failed to parse JSON: "+x,x);
 		} catch (ExistException x) {
 			UIException uiexception =  new UIException(x.getMessage(),0,"",x);
 			request.sendJSONResponse(uiexception.getJSON());
@@ -583,7 +581,9 @@ public class RecordCreateUpdate implements WebMethodWithOps {
 			throw new UIException("Unimplemented exception: "+x,x);
 		} catch (UnderlyingStorageException x) {
 			UIException uiexception =  new UIException(x.getMessage(),x.getStatus(),x.getUrl(),x);
-			request.sendJSONResponse(uiexception.getJSON());
+			request.setStatus(x.getStatus());
+			request.setFailure(true, uiexception);
+			request.sendJSONResponse(uiexception.getJSON());			
 		}catch (Exception x) {
 			throw new UIException(x);
 		}

@@ -68,7 +68,7 @@
                         ui-search="range" primarykey="accessionDateGroup.dateDisplayDate"
                         ui-func="cspace.structuredDate">
                     </field>
-                    <field id="acquisitionAuthorizer" autocomplete="person-person"></field>
+                    <field id="acquisitionAuthorizer" autocomplete="person-person,person-person_shared"></field>
                     <field id="acquisitionAuthorizerDate" ui-type="date" datatype="date">
                         <selector>acquisition-acquisitionAuthorizerDate</selector>
                         <container-selector>acquisition-acquisitionAuthorizerDate-container</container-selector>
@@ -91,13 +91,13 @@
                     </field>
                     <repeat id="acquisitionSources">
                         <field id="acquisitionSource" mini="summary,search,list,relate" in-title="yes"
-                            ui-search="repeatable" autocomplete="person-person,organization-organization">
+                            ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared">
                             <selector>acquisition-acquisitionSource</selector>
                         </field>
                     </repeat>
                     <repeat id="owners">
                         <selector>acquisition-owner</selector>
-                        <field id="owner" autocomplete="person-person,organization-organization">
+                        <field id="owner" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared">
                             <selector>acquisition-owner</selector>
                         </field>
                     </repeat>
@@ -175,7 +175,7 @@
                             </enum>
                         </field>
                         <field id="acquisitionFundingValue" ui-type="validated" datatype="float"></field>
-                        <field id="acquisitionFundingSource" ui-search="repeatable" autocomplete="person-person,organization-organization"></field>
+                        <field id="acquisitionFundingSource" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"></field>
                         <field id="acquisitionFundingSourceProvisos"></field>
                     </repeat>
                 </section>

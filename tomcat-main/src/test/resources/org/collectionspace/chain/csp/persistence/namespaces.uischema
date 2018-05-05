@@ -12,6 +12,10 @@
               "order": {
                 "default": 0, 
                 "type": "integer"
+              },
+              "workflowState": {
+                "default": "project",
+                "type": "string"
               }
             }, 
             "type": "object"
@@ -25,6 +29,10 @@
               "order": {
                 "default": 1, 
                 "type": "integer"
+              },
+              "workflowState": {
+                "default": "project",
+                "type": "string"
               }
             }, 
             "type": "object"
@@ -43,6 +51,10 @@
               "order": {
                 "default": 2, 
                 "type": "integer"
+              },
+              "workflowState": {
+                "default": "project",
+                "type": "string"
               }
             }, 
             "type": "object"
@@ -56,6 +68,10 @@
               "order": {
                 "default": 0, 
                 "type": "integer"
+              },
+              "workflowState": {
+                "default": "project",
+                "type": "string"
               }
             }, 
             "type": "object"
@@ -69,6 +85,10 @@
               "order": {
                 "default": 1, 
                 "type": "integer"
+              },
+              "workflowState": {
+                "default": "project",
+                "type": "string"
               }
             }, 
             "type": "object"
@@ -87,6 +107,10 @@
               "order": {
                 "default": 0, 
                 "type": "integer"
+              },
+              "workflowState": {
+                "default": "project",
+                "type": "string"
               }
             }, 
             "type": "object"
@@ -100,6 +124,10 @@
               "order": {
                 "default": 1, 
                 "type": "integer"
+              },
+              "workflowState": {
+                "default": "project",
+                "type": "string"
               }
             }, 
             "type": "object"
@@ -118,6 +146,10 @@
               "order": {
                 "default": 0, 
                 "type": "integer"
+              },
+              "workflowState": {
+                "default": "project",
+                "type": "string"
               }
             }, 
             "type": "object"
@@ -131,6 +163,10 @@
               "order": {
                 "default": 1, 
                 "type": "integer"
+              },
+              "workflowState": {
+                "default": "project",
+                "type": "string"
               }
             }, 
             "type": "object"
@@ -149,6 +185,10 @@
               "order": {
                 "default": 0, 
                 "type": "integer"
+              },
+              "workflowState": {
+                "default": "project",
+                "type": "string"
               }
             }, 
             "type": "object"
@@ -162,6 +202,10 @@
               "order": {
                 "default": 1, 
                 "type": "integer"
+              },
+              "workflowState": {
+                "default": "project",
+                "type": "string"
               }
             }, 
             "type": "object"
@@ -180,6 +224,10 @@
               "order": {
                 "default": 0, 
                 "type": "integer"
+              },
+              "workflowState": {
+                "default": "project",
+                "type": "string"
               }
             }, 
             "type": "object"
@@ -193,6 +241,10 @@
               "order": {
                 "default": 1, 
                 "type": "integer"
+              },
+              "workflowState": {
+                "default": "project",
+                "type": "string"
               }
             }, 
             "type": "object"
@@ -211,6 +263,9 @@
               "order": {
                 "default": 1, 
                 "type": "integer"
+              },
+              "workflowState": {
+                "type": "string"
               }
             }, 
             "type": "object"
@@ -224,6 +279,9 @@
               "order": {
                 "default": 0, 
                 "type": "integer"
+              },
+              "workflowState": {
+                "type": "string"
               }
             }, 
             "type": "object"
@@ -242,6 +300,10 @@
               "order": {
                 "default": 1, 
                 "type": "integer"
+              },
+              "workflowState": {
+                "default": "project",
+                "type": "string"
               }
             }, 
             "type": "object"
@@ -255,6 +317,10 @@
               "order": {
                 "default": 0, 
                 "type": "integer"
+              },
+              "workflowState": {
+                "default": "project",
+                "type": "string"
               }
             }, 
             "type": "object"

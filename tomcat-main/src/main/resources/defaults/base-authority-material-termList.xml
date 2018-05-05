@@ -1,0 +1,73 @@
+<record id="preferredMaterial" in-recordlist="no" separate-record="false">
+    <hassoftdelete>true</hassoftdelete>
+    <section id="termInformation">
+        <!-- List containing this item's preferred term and any non-preferred terms -->
+        <repeat id="materialTermGroupList/materialTermGroup">
+            <!-- Fields common across all authority items -->
+            <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes"
+                mini="summary,number,search,list,relate" services-should-index="true">
+                <selector>materialAuthority-termDisplayName</selector>
+                <title-selector>titleBar-displayName</title-selector>
+            </field>
+            <field id="termName" ui-search="repeatable">
+                <selector>materialAuthority-termName</selector>
+            </field>
+            <field id="termType">
+                <selector>materialAuthority-termType</selector>
+                <options>
+                    <option id="">Please select a value</option>
+                    <option id="descriptor">Descriptor</option>
+                    <option id="alternate descriptor">Alternate Descriptor</option>
+                    <option id="used for term">Used for Term</option>
+                </options>
+            </field>
+            <field id="termStatus" ui-search="repeatable" seperate_ui_container="true"
+                mini="search,list,relate">
+                <selector>materialAuthority-termStatus</selector>
+                <options>
+                    <option id="provisional" default="yes">Provisional</option>
+                    <option id="under review">Under Review</option>
+                    <option id="accepted">Accepted</option>
+                    <option id="rejected">Rejected</option>
+                </options>
+            </field>
+            <field id="termFlag" ui-search="repeatable" autocomplete="vocab-materialtermflag" ui-type="enum">
+                <selector>materialAuthority-termFlag</selector>
+            </field>
+            <field id="termQualifier">
+                <selector>materialAuthority-termQualifier</selector>
+            </field>
+            <field id="termLanguage" ui-search="repeatable" autocomplete="vocab-languages" ui-type="enum">
+                <selector>materialAuthority-termLanguage</selector>
+            </field>
+            <field id="termPrefForLang" datatype="boolean">
+                <selector>materialAuthority-termPrefForLang</selector>
+            </field>
+            <field id="termSource" autocomplete="citation-citation,citation-citation_shared,citation-worldcat">
+                <selector>materialAuthority-termSource</selector>
+            </field>
+            <field id="termSourceDetail">
+                <selector>materialAuthority-termSourceDetail</selector>
+            </field>
+            <field id="termSourceID">
+                <selector>materialAuthority-termSourceID</selector>
+            </field>
+            <field id="termSourceNote">
+                <selector>materialAuthority-termSourceNote</selector>
+            </field>
+            <field id="termFormattedDisplayName">
+                <selector>materialAuthority-termFormattedDisplayName</selector>
+            </field>
+            <!-- Fields specific to Material terms -->
+            <field id="historicalStatus">
+                <selector>materialAuthority-historicalStatus</selector>
+                <options>
+                    <option id="current" default="yes">Current</option>
+                    <option id="historical">Historical</option>
+                    <option id="both">Both</option>
+                    <option id="unknown">Unknown</option>
+                </options>
+            </field>
+        </repeat>
+    </section>
+</record>

@@ -1,6 +1,6 @@
 <record id="person" type="authority" cms-type="default" generate-services-schema="true"
 		services-prefetch-fields="persons_common:personTermGroupList/0/termDisplayName,persons_common:refName,persons_common:shortIdentifier">
-                <terms-used>true</terms-used>
+    <terms-used>true</terms-used>
     <web-url>person</web-url>
     
     <services-tenant-auth-singular>Personauthority</services-tenant-auth-singular>
@@ -16,7 +16,9 @@
     <services-url>personauthorities</services-url>
     <authority-vocab-type>PersonAuthority</authority-vocab-type>
     <hassoftdelete>true</hassoftdelete>
-    
+	<supportsReplicating>true</supportsReplicating>
+	<remoteClientConfigName>default</remoteClientConfigName>
+
     <structures>
         <structure id="search">
             <view>
@@ -28,8 +30,8 @@
                 <label-section id="messagekeys" show="true"></label-section>
                 <hierarchy-section show="true">
             		<options>
-                		<option id="narrowerContext">person-person</option>
-                		<option id="broaderContext">person-person</option>
+                		<option id="narrowerContext">person-person,person-person_shared</option>
+                		<option id="broaderContext">person-person,person-person_shared</option>
 					</options>
 				</hierarchy-section>
             </view>
@@ -59,6 +61,9 @@
         <field id="preferredPerson" ui-type="groupfield/preferredPA/selfrenderer" ui-func="cspace.preferred">
             <selector>preferred-personAuthority</selector>
         </field>
+        <repeat id="personRecordTypes">
+            <field id="personRecordType" ui-search="repeatable" autocomplete="vocab-persontermtype" ui-type="enum"/>
+        </repeat>
         <field id="birthDateGroup" in-title="yes" ui-type="groupfield/structureddate" 
             ui-search="range" primarykey="birthDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
             <selector>personAuthority-birthDate</selector>
@@ -125,5 +130,10 @@
 		</field>
         <field id="shortIdentifier" mini="search,list,relate" attributes="GET" services-should-index="true"></field>
         <field id="csid" exists-in-services="false" mini="search,list,relate" attributes="GET"></field>
+        <!-- SAS related fields -->
+		<field id="rev" mini="list" datatype="integer"/>
+		<field id="sas" mini="list" datatype="boolean"/>
+		<field id="proposed" mini="list" datatype="boolean"/>
+		<field id="deprecated" mini="list" datatype="boolean"/>
     </section>
 </record>

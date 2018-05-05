@@ -1,0 +1,7 @@
+<record id="objectexit" is-extension="true">
+    <services-record-path id="naturalhistory_extension">objectexit_naturalhistory_extension:http://collectionspace.org/objectexit/domain/naturalhistory_extension,objectexit_naturalhistory_extension</services-record-path>
+	
+	<section id="objectexitInformation">
+	    <field id="count" ui-type="validated" datatype="integer" section="naturalhistory_extension"/>
+	</section>
+</record>

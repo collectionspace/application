@@ -5,12 +5,8 @@
   <properties name="fs">${test_fs_path}</properties>
   
   <option name="services-url">
-    <services suffix="/helloworld/cspace-nuxeo/collectionobjects/">http://localhost:8080</services>
-    <services suffix="/cspace-services/collectionobjects/">http://localhost:8180</services>
-    <services suffix="/helloworld/cspace-nuxeo/collectionobjects/">http://chalk-233:8080</services>
+    <services suffix="/cspace-services/collectionobjects/">http://localhost:@JEE_PORT@</services>
   </option>
-  
-  nonsense is okay here
   
   <option name="test-properties">
     <property>test.properties</property>
@@ -27,10 +23,7 @@
     <default>failure</default>
   </option>
   
-  <option name="test">
-  
-    nonsense is okay here
-  
+  <option name="test">  
     <default>success</default>
   </option>
   

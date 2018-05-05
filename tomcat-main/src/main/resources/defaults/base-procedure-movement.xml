@@ -48,16 +48,12 @@
 				
                 <section id="coreInformation">
                     <include src="core-fields.xml"  strip-root="yes" />
-					<field id="workflow" exists-in-services="false" services-derived="true"
-                                               section="collectionspace_core" attributes="GET" mini="search,list">
-						<services-tag>workflowState</services-tag>
-					</field>
                 </section>
 				
                 <section id="currentLocationHeader"></section> <!-- temp until better way to do group headers -->
                 <section id="locationMovementInformation">
                     <!--  Object Location Information Group -->
-                    <field id="currentLocation" ui-search="repeatable" in-title="yes" mini="summary,search,list,relate" autocomplete="location-location,location-offsite_sla,organization-organization">
+                    <field id="currentLocation" ui-search="repeatable" in-title="yes" mini="summary,search,list,relate" autocomplete="location-location,location-offsite_sla,organization-organization,organization-organization_shared">
                         <title-selector>titleBar-currentLocation</title-selector>
                     </field>
                     <field id="currentLocationFitness">
@@ -100,7 +96,7 @@
                             <option id="research">Research</option>
                         </options>
                     </field>
-                    <field id="movementContact" ui-search="repeatable" autocomplete="person-person"></field>
+                    <field id="movementContact" ui-search="repeatable" autocomplete="person-person,person-person_shared"></field>
                     <repeat id="movementMethods">
                         <field id="movementMethod" ui-search="repeatable">
                             <selector>movement-movementMethods</selector>
@@ -137,7 +133,7 @@
                         </options>
                     </field>
 					<repeat id="inventoryContactList">
-                        <field id="inventoryContact" autocomplete="person-person" ui-search="repeatable">
+                        <field id="inventoryContact" autocomplete="person-person,person-person_shared" ui-search="repeatable">
                         </field>
 					</repeat>
                 </section>

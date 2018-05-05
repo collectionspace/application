@@ -1,0 +1,16 @@
+<record id="collection-object" is-extension="true"  generate-services-schema="true">
+    <services-record-path id="culturalcare">collectionobjects_culturalcare:http://collectionspace.org/services/collectionobject/domain/collectionobject,collectionobjects_culturalcare</services-record-path>
+    <section id="culturalCareInformation" section="culturalcare">
+        <repeat id="culturalCareNotes" section="culturalcare">
+            <field id="culturalCareNote" section="culturalcare" />
+        </repeat>
+        <repeat id="accessLimitationsGroupList/accessLimitationsGroup" section="culturalcare">
+            <field id="limitationType" autocomplete="vocab-limitationtype" ui-type="enum" section="culturalcare" />
+            <field id="limitationLevel" autocomplete="vocab-limitationlevel" ui-type="enum" section="culturalcare" />
+            <field id="limitationDetails" section="culturalcare" />
+            <field id="requester" autocomplete="person-person" section="culturalcare" />
+            <field id="requestOnBehalfOf" autocomplete="organization-organization" section="culturalcare" />
+            <field id="requestDate" ui-type="date" datatype="date" section="culturalcare" />
+        </repeat>
+    </section>
+</record>

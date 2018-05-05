@@ -1,0 +1,16 @@
+<record id="collection-object" is-extension="true"  generate-services-schema="true">
+
+    <services-record-path id="fineart">
+        collectionobjects_fineart:http://collectionspace.org/services/collectionobject/domain/collectionobject,collectionobjects_fineart
+    </services-record-path>
+    <section id="identificationInformation">
+        <field id="catalogLevel" section="fineart"
+               autocomplete="vocab-cataloglevel" ui-type="enum"  />
+    </section>
+    <section id="descriptionInformation">
+        <field id="materialTechniqueDescription" section="fineart" />
+    </section>
+    <section id="objectProductionInformation">
+        <field id="creatorDescription" section="fineart"/>
+    </section>
+</record>
