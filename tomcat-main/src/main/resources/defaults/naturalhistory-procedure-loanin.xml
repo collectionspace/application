@@ -30,26 +30,28 @@
 					<option id="Jar">Jar</option>
 				</options>
 			</field>
-		</repeat>		
+		</repeat>
 		<field id="shipDate" section="naturalhistory" ui-type="date" datatype="date"/>
 		<field id="dueDate" section="naturalhistory" ui-type="date" datatype="date"/>
 
 		<field id="transferInDate" section="naturalhistory" ui-type="date" datatype="date"/>
 		<field id="transferInOrg" section="naturalhistory" autocomplete="organization-organization"/>
 		<field id="transferInPerson" section="naturalhistory" autocomplete="person-person"/>
-		
+
 		<field id="numReceived" section="naturalhistory" ui-type="validated" datatype="integer"/>
 		<field id="numReturned" section="naturalhistory" ui-type="validated" datatype="integer"/>
 		<field id="numTransferredOut" section="naturalhistory" ui-type="validated" datatype="integer"/>
 		<field id="balance" section="naturalhistory" ui-type="validated" datatype="integer"/>
 		<field id="discrepancy" section="naturalhistory" ui-type="validated" datatype="integer"/>
 	</section>
-	
+
 	<section id="returnInformation">
 		<repeat id="returnGroupList/returnGroup" section="naturalhistory">
-			<field id="returnDate" section="naturalhistory" ui-type="date" datatype="date"/>
+			<field id="returnObjectNumbers" section="naturalhistory"/>
 			<field id="returnQuantity" section="naturalhistory" ui-type="validated" datatype="integer"/>
+			<field id="returnDate" section="naturalhistory" ui-type="date" datatype="date"/>
 			<field id="returnNotes" section="naturalhistory"/>
+			<field id="returnDetermination" section="naturalhistory" autocomplete="taxon-taxon"/>
 		</repeat>
 	</section>
 
