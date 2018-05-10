@@ -1,0 +1,20 @@
+<record id="person" is-extension="true">
+    <services-record-path id="dvp">persons_dvp:http://collectionspace.org/services/person/local/dvp,persons_dvp</services-record-path>
+
+    <section id="communityConnectionsInformation">
+        <!-- Local fields -->
+
+        <repeat id="dartmouthConnectionList" services-type-anonymous="false" section="dvp">
+            <field id="dartmouthConnection" ui-search="repeatable" autocomplete="vocab-dartmouthconnections" ui-type="enum" section="dvp" />
+        </repeat>
+        
+        <field id="dartmouthConnectionOther" section="dvp" />
+        
+        <repeat id="collegeGroupList/collegeGroup" section="dvp">
+            <field id="collegeBranch" autocomplete="vocab-collegebranches" ui-type="enum" section="dvp" />
+            <field id="yearsOfAttendanceDate" ui-type="groupfield/structureddate" section="dvp" />
+            <field id="yearOfGraduationDate" ui-type="groupfield/structureddate" section="dvp" />
+        </repeat>
+        
+    </section>
+</record>

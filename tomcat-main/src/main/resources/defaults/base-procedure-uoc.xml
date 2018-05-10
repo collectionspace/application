@@ -75,11 +75,11 @@
                                 <blank-value>Please select a value</blank-value>
                             </enum>
                         </field>
-                    </repeat>   
+                    </repeat>
                     
-                    <field id="title" />
+                    <field id="title" mini="summary,search,list"/>
                     
-                    <field id="authorizedBy" autocomplete="person-person,person-person_shared" />
+                    <field id="authorizedBy" autocomplete="person-person,person-person_shared" mini="summary,search,list"/>
                     <field id="authorizationDate" ui-search="range" ui-type="date" datatype="date" />
                     <field id="authorizationNote" />
                     
