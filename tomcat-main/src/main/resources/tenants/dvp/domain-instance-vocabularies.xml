@@ -26,4 +26,26 @@
 			<option id="tucksob">Tuck School of Business</option>
 		</options>
 	</instance>
+	
+	<instance id="vocab-interviewstatus">
+		<web-url>interviewstatus</web-url>
+		<title-ref>interviewstatus</title-ref>
+		<title>DVP Interview Status</title>
+		<options>
+			<option id="pending">Pending</option>
+			<option id="approved">Approved</option>
+			<option id="declined">Declined</option>
+		</options>
+	</instance>
+	
+	<instance id="vocab-objectproductionrole">
+		<web-url>objectproductionrole</web-url>
+		<title-ref>objectproductionrole</title-ref>
+		<title>DVP Object Production Role</title>
+		<options>
+			<option id="interviewee">Interviewee</option>
+			<option id="interviewer">Interviewer</option>
+			<option id="transcriptionist">Transcriptionist</option>
+		</options>
+	</instance>	
 </root>

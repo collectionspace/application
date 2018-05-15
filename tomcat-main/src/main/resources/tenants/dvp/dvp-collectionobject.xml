@@ -1,0 +1,38 @@
+<record id="collection-object" is-extension="true">
+	<services-record-path id="dvp">collectionobjects_dvp:http://collectionspace.org/services/collectionobject/local/dvp,collectionobjects_dvp</services-record-path>
+
+	<section id="identificationInformation">
+		<field id="collection" ui-search="repeatable" seperate_ui_container="true">
+			<selector>object-identification-collection</selector>
+			<options>
+				<option id="">Please select a value</option>
+				<option id="dvp-collection">Dartmouth Vietnam Project</option>
+			</options>
+		</field>
+	</section>
+	
+	<section id="contentInformation">	
+		<repeat id="contentActivities">
+			<field id="contentActivity" autocomplete="true"/>
+		</repeat>
+		<repeat id="contentConcepts">
+			<field id="contentConcept" autocomplete="true" />
+		</repeat>
+		<repeat id="contentPlaces">
+			<field id="contentPlace" autocomplete="true" />
+		</repeat>
+		<repeat id="contentEventNameGroupList/contentEventNameGroup">
+			<field id="contentEventName" autocomplete="true">
+			</field>
+		</repeat>
+	</section>
+
+	<section id="objectProductionInformation">
+		<repeat id="objectProductionPlaceGroupList/objectProductionPlaceGroup">
+			<field id="objectProductionPlace" autocomplete="true" />
+		</repeat>
+		<repeat id="objectProductionPersonGroupList/objectProductionPersonGroup">
+			<field id="objectProductionPersonRole" autocomplete="vocab-objectproductionrole" ui-type="enum" />
+		</repeat>
+	</section>
+</record>

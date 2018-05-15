@@ -1,0 +1,13 @@
+<record id="intake" is-extension="true">
+  <services-record-path id="dvp">intakes_dvp:http://collectionspace.org/services/intake/local/dvp,intakes_dvp</services-record-path>
+
+  <section id="objectEntryInformation">
+    
+    <repeat id="interviewStatusGroupList/interviewStatusGroup" section="dvp">
+      <field id="interviewStatus" autocomplete="vocab-interviewstatus" ui-type="enum" section="dvp" />
+      <field id="interviewDate" ui-search="range" ui-type="date" datatype="date" section="dvp" />
+    </repeat>
+    
+  </section>
+
+</record>
