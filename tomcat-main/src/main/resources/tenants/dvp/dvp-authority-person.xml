@@ -6,7 +6,7 @@
         <!-- Local fields -->
 
         <repeat id="dartmouthGroupList/dartmouthGroup" section="dvp">
-            <field id="dartmouthConnection" ui-search="repeatable"
+            <field id="dartmouthConnection"
                 autocomplete="vocab-dartmouthconnections" ui-type="enum" section="dvp"/>
             <field id="dartmouthConnectionOther" section="dvp"/>
             <field id="collegeBranch" 

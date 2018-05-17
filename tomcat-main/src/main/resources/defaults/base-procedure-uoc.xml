@@ -79,7 +79,7 @@
                     
                     <field id="title" mini="summary,search,list"/>
                     
-                    <field id="authorizedBy" autocomplete="person-person,person-person_shared" mini="summary,search,list"/>
+                    <field id="authorizedBy" autocomplete="person-person,person-person_shared" mini="search,list"/>
                     <field id="authorizationDate" ui-search="range" ui-type="date" datatype="date" />
                     <field id="authorizationNote" />
                     
@@ -87,7 +87,7 @@
                     <field id="endDate" ui-search="range" ui-type="date" datatype="date" />
                     
                     <repeat id="userGroupList/userGroup">
-                        <field id="user" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared" in-title="yes" mini="summary,search,list" />
+                        <field id="user" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared" in-title="yes" mini="search,list" />
                         <field id="userType" ui-search="repeatable" autocomplete="vocab-uocusertypes" ui-type="enum"></field>
                     </repeat>
                     
