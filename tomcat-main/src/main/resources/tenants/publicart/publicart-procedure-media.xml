@@ -8,5 +8,15 @@
         <repeat id="publicartRightsHolders" section="publicart">
             <field id="publicartRightsHolder" autocomplete="true" section="publicart" />
         </repeat>
+        
+        <repeat id="publishToList" services-type-anonymous="false" section="publicart">
+            <field id="publishTo" ui-search="repeatable" autocomplete="vocab-publishto" ui-type="enum" section="publicart">
+                <enum>
+                    <default>urn:cspace:core.collectionspace.org:vocabularies:name(publishto):item:name(none)'None'</default>
+                    <blank-value>Please select a value</blank-value>
+                </enum>
+                <selector>object-identification-publishto</selector>
+            </field>
+        </repeat>
     </section>
 </record>

@@ -4,7 +4,7 @@
     <section id="placeAuthorityInformation">
         <!-- Local fields -->
 
-        <field id="placementType" section="publicart" />
+        <field id="placementType" autocomplete="vocab-placementtypes" ui-type="enum" section="publicart" />
         <field id="placementEnvironment" section="publicart" />
 
         <!-- Replacement for placeOwnerGroupList/placeOwnerGroup, to add owner type. -->
