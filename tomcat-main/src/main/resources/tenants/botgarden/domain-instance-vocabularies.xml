@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
 <root>
     <include src="extensions/livingplant-vocabularies.xml" strip-root="yes"/>
+    <include src="extensions/locality-vocabularies.xml" strip-root="yes" />
     <include src="extensions/annotation-vocabularies.xml" strip-root="yes" />
     <include src="extensions/naturalhistory-vocabularies.xml" strip-root="yes" />
-    
+
     <instance id="vocab-phaseFormType">
         <web-url>phaseformtype</web-url>
         <title-ref>phaseformtype</title-ref>
@@ -22,7 +23,7 @@
             <option id="map">Map</option>
         </options>
     </instance>
-    
+
     <instance id="vocab-reasonForMove">
         <web-url>reasonformove</web-url>
         <title-ref>reasonformove</title-ref>
@@ -37,7 +38,7 @@
             <option id="revived">Revived</option>
         </options>
     </instance>
-    
+
     <instance id="vocab-propReason">
         <web-url>propreason</web-url>
         <title-ref>propreason</title-ref>
@@ -50,7 +51,7 @@
             <option id="conservation">conservation</option>
         </options>
     </instance>
-    
+
     <instance id="vocab-propType">
         <web-url>proptype</web-url>
         <title-ref>proptype</title-ref>
@@ -65,7 +66,7 @@
             <option id="tissueculture">Tissue Culture</option>
         </options>
     </instance>
-    
+
     <instance id="vocab-scarStrat">
         <web-url>scarstrat</web-url>
         <title-ref>scarstrat</title-ref>
@@ -87,7 +88,7 @@
             <option id="watersoak">water soak</option>
         </options>
     </instance>
-    
+
     <instance id="vocab-durationUnit">
         <web-url>durationunit</web-url>
         <title-ref>durationunit</title-ref>
@@ -113,7 +114,7 @@
             <option id="root">root</option>
         </options>
     </instance>
-    
+
     <instance id="vocab-labelstandtype">
         <web-url>labelstandtype</web-url>
         <title-ref>labelstandtype</title-ref>
@@ -1482,16 +1483,6 @@
 			<option id="VirginIslands">Virgin Islands</option>
 			<option id="WesternSamoa">Western Samoa</option>
 			<option id="Zhonghua">Zhonghua</option>
-		</options>
-	</instance>
-	<instance id="vocab-vcoordsys">
-		<web-url>vcoordsys</web-url>
-		<title-ref>vcoordsys</title-ref>
-		<title>Verbatim Coordinate System</title>
-		<options>
-			<option id="None">None</option>
-			<option id="Unknown">Unknown</option>
-			<option id="UTM">UTM</option>
 		</options>
 	</instance>
 	<instance id="vocab-potSize">
