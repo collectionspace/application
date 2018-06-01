@@ -9,18 +9,18 @@
 				<option id="voucher" sample="V2012.1">Voucher Collection Number</option>
 			</options>
 		</field>
-		
+
 		<!-- Remove person-person from autocomplete, and change summary to number in mini -->
 		<field id="borrower" autocomplete="organization-organization" mini="number,list"/>
 
 		<!-- Add mini=summary -->
-		<field id="loanPurpose" mini="summary">
+		<field id="loanPurpose" mini="summary,search,list,relate">
 			<!-- Remove options -->
 			<options/>
 		</field>
-		
+
 		<!-- Local fields -->
-		
+
 		<repeat id="collectorList" section="botgarden">
 			<field id="collector" ui-search="repeatable" autocomplete="person-person" section="botgarden"/>
 		</repeat>
@@ -37,7 +37,7 @@
 		<field id="annotation" section="botgarden"/>
 		<field id="sheetAccessionNumber" section="botgarden"/>
 		<field id="reviewComplete" datatype="boolean" section="botgarden"/>
-		
+
 		<field id="labelRequested" ui-search="repeatable" section="botgarden">
 			<options>
 				<option id="">Please select a value</option>
