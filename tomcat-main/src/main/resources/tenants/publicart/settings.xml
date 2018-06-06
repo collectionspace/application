@@ -71,6 +71,16 @@
                 </languages>
                 <indexHandler>org.collectionspace.services.common.init.AddIndices</indexHandler>
             </repository>
+            <remoteclients>
+                <remoteclient>
+                    <name>default</name>
+                    <url>${CSPACE_PUBLICART_CLIENT_SAS_URL_OPT}</url>
+                    <user>${CSPACE_PUBLICART_CLIENT_SAS_USER_OPT}</user>
+                    <password>${CSPACE_PUBLICART_CLIENT_SAS_PASSWORD_OPT}</password>
+                    <ssl>${CSPACE_PUBLICART_CLIENT_SAS_SSL_OPT}</ssl>
+                    <auth>true</auth>
+                </remoteclient>
+            </remoteclients>
             <ims-url>/collectionspace/tenant/publicart/</ims-url> <!-- XXX should be in separate IMS section -->
         </service>
     </persistence>
