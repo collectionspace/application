@@ -19,7 +19,7 @@
 
 	<section id="taxonNameAuthorityInformation">
 		<!-- Add mini, and change options -->
-		<field id="taxonRank" mini="summary">
+		<field id="taxonRank" mini="summary,search,list,relate">
 			<options>
 				<option id="" default="yes">Please select a value</option>
 				<option id="unknown">unknown</option>
