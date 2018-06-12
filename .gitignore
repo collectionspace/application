@@ -15,7 +15,6 @@ tomcat-main/src/main/resources/tenants/core/cow.xml
 .gitignore
 *.bak
 target/
-tomcat-main/src/main/resources/tenants/pahma/host-settings.xml
 .DS_Store
 *.bindings.xml
 war-entry/tmp/
