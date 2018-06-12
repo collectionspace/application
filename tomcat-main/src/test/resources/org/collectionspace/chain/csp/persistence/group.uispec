@@ -75,5 +75,9 @@
     ".csc-group-updatedAt-label": {"messagekey": "group-updatedAtLabel"},
     ".csc-group-scopeNote": "${fields.scopeNote}",
     ".csc-group-groupInformation-label": {"messagekey": "group-groupInformationLabel"},
-    ".csc-group-uri": "${fields.uri}"
+    ".csc-group-uri": "${fields.uri}",
+    ".csc-group-workflow": "${fields.workflow}",
+    ".csc-group-workflow-label": {
+        "messagekey": "group-workflowLabel"
+    }
 }}

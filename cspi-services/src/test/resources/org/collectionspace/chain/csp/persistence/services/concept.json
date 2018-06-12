@@ -1,20 +1,28 @@
 {
-  "shortIdentifier": "concepttest1",
-  "citationGroup": [{
-    "_primary": true,
-    "citationSource": "source"
-  }],
-  "conceptTermGroup": [{
-    "_primary": true,
-    "termDisplayName": "Concept Test 1 (Qualified)",
-    "termQualifier": "Qualifier",
-    "termType": "Type",
-    "termStatus": "termStatus",
-    "termLanguage": "English",
-    "termPrefForLang": true
-  }],
-  "additionalSourceGroup": [{
-    "_primary": true,
-    "additionalSource": "source"
-  }]
+    "deprecated": false,
+    "citationGroup": [{
+        "_primary": true,
+        "citationSource": "source"
+    }],
+    "shortIdentifier": "concepttest1",
+    "conceptTermGroup": [{
+        "termPrefForLang": true,
+        "_primary": true,
+        "termType": "Type",
+        "termDisplayName": "Concept Test 1 (Qualified)",
+        "termStatus": "termStatus",
+        "termQualifier": "Qualifier",
+        "termLanguage": "English"
+    }],
+    "sas": false,
+    "proposed": false,
+    "conceptRecordTypes": [{
+        "_primary": true,
+        "conceptRecordType": "urn:cspace:core.collectionspace.org:vocabularies:name(concepttype):item:name(commonname)'common name'",
+        "de-urned-conceptRecordType": "common name"  
+    }],
+    "additionalSourceGroup": [{
+        "_primary": true,
+        "additionalSource": "source"
+    }]
 }

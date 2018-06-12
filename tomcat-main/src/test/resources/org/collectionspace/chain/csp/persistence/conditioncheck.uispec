@@ -264,6 +264,10 @@
     ".csc-conditioncheck-displayRecommendations-label": {"messagekey": "conditioncheck-displayRecommendationsLabel"},
     ".csc-conditioncheck-specialRequirements": "${fields.specialRequirements}",
     ".csc-conditioncheck-uri": "${fields.uri}",
+    ".csc-conditioncheck-workflow": "${fields.workflow}", 
+    ".csc-conditioncheck-workflow-label": {
+      "messagekey": "conditioncheck-workflowLabel"
+    }, 
     ".csc-conditioncheck-updatedBy": "${fields.updatedBy}",
     ".csc-conditioncheck-hazardNote-label": {"messagekey": "conditioncheck-hazardNoteLabel"},
     ".csc-conditioncheck-conditionCheckGroup": {"decorators": [{

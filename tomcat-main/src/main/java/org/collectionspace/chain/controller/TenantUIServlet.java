@@ -113,8 +113,10 @@ public class TenantUIServlet extends TenantServlet {
 //			tenant = getTenantByCookie(servlet_request);
 		}
 		
-		if(!tenantInit.containsKey(tenant) || !tenantInit.get(tenant))
+		if (!tenantInit.containsKey(tenant) || !tenantInit.get(tenant)) {
 			setup(tenant);
+		}
+		
 		/**
 		 * Support composite requests in ui calls as well as app direct calls
 		 */

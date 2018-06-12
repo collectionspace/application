@@ -1,0 +1,205 @@
+{
+    "conservation": {
+        "properties": {
+            "csid": {
+                "type": "string"
+            },
+            "fields": {
+                "properties": {
+                    "analysisMethod": {
+                        "type": "string"
+                    },
+                    "analysisResults": {
+                        "type": "string"
+                    },
+                    "approvedBy": {
+                        "type": "string"
+                    },
+                    "approvedDate": {
+                        "type": "date"
+                    },
+                    "conservationNumber": {
+                        "type": "string"
+                    },
+                    "conservationStatusGroup": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "status": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "statusDate": {
+                                    "type": "date"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "conservators": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "conservator": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "createdAt": {
+                        "type": "date"
+                    },
+                    "createdBy": {
+                        "type": "string"
+                    },
+                    "workflow": {
+                        "type": "string"
+                    },
+                    "destAnalysisGroup": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "destAnalysisApprovalNote": {
+                                    "type": "string"
+                                },
+                                "destAnalysisApprovedDate": {
+                                    "type": "date"
+                                },
+                                "sampleBy": {
+                                    "type": "string"
+                                },
+                                "sampleDate": {
+                                    "type": "date"
+                                },
+                                "sampleDescription": {
+                                    "type": "string"
+                                },
+                                "sampleReturned": {
+                                    "default": false,
+                                    "type": "boolean"
+                                },
+                                "sampleReturnedLocation": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "examinationGroup": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "examinationDate": {
+                                    "type": "date"
+                                },
+                                "examinationNote": {
+                                    "type": "string"
+                                },
+                                "examinationPhase": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "examinationStaff": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "fabricationNote": {
+                        "type": "string"
+                    },
+                    "otherPartyGroup": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "otherParty": {
+                                    "type": "string"
+                                },
+                                "otherPartyNote": {
+                                    "type": "string"
+                                },
+                                "otherPartyRole": {
+                                    "default": "",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "proposedAnalysis": {
+                        "type": "string"
+                    },
+                    "proposedAnalysisDate": {
+                        "type": "date"
+                    },
+                    "proposedTreatment": {
+                        "type": "string"
+                    },
+                    "refName": {
+                        "type": "string"
+                    },
+                    "researcher": {
+                        "type": "string"
+                    },
+                    "tenantId": {
+                        "type": "string"
+                    },
+                    "treatmentEndDate": {
+                        "type": "date"
+                    },
+                    "treatmentPurpose": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "treatmentStartDate": {
+                        "type": "date"
+                    },
+                    "treatmentSummary": {
+                        "type": "string"
+                    },
+                    "updatedAt": {
+                        "type": "date"
+                    },
+                    "updatedBy": {
+                        "type": "string"
+                    },
+                    "uri": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "relations": {
+                "default": {},
+                "type": "object"
+            },
+            "termsUsed": {
+                "default": [],
+                "type": "array"
+            }
+        },
+        "type": "object"
+    }
+}

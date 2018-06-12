@@ -1,14 +1,39 @@
 {
-    "shortIdentifier": "worktest1",
+    "deprecated": false,
+    "rev": "",
     "workHistoryNote": "history note goes here",
     "publisherGroup": [{
         "_primary": true,
         "publisherType": "distributor",
         "publisher": "TriStar Pictures"
     }],
-    "refName": "",
+    "deprecatedRefName": "",
     "workType": "work type goes here",
-    "csid": "",
+    "workTermGroup": [{
+        "termPrefForLang": false,
+        "termName": "Muppets Take Manhattan",
+        "_primary": true,
+        "termType": "term type",
+        "termDisplayName": "Muppets Take Manhattan (1984)",
+        "termSource": "other",
+        "termFormattedDisplayName": "Muppets Take Manhattan (1984)",
+        "termStatus": "complete",
+        "termSourceID": "12345",
+        "termQualifier": "term qualifier",
+        "termSourceDetail": "term source detail",
+        "termSourceNote": "source note goes here",
+        "termLanguage": "english"
+    }],
+    "creatorGroup": [{
+        "_primary": true,
+        "creatorType": "director",
+        "creator": "Frank Oz"
+    }],
+    "shortIdentifier": "worktest1",
+    "inAuthority": "",
+    "sas": false,
+    "refName": "",
+    "proposed": false,
     "workDateGroup": [
         {
             "dateEarliestSingleQualifier": "-",
@@ -62,25 +87,18 @@
             "dateEarliestSingleMonth": "7"
         }
     ],
-    "uri": "",
-    "workTermGroup": [{
-        "termPrefForLang": false,
-        "termName": "Muppets Take Manhattan",
-        "_primary": true,
-        "termType": "term type",
-        "termDisplayName": "Muppets Take Manhattan (1984)",
-        "termSource": "other",
-        "termStatus": "complete",
-        "termSourceID": "12345",
-        "termQualifier": "term qualifier",
-        "termSourceDetail": "term source detail",
-        "termSourceNote": "source note goes here",
-        "termFormattedDisplayName": "Muppets Take Manhattan (1984)",
-        "termLanguage": "english"
-    }],
-    "creatorGroup": [{
-        "_primary": true,
-        "creatorType": "director",
-        "creator": "Frank Oz"
-    }]
+    "addrGroup": [
+      {
+        "addressCountry": "",
+        "de-urned-addressType": "personal",
+        "addressPlace2": "",
+        "addressPlace1": "123 Telegraph Ave.",
+        "addressType": "urn:cspace:core.collectionspace.org:vocabularies:name(addresstype):item:name(personal)'personal'",
+        "addressMunicipality": "urn:cspace:core.collectionspace.org:placeauthorities:name(place):item:name(Berkeley1463718674206)'Berkeley'",
+        "addressPostCode": "",
+        "addressStateOrProvince": "",
+        "de-urned-addressMunicipality": "Berkeley",
+        "_primary": true
+      }
+    ]
 }

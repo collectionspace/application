@@ -90,18 +90,22 @@ public class VocabRedirector implements WebMethod {
 			allInstances = ((Field)fd).getAllAutocompleteInstances();
 		}
 		
-		
-		
-		for(Instance autoc : allInstances){
-			JSONObject instance = new JSONObject();
-			instance.put("url","/vocabularies/"+autoc.getWebURL());
-			instance.put("type",autoc.getID());
-			instance.put("fullName",autoc.getTitle());
-			out.put(instance);
+		for(Instance autoc : allInstances) {
+			if (autoc != null) {
+				JSONObject instance = new JSONObject();
+				instance.put("url","/vocabularies/"+autoc.getWebURL());
+				instance.put("type",autoc.getID());
+				instance.put("fullName",autoc.getTitle());
+				out.put(instance);
+			} else {
+				log.debug(String.format("A vocab/authority instance for autocompleting the '%s' field was null or missing.",
+						fieldname));
+			}
 		}
 		
 		return out;
 	}
+	
 	private void redirect(CSPRequestCache cache,Storage storage,UIRequest request,String[] tail) throws UIException {
 		try {
 			JSONArray out = new JSONArray();

@@ -404,6 +404,10 @@
     },
     ".csc-intake-conditionCheckNote-label": {"messagekey": "intake-conditionCheckNoteLabel"},
     ".csc-intake-uri": "${fields.uri}",
+    ".csc-intake-workflow": "${fields.workflow}", 
+    ".csc-intake-workflow-label": {
+      "messagekey": "intake-workflowLabel"
+    }, 
     ".csc-intake-entryDate-label": {"messagekey": "intake-entryDateLabel"},
     ".csc-intake-entryMethod": {"decorators": [{
         "func": "cspace.makeRepeatable",

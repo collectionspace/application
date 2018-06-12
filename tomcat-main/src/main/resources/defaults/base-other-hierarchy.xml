@@ -17,7 +17,7 @@
 
     <section id="hierarchyInformation">
         <field id="broaderContext" ui-type="externalURL"
-            autocomplete="person-person,organization-organization,taxon-taxon,location-location"/>
+            autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared,taxon-taxon,location-location"/>
         <field id="broaderContextType">
             <!-- This could be moved to a common enum, but then we'd have to use merged labels -->
             <options>
@@ -31,7 +31,7 @@
         </field>
         <repeat id="narrowerContexts">
             <field id="narrowerContext" ui-type="externalURL"
-                autocomplete="person-person,organization-organization,taxon-taxon,location-location">
+                autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared,taxon-taxon,location-location">
                 <autocomplete-options>
                     <strings> narrowerChange|Warning: %narrower currently has broader term %broader.
                         Change broader term? </strings>
@@ -52,7 +52,7 @@
         </repeat>
         <repeat id="relatedTerms">
             <field id="relatedTerm"
-                autocomplete="person-person,organization-organization,taxon-taxon,"/>
+                autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared,taxon-taxon,"/>
         </repeat>
     </section>
     <section id="equivalentInformation">

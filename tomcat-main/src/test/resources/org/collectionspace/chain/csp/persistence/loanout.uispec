@@ -195,6 +195,10 @@
     },
     ".csc-loanout-createdBy-label": {"messagekey": "loanout-createdByLabel"},
     ".csc-loanout-uri": "${fields.uri}",
+    ".csc-loanout-workflow": "${fields.workflow}", 
+    ".csc-loanout-workflow-label": {
+      "messagekey": "loanout-workflowLabel"
+    }, 
     ".csc-loanout-updatedAt": {
         "decorators": [{
             "func": "cspace.datePicker",

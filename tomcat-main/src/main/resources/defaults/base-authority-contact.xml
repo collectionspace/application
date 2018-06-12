@@ -358,6 +358,11 @@
 			       	<field id="inAuthority"></field>
 			    	<field id="inItem"></field>
 			        <field id="displayName"></field>
+			        <!-- SAS related fields -->
+					<field id="rev" mini="list" datatype="integer"/>
+					<field id="sas" mini="list" datatype="boolean"/>
+					<field id="proposed" mini="list" datatype="boolean"/>
+					<field id="deprecated" mini="list" datatype="boolean"/>
 		    	</section>
                 
             </record>

@@ -1,0 +1,14 @@
+<record id="collection-object" is-extension="true" generate-services-schema="true">
+    <services-record-path id="annotation">
+        collectionobjects_annotation:http://collectionspace.org/services/collectionobject/domain/annotation,collectionobjects_annotation
+    </services-record-path>
+    
+    <section id="descriptionInformation">
+        <repeat id="annotationGroupList/annotationGroup" section="annotation">
+            <field id="annotationType" autocomplete="vocab-annotationtype" ui-type="enum" section="annotation"/>
+            <field id="annotationNote" section="annotation"/>
+            <field id="annotationDate" ui-type="date" section="annotation"/>
+            <field id="annotationAuthor" autocomplete="person-person,person-person_shared" section="annotation"/>
+        </repeat>
+    </section>
+</record>

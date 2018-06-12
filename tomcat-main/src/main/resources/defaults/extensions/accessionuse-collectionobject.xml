@@ -1,0 +1,15 @@
+<record id="collection-object" is-extension="true" generate-services-schema="true">
+    <services-record-path id="accessionuse">
+        collectionobjects_accessionuse:http://collectionspace.org/services/collectionobject/domain/accessionuse,collectionobjects_accessionuse
+    </services-record-path>
+    <section id="accessionUseInformation">
+        <repeat id="accessionUseGroupList/accessionUseGroup" section="accessionuse">
+            <field id="accessionUseType" autocomplete="vocab-accessionusetype" ui-type="enum" section="accessionuse"/>
+            <field id="accessionUsedIn" autocomplete="concept-class_ca,concept-research_ca" ui-search="repeatable" section="accessionuse"/>
+            <field id="accessionUseRequestDate" ui-type="date" section="accessionuse"/>
+            <field id="accessionUseFilledDate" ui-type="date" section="accessionuse"/>
+            <field id="accessionUserMaterialType" autocomplete="vocab-collectionobjectmaterialtype" ui-type="enum" section="accessionuse"/>
+            <field id="accessionUseNotes" section="accessionuse"/>
+        </repeat>
+    </section>
+</record>

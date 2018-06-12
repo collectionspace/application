@@ -6,8 +6,8 @@
  */
 package org.collectionspace.csp.api.ui;
 
-import org.collectionspace.csp.api.persistence.Storage;
+import org.collectionspace.csp.api.persistence.UnauthorizedException;
 
 public interface UI {
-	public void serviceRequest(UIRequest ui) throws UIException;
+	public void serviceRequest(UIRequest ui) throws UIException, UnauthorizedException;
 }
