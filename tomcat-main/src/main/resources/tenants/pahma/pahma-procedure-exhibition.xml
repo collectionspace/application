@@ -2,12 +2,16 @@
 	<services-record-path id="pahma">exhibitions_pahma:http://collectionspace.org/services/exhibition/local/pahma,exhibitions_pahma</services-record-path>
 
     <section id="exhibitionInformation">
-        <!-- Remove person-ulan_pa, organization-ulan_oa from autocomplete -->
-        <field id="sponsor" ui-search="repeatable" autocomplete="person-person,organization-organization"/>
+        <repeat id="sponsors">
+            <!-- Remove person-ulan_pa, organization-ulan_oa from autocomplete -->
+            <field id="sponsor" autocomplete="person-person,organization-organization"/>
+        </repeat>
 
-        <!-- Remove person-ulan_pa, organization-ulan_oa from autocomplete -->
-        <field id="organizer" ui-search="repeatable" autocomplete="person-person,organization-organization"/>
-        
+        <repeat id="organizers">
+            <!-- Remove person-ulan_pa, organization-ulan_oa from autocomplete -->
+            <field id="organizer" autocomplete="person-person,organization-organization"/>
+        </repeat>
+
         <!-- Remvove organization-ulan_oa, location-offsite_sla, place-tgn_place from autocomplete -->
         <repeat id="venueGroupList/venueGroup">
             <field id="venue" autocomplete="organization-organization,location-location,place-place"/>
@@ -24,9 +28,14 @@
             <!-- Remove citation-worldcat from autocomplete -->
             <field id="exhibitionReference" autocomplete="citation-citation"/>
         </repeat>
-        
+
         <!-- Local fields -->
-        
+
+        <!--
+            TODO: This group was moved into the common schema in core. To prevent a conflict, the group in the common schema is
+            commented out. Data should be migrated to the common schema, so that this group in pahma can be removed, and the
+            group in the common schema can be re-enabled.
+        -->
         <repeat id="galleryRotationGroupList/galleryRotationGroup" section="pahma">
             <field id="galleryRotationName" section="pahma"/>
             <group id="galleryRotationStartDateGroup" section="pahma" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
@@ -84,23 +93,38 @@
             <field id="galleryRotationNote" section="pahma"/>
         </repeat>
     </section>
-    
+
     <section id="exhibitionPlanningInformation">
+        <!--
+            TODO: This group was moved into the common schema in core. To prevent a conflict, the group in the common schema is
+            commented out. Data should be migrated to the common schema, so that this group in pahma can be removed, and the
+            group in the common schema can be re-enabled.
+        -->
         <repeat id="exhibitionSectionGroupList/exhibitionSectionGroup" section="pahma">
             <field id="exhibitionSectionName" section="pahma"/>
             <field id="exhibitionSectionLocation" section="pahma"/>
             <field id="exhibitionSectionObjects" section="pahma"/>
             <field id="exhibitionSectionNote" section="pahma"/>
         </repeat>
-        
+
+        <!--
+            TODO: This group was moved into the common schema in core. To prevent a conflict, the group in the common schema is
+            commented out. Data should be migrated to the common schema, so that this group in pahma can be removed, and the
+            group in the common schema can be re-enabled.
+        -->
         <repeat id="exhibitionStatusGroupList/exhibitionStatusGroup" section="pahma">
             <field id="exhibitionStatus" section="pahma" autocomplete="vocab-exhibitionstatus" ui-type="enum"/>
             <field id="exhibitionStatusDate" section="pahma" ui-type="date" datatype="date"/>
             <field id="exhibitionStatusNote" section="pahma"/>
         </repeat>
     </section>
-    
+
     <section id="exhibitionObjectInformation">
+        <!--
+            TODO: This group was moved into the common schema in core. To prevent a conflict, the group in the common schema is
+            commented out. Data should be migrated to the common schema, so that this group in pahma can be removed, and the
+            group in the common schema can be re-enabled.
+        -->
         <repeat id="exhibitionObjectGroupList/exhibitionObjectGroup" section="pahma">
             <field id="exhibitionObjectNumber" section="pahma"/>
             <field id="exhibitionObjectName" section="pahma"/>

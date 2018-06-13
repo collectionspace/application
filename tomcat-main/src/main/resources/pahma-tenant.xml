@@ -1,7 +1,7 @@
 <cspace-config tenantname="pahma">
 	<tenantid>15</tenantid>
 	<version>11</version>
-	<include src="settings.xml,pahma-settings.xml,host-settings.xml" merge="xmlmerge-settings.properties" strip-root="yes"/>
+	<include src="settings.xml,pahma-settings.xml,host-settings.xml" required="false" merge="xmlmerge-settings.properties" strip-root="yes"/>
 
 	<spec>
 		<include src="base-relations.xml"/>
@@ -9,7 +9,7 @@
 
 		<records>
 			<enum-blank>(none selected)</enum-blank>
-			
+
 			<include src="base-collectionobject.xml,anthropology-collectionobject.xml,naturalhistory-collectionobject.xml,pahma-collectionobject.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority.xml"/>
 
@@ -60,6 +60,7 @@
 			<include src="base-authz-users.xml"/>
 
 			<include src="base-other-dimension.xml,pahma-other-dimension.xml" merge="xmlmerge.properties"/>
+			<include src="base-other-address.xml"/>
 			<include src="base-other-hierarchy.xml,pahma-other-hierarchy.xml" merge="xmlmerge.properties"/>
 			<include src="base-other-idgenerator.xml,pahma-other-idgenerator.xml" merge="xmlmerge.properties"/>
 			<include src="base-other-structureddate.xml"/>

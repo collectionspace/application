@@ -4,7 +4,7 @@
 	<section id="claimInformation">
 		<!--<field id="claimName" section="anthropology" in-title="yes"></field>-->
 		<field id="claimName" ui-search="repeatable" section="anthropology" in-title="yes" mini="summary,search,list,relate"></field>
-		
+
 		<repeat id="claimTypeList" section="anthropology" services-type-anonymous="false">
 			<field id="claimType" ui-search="repeatable" section="anthropology" seperate_ui_container="true">
 				<options>
@@ -21,7 +21,7 @@
 				</options>
 			</field>
 		</repeat>
-		
+
 		<repeat id="claimAltNameGroupList/claimAltNameGroup" section="anthropology">
 			<field id="claimAltName" section="anthropology"></field>
 			<field id="claimAltNote" section="anthropology"></field>
@@ -29,9 +29,9 @@
 
 		<repeat id="claimNoteList" section="anthropology" services-type-anonymous="false">
 			<field id="claimNote" section="anthropology"></field>
-		</repeat>		
+		</repeat>
 	</section>
-	
+
 	<section id="claimAssociationInformation">
 		<repeat id="claimInventoryInvolvedGroupList/claimInventoryInvolvedGroup" section="anthropology">
 			<field id="inventoryInvolvedName" section="anthropology">
@@ -265,7 +265,7 @@
 			<field id="groupInvolvedNote" section="anthropology"></field>
 		</repeat>
 	</section>
-	
+
 	<section id="claimProcessingInformation">
 		<repeat id="dateOfInitialResponseGroupList/dateOfInitialResponseGroup" section="anthropology">
 			<field id="initialResponseDate" section="anthropology" ui-type="date" datatype="date"></field>
@@ -303,6 +303,10 @@
 			<field id="dateOfThirtyDayNoticeNote" section="anthropology"></field>
 		</repeat>
 
+		<!--
+			TODO: This group conflicts with the identically named group in loansout_naturalhistory_extension. For now the group in loanout
+			is commented out. This group should be renamed, and data migrated, so the loanout group can be re-enabled.
+		-->
 		<repeat id="transferGroupList/transferGroup" section="anthropology">
 			<field id="transferDate" section="anthropology" ui-type="date" datatype="date"></field>
 			<field id="transferNote" section="anthropology"></field>

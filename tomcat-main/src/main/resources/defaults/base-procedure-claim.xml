@@ -40,16 +40,16 @@
 			</repeat>
 		</structure>
 	</structures>
-	
+
 	<include src="domain-procedure-claim.xml" strip-root="yes"/>
-	
+
 	<row-selector>.csc-recordList-row:</row-selector>
-	
+
 	<section id="coreInformation">
 		<include src="core-fields.xml" strip-root="yes" />
 	</section>
-	
-	<section id="claimInformation"> 
+
+	<section id="claimInformation">
 		<field id="claimNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate" seperate_ui_container="true">
 			<title-selector>titleBar-claimNumber</title-selector>
 			<container-selector>claim-claimNumber-container</container-selector>
@@ -63,7 +63,17 @@
 			<field id="claimFiledOnBehalfOf" mini="summary,search,list,relate" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"></field>
 			<field id="claimantNote"></field>
 		</repeat>
-		
+
+		<!--
+			TODO: The claimantGroupList/claimantGroup above was originally named claimClaimantGroupList/claimClaimantGroup. It was renamed when
+			contributed to core. Since pahma used the claim procedure before it was contributed, it has data that uses the old name. To avoid having
+			to migrate data now, I'm re-adding the group by the old name. Eventually this should be removed, and data migrated to claimantGroupList/claimantGroup.
+		-->
+		<repeat id="claimClaimantGroupList/claimClaimantGroup">
+			<field id="filedBy" autocomplete="person-person,organization-organization"></field>
+			<field id="filedOnBehalfOf" mini="summary,search,list,relate" autocomplete="person-person,organization-organization"></field>
+		</repeat>
+
 		<repeat id="claimReceivedGroupList/claimReceivedGroup">
 			<field id="claimReceivedDate" ui-search="range" ui-type="date" datatype="date"></field>
 			<field id="claimReceivedNote"></field>

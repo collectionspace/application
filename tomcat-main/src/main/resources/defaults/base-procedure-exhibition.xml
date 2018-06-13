@@ -36,9 +36,9 @@
             </repeat>
         </structure>
     </structures>
-    
+
     <include src="domain-procedure-exhibition.xml" strip-root="yes"/>
-    
+
     <row-selector>.csc-recordList-row:</row-selector>
     <section id="coreInformation">
         <include src="core-fields.xml" strip-root="yes" />
@@ -54,15 +54,15 @@
         </field>
         <field id="title" ui-search="repeatable" mini="summary,search,list,relate" services-schema-qualify="true"/>
         <field id="type" ui-search="repeatable" autocomplete="vocab-exhibitiontype" ui-type="enum"/>
-        
+
         <repeat id="sponsors">
             <field id="sponsor" ui-search="repeatable" autocomplete="person-person,person-person_shared,person-ulan_pa,organization-organization,organization-organization_shared,organization-ulan_oa"/>
         </repeat>
-        
+
         <repeat id="organizers">
             <field id="organizer" ui-search="repeatable" autocomplete="person-person,person-person_shared,person-ulan_pa,organization-organization,organization-organization_shared,organization-ulan_oa"/>
         </repeat>
-        
+
         <repeat id="venueGroupList/venueGroup">
             <field id="venue" ui-search="repeatable"
 				autocomplete="organization-organization,organization-organization_shared,organization-ulan_oa,location-location,location-offsite_sla,place-place,place-place_shared,place-tgn_place"
@@ -72,7 +72,7 @@
             <field id="venueAttendance"/>
             <field id="venueUrl" ui-type="externalURL"/>
         </repeat>
-        
+
         <field id="planningNote"/>
         <field id="curatorialNote"/>
         <field id="generalNote"/>
@@ -80,45 +80,65 @@
         <repeat id="workingGroupList/workingGroup">
             <field id="workingGroupTitle"/>
             <field id="workingGroupNote"/>
-            
+
             <repeat id="exhibitionPersonGroupList/exhibitionPersonGroup">
                 <field id="exhibitionPerson" autocomplete="person-person,person-person_shared,person-ulan_pa,organization-organization,organization-organization_shared,organization-ulan_oa"/>
                 <field id="exhibitionPersonRole" autocomplete="vocab-exhibitionpersonrole" ui-type="enum"/>
             </repeat>
         </repeat>
-        
+
         <field id="boilerplateText"/>
-        
+
         <repeat id="exhibitionReferenceGroupList/exhibitionReferenceGroup">
             <field id="exhibitionReference" autocomplete="citation-citation,citation-citation_shared,citation-worldcat"/>
             <field id="exhibitionReferenceType" autocomplete="vocab-exhibitionreferencetype" ui-type="enum"/>
             <field id="exhibitionReferenceNote"/>
         </repeat>
-        
-        <repeat id="galleryRotationGroupList/galleryRotationGroup">
+
+        <!--
+            TODO: galleryRotationGroupList/galleryRotationGroup conflicts with the same group defined in exhibitions_pahma.
+            For now I'm removing the group from the common schema, but eventually the data from the pahma schema should be migrated
+            to the common schema, the pahma fields should be removed from configuation, and these fields should be re-enabled.
+        -->
+        <!-- <repeat id="galleryRotationGroupList/galleryRotationGroup">
             <field id="galleryRotationName"/>
             <group id="galleryRotationStartDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate"/>
             <group id="galleryRotationEndDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate"/>
             <field id="galleryRotationNote"/>
-        </repeat>
-        
+        </repeat> -->
+
         <section id="exhibitionPlanningInformation">
-            <repeat id="exhibitionSectionGroupList/exhibitionSectionGroup">
+            <!--
+                TODO: exhibitionSectionGroupList/exhibitionSectionGroup conflicts with the same group defined in exhibitions_pahma.
+                For now I'm removing the group from the common schema, but eventually the data from the pahma schema should be migrated
+                to the common schema, the pahma fields should be removed from configuation, and these fields should be re-enabled.
+            -->
+            <!-- <repeat id="exhibitionSectionGroupList/exhibitionSectionGroup">
                 <field id="exhibitionSectionName"/>
                 <field id="exhibitionSectionLocation"/>
                 <field id="exhibitionSectionObjects"/>
                 <field id="exhibitionSectionNote"/>
-            </repeat>
-        
-            <repeat id="exhibitionStatusGroupList/exhibitionStatusGroup">
+            </repeat> -->
+
+            <!--
+                TODO: exhibitionStatusGroupList/exhibitionStatusGroup conflicts with the same group defined in exhibitions_pahma.
+                For now I'm removing the group from the common schema, but eventually the data from the pahma schema should be migrated
+                to the common schema, the pahma fields should be removed from configuation, and these fields should be re-enabled.
+            -->
+            <!-- <repeat id="exhibitionStatusGroupList/exhibitionStatusGroup">
                 <field id="exhibitionStatus" autocomplete="vocab-exhibitionstatus" ui-type="enum"/>
                 <field id="exhibitionStatusDate" ui-type="date" datatype="date"/>
                 <field id="exhibitionStatusNote"/>
-            </repeat>
+            </repeat> -->
         </section>
-    
+
         <section id="exhibitionObjectInformation">
-            <repeat id="exhibitionObjectGroupList/exhibitionObjectGroup">
+            <!--
+                TODO: exhibitionObjectGroupList/exhibitionObjectGroup conflicts with the same group defined in exhibitions_pahma.
+                For now I'm removing the group from the common schema, but eventually the data from the pahma schema should be migrated
+                to the common schema, the pahma fields should be removed from configuation, and these fields should be re-enabled.
+            -->
+            <!-- <repeat id="exhibitionObjectGroupList/exhibitionObjectGroup">
                 <field id="exhibitionObjectNumber"/>
                 <field id="exhibitionObjectName"/>
                 <field id="exhibitionObjectConsCheckDate" ui-type="date" datatype="date"/>
@@ -143,7 +163,7 @@
                 <field id="exhibitionObjectSeqNum"/>
                 <field id="exhibitionObjectRotation"/>
                 <field id="exhibitionObjectNote"/>
-            </repeat>
+            </repeat> -->
         </section>
      </section>
 </record>

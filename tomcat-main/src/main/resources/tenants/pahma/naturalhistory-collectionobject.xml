@@ -1,7 +1,7 @@
 <record id="collection-object" is-extension="true">
 	<services-record-path id="naturalhistory">collectionobjects_naturalhistory:http://collectionspace.org/services/collectionobject/domain/naturalhistory,collectionobjects_naturalhistory</services-record-path>
 
-	<!-- 
+	<!--
 		This is a PAHMA-specific version of the naturalhistory-collectionobject configuration,
 		which only uses a small subset of the fields in the default.
 	-->
@@ -82,6 +82,21 @@
 			<field id="notes" section="naturalhistory">
 				<selector>taxonomic-identification-notes</selector>
 			</field>
+
+			<!-- Below fields not used in pahma -->
+			<repeat id="taxonomicIdentHybridParentGroupList/taxonomicIdentHybridParentGroup" section="naturalhistory">
+			    <field id="taxonomicIdentHybridParent" section="naturalhistory" autocomplete="taxon-taxon"/>
+				<field id="taxonomicIdentHybridParentQualifier" section="naturalhistory">
+					<options>
+						<option id="">Please select a value</option>
+						<option id="male">male</option>
+						<option id="female">female</option>
+					</options>
+				</field>
+			</repeat>
+			<field id="taxonomicIdentHybridName" section="naturalhistory"/>
+			<field id="affinityTaxon" section="naturalhistory" autocomplete="taxon-taxon"/>
+			<field id="hybridFlag" section="naturalhistory" datatype="boolean"/>
 		</repeat>
 
 		<repeat id="annotationGroupList/annotationGroup" section="naturalhistory">

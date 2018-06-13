@@ -1,6 +1,6 @@
 <record id="loanout" is-extension="true">
 	<services-record-path id="naturalhistory">loansout_naturalhistory:http://collectionspace.org/services/loanout/domain/naturalhistory,loansout_naturalhistory</services-record-path>
-	
+
 	<section id="loanoutInformation">
 		<field id="collection" section="naturalhistory">
 			<options>
@@ -51,10 +51,10 @@
 		<field id="balance" section="naturalhistory" ui-type="validated" datatype="integer"/>
 		<field id="discrepancy" section="naturalhistory" ui-type="validated" datatype="integer"/>
 	</section>
-	
+
 	<section id="objectInformation">
 		<field id="loanoutItems" section="naturalhistory"/>
-	    
+
 		<repeat id="objectGroupList/objectGroup" section="naturalhistory">
 			<field id="objectNumbers" section="naturalhistory"/>
 			<field id="objectQuantity" section="naturalhistory" ui-type="validated" datatype="integer"/>
@@ -83,7 +83,7 @@
 			<field id="transferNotes" section="naturalhistory"/>
 		</repeat>
 	</section>
-	
+
 	<!-- This is just here so a message key will be generated. -->
 	<section id="manualCounts"/>
 </record>
