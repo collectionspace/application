@@ -1,0 +1,29 @@
+{"vocabularies": {
+    "languages": {
+        "english": "eng",
+        "german": "deu",
+        "hebrew": "heb",
+        "italian": "ita"
+    },
+    "uocmethods": {
+        "class": "class",
+        "exhibition": "exhibition",
+        "publication": "publication",
+        "research": "research"
+    },
+    "uocusertypes": {
+        "exhibition organizer": "exorg",
+        "faculty": "fac",
+        "lecturer": "lect",
+        "presenter": "prsntr",
+        "publisher": "pub",
+        "researcher": "rsrchr"
+    },
+    "publishto": {
+        "all": "all",
+        "none": "none",
+        "culture object": "cultureobject",
+        "dpla": "dpla",
+        "omeka": "omeka"
+    }
+}}
