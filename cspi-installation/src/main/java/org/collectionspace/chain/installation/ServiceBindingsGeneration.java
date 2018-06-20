@@ -1214,7 +1214,8 @@ public class ServiceBindingsGeneration {
 				doTerm(option, r, termList, nsservices2);
 				jsonTermList.put(option.getName(), option.getID());
 			}
-			authCache.addAuthorityInstance(r.getID(), instance.getTitleRef(), jsonTermList);
+			String serviceUrl = r.getServicesURL();
+			authCache.addAuthorityInstance(serviceUrl, instance.getTitleRef(), jsonTermList);
 		}
 
 	}
