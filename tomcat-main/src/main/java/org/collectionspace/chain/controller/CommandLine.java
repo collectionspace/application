@@ -159,7 +159,7 @@ public class CommandLine {
 		return servicesConfigDir;
 	}
 
-	private static File getBindingsOutputDir() {
+	public static File getBindingsOutputDir() {
 		return bindingsOutputDir;
 	}
 
@@ -532,7 +532,7 @@ public class CommandLine {
 		ServiceConfigGeneration xsdMetadata = null;
 		try {
 			xsdMetadata = new ServiceConfigGeneration(serviceBundlesInfo, tenantConfigFile, CommonAPI.GENERATE_BUNDLES, SERVICE_SCHEMA_VERSION, getBundlesOutputDir(),
-					SERVICE_BINDINGS_VERSION);
+					SERVICE_BINDINGS_VERSION, getBindingsOutputDir());
 			serviceBundlesInfo.put(tenantConfigFile.getName(), xsdMetadata);
 			dumpServiceArtifactMetadata(tenantConfigFile, xsdMetadata); // debugging output
 		} catch (Exception e) {
@@ -553,7 +553,7 @@ public class CommandLine {
 		ServiceConfigGeneration tenantBindingsMetadata = null;
 		try {
 			tenantBindingsMetadata = new ServiceConfigGeneration(serviceBundlesInfo, tenantConfigFile, CommonAPI.GENERATE_BINDINGS, SERVICE_SCHEMA_VERSION, null,
-					SERVICE_BINDINGS_VERSION);
+					SERVICE_BINDINGS_VERSION, getBindingsOutputDir());
 			String tenantName = tenantBindingsMetadata.getSpec().getAdminData().getTenantName();
 
 			String tenantBindings = tenantBindingsMetadata.getTenantBindings();
