@@ -45,21 +45,11 @@
             <web-url>person</web-url>
             <title-ref>person</title-ref>
             <title>Local Persons</title>
-            <options>
-                <option id="ronpaul">Ron Paul</option>
-                <option id="billyjean">Billy Jean</option>
-                <option id="bb">Barry Bonds</option>
-            </options>
         </instance>
         <instance id="person-ulan_pa">
             <web-url>ulan_pa</web-url>
             <title-ref>ulan_pa</title-ref>
             <title>ULAN Persons</title>
-            <options>
-                <option id="carter">Jimmy Carter</option>
-                <option id="jfk">John F Kennedy</option>
-                <option id="bc">Bill Clinton</option>
-            </options>
         </instance>
     </instances>
     
