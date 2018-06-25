@@ -6,10 +6,10 @@
 		<field id="depositor" autocomplete="organization-organization" mini="summary,list,search,relate" in-title="yes"/>
 
 		 <repeat id="exitMethods">
-			<field id="exitMethod" ui-type="enum" autocomplete="vocab-DistributionMethod"/>
+			<!-- <field id="exitMethod" ui-type="enum" autocomplete="vocab-DistributionMethod"/> -->
 				<!--Converted to dynamic-->
 		</repeat>
-		<field id="exitReason" ui-type="enum" autocomplete="vocab-DistributionReason"/>
+		<!-- <field id="exitReason" ui-type="enum" autocomplete="vocab-DistributionReason"/> -->
 			<!--Convered to dynamic-->
 	</section>
 </record>

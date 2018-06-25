@@ -6,10 +6,9 @@
 			<title>Default Places</title>
 		</instance>
 	</instances>
-	
+
 	<section id="placeAuthorityInformation">
-		<field id="placeType" ui-type="enum" autocomplete="vocab-placetype" ui-search="repeatable">
+		<!-- <field id="placeType" ui-type="enum" autocomplete="vocab-placetype" ui-search="repeatable" /> -->
 			<!--Converted to dynamic-->
-		</field>
 	</section>
 </record>

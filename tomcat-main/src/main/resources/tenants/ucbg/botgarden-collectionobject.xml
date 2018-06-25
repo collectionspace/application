@@ -1,11 +1,11 @@
 <record id="collection-object" is-extension="true">
 	<services-record-path id="botgarden">collectionobjects_botgarden:http://collectionspace.org/services/collectionobject/local/botgarden,collectionobjects_botgarden</services-record-path>
-	
+
 	<section id="coreInformation">
 		<!-- Remove mini -->
 		<field id="nametitle" mini=""/>
 	</section>
-	
+
 	<section id="identificationInformation">
 		<field id="objectNumber">
 			<options>
@@ -15,7 +15,7 @@
 			</options>
 		</field>
 
-		<!-- 
+		<!--
 			Create an app-layer-only field for use on advanced search to do range search on objectNumber,
 			in addition to wildcard search. The exists-in-services="false" attribute prevents the field
 			from being saved in the record editor, but still allows it to be used as a search filter.
@@ -24,7 +24,7 @@
 		<field id="objectNumberRangeSearch" ui-search="range" exists-in-services="false">
 			<services-tag>objectNumber</services-tag>
 		</field>
-		
+
 		<repeat id="otherNumberList/otherNumber">
 			<field id="numberType">
 				<options>
@@ -73,23 +73,23 @@
 					<option id="synonym">synonym</option>
 					<option id="valid term">valid term</option>
 					<option id="correction">correction</option>
-					<option id="verification">verification</option>										   
+					<option id="verification">verification</option>
 					<option id="hybrid">hybrid</option>
 				</options>
 			</field>
 		</repeat>
 		<field id="labelHeader" autocomplete="concept-concept"/>
 		<field id="labelFooter" autocomplete="concept-concept"/>
-		
+
 		<repeat id="typeSpecimenGroupList/typeSpecimenGroup">
 			<!-- Change autocomplete -->
 			<field id="typeSpecimenAssertionBy" autocomplete="person-person"/>
 		</repeat>
-	
+
 		<field id="source" ui-search="repeatable"/>
 
 		<!-- Local fields -->
-		
+
 		<field id="deadFlag" section="botgarden" ui-search="single">
 			<options>
 				<option id="">Please select a value</option>
@@ -101,9 +101,9 @@
 		<field id="deadDateSearch" ui-search="range" ui-type="date" exists-in-services="false" section="botgarden">
 			<services-tag>deadDate</services-tag>
 		</field>
-			
+
 	</section>
-	
+
 	<section id="descriptionInformation">
 		<field id="phase">
 			<options>
@@ -136,16 +136,16 @@
 					<option id="Box">Box</option>
 					<option id="Bag">Bag</option>
 					<option id="Map">Map</option>
-				</options>			
+				</options>
 			</field>
 		</repeat>
 		<repeat id="annotationGroupList/annotationGroup">
 			<!-- Add groups to autocomplete -->
 			<field id="annotationAuthor" autocomplete="person-person,organization-group_org"/>
 		</repeat>
-		
+
 		<!-- naturalhistory fields -->
-		
+
 		<!-- Add ui-search -->
 		<field id="provenanceType" ui-search="repeatable">
 			<!-- Change options -->
@@ -157,9 +157,9 @@
 				<option id="U-unknown">U-unknown</option>
 			</options>
 		</field>
-		
+
 		<!-- Local fields -->
-		
+
 		<field id="handwritten" section="botgarden">
 			<options>
 				<option id="" default="yes">Please select a value</option>
@@ -175,14 +175,13 @@
 				<option id="yes" default="yes">Yes</option>
 			</options>
 		</field>
-		
+
 		<field id="cbdRestriction" datatype="boolean" section="botgarden"/>
 
 		<field id="flowerColor" section="botgarden"/>
 		<field id="fruitColor" section="botgarden"/>
-		<field id="propagationHistory" section="botgarden" ui-type="enum" autocomplete="vocab-propagationhist">
-			<!-- Converted to dynamic-->
-		</field>
+		<!-- <field id="propagationHistory" section="botgarden" ui-type="enum" autocomplete="vocab-propagationhist" /> -->
+		<field id="propagationHistory" section="botgarden" />
 		<field id="breedingSystem" section="botgarden">
 			<options>
 				<option id="" default="yes">Please select a value</option>
@@ -297,7 +296,7 @@
 		<field id="fruitsNov" datatype="boolean" section="botgarden"/>
 		<field id="fruitsDec" datatype="boolean" section="botgarden"/>
 	</section>
-	
+
 	<section id="objectHistoryAssociationInformation">
 		<section id="associationInformation">
 			<repeat id="assocConceptGroupList/assocConceptGroup">
@@ -326,7 +325,7 @@
 	<section id="accessionUseInformation">
 		<repeat id="accessionUseGroupList/accessionUseGroup">
 			<!-- Add autocomplete -->
-			<field id="useType" ui-type="enum" autocomplete="vocab-AcessUseType"/>
+			<!-- <field id="useType" ui-type="enum" autocomplete="vocab-AcessUseType"/> -->
 			<field id="usedIn" autocomplete="concept-class_ca,concept-research_ca" ui-search="repeatable"/>
 		</repeat>
 	</section>

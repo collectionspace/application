@@ -4,22 +4,24 @@
 	<section id="locationMovementInformation">
 		<!-- Change mini summary to number, and remove organization from autocomplete -->
 		<field id="currentLocation" mini="number,search,list,relate" autocomplete="location-location"/>
-		
+
 		<!-- Local fields -->
-		
+
 		<field id="previousLocation" ui-type="valueDeURNed" services-readonly="true" authref-in-services="true" section="botgarden"/>
 	</section>
-	
+
 	<section id="movementControlInformation">
 		<!--  Remove ui-search and mini -->
 		<field id="movementReferenceNumber" ui-search="" mini=""/>
-		
+
+
 		<!-- Add mini=summary and change options -->
-	    <field id="reasonForMove" mini="summary" autocomplete="vocab-reasonForMove" ui-type="enum"/>
+		<!-- <field id="reasonForMove" mini="summary" autocomplete="vocab-reasonForMove" ui-type="enum"/> -->
+		<field id="reasonForMove" mini="summary" />
 	</section>
-	
+
 	<!-- Local fields -->
-	
+
 	<section id="labelInformation">
 		<field id="labelRequested" ui-search="repeatable" section="botgarden">
 			<options>
@@ -29,8 +31,10 @@
 			</options>
 		</field>
 
-	    <field id="labelSize" autocomplete="vocab-labelsize" ui-type="enum" section="botgarden"/>
-	    <field id="labelStandType" autocomplete="vocab-labelstandtype" ui-type="enum" section="botgarden"/>
+		<!-- <field id="labelSize" autocomplete="vocab-labelsize" ui-type="enum" section="botgarden"/> -->
+		<field id="labelSize" section="botgarden" />
+		<!-- <field id="labelStandType" autocomplete="vocab-labelstandtype" ui-type="enum" section="botgarden"/> -->
+		<field id="labelStandType" section="botgarden" />
 		<field id="labelCount" ui-type="validated" datatype="integer" section="botgarden"/>
 	</section>
 </record>
