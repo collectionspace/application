@@ -21,7 +21,7 @@
                 <name>botgarden.cspace.berkeley.edu</name>
                 <version>0.1</version>
                 <display-name>CollectionSpace UC Botanical Garden Tenant</display-name>
-                <create-disabled>${CSPACE_UCBG_CREATE_DISABLED_OPT}</create-disabled>
+                <create-disabled>false</create-disabled>
             </tenant>
             <repository>
                 <domain>botgarden_domain</domain>
