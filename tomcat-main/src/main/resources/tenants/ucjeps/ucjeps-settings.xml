@@ -21,7 +21,7 @@
 				<name>ucjeps.cspace.berkeley.edu</name>
 				<version>0.1</version>
 				<display-name>CollectionSpace UCJEPS Tenant</display-name>
-				<create-disabled>${CSPACE_UCJEPS_CREATE_DISABLED_OPT}</create-disabled>
+				<create-disabled>false</create-disabled>
 			</tenant>
 			<repository>
 				<domain>ucjeps_domain</domain>
