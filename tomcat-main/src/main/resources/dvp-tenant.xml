@@ -12,7 +12,7 @@
     <records>
       <enum-blank>Please select a value</enum-blank>
 
-      <include src="base-collectionobject.xml" />
+      <include src="base-collectionobject.xml,dvp-collectionobject.xml" merge="xmlmerge.properties" />
       <include src="base-authority.xml"/>
 
       <include src="base-procedure-acquisition.xml,dvp-acquisition.xml" merge="xmlmerge.properties" />
