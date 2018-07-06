@@ -1,5 +1,24 @@
 <root>
     <include src="extensions/commission-vocabularies.xml" strip-root="yes"/>
+    <instance id="vocab-placementtypes">
+        <web-url>placementtypes</web-url>
+        <title-ref>placementtypes</title-ref>
+        <title>Placement Types</title>
+        <options>
+            <option id="animal_shelter">animal shelter</option>
+            <option id="arts_center">arts center</option>
+            <option id="government_office">government office</option>
+            <option id="greenway">greenway</option>
+            <option id="firehouse">firehouse</option>
+            <option id="library">library</option>
+            <option id="memorial">memorial</option>
+            <option id="open_space">open space</option>
+            <option id="park">park</option>
+            <option id="school">school</option>
+            <option id="street">street</option>
+            <option id="zoo">zoo</option>
+        </options>
+    </instance>
     <instance id="vocab-program">
         <web-url>program</web-url>
         <title-ref>program</title-ref>

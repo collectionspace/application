@@ -22,7 +22,12 @@
 			<field id="contentPlace" autocomplete="true" />
 		</repeat>
 		<repeat id="contentEventNameGroupList/contentEventNameGroup">
-			<field id="contentEventName" autocomplete="true">
+			<!-- selector>csc-collection-object-contentEventNameGroup</selector -->
+			<field id="contentEventName" autocomplete="true" >
+				<selector>object-description-content-event-name</selector>
+			</field>
+			<field id="contentEventNameType">
+				<selector>object-description-content-event-name-type</selector>
 			</field>
 		</repeat>
 	</section>
