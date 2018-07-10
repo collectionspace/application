@@ -67,7 +67,7 @@
 	</section>
 
 	<section id="volunteerLabels">
-		<field id="family" ui-search="repeatable" in-title="yes" autocomplete="taxon-taxon">
+		<field id="family" ui-search="repeatable" in-title="yes" autocomplete="taxon-taxon" mini="summary,search,list,terms,relate">
 			<title-selector>titleBar-family</title-selector>
 		</field>
 		<field id="commonName" ui-search="repeatable"/>
@@ -75,7 +75,7 @@
 		<field id="taxonName" ui-search="repeatable" mini="number,search,list,terms,relate" autocomplete="taxon-taxon,taxon-plantsales"/>
 		<field id="labelData"/>
 		<field id="numberOfLabels" ui-search="repeatable" ui-type="validated" datatype="integer"/>
-		<field id="printLabels" ui-search="repeatable" mini="summary,search,list,terms,relate">
+		<field id="printLabels" ui-search="repeatable" mini="search,list,terms,relate">
 			<options>
 				<option id="" default="yes">Please select a value</option>
 				<option id="yes">Yes</option>
