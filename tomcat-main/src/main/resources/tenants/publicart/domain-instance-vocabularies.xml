@@ -5,39 +5,39 @@
         <title-ref>placetypes</title-ref>
         <title>Place Type</title>
         <options>
-            <option id="autonomous-region">Autonomous region</option>
+            <option id="autonomousregion">Autonomous region</option>
             <option id="borough">Borough</option>
             <option id="city">City</option>
-            <option id="collection-site">Collection site</option>
+            <option id="collectionsite">Collection site</option>
             <option id="continent">Continent</option>
             <option id="country">Country</option>
-            <option id="country-code">Country code</option>
+            <option id="countrycode">Country code</option>
             <option id="county">County</option>
-            <option id="dependent-state">Dependent state</option>
-            <option id="deserted-settlement">Deserted settlement</option>
-            <option id="district-national">District (national)</option>
-            <option id="general-region">General region</option>
+            <option id="dependentstate">Dependent state</option>
+            <option id="desertedsettlement">Deserted settlement</option>
+            <option id="districtnational">District (national)</option>
+            <option id="generalregion">General region</option>
             <option id="governorate">Governorate</option>
-            <option id="inhabited-place">Inhabited place</option>
+            <option id="inhabitedplace">Inhabited place</option>
             <option id="island">Island</option>
-            <option id="island-group">Island group</option>
+            <option id="islandgroup">Island group</option>
             <option id="locality">Locality</option>
-            <option id="metropolitan-area">Metropolitan area</option>
+            <option id="metropolitanarea">Metropolitan area</option>
             <option id="municipality">Municipality</option>
             <option id="nation">Nation</option>
-            <option id="national-division">National division</option>
+            <option id="nationaldivision">National division</option>
             <option id="neighborhood">Neighborhood</option>
-            <option id="occupied-territory">Occupied territory</option>
+            <option id="occupiedterritory">Occupied territory</option>
             <option id="prefecture">Prefecture</option>
             <option id="province">Province</option>
             <option id="region">Region</option>
             <option id="state">State</option>
-            <option id="state-province">State province</option>
+            <option id="stateprovince">State province</option>
             <option id="territory">Territory</option>
-            <option id="union-territory">Union territory</option>
-            <option id="unitary-authority">Unitary authority</option>
-            <option id="urban-prefecture">Urban prefecture</option>
-            <option id="water-body">Water body</option>
+            <option id="unionterritory">Union territory</option>
+            <option id="unitaryauthority">Unitary authority</option>
+            <option id="urbanprefecture">Urban prefecture</option>
+            <option id="waterbody">Water body</option>
         </options>
     </instance>
     <instance id="vocab-placementtypes">
