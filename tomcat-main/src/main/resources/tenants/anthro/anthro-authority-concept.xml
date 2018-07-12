@@ -30,6 +30,10 @@
           <title-ref>ethfilecode</title-ref>
           <title>Ethnographic File Codes</title>
       </instance>
+      <instance id="concept-nomenclature">
+          <web-url>nomenclature</web-url>
+          <title-ref>nomenclature</title-ref>
+          <title>Nomenclature</title>
+      </instance>
     </instances>
 </record>
-

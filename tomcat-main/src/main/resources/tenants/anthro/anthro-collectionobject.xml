@@ -52,7 +52,7 @@
 				<title-selector>titleBar-object-identification-object-name</title-selector>
 			</field>
 		</repeat>
-		
+
 		<!-- Local fields -->
 
 		<repeat id="ethnoFileCodes" section="anthro">
@@ -104,7 +104,7 @@
 			<!-- Add autocomplete and ui-type -->
 			<field id="techniqueType" autocomplete="vocab-prodtechniquetype" ui-type="enum" />
 		</repeat>
- 
+
 		<repeat id="objectProductionPlaceGroupList/objectProductionPlaceGroup">
 			<!-- Add autocomplete -->
 			<field id="objectProductionPlace" autocomplete="place-place,place-place_shared,place-tgn_place" />
@@ -200,4 +200,66 @@
 	</section>
 
 	<section id="biologicalInformation" />
+
+	<section id="localityInformation">
+		<!-- I should be able to just to the following line: -->
+		<!-- <group id="locality" ui-type="groupfield/locality/selfrenderer" ui-func="cspace.locality" section="anthro" /> -->
+		<!-- But this results in the error:
+			[exec] 2018-05-06 20:33:13,539 ERROR: Error encountered generating service bindings for '/media/sf_Source/CollectionSpace/application/tomcat-main/src/main/resources/anthro-tenant.xml' tenant configuration.
+			[exec] java.lang.Exception: The schema 'collectionobjects_naturalhistory_extension.xsd' of record 'collection-object' was already defined differently in the record 'collection-object' of the tenant 'botgarden-tenant.xml'.
+		-->
+		<!-- Possibly similar to CSPACE-5085? I have no choice but to redefine all the locality fields here, instead of reusing the locality group. -->
+
+		<repeat id="localityGroupList/localityGroup" section="anthro" >
+			<field id="fieldLocVerbatim" section="anthro" />
+			<field id="taxonomicRange" section="anthro" />
+			<field id="fieldLocPlace" autocomplete="true" section="anthro" />
+			<field id="fieldLocCounty" section="anthro" />
+			<field id="fieldLocState" section="anthro" />
+			<field id="fieldLocCountry" section="anthro" />
+			<field id="fieldLocHigherGeography" section="anthro" />
+			<field id="vCoordinates" section="anthro" />
+			<field id="vOtherCoords" section="anthro" />
+			<field id="vLatitude" section="anthro" />
+			<field id="vLongitude" section="anthro" />
+			<field id="vCoordSys" autocomplete="true" ui-type="enum" section="anthro" />
+			<field id="vSpatialReferenceSystem" section="anthro" />
+			<field id="decimalLatitude" ui-type="validated" datatype="float" section="anthro" />
+			<field id="decimalLongitude" ui-type="validated" datatype="float" section="anthro" />
+			<field id="geodeticDatum" section="anthro" />
+			<field id="coordUncertainty" ui-type="validated" datatype="float" section="anthro" />
+			<field id="coordUncertaintyUnit" section="anthro" />
+			<field id="vDepth" section="anthro" />
+			<field id="minDepth" ui-type="validated" datatype="float" section="anthro" />
+			<field id="maxDepth" ui-type="validated" datatype="float" section="anthro" />
+			<field id="depthUnit" section="anthro" />
+			<field id="vElevation" section="anthro" />
+			<field id="minElevation" ui-type="validated" datatype="float" section="anthro" />
+			<field id="maxElevation" ui-type="validated" datatype="float" section="anthro" />
+			<field id="elevationUnit" section="anthro" />
+			<field id="vDistanceAboveSurface" section="anthro" />
+			<field id="minDistanceAboveSurface" ui-type="validated" datatype="float" section="anthro" />
+			<field id="maxDistanceAboveSurface" ui-type="validated" datatype="float" section="anthro" />
+			<field id="distanceAboveSurfaceUnit" section="anthro" />
+			<field id="localityNote" section="anthro" />
+			<field id="localitySource" section="anthro" />
+			<field id="localitySourceDetail" section="anthro" />
+
+			<field id="pointRadiusSpatialFit" section="anthro" />
+			<field id="footprintWKT" section="anthro" />
+			<field id="footprintSRS" section="anthro" />
+			<field id="footprintSpatialFit" section="anthro" />
+			<field id="coordPrecision" section="anthro" />
+			<field id="geoRefencedBy" section="anthro" />
+			<group id="geoRefDateGroup" section="anthro" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate" />
+			<field id="geoRefProtocol" section="anthro" />
+			<field id="geoRefSource" section="anthro" />
+			<field id="geoRefVerificationStatus" section="anthro" />
+			<field id="geoRefRemarks" section="anthro" />
+			<field id="geoRefPlaceName" section="anthro" />
+
+			<field id="collectionLocationVerbatim" section="anthro" />
+			<field id="collectionPlace" autocomplete="true" section="anthro" />
+		</repeat>
+	</section>
 </record>

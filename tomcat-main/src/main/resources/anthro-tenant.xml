@@ -1,7 +1,7 @@
 <cspace-config tenantname="anthro">
 	<tenantid>1500</tenantid>
 	<version>11</version>
-	<include src="settings.xml,local-anthro-settings.xml" required="false" merge="xmlmerge-settings.properties" 
+	<include src="settings.xml,local-anthro-settings.xml" required="false" merge="xmlmerge-settings.properties"
 		strip-root="yes" />
 
 	<spec>
@@ -35,16 +35,16 @@
 			<include src="base-authority-location.xml"/>
 			<include src="base-authority-organization-termList.xml"/>
 			<include src="base-authority-organization.xml"/>
-			<include src="base-authority-person-termList.xml"/>
+			<include src="base-authority-person-termList.xml,anthro-authority-person-termList.xml"  merge="xmlmerge.properties"/>
 			<include src="base-authority-person.xml"/>
 			<include src="base-authority-citation-termList.xml"/>
 			<include src="base-authority-citation.xml"/>
 			<include src="base-authority-place-termList.xml"/>
 			<include src="base-authority-place.xml"/>
-			
+
 			<include src="base-authority-taxon-termList.xml"/>
 			<include src="base-authority-taxon.xml"/>
-			
+
 			<include src="base-authority-concept-termList.xml"/>
 			<include src="base-authority-concept.xml,anthro-authority-concept.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-work-termList.xml"/>
@@ -72,7 +72,7 @@
 			<include src="base-other-reportingoutput.xml"/>
 			<include src="base-other-batch.xml"/>
 			<include src="base-other-batchoutput.xml"/>
-			<include src="base-other-invocationresults.xml"/>		    
+			<include src="base-other-invocationresults.xml"/>
 			<include src="base-other-searchall.xml"/>
 		</records>
 	</spec>
