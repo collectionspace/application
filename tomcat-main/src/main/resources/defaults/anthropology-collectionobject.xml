@@ -7,6 +7,14 @@
 		<field id="computedCrate" ui-type="valueDeURNed" services-readonly="true" authref-in-services="true" section="anthropology"/>
 	</section>
 
+	<section id="descriptionInformation">
+		<section id="contentInformation">
+			<repeat id="contentWorks" section="anthropology">
+				<field id="contentWork" section="anthropology" autocomplete="work-work"/>
+			</repeat>
+		</section>
+	</section>
+	
 	<section id="repatriationNagpraComplianceInformation">
 		<!-- THIS ALL NEEDS TO BE RETHOUGHT IN LIGHT OF THE NEW NAGPRACLAIM SERVICE -->
 		<repeat id="nagpraInventoryNameList" section="anthropology">
