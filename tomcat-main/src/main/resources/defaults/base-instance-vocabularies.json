@@ -1,0 +1,1152 @@
+<instances>
+    
+    <instance id="vocab-inventorystatus">
+        <options>
+            "unknown": "unknown">
+            "accession status unclear": "accessionstatusunclear">
+            "accessioned": "accessioned">
+            "deaccessioned": "deaccessioned">
+            "destroyed": "destroyed">
+            "destructive analysis": "destructiveanalysis">
+            "discarded": "discarded">
+            "": "exchanged">exchanged
+            "": "intendedfortransfer">intended for transfer
+            "": "irregularmuseumnumber">irregular museum number
+            "": "missing">missing
+            "": "missingininventory">missing in inventory
+            "": "notcataloged">not cataloged
+            "": "notlocated">not located
+            "": "notreceived">not received
+            "": "numbernotused">number not used
+            "": "objectmount">object mount
+            "": "onloan">on loan
+            "": "partiallydeaccessioned">partially deaccessioned
+            "": "partiallyexchanged">partially exchanged
+            "": "partiallyrecataloged">partially recataloged
+            "": "returnedloanobject">returned loan object
+            "": "sold">sold
+            "": "stolen">stolen
+            "": "transferred">transferred
+        </options>
+    </instance>
+    
+    <instance id="vocab-uocmethods">
+        <options>
+            "class">class
+            "exhibition">exhibition
+            "publication">publication
+            "research">research
+        </options>
+    </instance>
+    
+    <instance id="vocab-uocusertypes">
+        <options>
+            "exhibitionorganizer">exhibition organizer
+            "faculty">faculty
+            "lecturer">lecturer
+            "presenter">presenter
+            "publisher">publisher
+            "researcher">researcher
+        </options>
+    </instance>
+    
+    <instance id="vocab-publishto">
+        <options>
+            "all">all
+            "none">none
+            "cultureobject">culture object
+            "dpla">dpla
+            "omeka">omeka
+        </options>
+    </instance>
+    
+    <instance id="vocab-languages">
+        <options>
+            "ara">arabic
+            "hye" desc="an optional description for any vocabulary term can be entered here">armenian
+            "zho">chinese
+            "eng">english
+            "fra">french
+            "deu">german
+            "grc">ancient greek
+            "heb">hebrew
+            "ind">indonesian
+            "ita">italian
+            "jpn">japanese
+            "kor">korean
+            "lat">latin
+            "mal">malaysian
+            "enm">middle english
+            "ang">old english
+            "por">portuguese
+            "ron">romanian
+            "rus">russian
+            "spa">spanish
+            "swa">swahili
+            "swe">swedish
+            "tgl">tagalog
+            "yor">yoruba
+        </options>
+    </instance>
+    
+    <instance id="vocab-lostatus">
+        <options>
+            <option>requested
+            <option>authorized
+            <option>agreed
+            <option>conservation
+            <option>sent
+            <option>photography requested
+            <option>refused
+            <option>renewed
+            <option>returned
+        </options>
+    </instance>
+    
+    <instance id="vocab-currency">
+        <options>
+            "usd">us dollar
+            "cad">canadian dollar
+            "eur">euro
+            "gbp">pound sterling
+            "dkk">danish krone
+            "sek">swedish krona
+            "chf">swiss franc
+        </options>
+    </instance>
+    
+    <instance id="vocab-collectionmethod">
+        <options>
+            "borehole">borehole
+            "commissioned">commissioned
+            "donation">donation
+            "excavation">excavation
+            "exchanged">exchanged
+            "founddead">found dead
+            "metaldetector">metal detector
+            "netted">netted
+            "photographed">photographed
+            "purchased">purchased
+            "salvaged">salvaged
+            "shot">shot
+            "trapped">trapped
+        </options>
+    </instance>
+    
+    <instance id="vocab-conditionfitness">
+        <options>
+            "dangerous">dangerous
+            "suitable">suitable
+            "reasonable">reasonable
+            "unsuitable">unsuitable
+        </options>
+    </instance>
+    
+    <instance id="vocab-conditioncheckmethod">
+        <options>
+            "observed">observed
+            "xrayed">x-rayed
+        </options>
+    </instance>
+    
+    <instance id="vocab-entrymethod">
+        <options>
+            "inperson">in person
+            "post">post
+            "foundondoorstep">found on doorstep
+        </options>
+    </instance>
+    
+    <instance id="vocab-conditioncheckreason">
+        <options>
+            "consideration">consideration
+            "damagedintransit">damaged in transit
+            "enquiry">enquiry
+            "loanin">loan in
+            "conservation">conservation
+        </options>
+    </instance>
+    
+    <instance id="vocab-locationtype">
+        <options>
+            "building">building
+            "room">room
+            "unit">unit
+            "shelf">shelf
+            "drawer">drawer
+            "tray">tray
+        </options>
+    </instance>
+    
+    <instance id="vocab-dateera">
+        <web-url>dateera</web-url>
+        <title-ref>dateera</title-ref>
+        <title>date era</title>
+        <options>
+            "ce">ce
+            "bce">bce
+        </options>
+    </instance>
+    
+    <instance id="vocab-datequalifier">
+        <options>
+            "days">day(s)
+            "month">month(s)
+            "years">year(s)
+        </options>
+    </instance>
+    <instance id="vocab-agequalifier">
+        <web-url>agequalifier</web-url>
+        <title-ref>agequalifier</title-ref>
+        <title>age qualifier</title>
+        <options>
+            "approximately">approximately
+            "olderthan">older than
+            "youngerthan">younger than
+        </options>
+    </instance>
+    <instance id="vocab-datecertainty">
+        <web-url>datecertainty</web-url>
+        <title-ref>datecertainty</title-ref>
+        <title>date certainty</title>
+        <options>
+            "after">after
+            "approximate">approximate
+            "before">before
+            "circa">circa
+            "probably">probably 
+            "possibly">possibly
+        </options>
+    </instance>
+    <instance id="vocab-persontermtype">
+        <web-url>persontermtype</web-url>
+        <title-ref>persontermtype</title-ref>
+        <title>persontermtype</title>
+        <options>
+                "artist">artist
+                "donor">donor
+                "employee">employee
+        </options>
+    </instance>   
+    <instance id="vocab-worktype">
+        <web-url>worktype</web-url>
+        <title-ref>worktype</title-ref>
+        <title>work type</title>
+        <options>
+            "built">built
+            "movable">movable
+            "movingimage">moving image
+            "dance">dance
+            "theater">theater
+            "performance">performance
+            "music">music
+        </options>
+    </instance>
+    <instance id="vocab-workcreatortype">
+        <web-url>workcreatortype</web-url>
+        <title-ref>workcreatortype</title-ref>
+        <title>work creator type</title>
+        <options>
+            "architect">architect
+            "artist">artist
+            "choreographer">choreographer
+            "composer">composer
+            "director">director
+            "painter">painter
+            "sculptor">sculptor
+            "writer">writer
+        </options>
+    </instance>
+    <instance id="vocab-workpublishertype">
+        <web-url>workpublishertype</web-url>
+        <title-ref>workpublishertype</title-ref>
+        <title>work publisher type</title>
+        <options>
+            "distributor">distributor
+            "publisher">publisher
+        </options>
+    </instance>
+    
+    <instance id="vocab-citationtermtype">
+        <web-url>citationtermtype</web-url>
+        <title-ref>citationtermtype</title-ref>
+        <title>citation term type</title>
+        <options>
+                "monograph">monograph
+    			"dictionary">dictionary
+    			"encyclopedia">encyclopedia
+    			"gazetteer">gazetteer
+    			"criticism">criticism
+    			"atlas">atlas
+    			"guide">guide book
+    			"biography">biography
+    			"history">history
+    			"festschrift">festschrift
+    			"catalog">exhibition catalog
+    			"journal">journal article
+    			"newspaper">newspaper article
+    			"dissertation">dissertation
+    			"birthcert">birth certificate
+    			"obituary">obituary
+    			"brochure">brochure
+    			"exhibitionchecklist">exhibition checklist
+    			"exhibitionreview">exhibition review
+    			"contract">contract
+    			"conditionreport">condition report
+    			"letter">letter
+    			"diary">diary
+    			"inventory">inventory
+    			"verbalopinion">verbal opinion 
+        </options>
+    </instance>
+    <instance id="vocab-agentinfo">
+        <web-url>agentinfotype</web-url>
+        <title-ref>agentinfotype</title-ref>
+        <title>agent info type</title>
+        <options>
+                "writer">writer  
+                "editor">editor                                
+        </options>
+    </instance>
+    <instance id="vocab-resourceid">
+        <web-url>resourceidtype</web-url>
+        <title-ref>resourceidtype</title-ref>
+        <title>resource id type</title>
+        <options>                                                                 
+                "isbn">isbn 
+                "issn">issn 				                
+                "permalink">permalink                                 
+        </options>
+    </instance>
+     <instance id="vocab-relationtype">
+        <web-url>relationtypetype</web-url>
+        <title-ref>relationtypetype</title-ref>
+        <title>relation type type</title>
+        <options>
+                "monography">monography (published in) 
+                "magazine">magazine (published in) 
+                "exhibition">exhibition 
+                "facsimile">facsimile of                                
+        </options>
+    </instance>                                       
+    <instance id="vocab-exhibitiontype">
+        <web-url>exhibitiontype</web-url>
+        <title-ref>exhibitiontype</title-ref>
+        <title>exhibition type</title>
+        <options>
+            "permanent">permanent
+            "temporary">temporary
+            "traveling">traveling
+        </options>
+    </instance>
+    <instance id="vocab-exhibitionpersonrole">
+        <web-url>exhibitionpersonrole</web-url>
+        <title-ref>exhibitionpersonrole</title-ref>
+        <title>exhibition person role</title>
+        <options>
+            "curator">curator
+            "exhibitdesigner">exhibit designer
+            "exhibitioncoordinator">exhibition coordinator
+            "curatorialassistant">curatorial assistant
+            "educator">educator
+            "publicprogramscoordinator">public programs coordinator
+            "publicist">publicist
+            "conservator">conservator
+            "preparator">preparator
+            "imagemediaresearcher">image/media researcher
+            "webdesigner">web designer
+            "webdeveloper">web developer
+        </options>
+    </instance>
+    <instance id="vocab-exhibitionreferencetype">
+        <web-url>exhibitionreferencetype</web-url>
+        <title-ref>exhibitionreferencetype</title-ref>
+        <title>exhibition reference type</title>
+        <options>
+            "catalog">catalog
+            "research">research
+            "mention">mention
+            "newsarticle">news article
+            "pressrelease">press release
+            "review">review
+        </options>
+    </instance>
+    <instance id="vocab-exhibitionstatus">
+        <web-url>exhibitionstatus</web-url>
+        <title-ref>exhibitionstatus</title-ref>
+        <title>exhibition status</title>
+        <options>
+            "themeselected">theme selected
+            "preliminaryobjectlistcreated">preliminary object list created
+            "sectionsdetermined">sections determined
+            "finalobjectlistdetermined">final object list determined
+            "labelswritten">labels written
+        </options>
+    </instance>
+    <instance id="vocab-conservationstatus">
+        <web-url>conservationstatus</web-url>
+        <title-ref>conservationstatus</title-ref>
+        <title>conservation status</title>
+        <options>
+            "treatmentproposed">treatment proposed
+            "treatmentapproved">treatment approved
+            "treatmentinprogress">treatment in progress
+            "treatmentcomplete">treatment complete
+            "analysisproposed">analysis proposed
+            "analysisapproved">analysis approved
+            "analysisinprogress">analysis in progress
+            "analysiscomplete">analysis complete
+        </options>
+    </instance>
+    <instance id="vocab-treatmentpurpose">
+        <web-url>treatmentpurpose</web-url>
+        <title-ref>treatmentpurpose</title-ref>
+        <title>treatment purpose</title>
+        <options>
+            "appraisal">appraisal
+            "damage">damage
+            "exhibition">exhibition
+            "insurance">insurance
+            "loanout">loan out
+            "loanreturn">loan return
+            "purchase">purchase
+        </options>
+    </instance>
+    <instance id="vocab-otherpartyrole">
+        <web-url>otherpartyrole</web-url>
+        <title-ref>otherpartyrole</title-ref>
+        <title>other party role</title>
+        <options>
+            "conservator">conservator
+            "technician">technician
+            "preparator">preparator
+        </options>
+    </instance>
+    <instance id="vocab-examinationphase">
+        <web-url>examinationphase</web-url>
+        <title-ref>examinationphase</title-ref>
+        <title>examination phase</title>
+        <options>
+            "beforetreatment">before treatment
+            "duringtreatment">during treatment
+            "aftertreatment">after treatment
+        </options>
+    </instance>
+    <instance id="vocab-concepttype">
+        <web-url>concepttype</web-url>
+        <title-ref>concepttype</title-ref>
+        <title>concept types</title>
+        <options>
+            "class">class
+            "family">family
+            "generic">generic
+        </options>
+    </instance>
+    <instance id="vocab-organizationtype">
+        <web-url>organizationtype</web-url>
+        <title-ref>organizationtype</title-ref>
+        <title>organization types</title>
+        <options>
+            "corporatebody">corporate body
+            "family">family
+            "repository">repository
+            "studio">studio
+            "workshop">workshop
+        </options>
+    </instance>
+    <instance id="vocab-taxontype">
+        <web-url>taxontype</web-url>
+        <title-ref>taxontype</title-ref>
+        <title>taxon types</title>
+        <options>
+        </options>
+    </instance>
+    <instance id="vocab-materialtype">
+        <web-url>materialtype</web-url>
+        <title-ref>materialtype</title-ref>
+        <title>material types</title>
+        <options>
+        </options>
+    </instance>
+    <instance id="vocab-citationtermflag">
+        <web-url>citationtermflag</web-url>
+        <title-ref>citationtermflag</title-ref>
+        <title>citation term flags</title>
+        <options>
+            "abbreviation">abbreviation
+            "common">common term
+            "full">full term
+        </options>
+    </instance>
+    <instance id="vocab-concepttermflag">
+        <web-url>concepttermflag</web-url>
+        <title-ref>concepttermflag</title-ref>
+        <title>concept term flags</title>
+        <options>
+            "abbreviation">abbreviation
+            "common">common term
+            "full">full term
+            "jargonslang">jargon/slang
+            "scientific">scientific term
+        </options>
+    </instance>
+    <instance id="vocab-locationtermflag">
+        <web-url>locationtermflag</web-url>
+        <title-ref>locationtermflag</title-ref>
+        <title>location term flags</title>
+        <options>
+            "abbreviation">abbreviation
+            "full">full term
+        </options>
+    </instance>
+    <instance id="vocab-orgtermflag">
+        <web-url>orgtermflag</web-url>
+        <title-ref>orgtermflag</title-ref>
+        <title>organization term flags</title>
+        <options>
+            "official">official name
+            "popular">popular name
+        </options>
+    </instance>
+    <instance id="vocab-persontermflag">
+        <web-url>persontermflag</web-url>
+        <title-ref>persontermflag</title-ref>
+        <title>person term flags</title>
+        <options>
+            "birth">birth name
+            "pseudonym">pseudonym
+        </options>
+    </instance>
+    <instance id="vocab-placetermflag">
+        <web-url>placetermflag</web-url>
+        <title-ref>placetermflag</title-ref>
+        <title>place term flags</title>
+        <options>
+            "iso">iso 3-number
+            "official">official name
+            "pseudonym">pseudonym
+            "site">site name
+        </options>
+    </instance>
+    <instance id="vocab-taxontermflag">
+        <web-url>taxontermflag</web-url>
+        <title-ref>taxontermflag</title-ref>
+        <title>taxon term flags</title>
+        <options>
+            "valid">valid
+            "invalid">invalid
+        </options>
+    </instance>
+    <instance id="vocab-worktermflag">
+        <web-url>worktermflag</web-url>
+        <title-ref>worktermflag</title-ref>
+        <title>work term flags</title>
+        <options>
+            "assigned">assigned by artist
+            "collection">collection
+            "generic">generic
+            "popular">popular
+            "series">series
+            "trade">trade
+        </options>
+    </instance>
+    <instance id="vocab-materialtermflag">
+        <web-url>materialtermflag</web-url>
+        <title-ref>materialtermflag</title-ref>
+        <title>material term flags</title>
+        <options>
+            "abbreviation">abbreviation
+            "commercial">commercial
+            "common">common
+        </options>
+    </instance>
+    <instance id="vocab-materialuse">
+        <web-url>materialuse</web-url>
+        <title-ref>materialuse</title-ref>
+        <title>materialuse</title>
+        <options>
+            "cladding">cladding
+            "decking">decking
+            "drainage">drainage
+            "erosion_control">erosion control
+            "filling">filling
+            "finishing">finishing
+            "fireproofing">fireproofing
+            "flooring">flooring
+            "framing">framing
+            "glazing">glazing
+            "packaging">packaging
+            "paving">paving
+            "roofing">roofing
+            "shingling">shingling
+            "sound_control">sound control
+            "thermal_protection">thermal protection
+            "upholstery">upholstery
+            "vapor_control">vapor control
+            "waterproofing">waterproofing
+            "weatherproofing">weatherproofing
+        </options>
+    </instance>
+    <instance id="vocab-materialproductionrole">
+        <web-url>materialproductionrole</web-url>
+        <title-ref>materialproductionrole</title-ref>
+        <title>materialproductionrole</title>
+        <options>
+            "distributor">distributor
+            "manufacturer">manufacturer
+            "origin">origin
+        </options>
+    </instance>
+    <instance id="vocab-materialresource">
+        <web-url>materialresource</web-url>
+        <title-ref>materialresource</title-ref>
+        <title>materialresource</title>
+        <options>
+            "csi">csi
+            "granta">granta
+        </options>
+    </instance>
+    <instance id="vocab-materialform">
+        <web-url>materialform</web-url>
+        <title-ref>materialform</title-ref>
+        <title>materialform</title>
+        <options>
+            "aggregate">aggregate
+            "angle">angle
+            "bar">bar
+            "batt">batt
+            "board">board
+            "channel">channel
+            "cell">cell
+            "cloth">cloth
+            "coating">coating
+            "fiber">fiber
+            "fiberoptic">fiber-optic
+            "gabion">gabion
+            "geotextile">geotextile
+            "grating">grating
+            "grille">grille
+            "laminate">laminate
+            "leather">leather
+            "lens">lens
+            "lumber">lumber
+            "mulch">mulch
+            "net">net
+            "paint">paint
+            "paper">paper
+            "pellets">pellets
+            "plank">plank
+            "plywood">plywood
+            "pole">pole
+            "rod">rod
+            "sphere">sphere
+            "spheres">spheres
+            "tube">tube
+            "veneer">veneer
+            "wire">wire
+        </options>
+    </instance>
+    <instance id="vocab-materialformtype">
+        <web-url>materialformtype</web-url>
+        <title-ref>materialformtype</title-ref>
+        <title>materialformtype</title>
+        <options>
+            "film">film
+            "sheet">sheet
+            "sheet_rigid">sheet - rigid
+            "sheet_flexible">sheet - flexible
+            "panel">panel
+            "panel_rigid">panel - rigid
+            "panel_flexible">panel - flexible
+            "tile">tile
+            "textile">textile
+            "textile_fabric">textile - fabric
+            "textile_mat">textile - mat
+            "mesh">mesh
+            "mesh_rigid">mesh - rigid
+            "mesh_flexible">mesh - flexible
+            "honeycomb">honeycomb
+            "honeycomb_rigid">honeycomb - rigid
+            "honeycomb_flexible">honeycomb - flexible
+            "cord">cord
+            "cord_rope">cord - rope
+            "cord_thread">cord - thread
+            "cord_tape">cord - tape
+            "profile">profile
+            "profile_hollow">profile - hollow
+            "profile_open">profile - open
+            "profile_solid">profile - solid
+            "block">block
+            "granule">granule
+            "granule_irregular">granule - irregular
+            "granule_regular">granule - regular
+            "granule_powder">granule - powder
+            "fluid">fluid
+            "fluid_liquid">fluid - liquid
+            "fluid_foam">fluid - foam
+            "fluid_gas">fluid - gas
+            "semisolid">semisolid
+            "semisolid_gel">semisolid - gel
+            "semisolid_paste">semisolid - paste
+        </options>
+    </instance>
+    <instance id="vocab-acousticalproperties">
+        <web-url>acousticalproperties</web-url>
+        <title-ref>acousticalproperties</title-ref>
+        <title>acoustical properties</title>
+        <options>
+            "sound_absorption_reflective">sound absorption - reflective
+            "sound_absorption_neutral">sound absorption - neutral
+            "sound_absorption_absorbent">sound absorption - absorbent
+            "sound_isolation_insulator">sound isolation - insulator
+            "sound_isolation_neutral">sound isolation - neutral
+            "sound_isolation_conductor">sound isolation - conductor
+        </options>
+    </instance>
+    <instance id="vocab-durabilityproperties">
+        <web-url>durabilityproperties</web-url>
+        <title-ref>durabilityproperties</title-ref>
+        <title>durability properties</title>
+        <options>
+            "abrasion_resistant">abrasion resistant
+            "dimensionally_stable">dimensionally-stable
+            "fade_resistant">fade resistant
+            "heat_resistant">heat resistant
+            "impact_resistant">impact resistant
+            "lightfastness">lightfastness
+            "shock_damping">shock-damping
+            "stain_resistant">stain resistant
+            "tear_resistant">tear resistant
+            "waterproof">waterproof
+            "fire_resistant">fire resistant
+            "water_resistant">water resistant
+            "water_repellent">water-repellent
+            "freeze_thaw_resistant">freeze/thaw resistant
+            "chemical_resistant">chemical resistant (acid and alkaline)
+            "corrosion_resistant">corrosion resistant
+            "uv_resistant">uv resistant
+            "fungal_resistant">fungal resistant
+            "bacterial_resistant">bacterial resistant
+            "animal_resistant">animal resistant
+            "emi_interference">electromagnetic interference (emi)
+            "rf_shielding">radio frequency shielding
+        </options>
+    </instance>
+    <instance id="vocab-electricalproperties">
+        <web-url>electricalproperties</web-url>
+        <title-ref>electricalproperties</title-ref>
+        <title>electricalproperties</title>
+        <options>
+            "anti_static">anti-static
+            "electrical_resistivity_conductor">electrical resistivity - conductor
+            "electrical_resistivity_semiconductor">electrical resistivity - semiconductor
+            "electrical_resistivity_insulator">electrical resistivity - insulator
+        </options>
+    </instance>
+    <instance id="vocab-mechanicalproperties">
+        <web-url>mechanicalproperties</web-url>
+        <title-ref>mechanicalproperties</title-ref>
+        <title>mechanical properties</title>
+        <options>
+            "density">density
+            "compressive_strength">compressive strength
+            "tensile_strength">tensile strength
+            "yield_strength">yield strength
+            "bending_strength">bending strength
+            "shear_strength">shear strength
+            "elongation">elongation
+            "hardness">hardness
+            "youngs_modulus">young's modulus
+            "fatigue_limit">fatigue limit
+        </options>
+    </instance>
+    <instance id="vocab-hygrothermalproperties">
+        <web-url>hygrothermalproperties</web-url>
+        <title-ref>hygrothermalproperties</title-ref>
+        <title>hygrothermal properties</title>
+        <options>
+            "thermal_resistivity">thermal resistivity
+            "thermal_expansion_coefficient">thermal expansion coefficient
+            "melting_point">melting point
+            "specific_heat">specific heat
+            "emissivity">emissivity
+            "water_absorption">water absorption
+            "porosity">porosity
+            "flammability">flammability
+            "vapor_permeability">vapor permeability
+        </options>
+    </instance>
+    <instance id="vocab-opticalproperties">
+        <web-url>opticalproperties</web-url>
+        <title-ref>opticalproperties</title-ref>
+        <title>optical properties</title>
+        <options>
+            "iridescent">iridescent
+            "light_diffusing">light diffusing
+            "light_emitting">light emitting
+            "prismatic">prismatic
+            "transparency_opaque">transparency - opaque
+            "transparency_translucent">transparency - translucent
+            "transparency_transparent">transparency - transparent
+            "reflectance_specular">reflectance - specular (glossy)
+            "reflectance_medium">reflectance - medium (satin)
+            "reflectance_diffuse">reflectance - diffuse (matte)
+        </options>
+    </instance>
+    <instance id="vocab-sensorialproperties">
+        <web-url>sensorialproperties</web-url>
+        <title-ref>sensorialproperties</title-ref>
+        <title>sensorial properties</title>
+        <options>
+            "vision_colorfulness_low">vision - colorfulness (low)
+            "vision_colorfulness_medium">vision - colorfulness (medium)
+            "vision_colorfulness_intensity_medium">vision - colorfulness intensity (medium)
+            "vision_intensity_high">vision - intensity (high)
+            "taste_bitter">taste - bitter
+            "taste_salty">taste - salty
+            "taste_sour">taste - sour
+            "taste_spicy">taste - spicy
+            "taste_sweet">taste - sweet
+            "touch_soft">touch - soft
+            "touch_hard">touch - hard
+            "touch_lightweight">touch - lightweight
+            "touch_heavy">touch - heavy
+            "touch_smooth">touch - smooth
+            "touch_rough">touch - rough
+            "touch_sticky">touch - sticky
+            "smell_odorous">smell - odorous
+        </options>
+    </instance>
+    <instance id="vocab-smartmaterialproperties">
+        <web-url>smartmaterialproperties</web-url>
+        <title-ref>smartmaterialproperties</title-ref>
+        <title>smart material properties</title>
+        <options>
+            "dichroic">dichroic
+            "electroluminescent">electroluminescent
+            "magnetorheological">magnetorheological
+            "phase_changing">phase changing
+            "photocatalytic">photocatalytic
+            "photochromatic">photochromatic
+            "photoluminescent">photoluminescent
+            "photovoltaic">photovoltaic
+            "self_cleaning">self-cleaning
+            "self_healing">self-healing
+            "self_leveling">self-leveling
+            "shape_memory">shape memory
+            "thermochromatic">thermochromatic
+            "time_releasing">time-releasing
+        </options>
+    </instance>
+    <instance id="vocab-additionalproperties">
+        <web-url>additionalproperties</web-url>
+        <title-ref>additionalproperties</title-ref>
+        <title>additional properties</title>
+        <options>
+            "acoustic">acoustic
+            "ductile">ductile
+            "elastic">elastic
+            "flexible">flexible
+            "hydrophilic">hydrophilic
+            "magnetic">magnetic
+            "water_absorbent">water absorbent
+            "non_stick">non-stick
+            "nutrient_providing">nutrient-providing
+            "water_permeable">water permeable
+            "rot_resistant">rot resistant
+            "slip_resistant">slip resistant
+            "soluble">soluble
+            "temperature_control">temperature control
+            "antimicrobial">antimicrobial
+        </options>
+    </instance>
+    <instance id="vocab-mechanicalpropertyunits">
+        <web-url>mechanicalpropertyunits</web-url>
+        <title-ref>mechanicalpropertyunits</title-ref>
+        <title>mechanical propertyunits</title>
+        <options>
+            "kg_per_m3">kg/m³
+            "mpa">mpa
+            "pct">% (percent) <!-- display name must have at least 2 characters -->
+            "hv">hv
+        </options>
+    </instance>
+    <instance id="vocab-hygrothermalpropertyunits">
+        <web-url>hygrothermalpropertyunits</web-url>
+        <title-ref>hygrothermalpropertyunits</title-ref>
+        <title>hygrothermal property units</title>
+        <options>
+            "m_degc_per_w">m°c/w <!-- thermal resistivity -->
+            "microstrain_per_degc">μstrain/°c <!-- coefficient of thermal expansion -->
+            "j_per_kg_degc">j/kg°c <!-- specific heat -->
+            "pct">% (percent) <!-- display name must have at least 2 characters -->
+            "degc">°c
+        </options>
+    </instance>
+    <instance id="vocab-recycledcontentqualifiers">
+        <web-url>recycledcontentqualifiers</web-url>
+        <title-ref>recycledcontentqualifiers</title-ref>
+        <title>recycled content qualifiers</title>
+        <options>
+            "postconsumer">post-consumer
+            "postindustrial">post industrial
+            "unknown">unknown
+        </options>
+    </instance>
+    <instance id="vocab-lifecyclecomponents">
+        <web-url>lifecyclecomponents</web-url>
+        <title-ref>lifecyclecomponents</title-ref>
+        <title>lifecycle components</title>
+        <options>
+            "biodegradable">biodegradable
+            "landfillable">landfillable
+            "recyclable">recyclable
+            "renewable_resource">renewable resource
+        </options>
+    </instance>
+    <instance id="vocab-energyunits">
+        <web-url>energyunits</web-url>
+        <title-ref>energyunits</title-ref>
+        <title>energy units</title>
+        <options>
+            "mj_per_kg">mj/kg
+            "tco2">tco₂
+        </options>
+    </instance>
+    <instance id="vocab-ecologicalcertifications">
+        <web-url>ecologicalcertifications</web-url>
+        <title-ref>ecologicalcertifications</title-ref>
+        <title>ecological certifications</title>
+        <options>
+            "leed">leed
+        </options>
+    </instance>
+    <instance id="vocab-castingprocesses">
+        <web-url>castingprocesses</web-url>
+        <title-ref>castingprocesses</title-ref>
+        <title>castingprocesses</title>
+        <options>
+            "die_casting">die casting
+            "floating">floating
+            "investment_casting">investment casting
+            "sand_casting">sand casting
+            "slip_casting">slip casting
+            "centrifugal_casting">centrifugal casting
+            "slumping">slumping
+        </options>
+    </instance>
+    <instance id="vocab-deformingprocesses">
+        <web-url>deformingprocesses</web-url>
+        <title-ref>deformingprocesses</title-ref>
+        <title>deforming processes</title>
+        <options>
+            "aeration">aeration
+            "corrugating">corrugating
+            "expanding">expanding
+            "melting">melting
+            "perforating">perforating
+            "spinning">spinning
+            "extrusion">extrusion
+            "pultrusion">pultrusion
+            "shearing">shearing
+            "bending">bending
+            "inflating">inflating
+            "rolling">rolling
+            "stamping">stamping
+            "pressing">pressing
+            "embossing">embossing
+            "blowing">blowing
+            "jiggering">jiggering
+            "jollying">jollying
+            "forging">forging
+            "diecutting">diecutting
+            "rotary_swaging">rotary swaging
+            "vacuum_melting">vacuum melting
+        </options>
+    </instance>
+    <instance id="vocab-joiningprocesses">
+        <web-url>joiningprocesses</web-url>
+        <title-ref>joiningprocesses</title-ref>
+        <title>joining processes</title>
+        <options>
+            "felting">felting
+            "heat_bonding">heat-bonding
+            "laminating">laminating
+            "nonwoven">nonwoven
+            "polymerizing">polymerizing
+            "spun_bonding">spun-bonding
+            "stacking">stacking
+            "welding">welding
+            "soldering">soldering
+            "bonding">bonding
+            "doweling">doweling
+            "fastening">fastening
+            "flexible_adhesives">flexible adhesives
+            "rigid_adhesives">rigid adhesives
+            "knitting">knitting
+            "weaving">weaving
+            "filament_winding">filament winding
+        </options>
+    </instance>
+    <instance id="vocab-machiningprocesses">
+        <web-url>machiningprocesses</web-url>
+        <title-ref>machiningprocesses</title-ref>
+        <title>machining processes</title>
+        <options>
+            "milling">milling
+            "drilling">drilling
+            "grinding">grinding
+            "punching">punching
+            "lathing">lathing
+            "blanking">blanking
+            "nibbling">nibbling
+            "cnc_cutting">cnc-cutting
+            "cnc_routing">cnc-routing
+            "oxyacetylene_cutting">oxyacetylene cutting
+            "laser_beam_cutting">laser-beam cutting
+            "water_jet_cutting">water-jet cutting
+            "plasma_arc_cutting">plasma-arc cutting
+            "wire_cutting">wire cutting
+            "water_jet_abrasion">water-jet abrasion
+            "ebm">electron-beam machining (ebm)
+            "wedm">wire electrical discharge machining (w-edm)
+        </options>
+    </instance>
+    <instance id="vocab-moldingprocesses">
+        <web-url>moldingprocesses</web-url>
+        <title-ref>moldingprocesses</title-ref>
+        <title>molding processes</title>
+        <options>
+            "blow_molding">blow molding
+            "compression_molding">compression molding
+            "injection_molding">injection molding
+            "rotational_molding">rotational molding
+            "dip_molding">dip molding
+            "powder_molding">powder molding
+            "contact_molding">contact molding
+            "foam_molding">foam molding
+            "autoclave_molding">autoclave molding
+            "transfer_molding">transfer molding
+            "electroforming">electroforming
+            "thermoforming">thermoforming
+            "vacuum_forming">vacuum forming
+            "cavity_forming">cavity forming
+            "bubble_forming">bubble forming
+            "diaphragm_forming">diaphragm forming
+            "back_pressure_forming">back-pressure forming
+            "explosive_forming">explosive forming
+            "hydroforming_or_fluid_forming">hydroforming or fluid forming
+            "vip">vacuum infusion forming (vip)
+            "hip">hot isostatic pressing (hip)
+            "cip">cold isostatic pressing (cip)
+        </options>
+    </instance>
+    <instance id="vocab-rapidprototypingprocesses">
+        <web-url>rapidprototypingprocesses</web-url>
+        <title-ref>rapidprototypingprocesses</title-ref>
+        <title>rapid prototyping processes</title>
+        <options>
+            "printing">printing
+            "vacuum_deposition">vacuum deposition
+            "physical_vapor_deposition">physical vapor deposition (pvd)
+            "weaving_3d">weaving (3d)
+            "3d_printing">3d printing
+            "stl">stereolithography (stl)
+            "fdm">fused deposition modeling (fdm)
+            "laminated_object_manufacturing">laminated object manufacturing
+            "contour_crafting">contour crafting
+            "sintering">sintering
+            "sls">selective laser sintering (sls)
+            "slm">selective laser melting (slm)
+        </options>
+    </instance>
+    <instance id="vocab-surfacingprocesses">
+        <web-url>surfacingprocesses</web-url>
+        <title-ref>surfacingprocesses</title-ref>
+        <title>surfacing processes</title>
+        <options>
+            "acid_washing">acid-washing
+            "coating">coating
+            "etching">etching
+            "photolithography">photolithography
+            "sandblasting">sandblasting
+            "spraying">spraying
+            "anodizing">anodizing
+            "galvanizing">galvanizing
+            "inkjet_printing">inkjet printing
+            "spray_painting">spray painting
+            "pad_printing">pad printing
+            "silk_screen_printing">silk screen printing
+            "cubic_printing">cubic printing
+            "photo_etching">photo-etching
+            "calendering">calendering
+            "over_mold_surfacing">over-mold surfacing
+            "laser_hardening">laser hardening
+            "flame_hardening">flame hardening
+        </options>
+    </instance>
+    <instance id="vocab-additionalprocesses">
+        <web-url>additionalprocesses</web-url>
+        <title-ref>additionalprocesses</title-ref>
+        <title>additional processes</title>
+        <options>
+            "acetylation">acetylation
+            "casting">casting
+            "firing">firing
+            "harvesting">harvesting
+            "mixing">mixing
+            "pigmenting">pigmenting
+            "poured_in_place">poured-in-place
+            "pressure_treating">pressure treating
+            "pyrolysis">pyrolysis
+            "recycled">recycled
+            "tanning">tanning
+        </options>
+    </instance>
+    <instance id="vocab-addresstype">
+        <web-url>addresstype</web-url>
+        <title-ref>addresstype</title-ref>
+        <title>address types</title>
+        <options>
+            "business">business
+            "intersection">intersection
+            "personal">personal
+            "streetaddress">street address
+        </options>
+    </instance>
+    <instance id="vocab-deaccessionapprovalgroup">
+        <web-url>deaccessionapprovalgroup</web-url>
+        <title-ref>deaccessionapprovalgroup</title-ref>
+        <title>deaccession approval group</title>
+        <options>
+            "collection_committee">collection committee
+            "executive_committee">executive committee
+            "board_of_trustees">board of trustees
+        </options>
+    </instance>
+    <instance id="vocab-deaccessionapprovalstatus">
+        <web-url>deaccessionapprovalstatus</web-url>
+        <title-ref>deaccessionapprovalstatus</title-ref>
+        <title>deaccession approval status</title>
+        <options>
+            "approved">approved
+            "not_approved">not approved
+            "not_required">not required
+        </options>
+    </instance>
+    <instance id="vocab-disposalmethod">
+        <web-url>disposalmethod</web-url>
+        <title-ref>disposalmethod</title-ref>
+        <title>disposal method</title>
+        <options>
+            "destruction">destruction
+            "donation">donation
+            "exchange">exchange
+            "private_sale">private sale
+            "public_auction">public auction
+            "repatriation">repatriation
+            "return_to_donor">return to donor
+            "transfer">transfer
+        </options>
+    </instance>
+</instances>

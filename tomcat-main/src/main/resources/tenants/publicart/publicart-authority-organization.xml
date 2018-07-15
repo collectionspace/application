@@ -1245,6 +1245,11 @@
     </instances>
 
     <section id="organizationNameAuthorityInformation">
+        <field id="foundingPlace" autocomplete="place-place" />
+        <field id="currentPlace" autocomplete="place-place" section="publicart" />
+    </section>
+    
+    <section id="organizationNameAuthorityInformation">
         <!-- Local fields-->
 
         <repeat id="socialMediaGroupList/socialMediaGroup" section="publicart">

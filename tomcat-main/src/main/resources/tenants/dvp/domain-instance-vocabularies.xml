@@ -13,7 +13,7 @@
 			<option id="workednearby">Worked but did not live in Upper Valley</option>
 		</options>
 	</instance>
-
+	
 	<instance id="vocab-collegebranches">
 		<web-url>collegebranches</web-url>
 		<title-ref>collegebranches</title-ref>
@@ -35,6 +35,18 @@
 			<option id="pending">Pending</option>
 			<option id="approved">Approved</option>
 			<option id="declined">Declined</option>
+		</options>
+	</instance>
+	
+	<instance id="vocab-dvpentrymethod">
+		<web-url>dvpentrymethod</web-url>
+		<title-ref>dvpentrymethod</title-ref>
+		<title>DVP Entry Method</title>
+		<options>
+			<option id="email">email</option>
+			<option id="mail">Mail</option>
+			<option id="phone">Phone</option>
+			<option id="webform">Web form</option>
 		</options>
 	</instance>
 	
