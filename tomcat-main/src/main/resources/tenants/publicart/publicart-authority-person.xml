@@ -1,6 +1,99 @@
 <record id="person" is-extension="true">
     <services-record-path id="publicart">persons_publicart:http://collectionspace.org/services/person/local/publicart,persons_publicart</services-record-path>
 
+    <instances id="person">
+        <instance id="person-person">
+            <web-url>person</web-url>
+            <title-ref>person</title-ref>
+            <title>Local Persons</title>
+            <options>
+                <option id="lawrence_argent">Lawrence Argent</option>
+                <option id="tyler_aiello">Tyler Aiello</option>
+                <option id="sherry_allen">Sherry Allen</option>
+                <option id="steve_altman">Steve Altman</option>
+                <option id="robin_ault">Robin Ault</option>
+                <option id="barbara_baer">Barbara Baer</option>
+                <option id="maurice_bardin">Maurice Bardin</option>
+                <option id="stephen_batura">Stephen Batura</option>
+                <option id="max_blondet">Max Blondet</option>
+                <option id="jonathan_borofsky">Jonathan Borofsky</option>
+                <option id="fernando_botero">Fernando Botero</option>
+                <option id="carolyn_braaksma">Carolyn Braaksma</option>
+                <option id="trine_bumiller">Trine Bumiller</option>
+                <option id="yuan_xiao_cen">Yuan Xiao-cen</option>
+                <option id="dale_chihuly">Dale Chihuly</option>
+                <option id="joseph_cipri">Joseph Cipri</option>
+                <option id="michael_clapper">Michael Clapper</option>
+                <option id="dayton_claudio">Dayton Claudio</option>
+                <option id="victor_m__contreras">Victor M. Contreras</option>
+                <option id="susan_cooper">Susan Cooper</option>
+                <option id="gerald_cross">Gerald Cross</option>
+                <option id="john_davis">John Davis</option>
+                <option id="john_deandrea">John DeAndrea</option>
+                <option id="robert_garrison">Robert Garrison</option>
+                <option id="david_griggs">David Griggs</option>
+                <option id="caspar_henselmann">Caspar Henselmann</option>
+                <option id="conor_hollis">Conor Hollis</option>
+                <option id="jerry_jaramillo">Jerry Jaramillo</option>
+                <option id="luis_jimenez">Luis Jimenez</option>
+                <option id="erick_johnson">Erick Johnson</option>
+                <option id="william_f__joseph">William F. Joseph</option>
+                <option id="lisa_kaslow">Lisa Kaslow</option>
+                <option id="shannon_kelly">Shannon Kelly</option>
+                <option id="larry_kirkland">Larry Kirkland</option>
+                <option id="roger_kotoske">Roger Kotoske</option>
+                <option id="mabel_landrum_torrey">Mabel Landrum Torrey</option>
+                <option id="leo_lentelli">Leo Lentelli</option>
+                <option id="nancy_lovendahl">Nancy Lovendahl</option>
+                <option id="anthony_magar">Anthony Magar</option>
+                <option id="patrick_marold">Patrick Marold</option>
+                <option id="emanuel_martinez">Emanuel Martinez</option>
+                <option id="william_mathews">William Mathews</option>
+                <option id="john_mcenroe">John McEnroe</option>
+                <option id="tatsuo_miyajima">Tatsuo Miyajima</option>
+                <option id="robert_murase">Robert Murase</option>
+                <option id="dennis_oppenheim">Dennis Oppenheim</option>
+                <option id="andrew_reid">Andrew Reid</option>
+                <option id="joseph_riche">Joseph Riche</option>
+                <option id="evelyn_rosenberg">Evelyn Rosenberg</option>
+                <option id="edward_j__ruscha">Edward J. Ruscha</option>
+                <option id="gary_staab">Gary Staab</option>
+                <option id="lars_stanley">Lars Stanley</option>
+                <option id="lorado_taft">Lorado Taft</option>
+                <option id="robert_tully">Robert Tully</option>
+                <option id="bernar_venet">Bernar Venet</option>
+                <option id="wilbert_verhelst">Wilbert Verhelst</option>
+                <option id="ann_weber">Ann Weber</option>
+                <option id="_keith_white__your_name_in_graffiti__ynig__">Keith White, Your Name in Graffiti (YNIG)</option>
+                <option id="barry_rose">Barry Rose</option>
+                <option id="carol_candelaria_rothberg">Carol Candelaria Rothberg</option>
+                <option id="daniel_salazar">Daniel Salazar</option>
+                <option id="bill_starke">Bill Starke</option>
+                <option id="_buster_simpson_sherry_wiggins_">Buster Simpson,Sherry Wiggins</option>
+                <option id="wang_po_shu">Wang Po Shu</option>
+                <option id="kristine_smock">Kristine Smock</option>
+                <option id="michael_singer">Michael Singer</option>
+                <option id="shan_shan_sheng">Shan Shan Sheng</option>
+                <option id="jim_sale">Jim Sale</option>
+                <option id="leni_schwendinger">Leni Schwendinger</option>
+                <option id="joe_sam">Joe Sam</option>
+                <option id="patty_ortiz">Patty Ortiz</option>
+                <option id="kevin_oehler">Kevin Oehler</option>
+                <option id="barbara_jo_revelle">Barbara Jo Revelle</option>
+                <option id="nicolosi_nicolosi">Nicolosi Nicolosi</option>
+                <option id="yvonne_muinde">Yvonne Muinde</option>
+                <option id="tony_ortega">Tony Ortega</option>
+                <option id="oyedele_oginga">Oyedele Oginga</option>
+                <option id="sue_quinlan">Sue Quinlan</option>
+            </options>
+        </instance>
+        <instance id="person-ulan_pa">
+            <web-url>ulan_pa</web-url>
+            <title-ref>ulan_pa</title-ref>
+            <title>ULAN Persons</title>
+        </instance>
+    </instances>
+
     <section id="personNameAuthorityInformation">
         <!-- Local fields -->
 
