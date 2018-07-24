@@ -72,6 +72,7 @@
 		<repeat id="claimClaimantGroupList/claimClaimantGroup">
 			<field id="filedBy" autocomplete="person-person,organization-organization"></field>
 			<field id="filedOnBehalfOf" mini="summary,search,list,relate" autocomplete="person-person,organization-organization"></field>
+			<field id="claimantNote"></field>
 		</repeat>
 
 		<repeat id="claimReceivedGroupList/claimReceivedGroup">
