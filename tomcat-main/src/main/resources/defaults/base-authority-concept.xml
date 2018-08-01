@@ -67,6 +67,12 @@
             <title-ref>materialformtype</title-ref>
             <title>Material Form Types</title>
         </instance>
+        <!-- For Anthro and FCart profiles -->
+        <instance id="concept-ethculture">
+            <web-url>ethculture</web-url>
+            <title-ref>ethculture</title-ref>
+            <title>Ethnographic Cultures</title>
+        </instance>        
     </instances>
 	
 	<section id="coreInformation">

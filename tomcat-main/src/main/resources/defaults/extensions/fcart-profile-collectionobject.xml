@@ -318,4 +318,9 @@
             </options>
         </field>
     </section>
+    <section id="objectProductionInformation">
+        <repeat id="objectProductionPlaceGroupList/objectProductionPlaceGroup">
+            <field id="objectProductionPlace" autocomplete="true" />
+        </repeat>
+    </section>
 </record>
