@@ -1,4 +1,5 @@
 *.out
+Tower.app/
 tomcat-main/plugins/
 .settings/org.eclipse.m2e.core.prefs
 .settings/
