@@ -50,8 +50,8 @@
       </repeat>
 
       <repeat id="materialGroupList/materialGroup">
-          <!-- Add autocomplete -->
-          <field id="material" autocomplete="material-material,material-material_shared"/>
+          <!-- Add autocomplete and mini -->
+          <field id="material" autocomplete="material-material,material-material_shared" mini="summary,search,list,relate" />
       </repeat>
     </section>
 </record>
