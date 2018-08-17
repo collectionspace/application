@@ -35,12 +35,13 @@
 			<include src="base-authority-person-termList.xml"/>
 			<include src="base-authority-person.xml,publicart-authority-person.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-citation-termList.xml"/>
-			<include src="base-authority-citation.xml"/>
+			<include src="base-authority-citation.xml,publicart-authority-citation.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-place-termList.xml"/>
 			<include src="base-authority-place.xml,publicart-authority-place.xml" merge="xmlmerge.properties"/>
 
 			<include src="base-authority-concept-termList.xml"/>
 			<include src="base-authority-concept.xml,publicart-authority-concept.xml" merge="xmlmerge.properties"/>
+
 			<include src="base-authority-work-termList.xml"/>
 			<include src="base-authority-work.xml"/>
 
