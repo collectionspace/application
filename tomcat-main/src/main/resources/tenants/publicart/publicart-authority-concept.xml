@@ -228,6 +228,88 @@
             <web-url>worktype</web-url>
             <title-ref>worktype</title-ref>
             <title>Work Types</title>
+            <options>
+                <option id="acrylicpaintings">acrylic paintings</option>
+                <option id="architecturaldrawings_visualworks">architectural drawings (visual works)</option>
+                <option id="architecture_objectgenre">architecture (object genre)</option>
+                <option id="artobjects_objectgenres">art objects (object genres)</option>
+                <option id="assemblages_sculpture">assemblages (sculpture)</option>
+                <option id="basreliefs_sculpture">bas-reliefs (sculpture)</option>
+                <option id="benches_furniture">benches (furniture)</option>
+                <option id="blackandwhiteprints_photographs">black-and-white prints (photographs)</option>
+                <option id="bookobjects">book objects</option>
+                <option id="bronzes_sculptures">bronzes (sculptures)</option>
+                <option id="calligraphy_visualworks">calligraphy (visual works)</option>
+                <option id="carvings_visualworks">carvings (visual works)</option>
+                <option id="casts_sculpture">casts (sculpture)</option>
+                <option id="ceramics_objects">ceramics (objects)</option>
+                <option id="collages_visualworks">collages (visual works)</option>
+                <option id="communityart">community art</option>
+                <option id="constructions_sculpture">constructions (sculpture)</option>
+                <option id="culturalartifacts">cultural artifacts</option>
+                <option id="digitalimages">digital images</option>
+                <option id="drawings_visualworks">drawings (visual works)</option>
+                <option id="earthworks_sculpture">earthworks (sculpture)</option>
+                <option id="environmentalart">environmental art</option>
+                <option id="etchings_prints">etchings (prints)</option>
+                <option id="fiberart">fiber art</option>
+                <option id="floors_surfaceelements">floors (surface elements)</option>
+                <option id="foundobjects">found objects</option>
+                <option id="fountain_waterfeature">fountain (water feature)</option>
+                <option id="frescoes_paintings">frescoes (paintings)</option>
+                <option id="gelatinsilverprints">gelatin silver prints</option>
+                <option id="holograms">holograms</option>
+                <option id="intaglios_prints">intaglios (prints)</option>
+                <option id="interactiveart">interactive art</option>
+                <option id="kinetic_style">kinetic (style)</option>
+                <option id="laserart">laser art</option>
+                <option id="lightart">light art</option>
+                <option id="maquettes_sculptures">maquettes (sculptures)</option>
+                <option id="metalwork">metalwork</option>
+                <option id="mobiles">mobiles</option>
+                <option id="monoprints_paintingandprintingworks">monoprints (painting and printing works)</option>
+                <option id="mosaics_visualworks">mosaics (visual works)</option>
+                <option id="multimediaworks">multimedia works</option>
+                <option id="muralpaintings_visualworks">mural paintings (visual works)</option>
+                <option id="murals_anymedium">murals (any medium)</option>
+                <option id="neonsculpture">neon sculpture</option>
+                <option id="objectsculpture">object sculpture</option>
+                <option id="oilpaintings_visualworks">oil paintings (visual works)</option>
+                <option id="ornaments">ornaments</option>
+                <option id="outdoorsculpture">outdoor sculpture</option>
+                <option id="paintings_visualworks">paintings (visual works)</option>
+                <option id="pastels_visualworks">pastels (visual works)</option>
+                <option id="performanceart">performance art</option>
+                <option id="photocollages_photographiccompositions">photocollages (photographic compositions)</option>
+                <option id="photograms">photograms</option>
+                <option id="photographs">photographs</option>
+                <option id="prints_visualworks">prints (visual works)</option>
+                <option id="projections_visualworks">projections (visual works)</option>
+                <option id="quilts">quilts</option>
+                <option id="readymades">ready-mades</option>
+                <option id="reliefs_sculptures">reliefs (sculptures)</option>
+                <option id="santos_statues">santos (statues)</option>
+                <option id="screenprints">screen prints</option>
+                <option id="sculpture_visualwork">sculpture (visual work)</option>
+                <option id="signage">signage</option>
+                <option id="slides_photographs">slides (photographs)</option>
+                <option id="soundsculpture">sound sculpture</option>
+                <option id="stainedglass_visualworks">stained glass (visual works)</option>
+                <option id="statues">statues</option>
+                <option id="stencils_images">stencils (images)</option>
+                <option id="temporary">temporary</option>
+                <option id="textiles">textiles</option>
+                <option id="timebasedworks">time-based works</option>
+                <option id="videoart">video art</option>
+                <option id="vinylcuts">vinylcuts</option>
+                <option id="wallpieces">wall pieces</option>
+                <option id="watercolors_paintings">watercolors (paintings)</option>
+                <option id="windows">windows</option>
+                <option id="woodengravings">wood engravings</option>
+                <option id="woodcuts">woodcuts</option>
+                <option id="worksonpaper">works on paper</option>
+                <option id="workshops_seminars">workshops (seminars)</option>
+            </options>            
         </instance>
     </instances>
 </record>
