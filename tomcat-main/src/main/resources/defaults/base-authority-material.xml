@@ -73,9 +73,9 @@
 
         <field id="discontinued"/>
         <field id="discontinuedBy" autocomplete="organization-organization,organization-organization_shared"/>
-        <field id="discontinuedYear" datatype="integer"/>
+        <field id="discontinuedDate" ui-type="groupfield/structureddate" primarykey="discontinuedDate.dateDisplayDate" ui-func="cspace.structuredDate"/>
 
-        <field id="productionYear" datatype="integer"/>
+        <field id="productionDate" ui-type="groupfield/structureddate" primarykey="productionDate.dateDisplayDate" ui-func="cspace.structuredDate"/>
         <field id="productionNote"/>
 
         <repeat id="materialProductionOrganizationGroupList/materialProductionOrganizationGroup">
