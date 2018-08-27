@@ -130,6 +130,9 @@
             </field>
         </repeat>
         <section id="contentInformation">
+            <repeat id="contentActivities">
+                <field id="contentActivity"  autocomplete="concept-activity" />
+            </repeat>            
             <repeat id="contentPositions">
                 <field id="contentPosition">
                     <options>
@@ -153,174 +156,49 @@
                     </options>
                 </field>
             </repeat>
+            <repeat id="contentPlaces">
+                <field id="contentPlace" autocomplete="place-place" />
+            </repeat>
         </section>
         <section id="textualInscriptionInformation">
             <repeat id="textualInscriptionGroupList/textualInscriptionGroup">
-                <field id="inscriptionContentPosition">
-                    <options>
-                        <option id="">Please select a value</option>
-                        <option id="back"> back </option>
-                        <option id="base"> base </option>
-                        <option id="bottom"> bottom </option>
-                        <option id="front"> front </option>
-                        <option id="inside"> inside </option>
-                        <option id="left"> left </option>
-                        <option id="mainpanel"> main panel </option>
-                        <option id="predella"> predella </option>
-                        <option id="outside"> outside </option>
-                        <option id="recto"> recto </option>
-                        <option id="right"> right </option>
-                        <option id="rim"> rim </option>
-                        <option id="sideA"> side A </option>
-                        <option id="sideB"> side B </option>
-                        <option id="top"> top </option>
-                        <option id="verso"> verso  </option>
-                    </options>
-                </field>
-                <field id="inscriptionContentType">
-                    <options>
-                        <option id="">Please select a value</option>
-                        <option id="annotation"> annotation </option>
-                        <option id="bookplate"> book plate </option>
-                        <option id="brand"> brand </option>
-                        <option id="calculations"> calculations </option>
-                        <option id="carved"> carved </option>
-                        <option id="collectorsmark"> collector’s mark </option>
-                        <option id="colophon"> colophon </option>
-                        <option id="colornotes"> color notes </option>
-                        <option id="dated"> dated </option>
-                        <option id="decoration"> decoration </option>
-                        <option id="dedicated"> dedicated </option>
-                        <option id="detailslabeled"> details labeled </option>
-                        <option id="device"> device </option>
-                        <option id="dimensionsgiven"> dimensions given </option>
-                        <option id="estatestamp"> estate stamp </option>
-                        <option id="graffito"> graffito </option>
-                        <option id="foundrymark"> foundry mark </option>
-                        <option id="hallmark"> hallmark </option>
-                        <option id="handwritten"> handwritten </option>
-                        <option id="iconographnotation"> iconograph notation </option>
-                        <option id="initialed"> initialed </option>
-                        <option id="impressed"> impressed </option>
-                        <option id="imprinted"> imprinted </option>
-                        <option id="inscribed"> inscribed </option>
-                        <option id="inscribeddimensions"> inscribed dimensions </option>
-                        <option id="inscribedstamp"> inscribed stamp </option>
-                        <option id="label"> label </option>
-                        <option id="makersmark"> maker's mark </option>
-                        <option id="monogrammed"> monogrammed </option>
-                        <option id="notinscribed"> not inscribed </option>
-                        <option id="numbered"> numbered </option>
-                        <option id="signature"> signature </option>
-                        <option id="stenciled"> stenciled </option>
-                        <option id="titled"> titled </option>
-                        <option id="transferred"> transferred </option>
-                        <option id="unknown"> unknown </option>
-                    </options>
-                </field>
+                <field id="inscriptionContentPosition" />
+                <field id="inscriptionContentType" />
             </repeat>
         </section>
         <section id="nonTextualInscriptionInformation">
             <repeat id="nonTextualInscriptionGroupList/nonTextualInscriptionGroup">
-                <field id="inscriptionDescriptionPosition">
-                    <options>
-                        <option id="">Please select a value</option>
-                        <option id="back"> back </option>
-                        <option id="base"> base </option>
-                        <option id="bottom"> bottom </option>
-                        <option id="front"> front </option>
-                        <option id="inside"> inside </option>
-                        <option id="left"> left </option>
-                        <option id="mainpanel"> main panel </option>
-                        <option id="predella"> predella </option>
-                        <option id="outside"> outside </option>
-                        <option id="recto"> recto </option>
-                        <option id="right"> right </option>
-                        <option id="rim"> rim </option>
-                        <option id="sideA"> side A </option>
-                        <option id="sideB"> side B </option>
-                        <option id="top"> top </option>
-                        <option id="verso"> verso  </option>
-                    </options>
-                </field>
-                <field id="inscriptionDescriptionType">
-                    <options>
-                        <option id="">Please select a value</option>
-                        <option id="annotation"> annotation </option>
-                        <option id="bookplate"> book plate </option>
-                        <option id="brand"> brand </option>
-                        <option id="calculations"> calculations </option>
-                        <option id="carved"> carved </option>
-                        <option id="collectorsmark"> collector’s mark </option>
-                        <option id="colophon"> colophon </option>
-                        <option id="colornotes"> color notes </option>
-                        <option id="dated"> dated </option>
-                        <option id="decoration"> decoration </option>
-                        <option id="dedicated"> dedicated </option>
-                        <option id="detailslabeled"> details labeled </option>
-                        <option id="device"> device </option>
-                        <option id="dimensionsgiven"> dimensions given </option>
-                        <option id="estatestamp"> estate stamp </option>
-                        <option id="graffito"> graffito </option>
-                        <option id="foundrymark"> foundry mark </option>
-                        <option id="hallmark"> hallmark </option>
-                        <option id="handwritten"> handwritten </option>
-                        <option id="iconographnotation"> iconograph notation </option>
-                        <option id="initialed"> initialed </option>
-                        <option id="impressed"> impressed </option>
-                        <option id="imprinted"> imprinted </option>
-                        <option id="inscribed"> inscribed </option>
-                        <option id="inscribeddimensions"> inscribed dimensions </option>
-                        <option id="inscribedstamp"> inscribed stamp </option>
-                        <option id="label"> label </option>
-                        <option id="makersmark"> maker's mark </option>
-                        <option id="monogrammed"> monogrammed </option>
-                        <option id="notinscribed"> not inscribed </option>
-                        <option id="numbered"> numbered </option>
-                        <option id="signature"> signature </option>
-                        <option id="stenciled"> stenciled </option>
-                        <option id="titled"> titled </option>
-                        <option id="transferred"> transferred </option>
-                        <option id="unknown"> unknown </option>
-                    </options>
-                </field>
+                <field id="inscriptionDescriptionPosition" />
+                <field id="inscriptionDescriptionType" />
             </repeat>
         </section>
-    </section>
-    <section id="objectHistoryAssociationInformation">
-        <field id="ownershipCategory">
-            <options>
-                <option id="">Please select a value</option>
-                <option id="auctionhouse"> auction house </option>
-                <option id="agent"> agent </option>
-                <option id="dealer"> dealer </option>
-                <option id="owner"> owner </option>
-                <option id="occupant"> occupant </option>
-                <option id="public"> public </option>
-                <option id="private"> private  </option>
-            </options>
-        </field>
-        <field id="ownershipExchangeMethod">
-            <options>
-                <option id="">Please select a value</option>
-                <option id="auction"> auction </option>
-                <option id="bequest"> bequest </option>
-                <option id="collectionofartist"> collection of artist </option>
-                <option id="commission"> commission </option>
-                <option id="exchange"> exchange </option>
-                <option id="gift"> gift </option>
-                <option id="leased"> leased </option>
-                <option id="originalowner"> original owner </option>
-                <option id="purchase"> purchase </option>
-                <option id="transfer"> transfer </option>
-                <option id="treasure"> treasure </option>
-                <option id="unknown"> unknown </option>
-            </options>
-        </field>
     </section>
     <section id="objectProductionInformation">
         <repeat id="objectProductionPlaceGroupList/objectProductionPlaceGroup">
             <field id="objectProductionPlace" autocomplete="true" />
         </repeat>
+    </section>
+    <section id="objectHistoryAssociationInformation">
+        <field id="ownershipCategory" />
+        <field id="ownershipPlace" autocomplete="place-place" />
+        <field id="ownershipExchangeMethod">
+        </field>
+        <section id="associationInformation">
+            <repeat id="assocActivityGroupList/assocActivityGroup">
+                <field id="assocActivity" autocomplete="concept-activity" />
+            </repeat>
+            <repeat id="assocPeopleGroupList/assocPeopleGroup">
+                <field id="assocPeople" autocomplete="concept-ethculture" />
+            </repeat>
+            <repeat id="assocPlaceGroupList/assocPlaceGroup">
+                <field id="assocPlace" autocomplete="place-place" />
+            </repeat>
+            <repeat id="assocEventPeoples">
+                <field id="assocEventPeople" autocomplete="concept-ethculture" />
+            </repeat>
+            <repeat id="assocEventPlaces">
+                <field id="assocEventPlace" autocomplete="place-place" />
+            </repeat>
+        </section>
     </section>
 </record>
