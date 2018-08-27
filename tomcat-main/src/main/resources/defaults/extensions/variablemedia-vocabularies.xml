@@ -36,10 +36,10 @@
             <option id="bluray"> Blu-ray disc</option>
             <option id="cd"> CD</option>
             <option id="dvd">DVD</option>
-            <option id="floppydisk"> Floppy disk</option>
-            <option id="laserdisc"> Laserdisc</option>
-            <option id="tapecassette"> Tape cassette</option>
-            <option id="videocassette"> Videocassette</option>
+            <option id="floppydisk"> floppy disk</option>
+            <option id="laserdisc"> LaserDisc</option>
+            <option id="tapecassette"> tape cassette</option>
+            <option id="videocassette"> videocassette</option>
         </options>
     </instance>
     <instance id="vocab-contentworktype">
@@ -47,9 +47,9 @@
         <title-ref>contentworktype</title-ref>
         <title>Content - Work Type</title>
         <options>
-            <option id="audio">Audio</option>
-            <option id="film">Film</option>
-            <option id="multimedia">Multimedia</option>
+            <option id="audio">audio</option>
+            <option id="film">film</option>
+            <option id="multimedia">multimedia</option>
             <option id="video">video</option>
         </options>
     </instance>
@@ -82,7 +82,7 @@
             <option id="cassette"> cassette</option>
             <option id="8track"> eight-track</option>
             <option id="mp3"> MP3</option>
-            <option id="magnetictape"> Magnetic Tape</option>
+            <option id="magnetictape"> magnetic tape</option>
             <option id="reeltoreel"> reel-to-reel</option>
             <option id="vinyl"> vinyl record</option> 
             <option id="wav"> WAV</option>
@@ -165,11 +165,11 @@
         <title-ref>creationhardware</title-ref>
         <title>Creation Hardware</title>
         <options>
-            <option id="stillcamera"> Still Camera</option>
-            <option id="mobiledevice"> Mobile Device</option>
-            <option id="moviecamera"> Movie Camera</option>
-            <option id="taperecorder"> Tape Recorder</option>
-            <option id="webcam"> Webcam</option>
+            <option id="stillcamera"> still camera</option>
+            <option id="mobiledevice"> mobile device</option>
+            <option id="moviecamera"> movie camera</option>
+            <option id="taperecorder"> tape recorder</option>
+            <option id="webcam"> webcam</option>
         </options>
     </instance>
     <instance id="vocab-playbackhardware">
@@ -179,12 +179,12 @@
         <options>
             <option id="bluray">Blu-ray video player</option>
             <option id="cdplayer"> CD player</option>
-            <option id="computer"> Computer</option>
+            <option id="computer"> computer</option>
             <option id="dvdplayer">  DVD player</option>
-            <option id="laserdiscplayer">  Laserdisc player</option>
-            <option id="tapecassetteplayer">  Tape cassette player</option>
-            <option id="television"> Television set</option>
-            <option id="videocassetteplayer">  Videocassette player</option>
+            <option id="laserdiscplayer">  LaserDisc player</option>
+            <option id="tapecassetteplayer">  tape cassette player</option>
+            <option id="television"> television set</option>
+            <option id="videocassetteplayer">  videocassette player</option>
         </options>
     </instance>
 </instances>
