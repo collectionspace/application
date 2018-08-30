@@ -1,4 +1,4 @@
-<record id="intake" is_extension="true">
+<record id="intake" is-extension="true">
 	<services-record-path id="pahma">intakes_pahma:http://collectionspace.org/services/intake/local/pahma,intakes_pahma</services-record-path>
 
 	<section id="objectEntryInformation">
