@@ -5,9 +5,10 @@
 	    <!-- Used by the Botanical Garden and Anthropology profiles -->
 	    <repeat id="taxonomicIdentGroupList/taxonomicIdentGroup" section="naturalhistory_extension">
 	        <field id="taxon" in-title="yes" ui-search="repeatable" mini="summary,search,list,relate" autocomplete="taxon-taxon" section="naturalhistory_extension" >
-	            <selector>taxonomic-identification-taxon</selector>
-	            <title-selector>titleBar-taxonomic-identification-taxon</title-selector>
 	        </field>
+	    	<repeat id="computedTaxonCommonNames" section="naturalhistory_extension">
+	    		<field id="computedTaxonCommonName" in-title="yes" ui-search="repeatable" mini="summary,search,list,relate" autocomplete="taxon-taxon" section="naturalhistory_extension" />
+	    	</repeat>
 	        <field id="qualifier" autocomplete="vocab-taxonqualifier" ui-type="enum" seperate_ui_container="true" section="naturalhistory_extension">
 	            <selector>taxonomic-identification-qualifier</selector>
 	        </field>
