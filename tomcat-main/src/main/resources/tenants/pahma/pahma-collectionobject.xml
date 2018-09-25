@@ -165,7 +165,6 @@
 		</repeat>
 		
 		<!-- Local fields -->
-		
 		<field id="sortableObjectNumber" section="pahma" ui-search="range" ui-type="computed" ui-args="objectNumber" ui-search-args="objectNumberRangeSearch" ui-func="pahma.computeSortableObjectNumber" ui-readonly="true"/>
 		
 		<!-- This is an app-layer-only field, used in advanced search to enter "regular" object numbers, which will be computed into sortableObjectNumber for range search. -->
@@ -192,6 +191,11 @@
 		<field id="computedCrateSearch" ui-search="repeatable" autocomplete="location-crate" exists-in-services="false" section="anthropology">
 			<services-tag>computedCrate</services-tag>
 		</field>
+
+		<repeat id="objectClassList/objectClassGroup" section="pahma">
+			<field id="objectClassName" section="pahma" autocomplete="concept-objectclass"/>
+			<field id="objectClassNote" section="pahma"/>
+		</repeat>
 		
 		<repeat id="pahmaAltNumGroupList/pahmaAltNumGroup" section="pahma">
 			<selector>collection-object-pahmaAltNumGroup</selector> <!-- WHY ARE MANY GROUP SELECTORS MISSING OR COMMENTED OUT, BUT THIS ONE IS NOT? -->
