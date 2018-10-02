@@ -586,6 +586,7 @@
             <option id="abbreviation">abbreviation</option>
             <option id="commercial">commercial</option>
             <option id="common">common</option>
+            <option id="scientific">scientific name</option>
         </options>
     </instance>
     <instance id="vocab-materialuse">
