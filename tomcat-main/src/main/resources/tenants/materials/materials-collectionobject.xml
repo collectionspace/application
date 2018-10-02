@@ -29,6 +29,23 @@
           <option id="non_circulating">non-circulating</option>
         </options>
       </field>
+
+      <!-- Local fields -->
+
+      <repeat id="materialHandlingGroupList/materialHandlingGroup" section="materials">
+        <field id="handling" section="materials" autocomplete="vocab-materialhandling" ui-type="enum"/>
+        <field id="handlingNote" section="materials"/>
+      </repeat>
+
+      <repeat id="materialContainerGroupList/materialContainerGroup" section="materials">
+        <field id="container" section="materials" autocomplete="vocab-materialcontainer" ui-type="enum"/>
+        <field id="containerNote" section="materials"/>
+      </repeat>
+
+      <repeat id="materialConditionGroupList/materialConditionGroup" section="materials">
+        <field id="condition" section="materials" autocomplete="vocab-materialcondition" ui-type="enum"/>
+        <field id="conditionNote" section="materials"/>
+      </repeat>
     </section>
 
     <section id="descriptionInformation">
@@ -44,14 +61,24 @@
         </field>
       </repeat>
 
-      <!-- local field -->
+      <repeat id="materialGroupList/materialGroup">
+          <!-- Add autocomplete and mini -->
+          <field id="material" autocomplete="material-material,material-material_shared" mini="summary,search,list,relate" />
+      </repeat>
+
+      <!-- Local fields -->
+
       <repeat id="materialPhysicalDescriptions" section="materials">
         <field id="materialPhysicalDescription" section="materials"></field>
       </repeat>
 
-      <repeat id="materialGroupList/materialGroup">
-          <!-- Add autocomplete and mini -->
-          <field id="material" autocomplete="material-material,material-material_shared" mini="summary,search,list,relate" />
+      <repeat id="materialGenericColors" section="materials">
+        <field id="materialGenericColor" section="materials" autocomplete="vocab-materialgenericcolor" ui-type="enum"></field>
+      </repeat>
+
+      <repeat id="materialFinishGroupList/materialFinishGroup" section="materials">
+        <field id="finish" section="materials" autocomplete="vocab-materialfinish" ui-type="enum"/>
+        <field id="finishNote" section="materials"/>
       </repeat>
     </section>
 </record>
