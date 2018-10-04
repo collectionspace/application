@@ -36,6 +36,11 @@
 			<title-ref>objectname</title-ref>
 			<title>Object Names</title>
 		</instance>
+		<instance id="concept-objectclass">
+			<web-url>objectclass</web-url>
+			<title-ref>objectclass</title-ref>
+			<title>Object Class</title>
+		</instance>
 	</instances>
 
 	<section id="conceptAuthorityInformation">
