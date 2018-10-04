@@ -192,7 +192,7 @@
 			<services-tag>computedCrate</services-tag>
 		</field>
 
-		<repeat id="objectClassList/objectClassGroup" section="pahma">
+		<repeat id="objectClassGroupList/objectClassGroup" section="pahma">
 			<field id="objectClassName" section="pahma" autocomplete="concept-objectclass"/>
 			<field id="objectClassNote" section="pahma"/>
 		</repeat>
