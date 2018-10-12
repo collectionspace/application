@@ -956,6 +956,8 @@ public class ServiceBindingsGeneration {
 						this.getConfigFile().getName(), r.getRecordName());
 				log.trace(msg);
 			}
+		} catch (RuntimeException rte) {
+			throw rte;
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(String.format("Config Generation: '%s' - Could not create service bindings for record '%s'.", 
@@ -1129,9 +1131,15 @@ public class ServiceBindingsGeneration {
 				// the field is from the common part.)
 				if (!section.equals(Record.COLLECTIONSPACE_COMMON_PART_NAME)) {
 					Element slrf = lrf.addElement(new QName("schema", thisns));
-					slrf.addText(r.getServicesSchemaName(fs.getSection()));
-				} else {
-					log.isDebugEnabled();
+					String schemaName = r.getServicesSchemaName(fs.getSection());
+					if (schemaName != null && schemaName.trim().isEmpty() == false) {
+						slrf.addText(r.getServicesSchemaName(fs.getSection()));
+					} else {
+						String errMsg = String.format("Can not find a valid schema name for field '%s' of section '%s' for record type '%s'.  Check the section name if the field is part of a group.  The section name for all fields in a group neeed to be the same.",
+								fs.getID(), fs.getSection(), r);
+						log.error(errMsg);
+						throw new RuntimeException(errMsg);
+					}
 				}
 
 				Element elrf = lrf.addElement(new QName("element", thisns));
