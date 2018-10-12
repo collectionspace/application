@@ -6,13 +6,6 @@
             <web-url>place</web-url>
             <title-ref>place</title-ref>
             <title>Local Places</title>
-            <options>
-                <option id="denverinternationalairport">Denver International Airport</option>
-                <option id="coloradoconventioncenter_lobby">Colorado Convention Center, lobby</option>
-                <option id="19thst_andweltonst_">19th St. and Welton St.</option>
-                <option id="richardt_castrohumanservicesbuilding_outsidefrontentrance">Richard T. Castro Human Services Building, outside front entrance</option>
-                <option id="hyattregencydenveratcoloradoconventioncenter">Hyatt Regency Denver at Colorado Convention Center</option>
-            </options>
         </instance>
         <instance id="place-tgn_place">
             <web-url>tgn_place</web-url>
