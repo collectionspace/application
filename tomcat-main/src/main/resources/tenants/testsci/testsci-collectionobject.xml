@@ -15,7 +15,7 @@
                 <title-selector>titleBar-taxonomic-identification-taxon</title-selector>
             </field>
             <repeat id="computedTaxonCommonNames" section="testsci">
-                <field id="computedTaxonCommonName" in-title="yes" ui-search="repeatable" mini="summary,search,list,relate" autocomplete="taxon-taxon" section="testsci" />
+                <field id="computedTaxonCommonName" ui-search="repeatable" mini="search" section="testsci" />
             </repeat>
             <field id="qualifier" autocomplete="vocab-taxonqualifier" ui-type="enum" seperate_ui_container="true" section="testsci">
                 <selector>taxonomic-identification-qualifier</selector>
