@@ -214,15 +214,20 @@
         <title-ref>prodpersonrole</title-ref>
         <title>Production Person Roles</title>
         <options>
-            <option id="artist">artist</option>
-            <option id="fabricator">fabricator</option>
-            <option id="designer">designer</option>
+            <option id="administrator">administrator</option>
             <option id="architect">architect</option>
+            <option id="artist">artist</option>
             <option id="assistant">assistant</option>
-            <option id="volunteer">volunteer</option>
             <option id="consultant">consultant</option>
+            <option id="designer">designer</option>
             <option id="electrician">electrician</option>
             <option id="engineer">engineer</option>
+            <option id="fabricator">fabricator</option>
+            <option id="installation_crew">installation crew</option>
+            <option id="landscape_architect">landscape architect</option>
+            <option id="lighting_designer">lighting designer</option>
+            <option id="partner">partner</option>
+            <option id="volunteer">volunteer</option>
         </options>
     </instance>
     <instance id="vocab-socialmediatype">
