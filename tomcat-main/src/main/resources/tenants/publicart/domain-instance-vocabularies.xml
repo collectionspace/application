@@ -135,6 +135,7 @@
             <option id="publicbuildings">public buildings</option>
             <option id="publicgardens">public gardens</option>
             <option id="publictransit">public transit (infrastructure)</option>
+            <option id="publicspaces">public spaces</option>
             <option id="pumpingstations">pumping stations</option>
             <option id="quadrangles">quadrangles (open spaces)</option>
             <option id="railtransportationbuildings">rail transportation buildings</option>
@@ -154,13 +155,14 @@
             <option id="socialandcivicbuildings">social and civic buildings</option>
             <option id="sportscomplexes">sports complexes</option>
             <option id="storagespaces">storage spaces</option>
-            <option id="storefronts">store fronts</option>
+            <option id="storefronts">storefronts</option>
             <option id="streetfurniture">street furniture</option>
             <option id="streetlightingunits">street lighting units</option>
             <option id="streets">streets</option>
             <option id="subwaystations">subway stations</option>
             <option id="swimmingpools">swimming pools</option>
             <option id="terminals">terminals (buildings)</option>
+            <option id="theaters">theaters (buildings)</option>
             <option id="trafficcircles">traffic circles</option>
             <option id="trafficislands">traffic islands</option>
             <option id="trails">trails</option>
