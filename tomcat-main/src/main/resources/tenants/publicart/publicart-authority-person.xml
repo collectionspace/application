@@ -12,6 +12,11 @@
             <title-ref>ulan_pa</title-ref>
             <title>ULAN Persons</title>
         </instance>
+        <instance id="person-person_shared">
+            <web-url>person_shared</web-url>
+            <title-ref>person_shared</title-ref>
+            <title>Shared Persons</title>
+        </instance>        
     </instances>
 
     <section id="personNameAuthorityInformation">

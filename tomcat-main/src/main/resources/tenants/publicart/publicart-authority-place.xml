@@ -12,6 +12,11 @@
             <title-ref>tgn_place</title-ref>
             <title>Thesaurus of Geographic Names</title>
         </instance>
+        <instance id="place-place_shared">
+            <web-url>place_shared</web-url>
+            <title-ref>place_shared</title-ref>
+            <title>Shared Places</title>
+        </instance>        
     </instances>
 
     <section id="placeAuthorityInformation">
