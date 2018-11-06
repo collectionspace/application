@@ -259,11 +259,13 @@
                 <option id="frescoes_paintings">frescoes (paintings)</option>
                 <option id="gelatinsilverprints">gelatin silver prints</option>
                 <option id="holograms">holograms</option>
+                <option id="installations">installations (visual works)</option>
                 <option id="intaglios_prints">intaglios (prints)</option>
                 <option id="interactiveart">interactive art</option>
                 <option id="kinetic_style">kinetic (style)</option>
                 <option id="laserart">laser art</option>
                 <option id="lightart">light art</option>
+                <option id="lithographs">lithographs</option>
                 <option id="maquettes_sculptures">maquettes (sculptures)</option>
                 <option id="metalwork">metalwork</option>
                 <option id="mobiles">mobiles</option>
