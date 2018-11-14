@@ -1,6 +1,7 @@
 <record id="place" is-extension="true">
     <services-record-path id="publicart">places_publicart:http://collectionspace.org/services/place/local/publicart,places_publicart</services-record-path>
 
+    <supportsReplicating>true</supportsReplicating>
     <instances id="place">
         <instance id="place-place">
             <web-url>place</web-url>
