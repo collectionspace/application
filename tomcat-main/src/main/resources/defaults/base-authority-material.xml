@@ -59,6 +59,10 @@
             <field id="materialRecordType" ui-search="repeatable" autocomplete="vocab-materialtype" ui-type="enum"/>
         </repeat>
 
+        <repeat id="publishToList" services-type-anonymous="false">
+            <field id="publishTo" autocomplete="vocab-publishto" ui-type="enum"/>
+        </repeat>
+
         <repeat id="materialCompositionGroupList/materialCompositionGroup">
             <field id="materialCompositionFamilyName" ui-search="repeatable" autocomplete="concept-materialclassification"/>
             <field id="materialCompositionClassName" ui-search="repeatable" autocomplete="concept-materialclassification"/>
