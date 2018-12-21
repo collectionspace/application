@@ -87,7 +87,7 @@
 			</options>
 		</field>
 
-		<field id="propType" ui-type="enum" autocomplete="vocab-reasonForMove" ui-search="repeatable" mini="summary,search,list,terms,relate"/> <!-- Converted to dynamic -->
+		<field id="propType" ui-type="enum" autocomplete="vocab-propagationType" ui-search="repeatable" mini="summary,search,list,terms,relate"/> <!-- Converted to dynamic -->
 		<field id="propComments"/>
 		<field id="numStarted" ui-type="validated" datatype="integer"/>
 		<repeat id="scarStratGroupList/scarStratGroup">
