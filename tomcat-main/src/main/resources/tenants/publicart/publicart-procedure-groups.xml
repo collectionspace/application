@@ -1,0 +1,10 @@
+<record id="group" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
+  <section id="groupInformation">
+    <repeat id="responsibleDepartments">
+      <field id="responsibleDepartment" autocomplete="true" ui-type="enum" />
+		</repeat>
+
+    <field id="owner" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared" mini="summary,list" in-title="yes" services-schema-qualify="true">
+    </field>
+  </section>
+</record> <!-- close GROUPS record -->
