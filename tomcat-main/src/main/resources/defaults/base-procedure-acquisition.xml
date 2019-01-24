@@ -104,6 +104,13 @@
                     <field id="transferOfTitleNumber" datatype="largetext">
                         <selector>acquisition-transfer-of-title-number</selector>
                     </field>
+                    <repeat id="approvalGroupList/approvalGroup">
+                        <field id="approvalGroup" autocomplete="vocab-deaccessionapprovalgroup" ui-type="enum"/>
+                        <field id="approvalIndividual" autocomplete="person-person" />
+                        <field id="approvalStatus" autocomplete="vocab-deaccessionapprovalstatus" ui-type="enum"/>
+                        <field id="approvalDate" ui-type="date" datatype="date"/>
+                        <field id="approvalNote" />
+                    </repeat>
                     <field id="creditLine" ui-search="repeatable"></field>
                     <field id="groupPurchasePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
                         <enum>

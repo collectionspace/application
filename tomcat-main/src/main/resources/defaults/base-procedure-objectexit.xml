@@ -90,8 +90,10 @@
                     <field id="displosalNewObjectNumber"/>
                     <repeat id="deacApprovalGroupList/deacApprovalGroup">
                         <field id="deaccessionApprovalGroup" autocomplete="vocab-deaccessionapprovalgroup" ui-type="enum"/>
+                        <field id="deaccessionApprovalIndividual" autocomplete="person-person" />
                         <field id="deaccessionApprovalStatus" autocomplete="vocab-deaccessionapprovalstatus" ui-type="enum"/>
                         <field id="deaccessionApprovalDate" ui-type="date" datatype="date"/>
+                        <field id="deaccessionApprovalNote" />
                     </repeat>
                     <field id="deaccessionAuthorizer" autocomplete="person-person"/>
                     <field id="authorizationDate" ui-type="date" datatype="date"/>
