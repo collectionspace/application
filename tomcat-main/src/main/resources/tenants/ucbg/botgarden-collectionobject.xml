@@ -180,8 +180,7 @@
 
 		<field id="flowerColor" section="botgarden"/>
 		<field id="fruitColor" section="botgarden"/>
-		<!-- <field id="propagationHistory" section="botgarden" ui-type="enum" autocomplete="vocab-propagationhist" /> -->
-		<field id="propagationHistory" section="botgarden" />
+		<field id="propagationHistory" section="botgarden" ui-type="enum" autocomplete="vocab-propagationhist" />
 		<field id="breedingSystem" section="botgarden">
 			<options>
 				<option id="" default="yes">Please select a value</option>
@@ -325,7 +324,7 @@
 	<section id="accessionUseInformation">
 		<repeat id="accessionUseGroupList/accessionUseGroup">
 			<!-- Add autocomplete -->
-			<!-- <field id="useType" ui-type="enum" autocomplete="vocab-AcessUseType"/> -->
+			<field id="useType" ui-type="enum" autocomplete="vocab-AcessUseType"/>
 			<field id="usedIn" autocomplete="concept-class_ca,concept-research_ca" ui-search="repeatable"/>
 		</repeat>
 	</section>

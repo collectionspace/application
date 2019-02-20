@@ -1267,7 +1267,7 @@
 		<title>HigherGeography</title>
 		<options>
 			<option id="HigherGeo00" from-static-id="pacificocean">Pacific Ocean</option>
-			<option id="HigherGeo01" from-static-id="NorthAmerica">North America</option>
+			<option id="HigherGeo01">North America</option>
 		</options>
 	</instance>
 	<instance id="vocab-LabelSize">

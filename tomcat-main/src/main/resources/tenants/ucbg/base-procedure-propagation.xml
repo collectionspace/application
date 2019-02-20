@@ -86,40 +86,12 @@
 				<option id="conservation">conservation</option>
 			</options>
 		</field>
-		<field id="propType" ui-search="repeatable" mini="summary,search,list,terms,relate">
-			<options>
-				<option id="" default="yes">Please select a value</option>
-				<option id="seed">Seed</option>
-				<option id="cutting">Cutting</option>
-				<option id="living plant">Living Plant</option>
-				<option id="division">Division</option>
-				<option id="bulb corm tuber">Bulb/Corm/Tuber</option>
-				<option id="graft">Graft</option>
-				<option id="tissue culture">Tissue Culture</option>
-			</options>
-		</field>
+
+		<field id="propType" ui-type="enum" autocomplete="vocab-propagationType" ui-search="repeatable" mini="summary,search,list,terms,relate"/> <!-- Converted to dynamic -->
 		<field id="propComments"/>
 		<field id="numStarted" ui-type="validated" datatype="integer"/>
 		<repeat id="scarStratGroupList/scarStratGroup">
-			<field id="scarStrat">
-				<options>
-					<option id="" default="yes">Please select a value</option>
-					<option id="abrade">abrade</option>
-					<option id="boiling water">boiling water</option>
-					<option id="GA3">GA3</option>
-					<option id="fire">fire</option>
-					<option id="freeze">freeze</option>
-					<option id="isopropyl alcohol">isopropyl alcohol</option>
-					<option id="nick">nick</option>
-					<option id="pericarp removed broken">pericarp removed/broken</option>
-					<option id="seed coat removed">seed coat removed</option>
-					<option id="sulfuric acid">sulfuric acid</option>
-					<option id="cold strat">cold strat</option>
-					<option id="warm strat">warm strat</option>
-					<option id="smoke">smoke</option>
-					<option id="water soak">water soak</option>
-				</options>
-			</field>
+			<field id="scarStrat" ui-type="enum" autocomplete="vocab-scarStrat"/> <!-- Converted to dyanmic -->
 			<field id="duration" ui-type="validated" datatype="integer"/>
 			<field id="durationUnit">
 				<options>
@@ -133,16 +105,7 @@
 		</repeat>
 		<field id="extraSeeds" datatype="boolean"/>
 		<field id="spores" datatype="boolean"/>
-		<field id="cuttingType">
-			<options>
-				<option id="" default="yes">Please select a value</option>
-				<option id="softwood">softwood</option>
-				<option id="semi-hardwood">semi-hardwood</option>
-				<option id="hardwood">hardwood</option>
-				<option id="heel">heel</option>
-				<option id="dormant">dormant</option>
-				<option id="root">root</option>
-			</options>
+		<field id="cuttingType" ui-type="enum" autocomplete="vocab-cuttingType"> <!-- Converted to dynamic -->
 		</field>
 		<field id="hormone" autocomplete="vocab-propHormones" ui-type="enum"/>
 		<field id="concentration"/>
