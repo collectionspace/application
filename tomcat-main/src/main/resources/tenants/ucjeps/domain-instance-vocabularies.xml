@@ -1525,5 +1525,67 @@
 			<option id="Zhongdian">Zhongdian</option>
 		</options>
 	</instance>
-
+	
+	<instance id="vocab-taxontermsource">
+		<web-url>taxontermsource</web-url>
+		<title-ref>taxontermsource</title-ref>
+		<title>taxontermsource</title>
+		<options>
+			<option id="taxontermsource00">unknown</option>
+			<option id="taxontermsource01">A California Flora and Supplement</option>
+			<option id="taxontermsource02">A Dictionary of the Flowering Plants and Ferns</option>
+			<option id="taxontermsource03">A Flora of California</option>
+			<option id="taxontermsource04">A Manual of the Flowering Plants of California</option>
+			<option id="taxontermsource05">Accession sheet</option>
+			<option id="taxontermsource06">Alan R. Smith</option>
+			<option id="taxontermsource07">Australian Plant Names Index</option>
+			<option id="taxontermsource08">Authors of Plant Names</option>
+			<option id="taxontermsource09">Biota of North America Program</option>
+			<option id="taxontermsource10">California Academy of Sciences</option>
+			<option id="taxontermsource11">California Native Plant Society Inventory</option>
+			<option id="taxontermsource12">Checklist of European Plants</option>
+			<option id="taxontermsource13">Checklist of the Vascular Plants of San Diego Count</option>
+			<option id="taxontermsource14">Christopher Allan Meacham</option>
+			<option id="taxontermsource15">Flora of North America</option>
+			<option id="taxontermsource16">GERMPlasm Resources Information Network</option>
+			<option id="taxontermsource17">Gray Card Index</option>
+			<option id="taxontermsource18">Harvard University Index to Collectors</option>
+			<option id="taxontermsource19">herbarium specimen label</option>
+			<option id="taxontermsource20">Herbarium, Botany Department, Bishop Museum</option>
+			<option id="taxontermsource21">Herbarium, University of Oregon</option>
+			<option id="taxontermsource22">Hunt Institute Biographical Dictionary</option>
+			<option id="taxontermsource23">Index Fungorum</option>
+			<option id="taxontermsource24">Index Herbariorum Index to Collectors</option>
+			<option id="taxontermsource25">Index Kewensis</option>
+			<option id="taxontermsource26">Index Nominum Algarum</option>
+			<option id="taxontermsource27">Index Nominum Genericorum</option>
+			<option id="taxontermsource28">Index to California Plant Names</option>
+			<option id="taxontermsource29">ineditus</option>
+			<option id="taxontermsource30">International Plant Names Index</option>
+			<option id="taxontermsource31">James Lauritz Reveal</option>
+			<option id="taxontermsource32">Jepson Interchange</option>
+			<option id="taxontermsource33">John Strother</option>
+			<option id="taxontermsource34">Kartesz Checklist</option>
+			<option id="taxontermsource35">Kartesz Geography</option>
+			<option id="taxontermsource36">Lisa Marie Schultheis</option>
+			<option id="taxontermsource37">Rancho Santa Ana</option>
+			<option id="taxontermsource38">Rebman and O'Brien Checklist</option>
+			<option id="taxontermsource39">Richard L. Moe</option>
+			<option id="taxontermsource40">Richard Moe</option>
+			<option id="taxontermsource41">Royal Botanical Gardens (KEW)</option>
+			<option id="taxontermsource42">San Diego Museum of Natural History</option>
+			<option id="taxontermsource43">SMASCH</option>
+			<option id="taxontermsource44">Taxonomic Literature-II</option>
+			<option id="taxontermsource45">Test record</option>
+			<option id="taxontermsource46">The Jepson Manual: Higher Plants of California</option>
+			<option id="taxontermsource47">The work authored by the cited committee</option>
+			<option id="taxontermsource48">Thomas J. Rosatti</option>
+			<option id="taxontermsource49">Tropicos</option>
+			<option id="taxontermsource50">UC Botanical Garden</option>
+			<option id="taxontermsource51">UC Herbarium Types Database</option>
+			<option id="taxontermsource52">USGS Geographic Names Information System</option>
+			<option id="taxontermsource53">GBIF</option>
+			<option id="taxontermsource54">IPNI</option>
+		</options>
+	</instance>
 </root>
