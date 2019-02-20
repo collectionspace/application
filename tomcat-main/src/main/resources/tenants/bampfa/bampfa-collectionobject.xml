@@ -51,7 +51,11 @@
 		</repeat>
 		
 		<!-- Local fields -->
-
+		
+		<repeat id="nationalities" section="bampfa">
+			<field id="nationality" section="bampfa" ui-search="repeatable"  /> <!-- //autocomplete="vocab-collection" ui-type="enum"/> -->
+		</repeat>
+		
 		<!-- A computed sortable object number, used for range search on objectNumber -->
 		<field id="sortableObjectNumber" section="bampfa" ui-search="range" ui-type="computed" ui-args="objectNumber" ui-search-args="objectNumberRangeSearch" ui-func="bampfa.computeSortableObjectNumber" ui-readonly="true"/>
 
