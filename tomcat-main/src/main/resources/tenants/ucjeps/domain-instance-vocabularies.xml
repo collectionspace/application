@@ -1586,6 +1586,7 @@
 			<option id="taxontermsource52">USGS Geographic Names Information System</option>
 			<option id="taxontermsource53">GBIF</option>
 			<option id="taxontermsource54">IPNI</option>
+			<option id="taxontermsource55">David Baxter</option>
 		</options>
 	</instance>
 </root>
