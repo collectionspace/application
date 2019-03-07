@@ -1336,6 +1336,14 @@
 			<option id="propagation04" from-static-id="bulb corm tuber">Bulb/Corm/Tuber</option>
 			<option id="propagation05" from-static-id="graft">Graft</option>
 			<option id="propagation06" from-static-id="tissue culture">Tissue Culture</option>
+			<option id="propagation07" from-static-id="corm">Corm</option>
+			<option id="propagation08" from-static-id="bulb">Bulb</option>
+			<option id="propagation09" from-static-id="seedling">Seedling</option>
+			<option id="propagation09" from-static-id="rooted pieces">Rooted pieces</option>
+			<option id="propagation09" from-static-id="rooted cuttings">Rooted cuttings</option>
+			<option id="propagation09" from-static-id="spores">Spores</option>
+			<option id="propagation09" from-static-id="bulb scales">Bulb scales</option>
+			<option id="propagation09" from-static-id="tuber">Tuber</option>
 		</options>
 	</instance>
 	<instance id="vocab-cutType">
