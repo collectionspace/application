@@ -59,7 +59,7 @@
     <instance id="vocab-publishto">
         <web-url>publishto</web-url>
         <title-ref>publishto</title-ref>
-        <title>A publishing destination</title>
+        <title>Publishing Destination</title>
         <options>
             <option id="all">All</option>
             <option id="none">None</option>
@@ -113,16 +113,6 @@
             <option>Refused</option>
             <option>Renewed</option>
             <option>Returned</option>
-        </options>
-    </instance>
-    <instance id="vocab-loanapprovergroup">
-        <web-url>loanapprovergroup</web-url>
-        <title-ref>loanapprovergroup</title-ref>
-        <title>Loan Approval Group</title>
-        <options>
-            <option id="boardoftrustees">board of trustees</option>
-            <option id="collectioncommittee">collection committee</option>
-            <option id="executivecommittee">executive committee</option>
         </options>
     </instance>
     <instance id="vocab-currency">
@@ -1156,7 +1146,7 @@
     <instance id="vocab-deaccessionapprovalgroup">
         <web-url>deaccessionapprovalgroup</web-url>
         <title-ref>deaccessionapprovalgroup</title-ref>
-        <title>Deaccession Approval Group</title>
+        <title>Approval Group</title>
         <options>
             <option id="collection_committee">collection committee</option>
             <option id="executive_committee">executive committee</option>
@@ -1166,7 +1156,7 @@
     <instance id="vocab-deaccessionapprovalstatus">
         <web-url>deaccessionapprovalstatus</web-url>
         <title-ref>deaccessionapprovalstatus</title-ref>
-        <title>Deaccession Approval Status</title>
+        <title>Approval Status</title>
         <options>
             <option id="approved">approved</option>
             <option id="not_approved">not approved</option>
