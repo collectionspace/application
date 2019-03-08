@@ -109,8 +109,8 @@
                         <selector>loanOut-loanOutNote</selector>
                     </field>
                     <repeat id="loanStatusGroupList/loanStatusGroup">
-                        <field id="loanApproverGroup" autocomplete="vocab-loanapprovergroup" ui-type="enum"></field>
-                        <field id="loanApprover" autocomplete="person-person,person-person_shared"></field>
+                        <field id="loanApprovalGroup" autocomplete="vocab-deaccessionapprovalgroup" ui-type="enum"></field>
+                        <field id="loanApprovalIndividual" autocomplete="person-person,person-person_shared"></field>
                         <field id="loanStatus" ui-search="repeatable" autocomplete="vocab-lostatus" ui-type="enum" />                    
                         <field id="loanStatusDate" ui-type="date" datatype="date" />
                         <field id="loanStatusNote" />

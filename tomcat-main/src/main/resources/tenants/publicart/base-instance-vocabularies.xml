@@ -69,16 +69,6 @@
             <option>Returned</option>
         </options>
     </instance>
-    <instance id="vocab-loanapprovergroup">
-        <web-url>loanapprovergroup</web-url>
-        <title-ref>loanapprovergroup</title-ref>
-        <title>Loan Approval Group</title>
-        <options>
-            <option id="boardoftrustees">board of trustees</option>
-            <option id="collectioncommittee">collection committee</option>
-            <option id="executivecommittee">executive committee</option>
-        </options>
-    </instance>
     <instance id="vocab-currency">
         <web-url>currency</web-url>
         <title-ref>currency</title-ref>
