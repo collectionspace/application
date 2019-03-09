@@ -20,15 +20,11 @@
           <title-ref>archculture</title-ref>
           <title>Archaeological Cultures</title>
       </instance>
-      <!--
-          *** Moved into /defaults/base-authority-concept to be shared with FCart profile
-          
       <instance id="concept-ethculture">
           <web-url>ethculture</web-url>
           <title-ref>ethculture</title-ref>
           <title>Ethnographic Cultures</title>
       </instance>
-      -->
       <instance id="concept-ethfilecode">
           <web-url>ethfilecode</web-url>
           <title-ref>ethfilecode</title-ref>
