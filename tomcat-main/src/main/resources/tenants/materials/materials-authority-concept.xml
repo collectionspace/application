@@ -1,29 +1,5 @@
 <record id="concept" type="authority">
     <instances id="concept">
-        <instance id="concept-concept">
-            <web-url>concept</web-url>
-            <title-ref>concept</title-ref>
-            <title>Associated Concepts</title>
-            <nptAllowed>false</nptAllowed>
-        </instance>
-        <instance id="concept-material_ca">
-            <web-url>material_ca</web-url>
-            <title-ref>material_ca</title-ref>
-            <title>Material Concepts</title>
-            <nptAllowed>false</nptAllowed>
-        </instance>
-        <instance id="concept-material_ca_shared">
-            <web-url>material_ca_shared</web-url>
-            <title-ref>material_ca_shared</title-ref>
-            <title>Shared Material Concepts</title>
-            <nptAllowed>false</nptAllowed>
-        </instance>
-        <instance id="concept-activity">
-            <web-url>activity</web-url>
-            <title-ref>activity</title-ref>
-            <title>Activity Concepts</title>
-            <nptAllowed>false</nptAllowed>
-        </instance>
         <instance id="concept-materialclassification">
             <web-url>materialclassification</web-url>
             <title-ref>materialclassification</title-ref>
@@ -34,12 +10,6 @@
             <web-url>materialclassification_shared</web-url>
             <title-ref>materialclassification_shared</title-ref>
             <title>Shared Material Classifications</title>
-            <nptAllowed>false</nptAllowed>
-        </instance>
-        <instance id="concept-materialformtype">
-            <web-url>materialformtype</web-url>
-            <title-ref>materialformtype</title-ref>
-            <title>Material Form Types</title>
             <nptAllowed>false</nptAllowed>
         </instance>
     </instances>

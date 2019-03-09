@@ -12,11 +12,5 @@
             <title>Shared Places</title>
             <nptAllowed>false</nptAllowed>
         </instance>		
-        <instance id="place-tgn_place">
-            <web-url>tgn_place</web-url>
-            <title-ref>tgn_place</title-ref>
-            <title>Thesaurus of Geographic Names</title>
-            <nptAllowed>false</nptAllowed>
-        </instance>
     </instances>
 </record>
