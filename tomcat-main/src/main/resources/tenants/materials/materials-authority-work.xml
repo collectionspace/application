@@ -12,11 +12,5 @@
             <title>Shared Works</title>
 			<nptAllowed>false</nptAllowed>
         </instance>
-        <instance id="work-cona_work">
-            <web-url>cona_work</web-url>
-            <title-ref>cona_work</title-ref>
-            <title>CONA Works</title>
-			<nptAllowed>false</nptAllowed>
-        </instance>
     </instances>
 </record>

@@ -12,12 +12,6 @@
             <title>Shared Citations</title>
             <nptAllowed>false</nptAllowed>
         </instance>
-        <instance id="citation-worldcat">
-            <web-url>worldcat</web-url>
-            <title-ref>worldcat</title-ref>
-            <title>WorldCat Citations</title>
-            <nptAllowed>false</nptAllowed>
-        </instance>
     </instances>
 </record>
 
