@@ -37,10 +37,10 @@
         <title-ref>uocmethods</title-ref>
         <title>Use of Collections Methods</title>
         <options>
-            <option id="class">Class</option>
-            <option id="exhibition">Exhibition</option>
-            <option id="publication">Publication</option>
-            <option id="research">Research</option>
+            <option id="class">class</option>
+            <option id="exhibition">exhibition</option>
+            <option id="publication">publication</option>
+            <option id="research">research</option>
         </options>
     </instance>
     <instance id="vocab-uocusertypes">
@@ -48,12 +48,12 @@
         <title-ref>uocusertypes</title-ref>
         <title>Use of Collections User Types</title>
         <options>
-            <option id="exhibitionorganizer">Exhibition organizer</option>
-            <option id="faculty">Faculty</option>
-            <option id="lecturer">Lecturer</option>
-            <option id="presenter">Presenter</option>
-            <option id="publisher">Publisher</option>
-            <option id="researcher">Researcher</option>
+            <option id="exhibitionorganizer">exhibition organizer</option>
+            <option id="faculty">faculty</option>
+            <option id="lecturer">lecturer</option>
+            <option id="presenter">presenter</option>
+            <option id="publisher">publisher</option>
+            <option id="researcher">researcher</option>
         </options>
     </instance>     
     <instance id="vocab-publishto">
