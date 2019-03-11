@@ -16,7 +16,7 @@
     <instance id="vocab-publishto">
         <web-url>publishto</web-url>
         <title-ref>publishto</title-ref>
-        <title>A publishing destination</title>
+        <title>Publishing destination</title>
         <options>
             <option id="none">None</option>
             <option id="paa">Public Art Archive</option>
