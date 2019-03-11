@@ -11,6 +11,26 @@
             <option id="streetaddress">street address</option>
         </options>
     </instance>
+    <instance id="vocab-deaccessionapprovalgroup">
+        <web-url>deaccessionapprovalgroup</web-url>
+        <title-ref>deaccessionapprovalgroup</title-ref>
+        <title>Approval Group</title>
+        <options>
+            <option id="collection_committee">collection committee</option>
+            <option id="executive_committee">executive committee</option>
+            <option id="board_of_trustees">board of trustees</option>
+        </options>
+    </instance>
+    <instance id="vocab-deaccessionapprovalstatus">
+        <web-url>deaccessionapprovalstatus</web-url>
+        <title-ref>deaccessionapprovalstatus</title-ref>
+        <title>Approval Status</title>
+        <options>
+            <option id="approved">approved</option>
+            <option id="not_approved">not approved</option>
+            <option id="not_required">not required</option>
+        </options>
+    </instance>
     <instance id="vocab-concepttype">
         <web-url>concepttype</web-url>
         <title-ref>concepttype</title-ref>

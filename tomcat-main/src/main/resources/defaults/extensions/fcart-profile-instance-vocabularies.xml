@@ -109,10 +109,30 @@
             <option id="streetaddress">street address</option>
         </options>
     </instance>
+        <instance id="vocab-deaccessionapprovalgroup">
+        <web-url>deaccessionapprovalgroup</web-url>
+        <title-ref>deaccessionapprovalgroup</title-ref>
+        <title>Deaccession Approval Group</title>
+        <options>
+            <option id="collection_committee">collection committee</option>
+            <option id="executive_committee">executive committee</option>
+            <option id="board_of_trustees">board of trustees</option>
+        </options>
+    </instance>
+    <instance id="vocab-deaccessionapprovalstatus">
+        <web-url>deaccessionapprovalstatus</web-url>
+        <title-ref>deaccessionapprovalstatus</title-ref>
+        <title>Deaccession Approval Status</title>
+        <options>
+            <option id="approved">approved</option>
+            <option id="not_approved">not approved</option>
+            <option id="not_required">not required</option>
+        </options>
+    </instance>
     <instance id="vocab-publishto">
         <web-url>publishto</web-url>
         <title-ref>publishto</title-ref>
-        <title>A publishing destination</title>
+        <title>Publishing destination</title>
         <options>
             <option id="all">All</option>
             <option id="none">None</option>
