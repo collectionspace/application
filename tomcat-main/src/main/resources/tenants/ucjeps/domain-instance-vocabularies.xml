@@ -294,7 +294,6 @@
 			<option id="Peru">Peru</option>
 			<option id="Philippines">Philippines</option>
 			<option id="Poland">Poland</option>
-			<option id="Polynesia">Polynesia</option>
 			<option id="Portugal">Portugal</option>
 			<option id="Qatar">Qatar</option>
 			<option id="Romania">Romania</option>
@@ -366,9 +365,9 @@
 		<title-ref>fieldlocstate</title-ref>
 		<title>fieldlocstate</title>
 		<options>
-			<option id="StateID">StateVal</option>
 			<option id="Unknown">Unknown</option>
 			<option id="Eua">'Eua</option>
+                        <option id="AlandIslands">Åland Islands</option>
 			<option id="Aargau">Aargau</option>
 			<option id="AcehNanggroeAcehDarussalam">Aceh (Nanggroe Aceh Darussalam)</option>
 			<option id="Acklins">Acklins</option>
@@ -416,6 +415,7 @@
 			<option id="ArnoAtoll">Arno Atoll</option>
 			<option id="Artemisa">Artemisa</option>
 			<option id="Artigas">Artigas</option>
+                        <option id="Aruba">Aruba</option>
 			<option id="Asturias">Asturias</option>
 			<option id="Atacama">Atacama</option>
 			<option id="Atlantida">Atlantida</option>
@@ -478,6 +478,7 @@
 			<option id="Brandenburg">Brandenburg</option>
 			<option id="Brava">Brava</option>
 			<option id="BritishColumbia">British Columbia</option>
+                        <option id="BritishIndianOceanTerritory">British Indian Ocean Territory</option>
 			<option id="BrittanyBretagne">Brittany (Bretagne)</option>
 			<option id="BrodskoPosavska">Brodsko-Posavska</option>
 			<option id="BrusselsBruxelles">Brussels (Bruxelles)</option>
@@ -633,7 +634,8 @@
 			<option id="FreeState">Free State</option>
 			<option id="Freeport">Freeport</option>
 			<option id="FrenchGuiana">French Guiana</option>
-			<option id="FrenchPolynesia">French Polynesia</option>
+                        <option id="FrenchPolynesia(PolynesieFrancaise)">French Polynesia (Polynesie Francaise)</option>
+                        <option id="FrenchSouthernTerritories">French Southern Territories</option>
 			<option id="FribourgFreiburg">Fribourg (Freiburg)</option>
 			<option id="Friesland">Friesland</option>
 			<option id="FriuliVeneziaGiulia">Friuli-Venezia Giulia</option>
@@ -651,6 +653,7 @@
 			<option id="Georgia">Georgia</option>
 			<option id="Ghardaia">Ghardaia</option>
 			<option id="GhardaiaWilayadeGhardaia">Ghardaia (Wilaya de Ghardaia)</option>
+                        <option id="Gibraltar">Gibraltar</option>
 			<option id="GilbertIslands">Gilbert Islands</option>
 			<option id="Gisborne">Gisborne</option>
 			<option id="Goias">Goias</option>
@@ -737,6 +740,7 @@
 			<option id="Isabela">Isabela</option>
 			<option id="Ishikawa">Ishikawa</option>
 			<option id="IsladelaJuventud">Isla de la Juventud</option>
+                        <option id="IsleofMan">Isle of Man</option>
 			<option id="Ismailia">Ismailia</option>
 			<option id="Istanbul">İstanbul</option>
 			<option id="IstriaIstarska">Istria (Istarska)</option>
@@ -831,6 +835,7 @@
 			<option id="LowerJubaJubbadaHoose">Lower Juba (Jubbada Hoose)</option>
 			<option id="LowerSilesiaWojewodztwodolnoslaskie">Lower Silesia (Województwo dolnośląskie)</option>
 			<option id="LublinLubelskie">Lublin (Lubelskie)</option>
+                        <option id="MacauMacao">Macau (Macao)</option>
 			<option id="Madang">Madang</option>
 			<option id="Madeira">Madeira</option>
 			<option id="MadredeDios">Madre de Dios</option>
@@ -891,6 +896,7 @@
 			<option id="Monagas">Monagas</option>
 			<option id="Montana">Montana</option>
 			<option id="Montevideo">Montevideo</option>
+                        <option id="Montserrat">Montserrat</option>
 			<option id="Moquegua">Moquegua</option>
 			<option id="MoravianSilesian">Moravian-Silesian</option>
 			<option id="MoreogRomsdal">More og Romsdal</option>
@@ -1026,6 +1032,7 @@
 			<option id="PinardelRio">Pinar del Rio</option>
 			<option id="Pingtung">Pingtung</option>
 			<option id="Piran">Piran</option>
+                        <option id="PitcairnIslands">Pitcairn Islands</option>
 			<option id="Piura">Piura</option>
 			<option id="PlainesWilhems">Plaines Wilhems</option>
 			<option id="Pohnpei">Pohnpei</option>
@@ -1068,6 +1075,7 @@
 			<option id="RegionMetropolitana">Region Metropolitana</option>
 			<option id="RennellandBellona">Rennell and Bellona</option>
 			<option id="Retalhuleu">Retalhuleu</option>
+                        <option id="Reunion">Reunion</option>
 			<option id="RhinelandPalatinateRheinlandPfalz">Rhineland-Palatinate (Rheinland-Pfalz)</option>
 			<option id="RhodeIsland">Rhode Island</option>
 			<option id="Riau">Riau</option>
@@ -1091,6 +1099,7 @@
 			<option id="SaintGeorge">Saint George</option>
 			<option id="SaintGeorgeBasseterre">Saint George Basseterre</option>
 			<option id="SaintGeorges">Saint George's</option>
+                        <option id="SaintHelena">Saint Helena</option>
 			<option id="SaintHelenaAscensionandTristandaCunha">Saint Helena, Ascension and Tristan da Cunha</option>
 			<option id="SaintJames">Saint James</option>
 			<option id="SaintJoseph">Saint Joseph</option>
@@ -1170,6 +1179,7 @@
 			<option id="SouthBohemianRegion">South Bohemian Region</option>
 			<option id="SouthCarolina">South Carolina</option>
 			<option id="SouthDakota">South Dakota</option>
+                        <option id="SouthGeorgiaandtheSouthSandwichIslands">South Georgia and the South Sandwich Islands</option>
 			<option id="SouthGyeongsangGyeongsangnam">South Gyeongsang (Gyeongsangnam)</option>
 			<option id="SouthHolland">South Holland</option>
 			<option id="SouthSinai">South Sinai</option>
@@ -1231,6 +1241,7 @@
 			<option id="Tobago">Tobago</option>
 			<option id="Tocantins">Tocantins</option>
 			<option id="Tochigi">Tochigi</option>
+                        <option id="Tokelau">Tokelau</option>
 			<option id="Tokushima">Tokushima</option>
 			<option id="Tokyo">Tokyo</option>
 			<option id="Toledo">Toledo</option>
@@ -1351,7 +1362,6 @@
 		<title-ref>fieldloccounty</title-ref>
 		<title>fieldloccounty</title>
 		<options>
-			<option id="CountyID">CountyVal</option>
 			<option id="Unknown">Unknown</option>
 			<option id="Aana">A'ana</option>
 			<option id="Abbeville">Abbeville</option>
@@ -1376,6 +1386,7 @@
 			<option id="Ahuacatlan">Ahuacatlan</option>
 			<option id="Aibonito">Aibonito</option>
 			<option id="Alachua">Alachua</option>
+                        <option id="Alamosa">Alamosa</option>
 			<option id="Alameda">Alameda</option>
 			<option id="Albany">Albany</option>
 			<option id="Albay">Albay</option>
@@ -1389,6 +1400,7 @@
 			<option id="Ambon">Ambon</option>
 			<option id="Anasco">Anasco</option>
 			<option id="Ancona">Ancona</option>
+                        <option id="Anderson">Anderson</option>
 			<option id="Anglesey">Anglesey</option>
 			<option id="AngusForfarshire">Angus (Forfarshire)</option>
 			<option id="Antonina">Antonina</option>
@@ -1431,6 +1443,7 @@
 			<option id="Barreiras">Barreiras</option>
 			<option id="Barton">Barton</option>
 			<option id="BasseTerre">Basse-Terre</option>
+                        <option id="Bastrop">Bastrop</option>
 			<option id="Bay">Bay</option>
 			<option id="Bayamon">Bayamon</option>
 			<option id="Beaufort">Beaufort</option>
@@ -1518,12 +1531,14 @@
 			<option id="Carteret">Carteret</option>
 			<option id="Casey">Casey</option>
 			<option id="Cass">Cass</option>
+                        <option id="Cassia">Cassia</option>
 			<option id="Castel">Castel</option>
 			<option id="Castrovirreina">Castrovirreina</option>
 			<option id="Catahoula">Catahoula</option>
 			<option id="Catanduanes">Catanduanes</option>
 			<option id="Catania">Catania</option>
 			<option id="Catano">Catano</option>
+                        <option id="Catron">Catron</option>
 			<option id="Cautin">Cautin</option>
 			<option id="Cayey">Cayey</option>
 			<option id="Cedar">Cedar</option>
@@ -1537,6 +1552,7 @@
 			<option id="Chautauqua">Chautauqua</option>
 			<option id="Cheboygan">Cheboygan</option>
 			<option id="Chelan">Chelan</option>
+                        <option id="Cherokee">Cherokee</option>
 			<option id="Cheshire">Cheshire</option>
 			<option id="Chester">Chester</option>
 			<option id="ChiangMaiChangwat">Chiang Mai, Changwat</option>
@@ -1544,6 +1560,7 @@
 			<option id="Chittenden">Chittenden</option>
 			<option id="Churchill">Churchill</option>
 			<option id="Ciales">Ciales</option>
+                        <option id="Cibola">Cibola</option>
 			<option id="Cidra">Cidra</option>
 			<option id="Cimarron">Cimarron</option>
 			<option id="Clackamas">Clackamas</option>
@@ -1585,7 +1602,9 @@
 			<option id="Costilla">Costilla</option>
 			<option id="Cres">Cres</option>
 			<option id="Crikvenica">Crikvenica</option>
+                        <option id="Crittenden">Crittenden</option>
 			<option id="Crockett">Crockett</option>
+                        <option id="Crowley">Crowley</option>
 			<option id="Culberson">Culberson</option>
 			<option id="Culebra">Culebra</option>
 			<option id="Cumberland">Cumberland</option>
@@ -1594,6 +1613,7 @@
 			<option id="Custer">Custer</option>
 			<option id="Cuyahoga">Cuyahoga</option>
 			<option id="Dade">Dade</option>
+                        <option id="Daggett">Daggett</option>
 			<option id="Dakota">Dakota</option>
 			<option id="Dallas">Dallas</option>
 			<option id="Dane">Dane</option>
@@ -1605,6 +1625,7 @@
 			<option id="DelNorte">Del Norte</option>
 			<option id="Delaware">Delaware</option>
 			<option id="DeloraineMunicipality">Deloraine Municipality</option>
+                        <option id="Delta">Delta</option>
 			<option id="Denbighshire">Denbighshire</option>
 			<option id="Denpasar">Denpasar</option>
 			<option id="Derbyshire">Derbyshire</option>
@@ -1674,6 +1695,7 @@
 			<option id="Galveston">Galveston</option>
 			<option id="Galway">Galway</option>
 			<option id="Garfield">Garfield</option>
+                        <option id="Garland">Garland</option>
 			<option id="Garrett">Garrett</option>
 			<option id="Garut">Garut</option>
 			<option id="Gelendzhik">Gelendzhik</option>
@@ -1699,11 +1721,13 @@
 			<option id="Grady">Grady</option>
 			<option id="Grafton">Grafton</option>
 			<option id="Graham">Graham</option>
+                        <option id="Grand">Grand</option>
 			<option id="Granite">Granite</option>
 			<option id="Grant">Grant</option>
 			<option id="GraysHarbor">Grays Harbor</option>
 			<option id="Greene">Greene</option>
 			<option id="Greenlee">Greenlee</option>
+                        <option id="Greensville">Greensville</option>
 			<option id="Gregg">Gregg</option>
 			<option id="Grosseto">Grosseto</option>
 			<option id="Guanica">Guanica</option>
@@ -1758,6 +1782,7 @@
 			<option id="InhacaIsland">Inhaca Island</option>
 			<option id="Invernessshire">Inverness-shire</option>
 			<option id="Inyo">Inyo</option>
+                        <option id="Iowa">Iowa</option>
 			<option id="Iron">Iron</option>
 			<option id="Isabela">Isabela</option>
 			<option id="Island">Island</option>
@@ -1883,6 +1908,7 @@
 			<option id="Londonderry">Londonderry</option>
 			<option id="LongfordMunicipality">Longford Municipality</option>
 			<option id="Loreto">Loreto</option>
+                        <option id="LosAlamos">Los Alamos</option>
 			<option id="LosAngeles">Los Angeles</option>
 			<option id="LosCabos">Los Cabos</option>
 			<option id="Loudoun">Loudoun</option>
@@ -1890,6 +1916,7 @@
 			<option id="LoyaltyIslandsProvincedesIlesLoyaute">Loyalty Islands (Province des Iles Loyaute)</option>
 			<option id="Lucas">Lucas</option>
 			<option id="Lucca">Lucca</option>
+                        <option id="Luna">Luna</option>
 			<option id="Luquillo">Luquillo</option>
 			<option id="Lyon">Lyon</option>
 			<option id="Mackinac">Mackinac</option>
@@ -1983,6 +2010,7 @@
 			<option id="Napa">Napa</option>
 			<option id="Napoli">Napoli</option>
 			<option id="Naranjito">Naranjito</option>
+                        <option id="Natchitoches">Natchitoches</option>
 			<option id="Natrona">Natrona</option>
 			<option id="Navajo">Navajo</option>
 			<option id="NegrosOriental">Negros Oriental</option>
@@ -1996,7 +2024,7 @@
 			<option id="NewYork">New York</option>
 			<option id="Newport">Newport</option>
 			<option id="Newton">Newton</option>
-			<option id="NezPerc">Nez Perc</option>
+                        <option id="NezPerce">Nez Perce</option>
 			<option id="Nikolaevskiy">Nikolaevskiy</option>
 			<option id="Nome">Nome</option>
 			<option id="Norfolk">Norfolk</option>
@@ -2012,6 +2040,7 @@
 			<option id="Nuoro">Nuoro</option>
 			<option id="Nye">Nye</option>
 			<option id="OatlandsMunicipality">Oatlands Municipality</option>
+                        <option id="Obion">Obion</option>
 			<option id="Ocean">Ocean</option>
 			<option id="Ogle">Ogle</option>
 			<option id="Okanogan">Okanogan</option>
@@ -2082,6 +2111,7 @@
 			<option id="Placer">Placer</option>
 			<option id="Platte">Platte</option>
 			<option id="Plumas">Plumas</option>
+                        <option id="Plymouth">Plymouth</option>
 			<option id="Pochutla">Pochutla</option>
 			<option id="PointeaPitre">Pointe-a-Pitre</option>
 			<option id="Polk">Polk</option>
@@ -2118,7 +2148,6 @@
 			<option id="Raleigh">Raleigh</option>
 			<option id="Randolph">Randolph</option>
 			<option id="Rappahannock">Rappahannock</option>
-			<option id="Rarotonga">Rarotonga</option>
 			<option id="Rasa">Rasa</option>
 			<option id="Ravalli">Ravalli</option>
 			<option id="Refugio">Refugio</option>
@@ -2157,6 +2186,7 @@
 			<option id="SabanaGrande">Sabana Grande</option>
 			<option id="Sabine">Sabine</option>
 			<option id="Sacramento">Sacramento</option>
+                        <option id="Saguache">Saguache</option>
 			<option id="SaintAndrew">Saint Andrew</option>
 			<option id="SaintPeterPort">Saint Peter Port</option>
 			<option id="SaintPierreduBois">Saint Pierre du Bois</option>
@@ -2192,6 +2222,7 @@
 			<option id="SantaBarbara">Santa Barbara</option>
 			<option id="SantaClara">Santa Clara</option>
 			<option id="SantaCruz">Santa Cruz</option>
+                        <option id="SantaFe">Santa Fe</option>
 			<option id="SantaIsabel">Santa Isabel</option>
 			<option id="SantaMariadelOro">Santa Maria del Oro</option>
 			<option id="SantaVictoria">Santa Victoria</option>
@@ -2200,6 +2231,7 @@
 			<option id="Sattahip">Sattahip</option>
 			<option id="Sauk">Sauk</option>
 			<option id="Savona">Savona</option>
+                        <option id="Scott">Scott</option>
 			<option id="ScottsdaleMunicipality">Scottsdale Municipality</option>
 			<option id="Sedgwick">Sedgwick</option>
 			<option id="Seribu">Seribu</option>
@@ -2250,7 +2282,9 @@
 			<option id="Stanislaus">Stanislaus</option>
 			<option id="Starke">Starke</option>
 			<option id="Starr">Starr</option>
+                        <option id="Stevens">Stevens</option>
 			<option id="Ston">Ston</option>
+                        <option id="Stone">Stone</option>
 			<option id="Storey">Storey</option>
 			<option id="Story">Story</option>
 			<option id="Sublette">Sublette</option>
@@ -2277,6 +2311,7 @@
 			<option id="Tecate">Tecate</option>
 			<option id="Tehama">Tehama</option>
 			<option id="Teller">Teller</option>
+                        <option id="Tensas">Tensas</option>
 			<option id="Tepic">Tepic</option>
 			<option id="Ternate">Ternate</option>
 			<option id="Terrell">Terrell</option>
