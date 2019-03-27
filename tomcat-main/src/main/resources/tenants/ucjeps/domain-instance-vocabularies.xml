@@ -634,7 +634,7 @@
 			<option id="FreeState">Free State</option>
 			<option id="Freeport">Freeport</option>
 			<option id="FrenchGuiana">French Guiana</option>
-                        <option id="FrenchPolynesia(PolynesieFrancaise)">French Polynesia (Polynesie Francaise)</option>
+                        <option id="FrenchPolynesiaPolynesieFrancaise">French Polynesia (Polynesie Francaise)</option>
                         <option id="FrenchSouthernTerritories">French Southern Territories</option>
 			<option id="FribourgFreiburg">Fribourg (Freiburg)</option>
 			<option id="Friesland">Friesland</option>
@@ -2137,6 +2137,7 @@
 			<option id="Pujili">Pujili</option>
 			<option id="Pula">Pula</option>
 			<option id="Pulaski">Pulaski</option>
+			<option id="Puntarenas">Puntarenas</option>
 			<option id="Putnam">Putnam</option>
 			<option id="Quay">Quay</option>
 			<option id="Quebradillas">Quebradillas</option>
