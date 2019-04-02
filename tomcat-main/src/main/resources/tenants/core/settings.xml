@@ -40,7 +40,7 @@
 		<passwordreset>
 			<token>
 				<!-- <daysvalid>1</daysvalid> --> <!-- As of v5.0, this field is no longer used. -->
-			    <tokenExpirationSeconds>300</tokenExpirationSeconds>
+				<tokenExpirationSeconds>300</tokenExpirationSeconds>
 			</token>
 			<loginpage>/cspace/core/resetpw</loginpage>
 			<subject>CollectionSpace password reset</subject>

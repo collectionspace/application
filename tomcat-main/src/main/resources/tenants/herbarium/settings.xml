@@ -39,9 +39,10 @@
         </smtp>
         <passwordreset>
             <token>
-                <daysvalid>7</daysvalid>
+                <!-- <daysvalid>1</daysvalid> --> <!-- As of v5.0, this field is no longer used. -->
+                <tokenExpirationSeconds>300</tokenExpirationSeconds>
             </token>
-            <loginpage>/collectionspace/ui/herbarium/html/index.html</loginpage>
+            <loginpage>/cspace/herbarium/resetpw</loginpage>
             <subject>CollectionSpace Password reset request</subject>
             <message>Hello {{greeting}},\n\r\n\rYou've started the process to reset your CollectionSpace account password.\n\r\n\rTo finish resetting your password, go to the Reset Password page {{link}} on CollectionSpace.\n\r\n\r \n\r\n\rIf clicking the link doesn't work, copy and paste the following link into your browser address bar and click Go.\n\r\n\r{{link}}\n\r \n\r\n\rThanks,\n\r\n\r CollectionSpace Administrator\n\r\n\rPlease do not reply to this email. This mailbox is not monitored and you will not receive a response. For assistance, contact your CollectionSpace Administrator directly.</message>
         </passwordreset>
