@@ -1,4 +1,4 @@
-<!-- Change options of organizationtype, uocmethods, uocusertypes. -->
+<!-- Change options of organizationtype, uocmethods, uocusertypes, publishto. -->
 <instances>
     <include src="domain-instance-vocabularies.xml" strip-root="yes"/>
     <instance id="vocab-inventorystatus">
@@ -59,11 +59,11 @@
             <option id="staff">staff</option>
             <option id="summerschoolstudent">summer school student</option>
         </options>
-    </instance>     
+    </instance>
     <instance id="vocab-publishto">
         <web-url>publishto</web-url>
         <title-ref>publishto</title-ref>
-        <title>Publishing destination</title>
+        <title>Publishing Destination</title>
         <options>
             <option id="all">All</option>
             <option id="none">None</option>
@@ -247,7 +247,7 @@
             <option id="approximate">Approximate</option>
             <option id="before">Before</option>
             <option id="circa">Circa</option>
-            <option id="probably">Probably</option> 
+            <option id="probably">Probably</option>
             <option id="possibly">Possibly</option>
         </options>
     </instance>
@@ -260,7 +260,7 @@
                 <option id="donor">Donor</option>
                 <option id="employee">Employee</option>
         </options>
-    </instance>   
+    </instance>
     <instance id="vocab-worktype">
         <web-url>worktype</web-url>
         <title-ref>worktype</title-ref>
@@ -299,7 +299,7 @@
             <option id="publisher">Publisher</option>
         </options>
     </instance>
-    
+
     <instance id="vocab-citationtermtype">
         <web-url>citationtermtype</web-url>
         <title-ref>citationtermtype</title-ref>
@@ -329,7 +329,7 @@
     			<option id="letter">Letter</option>
     			<option id="diary">Diary</option>
     			<option id="inventory">Inventory</option>
-    			<option id="verbalopinion">Verbal opinion</option> 
+    			<option id="verbalopinion">Verbal opinion</option>
         </options>
     </instance>
     <instance id="vocab-agentinfo">
@@ -337,18 +337,18 @@
         <title-ref>agentinfotype</title-ref>
         <title>Agent Info Type</title>
         <options>
-                <option id="writer">Writer</option>  
-                <option id="editor">Editor</option>                                
+                <option id="writer">Writer</option>
+                <option id="editor">Editor</option>
         </options>
     </instance>
     <instance id="vocab-resourceid">
         <web-url>resourceidtype</web-url>
         <title-ref>resourceidtype</title-ref>
         <title>Resource ID Type</title>
-        <options>                                                                 
-                <option id="isbn">ISBN</option> 
-                <option id="issn">ISSN</option> 				                
-                <option id="permalink">Permalink</option>                                 
+        <options>
+                <option id="isbn">ISBN</option>
+                <option id="issn">ISSN</option>
+                <option id="permalink">Permalink</option>
         </options>
     </instance>
      <instance id="vocab-relationtype">
@@ -356,12 +356,12 @@
         <title-ref>relationtypetype</title-ref>
         <title>Relation type Type</title>
         <options>
-                <option id="monography">Monography (published in)</option> 
-                <option id="magazine">Magazine (published in)</option> 
-                <option id="exhibition">Exhibition</option> 
-                <option id="facsimile">Facsimile of</option>                                
+                <option id="monography">Monography (published in)</option>
+                <option id="magazine">Magazine (published in)</option>
+                <option id="exhibition">Exhibition</option>
+                <option id="facsimile">Facsimile of</option>
         </options>
-    </instance>                                       
+    </instance>
     <instance id="vocab-exhibitiontype">
         <web-url>exhibitiontype</web-url>
         <title-ref>exhibitiontype</title-ref>
@@ -1152,7 +1152,7 @@
     <instance id="vocab-deaccessionapprovalgroup">
         <web-url>deaccessionapprovalgroup</web-url>
         <title-ref>deaccessionapprovalgroup</title-ref>
-        <title>Deaccession Approval Group</title>
+        <title>Approval Group</title>
         <options>
             <option id="collection_committee">collection committee</option>
             <option id="executive_committee">executive committee</option>
@@ -1162,7 +1162,7 @@
     <instance id="vocab-deaccessionapprovalstatus">
         <web-url>deaccessionapprovalstatus</web-url>
         <title-ref>deaccessionapprovalstatus</title-ref>
-        <title>Deaccession Approval Status</title>
+        <title>Approval Status</title>
         <options>
             <option id="approved">approved</option>
             <option id="not_approved">not approved</option>
