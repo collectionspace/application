@@ -42,6 +42,7 @@
     	<field id="supportsGroup" datatype="boolean"></field>
     	<field id="filename"></field>
     	<field id="outputMIME"></field>
+	<field id="supportsParams" datatype="boolean"></field>
     </section>
 	
 </record>
