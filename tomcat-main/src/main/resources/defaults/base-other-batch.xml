@@ -49,5 +49,6 @@
 		<field id="supportsGroup" datatype="boolean"/>
 		<field id="createsNewFocus" mini="search,list" datatype="boolean"/>
 		<field id="className"/>
+		<field id="supportsParams" datatype="boolean"/>
 	</section>
 </record>
