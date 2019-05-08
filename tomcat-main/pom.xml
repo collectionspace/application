@@ -116,7 +116,7 @@
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
-			<version>1.2.1</version>
+			<version>1.3.3</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -181,7 +181,7 @@
 		</filters>
 		<resources>
 			<resource>
-				<!-- Exclude config files, since these get deployed into tomcat's lib 
+				<!-- Exclude config files, since these get deployed into tomcat's lib
 					directory -->
 				<!-- by the deploy_cspace_config ant target (in ../war-entry/build.xml). -->
 				<directory>src/main/resources</directory>
