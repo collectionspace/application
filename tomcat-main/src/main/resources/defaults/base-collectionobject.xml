@@ -1,925 +1,351 @@
 <record id="collection-object" in-findedit="yes" cms-type="default" generate-services-schema="true">
-  <services-url>collectionobjects</services-url>
-  <services-tenant-singular>CollectionObject</services-tenant-singular>
-  <services-list-path>abstract-common-list/list-item</services-list-path>
-  <services-record-path id="common"
-    >collectionobjects_common:http://collectionspace.org/services/collectionobject,collectionobjects_common</services-record-path>
-  <services-record-path id="collectionspace_core"
-    >collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-  <web-url>cataloging</web-url>
-  <tab-url>cataloging-tab</tab-url>
-  <number-selector>.csc-entry-number</number-selector>
-  <row-selector>.csc-recordList-row:</row-selector>
-  <list-key>cataloging</list-key>
-  <hassoftdelete>true</hassoftdelete>
-  <structures>
-    <structure id="search">
-      <view>
-        <label-section id="messagekeys" show="true"/>
-      </view>
-    </structure>
-    <structure id="screen">
-      <view>
-        <label-section id="messagekeys" show="true"/>
-        <hierarchy-section show="true">
-          <options>
-						<!-- The values here may not be used, but are here for completeness -->
-            <option id="narrowerContext">collection-object</option>
-            <option id="broaderContext">collection-object</option>
-          </options>
-        </hierarchy-section>
-      </view>
-    </structure>
-    <structure id="tab">
-      <view>
-        <hierarchy-section show="true">
-          <options>
-            <!-- The values here may not be used, but are here for completeness -->
-            <option id="narrowerContext">collection-object</option>
-            <option id="broaderContext">collection-object</option>
-          </options>
-        </hierarchy-section>
-        <titlebar show="false"/>
-        <sidebar show="false"/>
-        <edit-section id="details" show="true"/>
-        <list-section id="list" show="false"/>
-        <label-section id="messagekeys" show="true"/>
-      </view>
-      <repeat id="list" asSibling="true">
-        <selector>recordList-row:</selector>
-        <field id="summary" ui-type="list">
-          <selector>related-summary</selector>
-        </field>
-        <field id="number" ui-type="list">
-          <selector>related-number</selector>
-        </field>
-      </repeat>
-    </structure>
-  </structures>
+	<services-url>collectionobjects</services-url>
+	<services-tenant-singular>CollectionObject</services-tenant-singular>
+	<services-list-path>abstract-common-list/list-item</services-list-path>
+	<services-record-path id="common">collectionobjects_common:http://collectionspace.org/services/collectionobject,collectionobjects_common</services-record-path>
+	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+	<web-url>cataloging</web-url>
+	<tab-url>cataloging-tab</tab-url>
+	<number-selector>.csc-entry-number</number-selector>
 
-  <include src="domain-collectionobject.xml" strip-root="yes"/>
+	<list-key>cataloging</list-key>
 
-  <section id="coreInformation">
-    <include src="core-fields.xml"  strip-root="yes" />
-    <field id="csid" exists-in-services="false" mini="search,list" attributes="GET"></field>
-    <field id="nametitle" mini="summary,search,list,relate" exists-in-services="false" service-field-alias="objectName">
-      <selector>object-identification-object-nametitle</selector>
-      <merges>
-        <merge id="title" rank="1"/>
-        <merge id="objectName" rank="2"/>
-      </merges>
-    </field>
-  </section>
-  <section id="identificationInformation">
-    <field id="objectNumber" ui-search="repeatable" chooser="yes" in-title="yes" in-tab="yes"
-      display-name="yes" mini="number,search,list,relate" seperate_ui_container="true" services-refnameDisplayName="true">
-      <selector>object-identification-object-number</selector>
-      <title-selector>titleBar-object-identification-object-number</title-selector>
-      <options>
-        <option id="intake" sample="IN2009.1.1">Intake</option>
-        <option id="accession" sample="2009.1.1">Accession</option>
-        <option id="loanin" sample="LI2009.1.1">Loans In</option>
-      </options>
-    </field>
-    <field id="numberOfObjects" ui-search="range" ui-type="validated" datatype="integer">
-      <selector>object-identification-number-objects</selector>
-    </field>
-    <repeat id="otherNumberList/otherNumber">
-      <selector>object-identification-otherNumbers</selector>
-      <field id="numberValue" in-tab="yes">
-        <selector>object-identification-other-number</selector>
-      </field>
-      <field id="numberType" in-tab="yes" seperate_ui_container="true">
-        <selector>object-identification-other-number-type</selector>
-        <options>
-          <option id="">Please select a value</option>
-          <option id="lender">Lender</option>
-          <option id="obsolete">Obsolete</option>
-          <option id="previous">Previous</option>
-          <option id="serial">Serial</option>
-          <option id="unknown">Unknown</option>
-        </options>
-      </field>
-    </repeat>
-    <repeat id="responsibleDepartments" has-primary="yes">
-      <selector>object-identification-responsible-department</selector>
-      <field id="responsibleDepartment" ui-search="repeatable" mini="search,list"
-        seperate_ui_container="true">
-        <selector>object-identification-responsible-department</selector>
-        <options>
-          <option id="">Please select a value</option>
-          <option id="antiquities">Antiquities</option>
-          <option id="architecture-design">Architecture and Design</option>
-          <option id="decorative-arts">Decorative Arts</option>
-          <option id="ethnography">Ethnography</option>
-          <option id="herpetology">Herpetology</option>
-          <option id="media-performance-art">Media and Performance Art</option>
-          <option id="paintings-sculpture">Paintings and Sculpture</option>
-          <option id="paleobotany">Paleobotany</option>
-          <option id="photographs">Photographs</option>
-          <option id="prints-drawings">Prints and Drawings</option>
-        </options>
-      </field>
-    </repeat>
-    <field id="collection" ui-search="repeatable" seperate_ui_container="true">
-      <selector>object-identification-collection</selector>
-      <options>
-        <option id="">Please select a value</option>
-        <option id="library-collection">Library collection</option>
-        <option id="permanent-collection">Permanent collection</option>
-        <option id="study-collection">Study collection</option>
-        <option id="teaching-collection">Teaching collection</option>
-      </options>
-    </field>
-    <field id="recordStatus" ui-search="repeatable" seperate_ui_container="true">
-      <selector>object-identification-record-status</selector>
-      <options>
-        <option id="approved">Approved</option>
-        <option id="in-process">In process</option>
-        <option id="new" default="yes">New</option>
-        <option id="temporary">Temporary</option>
-      </options>
-    </field>
-    <repeat id="briefDescriptions" has-primary="yes">
-      <selector>object-identification-brief-description</selector>
-      <field id="briefDescription" datatype="largetext">
-        <selector>object-identification-brief-description</selector>
-      </field>
-    </repeat>
-    <field id="distinguishingFeatures">
-      <selector>object-identification-distinguishing-features</selector>
-    </field>
-    <repeat id="comments">
-      <field id="comment" datatype="largetext">
-        <selector>object-identification-comments</selector>
-      </field>
-    </repeat>
-    <field id="computedCurrentLocation" ui-type="valueDeURNed" services-readonly="true" authref-in-services="true">
-    </field>
-                  
-    <repeat id="publishToList" services-type-anonymous="false">
-        <field id="publishTo" ui-search="repeatable" autocomplete="vocab-publishto" ui-type="enum">
-           <enum>
-               <default>urn:cspace:core.collectionspace.org:vocabularies:name(publishto):item:name(none)'None'</default>
-               <blank-value>Please select a value</blank-value>
-           </enum>
-           <selector>object-identification-publishto</selector>
-       </field>
-    </repeat>
-    
-    <repeat id="inventoryStatusList" services-type-anonymous="false">
-        <field id="inventoryStatus" ui-search="repeatable" autocomplete="vocab-inventorystatus" ui-type="enum">
-           <enum>
-               <default>urn:cspace:core.collectionspace.org:vocabularies:name(inventorystatus):item:name(unknown)'Unknown'</default>
-               <blank-value>Please select a value</blank-value>
-           </enum>
-           <selector>object-identification-inventory-status</selector>
-        </field>
-    </repeat>
-    
-    <repeat id="titleGroupList/titleGroup">
-      <!-- selector>collection-object-titleGroup</selector -->
-      <field id="title" ui-search="repeatable" in-title="yes" mini="search,list">
-        <title-selector>titleBar-object-identification-object-title</title-selector>
-        <selector>object-identification-object-title</selector>
-      </field>
-      <field id="titleLanguage" autocomplete="vocab-languages" ui-type="enum">
-        <enum>
-          <default>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</default>
-        </enum>
-        <selector>object-identification-object-title-language</selector>
-      </field>
+	<structures>
+		<structure id="screen">
+			<view>
+				<hierarchy-section show="true" />
+			</view>
+		</structure>
+	</structures>
 
-      <repeat id="titleTranslationSubGroupList/titleTranslationSubGroup">
-        <field id="titleTranslation">
-          <selector>object-identification-object-title-translation</selector>
-        </field>
-        <field id="titleTranslationLanguage" autocomplete="vocab-languages" ui-type="enum">
-          <enum>
-            <default>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</default>
-            <blank-value>Please select a value</blank-value>
-          </enum>
-        </field>
-      </repeat>
+	<include src="domain-collectionobject.xml" strip-root="yes" />
 
-      <field id="titleType" seperate_ui_container="true">
-        <selector>object-identification-object-title-type</selector>
-        <options>
-          <option id="">Please select a value</option>
-          <option id="assigned-by-artist">Assigned by Artist</option>
-          <option id="collection">Collection</option>
-          <option id="generic">Generic</option>
-          <option id="popular">Popular</option>
-          <option id="series">Series</option>
-          <option id="trade">Trade</option>
-        </options>
-      </field>
-    </repeat>
-    <repeat id="objectNameList/objectNameGroup">
-      <field id="objectNameCurrency" seperate_ui_container="true">
-        <selector>object-identification-object-currency</selector>
-        <options>
-          <option id="">Please select a value</option>
-          <option id="current">Current</option>
-          <option id="archaic">Archaic</option>
-        </options>
-      </field>
-      <field id="objectNameLevel" seperate_ui_container="true">
-        <selector>object-identification-object-level</selector>
-        <options>
-          <option id="" default="yes">Please select a value</option>
-          <option id="group">Group</option>
-          <option id="subgroup">Subgroup</option>
-        </options>
-      </field>
-      <field id="objectNameSystem" seperate_ui_container="true">
-        <selector>object-identification-object-system</selector>
-        <options>
-          <option id="">Please select a value</option>
-          <option id="art-and-architecture-thesaurus">Art &amp; Architecture Thesaurus</option>
-          <option id="nomenclature">Nomenclature</option>
-        </options>
-      </field>
-      <field id="objectNameType" seperate_ui_container="true">
-        <selector>object-identification-object-type</selector>
-        <options>
-          <option id="">Please select a value</option>
-          <option id="classified">Classified</option>
-          <option id="denomination">Denomination</option>
-          <option id="simple">Simple</option>
-          <option id="taxonomic">Taxonomic</option>
-          <option id="typological">Typological</option>
-        </options>
-      </field>
-      <field id="objectNameLanguage" autocomplete="vocab-languages" ui-type="enum">
-        <enum>
-          <default>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</default>
-          <blank-value>Please select a value</blank-value>
-        </enum>
-        <selector>object-identification-object-language</selector>
-      </field>
-      <field id="objectNameNote">
-        <selector>object-identification-object-note</selector>
-      </field>
-      <field id="objectName" ui-search="repeatable" mini="search,list">
-        <selector>object-identification-object-name</selector>
-      </field>
-    </repeat>
-  </section>
-  <section id="descriptionInformation">
-    <field id="copyNumber" ui-search="repeatable">
-      <selector>object-description-copy-number</selector>
-    </field>
-    <repeat id="objectStatusList" services-type-anonymous="false">
-      <field id="objectStatus" ui-search="repeatable" seperate_ui_container="true">
-        <selector>object-description-object-status</selector>
-        <options>
-          <option id="">Please select a value</option>
-          <option id="copy">copy</option>
-          <option id="forgery">forgery</option>
-          <option id="holotype">holotype</option>
-          <option id="paralectotype">paralectotype</option>
-          <option id="paratype">paratype</option>
-          <option id="type">type</option>
-        </options>
-      </field>
-    </repeat>
-    <field id="sex" ui-search="repeatable" seperate_ui_container="true">
-      <selector>object-description-sex</selector>
-      <options>
-        <option id="">Please select a value</option>
-        <option id="male">male</option>
-        <option id="female">female</option>
-      </options>
-    </field>
-    <field id="phase" ui-search="repeatable" seperate_ui_container="true">
-      <selector>object-description-phase</selector>
-      <options>
-        <option id="">Please select a value</option>
-        <option id="adult">adult</option>
-        <option id="imago">imago</option>
-        <option id="larva">larva</option>
-        <option id="nymph">nymph</option>
-        <option id="pupa">pupa</option>
-      </options>
-    </field>
-    <repeat id="forms">
-      <field id="form" ui-search="repeatable" seperate_ui_container="true">
-        <selector>object-description-form</selector>
-        <options>
-          <option id="">Please select a value</option>
-          <option id="dry">dry</option>
-          <option id="pinned">pinned</option>
-          <option id="thin-section">thin section</option>
-          <option id="wet">wet</option>
-        </options>
-      </field>
-    </repeat>
-    <field id="editionNumber" ui-search="repeatable">
-      <selector>object-description-edition-number</selector>
-    </field>
-    <field id="age" ui-type="validated" datatype="integer">
-      <selector>object-description-age</selector>
-    </field>
-    <field id="ageQualifier" autocomplete="vocab-agequalifier" ui-type="enum">
-      <enum>
-        <blank-value>Please select a value</blank-value>
-      </enum>
-      <selector>object-description-age-qualifier</selector>
-    </field>
-    <field id="ageUnit" seperate_ui_container="true">
-      <selector>object-description-age-unit</selector>
-      <options>
-        <option id="">Please select a value</option>
-        <option id="days">Days</option>
-        <option id="months">Months</option>
-        <option id="weeks">Weeks</option>
-        <option id="years">Years</option>
-      </options>
-    </field>
-    <repeat id="styles">
-      <field id="style" ui-search="repeatable">
-        <selector>object-description-style</selector>
-      </field>
-    </repeat>
-    <repeat id="colors">
-      <field id="color">
-        <selector>object-description-color</selector>
-      </field>
-    </repeat>
-    <repeat id="materialGroupList/materialGroup">
-      <!-- selector>collection-object-materialGroup</selector -->
-      <field id="material" ui-search="repeatable">
-        <selector>object-description-material</selector>
-      </field>
-      <field id="materialComponent">
-        <selector>object-description-material-component</selector>
-      </field>
-      <field id="materialComponentNote">
-        <selector>object-description-material-component-note</selector>
-      </field>
-      <field id="materialName">
-        <selector>object-description-material-name</selector>
-      </field>
-      <field id="materialSource">
-        <selector>object-description-material-source</selector>
-      </field>
-    </repeat>
-    <field id="physicalDescription">
-      <selector>object-description-physical-description</selector>
-    </field>
-    <repeat id="objectComponentGroupList/objectComponentGroup">
-      <!-- selector>collection-object-objectComponentGroup</selector -->
-      <field id="objectComponentName" ui-search="repeatable" seperate_ui_container="true">
-        <selector>object-description-object-component-name</selector>
-        <options>
-          <option id="">Please select a value</option>
-          <option id="blade">blade</option>
-          <option id="buttonhole">buttonhole</option>
-          <option id="handle">handle</option>
-          <option id="sleeve">sleeve</option>
-        </options>
-      </field>
-      <field id="objectComponentInformation">
-        <selector>object-description-object-component-information</selector>
-      </field>
-    </repeat>
-    <repeat id="technicalAttributeGroupList/technicalAttributeGroup">
-      <!-- selector>collection-object-technicalAttributeGroup</selector -->
-      <field id="technicalAttribute" ui-search="repeatable" seperate_ui_container="true">
-        <selector>object-description-technical-attribute</selector>
-        <options>
-          <option id="">Please select a value</option>
-          <option id="magnetic-tape-type">magnetic tape type</option>
-          <option id="record-speed">record speed</option>
-        </options>
-      </field>
-      <field id="technicalAttributeMeasurement" seperate_ui_container="true">
-        <selector>object-description-technical-attribute-measurement</selector>
-        <options>
-          <option id="">Please select a value</option>
-          <option id="metal">metal</option>
-          <option id="78">78</option>
-        </options>
-      </field>
-      <field id="technicalAttributeMeasurementUnit" seperate_ui_container="true">
-        <selector>object-description-technical-attribute-unit</selector>
-        <options>
-          <option id="">Please select a value</option>
-          <option id="rpm">rpm</option>
-        </options>
-      </field>
-    </repeat>
-    <field id="dimension" ui-type="groupfield/dimension/selfrenderer" ui-func="cspace.dimension"/>
+	<section id="coreInformation">
+		<include src="core-fields.xml" strip-root="yes" />
+		<field id="csid" exists-in-services="false" mini="list" />
+		<field id="nametitle" mini="summary,list" exists-in-services="false" service-field-alias="objectName" />
+	</section>
 
-    <section id="contentInformation">
-      <field id="contentDescription">
-        <selector>object-description-content-description</selector>
-      </field>
-      <repeat id="contentLanguages">
-        <field id="contentLanguage" autocomplete="vocab-languages" ui-type="enum">
-          <enum>
-            <default>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</default>
-            <blank-value>Please select a value</blank-value>
-          </enum>
-          <selector>object-description-content-language</selector>
-        </field>
-      </repeat>
-      <repeat id="contentActivities">
-        <field id="contentActivity">
-          <selector>object-description-content-activity</selector>
-        </field>
-      </repeat>
-      <repeat id="contentConcepts">
-        <field id="contentConcept" autocomplete="concept-concept,concept-material_ca,concept-material_ca_shared">
-          <selector>object-description-content-concept</selector>
-        </field>
-      </repeat>
-      <field id="contentDate" ui-type="groupfield/structureddate"
-        primarykey="contentDate.dateDisplayDate" ui-func="cspace.structuredDate">
-        <services-tag>contentDateGroup</services-tag>
-        <selector>object-description-content-date</selector>
-      </field>
-      <repeat id="contentPositions">
-        <field id="contentPosition" seperate_ui_container="true">
-          <selector>object-description-content-position</selector>
-          <options>
-            <option id="">Please select a value</option>
-            <option id="back">back</option>
-            <option id="base">base</option>
-            <option id="bottom">bottom</option>
-            <option id="front">front</option>
-            <option id="inside">inside</option>
-            <option id="left">left</option>
-            <option id="outside">outside</option>
-            <option id="recto">recto</option>
-            <option id="right">right</option>
-            <option id="rim">rim</option>
-            <option id="top">top</option>
-            <option id="verso">verso</option>
-          </options>
-        </field>
-      </repeat>
-      <repeat id="contentObjectGroupList/contentObjectGroup">
-        <!-- selector>collection-object-contentObjectGroup</selector -->
-        <field id="contentObject">
-          <selector>object-description-content-object</selector>
-        </field>
-        <field id="contentObjectType" seperate_ui_container="true">
-          <selector>object-description-content-object-type</selector>
-          <options>
-            <option id="">Please select a value</option>
-            <option id="furniture">Furniture</option>
-            <option id="food">Food</option>
-          </options>
-        </field>
-      </repeat>
-      <repeat id="contentPeoples">
-        <field id="contentPeople">
-          <selector>object-description-content-people</selector>
-        </field>
-      </repeat>
-      <repeat id="contentPersons">
-        <field id="contentPerson" autocomplete="person-person,person-person_shared,person-ulan_pa">
-          <selector>object-description-content-person</selector>
-        </field>
-      </repeat>
-      <repeat id="contentPlaces">
-        <field id="contentPlace">
-          <selector>object-description-content-place</selector>
-        </field>
-      </repeat>
-      <repeat id="contentScripts">
-        <field id="contentScript" seperate_ui_container="true">
-          <selector>object-description-content-script</selector>
-          <options>
-            <option id="">Please select a value</option>
-            <option id="carolingian-miniscule">Carolingian miniscule</option>
-            <option id="gothic-script">Gothic script</option>
-            <option id="palmer-method">Palmer method</option>
-            <option id="roman-cursive">Roman cursive</option>
-            <option id="rustic-capitals">rustic capitals</option>
-            <option id="spencerian-method">Spencerian method</option>
-            <option id="square-capitals">square capitals</option>
-          </options>
-        </field>
-      </repeat>
-      <repeat id="contentOrganizations">
-        <field id="contentOrganization"
-          autocomplete="organization-organization,organization-organization_shared,organization-ulan_oa">
-          <selector>object-description-content-organization</selector>
-        </field>
-      </repeat>
-      <repeat id="contentEventNameGroupList/contentEventNameGroup">
-        <!-- selector>csc-collection-object-contentEventNameGroup</selector -->
-        <field id="contentEventName">
-          <selector>object-description-content-event-name</selector>
-        </field>
-        <field id="contentEventNameType">
-          <selector>object-description-content-event-name-type</selector>
-        </field>
-      </repeat>
-      <repeat id="contentOtherGroupList/contentOtherGroup">
-        <!-- selector>collection-object-contentObjectGroup</selector -->
-        <field id="contentOther">
-          <selector>object-description-content-other</selector>
-        </field>
-        <field id="contentOtherType">
-          <selector>object-description-content-other-type</selector>
-        </field>
-      </repeat>
-      <field id="contentNote">
-        <selector>object-description-content-note</selector>
-      </field>
-    </section>
-    <section id="textualInscriptionInformation">
-      <repeat id="textualInscriptionGroupList/textualInscriptionGroup">
-        <field id="inscriptionContent">
-          <selector>object-description-inscription-content</selector>
-        </field>
-        <field id="inscriptionContentInscriber"
-          autocomplete="person-person,organization-organization,organization-organization_shared" ui-search="repeatable">
-          <selector>object-description-inscription-content-inscriber</selector>
-        </field>
-        <field id="inscriptionContentLanguage" autocomplete="vocab-languages" ui-type="enum">
-          <enum>
-            <default>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</default>
-            <blank-value>Please select a value</blank-value>
-          </enum>
-          <selector>object-description-inscription-content-language</selector>
-        </field>
-        <group id="inscriptionContentDateGroup" ui-type="groupfield/structureddate"
-          primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
-          <selector>object-description-inscription-content-date</selector>
-        </group>
-        <field id="inscriptionContentPosition" seperate_ui_container="true">
-          <selector>object-description-inscription-content-position</selector>
-          <options>
-            <option id="">Please select a value</option>
-            <option id="back">back</option>
-            <option id="base">base</option>
-            <option id="bottom">bottom</option>
-            <option id="front">front</option>
-            <option id="inside">inside</option>
-            <option id="left">left</option>
-            <option id="outside">outside</option>
-            <option id="recto">recto</option>
-            <option id="right">right</option>
-            <option id="rim">rim</option>
-            <option id="top">top</option>
-            <option id="verso">verso</option>
-          </options>
-        </field>
-        <field id="inscriptionContentScript" seperate_ui_container="true">
-          <selector>object-description-inscription-content-script</selector>
-          <options>
-            <option id="">Please select a value</option>
-            <option id="carolingian-miniscule">Carolingian miniscule</option>
-            <option id="gothic-script">Gothic script</option>
-            <option id="palmer-method">Palmer method</option>
-            <option id="roman-cursive">Roman cursive</option>
-            <option id="rustic-capitals">rustic capitals</option>
-            <option id="spencerian-method">Spencerian method</option>
-            <option id="square-capitals">square capitals</option>
-          </options>
-        </field>
-        <field id="inscriptionContentType" seperate_ui_container="true">
-          <selector>object-description-inscription-content-type</selector>
-          <options>
-            <option id="">Please select a value</option>
-            <option id="brand">brand</option>
-            <option id="decoration">decoration</option>
-            <option id="estate-stamp">estate stamp</option>
-            <option id="graffiti">graffiti</option>
-            <option id="label">label</option>
-            <option id="maker's-mark">maker's mark</option>
-          </options>
-        </field>
-        <field id="inscriptionContentMethod">
-          <selector>object-description-inscription-content-method</selector>
-        </field>
-        <field id="inscriptionContentInterpretation">
-          <selector>object-description-inscription-content-interpretation</selector>
-        </field>
-        <field id="inscriptionContentTranslation">
-          <selector>object-description-inscription-content-translation</selector>
-        </field>
-        <field id="inscriptionContentTransliteration">
-          <selector>object-description-inscription-content-transliteration</selector>
-        </field>
-      </repeat>
-    </section>
-    <section id="nonTextualInscriptionInformation">
-      <repeat id="nonTextualInscriptionGroupList/nonTextualInscriptionGroup">
-        <field id="inscriptionDescription">
-          <selector>object-description-inscription-description</selector>
-        </field>
-        <field id="inscriptionDescriptionInscriber" ui-search="repeatable"
-          autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared">
-          <selector>object-description-inscription-description-inscriber</selector>
-        </field>
-        <!-- CSPACE-4894: inscriptionDescriptionDateGroup isn't actually searchable, but need ui-search="range" to prevent uispec generation from erroring. -->
-        <group id="inscriptionDescriptionDateGroup" ui-type="groupfield/structureddate"
-          primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
-          <selector>object-description-inscription-description-date</selector>
-        </group>
-        <field id="inscriptionDescriptionPosition" seperate_ui_container="true">
-          <selector>object-description-inscription-description-position</selector>
-          <options>
-            <option id="">Please select a value</option>
-            <option id="back">back</option>
-            <option id="base">base</option>
-            <option id="bottom">bottom</option>
-            <option id="front">front</option>
-            <option id="inside">inside</option>
-            <option id="left">left</option>
-            <option id="outside">outside</option>
-            <option id="recto">recto</option>
-            <option id="right">right</option>
-            <option id="rim">rim</option>
-            <option id="top">top</option>
-            <option id="verso">verso</option>
-          </options>
-        </field>
-        <field id="inscriptionDescriptionType" seperate_ui_container="true">
-          <selector>object-description-inscription-description-type</selector>
-          <options>
-            <option id="">Please select a value</option>
-            <option id="brand">brand</option>
-            <option id="decoration">decoration</option>
-            <option id="estate-stamp">estate stamp</option>
-            <option id="graffiti">graffiti</option>
-            <option id="label">label</option>
-            <option id="maker's-mark">maker's mark</option>
-          </options>
-        </field>
-        <field id="inscriptionDescriptionMethod" ui-search="repeatable">
-          <selector>object-description-inscription-description-method</selector>
-        </field>
-        <field id="inscriptionDescriptionInterpretation">
-          <selector>object-description-inscription-description-interpretation</selector>
-        </field>
-      </repeat>
-    </section>
-  </section>
-  <section id="objectProductionInformation">
-    <repeat id="objectProductionDateGroupList/objectProductionDateGroup">
-      <group id="objectProductionDate" ui-type="groupfield/structureddate"
-        ui-search="range" primarykey="dateDisplayDate"
-        ui-func="cspace.structuredDate" xxx-services-no-repeat="true"/>
-    </repeat>
-    
-    <repeat id="techniqueGroupList/techniqueGroup">
-      <!-- selector>csc-collection-object-techniqueGroup</selector -->
-      <field id="technique" ui-search="repeatable">
-        <selector>object-production-technique</selector>
-      </field>
-      <field id="techniqueType">
-        <selector>object-production-technique-type</selector>
-      </field>
-    </repeat>
-    <repeat id="objectProductionPlaceGroupList/objectProductionPlaceGroup">
-      <!-- selector>collection-object-objectProductionPlaceGroup</selector -->
-      <field id="objectProductionPlace" ui-search="repeatable">
-        <selector>object-production-place</selector>
-      </field>
-      <field id="objectProductionPlaceRole"/>
-    </repeat>
-    <repeat id="objectProductionReasons">
-      <field id="objectProductionReason" datatype="largetext">
-        <selector>object-production-reason</selector>
-      </field>
-    </repeat>
-    <repeat id="objectProductionPeopleGroupList/objectProductionPeopleGroup">
-      <!-- selector>object-production-objectProductionPeopleGroup</selector -->
-      <field id="objectProductionPeople" ui-search="repeatable">
-        <selector>object-production-people</selector>
-      </field>
-      <field id="objectProductionPeopleRole"/>
-    </repeat>
-    <repeat id="objectProductionPersonGroupList/objectProductionPersonGroup">
-      <!-- selector>object-production-objectProductionPersonGroup</selector -->
-      <field id="objectProductionPerson" ui-search="repeatable" autocomplete="person-person,person-person_shared">
-        <selector>object-production-person</selector>
-      </field>
-      <field id="objectProductionPersonRole"/>
-    </repeat>
-    <repeat id="objectProductionOrganizationGroupList/objectProductionOrganizationGroup">
-      <!-- selector>collection-object-objectProductionOrganizationGroup</selector -->
-      <field id="objectProductionOrganization" ui-search="repeatable"
-        autocomplete="organization-organization,organization-organization_shared">
-        <selector>object-production-organization</selector>
-      </field>
-      <field id="objectProductionOrganizationRole"/>
-    </repeat>
-    <field id="objectProductionNote">
-      <selector>object-production-note</selector>
-    </field>
-  </section>
-  <section id="objectHistoryAssociationInformation">
-    <field id="objectHistoryNote">
-      <selector>object-history-association-object-history-note</selector>
-    </field>
-    <repeat id="usageGroupList/usageGroup">
-      <field id="usage"/>
-      <field id="usageNote"/>
-    </repeat>
-    <repeat id="owners">
-      <field id="owner" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared">
-        <selector>object-history-association-owner</selector>
-      </field>
-    </repeat>
-    <repeat id="ownershipDateGroupList/ownershipDateGroup">
-      <group id="ownershipDate" xxx-services-no-repeat="true"
-        ui-type="groupfield/structureddate" primarykey="dateDisplayDate"
-        ui-func="cspace.structuredDate"/>
-    </repeat>
+	<section id="identificationInformation">
+		<field id="objectNumber" mini="number,list" services-refnameDisplayName="true" />
+		<field id="numberOfObjects" datatype="integer" />
+		<repeat id="otherNumberList/otherNumber">
+			<field id="numberValue" />
+			<field id="numberType" />
+		</repeat>
+		<repeat id="responsibleDepartments">
+			<field id="responsibleDepartment" mini="list" />
+		</repeat>
+		<field id="collection" />
+		<field id="recordStatus" />
+		<repeat id="briefDescriptions">
+			<field id="briefDescription" datatype="largetext" />
+		</repeat>
+		<field id="distinguishingFeatures" />
+		<repeat id="comments">
+			<field id="comment" datatype="largetext" />
+		</repeat>
+		<field id="computedCurrentLocation" authref-in-services="true" />
 
-    <field id="ownershipAccess" seperate_ui_container="true">
-      <selector>object-history-association-access</selector>
-      <options>
-        <option id="">Please select a value</option>
-        <option id="limited">limited</option>
-        <option id="open">open</option>
-        <option id="restricted">restricted</option>
-      </options>
-    </field>
-    <field id="ownershipCategory" seperate_ui_container="true">
-      <selector>object-history-association-category</selector>
-      <options>
-        <option id="">Please select a value</option>
-        <option id="company">company</option>
-        <option id="public">public</option>
-        <option id="private">private</option>
-      </options>
-    </field>
-    <field id="ownershipPlace">
-      <selector>object-history-association-ownership-place</selector>
-    </field>
-    <field id="ownershipExchangeMethod" seperate_ui_container="true">
-      <selector>object-history-association-exchange-method</selector>
-      <options>
-        <option id="">Please select a value</option>
-        <option id="bequest">bequest</option>
-        <option id="exchange">exchange</option>
-        <option id="gift">gift</option>
-        <option id="purchase">purchase</option>
-        <option id="transfer">transfer</option>
-        <option id="treasure">treasure</option>
-      </options>
-    </field>
-    <field id="ownershipExchangeNote">
-      <selector>object-history-association-exchange-note</selector>
-    </field>
-    <field id="ownershipExchangePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
-      <enum>
-        <default>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'</default>
-      </enum>
-      <selector>object-history-association-denomination</selector>
-    </field>
-    <field id="ownershipExchangePriceValue" ui-type="validated" datatype="float">
-      <selector>object-history-association-exchange-price-value</selector>
-    </field>
-    <section id="associationInformation">
-      <repeat id="assocActivityGroupList/assocActivityGroup">
-        <!-- selector>collection-object-assocActivityGroup</selector -->
-        <field id="assocActivity"/>
-        <field id="assocActivityType"/>
-        <field id="assocActivityNote"/>
-      </repeat>
-      <repeat id="assocObjectGroupList/assocObjectGroup">
-        <field id="assocObject"/>
-        <field id="assocObjectType"/>
-        <field id="assocObjectNote"/>
-      </repeat>
-      <repeat id="assocConceptGroupList/assocConceptGroup">
-        <field id="assocConcept" autocomplete="concept-concept"/>
-        <field id="assocConceptType"/>
-        <field id="assocConceptNote"/>
-      </repeat>
-      <repeat id="assocCulturalContextGroupList/assocCulturalContextGroup">
-        <field id="assocCulturalContext"/>
-        <field id="assocCulturalContextType"/>
-        <field id="assocCulturalContextNote"/>
-      </repeat>
-      <repeat id="assocOrganizationGroupList/assocOrganizationGroup">
-        <field id="assocOrganization" autocomplete="organization-organization,organization-organization_shared"/>
-        <!-- CSPACE-2927: This new 'type' field may need to provide terms from a controlled -->
-        <!-- vocabulary; needs functional clarification from Megan, et al. -->
-        <field id="assocOrganizationType"/>
-        <field id="assocOrganizationNote"/>
-      </repeat>
-      <repeat id="assocPeopleGroupList/assocPeopleGroup">
-        <field id="assocPeople"/>
-        <field id="assocPeopleType"/>
-        <field id="assocPeopleNote"/>
-      </repeat>
-      <repeat id="assocPersonGroupList/assocPersonGroup">
-        <field id="assocPerson" autocomplete="person-person,person-person_shared"/>
-        <field id="assocPersonType"/>
-        <field id="assocPersonNote"/>
-      </repeat>
-      <repeat id="assocPlaceGroupList/assocPlaceGroup">
-        <field id="assocPlace"/>
-        <field id="assocPlaceType"/>
-        <field id="assocPlaceNote"/>
-      </repeat>
-      <field id="assocEventName"/>
-      <field id="assocEventNameType"/>
-      <repeat id="assocEventOrganizations">
-        <field id="assocEventOrganization" autocomplete="organization-organization,organization-organization_shared">
-          <selector>object-history-association-event-organization</selector>
-        </field>
-      </repeat>
-      <repeat id="assocEventPeoples">
-        <field id="assocEventPeople">
-          <selector>object-history-association-event-people</selector>
-        </field>
-      </repeat>
-      <repeat id="assocEventPersons">
-        <field id="assocEventPerson" autocomplete="person-person,person-person_shared">
-          <selector>object-history-association-event-person</selector>
-        </field>
-      </repeat>
-      <repeat id="assocEventPlaces">
-        <field id="assocEventPlace">
-          <selector>object-history-association-event-place</selector>
-        </field>
-      </repeat>
-      <field id="assocEventNote"/>
-      <repeat id="assocDateGroupList/assocDateGroup">
-        <selector>object-history-association-assocDateGroup</selector>
-        <group id="assocStructuredDateGroup" ui-type="groupfield/structureddate"
-          primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
-          <selector>object-history-association-assocDate</selector>
-        </group>
-        <field id="assocDateType"/>
-        <field id="assocDateNote"/>
-      </repeat>
-    </section>
-  </section>
-  <section id="objectOwnerContributionInformation">
-    <field id="ownersPersonalExperience">
-      <selector>object-owner-experience</selector>
-    </field>
-    <field id="ownersPersonalResponse">
-      <selector>object-owner-response</selector>
-    </field>
-    <repeat id="ownersReferences">
-      <field id="ownersReference" datatype="largetext">
-        <selector>object-owner-reference</selector>
-      </field>
-    </repeat>
-    <field id="ownersContributionNote">
-      <selector>object-owner-contribution-note</selector>
-    </field>
-  </section>
-  <section id="objectViewerContributionInformation">
-    <field id="viewersRole">
-      <selector>object-viewer-role</selector>
-    </field>
-    <field id="viewersPersonalExperience">
-      <selector>object-viewer-experience</selector>
-    </field>
-    <field id="viewersPersonalResponse">
-      <selector>object-viewer-response</selector>
-    </field>
-    <repeat id="viewersReferences">
-      <field id="viewersReference" datatype="largetext">
-        <selector>object-viewer-reference</selector>
-      </field>
-    </repeat>
-    <field id="viewersContributionNote">
-      <selector>object-viewer-contribution-note</selector>
-    </field>
-  </section>
-  <!-- CSPACE-3501: reference and catalog number combined into a repeatable group; catalog number renamed reference note -->
-  <section id="referenceInformation">
-    <repeat id="referenceGroupList/referenceGroup">
-      <field id="reference" autocomplete="citation-citation,citation-citation_shared,citation-worldcat"/>
-      <field id="referenceNote"/>
-    </repeat>
-  </section>
-  <section id="objectCollectionInformation">
-    <field id="fieldCollectionDate" ui-search="repeatable" ui-type="groupfield/structureddate"
-      primarykey="fieldCollectionDate.dateDisplayDate" ui-func="cspace.structuredDate">
-      <services-tag>fieldCollectionDateGroup</services-tag>
-      <selector>collection-object-fieldCollectionDate</selector>
-    </field>
-    <repeat id="fieldCollectionMethods">
-      <field id="fieldCollectionMethod" autocomplete="vocab-collectionmethod" ui-type="enum"/>
-    </repeat>
-    <field id="fieldCollectionNote"/>
-    <field id="fieldCollectionNumber"/>
-    <field id="fieldCollectionPlace" autocomplete="place-place,place-place_shared,place-tgn_place"/>
-    <repeat id="fieldCollectionSources">
-      <field id="fieldCollectionSource" autocomplete="person-person,person-person_shared"/>
-    </repeat>
-    <repeat id="fieldCollectors">
-      <field id="fieldCollector" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"/>
-    </repeat>
-    <repeat id="fieldColEventNames">
-      <field id="fieldColEventName" ui-search="repeatable"/>
-    </repeat>
-  </section>
+		<repeat id="publishToList" services-type-anonymous="false">
+			<field id="publishTo" autocomplete="true" ui-type="enum" />
+		</repeat>
+
+		<repeat id="inventoryStatusList" services-type-anonymous="false">
+			<field id="inventoryStatus" autocomplete="true" ui-type="enum" />
+		</repeat>
+
+		<repeat id="titleGroupList/titleGroup">
+			<field id="title" mini="list" />
+			<field id="titleLanguage" autocomplete="true" ui-type="enum" />
+
+			<repeat id="titleTranslationSubGroupList/titleTranslationSubGroup">
+				<field id="titleTranslation" />
+				<field id="titleTranslationLanguage" autocomplete="true" ui-type="enum" />
+			</repeat>
+
+			<field id="titleType" />
+		</repeat>
+		<repeat id="objectNameList/objectNameGroup">
+			<field id="objectNameCurrency" />
+			<field id="objectNameLevel" />
+			<field id="objectNameSystem" />
+			<field id="objectNameType" />
+			<field id="objectNameLanguage" autocomplete="true" ui-type="enum" />
+			<field id="objectNameNote" />
+			<field id="objectName" mini="list" />
+		</repeat>
+	</section>
+
+	<section id="descriptionInformation">
+		<field id="copyNumber" />
+		<repeat id="objectStatusList" services-type-anonymous="false">
+			<field id="objectStatus" />
+		</repeat>
+		<field id="sex" />
+		<field id="phase" />
+		<repeat id="forms">
+			<field id="form" />
+		</repeat>
+		<field id="editionNumber" />
+		<field id="age" datatype="integer" />
+		<field id="ageQualifier" autocomplete="true" ui-type="enum" />
+		<field id="ageUnit" />
+		<repeat id="styles">
+			<field id="style" />
+		</repeat>
+		<repeat id="colors">
+			<field id="color" />
+		</repeat>
+		<repeat id="materialGroupList/materialGroup">
+			<field id="material" />
+			<field id="materialComponent" />
+			<field id="materialComponentNote" />
+			<field id="materialName" />
+			<field id="materialSource" />
+		</repeat>
+		<field id="physicalDescription" />
+		<repeat id="objectComponentGroupList/objectComponentGroup">
+			<field id="objectComponentName" />
+			<field id="objectComponentInformation" />
+		</repeat>
+		<repeat id="technicalAttributeGroupList/technicalAttributeGroup">
+			<field id="technicalAttribute" />
+			<field id="technicalAttributeMeasurement" />
+			<field id="technicalAttributeMeasurementUnit" />
+		</repeat>
+		<field id="dimension" ui-type="groupfield/dimension/selfrenderer" />
+
+		<section id="contentInformation">
+			<field id="contentDescription" />
+			<repeat id="contentLanguages">
+				<field id="contentLanguage" autocomplete="true" ui-type="enum" />
+			</repeat>
+			<repeat id="contentActivities">
+				<field id="contentActivity" />
+			</repeat>
+			<repeat id="contentConcepts">
+				<field id="contentConcept" autocomplete="true" />
+			</repeat>
+			<field id="contentDate" ui-type="groupfield/structureddate">
+				<services-tag>contentDateGroup</services-tag>
+			</field>
+			<repeat id="contentPositions">
+				<field id="contentPosition" />
+			</repeat>
+			<repeat id="contentObjectGroupList/contentObjectGroup">
+				<field id="contentObject" />
+				<field id="contentObjectType" />
+			</repeat>
+			<repeat id="contentPeoples">
+				<field id="contentPeople" />
+			</repeat>
+			<repeat id="contentPersons">
+				<field id="contentPerson" autocomplete="true" />
+			</repeat>
+			<repeat id="contentPlaces">
+				<field id="contentPlace" />
+			</repeat>
+			<repeat id="contentScripts">
+				<field id="contentScript" />
+			</repeat>
+			<repeat id="contentOrganizations">
+				<field id="contentOrganization" autocomplete="true" />
+			</repeat>
+			<repeat id="contentEventNameGroupList/contentEventNameGroup">
+				<field id="contentEventName" />
+				<field id="contentEventNameType" />
+			</repeat>
+			<repeat id="contentOtherGroupList/contentOtherGroup">
+				<field id="contentOther" />
+				<field id="contentOtherType" />
+			</repeat>
+			<field id="contentNote" />
+		</section>
+		<section id="textualInscriptionInformation">
+			<repeat id="textualInscriptionGroupList/textualInscriptionGroup">
+				<field id="inscriptionContent" />
+				<field id="inscriptionContentInscriber" autocomplete="true" />
+				<field id="inscriptionContentLanguage" autocomplete="true" ui-type="enum" />
+				<group id="inscriptionContentDateGroup" ui-type="groupfield/structureddate" />
+				<field id="inscriptionContentPosition" />
+				<field id="inscriptionContentScript" />
+				<field id="inscriptionContentType" />
+				<field id="inscriptionContentMethod" />
+				<field id="inscriptionContentInterpretation" />
+				<field id="inscriptionContentTranslation" />
+				<field id="inscriptionContentTransliteration" />
+			</repeat>
+		</section>
+		<section id="nonTextualInscriptionInformation">
+			<repeat id="nonTextualInscriptionGroupList/nonTextualInscriptionGroup">
+				<field id="inscriptionDescription" />
+				<field id="inscriptionDescriptionInscriber" autocomplete="true" />
+				<group id="inscriptionDescriptionDateGroup" ui-type="groupfield/structureddate" />
+				<field id="inscriptionDescriptionPosition" />
+				<field id="inscriptionDescriptionType" />
+				<field id="inscriptionDescriptionMethod" />
+				<field id="inscriptionDescriptionInterpretation" />
+			</repeat>
+		</section>
+	</section>
+	<section id="objectProductionInformation">
+		<repeat id="objectProductionDateGroupList/objectProductionDateGroup">
+			<group id="objectProductionDate" ui-type="groupfield/structureddate" />
+		</repeat>
+
+		<repeat id="techniqueGroupList/techniqueGroup">
+			<field id="technique" />
+			<field id="techniqueType" />
+		</repeat>
+		<repeat id="objectProductionPlaceGroupList/objectProductionPlaceGroup">
+			<field id="objectProductionPlace" />
+			<field id="objectProductionPlaceRole" />
+		</repeat>
+		<repeat id="objectProductionReasons">
+			<field id="objectProductionReason" datatype="largetext" />
+		</repeat>
+		<repeat id="objectProductionPeopleGroupList/objectProductionPeopleGroup">
+			<field id="objectProductionPeople" />
+			<field id="objectProductionPeopleRole" />
+		</repeat>
+		<repeat id="objectProductionPersonGroupList/objectProductionPersonGroup">
+			<field id="objectProductionPerson" autocomplete="true" />
+			<field id="objectProductionPersonRole" />
+		</repeat>
+		<repeat id="objectProductionOrganizationGroupList/objectProductionOrganizationGroup">
+			<field id="objectProductionOrganization" autocomplete="true" />
+			<field id="objectProductionOrganizationRole" />
+		</repeat>
+		<field id="objectProductionNote" />
+	</section>
+	<section id="objectHistoryAssociationInformation">
+		<field id="objectHistoryNote" />
+		<repeat id="usageGroupList/usageGroup">
+			<field id="usage" />
+			<field id="usageNote" />
+		</repeat>
+		<repeat id="owners">
+			<field id="owner" autocomplete="true" />
+		</repeat>
+		<repeat id="ownershipDateGroupList/ownershipDateGroup">
+			<group id="ownershipDate" ui-type="groupfield/structureddate" />
+		</repeat>
+
+		<field id="ownershipAccess" />
+		<field id="ownershipCategory" />
+		<field id="ownershipPlace" />
+		<field id="ownershipExchangeMethod" />
+		<field id="ownershipExchangeNote" />
+		<field id="ownershipExchangePriceCurrency" autocomplete="true" ui-type="enum" />
+		<field id="ownershipExchangePriceValue" datatype="float" />
+		<section id="associationInformation">
+			<repeat id="assocActivityGroupList/assocActivityGroup">
+				<field id="assocActivity" />
+				<field id="assocActivityType" />
+				<field id="assocActivityNote" />
+			</repeat>
+			<repeat id="assocObjectGroupList/assocObjectGroup">
+				<field id="assocObject" />
+				<field id="assocObjectType" />
+				<field id="assocObjectNote" />
+			</repeat>
+			<repeat id="assocConceptGroupList/assocConceptGroup">
+				<field id="assocConcept" autocomplete="true" />
+				<field id="assocConceptType" />
+				<field id="assocConceptNote" />
+			</repeat>
+			<repeat id="assocCulturalContextGroupList/assocCulturalContextGroup">
+				<field id="assocCulturalContext" />
+				<field id="assocCulturalContextType" />
+				<field id="assocCulturalContextNote" />
+			</repeat>
+			<repeat id="assocOrganizationGroupList/assocOrganizationGroup">
+				<field id="assocOrganization" autocomplete="true" />
+				<!-- CSPACE-2927: This new 'type' field may need to provide terms from a controlled -->
+				<!-- vocabulary; needs functional clarification from Megan, et al. -->
+				<field id="assocOrganizationType" />
+				<field id="assocOrganizationNote" />
+			</repeat>
+			<repeat id="assocPeopleGroupList/assocPeopleGroup">
+				<field id="assocPeople" />
+				<field id="assocPeopleType" />
+				<field id="assocPeopleNote" />
+			</repeat>
+			<repeat id="assocPersonGroupList/assocPersonGroup">
+				<field id="assocPerson" autocomplete="true" />
+				<field id="assocPersonType" />
+				<field id="assocPersonNote" />
+			</repeat>
+			<repeat id="assocPlaceGroupList/assocPlaceGroup">
+				<field id="assocPlace" />
+				<field id="assocPlaceType" />
+				<field id="assocPlaceNote" />
+			</repeat>
+			<field id="assocEventName" />
+			<field id="assocEventNameType" />
+			<repeat id="assocEventOrganizations">
+				<field id="assocEventOrganization" autocomplete="true" />
+			</repeat>
+			<repeat id="assocEventPeoples">
+				<field id="assocEventPeople" />
+			</repeat>
+			<repeat id="assocEventPersons">
+				<field id="assocEventPerson" autocomplete="true" />
+			</repeat>
+			<repeat id="assocEventPlaces">
+				<field id="assocEventPlace" />
+			</repeat>
+			<field id="assocEventNote" />
+			<repeat id="assocDateGroupList/assocDateGroup">
+				<group id="assocStructuredDateGroup" ui-type="groupfield/structureddate" />
+				<field id="assocDateType" />
+				<field id="assocDateNote" />
+			</repeat>
+		</section>
+	</section>
+	<section id="objectOwnerContributionInformation">
+		<field id="ownersPersonalExperience" />
+		<field id="ownersPersonalResponse" />
+		<repeat id="ownersReferences">
+			<field id="ownersReference" datatype="largetext" />
+		</repeat>
+		<field id="ownersContributionNote" />
+	</section>
+	<section id="objectViewerContributionInformation">
+		<field id="viewersRole" />
+		<field id="viewersPersonalExperience" />
+		<field id="viewersPersonalResponse" />
+		<repeat id="viewersReferences">
+			<field id="viewersReference" datatype="largetext" />
+		</repeat>
+		<field id="viewersContributionNote" />
+	</section>
+	<!-- CSPACE-3501: reference and catalog number combined into a repeatable group; catalog number renamed reference note -->
+	<section id="referenceInformation">
+		<repeat id="referenceGroupList/referenceGroup">
+			<field id="reference" autocomplete="true" />
+			<field id="referenceNote" />
+		</repeat>
+	</section>
+	<section id="objectCollectionInformation">
+		<field id="fieldCollectionDate" ui-type="groupfield/structureddate">
+			<services-tag>fieldCollectionDateGroup</services-tag>
+		</field>
+		<repeat id="fieldCollectionMethods">
+			<field id="fieldCollectionMethod" autocomplete="true" ui-type="enum" />
+		</repeat>
+		<field id="fieldCollectionNote" />
+		<field id="fieldCollectionNumber" />
+		<field id="fieldCollectionPlace" autocomplete="true" />
+		<repeat id="fieldCollectionSources">
+			<field id="fieldCollectionSource" autocomplete="true" />
+		</repeat>
+		<repeat id="fieldCollectors">
+			<field id="fieldCollector" autocomplete="true" />
+		</repeat>
+		<repeat id="fieldColEventNames">
+			<field id="fieldColEventName" />
+		</repeat>
+	</section>
 </record>

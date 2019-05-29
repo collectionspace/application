@@ -1,368 +1,72 @@
-            <record id="contact" in-recordlist="no" type="authority,compute-displayname" cms-type="default"
-            		generate-services-schema="true" generate-if-authority="false">
-                <web-url>contact</web-url>
-                <services-url>contacts</services-url>
-                
-                <services-tenant-singular>Contact</services-tenant-singular>
-                
-                <services-instances-path>contactauthorities_common:http://collectionspace.org/services/contact,contactauthorities-common-list/contactauthority-list-item</services-instances-path>
-                <services-single-instance-path>contactauthorities_common:http://collectionspace.org/services/contact,contactauthorities_common</services-single-instance-path>
-                <services-list-path>abstract-common-list/list-item</services-list-path>
+<record id="contact" in-recordlist="no" type="authority,compute-displayname" cms-type="default" generate-services-schema="true" generate-if-authority="false">
+	<web-url>contact</web-url>
+	<services-url>contacts</services-url>
 
-                <services-record-path>contacts_common:http://collectionspace.org/services/contact,contacts_common</services-record-path>
-                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-                <authority-vocab-type>ContactAuthority</authority-vocab-type>
-				<authorization-view>false</authorization-view>
+	<services-tenant-singular>Contact</services-tenant-singular>
 
-                <structures>
-                    <structure id="screen">
-                        <view>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                    </structure>
-                </structures>
-				
-				<include src="domain-authority-contact.xml" strip-root="yes"/>
-				
-                <section id="coreInformation">
-                    <include src="core-fields.xml"  strip-root="yes" />
-                </section>
-				
-                <section id="contactInformation">
-                	<repeat id="emailGroupList/emailGroup">
-                        <field id="email"></field>
-                        <field id="emailType">
-                        	<options>
-                                <option id="">Please select a value</option>
-                                <option id="business">business</option>
-                                <option id="personal">personal</option>
-                                <option id="other">other</option>
-                            </options>
-						</field>
-                    </repeat>
-					
-                	<repeat id="webAddressGroupList/webAddressGroup">
-                        <field id="webAddress"></field>
-                        <field id="webAddressType">
-                        	<options>
-                                <option id="">Please select a value</option>
-                                <option id="business">business</option>
-                                <option id="personal">personal</option>
-                                <option id="other">other</option>
-                            </options>
-						</field>
-                    </repeat>
-					
-                	<repeat id="telephoneNumberGroupList/telephoneNumberGroup">
-                        <field id="telephoneNumber"></field>
-                        <field id="telephoneNumberType">
-                        	<options>
-                                <option id="">Please select a value</option>
-                                <option id="business">business</option>
-                                <option id="home">home</option>
-                                <option id="mobile">mobile</option>
-                                <option id="other">other</option>
-                            </options>
-						</field>
-                    </repeat>
-					
-                	<repeat id="faxNumberGroupList/faxNumberGroup">
-                        <field id="faxNumber"></field>
-                        <field id="faxNumberType">
-                        	<options>
-                                <option id="">Please select a value</option>
-                                <option id="business">business</option>
-                                <option id="home">home</option>
-                                <option id="other">other</option>
-                            </options>
-						</field>
-                    </repeat>
-					
-                	<repeat id="addressGroupList/addressGroup">
-                        <field id="addressPlace1"></field>
-                        <field id="addressPlace2"></field>
-                        <field id="addressMunicipality"></field>
-                        <field id="addressStateOrProvince"></field>
-                        <field id="addressPostCode"></field>
-                        <field id="addressCountry">
-                        <!-- Options conform to ISO-3166-1 List of Countries Codes, available free of charge for "non-commercial purposes." 
-                        See http://www.iso.org/iso/country_codes.htm and 
-                        http://www.iso.org/iso/home/standards/country_codes/country_names_and_code_elements_txt.htm -->    
-                            <options>
-                                <option id="">Please select a value</option>
-                                <option id="AF">AFGHANISTAN</option>
-                                <option id="AX">ÅLAND ISLANDS</option>
-                                <option id="AL">ALBANIA</option>
-                                <option id="DZ">ALGERIA</option>
-                                <option id="AS">AMERICAN SAMOA</option>
-                                <option id="AD">ANDORRA</option>
-                                <option id="AO">ANGOLA</option>
-                                <option id="AI">ANGUILLA</option>
-                                <option id="AQ">ANTARCTICA</option>
-                                <option id="AG">ANTIGUA AND BARBUDA</option>
-                                <option id="AR">ARGENTINA</option>
-                                <option id="AM">ARMENIA</option>
-                                <option id="AW">ARUBA</option>
-                                <option id="AU">AUSTRALIA</option>
-                                <option id="AT">AUSTRIA</option>
-                                <option id="AZ">AZERBAIJAN</option>
-                                <option id="BS">BAHAMAS</option>
-                                <option id="BH">BAHRAIN</option>
-                                <option id="BD">BANGLADESH</option>
-                                <option id="BB">BARBADOS</option>
-                                <option id="BY">BELARUS</option>
-                                <option id="BE">BELGIUM</option>
-                                <option id="BZ">BELIZE</option>
-                                <option id="BJ">BENIN</option>
-                                <option id="BM">BERMUDA</option>
-                                <option id="BT">BHUTAN</option>
-                                <option id="BO">BOLIVIA, PLURINATIONAL STATE OF</option>
-                                <option id="BQ">BONAIRE, SINT EUSTATIUS AND SABA</option>
-                                <option id="BA">BOSNIA AND HERZEGOVINA</option>
-                                <option id="BW">BOTSWANA</option>
-                                <option id="BV">BOUVET ISLAND</option>
-                                <option id="BR">BRAZIL</option>
-                                <option id="IO">BRITISH INDIAN OCEAN TERRITORY</option>
-                                <option id="BN">BRUNEI DARUSSALAM</option>
-                                <option id="BG">BULGARIA</option>
-                                <option id="BF">BURKINA FASO</option>
-                                <option id="BI">BURUNDI</option>
-                                <option id="KH">CAMBODIA</option>
-                                <option id="CM">CAMEROON</option>
-                                <option id="CA">CANADA</option>
-                                <option id="CV">CAPE VERDE</option>
-                                <option id="KY">CAYMAN ISLANDS</option>
-                                <option id="CF">CENTRAL AFRICAN REPUBLIC</option>
-                                <option id="TD">CHAD</option>
-                                <option id="CL">CHILE</option>
-                                <option id="CN">CHINA</option>
-                                <option id="CX">CHRISTMAS ISLAND</option>
-                                <option id="CC">COCOS (KEELING) ISLANDS</option>
-                                <option id="CO">COLOMBIA</option>
-                                <option id="KM">COMOROS</option>
-                                <option id="CG">CONGO</option>
-                                <option id="CD">CONGO, THE DEMOCRATIC REPUBLIC OF THE</option>
-                                <option id="CK">COOK ISLANDS</option>
-                                <option id="CR">COSTA RICA</option>
-                                <option id="CI">CÔTE D’IVOIRE</option>
-                                <option id="HR">CROATIA</option>
-                                <option id="CU">CUBA</option>
-                                <option id="CW">CURAÇAO</option>
-                                <option id="CY">CYPRUS</option>
-                                <option id="CZ">CZECH REPUBLIC</option>
-                                <option id="DK">DENMARK</option>
-                                <option id="DJ">DJIBOUTI</option>
-                                <option id="DM">DOMINICA</option>
-                                <option id="DO">DOMINICAN REPUBLIC</option>
-                                <option id="EC">ECUADOR</option>
-                                <option id="EG">EGYPT</option>
-                                <option id="SV">EL SALVADOR</option>
-                                <option id="GQ">EQUATORIAL GUINEA</option>
-                                <option id="ER">ERITREA</option>
-                                <option id="EE">ESTONIA</option>
-                                <option id="ET">ETHIOPIA</option>
-                                <option id="FK">FALKLAND ISLANDS (MALVINAS)</option>
-                                <option id="FO">FAROE ISLANDS</option>
-                                <option id="FJ">FIJI</option>
-                                <option id="FI">FINLAND</option>
-                                <option id="FR">FRANCE</option>
-                                <option id="GF">FRENCH GUIANA</option>
-                                <option id="PF">FRENCH POLYNESIA</option>
-                                <option id="TF">FRENCH SOUTHERN TERRITORIES</option>
-                                <option id="GA">GABON</option>
-                                <option id="GM">GAMBIA</option>
-                                <option id="GE">GEORGIA</option>
-                                <option id="DE">GERMANY</option>
-                                <option id="GH">GHANA</option>
-                                <option id="GI">GIBRALTAR</option>
-                                <option id="GR">GREECE</option>                            
-                                <option id="GL">GREENLAND</option>
-                                <option id="GD">GRENADA</option>
-                                <option id="GP">GUADELOUPE</option>
-                                <option id="GU">GUAM</option>
-                                <option id="GT">GUATEMALA</option>
-                                <option id="GG">GUERNSEY</option>
-                                <option id="GN">GUINEA</option>
-                                <option id="GW">GUINEA-BISSAU</option>
-                                <option id="GY">GUYANA</option>
-                                <option id="HT">HAITI</option>
-                                <option id="HM">HEARD ISLAND AND MCDONALD ISLANDS</option>
-                                <option id="VA">HOLY SEE (VATICAN CITY STATE)</option>
-                                <option id="HN">HONDURAS</option>
-                                <option id="HK">HONG KONG</option>
-                                <option id="HN">HUNGARY</option>
-                                <option id="IS">ICELAND</option>
-                                <option id="IN">INDIA</option>
-                                <option id="ID">INDONESIA</option>
-                                <option id="IR">IRAN, ISLAMIC REPUBLIC OF</option>
-                                <option id="IQ">IRAQ</option>
-                                <option id="IE">IRELAND</option>
-                                <option id="IM">ISLE OF MAN</option>
-                                <option id="IL">ISRAEL</option>
-                                <option id="IT">ITALY</option>
-                                <option id="JM">JAMAICA</option>
-                                <option id="JP">JAPAN</option>
-                                <option id="JE">JERSEY</option>
-                                <option id="JO">JORDAN</option>
-                                <option id="KZ">KAZAKHSTAN</option>
-                                <option id="KE">KENYA</option>
-                                <option id="KI">KIRIBATI</option>
-                                <option id="KP">KOREA, DEMOCRATIC PEOPLE’S REPUBLIC OF</option>
-                                <option id="KR">KOREA, REPUBLIC OF</option>
-                                <option id="KW">KUWAIT</option>
-                                <option id="KG">KYRGYZSTAN</option>
-                                <option id="LA">LAO PEOPLE’S DEMOCRATIC REPUBLIC</option>
-                                <option id="LV">LATVIA</option>
-                                <option id="LB">LEBANON</option>
-                                <option id="LS">LESOTHO</option>
-                                <option id="LR">LIBERIA</option>
-                                <option id="LY">LIBYA</option>
-                                <option id="LI">LIECHTENSTEIN</option>
-                                <option id="LT">LITHUANIA</option>
-                                <option id="LU">LUXEMBOURG</option>
-                                <option id="MO">MACAO</option>
-                                <option id="MK">MACEDONIA, THE FORMER YUGOSLAV REPUBLIC OF</option>
-                                <option id="MG">MADAGASCAR</option>
-                                <option id="MW">MALAWI</option>
-                                <option id="MY">MALAYSIA</option>
-                                <option id="MV">MALDIVES</option>
-                                <option id="ML">MALI</option>
-                                <option id="MT">MALTA</option>
-                                <option id="MH">MARSHALL ISLANDS</option>
-                                <option id="MQ">MARTINIQUE</option>
-                                <option id="MR">MAURITANIA</option>
-                                <option id="MU">MAURITIUS</option>
-                                <option id="YT">MAYOTTE</option>
-                                <option id="MX">MEXICO</option>
-                                <option id="FM">MICRONESIA, FEDERATED STATES OF</option>
-                                <option id="MD">MOLDOVA, REPUBLIC OF</option>
-                                <option id="MC">MONACO</option>
-                                <option id="MN">MONGOLIA</option>
-                                <option id="ME">MONTENEGRO</option>
-                                <option id="MS">MONTSERRAT</option>
-                                <option id="MA">MOROCCO</option>
-                                <option id="MZ">MOZAMBIQUE</option>
-                                <option id="MM">MYANMAR</option>
-                                <option id="NA">NAMIBIA</option>
-                                <option id="NR">NAURU</option>
-                                <option id="NP">NEPAL</option>
-                                <option id="NL">NETHERLANDS</option>
-                                <option id="NC">NEW CALEDONIA</option>
-                                <option id="NZ">NEW ZEALAND</option>
-                                <option id="NI">NICARAGUA</option>
-                                <option id="NE">NIGER</option>
-                                <option id="NG">NIGERIA</option>
-                                <option id="NU">NIUE</option>
-                                <option id="NF">NORFOLK ISLAND</option>
-                                <option id="MP">NORTHERN MARIANA ISLANDS</option>
-                                <option id="NO">NORWAY</option>
-                                <option id="OM">OMAN</option>
-                                <option id="PK">PAKISTAN</option>
-                                <option id="PW">PALAU</option>
-                                <option id="PS">PALESTINIAN TERRITORY, OCCUPIED</option>
-                                <option id="PA">PANAMA</option>
-                                <option id="PG">PAPUA NEW GUINEA</option>
-                                <option id="PY">PARAGUAY</option>
-                                <option id="PE">PERU</option>
-                                <option id="PH">PHILIPPINES</option>
-                                <option id="PN">PITCAIRN</option>
-                                <option id="PL">POLAND</option>
-                                <option id="PT">PORTUGAL</option>
-                                <option id="PR">PUERTO RICO</option>
-                                <option id="QA">QATAR</option>
-                                <option id="RE">RÉUNION</option>
-                                <option id="RO">ROMANIA</option>
-                                <option id="RU">RUSSIAN FEDERATION</option>
-                                <option id="RW">RWANDA</option>
-                                <option id="BL">SAINT BARTHÉLEMY</option>
-                                <option id="SH">SAINT HELENA, ASCENSION AND TRISTAN DA CUNHA</option>
-                                <option id="KN">SAINT KITTS AND NEVIS</option>
-                                <option id="LC">SAINT LUCIA</option>
-                                <option id="MF">SAINT MARTIN (FRENCH PART)</option>
-                                <option id="PM">SAINT PIERRE AND MIQUELON</option>
-                                <option id="VC">SAINT VINCENT AND THE GRENADINES</option>
-                                <option id="WS">SAMOA</option>
-                                <option id="SM">SAN MARINO</option>
-                                <option id="ST">SAO TOME AND PRINCIPE</option>
-                                <option id="SA">SAUDI ARABIA</option>                            
-                                <option id="SN">SENEGAL</option>
-                                <option id="RS">SERBIA</option>
-                                <option id="SC">SEYCHELLES</option>
-                                <option id="SL">SIERRA LEONE</option>
-                                <option id="SG">SINGAPORE</option>
-                                <option id="SX">SINT MAARTEN (DUTCH PART)</option>
-                                <option id="SK">SLOVAKIA</option>
-                                <option id="SI">SLOVENIA</option>                                        
-                                <option id="SB">SOLOMON ISLANDS</option>
-                                <option id="SO">SOMALIA</option>
-                                <option id="ZA">SOUTH AFRICA</option>
-                                <option id="GS">SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS</option>
-                                <option id="SS">SOUTH SUDAN</option>
-                                <option id="ES">SPAIN</option>                                    
-                                <option id="LK">SRI LANKA</option>
-                                <option id="SD">SUDAN</option>
-                                <option id="SR">SURINAME</option>
-                                <option id="SJ">SVALBARD AND JAN MAYEN</option>
-                                <option id="SZ">SWAZILAND</option>
-                                <option id="SE">SWEDEN</option>
-                                <option id="CH">SWITZERLAND</option>
-                                <option id="SY">SYRIAN ARAB REPUBLIC</option>
-                                <option id="TW">TAIWAN, PROVINCE OF CHINA</option>
-                                <option id="TJ">TAJIKISTAN</option>
-                                <option id="TZ">TANZANIA, UNITED REPUBLIC OF</option>
-                                <option id="TH">THAILAND</option>
-                                <option id="TL">TIMOR-LESTE</option>
-                                <option id="TG">TOGO</option>
-                                <option id="TK">TOKELAU</option>
-                                <option id="TO">TONGA</option>
-                                <option id="TT">TRINIDAD AND TOBAGO</option>
-                                <option id="TN">TUNISIA</option>
-                                <option id="TR">TURKEY</option>
-                                <option id="TM">TURKMENISTAN</option>
-                                <option id="TC">TURKS AND CAICOS ISLANDS</option>
-                                <option id="TV">TUVALU</option>
-                                <option id="UG">UGANDA</option>
-                                <option id="UA">UKRAINE</option>
-                                <option id="AE">UNITED ARAB EMIRATES</option>
-                                <option id="GB">UNITED KINGDOM</option>
-                                <option id="US">UNITED STATES</option>
-                                <option id="UM">UNITED STATES MINOR OUTLYING ISLANDS</option>
-                                <option id="UY">URUGUAY</option>
-                                <option id="UZ">UZBEKISTAN</option>
-                                <option id="VU">VANUATU</option>
-                                <option id="VE">VENEZUELA, BOLIVARIAN REPUBLIC OF</option>
-                                <option id="VN">VIET NAM</option>
-                                <option id="VG">VIRGIN ISLANDS, BRITISH</option>                            
-                                <option id="VI">VIRGIN ISLANDS, U.S.</option>
-                                <option id="WF">WALLIS AND FUTUNA</option>
-                                <option id="EH">WESTERN SAHARA</option>
-                                <option id="YE">YEMEN</option>
-                                <option id="ZM">ZAMBIA</option>
-                                <option id="ZW">ZIMBABWE</option>
-                            </options>
-                        </field>
-                        <field id="addressType">
-                        	<options>
-                                <option id="">Please select a value</option>
-                                <option id="business">business</option>
-                                <option id="home">home</option>
-                                <option id="other">other</option>
-                            </options>
-						</field>
-                    </repeat>
-                </section>
-                
-                <!-- Other information -most for Service schema generation  -->
-               	<section id="otherInformation">
-			       	<field id="csid"></field>
-			       	<field id="inAuthority"></field>
-			    	<field id="inItem"></field>
-			        <field id="displayName"></field>
-			        <!-- SAS related fields -->
-					<field id="rev" mini="list" datatype="integer"/>
-					<field id="sas" mini="list" datatype="boolean"/>
-					<field id="proposed" mini="list" datatype="boolean"/>
-					<field id="deprecated" mini="list" datatype="boolean"/>
-		    	</section>
-                
-            </record>
+	<services-instances-path>contactauthorities_common:http://collectionspace.org/services/contact,contactauthorities-common-list/contactauthority-list-item</services-instances-path>
+	<services-single-instance-path>contactauthorities_common:http://collectionspace.org/services/contact,contactauthorities_common</services-single-instance-path>
+	<services-list-path>abstract-common-list/list-item</services-list-path>
+
+	<services-record-path>contacts_common:http://collectionspace.org/services/contact,contacts_common</services-record-path>
+	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+	<authority-vocab-type>ContactAuthority</authority-vocab-type>
+	<authorization-view>false</authorization-view>
+
+	<include src="domain-authority-contact.xml" strip-root="yes" />
+
+	<section id="coreInformation">
+		<include src="core-fields.xml" strip-root="yes" />
+	</section>
+
+	<section id="contactInformation">
+		<repeat id="emailGroupList/emailGroup">
+			<field id="email" />
+			<field id="emailType" />
+		</repeat>
+
+		<repeat id="webAddressGroupList/webAddressGroup">
+			<field id="webAddress" />
+			<field id="webAddressType" />
+		</repeat>
+
+		<repeat id="telephoneNumberGroupList/telephoneNumberGroup">
+			<field id="telephoneNumber" />
+			<field id="telephoneNumberType" />
+		</repeat>
+
+		<repeat id="faxNumberGroupList/faxNumberGroup">
+			<field id="faxNumber" />
+			<field id="faxNumberType" />
+		</repeat>
+
+		<repeat id="addressGroupList/addressGroup">
+			<field id="addressPlace1" />
+			<field id="addressPlace2" />
+			<field id="addressMunicipality" />
+			<field id="addressStateOrProvince" />
+			<field id="addressPostCode" />
+			<field id="addressCountry">
+				<!-- Options conform to ISO-3166-1 List of Countries Codes, available free of charge for "non-commercial purposes."
+                        See http://www.iso.org/iso/country_codes.htm and
+                        http://www.iso.org/iso/home/standards/country_codes/country_names_and_code_elements_txt.htm -->
+
+			</field>
+			<field id="addressType" />
+		</repeat>
+	</section>
+
+	<!-- Other information -most for Service schema generation  -->
+	<section id="otherInformation">
+		<field id="csid" />
+		<field id="inAuthority" />
+		<field id="inItem" />
+		<field id="displayName" />
+		<!-- SAS related fields -->
+		<field id="rev" mini="list" datatype="integer" />
+		<field id="sas" mini="list" datatype="boolean" />
+		<field id="proposed" mini="list" datatype="boolean" />
+		<field id="deprecated" mini="list" datatype="boolean" />
+	</section>
+
+</record>

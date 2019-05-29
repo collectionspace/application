@@ -16,13 +16,9 @@
 
 	<services-url>vocabularies</services-url>
 	<authority-vocab-type>enum</authority-vocab-type>
-	<hassoftdelete>true</hassoftdelete>
+
 	<supportsReplicating>true</supportsReplicating>
 	<remoteClientConfigName>default</remoteClientConfigName>
-
-	<structures>
-		<structure id="screen"></structure>
-	</structures>
 
 	<include src="domain-vocabularies.xml" strip-root="yes"></include>
 
@@ -33,37 +29,27 @@
 	</section>
 
 	<section id="vocabularyInformation">
-		<field id="displayName" in-title="yes" display-name="yes" mini="summary,number,search,list,relate">
-			<selector>vocabulary-displayName</selector>
-			<title-selector>titleBar-displayName</title-selector>
-		</field>
-		<field id="termStatus" mini="search,list,relate" seperate_ui_container="true">
-			<selector>vocabulary-status</selector>
-			<options>
-				<option id="active" default="yes">Active</option>
-				<option id="inactive">Inactive</option>
-			</options>
-		</field>
-		<field id="shortIdentifier">
-			<selector>vocabulary-shortIdentifier</selector>
-		</field>
-		<field id="description"></field>
+		<field id="displayName"   mini="summary,number,list" />
+		<field id="termStatus" mini="list" />
+		<field id="shortIdentifier" />
+		<field id="description" />
 	</section>
+
 	<!-- not used in UI except in autocompletes -->
 	<section id="otherInformation">
-		<field id="inAuthority"></field>
+		<field id="inAuthority" />
 		<field id="deprecatedRefName">
 			<services-tag>refName</services-tag>
 		</field>
-		<field id="order"></field>
-		<field id="source"></field>
-		<field id="sourcePage"></field>
-		<field id="shortIdentifier" mini="search,list,relate" attributes="GET"></field>
-		<field id="csid" exists-in-services="false" mini="search,list,relate" attributes="GET"></field>
+		<field id="order" />
+		<field id="source" />
+		<field id="sourcePage" />
+		<field id="shortIdentifier" mini="list"  />
+		<field id="csid" exists-in-services="false" mini="list"  />
 		<!-- SAS related fields -->
-		<field id="rev" mini="list" datatype="integer"></field>
-		<field id="sas" mini="list" datatype="boolean"></field>
-		<field id="proposed" mini="list" datatype="boolean"></field>
-		<field id="deprecated" mini="list" datatype="boolean"></field>
+		<field id="rev" mini="list" datatype="integer" />
+		<field id="sas" mini="list" datatype="boolean" />
+		<field id="proposed" mini="list" datatype="boolean" />
+		<field id="deprecated" mini="list" datatype="boolean" />
 	</section>
 </record>

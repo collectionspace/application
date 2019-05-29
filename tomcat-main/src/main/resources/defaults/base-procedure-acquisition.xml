@@ -1,195 +1,68 @@
+<record id="acquisition" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
+	<services-url>acquisitions</services-url>
+	<services-tenant-singular>Acquisition</services-tenant-singular>
+	<services-list-path>abstract-common-list/list-item</services-list-path>
+	<services-record-path>acquisitions_common:http://collectionspace.org/services/acquisition,acquisitions_common</services-record-path>
+	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
 
-            <record id="acquisition" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
-                <services-url>acquisitions</services-url>
-                <services-tenant-singular>Acquisition</services-tenant-singular>
-                <services-list-path>abstract-common-list/list-item</services-list-path>
-                <services-record-path>acquisitions_common:http://collectionspace.org/services/acquisition,acquisitions_common</services-record-path>
-                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-                <hassoftdelete>true</hassoftdelete>
-                <structures>
-                    <structure id="screen">
-                        <view>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                    </structure>
-                    <structure id="search">
-                        <view>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                    </structure>
-                    <structure id="tab">
-                        <view>
-                            <titlebar show="false"></titlebar>
-                            <sidebar show="false"></sidebar>
-                            <edit-section id="details" show="true"></edit-section>
-                            <list-section id="list" show="false"></list-section>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                        <repeat id="list" asSibling="true">
-                            <selector>recordList-row:</selector>
-                            <field id="summary" ui-type="list">
-                                <selector>related-summary</selector>
-                            </field>
-                            <field id="number" ui-type="list">
-                                <selector>related-number</selector>
-                            </field>
-                        </repeat>
-                    </structure>
-                </structures>
-				
-				<include src="domain-procedure-acquisition.xml" strip-root="yes"/>
-				
-                <section id="coreInformation">
-					<include src="core-fields.xml"  strip-root="yes" />
-                    <field id="ownersource" exists-in-services="false">
-                        <!-- mini="summary,search,list,relate" in-title="yes" -->
-                        <selector>object-acquisition-ownersource</selector>
-                        <merges>
-                            <merge id="owner" rank="2" />
-                            <merge id="acquisitionSource" rank="1" />
-                        </merges>
-                    </field>
-                </section>
-                <section id="acquisitionAuthorizerHeader">
-                      <!-- here until I can think of a better way of doing it -->
-                </section>
-                <section id="acquisitionInformation">
-                    <field id="acquisitionReferenceNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate" seperate_ui_container="true">
-                        <selector>acquisition-numberPatternChooser-reference-number</selector>
-                        <title-selector>titleBar-acquisition-reference-number</title-selector>
-                        <container-selector>acquisition-reference-number-patternChooserContainer</container-selector>
-                        <options>
-                            <option id="accession" sample="2009.1">Accession</option>
-                            <option id="archive" sample="AR2009.42">Archives</option>
-                            <option id="library" sample="LIB2009.1">Library</option>
-                        </options>
-                    </field>
-                    <field id="accessionDateGroup" ui-type="groupfield/structureddate" 
-                        ui-search="range" primarykey="accessionDateGroup.dateDisplayDate"
-                        ui-func="cspace.structuredDate">
-                    </field>
-                    <field id="acquisitionAuthorizer" autocomplete="person-person,person-person_shared"></field>
-                    <field id="acquisitionAuthorizerDate" ui-type="date" datatype="date">
-                        <selector>acquisition-acquisitionAuthorizerDate</selector>
-                        <container-selector>acquisition-acquisitionAuthorizerDate-container</container-selector>
-                    </field>
-                    <repeat id="acquisitionDateGroupList/acquisitionDateGroup">
-                      <group id="acquisitionDateGroup" ui-type="groupfield/structureddate"
-                          ui-search="range" primarykey="dateDisplayDate"
-                          ui-func="cspace.structuredDate" xxx-services-no-repeat="true">
-                      </group>
-                    </repeat>
-                    <field id="acquisitionMethod" ui-search="repeatable" seperate_ui_container="true">
-                        <selector>acquisition-acquisition-method</selector>
-                        <options>
-                            <option id="gift" default="yes">Gift</option>
-                            <option id="purchase">Purchase</option>
-                            <option id="exchange">Exchange</option>
-                            <option id="transfer">Transfer</option>
-                            <option id="treasure">Treasure</option>
-                        </options>
-                    </field>
-                    <repeat id="acquisitionSources">
-                        <field id="acquisitionSource" mini="summary,search,list,relate" in-title="yes"
-                            ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared">
-                            <selector>acquisition-acquisitionSource</selector>
-                        </field>
-                    </repeat>
-                    <repeat id="owners">
-                        <selector>acquisition-owner</selector>
-                        <field id="owner" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared">
-                            <selector>acquisition-owner</selector>
-                        </field>
-                    </repeat>
-                    <field id="transferOfTitleNumber" datatype="largetext">
-                        <selector>acquisition-transfer-of-title-number</selector>
-                    </field>
-                    <repeat id="approvalGroupList/approvalGroup">
-                        <field id="approvalGroup" autocomplete="vocab-deaccessionapprovalgroup" ui-type="enum"/>
-                        <field id="approvalIndividual" autocomplete="person-person" />
-                        <field id="approvalStatus" autocomplete="vocab-deaccessionapprovalstatus" ui-type="enum"/>
-                        <field id="approvalDate" ui-type="date" datatype="date"/>
-                        <field id="approvalNote" />
-                    </repeat>
-                    <field id="creditLine" ui-search="repeatable"></field>
-                    <field id="groupPurchasePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
-                        <enum>
-                            <default>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'</default>
-                        </enum>
-                        <selector>acquisition-group-purchase-price-currency</selector>
-                    </field>
-                    <field id="groupPurchasePriceValue" ui-type="validated" datatype="float">
-                        <selector>acquisition-group-purchase-price-value</selector>
-                    </field>
-                    <field id="objectOfferPriceCurrency" autocomplete="vocab-currency" ui-type="enum">
-                        <enum>
-                            <default>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'</default>
-                        </enum>
-                        <selector>acquisition-object-offer-price-currency</selector>
-                    </field>
-                    <field id="objectOfferPriceValue" ui-type="validated" datatype="float">
-                        <selector>acquisition-object-offer-price-value</selector>
-                    </field>
-                    <field id="objectPurchaseOfferPriceCurrency" autocomplete="vocab-currency" ui-type="enum">
-                        <enum>
-                            <default>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'</default>
-                        </enum>
-                        <selector>acquisition-purchaser-price-denomination</selector>
-                    </field>
-                    <field id="objectPurchaseOfferPriceValue">
-                        <selector>acquisition-purchaser-price</selector>
-                    </field>
-                    <field id="objectPurchasePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
-                        <enum>
-                            <default>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'</default>
-                        </enum>
-                        <selector>acquisition-object-purchase-price-currency</selector>
-                    </field>
-                    <field id="objectPurchasePriceValue" ui-search="range" ui-type="validated" datatype="float">
-                        <selector>acquisition-object-purchase-price-value</selector>
-                    </field>
-                    <field id="objectPurchaseOfferPriceCurrency" autocomplete="vocab-currency" ui-type="enum">
-                        <enum>
-                            <default>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'</default>
-                        </enum>
-                        <selector>acquisition-object-purchase-offer-price-currency</selector>
-                    </field>
-                    <field id="objectPurchaseOfferPriceValue" ui-type="validated" datatype="float">
-                        <selector>acquisition-object-purchase-offer-price-value</selector>
-                    </field>
-                    <field id="originalObjectPurchasePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
-                        <enum>
-                            <default>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'</default>
-                        </enum>
-                        <selector>acquisition-original-object-purchase-price-currency</selector>
-                    </field>
-                    <field id="originalObjectPurchasePriceValue" ui-type="validated" datatype="float">
-                        <selector>acquisition-original-object-purchase-price-value</selector>
-                    </field>
-                    <field id="acquisitionReason">
-                        <selector>acquisition-acquisition-reason</selector>
-                    </field>
-                    <field id="acquisitionNote">
-                        <selector>acquisition-acquisition-note</selector>
-                    </field>
-                    <field id="acquisitionProvisos">
-                        <selector>acquisition-acquisition-provisos</selector>
-                    </field>
-                    <repeat id="acquisitionFundingList/acquisitionFunding">
-                        <field id="acquisitionFundingCurrency" autocomplete="vocab-currency" ui-type="enum">
-                            <enum>
-                                <default>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'</default>
-                            </enum>
-                        </field>
-                        <field id="acquisitionFundingValue" ui-type="validated" datatype="float"></field>
-                        <field id="acquisitionFundingSource" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"></field>
-                        <field id="acquisitionFundingSourceProvisos"></field>
-                    </repeat>
-                </section>
-                <section id="objectCollectionInformation">
-                    <repeat id="fieldCollectionEventNames">
-                        <selector>acquisition-fieldCollectionEventName</selector>
-                        <field id="fieldCollectionEventName" ui-search="repeatable"></field>
-                    </repeat>
-                </section>
-            </record>
+	<include src="domain-procedure-acquisition.xml" strip-root="yes" />
+
+	<section id="coreInformation">
+		<include src="core-fields.xml" strip-root="yes" />
+		<field id="ownersource" exists-in-services="false" />
+	</section>
+
+	<section id="acquisitionInformation">
+		<field id="acquisitionReferenceNumber" mini="number,list" />
+		<field id="accessionDateGroup" ui-type="groupfield/structureddate">
+		</field>
+		<field id="acquisitionAuthorizer" autocomplete="true" />
+		<field id="acquisitionAuthorizerDate" datatype="date" />
+		<repeat id="acquisitionDateGroupList/acquisitionDateGroup">
+			<group id="acquisitionDateGroup" ui-type="groupfield/structureddate">
+			</group>
+		</repeat>
+		<field id="acquisitionMethod" />
+		<repeat id="acquisitionSources">
+			<field id="acquisitionSource" mini="summary,list" autocomplete="true" />
+		</repeat>
+		<repeat id="owners">
+			<field id="owner" autocomplete="true" />
+		</repeat>
+		<field id="transferOfTitleNumber" datatype="largetext" />
+		<repeat id="approvalGroupList/approvalGroup">
+			<field id="approvalGroup" autocomplete="true" ui-type="enum" />
+			<field id="approvalIndividual" autocomplete="true" />
+			<field id="approvalStatus" autocomplete="true" ui-type="enum" />
+			<field id="approvalDate" datatype="date" />
+			<field id="approvalNote" />
+		</repeat>
+		<field id="creditLine" />
+		<field id="groupPurchasePriceCurrency" autocomplete="true" ui-type="enum" />
+		<field id="groupPurchasePriceValue" datatype="float" />
+		<field id="objectOfferPriceCurrency" autocomplete="true" ui-type="enum" />
+		<field id="objectOfferPriceValue" datatype="float" />
+		<field id="objectPurchaseOfferPriceCurrency" autocomplete="true" ui-type="enum" />
+		<field id="objectPurchaseOfferPriceValue" />
+		<field id="objectPurchasePriceCurrency" autocomplete="true" ui-type="enum" />
+		<field id="objectPurchasePriceValue" datatype="float" />
+		<field id="objectPurchaseOfferPriceCurrency" autocomplete="true" ui-type="enum" />
+		<field id="objectPurchaseOfferPriceValue" datatype="float" />
+		<field id="originalObjectPurchasePriceCurrency" autocomplete="true" ui-type="enum" />
+		<field id="originalObjectPurchasePriceValue" datatype="float" />
+		<field id="acquisitionReason" />
+		<field id="acquisitionNote" />
+		<field id="acquisitionProvisos" />
+		<repeat id="acquisitionFundingList/acquisitionFunding">
+			<field id="acquisitionFundingCurrency" autocomplete="true" ui-type="enum" />
+			<field id="acquisitionFundingValue" datatype="float" />
+			<field id="acquisitionFundingSource" autocomplete="true" />
+			<field id="acquisitionFundingSourceProvisos" />
+		</repeat>
+	</section>
+	<section id="objectCollectionInformation">
+		<repeat id="fieldCollectionEventNames">
+			<field id="fieldCollectionEventName" />
+		</repeat>
+	</section>
+</record>

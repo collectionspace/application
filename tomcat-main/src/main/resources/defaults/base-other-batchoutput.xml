@@ -9,22 +9,21 @@
 	<structures>
 		<structure id="screen">
 			<view>
-				<titlebar show="false"/>
-				<sidebar show="false"/>
-				<label-section id="messagekeys" show="true"/>
+				<titlebar show="false" />
+
 			</view>
 		</structure>
 	</structures>
 
-	<include src="domain-other-batchoutput.xml" strip-root="yes"/>
+	<include src="domain-other-batchoutput.xml" strip-root="yes" />
 
 	<section id="batchOutputInformation">
-		<field id="docType"/>
-		<field id="mode"/>
-		<field id="singleCSID"/>
-		<field id="groupCSID"/>
+		<field id="docType" />
+		<field id="mode" />
+		<field id="singleCSID" />
+		<field id="groupCSID" />
 		<repeat id="listCSIDs">
-			<field id="csid"/>
+			<field id="csid" />
 		</repeat>
 	</section>
 </record>

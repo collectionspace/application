@@ -1,129 +1,89 @@
 <record id="taxon" type="authority" cms-type="default" in-recordlist="yes" in-findedit="yes" generate-services-schema="true">
-    <terms-used>true</terms-used>
-    <web-url>taxon</web-url>
-    
-    <services-tenant-auth-singular>Taxonomyauthority</services-tenant-auth-singular>
-    <services-tenant-auth-plural>Taxonomyauthority</services-tenant-auth-plural>    
-    <services-tenant-singular>Taxon</services-tenant-singular>
-    <services-tenant-plural>Taxon</services-tenant-plural>
-    
-    <services-instances-path>taxonomyauthority_common:http://collectionspace.org/services/taxonomy,abstract-common-list/list-item</services-instances-path>
-    <services-single-instance-path>taxonomyauthority_common:http://collectionspace.org/services/taxonomy,taxonomyauthority_common</services-single-instance-path>
-    <services-list-path>http://collectionspace.org/services/taxonomy,abstract-common-list/list-item</services-list-path>
-    
-    <services-record-path>taxon_common:http://collectionspace.org/services/taxonomy,taxon_common</services-record-path>
-    <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-    <services-url>taxonomyauthority</services-url>
-    <authority-vocab-type>TaxonomyAuthority</authority-vocab-type>
-    <authorization-view>true</authorization-view>
-    <hassoftdelete>true</hassoftdelete>
-    
-    <structures>
-        <structure id="search">
-            <view>
-                <label-section id="messagekeys" show="true"/>
-            </view>
-        </structure>
-        <structure id="screen">
-            <view>
-                <label-section id="messagekeys" show="true"/>
-                <hierarchy-section show="true">
-                    <options>
-                        <option id="narrowerContext">taxon-taxon</option>
-                        <option id="broaderContext">taxon-taxon</option>
-                    </options>
-                </hierarchy-section>
-            </view>
-        </structure>
-    </structures>
+	<terms-used>true</terms-used>
+	<web-url>taxon</web-url>
 
-    <include src="domain-authority-taxon.xml" strip-root="yes"/>
+	<services-tenant-auth-singular>Taxonomyauthority</services-tenant-auth-singular>
+	<services-tenant-auth-plural>Taxonomyauthority</services-tenant-auth-plural>
+	<services-tenant-singular>Taxon</services-tenant-singular>
+	<services-tenant-plural>Taxon</services-tenant-plural>
 
-    <instances id="taxon">
-        <instance id="taxon-taxon">
-            <web-url>taxon</web-url>
-            <title-ref>taxon</title-ref>
-            <title>Local Taxa</title>
-        </instance>
-        <instance id="taxon-common_ta">
-            <web-url>common_ta</web-url>
-            <title-ref>common_ta</title-ref>
-            <title>Common Taxa</title>
-        </instance>
-    </instances>
-	
+	<services-instances-path>taxonomyauthority_common:http://collectionspace.org/services/taxonomy,abstract-common-list/list-item</services-instances-path>
+	<services-single-instance-path>taxonomyauthority_common:http://collectionspace.org/services/taxonomy,taxonomyauthority_common</services-single-instance-path>
+	<services-list-path>http://collectionspace.org/services/taxonomy,abstract-common-list/list-item</services-list-path>
+
+	<services-record-path>taxon_common:http://collectionspace.org/services/taxonomy,taxon_common</services-record-path>
+	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+	<services-url>taxonomyauthority</services-url>
+	<authority-vocab-type>TaxonomyAuthority</authority-vocab-type>
+	<authorization-view>true</authorization-view>
+
+	<structures>
+		<structure id="screen">
+			<view>
+				<hierarchy-section show="true" />
+			</view>
+		</structure>
+	</structures>
+
+	<include src="domain-authority-taxon.xml" strip-root="yes" />
+
+	<instances id="taxon">
+		<instance id="taxon-taxon">
+			<web-url>taxon</web-url>
+			<title-ref>taxon</title-ref>
+			<title>Local Taxa</title>
+		</instance>
+		<instance id="taxon-common_ta">
+			<web-url>common_ta</web-url>
+			<title-ref>common_ta</title-ref>
+			<title>Common Taxa</title>
+		</instance>
+	</instances>
+
 	<section id="coreInformation">
-		<include src="core-fields.xml"  strip-root="yes" />
+		<include src="core-fields.xml" strip-root="yes" />
 	</section>
-	
-    <section id="taxonNameAuthorityInformation">
-        <!-- Is the shortIdentifier field needed here? It isn't present in all other authority record configs - ADR 2012-05-10 -->
-        <field id="shortIdentifier"/>
-        <field id="preferredTaxon" ui-type="groupfield/preferredTA/selfrenderer" ui-func="cspace.preferred">
-            <selector>preferred-taxonAuthority</selector>
-        </field>
-        <repeat id="taxonRecordTypes">
-            <field id="taxonRecordType" ui-search="repeatable" autocomplete="vocab-taxontype" ui-type="enum"/>
-        </repeat>
-        <field id="taxonRank" ui-search="repeatable" seperate_ui_container="true">
-            <options>
-                <option id="" default="yes">Please select a value</option>
-                <option id="domain">Domain</option>
-                <option id="kingdom">Kingdom</option>
-                <option id="phylum">Phylum</option>
-                <option id="division">Division</option>
-                <option id="family">Family</option>
-                <option id="class">Class</option>
-                <option id="order">Order</option>
-                <option id="genus">Genus</option>
-                <option id="species">Species</option>
-            </options>
-        </field>
-        <field id="taxonCurrency" ui-search="repeatable" seperate_ui_container="true">
-            <options>
-                <option id="" default="yes">Please select a value</option>
-                <option id="current">Current</option>
-                <option id="obsolete">Obsolete</option>
-                <option id="archaic">Archaic</option>
-            </options>
-        </field>
-        <repeat id="taxonAuthorGroupList/taxonAuthorGroup" has-primary="yes">
-            <field id="taxonAuthor" ui-search="repeatable" autocomplete="person-person,person-person_shared"/>
-            <field id="taxonAuthorType" seperate_ui_container="true">
-                <options>
-                    <option id="" default="yes">Please select a value</option>
-                    <option id="ascribed">Ascribed</option>
-                    <option id="parenthetical">Parenthetical</option>
-                </options>
-            </field>
-        </repeat>
-        <field id="taxonYear" ui-search="repeatable"/>
-        <repeat id="taxonCitationList" has-primary="yes" services-type-anonymous="false">
-            <field id="taxonCitation" autocomplete="citation-citation,citation-citation_shared,citation-worldcat" ui-search="repeatable"/>
-        </repeat>
-        <field id="taxonNote"/>
-        <field id="taxonIsNamedHybrid" datatype="boolean" ui-search="repeatable"></field>
-        <repeat id="commonNameGroupList/commonNameGroup" has-primary="yes">
-            <field id="commonName" ui-search="repeatable"/>
-            <field id="commonNameLanguage" autocomplete="vocab-languages" ui-type="enum"/>
-            <field id="commonNameSource" autocomplete="citation-citation,citation-citation_shared"/>
-            <field id="commonNameSourceDetail"/>
-        </repeat>
-    </section>
 
-    <!-- not used in UI except in autocompletes -->
-    <section id="otherInformation">
-       	<field id="description"></field>
-       	<field id="inAuthority" services-should-index="true"></field>
-    	<field id="deprecatedRefName">
+	<section id="taxonNameAuthorityInformation">
+		<!-- Is the shortIdentifier field needed here? It isn't present in all other authority record configs - ADR 2012-05-10 -->
+		<field id="shortIdentifier" />
+		<field id="preferredTaxon" ui-type="groupfield/preferredTA/selfrenderer" />
+		<repeat id="taxonRecordTypes">
+			<field id="taxonRecordType" autocomplete="true" ui-type="enum" />
+		</repeat>
+		<field id="taxonRank" />
+		<field id="taxonCurrency" />
+		<repeat id="taxonAuthorGroupList/taxonAuthorGroup">
+			<field id="taxonAuthor" autocomplete="true" />
+			<field id="taxonAuthorType" />
+		</repeat>
+		<field id="taxonYear" />
+		<repeat id="taxonCitationList" services-type-anonymous="false">
+			<field id="taxonCitation" autocomplete="true" />
+		</repeat>
+		<field id="taxonNote" />
+		<field id="taxonIsNamedHybrid" datatype="boolean" />
+		<repeat id="commonNameGroupList/commonNameGroup">
+			<field id="commonName" />
+			<field id="commonNameLanguage" autocomplete="true" ui-type="enum" />
+			<field id="commonNameSource" autocomplete="true" />
+			<field id="commonNameSourceDetail" />
+		</repeat>
+	</section>
+
+	<!-- not used in UI except in autocompletes -->
+	<section id="otherInformation">
+		<field id="description" />
+		<field id="inAuthority" services-should-index="true" />
+		<field id="deprecatedRefName">
 			<services-tag>refName</services-tag>
 		</field>
-        <field id="shortIdentifier" mini="search,list,relate" attributes="GET" services-should-index="true"/>
-        <field id="csid" exists-in-services="false" mini="search,list,relate" attributes="GET"/>
-        <!-- SAS related fields -->
-		<field id="rev" mini="list" datatype="integer"/>
-		<field id="sas" mini="list" datatype="boolean"/>
-		<field id="proposed" mini="list" datatype="boolean"/>
-		<field id="deprecated" mini="list" datatype="boolean"/>
-    </section>
+		<field id="shortIdentifier" mini="list" services-should-index="true" />
+		<field id="csid" exists-in-services="false" mini="list" />
+		<!-- SAS related fields -->
+		<field id="rev" mini="list" datatype="integer" />
+		<field id="sas" mini="list" datatype="boolean" />
+		<field id="proposed" mini="list" datatype="boolean" />
+		<field id="deprecated" mini="list" datatype="boolean" />
+	</section>
 </record>

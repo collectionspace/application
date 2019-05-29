@@ -1,150 +1,150 @@
 <?xml version="1.0"?>
 <root>
-    <include src="extensions/livingplant-vocabularies.xml" strip-root="yes"/>
-    <include src="extensions/locality-vocabularies.xml" strip-root="yes" />
-    <include src="extensions/annotation-vocabularies.xml" strip-root="yes" />
-    <include src="extensions/naturalhistory-vocabularies.xml" strip-root="yes" />
+	<include src="extensions/livingplant-vocabularies.xml" strip-root="yes" />
+	<include src="extensions/locality-vocabularies.xml" strip-root="yes" />
+	<include src="extensions/annotation-vocabularies.xml" strip-root="yes" />
+	<include src="extensions/naturalhistory-vocabularies.xml" strip-root="yes" />
 
-    <instance id="vocab-phaseFormType">
-        <web-url>phaseformtype</web-url>
-        <title-ref>phaseformtype</title-ref>
-        <title>phaseformtype</title>
-        <options>
-            <option id="unknown">Unknown</option>
-            <option id="mountedonpaper">Mounted on Paper</option>
-            <option id="storedinboxorbag">Stored in a Box or Bag</option>
-            <option id="preservedinliquid">Preserved in Liquid</option>
-            <option id="microscopeslidepreparation">Microscope Slide Preparation</option>
-            <option id="photograph">Photograph</option>
-            <option id="illustration">Illustration</option>
-            <option id="photocopy">Photocopy</option>
-            <option id="box">Box</option>
-            <option id="bag">Bag</option>
-            <option id="map">Map</option>
-        </options>
-    </instance>
+	<instance id="vocab-phaseFormType">
+		<web-url>phaseformtype</web-url>
+		<title-ref>phaseformtype</title-ref>
+		<title>phaseformtype</title>
+		<options>
+			<option id="unknown">Unknown</option>
+			<option id="mountedonpaper">Mounted on Paper</option>
+			<option id="storedinboxorbag">Stored in a Box or Bag</option>
+			<option id="preservedinliquid">Preserved in Liquid</option>
+			<option id="microscopeslidepreparation">Microscope Slide Preparation</option>
+			<option id="photograph">Photograph</option>
+			<option id="illustration">Illustration</option>
+			<option id="photocopy">Photocopy</option>
+			<option id="box">Box</option>
+			<option id="bag">Bag</option>
+			<option id="map">Map</option>
+		</options>
+	</instance>
 
-    <instance id="vocab-reasonForMove">
-        <web-url>reasonformove</web-url>
-        <title-ref>reasonformove</title-ref>
-        <title>reasonformove</title>
-        <options>
-            <option id="dead">Dead</option>
-            <option id="plantedout">Planted Out</option>
-            <option id="moved">Moved</option>
-            <option id="labelrequest">Label Request</option>
-            <option id="theft">Theft</option>
-            <option id="other">Other</option>
-            <option id="revived">Revived</option>
-        </options>
-    </instance>
+	<instance id="vocab-reasonForMove">
+		<web-url>reasonformove</web-url>
+		<title-ref>reasonformove</title-ref>
+		<title>reasonformove</title>
+		<options>
+			<option id="dead">Dead</option>
+			<option id="plantedout">Planted Out</option>
+			<option id="moved">Moved</option>
+			<option id="labelrequest">Label Request</option>
+			<option id="theft">Theft</option>
+			<option id="other">Other</option>
+			<option id="revived">Revived</option>
+		</options>
+	</instance>
 
-    <instance id="vocab-propReason">
-        <web-url>propreason</web-url>
-        <title-ref>propreason</title-ref>
-        <title>propreason</title>
-        <options>
-            <option id="classuse">class use</option>
-            <option id="research">research</option>
-            <option id="gardencollection">garden collection</option>
-            <option id="distribution">distribution</option>
-            <option id="conservation">conservation</option>
-        </options>
-    </instance>
+	<instance id="vocab-propReason">
+		<web-url>propreason</web-url>
+		<title-ref>propreason</title-ref>
+		<title>propreason</title>
+		<options>
+			<option id="classuse">class use</option>
+			<option id="research">research</option>
+			<option id="gardencollection">garden collection</option>
+			<option id="distribution">distribution</option>
+			<option id="conservation">conservation</option>
+		</options>
+	</instance>
 
-    <instance id="vocab-propType">
-        <web-url>proptype</web-url>
-        <title-ref>proptype</title-ref>
-        <title>proptype</title>
-        <options>
-            <option id="seed">Seed</option>
-            <option id="cutting">Cutting</option>
-            <option id="livingplant">Living Plant</option>
-            <option id="division">Division</option>
-            <option id="bulbcormtuber">Bulb/Corm/Tuber</option>
-            <option id="graft">Graft</option>
-            <option id="tissueculture">Tissue Culture</option>
-        </options>
-    </instance>
+	<instance id="vocab-propType">
+		<web-url>proptype</web-url>
+		<title-ref>proptype</title-ref>
+		<title>proptype</title>
+		<options>
+			<option id="seed">Seed</option>
+			<option id="cutting">Cutting</option>
+			<option id="livingplant">Living Plant</option>
+			<option id="division">Division</option>
+			<option id="bulbcormtuber">Bulb/Corm/Tuber</option>
+			<option id="graft">Graft</option>
+			<option id="tissueculture">Tissue Culture</option>
+		</options>
+	</instance>
 
-    <instance id="vocab-scarStrat">
-        <web-url>scarstrat</web-url>
-        <title-ref>scarstrat</title-ref>
-        <title>scarstrat</title>
-        <options>
-            <option id="abrade">abrade</option>
-            <option id="boilingwater">boiling water</option>
-            <option id="GA3">GA3</option>
-            <option id="fire">fire</option>
-            <option id="freeze">freeze</option>
-            <option id="isopropylalcohol">isopropyl alcohol</option>
-            <option id="nick">nick</option>
-            <option id="pericarpremovedbroken">pericarp removed/broken</option>
-            <option id="seedcoatremoved">seed coat removed</option>
-            <option id="sulfuricacid">sulfuric acid</option>
-            <option id="coldstrat">cold strat</option>
-            <option id="warmstrat">warm strat</option>
-            <option id="smoke">smoke</option>
-            <option id="watersoak">water soak</option>
-        </options>
-    </instance>
+	<instance id="vocab-scarStrat">
+		<web-url>scarstrat</web-url>
+		<title-ref>scarstrat</title-ref>
+		<title>scarstrat</title>
+		<options>
+			<option id="abrade">abrade</option>
+			<option id="boilingwater">boiling water</option>
+			<option id="GA3">GA3</option>
+			<option id="fire">fire</option>
+			<option id="freeze">freeze</option>
+			<option id="isopropylalcohol">isopropyl alcohol</option>
+			<option id="nick">nick</option>
+			<option id="pericarpremovedbroken">pericarp removed/broken</option>
+			<option id="seedcoatremoved">seed coat removed</option>
+			<option id="sulfuricacid">sulfuric acid</option>
+			<option id="coldstrat">cold strat</option>
+			<option id="warmstrat">warm strat</option>
+			<option id="smoke">smoke</option>
+			<option id="watersoak">water soak</option>
+		</options>
+	</instance>
 
-    <instance id="vocab-durationUnit">
-        <web-url>durationunit</web-url>
-        <title-ref>durationunit</title-ref>
-        <title>durationunit</title>
-        <options>
-            <option id="hours">Hours</option>
-            <option id="days">Days</option>
-            <option id="weeks">Weeks</option>
-            <option id="months">Months</option>
-        </options>
-    </instance>
+	<instance id="vocab-durationUnit">
+		<web-url>durationunit</web-url>
+		<title-ref>durationunit</title-ref>
+		<title>durationunit</title>
+		<options>
+			<option id="hours">Hours</option>
+			<option id="days">Days</option>
+			<option id="weeks">Weeks</option>
+			<option id="months">Months</option>
+		</options>
+	</instance>
 
-    <instance id="vocab-cuttingType">
-        <web-url>cuttingtype</web-url>
-        <title-ref>cuttingtype</title-ref>
-        <title>cuttingtype</title>
-        <options>
-            <option id="softwood">softwood</option>
-            <option id="semihardwood">semi-hardwood</option>
-            <option id="hardwood">hardwood</option>
-            <option id="heel">heel</option>
-            <option id="dormant">dormant</option>
-            <option id="root">root</option>
-        </options>
-    </instance>
+	<instance id="vocab-cuttingType">
+		<web-url>cuttingtype</web-url>
+		<title-ref>cuttingtype</title-ref>
+		<title>cuttingtype</title>
+		<options>
+			<option id="softwood">softwood</option>
+			<option id="semihardwood">semi-hardwood</option>
+			<option id="hardwood">hardwood</option>
+			<option id="heel">heel</option>
+			<option id="dormant">dormant</option>
+			<option id="root">root</option>
+		</options>
+	</instance>
 
-    <instance id="vocab-labelstandtype">
-        <web-url>labelstandtype</web-url>
-        <title-ref>labelstandtype</title-ref>
-        <title>labelstandtype</title>
-        <options>
-            <option id="dowel">dowel</option>
-            <option id="stake">stake</option>
-        </options>
-    </instance>
-    <instance id="vocab-labelsize">
-        <web-url>labelsize</web-url>
-        <title-ref>labelsize</title-ref>
-        <title>labelsize</title>
-        <options>
-            <option id="OneByThree">1x3</option>
-            <option id="OnePointFiveByFive">1.5x5</option>
-            <option id="ThreeByFive">3x5</option>
-        </options>
-    </instance>
-    <instance id="vocab-provenanceType">
-        <web-url>provenancetype</web-url>
-        <title-ref>provenancetype</title-ref>
-        <title>provenanceType</title>
-        <options>
-            <option id="wildsource">W-wild source</option>
-            <option id="cultivatedwildsource">Z-cultivated from wild source</option>
-            <option id="notwildsource">G-not wild source</option>
-            <option id="unknownsource">U-unknown</option>
-        </options>
-    </instance>
+	<instance id="vocab-labelstandtype">
+		<web-url>labelstandtype</web-url>
+		<title-ref>labelstandtype</title-ref>
+		<title>labelstandtype</title>
+		<options>
+			<option id="dowel">dowel</option>
+			<option id="stake">stake</option>
+		</options>
+	</instance>
+	<instance id="vocab-labelsize">
+		<web-url>labelsize</web-url>
+		<title-ref>labelsize</title-ref>
+		<title>labelsize</title>
+		<options>
+			<option id="OneByThree">1x3</option>
+			<option id="OnePointFiveByFive">1.5x5</option>
+			<option id="ThreeByFive">3x5</option>
+		</options>
+	</instance>
+	<instance id="vocab-provenanceType">
+		<web-url>provenancetype</web-url>
+		<title-ref>provenancetype</title-ref>
+		<title>provenanceType</title>
+		<options>
+			<option id="wildsource">W-wild source</option>
+			<option id="cultivatedwildsource">Z-cultivated from wild source</option>
+			<option id="notwildsource">G-not wild source</option>
+			<option id="unknownsource">U-unknown</option>
+		</options>
+	</instance>
 	<instance id="vocab-collectionobjectmaterialtype">
 		<web-url>materialtype</web-url>
 		<title-ref>materialtype</title-ref>
@@ -163,7 +163,7 @@
 			<option>roots</option>
 		</options>
 	</instance>
-    <instance id="vocab-vegetationtype">
+	<instance id="vocab-vegetationtype">
 		<web-url>vegetationtype</web-url>
 		<title-ref>vegetationtype</title-ref>
 		<title>vegetationType</title>
@@ -947,411 +947,411 @@
 		<title-ref>state</title-ref>
 		<title>state</title>
 		<options>
-		    <option id="Unknown">Unknown</option>
-		    <option id="Eua">&#x2019;Eua</option>
-		    <option id="Aamzonas">Aamzonas</option>
-		    <option id="Acre">Acre</option>
-		    <option id="AK">AK</option>
-		    <option id="AL">AL</option>
-		    <option id="Alajuela">Alajuela</option>
-		    <option id="Alajuelo">Alajuelo</option>
-		    <option id="ALB">ALB</option>
-		    <option id="Alberta">Alberta</option>
-		    <option id="Alger">Alger</option>
-		    <option id="AltaVerapaz">Alta Verapaz</option>
-		    <option id="Amazonas">Amazonas</option>
-		    <option id="Ancash">Ancash</option>
-		    <option id="Anhui">Anhui</option>
-		    <option id="Antioquia">Antioquia</option>
-		    <option id="Antofagasta">Antofagasta</option>
-		    <option id="Apurimac">Apurimac</option>
-		    <option id="AR">AR</option>
-		    <option id="Aragua">Aragua</option>
-		    <option id="Araucania">Araucania</option>
-		    <option id="Arequipa">Arequipa</option>
-		    <option id="ARIZ">ARIZ</option>
-		    <option id="Artigas">Artigas</option>
-		    <option id="Atacama">Atacama</option>
-		    <option id="Atlantida">Atlantida</option>
-		    <option id="Ayacucho">Ayacucho</option>
-		    <option id="AZ">AZ</option>
-		    <option id="AZTerritory">AZ Territory</option>
-		    <option id="Azuay">Azuay</option>
-		    <option id="BCdotted">B.C.</option>
-		    <option id="BCSdotted">B.C.S.</option>
-		    <option id="BacPhan">Bac Phan</option>
-		    <option id="Bahia">Bahia</option>
-		    <option id="BajaCal">Baja Cal</option>
-		    <option id="BajaCali">Baja Cali</option>
-		    <option id="BajaCalic">Baja Calic</option>
-		    <option id="BajaCalif">Baja Calif</option>
-		    <option id="BajaCalifornia">Baja California</option>
-		    <option id="BajaCaliforniaSur">Baja California Sur</option>
-		    <option id="BajaVerapaz">Baja Verapaz</option>
-		    <option id="Baleares">Baleares</option>
-		    <option id="Baluchistan">Baluchistan</option>
-		    <option id="BangueyIsland">Banguey Island</option>
-		    <option id="Barinas">Barinas</option>
-		    <option id="BC">BC</option>
-		    <option id="BCS">BCS</option>
-		    <option id="Benguet">Benguet</option>
-		    <option id="BinhTriThienTinh">Binh Tri Thien, Tinh</option>
-		    <option id="BiobioRegiodel">Biobio, Regio del</option>
-		    <option id="BismarckArchipelago">Bismarck Archipelago</option>
-		    <option id="BN">BN</option>
-		    <option id="Bohol">Bohol</option>
-		    <option id="Bolivar">Bolivar</option>
-		    <option id="Boyaca">Boyaca</option>
-		    <option id="BritishCo">British Co</option>
-		    <option id="BritishColumbia">British Columbia</option>
-		    <option id="Brunei">Brunei</option>
-		    <option id="BuenosAires">Buenos Aires</option>
-		    <option id="Bulacan">Bulacan</option>
-		    <option id="CA">CA</option>
-		    <option id="Cajamarca">Cajamarca</option>
-		    <option id="Campeche">Campeche</option>
-		    <option id="Canar">Canar</option>
-		    <option id="CapeofGoodHope">Cape of Good Hope</option>
-		    <option id="CapeProvince">Cape Province</option>
-		    <option id="Carchi">Carchi</option>
-		    <option id="CarolineIslands">Caroline Islands</option>
-		    <option id="Cartago">Cartago</option>
-		    <option id="Cascajal">Cascajal</option>
-		    <option id="Cataluna">Cataluna</option>
-		    <option id="Cauca">Cauca</option>
-		    <option id="Cebu">Cebu</option>
-		    <option id="Central">Central</option>
-		    <option id="Chalatenango">Chalatenango</option>
-		    <option id="CHI">CHI</option>
-		    <option id="Chia">Chia</option>
-		    <option id="ChiangMaiChangwat">Chiang Mai, Changwat</option>
-		    <option id="Chiapas">Chiapas</option>
-		    <option id="Chihuahua">Chihuahua</option>
-		    <option id="Chimaltenango">Chimaltenango</option>
-		    <option id="Chimborazo">Chimborazo</option>
-		    <option id="Chinandega">Chinandega</option>
-		    <option id="Chiriqui">Chiriqui</option>
-		    <option id="Chontales">Chontales</option>
-		    <option id="Chupadero">Chupadero</option>
-		    <option id="Chuquisaca">Chuquisaca</option>
-		    <option id="CO">CO</option>
-		    <option id="COTerritory">CO Territory</option>
-		    <option id="Coahuila">Coahuila</option>
-		    <option id="COCA">COCA</option>
-		    <option id="Cochabamba">Cochabamba</option>
-		    <option id="Cocle">Cocle</option>
-		    <option id="COL">COL</option>
-		    <option id="Colima">Colima</option>
-		    <option id="Comayagua">Comayagua</option>
-		    <option id="Concepcion">Concepcion</option>
-		    <option id="COP">COP</option>
-		    <option id="Coquimbo">Coquimbo</option>
-		    <option id="Cordoba">Cordoba</option>
-		    <option id="Cortes">Cortes</option>
-		    <option id="Costa">Costa</option>
-		    <option id="Cotopaxi">Cotopaxi</option>
-		    <option id="CT">CT</option>
-		    <option id="Cundinamarca">Cundinamarca</option>
-		    <option id="Cuzco">Cuzco</option>
-		    <option id="Darien">Darien</option>
-		    <option id="DE">DE</option>
-		    <option id="DeptLae">Dept. La e</option>
-		    <option id="DeptMag">Dept. Mag</option>
-		    <option id="DistritoFederal">Distrito Federal</option>
-		    <option id="DUR">DUR</option>
-		    <option id="Durango">Durango</option>
-		    <option id="EastMalaysia">East Malaysia</option>
-		    <option id="EastSepik">East Sepik</option>
-		    <option id="EasternDivision">Eastern Division</option>
-		    <option id="EasternDivsion">Eastern Divsion</option>
-		    <option id="ElProgreso">El Progreso</option>
-		    <option id="Esmeraldas">Esmeraldas</option>
-		    <option id="Esteli">Esteli</option>
-		    <option id="FL">FL</option>
-		    <option id="Florida">Florida</option>
-		    <option id="Fujian">Fujian</option>
-		    <option id="GA">GA</option>
-		    <option id="Gansu">Gansu</option>
-		    <option id="Goias">Goias</option>
-	        <option id="Golestan">Golestan</option>
-	        <option id="Granada">Granada</option>
-	        <option id="GRO">GRO</option>
-	        <option id="GUAM">GUAM</option>
-	        <option id="Guanacaste">Guanacaste</option>
-	        <option id="Guanajuato">Guanajuato</option>
-	        <option id="Guangdong">Guangdong</option>
-	        <option id="Guatemala">Guatemala</option>
-	        <option id="Guayas">Guayas</option>
-	        <option id="Guerrero">Guerrero</option>
-	        <option id="Guizhou">Guizhou</option>
-	        <option id="HaBachTinh">Ha Bach, Tinh</option>
-	        <option id="Hainan">Hainan</option>
-	        <option id="Halland">Halland</option>
-	        <option id="Hamadan">Hamadan</option>
-	        <option id="Heidelberg">Heidelberg</option>
-	        <option id="Heredia">Heredia</option>
-	        <option id="HI">HI</option>
-	        <option id="Hidalgo">Hidalgo</option>
-	        <option id="Honshu">Honshu</option>
-	        <option id="Huancabamba">Huancabamba</option>
-	        <option id="Huancavelica">Huancavelica</option>
-	        <option id="Huanuco">Huanuco</option>
-	        <option id="Hubei">Hubei</option>
-	        <option id="Huehuetena">Huehuetena</option>
-	        <option id="Huehuetenango">Huehuetenango</option>
-	        <option id="Humacao">Humacao</option>
-	        <option id="IA">IA</option>
-	        <option id="ID">ID</option>
-	        <option id="Idaho">Idaho</option>
-	        <option id="IL">IL</option>
-	        <option id="IN">IN</option>
-	        <option id="Insular">Insular</option>
-	        <option id="Ipiros">Ipiros</option>
-	        <option id="IqniqueProvince">Iqnique Province</option>
-	        <option id="Iringa">Iringa</option>
-	        <option id="Isabela">Isabela</option>
-	        <option id="Izabel">Izabel</option>
-	        <option id="JAL">JAL</option>
-	        <option id="Jalisco">Jalisco</option>
-	        <option id="Jalsico">Jalsico</option>
-	        <option id="JawaTimur">Jawa Timur</option>
-	        <option id="Jiangsu">Jiangsu</option>
-	        <option id="Jujuy">Jujuy</option>
-	        <option id="Junin">Junin</option>
-	        <option id="KA">KA</option>
-	        <option id="Kangean">Kangean</option>
-	        <option id="KhorasanProvince">Khorasan Province</option>
-	        <option id="KkanhHoa">Kkanh Hoa</option>
-	        <option id="KS">KS</option>
-	        <option id="KwaZuluNatal">KwaZulu-Natal</option>
-	        <option id="KY">KY</option>
-	        <option id="LA">LA</option>
-	        <option id="LaHabana">La Habana</option>
-	        <option id="LaLibertad">La Libertad</option>
-	        <option id="LaPaz">La Paz</option>
-	        <option id="LaVega">La Vega</option>
-	        <option id="Lambayeque">Lambayeque</option>
-	        <option id="LasVillas">Las Villas</option>
-	        <option id="LASAN">LASAN</option>
-	        <option id="Leon">Leon</option>
-	        <option id="Lima">Lima</option>
-	        <option id="Limon">Limon</option>
-	        <option id="Loja">Loja</option>
-	        <option id="Loreto">Loreto</option>
-	        <option id="Luzon">Luzon</option>
-	        <option id="MA">MA</option>
-	        <option id="MadredeDios">Madre de Dios</option>
-	        <option id="Magdalena">Magdalena</option>
-	        <option id="Maldonado">Maldonado</option>
-	        <option id="Manabi">Manabi</option>
-	        <option id="Manitoba">Manitoba</option>
-	        <option id="MarianaIslands">Mariana Islands</option>
-	        <option id="MatoGrosso">Mato Grosso</option>
-	        <option id="MattoGrosso">Matto Grosso</option>
-	        <option id="Mayaguez">Mayaguez</option>
-	        <option id="Mazandaran">Mazandaran</option>
-	        <option id="MD">MD</option>
-	        <option id="ME">ME</option>
-	        <option id="Merida">Merida</option>
-	        <option id="Meta">Meta</option>
-	        <option id="Mexico">Mexico</option>
-	        <option id="MI">MI</option>
-	        <option id="MIC">MIC</option>
-	        <option id="MICH">MICH</option>
-	        <option id="Michoacan">Michoacan</option>
-	        <option id="MinasGerais">Minas Gerais</option>
-	        <option id="Mindanao">Mindanao</option>
-	        <option id="Misiones">Misiones</option>
-	        <option id="MN">MN</option>
-	        <option id="MO">MO</option>
-	        <option id="MON">MON</option>
-	        <option id="Montevideo">Montevideo</option>
-	        <option id="Morazan">Morazan</option>
-	        <option id="Morelos">Morelos</option>
-	        <option id="MS">MS</option>
-	        <option id="MT">MT</option>
-	        <option id="MX">MX</option>
-	        <option id="NSegovia">N. Segovia</option>
-	        <option id="Narino">Narino</option>
-	        <option id="NAY">NAY</option>
-	        <option id="Nayarit">Nayarit</option>
-	        <option id="NC">NC</option>
-	        <option id="ND">ND</option>
-	        <option id="NE">NE</option>
-	        <option id="NeuvoLeon">Neuvo Leon</option>
-	        <option id="Nevada">Nevada</option>
-	        <option id="NewBrunswick">New Brunswick</option>
-	        <option id="NewSouthWales">New South Wales</option>
-	        <option id="Newfoundland">Newfoundland</option>
-	        <option id="NH">NH</option>
-	        <option id="NJ">NJ</option>
-	        <option id="NL">NL</option>
-	        <option id="NM">NM</option>
-	        <option id="NMTX">NM-TX</option>
-	        <option id="Nord">Nord</option>
-	        <option id="Norte">Norte</option>
-	        <option id="NortedeSantander">Norte de Santander</option>
-	        <option id="NorthAyrshire">North Ayrshire</option>
-	        <option id="Northeastern">Northeastern</option>
-	        <option id="Northern">Northern</option>
-	        <option id="NorthernDivision">Northern Division</option>
-	        <option id="NorthernTerritory">Northern Territory</option>
-	        <option id="NorthwestFrontier">Northwest Frontier</option>
-	        <option id="NorthwestTerritorie">Northwest Territorie</option>
-	        <option id="NuevoLeon">Nuevo Leon</option>
-	        <option id="NV">NV</option>
-	        <option id="NY">NY</option>
-	        <option id="OA">OA</option>
-	        <option id="OAX">OAX</option>
-	        <option id="Oaxaca">Oaxaca</option>
-	        <option id="OH">OH</option>
-	        <option id="OK">OK</option>
-	        <option id="Ontario">Ontario</option>
-	        <option id="OR">OR</option>
-	        <option id="ORorWA">OR or WA</option>
-	        <option id="Oregon">Oregon</option>
-	        <option id="Oriente">Oriente</option>
-	        <option id="Otuzco">Otuzco</option>
-	        <option id="PA">PA</option>
-	        <option id="Palawan">Palawan</option>
-	        <option id="Panama">Panama</option>
-	        <option id="Panay">Panay</option>
-            <option id="Paraguari">Paraguari</option>
-	        <option id="Parana">Parana</option>
-            <option id="Paris">Paris</option>
-            <option id="Pasco">Pasco</option>
-            <option id="Pataz">Pataz</option>
-	        <option id="PE">PE</option>
-	        <option id="Peloponnisos">Peloponnisos</option>
-            <option id="Peten">Peten</option>
-            <option id="Pichincha">Pichincha</option>
-            <option id="Piura">Piura</option>
-            <option id="PMG">PMG</option>
-            <option id="Pohnpei">Pohnpei</option>
-            <option id="PomeroonSupernaam">Pomeroon-Supernaam</option>
-            <option id="Portuguesa">Portuguesa</option>
-            <option id="Potosi">Potosi</option>
-            <option id="PRE">PRE</option>
-            <option id="PrinceEdwardIsland">Prince Edward Island</option>
-            <option id="PUE">PUE</option>
-            <option id="Puebla">Puebla</option>
-            <option id="PuertoRico">Puerto Rico</option>
-            <option id="Puno">Puno</option>
-            <option id="Puntarenas">Puntarenas</option>
-            <option id="QuangNgai">Quang Ngai</option>
-            <option id="Quebec">Quebec</option>
-            <option id="Queensland">Queensland</option>
-            <option id="Quezaltenango">Quezaltenango</option>
-            <option id="Quezon">Quezon</option>
-            <option id="Quiche">Quiche</option>
-            <option id="RI">RI</option>
-            <option id="RiodeJaneiro">Rio de Janeiro</option>
-            <option id="Rizal">Rizal</option>
-            <option id="SCatarina">S Catarina</option>
-            <option id="SLPotosiSpaced">S L Potosi</option>
-            <option id="SLPotos">S.L. Potos</option>
-            <option id="Sabah">Sabah</option>
-            <option id="Salta">Salta</option>
-            <option id="Samar">Samar</option>
-            <option id="SanBlas">San Blas</option>
-            <option id="SanJose">San Jose</option>
-            <option id="SanLuis">San Luis</option>
-            <option id="SanLuisa">San Luis a</option>
-            <option id="SanLuisPotosi">San Luis Potosi</option>
-            <option id="SanMartin">San Martin</option>
-            <option id="SanMiguel">San Miguel</option>
-            <option id="SanPedro">San Pedro</option>
-            <option id="SantaBarbara">Santa Barbara</option>
-            <option id="SantaCatarina">Santa Catarina</option>
-            <option id="SantaCruz">Santa Cruz</option>
-            <option id="Santander">Santander</option>
-            <option id="SantiagoRegionMet">Santiago, Region Met</option>
-            <option id="SaoPaulo">Sao Paulo</option>
-            <option id="Sarawak">Sarawak</option>
-            <option id="Saskatchew">Saskatchew</option>
-            <option id="Saskatchewan">Saskatchewan</option>
-            <option id="SavaiiIsland">Savaii Island</option>
-            <option id="SC">SC</option>
-            <option id="Scotland">Scotland</option>
-            <option id="SD">SD</option>
-            <option id="Semnan">Semnan</option>
-            <option id="Seybo">Seybo</option>
-            <option id="Sichuan">Sichuan</option>
-            <option id="Sierra">Sierra</option>
-            <option id="SIN">SIN</option>
-            <option id="Sinaloa">Sinaloa</option>
-            <option id="SLPotosi">SL Potosi</option>
-            <option id="SocieteIlesdela">Societe, Iles de la</option>
-            <option id="SocieteIslesdela">Societe, Isles de la</option>
-            <option id="SON">SON</option>
-            <option id="Sonora">Sonora</option>
-            <option id="Sonsonate">Sonsonate</option>
-            <option id="SouthAustralia">South Australia</option>
-            <option id="SouthernCookIsland">Southern Cook Island</option>
-            <option id="StAndrew">St. Andrew</option>
-            <option id="StCroix">St. Croix</option>
-            <option id="StannCreek">Stann Creek</option>
-            <option id="Sulu">Sulu</option>
-            <option id="Sumatera">Sumatera</option>
-            <option id="TAB">TAB</option>
-            <option id="Tabasco">Tabasco</option>
-            <option id="Tachira">Tachira</option>
-            <option id="Tacna">Tacna</option>
-            <option id="TAM">TAM</option>
-            <option id="Tamaulipas">Tamaulipas</option>
-            <option id="TarankProvince">Tarank Province</option>
-            <option id="Tarija">Tarija</option>
-            <option id="Tarma">Tarma</option>
-            <option id="Tasmania">Tasmania</option>
-            <option id="Tehran">Tehran</option>
-            <option id="TierradelFuego">Tierra del Fuego</option>
-            <option id="Tlaxcala">Tlaxcala</option>
-            <option id="TN">TN</option>
-            <option id="Toledo">Toledo</option>
-            <option id="Tongatapu">Tongatapu</option>
-            <option id="Trelawny">Trelawny</option>
-            <option id="Trujillo">Trujillo</option>
-            <option id="TuamotuArchipelde">Tuamotu, Archipel de</option>
-            <option id="TubuaiIles">Tubuai, Iles</option>
-            <option id="Tucuman">Tucuman</option>
-            <option id="TutuilaIsland">Tutuila Island</option>
-            <option id="TX">TX</option>
-<!--        <option id="TX">TX </option> -->
-            <option id="TXNM">TX-NM</option>
-            <option id="UpoluIsland">Upolu Island</option>
-            <option id="UT">UT</option>
-            <option id="Utah">Utah</option>
-            <option id="VA">VA</option>
-            <option id="Valle">Valle</option>
-            <option id="Valparaiso">Valparaiso</option>
-		    <option id="Vaupes">Vaupes</option>
-            <option id="Veracruz">Veracruz</option>
-            <option id="Verguas">Verguas</option>
-            <option id="Victoria">Victoria</option>
-            <option id="VT">VT</option>
-            <option id="wTXtoNM">w TX to NM</option>
-            <option id="wTXElPasoNM">w. TX - El Paso, NM</option>
-<!--        <option id="wTXElPasoNM">w. TX - El Paso,NM</option> -->
-            <option id="WA">WA</option>
-            <option id="WATerritory">WA Territory</option>
-            <option id="Wales">Wales</option>
-            <option id="WAS">WAS</option>
-            <option id="WesternAustralia">Western Australia</option>
-            <option id="WesternCape">Western Cape</option>
-            <option id="WI">WI</option>
-            <option id="WN">WN</option>
-            <option id="WV">WV</option>
-            <option id="WY">WY</option>
-            <option id="Wyoming">Wyoming</option>
-            <option id="Xizang">Xizang</option>
-            <option id="Yaracuy">Yaracuy</option>
-            <option id="Yoro">Yoro</option>
-            <option id="Yucatan">Yucatan</option>
-            <option id="YukonTerritory">Yukon Territory</option>
-            <option id="Yunnan">Yunnan</option>
-            <option id="Zacatecas">Zacatecas</option>
-            <option id="Zhejiang">Zhejiang</option>
-            <option id="Zulia">Zulia</option>
+			<option id="Unknown">Unknown</option>
+			<option id="Eua">&#x2019;Eua</option>
+			<option id="Aamzonas">Aamzonas</option>
+			<option id="Acre">Acre</option>
+			<option id="AK">AK</option>
+			<option id="AL">AL</option>
+			<option id="Alajuela">Alajuela</option>
+			<option id="Alajuelo">Alajuelo</option>
+			<option id="ALB">ALB</option>
+			<option id="Alberta">Alberta</option>
+			<option id="Alger">Alger</option>
+			<option id="AltaVerapaz">Alta Verapaz</option>
+			<option id="Amazonas">Amazonas</option>
+			<option id="Ancash">Ancash</option>
+			<option id="Anhui">Anhui</option>
+			<option id="Antioquia">Antioquia</option>
+			<option id="Antofagasta">Antofagasta</option>
+			<option id="Apurimac">Apurimac</option>
+			<option id="AR">AR</option>
+			<option id="Aragua">Aragua</option>
+			<option id="Araucania">Araucania</option>
+			<option id="Arequipa">Arequipa</option>
+			<option id="ARIZ">ARIZ</option>
+			<option id="Artigas">Artigas</option>
+			<option id="Atacama">Atacama</option>
+			<option id="Atlantida">Atlantida</option>
+			<option id="Ayacucho">Ayacucho</option>
+			<option id="AZ">AZ</option>
+			<option id="AZTerritory">AZ Territory</option>
+			<option id="Azuay">Azuay</option>
+			<option id="BCdotted">B.C.</option>
+			<option id="BCSdotted">B.C.S.</option>
+			<option id="BacPhan">Bac Phan</option>
+			<option id="Bahia">Bahia</option>
+			<option id="BajaCal">Baja Cal</option>
+			<option id="BajaCali">Baja Cali</option>
+			<option id="BajaCalic">Baja Calic</option>
+			<option id="BajaCalif">Baja Calif</option>
+			<option id="BajaCalifornia">Baja California</option>
+			<option id="BajaCaliforniaSur">Baja California Sur</option>
+			<option id="BajaVerapaz">Baja Verapaz</option>
+			<option id="Baleares">Baleares</option>
+			<option id="Baluchistan">Baluchistan</option>
+			<option id="BangueyIsland">Banguey Island</option>
+			<option id="Barinas">Barinas</option>
+			<option id="BC">BC</option>
+			<option id="BCS">BCS</option>
+			<option id="Benguet">Benguet</option>
+			<option id="BinhTriThienTinh">Binh Tri Thien, Tinh</option>
+			<option id="BiobioRegiodel">Biobio, Regio del</option>
+			<option id="BismarckArchipelago">Bismarck Archipelago</option>
+			<option id="BN">BN</option>
+			<option id="Bohol">Bohol</option>
+			<option id="Bolivar">Bolivar</option>
+			<option id="Boyaca">Boyaca</option>
+			<option id="BritishCo">British Co</option>
+			<option id="BritishColumbia">British Columbia</option>
+			<option id="Brunei">Brunei</option>
+			<option id="BuenosAires">Buenos Aires</option>
+			<option id="Bulacan">Bulacan</option>
+			<option id="CA">CA</option>
+			<option id="Cajamarca">Cajamarca</option>
+			<option id="Campeche">Campeche</option>
+			<option id="Canar">Canar</option>
+			<option id="CapeofGoodHope">Cape of Good Hope</option>
+			<option id="CapeProvince">Cape Province</option>
+			<option id="Carchi">Carchi</option>
+			<option id="CarolineIslands">Caroline Islands</option>
+			<option id="Cartago">Cartago</option>
+			<option id="Cascajal">Cascajal</option>
+			<option id="Cataluna">Cataluna</option>
+			<option id="Cauca">Cauca</option>
+			<option id="Cebu">Cebu</option>
+			<option id="Central">Central</option>
+			<option id="Chalatenango">Chalatenango</option>
+			<option id="CHI">CHI</option>
+			<option id="Chia">Chia</option>
+			<option id="ChiangMaiChangwat">Chiang Mai, Changwat</option>
+			<option id="Chiapas">Chiapas</option>
+			<option id="Chihuahua">Chihuahua</option>
+			<option id="Chimaltenango">Chimaltenango</option>
+			<option id="Chimborazo">Chimborazo</option>
+			<option id="Chinandega">Chinandega</option>
+			<option id="Chiriqui">Chiriqui</option>
+			<option id="Chontales">Chontales</option>
+			<option id="Chupadero">Chupadero</option>
+			<option id="Chuquisaca">Chuquisaca</option>
+			<option id="CO">CO</option>
+			<option id="COTerritory">CO Territory</option>
+			<option id="Coahuila">Coahuila</option>
+			<option id="COCA">COCA</option>
+			<option id="Cochabamba">Cochabamba</option>
+			<option id="Cocle">Cocle</option>
+			<option id="COL">COL</option>
+			<option id="Colima">Colima</option>
+			<option id="Comayagua">Comayagua</option>
+			<option id="Concepcion">Concepcion</option>
+			<option id="COP">COP</option>
+			<option id="Coquimbo">Coquimbo</option>
+			<option id="Cordoba">Cordoba</option>
+			<option id="Cortes">Cortes</option>
+			<option id="Costa">Costa</option>
+			<option id="Cotopaxi">Cotopaxi</option>
+			<option id="CT">CT</option>
+			<option id="Cundinamarca">Cundinamarca</option>
+			<option id="Cuzco">Cuzco</option>
+			<option id="Darien">Darien</option>
+			<option id="DE">DE</option>
+			<option id="DeptLae">Dept. La e</option>
+			<option id="DeptMag">Dept. Mag</option>
+			<option id="DistritoFederal">Distrito Federal</option>
+			<option id="DUR">DUR</option>
+			<option id="Durango">Durango</option>
+			<option id="EastMalaysia">East Malaysia</option>
+			<option id="EastSepik">East Sepik</option>
+			<option id="EasternDivision">Eastern Division</option>
+			<option id="EasternDivsion">Eastern Divsion</option>
+			<option id="ElProgreso">El Progreso</option>
+			<option id="Esmeraldas">Esmeraldas</option>
+			<option id="Esteli">Esteli</option>
+			<option id="FL">FL</option>
+			<option id="Florida">Florida</option>
+			<option id="Fujian">Fujian</option>
+			<option id="GA">GA</option>
+			<option id="Gansu">Gansu</option>
+			<option id="Goias">Goias</option>
+			<option id="Golestan">Golestan</option>
+			<option id="Granada">Granada</option>
+			<option id="GRO">GRO</option>
+			<option id="GUAM">GUAM</option>
+			<option id="Guanacaste">Guanacaste</option>
+			<option id="Guanajuato">Guanajuato</option>
+			<option id="Guangdong">Guangdong</option>
+			<option id="Guatemala">Guatemala</option>
+			<option id="Guayas">Guayas</option>
+			<option id="Guerrero">Guerrero</option>
+			<option id="Guizhou">Guizhou</option>
+			<option id="HaBachTinh">Ha Bach, Tinh</option>
+			<option id="Hainan">Hainan</option>
+			<option id="Halland">Halland</option>
+			<option id="Hamadan">Hamadan</option>
+			<option id="Heidelberg">Heidelberg</option>
+			<option id="Heredia">Heredia</option>
+			<option id="HI">HI</option>
+			<option id="Hidalgo">Hidalgo</option>
+			<option id="Honshu">Honshu</option>
+			<option id="Huancabamba">Huancabamba</option>
+			<option id="Huancavelica">Huancavelica</option>
+			<option id="Huanuco">Huanuco</option>
+			<option id="Hubei">Hubei</option>
+			<option id="Huehuetena">Huehuetena</option>
+			<option id="Huehuetenango">Huehuetenango</option>
+			<option id="Humacao">Humacao</option>
+			<option id="IA">IA</option>
+			<option id="ID">ID</option>
+			<option id="Idaho">Idaho</option>
+			<option id="IL">IL</option>
+			<option id="IN">IN</option>
+			<option id="Insular">Insular</option>
+			<option id="Ipiros">Ipiros</option>
+			<option id="IqniqueProvince">Iqnique Province</option>
+			<option id="Iringa">Iringa</option>
+			<option id="Isabela">Isabela</option>
+			<option id="Izabel">Izabel</option>
+			<option id="JAL">JAL</option>
+			<option id="Jalisco">Jalisco</option>
+			<option id="Jalsico">Jalsico</option>
+			<option id="JawaTimur">Jawa Timur</option>
+			<option id="Jiangsu">Jiangsu</option>
+			<option id="Jujuy">Jujuy</option>
+			<option id="Junin">Junin</option>
+			<option id="KA">KA</option>
+			<option id="Kangean">Kangean</option>
+			<option id="KhorasanProvince">Khorasan Province</option>
+			<option id="KkanhHoa">Kkanh Hoa</option>
+			<option id="KS">KS</option>
+			<option id="KwaZuluNatal">KwaZulu-Natal</option>
+			<option id="KY">KY</option>
+			<option id="LA">LA</option>
+			<option id="LaHabana">La Habana</option>
+			<option id="LaLibertad">La Libertad</option>
+			<option id="LaPaz">La Paz</option>
+			<option id="LaVega">La Vega</option>
+			<option id="Lambayeque">Lambayeque</option>
+			<option id="LasVillas">Las Villas</option>
+			<option id="LASAN">LASAN</option>
+			<option id="Leon">Leon</option>
+			<option id="Lima">Lima</option>
+			<option id="Limon">Limon</option>
+			<option id="Loja">Loja</option>
+			<option id="Loreto">Loreto</option>
+			<option id="Luzon">Luzon</option>
+			<option id="MA">MA</option>
+			<option id="MadredeDios">Madre de Dios</option>
+			<option id="Magdalena">Magdalena</option>
+			<option id="Maldonado">Maldonado</option>
+			<option id="Manabi">Manabi</option>
+			<option id="Manitoba">Manitoba</option>
+			<option id="MarianaIslands">Mariana Islands</option>
+			<option id="MatoGrosso">Mato Grosso</option>
+			<option id="MattoGrosso">Matto Grosso</option>
+			<option id="Mayaguez">Mayaguez</option>
+			<option id="Mazandaran">Mazandaran</option>
+			<option id="MD">MD</option>
+			<option id="ME">ME</option>
+			<option id="Merida">Merida</option>
+			<option id="Meta">Meta</option>
+			<option id="Mexico">Mexico</option>
+			<option id="MI">MI</option>
+			<option id="MIC">MIC</option>
+			<option id="MICH">MICH</option>
+			<option id="Michoacan">Michoacan</option>
+			<option id="MinasGerais">Minas Gerais</option>
+			<option id="Mindanao">Mindanao</option>
+			<option id="Misiones">Misiones</option>
+			<option id="MN">MN</option>
+			<option id="MO">MO</option>
+			<option id="MON">MON</option>
+			<option id="Montevideo">Montevideo</option>
+			<option id="Morazan">Morazan</option>
+			<option id="Morelos">Morelos</option>
+			<option id="MS">MS</option>
+			<option id="MT">MT</option>
+			<option id="MX">MX</option>
+			<option id="NSegovia">N. Segovia</option>
+			<option id="Narino">Narino</option>
+			<option id="NAY">NAY</option>
+			<option id="Nayarit">Nayarit</option>
+			<option id="NC">NC</option>
+			<option id="ND">ND</option>
+			<option id="NE">NE</option>
+			<option id="NeuvoLeon">Neuvo Leon</option>
+			<option id="Nevada">Nevada</option>
+			<option id="NewBrunswick">New Brunswick</option>
+			<option id="NewSouthWales">New South Wales</option>
+			<option id="Newfoundland">Newfoundland</option>
+			<option id="NH">NH</option>
+			<option id="NJ">NJ</option>
+			<option id="NL">NL</option>
+			<option id="NM">NM</option>
+			<option id="NMTX">NM-TX</option>
+			<option id="Nord">Nord</option>
+			<option id="Norte">Norte</option>
+			<option id="NortedeSantander">Norte de Santander</option>
+			<option id="NorthAyrshire">North Ayrshire</option>
+			<option id="Northeastern">Northeastern</option>
+			<option id="Northern">Northern</option>
+			<option id="NorthernDivision">Northern Division</option>
+			<option id="NorthernTerritory">Northern Territory</option>
+			<option id="NorthwestFrontier">Northwest Frontier</option>
+			<option id="NorthwestTerritorie">Northwest Territorie</option>
+			<option id="NuevoLeon">Nuevo Leon</option>
+			<option id="NV">NV</option>
+			<option id="NY">NY</option>
+			<option id="OA">OA</option>
+			<option id="OAX">OAX</option>
+			<option id="Oaxaca">Oaxaca</option>
+			<option id="OH">OH</option>
+			<option id="OK">OK</option>
+			<option id="Ontario">Ontario</option>
+			<option id="OR">OR</option>
+			<option id="ORorWA">OR or WA</option>
+			<option id="Oregon">Oregon</option>
+			<option id="Oriente">Oriente</option>
+			<option id="Otuzco">Otuzco</option>
+			<option id="PA">PA</option>
+			<option id="Palawan">Palawan</option>
+			<option id="Panama">Panama</option>
+			<option id="Panay">Panay</option>
+			<option id="Paraguari">Paraguari</option>
+			<option id="Parana">Parana</option>
+			<option id="Paris">Paris</option>
+			<option id="Pasco">Pasco</option>
+			<option id="Pataz">Pataz</option>
+			<option id="PE">PE</option>
+			<option id="Peloponnisos">Peloponnisos</option>
+			<option id="Peten">Peten</option>
+			<option id="Pichincha">Pichincha</option>
+			<option id="Piura">Piura</option>
+			<option id="PMG">PMG</option>
+			<option id="Pohnpei">Pohnpei</option>
+			<option id="PomeroonSupernaam">Pomeroon-Supernaam</option>
+			<option id="Portuguesa">Portuguesa</option>
+			<option id="Potosi">Potosi</option>
+			<option id="PRE">PRE</option>
+			<option id="PrinceEdwardIsland">Prince Edward Island</option>
+			<option id="PUE">PUE</option>
+			<option id="Puebla">Puebla</option>
+			<option id="PuertoRico">Puerto Rico</option>
+			<option id="Puno">Puno</option>
+			<option id="Puntarenas">Puntarenas</option>
+			<option id="QuangNgai">Quang Ngai</option>
+			<option id="Quebec">Quebec</option>
+			<option id="Queensland">Queensland</option>
+			<option id="Quezaltenango">Quezaltenango</option>
+			<option id="Quezon">Quezon</option>
+			<option id="Quiche">Quiche</option>
+			<option id="RI">RI</option>
+			<option id="RiodeJaneiro">Rio de Janeiro</option>
+			<option id="Rizal">Rizal</option>
+			<option id="SCatarina">S Catarina</option>
+			<option id="SLPotosiSpaced">S L Potosi</option>
+			<option id="SLPotos">S.L. Potos</option>
+			<option id="Sabah">Sabah</option>
+			<option id="Salta">Salta</option>
+			<option id="Samar">Samar</option>
+			<option id="SanBlas">San Blas</option>
+			<option id="SanJose">San Jose</option>
+			<option id="SanLuis">San Luis</option>
+			<option id="SanLuisa">San Luis a</option>
+			<option id="SanLuisPotosi">San Luis Potosi</option>
+			<option id="SanMartin">San Martin</option>
+			<option id="SanMiguel">San Miguel</option>
+			<option id="SanPedro">San Pedro</option>
+			<option id="SantaBarbara">Santa Barbara</option>
+			<option id="SantaCatarina">Santa Catarina</option>
+			<option id="SantaCruz">Santa Cruz</option>
+			<option id="Santander">Santander</option>
+			<option id="SantiagoRegionMet">Santiago, Region Met</option>
+			<option id="SaoPaulo">Sao Paulo</option>
+			<option id="Sarawak">Sarawak</option>
+			<option id="Saskatchew">Saskatchew</option>
+			<option id="Saskatchewan">Saskatchewan</option>
+			<option id="SavaiiIsland">Savaii Island</option>
+			<option id="SC">SC</option>
+			<option id="Scotland">Scotland</option>
+			<option id="SD">SD</option>
+			<option id="Semnan">Semnan</option>
+			<option id="Seybo">Seybo</option>
+			<option id="Sichuan">Sichuan</option>
+			<option id="Sierra">Sierra</option>
+			<option id="SIN">SIN</option>
+			<option id="Sinaloa">Sinaloa</option>
+			<option id="SLPotosi">SL Potosi</option>
+			<option id="SocieteIlesdela">Societe, Iles de la</option>
+			<option id="SocieteIslesdela">Societe, Isles de la</option>
+			<option id="SON">SON</option>
+			<option id="Sonora">Sonora</option>
+			<option id="Sonsonate">Sonsonate</option>
+			<option id="SouthAustralia">South Australia</option>
+			<option id="SouthernCookIsland">Southern Cook Island</option>
+			<option id="StAndrew">St. Andrew</option>
+			<option id="StCroix">St. Croix</option>
+			<option id="StannCreek">Stann Creek</option>
+			<option id="Sulu">Sulu</option>
+			<option id="Sumatera">Sumatera</option>
+			<option id="TAB">TAB</option>
+			<option id="Tabasco">Tabasco</option>
+			<option id="Tachira">Tachira</option>
+			<option id="Tacna">Tacna</option>
+			<option id="TAM">TAM</option>
+			<option id="Tamaulipas">Tamaulipas</option>
+			<option id="TarankProvince">Tarank Province</option>
+			<option id="Tarija">Tarija</option>
+			<option id="Tarma">Tarma</option>
+			<option id="Tasmania">Tasmania</option>
+			<option id="Tehran">Tehran</option>
+			<option id="TierradelFuego">Tierra del Fuego</option>
+			<option id="Tlaxcala">Tlaxcala</option>
+			<option id="TN">TN</option>
+			<option id="Toledo">Toledo</option>
+			<option id="Tongatapu">Tongatapu</option>
+			<option id="Trelawny">Trelawny</option>
+			<option id="Trujillo">Trujillo</option>
+			<option id="TuamotuArchipelde">Tuamotu, Archipel de</option>
+			<option id="TubuaiIles">Tubuai, Iles</option>
+			<option id="Tucuman">Tucuman</option>
+			<option id="TutuilaIsland">Tutuila Island</option>
+			<option id="TX">TX</option>
+			<!--        <option id="TX">TX </option> -->
+			<option id="TXNM">TX-NM</option>
+			<option id="UpoluIsland">Upolu Island</option>
+			<option id="UT">UT</option>
+			<option id="Utah">Utah</option>
+			<option id="VA">VA</option>
+			<option id="Valle">Valle</option>
+			<option id="Valparaiso">Valparaiso</option>
+			<option id="Vaupes">Vaupes</option>
+			<option id="Veracruz">Veracruz</option>
+			<option id="Verguas">Verguas</option>
+			<option id="Victoria">Victoria</option>
+			<option id="VT">VT</option>
+			<option id="wTXtoNM">w TX to NM</option>
+			<option id="wTXElPasoNM">w. TX - El Paso, NM</option>
+			<!--        <option id="wTXElPasoNM">w. TX - El Paso,NM</option> -->
+			<option id="WA">WA</option>
+			<option id="WATerritory">WA Territory</option>
+			<option id="Wales">Wales</option>
+			<option id="WAS">WAS</option>
+			<option id="WesternAustralia">Western Australia</option>
+			<option id="WesternCape">Western Cape</option>
+			<option id="WI">WI</option>
+			<option id="WN">WN</option>
+			<option id="WV">WV</option>
+			<option id="WY">WY</option>
+			<option id="Wyoming">Wyoming</option>
+			<option id="Xizang">Xizang</option>
+			<option id="Yaracuy">Yaracuy</option>
+			<option id="Yoro">Yoro</option>
+			<option id="Yucatan">Yucatan</option>
+			<option id="YukonTerritory">Yukon Territory</option>
+			<option id="Yunnan">Yunnan</option>
+			<option id="Zacatecas">Zacatecas</option>
+			<option id="Zhejiang">Zhejiang</option>
+			<option id="Zulia">Zulia</option>
 		</options>
 	</instance>
 	<instance id="vocab-country">

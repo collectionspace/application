@@ -1,43 +1,41 @@
-            <record id="blobs" in-recordlist="no" type="blob" services-workspace-subtypes="Picture,File" 
-            		services-folder-subtypes="Picture" cms-type="default" generate-services-schema="true">
-                <services-url>blobs</services-url>
-                <services-tenant-singular>Blob</services-tenant-singular>
-                <terms-used>false</terms-used>
-                <refobj-used>false</refobj-used>
-                <services-record-path>blobs_common:http://collectionspace.org/services/blob,blobs_common</services-record-path>
-                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-                <services-list-path>abstract-common-list/list-item</services-list-path>
-                <hassoftdelete>true</hassoftdelete>
-                <authorization-view>false</authorization-view>
-				
-				
-				<include src="domain-procedure-blobs.xml" strip-root="yes"/>
-				
-                <section id="coreInformation">
-                    <include src="core-fields.xml"  strip-root="yes" />
-                </section>
-				
-                <section id="blobInformation">
-                    <field id="encoding" attributes="GET"></field>
-                    <field id="mimeType" attributes="GET"></field>
-                    <field id="data" attributes="GET"></field>
-                    <field id="name"></field>
-                    <field id="length" attributes="GET"></field>
-                    <field id="digest"></field>
-                    <field id="repositoryId"></field>
-                    <field id="blobUri">
-                        <services-tag>uri</services-tag>
-                    </field>
-                    <field id="id" exists-in-services="false"></field>
-					<field id="dimension" ui-type="groupfield/dimension/selfrenderer" in-trueTree="true" ui-readonly="true"  ui-func="cspace.dimension"  ></field>
-                    <field id="imgThumb" attributes="GET" mini="search,list,relate" exists-in-services="false" services-derived="true">
-                        <use-csid>ims;download/;/Thumbnail</use-csid>
-                    </field>
-                    <field id="imgMedium" attributes="GET" exists-in-services="false" services-derived="true">
-                        <use-csid>ims;download/;/Medium</use-csid>
-                    </field>
-                    <field id="imgOrig" attributes="GET" exists-in-services="false" services-derived="true">
-                        <use-csid>ims;download/;/Original</use-csid>
-                    </field>
-                </section>
-            </record>
+<record id="blobs" in-recordlist="no" type="blob" services-workspace-subtypes="Picture,File" services-folder-subtypes="Picture" cms-type="default" generate-services-schema="true">
+	<services-url>blobs</services-url>
+	<services-tenant-singular>Blob</services-tenant-singular>
+	<terms-used>false</terms-used>
+	<refobj-used>false</refobj-used>
+	<services-record-path>blobs_common:http://collectionspace.org/services/blob,blobs_common</services-record-path>
+	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+	<services-list-path>abstract-common-list/list-item</services-list-path>
+
+	<authorization-view>false</authorization-view>
+
+	<include src="domain-procedure-blobs.xml" strip-root="yes" />
+
+	<section id="coreInformation">
+		<include src="core-fields.xml" strip-root="yes" />
+	</section>
+
+	<section id="blobInformation">
+		<field id="encoding" />
+		<field id="mimeType" />
+		<field id="data" />
+		<field id="name" />
+		<field id="length" />
+		<field id="digest" />
+		<field id="repositoryId" />
+		<field id="blobUri">
+			<services-tag>uri</services-tag>
+		</field>
+		<field id="id" exists-in-services="false" />
+		<field id="dimension" ui-type="groupfield/dimension/selfrenderer" in-trueTree="true" ui-readonly="true" />
+		<field id="imgThumb" mini="list" exists-in-services="false" services-derived="true">
+			<use-csid>ims;download/;/Thumbnail</use-csid>
+		</field>
+		<field id="imgMedium" exists-in-services="false" services-derived="true">
+			<use-csid>ims;download/;/Medium</use-csid>
+		</field>
+		<field id="imgOrig" exists-in-services="false" services-derived="true">
+			<use-csid>ims;download/;/Original</use-csid>
+		</field>
+	</section>
+</record>

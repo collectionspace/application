@@ -1,84 +1,43 @@
 <record id="concept" is-extension="true">
-    <services-record-path id="fineart">
-        concepts_fineart:http://collectionspace.org/services/concept/domain/fineart,concepts_fineart
-    </services-record-path>
+	<services-record-path id="fineart">
+		concepts_fineart:http://collectionspace.org/services/concept/domain/fineart,concepts_fineart
+	</services-record-path>
 
-    <instances id="concept">
-        <instance id="concept-concept">
-            <web-url>concept</web-url>
-            <title-ref>concept</title-ref>
-            <title>Associated Concepts</title>
-        </instance>
-        <instance id="concept-material_ca">
-            <web-url>material_ca</web-url>
-            <title-ref>material_ca</title-ref>
-            <title>Material Concepts</title>
-        </instance>
-        <instance id="concept-activity">
-            <web-url>activity</web-url>
-            <title-ref>activity</title-ref>
-            <title>Activity Concepts</title>
-        </instance>
-        <!-- Add ethculture -->
-        <instance id="concept-ethculture">
-            <web-url>ethculture</web-url>
-            <title-ref>ethculture</title-ref>
-            <title>Ethnographic Cultures</title>
-        </instance>        
-    </instances>
+	<instances id="concept">
+		<instance id="concept-concept">
+			<web-url>concept</web-url>
+			<title-ref>concept</title-ref>
+			<title>Associated Concepts</title>
+		</instance>
+		<instance id="concept-material_ca">
+			<web-url>material_ca</web-url>
+			<title-ref>material_ca</title-ref>
+			<title>Material Concepts</title>
+		</instance>
+		<instance id="concept-activity">
+			<web-url>activity</web-url>
+			<title-ref>activity</title-ref>
+			<title>Activity Concepts</title>
+		</instance>
+		<!-- Add ethculture -->
+		<instance id="concept-ethculture">
+			<web-url>ethculture</web-url>
+			<title-ref>ethculture</title-ref>
+			<title>Ethnographic Cultures</title>
+		</instance>
+	</instances>
 
-    <section id="conceptAuthorityInformation">
+	<section id="conceptAuthorityInformation">
+		<field id="conceptRecordType" section="fineart" autocomplete="true" ui-type="enum" />
+		<field id="otherNameFlags" section="fineart" autocomplete="true" ui-type="enum" />
+		<field id="conceptTermDateGroup" ui-type="groupfield/structureddate" section="fineart" />
 
-        <field id="conceptRecordType" section="fineart"
-               autocomplete="vocab-conceptrecordtype" ui-type="enum"  />
+		<repeat id="relatedConceptsGroupList/relatedConceptsGroup" section="fineart">
+			<field id="relatedConcept" section="fineart" autocomplete="true" />
+			<field id="conceptRelationType" section="fineart" autocomplete="true" ui-type="enum" />
+			<group id="conceptRelationDateGroup" section="fineart" ui-type="groupfield/structureddate" />
+		</repeat>
 
-        <field id="otherNameFlags" section="fineart"
-               autocomplete="vocab-othernameflags" ui-type="enum" />
-
-        <field id="conceptTermDateGroup" ui-type="groupfield/structureddate"
-               primarykey="conceptTermDateGroup.dateDisplayDate" ui-func="cspace.structuredDate"
-               section="fineart" />
-
-        <repeat id="relatedConceptsGroupList/relatedConceptsGroup" section="fineart">
-
-            <field id="relatedConcept" section="fineart"
-                   autocomplete="concept-concept" />
-
-            <field id="conceptRelationType" section="fineart"
-                   autocomplete="vocab-conceptrelationtype" ui-type="enum"  />
-
-            <group id="conceptRelationDateGroup" section="fineart"
-                   ui-type="groupfield/structureddate" ui-func="cspace.structuredDate"
-                   primarykey="dateDisplayDate">
-                <!-- These fields are defined here as a workaround to CSPACE-5085.
-                See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
-                <field id="dateDisplayDate" section="fineart"/>
-                <field id="dateAssociation" section="fineart"/>
-                <field id="dateEarliestSingleYear" section="fineart"/>
-                <field id="dateEarliestSingleMonth" section="fineart"/>
-                <field id="dateEarliestSingleDay" section="fineart"/>
-                <field id="dateEarliestSingleEra" section="fineart"/>
-                <field id="dateEarliestSingleCertainty" section="fineart"/>
-                <field id="dateEarliestSingleQualifier" section="fineart"/>
-                <field id="dateEarliestSingleQualifierValue" section="fineart"/>
-                <field id="dateEarliestSingleQualifierUnit" section="fineart"/>
-                <field id="dateLatestYear" section="fineart"/>
-                <field id="dateLatestMonth" section="fineart"/>
-                <field id="dateLatestDay" section="fineart"/>
-                <field id="dateLatestEra" section="fineart"/>
-                <field id="dateLatestCertainty" section="fineart"/>
-                <field id="dateLatestQualifier" section="fineart"/>
-                <field id="dateLatestQualifierValue" section="fineart"/>
-                <field id="dateLatestQualifierUnit" section="fineart"/>
-                <field id="datePeriod" section="fineart"/>
-                <field id="dateNote" section="fineart"/>
-                <field id="dateEarliestScalarValue" section="fineart"/>
-                <field id="dateLatestScalarValue" section="fineart"/>
-                <field id="scalarValuesComputed" section="fineart"/>
-            </group>
-        </repeat>
-
-        <field id="conceptRemarks" ui-type="largetext" section="fineart" />
-
-    </section>
+		<field id="conceptRemarks" section="fineart" />
+	</section>
 </record>

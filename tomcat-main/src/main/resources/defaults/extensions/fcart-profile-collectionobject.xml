@@ -1,204 +1,37 @@
 <record id="collection-object">
-    <section id="identificationInformation">
-        <repeat id="otherNumberList/otherNumber">
-            <selector>object-identification-otherNumbers</selector>
-            <field id="numberType">
-                <selector>object-identification-other-number-type</selector>
-                <options>
-                    <option id="">Please select a value</option>
-                    <option id="catalogue"> catalogue </option>
-                    <option id="catalogueraoisonne"> catalogue raisonné </option>
-                    <option id="exhibition"> exhibition </option>
-                    <option id="lender"> lender </option>
-                    <option id="model"> model </option>
-                    <option id="obsolete"> obsolete</option>
-                    <option id="page"> page </option>
-                    <option id="previous"> previous </option>
-                    <option id="serial"> serial </option>
-                    <option id="sheet"> sheet </option>
-                    <option id="unknown"> unknown </option>
-                </options>
-            </field>
-        </repeat>
-        <repeat id="responsibleDepartments">
-            <selector>object-identification-responsible-department</selector>
-            <field id="responsibleDepartment">
-                <selector>object-identification-responsible-department</selector>
-                <options>
-                    <option id="">Please select a value</option>
-                    <option id="Antiquities"> Antiquities </option>
-                    <option id="ArchitectureandDesign"> Architecture and Design </option>
-                    <option id="DecorativeArts"> Decorative Arts </option>
-                    <option id="Ethnography"> Ethnography </option>
-                    <option id="Library"> Library </option>
-                    <option id="MediaandPerformanceArt"> Media and Performance Art </option>
-                    <option id="PaintingsandSculpture"> Paintings and Sculpture </option>
-                    <option id="Photographs"> Photographs </option>
-                    <option id="PrintsandDrawings"> Prints and Drawings </option>
-                </options>
-            </field>
-        </repeat>
-        <repeat id="titleGroupList/titleGroup">
-            <field id="titleType">
-                <selector>object-identification-object-title-type</selector>
-                <options>
-                    <option id="">Please select a value</option>
-                    <option id="assignedbyartist"> assigned by artist </option>
-                    <option id="creatorassigned"> creator assigned </option>
-                    <option id="collective"> collective </option>
-                    <option id="constructed"> constructed </option>
-                    <option id="descriptive"> descriptive </option>
-                    <option id="inscribed"> inscribed </option>
-                    <option id="institutional"> institutional </option>
-                    <option id="former"> former </option>
-                    <option id="manuscriptdesignation"> manuscript designation </option>
-                    <option id="original"> original </option>
-                    <option id="popular"> popular </option>
-                    <option id="published"> published </option>
-                    <option id="repository"> repository </option>
-                    <option id="local"> local </option>
-                    <option id="series"> series </option>
-                    <option id="trade"> trade </option>
-                    <option id="traditional"> traditional </option>
-                    <option id="translated"> translated </option>
-                </options>
-            </field>
-        </repeat>
-        <repeat id="objectNameList/objectNameGroup">
-            <field id="objectNameLevel">
-                <selector>object-identification-object-level</selector>
-                <options>
-                    <option id="">Please select a value</option>
-                    <option id="collection"> collection </option>
-                    <option id="component"> component </option>
-                    <option id="item"> item </option>
-                    <option id="group"> group </option>
-                    <option id="multiples"> multiples </option>
-                    <option id="series"> series </option>
-                    <option id="set"> set </option>
-                    <option id="subgroup"> subgroup </option>
-                    <option id="volume"> volume </option>
-                </options>
-            </field>
-            <field id="objectNameType">
-                <selector>object-identification-object-type</selector>
-                <options>
-                    <option id="">Please select a value</option>
-                    <option id="architecture"> architecture </option>
-                    <option id="armsandarmor"> arms and armor </option>
-                    <option id="builtwork"> built work </option>
-                    <option id="ceramics"> ceramics </option>
-                    <option id="costume"> costume </option>
-                    <option id="decorativearts"> decorative arts </option>
-                    <option id="furniture"> furniture </option>
-                    <option id="graphicarts"> graphic arts </option>
-                    <option id="installation"> installation </option>
-                    <option id="jewelry"> jewelry </option>
-                    <option id="mediaart"> media art </option>
-                    <option id="mixedmedia"> mixed media </option>
-                    <option id="musicalinstrument"> musical instrument </option>
-                    <option id="painting"> painting </option>
-                    <option id="photograph"> photograph </option>
-                    <option id="performance"> performance </option>
-                    <option id="portfolio"> portfolio </option>
-                    <option id="print"> print </option>
-                    <option id="moveablework"> moveable work </option>
-                    <option id="mural"> mural </option>
-                    <option id="sculpture"> sculpture </option>
-                    <option id="sketchbook"> sketchbook </option>
-                    <option id="tools"> tools </option>
-                    <option id="textile"> textile </option>
-                    <option id="workonpaper"> work on paper </option>
-                    <option id="video"> video </option>
-                </options>
-            </field>
-        </repeat>
-    </section>
-    <section id="descriptionInformation">
-        <repeat id="technicalAttributeGroupList/technicalAttributeGroup">
-            <field id="technicalAttribute">
-                <options>
-                    <option id="">Please select a value</option>
-                    <option id="implement"> implement</option>
-                    <option id="mark">  mark </option>
-                    <option id="material"> material </option>
-                    <option id="medium"> medium </option>
-                    <option id="recordspeed"> record speed </option>
-                    <option id="support"> support </option>
-                    <option id="technique"> technique </option>
-                </options>
-            </field>
-        </repeat>
-        <section id="contentInformation">
-            <repeat id="contentActivities">
-                <field id="contentActivity"  autocomplete="concept-activity" />
-            </repeat>            
-            <repeat id="contentPositions">
-                <field id="contentPosition">
-                    <options>
-                        <option id="">Please select a value</option>
-                        <option id="back"> back </option>
-                        <option id="base"> base </option>
-                        <option id="bottom"> bottom </option>
-                        <option id="front"> front </option>
-                        <option id="inside"> inside </option>
-                        <option id="left"> left </option>
-                        <option id="mainpanel"> main panel </option>
-                        <option id="predella"> predella </option>
-                        <option id="outside"> outside </option>
-                        <option id="recto"> recto </option>
-                        <option id="right"> right </option>
-                        <option id="rim"> rim </option>
-                        <option id="sideA"> side A </option>
-                        <option id="sideB"> side B </option>
-                        <option id="top"> top </option>
-                        <option id="verso"> verso  </option>
-                    </options>
-                </field>
-            </repeat>
-            <repeat id="contentPlaces">
-                <field id="contentPlace" autocomplete="place-place" />
-            </repeat>
-        </section>
-        <section id="textualInscriptionInformation">
-            <repeat id="textualInscriptionGroupList/textualInscriptionGroup">
-                <field id="inscriptionContentPosition" />
-                <field id="inscriptionContentType" />
-            </repeat>
-        </section>
-        <section id="nonTextualInscriptionInformation">
-            <repeat id="nonTextualInscriptionGroupList/nonTextualInscriptionGroup">
-                <field id="inscriptionDescriptionPosition" />
-                <field id="inscriptionDescriptionType" />
-            </repeat>
-        </section>
-    </section>
-    <section id="objectProductionInformation">
-        <repeat id="objectProductionPlaceGroupList/objectProductionPlaceGroup">
-            <field id="objectProductionPlace" autocomplete="true" />
-        </repeat>
-    </section>
-    <section id="objectHistoryAssociationInformation">
-        <field id="ownershipCategory" />
-        <field id="ownershipPlace" autocomplete="place-place" />
-        <field id="ownershipExchangeMethod">
-        </field>
-        <section id="associationInformation">
-            <repeat id="assocActivityGroupList/assocActivityGroup">
-                <field id="assocActivity" autocomplete="concept-activity" />
-            </repeat>
-            <repeat id="assocPeopleGroupList/assocPeopleGroup">
-                <field id="assocPeople" autocomplete="concept-ethculture" />
-            </repeat>
-            <repeat id="assocPlaceGroupList/assocPlaceGroup">
-                <field id="assocPlace" autocomplete="place-place" />
-            </repeat>
-            <repeat id="assocEventPeoples">
-                <field id="assocEventPeople" autocomplete="concept-ethculture" />
-            </repeat>
-            <repeat id="assocEventPlaces">
-                <field id="assocEventPlace" autocomplete="place-place" />
-            </repeat>
-        </section>
-    </section>
+	<section id="descriptionInformation">
+		<section id="contentInformation">
+			<repeat id="contentActivities">
+				<field id="contentActivity" autocomplete="true" />
+			</repeat>
+			<repeat id="contentPlaces">
+				<field id="contentPlace" autocomplete="true" />
+			</repeat>
+		</section>
+	</section>
+	<section id="objectProductionInformation">
+		<repeat id="objectProductionPlaceGroupList/objectProductionPlaceGroup">
+			<field id="objectProductionPlace" autocomplete="true" />
+		</repeat>
+	</section>
+	<section id="objectHistoryAssociationInformation">
+		<field id="ownershipPlace" autocomplete="true" />
+		<section id="associationInformation">
+			<repeat id="assocActivityGroupList/assocActivityGroup">
+				<field id="assocActivity" autocomplete="true" />
+			</repeat>
+			<repeat id="assocPeopleGroupList/assocPeopleGroup">
+				<field id="assocPeople" autocomplete="true" />
+			</repeat>
+			<repeat id="assocPlaceGroupList/assocPlaceGroup">
+				<field id="assocPlace" autocomplete="true" />
+			</repeat>
+			<repeat id="assocEventPeoples">
+				<field id="assocEventPeople" autocomplete="true" />
+			</repeat>
+			<repeat id="assocEventPlaces">
+				<field id="assocEventPlace" autocomplete="true" />
+			</repeat>
+		</section>
+	</section>
 </record>

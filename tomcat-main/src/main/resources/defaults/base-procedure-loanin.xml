@@ -1,130 +1,41 @@
 <record id="loanin" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
-                <services-url>loansin</services-url>
-                <services-tenant-plural>Loansin</services-tenant-plural>
-                <services-tenant-singular>Loanin</services-tenant-singular>
-                
-                <services-list-path>abstract-common-list/list-item</services-list-path>
-                <services-record-path>loansin_common:http://collectionspace.org/services/loanin,loansin_common</services-record-path>
-                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-                <hassoftdelete>true</hassoftdelete>
-                
-                <structures>
-                    <structure id="search">
-                        <view>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                    </structure>
-                    <structure id="screen">
-                        <view>
-                            <titlebar show="false"></titlebar>
-                            <sidebar show="false">
-                                <repeat id="termsUsed" show="true"></repeat>
-                                <repeat id="relatedProcedures" show="true"></repeat>
-                                <repeat id="relatedObjects" show="true"></repeat>
-                            </sidebar>
-                            <edit-section show="true"></edit-section>
-                            <list-section show="false"></list-section>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                        <repeat id="termsUsed" asSibling="true">
-                            <selector>recordList-row:</selector>
-                            <field id="linktext" ui-type="linktext">
-                                <selector>related-number</selector>
-                            </field>
-                            <field id="recordtype" ui-type="list">
-                                <selector>related-recordtype</selector>
-                            </field>
-                            <field id="sourceFieldName" ui-type="list">
-                                <selector>related-field</selector>
-                            </field>
-                        </repeat>
-                    </structure>
-                    <structure id="tab">
-                        <view>
-                            <titlebar show="false"></titlebar>
-                            <sidebar show="false"></sidebar>
-                            <edit-section id="details" show="true"></edit-section>
-                            <list-section id="list" show="false"></list-section>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                        <repeat id="list" asSibling="true">
-                            <selector>recordList-row:</selector>
-                            <field id="summary" ui-type="list">
-                                <selector>related-summary</selector>
-                            </field>
-                            <field id="number" ui-type="list">
-                                <selector>related-number</selector>
-                            </field>
-                        </repeat>
-                    </structure>
-                </structures>
-				
-				<include src="domain-procedure-loanin.xml" strip-root="yes"/>
-				
-                <row-selector>.csc-recordList-row:</row-selector>
-                <section id="coreInformation">
-                    <include src="core-fields.xml"  strip-root="yes" />
-                </section>
-                <section id="loaninInformation">
-                    <field id="loanInNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate" seperate_ui_container="true">
-                        <title-selector>titleBar-loanInNumber</title-selector>
-                        <selector>loanIn-loanInNumber</selector>
-                        <container-selector>loanIn-loanInNumber-patternChooserContainer</container-selector>
-                        <options>
-                            <option id="loanin" sample="LI2010.1">Loan In</option>
-                        </options>
-                    </field>
-                    <field id="loanPurpose" ui-search="repeatable" seperate_ui_container="true">
-                        <selector>loanIn-loanPurpose</selector>
-                        <options>
-                            <option id="" default="yes">Please select a value</option>
-                            <option id="exhibition">Exhibition</option>
-                            <option id="research">Research</option>
-                            <option id="scientificorexhibitpreparation">Scientific or exhibit preparation</option>
-                            <option id="analysis">Analysis</option>
-                            <option id="photography">Photography</option>
-                            <option id="conservationotherrequestedservices">Conservation or other requested services</option>
-                            <option id="longtermcollectionsmanagementandstorage">Long-term collections management and storage</option>
-                        </options>
-                    </field>
-                    <repeat id="lenderGroupList/lenderGroup">
-                        <field id="lender" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared" in-title="yes" mini="summary,search,list">
-                            <selector>loanIn-lender</selector>
-                        </field>
-                        <field id="lendersAuthorizer" autocomplete="person-person,person-person_shared">
-                            <selector>loanIn-lendersAuthorizer</selector>
-                        </field>
-                        <field id="lendersAuthorizationDate" ui-type="date" datatype="date">
-                            <selector>loanIn-lendersAuthorizerDate</selector>
-                        </field>
-                        <field id="lendersContact" autocomplete="person-person,person-person_shared">
-                            <selector>loanIn-lendersContact</selector>
-                        </field>
-                    </repeat>
-                    <field id="borrowersAuthorizer" autocomplete="person-person,person-person_shared"></field>
-                    <field id="borrowersContact" autocomplete="person-person,person-person_shared"></field>
-                    <field id="borrowersAuthorizationDate" ui-type="date"  datatype="date"></field>
-                    <field id="loanInConditions">
-                        <selector>loanIn-loanInConditions</selector>
-                    </field>
-                    <field id="loanInNote">
-                        <selector>loanIn-loanInNote</selector>
-                    </field>
-                    <field id="loanInDate" ui-search="range" ui-type="date" datatype="date">
-                        <selector>loanIn-loanInDate</selector>
-                    </field>
-                    <field id="loanReturnDate" ui-search="range" ui-type="date" datatype="date" mini="list">
-                        <selector>loanIn-loanReturnDate</selector>
-                    </field>
-                    <field id="loanRenewalApplicationDate" ui-search="range" ui-type="date" datatype="date">
-                        <selector>loanIn-loanRenewalApplicationDate</selector>
-                    </field>
-                    <repeat id="loanStatusGroupList/loanStatusGroup">
-                        <field id="loanGroup" autocomplete="vocab-deaccessionapprovalgroup" ui-type="enum"></field>
-                        <field id="loanIndividual" autocomplete="person-person,person-person_shared"></field>
-                        <field id="loanStatus" ui-search="repeatable" autocomplete="vocab-lostatus" ui-type="enum"></field>
-                        <field id="loanStatusDate" ui-type="date" datatype="date"></field>
-                        <field id="loanStatusNote"></field>
-                    </repeat>
-                </section>
-            </record>
+	<services-url>loansin</services-url>
+	<services-tenant-plural>Loansin</services-tenant-plural>
+	<services-tenant-singular>Loanin</services-tenant-singular>
+
+	<services-list-path>abstract-common-list/list-item</services-list-path>
+	<services-record-path>loansin_common:http://collectionspace.org/services/loanin,loansin_common</services-record-path>
+	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+
+	<include src="domain-procedure-loanin.xml" strip-root="yes" />
+
+	<section id="coreInformation">
+		<include src="core-fields.xml" strip-root="yes" />
+	</section>
+
+	<section id="loaninInformation">
+		<field id="loanInNumber" mini="number,list" />
+		<field id="loanPurpose" />
+		<repeat id="lenderGroupList/lenderGroup">
+			<field id="lender" autocomplete="true" mini="summary,list" />
+			<field id="lendersAuthorizer" autocomplete="true" />
+			<field id="lendersAuthorizationDate" datatype="date" />
+			<field id="lendersContact" autocomplete="true" />
+		</repeat>
+		<field id="borrowersAuthorizer" autocomplete="true" />
+		<field id="borrowersContact" autocomplete="true" />
+		<field id="borrowersAuthorizationDate" datatype="date" />
+		<field id="loanInConditions" />
+		<field id="loanInNote" />
+		<field id="loanInDate" datatype="date" />
+		<field id="loanReturnDate" datatype="date" mini="list" />
+		<field id="loanRenewalApplicationDate" datatype="date" />
+		<repeat id="loanStatusGroupList/loanStatusGroup">
+			<field id="loanGroup" autocomplete="true" ui-type="enum" />
+			<field id="loanIndividual" autocomplete="true" />
+			<field id="loanStatus" autocomplete="true" ui-type="enum" />
+			<field id="loanStatusDate" datatype="date" />
+			<field id="loanStatusNote" />
+		</repeat>
+	</section>
+</record>

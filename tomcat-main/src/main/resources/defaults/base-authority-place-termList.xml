@@ -1,86 +1,26 @@
 <record id="preferredPlace" in-recordlist="no" separate-record="false">
-    <hassoftdelete>true</hassoftdelete>
-    <section id="termInformation">
-        <!-- List containing this item's preferred term and any non-preferred terms -->
-        <repeat id="placeTermGroupList/placeTermGroup">
-            <!-- Fields common across all authority items -->
-            <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes"
-                mini="summary,number,search,list,relate" services-should-index="true">
-                <selector>placeAuthority-termDisplayName</selector>
-                <title-selector>titleBar-displayName</title-selector>
-            </field>
-            <field id="termName" ui-search="repeatable">
-                <selector>placeAuthority-termName</selector>
-            </field>
-            <field id="termType" seperate_ui_container="true">
-                <selector>placeAuthority-termType</selector>
-                <options>
-                    <option id="">Please select a value</option>
-                    <option id="common">Common name</option>
-                    <option id="technical-scientific">Technical or scientific name</option>
-                    <option id="native">Native name</option>
-                    <option id="non-native">Non-native name</option>
-                    <option id="local">Local name</option>
-                    <option id="descriptive">Descriptive name</option>
-                    <option id="spelling-variant">Spelling variant</option>
-                </options>
-            </field>
-            <field id="termFlag" ui-search="repeatable" autocomplete="vocab-placetermflag" ui-type="enum">
-                <selector>placeAuthority-termFlag</selector>
-            </field>
-            <field id="termStatus" ui-search="repeatable" seperate_ui_container="true"
-                mini="search,list,relate">
-                <selector>placeAuthority-termStatus</selector>
-                <options>
-                    <option id="provisional" default="yes">Provisional</option>
-                    <option id="under review">Under Review</option>
-                    <option id="accepted">Accepted</option>
-                    <option id="rejected">Rejected</option>
-                </options>
-            </field>
-            <field id="termQualifier">
-                <selector>placeAuthority-termQualifier</selector>
-            </field>
-            <field id="termLanguage" ui-search="repeatable" autocomplete="vocab-languages" ui-type="enum" seperate_ui_container="true">
-                <selector>placeAuthority-termLanguage</selector>
-            </field>
-            <field id="termPrefForLang" datatype="boolean">
-                <selector>placeAuthority-termPrefForLang</selector>
-            </field>
-            <field id="termSource" autocomplete="citation-citation,citation-citation_shared,citation-worldcat">
-                <selector>placeAuthority-termSource</selector>
-            </field>
-            <field id="termSourceDetail">
-                <selector>placeAuthority-termSourceDetail</selector>
-            </field>
-            <field id="termSourceID">
-                <selector>placeAuthority-termSourceID</selector>
-            </field>
-            <field id="termSourceNote">
-                <selector>placeAuthority-termSourceNote</selector>
-            </field>
-            <field id="termFormattedDisplayName">
-                <selector>placeAuthority-termFormattedDisplayName</selector>
-            </field>
-            <!-- Fields specific to Place terms -->
-            <field id="historicalStatus">
-                <selector>placeAuthority-historicalStatus</selector>
-                <options>
-                    <option id="current" default="yes">Current</option>
-                    <option id="historical">Historical</option>
-                    <option id="both">Both</option>
-                </options>
-            </field>
-            <field id="nameAbbrev">
-                <selector>placeAuthority-nameAbbrev</selector>
-            </field>
-            <field id="nameNote">
-                <selector>placeAuthority-nameNote</selector>
-            </field>
-            <group id="nameDateGroup" ui-type="groupfield/structureddate"
-                primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
-                <selector>placeAuthority-nameDateGroup</selector>
-            </group>
-        </repeat>
-    </section>
+	<section id="termInformation">
+		<!-- List containing this item's preferred term and any non-preferred terms -->
+		<repeat id="placeTermGroupList/placeTermGroup">
+			<!-- Fields common across all authority items -->
+			<field id="termDisplayName" mini="summary,number,list" services-should-index="true" />
+			<field id="termName" />
+			<field id="termType" />
+			<field id="termFlag" autocomplete="true" ui-type="enum" />
+			<field id="termStatus" mini="list" />
+			<field id="termQualifier" />
+			<field id="termLanguage" autocomplete="true" ui-type="enum" />
+			<field id="termPrefForLang" datatype="boolean" />
+			<field id="termSource" autocomplete="true" />
+			<field id="termSourceDetail" />
+			<field id="termSourceID" />
+			<field id="termSourceNote" />
+			<field id="termFormattedDisplayName" />
+			<!-- Fields specific to Place terms -->
+			<field id="historicalStatus" />
+			<field id="nameAbbrev" />
+			<field id="nameNote" />
+			<group id="nameDateGroup" ui-type="groupfield/structureddate" />
+		</repeat>
+	</section>
 </record>

@@ -1,6 +1,5 @@
-
-        <schemas>
-            <schema id="recordlist"></schema>
-            <schema id="namespaces"></schema>
-            <schema id="recordtypes"></schema>
-        </schemas>
+<schemas>
+	<schema id="recordlist"></schema>
+	<schema id="namespaces"></schema>
+	<schema id="recordtypes"></schema>
+</schemas>

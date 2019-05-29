@@ -1,10 +1,10 @@
 <record id="concept">
 	<instances id="concept">
-	    <instance id="concept-concept">
-	        <web-url>concept</web-url>
-	        <title-ref>concept</title-ref>
-	        <title>Associated Concepts</title>
-	    </instance>
+		<instance id="concept-concept">
+			<web-url>concept</web-url>
+			<title-ref>concept</title-ref>
+			<title>Associated Concepts</title>
+		</instance>
 		<instance id="concept-class_ca">
 			<web-url>class_ca</web-url>
 			<title-ref>class_ca</title-ref>
@@ -20,5 +20,5 @@
 			<title-ref>conservation_ca</title-ref>
 			<title>Conservation Categories</title>
 		</instance>
-	</instances>	
+	</instances>
 </record>

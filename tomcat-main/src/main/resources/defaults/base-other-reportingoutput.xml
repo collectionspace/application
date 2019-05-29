@@ -1,34 +1,26 @@
-
-
 <record id="output" in-recordlist="no" type="authorizationdata,report">
-    <web-url>invokereport</web-url>
-    <services-url>reports</services-url>
-    <services-record-path>invocationContext:http://collectionspace.org/services/common/invocable,invocationContext</services-record-path>
-    
-    <authorization-view>false</authorization-view>
+	<web-url>invokereport</web-url>
+	<services-url>reports</services-url>
+	<services-record-path>invocationContext:http://collectionspace.org/services/common/invocable,invocationContext</services-record-path>
+
+	<authorization-view>false</authorization-view>
 	<terms-used>false</terms-used>
 	<refobj-used>false</refobj-used>
 	<structures>
-        <structure id="screen">
-            <view>
-                <titlebar show="false"></titlebar>
-                <sidebar show="false"></sidebar>
-                <label-section id="messagekeys" show="true"></label-section>
-            </view>
-        </structure>
-    </structures>
-	
-	<include src="domain-other-reportingoutput.xml" strip-root="yes"/>
-	
-    <section id="reportingOutputInformation">
-    
-        <field id="docType"></field>
-        <field id="mode"></field>
-        <field id="singleCSID"></field>
-        <field id="groupCSID"></field>
+		<structure id="screen">
+
+		</structure>
+	</structures>
+
+	<include src="domain-other-reportingoutput.xml" strip-root="yes" />
+
+	<section id="reportingOutputInformation">
+		<field id="docType" />
+		<field id="mode" />
+		<field id="singleCSID" />
+		<field id="groupCSID" />
 		<repeat id="listCSIDs">
-			<field id="csid"></field>
+			<field id="csid" />
 		</repeat>
-    </section>
+	</section>
 </record>
-			

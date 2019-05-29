@@ -1,72 +1,27 @@
 <record id="valuationcontrol" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
-    <services-url>valuationcontrols</services-url>
-    <services-tenant-plural>Valuationcontrols</services-tenant-plural>
-    <services-tenant-singular>Valuationcontrol</services-tenant-singular>
-    <services-list-path>abstract-common-list/list-item</services-list-path>
-    <services-record-path>valuationcontrols_common:http://collectionspace.org/services/valuationcontrol,valuationcontrols_common</services-record-path>
-    <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-    <hassoftdelete>true</hassoftdelete>
-    <structures>
-        <structure id="search">
-            <view>
-                <label-section id="messagekeys" show="true"></label-section>
-            </view>
-        </structure>
-        <structure id="screen">
-            <view>
-                <label-section id="messagekeys" show="true"></label-section>
-            </view>
-        </structure>
-        <structure id="tab">
-            <view>
-                <titlebar show="false"></titlebar>
-                <sidebar show="false"></sidebar>
-                <edit-section id="details" show="true"></edit-section>
-                <list-section id="list" show="false"></list-section>
-                <label-section id="messagekeys" show="true"></label-section>
-            </view>
-            <repeat id="list" asSibling="true">
-                <selector>recordList-row:</selector>
-                <field id="summary" ui-type="list">
-                    <selector>related-summary</selector>
-                </field>
-                <field id="number" ui-type="list">
-                    <selector>related-number</selector>
-                </field>
-            </repeat>
-        </structure>
-    </structures>
-    
-    <include src="domain-procedure-valuationcontrol.xml" strip-root="yes"/>
-    
-    <row-selector>.csc-recordList-row:</row-selector>
-    <section id="coreInformation">
-        <include src="core-fields.xml" strip-root="yes" />
-    </section>
-    <section id="objectValuationInformation">
-        <field id="valuationcontrolRefNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate" seperate_ui_container="true">
-            <title-selector>titleBar-valuationcontrolRefNumber</title-selector>
-            <selector>valuationcontrol-valuationcontrolRefNumber</selector>
-            <container-selector>valuationcontrol-valuationcontrolRefNumber-patternChooserContainer</container-selector>
-            <options>
-                <option id="valuationcontrol" sample="VC2014.1">Valuation Control</option>
-            </options>
-        </field>
-        <repeat id="valueAmountsList/valueAmounts">
-            <field id="valueAmount" ui-type="validated" datatype="float"/>
-            <field id="valueCurrency" autocomplete="vocab-currency" ui-type="enum"/>
-        </repeat>
-        <field id="valueDate" ui-search="range" ui-type="date" datatype="date"/>
-        <field id="valueRenewalDate" ui-search="range" ui-type="date" datatype="date"/>
-        <field id="valueSource" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"/>
-        <field id="valueType" ui-search="repeatable" in-title="yes" mini="summary,search,list,relate">
-            <options>
-                <option id="">Please select a value</option>
-                <option id="Current Value">Current Value</option>
-                <option id="Original Value">Original Value</option>
-                <option id="Replacement Value">Replacement Value</option>
-            </options>
-        </field>
-        <field id="valueNote"/>
-    </section>
+	<services-url>valuationcontrols</services-url>
+	<services-tenant-plural>Valuationcontrols</services-tenant-plural>
+	<services-tenant-singular>Valuationcontrol</services-tenant-singular>
+	<services-list-path>abstract-common-list/list-item</services-list-path>
+	<services-record-path>valuationcontrols_common:http://collectionspace.org/services/valuationcontrol,valuationcontrols_common</services-record-path>
+	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+
+	<include src="domain-procedure-valuationcontrol.xml" strip-root="yes" />
+
+	<section id="coreInformation">
+		<include src="core-fields.xml" strip-root="yes" />
+	</section>
+
+	<section id="objectValuationInformation">
+		<field id="valuationcontrolRefNumber" mini="number,list" />
+		<repeat id="valueAmountsList/valueAmounts">
+			<field id="valueAmount" datatype="float" />
+			<field id="valueCurrency" autocomplete="true" ui-type="enum" />
+		</repeat>
+		<field id="valueDate" datatype="date" />
+		<field id="valueRenewalDate" datatype="date" />
+		<field id="valueSource" autocomplete="true" />
+		<field id="valueType" mini="summary,list" />
+		<field id="valueNote" />
+	</section>
 </record>

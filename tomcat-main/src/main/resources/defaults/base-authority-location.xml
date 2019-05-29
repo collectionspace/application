@@ -1,90 +1,75 @@
 <record id="location" type="authority" cms-type="default" generate-services-schema="true">
-    <terms-used>true</terms-used>
-    <web-url>location</web-url>
-    
-    <services-tenant-auth-singular>Locationauthority</services-tenant-auth-singular>
-    <services-tenant-auth-plural>Locationauthorities</services-tenant-auth-plural>    
-    <services-tenant-singular>Location</services-tenant-singular>
-    <services-tenant-doctype>Locationitem</services-tenant-doctype>
-    
-    <services-instances-path>locationauthorities_common:http://collectionspace.org/services/location,abstract-common-list/list-item</services-instances-path>
-    <services-single-instance-path>locationauthorities_common:http://collectionspace.org/services/location,locationauthorities_common</services-single-instance-path>
-    <services-list-path>http://collectionspace.org/services/location,abstract-common-list/list-item</services-list-path>
+	<terms-used>true</terms-used>
+	<web-url>location</web-url>
 
-    <services-record-path>locations_common:http://collectionspace.org/services/location,locations_common</services-record-path>
-    <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-    <services-url>locationauthorities</services-url>
-    <authority-vocab-type>LocationAuthority</authority-vocab-type>
-    <hassoftdelete>true</hassoftdelete>
-    
-    <structures>
-        <structure id="search">
-            <view>
-                <label-section id="messagekeys" show="true"></label-section>
-            </view>
-        </structure>
-        <structure id="screen">
-            <view>
-                <label-section id="messagekeys" show="true"></label-section>
-                <hierarchy-section show="true">
-            		<options>
-                		<option id="narrowerContext">location-location</option>
-                		<option id="broaderContext">location-location</option>
-					</options>
-                </hierarchy-section>
-            </view>
-        </structure>
-    </structures>
-				
-	<include src="domain-authority-location.xml" strip-root="yes"/>
-				
-    <instances id="location">
-        <instance id="location-location">
-            <web-url>location</web-url>
-            <title-ref>location</title-ref>
-            <title>Local Storage Locations</title>
-        </instance>
-        <instance id="location-offsite_sla">
-            <web-url>offsite_sla</web-url>
-            <title-ref>offsite_sla</title-ref>
-            <title>Offsite Storage Locations</title>
-        </instance>
-    </instances>
-	
+	<services-tenant-auth-singular>Locationauthority</services-tenant-auth-singular>
+	<services-tenant-auth-plural>Locationauthorities</services-tenant-auth-plural>
+	<services-tenant-singular>Location</services-tenant-singular>
+	<services-tenant-doctype>Locationitem</services-tenant-doctype>
+
+	<services-instances-path>locationauthorities_common:http://collectionspace.org/services/location,abstract-common-list/list-item</services-instances-path>
+	<services-single-instance-path>locationauthorities_common:http://collectionspace.org/services/location,locationauthorities_common</services-single-instance-path>
+	<services-list-path>http://collectionspace.org/services/location,abstract-common-list/list-item</services-list-path>
+
+	<services-record-path>locations_common:http://collectionspace.org/services/location,locations_common</services-record-path>
+	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+	<services-url>locationauthorities</services-url>
+	<authority-vocab-type>LocationAuthority</authority-vocab-type>
+
+	<structures>
+		<structure id="screen">
+			<view>
+				<hierarchy-section show="true" />
+			</view>
+		</structure>
+	</structures>
+
+	<include src="domain-authority-location.xml" strip-root="yes" />
+
+	<instances id="location">
+		<instance id="location-location">
+			<web-url>location</web-url>
+			<title-ref>location</title-ref>
+			<title>Local Storage Locations</title>
+		</instance>
+		<instance id="location-offsite_sla">
+			<web-url>offsite_sla</web-url>
+			<title-ref>offsite_sla</title-ref>
+			<title>Offsite Storage Locations</title>
+		</instance>
+	</instances>
+
 	<section id="coreInformation">
-		<include src="core-fields.xml"  strip-root="yes" />
+		<include src="core-fields.xml" strip-root="yes" />
 	</section>
-	
-    <section id="locationTermInformation">
-        <!-- Is the shortIdentifier field needed here? It isn't present in all other authority record configs - ADR 2012-05-10 -->
-        <field id="shortIdentifier"></field>
-        <!-- List containing this item's preferred term and any non-preferred terms -->
-        <field id="preferredLocation" ui-type="groupfield/preferredSLA/selfrenderer" ui-func="cspace.preferred">
-            <selector>preferred-locationAuthority</selector>
-        </field>
-        <field id="accessNote" ui-search="repeatable"></field>
-        <field id="address" ui-search="repeatable"></field>
+
+	<section id="locationTermInformation">
+		<!-- Is the shortIdentifier field needed here? It isn't present in all other authority record configs - ADR 2012-05-10 -->
+		<field id="shortIdentifier" />
+		<!-- List containing this item's preferred term and any non-preferred terms -->
+		<field id="preferredLocation" ui-type="groupfield/preferredSLA/selfrenderer" />
+		<field id="accessNote" />
+		<field id="address" />
 		<repeat id="conditionGroupList/conditionGroup">
-            <field id="conditionNote" ui-search="repeatable"></field>
-            <field id="conditionNoteDate" ui-type="date" datatype="date"></field>
-        </repeat>
-        <field id="securityNote" ui-search="repeatable"></field>
-        <field id="locationType" ui-search="repeatable" autocomplete="vocab-locationtype" ui-type="enum">
-        	<selector>location-type</selector>
-        </field>
-    </section>
-    <!-- not used in UI except in autocompletes -->
-    <section id="otherInformation">
-       	<field id="inAuthority" services-should-index="true"></field>
-    	<field id="deprecatedRefName">
+			<field id="conditionNote" />
+			<field id="conditionNoteDate" datatype="date" />
+		</repeat>
+		<field id="securityNote" />
+		<field id="locationType" autocomplete="true" ui-type="enum" />
+	</section>
+
+	<!-- not used in UI except in autocompletes -->
+	<section id="otherInformation">
+		<field id="inAuthority" services-should-index="true" />
+		<field id="deprecatedRefName">
 			<services-tag>refName</services-tag>
 		</field>
-        <field id="shortIdentifier" mini="search,list,relate" attributes="GET" services-should-index="true"></field>
-        <field id="csid" exists-in-services="false" mini="search,list,relate" attributes="GET"></field>
-        <!-- SAS related fields -->
-		<field id="rev" mini="list" datatype="integer"/>
-		<field id="sas" mini="list" datatype="boolean"/>
-		<field id="proposed" mini="list" datatype="boolean"/>
-		<field id="deprecated" mini="list" datatype="boolean"/>
-    </section>
+		<field id="shortIdentifier" mini="list" services-should-index="true" />
+		<field id="csid" exists-in-services="false" mini="list" />
+		<!-- SAS related fields -->
+		<field id="rev" mini="list" datatype="integer" />
+		<field id="sas" mini="list" datatype="boolean" />
+		<field id="proposed" mini="list" datatype="boolean" />
+		<field id="deprecated" mini="list" datatype="boolean" />
+	</section>
 </record>

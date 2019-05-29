@@ -1,124 +1,74 @@
-            <record id="media" in-findedit="yes" type="procedure,record" cms-type="default" generate-services-schema="true">
-                <services-url>media</services-url>      
-                <services-tenant-singular>Media</services-tenant-singular>
-                <services-tenant-plural>Media</services-tenant-plural>                
-                
-                <services-list-path>abstract-common-list/list-item</services-list-path>
-                <services-record-path>media_common:http://collectionspace.org/services/media,media_common</services-record-path>
-                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-                <hassoftdelete>true</hassoftdelete>
-                
-                <structures>
-                    <structure id="search">
-                        <view>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                    </structure>
-                    <structure id="screen">
-                        <view>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-					</structure>
-                    <structure id="tab">
-                        <view>
-                            <titlebar show="false"></titlebar>
-                            <sidebar show="false"></sidebar>
-                            <edit-section id="details" show="true"></edit-section>
-                            <list-section id="list" show="false"></list-section>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                        <repeat id="list" asSibling="true">
-                            <selector>recordList-row:</selector>
-                            <field id="summary" ui-type="list">
-                                <selector>related-summary</selector>
-                            </field>
-                            <field id="number" ui-type="list">
-                                <selector>related-number</selector>
-                            </field>
-                        </repeat>
-                    </structure>
-                </structures>
-				
-				<include src="domain-procedure-media.xml" strip-root="yes"/>
-				
-                <section id="coreInformation">
-                    <include src="core-fields.xml"  strip-root="yes" />
-                </section>
+<record id="media" in-findedit="yes" type="procedure,record" cms-type="default" generate-services-schema="true">
+	<services-url>media</services-url>
+	<services-tenant-singular>Media</services-tenant-singular>
+	<services-tenant-plural>Media</services-tenant-plural>
 
-                <section id="fileInformationHeader"></section> <!-- temp until better way to do group headers -->
-                <section id="fileInformation"></section> <!-- temp until better way to do group headers -->
-                <section id="mediaInformation">
-                    <field id="filename" ui-search="repeatable"></field>
-                    <field id="location"></field>
-                    <field id="format" ui-search="repeatable"></field>
-                    <field id="dateCreated"></field>
-                    <field id="dateModified"></field>
-                    <field id="externalMediaUrl" exists-in-services="false"></field>
-					
-					<field id="dimension" ui-type="groupfield/dimension/selfrenderer"  ui-func="cspace.dimension"></field>
-                    <field id="title" ui-search="repeatable" mini="summary,search,list,relate" services-schema-qualify="true"></field> <!-- Need to qualify the field name for the Services since 'title' is ambiguous. -->
-                    <field id="contributor" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"></field>
-                    <field id="creator" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"></field>
-                    <repeat id="languages">
-                        <services-tag>languageList</services-tag>
-                        <field id="language" ui-search="repeatable" autocomplete="vocab-languages" ui-type="enum">
-                        <enum>
-                            <default>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</default>
-                        </enum>
-						</field>
-                    </repeat>
-                    <field id="publisher" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"></field>
-                    <repeat id="relations">
-                        <services-tag>relationList</services-tag>
-                        <field id="relation"></field>
-                    </repeat>
-                    <field id="copyrightStatement"></field>
-                    <field id="identificationNumber" ui-search="repeatable" chooser="yes" in-title="yes" mini="number,search,list,relate" seperate_ui_container="true">
-                        <options>
-                            <option id="media" sample="MR2011.1.1">Media Resource</option>
-                        </options>
-                    </field>
-                    <repeat id="types">
-                        <services-tag>typeList</services-tag>
-                        <field id="type" ui-search="repeatable">
-                            <options>
-                                <option id="" default="yes">Please select a value</option>
-                                <option id="dataset" >Dataset</option>
-                                <option id="document" >Document</option>
-                                <option id="moving_image" >Moving Image</option>
-                                <option id="still_image" >Still Image</option>
-                                <option id="sound" >Sound</option>
-                            </options>
-                        </field>
-                    </repeat>
-                    <field id="coverage"></field>
-                    <repeat id="dateGroupList/dateGroup">
-                        <group id="date" ui-search="range" xxx-services-no-repeat="true" ui-type="groupfield/structureddate" services-group-type="dateGroup"
-                               primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
-                        </group>
-                    </repeat>
-                    <field id="source" ui-search="repeatable"></field>
-                    <field id="externalUrl" ui-type="externalURL"></field>
-                    <repeat id="subjects">
-                        <services-tag>subjectList</services-tag>
-                        <field id="subject" ui-search="repeatable"></field>
-                    </repeat>
-                    <field id="rightsHolder" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"></field>
-                    <field id="description"></field>
-                </section>
-                <!-- not used in ui yet -->
-                <section id="otherInformation">
-                    <field id="mediaUri">
-                        <services-tag>uri</services-tag>
-                    </field>
-                    <field id="sourceUrl"></field>
-                    <field id="blobCsid" mini="search,list,relate"></field>					
-                    <field id="imgThumb" attributes="GET" mini="search,list,relate" exists-in-services="false">
-                        <use-csid id="blobCsid">ims;download/;/Thumbnail</use-csid>
-                    </field>
-                    <field id="imgOrig" attributes="GET" mini="search,list,relate" exists-in-services="false">
-                        <use-csid id="blobCsid">ims;download/;/Original</use-csid>
-                    </field>
-                    <group id="blobs" exists-in-services="false" ui-type="uploader" showgrouped="false" userecord="blobs" serviceurl="blobs" onlyifexists="blobCsid" attributes="GET" ui-spec-prefix="blobs" with-csid="blobCsid"/>
-                </section>
-            </record>
+	<services-list-path>abstract-common-list/list-item</services-list-path>
+	<services-record-path>media_common:http://collectionspace.org/services/media,media_common</services-record-path>
+	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+
+	<include src="domain-procedure-media.xml" strip-root="yes" />
+
+	<section id="coreInformation">
+		<include src="core-fields.xml" strip-root="yes" />
+	</section>
+
+	<section id="mediaInformation">
+		<field id="filename" />
+		<field id="location" />
+		<field id="format" />
+		<field id="dateCreated" />
+		<field id="dateModified" />
+		<field id="externalMediaUrl" exists-in-services="false" />
+
+		<field id="dimension" ui-type="groupfield/dimension/selfrenderer" />
+		<field id="title" mini="summary,list" services-schema-qualify="true" />
+		<!-- Need to qualify the field name for the Services since 'title' is ambiguous. -->
+		<field id="contributor" autocomplete="true" />
+		<field id="creator" autocomplete="true" />
+		<repeat id="languages">
+			<services-tag>languageList</services-tag>
+			<field id="language" autocomplete="true" ui-type="enum" />
+		</repeat>
+		<field id="publisher" autocomplete="true" />
+		<repeat id="relations">
+			<services-tag>relationList</services-tag>
+			<field id="relation" />
+		</repeat>
+		<field id="copyrightStatement" />
+		<field id="identificationNumber" mini="number,list" />
+		<repeat id="types">
+			<services-tag>typeList</services-tag>
+			<field id="type" />
+		</repeat>
+		<field id="coverage" />
+		<repeat id="dateGroupList/dateGroup">
+			<group id="date" ui-type="groupfield/structureddate" services-group-type="dateGroup">
+			</group>
+		</repeat>
+		<field id="source" />
+		<field id="externalUrl" />
+		<repeat id="subjects">
+			<services-tag>subjectList</services-tag>
+			<field id="subject" />
+		</repeat>
+		<field id="rightsHolder" autocomplete="true" />
+		<field id="description" />
+	</section>
+
+	<!-- not used in ui yet -->
+	<section id="otherInformation">
+		<field id="mediaUri">
+			<services-tag>uri</services-tag>
+		</field>
+		<field id="sourceUrl" />
+		<field id="blobCsid" mini="list" />
+		<field id="imgThumb" mini="list" exists-in-services="false">
+			<use-csid id="blobCsid">ims;download/;/Thumbnail</use-csid>
+		</field>
+		<field id="imgOrig" mini="list" exists-in-services="false">
+			<use-csid id="blobCsid">ims;download/;/Original</use-csid>
+		</field>
+		<group id="blobs" exists-in-services="false" ui-type="uploader" showgrouped="false" userecord="blobs" serviceurl="blobs" onlyifexists="blobCsid" ui-spec-prefix="blobs" with-csid="blobCsid" />
+	</section>
+</record>

@@ -1,55 +1,48 @@
 <record id="all" in-recordlist="yes" type="searchall">
-    <services-url>servicegroups/common/items</services-url>
-    <terms-used>false</terms-used>
-    <services-list-path>abstract-common-list/list-item</services-list-path>
-    <!-- These are included for future use, if we decide to list the serice groups -->
-    <services-record-path>servicegroups_common:http://collectionspace.org/services/servicegroup,servicegroups_common</services-record-path>
-    <authorization-includes>servicegroups</authorization-includes>
-    <!-- No core section, as this is a synthetic object -->
+	<services-url>servicegroups/common/items</services-url>
+	<terms-used>false</terms-used>
+	<services-list-path>abstract-common-list/list-item</services-list-path>
+	<!-- These are included for future use, if we decide to list the serice groups -->
+	<services-record-path>servicegroups_common:http://collectionspace.org/services/servicegroup,servicegroups_common</services-record-path>
+	<authorization-includes>servicegroups</authorization-includes>
+	<!-- No core section, as this is a synthetic object -->
 
-    <web-url>all</web-url>
-    <authorization-view>false</authorization-view>
-    <!-- Need to filter all soft-deleted records when searching -->
-    <hassoftdelete>true</hassoftdelete>
+	<web-url>all</web-url>
+	<authorization-view>false</authorization-view>
+	<!-- Need to filter all soft-deleted records when searching -->
 
-    <structures>
-        <structure id="screen">
-            <view>
-                <label-section id="messagekeys" show="true"/>
-                <titlebar show="false"/>
-                <sidebar show="false"/>
-                <edit-section id="details" show="true"/>
-                <list-section id="list" show="false"/>
-            </view>
-        </structure>
-        <structure id="search">
-            <view>
-                <label-section id="messagekeys" show="true"/>
-            </view>
-        </structure>
-    </structures>
+	<structures>
+		<structure id="screen">
+			<view>
+				<titlebar show="false" />
 
-    <!-- No extending this
-        <include src="domain-other-reporting.xml" strip-root="yes"/>
-    -->
+				<edit-section id="details" show="true" />
+				<list-section id="list" show="false" />
+			</view>
+		</structure>
+	</structures>
 
-    <section>
-        <!-- Bogus, since all returned in list results, without namespaces -->
-        <field id="updatedAt" ui-search="range" ui-type="date" attributes="GET" mini="search,list"/>
-        <field id="uri" mini="summary,search,list" attributes="GET"/>
-        <field id="docName" mini="summary,search,list" attributes="GET"/>
-        <field id="docNumber" mini="number,search,list" attributes="GET"/>
-        <field id="refName" mini="search,list" attributes="GET"/>
-        <field id="docType" mini="search,list" attributes="GET"/>
-    </section>
+	<!-- No extending this
+		<include src="domain-other-reporting.xml" strip-root="yes" />
+	-->
 
-    <!-- If we ever want to model the servicegroups, use this: 
-    <section id="servicegroup">
-        <field id="name" mini="number,search,list"  attributes="GET"/>
-        <field id="uri" attributes="GET"/>
-        <repeat id="hasDocTypes" attributes="GET">
-            <field id="hasDocType" attributes="GET"/>
-        </repeat>
-    </section>
-				 -->
+	<section>
+		<!-- Bogus, since all returned in list results, without namespaces -->
+		<field id="updatedAt" mini="list" />
+		<field id="uri" mini="summary,list" />
+		<field id="docName" mini="summary,list" />
+		<field id="docNumber" mini="number,list" />
+		<field id="refName" mini="list" />
+		<field id="docType" mini="list" />
+	</section>
+
+	<!-- If we ever want to model the servicegroups, use this:
+	<section id="servicegroup">
+		<field id="name" mini="number,list" />
+		<field id="uri" />
+		<repeat id="hasDocTypes">
+			<field id="hasDocType" />
+		</repeat>
+	</section>
+	-->
 </record>

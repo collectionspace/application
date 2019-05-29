@@ -1,142 +1,52 @@
-            <record id="movement" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
-                <services-url>movements</services-url>
-                <web-url>movement</web-url>
-                <tab-url>movement-tab</tab-url>
-                
-                <services-tenant-singular>Movement</services-tenant-singular>
-                
-                <services-list-path>abstract-common-list/list-item</services-list-path>
-                <services-record-path>movements_common:http://collectionspace.org/services/movement,movements_common</services-record-path>
-                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-                <hassoftdelete>true</hassoftdelete>
-                
-                <supportslocking>true</supportslocking>
-                <structures>
-                    <structure id="search">
-                        <view>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                    </structure>
-                    <structure id="screen">
-                        <view>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                    </structure>
-                    <structure id="tab">
-                        <view>
-                            <titlebar show="false"></titlebar>
-                            <sidebar show="false"></sidebar>
-                            <edit-section id="details" show="true"></edit-section>
-                            <list-section id="list" show="false"></list-section>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                        <repeat id="list" asSibling="true">
-                            <selector>recordList-row:</selector>
-                            <field id="summary" ui-type="list">
-                                <selector>related-summary</selector>
-                            </field>
-                            <field id="number" ui-type="list">
-                                <selector>related-number</selector>
-                            </field>
-                        </repeat>
-                    </structure>
-                </structures>
-				
-				<include src="domain-procedure-movement.xml" strip-root="yes"/>
-				
-                <row-selector>.csc-recordList-row:</row-selector>
-				
-                <section id="coreInformation">
-                    <include src="core-fields.xml"  strip-root="yes" />
-                </section>
-				
-                <section id="currentLocationHeader"></section> <!-- temp until better way to do group headers -->
-                <section id="locationMovementInformation">
-                    <!--  Object Location Information Group -->
-                    <field id="currentLocation" ui-search="repeatable" in-title="yes" mini="summary,search,list,relate" autocomplete="location-location,location-offsite_sla,organization-organization,organization-organization_shared">
-                        <title-selector>titleBar-currentLocation</title-selector>
-                    </field>
-                    <field id="currentLocationFitness">
-                        <options>
-                            <option id="" default="yes">Please select a value</option>
-                            <option id="dangerous">Dangerous</option>
-                            <option id="suitable">Suitable</option>
-                            <option id="temporary">Temporary</option>
-                            <option id="unsuitable">Unsuitable</option>
-                        </options>
-                    </field>
-                    <field id="currentLocationNote"></field>
-                    <field id="locationDate" ui-search="range" in-title="yes" mini="list" ui-type="date" datatype="date" services-should-index="true">
-                        <selector>movement-locationDate</selector>
-                    </field>
-                    <field id="normalLocation" ui-search="repeatable" autocomplete="location-location"></field>
-                </section>
-                <section id="movementControlInformation">
-                    <!--  Movement Information Group -->
-                    <field id="movementReferenceNumber" ui-search="repeatable" chooser="yes" in-title="no" mini="number,search,list,relate" seperate_ui_container="true">
-                        <options>
-                            <option id="inventory" sample="INV2010.1">Inventory</option>
-                            <option id="location" sample="LOC2010.1">Location</option>
-                            <option id="movement" sample="MV2010.1">Movement</option>
-                        </options>
-                    </field>
-                    <field id="plannedRemovalDate" ui-search="range" ui-type="date" datatype="date"></field>
-                    <field id="removalDate" ui-search="range" ui-type="date" datatype="date">
-                        <selector>movement-removalDate</selector>
-                    </field>
-                    <field id="reasonForMove" ui-search="repeatable">
-                        <options>
-                            <option id="" default="yes">Please select a value</option>
-                            <option id="conservation">Conservation</option>
-                            <option id="exhibition">Exhibition</option>
-                            <option id="inventory">Inventory</option>
-                            <option id="loan">Loan</option>
-                            <option id="newstoragelocation">New Storage Location</option>
-                            <option id="photography">Photography</option>
-                            <option id="research">Research</option>
-                        </options>
-                    </field>
-                    <field id="movementContact" ui-search="repeatable" autocomplete="person-person,person-person_shared"></field>
-                    <repeat id="movementMethods">
-                        <field id="movementMethod" ui-search="repeatable">
-                            <selector>movement-movementMethods</selector>
-                            <options>
-                                <option id="" default="yes">Please select a value</option>
-                                <option id="forklift">Forklift</option>
-                                <option id="handcarried">Handcarried</option>
-                                <option id="trolley">Trolley</option>
-                            </options>
-                        </field>
-                    </repeat>
-                    <field id="movementNote"></field>
-                </section>
-                <section id="inventory">
-                	<field id="inventoryDate" ui-search="range" ui-type="date" datatype="date"></field>
-                	<field id="nextInventoryDate" ui-search="range" ui-type="date" datatype="date"></field>
-                	<field id="inventoryNote" ui-search="repeatable"></field>
-                	<field id="inventoryActionRequired" ui-search="repeatable">
-                            <options>
-                                <option id="" default="yes">Please select a value</option>
-                                <option id="conservation">Conservation</option>
-                                <option id="preservation">Preservation</option>
-                                <option id="re-housing">Re-housing</option>
-                            </options>
-                    </field>
-                	<field id="frequencyForInventory" ui-search="repeatable">
-                        <options>
-                            <option id="" default="yes">Please select a value</option>
-                            <option id="daily">Daily</option>
-                            <option id="weekly">Weekly</option>
-                            <option id="monthly">Monthly</option>
-                            <option id="semi-annually">Semi-annually</option>
-                            <option id="annually">Annually</option>                            
-                        </options>
-                    </field>
-					<repeat id="inventoryContactList">
-                        <field id="inventoryContact" autocomplete="person-person,person-person_shared" ui-search="repeatable">
-                        </field>
-					</repeat>
-                </section>
-            </record>
+<record id="movement" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
+	<services-url>movements</services-url>
+	<web-url>movement</web-url>
+	<tab-url>movement-tab</tab-url>
 
-					
+	<services-tenant-singular>Movement</services-tenant-singular>
+
+	<services-list-path>abstract-common-list/list-item</services-list-path>
+	<services-record-path>movements_common:http://collectionspace.org/services/movement,movements_common</services-record-path>
+	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+
+	<supportslocking>true</supportslocking>
+
+	<include src="domain-procedure-movement.xml" strip-root="yes" />
+
+	<section id="coreInformation">
+		<include src="core-fields.xml" strip-root="yes" />
+	</section>
+
+	<section id="locationMovementInformation">
+		<!--  Object Location Information Group -->
+		<field id="currentLocation" mini="summary,list" autocomplete="true" />
+		<field id="currentLocationFitness" />
+		<field id="currentLocationNote" />
+		<field id="locationDate" mini="list" datatype="date" services-should-index="true" />
+		<field id="normalLocation" autocomplete="true" />
+	</section>
+
+	<section id="movementControlInformation">
+		<!--  Movement Information Group -->
+		<field id="movementReferenceNumber" mini="number,list" />
+		<field id="plannedRemovalDate" datatype="date" />
+		<field id="removalDate" datatype="date" />
+		<field id="reasonForMove" />
+		<field id="movementContact" autocomplete="true" />
+		<repeat id="movementMethods">
+			<field id="movementMethod" />
+		</repeat>
+		<field id="movementNote" />
+	</section>
+
+	<section id="inventory">
+		<field id="inventoryDate" datatype="date" />
+		<field id="nextInventoryDate" datatype="date" />
+		<field id="inventoryNote" />
+		<field id="inventoryActionRequired" />
+		<field id="frequencyForInventory" />
+		<repeat id="inventoryContactList">
+			<field id="inventoryContact" autocomplete="true" />
+		</repeat>
+	</section>
+</record>

@@ -1,42 +1,27 @@
-            <record id="accountroles" in-recordlist="no" type="authorizationdata">
-            	
-                <services-tenant-plural>authorization/roles/accountroles</services-tenant-plural>
-                <services-tenant-singular>AccountRoles</services-tenant-singular>
-                <services-url>authorization/roles/*/accountroles</services-url>
-                <services-list-path>account_role/account</services-list-path>
-                <services-record-path>account_role:http://collectionspace.org/services/authorization,account_role</services-record-path>
-                <authorization-includes>authorization/roles/accountroles</authorization-includes>
-                <primaryfield>role/roleId</primaryfield>
-                <hasdeletemethod>true</hasdeletemethod>
-                <is-multipart>false</is-multipart>
-				<authorization-view>false</authorization-view>
-				
-                <structures>
-                    <structure id="screen">
-                        <view>
-                            <titlebar show="false"></titlebar>
-                            <sidebar show="false"></sidebar>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                    </structure>
-                </structures>
-				
-				<include src="domain-authz-accountrole.xml" strip-root="yes"/>
-				
-                <section id="accountRoleInformation">
-                    <group id="role">
-                        <field id="roleId">
-                        </field>
-                        <field id="roleName">
-                        </field>
-                    </group>
-                    <repeat id="accounts/account" has-primary="false" xxx-hack-authorization="true">
-                        <field id="accountId">
-                        </field>
-                        <field id="screenName">
-                        </field>
-                        <field id="userId">
-                        </field>
-                    </repeat>
-                </section>
-            </record>
+<record id="accountroles" in-recordlist="no" type="authorizationdata">
+
+	<services-tenant-plural>authorization/roles/accountroles</services-tenant-plural>
+	<services-tenant-singular>AccountRoles</services-tenant-singular>
+	<services-url>authorization/roles/*/accountroles</services-url>
+	<services-list-path>account_role/account</services-list-path>
+	<services-record-path>account_role:http://collectionspace.org/services/authorization,account_role</services-record-path>
+	<authorization-includes>authorization/roles/accountroles</authorization-includes>
+	<primaryfield>role/roleId</primaryfield>
+	<hasdeletemethod>true</hasdeletemethod>
+	<is-multipart>false</is-multipart>
+	<authorization-view>false</authorization-view>
+
+	<include src="domain-authz-accountrole.xml" strip-root="yes" />
+
+	<section id="accountRoleInformation">
+		<group id="role">
+			<field id="roleId" />
+			<field id="roleName" />
+		</group>
+		<repeat id="accounts/account">
+			<field id="accountId" />
+			<field id="screenName" />
+			<field id="userId" />
+		</repeat>
+	</section>
+</record>

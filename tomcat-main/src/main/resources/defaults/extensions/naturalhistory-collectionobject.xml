@@ -2,150 +2,67 @@
 	<services-record-path id="naturalhistory_extension">collectionobjects_naturalhistory_extension:http://collectionspace.org/services/collectionobject/domain/naturalhistory_extension,collectionobjects_naturalhistory_extension</services-record-path>
 
 	<section id="identificationInformation">
-	    <!-- Used by the Botanical Garden and Anthropology profiles -->
-	    <repeat id="taxonomicIdentGroupList/taxonomicIdentGroup" section="naturalhistory_extension">
-	        <field id="taxon" in-title="yes" ui-search="repeatable" mini="summary,search,list,relate" autocomplete="taxon-taxon" section="naturalhistory_extension" >
-	        </field>
-	    	<repeat id="computedTaxonCommonNames" section="naturalhistory_extension">
-	    		<field id="computedTaxonCommonName" ui-search="repeatable" mini="search" section="naturalhistory_extension" />
-	    	</repeat>
-	        <field id="qualifier" autocomplete="vocab-taxonqualifier" ui-type="enum" seperate_ui_container="true" section="naturalhistory_extension">
-	            <selector>taxonomic-identification-qualifier</selector>
-	        </field>
-	        <field id="identBy" section="naturalhistory_extension" autocomplete="person-person,organization-organization">
-	            <selector>taxonomic-identification-ident-by</selector>
-	        </field>
-	        <group id="identDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate" section="naturalhistory_extension">
-	            <!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
-	            <field id="dateDisplayDate" section="naturalhistory_extension"/>
-	            <field id="dateAssociation" section="naturalhistory_extension"/>
-	            <field id="dateEarliestSingleYear" section="naturalhistory_extension"/>
-	            <field id="dateEarliestSingleMonth" section="naturalhistory_extension"/>
-	            <field id="dateEarliestSingleDay" section="naturalhistory_extension"/>
-	            <field id="dateEarliestSingleEra" section="naturalhistory_extension"/>
-	            <field id="dateEarliestSingleCertainty" section="naturalhistory_extension"/>
-	            <field id="dateEarliestSingleQualifier" section="naturalhistory_extension"/>
-	            <field id="dateEarliestSingleQualifierValue" section="naturalhistory_extension"/>
-	            <field id="dateEarliestSingleQualifierUnit" section="naturalhistory_extension"/>
-	            <field id="dateLatestYear" section="naturalhistory_extension"/>
-	            <field id="dateLatestMonth" section="naturalhistory_extension"/>
-	            <field id="dateLatestDay" section="naturalhistory_extension"/>
-	            <field id="dateLatestEra" section="naturalhistory_extension"/>
-	            <field id="dateLatestCertainty" section="naturalhistory_extension"/>
-	            <field id="dateLatestQualifier" section="naturalhistory_extension"/>
-	            <field id="dateLatestQualifierValue" section="naturalhistory_extension"/>
-	            <field id="dateLatestQualifierUnit" section="naturalhistory_extension"/>
-	            <field id="datePeriod" section="naturalhistory_extension"/>
-	            <field id="dateNote" section="naturalhistory_extension"/>
-	            <field id="dateEarliestScalarValue" section="naturalhistory_extension"/>
-	            <field id="dateLatestScalarValue" section="naturalhistory_extension"/>
-	            <field id="scalarValuesComputed" section="naturalhistory_extension"/>
-	        </group>
-	        <field id="institution" section="naturalhistory_extension" autocomplete="organization-organization">
-	            <selector>taxonomic-identification-institution</selector>
-	        </field>
-	        <field id="identKind" autocomplete="vocab-taxonkind" ui-type="enum" seperate_ui_container="true" section="naturalhistory_extension">
-	            <selector>taxonomic-identification-ident-kind</selector>
-	        </field>
-	        <field id="reference" section="naturalhistory_extension">
-	            <selector>taxonomic-identification-reference</selector>
-	        </field>
-	        <field id="refPage" section="naturalhistory_extension">
-	            <selector>taxonomic-identification-reference-page</selector>
-	        </field>
-	        <field id="notes" section="naturalhistory_extension">
-	            <selector>taxonomic-identification-notes</selector>
-	        </field>
-	        <repeat id="taxonomicIdentHybridParentGroupList/taxonomicIdentHybridParentGroup" section="naturalhistory_extension">
-	            <field id="taxonomicIdentHybridParent" autocomplete="taxon-taxon" section="naturalhistory_extension" />
-	            <field id="taxonomicIdentHybridParentQualifier" autocomplete="vocab-hybridparentqualifier" ui-type="enum" section="naturalhistory_extension"/>
-	        </repeat>
-	        <field id="taxonomicIdentHybridName" section="naturalhistory_extension"/>
-	        <field id="affinityTaxon" section="naturalhistory_extension" autocomplete="taxon-taxon"/>
-	        <field id="hybridFlag" section="naturalhistory_extension" datatype="boolean"/>
-	    </repeat>
+		<!-- Used by the Botanical Garden and Anthropology profiles -->
+		<repeat id="taxonomicIdentGroupList/taxonomicIdentGroup" section="naturalhistory_extension">
+			<field id="taxon" mini="summary,list" autocomplete="true" section="naturalhistory_extension" />
+			<repeat id="computedTaxonCommonNames" section="naturalhistory_extension">
+				<field id="computedTaxonCommonName" mini="search" section="naturalhistory_extension" />
+			</repeat>
+			<field id="qualifier" autocomplete="true" ui-type="enum" section="naturalhistory_extension" />
+			<field id="identBy" section="naturalhistory_extension" autocomplete="true" />
+			<group id="identDateGroup" ui-type="groupfield/structureddate" section="naturalhistory_extension" />
+			<field id="institution" section="naturalhistory_extension" autocomplete="true" />
+			<field id="identKind" autocomplete="true" ui-type="enum" section="naturalhistory_extension" />
+			<field id="reference" section="naturalhistory_extension" />
+			<field id="refPage" section="naturalhistory_extension" />
+			<field id="notes" section="naturalhistory_extension" />
+			<repeat id="taxonomicIdentHybridParentGroupList/taxonomicIdentHybridParentGroup" section="naturalhistory_extension">
+				<field id="taxonomicIdentHybridParent" autocomplete="true" section="naturalhistory_extension" />
+				<field id="taxonomicIdentHybridParentQualifier" autocomplete="true" ui-type="enum" section="naturalhistory_extension" />
+			</repeat>
+			<field id="taxonomicIdentHybridName" section="naturalhistory_extension" />
+			<field id="affinityTaxon" section="naturalhistory_extension" autocomplete="true" />
+			<field id="hybridFlag" section="naturalhistory_extension" datatype="boolean" />
+		</repeat>
 
-	    <repeat id="typeSpecimenGroupList/typeSpecimenGroup" section="naturalhistory_extension">
-	        <field id="typeSpecimenKind" ui-search="repeatable" mini="search,list" seperate_ui_container="true" autocomplete="vocab-typespecimenkind" ui-type="enum" section="naturalhistory_extension">
-	            <selector>object-identification-object-typeSpecimenKind</selector>
-	        </field>
-	        <field id="typeSpecimenAssertionBy" section="naturalhistory_extension" autocomplete="person-person">
-	            <selector>object-identification-object-typeSpecimenAssertionBy</selector>
-	        </field>
-	        <field id="typeSpecimenReference" section="naturalhistory_extension">
-	            <selector>object-identification-object-typeSpecimenReference</selector>
-	        </field>
-	        <field id="typeSpecimenRefPage" section="naturalhistory_extension">
-	            <selector>object-identification-object-typeSpecimenRefPage</selector>
-	        </field>
-	        <field id="typeSpecimenBasionym" section="naturalhistory_extension" autocomplete="taxon-taxon">
-	            <selector>object-identification-object-typeSpecimenBasionym</selector>
-	        </field>
-	        <field id="typeSpecimenNotes" section="naturalhistory_extension">
-	            <selector>object-identification-object-typeSpecimenNotes</selector>
-	        </field>
-	    </repeat>
-	    
-	    <!-- Used by the Herbarium profile -->
-	    <repeat id="determinationHistoryGroupList/determinationHistoryGroup" section="naturalhistory_extension">
-	        <field id="determinationTaxon" section="naturalhistory_extension" ui-search="repeatable" mini="summary,search,list,relate" autocomplete="taxon-taxon"/>
-	        <field id="determinationQualifier" section="naturalhistory_extension" seperate_ui_container="true" autocomplete="vocab-taxonqualifier" ui-type="enum"/>
-	        <field id="determinationBy" section="naturalhistory_extension" autocomplete="person-person,person-person_shared"/>
-	        <group id="determinationDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate" section="naturalhistory_extension">
-	            <!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
-	            <field id="dateDisplayDate" section="naturalhistory_extension"/>
-	            <field id="dateAssociation" section="naturalhistory_extension"/>
-	            <field id="dateEarliestSingleYear" section="naturalhistory_extension"/>
-	            <field id="dateEarliestSingleMonth" section="naturalhistory_extension"/>
-	            <field id="dateEarliestSingleDay" section="naturalhistory_extension"/>
-	            <field id="dateEarliestSingleEra" section="naturalhistory_extension"/>
-	            <field id="dateEarliestSingleCertainty" section="naturalhistory_extension"/>
-	            <field id="dateEarliestSingleQualifier" section="naturalhistory_extension"/>
-	            <field id="dateEarliestSingleQualifierValue" section="naturalhistory_extension"/>
-	            <field id="dateEarliestSingleQualifierUnit" section="naturalhistory_extension"/>
-	            <field id="dateLatestYear" section="naturalhistory_extension"/>
-	            <field id="dateLatestMonth" section="naturalhistory_extension"/>
-	            <field id="dateLatestDay" section="naturalhistory_extension"/>
-	            <field id="dateLatestEra" section="naturalhistory_extension"/>
-	            <field id="dateLatestCertainty" section="naturalhistory_extension"/>
-	            <field id="dateLatestQualifier" section="naturalhistory_extension"/>
-	            <field id="dateLatestQualifierValue" section="naturalhistory_extension"/>
-	            <field id="dateLatestQualifierUnit" section="naturalhistory_extension"/>
-	            <field id="datePeriod" section="naturalhistory_extension"/>
-	            <field id="dateNote" section="naturalhistory_extension"/>
-	            <field id="dateEarliestScalarValue" section="naturalhistory_extension"/>
-	            <field id="dateLatestScalarValue" section="naturalhistory_extension"/>
-	            <field id="scalarValuesComputed" section="naturalhistory_extension"/>
-	        </group>
-	        <field id="determinationInstitution" section="naturalhistory_extension" autocomplete="organization-organization,organization-organization_shared"/>
-	        <field id="determinationKind" section="naturalhistory_extension" seperate_ui_container="true" autocomplete="vocab-taxonkind" ui-type="enum"/>
-	        <field id="determinationReference" section="naturalhistory_extension"/>
-	        <field id="determinationRefPage" section="naturalhistory_extension"/>
-	        <field id="determinationNote" section="naturalhistory_extension"/>
-	    </repeat>	    
+		<repeat id="typeSpecimenGroupList/typeSpecimenGroup" section="naturalhistory_extension">
+			<field id="typeSpecimenKind" mini="list" autocomplete="true" ui-type="enum" section="naturalhistory_extension" />
+			<field id="typeSpecimenAssertionBy" section="naturalhistory_extension" autocomplete="true" />
+			<field id="typeSpecimenReference" section="naturalhistory_extension" />
+			<field id="typeSpecimenRefPage" section="naturalhistory_extension" />
+			<field id="typeSpecimenBasionym" section="naturalhistory_extension" autocomplete="true" />
+			<field id="typeSpecimenNotes" section="naturalhistory_extension" />
+		</repeat>
+
+		<!-- Used by the Herbarium profile -->
+		<repeat id="determinationHistoryGroupList/determinationHistoryGroup" section="naturalhistory_extension">
+			<field id="determinationTaxon" section="naturalhistory_extension" mini="summary,list" autocomplete="true" />
+			<field id="determinationQualifier" section="naturalhistory_extension" autocomplete="true" ui-type="enum" />
+			<field id="determinationBy" section="naturalhistory_extension" autocomplete="true" />
+			<group id="determinationDateGroup" ui-type="groupfield/structureddate" section="naturalhistory_extension" />
+			<field id="determinationInstitution" section="naturalhistory_extension" autocomplete="true" />
+			<field id="determinationKind" section="naturalhistory_extension" autocomplete="true" ui-type="enum" />
+			<field id="determinationReference" section="naturalhistory_extension" />
+			<field id="determinationRefPage" section="naturalhistory_extension" />
+			<field id="determinationNote" section="naturalhistory_extension" />
+		</repeat>
 	</section>
-    
-    <section id="localityInformation">
-        <field id="locality" ui-type="groupfield/locality/selfrenderer" ui-func="cspace.locality" section="naturalhistory_extension"></field>
-        <field id="vegetationType" autocomplete="vocab-vegetationtype" ui-type="enum" section="naturalhistory_extension"/>
-    </section>
-    
-    <repeat id="hybridParentGroupList/hybridParentGroup" section="herbarium">
-        <field id="hybridParent" section="herbarium" autocomplete="taxon-taxon"/>
-        <field id="hybridParentQualifier" section="herbarium" seperate_ui_container="true" autocomplete="vocab-hybridparentqualifier" ui-type="enum"/>
-    </repeat>
-    
-    <section id="objectCollectionInformation">
-        <repeat id="associatedTaxaGroupList/associatedTaxaGroup" section="naturalhistory_extension">
-            <field id="associatedTaxon" section="naturalhistory_extension" autocomplete="taxon-taxon">
-                <selector>collection-object-associatedTaxaTaxon</selector>
-            </field>
-            <field id="commonName" section="naturalhistory_extension">
-                <selector>collection-object-associatedTaxaCommonName</selector>
-            </field>
-            <field id="interaction" autocomplete="vocab-assoctaxoninteraction" ui-type="enum" section="naturalhistory_extension">
-                <selector>collection-object-associatedTaxaInteraction</selector>
-            </field>
-        </repeat>
-    </section>
+
+	<section id="localityInformation">
+		<field id="locality" ui-type="groupfield/locality/selfrenderer" section="naturalhistory_extension" />
+		<field id="vegetationType" autocomplete="true" ui-type="enum" section="naturalhistory_extension" />
+	</section>
+
+	<repeat id="hybridParentGroupList/hybridParentGroup" section="herbarium">
+		<field id="hybridParent" section="herbarium" autocomplete="true" />
+		<field id="hybridParentQualifier" section="herbarium" autocomplete="true" ui-type="enum" />
+	</repeat>
+
+	<section id="objectCollectionInformation">
+		<repeat id="associatedTaxaGroupList/associatedTaxaGroup" section="naturalhistory_extension">
+			<field id="associatedTaxon" section="naturalhistory_extension" autocomplete="true" />
+			<field id="commonName" section="naturalhistory_extension" />
+			<field id="interaction" autocomplete="true" ui-type="enum" section="naturalhistory_extension" />
+		</repeat>
+	</section>
 </record>

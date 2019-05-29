@@ -1,60 +1,49 @@
 <record id="termlistitem" in-recordlist="no" type="record,procedure,vocabulary">
 	<terms-used>false</terms-used>
 	<refobj-used>true</refobj-used>
-	
-    <services-tenant-singular>Vocabularyitem</services-tenant-singular>
-    <services-tenant-plural>Vocabularyitems</services-tenant-plural>
-	
-    <services-url>items</services-url>
-	<services-record-path>vocabularyitems_common:http://collectionspace.org/services/vocabulary,vocabularyitems_common</services-record-path>
-    <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-    <services-dochandler>org.collectionspace.services.vocabulary.nuxeo.VocabularyItemDocumentModelHandler</services-dochandler>
-    <services-validator>org.collectionspace.services.vocabulary.nuxeo.VocabularyItemValidatorHandler</services-validator>
-	<services-list-path>abstract-common-list/list-item</services-list-path>
-    <hassoftdelete>true</hassoftdelete>
-    <supportsReplicating>true</supportsReplicating>
-	<remoteClientConfigName>default</remoteClientConfigName>
-	
-	<structures>
-        <structure id="screen">
-            <view>
-                <label-section id="messagekeys" show="true"></label-section>
-                <hierarchy-section show="true"/> <!-- Here just so the Service bindings gets <SupportsHierarchy>true</SupportsHierarchy> -->
-                <titlebar show="false"></titlebar>
-                <sidebar show="false"></sidebar>
-                <edit-section id="details" show="true"></edit-section>
-                <list-section id="list" show="true"></list-section>
-            </view>
-        </structure>
-    </structures>
-	<include src="domain-other-termlistitem.xml" strip-root="yes"/>
-	
 
-    <section id="termListItemInformation">
-		<field id="workflow" exists-in-services="false" services-derived="true" section="collectionspace_core" attributes="GET" mini="search" ui-type="workflowState">
+	<services-tenant-singular>Vocabularyitem</services-tenant-singular>
+	<services-tenant-plural>Vocabularyitems</services-tenant-plural>
+
+	<services-url>items</services-url>
+	<services-record-path>vocabularyitems_common:http://collectionspace.org/services/vocabulary,vocabularyitems_common</services-record-path>
+	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+	<services-dochandler>org.collectionspace.services.vocabulary.nuxeo.VocabularyItemDocumentModelHandler</services-dochandler>
+	<services-validator>org.collectionspace.services.vocabulary.nuxeo.VocabularyItemValidatorHandler</services-validator>
+	<services-list-path>abstract-common-list/list-item</services-list-path>
+
+	<supportsReplicating>true</supportsReplicating>
+	<remoteClientConfigName>default</remoteClientConfigName>
+
+	<structures>
+		<structure id="screen">
+			<view>
+				<hierarchy-section show="true" />
+			</view>
+		</structure>
+	</structures>
+
+	<include src="domain-other-termlistitem.xml" strip-root="yes" />
+
+	<section id="termListItemInformation">
+		<field id="workflow" exists-in-services="false" services-derived="true" section="collectionspace_core" mini="search" ui-type="workflowState">
 			<services-tag>workflowState</services-tag>
 		</field>
-    	<field id="_subrecordcsid"></field> <!-- What is this field? -->
-    	<field id="inAuthority" services-should-index="true"></field>
-		<field id="displayName" mini="summary" services-should-index="true"></field>
-        <field id="source" mini="list"></field>
-        <field id="sourcePage" mini="list"></field>
-		<field id="shortIdentifier" mini="number" services-should-index="true"></field>
-        <field id="description" mini="list"></field>
-		<field id="order" mini="list"></field>
-		<field id="termStatus" mini="search,list,relate">
-            <options>
-                <option id="active" default="yes">Active</option>
-                <option id="inactive">Inactive</option>
-            </options>
-		</field>
+		<field id="_subrecordcsid" />
+		<!-- What is this field? -->
+		<field id="inAuthority" services-should-index="true" />
+		<field id="displayName" mini="summary" services-should-index="true" />
+		<field id="source" mini="list" />
+		<field id="sourcePage" mini="list" />
+		<field id="shortIdentifier" mini="number" services-should-index="true" />
+		<field id="description" mini="list" />
+		<field id="order" mini="list" />
+		<field id="termStatus" mini="list" />
 		<!-- SAS related fields -->
-		<field id="rev" mini="list" datatype="integer"/>
-		<field id="sas" mini="list" datatype="boolean"/>
-		<field id="proposed" mini="list" datatype="boolean"/>
-		<field id="deprecated" mini="list" datatype="boolean"/>
-        <field id="referenced" mini="list" exists-in-services="false" services-derived="true"/>
+		<field id="rev" mini="list" datatype="integer" />
+		<field id="sas" mini="list" datatype="boolean" />
+		<field id="proposed" mini="list" datatype="boolean" />
+		<field id="deprecated" mini="list" datatype="boolean" />
+		<field id="referenced" mini="list" exists-in-services="false" services-derived="true" />
 	</section>
-	
 </record>
-

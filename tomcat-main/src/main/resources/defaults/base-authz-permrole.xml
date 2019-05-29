@@ -1,43 +1,26 @@
+<record id="permrole" in-recordlist="no" type="authorizationdata">
+	<services-tenant-plural>authorization/permissions/permroles</services-tenant-plural>
+	<services-tenant-singular>PermissionRole</services-tenant-singular>
+	<services-url>authorization/roles/*/permroles</services-url>
+	<services-list-path>permission_role/permission</services-list-path>
+	<services-record-path>permission_role:http://collectionspace.org/services/authorization,permission_role</services-record-path>
+	<authorization-includes>authorization/roles/permroles</authorization-includes>
+	<primaryfield>role/roleId</primaryfield>
+	<hasdeletemethod>true</hasdeletemethod>
+	<is-multipart>false</is-multipart>
+	<authorization-view>false</authorization-view>
 
-            <record id="permrole" in-recordlist="no" type="authorizationdata">
-                <services-tenant-plural>authorization/permissions/permroles</services-tenant-plural>
-                <services-tenant-singular>PermissionRole</services-tenant-singular>
-                <services-url>authorization/roles/*/permroles</services-url>
-                <services-list-path>permission_role/permission</services-list-path>
-                <services-record-path>permission_role:http://collectionspace.org/services/authorization,permission_role</services-record-path>
-                <authorization-includes>authorization/roles/permroles</authorization-includes>
-                <primaryfield>role/roleId</primaryfield>
-                <hasdeletemethod>true</hasdeletemethod>
-                <is-multipart>false</is-multipart>
-				<authorization-view>false</authorization-view>
-                <structures>
-                    <structure id="screen">
-                        <view>
-                            <titlebar show="false"></titlebar>
-                            <sidebar show="false"></sidebar>
-                            <edit-section id="details" show="true"></edit-section>
-                            <list-section id="list" show="true"></list-section>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                    </structure>
-                </structures>
-				
-				<include src="domain-authz-permrole.xml" strip-root="yes"/>
-				
-                <section id="permissionRoleInformation">
-                    <group id="role">
-                        <field id="roleId">
-                        </field>
-                        <field id="roleName">
-                        </field>
-                    </group>
-                    <repeat id="permissions/permission" has-primary="false" xxx-hack-authorization="true">
-                        <field id="permissionId">
-                        </field>
-                        <field id="resourceName">
-                        </field>
-                        <field id="actionGroup">
-                        </field>
-                    </repeat>
-                </section>
-            </record>
+	<include src="domain-authz-permrole.xml" strip-root="yes" />
+
+	<section id="permissionRoleInformation">
+		<group id="role">
+			<field id="roleId" />
+			<field id="roleName" />
+		</group>
+		<repeat id="permissions/permission">
+			<field id="permissionId" />
+			<field id="resourceName" />
+			<field id="actionGroup" />
+		</repeat>
+	</section>
+</record>

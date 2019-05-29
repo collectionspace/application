@@ -1,76 +1,26 @@
-            <record id="group" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
-                <!-- Added this tag because services path is currently singular for Object Exit. -->
-                <services-url>groups</services-url>
-                <services-tenant-plural>Groups</services-tenant-plural>
-                <services-tenant-singular>Group</services-tenant-singular>
-                <services-list-path>abstract-common-list/list-item</services-list-path>
-                <services-record-path>groups_common:http://collectionspace.org/services/group,groups_common</services-record-path>
-                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-                <hassoftdelete>true</hassoftdelete>
+<record id="group" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
+	<!-- Added this tag because services path is currently singular for Object Exit. -->
+	<services-url>groups</services-url>
+	<services-tenant-plural>Groups</services-tenant-plural>
+	<services-tenant-singular>Group</services-tenant-singular>
+	<services-list-path>abstract-common-list/list-item</services-list-path>
+	<services-record-path>groups_common:http://collectionspace.org/services/group,groups_common</services-record-path>
+	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
 
-                <structures>
-                    <structure id="search">
-                        <view>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                    </structure>
-                    <structure id="screen">
-                        <view>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                    </structure>
-                    <structure id="tab">
-                        <view>
-                            <titlebar show="false"></titlebar>
-                            <sidebar show="false"></sidebar>
-                            <edit-section id="details" show="true"></edit-section>
-                            <list-section id="list" show="false"></list-section>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                        <repeat id="list" asSibling="true">
-                            <selector>recordList-row:</selector>
-                            <field id="summary" ui-type="list">
-                                <selector>related-summary</selector>
-                            </field>
-                            <field id="number" ui-type="list">
-                                <selector>related-number</selector>
-                            </field>
-                        </repeat>
-                    </structure>
-                </structures>
-				
-				<include src="domain-procedure-groups.xml" strip-root="yes"/>
-				
-                <row-selector>.csc-recordList-row:</row-selector>
-                <section id="coreInformation">
-                    <include src="core-fields.xml"  strip-root="yes" />
-                </section>
-                <section id="groupInformation">
-                    <!--  Object Exit Information Group -->
-                    <field id="title" ui-search="repeatable" in-title="yes" mini="number,search,list,relate" services-schema-qualify="true" >
-                        <selector>group-title</selector>
-                    </field>
-                    <field id="scopeNote"></field>
-                    <field id="responsibleDepartment" seperate_ui_container="true">
-                        <selector>group-responsibleDepartment</selector>
-                        <options>
-                            <option id="">Please select a value</option>
-                            <option id="antiquities">Antiquities</option>
-                            <option id="architecture-design">Architecture and Design</option>
-                            <option id="decorative-arts">Decorative Arts</option>
-                            <option id="ethnography">Ethnography</option>
-                            <option id="herpetology">Herpetology</option>
-                            <option id="media-performance-art">Media and Performance Art</option>
-                            <option id="paintings-sculpture">Paintings and Sculpture</option>
-                            <option id="paleobotany">Paleobotany</option>
-                            <option id="photographs">Photographs</option>
-                            <option id="prints-drawings">Prints and Drawings</option>
-                        </options>
-                    </field>
-                    <field id="groupEarliestSingleDate" ui-type="date" datatype="date"></field>
-                    <field id="groupLatestDate" ui-type="date" datatype="date"></field>
-                    <field id="owner" ui-search="repeatable" autocomplete="person-person,person-person_shared"
-                           mini="summary,list" in-title="yes" services-schema-qualify="true">
-                    </field>
-                </section>
-            </record> <!-- close GROUPS record -->
+	<include src="domain-procedure-groups.xml" strip-root="yes" />
+
+	<section id="coreInformation">
+		<include src="core-fields.xml" strip-root="yes" />
+	</section>
+
+	<section id="groupInformation">
+		<!--  Object Exit Information Group -->
+		<field id="title" mini="number,list" services-schema-qualify="true" />
+		<field id="scopeNote" />
+		<field id="responsibleDepartment" />
+		<field id="groupEarliestSingleDate" datatype="date" />
+		<field id="groupLatestDate" datatype="date" />
+		<field id="owner" autocomplete="true" mini="summary,list" services-schema-qualify="true">
+		</field>
+	</section>
+</record>

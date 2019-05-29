@@ -50,7 +50,7 @@
 		<options>
 			<option id="noCode" default="yes">no code assigned</option>
 			<option id="associatedFuneraryObject">1: associated funerary object (AFO)</option>
-			<option id="unassociatedFuneraryObjectWithDesignatedBurial">2: unassociated funerary object (UFO) with designated burial</option> 
+			<option id="unassociatedFuneraryObjectWithDesignatedBurial">2: unassociated funerary object (UFO) with designated burial</option>
 			<option id="unassociatedFuneraryObjectWithUndesignatedBurial">3: unassociated funerary object (UFO) with undesignated burial</option>
 			<option id="unassociatedFuneraryObjectWithCemetery">4: unassociated funerary object (UFO)/cemetery</option>
 			<option id="lacksClearFuneraryStatusNearCemetery">5: lacks clear funerary status/near cemetery</option>

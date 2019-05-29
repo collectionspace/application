@@ -1,139 +1,92 @@
-<record id="person" type="authority" cms-type="default" generate-services-schema="true"
-		services-prefetch-fields="persons_common:personTermGroupList/0/termDisplayName,persons_common:refName,persons_common:shortIdentifier">
-    <terms-used>true</terms-used>
-    <web-url>person</web-url>
-    
-    <services-tenant-auth-singular>Personauthority</services-tenant-auth-singular>
-    <services-tenant-auth-plural>Personauthorities</services-tenant-auth-plural>
-    <services-tenant-singular>Person</services-tenant-singular>
-    
-    <services-instances-path>personauthorities_common:http://collectionspace.org/services/person,abstract-common-list/list-item</services-instances-path>
-    <services-single-instance-path>personauthorities_common:http://collectionspace.org/services/person,personauthorities_common</services-single-instance-path>
-    <services-list-path>http://collectionspace.org/services/person,abstract-common-list/list-item</services-list-path>
-    
-    <services-record-path>persons_common:http://collectionspace.org/services/person,persons_common</services-record-path>
-    <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-    <services-url>personauthorities</services-url>
-    <authority-vocab-type>PersonAuthority</authority-vocab-type>
-    <hassoftdelete>true</hassoftdelete>
+<record id="person" type="authority" cms-type="default" generate-services-schema="true" services-prefetch-fields="persons_common:personTermGroupList/0/termDisplayName,persons_common:refName,persons_common:shortIdentifier">
+	<terms-used>true</terms-used>
+	<web-url>person</web-url>
+
+	<services-tenant-auth-singular>Personauthority</services-tenant-auth-singular>
+	<services-tenant-auth-plural>Personauthorities</services-tenant-auth-plural>
+	<services-tenant-singular>Person</services-tenant-singular>
+
+	<services-instances-path>personauthorities_common:http://collectionspace.org/services/person,abstract-common-list/list-item</services-instances-path>
+	<services-single-instance-path>personauthorities_common:http://collectionspace.org/services/person,personauthorities_common</services-single-instance-path>
+	<services-list-path>http://collectionspace.org/services/person,abstract-common-list/list-item</services-list-path>
+
+	<services-record-path>persons_common:http://collectionspace.org/services/person,persons_common</services-record-path>
+	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+	<services-url>personauthorities</services-url>
+	<authority-vocab-type>PersonAuthority</authority-vocab-type>
+
 	<supportsReplicating>true</supportsReplicating>
 	<remoteClientConfigName>default</remoteClientConfigName>
 
-    <structures>
-        <structure id="search">
-            <view>
-                <label-section id="messagekeys" show="true"></label-section>
-            </view>
-        </structure>
-        <structure id="screen">
-            <view>
-                <label-section id="messagekeys" show="true"></label-section>
-                <hierarchy-section show="true">
-            		<options>
-                		<option id="narrowerContext">person-person,person-person_shared</option>
-                		<option id="broaderContext">person-person,person-person_shared</option>
-					</options>
-				</hierarchy-section>
-            </view>
-        </structure>
-    </structures>
-    
- 	<include src="domain-authority-person.xml"  strip-root="yes" />
+	<structures>
+		<structure id="screen">
+			<view>
+				<hierarchy-section show="true" />
+			</view>
+		</structure>
+	</structures>
 
-    <instances id="person">
-        <instance id="person-person">
-            <web-url>person</web-url>
-            <title-ref>person</title-ref>
-            <title>Local Persons</title>
-        </instance>
-        <instance id="person-ulan_pa">
-            <web-url>ulan_pa</web-url>
-            <title-ref>ulan_pa</title-ref>
-            <title>ULAN Persons</title>
-        </instance>
-    </instances>
-    
-    <section id="coreInformation">
-        <include src="core-fields.xml"  strip-root="yes" />
-    </section>
-    
-    <section id="personNameAuthorityInformation">
-        <field id="preferredPerson" ui-type="groupfield/preferredPA/selfrenderer" ui-func="cspace.preferred">
-            <selector>preferred-personAuthority</selector>
-        </field>
-        <repeat id="personRecordTypes">
-            <field id="personRecordType" ui-search="repeatable" autocomplete="vocab-persontermtype" ui-type="enum"/>
-        </repeat>
-        <field id="birthDateGroup" in-title="yes" ui-type="groupfield/structureddate" 
-            ui-search="range" primarykey="birthDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
-            <selector>personAuthority-birthDate</selector>
-            <title-selector>titleBar-birthDate</title-selector>
-        </field>
-        <field id="deathDateGroup" in-title="yes" ui-type="groupfield/structureddate" 
-            ui-search="range" primarykey="deathDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
-            <selector>personAuthority-deathDate</selector>
-            <title-selector>titleBar-deathDate</title-selector>
-        </field>
-        <field id="birthPlace">
-            <selector>personAuthority-birthPlace</selector>
-        </field>
-        <field id="deathPlace">
-            <selector>personAuthority-deathPlace</selector>
-        </field>
-        <repeat id="groups">
-            <selector>personAuthority-group</selector>
-            <field id="group" ui-search="repeatable">
-                <selector>personAuthority-group</selector>
-            </field>
-        </repeat>
-        <repeat id="nationalities">
-            <selector>personAuthority-nationality</selector>
-            <field id="nationality" ui-search="repeatable">
-                <selector>personAuthority-nationality</selector>
-            </field>
-        </repeat>
-        <field id="gender" ui-search="repeatable" seperate_ui_container="true">
-            <selector>personAuthority-gender</selector>
-            <options>
-                <option id="" default="yes">Please select a value</option>
-                <option id="male">Male</option>
-                <option id="female">Female</option>
-            </options>
-        </field>
-        <repeat id="occupations">
-            <selector>personAuthority-occupation</selector>
-            <field id="occupation" ui-search="repeatable">
-                <selector>personAuthority-occupation</selector>
-            </field>
-        </repeat>
-        <repeat id="schoolsOrStyles">
-            <selector>personAuthority-schoolOrStyle</selector>
-            <field id="schoolOrStyle" ui-search="repeatable">
-                <selector>personAuthority-schoolOrStyle</selector>
-            </field>
-        </repeat>
-        <field id="bioNote">
-            <selector>personAuthority-bioNote</selector>
-        </field>
-        <field id="nameNote">
-            <selector>personAuthority-nameNote</selector>
-        </field>
-    </section>
-    <section id="contactInformation">
-        <group id="contact" userecord="contact" ui-spec-inherit="false"  ui-spec-prefix="contact"  exists-in-services="false"></group>
-    </section>
-    <!-- not used in UI except in autocompletes -->
-    <section id="otherInformation">
-        <field id="inAuthority" services-should-index="true"></field>
-        <field id="deprecatedRefName">
+	<include src="domain-authority-person.xml" strip-root="yes" />
+
+	<instances id="person">
+		<instance id="person-person">
+			<web-url>person</web-url>
+			<title-ref>person</title-ref>
+			<title>Local Persons</title>
+		</instance>
+		<instance id="person-ulan_pa">
+			<web-url>ulan_pa</web-url>
+			<title-ref>ulan_pa</title-ref>
+			<title>ULAN Persons</title>
+		</instance>
+	</instances>
+
+	<section id="coreInformation">
+		<include src="core-fields.xml" strip-root="yes" />
+	</section>
+
+	<section id="personNameAuthorityInformation">
+		<field id="preferredPerson" ui-type="groupfield/preferredPA/selfrenderer" />
+		<repeat id="personRecordTypes">
+			<field id="personRecordType" autocomplete="true" ui-type="enum" />
+		</repeat>
+		<field id="birthDateGroup" ui-type="groupfield/structureddate" />
+		<field id="deathDateGroup" ui-type="groupfield/structureddate" />
+		<field id="birthPlace" />
+		<field id="deathPlace" />
+		<repeat id="groups">
+			<field id="group" />
+		</repeat>
+		<repeat id="nationalities">
+			<field id="nationality" />
+		</repeat>
+		<field id="gender" />
+		<repeat id="occupations">
+			<field id="occupation" />
+		</repeat>
+		<repeat id="schoolsOrStyles">
+			<field id="schoolOrStyle" />
+		</repeat>
+		<field id="bioNote" />
+		<field id="nameNote" />
+	</section>
+
+	<section id="contactInformation">
+		<group id="contact" userecord="contact" ui-spec-inherit="false" ui-spec-prefix="contact" exists-in-services="false" />
+	</section>
+
+	<!-- not used in UI except in autocompletes -->
+	<section id="otherInformation">
+		<field id="inAuthority" services-should-index="true" />
+		<field id="deprecatedRefName">
 			<services-tag>refName</services-tag>
 		</field>
-        <field id="shortIdentifier" mini="search,list,relate" attributes="GET" services-should-index="true"></field>
-        <field id="csid" exists-in-services="false" mini="search,list,relate" attributes="GET"></field>
-        <!-- SAS related fields -->
-		<field id="rev" mini="list" datatype="integer"/>
-		<field id="sas" mini="list" datatype="boolean"/>
-		<field id="proposed" mini="list" datatype="boolean"/>
-		<field id="deprecated" mini="list" datatype="boolean"/>
-    </section>
+		<field id="shortIdentifier" mini="list" services-should-index="true" />
+		<field id="csid" exists-in-services="false" mini="list" />
+		<!-- SAS related fields -->
+		<field id="rev" mini="list" datatype="integer" />
+		<field id="sas" mini="list" datatype="boolean" />
+		<field id="proposed" mini="list" datatype="boolean" />
+		<field id="deprecated" mini="list" datatype="boolean" />
+	</section>
 </record>

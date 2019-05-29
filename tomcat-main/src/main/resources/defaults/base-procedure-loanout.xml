@@ -1,128 +1,39 @@
-            <record id="loanout" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
-                <services-url>loansout</services-url>
-                <services-tenant-singular>Loanout</services-tenant-singular>
-                <services-tenant-plural>Loansout</services-tenant-plural>
+<record id="loanout" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
+	<services-url>loansout</services-url>
+	<services-tenant-singular>Loanout</services-tenant-singular>
+	<services-tenant-plural>Loansout</services-tenant-plural>
 
-                <services-list-path>abstract-common-list/list-item</services-list-path>
-                <services-record-path>loansout_common:http://collectionspace.org/services/loanout,loansout_common</services-record-path>
-                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-                <hassoftdelete>true</hassoftdelete>
+	<services-list-path>abstract-common-list/list-item</services-list-path>
+	<services-record-path>loansout_common:http://collectionspace.org/services/loanout,loansout_common</services-record-path>
+	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
 
-                <structures>
-                    <structure id="search">
-                        <view>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                    </structure>
-                    <structure id="screen">
-                        <view>
-                            <titlebar show="false"></titlebar>
-                            <sidebar show="false"></sidebar>
-                            <edit-section show="true"></edit-section>
-                            <list-section show="false"></list-section>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                        <repeat id="termsUsed" asSibling="true">
-                            <selector>recordList-row:</selector>
-                            <field id="linktext" ui-type="linktext">
-                                <selector>related-number</selector>
-                            </field>
-                            <field id="recordtype" ui-type="list">
-                                <selector>related-recordtype</selector>
-                            </field>
-                            <field id="sourceFieldName" ui-type="list">
-                                <selector>related-field</selector>
-                            </field>
-                        </repeat>
-                    </structure>
-                    <structure id="tab">
-                        <view>
-                            <titlebar show="false"></titlebar>
-                            <sidebar show="false"></sidebar>
-                            <edit-section id="details" show="true"></edit-section>
-                            <list-section id="list" show="false"></list-section>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                        <repeat id="list" asSibling="true">
-                            <selector>recordList-row:</selector>
-                            <field id="summary" ui-type="list">
-                                <selector>related-summary</selector>
-                            </field>
-                            <field id="number" ui-type="list">
-                                <selector>related-number</selector>
-                            </field>
-                        </repeat>
-                    </structure>
-                </structures>
-				
-				<include src="domain-procedure-loanout.xml" strip-root="yes"/>
-				
-                <row-selector>.csc-recordList-row:</row-selector>
+	<include src="domain-procedure-loanout.xml" strip-root="yes" />
 
-                <section id="coreInformation">
-                    <include src="core-fields.xml"  strip-root="yes" />
-                </section>
+	<section id="coreInformation">
+		<include src="core-fields.xml" strip-root="yes" />
+	</section>
 
-                <section id="loanoutInformation">
-                    <field id="loanOutNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate" seperate_ui_container="true">
-                        <title-selector>titleBar-loanOutNumber</title-selector>
-                        <selector>loanOut-loanOutNumber</selector>
-                        <container-selector>loanOut-loanOutNumber-patternChooserContainer</container-selector>
-                        <options>
-                            <option id="loanout" sample="LO2010.1">Loan Out</option>
-                        </options>
-                    </field>
-                    <field id="borrower" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared" mini="summary,list" in-title="yes">
-                        <selector>loanOut-borrower</selector>
-                    </field>
-                    <field id="borrowersAuthorizer" autocomplete="person-person,person-person_shared"></field>
-                    <field id="borrowersAuthorizationDate"  ui-type="date" datatype="date"></field>
-                    <field id="borrowersContact" autocomplete="person-person,person-person_shared">
-                        <selector>loanOut-borrowersContact</selector>
-                    </field>
-                    <field id="specialConditionsOfLoan">
-                        <selector>loanOut-loanOutConditions</selector>
-                    </field>
-                    <field id="loanPurpose" ui-search="repeatable" seperate_ui_container="true">
-                        <selector>loanOut-loanPurpose</selector>
-                        <options>
-                            <option id="" default="yes">Please select a value</option>
-                            <option id="exhibition">Exhibition</option>
-                            <option id="research">Research</option>
-                            <option id="scientificorexhibitpreparation">Scientific or exhibit preparation</option>
-                            <option id="analysis">Analysis</option>
-                            <option id="photography">Photography</option>
-                            <option id="conservationotherrequestedservices">Conservation or other requested services</option>
-                            <option id="longtermcollectionsmanagementandstorage">Long-term collections management and storage</option>
-                        </options>
-                    </field>
-                    <field id="lendersAuthorizer" autocomplete="person-person,person-person_shared">
-                        <selector>loanOut-lendersAuthorizer</selector>
-                    </field>
-                    <field id="lendersContact" autocomplete="person-person,person-person_shared">
-                        <selector>loanOut-lendersContact</selector>
-                    </field>
-                    <field id="lendersAuthorizationDate" ui-type="date" datatype="date">
-                        <selector>loanOut-lendersAuthorizationDate</selector>
-                    </field>
-                    <field id="loanOutNote">
-                        <selector>loanOut-loanOutNote</selector>
-                    </field>
-                    <repeat id="loanStatusGroupList/loanStatusGroup">
-                        <field id="loanGroup" autocomplete="vocab-deaccessionapprovalgroup" ui-type="enum"></field>
-                        <field id="loanIndividual" autocomplete="person-person,person-person_shared"></field>
-                        <field id="loanStatus" ui-search="repeatable" autocomplete="vocab-lostatus" ui-type="enum" />                    
-                        <field id="loanStatusDate" ui-type="date" datatype="date" />
-                        <field id="loanStatusNote" />
-                    </repeat>
-                    <field id="loanOutDate" ui-search="range" ui-type="date" datatype="date">
-                        <selector>loanOut-loanOutDate</selector>
-                    </field>
-                    <field id="loanReturnDate" ui-search="range" ui-type="date" datatype="date">
-                        <selector>loanOut-loanReturnDate</selector>
-                    </field>
-                    <field id="loanRenewalApplicationDate" ui-search="range" ui-type="date" datatype="date">
-                        <selector>loanOut-loanRenewalApplicationDate</selector>
-                    </field>
-                </section>
-            </record>
+	<section id="loanoutInformation">
+		<field id="loanOutNumber" mini="number,list" />
+		<field id="borrower" autocomplete="true" mini="summary,list" />
+		<field id="borrowersAuthorizer" autocomplete="true" />
+		<field id="borrowersAuthorizationDate" datatype="date" />
+		<field id="borrowersContact" autocomplete="true" />
+		<field id="specialConditionsOfLoan" />
+		<field id="loanPurpose" />
+		<field id="lendersAuthorizer" autocomplete="true" />
+		<field id="lendersContact" autocomplete="true" />
+		<field id="lendersAuthorizationDate" datatype="date" />
+		<field id="loanOutNote" />
+		<repeat id="loanStatusGroupList/loanStatusGroup">
+			<field id="loanGroup" autocomplete="true" ui-type="enum" />
+			<field id="loanIndividual" autocomplete="true" />
+			<field id="loanStatus" autocomplete="true" ui-type="enum" />
+			<field id="loanStatusDate" datatype="date" />
+			<field id="loanStatusNote" />
+		</repeat>
+		<field id="loanOutDate" datatype="date" />
+		<field id="loanReturnDate" datatype="date" />
+		<field id="loanRenewalApplicationDate" datatype="date" />
+	</section>
+</record>

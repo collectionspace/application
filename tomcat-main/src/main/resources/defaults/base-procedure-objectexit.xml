@@ -1,121 +1,56 @@
-            <record id="objectexit" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
-                <!-- Added this tag because services path is currently singular for Object Exit. -->
-                <services-url>objectexit</services-url>
-                <services-tenant-plural>ObjectExit</services-tenant-plural>
-                <services-tenant-singular>ObjectExit</services-tenant-singular>
-                <services-list-path>abstract-common-list/list-item</services-list-path>
-                <services-record-path>objectexit_common:http://collectionspace.org/services/objectexit,objectexit_common</services-record-path>
-                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-                <hassoftdelete>true</hassoftdelete>
-                <structures>
-                    <structure id="search">
-                        <view>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                    </structure>
-                    <structure id="screen">
-                        <view>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                    </structure>
-                    <structure id="tab">
-                        <view>
-                            <titlebar show="false"></titlebar>
-                            <sidebar show="false"></sidebar>
-                            <edit-section id="details" show="true"></edit-section>
-                            <list-section id="list" show="false"></list-section>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                        <repeat id="list" asSibling="true">
-                            <selector>recordList-row:</selector>
-                            <field id="summary" ui-type="list">
-                                <selector>related-summary</selector>
-                            </field>
-                            <field id="number" ui-type="list">
-                                <selector>related-number</selector>
-                            </field>
-                        </repeat>
-                    </structure>
-                </structures>
-		
-                <include src="domain-procedure-objectexit.xml"  strip-root="yes" />
-				
-                <row-selector>.csc-recordList-row:</row-selector>
+<record id="objectexit" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
+	<!-- Added this tag because services path is currently singular for Object Exit. -->
+	<services-url>objectexit</services-url>
+	<services-tenant-plural>ObjectExit</services-tenant-plural>
+	<services-tenant-singular>ObjectExit</services-tenant-singular>
+	<services-list-path>abstract-common-list/list-item</services-list-path>
+	<services-record-path>objectexit_common:http://collectionspace.org/services/objectexit,objectexit_common</services-record-path>
+	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
 
-                <section id="coreInformation">
-                    <include src="core-fields.xml"  strip-root="yes" />
-                </section>
+	<include src="domain-procedure-objectexit.xml" strip-root="yes" />
 
-                <!--  Object Exit Information Group -->
-                <section id="objectexitInformation">
-                    <field id="exitNumber" ui-search="repeatable" chooser="yes" in-title="yes" mini="number,search,list,relate" 
-                    	seperate_ui_container="true" services-setter="setExitNumber">
-                        <options>
-                            <option id="objectexit" sample="EX2010.1">Object Exit</option>
-                        </options>
-                    </field>
-                    <field id="currentOwner" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"
-                           mini="summary,list" in-title="yes" services-setter="setCurrentOwner">
-                    </field>
-                    <field id="depositor" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"></field>
-                    <field id="exitDateGroup" ui-type="groupfield/structureddate" 
-                        ui-search="range" ui-func="cspace.structuredDate"
-                        primarykey="exitDateGroup.dateDisplayDate">
-                    </field>
-                    <repeat id="exitMethods">
-                        <field id="exitMethod" ui-search="repeatable">
-                            <selector>objectexit-exitMethods</selector>
-                            <options>
-                                <option id="" default="yes">Please select a value</option>
-                                <option id="courier">Courier</option>
-                                <option id="inperson">In Person</option>
-                                <option id="post">Post</option>
-                            </options>
-                        </field>
-                    </repeat>
-                    <field id="exitQuantity" ui-type="validated" datatype="integer"/>
-                    <field id="exitNote" ui-search="repeatable"></field>
-                    <field id="exitReason" ui-search="repeatable">
-                        <options>
-                            <option id="" default="yes">Please select a value</option>
-                            <option id="deaccession">Deaccession</option>
-                            <option id="disposal">Disposal</option>
-                            <option id="returnofloan">Return of Loan</option>
-                        </options>
-                    </field>
-                    <field id="packingNote"></field>
-                </section>
-                <!-- New Deaccession and Disposal section added for v4.4 -->
-                <section id="deaccessionAndDisplosalInformation">
-                    <field id="displosalNewObjectNumber"/>
-                    <repeat id="deacApprovalGroupList/deacApprovalGroup">
-                        <field id="deaccessionApprovalGroup" autocomplete="vocab-deaccessionapprovalgroup" ui-type="enum"/>
-                        <field id="deaccessionApprovalIndividual" autocomplete="person-person" />
-                        <field id="deaccessionApprovalStatus" autocomplete="vocab-deaccessionapprovalstatus" ui-type="enum"/>
-                        <field id="deaccessionApprovalDate" ui-type="date" datatype="date"/>
-                        <field id="deaccessionApprovalNote" />
-                    </repeat>
-                    <field id="deaccessionAuthorizer" autocomplete="person-person"/>
-                    <field id="authorizationDate" ui-type="date" datatype="date"/>
-                    <field id="deaccessionDate" ui-type="date" datatype="date"/>
-                    <field id="disposalDate" ui-type="date" datatype="date"/>
-                    <field id="disposalMethod" autocomplete="vocab-disposalmethod" ui-type="enum"/>
-                    <field id="displosalReason"/>
-                    <field id="displosalProvisos"/>
-                    <field id="disposalProposedRecipient" autocomplete="person-person,organization-organization"/>
-                    <field id="disposalRecipient" autocomplete="person-person,organization-organization"/>
-                    <field id="displosalNote"/>
-                    <field id="disposalCurrency" autocomplete="vocab-currency" ui-type="enum">
-                        <enum>
-                            <default>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'</default>
-                        </enum>
-                    </field>
-                    <field id="displosalValue" ui-type="validated" datatype="float"/>
-                    <field id="groupDisposalCurrency" autocomplete="vocab-currency" ui-type="enum">
-                        <enum>
-                            <default>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'</default>
-                        </enum>
-                    </field>
-                    <field id="groupDisplosalValue" ui-type="validated" datatype="float"/>
-                </section>
-            </record>
+	<section id="coreInformation">
+		<include src="core-fields.xml" strip-root="yes" />
+	</section>
+
+	<!--  Object Exit Information Group -->
+	<section id="objectexitInformation">
+		<field id="exitNumber" mini="number,list" services-setter="setExitNumber" />
+		<field id="currentOwner" autocomplete="true" mini="summary,list" services-setter="setCurrentOwner" />
+		<field id="depositor" autocomplete="true" />
+		<field id="exitDateGroup" ui-type="groupfield/structureddate" />
+		<repeat id="exitMethods">
+			<field id="exitMethod" />
+		</repeat>
+		<field id="exitQuantity" datatype="integer" />
+		<field id="exitNote" />
+		<field id="exitReason" />
+		<field id="packingNote" />
+	</section>
+
+	<!-- New Deaccession and Disposal section added for v4.4 -->
+	<section id="deaccessionAndDisplosalInformation">
+		<field id="displosalNewObjectNumber" />
+		<repeat id="deacApprovalGroupList/deacApprovalGroup">
+			<field id="deaccessionApprovalGroup" autocomplete="true" ui-type="enum" />
+			<field id="deaccessionApprovalIndividual" autocomplete="true" />
+			<field id="deaccessionApprovalStatus" autocomplete="true" ui-type="enum" />
+			<field id="deaccessionApprovalDate" datatype="date" />
+			<field id="deaccessionApprovalNote" />
+		</repeat>
+		<field id="deaccessionAuthorizer" autocomplete="true" />
+		<field id="authorizationDate" datatype="date" />
+		<field id="deaccessionDate" datatype="date" />
+		<field id="disposalDate" datatype="date" />
+		<field id="disposalMethod" autocomplete="true" ui-type="enum" />
+		<field id="displosalReason" />
+		<field id="displosalProvisos" />
+		<field id="disposalProposedRecipient" autocomplete="true" />
+		<field id="disposalRecipient" autocomplete="true" />
+		<field id="displosalNote" />
+		<field id="disposalCurrency" autocomplete="true" ui-type="enum" />
+		<field id="displosalValue" datatype="float" />
+		<field id="groupDisposalCurrency" autocomplete="true" ui-type="enum" />
+		<field id="groupDisplosalValue" datatype="float" />
+	</section>
+</record>

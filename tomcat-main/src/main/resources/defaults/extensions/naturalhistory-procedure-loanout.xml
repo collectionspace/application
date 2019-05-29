@@ -1,39 +1,39 @@
 <record id="loanout" is-extension="true">
 	<services-record-path id="naturalhistory_extension">loansout_naturalhistory_extension:http://collectionspace.org/services/loanout/domain/naturalhistory_extension,loansout_naturalhistory_extension</services-record-path>
-	
-    <section id="loanoutInformation">
-        <field id="numLent" section="naturalhistory_extension" ui-type="validated" datatype="integer"/>
-    </section>
-    
-    <section id="returnInformation">
-        <repeat id="returnGroupList/returnGroup" section="naturalhistory_extension">
-            <field id="returnObjectNumbers" section="naturalhistory_extension"/>
-            <field id="returnQuantity" section="naturalhistory_extension" ui-type="validated" datatype="integer"/>
-            <field id="returnDate" section="naturalhistory_extension" ui-type="date" datatype="date"/>
-            <field id="returnNotes" section="naturalhistory_extension"/>
-            <field id="returnDetermination" section="naturalhistory_extension" autocomplete="taxon-taxon"/>
-        </repeat>
-    </section>
-    
-    <section id="objectInformation">
-		<field id="loanoutItems" section="naturalhistory_extension"/>
-	
+
+	<section id="loanoutInformation">
+		<field id="numLent" section="naturalhistory_extension" datatype="integer" />
+	</section>
+
+	<section id="returnInformation">
+		<repeat id="returnGroupList/returnGroup" section="naturalhistory_extension">
+			<field id="returnObjectNumbers" section="naturalhistory_extension" />
+			<field id="returnQuantity" section="naturalhistory_extension" datatype="integer" />
+			<field id="returnDate" section="naturalhistory_extension" datatype="date" />
+			<field id="returnNotes" section="naturalhistory_extension" />
+			<field id="returnDetermination" section="naturalhistory_extension" autocomplete="true" />
+		</repeat>
+	</section>
+
+	<section id="objectInformation">
+		<field id="loanoutItems" section="naturalhistory_extension" />
+
 		<repeat id="objectGroupList/objectGroup" section="naturalhistory_extension">
-			<field id="objectNumbers" section="naturalhistory_extension"/>
-			<field id="objectQuantity" section="naturalhistory_extension" ui-type="validated" datatype="integer"/>
-			<field id="objectConditions" section="naturalhistory_extension"/>
-			<field id="objectNotes" section="naturalhistory_extension"/>
+			<field id="objectNumbers" section="naturalhistory_extension" />
+			<field id="objectQuantity" section="naturalhistory_extension" datatype="integer" />
+			<field id="objectConditions" section="naturalhistory_extension" />
+			<field id="objectNotes" section="naturalhistory_extension" />
 		</repeat>
 	</section>
 
 	<section id="transferInformation">
 		<repeat id="transferGroupList/transferGroup" section="naturalhistory_extension">
-			<field id="transferDate" section="naturalhistory_extension" ui-type="date" datatype="date"/>
-			<field id="transferOrg" section="naturalhistory_extension" autocomplete="organization-organization,organization-organization_shared"/>
-			<field id="transferPerson" section="naturalhistory_extension" autocomplete="person-person,person-person_shared"/>
-			<field id="transferDirector" section="naturalhistory_extension" autocomplete="person-person,person-person_shared"/>
-			<field id="transferQuantity" section="naturalhistory_extension" ui-type="validated" datatype="integer"/>
-			<field id="transferNotes" section="naturalhistory_extension"/>
+			<field id="transferDate" section="naturalhistory_extension" datatype="date" />
+			<field id="transferOrg" section="naturalhistory_extension" autocomplete="true" />
+			<field id="transferPerson" section="naturalhistory_extension" autocomplete="true" />
+			<field id="transferDirector" section="naturalhistory_extension" autocomplete="true" />
+			<field id="transferQuantity" section="naturalhistory_extension" datatype="integer" />
+			<field id="transferNotes" section="naturalhistory_extension" />
 		</repeat>
 	</section>
 </record>

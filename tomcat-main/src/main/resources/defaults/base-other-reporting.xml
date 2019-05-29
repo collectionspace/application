@@ -2,49 +2,39 @@
 	<web-url>reporting</web-url>
 	<terms-used>false</terms-used>
 	<refobj-used>false</refobj-used>
-	 
+
 	<services-url>reports</services-url>
-    <services-tenant-singular>Report</services-tenant-singular>
-    <services-tenant-plural>Reports</services-tenant-plural>
-    
+	<services-tenant-singular>Report</services-tenant-singular>
+	<services-tenant-plural>Reports</services-tenant-plural>
+
 	<services-list-path>abstract-common-list/list-item</services-list-path>
-    <services-record-path>reports_common:http://collectionspace.org/services/report,reports_common</services-record-path>
-    <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+	<services-record-path>reports_common:http://collectionspace.org/services/report,reports_common</services-record-path>
+	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
 	<authorization-view>false</authorization-view>
-            
-    <structures>
-        <structure id="screen">
-            <view>
-                <label-section id="messagekeys" show="true"></label-section>
-                <titlebar show="false"></titlebar>
-                <sidebar show="false"></sidebar>
-                <edit-section id="details" show="true"></edit-section>
-                <list-section id="list" show="true"></list-section>
-            </view>
-        </structure>
-    </structures>
-	
-	<include src="domain-other-reporting.xml" strip-root="yes"/>
-	
+
+	<structures>
+		<structure id="screen">
+
+		</structure>
+	</structures>
+
+	<include src="domain-other-reporting.xml" strip-root="yes" />
+
 	<section id="coreInformation">
-		<include src="core-fields.xml"  strip-root="yes" />
+		<include src="core-fields.xml" strip-root="yes" />
 	</section>
-	
-    <section id="reporting">
-    	<field id="name" mini="number,search,list,relate"></field>
-    	<field id="notes" ></field>
-    	<repeat id="forDocTypes">
-    		<field id="forDocType"></field>
-    	</repeat>
-    	<field id="supportsNoContext" datatype="boolean"></field>
-    	<field id="supportsSingleDoc" datatype="boolean"></field>
-    	<field id="supportsDocList" datatype="boolean"></field>
-    	<field id="supportsGroup" datatype="boolean"></field>
-    	<field id="filename"></field>
-    	<field id="outputMIME"></field>
-    </section>
-	
+
+	<section id="reporting">
+		<field id="name" mini="number,list" />
+		<field id="notes" />
+		<repeat id="forDocTypes">
+			<field id="forDocType" />
+		</repeat>
+		<field id="supportsNoContext" datatype="boolean" />
+		<field id="supportsSingleDoc" datatype="boolean" />
+		<field id="supportsDocList" datatype="boolean" />
+		<field id="supportsGroup" datatype="boolean" />
+		<field id="filename" />
+		<field id="outputMIME" />
+	</section>
 </record>
-
-
-

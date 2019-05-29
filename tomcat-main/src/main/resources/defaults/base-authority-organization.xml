@@ -1,118 +1,87 @@
-<record id="organization" type="authority" cms-type="default" 
-    generate-services-schema="true">
-    <terms-used>true</terms-used>
-    <web-url>organization</web-url>
-    
-    <services-tenant-auth-plural>Orgauthorities</services-tenant-auth-plural>
-    <services-tenant-auth-singular>Orgauthority</services-tenant-auth-singular>
-    <services-tenant-singular>Organization</services-tenant-singular>
-    
-    <services-instances-path>orgauthorities_common:http://collectionspace.org/services/organization,abstract-common-list/list-item</services-instances-path>
-    <services-single-instance-path>orgauthorities_common:http://collectionspace.org/services/organization,orgauthorities_common</services-single-instance-path>
-    <services-list-path>http://collectionspace.org/services/organization,abstract-common-list/list-item</services-list-path>
-    
-    <services-record-path>organizations_common:http://collectionspace.org/services/organization,organizations_common</services-record-path>
-    <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-    <services-url>orgauthorities</services-url>
-    <authority-vocab-type>OrgAuthority</authority-vocab-type>
-    <hassoftdelete>true</hassoftdelete>
-    <supportsReplicating>true</supportsReplicating>
-    
-    <structures>
-        <structure id="search">
-            <view>
-                <label-section id="messagekeys" show="true"/>
-            </view>
-        </structure>
-        <structure id="screen">
-            <view>
-                <label-section id="messagekeys" show="true"/>
-                <hierarchy-section show="true">
-                    <options>
-                        <option id="narrowerContext">organization-organization,organization-organization_shared</option>
-                        <option id="broaderContext">organization-organization,organization-organization_shared</option>
-                    </options>
-                </hierarchy-section>
-            </view>
-        </structure>
-    </structures>
+<record id="organization" type="authority" cms-type="default" generate-services-schema="true">
+	<terms-used>true</terms-used>
+	<web-url>organization</web-url>
 
-    <include src="domain-authority-organization.xml" strip-root="yes"/>
+	<services-tenant-auth-plural>Orgauthorities</services-tenant-auth-plural>
+	<services-tenant-auth-singular>Orgauthority</services-tenant-auth-singular>
+	<services-tenant-singular>Organization</services-tenant-singular>
 
-    <instances id="organization">
-        <instance id="organization-organization">
-            <web-url>organization</web-url>
-            <title-ref>organization</title-ref>
-            <title>Local Organizations</title>
-        </instance>
-        <instance id="organization-ulan_oa">
-            <web-url>ulan_oa</web-url>
-            <title-ref>ulan_oa</title-ref>
-            <title>ULAN Organizations</title>
-        </instance>
-    </instances>
-    
+	<services-instances-path>orgauthorities_common:http://collectionspace.org/services/organization,abstract-common-list/list-item</services-instances-path>
+	<services-single-instance-path>orgauthorities_common:http://collectionspace.org/services/organization,orgauthorities_common</services-single-instance-path>
+	<services-list-path>http://collectionspace.org/services/organization,abstract-common-list/list-item</services-list-path>
+
+	<services-record-path>organizations_common:http://collectionspace.org/services/organization,organizations_common</services-record-path>
+	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+	<services-url>orgauthorities</services-url>
+	<authority-vocab-type>OrgAuthority</authority-vocab-type>
+
+	<supportsReplicating>true</supportsReplicating>
+
+	<structures>
+		<structure id="screen">
+			<view>
+				<hierarchy-section show="true" />
+			</view>
+		</structure>
+	</structures>
+
+	<include src="domain-authority-organization.xml" strip-root="yes" />
+
+	<instances id="organization">
+		<instance id="organization-organization">
+			<web-url>organization</web-url>
+			<title-ref>organization</title-ref>
+			<title>Local Organizations</title>
+		</instance>
+		<instance id="organization-ulan_oa">
+			<web-url>ulan_oa</web-url>
+			<title-ref>ulan_oa</title-ref>
+			<title>ULAN Organizations</title>
+		</instance>
+	</instances>
+
 	<section id="coreInformation">
-		<include src="core-fields.xml"  strip-root="yes" />
+		<include src="core-fields.xml" strip-root="yes" />
 	</section>
-	
-    <section id="organizationNameAuthorityInformation">
-        <field id="preferredOrganization" ui-type="groupfield/preferredOA/selfrenderer" ui-func="cspace.preferred">
-            <selector>preferred-orgAuthority</selector>
-        </field>
-        <repeat id="organizationRecordTypes">
-            <field id="organizationRecordType" ui-search="repeatable" autocomplete="vocab-organizationtype" ui-type="enum"/>
-        </repeat>
-        <field id="foundingDateGroup" in-title="yes" ui-type="groupfield/structureddate" 
-            ui-search="range" primarykey="foundingDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
-            <selector>organizationAuthority-foundingDate</selector>
-            <title-selector>titleBar-foundationDate</title-selector>
-        </field>
-        <field id="dissolutionDateGroup" in-title="yes" ui-type="groupfield/structureddate" 
-            ui-search="range" primarykey="dissolutionDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
-            <selector>organizationAuthority-dissolutionDate</selector>
-            <title-selector>titleBar-birthDate</title-selector>
-        </field>
-        <field id="foundingPlace" ui-search="repeatable">
-            <selector>orgAuthority-foundingPlace</selector>
-        </field>
-        <repeat id="groups">
-            <field id="group" ui-search="repeatable">
-                <selector>orgAuthority-group</selector>
-            </field>
-        </repeat>
-        <repeat id="functions">
-            <field id="function" ui-search="repeatable">
-                <selector>orgAuthority-function</selector>
-            </field>
-        </repeat>
-        <repeat id="historyNotes">
-            <field id="historyNote">
-                <selector>orgAuthority-history</selector>
-            </field>
-        </repeat>
-        <repeat id="contactNames">
-            <field id="contactName" autocomplete="person-person,person-person_shared">
-                <selector>orgAuthority-contactName</selector>
-            </field>
-        </repeat>
-    </section>
-    <section id="contactInformation">
-        <group id="contact" userecord="contact" ui-spec-inherit="false" ui-spec-prefix="contact"
-            exists-in-services="false"/>
-    </section>
-    <!-- not used in UI except in autocompletes -->
-    <section id="otherInformation">
-       	<field id="inAuthority" services-should-index="true"></field>
-    	<field id="deprecatedRefName">
+
+	<section id="organizationNameAuthorityInformation">
+		<field id="preferredOrganization" ui-type="groupfield/preferredOA/selfrenderer" />
+		<repeat id="organizationRecordTypes">
+			<field id="organizationRecordType" autocomplete="true" ui-type="enum" />
+		</repeat>
+		<field id="foundingDateGroup" ui-type="groupfield/structureddate" />
+		<field id="dissolutionDateGroup" ui-type="groupfield/structureddate" />
+		<field id="foundingPlace" />
+		<repeat id="groups">
+			<field id="group" />
+		</repeat>
+		<repeat id="functions">
+			<field id="function" />
+		</repeat>
+		<repeat id="historyNotes">
+			<field id="historyNote" />
+		</repeat>
+		<repeat id="contactNames">
+			<field id="contactName" autocomplete="true" />
+		</repeat>
+	</section>
+
+	<section id="contactInformation">
+		<group id="contact" userecord="contact" ui-spec-inherit="false" ui-spec-prefix="contact" exists-in-services="false" />
+	</section>
+
+	<!-- not used in UI except in autocompletes -->
+	<section id="otherInformation">
+		<field id="inAuthority" services-should-index="true" />
+		<field id="deprecatedRefName">
 			<services-tag>refName</services-tag>
 		</field>
-        <field id="shortIdentifier" mini="search,list,relate" attributes="GET" services-should-index="true"/>
-        <field id="csid" exists-in-services="false" mini="search,list,relate" attributes="GET"/>
-        <!-- SAS related fields -->
-		<field id="rev" mini="list" datatype="integer"/>
-		<field id="sas" mini="list" datatype="boolean"/>
-		<field id="proposed" mini="list" datatype="boolean"/>
-		<field id="deprecated" mini="list" datatype="boolean"/>
-    </section>
+		<field id="shortIdentifier" mini="list" services-should-index="true" />
+		<field id="csid" exists-in-services="false" mini="list" />
+		<!-- SAS related fields -->
+		<field id="rev" mini="list" datatype="integer" />
+		<field id="sas" mini="list" datatype="boolean" />
+		<field id="proposed" mini="list" datatype="boolean" />
+		<field id="deprecated" mini="list" datatype="boolean" />
+	</section>
 </record>

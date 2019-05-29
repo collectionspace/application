@@ -1,66 +1,42 @@
 <record id="termlist" type="record,procedure,vocabulary">
-    <web-url>termlist</web-url>
+	<web-url>termlist</web-url>
 	<showin>authorizationdata</showin>
 	<terms-used>false</terms-used>
 	<refobj-used>false</refobj-used>
-    <services-url>vocabularies</services-url>
-    <services-tenant-plural>Vocabularies</services-tenant-plural>
-    <services-tenant-singular>Vocabulary</services-tenant-singular>
+	<services-url>vocabularies</services-url>
+	<services-tenant-plural>Vocabularies</services-tenant-plural>
+	<services-tenant-singular>Vocabulary</services-tenant-singular>
 	<services-list-path>abstract-common-list/list-item</services-list-path>
-    <services-record-path id="common">vocabularies_common:http://collectionspace.org/services/vocabulary,vocabularies_common</services-record-path>
-   	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-    <hassoftdelete>true</hassoftdelete>
-    <supportsReplicating>true</supportsReplicating>
+	<services-record-path id="common">vocabularies_common:http://collectionspace.org/services/vocabulary,vocabularies_common</services-record-path>
+	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+
+	<supportsReplicating>true</supportsReplicating>
 	<remoteClientConfigName>default</remoteClientConfigName>
-	           	
-    <structures>
-        <structure id="screen">
-            <view>
-                <label-section id="messagekeys" show="true"></label-section>
 
-                <titlebar show="false"></titlebar>
-                <sidebar show="false"></sidebar>
-                <edit-section id="details" show="true"></edit-section>
-                <list-section id="list" show="true"></list-section>
-            </view>
-            <repeat id="list" asSibling="true">
-                <selector>recordList-row:</selector>
-                <field id="number" ui-type="list">
-                    <selector>user-roleList-name</selector>
-                </field>
-                <field id="csid" ui-type="list">
-                    <selector>user-roleList-csid</selector>
-                </field>
-            </repeat>
-        </structure>
-    </structures>
-	
-	<include src="domain-other-termlist.xml" strip-root="yes"/>
-	
-    <section id="termListInformation">
-    	
-	<field id="workflow" exists-in-services="false" services-derived="true" section="collectionspace_core" attributes="GET" mini="search">
-		<services-tag>workflowState</services-tag>
-	</field>
-	
-	<field id="displayName" mini="summary,list" services-should-index="true"></field>
-	<field id="shortIdentifier" mini="number,list" services-should-index="true"></field>
-	<field id="vocabType" mini="list"></field>
-	<field id="name"></field>
-	<field id="source"></field>
-	<field id="sourcePage"></field>
-	<field id="description"></field>
-	<field id="rev" mini="list" datatype="integer"/>
-	<field id="sas" mini="list" datatype="boolean"/>
-	<field id="remoteClientConfigName"/>
-			
-    <repeat id="usedBys" as-expander="true">
-        <field id="usedBy" ui-type="decorated"></field>
-    </repeat>
-    </section>
-	<section id="termlistitem">
-	    <repeat id="terms" userecord="termlistitem"  ui-spec-prefix="termlist" ui-spec-inherit="true"></repeat>
+	<include src="domain-other-termlist.xml" strip-root="yes" />
+
+	<section id="termListInformation">
+		<field id="workflow" exists-in-services="false" services-derived="true" section="collectionspace_core" mini="search">
+			<services-tag>workflowState</services-tag>
+		</field>
+
+		<field id="displayName" mini="summary,list" services-should-index="true" />
+		<field id="shortIdentifier" mini="number,list" services-should-index="true" />
+		<field id="vocabType" mini="list" />
+		<field id="name" />
+		<field id="source" />
+		<field id="sourcePage" />
+		<field id="description" />
+		<field id="rev" mini="list" datatype="integer" />
+		<field id="sas" mini="list" datatype="boolean" />
+		<field id="remoteClientConfigName" />
+
+		<repeat id="usedBys">
+			<field id="usedBy" ui-type="decorated" />
+		</repeat>
 	</section>
-	
-</record>
 
+	<section id="termlistitem">
+		<repeat id="terms" userecord="termlistitem" ui-spec-prefix="termlist" ui-spec-inherit="true"></repeat>
+	</section>
+</record>

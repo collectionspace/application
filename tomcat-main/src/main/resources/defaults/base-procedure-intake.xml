@@ -1,189 +1,95 @@
 <record id="intake" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
-                <services-url>intakes</services-url>
-                <services-tenant-singular>Intake</services-tenant-singular>
-                
-                <services-list-path>abstract-common-list/list-item</services-list-path>
-                <services-record-path>intakes_common:http://collectionspace.org/services/intake,intakes_common</services-record-path>
-                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-                <hassoftdelete>true</hassoftdelete>
-                
-                <structures>
-                    <structure id="search">
-                        <view>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                    </structure>
-                    <structure id="screen">
-                        <view>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                    </structure>
-                    <structure id="tab">
-                        <view>
-                            <titlebar show="false"></titlebar>
-                            <sidebar show="false"></sidebar>
-                            <edit-section id="details" show="true"></edit-section>
-                            <list-section id="list" show="false"></list-section>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                        <repeat id="list" asSibling="true">
-                            <selector>recordList-row:</selector>
-                            <field id="summary" ui-type="list">
-                                <selector>related-summary</selector>
-                            </field>
-                            <field id="number" ui-type="list">
-                                <selector>related-number</selector>
-                            </field>
-                        </repeat>
-                    </structure>
-                </structures>
-				
-				<include src="domain-procedure-intake.xml" strip-root="yes"/>
-				
-                <row-selector>.csc-recordList-row:</row-selector>
+	<services-url>intakes</services-url>
+	<services-tenant-singular>Intake</services-tenant-singular>
 
-                <section id="coreInformation">
-                    <include src="core-fields.xml"  strip-root="yes" />
-                </section>
+	<services-list-path>abstract-common-list/list-item</services-list-path>
+	<services-record-path>intakes_common:http://collectionspace.org/services/intake,intakes_common</services-record-path>
+	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
 
-                <section id="objectEntryInformation">
-                    <field id="entryNumber" chooser="yes" in-title="yes" ui-search="repeatable" mini="number,search,list,relate" seperate_ui_container="true">
-                        <selector>intake-entry-number</selector>
-                        <title-selector>titleBar-intake-entry-number</title-selector>
-                        <options>
-                            <option id="intake" sample="IN2009.1">Intake</option>
-                            <option id="study" sample="ST2009.1">Study</option>
-                            <option id="evaluation" sample="EV2009.1">Evaluation</option>
-                        </options>
-                    </field>
-                    <field id="entryDate" ui-search="range" ui-type="date" datatype="date">
-                        <selector>intake-entry-date</selector>
-                    </field>
-                    <field id="entryReason" ui-search="repeatable" seperate_ui_container="true">
-                        <selector>intake-entry-reason</selector>
-                        <options>
-                            <option id="" default="yes">Please select a value</option>
-                            <option id="enquiry">Enquiry</option>
-                            <option id="consideration">Consideration</option>
-                            <option id="commission">Commission</option>
-                            <option id="loan">Loan</option>
-                        </options>
-                    </field>
-                    <repeat id="entryMethods">
-                        <selector>intake-entryMethod</selector>
-                        <field id="entryMethod" ui-search="repeatable" autocomplete="vocab-entrymethod" ui-type="enum"></field>
-                    </repeat>
-                    <field id="returnDate" ui-search="range" ui-type="date" datatype="date">
-                        <container-selector>intake-returnDate-container</container-selector>
-                    </field>
-                    <field id="currentOwner" in-title="yes" mini="summary,search,list,relate" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared">
-                        <selector>intake-current-owner</selector>
-                    </field>
-                    <field id="depositor" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared">
-                        <selector>intake-depositor</selector>
-                    </field>
-                    <field id="depositorsRequirements">
-                        <selector>intake-depositor-requirements</selector>
-                    </field>
-                    <repeat id="approvalGroupList/approvalGroup">
-                        <field id="approvalGroup" autocomplete="vocab-deaccessionapprovalgroup" ui-type="enum"/>
-                        <field id="approvalIndividual" autocomplete="person-person" />
-                        <field id="approvalStatus" autocomplete="vocab-deaccessionapprovalstatus" ui-type="enum"/>
-                        <field id="approvalDate" ui-type="date" datatype="date"/>
-                        <field id="approvalNote" />
-                    </repeat>
-                    <field id="entryNote">
-                        <selector>intake-entry-note</selector>
-                    </field>
-                    <field id="packingNote">
-                        <selector>intake-packing-note</selector>
-                    </field>
-                </section>
-                <section id="objectCollectionInformation">
-                    <field id="fieldCollectionDate" ui-type="date" datatype="date">
-                        <container-selector>intake-fieldCollectionDate-container</container-selector>
-                    </field>
-                    <repeat id="fieldCollectionMethods">
-                        <field id="fieldCollectionMethod" autocomplete="vocab-collectionmethod" ui-type="enum"></field>
-                    </repeat>
-                    <field id="fieldCollectionNote"></field>
-                    <field id="fieldCollectionNumber"></field>
-                    <field id="fieldCollectionPlace"></field>
-                    <repeat id="fieldCollectionSources">
-                        <field id="fieldCollectionSource" autocomplete="person-person,person-person_shared"></field>
-                    </repeat>
-                    <repeat id="fieldCollectors">
-                        <field id="fieldCollector" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"></field>
-                    </repeat>
-                    <repeat id="fieldCollectionEventNames">
-                        <field id="fieldCollectionEventName" ui-search="repeatable" >
-                            <selector>intake-field-collection-event-name</selector>
-                        </field>
-                    </repeat>
-                </section>
-                <section id="valuationInformation">
-                    <field id="valuer" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"></field>
-                    <field id="valuationReferenceNumber">
-                        <selector>intake-valuation-reference-number</selector>
-                    </field>
-                </section>
-                <section id="insuranceInformation">
-                    <repeat id="insurers">
-                        <selector>intake-insurer</selector>
-                        <field id="insurer" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"></field>
-                    </repeat>
-                    <field id="insurancePolicyNumber">
-                        <selector>intake-insurance-policy-number</selector>
-                    </field>
-                    <field id="insuranceRenewalDate" ui-type="date"  datatype="date">
-                        <selector>intake-insurance-renewal-date</selector>
-                    </field>
-                    <field id="insuranceReferenceNumber">
-                        <selector>intake-insurance-reference-number</selector>
-                    </field>
-                    <field id="insuranceNote">
-                        <selector>intake-insurance-note</selector>
-                    </field>
-                </section>
-                <section id="locationInformation">
-                    <repeat id="currentLocationGroupList/currentLocationGroup">
-                        <!-- <field id="currentLocation" autocomplete="location-location, place-place"> -->
-                        <field id="currentLocation" ui-search="repeatable" autocomplete="location-location">
-                            <selector>intake-current-location</selector>
-                        </field>
-                        <field id="currentLocationFitness" autocomplete="vocab-conditionfitness" ui-type="enum">
-                            <selector>intake-current-location-fitness</selector>
-                        </field>
-                        <field id="currentLocationNote">
-                            <selector>intake-current-location-note</selector>
-                        </field>
-                    </repeat>
-                    <field id="locationDate" ui-type="date" datatype="date">
-                        <selector>intake-location-date</selector>
-                    </field>
-                    <!--  <field id="normalLocation" autocomplete="location-location, place-place"> -->
-                    <field id="normalLocation" autocomplete="location-location">
-                        <selector>intake-normal-location</selector>
-                    </field>
-                </section>
-                <section id="conditionInformation">
-                    <repeat id="conditionCheckMethods">
-                        <field id="conditionCheckMethod" autocomplete="vocab-conditioncheckmethod" ui-type="enum"></field>
-                    </repeat>
-                    <repeat id="conditionCheckReasons">
-                        <field id="conditionCheckReason" autocomplete="vocab-conditioncheckreason" ui-type="enum"></field>
-                    </repeat>
-                    <repeat id="conditionCheckersOrAssessors">
-                        <field id="conditionCheckerOrAssessor" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"></field>
-                    </repeat>
-                    <field id="conditionCheckNote">
-                        <selector>intake-condition-check-note</selector>
-                    </field>
-                    <field id="conditionCheckDate" ui-type="date" datatype="date">
-                        <selector>intake-condition-check-date</selector>
-                    </field>
-                    <field id="conditionCheckReferenceNumber">
-                        <selector>intake-condition-check-reference-number</selector>
-                    </field>
-                </section>
-            </record>
+	<include src="domain-procedure-intake.xml" strip-root="yes" />
+
+	<section id="coreInformation">
+		<include src="core-fields.xml" strip-root="yes" />
+	</section>
+
+	<section id="objectEntryInformation">
+		<field id="entryNumber" mini="number,list" />
+		<field id="entryDate" datatype="date" />
+		<field id="entryReason" />
+		<repeat id="entryMethods">
+			<field id="entryMethod" autocomplete="true" ui-type="enum" />
+		</repeat>
+		<field id="returnDate" datatype="date" />
+		<field id="currentOwner" mini="summary,list" autocomplete="true" />
+		<field id="depositor" autocomplete="true" />
+		<field id="depositorsRequirements" />
+		<repeat id="approvalGroupList/approvalGroup">
+			<field id="approvalGroup" autocomplete="true" ui-type="enum" />
+			<field id="approvalIndividual" autocomplete="true" />
+			<field id="approvalStatus" autocomplete="true" ui-type="enum" />
+			<field id="approvalDate" datatype="date" />
+			<field id="approvalNote" />
+		</repeat>
+		<field id="entryNote" />
+		<field id="packingNote" />
+	</section>
+
+	<section id="objectCollectionInformation">
+		<field id="fieldCollectionDate" datatype="date" />
+		<repeat id="fieldCollectionMethods">
+			<field id="fieldCollectionMethod" autocomplete="true" ui-type="enum" />
+		</repeat>
+		<field id="fieldCollectionNote" />
+		<field id="fieldCollectionNumber" />
+		<field id="fieldCollectionPlace" />
+		<repeat id="fieldCollectionSources">
+			<field id="fieldCollectionSource" autocomplete="true" />
+		</repeat>
+		<repeat id="fieldCollectors">
+			<field id="fieldCollector" autocomplete="true" />
+		</repeat>
+		<repeat id="fieldCollectionEventNames">
+			<field id="fieldCollectionEventName" />
+		</repeat>
+	</section>
+
+	<section id="valuationInformation">
+		<field id="valuer" autocomplete="true" />
+		<field id="valuationReferenceNumber" />
+	</section>
+
+	<section id="insuranceInformation">
+		<repeat id="insurers">
+			<field id="insurer" autocomplete="true" />
+		</repeat>
+		<field id="insurancePolicyNumber" />
+		<field id="insuranceRenewalDate" datatype="date" />
+		<field id="insuranceReferenceNumber" />
+		<field id="insuranceNote" />
+	</section>
+
+	<section id="locationInformation">
+		<repeat id="currentLocationGroupList/currentLocationGroup">
+			<field id="currentLocation" autocomplete="true" />
+			<field id="currentLocationFitness" autocomplete="true" ui-type="enum" />
+			<field id="currentLocationNote" />
+		</repeat>
+		<field id="locationDate" datatype="date" />
+		<field id="normalLocation" autocomplete="true" />
+	</section>
+
+	<section id="conditionInformation">
+		<repeat id="conditionCheckMethods">
+			<field id="conditionCheckMethod" autocomplete="true" ui-type="enum" />
+		</repeat>
+		<repeat id="conditionCheckReasons">
+			<field id="conditionCheckReason" autocomplete="true" ui-type="enum" />
+		</repeat>
+		<repeat id="conditionCheckersOrAssessors">
+			<field id="conditionCheckerOrAssessor" autocomplete="true" />
+		</repeat>
+		<field id="conditionCheckNote" />
+		<field id="conditionCheckDate" datatype="date" />
+		<field id="conditionCheckReferenceNumber" />
+	</section>
+</record>

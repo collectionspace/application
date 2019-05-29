@@ -1,90 +1,41 @@
+<record id="id" type="id">
+	<services-tenant-plural>id</services-tenant-plural>
+	<services-tenant-singular>id</services-tenant-singular>
+	<authorization-view>false</authorization-view>
+	<section id="idGeneratorInformation">
+		<field id="exhibition" />
+		<field id="accession" />
+		<field id="archive" />
+		<field id="evaluation" />
+		<field id="intake" />
+		<field id="uoc" />
+		<field id="inventory" />
+		<field id="library" />
+		<field id="loanin" />
+		<field id="loanout" />
+		<field id="conditioncheck" />
+		<field id="conservation" />
+		<!-- 'location' below pertains to 'generic locations' stored -->
+		<!-- in Location/Movement/Inventory records, rather than to -->
+		<!-- Storage Location authority term records -->
+		<field id="location" />
+		<field id="study" />
+		<field id="movement" />
+		<field id="objectexit" />
+		<field id="valuationcontrol" />
+		<field id="media" />
+		<field id="claim" />
+		<!-- The following ID generators are not obviously used -->
+		<field id="accession-activity" />
+		<field id="intake-object" />
+		<field id="uuid" />
+		<!--
+		This is the type for id generators - if you add a new record type that has an id_generator you need to:
+		log into cspace db and look at table id_generators and find the csid for the record type
+		use that id here
+		and magically it will all work
+		the field id is the id used in the option tag e.g.
 
-            <record id="id" type="id">
-                <services-tenant-plural>id</services-tenant-plural>
-                <services-tenant-singular>id</services-tenant-singular>
-                <authorization-view>false</authorization-view>
-                <section id="idGeneratorInformation">
-                    <field id="exhibition">
-                        <selector>29ff8c5e-597a-41c6-a481-6e92dfe0a59f</selector>
-                    </field>
-                    <field id="accession">
-                        <selector>9dd92952-c384-44dc-a736-95e435c1759c</selector>
-                    </field>
-                    <field id="archive">
-                        <selector>70586d30-9dca-4a07-a3a2-1976fe898028</selector>
-                    </field>
-                    <field id="evaluation">
-                        <selector>d2d80822-25c7-4c7c-a105-fc40cdb0c50f</selector>
-                    </field>
-                    <field id="intake">
-                        <selector>8088cfa5-c743-4824-bb4d-fb11b12847f7</selector>
-                    </field>
-                    <field id="uoc">
-                        <selector>9088cfa5-d743-5824-cb4d-eb11b12847f7</selector>
-                    </field>
-                    <field id="inventory">
-                        <selector>6d472be6-2534-47f3-a3f1-3f160e7a9303</selector>
-                    </field>
-                    <field id="library">
-                        <selector>80fedaf6-1647-4f30-9f53-a75a3cac2ffd</selector>
-                    </field>
-                    <field id="loanin">
-                        <selector>ed87e7c6-0678-4f42-9d33-f671835586ef</selector>
-                    </field>
-                    <field id="loanout">
-                        <selector>4b984865-f93d-4481-b874-3dba863ec589</selector>
-                    </field>
-                     <field id="conditioncheck">
-                        <selector>585af100-1a35-11e2-892e-0800200c9a66</selector>
-                    </field>
-                    <field id="conservation">
-                        <selector>aad54202-404d-4f19-ada9-8b1e378ad1b2</selector>
-                    </field>
-                    <!-- 'location' below pertains to 'generic locations' stored -->
-                    <!-- in Location/Movement/Inventory records, rather than to -->
-                    <!-- Storage Location authority term records -->
-                    <field id="location">
-                        <selector>1fc5e383-0786-4126-9a3c-ec7df4517ee3</selector>
-                    </field>
-                    <field id="study">
-                        <selector>0518132e-dd8c-4773-8fa9-07c9af4444ee</selector>
-                    </field>
-                    <field id="movement">
-                        <selector>49ca9d8d-7136-47ff-a70e-4a47b9038b70</selector>
-                    </field>
-                    <field id="objectexit">
-                        <selector>d4eea707-d473-4367-853a-728fbcd9be17</selector>
-                    </field>
-                    <field id="valuationcontrol">
-                        <selector>eafbc0cd-70fe-4802-8476-b931b1b0e381</selector>
-                    </field>
-                    <field id="media">
-                        <selector>cd91d8b8-f346-4925-a425-93e02bd1c5c9</selector>
-                    </field>
-                    <field id="claim">
-                        <selector>a253d167-4f1a-4be3-a477-a2bd8a30cd7f</selector>
-                    </field>
-                    <!-- The following ID generators are not obviously used -->
-                    <field id="accession-activity">
-                        <selector>1a67470b-19b1-4ae3-88d4-2a0aa936270e</selector>
-                    </field>
-                    <field id="intake-object">
-                        <selector>a91db555-5c53-4996-9918-6712351397a0</selector>
-                    </field>
-                    <field id="uuid">
-                        <selector>1fa40353-05b8-4ae6-82a6-44a18b4f3c12</selector>
-                    </field>
-                    <!--
-                        This is the type for id generators - if you add a new record type that has an id_generator you need to:
-                        log into cspace db and look at table id_generators and find the csid for the record type
-                        use that id here
-                        and magically it will all work
-                        the field id is the id used in the option tag e.g.
-                        <options>
-                            <option id="intake" sample="IN2009.1.1">Intake</option>
-                            <option id="accession" sample="2009.1.1">Accession</option>
-                            <option id="loanin" sample="LI2009.1.1">Loans In</option>
-                        </options>
-                        currently inherits most functionality from normal Record functionality -->
-                </section>
-            </record>
+		currently inherits most functionality from normal Record functionality -->
+	</section>
+</record>

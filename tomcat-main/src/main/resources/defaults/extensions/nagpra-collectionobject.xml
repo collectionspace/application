@@ -3,13 +3,13 @@
 
 	<section id="nagpraInformation">
 		<repeat id="nagpraInventoryNames" section="nagpra">
-			<field id="nagpraInventoryName" section="nagpra" seperate_ui_container="true" ui-search="repeatable" autocomplete="vocab-nagprainventory" ui-type="enum" />
+			<field id="nagpraInventoryName" section="nagpra" autocomplete="true" ui-type="enum" />
 		</repeat>
 		<repeat id="nagpraCategories" section="nagpra">
-			<field id="nagpraCategory" section="nagpra" seperate_ui_container="true" ui-search="repeatable" autocomplete="vocab-nagpracategory" ui-type="enum" />
+			<field id="nagpraCategory" section="nagpra" autocomplete="true" ui-type="enum" />
 		</repeat>
 		<repeat id="graveAssocCodes" section="nagpra">
-			<field id="graveAssocCode" section="nagpra" seperate_ui_container="true" ui-search="repeatable" autocomplete="vocab-graveassoccode" ui-type="enum" />
+			<field id="graveAssocCode" section="nagpra" autocomplete="true" ui-type="enum" />
 		</repeat>
 		<repeat id="nagpraCulturalDeterminations" section="nagpra">
 			<field id="nagpraCulturalDetermination" section="nagpra" />

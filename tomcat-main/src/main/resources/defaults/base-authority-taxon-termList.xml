@@ -1,85 +1,34 @@
 <record id="preferredTA" in-recordlist="no" separate-record="false">
-    <hassoftdelete>true</hassoftdelete>
-    <section id="termInformation">
-        <!-- List containing this item's preferred term and any non-preferred terms -->
-        <repeat id="taxonTermGroupList/taxonTermGroup">
-            <!-- Fields common across all authority items -->
-            <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes"
-                mini="summary,number,search,list,relate" services-should-index="true">
-                <selector>taxonAuthority-termDisplayName</selector>
-                <title-selector>titleBar-displayName</title-selector>
-            </field>
-            <!-- FIXME: Per comments on CSPACE-5669: termName does not appear in -->
-            <!-- the UI's Taxon record editor template, nor is it enabled in Advanced Search. -->
-            <!-- We might ask for functional clarification around whether this should -->
-            <!-- continue to be so. - ADR 2012-10-24 -->
-            <field id="termName">
-                <selector>taxonAuthority-termName</selector>
-            </field>
-            <!-- Recommendation: Hide termType in the UI because taxonomy has established -->
-            <!-- international nomenclature standards. -->
-            <!-- FIXME: Should we remove this field from mini-records? - ADR 2012-05-18 -->
-            <field id="termType">
-                <selector>taxonAuthority-termType</selector>
-                <options>
-                    <option id="">Please select a value</option>
-                    <option id="descriptor">Descriptor</option>
-                    <option id="alternate descriptor">Alternate Descriptor</option>
-                    <option id="used for term">Used for Term</option>
-                </options>
-            </field>
-            <field id="termFlag" ui-search="repeatable" autocomplete="vocab-taxontermflag" ui-type="enum">
-                <selector>taxonAuthority-termFlag</selector>
-            </field>
-            <field id="termStatus" ui-search="repeatable" seperate_ui_container="true"
-                mini="search,list,relate">
-                <selector>taxonAuthority-termStatus</selector>
-                <options>
-                    <option id="provisional" default="yes">Provisional</option>
-                    <option id="under review">Under Review</option>
-                    <option id="accepted">Accepted</option>
-                    <option id="rejected">Rejected</option>
-                </options>
-            </field>
-            <field id="termQualifier">
-                <selector>taxonAuthority-termQualifier</selector>
-            </field>
-            <!-- Recommendation: Hide termLanguage in the UI because taxonomy has established -->
-            <!-- international nomenclature standards. -->
-            <field id="termLanguage" autocomplete="vocab-languages" ui-type="enum">
-                <selector>taxonAuthority-termLanguage</selector>
-            </field>
-            <!-- Recommendation: Hide termPrefForLang in the UI because taxonomy has established -->
-            <!-- international nomenclature standards. -->
-            <field id="termPrefForLang" datatype="boolean">
-                <selector>taxonAuthority-termPrefForLang</selector>
-            </field>
-            <field id="termSource" autocomplete="citation-citation,citation-citation_shared,citation-worldcat">
-                <selector>taxonAuthority-termSource</selector>
-            </field>
-            <field id="termSourceDetail">
-                <selector>taxonAuthority-termSourceDetail</selector>
-            </field>
-            <field id="termSourceID">
-                <selector>taxonAuthority-termSourceID</selector>
-            </field>
-            <field id="termSourceNote">
-                <selector>taxonAuthority-termSourceNote</selector>
-            </field>
-            <field id="termFormattedDisplayName">
-                <selector>taxonAuthority-termFormattedDisplayName</selector>
-            </field>
-            <!-- Fields specific to Taxon terms -->
-            <field id="taxonomicStatus" ui-search="repeatable" >
-                <selector>taxonAuthority-taxonomicStatus</selector>
-                <options>
-                    <option id="" default="yes">Please select a value</option>
-                    <option id="valid">Valid</option>
-                    <option id="invalid">Invalid</option>
-                    <option id="accepted">Accepted</option>
-                    <option id="misapplied name">Misapplied Name</option>
-                </options>
-            </field>
-        </repeat>
-    </section>
+	<section id="termInformation">
+		<!-- List containing this item's preferred term and any non-preferred terms -->
+		<repeat id="taxonTermGroupList/taxonTermGroup">
+			<!-- Fields common across all authority items -->
+			<field id="termDisplayName" mini="summary,number,list" services-should-index="true" />
+			<!-- FIXME: Per comments on CSPACE-5669: termName does not appear in -->
+			<!-- the UI's Taxon record editor template, nor is it enabled in Advanced Search. -->
+			<!-- We might ask for functional clarification around whether this should -->
+			<!-- continue to be so. - ADR 2012-10-24 -->
+			<field id="termName" />
+			<!-- Recommendation: Hide termType in the UI because taxonomy has established -->
+			<!-- international nomenclature standards. -->
+			<!-- FIXME: Should we remove this field from mini-records? - ADR 2012-05-18 -->
+			<field id="termType" />
+			<field id="termFlag" autocomplete="true" ui-type="enum" />
+			<field id="termStatus" mini="list" />
+			<field id="termQualifier" />
+			<!-- Recommendation: Hide termLanguage in the UI because taxonomy has established -->
+			<!-- international nomenclature standards. -->
+			<field id="termLanguage" autocomplete="true" ui-type="enum" />
+			<!-- Recommendation: Hide termPrefForLang in the UI because taxonomy has established -->
+			<!-- international nomenclature standards. -->
+			<field id="termPrefForLang" datatype="boolean" />
+			<field id="termSource" autocomplete="true" />
+			<field id="termSourceDetail" />
+			<field id="termSourceID" />
+			<field id="termSourceNote" />
+			<field id="termFormattedDisplayName" />
+			<!-- Fields specific to Taxon terms -->
+			<field id="taxonomicStatus" />
+		</repeat>
+	</section>
 </record>

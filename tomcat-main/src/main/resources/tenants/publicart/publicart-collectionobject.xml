@@ -3,7 +3,7 @@
 
 	<section id="coreInformation">
 		<!-- Remove summary from mini -->
-		<field id="nametitle" mini="search,list,relate" />
+		<field id="nametitle" mini="list" />
 	</section>
 
 	<section id="identificationInformation">
@@ -13,11 +13,11 @@
 		</repeat>
 
 		<!-- Add mini -->
-		<field id="computedCurrentLocation" mini="search,list" />
+		<field id="computedCurrentLocation" mini="list" />
 
 		<repeat id="titleGroupList/titleGroup">
 			<!-- Add summary to mini -->
-			<field id="title" mini="summary,search,list" />
+			<field id="title" mini="summary,list" />
 		</repeat>
 
 		<repeat id="objectNameList/objectNameGroup">
@@ -46,14 +46,14 @@
 		<!-- Replacement for productionDateGroupList/productionDateGroup, to add type. -->
 		<repeat id="publicartProductionDateGroupList/publicartProductionDateGroup" section="publicart">
 			<group id="publicartProductionDate" section="publicart" ui-type="groupfield/structureddate" />
-			<field id="publicartProductionDateType" autocomplete="true" ui-type="enum" section="publicart"/>
+			<field id="publicartProductionDateType" autocomplete="true" ui-type="enum" section="publicart" />
 		</repeat>
 
 		<!-- Replacement for productionPersonGroupList/productionPersonGroup, to add type. -->
 		<repeat id="publicartProductionPersonGroupList/publicartProductionPersonGroup" section="publicart">
-			<field id="publicartProductionPerson" autocomplete="true" section="publicart"/>
-			<field id="publicartProductionPersonRole" autocomplete="true" ui-type="enum" section="publicart"/>
-			<field id="publicartProductionPersonType" section="publicart"/>
+			<field id="publicartProductionPerson" autocomplete="true" section="publicart" />
+			<field id="publicartProductionPersonRole" autocomplete="true" ui-type="enum" section="publicart" />
+			<field id="publicartProductionPersonType" section="publicart" />
 		</repeat>
 	</section>
 </record>

@@ -15,39 +15,38 @@
 	<structures>
 		<structure id="screen">
 			<view>
-				<label-section id="messagekeys" show="true"/>
-				<titlebar show="false"/>
-				<sidebar show="false"/>
-				<edit-section id="details" show="true"/>
-				<list-section id="list" show="true"/>
+				<titlebar show="false" />
+
+				<edit-section id="details" show="true" />
+				<list-section id="list" show="true" />
 			</view>
 		</structure>
 	</structures>
 
-	<include src="domain-other-batch.xml" strip-root="yes"/>
+	<include src="domain-other-batch.xml" strip-root="yes" />
 
 	<section id="coreInformation">
-		<include src="core-fields.xml" strip-root="yes"/>
+		<include src="core-fields.xml" strip-root="yes" />
 	</section>
 
 	<section id="batch">
-	    <field id="name" mini="number,search,list,relate" services-setter="setName"/>
-		<field id="notes"/>
+		<field id="name" mini="number,list" services-setter="setName" />
+		<field id="notes" />
 		<repeat id="forDocTypes">
-			<field id="forDocType"/>
+			<field id="forDocType" />
 		</repeat>
-	    <repeat id="forRoles">
-	        <field id="roleDisplayName"/>
-	    </repeat>
-	    <repeat id="resourceActionGroupList/resourceActionGroup">
-	        <field id="resourceName"/>	        
-	        <field id="actionGroup"/>
-	    </repeat>
-	    <field id="supportsNoContext" datatype="boolean"/>
-		<field id="supportsSingleDoc" datatype="boolean"/>
-		<field id="supportsDocList" datatype="boolean"/>
-		<field id="supportsGroup" datatype="boolean"/>
-		<field id="createsNewFocus" mini="search,list" datatype="boolean"/>
-		<field id="className"/>
+		<repeat id="forRoles">
+			<field id="roleDisplayName" />
+		</repeat>
+		<repeat id="resourceActionGroupList/resourceActionGroup">
+			<field id="resourceName" />
+			<field id="actionGroup" />
+		</repeat>
+		<field id="supportsNoContext" datatype="boolean" />
+		<field id="supportsSingleDoc" datatype="boolean" />
+		<field id="supportsDocList" datatype="boolean" />
+		<field id="supportsGroup" datatype="boolean" />
+		<field id="createsNewFocus" mini="list" datatype="boolean" />
+		<field id="className" />
 	</section>
 </record>

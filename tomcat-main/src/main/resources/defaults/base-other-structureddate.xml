@@ -1,119 +1,32 @@
+<record id="structureddate" in-recordlist="no" separate-record="false" services-type="structuredDateGroup">
+	<section id="structuredDateInformation">
+		<field id="dateNote" />
+		<field id="dateAssociation" />
+		<field id="datePeriod" />
+		<field id="dateDisplayDate" />
 
+		<field id="dateEarliestSingleYear" datatype="integer" />
+		<field id="dateEarliestSingleMonth" datatype="integer" />
+		<field id="dateEarliestSingleDay" datatype="integer" />
+		<field id="dateEarliestSingleEra" autocomplete="true" ui-type="enum" />
 
-            <record id="structureddate" in-recordlist="no" separate-record="false" services-type="structuredDateGroup">
-                <section id="structuredDateInformation">
-                    <field id="dateNote">
-                        <selector>dateNote</selector>
-                        <preselector></preselector>
-                    </field>
-                    <field id="dateAssociation">
-                        <selector>dateAssociation</selector>
-                        <preselector></preselector>
-                    </field>
-                    <field id="datePeriod">
-                        <selector>datePeriod</selector>
-                        <preselector></preselector>
-                    </field>
-                    <field id="dateDisplayDate">
-                        <selector>dateDisplayDate</selector>
-                        <preselector></preselector>
-                    </field>
-				
-                    <field id="dateEarliestSingleYear" ui-type="validated" datatype="integer">
-                        <selector>dateEarliestSingleYear</selector>
-                        <preselector></preselector>
-                    </field>
-                    <field id="dateEarliestSingleMonth" ui-type="validated" datatype="integer">
-                        <selector>dateEarliestSingleMonth</selector>
-                        <preselector></preselector>
-                    </field>
-                    <field id="dateEarliestSingleDay" ui-type="validated" datatype="integer">
-                        <selector>dateEarliestSingleDay</selector>
-                        <preselector></preselector>
-                    </field>
-                    <field id="dateEarliestSingleEra" autocomplete="vocab-dateera" ui-type="enum">
-                        <selector>dateEarliestSingleEra</selector>
-                        <preselector></preselector>
-                    </field>
-				
-                    <field id="dateEarliestSingleCertainty" autocomplete="vocab-dateCertainty" ui-type="enum">
-                        <selector>dateEarliestSingleCertainty</selector>
-                        <preselector></preselector>
-                    </field>
-                    <field id="dateEarliestSingleQualifier">
-                        <options>
-                            <option id="+/-">+/-</option>
-                            <option id="+">+</option>
-                            <option id="-">-</option>
-                        </options>
-                        <selector>dateEarliestSingleQualifier</selector>
-                        <preselector></preselector>
-                    </field>
-                    <field id="dateEarliestSingleQualifierValue" ui-type="validated" datatype="integer">
-                        <selector>dateEarliestSingleQualifierValue</selector>
-                        <preselector></preselector>
-                    </field>
-                    <field id="dateEarliestSingleQualifierUnit" autocomplete="vocab-datequalifier" ui-type="enum" >
-                        <selector>dateEarliestSingleQualifierUnit</selector>
-                        <preselector></preselector>
-                    </field>
-				
-				
-                    <field id="dateLatestYear" ui-type="validated" datatype="integer">
-                        <selector>dateLatestYear</selector>
-                        <preselector></preselector>
-                    </field>
-                    <field id="dateLatestMonth" ui-type="validated" datatype="integer">
-                        <selector>dateLatestMonth</selector>
-                        <preselector></preselector>
-                    </field>
-                    <field id="dateLatestDay" ui-type="validated" datatype="integer">
-                        <selector>dateLatestDay</selector>
-                        <preselector></preselector>
-                    </field>
-                    <field id="dateLatestEra" autocomplete="vocab-dateera" ui-type="enum">
-                        <selector>dateLatestEra</selector>
-                        <preselector></preselector>
-                    </field>
-				
-                    <field id="dateLatestCertainty" autocomplete="vocab-dateCertainty" ui-type="enum">
-                        <selector>dateLatestCertainty</selector>
-                        <preselector></preselector>
-                    </field>
-                    <field id="dateLatestQualifier">
-                        <options>
-                            <option id="+/-">+/-</option>
-                            <option id="+">+</option>
-                            <option id="-">-</option>
-                        </options>
-                        <selector>dateLatestQualifier</selector>
-                        <preselector></preselector>
-                    </field>
-                    <field id="dateLatestQualifierValue" ui-type="validated" datatype="integer">
-                        <selector>dateLatestQualifierValue</selector>
-                        <preselector></preselector>
-                    </field>
-                    <field id="dateLatestQualifierUnit" autocomplete="vocab-datequalifier" ui-type="enum" >
-                        <selector>dateLatestQualifierUnit</selector>
-                        <preselector></preselector>
-                    </field>
-                    
-                    <field id="dateEarliestScalarValue" ui-type="date" datatype="date">
-                        <selector>dateEarliestScalarValue</selector>
-                        <preselector></preselector>
-                    </field>
-                    <field id="dateLatestScalarValue" ui-type="date" datatype="date">
-                        <selector>dateLatestScalarValue</selector>
-                        <preselector></preselector>
-                    </field>
-                    <field id="scalarValuesComputed" ui-search="false" datatype="boolean">
-                        <options>
-                            <option id="true" default="yes">true</option>
-                            <option id="false">false</option>
-                        </options>
-                        <selector>scalarValuesComputed</selector>
-                        <preselector></preselector>
-                    </field>  
-	
-                </section>
-            </record>
+		<field id="dateEarliestSingleCertainty" autocomplete="true" ui-type="enum" />
+		<field id="dateEarliestSingleQualifier" />
+		<field id="dateEarliestSingleQualifierValue" datatype="integer" />
+		<field id="dateEarliestSingleQualifierUnit" autocomplete="true" ui-type="enum" />
+
+		<field id="dateLatestYear" datatype="integer" />
+		<field id="dateLatestMonth" datatype="integer" />
+		<field id="dateLatestDay" datatype="integer" />
+		<field id="dateLatestEra" autocomplete="true" ui-type="enum" />
+
+		<field id="dateLatestCertainty" autocomplete="true" ui-type="enum" />
+		<field id="dateLatestQualifier" />
+		<field id="dateLatestQualifierValue" datatype="integer" />
+		<field id="dateLatestQualifierUnit" autocomplete="true" ui-type="enum" />
+
+		<field id="dateEarliestScalarValue" datatype="date" />
+		<field id="dateLatestScalarValue" datatype="date" />
+		<field id="scalarValuesComputed" datatype="boolean" />
+	</section>
+</record>

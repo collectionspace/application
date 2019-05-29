@@ -1,64 +1,22 @@
-
 <record id="preferredSLA" in-recordlist="no" separate-record="false">
-    <hassoftdelete>true</hassoftdelete>
-    <section id="termInformation">
-        <repeat id="locTermGroupList/locTermGroup">
-            <!-- Fields common across all authority items -->
-            <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes"
-                mini="summary,number,search,list,relate" services-should-index="true">
-                <selector>locationAuthority-termDisplayName</selector>
-                <title-selector>titleBar-termDisplayName</title-selector>
-            </field>
-            <field id="termName" ui-search="repeatable">
-                <selector>locationAuthority-termName</selector>
-            </field>
-            <field id="termType">
-                <selector>locationAuthority-termType</selector>
-                <options>
-                    <option id="">Please select a value</option>
-                    <option id="descriptor">descriptor</option>
-                    <option id="alternate descriptor">alternate descriptor</option>
-                    <option id="used for term">used for term</option>
-                </options>
-            </field>
-            <field id="termFlag" ui-search="repeatable" autocomplete="vocab-locationtermflag" ui-type="enum">
-                <selector>locationAuthority-termFlag</selector>
-            </field>
-            <field id="termStatus" ui-search="repeatable" seperate_ui_container="true" mini="search,list,relate">
-                <selector>locationAuthority-termStatus</selector>
-                <options>
-                    <option id="provisional" default="yes">Provisional</option>
-                    <option id="under review">Under Review</option>
-                    <option id="accepted">Accepted</option>
-                    <option id="rejected">Rejected</option>
-                </options>
-            </field>
-            <field id="termQualifier">
-                <selector>locationAuthority-termQualifier</selector>
-            </field>
-            <field id="termLanguage" ui-search="repeatable" autocomplete="vocab-languages" ui-type="enum">
-                <selector>locationAuthority-termLanguage</selector>
-            </field>
-            <field id="termPrefForLang" datatype="boolean">
-                <selector>locationAuthority-termPrefForLang</selector>
-            </field>
-            <field id="termSource" autocomplete="citation-citation,citation-citation_shared,citation-worldcat">
-                <selector>locationAuthority-termSource</selector>
-            </field>
-            <field id="termSourceDetail">
-                <selector>locationAuthority-termSourceDetail</selector>
-            </field>
-            <field id="termSourceID">
-                <selector>locationAuthority-termSourceID</selector>
-            </field>
-            <field id="termSourceNote">
-                <selector>locationAuthority-termSourceNote</selector>
-            </field>
-            <field id="termFormattedDisplayName">
-                <selector>locationAuthority-termFormattedDisplayName</selector>
-            </field>
-            <!-- Fields specific to Location terms -->
-            <!-- (no such fields in current schema) -->
-        </repeat>
-    </section>
+	<section id="termInformation">
+		<repeat id="locTermGroupList/locTermGroup">
+			<!-- Fields common across all authority items -->
+			<field id="termDisplayName" mini="summary,number,list" services-should-index="true" />
+			<field id="termName" />
+			<field id="termType" />
+			<field id="termFlag" autocomplete="true" ui-type="enum" />
+			<field id="termStatus" mini="list" />
+			<field id="termQualifier" />
+			<field id="termLanguage" autocomplete="true" ui-type="enum" />
+			<field id="termPrefForLang" datatype="boolean" />
+			<field id="termSource" autocomplete="true" />
+			<field id="termSourceDetail" />
+			<field id="termSourceID" />
+			<field id="termSourceNote" />
+			<field id="termFormattedDisplayName" />
+			<!-- Fields specific to Location terms -->
+			<!-- (no such fields in current schema) -->
+		</repeat>
+	</section>
 </record>

@@ -1,45 +1,27 @@
+<record id="userperm" in-recordlist="no" type="authorizationdata">
+	<services-tenant-plural>authorization/roles/accountroles</services-tenant-plural>
+	<services-tenant-singular>AccountRole</services-tenant-singular>
+	<services-url>accounts/*/accountperms</services-url>
+	<services-list-path>account_permission/permission</services-list-path>
+	<services-record-path>account_permission:http://collectionspace.org/services/authorization,account_permission</services-record-path>
+	<primaryfield>account/accountId</primaryfield>
+	<hasdeletemethod>true</hasdeletemethod>
+	<is-multipart>false</is-multipart>
+	<authorization-view>false</authorization-view>
 
-            <record id="userperm" in-recordlist="no" type="authorizationdata">
-                <services-tenant-plural>authorization/roles/accountroles</services-tenant-plural>
-                <services-tenant-singular>AccountRole</services-tenant-singular>
-                <services-url>accounts/*/accountperms</services-url>
-                <services-list-path>account_permission/permission</services-list-path>
-                <services-record-path>account_permission:http://collectionspace.org/services/authorization,account_permission</services-record-path>
-                <primaryfield>account/accountId</primaryfield>
-                <hasdeletemethod>true</hasdeletemethod>
-                <is-multipart>false</is-multipart>
-				<authorization-view>false</authorization-view>
-                <structures>
-                    <structure id="screen">
-                        <view>
-                            <titlebar show="false"></titlebar>
-                            <sidebar show="false"></sidebar>
-                            <edit-section id="details" show="true"></edit-section>
-                            <list-section id="list" show="true"></list-section>
-                        </view>
-                    </structure>
-                </structures>
-				
-				<include src="domain-authz-userperm.xml" strip-root="yes"/>
-				
-                <section id="accountPermissionInformation">
-                    <group id="account">
-                        <field id="accountId">
-                        </field>
-                        <field id="screenName">
-                        </field>
-                        <field id="userId">
-                        </field>
-                        <field id="tenantId">
-                        </field>
-                    </group>
-                    <repeat id="permissions/permission" has-primary="false" xxx-hack-authorization="true">
-                        <field id="permissionId">
-                        </field>
-                        <field id="resourceName">
-                        </field>
-                        <field id="actionGroup">
-                        </field>
-                    </repeat>
-                </section>
-            </record>
+	<include src="domain-authz-userperm.xml" strip-root="yes" />
+
+	<section id="accountPermissionInformation">
+		<group id="account">
+			<field id="accountId" />
+			<field id="screenName" />
+			<field id="userId" />
+			<field id="tenantId" />
+		</group>
+		<repeat id="permissions/permission">
+			<field id="permissionId" />
+			<field id="resourceName" />
+			<field id="actionGroup" />
+		</repeat>
+	</section>
+</record>

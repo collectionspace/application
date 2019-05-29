@@ -1,49 +1,25 @@
+<record id="userrole" in-recordlist="no" type="authorizationdata">
+	<web-url>userrole</web-url>
+	<services-url>accounts/*/accountroles</services-url>
+	<services-record-path>account_role:http://collectionspace.org/services/authorization,account_role</services-record-path>
+	<services-list-path>account_role/role</services-list-path>
+	<authorization-includes>accounts/accountroles</authorization-includes>
+	<primaryfield>account/accountId</primaryfield>
+	<hasdeletemethod>true</hasdeletemethod>
+	<is-multipart>false</is-multipart>
+	<authorization-view>false</authorization-view>
 
+	<include src="domain-authz-userrole.xml" strip-root="yes" />
 
-            <record id="userrole" in-recordlist="no" type="authorizationdata">
-                <web-url>userrole</web-url>
-                <services-url>accounts/*/accountroles</services-url>
-                <services-record-path>account_role:http://collectionspace.org/services/authorization,account_role</services-record-path>
-                <services-list-path>account_role/role</services-list-path>
-                <authorization-includes>accounts/accountroles</authorization-includes>
-                <primaryfield>account/accountId</primaryfield>
-                <hasdeletemethod>true</hasdeletemethod>
-                <is-multipart>false</is-multipart>
-				<authorization-view>false</authorization-view>
-                <structures>
-                    <structure id="screen">
-                        <view>
-                            <titlebar show="false"></titlebar>
-                            <sidebar show="false"></sidebar>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                    </structure>
-                </structures>
-				
-				<include src="domain-authz-userrole.xml" strip-root="yes"/>
-				
-                <section id="accountRoleInformation">
-                    <group id="account">
-                        <selector>accountrole-account-row:</selector>
-                        <field id="accountId">
-                            <selector>accountrole-account-accountid</selector>
-                        </field>
-                        <field id="screenName">
-                            <selector>accountrole-account-screenname</selector>
-                        </field>
-                        <field id="userId">
-                            <selector>accountrole-account-userid</selector>
-                        </field>
-                    </group>
-                    <repeat id="roles/role" has-primary="false" xxx-hack-authorization="true">
-                        <selector>accountrole-roles-row</selector>
-                        <field id="roleId">
-                            <selector>accountrole-role-roleid</selector>
-                        </field>
-                        <field id="roleName">
-                            <selector>accountrole-account-rolename</selector>
-                        </field>
-                    </repeat>
-                </section>
-            </record>
-			
+	<section id="accountRoleInformation">
+		<group id="account">
+			<field id="accountId" />
+			<field id="screenName" />
+			<field id="userId" />
+		</group>
+		<repeat id="roles/role">
+			<field id="roleId" />
+			<field id="roleName" />
+		</repeat>
+	</section>
+</record>

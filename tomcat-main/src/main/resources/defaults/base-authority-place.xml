@@ -1,250 +1,142 @@
 <record id="place" type="authority" cms-type="default" generate-services-schema="true">
+	<terms-used>true</terms-used>
+	<web-url>place</web-url>
 
-    <terms-used>true</terms-used>
-    <web-url>place</web-url>
-    
-    <services-tenant-auth-singular>Placeauthority</services-tenant-auth-singular>
-    <services-tenant-auth-plural>Placeauthorities</services-tenant-auth-plural>
-    <services-tenant-singular>Place</services-tenant-singular>
-    <services-tenant-doctype>Placeitem</services-tenant-doctype>
-    
-    <services-instances-path>placeauthorities_common:http://collectionspace.org/services/place,abstract-common-list/list-item</services-instances-path>
-    <services-single-instance-path>placeauthorities_common:http://collectionspace.org/services/place,placeauthorities_common</services-single-instance-path>
-    <services-list-path>http://collectionspace.org/services/place,abstract-common-list/list-item</services-list-path>
-    
-    <services-record-path>places_common:http://collectionspace.org/services/place,places_common</services-record-path>
-    <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-    <services-url>placeauthorities</services-url>
-    <authority-vocab-type>PlaceAuthority</authority-vocab-type>
-    <hassoftdelete>true</hassoftdelete>
-    <supportsReplicating>true</supportsReplicating>
-    <remoteClientConfigName>default</remoteClientConfigName>
-    
-    <structures>
-        <structure id="search">
-            <view>
-                <label-section id="messagekeys" show="true"/>
-            </view>
-        </structure>
-        <structure id="screen">
-            <view>
-                <label-section id="messagekeys" show="true"/>
-                <hierarchy-section show="true">
-                    <options>
-                        <option id="narrowerContext">place-place</option>
-                        <option id="broaderContext">place-place</option>
-                    </options>
-                </hierarchy-section>
-            </view>
-        </structure>
-    </structures>
+	<services-tenant-auth-singular>Placeauthority</services-tenant-auth-singular>
+	<services-tenant-auth-plural>Placeauthorities</services-tenant-auth-plural>
+	<services-tenant-singular>Place</services-tenant-singular>
+	<services-tenant-doctype>Placeitem</services-tenant-doctype>
 
-    <include src="domain-authority-place.xml" strip-root="yes"/>
+	<services-instances-path>placeauthorities_common:http://collectionspace.org/services/place,abstract-common-list/list-item</services-instances-path>
+	<services-single-instance-path>placeauthorities_common:http://collectionspace.org/services/place,placeauthorities_common</services-single-instance-path>
+	<services-list-path>http://collectionspace.org/services/place,abstract-common-list/list-item</services-list-path>
 
-    <instances id="place">
-        <instance id="place-place">
-            <web-url>place</web-url>
-            <title-ref>place</title-ref>
-            <title>Local Places</title>
-        </instance>
-        <instance id="place-tgn_place">
-            <web-url>tgn_place</web-url>
-            <title-ref>tgn_place</title-ref>
-            <title>Thesaurus of Geographic Names</title>
-        </instance>
-    </instances>
-	
-    <section id="coreInformation">
-        <include src="core-fields.xml"  strip-root="yes"/>
-    </section>
-	
-    <section id="placeAuthorityInformation">
-        <field id="preferredPlace" ui-type="groupfield/preferredPlace/selfrenderer" ui-func="cspace.preferred">
-            <selector>preferred-placeAuthority</selector>
-        </field>
-        <field id="placeID"></field>
-        <field id="placeType" ui-search="repeatable">
-            <!-- SOURCE: http://www.getty.edu/research/tools/vocabularies/guidelines/tgn_4_6_appendix_f_place_types.html (this is a subset).
-            Seven additional values have been added: collection-site, country-code, general-region, locality,
-            national-division (in TGN as division-national), state-province and water-body (in TGN as "body of water").
-            Users can easily configure the values as they wish. -->
-            <options>
-                <option id="" default="yes">Please select a value</option>
-                <option id="autonomous-region">Autonomous region</option>
-                <option id="borough">Borough</option>
-                <option id="city">City</option>
-                <option id="collection-site">Collection site</option>
-                <option id="continent">Continent</option>
-                <option id="country">Country</option>
-                <option id="country-code">Country code</option>
-                <option id="county">County</option>
-                <option id="dependent-state">Dependent state</option>
-                <option id="deserted-settlement">Deserted settlement</option>
-                <option id="district-national">District (national)</option>
-                <option id="general-region">General region</option>
-                <option id="governorate">Governorate</option>
-                <option id="inhabited-place">Inhabited place</option>
-                <option id="island">Island</option>
-                <option id="island-group">Island group</option>
-                <option id="locality">Locality</option>
-                <option id="metropolitan-area">Metropolitan area</option>
-                <option id="municipality">Municipality</option>
-                <option id="nation">Nation</option>
-                <option id="national-division">National division</option>
-                <option id="neighborhood">Neighborhood</option>
-                <option id="occupied-territory">Occupied territory</option>
-                <option id="prefecture">Prefecture</option>
-                <option id="province">Province</option>
-                <option id="region">Region</option>
-                <option id="state">State</option>
-                <option id="state-province">State province</option>
-                <option id="territory">Territory</option>
-                <option id="union-territory">Union territory</option>
-                <option id="unitary-authority">Unitary authority</option>
-                <option id="urban-prefecture">Urban prefecture</option>
-                <option id="water-body">Water body</option>
-            </options>
-        </field>
-        <field id="placeSource"></field>
-        <field id="placeNote" ui-search="repeatable"/>
-        
-        <repeat id="placeOwnerGroupList/placeOwnerGroup">
-            <field id="owner" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"
-                   ui-search="repeatable"/>
-            <group id="ownershipDateGroup" ui-type="groupfield/structureddate"
-                   primarykey="dateDisplayDate" ui-func="cspace.structuredDate"/>
-            <field id="ownershipNote"/>
-        </repeat>
-        
-        <field id="address" ui-type="groupfield/address/selfrenderer" ui-func="cspace.address"/>
-    </section>
-    <section id="localityInformation">
-        <field id="vCoordinates"/>
-        <field id="vLatitude"/>
-        <field id="vLongitude"/>
-        <field id="vCoordSys">
-            <options>
-                <option id="" default="yes">Please select a value</option>
-                <option id="altitude-depth">Altitude depth</option>
-                <option id="latitude-longitude">Latitude and longitude</option>
-                <option id="national-grid-reference">National Grid reference</option>
-                <option id="utm">Universal Transverse Mercator (UTM)</option>
-                <!-- The following suggestions come from http://code.google.com/p/darwincore/wiki/Location#Verbatim_Coordinate_Terms;
-                Quick reference: http://rs.tdwg.org/dwc/terms/index.htm#verbatimCoordinateSystem -->
-                <!--<option id="crtm">Costa Rica Transverse Mercator (CRTM)</option>
-                <option id="decimal-degrees">Decimal degrees</option>
-                <option id="degrees-decimal-minutes">Degrees decimal minutes</option>
-                <option id="degrees-minutes-seconds">Degrees minutes seconds</option>-->
-            </options>
-        </field>
-        <field id="vSpatialReferenceSystem">
-            <!-- See http://code.google.com/p/darwincore/wiki/Location#verbatimSRS;
-            Quick reference: http://rs.tdwg.org/dwc/terms/index.htm#verbatimSRS -->
-            <options>
-                <option id="" default="yes">Please select a value</option>
-                <option id="epsg4326-wgs84">EPSG:4326-WGS84</option>
-                <option id="epsg4269-nad83">EPSG:4269-NAD83</option>
-                <option id="epsg4267-nad27">EPSG:4267-NAD27</option>
-                <option id="unknown">Unknown</option>
-            </options>
-        </field>
-        <field id="vCoordSource"/>
-        <field id="vCoordSourceRefId"/>
-        <field id="vUnitofMeasure">
-            <!-- Adapted from set of options in Dimensions group -->
-            <options>
-                <option id="">Please select a value</option>
-                <option id="acres">acres</option>
-                <option id="centimeters">centimeters</option>
-                <option id="feet">feet</option>
-                <option id="hectares">hectares</option>
-                <option id="inches">inches</option>
-                <option id="kilometers">kilometers</option>
-                <option id="meters">meters</option>
-                <option id="miles">miles</option>
-                <option id="millimeters">millimeters</option>
-                <option id="square-feet">square feet</option>
-                <option id="square-meters">square meters</option>
-                <option id="square-yards">square yards</option>
-                <option id="stories">stories</option>
-            </options>
-        </field>
-        <field id="vElevation"/>
-        <field id="minElevationInMeters" ui-type="validated" datatype="float"/>
-        <field id="maxElevationInMeters" ui-type="validated" datatype="float"/>
-        <field id="vDepth"/>
-        <field id="minDepthInMeters" ui-type="validated" datatype="float"/>
-        <field id="maxDepthInMeters" ui-type="validated" datatype="float"/>
-        <field id="vDistanceAboveSurface"/>
-        <field id="minDistanceAboveSurfaceInMeters" ui-type="validated" datatype="float"/>
-        <field id="maxDistanceAboveSurfaceInMeters" ui-type="validated" datatype="float"/>
-    </section>
-    <section id="geoReferenceInformation">
-        <repeat id="placeGeoRefGroupList/placeGeoRefGroup">
-            <field id="decimalLatitude" ui-type="validated" datatype="float"/>
-            <field id="decimalLongitude" ui-type="validated" datatype="float"/>
-            <field id="geodeticDatum">
-                <!-- See http://code.google.com/p/darwincore/wiki/Location#geodeticDatum;
-                Quick reference: http://rs.tdwg.org/dwc/terms/index.htm#geodeticDatum -->
-                <options>
-                    <option id="" default="yes">Please select a value</option>
-                    <option id="epsg4326-wgs84">EPSG:4326-WGS84</option>
-                    <option id="epsg4269-nad83">EPSG:4269-NAD83</option>
-                    <option id="epsg4267-nad27">EPSG:4267-NAD27</option>
-                    <option id="unknown">Unknown</option>
-                </options>
-            </field>
-            <field id="coordUncertaintyInMeters" ui-type="validated" datatype="integer"/>
-            <field id="coordPrecision"/>
-            <field id="pointRadiusSpatialFit"/>
-            <field id="footprintWKT"/>
-            <field id="footprintSRS"/>
-            <field id="footprintSpatialFit"/>
-            <field id="geoReferencedBy" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared"/>
-            <group id="geoRefDateGroup" ui-type="groupfield/structureddate"
-                   primarykey="dateDisplayDate" ui-func="cspace.structuredDate"/>
-            <field id="geoRefProtocol">
-                <!-- See http://code.google.com/p/darwincore/wiki/Location#georeferenceProtocol;
-                Quick reference: http://rs.tdwg.org/dwc/terms/index.htm#georeferenceProtocol -->
-                <options>
-                    <option id="" default="yes">Please select a value</option>
-                    <option id="chapman-wieczorek-2006-guide-best-practices-georeferencing">Chapman,
-                        Wieczorek 2006, Guide to Best Practices for Georeferencing
-                    </option>
-                    <option id="manis-herpnet-ornis-georeferencing-guidelines">MaNIS/HerpNet/ORNIS
-                        Georeferencing Guidelines
-                    </option>
-                    <option id="georeferencing-dummies">Georeferencing For Dummies</option>
-                    <option id="biogeomancer">BioGeomancer</option>
-                </options>
-            </field>
-            <field id="geoRefSource"/>
-            <field id="geoRefVerificationStatus">
-                <!-- See http://code.google.com/p/darwincore/wiki/Location#georeferenceVerificationStatus;
-                Quick reference: http://rs.tdwg.org/dwc/terms/index.htm#georeferenceVerificationStatus -->
-                <options>
-                    <option id="" default="yes">Please select a value</option>
-                    <option id="unverified">Unverified</option>
-                    <option id="verified-data-custodian">Verified by data custodian</option>
-                    <option id="verified-contributor">Verified by contributor</option>
-                </options>
-            </field>
-            <field id="geoRefRemarks"/>
-            <field id="geoRefPlaceName"/>
-        </repeat>
-    </section>
-    <!-- not used in UI except in autocompletes -->
-    <section id="otherInformation">
-       	<field id="inAuthority" services-should-index="true"></field>
-    	<field id="deprecatedRefName">
+	<services-record-path>places_common:http://collectionspace.org/services/place,places_common</services-record-path>
+	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+	<services-url>placeauthorities</services-url>
+	<authority-vocab-type>PlaceAuthority</authority-vocab-type>
+
+	<supportsReplicating>true</supportsReplicating>
+	<remoteClientConfigName>default</remoteClientConfigName>
+
+	<structures>
+		<structure id="screen">
+			<view>
+				<hierarchy-section show="true" />
+			</view>
+		</structure>
+	</structures>
+
+	<include src="domain-authority-place.xml" strip-root="yes" />
+
+	<instances id="place">
+		<instance id="place-place">
+			<web-url>place</web-url>
+			<title-ref>place</title-ref>
+			<title>Local Places</title>
+		</instance>
+		<instance id="place-tgn_place">
+			<web-url>tgn_place</web-url>
+			<title-ref>tgn_place</title-ref>
+			<title>Thesaurus of Geographic Names</title>
+		</instance>
+	</instances>
+
+	<section id="coreInformation">
+		<include src="core-fields.xml" strip-root="yes" />
+	</section>
+
+	<section id="placeAuthorityInformation">
+		<field id="preferredPlace" ui-type="groupfield/preferredPlace/selfrenderer" />
+		<field id="placeID" />
+		<!--
+		SOURCE: http://www.getty.edu/research/tools/vocabularies/guidelines/tgn_4_6_appendix_f_place_types.html (this is a subset).
+		Seven additional values have been added: collection-site, country-code, general-region, locality,
+		national-division (in TGN as division-national), state-province and water-body (in TGN as "body of water").
+		Users can easily configure the values as they wish.
+		-->
+		<field id="placeType" />
+		<field id="placeSource" />
+		<field id="placeNote" />
+
+		<repeat id="placeOwnerGroupList/placeOwnerGroup">
+			<field id="owner" autocomplete="true" />
+			<group id="ownershipDateGroup" ui-type="groupfield/structureddate" />
+			<field id="ownershipNote" />
+		</repeat>
+
+		<field id="address" ui-type="groupfield/address/selfrenderer" />
+	</section>
+
+	<section id="localityInformation">
+		<field id="vCoordinates" />
+		<field id="vLatitude" />
+		<field id="vLongitude" />
+		<field id="vCoordSys" />
+		<!--
+		See http://code.google.com/p/darwincore/wiki/Location#verbatimSRS;
+		Quick reference: http://rs.tdwg.org/dwc/terms/index.htm#verbatimSRS
+		-->
+		<field id="vSpatialReferenceSystem" />
+		<field id="vCoordSource" />
+		<field id="vCoordSourceRefId" />
+		<field id="vUnitofMeasure" />
+		<field id="vElevation" />
+		<field id="minElevationInMeters" datatype="float" />
+		<field id="maxElevationInMeters" datatype="float" />
+		<field id="vDepth" />
+		<field id="minDepthInMeters" datatype="float" />
+		<field id="maxDepthInMeters" datatype="float" />
+		<field id="vDistanceAboveSurface" />
+		<field id="minDistanceAboveSurfaceInMeters" datatype="float" />
+		<field id="maxDistanceAboveSurfaceInMeters" datatype="float" />
+	</section>
+
+	<section id="geoReferenceInformation">
+		<repeat id="placeGeoRefGroupList/placeGeoRefGroup">
+			<field id="decimalLatitude" datatype="float" />
+			<field id="decimalLongitude" datatype="float" />
+			<!--
+			See http://code.google.com/p/darwincore/wiki/Location#geodeticDatum;
+			Quick reference: http://rs.tdwg.org/dwc/terms/index.htm#geodeticDatum
+			-->
+			<field id="geodeticDatum" />
+			<field id="coordUncertaintyInMeters" datatype="integer" />
+			<field id="coordPrecision" />
+			<field id="pointRadiusSpatialFit" />
+			<field id="footprintWKT" />
+			<field id="footprintSRS" />
+			<field id="footprintSpatialFit" />
+			<field id="geoReferencedBy" autocomplete="true" />
+			<group id="geoRefDateGroup" ui-type="groupfield/structureddate" />
+			<!--
+			See http://code.google.com/p/darwincore/wiki/Location#georeferenceProtocol;
+			Quick reference: http://rs.tdwg.org/dwc/terms/index.htm#georeferenceProtocol
+			-->
+			<field id="geoRefProtocol" />
+			<field id="geoRefSource" />
+			<!--
+			See http://code.google.com/p/darwincore/wiki/Location#georeferenceVerificationStatus;
+			Quick reference: http://rs.tdwg.org/dwc/terms/index.htm#georeferenceVerificationStatus
+			-->
+			<field id="geoRefVerificationStatus" />
+			<field id="geoRefRemarks" />
+			<field id="geoRefPlaceName" />
+		</repeat>
+	</section>
+
+	<!-- not used in UI except in autocompletes -->
+	<section id="otherInformation">
+		<field id="inAuthority" services-should-index="true" />
+		<field id="deprecatedRefName">
 			<services-tag>refName</services-tag>
 		</field>
-        <field id="shortIdentifier" mini="search,list,relate" attributes="GET" services-should-index="true"/>
-        <field id="csid" exists-in-services="false" mini="search,list,relate" attributes="GET"/>
-        <!-- SAS related fields -->
-		<field id="rev" mini="list" datatype="integer"/>
-		<field id="sas" mini="list" datatype="boolean"/>
-		<field id="proposed" mini="list" datatype="boolean"/>
-		<field id="deprecated" mini="list" datatype="boolean"/>
-    </section>
+		<field id="shortIdentifier" mini="list" services-should-index="true" />
+		<field id="csid" exists-in-services="false" mini="list" />
+		<!-- SAS related fields -->
+		<field id="rev" mini="list" datatype="integer" />
+		<field id="sas" mini="list" datatype="boolean" />
+		<field id="proposed" mini="list" datatype="boolean" />
+		<field id="deprecated" mini="list" datatype="boolean" />
+	</section>
 </record>

@@ -1,18 +1,15 @@
 <record id="person" is-extension="true">
-    <services-record-path id="dvp"
-        >persons_dvp:http://collectionspace.org/services/person/local/dvp,persons_dvp</services-record-path>
+	<services-record-path id="dvp">persons_dvp:http://collectionspace.org/services/person/local/dvp,persons_dvp</services-record-path>
 
-    <section id="communityConnectionsInformation">
-        <!-- Local fields -->
+	<section id="communityConnectionsInformation">
+		<!-- Local fields -->
 
-        <repeat id="dartmouthGroupList/dartmouthGroup" section="dvp">
-            <field id="dartmouthConnection"
-                autocomplete="vocab-dartmouthconnections" ui-type="enum" section="dvp"/>
-            <field id="dartmouthConnectionOther" section="dvp"/>
-            <field id="collegeBranch" 
-                autocomplete="vocab-collegebranches" ui-type="enum" section="dvp"/>
-            <field id="yearsOfAttendanceDate" ui-type="groupfield/structureddate" section="dvp"/>
-            <field id="yearOfGraduationDate" ui-type="groupfield/structureddate" section="dvp"/>
-        </repeat>
-    </section>
+		<repeat id="dartmouthGroupList/dartmouthGroup" section="dvp">
+			<field id="dartmouthConnection" autocomplete="true" ui-type="enum" section="dvp" />
+			<field id="dartmouthConnectionOther" section="dvp" />
+			<field id="collegeBranch" autocomplete="true" ui-type="enum" section="dvp" />
+			<field id="yearsOfAttendanceDate" ui-type="groupfield/structureddate" section="dvp" />
+			<field id="yearOfGraduationDate" ui-type="groupfield/structureddate" section="dvp" />
+		</repeat>
+	</section>
 </record>
