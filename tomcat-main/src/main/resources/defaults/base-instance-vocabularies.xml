@@ -56,6 +56,27 @@
             <option id="researcher">researcher</option>
         </options>
     </instance>
+    <instance id="vocab-uocuserroles">
+        <web-url>uocuserroles</web-url>
+        <title-ref>uocuserroles</title-ref>
+        <title>Use of Collections Role of User</title>
+        <options>
+            <option id="undergraduate">Undergraduate student</option>
+            <option id="graduate">Graduate student</option>
+            <option id="faculty">Faculty</option>
+            <option id="other">Other</option>
+        </options>
+    </instance>
+    <instance vocab="vocab-uocauthorizationstatuses">
+        <web-url>uocauthorizationstatuses</web-url>
+        <title-ref>uocauthorizationstatuses</title-ref>
+        <title>Use of Collections Authorization Statuses</title>
+        <options>
+            <option id="approved">Approved</option>
+            <option id="notapproved">Not approved</option>
+            <option id="notdecided">Not decided</option>
+        </options>
+    </instance>
     <instance id="vocab-publishto">
         <web-url>publishto</web-url>
         <title-ref>publishto</title-ref>
