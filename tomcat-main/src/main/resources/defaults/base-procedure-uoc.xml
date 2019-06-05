@@ -68,6 +68,9 @@
     
                 <section id="uocInformation">
                     <field id="referenceNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate" seperate_ui_container="true" />
+
+                    <field id="projectId" ui-search="repeatable"/>
+                    <field id="projectDescription"/>
                     
                     <repeat id="methodList" services-type-anonymous="false">
                         <field id="method" ui-search="repeatable" autocomplete="vocab-uocmethods" ui-type="enum">
@@ -78,17 +81,27 @@
                     </repeat>
                     
                     <field id="title" mini="summary,search,list"/>
-                    
-                    <field id="authorizedBy" autocomplete="person-person,person-person_shared" mini="search,list"/>
-                    <field id="authorizationDate" ui-search="range" ui-type="date" datatype="date" />
-                    <field id="authorizationNote" />
-                    
-                    <field id="startSingleDate" ui-search="range" ui-type="date" datatype="date" />
+
+                    <repeat id="authorizationGroupList/authorizationGroup">
+                        <field id="authorizedBy" autocomplete="person-person,person-person_shared" mini="search,list"/>
+                        <field id="authorizationDate" ui-search="range" ui-type="date" datatype="date" />
+                        <field id="authorizationNote" />
+                        <field id="authorizationStatus" autocomplete="vocab-uocauthorizationstatuses" ui-type="enum"/>
+                    </repeat>
+
+                    <repeat id="startSingleDateGroupList/startSingleDateGroup">
+                        <field id="startSingleDate" ui-search="range" ui-type="date" datatype="date" />
+                        <field id="numberOfVisitors" datatype="int"/>
+                        <field id="hoursSpent" datatype="int"/>
+                    </repeat>
+
                     <field id="endDate" ui-search="range" ui-type="date" datatype="date" />
                     
                     <repeat id="userGroupList/userGroup">
                         <field id="user" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared" in-title="yes" mini="search,list" />
                         <field id="userType" ui-search="repeatable" autocomplete="vocab-uocusertypes" ui-type="enum"></field>
+                        <field id="userRole" ui-search="repeatable" autocomplete="vocab-uocuserroles" ui-type="enum"></field>
+                        <field id="userInstitution" autocomplete="organization-organization,organization-organization_shared"></field>
                     </repeat>
                     
                     <field id="location" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared,place-local,location-local" />
