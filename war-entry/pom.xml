@@ -72,6 +72,7 @@
 		</resources>
 
 		<plugins>
+		    <!--
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
@@ -122,7 +123,8 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!--
+			-->
+			<!-- 
 				Delete the exploded war file directory from the JEE container when a
 				'clean' build is performed
 			-->
@@ -137,7 +139,7 @@
 						</goals>
 						<configuration>
 							<target>
-								<!-- <delete file="${cspace.server.home}/webapps/${project.build.finalName}.${project.packaging}"></delete> -->
+							    <delete file="${cspace.server.home}/webapps/${project.build.finalName}.${project.packaging}"></delete>
 								<delete dir="${cspace.server.home}/webapps/${project.build.finalName}"></delete>
 							</target>
 						</configuration>

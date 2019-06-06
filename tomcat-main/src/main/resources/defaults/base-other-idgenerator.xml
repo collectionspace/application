@@ -19,6 +19,9 @@
                     <field id="intake">
                         <selector>8088cfa5-c743-4824-bb4d-fb11b12847f7</selector>
                     </field>
+                    <field id="uoc">
+                        <selector>9088cfa5-d743-5824-cb4d-eb11b12847f7</selector>
+                    </field>
                     <field id="inventory">
                         <selector>6d472be6-2534-47f3-a3f1-3f160e7a9303</selector>
                     </field>

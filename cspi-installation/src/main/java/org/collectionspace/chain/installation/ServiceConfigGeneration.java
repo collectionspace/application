@@ -104,6 +104,9 @@ public class ServiceConfigGeneration {
 	// The map's key is the top level tenant config file name -e.g., "botgarden-tenant.xml"
 	private Map<String, ServiceConfigGeneration> tenantConfigMap;
 	
+	//
+	private File infoOutputDir = null;
+	
 	// keeps track of schemas defined in each record
 	private Map<Record, Map<String,String>> recordDefinedSchemasMap = new HashMap<Record, Map<String, String>>(); // Map<Record, Map<SchemaName, XSD>>
 	
@@ -286,7 +289,9 @@ public class ServiceConfigGeneration {
 			String generationType, 
 			String schemaVersion, 
 			File bundlesOutputDir, 
-			String serviceBindingsVersion) throws Exception {
+			String serviceBindingsVersion,
+			File infoOutputDir) throws Exception {
+		this.infoOutputDir = infoOutputDir;
 		this.tenantConfigMap = tenantConfigMap;		
 		CSPManager cspm = getServiceManager(configfile);		
 		Spec spec = createSpec(cspm);
@@ -347,7 +352,7 @@ public class ServiceConfigGeneration {
 		} else if (generationType.equals(CommonAPI.GENERATE_BINDINGS)) { // Create the service bindings.
 			log.info(String.format("Config Generation: '%s' - ### Generating Service bindings from '%s'.", 
 					configfile.getName(), configfile.getPath()));
-			ServiceBindingsGeneration tenantbob = new ServiceBindingsGeneration(getConfigFile(), createSpec(cspm), getTenantData(cspm),false);
+			ServiceBindingsGeneration tenantbob = new ServiceBindingsGeneration(getConfigFile(), createSpec(cspm), getTenantData(cspm), false, this.infoOutputDir);
 			tenantBindings = tenantbob.doit(serviceBindingsVersion);
 		} else {
 			throw new Exception(String.format("Config Generation: '%s' - Unknown generation type '%s' requested.", 

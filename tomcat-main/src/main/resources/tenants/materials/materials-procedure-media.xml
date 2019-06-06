@@ -1,6 +1,0 @@
-<record id="media">
-  <section id="mediaInformation">
-    <!-- Add autocomplete -->
-    <field id="coverage" autocomplete="material-material,material-material_shared,place-place"></field>
-  </section>
-</record>

@@ -1,8 +1,0 @@
-<record id="preferredPA">
-    <section id="termInformation">
-        <repeat id="personTermGroupList/personTermGroup">
-            <!-- Remove autocomplete and ui-type -->
-            <field id="termType" autocomplete="" ui-type="" />
-        </repeat>
-    </section>
-</record>

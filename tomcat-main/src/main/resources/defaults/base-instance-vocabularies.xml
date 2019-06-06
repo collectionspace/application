@@ -32,6 +32,30 @@
             <option id="transferred">transferred</option>
         </options>
     </instance>
+    <instance id="vocab-uocmethods">
+        <web-url>uocmethods</web-url>
+        <title-ref>uocmethods</title-ref>
+        <title>Use of Collections Methods</title>
+        <options>
+            <option id="class">class</option>
+            <option id="exhibition">exhibition</option>
+            <option id="publication">publication</option>
+            <option id="research">research</option>
+        </options>
+    </instance>
+    <instance id="vocab-uocusertypes">
+        <web-url>uocusertypes</web-url>
+        <title-ref>uocusertypes</title-ref>
+        <title>Use of Collections User Types</title>
+        <options>
+            <option id="exhibitionorganizer">exhibition organizer</option>
+            <option id="faculty">faculty</option>
+            <option id="lecturer">lecturer</option>
+            <option id="presenter">presenter</option>
+            <option id="publisher">publisher</option>
+            <option id="researcher">researcher</option>
+        </options>
+    </instance>
     <instance id="vocab-publishto">
         <web-url>publishto</web-url>
         <title-ref>publishto</title-ref>

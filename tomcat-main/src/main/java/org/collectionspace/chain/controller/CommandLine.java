@@ -18,6 +18,7 @@ import java.io.FilenameFilter;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -95,6 +96,8 @@ public class CommandLine {
 
 	private static final String SERVICES_DELTA_FILE = "tenant-bindings-proto-unified.xml";
 
+	private static final Object LOG4J_FILENAME = "cspace-app-tool.log"; // from log4j.properties file in src/main/resources
+
 	private static void changeLoggerLevel(Level level) {
 
 		if (logger instanceof org.slf4j.impl.Log4jLoggerAdapter) {
@@ -159,7 +162,7 @@ public class CommandLine {
 		return servicesConfigDir;
 	}
 
-	private static File getBindingsOutputDir() {
+	public static File getBindingsOutputDir() {
 		return bindingsOutputDir;
 	}
 
@@ -532,7 +535,7 @@ public class CommandLine {
 		ServiceConfigGeneration xsdMetadata = null;
 		try {
 			xsdMetadata = new ServiceConfigGeneration(serviceBundlesInfo, tenantConfigFile, CommonAPI.GENERATE_BUNDLES, SERVICE_SCHEMA_VERSION, getBundlesOutputDir(),
-					SERVICE_BINDINGS_VERSION);
+					SERVICE_BINDINGS_VERSION, getBindingsOutputDir());
 			serviceBundlesInfo.put(tenantConfigFile.getName(), xsdMetadata);
 			dumpServiceArtifactMetadata(tenantConfigFile, xsdMetadata); // debugging output
 		} catch (Exception e) {
@@ -553,7 +556,7 @@ public class CommandLine {
 		ServiceConfigGeneration tenantBindingsMetadata = null;
 		try {
 			tenantBindingsMetadata = new ServiceConfigGeneration(serviceBundlesInfo, tenantConfigFile, CommonAPI.GENERATE_BINDINGS, SERVICE_SCHEMA_VERSION, null,
-					SERVICE_BINDINGS_VERSION);
+					SERVICE_BINDINGS_VERSION, getBindingsOutputDir());
 			String tenantName = tenantBindingsMetadata.getSpec().getAdminData().getTenantName();
 
 			String tenantBindings = tenantBindingsMetadata.getTenantBindings();
@@ -657,7 +660,6 @@ public class CommandLine {
 		//
 		String errMsg = null;
 		for (File tenantConfigFile : tenantConfigFileList) {
-			
 			String logMsg = String.format("Config Generation: '%s' - ### Started processing tenant configuration file '%s'.", 
 					tenantConfigFile.getName(), tenantConfigFile.getAbsolutePath());
 			logger.info("###");
@@ -688,7 +690,11 @@ public class CommandLine {
 		//
 		// We made it!
 		//
-		logger.info("Config Generation - Execution success.");
+		String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
+		logger.info("Config Generation - Execution complete.");
+		logger.info("###");
+		logger.info(String.format("### - Check the log file at %s: '%s' for 'ERROR' messages.", currentPath, LOG4J_FILENAME));
+		logger.info("###");
 		logger.info(String.format("Service artifacts written out to '%s'.", getBaseOutputDir().getAbsolutePath()));
 		logger.info(String.format("Temporary XMLMerge files were written out to '%s'.", AssemblingContentHandler.getTempDirectory()));
 	}

@@ -1,16 +1,16 @@
 <record id="material" type="authority" cms-type="default" generate-services-schema="true">
     <terms-used>true</terms-used>
     <web-url>material</web-url>
-    
+
     <services-tenant-auth-singular>Materialauthority</services-tenant-auth-singular>
-    <services-tenant-auth-plural>Materialauthorities</services-tenant-auth-plural>    
+    <services-tenant-auth-plural>Materialauthorities</services-tenant-auth-plural>
     <services-tenant-singular>Material</services-tenant-singular>
     <services-tenant-doctype>Materialitem</services-tenant-doctype>
-    
+
     <services-instances-path>materialauthorities_common:http://collectionspace.org/services/material,abstract-common-list/list-item</services-instances-path>
     <services-single-instance-path>materialauthorities_common:http://collectionspace.org/services/material,materialauthorities_common</services-single-instance-path>
     <services-list-path>http://collectionspace.org/services/material,abstract-common-list/list-item</services-list-path>
-    
+
     <services-record-path>materials_common:http://collectionspace.org/services/material,materials_common</services-record-path>
     <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
     <services-url>materialauthorities</services-url>
@@ -45,20 +45,24 @@
             <title>Local Materials</title>
         </instance>
     </instances>
-    
+
     <section id="coreInformation">
         <include src="core-fields.xml"  strip-root="yes" />
     </section>
-    
+
     <section id="materialAuthorityInformation">
         <field id="preferredMaterial" ui-type="groupfield/preferredMaterial/selfrenderer" ui-func="cspace.preferred">
             <selector>preferred-materialAuthority</selector>
         </field>
-        
+
         <repeat id="materialRecordTypes">
             <field id="materialRecordType" ui-search="repeatable" autocomplete="vocab-materialtype" ui-type="enum"/>
         </repeat>
-        
+
+        <repeat id="publishToList" services-type-anonymous="false">
+            <field id="publishTo" autocomplete="vocab-publishto" ui-type="enum"/>
+        </repeat>
+
         <repeat id="materialCompositionGroupList/materialCompositionGroup">
             <field id="materialCompositionFamilyName" ui-search="repeatable" autocomplete="concept-materialclassification"/>
             <field id="materialCompositionClassName" ui-search="repeatable" autocomplete="concept-materialclassification"/>
@@ -66,41 +70,48 @@
         </repeat>
 
         <field id="description"/>
-        
+
         <repeat id="typicalUses">
             <field id="typicalUse" ui-search="repeatable" autocomplete="vocab-materialuse" ui-type="enum"/>
         </repeat>
+
+        <field id="discontinued"/>
+        <field id="discontinuedBy" autocomplete="organization-organization,organization-organization_shared"/>
+        <field id="discontinuedDate" ui-type="groupfield/structureddate" primarykey="discontinuedDate.dateDisplayDate" ui-func="cspace.structuredDate"/>
+
+        <field id="productionDate" ui-type="groupfield/structureddate" primarykey="productionDate.dateDisplayDate" ui-func="cspace.structuredDate"/>
+        <field id="productionNote"/>
 
         <repeat id="materialProductionOrganizationGroupList/materialProductionOrganizationGroup">
             <field id="materialProductionOrganization" autocomplete="organization-organization,organization-organization_shared"/>
             <field id="materialProductionOrganizationRole" autocomplete="vocab-materialproductionrole" ui-type="enum"/>
         </repeat>
-        
+
         <repeat id="materialProductionPersonGroupList/materialProductionPersonGroup">
             <field id="materialProductionPerson" autocomplete="person-person,person-person_shared"/>
             <field id="materialProductionPersonRole" autocomplete="vocab-materialproductionrole" ui-type="enum"/>
         </repeat>
-        
+
         <repeat id="materialProductionPlaceGroupList/materialProductionPlaceGroup">
             <field id="materialProductionPlace" autocomplete="place-place,place-place_shared"/>
             <field id="materialProductionPlaceRole" autocomplete="vocab-materialproductionrole" ui-type="enum"/>
         </repeat>
-        
+
         <repeat id="featuredApplicationGroupList/featuredApplicationGroup">
             <field id="featuredApplication" autocomplete="work-work,work-work_shared"/>
             <field id="featuredApplicationNote"/>
         </repeat>
-        
+
         <repeat id="materialCitationGroupList/materialCitationGroup">
             <field id="materialCitationSource" autocomplete="citation-citation,citation-citation_shared"/>
             <field id="materialCitationSourceDetail"/>
         </repeat>
-        
+
         <repeat id="externalUrlGroupList/externalUrlGroup">
             <field id="externalUrl" ui-type="externalURL"/>
             <field id="externalUrlNote"/>
         </repeat>
-        
+
         <repeat id="additionalResourceGroupList/additionalResourceGroup">
             <field id="additionalResource" autocomplete="vocab-materialresource" ui-type="enum"/>
             <field id="additionalResourceNote"/>
@@ -119,14 +130,14 @@
             <field id="materialTermAttributionEditingDate" ui-search="repeatable" ui-type="date" datatype="date"/>
         </repeat>
     </section>
-    
+
     <section id="formInformation">
         <field id="commonForm" autocomplete="vocab-materialform" ui-type="enum"/>
-        
+
         <repeat id="formTypeGroupList/formTypeGroup">
             <field id="formType" autocomplete="vocab-materialformtype" ui-type="enum"/>
         </repeat>
-        
+
         <repeat id="typicalSizeGroupList/typicalSizeGroup">
             <field id="typicalSize"/>
 
@@ -172,127 +183,129 @@
                 <field id="value" ui-type="validated" datatype="float"/>
             </repeat>
         </repeat>
-        
+
         <field id="formNote"/>
     </section>
-    
+
     <section id="propertyInformation">
         <repeat id="acousticalPropertyGroupList/acousticalPropertyGroup">
             <field id="acousticalPropertyType" autocomplete="vocab-acousticalproperties" ui-type="enum"/>
             <field id="acousticalPropertyNote"/>
         </repeat>
-        
+
         <repeat id="durabilityPropertyGroupList/durabilityPropertyGroup">
             <field id="durabilityPropertyType" autocomplete="vocab-durabilityproperties" ui-type="enum"/>
             <field id="durabilityPropertyNote"/>
         </repeat>
-        
+
         <repeat id="electricalPropertyGroupList/electricalPropertyGroup">
             <field id="electricalPropertyType" autocomplete="vocab-electricalproperties" ui-type="enum"/>
             <field id="electricalPropertyNote"/>
         </repeat>
-        
+
         <repeat id="mechanicalPropertyGroupList/mechanicalPropertyGroup">
             <field id="mechanicalPropertyType" autocomplete="vocab-mechanicalproperties" ui-type="enum"/>
             <field id="mechanicalPropertyUnit" autocomplete="vocab-mechanicalpropertyunits" ui-type="enum"/>
             <field id="mechanicalPropertyValue" ui-type="validated" datatype="float"/>
             <field id="mechanicalPropertyNote"/>
         </repeat>
-        
+
         <repeat id="hygrothermalPropertyGroupList/hygrothermalPropertyGroup">
             <field id="hygrothermalPropertyType" autocomplete="vocab-hygrothermalproperties" ui-type="enum"/>
             <field id="hygrothermalPropertyUnit" autocomplete="vocab-hygrothermalpropertyunits" ui-type="enum"/>
             <field id="hygrothermalPropertyValue" ui-type="validated" datatype="float"/>
             <field id="hygrothermalPropertyNote"/>
         </repeat>
-        
+
         <repeat id="opticalPropertyGroupList/opticalPropertyGroup">
             <field id="opticalPropertyType" autocomplete="vocab-opticalproperties" ui-type="enum"/>
             <field id="opticalPropertyNote"/>
         </repeat>
-        
+
         <repeat id="sensorialPropertyGroupList/sensorialPropertyGroup">
             <field id="sensorialPropertyType" autocomplete="vocab-sensorialproperties" ui-type="enum"/>
             <field id="sensorialPropertyNote"/>
         </repeat>
-        
+
         <repeat id="smartMaterialPropertyGroupList/smartMaterialPropertyGroup">
             <field id="smartMaterialPropertyType" autocomplete="vocab-smartmaterialproperties" ui-type="enum"/>
             <field id="smartMaterialPropertyNote"/>
         </repeat>
-        
+
         <repeat id="additionalPropertyGroupList/additionalPropertyGroup">
             <field id="additionalPropertyType" autocomplete="vocab-additionalproperties" ui-type="enum"/>
             <field id="additionalPropertyNote"/>
         </repeat>
-        
+
         <field id="propertyNote"/>
     </section>
-    
+
     <section id="ecologyInformation">
         <repeat id="recycledContentGroupList/recycledContentGroup">
             <field id="recycledContent" ui-type="validated" datatype="float"/>
+            <field id="recycledContentHigh" ui-type="validated" datatype="float"/>
             <field id="recycledContentQualifier" autocomplete="vocab-recycledcontentqualifiers" ui-type="enum"/>
         </repeat>
-        
+
         <repeat id="lifecycleComponentGroupList/lifecycleComponentGroup">
             <field id="lifecycleComponent" autocomplete="vocab-lifecyclecomponents" ui-type="enum"/>
             <field id="lifecycleComponentNote"/>
         </repeat>
-        
+
         <repeat id="embodiedEnergyGroupList/embodiedEnergyGroup">
             <field id="embodiedEnergyValue" ui-type="validated" datatype="float"/>
+            <field id="embodiedEnergyValueHigh" ui-type="validated" datatype="float"/>
             <field id="embodiedEnergyUnit" autocomplete="vocab-energyunits" ui-type="enum"/>
             <field id="embodiedEnergyNote"/>
         </repeat>
-        
+
         <repeat id="certificationCreditGroupList/certificationCreditGroup">
             <field id="certificationProgram" autocomplete="vocab-ecologicalcertifications" ui-type="enum"/>
             <field id="certificationCreditNote"/>
         </repeat>
-        
+
         <field id="ecologyNote"/>
     </section>
-    
+
     <section id="processInformation">
         <repeat id="castingProcesses">
             <field id="castingProcess" autocomplete="vocab-castingprocesses" ui-type="enum"/>
         </repeat>
-        
+
         <repeat id="deformingProcesses">
             <field id="deformingProcess" autocomplete="vocab-deformingprocesses" ui-type="enum"/>
         </repeat>
-        
+
         <repeat id="joiningProcesses">
             <field id="joiningProcess" autocomplete="vocab-joiningprocesses" ui-type="enum"/>
         </repeat>
-        
+
         <repeat id="machiningProcesses">
             <field id="machiningProcess" autocomplete="vocab-machiningprocesses" ui-type="enum"/>
         </repeat>
-        
+
         <repeat id="moldingProcesses">
             <field id="moldingProcess" autocomplete="vocab-moldingprocesses" ui-type="enum"/>
         </repeat>
-        
+
         <repeat id="rapidPrototypingProcesses">
             <field id="rapidPrototypingProcess" autocomplete="vocab-rapidprototypingprocesses" ui-type="enum"/>
         </repeat>
-        
+
         <repeat id="surfacingProcesses">
             <field id="surfacingProcess" autocomplete="vocab-surfacingprocesses" ui-type="enum"/>
         </repeat>
-        
+
         <repeat id="additionalProcessGroupList/additionalProcessGroup">
             <field id="additionalProcess" autocomplete="vocab-additionalprocesses" ui-type="enum"/>
             <field id="additionalProcessNote"/>
         </repeat>
-        
+
         <field id="processNote"/>
     </section>
-    
+
     <!-- not used in UI except in autocompletes -->
-    
+
     <section id="otherInformation">
         <field id="inAuthority" services-should-index="true"></field>
         <field id="deprecatedRefName">
