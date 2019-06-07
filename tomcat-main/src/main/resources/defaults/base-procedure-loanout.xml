@@ -109,15 +109,11 @@
                         <selector>loanOut-loanOutNote</selector>
                     </field>
                     <repeat id="loanStatusGroupList/loanStatusGroup">
-                        <field id="loanStatus" ui-search="repeatable" autocomplete="vocab-lostatus" ui-type="enum">
-                            <selector>loanOut-loanedObjectStatus</selector>
-                        </field>
-                        <field id="loanStatusDate" ui-type="date" datatype="date">
-                            <selector>loanOut-loanedObjectStatusDate</selector>
-                        </field>
-                        <field id="loanStatusNote">
-                            <selector>loanOut-loanedObjectStatusNote</selector>
-                        </field>
+                        <field id="loanGroup" autocomplete="vocab-deaccessionapprovalgroup" ui-type="enum"></field>
+                        <field id="loanIndividual" autocomplete="person-person,person-person_shared"></field>
+                        <field id="loanStatus" ui-search="repeatable" autocomplete="vocab-lostatus" ui-type="enum" />                    
+                        <field id="loanStatusDate" ui-type="date" datatype="date" />
+                        <field id="loanStatusNote" />
                     </repeat>
                     <field id="loanOutDate" ui-search="range" ui-type="date" datatype="date">
                         <selector>loanOut-loanOutDate</selector>

@@ -85,6 +85,13 @@
                     <field id="depositorsRequirements">
                         <selector>intake-depositor-requirements</selector>
                     </field>
+                    <repeat id="approvalGroupList/approvalGroup">
+                        <field id="approvalGroup" autocomplete="vocab-deaccessionapprovalgroup" ui-type="enum"/>
+                        <field id="approvalIndividual" autocomplete="person-person" />
+                        <field id="approvalStatus" autocomplete="vocab-deaccessionapprovalstatus" ui-type="enum"/>
+                        <field id="approvalDate" ui-type="date" datatype="date"/>
+                        <field id="approvalNote" />
+                    </repeat>
                     <field id="entryNote">
                         <selector>intake-entry-note</selector>
                     </field>

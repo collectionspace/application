@@ -120,6 +120,8 @@
                         <selector>loanIn-loanRenewalApplicationDate</selector>
                     </field>
                     <repeat id="loanStatusGroupList/loanStatusGroup">
+                        <field id="loanGroup" autocomplete="vocab-deaccessionapprovalgroup" ui-type="enum"></field>
+                        <field id="loanIndividual" autocomplete="person-person,person-person_shared"></field>
                         <field id="loanStatus" ui-search="repeatable" autocomplete="vocab-lostatus" ui-type="enum"></field>
                         <field id="loanStatusDate" ui-type="date" datatype="date"></field>
                         <field id="loanStatusNote"></field>
