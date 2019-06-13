@@ -1,8 +1,0 @@
-<record id="objectexit">
-	<section id="objectexitInformation">
-	    <!-- Remove summary from mini -->
-	    <field id="currentOwner" mini="" in-title=""/>
-		<!-- Remove person-person from autocomplete, add mini -->
-		<field id="depositor" autocomplete="organization-organization" mini="summary,list,search,relate" in-title="yes"/>
-	</section>
-</record>

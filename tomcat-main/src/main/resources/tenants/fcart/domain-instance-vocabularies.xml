@@ -1,4 +1,0 @@
-<root>
-    <include src="extensions/variablemedia-vocabularies.xml" strip-root="yes" />
-    <include src="extensions/fineart-vocabularies.xml" strip-root="yes" />
-</root>

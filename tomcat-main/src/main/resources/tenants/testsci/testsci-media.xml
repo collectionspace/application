@@ -1,9 +1,0 @@
-<record id="media" is-extension="true" generate-services-schema="true">
-    <services-record-path id="testsci">
-    	media_testsci:http://collectionspace.org/services/media/domain/testsci,media_testsci
-	</services-record-path>
-    
-    <section id="testsci">
-    	<field id="imageNumber" section="testsci"></field>
-    </section>
-</record>

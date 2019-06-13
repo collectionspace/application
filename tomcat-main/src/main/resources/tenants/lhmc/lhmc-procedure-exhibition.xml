@@ -1,6 +1,0 @@
-<record id="exhibition" is-extension="true">
-    <services-record-path id="lhmc">exhibitions_lhmc:http://collectionspace.org/services/exhibition/domain/lhmc,exhibitions_lhmc</services-record-path>
-    <section id="exhibitionInformation">
-        <field id="restrictions" section="lhmc" />
-    </section>
-</record>
