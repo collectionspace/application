@@ -130,6 +130,9 @@
             </field>
         </repeat>
         <section id="contentInformation">
+        	<repeat id="contentActivities">
+                <field id="contentActivity"  autocomplete="concept-activity" />
+            </repeat>
             <repeat id="contentPositions">
                 <field id="contentPosition">
                     <options>
@@ -152,6 +155,9 @@
                         <option id="verso"> verso  </option>
                     </options>
                 </field>
+            </repeat>
+            <repeat id="contentPlaces">
+                <field id="contentPlace" autocomplete="place-place" />
             </repeat>
         </section>
         <section id="textualInscriptionInformation">
@@ -287,6 +293,11 @@
             </repeat>
         </section>
     </section>
+    <section id="objectProductionInformation">
+        <repeat id="objectProductionPlaceGroupList/objectProductionPlaceGroup">
+            <field id="objectProductionPlace" autocomplete="true" />
+        </repeat>
+    </section>
     <section id="objectHistoryAssociationInformation">
         <field id="ownershipCategory">
             <options>
@@ -300,6 +311,7 @@
                 <option id="private"> private  </option>
             </options>
         </field>
+        <field id="ownershipPlace" autocomplete="place-place" />
         <field id="ownershipExchangeMethod">
             <options>
                 <option id="">Please select a value</option>
@@ -317,5 +329,22 @@
                 <option id="unknown"> unknown </option>
             </options>
         </field>
+        <section id="associationInformation">
+            <repeat id="assocActivityGroupList/assocActivityGroup">
+                <field id="assocActivity" autocomplete="concept-activity" />
+            </repeat>
+            <repeat id="assocPeopleGroupList/assocPeopleGroup">
+                <field id="assocPeople" autocomplete="concept-ethculture" />
+            </repeat>
+            <repeat id="assocPlaceGroupList/assocPlaceGroup">
+                <field id="assocPlace" autocomplete="place-place" />
+            </repeat>
+            <repeat id="assocEventPeoples">
+                <field id="assocEventPeople" autocomplete="concept-ethculture" />
+            </repeat>
+            <repeat id="assocEventPlaces">
+                <field id="assocEventPlace" autocomplete="place-place" />
+            </repeat>
+        </section>
     </section>
 </record>

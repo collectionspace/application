@@ -17,6 +17,8 @@
     <services-url>placeauthorities</services-url>
     <authority-vocab-type>PlaceAuthority</authority-vocab-type>
     <hassoftdelete>true</hassoftdelete>
+    <supportsReplicating>true</supportsReplicating>
+    <remoteClientConfigName>default</remoteClientConfigName>
     
     <structures>
         <structure id="search">

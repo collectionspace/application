@@ -67,6 +67,8 @@
                             <option id="prints-drawings">Prints and Drawings</option>
                         </options>
                     </field>
+                    <field id="groupEarliestSingleDate" ui-type="date" datatype="date"></field>
+                    <field id="groupLatestDate" ui-type="date" datatype="date"></field>
                     <field id="owner" ui-search="repeatable" autocomplete="person-person,person-person_shared"
                            mini="summary,list" in-title="yes" services-schema-qualify="true">
                     </field>

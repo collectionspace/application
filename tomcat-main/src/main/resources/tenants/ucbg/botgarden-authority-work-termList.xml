@@ -1,8 +1,0 @@
-<record id="preferredWork">
-	<section id="termInformation">
-		<repeat id="workTermGroupList/workTermGroup">
-			<!-- Remove autocomplete -->
-			<field id="termSource" autocomplete=""/>
-		</repeat>
-	</section>
-</record>

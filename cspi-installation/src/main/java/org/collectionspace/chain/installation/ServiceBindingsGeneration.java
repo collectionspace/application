@@ -2,6 +2,7 @@ package org.collectionspace.chain.installation;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -25,6 +26,8 @@ import org.dom4j.DocumentFactory;
 import org.dom4j.Element;
 import org.dom4j.Namespace;
 import org.dom4j.QName;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.commons.io.FileUtils;
@@ -65,6 +68,7 @@ public class ServiceBindingsGeneration {
 
 	private static final boolean NOT_NAMESPACED = false;
 
+	private AuthCache authCache = new AuthCache();
 	
 	protected File configFile;
 	protected Spec spec;
@@ -72,6 +76,7 @@ public class ServiceBindingsGeneration {
 	protected Boolean defaultonly;
 	protected String domainsection;
 	protected File tempDirectory;
+	protected File infoOutputDirectory;
 
 	/**
 	 * not sure how configurable these need to be - they can be made more flexible
@@ -84,21 +89,26 @@ public class ServiceBindingsGeneration {
 	protected String schemaloc = "http://collectionspace.org/services/config/tenant " +
 	"http://collectionspace.org/services/config/tenant.xsd";
 
-	public ServiceBindingsGeneration() {
+	private ServiceBindingsGeneration() {
 		// Intentionally left blank?
 	}
 	
-	public ServiceBindingsGeneration(File configFile, Spec spec,TenantSpec td, Boolean isdefault) throws IOException {
+	public ServiceBindingsGeneration(File configFile, Spec spec,TenantSpec td, Boolean isdefault, File infoOutputDir) throws IOException {
 		this.configFile = configFile;
 		this.spec = spec;
 		this.tenantSpec = td;
 		this.defaultonly = isdefault;
 		this.domainsection = "common";
 		this.tempDirectory = FileTools.createTmpDir("cspace-bindings-");
+		this.infoOutputDirectory = infoOutputDir;
 	}
 	
 	public File getTempDirectory() {
 		return this.tempDirectory;
+	}	
+	
+	public File getOutputDirectory() {
+		return this.infoOutputDirectory;
 	}
 
 	public String  doit(String serviceBindingVersion) {
@@ -256,7 +266,23 @@ public class ServiceBindingsGeneration {
 			}
 		}
 		
-		return doc.asXML();
+		//
+		// Print out a reverse-lookup JSON rep of the terms
+		//
+		String jsonPayload = authCache.toString(4).toLowerCase();
+		String authCacheFileName = this.getOutputDirectory().getAbsolutePath() + File.separator
+					+ this.configFile.getName() + ".json";
+		authCacheFileName = authCacheFileName.replace(".xml", ".terms");
+		File outfile = new File(authCacheFileName);
+		try {
+			FileUtils.writeStringToFile(outfile, jsonPayload, Charset.defaultCharset());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		log.info(String.format("Reverse terms lookup JSON payload written here: '%s'.", authCacheFileName));
+		
+		return doc.asXML(); 
 	}
 	
 	//
@@ -859,7 +885,7 @@ public class ServiceBindingsGeneration {
 		addServiceBinding(r, bindingsForAuthority, nsservices, true, serviceBindingVersion);
 		if (log.isDebugEnabled() == true) {
 			this.debugWriteToFile(r, bindingsForAuthority, true);
-		}
+		}		
 	}
 	
 	/**
@@ -930,6 +956,8 @@ public class ServiceBindingsGeneration {
 						this.getConfigFile().getName(), r.getRecordName());
 				log.trace(msg);
 			}
+		} catch (RuntimeException rte) {
+			throw rte;
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(String.format("Config Generation: '%s' - Could not create service bindings for record '%s'.", 
@@ -1103,9 +1131,15 @@ public class ServiceBindingsGeneration {
 				// the field is from the common part.)
 				if (!section.equals(Record.COLLECTIONSPACE_COMMON_PART_NAME)) {
 					Element slrf = lrf.addElement(new QName("schema", thisns));
-					slrf.addText(r.getServicesSchemaName(fs.getSection()));
-				} else {
-					log.isDebugEnabled();
+					String schemaName = r.getServicesSchemaName(fs.getSection());
+					if (schemaName != null && schemaName.trim().isEmpty() == false) {
+						slrf.addText(r.getServicesSchemaName(fs.getSection()));
+					} else {
+						String errMsg = String.format("Can not find a valid schema name for field '%s' of section '%s' for record type '%s'.  Check the section name if the field is part of a group.  The section name for all fields in a group neeed to be the same.",
+								fs.getID(), fs.getSection(), r);
+						log.error(errMsg);
+						throw new RuntimeException(errMsg);
+					}
 				}
 
 				Element elrf = lrf.addElement(new QName("element", thisns));
@@ -1123,7 +1157,31 @@ public class ServiceBindingsGeneration {
 		}
 	}
 	
+	class AuthCache {
+		JSONObject authCache = new JSONObject();
+			
+		JSONObject getAuthorities(String type) {
+			return authCache.getJSONObject(type);
+		}
+			
+		public void addAuthorityInstance(String authType, String shortId, JSONObject termList) {
+			JSONObject auth = null;
+			try {
+				auth = getAuthorities(authType);
+			} catch (JSONException e) {
+				authCache.put(authType, new JSONObject());
+				auth = getAuthorities(authType);
+			}
+			auth.put(shortId, termList);
+		}
+			
+		public String toString(int indent) {
+			return authCache.toString(indent);
+		}
+	}
+		
 	private void doAuthorityInstanceList(Record r, Element el, Namespace nsservices2) {
+		
 		Instance[] allInstances = r.getAllInstances();
 		if (r.getID().equalsIgnoreCase(RECORD_ID_TERMLIST) == true) {
 			//
@@ -1131,6 +1189,9 @@ public class ServiceBindingsGeneration {
 			//
 			Record vocabRecord = this.spec.getRecord(RECORD_ID_VOCAB);
 			allInstances = vocabRecord.getAllInstances();
+		} else {
+			//debug only
+			log.info("Not a vocab instance.");
 		}
 		
 		if (allInstances.length > 0) {
@@ -1156,9 +1217,13 @@ public class ServiceBindingsGeneration {
 		Option[] allOptions = instance.getAllOptions();
 		if (allOptions.length > 0) {
 			Element termList = el.addElement(new QName("termList", nsservices2));
+			JSONObject jsonTermList = new JSONObject();
 			for (Option option : allOptions) {
 				doTerm(option, r, termList, nsservices2);
+				jsonTermList.put(option.getName(), option.getID());
 			}
+			String serviceUrl = r.getServicesURL();
+			authCache.addAuthorityInstance(serviceUrl, instance.getTitleRef(), jsonTermList);
 		}
 
 	}

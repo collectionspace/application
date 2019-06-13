@@ -1,10 +1,39 @@
 <instances>
     <include src="domain-instance-vocabularies.xml" strip-root="yes"/>
-    <instance id="vocab-xxx">
-        <web-url>xxx</web-url>
-        <title-ref>xxx</title-ref>
-        <title>Temporary Vocab whilst none exist</title>
+
+    <instance id="vocab-concepttype">
+        <web-url>concepttype</web-url>
+        <title-ref>concepttype</title-ref>
+        <title>Concept Types</title>
+        <options>
+            <option id="class">class</option>
+            <option id="family">family</option>
+            <option id="generic">generic</option>
+        </options>
     </instance>
+    <instance id="vocab-organizationtype">
+        <web-url>organizationtype</web-url>
+        <title-ref>organizationtype</title-ref>
+        <title>Organization Types</title>
+        <options>
+            <option id="corporatebody">corporate body</option>
+            <option id="family">family</option>
+            <option id="repository">repository</option>
+            <option id="studio">studio</option>
+            <option id="workshop">workshop</option>
+        </options>
+    </instance>
+    
+    <instance id="vocab-citationtermflag">
+        <web-url>citationtermflag</web-url>
+        <title-ref>citationtermflag</title-ref>
+        <title>Citation Term Flags</title>
+        <options>
+            <option id="abbreviation">abbreviation</option>
+            <option id="common">common term</option>
+            <option id="full">full term</option>
+        </options>
+    </instance>    
     <instance id="vocab-concepttermflag">
         <web-url>concepttermflag</web-url>
         <title-ref>concepttermflag</title-ref>
@@ -17,29 +46,44 @@
             <option id="scientific">scientific term</option>
         </options>
     </instance>
-    <instance id="vocab-addresstype">
-        <web-url>addresstype</web-url>
-        <title-ref>addresstype</title-ref>
-        <title>Address Types</title>
+    <instance id="vocab-locationtermflag">
+        <web-url>locationtermflag</web-url>
+        <title-ref>locationtermflag</title-ref>
+        <title>Location Term Flags</title>
         <options>
-            <option id="business">business</option>
-            <option id="intersection">intersection</option>
-            <option id="personal">personal</option>
-            <option id="streetaddress">street address</option>
+            <option id="abbreviation">abbreviation</option>
+            <option id="full">full term</option>
         </options>
     </instance>
-    <instance id="vocab-publishto">
-        <web-url>publishto</web-url>
-        <title-ref>publishto</title-ref>
-        <title>A publishing destination</title>
+    <instance id="vocab-orgtermflag">
+        <web-url>orgtermflag</web-url>
+        <title-ref>orgtermflag</title-ref>
+        <title>Organization Term Flags</title>
         <options>
-            <option id="all">All</option>
-            <option id="none">None</option>
-            <option id="cultureobject">Culture Object</option>
-            <option id="dpla">DPLA</option>
-            <option id="omeka">Omeka</option>
+            <option id="official">official name</option>
+            <option id="popular">popular name</option>
         </options>
     </instance>
+    <instance id="vocab-persontermflag">
+        <web-url>persontermflag</web-url>
+        <title-ref>persontermflag</title-ref>
+        <title>Person Term Flags</title>
+        <options>
+            <option id="birth">birth name</option>
+            <option id="pseudonym">pseudonym</option>
+        </options>
+    </instance>
+    <instance id="vocab-placetermflag">
+        <web-url>placetermflag</web-url>
+        <title-ref>placetermflag</title-ref>
+        <title>Place Term Flags</title>
+        <options>
+            <option id="iso">ISO 3-number</option>
+            <option id="official">official name</option>
+            <option id="pseudonym">pseudonym</option>
+            <option id="site">site name</option>
+        </options>
+    </instance>    
     <instance id="vocab-worktermflag">
         <web-url>worktermflag</web-url>
         <title-ref>worktermflag</title-ref>
@@ -51,6 +95,38 @@
             <option id="popular">popular</option>
             <option id="series">series</option>
             <option id="trade">trade</option>
+        </options>
+    </instance>
+    
+    <instance id="vocab-addresstype">
+        <web-url>addresstype</web-url>
+        <title-ref>addresstype</title-ref>
+        <title>Address Types</title>
+        <options>
+            <option id="business">business</option>
+            <option id="intersection">intersection</option>
+            <option id="personal">personal</option>
+            <option id="streetaddress">street address</option>
+        </options>
+    </instance>
+        <instance id="vocab-deaccessionapprovalgroup">
+        <web-url>deaccessionapprovalgroup</web-url>
+        <title-ref>deaccessionapprovalgroup</title-ref>
+        <title>Deaccession Approval Group</title>
+        <options>
+            <option id="collection_committee">collection committee</option>
+            <option id="executive_committee">executive committee</option>
+            <option id="board_of_trustees">board of trustees</option>
+        </options>
+    </instance>
+    <instance id="vocab-deaccessionapprovalstatus">
+        <web-url>deaccessionapprovalstatus</web-url>
+        <title-ref>deaccessionapprovalstatus</title-ref>
+        <title>Deaccession Approval Status</title>
+        <options>
+            <option id="approved">approved</option>
+            <option id="not_approved">not approved</option>
+            <option id="not_required">not required</option>
         </options>
     </instance>
     <instance id="vocab-inventorystatus">
@@ -85,6 +161,42 @@
             <option id="transferred">transferred</option>
         </options>
     </instance>    
+    <instance id="vocab-uocmethods">
+        <web-url>uocmethods</web-url>
+        <title-ref>uocmethods</title-ref>
+        <title>Use of Collections Methods</title>
+        <options>
+            <option id="class">class</option>
+            <option id="exhibition">exhibition</option>
+            <option id="publication">publication</option>
+            <option id="research">research</option>
+        </options>
+    </instance>
+    <instance id="vocab-uocusertypes">
+        <web-url>uocusertypes</web-url>
+        <title-ref>uocusertypes</title-ref>
+        <title>Use of Collections User Types</title>
+        <options>
+            <option id="exhibitionorganizer">exhibition organizer</option>
+            <option id="faculty">faculty</option>
+            <option id="lecturer">lecturer</option>
+            <option id="presenter">presenter</option>
+            <option id="publisher">publisher</option>
+            <option id="researcher">researcher</option>
+        </options>
+    </instance>     
+    <instance id="vocab-publishto">
+        <web-url>publishto</web-url>
+        <title-ref>publishto</title-ref>
+        <title>Publishing destination</title>
+        <options>
+            <option id="all">All</option>
+            <option id="none">None</option>
+            <option id="cultureobject">Culture Object</option>
+            <option id="dpla">DPLA</option>
+            <option id="omeka">Omeka</option>
+        </options>
+    </instance>
     <instance id="vocab-languages">
         <web-url>languages</web-url>
         <title-ref>languages</title-ref>
@@ -421,6 +533,67 @@
             <option id="newsarticle">News article</option>
             <option id="pressrelease">Press release</option>
             <option id="review">Review</option>
+        </options>
+    </instance>
+    <instance id="vocab-exhibitionstatus">
+        <web-url>exhibitionstatus</web-url>
+        <title-ref>exhibitionstatus</title-ref>
+        <title>Exhibition Status</title>
+        <options>
+            <option id="themeselected">Theme selected</option>
+            <option id="preliminaryobjectlistcreated">Preliminary object list created</option>
+            <option id="sectionsdetermined">Sections determined</option>
+            <option id="finalobjectlistdetermined">Final object list determined</option>
+            <option id="labelswritten">Labels written</option>
+        </options>
+    </instance>
+    <instance id="vocab-conservationstatus">
+        <web-url>conservationstatus</web-url>
+        <title-ref>conservationstatus</title-ref>
+        <title>Conservation Status</title>
+        <options>
+            <option id="treatmentproposed">Treatment proposed</option>
+            <option id="treatmentapproved">Treatment approved</option>
+            <option id="treatmentinprogress">Treatment in progress</option>
+            <option id="treatmentcomplete">Treatment complete</option>
+            <option id="analysisproposed">Analysis proposed</option>
+            <option id="analysisapproved">Analysis approved</option>
+            <option id="analysisinprogress">Analysis in progress</option>
+            <option id="analysiscomplete">Analysis complete</option>
+        </options>
+    </instance>
+    <instance id="vocab-treatmentpurpose">
+        <web-url>treatmentpurpose</web-url>
+        <title-ref>treatmentpurpose</title-ref>
+        <title>Treatment Purpose</title>
+        <options>
+            <option id="appraisal">Appraisal</option>
+            <option id="damage">Damage</option>
+            <option id="exhibition">Exhibition</option>
+            <option id="insurance">Insurance</option>
+            <option id="loanout">Loan Out</option>
+            <option id="loanreturn">Loan Return</option>
+            <option id="purchase">Purchase</option>
+        </options>
+    </instance>
+    <instance id="vocab-otherpartyrole">
+        <web-url>otherpartyrole</web-url>
+        <title-ref>otherpartyrole</title-ref>
+        <title>Other Party Role</title>
+        <options>
+            <option id="conservator">Conservator</option>
+            <option id="technician">Technician</option>
+            <option id="preparator">Preparator</option>
+        </options>
+    </instance>
+    <instance id="vocab-examinationphase">
+        <web-url>examinationphase</web-url>
+        <title-ref>examinationphase</title-ref>
+        <title>Examination Phase</title>
+        <options>
+            <option id="beforetreatment">before treatment</option>
+            <option id="duringtreatment">during treatment</option>
+            <option id="aftertreatment">after treatment</option>
         </options>
     </instance>
 </instances>

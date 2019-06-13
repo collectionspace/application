@@ -1,8 +1,0 @@
-<record id="preferredCA">
-	<section id="termInformation">
-		<repeat id="conceptTermGroupList/conceptTermGroup">
-			<!-- Remove autocomplete -->
-			<field id="termSource" autocomplete=""/>
-		</repeat>
-	</section>
-</record>
