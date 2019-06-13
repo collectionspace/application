@@ -1,9 +1,0 @@
-<record id="acquisition" is-extension="true">
-    <services-record-path id="lhmc">acquisitions_lhmc:http://collectionspace.org/services/acquisition/domain/lhmc,acquisitions_lhmc</services-record-path>
-    <section id="acquisitionInformation">
-        <repeat id="receivedGroupList/receivedGroup" section="lhmc">
-            <field id="receivedDate" ui-type="date" datatype="date" section="lhmc" />
-            <field id="receivedBy" autocomplete="person-person,person-person_shared,person-ulan_pa" section="lhmc" />
-        </repeat>
-    </section>
-</record>

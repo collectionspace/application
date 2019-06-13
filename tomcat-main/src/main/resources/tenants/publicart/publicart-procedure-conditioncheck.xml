@@ -1,9 +1,0 @@
-<record id="conditioncheck" is-extension="true">
-    <services-record-path id="publicart">conditionchecks_publicart:http://collectionspace.org/services/conditioncheck/local/publicart,conditionchecks_publicart</services-record-path>
-
-    <section id="objectRequirementInformation">
-        <!-- Local fields -->
-
-        <field id="installationRecommendations" section="publicart" />
-    </section>
-</record>

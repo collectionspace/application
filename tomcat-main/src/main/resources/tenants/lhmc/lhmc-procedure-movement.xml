@@ -1,6 +1,0 @@
-<record id="movement" is-extension="true">
-	<services-record-path id="lhmc">movements_lhmc:http://collectionspace.org/services/movement/domain/lhmc,movements_lhmc</services-record-path>
-	<section id="movementControlInformation">
-		<field id="tempLocAuthorizedBy" autocomplete="person-person,person-person_shared,person-ulan_pa" section="lhmc" />
-	</section>
-</record>

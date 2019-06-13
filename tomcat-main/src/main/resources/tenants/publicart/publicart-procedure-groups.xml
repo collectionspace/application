@@ -1,6 +1,0 @@
-<record id="group" is-extension="true">
-    <services-record-path id="publicart">groups_publicart:http://collectionspace.org/services/group/local/publicart,groups_publicart</services-record-path>
-    <section id="groupInformation">
-        <field id="responsibleDepartment" autocomplete="true" ui-type="enum" />
-    </section>
-</record>

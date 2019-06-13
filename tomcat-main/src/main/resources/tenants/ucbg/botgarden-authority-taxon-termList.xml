@@ -1,0 +1,36 @@
+<record id="preferredTA">
+	<section id="termInformation">
+		<repeat id="taxonTermGroupList/taxonTermGroup">
+			<field id="termType">
+				<options>
+					<option id="">Please select a value</option>
+					<option id="Verified Taxonomic Name">Verified Taxonomic Name</option>
+					<option id="Taxon No Author Name">Taxon No Author Name</option>
+					<option id="Unverified Name">Unverified Name</option>
+					<option id="Grex Name">Grex Name</option>
+				</options>
+			</field>
+			<!-- Remove autocomplete -->
+			<field id="termSource" autocomplete="">
+				<options>
+					<option id="" default="yes">Please select a value</option>
+					<option id="Royal Botanical Gardens (KEW)">Royal Botanical Gardens (KEW)</option>
+					<option id="Owner, Database">Owner, Database</option>
+					<option id="UC Botanical Garden">UC Botanical Garden</option>
+				</options>
+			</field>
+			<field id="taxonomicStatus">
+				<options>
+					<option id="" default="yes">Please select a value</option>
+					<option id="valid">valid</option>
+					<option id="invalid">invalid</option>
+					<option id="misapplied">misapplied</option>
+					<option id="accepted">accepted</option>
+					<option id="synonym">synonym</option>
+					<option id="illegitimate">illegitimate</option>
+					<option id="unpublished">unpublished</option>
+				</options>
+			</field>
+		</repeat>
+	</section>
+</record>
