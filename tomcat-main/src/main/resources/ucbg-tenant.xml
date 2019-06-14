@@ -27,7 +27,8 @@
 			<include src="base-procedure-propagation.xml,botgarden-procedure-propagation.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-pottag.xml"/>
 			<include src="base-procedure-objectexit.xml,naturalhistory-procedure-objectexit.xml,botgarden-procedure-objectexit.xml" merge="xmlmerge.properties"/>
-
+			<include src="base-procedure-uoc.xml"/>
+			
 			<include src="base-authority-contact.xml"/>
 
 			<include src="base-authority-location-termList.xml,botgarden-authority-location-termList.xml" merge="xmlmerge.properties"/>
