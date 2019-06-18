@@ -28,6 +28,7 @@
 			<include src="base-procedure-movement.xml,anthropology-procedure-movement.xml,pahma-procedure-movement.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-objectexit.xml,anthropology-procedure-objectexit.xml,pahma-procedure-objectexit.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-conservation.xml"/>
+			<include src="base-procedure-uoc.xml"/>
 
 			<include src="base-authority-contact.xml,anthropology-authority-contact.xml,pahma-authority-contact.xml" merge="xmlmerge.properties"/>
 
