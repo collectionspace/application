@@ -17,7 +17,8 @@
                     <structure id="screen">
                         <view>
                             <titlebar show="false"></titlebar>
-                            <sidebar show="false">
+                            <sidebar show="false">hhh
+
                                 <repeat id="termsUsed" show="true"></repeat>
                                 <repeat id="relatedProcedures" show="true"></repeat>
                                 <repeat id="relatedObjects" show="true"></repeat>
@@ -108,38 +109,20 @@
                     <field id="note" />
                     <field id="provisos" />
                     <field id="result" />
+
+                    <repeat id="uocCitationGroupList/uocCitationGroup">
+                        <field id="uocCitationName" autocomplete="citation-citation,citation-worldcat" />
+                        <field id="uocPermanentId" />
+                        <field id="uocObjectCited" />
+                    </repeat>
+
+                    <field id="citationDescription" />
+                    <field id="dateRequested" ui-search="range" ui-type="date" datatype="date" />
+                    <field id="dateFulfilled" ui-search="range" ui-type="date" datatype="date" />
+                    <field id="feeAmount" datatype="float" />
+                    <field id="feeNote" />
+                    <repeat id="occasionList">
+                        <field id="occasion" />
+                    </repeat>
                 </section>
             </record>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
