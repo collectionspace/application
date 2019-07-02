@@ -73,8 +73,8 @@
         <title>Use of Collections Authorization Statuses</title>
         <options>
             <option id="approved">Approved</option>
-            <option id="notapproved">Not approved</option>
-            <option id="notdecided">Not decided</option>
+            <option id="denied">Denied</option>
+            <option id="pending">Pending</option>
         </options>
     </instance>
     <instance id="vocab-publishto">
