@@ -17,8 +17,7 @@
                     <structure id="screen">
                         <view>
                             <titlebar show="false"></titlebar>
-                            <sidebar show="false">hhh
-
+                            <sidebar show="false">
                                 <repeat id="termsUsed" show="true"></repeat>
                                 <repeat id="relatedProcedures" show="true"></repeat>
                                 <repeat id="relatedObjects" show="true"></repeat>
@@ -90,10 +89,11 @@
                         <field id="authorizationStatus" autocomplete="vocab-uocauthorizationstatuses" ui-type="enum"/>
                     </repeat>
 
-                    <repeat id="startSingleDateGroupList/startSingleDateGroup">
-                        <field id="startSingleDate" ui-search="range" ui-type="date" datatype="date" />
-                        <field id="numberOfVisitors" datatype="int"/>
-                        <field id="hoursSpent" datatype="int"/>
+                    <repeat id="useDateGroupList/useDateGroup">
+                        <field id="useDate" ui-search="range" ui-type="date" datatype="date" />
+                        <field id="useDateNumberOfVisitors" datatype="int"/>
+                        <field id="useDateHoursSpent" datatype="float"/>
+                        <field id="useDateVisitorNote" />
                     </repeat>
 
                     <field id="endDate" ui-search="range" ui-type="date" datatype="date" />
@@ -110,19 +110,20 @@
                     <field id="provisos" />
                     <field id="result" />
 
-                    <repeat id="uocCitationGroupList/uocCitationGroup">
-                        <field id="uocCitationName" autocomplete="citation-citation,citation-worldcat" />
-                        <field id="uocPermanentId" />
-                        <field id="uocObjectCited" />
+                    <field id="feePaid" datatype="boolean" />
+                    <field id="obligationsFulfilled" datatype="boolean" />
+
+                    <repeat id="staffGroupList/staffGroup">
+                        <field id="staffName" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared" />
+                        <field id="staffRole" ui-type="enum" autocomplete="uocstaffroles" />
+                        <field id="staffHours" datatype="float" />
+                        <field id="staffNote" />
                     </repeat>
 
-                    <field id="citationDescription" />
-                    <field id="dateRequested" ui-search="range" ui-type="date" datatype="date" />
-                    <field id="dateFulfilled" ui-search="range" ui-type="date" datatype="date" />
-                    <field id="feeAmount" datatype="float" />
-                    <field id="feeNote" />
-                    <repeat id="occasionList">
-                        <field id="occasion" />
+                    <repeat id="collectionTypeList">
+                        <field id="collectionType" autocomplete="uoccollectiontypes" ui-type="enum"/>
                     </repeat>
+
                 </section>
             </record>
+
