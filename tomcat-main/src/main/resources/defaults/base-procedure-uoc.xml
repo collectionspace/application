@@ -124,6 +124,9 @@
                         <field id="collectionType" autocomplete="uoccollectiontypes" ui-type="enum"/>
                     </repeat>
 
+                    <repeat id="materialTypeList">
+                        <field id="materialType" autocomplete="uocmaterialtypes" ui-type="enum"/>
+                    </repeat>
                 </section>
             </record>
 

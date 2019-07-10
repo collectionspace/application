@@ -1256,4 +1256,32 @@
             <option id="requester">requester</option>
         </options>
     </instance>
+    <instance id="vocab-uocstaffroles">
+        <web-url>uocstaffroles</web-url>
+        <title-ref>uocstaffroles</title-ref>
+        <title>Use of Collection Staff Role</title>
+        <options>
+            <option id="requester">requester</option>
+        </options>
+    </instance>
+    <instance id="vocab-uocmaterialtypes">
+        <web-url>uocmaterialtypes</web-url>
+        <title-ref>uocmaterialtypes</title-ref>
+        <title>Use of Collection Material Types</title>
+        <options>
+            <option id="root">root</option>
+            <option id="bulb">bulb</option>
+            <option id="cones">cones</option>
+            <option id="cutting">cutting</option>
+            <option id="flower">flower</option>
+            <option id="fruit">fruit</option>
+            <option id="leaf">leaf</option>
+            <option id="living plant">living plant</option>
+            <option id="pollen">pollen</option>
+            <option id="roots">roots</option>
+            <option id="seed">seed</option>
+            <option id="spores">spores</option>
+            <option id="wood">wood</option>
+        </options>
+    </instance>
 </instances>
