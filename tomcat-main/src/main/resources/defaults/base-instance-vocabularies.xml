@@ -1238,4 +1238,22 @@
             <option id="transfer">transfer</option>
         </options>
     </instance>
+    <instance id="vocab-uoccollectiontypes">
+        <web-url>uoccollectiontypes</web-url>
+        <title-ref>uoccollectiontypes</title-ref>
+        <title>Use of Collection Type</title>
+        <options>
+            <option id="uocOsteology">osteology</option>
+            <option id="uocDocumentation">documentation</option>
+            <option id="uocArcheology">archeology</option>
+        </options>
+    </instance>
+    <instance id="vocab-uocstaffroles">
+        <web-url>uocstaffroles</web-url>
+        <title-ref>uocstaffroles</title-ref>
+        <title>Use of Collection Staff Role</title>
+        <options>
+            <option id="requester">requester</option>
+        </options>
+    </instance>
 </instances>
