@@ -97,7 +97,7 @@
                     </repeat>
 
                     <field id="endDate" ui-search="range" ui-type="date" datatype="date" />
-                    
+
                     <repeat id="userGroupList/userGroup">
                         <field id="user" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared" in-title="yes" mini="search,list" />
                         <field id="userType" ui-search="repeatable" autocomplete="vocab-uocusertypes" ui-type="enum"></field>
@@ -105,11 +105,22 @@
                         <field id="userInstitution" autocomplete="organization-organization,organization-organization_shared"></field>
                     </repeat>
                     
-                    <field id="location" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared,place-local,location-local" />
+                    <repeat id="locationList">
+                        <field id="location" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared,place-local,location-local" />
+                    </repeat>
+
+                    <field id="dateRequested" ui-search="range" ui-type="date" datatype="date" />
+                    <field id="dateFulfilled" ui-search="range" ui-type="date" datatype="date" />
                     <field id="note" />
                     <field id="provisos" />
                     <field id="result" />
 
+                    <repeat id="occasionList">
+                        <field id="occasion" />
+                    </repeat>
+
+                    <field id="feeAmount" datatype="float"/>
+                    <field id="feeNote" />
                     <field id="feePaid" datatype="boolean" />
                     <field id="obligationsFulfilled" datatype="boolean" />
 
@@ -129,4 +140,4 @@
                     </repeat>
                 </section>
             </record>
-
+            
