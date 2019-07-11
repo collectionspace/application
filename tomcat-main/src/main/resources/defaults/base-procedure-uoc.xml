@@ -110,7 +110,7 @@
                     </repeat>
 
                     <field id="dateRequested" ui-search="range" ui-type="date" datatype="date" />
-                    <field id="dateFulfilled" ui-search="range" ui-type="date" datatype="date" />
+                    <field id="dateCompleted" ui-search="range" ui-type="date" datatype="date" />
                     <field id="note" />
                     <field id="provisos" />
                     <field id="result" />
@@ -138,6 +138,8 @@
                     <repeat id="materialTypeList">
                         <field id="materialType" autocomplete="uocmaterialtypes" ui-type="enum"/>
                     </repeat>
+                    
+                    <field id="linkToContract" />
                 </section>
             </record>
             
