@@ -1,27 +1,27 @@
 <project name="app-tenant-mgmt" default="clone-tenant" basedir=".">
   <description>Manage Application layer folders and files containing per-tenant configurations</description>
-  
+
   <!-- Location of the 'tenants' directory for this CollectionSpace source code layer. -->
   <property environment="env" />
   <property name="src.dir" value="${basedir}" />
   <property name="resources.dir" value="${src.dir}/tomcat-main/src/main/resources"/>
   <property name="tenants.dir" value="${resources.dir}/tenants"/>
-  
+
   <!-- Imports a set of utility routines for managing tenant folders
        from a separate Ant buildfile.
        See http://wiki.apache.org/ant/NewAntFeaturesInDetail/Import -->
   <import file="./tenant-utils-build.xml"/>
-  
+
   <!-- Location of the settings file for the newly-cloned tenant. -->
   <property name="settings.file.name" value="settings.xml"/>
   <property name="template.settings.file"
     value="${tenants.dir}/${template.tenant.shortname}/${settings.file.name}"/>
   <property name="tenant.settings.file" value="${tenants.dir}/${tenant.shortname}/${settings.file.name}"/>
-  
+
 	<target name="bamboo">
 		<ant antfile="war-entry/build.xml" target="bamboo" inheritAll="false" />
 	</target>
-	
+
   <!-- This target inherits from an existing target in the imported
        utility routines buildfile, and adds its own behavior specific to this
        CollectionSpace source code layer. -->
@@ -29,12 +29,12 @@
     depends="tenant-utils.clone-other-template-files,
     clone-tenant-schema-config-file">
   </target>
-  
+
   <target name="clone-tenant-schema-config-file">
     <copy file="${resources.dir}/${template.tenant.shortname}-tenant.xml"
        tofile="${resources.dir}/${tenant.shortname}-tenant.xml"/>
    </target>
-   
+
    <!-- This target inherits from an existing target in the imported
         utility routines buildfile, and adds its own behavior specific to this
         CollectionSpace source code layer. -->
@@ -44,7 +44,7 @@
        <mapper type="regexp" from="^(.*?)${template.tenant.shortname}(.*)$" to="\1${tenant.shortname}\2"/>
      </move>
    </target>
-  
+
   <!-- This target inherits from an (essentially empty) target in the imported
        utility routines buildfile, and adds its own behavior specific to this
        CollectionSpace source code layer. -->
@@ -53,21 +53,22 @@
     update-text-in-tenant-config,
     update-text-in-tenant-settings">
   </target>
-  
+
   <target name="update-text-in-tenant-config">
     <!-- Update text in the tenant config file. -->
     <replace file="${resources.dir}/${tenant.shortname}-tenant.xml" token="${template.tenant.shortname}"
-      value="${tenant.shortname}">
-    </replace>
+      value="${tenant.shortname}" />
+    <replaceregexp file="${resources.dir}/${tenant.shortname}-tenant.xml" match="&lt;tenantid&gt;.*?&lt;/tenantid&gt;"
+      replace="&lt;tenantid&gt;${tenant.id}&lt;/tenantid&gt;" />
   </target>
-  
+
   <target name="update-text-in-tenant-settings"
     depends="update-tenant-id-in-tenant-settings,
     update-disabled-flag-in-tenant-settings,
     update-tenant-internet-domain-in-tenant-settings,
     update-tenant-shortname-in-tenant-settings">
   </target>
-  
+
   <target name="update-tenant-id-in-tenant-settings">
     <replaceregexp
       file="${tenant.settings.file}"
@@ -80,7 +81,7 @@
       replace="&lt;id&gt;${tenant.id}&lt;/id&gt;">
     </replaceregexp>
   </target>
-  
+
   <target name="update-disabled-flag-in-tenant-settings">
     <!-- Ensure that even if the template tenant is disabled, -->
     <!-- the new, cloned tenant will always be created as 'enabled'. -->
@@ -99,19 +100,19 @@
     <property name="template.internet.domain" value="${settings.persistence.service.tenant.name}"/>
     <echo message="template.internet.domain=${template.internet.domain}"/>
   </target>
-  
+
   <target name="update-tenant-internet-domain-in-tenant-settings"
     depends="extract-template-tenant-internet-domain">
    <!-- Note: this text replacement is brute-force and will even replace sub-strings,
         if found, so you'll need to ensure that the template tenant's Internet domain is a
         unique string: that it won't be inadvertently contained within text elsewhere. -->
-   <!-- TODO: Perform more nuanced replacements to avoid the problem described above. 
+   <!-- TODO: Perform more nuanced replacements to avoid the problem described above.
         (See the Ant ReplaceRegExp task for one potential approach when doing so.) -->
     <replace file="${tenant.settings.file}" token="${template.internet.domain}"
       value="${tenant.internet.domain}">
     </replace>
   </target>
-   
+
   <target name="update-tenant-shortname-in-tenant-settings">
    <!-- Note: this text replacement is brute-force and will even replace sub-strings,
         if found, so you'll need to ensure that the template tenant's shortname is a
@@ -127,7 +128,7 @@
   <!-- This target inherits from an (essentially empty) target in the imported
        utility routines buildfile, and adds its own behavior specific to this
        CollectionSpace source code layer. -->
-  <target name="check-tenant-extended-properties" 
+  <target name="check-tenant-extended-properties"
     depends="tenant-utils.check-tenant-extended-properties">
     <!-- ID of the new tenant to create -->
     <antcall target="check-property-is-defined">
@@ -148,5 +149,5 @@
     </antcall>
     <echo message="tenant.internet.domain=${tenant.internet.domain}"/>
   </target>
-    
+
 </project>
