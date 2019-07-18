@@ -56,10 +56,18 @@
 
   <target name="update-text-in-tenant-config">
     <!-- Update text in the tenant config file. -->
-    <replace file="${resources.dir}/${tenant.shortname}-tenant.xml" token="${template.tenant.shortname}"
-      value="${tenant.shortname}" />
-    <replaceregexp file="${resources.dir}/${tenant.shortname}-tenant.xml" match="&lt;tenantid&gt;.*?&lt;/tenantid&gt;"
-      replace="&lt;tenantid&gt;${tenant.id}&lt;/tenantid&gt;" />
+    <replaceregexp
+      file="${resources.dir}/${tenant.shortname}-tenant.xml"
+      flags="g"
+      match="(?&lt;!extensions/)${template.tenant.shortname}"
+      replace="${tenant.shortname}"
+    />
+    <replaceregexp
+      file="${resources.dir}/${tenant.shortname}-tenant.xml"
+      flags="g"
+      match="&lt;tenantid&gt;.*?&lt;/tenantid&gt;"
+      replace="&lt;tenantid&gt;${tenant.id}&lt;/tenantid&gt;"
+    />
   </target>
 
   <target name="update-text-in-tenant-settings"
