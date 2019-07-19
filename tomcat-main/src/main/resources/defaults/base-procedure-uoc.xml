@@ -83,7 +83,7 @@
                     <field id="title" mini="summary,search,list"/>
 
                     <repeat id="authorizationGroupList/authorizationGroup">
-                        <field id="authorizedBy" autocomplete="person-person,person-person_shared" mini="search,list"/>
+                        <field id="authorizedBy" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared" />
                         <field id="authorizationDate" ui-search="range" ui-type="date" datatype="date" />
                         <field id="authorizationNote" />
                         <field id="authorizationStatus" autocomplete="vocab-uocauthorizationstatuses" ui-type="enum"/>
@@ -116,12 +116,16 @@
                     <field id="result" />
 
                     <repeat id="occasionList">
-                        <field id="occasion" />
+                        <field id="occasion" autocomplete="concept-concept,concept-material_ca,concept-material_ca_shared,concept-activity" />
+                    </repeat>
+                    
+                    <repeat id="feeGroupList/feeGroup">
+                        <field id="feeCurrency" ui-type="enum" autocomplete="currenncy" />
+                        <field id="feeValue" datatype="float" />
+                        <field id="feeNote" />
+                        <field id="feePaid" datatype="boolean" />
                     </repeat>
 
-                    <field id="feeAmount" datatype="float"/>
-                    <field id="feeNote" />
-                    <field id="feePaid" datatype="boolean" />
                     <field id="obligationsFulfilled" datatype="boolean" />
 
                     <repeat id="staffGroupList/staffGroup">
@@ -139,7 +143,9 @@
                         <field id="materialType" autocomplete="uocmaterialtypes" ui-type="enum"/>
                     </repeat>
                     
-                    <field id="linkToContract" />
+                    <field id="linkToContractList">
+                        <field id="linkToContract" />
+                    </field>
                 </section>
             </record>
             
