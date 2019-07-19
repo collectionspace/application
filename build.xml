@@ -65,7 +65,8 @@
     depends="update-tenant-id-in-tenant-settings,
     update-disabled-flag-in-tenant-settings,
     update-tenant-internet-domain-in-tenant-settings,
-    update-tenant-shortname-in-tenant-settings">
+    update-tenant-shortname-in-tenant-settings,
+    update-repository-domain-and-name-in-tenant-settings">
   </target>
   
   <target name="update-tenant-id-in-tenant-settings">
@@ -122,6 +123,16 @@
       replace="${tenant.shortname}"
       flags="gi">
     </replaceregexp>
+  </target>
+
+  <target name="update-repository-domain-and-name-in-tenant-settings">
+    <replaceregexp
+      file="${tenant.settings.file}"
+      match="&lt;repository&gt;\s*&lt;domain&gt;.*?&lt;/domain&gt;\s*&lt;name&gt;.*?&lt;/name&gt;"
+      replace="&lt;repository&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&lt;domain&gt;${tenant.shortname}&lt;/domain&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&lt;name&gt;${tenant.shortname}&lt;/name&gt;"
+      flags="m">
+    </replaceregexp>
+
   </target>
 
   <!-- This target inherits from an (essentially empty) target in the imported
