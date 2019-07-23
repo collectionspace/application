@@ -1256,14 +1256,6 @@
             <option id="requester">requester</option>
         </options>
     </instance>
-    <instance id="vocab-uocstaffroles">
-        <web-url>uocstaffroles</web-url>
-        <title-ref>uocstaffroles</title-ref>
-        <title>Use of Collection Staff Role</title>
-        <options>
-            <option id="requester">requester</option>
-        </options>
-    </instance>
     <instance id="vocab-uocmaterialtypes">
         <web-url>uocmaterialtypes</web-url>
         <title-ref>uocmaterialtypes</title-ref>
