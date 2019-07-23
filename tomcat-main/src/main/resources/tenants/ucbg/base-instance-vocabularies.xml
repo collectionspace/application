@@ -1216,4 +1216,63 @@
             <option id="transfer">transfer</option>
         </options>
     </instance>
+	<instance id="vocab-uoccollectiontypes">
+        <web-url>uoccollectiontypes</web-url>
+        <title-ref>uoccollectiontypes</title-ref>
+        <title>Use of Collection Type</title>
+        <options>
+                <option id="uocOsteology">osteology</option>
+                <option id="uocDocumentation">documentation</option>
+                <option id="uocArcheology">archeology</option>
+        </options>
+	</instance>
+	<instance id="vocab-uocstaffroles">
+        <web-url>uocstaffroles</web-url>
+        <title-ref>uocstaffroles</title-ref>
+        <title>Use of Collection Staff Role</title>
+        <options>
+                <option id="requester">requester</option>
+        </options>
+	</instance>
+	<instance id="vocab-uocmaterialtypes">
+        <web-url>uocmaterialtypes</web-url>
+        <title-ref>uocmaterialtypes</title-ref>
+        <title>Use of Collection Material Types</title>
+        <options>
+                <option id="root">root</option>
+                <option id="bulb">bulb</option>
+                <option id="cones">cones</option>
+                <option id="cutting">cutting</option>
+                <option id="flower">flower</option>
+                <option id="fruit">fruit</option>
+                <option id="leaf">leaf</option>
+                <option id="livingplant">living plant</option>
+                <option id="pollen">pollen</option>
+                <option id="roots">roots</option>
+                <option id="seed">seed</option>
+                <option id="spores">spores</option>
+                <option id="wood">wood</option>
+        </options>
+	</instance>
+	<instance vocab="vocab-uocauthorizationstatuses">
+        <web-url>uocauthorizationstatuses</web-url>
+        <title-ref>uocauthorizationstatuses</title-ref>
+        <title>Use of Collections Authorization Statuses</title>
+        <options>
+                <option id="approved">Approved</option>
+                <option id="denied">Denied</option>
+                <option id="pending">Pending</option>
+        </options>
+	</instance>
+	<instance id="vocab-uocuserroles">
+        <web-url>uocuserroles</web-url>
+        <title-ref>uocuserroles</title-ref>
+        <title>Use of Collections Role of User</title>
+        <options>
+                <option id="undergraduate">Undergraduate student</option>
+                <option id="graduate">Graduate student</option>
+                <option id="faculty">Faculty</option>
+                <option id="other">Other</option>
+        </options>
+	</instance>
 </instances>
