@@ -27,6 +27,7 @@
 			<include src="base-procedure-movement.xml"/>
 			<include src="base-procedure-objectexit.xml"/>
 			<include src="base-procedure-conservation.xml"/>
+			<include src="base-procedure-claim.xml"/>
 			<include src="base-procedure-uoc.xml"/>
 
 			<include src="base-authority-contact.xml"/>
