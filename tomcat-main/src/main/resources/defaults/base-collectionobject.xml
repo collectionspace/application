@@ -335,6 +335,7 @@
 		<repeat id="fieldCollectionMethods">
 			<field id="fieldCollectionMethod" autocomplete="true" ui-type="enum" />
 		</repeat>
+		<field id="fieldCollectionFeature" />
 		<field id="fieldCollectionNote" />
 		<field id="fieldCollectionNumber" />
 		<field id="fieldCollectionPlace" autocomplete="true" />
