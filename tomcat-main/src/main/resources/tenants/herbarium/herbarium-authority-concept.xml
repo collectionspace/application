@@ -16,6 +16,11 @@
 			<title-ref>activity</title-ref>
 			<title>Activity Concepts</title>
 		</instance>
+		<instance id="concept-nomenclature">
+			<web-url>nomenclature</web-url>
+			<title-ref>nomenclature</title-ref>
+			<title>Nomenclature</title>
+		</instance>
 		<!-- For materials authority -->
 		<instance id="concept-materialclassification">
 			<web-url>materialclassification</web-url>

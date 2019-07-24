@@ -5,6 +5,11 @@
 			<title-ref>concept</title-ref>
 			<title>Associated Concepts</title>
 		</instance>
+		<instance id="concept-nomenclature">
+			<web-url>nomenclature</web-url>
+			<title-ref>nomenclature</title-ref>
+			<title>Nomenclature</title>
+		</instance>
 		<instance id="concept-class_ca">
 			<web-url>class_ca</web-url>
 			<title-ref>class_ca</title-ref>
