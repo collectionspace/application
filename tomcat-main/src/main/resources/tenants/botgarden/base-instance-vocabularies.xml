@@ -468,6 +468,11 @@
 			<option id="class">class</option>
 			<option id="family">family</option>
 			<option id="generic">generic</option>
+			<option id="category">category</option>
+			<option id="subclass">sub-class</option>
+			<option id="primaryterm">primary term</option>
+			<option id="secondaryterm">secondary term</option>
+			<option id="tertiaryterm">tertiary term</option>
 		</options>
 	</instance>
 	<instance id="vocab-organizationtype">

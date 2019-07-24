@@ -466,6 +466,11 @@
 		<options>
 			<option id="material">material</option>
 			<option id="worktype">work type</option>
+			<option id="category">category</option>
+			<option id="subclass">sub-class</option>
+			<option id="primaryterm">primary term</option>
+			<option id="secondaryterm">secondary term</option>
+			<option id="tertiaryterm">tertiary term</option>
 		</options>
 	</instance>
 	<instance id="vocab-organizationtype">
