@@ -1,5 +1,6 @@
 <root>
 	<include src="extensions/annotation-vocabularies.xml" strip-root="yes" />
+	<include src="extensions/anthropology-vocabularies.xml" strip-root="yes" />
 	<include src="extensions/culturalcare-vocabularies.xml" strip-root="yes" />
 	<include src="extensions/locality-vocabularies.xml" strip-root="yes" />
 	<include src="extensions/nagpra-vocabularies.xml" strip-root="yes" />

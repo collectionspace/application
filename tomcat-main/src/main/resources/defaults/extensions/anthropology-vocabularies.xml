@@ -1,0 +1,42 @@
+<instances>
+	<instance id="vocab-cranialdeformationcategory">
+		<web-url>cranialdeformationcategory</web-url>
+		<title-ref>cranialdeformationcategory</title-ref>
+		<title>Cranial Deformation Category</title>
+		<options>
+			<option id="tabular">tabular</option>
+			<option id="circumferential">circumferential</option>
+			<option id="other">other (describe)</option>
+		</options>
+	</instance>
+	<instance id="vocab-trepanationtechnique">
+		<web-url>trepanationtechnique</web-url>
+		<title-ref>trepanationtechnique</title-ref>
+		<title>Trepanation Technique</title>
+		<options>
+			<option id="scraping">scraping</option>
+			<option id="grooving">grooving</option>
+			<option id="boringandcutting">boring-and-cutting</option>
+			<option id="rectangularincisions">rectangular incisions</option>
+		</options>
+	</instance>
+	<instance id="vocab-trepanationhealing">
+		<web-url>trepanationhealing</web-url>
+		<title-ref>trepanationhealing</title-ref>
+		<title>Trepanation Healing</title>
+		<options>
+			<option id="none">no healing</option>
+			<option id="possible">possible healing</option>
+			<option id="definite">definite evidence for healing</option>
+		</options>
+	</instance>
+	<instance id="vocab-trepanationcertainty">
+		<web-url>repanationcertainty</web-url>
+		<title-ref>trepanationcertainty</title-ref>
+		<title>Trepanation Certainty</title>
+		<options>
+			<option id="possible">possible trepanation</option>
+			<option id="clear">clear evidence of trepanation</option>
+		</options>
+	</instance>
+</instances>
