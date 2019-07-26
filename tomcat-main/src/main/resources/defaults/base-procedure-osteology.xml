@@ -47,6 +47,21 @@
         <field id="inventoryAnalyst" autocomplete="true"/>
         <field id="inventoryDate" mini="summary,list" datatype="date"/>
 
+        <field id="completeness" autocomplete="true" ui-type="enum"/>
+        <field id="completenessNote"/>
+
+        <field id="molarsPresent" datatype="boolean"/>
+        <field id="dentitionScore" autocomplete="true" ui-type="enum"/>
+        <field id="dentitionNote" />
+
+        <field id="mortuaryTreatment" autocomplete="true" ui-type="enum"/>
+        <field id="mortuaryTreatmentNote"/>
+
+        <field id="behrensmeyerSingleLower" autocomplete="true" ui-type="enum"/>
+        <field id="behrensmeyerUpper" autocomplete="true" ui-type="enum"/>
+
+        <field id="pathologyNote"/>
+
         <!-- Head -->
 
         <field id="Cranium"/>

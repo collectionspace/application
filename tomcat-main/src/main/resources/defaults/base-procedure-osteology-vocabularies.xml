@@ -1,0 +1,63 @@
+<!--
+	Trying something new: Osteology isn't in the core tenant, but is available to be added to
+	other tehants. Rather than putting these vocabs in base-instance-vocabularies.xml, which would
+	cause them to be added to all tenants, even ones that don't use osteology, I'm putting them
+	in this file, which can be included in the domain-instance-vocabularies.xml files of the
+	tenants that use osteology.
+-->
+<instances>
+	<instance id="vocab-osteocompleteness">
+		<web-url>osteocompleteness</web-url>
+		<title-ref>osteocompleteness</title-ref>
+		<title>Osteology Completeness Levels</title>
+		<options>
+			<option id="calvarium">calvarium only</option>
+			<option id="complete">complete/nearly complete skeleton</option>
+			<option id="cranium">cranium only</option>
+			<option id="mandible">mandible only</option>
+			<option id="partial">partial skeleton</option>
+			<option id="postcranial">postcranial remains only</option>
+			<option id="skull">skull only</option>
+			<option id="teeth">teeth only</option>
+		</options>
+	</instance>
+	<instance id="vocab-dentitionscore">
+		<web-url>dentitionscore</web-url>
+		<title-ref>dentitionscore</title-ref>
+		<title>Dentition Scores</title>
+		<options>
+			<option id="morethanhalf">more than half present</option>
+			<option id="lessthanhalf">less than half present</option>
+			<option id="notapplicable">not applicable</option>
+			<option id="notpresent">not present</option>
+		</options>
+	</instance>
+	<instance id="vocab-mortuarytreatment">
+		<web-url>mortuarytreatment</web-url>
+		<title-ref>mortuarytreatment</title-ref>
+		<title>Mortuary Treatments</title>
+		<options>
+			<option id="burnedunburnedbonemixture">burned/unburned bone mixture</option>
+			<option id="cremated">cremated</option>
+			<option id="enbalmed">enbalmed</option>
+			<option id="excarnated">excarnated</option>
+			<option id="inhumed">inhumed</option>
+			<option id="mummified">mummified</option>
+			<option id="notcremated">not cremated</option>
+			<option id="partiallycremated">partially cremated</option>
+		</options>
+	</instance>
+	<instance id="vocab-behrensmeyer">
+		<web-url>behrensmeyer</web-url>
+		<title-ref>behrensmeyer</title-ref>
+		<title>Behrensmeyer Stages</title>
+		<options>
+			<option id="0">0 - no cracking or flaking on bone surface</option>
+			<option id="1">1 - longitudinal and/or mosaic cracking present on surface</option>
+			<option id="2">2 - longitudinal cracks, exfoliation on surface</option>
+			<option id="3">3 - fibrous texture, extensive exfoliation</option>
+			<option id="4">4 - coarsely fibrous texture, splinters of bone loose on the surface, open cracks</option>
+			<option id="5">5 - bone crumbling in situ, large splinters</option>
+		</options>
+	</instance>
+</instances>
