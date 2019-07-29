@@ -1,14 +1,14 @@
 package org.collectionspace.chain.controller;
 
 /* Invoke from command line with recordtype, domain, maketype (core/delta) and configfile
- * 
+ *
  * configfile is the config for the tenant in question.
  * record is the type of the record according to its name in the URL of the service (eg "collectionobjects")
  * domain is the section of the XML to generate the XSD for (eg "collectionspace_core")
  * maketype should be core. The other value, delta, is experimental.
- * 
+ *
  * eg java -jar cspace/conf/csmake.jar -c /src/main/resources -o /target/plugins
- * 
+ *
  */
 
 import java.io.ByteArrayInputStream;
@@ -62,7 +62,7 @@ class AppConfigBuildFileFilter implements FilenameFilter {
 
 public class CommandLine {
 	private static final Logger logger = LoggerFactory.getLogger(CommandLine.class);
-	
+
 	private static final String SERVICE_SCHEMA_VERSION = "4.0";
 	private static final String SERVICE_BINDINGS_VERSION = "1.1";
 	private static final String SCHEMA_AND_DOCTYPES_DIR = JEEServerDeployment.NUXEO_SERVER_DIR;
@@ -89,14 +89,14 @@ public class CommandLine {
 	private static File bindingsOutputDir;
 	private static File bundlesOutputDir;
 	private static File baseOutputDir;
-	
+
 	private static Map<String, ServiceConfigGeneration> serviceBundlesInfo = new HashMap<String, ServiceConfigGeneration>();
 
 	private static final String XMLMERGE_DEFAULT_PROPS_STR = "matcher.default=ID\n";
 
 	private static final String SERVICES_DELTA_FILE = "tenant-bindings-proto-unified.xml";
 
-	private static final Object LOG4J_FILENAME = "cspace-app-tool.log"; // from log4j.properties file in src/main/resources
+	private static final Object LOG4J_FILENAME = "logs/cspace-app.log"; // from log4j.properties file in src/main/resources
 
 	private static void changeLoggerLevel(Level level) {
 
@@ -487,7 +487,7 @@ public class CommandLine {
 
 		//
 		// Resolve where we're going to write out the Nuxeo bundle (doctypes and schema) files.
-		//		
+		//
 		File bundlesOutputDir = resolveOutputDir(getBaseOutputDir(), JEEServerDeployment.NUXEO_SERVER_PLUGINS_DIR,
 				"Service Bundles");
 		if (bundlesOutputDir != null) {
@@ -506,7 +506,7 @@ public class CommandLine {
 			logFailureAndExit(null);
 		}
 	}
-	
+
 	private static final void dumpServiceArtifactMetadata(File tenantConfigFile, ServiceConfigGeneration xsdMetadata) throws Exception {
 		if (logger.isDebugEnabled() == true) {
 			logger.debug(String.format("Schema types defined in config: %s", tenantConfigFile.getAbsolutePath()));
@@ -522,13 +522,13 @@ public class CommandLine {
 			}
 		}
 	}
-	
+
 	/*
 	 * Creates and writes out the Service bundles -i.e., the Nuxeo doctypes and Nuxeo schemas.
 	 */
 	private static final String generateServiceBundles(File tenantConfigFile) {
 		String result = null;
-		
+
 		//
 		// Generate all the Service schemas from the Application layer's configuration records
 		//
@@ -543,16 +543,16 @@ public class CommandLine {
 					tenantConfigFile.getAbsolutePath());
 			logger.error(result, e);
 		}
-		
+
 		return result;
 	}
-	
+
 	/*
 	 * Creates and writes out the Service layer's tenant bindings for a given tenant config file.
 	 */
 	private static final String generateServiceBindings(File tenantConfigFile) {
 		String result = null;
-		
+
 		ServiceConfigGeneration tenantBindingsMetadata = null;
 		try {
 			tenantBindingsMetadata = new ServiceConfigGeneration(serviceBundlesInfo, tenantConfigFile, CommonAPI.GENERATE_BINDINGS, SERVICE_SCHEMA_VERSION, null,
@@ -578,7 +578,7 @@ public class CommandLine {
 				FileUtils.writeStringToFile(new File(mergedTenantBindingsFilename), mergedTenantBindings);
 				if (logger.isInfoEnabled()) {
 					logger.info("***");
-					logger.info(String.format("Config Generation: '%s' - Wrote merged tenant bindings to: '%s'", 
+					logger.info(String.format("Config Generation: '%s' - Wrote merged tenant bindings to: '%s'",
 							tenantConfigFile.getName(), mergedTenantBindingsFilename));
 				}
 			} else {
@@ -590,16 +590,16 @@ public class CommandLine {
 					tenantConfigFile.getName(), tenantConfigFile.getAbsolutePath());
 			logger.error(result, e);
 		}
-		
+
 		return result;
 	}
-	
+
 	private static final void setLoggingLevel() {
 		//
 		// By default, we'll provide verbose messages to the user
 		//
 		changeLoggerLevel(Level.INFO);
-		
+
 		//
 		// If the user used the '-s' command line argument then we switch to "silent" or "suppress" messages mode.
 		//
@@ -645,7 +645,7 @@ public class CommandLine {
 		} else {
 			logFailureAndExit(null);
 		}
-		
+
 		//
 		// Start processing the Application layer's configuration so we can generate the corresponding
 		// Service layer's artifacts -i.e., the Nuxeo doctypes, Nuxeo schemas, and the service bindings.
@@ -660,19 +660,19 @@ public class CommandLine {
 		//
 		String errMsg = null;
 		for (File tenantConfigFile : tenantConfigFileList) {
-			String logMsg = String.format("Config Generation: '%s' - ### Started processing tenant configuration file '%s'.", 
+			String logMsg = String.format("Config Generation: '%s' - ### Started processing tenant configuration file '%s'.",
 					tenantConfigFile.getName(), tenantConfigFile.getAbsolutePath());
 			logger.info("###");
 			logger.info(logMsg);
 			logger.info("###");
-			
+
 			//
 			// First generate the Service bundles -i.e., the Nuxeo doctype and schema bundles
 			//
 			errMsg = generateServiceBundles(tenantConfigFile);
 			if (errMsg != null  && errMsg.isEmpty() == false) {
 				logFailureAndExit(errMsg);
-			}				
+			}
 			//
 			// Now generate the service bindings
 			//
@@ -680,8 +680,8 @@ public class CommandLine {
 			if (errMsg != null  && errMsg.isEmpty() == false) {
 				logFailureAndExit(errMsg);
 			}
-			
-			logMsg = String.format("Config Generation: '%s' - ### Finished processing tenant configuration file '%s'.", 
+
+			logMsg = String.format("Config Generation: '%s' - ### Finished processing tenant configuration file '%s'.",
 					tenantConfigFile.getName(), tenantConfigFile.getAbsolutePath());
 			logger.info(logMsg);
 			logger.info("***\n");
