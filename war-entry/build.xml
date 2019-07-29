@@ -24,51 +24,7 @@
 		<delete dir="${config_destination}/auth-nx-plugin-templates"/>
 		<copy todir="${config_destination}/auth-nx-plugin-templates">
 			<fileset dir="${app_resources_dir}/auth-nx-plugin-templates" includes="*/**"/>
-		</copy>
-		
-		<!-- 
-			Copy defaults folders and all of their contents
-		-->
-		<delete dir="${config_destination}/defaults"/>
-		<copy todir="${config_destination}/defaults">
-			<fileset dir="${app_resources_dir}/defaults" includes="*/**"/>
-			<filterset>
-	        	<filter token="JEE_PORT" value="${env.JEE_PORT}" />
-			</filterset>			
-		</copy>
-		
-		<!-- 
-			Copy tenants folders and all of their contents
-		-->		
-		<delete includeemptydirs="true">
-			<!-- 
-				PAHMA-809: In UCB deployments, we create a file in the target tenant directory
-						   called host-settings.xml that contains host-dependent settings.
-						   This file should not be deleted.
-				TODO: Make excluded files configurable.
-			-->
-			<fileset dir="${config_destination}/tenants" excludes="**/host-settings.xml"/>
-		</delete>
-		<copy todir="${config_destination}/tenants">
-			<fileset dir="${app_resources_dir}/tenants" includes="*/**"/>
-			<filterset>
-	        	<filter token="JEE_PORT" value="${env.JEE_PORT}" />
-			</filterset>			
-		</copy>
-		
-		<!-- Delete old and Copy new cspace-config files -->
-		<delete>
-			<fileset dir="${config_destination}" casesensitive="yes">
-				<include name="cspace-config-*.xml"/>
-			</fileset>
-		</delete>
-		<copy todir="${config_destination}" overwrite="true">
-			<fileset dir="${app_resources_dir}"/>
-			<globmapper from="*-tenant.xml" to="cspace-config-*.xml"/>
-			<filterset>
-	        	<filter token="JEE_PORT" value="${env.JEE_PORT}" />
-			</filterset>
-		</copy>
+		</copy>		
 	</target>
 
 	<target name="retrieve_jar" description="Retrieves the JAR for command-line use">
