@@ -142,10 +142,6 @@
                     <repeat id="materialTypeList">
                         <field id="materialType" autocomplete="uocmaterialtypes" ui-type="enum"/>
                     </repeat>
-                    
-                    <field id="linkToContractList">
-                        <field id="linkToContract" />
-                    </field>
                 </section>
             </record>
             
