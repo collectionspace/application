@@ -14,6 +14,7 @@
 				<option id="no">No</option>
 			</options>
 		</field>
+
 		<field id="postToPublic" section="botgarden" ui-search="single">
 			<options>
 				<option id="">Please select a value</option>
@@ -21,9 +22,13 @@
 				<option id="yes">Yes</option>
 			</options>
 		</field>
+
 		<field id="scientificTaxonomy" in-title="yes" mini="summary,search,list,relate" section="botgarden" autocomplete="taxon-taxon" ui-search="repeatable">
 			<title-selector>titleBar-media-scientificTaxonomy</title-selector>
 		</field>
+
 		<field id="imageNumber" section="botgarden" datatype="integer" ui-type="validated" mini="search,list,relate" ui-search="range"/>
+
+		<field id="plantMorphology" section="botgarden" ui-type="enum" autocomplete="vocab-plantmorphology"/>
 	</section>
 </record>
