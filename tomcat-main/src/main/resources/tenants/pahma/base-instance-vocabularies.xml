@@ -1258,7 +1258,9 @@
 			<title-ref>uocstaffroles</title-ref>
 			<title>Use of Collection Staff Role</title>
 			<options>
-					<option id="requester">requester</option>
+					<option id="greeter">greeter</option>
+					<option id="objecthandler">object handler</option>
+					<option id="presenter">presenter</option>
 			</options>
 	</instance>
 	<instance id="vocab-uocmaterialtypes">
