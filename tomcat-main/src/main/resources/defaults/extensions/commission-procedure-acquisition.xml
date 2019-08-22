@@ -3,7 +3,7 @@
 
 	<section id="commissionInformation">
 		<repeat id="commissioningBodyList" services-type-anonymous="false" section="commission">
-			<field id="commissioningBody" section="commission" />
+			<field id="commissioningBody" section="commission" autocomplete="true" />
 		</repeat>
 
 		<field id="commissionDate" ui-type="groupfield/structureddate" section="commission" />
