@@ -32,6 +32,8 @@
 
 			<field id="behrensmeyerSingleLower" section="anthro" autocomplete="true" ui-type="enum"/>
 			<field id="behrensmeyerUpper" section="anthro" autocomplete="true" ui-type="enum"/>
+
+			<field id="commingledRemainsNote" section="anthro" />
 		</repeat>
 	</section>
 
