@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>org.collectionspace</groupId>
 		<artifactId>svcapp</artifactId>
-		<version>5.1</version>
+		<version>${revision}</version>
 	</parent>
 
 	<profiles>

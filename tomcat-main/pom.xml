@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>org.collectionspace</groupId>
 		<artifactId>svcapp</artifactId>
-		<version>5.1</version>
+		<version>${revision}</version>
 	</parent>
 
 	<dependencies>
@@ -20,7 +20,8 @@
 		<dependency>
 			<groupId>org.collectionspace.services</groupId>
 			<artifactId>org.collectionspace.services.common-api</artifactId>
-			<version>${project.version}</version>
+			<version>${cspace.services.version}</version>
+			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.collectionspace</groupId>

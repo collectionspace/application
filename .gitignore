@@ -21,3 +21,4 @@ war-entry/tmp/
 *.xlsx
 .vscode
 host-settings.xml
+.flattened-pom.xml
