@@ -22,3 +22,4 @@ war-entry/tmp/
 *.xlsx
 .vscode
 .factorypath
+.flattened-pom.xml
