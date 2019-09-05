@@ -1400,19 +1400,4 @@
 			<option id="usetype02" from-static-id="other">Other</option>
 		</options>
 	</instance>
-	<instance id="vocab-plantmorphology">
-		<web-url>plantmorphology</web-url>
-		<title-ref>plantmorphology</title-ref>
-		<title>plantmorphology</title>
-		<options>
-			<option id="usetype00" from-static-id="flowers">flowers</option>
-			<option id="usetype01" from-static-id="leaves">leaves</option>
-			<option id="usetype02" from-static-id="whole">whole</option>
-			<option id="usetype03" from-static-id="fruit">fruit</option>
-			<option id="usetype04" from-static-id="seeds">seeds</option>
-			<option id="usetype05" from-static-id="bark">bark</option>
-			<option id="usetype06" from-static-id="landscape">landscape</option>
-			<option id="usetype07" from-static-id="bed">garden bed</option>
-		</options>
-	</instance>
 </root>
