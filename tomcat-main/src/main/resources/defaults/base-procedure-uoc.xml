@@ -69,7 +69,7 @@
                 <section id="uocInformation">
                     <field id="referenceNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate" seperate_ui_container="true" />
 
-                    <field id="projectId" ui-search="repeatable"/>
+                    <field id="projectId" autocomplete="vocab-uocuserroles" ui-type="enum" />
                     <field id="projectDescription"/>
                     
                     <repeat id="methodList" services-type-anonymous="false">
