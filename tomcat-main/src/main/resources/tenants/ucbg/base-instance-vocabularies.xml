@@ -1277,4 +1277,19 @@
                 <option id="other">Other</option>
         </options>
 	</instance>
+	<instance id="vocab-plantmorphology">
+		<web-url>plantmorphology</web-url>
+		<title-ref>plantmorphology</title-ref>
+		<title>plantmorphology</title>
+		<options>
+			<option id="plantmorphology00" from-static-id="flowers">flowers</option>
+			<option id="plantmorphology01" from-static-id="leaves">leaves</option>
+			<option id="plantmorphology02" from-static-id="whole">whole plant</option>
+			<option id="plantmorphology03" from-static-id="fruit">fruit</option>
+			<option id="plantmorphology04" from-static-id="seeds">seeds</option>
+			<option id="plantmorphology05" from-static-id="bark">bark</option>
+			<option id="plantmorphology06" from-static-id="landscape">landscape</option>
+			<option id="plantmorphology07" from-static-id="bed">garden bed</option>
+		</options>
+	</instance>
 </instances>
