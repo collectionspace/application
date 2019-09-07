@@ -348,7 +348,7 @@
 	<instance id="vocab-relationtype">
 		<web-url>relationtypetype</web-url>
 		<title-ref>relationtypetype</title-ref>
-		<title>Relation type Type</title>
+		<title>Relation Type</title>
 		<options>
 			<option id="monography">Monography (published in)</option>
 			<option id="magazine">Magazine (published in)</option>
