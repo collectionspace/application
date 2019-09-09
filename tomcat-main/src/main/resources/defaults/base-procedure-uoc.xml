@@ -94,6 +94,7 @@
                         <field id="useDateNumberOfVisitors" datatype="int"/>
                         <field id="useDateHoursSpent" datatype="float"/>
                         <field id="useDateVisitorNote" />
+                        <field id="useDateTimeNote" />
                     </repeat>
 
                     <field id="endDate" ui-search="range" ui-type="date" datatype="date" />
