@@ -101,8 +101,8 @@
 
                     <repeat id="userGroupList/userGroup">
                         <field id="user" ui-search="repeatable" autocomplete="person-person,person-person_shared,organization-organization,organization-organization_shared" in-title="yes" mini="search,list" />
-                        <field id="userType" ui-search="repeatable" autocomplete="vocab-uocusertypes" ui-type="enum"></field>
-                        <field id="userRole" ui-search="repeatable" autocomplete="vocab-uocuserroles" ui-type="enum"></field>
+                        <field id="userInstitutionRole" ui-search="repeatable" autocomplete="vocab-uocusertypes" ui-type="enum"></field>
+                        <field id="userUocRole" ui-search="repeatable" autocomplete="vocab-uocuserroles" ui-type="enum"></field>
                         <field id="userInstitution" autocomplete="organization-organization,organization-organization_shared"></field>
                     </repeat>
                     
