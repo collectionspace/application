@@ -30,6 +30,13 @@
 		<repeat id="forDocTypes">
 			<field id="forDocType" />
 		</repeat>
+		<repeat id="forRoles">
+			<field id="roleDisplayName" />
+		</repeat>
+		<repeat id="resourceActionGroupList/resourceActionGroup">
+			<field id="resourceName" />
+			<field id="actionGroup" />
+		</repeat>
 		<field id="supportsNoContext" datatype="boolean" />
 		<field id="supportsSingleDoc" datatype="boolean" />
 		<field id="supportsDocList" datatype="boolean" />
