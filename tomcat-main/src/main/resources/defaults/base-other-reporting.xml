@@ -27,7 +27,28 @@
 	<include src="domain-other-reporting.xml" strip-root="yes"/>
 	
 	<section id="coreInformation">
-		<include src="core-fields.xml"  strip-root="yes" />
+		<include src="core-fields.xml" strip-root="yes" />
+	</section>
+
+	<section id="reporting">
+		<field id="name" mini="number,list" />
+		<field id="notes" />
+		<repeat id="forDocTypes">
+			<field id="forDocType" />
+		</repeat>
+		<repeat id="forRoles">
+			<field id="roleDisplayName" />
+		</repeat>
+		<repeat id="resourceActionGroupList/resourceActionGroup">
+			<field id="resourceName" />
+			<field id="actionGroup" />
+		</repeat>
+		<field id="supportsNoContext" datatype="boolean" />
+		<field id="supportsSingleDoc" datatype="boolean" />
+		<field id="supportsDocList" datatype="boolean" />
+		<field id="supportsGroup" datatype="boolean" />
+		<field id="filename" />
+		<field id="outputMIME" />
 	</section>
 	
     <section id="reporting">
