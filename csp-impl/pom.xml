@@ -5,7 +5,7 @@
 	<artifactId>csp-impl</artifactId>
 	<packaging>jar</packaging>
 	<name>CSP: Impl</name>
-	
+
 	<parent>
 		<groupId>org.collectionspace</groupId>
 		<artifactId>svcapp</artifactId>
@@ -46,7 +46,7 @@
 			<groupId>org.collectionspace.services</groupId>
 			<artifactId>org.collectionspace.services.common-api</artifactId>
 			<version>${project.version}</version>
-		</dependency>		
+		</dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
@@ -87,21 +87,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	
-	<repositories>
-		<!-- Repository for EL4J modules.
-		<repository>
-			<id>el4jReleaseRepositoryExternal</id>
-			<name>External release repository of the EL4J project</name>
-			<url>http://public-el4.elca-services.ch/el4j/maven2repository</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</repository>
-		-->
-	</repositories>	
-
 </project>

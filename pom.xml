@@ -9,7 +9,7 @@
 	<name>Root</name>
 
 	<properties>
-		<revision>5.2-SNAPSHOT</revision>
+		<revision>5.3-SNAPSHOT</revision>
 		<cspace.services.version>${revision}</cspace.services.version>
 		<temp.war.location>${basedir}/tmp</temp.war.location>
 		<cspace.tool.csmake>csmake</cspace.tool.csmake>
@@ -19,14 +19,14 @@
 
 	<distributionManagement>
 		<repository>
-			<id>libs-release-local</id>
-			<name>libs-release-local</name>
-			<url>http://nightly.collectionspace.org:8081/artifactory/libs-release-local</url>
+			<id>cspace</id>
+			<name>cspace-libs-release-local</name>
+			<url>s3://cspace-maven-repo/libs-release-local</url>
 		</repository>
 		<snapshotRepository>
-			<id>libs-snapshot-local</id>
-			<name>libs-snapshot-local</name>
-			<url>http://nightly.collectionspace.org:8081/artifactory/libs-snapshot-local</url>
+			<id>cspace</id>
+			<name>cspace-libs-snapshot-local</name>
+			<url>s3://cspace-maven-repo/libs-snapshot-local</url>
 		</snapshotRepository>
 	</distributionManagement>
 
@@ -49,83 +49,49 @@
 
 	<repositories>
 		<repository>
-			<id>collectionspace-remote-repos</id>
-			<name>collectionspace-remote-repos</name>
-			<url>http://nightly.collectionspace.org:8081/artifactory/remote-repos</url>
+			<id>maven-central</id>
+			<name>maven-central</name>
+			<url>https://repo.maven.apache.org/maven2</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+
+		<repository>
+			<id>cspace-libs-release-local</id>
+			<name>cspace-libs-release-local</name>
+			<url>https://cspace-maven-repo.s3-us-west-2.amazonaws.com/libs-release-local</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
 		<repository>
-			<id>libs-release-local</id>
-			<name>libs-release-local</name>
-			<url>http://nightly.collectionspace.org:8081/artifactory/libs-release-local</url>
-			<snapshots>
+			<id>cspace-libs-snapshot-local</id>
+			<name>cspace-libs-snapshot-local</name>
+			<url>https://cspace-maven-repo.s3-us-west-2.amazonaws.com/libs-snapshot-local</url>
+			<releases>
 				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>libs-snapshot-local</id>
-			<name>libs-snapshot-local</name>
-			<url>http://nightly.collectionspace.org:8081/artifactory/libs-snapshot-local</url>
+			</releases>
 			<snapshots>
 				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>repo1</id>
-			<name>Maven repo1</name>
-			<url>http://repo1.maven.org/maven2</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>repo2</id>
-			<name>Maven repo2</name>
-			<url>http://repo2.maven.org/maven2</url>
-			<snapshots>
-				<enabled>false</enabled>
 			</snapshots>
 		</repository>
 	</repositories>
 
 	<pluginRepositories>
 		<pluginRepository>
-			<id>collectionspace-remote-repos</id>
-			<name>collectionspace-remote-repos</name>
-			<url>http://nightly.collectionspace.org:8081/artifactory/remote-repos</url>
+			<id>maven-central</id>
+			<name>maven-central</name>
+			<url>https://repo.maven.apache.org/maven2</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
 		</pluginRepository>
+
 		<pluginRepository>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<id>central</id>
-			<name>plugins-release</name>
-			<url>http://nightly.collectionspace.org:8081/artifactory/plugins-release</url>
-		</pluginRepository>
-		<pluginRepository>
-			<id>repo1</id>
-			<name>Maven repo1</name>
-			<url>http://repo1.maven.org/maven2</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-		<pluginRepository>
-			<id>maven repo</id>
-			<name>maven repo</name>
-			<url>http://repo2.maven.org/maven2</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-		<pluginRepository>
-			<id>maven2-repository.dev.java.net</id>
-			<url>http://download.java.net/maven/2</url>
+			<id>cspace-plugins-release-local</id>
+			<name>cspace-plugins-release-local</name>
+			<url>https://cspace-maven-repo.s3-us-west-2.amazonaws.com/plugins-release-local</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
@@ -249,6 +215,14 @@
 	</dependencies>
 
 	<build>
+		<extensions>
+			<extension>
+				<groupId>com.gkatzioura.maven.cloud</groupId>
+				<artifactId>s3-storage-wagon</artifactId>
+				<version>2.3</version>
+			</extension>
+		</extensions>
+
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -278,8 +252,8 @@
 				<directory>${project.basedir}/src/test/resources</directory>
 				<filtering>true</filtering>
 			</testResource>
-			<!-- make sure that each project's target/test-classes directory will 
-				have default.xml in it; deliberately in top-level pom.xml so as not to have 
+			<!-- make sure that each project's target/test-classes directory will
+				have default.xml in it; deliberately in top-level pom.xml so as not to have
 				references to tomcat-main in child projects -->
 			<testResource>
 				<directory>${project.basedir}/../tomcat-main/src/main/resources</directory>
