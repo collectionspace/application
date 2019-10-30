@@ -5,13 +5,13 @@
 	<groupId>org.collectionspace</groupId>
 	<artifactId>general-utils</artifactId>
 	<packaging>jar</packaging>
-	<version>4.0-SNAPSHOT</version>
+	<version>4.0</version>
 	<name>CSP: General Utils</name>
 
 	<parent>
 		<groupId>org.collectionspace</groupId>
 		<artifactId>svcapp</artifactId>
-		<version>4.0-SNAPSHOT</version>
+		<version>4.0</version>
 	</parent>
 
 	<dependencies>

@@ -5,45 +5,45 @@
   <groupId>org.collectionspace</groupId>
   <artifactId>cspi-file</artifactId>
   <packaging>jar</packaging>
-  <version>4.0-SNAPSHOT</version>
+  <version>4.0</version>
   <name>CSP: File</name>
-  
+
     <parent>
     <groupId>org.collectionspace</groupId>
     <artifactId>svcapp</artifactId>
-    <version>4.0-SNAPSHOT</version>
+    <version>4.0</version>
   </parent>
-  
 
-  
+
+
   <dependencies>
     <dependency>
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
       <version>20080701</version> <!-- keep version 49.0 ie Java 5 -->
-    </dependency>  
-        
+    </dependency>
+
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>csp-api</artifactId>
-      <version>4.0-SNAPSHOT</version>
+      <version>4.0</version>
       <type>jar</type>
-    </dependency>  
-    
+    </dependency>
+
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>csp-helper</artifactId>
-      <version>4.0-SNAPSHOT</version>
+      <version>4.0</version>
       <type>jar</type>
-    </dependency>  
-    
+    </dependency>
+
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <version>2.0.1</version>
       <type>jar</type>
     </dependency>
-    
+
             <!-- get empty jar instead of commons-logging -->
 
 		<dependency>
@@ -52,15 +52,15 @@
 		  <version>1.1.1</version>
 		  <scope>provided</scope>
 		</dependency>
-    
+
         <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
       <version>1.5.6</version>
     </dependency>
-    
+
   </dependencies>
-  
+
   <build>
     <finalName>csp-helper</finalName>
     <plugins>
@@ -82,5 +82,5 @@
       </plugin>
     </plugins>
   </build>
-  
+
 </project>

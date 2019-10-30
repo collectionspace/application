@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>org.collectionspace</groupId>
 		<artifactId>svcapp</artifactId>
-		<version>4.0-SNAPSHOT</version>
+		<version>4.0</version>
 	</parent>
 
 	<profiles>
@@ -39,7 +39,7 @@
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>tomcat-main</artifactId>
-			<version>4.0-SNAPSHOT</version>
+			<version>4.0</version>
 			<type>jar</type>
 		</dependency>
 
@@ -55,7 +55,7 @@
 			<version>2.1.1</version>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<finalName>collectionspace</finalName>
 		<!-- We need the logging info in the war's classes, so it gets picked up -->
@@ -67,7 +67,7 @@
 				</includes>
 			</resource>
 		</resources>
-		
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

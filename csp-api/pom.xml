@@ -5,15 +5,15 @@
   <groupId>org.collectionspace</groupId>
   <artifactId>csp-api</artifactId>
   <packaging>jar</packaging>
-  <version>4.0-SNAPSHOT</version>
+  <version>4.0</version>
   <name>Collection-Space CSP API</name>
-  
+
     <parent>
     <groupId>org.collectionspace</groupId>
     <artifactId>svcapp</artifactId>
-    <version>4.0-SNAPSHOT</version>
+    <version>4.0</version>
   </parent>
-  
+
 
   <dependencies>
 		<dependency>
@@ -26,7 +26,7 @@
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
       <version>20080701</version> <!-- keep version 49.0 ie Java 5 -->
-    </dependency>  
+    </dependency>
        <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -39,9 +39,9 @@
       <version>2.4</version>
       <scope>provided</scope>
     </dependency>
-        
+
   </dependencies>
-  
+
   <build>
     <finalName>csp-api</finalName>
     <plugins>
@@ -63,5 +63,5 @@
       </plugin>
     </plugins>
   </build>
-  
+
 </project>

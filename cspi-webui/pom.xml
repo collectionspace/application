@@ -5,66 +5,66 @@
   <groupId>org.collectionspace</groupId>
   <artifactId>cspi-webui</artifactId>
   <packaging>jar</packaging>
-  <version>4.0-SNAPSHOT</version>
+  <version>4.0</version>
   <name>CSP: Web UI</name>
-  
+
     <parent>
     <groupId>org.collectionspace</groupId>
     <artifactId>svcapp</artifactId>
-    <version>4.0-SNAPSHOT</version>
+    <version>4.0</version>
   </parent>
-  
 
-  
+
+
   <dependencies>
-  
-<!-- 
+
+<!--
     <dependency>
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
       <version>20080701</version>
-    </dependency>  
+    </dependency>
 -->
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>csp-api</artifactId>
-      <version>4.0-SNAPSHOT</version>
+      <version>4.0</version>
       <type>jar</type>
-    </dependency>  
+    </dependency>
 
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>jxutils</artifactId>
-      <version>4.0-SNAPSHOT</version>
+      <version>4.0</version>
       <type>jar</type>
-    </dependency>  
+    </dependency>
 
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>cspi-schema</artifactId>
-      <version>4.0-SNAPSHOT</version>
+      <version>4.0</version>
       <type>jar</type>
-    </dependency>  
+    </dependency>
 
      <dependency>
          <groupId>org.collectionspace.services</groupId>
          <artifactId>org.collectionspace.services.common-api</artifactId>
-         <version>4.0-SNAPSHOT</version>
-     </dependency>    
+         <version>4.0</version>
+     </dependency>
 
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>general-utils</artifactId>
-      <version>4.0-SNAPSHOT</version>
+      <version>4.0</version>
       <type>jar</type>
-    </dependency>  
-  
+    </dependency>
+
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>csp-helper</artifactId>
-      <version>4.0-SNAPSHOT</version>
+      <version>4.0</version>
       <type>jar</type>
-    </dependency>  
+    </dependency>
 
 		<dependency>
 		  <groupId>commons-logging</groupId>
@@ -82,15 +82,15 @@
       <artifactId>slf4j-log4j12</artifactId>
       <version>1.5.6</version>
     </dependency>
-  
+
     <dependency>
       <groupId>dom4j</groupId>
       <artifactId>dom4j</artifactId>
       <version>1.6.1</version>
       <type>jar</type>
     </dependency>
-  
-  
+
+
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
@@ -115,9 +115,9 @@
       <version>2.4</version>
       <scope>provided</scope>
     </dependency>
- 
+
   </dependencies>
-  
+
   <build>
     <finalName>csp-helper</finalName>
     <plugins>
@@ -139,5 +139,5 @@
       </plugin>
     </plugins>
   </build>
-  
+
 </project>

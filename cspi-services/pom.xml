@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>org.collectionspace</groupId>
 		<artifactId>svcapp</artifactId>
-		<version>4.0-SNAPSHOT</version>
+		<version>4.0</version>
 	</parent>
 
 	<repositories>
@@ -31,35 +31,35 @@
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>csp-api</artifactId>
-			<version>4.0-SNAPSHOT</version>
+			<version>4.0</version>
 			<type>jar</type>
 		</dependency>
 
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>csp-helper</artifactId>
-			<version>4.0-SNAPSHOT</version>
+			<version>4.0</version>
 			<type>jar</type>
 		</dependency>
 
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>cspi-schema</artifactId>
-			<version>4.0-SNAPSHOT</version>
+			<version>4.0</version>
 			<type>jar</type>
 		</dependency>
 
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>jxutils</artifactId>
-			<version>4.0-SNAPSHOT</version>
+			<version>4.0</version>
 			<type>jar</type>
 		</dependency>
 
 		<dependency>
 			<groupId>org.collectionspace.services</groupId>
 			<artifactId>org.collectionspace.services.common-api</artifactId>
-         <version>4.0-SNAPSHOT</version>
+         <version>4.0</version>
 		</dependency>
 
 		<dependency>

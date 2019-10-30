@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>org.collectionspace</groupId>
 		<artifactId>svcapp</artifactId>
-		<version>4.0-SNAPSHOT</version>
+		<version>4.0</version>
 	</parent>
 
 	<repositories>
@@ -19,29 +19,29 @@
 			<url>http://nightly.collectionspace.org:8081/artifactory/libs-snapshot-local</url>
 		</repository>
 	</repositories>
-	
+
 	<dependencies>
 	     <dependency>
          	<groupId>org.collectionspace.services</groupId>
          	<artifactId>org.collectionspace.services.common-api</artifactId>
-         	<version>4.0-SNAPSHOT</version>
+         	<version>4.0</version>
      	</dependency>
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>csp-api</artifactId>
-			<version>4.0-SNAPSHOT</version>
+			<version>4.0</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>csp-helper</artifactId>
-			<version>4.0-SNAPSHOT</version>
+			<version>4.0</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>cspi-installation</artifactId>
-			<version>4.0-SNAPSHOT</version>
+			<version>4.0</version>
 			<type>jar</type>
 			<exclusions>
 				<exclusion>
@@ -60,39 +60,39 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!-- 
+		<!--
 		 -->
 
 		<!-- XXX remove -->
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>cspi-file</artifactId>
-			<version>4.0-SNAPSHOT</version>
+			<version>4.0</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>cspi-services</artifactId>
-			<version>4.0-SNAPSHOT</version>
+			<version>4.0</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>cspi-webui</artifactId>
-			<version>4.0-SNAPSHOT</version>
+			<version>4.0</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>general-utils</artifactId>
-			<version>4.0-SNAPSHOT</version>
+			<version>4.0</version>
 			<type>jar</type>
 		</dependency>
 
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>jxutils</artifactId>
-			<version>4.0-SNAPSHOT</version>
+			<version>4.0</version>
 			<type>jar</type>
 		</dependency>
 
@@ -153,7 +153,7 @@
 			<artifactId>jetty-servlet-tester</artifactId>
 			<version>6.1.22</version>
 			<scope>test</scope>
-		</dependency>		
+		</dependency>
 		<dependency>
 			<groupId>commons-httpclient</groupId>
 			<artifactId>commons-httpclient</artifactId>
@@ -183,13 +183,13 @@
 		<dependency>
 			<groupId>jaxen</groupId>
 			<artifactId>jaxen</artifactId>
-			<version>1.1.1</version>			
+			<version>1.1.1</version>
 			<exclusions>
         		<exclusion>
             		<groupId>xerces</groupId>
             		<artifactId>xmlParserAPIs</artifactId>
 		        </exclusion>
-		    </exclusions>			
+		    </exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -209,7 +209,7 @@
 	</dependencies>
 	<build>
 		<finalName>tomcat-main</finalName>
-		
+
 		<resources>
 			<resource>
 				<!-- Exclude config files, since these get deployed into tomcat's lib directory -->
@@ -242,7 +242,7 @@
 					<contextPath>collectionspace</contextPath>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
                 <groupId>org.dstovall</groupId>
                 <artifactId>onejar-maven-plugin</artifactId>
@@ -261,15 +261,20 @@
                     </execution>
                 </executions>
             </plugin>
-			
+
 		</plugins>
 	</build>
-	
+
 	 <pluginRepositories>
+        <pluginRepository>
+            <id>plugins-release-local</id>
+            <name>plugins-release-local</name>
+            <url>http://nightly.collectionspace.org:8081/artifactory/plugins-release-local</url>
+        </pluginRepository>
         <pluginRepository>
             <id>onejar-maven-plugin.googlecode.com</id>
             <url>http://onejar-maven-plugin.googlecode.com/svn/mavenrepo</url>
         </pluginRepository>
     </pluginRepositories>
-	
+
 </project>

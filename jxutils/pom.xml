@@ -5,21 +5,21 @@
   <artifactId>jxutils</artifactId>
   <packaging>jar</packaging>
   <name>JXUtils</name>
-  
+
     <parent>
     <groupId>org.collectionspace</groupId>
     <artifactId>svcapp</artifactId>
-    <version>4.0-SNAPSHOT</version>
+    <version>4.0</version>
   </parent>
-  
 
-  
+
+
   <dependencies>
     <dependency>
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
       <version>20080701</version> <!-- keep version 49.0 ie Java 5 -->
-    </dependency>  
+    </dependency>
     <dependency>
       <groupId>dom4j</groupId>
       <artifactId>dom4j</artifactId>
@@ -53,8 +53,8 @@
           <artifactId>xmlParserAPIs</artifactId>
 		</exclusion>
 	  </exclusions>
-     
-      
+
+
     </dependency>
         <dependency>
       <groupId>commons-lang</groupId>
@@ -74,10 +74,10 @@
       <version>2.0.1</version>
       <type>jar</type>
     </dependency>
-    
-    
+
+
   </dependencies>
-  
+
   <build>
     <finalName>jxutils</finalName>
     <plugins>
@@ -92,5 +92,5 @@
       </plugin>
     </plugins>
   </build>
-  
+
 </project>
