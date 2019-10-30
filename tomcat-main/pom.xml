@@ -143,14 +143,14 @@
 			<groupId>jaxen</groupId>
 			<artifactId>jaxen</artifactId>
 			<version>1.1.1</version>
-			
+
 			<exclusions>
         		<exclusion>
             		<groupId>xerces</groupId>
             		<artifactId>xmlParserAPIs</artifactId>
 		        </exclusion>
 		    </exclusions>
-			
+
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -170,9 +170,9 @@
 	</dependencies>
 	<build>
 		<finalName>tomcat-main</finalName>
-		
-		
-		
+
+
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -191,11 +191,11 @@
 					<contextPath>collectionspace</contextPath>
 				</configuration>
 			</plugin>
-			
+
 			            <plugin>
                 <groupId>org.dstovall</groupId>
                 <artifactId>onejar-maven-plugin</artifactId>
-                <version>1.4.4</version>
+                <version>1.4.5</version>
                 <executions>
                     <execution>
                         <configuration>
@@ -209,17 +209,22 @@
                     </execution>
                 </executions>
             </plugin>
-			
-			
+
+
 		</plugins>
 	</build>
-	
+
 	 <pluginRepositories>
+        <pluginRepository>
+            <id>plugins-release-local</id>
+            <name>plugins-release-local</name>
+            <url>http://nightly.collectionspace.org:8081/artifactory/plugins-release-local</url>
+        </pluginRepository>
         <pluginRepository>
             <id>onejar-maven-plugin.googlecode.com</id>
             <url>http://onejar-maven-plugin.googlecode.com/svn/mavenrepo</url>
         </pluginRepository>
     </pluginRepositories>
-	
-	
+
+
 </project>
