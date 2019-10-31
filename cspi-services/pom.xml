@@ -7,13 +7,13 @@
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>CSP: Services</name>
-  
+
     <parent>
     <groupId>org.collectionspace</groupId>
     <artifactId>svcapp</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  
+
   <repositories>
     <repository>
         <id>libs-snapshots-local</id>
@@ -36,50 +36,50 @@
       <artifactId>csp-api</artifactId>
       <version>1.0-SNAPSHOT</version>
       <type>jar</type>
-    </dependency>  
+    </dependency>
 
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>csp-helper</artifactId>
       <version>1.0-SNAPSHOT</version>
       <type>jar</type>
-    </dependency>  
-    
+    </dependency>
+
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>cspi-schema</artifactId>
       <version>1.0-SNAPSHOT</version>
       <type>jar</type>
     </dependency>
- 
+
      <dependency>
        <groupId>org.collectionspace</groupId>
        <artifactId>jxutils</artifactId>
        <version>1.0-SNAPSHOT</version>
        <type>jar</type>
-     </dependency> 
-     
+     </dependency>
+
      <dependency>
          <groupId>org.collectionspace.services</groupId>
          <artifactId>org.collectionspace.services.common-api</artifactId>
-         <version>2.5-SNAPSHOT</version>
-     </dependency>    
-    
-    
+         <version>3.1-SNAPSHOT</version>
+     </dependency>
+
+
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <version>2.0.1</version>
       <type>jar</type>
     </dependency>
-    
+
         <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.5</version>
       <scope>test</scope>
     </dependency>
-    
+
         <dependency>
       <groupId>javax.activation</groupId>
       <artifactId>activation</artifactId>
@@ -92,7 +92,7 @@
       <version>1.4.1</version>
     </dependency>
 
-    
+
                <dependency>
             <groupId>org.mortbay.jetty</groupId>
             <artifactId>jetty</artifactId>
@@ -105,21 +105,21 @@
             <version>6.1.11</version>
             <scope>test</scope>
         </dependency>
-     
+
 
     <dependency>
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
       <version>20080701</version> <!-- keep version 49.0 ie Java 5 -->
-    </dependency>  
+    </dependency>
 
 
     		<dependency>
 			<groupId>commons-httpclient</groupId>
 			<artifactId>commons-httpclient</artifactId>
 			<version>3.1</version>
-		</dependency>    
-    
+		</dependency>
+
 		<dependency>
 		  <groupId>commons-logging</groupId>
 		  <artifactId>commons-logging</artifactId>
@@ -141,7 +141,7 @@
       <artifactId>slf4j-log4j12</artifactId>
       <version>1.5.6</version>
     </dependency>
-    
+
         <dependency>
       <groupId>jaxen</groupId>
       <artifactId>jaxen</artifactId>
@@ -152,8 +152,8 @@
             		<artifactId>xmlParserAPIs</artifactId>
 		        </exclusion>
 		    </exclusions>
-      
-      
+
+
     </dependency>
         <dependency>
       <groupId>commons-lang</groupId>
@@ -167,17 +167,17 @@
       <version>1.3</version>
       <type>jar</type>
     </dependency>
-    
+
             <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
       <version>2.4</version>
       <scope>provided</scope>
     </dependency>
-    
-    
+
+
   </dependencies>
-  
+
   <build>
     <finalName>csp-helper</finalName>
     <plugins>
@@ -199,5 +199,5 @@
       </plugin>
     </plugins>
   </build>
-  
+
 </project>
