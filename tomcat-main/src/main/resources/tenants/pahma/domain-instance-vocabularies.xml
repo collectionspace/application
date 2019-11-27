@@ -616,5 +616,264 @@
 			<option id="assocpeopletype08" from-static-id="usedButNotMadeBy">used, but not made, by</option>
 			<option id="assocpeopletype09" from-static-id="usedButNotMadeByAttributed">used, but not made, by (attributed)</option>
         </options>
-    </instance>
+	</instance>
+	<instance id="vocab-pahmaNagpraCodeLegacies">
+				<web-url>pahmaNagpraCodeLegacies</web-url>
+				<title-ref>pahmaNagpraCodeLegacies</title-ref>
+				<title>pahmaNagpraCodeLegacies</title>
+				<options>
+					<option id="pahmaNagpraCodeLegacies01" from-static-id="noCode" default="yes">no code assigned</option>
+					<option id="pahmaNagpraCodeLegacies02" from-static-id="associatedFuneraryObject">&#160;&#160;1: associated funerary object (AFO)</option>
+					<option id="pahmaNagpraCodeLegacies03" from-static-id="unassociatedFuneraryObjectWithDesignatedBurial">&#160;&#160;2: unassociated funerary object (UFO) with designated burial</option> 
+					<option id="pahmaNagpraCodeLegacies04" from-static-id="unassociatedFuneraryObjectWithUndesignatedBurial">&#160;&#160;3: unassociated funerary object (UFO) with undesignated burial</option>
+					<option id="pahmaNagpraCodeLegacies05" from-static-id="unassociatedFuneraryObjectWithCemetery">&#160;&#160;4: unassociated funerary object (UFO)/cemetery</option>
+					<option id="pahmaNagpraCodeLegacies06" from-static-id="lacksClearFuneraryStatusNearCemetery">&#160;&#160;5: lacks clear funerary status/near cemetery</option>
+					<option id="pahmaNagpraCodeLegacies07" from-static-id="needsFurtherResearch">&#160;&#160;6: needs further research</option>
+					<option id="pahmaNagpraCodeLegacies08" from-static-id="codedInError">&#160;&#160;7: coded in error</option>
+					<option id="pahmaNagpraCodeLegacies0" from-static-id="needsCheckOfObject">&#160;&#160;8: needs check of object</option>
+					<option id="pahmaNagpraCodeLegacies09" from-static-id="wasRecataloged">&#160;&#160;9: was recataloged</option>
+					<option id="pahmaNagpraCodeLegacies10" from-static-id="notReportable">&#160;10: not reportable</option>
+					<option id="pahmaNagpraCodeLegacies11" from-static-id="unknownMeaning777">777: __________</option>
+					<option id="pahmaNagpraCodeLegacies12" from-static-id="needsRecatalog">999: needs recatalog</option>
+					<option id="pahmaNagpraCodeLegacies13">unknown</option>
+				</options>
+		</instance>
+	</instance>
+	<instance id="vocab-nagpraPahmaInventoryNames">
+				<web-url>nagpraPahmaInventoryNames</web-url>
+				<title-ref>nagpraPahmaInventoryNames</title-ref>
+				<title>nagpraPahmaInventoryNames</title>
+			<options>
+				<option id="nagpraPahmaInventoryNames00" from-static-id="notOnAnInventory" default="yes">not on an inventory</option>
+				<option id="nagpraPahmaInventoryNames01" from-static-id="akAlaska">AK-Alaska</option>
+				<option id="nagpraPahmaInventoryNames02" from-static-id="akAlaskaNative">AK-Alaska Native</option>
+				<option id="nagpraPahmaInventoryNames03" from-static-id="akChugach">AK-Chugach</option>
+				<option id="nagpraPahmaInventoryNames04" from-static-id="azApacheCounty">AZ-Apache Co.</option>
+				<option id="nagpraPahmaInventoryNames05" from-static-id="azCochiti">AZ-Cochiti</option>
+				<option id="nagpraPahmaInventoryNames06" from-static-id="azCoconinoCounty">AZ-Coconino Co.</option>
+				<option id="nagpraPahmaInventoryNames07" from-static-id="azHopi">AZ-Hopi</option>
+				<option id="nagpraPahmaInventoryNames08" from-static-id="azNavajo">AZ-Navajo</option>
+				<option id="nagpraPahmaInventoryNames09" from-static-id="azNavajoCounty1">AZ-Navajo Co. 1</option>
+				<option id="nagpraPahmaInventoryNames10" from-static-id="azNavajoCounty2">AZ-Navajo Co. 2</option>
+				<option id="nagpraPahmaInventoryNames11" from-static-id="azPimaQuechan">AZ-Pima, Quechan</option>
+				<option id="nagpraPahmaInventoryNames12" from-static-id="azWestArizona">AZ-West Arizona</option>
+				<option id="nagpraPahmaInventoryNames13" from-static-id="caUsa1">CA/USA 1</option>
+				<option id="nagpraPahmaInventoryNames14" from-static-id="caUsa2">CA/USA 2</option>
+				<option id="nagpraPahmaInventoryNames15" from-static-id="caUsa3">CA/USA 3</option>
+				<option id="nagpraPahmaInventoryNames16" from-static-id="caAlamedaCounty1">CA-Alameda Co. 1</option>
+				<option id="nagpraPahmaInventoryNames17" from-static-id="caAlamedaCounty2">CA-Alameda Co. 2</option>
+				<option id="nagpraPahmaInventoryNames18" from-static-id="caAlamedaCounty3">CA-Alameda Co. 3</option>
+				<option id="nagpraPahmaInventoryNames19" from-static-id="caAlamedaCounty4">CA-Alameda Co. 4</option>
+				<option id="nagpraPahmaInventoryNames20" from-static-id="caAla309">CA-Ala-309</option>
+				<option id="nagpraPahmaInventoryNames21" from-static-id="caAmadorCounty">CA-Amador Co.</option>
+				<option id="nagpraPahmaInventoryNames22" from-static-id="caButteCounty">CA-Butte Co.</option>
+				<option id="nagpraPahmaInventoryNames23" from-static-id="caCahuilla2">CA-Cahuilla 2</option>
+				<option id="nagpraPahmaInventoryNames24" from-static-id="caCahuillaCupenoDiegueno">CA-Cahuilla, Cupeño, Diegueño</option>
+				<option id="nagpraPahmaInventoryNames25" from-static-id="caCalaverasCounty">CA-Calaveras Co.</option>
+				<option id="nagpraPahmaInventoryNames26" from-static-id="caChumash">CA-Chumash</option>
+				<option id="nagpraPahmaInventoryNames27" from-static-id="caChumash2">CA-Chumash 2</option>
+				<option id="nagpraPahmaInventoryNames28" from-static-id="caColusaCounty1">CA-Colusa Co. 1</option>
+				<option id="nagpraPahmaInventoryNames29" from-static-id="caColusaCounty2">CA-Colusa Co. 2</option>
+				<option id="nagpraPahmaInventoryNames30" from-static-id="caContraCostaCounty1">CA-Contra Costa Co. 1</option>
+				<option id="nagpraPahmaInventoryNames31" from-static-id="caContraCostaCounty2">CA-Contra Costa Co. 2</option>
+				<option id="nagpraPahmaInventoryNames32" from-static-id="caContraCostaCounty3">CA-Contra Costa Co. 3</option>
+				<option id="nagpraPahmaInventoryNames33" from-static-id="caContraCostaCounty4">CA-Contra Costa Co. 4</option>
+				<option id="nagpraPahmaInventoryNames34" from-static-id="caContraCostaCounty5">CA-Contra Costa Co. 5</option>
+				<option id="nagpraPahmaInventoryNames35" from-static-id="caContraCostaCounty6">CA-Contra Costa Co. 6</option>
+				<option id="nagpraPahmaInventoryNames36" from-static-id="caCco138">CA-CCo-138</option>
+				<option id="nagpraPahmaInventoryNames37" from-static-id="caCco141">CA-CCo-141 (Historic)</option>
+				<option id="nagpraPahmaInventoryNames38" from-static-id="caCupeno">CA-Cupeño</option>
+				<option id="nagpraPahmaInventoryNames39" from-static-id="caDelNorteCounty">CA-Del Norte Co.</option>
+				<option id="nagpraPahmaInventoryNames40" from-static-id="caElDoradoCounty">CA-El Dorado Co.</option>
+				<option id="nagpraPahmaInventoryNames41" from-static-id="caFoothillYokutsMonache1">CA-Foothill Yokuts/Monache 1</option>
+				<option id="nagpraPahmaInventoryNames42" from-static-id="caFoothillYokutsMonache2">CA-Foothill Yokuts/Monache 2</option>
+				<option id="nagpraPahmaInventoryNames43" from-static-id="caFresnoCounty1">CA-Fresno Co. 1</option>
+				<option id="nagpraPahmaInventoryNames44" from-static-id="caFresnoCounty2">CA-Fresno Co. 2</option>
+				<option id="nagpraPahmaInventoryNames45" from-static-id="caFresnoCounty3">CA-Fresno Co. 3</option>
+				<option id="nagpraPahmaInventoryNames46" from-static-id="caGlennCounty">CA-Glenn Co.</option>
+				<option id="nagpraPahmaInventoryNames47" from-static-id="caHumboldtCounty1">CA-Humboldt Co. 1</option>
+				<option id="nagpraPahmaInventoryNames48" from-static-id="caHumboldtCounty2">CA-Humboldt Co. 2</option>
+				<option id="nagpraPahmaInventoryNames49" from-static-id="caHumboldtCounty3">CA-Humboldt Co. 3</option>
+				<option id="nagpraPahmaInventoryNames50" from-static-id="caInyoCounty1">CA-Inyo Co. 1</option>
+				<option id="nagpraPahmaInventoryNames51" from-static-id="caInyoCounty2">CA-Inyo Co. 2</option>
+				<option id="nagpraPahmaInventoryNames52" from-static-id="caKarok">CA-Karok</option>
+				<option id="nagpraPahmaInventoryNames53" from-static-id="caKer-74">CA-Ker-74 (Historic)</option>
+				<option id="nagpraPahmaInventoryNames54" from-static-id="caKernCounty1">CA-Kern Co. 1</option>
+				<option id="nagpraPahmaInventoryNames55" from-static-id="caKernCounty2">CA-Kern Co. 2</option>
+				<option id="nagpraPahmaInventoryNames56" from-static-id="caKernCounty3">CA-Kern Co. 3</option>
+				<option id="nagpraPahmaInventoryNames57" from-static-id="caKingsCounty">CA-Kings Co.</option>
+				<option id="nagpraPahmaInventoryNames58" from-static-id="caKonkow">CA-Konkow</option>
+				<option id="nagpraPahmaInventoryNames59" from-static-id="caLakeCounty">CA-Lake Co.</option>
+				<option id="nagpraPahmaInventoryNames60" from-static-id="caLassenCounty1">CA-Lassen Co. 1</option>
+				<option id="nagpraPahmaInventoryNames61" from-static-id="caLassenCounty2">CA-Lassen Co. 2</option>
+				<option id="nagpraPahmaInventoryNames62" from-static-id="caLassenCounty3">CA-Lassen Co. 3</option>
+				<option id="nagpraPahmaInventoryNames63" from-static-id="caLosAngelesCounty1">CA-Los Angeles Co. 1</option>
+				<option id="nagpraPahmaInventoryNames64" from-static-id="caLosAngelesCounty2">CA-Los Angeles Co. 2</option>
+				<option id="nagpraPahmaInventoryNames65" from-static-id="caMaderaCounty1">CA-Madera Co. 1</option>
+				<option id="nagpraPahmaInventoryNames66" from-static-id="caMaderaCounty2">CA-Madera Co. 2</option>
+				<option id="nagpraPahmaInventoryNames67" from-static-id="caMarinCounty1">CA-Marin Co. 1</option>
+				<option id="nagpraPahmaInventoryNames68" from-static-id="caMarinCounty2">CA-Marin Co. 2</option>
+				<option id="nagpraPahmaInventoryNames69" from-static-id="caMariposaCounty">CA-Mariposa Co.</option>
+				<option id="nagpraPahmaInventoryNames70" from-static-id="caMendocino">CA-Mendocino</option>
+				<option id="nagpraPahmaInventoryNames71" from-static-id="caMercedCounty">CA-Merced Co.</option>
+				<option id="nagpraPahmaInventoryNames72" from-static-id="caModocCounty1">CA-Modoc Co. 1</option>
+				<option id="nagpraPahmaInventoryNames73" from-static-id="caModocCounty2">CA-Modoc Co. 2</option>
+				<option id="nagpraPahmaInventoryNames74" from-static-id="caMonoCounty">CA-Mono Co.</option>
+				<option id="nagpraPahmaInventoryNames75" from-static-id="caMontereyCountyOh1">CA-Monterey Co. (OH1)</option>
+				<option id="nagpraPahmaInventoryNames76" from-static-id="caMontereyCountyOh2">CA-Monterey Co. (OH2)</option>
+				<option id="nagpraPahmaInventoryNames77" from-static-id="caMontereyCounty1">CA-Monterey Co. 1</option>
+				<option id="nagpraPahmaInventoryNames78" from-static-id="caMontereyCounty2">CA-Monterey Co. 2</option>
+				<option id="nagpraPahmaInventoryNames79" from-static-id="caMontereyCounty3">CA-Monterey Co. 3</option>
+				<option id="nagpraPahmaInventoryNames80" from-static-id="caNapaCounty1">CA-Napa Co. 1</option>
+				<option id="nagpraPahmaInventoryNames81" from-static-id="caNapaCounty2">CA-Napa Co. 2</option>
+				<option id="nagpraPahmaInventoryNames82" from-static-id="caNapaCounty3">CA-Napa Co. 3</option>
+				<option id="nagpraPahmaInventoryNames83" from-static-id="caOrangeCounty">CA-Orange Co.</option>
+				<option id="nagpraPahmaInventoryNames84" from-static-id="caPatwin1">CA-Patwin 1 (Historic)</option>
+				<option id="nagpraPahmaInventoryNames85" from-static-id="caPatwin2">CA-Patwin 2</option>
+				<option id="nagpraPahmaInventoryNames86" from-static-id="caPitRiver">CA-Pit River</option>
+				<option id="nagpraPahmaInventoryNames87" from-static-id="caPlacerCounty">CA-Placer Co.</option>
+				<option id="nagpraPahmaInventoryNames88" from-static-id="caPlumasCounty">CA-Plumas Co.</option>
+				<option id="nagpraPahmaInventoryNames89" from-static-id="caPomo1">CA-Pomo 1</option>
+				<option id="nagpraPahmaInventoryNames90" from-static-id="caPomo2">CA-Pomo 2</option>
+				<option id="nagpraPahmaInventoryNames91" from-static-id="caPomo3">CA-Pomo 3</option>
+				<option id="nagpraPahmaInventoryNames92" from-static-id="caSac160">CA-Sac-160 (Historic)</option>
+				<option id="nagpraPahmaInventoryNames93" from-static-id="caSacramentoCounty1">CA-Sacramento Co. 1</option>
+				<option id="nagpraPahmaInventoryNames94" from-static-id="caSacramentoCounty2">CA-Sacramento Co. 2</option>
+				<option id="nagpraPahmaInventoryNames95" from-static-id="caSacramentoCounty3">CA-Sacramento Co. 3</option>
+				<option id="nagpraPahmaInventoryNames96" from-static-id="caSacramentoCounty4">CA-Sacramento Co. 4</option>
+				<option id="nagpraPahmaInventoryNames97" from-static-id="caSac16revised">CA-Sac-16 (revised to affiliated)</option>
+				<option id="nagpraPahmaInventoryNames98" from-static-id="caSanBenitoCounty">CA-San Benito Co.</option>
+				<option id="nagpraPahmaInventoryNames99" from-static-id="caSanClementeIsland">CA-San Clemente Island</option>
+				<option id="nagpraPahmaInventoryNames100" from-static-id="caSanDiego">CA-San Diego</option>
+				<option id="nagpraPahmaInventoryNames101" from-static-id="caSanFranciscoOh1">CA-San Francisco (OH1)</option>
+				<option id="nagpraPahmaInventoryNames102" from-static-id="caSanFranciscoOh2">CA-San Francisco (OH2)</option>
+				<option id="nagpraPahmaInventoryNames103" from-static-id="caSanFranciscoCounty1">CA-San Francisco Co. 1</option>
+				<option id="nagpraPahmaInventoryNames104" from-static-id="caSanJoaquinCounty1">CA-San Joaquin Co. 1</option>
+				<option id="nagpraPahmaInventoryNames105" from-static-id="caSanJoaquinCounty2">CA-San Joaquin Co. 2</option>
+				<option id="nagpraPahmaInventoryNames106" from-static-id="caSanJoaquinCounty5">CA-San Joaquin Co. 5</option>
+				<option id="nagpraPahmaInventoryNames107" from-static-id="caSanLuisObispoCounty1">CA-San Luis Obispo Co. 1</option>
+				<option id="nagpraPahmaInventoryNames108" from-static-id="caSanLuisObispoCounty2">CA-San Luis Obispo Co. 2</option>
+				<option id="nagpraPahmaInventoryNames109" from-static-id="caSanMateoCo">CA-San Mateo Co. (OH1)</option>
+				<option id="nagpraPahmaInventoryNames110" from-static-id="caSanMateoCounty1">CA-San Mateo Co. 1</option>
+				<option id="nagpraPahmaInventoryNames111" from-static-id="caSanNicolasIsland">CA-San Nicolas Island</option>
+				<option id="nagpraPahmaInventoryNames112" from-static-id="caSanPasqual">CA-San Pasqual</option>
+				<option id="nagpraPahmaInventoryNames113" from-static-id="caSantaCatalinaIsland1">CA-Santa Catalina Island 1</option>
+				<option id="nagpraPahmaInventoryNames114" from-static-id="caSantaCatalinaIsland2">CA-Santa Catalina Island 2</option>
+				<option id="nagpraPahmaInventoryNames115" from-static-id="caSantaClaraCountyOh1">CA-Santa Clara Co. (OH1)</option>
+				<option id="nagpraPahmaInventoryNames116" from-static-id="caSantaClaraCountyOh2">CA-Santa Clara Co. (OH2)</option>
+				<option id="nagpraPahmaInventoryNames117" from-static-id="caSantaClaraCounty1">CA-Santa Clara Co. 1</option>
+				<option id="nagpraPahmaInventoryNames118" from-static-id="caSantaClaraCounty2">CA-Santa Clara Co. 2</option>
+				<option id="nagpraPahmaInventoryNames119" from-static-id="caSantaCruzCountyOh1">CA-Santa Cruz Co. (OH1)</option>
+				<option id="nagpraPahmaInventoryNames120" from-static-id="caSantaCruzCounty1">CA-Santa Cruz Co. 1</option>
+				<option id="nagpraPahmaInventoryNames121" from-static-id="caSantaCruzCounty2">CA-Santa Cruz Co. 2</option>
+				<option id="nagpraPahmaInventoryNames122" from-static-id="caShastaCounty1">CA-Shasta Co. 1</option>
+				<option id="nagpraPahmaInventoryNames123" from-static-id="caShastaCounty2">CA-Shasta Co. 2</option>
+				<option id="nagpraPahmaInventoryNames124" from-static-id="caShastaCounty3">CA-Shasta Co. 3</option>
+				<option id="nagpraPahmaInventoryNames125" from-static-id="caSierraMiwok">CA-Sierra Miwok</option>
+				<option id="nagpraPahmaInventoryNames126" from-static-id="caSis262">CA-Sis-262 (Historic)</option>
+				<option id="nagpraPahmaInventoryNames127" from-static-id="caSiskiyouCounty1">CA-Siskiyou Co. 1</option>
+				<option id="nagpraPahmaInventoryNames128" from-static-id="caSiskiyouCounty2">CA-Siskiyou Co. 2</option>
+				<option id="nagpraPahmaInventoryNames129" from-static-id="caSolanoCounty1">CA-Solano Co. 1</option>
+				<option id="nagpraPahmaInventoryNames130" from-static-id="caSolanoCounty2">CA-Solano Co. 2</option>
+				<option id="nagpraPahmaInventoryNames131" from-static-id="caSolanoCounty3">CA-Solano Co. 3</option>
+				<option id="nagpraPahmaInventoryNames132" from-static-id="caSonomaCounty">CA-Sonoma Co.</option>
+				<option id="nagpraPahmaInventoryNames133" from-static-id="caSouthernValleyYokuts">CA-Southern Valley Yokuts</option>
+				<option id="nagpraPahmaInventoryNames134" from-static-id="caStanislausCounty1">CA-Stanislaus Co. 1</option>
+				<option id="nagpraPahmaInventoryNames135" from-static-id="caStanislausCounty2">CA-Stanislaus Co. 2</option>
+				<option id="nagpraPahmaInventoryNames136" from-static-id="caSutterCounty1">CA-Sutter Co. 1</option>
+				<option id="nagpraPahmaInventoryNames137" from-static-id="caSutterCounty2">CA-Sutter Co. 2</option>
+				<option id="nagpraPahmaInventoryNames138" from-static-id="caTehamaCounty1">CA-Tehama Co. 1</option>
+				<option id="nagpraPahmaInventoryNames139" from-static-id="caTehamaCounty2">CA-Tehama Co. 2</option>
+				<option id="nagpraPahmaInventoryNames140" from-static-id="caTeh58">CA-Teh-58 (Historic)</option>
+				<option id="nagpraPahmaInventoryNames141" from-static-id="caTrinityCounty1">CA-Trinity Co. 1</option>
+				<option id="nagpraPahmaInventoryNames142" from-static-id="caTrinityCounty2">CA-Trinity Co. 2</option>
+				<option id="nagpraPahmaInventoryNames143" from-static-id="caTulareCounty1">CA-Tulare Co. 1</option>
+				<option id="nagpraPahmaInventoryNames144" from-static-id="caTulareCounty2">CA-Tulare Co. 2</option>
+				<option id="nagpraPahmaInventoryNames145" from-static-id="caTulareCounty3">CA-Tulare Co. 3</option>
+				<option id="nagpraPahmaInventoryNames146" from-static-id="caTulareCounty4">CA-Tulare Co. 4</option>
+				<option id="nagpraPahmaInventoryNames147" from-static-id="caTulareCounty5">CA-Tulare Co. 5</option>
+				<option id="nagpraPahmaInventoryNames148" from-static-id="caWesternShoshone">CA-Western Shoshone</option>
+				<option id="nagpraPahmaInventoryNames149" from-static-id="caWintun">CA-Wintun</option>
+				<option id="nagpraPahmaInventoryNames150" from-static-id="caWiyot">CA-Wiyot</option>
+				<option id="nagpraPahmaInventoryNames151" from-static-id="caYana">CA-Yana</option>
+				<option id="nagpraPahmaInventoryNames152" from-static-id="caYol13">CA-Yol-13 (Historic)</option>
+				<option id="nagpraPahmaInventoryNames153" from-static-id="caYoloCounty1">CA-Yolo Co. 1</option>
+				<option id="nagpraPahmaInventoryNames154" from-static-id="caYoloCounty2">CA-Yolo Co. 2</option>
+				<option id="nagpraPahmaInventoryNames155" from-static-id="caYoloCounty3">CA-Yolo Co. 3</option>
+				<option id="nagpraPahmaInventoryNames156" from-static-id="caYubaCounty">CA-Yuba Co.</option>
+				<option id="nagpraPahmaInventoryNames157" from-static-id="caYub5">CA-Yub-5 (Historic)</option>
+				<option id="nagpraPahmaInventoryNames158" from-static-id="caYuki">CA-Yuki</option>
+				<option id="nagpraPahmaInventoryNames159" from-static-id="caYurok">CA-Yurok</option>
+				<option id="nagpraPahmaInventoryNames160" from-static-id="coMontezumaCounty">CO-Montezuma Co.</option>
+				<option id="nagpraPahmaInventoryNames161" from-static-id="idLemhiCounty">ID-Lemhi Co.</option>
+				<option id="nagpraPahmaInventoryNames162" from-static-id="ilMadisonCounty">IL-Madison Co.</option>
+				<option id="nagpraPahmaInventoryNames163" from-static-id="inIndiana">IN-Indiana</option>
+				<option id="nagpraPahmaInventoryNames164" from-static-id="lamarHistoric">Lamar (Historic)</option>
+				<option id="nagpraPahmaInventoryNames165" from-static-id="miMichigan">MI-Michigan</option>
+				<option id="nagpraPahmaInventoryNames166" from-static-id="ndMandan">ND-Mandan</option>
+				<option id="nagpraPahmaInventoryNames167" from-static-id="njNewJersey">NJ-New Jersey</option>
+				<option id="nagpraPahmaInventoryNames168" from-static-id="nmMckinleyCounty">NM-McKinley Co.</option>
+				<option id="nagpraPahmaInventoryNames169" from-static-id="nvChurchillCounty">NV-Churchill Co.</option>
+				<option id="nagpraPahmaInventoryNames170" from-static-id="nvClarkCounty1">NV-Clark Co. 1</option>
+				<option id="nagpraPahmaInventoryNames171" from-static-id="nvClarkCounty2">NV-Clark Co. 2</option>
+				<option id="nagpraPahmaInventoryNames172" from-static-id="nvHumboldtCounty">NV-Humboldt Co.</option>
+				<option id="nagpraPahmaInventoryNames173" from-static-id="nvNevada">NV-Nevada</option>
+				<option id="nagpraPahmaInventoryNames174" from-static-id="nvNorthernPaiute">NV-Northern Paiute</option>
+				<option id="nagpraPahmaInventoryNames175" from-static-id="nvPershingCounty">NV-Pershing Co.</option>
+				<option id="nagpraPahmaInventoryNames176" from-static-id="nvSouthernPaiute">NV-Southern Paiute</option>
+				<option id="nagpraPahmaInventoryNames177" from-static-id="nvWashoe">NV-Washoe</option>
+				<option id="nagpraPahmaInventoryNames178" from-static-id="nvWashoeCounty1">NV-Washoe Co. 1</option>
+				<option id="nagpraPahmaInventoryNames179" from-static-id="nvWashoeCounty2">NV-Washoe Co. 2</option>
+				<option id="nagpraPahmaInventoryNames180" from-static-id="nyNewYork">NY-New York</option>
+				<option id="nagpraPahmaInventoryNames181" from-static-id="orCalapooya">OR-Calapooya</option>
+				<option id="nagpraPahmaInventoryNames182" from-static-id="orChetco">OR-Chetco</option>
+				<option id="nagpraPahmaInventoryNames183" from-static-id="orJacksonCounty">OR-Jackson Co.</option>
+				<option id="nagpraPahmaInventoryNames184" from-static-id="orKlamath">OR-Klamath</option>
+				<option id="nagpraPahmaInventoryNames185" from-static-id="orKlamathCounty">OR-Klamath Co.</option>
+				<option id="nagpraPahmaInventoryNames186" from-static-id="orMorrowCounty">OR-Morrow Co.</option>
+				<option id="nagpraPahmaInventoryNames187" from-static-id="orWascoCounty">OR-Wasco Co.</option>
+				<option id="nagpraPahmaInventoryNames188" from-static-id="sdBrownCounty">SD-Brown Co.</option>
+				<option id="nagpraPahmaInventoryNames189" from-static-id="tnMontgomeryCounty">TN-Montgomery Co.</option>
+				<option id="nagpraPahmaInventoryNames190" from-static-id="utBoxElderCounty">UT-Box Elder Co.</option>
+				<option id="nagpraPahmaInventoryNames191" from-static-id="utSanJuanCounty1">UT-San Juan Co. 1</option>
+				<option id="nagpraPahmaInventoryNames192" from-static-id="utSanJuanCounty2">UT-San Juan Co. 2</option>
+				<option id="nagpraPahmaInventoryNames193" from-static-id="waAsotinCounty">WA-Asotin Co.</option>
+				<option id="nagpraPahmaInventoryNames194" from-static-id="waClallam">WA-Clallam</option>
+				<option id="nagpraPahmaInventoryNames195" from-static-id="waCowlitzCounty">WA-Cowlitz Co.</option>
+				<option id="nagpraPahmaInventoryNames196" from-static-id="waKing">WA-King</option>
+				<option id="nagpraPahmaInventoryNames197" from-static-id="waKlickitatCounty">WA-Klickitat Co.</option>
+				<option id="nagpraPahmaInventoryNames198" from-static-id="waKl24245kl242">WA-KL-242 (45KL242) (Historic)</option>
+				<option id="nagpraPahmaInventoryNames199" from-static-id="waMillersIsland">WA-Millers Island (Historic)</option>
+				<option id="nagpraPahmaInventoryNames200" from-static-id="waYakima">WA-Yakima</option>
+				<option id="nagpraPahmaInventoryNames201" from-static-id="nonNagpra1">non-NAGPRA 1</option>
+				<option id="nagpraPahmaInventoryNames202" from-static-id="nonNagpra2">non-NAGPRA 2</option>
+				<option id="nagpraPahmaInventoryNames203" from-static-id="nonNagpra3">non-NAGPRA 3</option>
+				<option id="nagpraPahmaInventoryNames204" from-static-id="nonNagpra4">non-NAGPRA 4</option>
+				<option id="nagpraPahmaInventoryNames205" from-static-id="nonNagpra5">non-NAGPRA 5</option>
+				<option id="nagpraPahmaInventoryNames206" from-static-id="nonNagpra6">non-NAGPRA 6</option>
+				<option id="nagpraPahmaInventoryNames207" from-static-id="nonNagpra7">non-NAGPRA 7</option>
+				<option id="nagpraPahmaInventoryNames208" from-static-id="nonNagpra8">non-NAGPRA 8</option>
+				<option id="nagpraPahmaInventoryNames209" from-static-id="nonNagpra9">non-NAGPRA 9</option>
+				<option id="nagpraPahmaInventoryNames210" from-static-id="nonNagpra10">non-NAGPRA 10</option>
+				<option id="nagpraPahmaInventoryNames211" from-static-id="nonNagpra11">non-NAGPRA 11</option>
+				<option id="nagpraPahmaInventoryNames212">unknown</option>
+			</options>
+		</instance>
+	<instance id="vocab-nagpraPahmaApplicabilities">
+			<web-url>nagpraPahmaApplicabilities</web-url>
+			<title-ref>nagpraPahmaApplicabilities</title-ref>
+			<title>nagpraPahmaApplicabilities</title>
+			<options>
+				<option id="nagpraPahmaApplicabilities00" from-static-id="nonNagpra" default="yes">not subject to NAGPRA</option>
+				<option id="nagpraPahmaApplicabilities01" from-static-id="affiliatedHsr">affiliated human skeletal remains (HSR)</option>
+				<option id="nagpraPahmaApplicabilities02" from-static-id="unaffiliatedCuiHsr">unaffiliated human skeletal remains (HSR) (=CUI)</option>
+				<option id="nagpraPahmaApplicabilities03" from-static-id="afo">associated funerary object (AFO)</option>
+				<option id="nagpraPahmaApplicabilities04" from-static-id="ufo">unassociated funerary object (UFO)</option>
+				<option id="nagpraPahmaApplicabilities05" from-static-id="sacredObject">sacred object</option>
+				<option id="nagpraPahmaApplicabilities06" from-static-id="objectOfCulturalPatrimony">object of cultural patrimony</option>
+				<option id="nagpraPahmaApplicabilities07" from-static-id="subjectToNAGPRA">subject to NAGPRA (unspec.)</option>
+				<option id="nagpraPahmaApplicabilities08" from-static-id="needsFurtherResearch">needs further research</option>
+				<option id="nagpraPahmaApplicabilities09">unknown</option>
+			</options>
+		</instance>
 </instances>
