@@ -1219,18 +1219,18 @@
 	</section>
 	
 	<section id="repatriationNagpraComplianceInformation">
-			<repeat id="nagpraInventoryNameList" section="anthropology">
-			<field id="nagpraInventoryName" section="anthropology" seperate_ui_container="true" ui-search="repeatable" ui-type="enum" autocomplete="vocab-nagpraPahmaInventoryNames"/>
+		<repeat id="nagpraInventoryNameList" section="anthropology">
+			<field id="nagpraInventoryName" section="anthropology" seperate_ui_container="true" ui-search="repeatable" ui-type="enum" autocomplete="vocab-nagpraPahmaInventoryNames">
 			</field>
 		</repeat>
 
 		<repeat id="nagpraApplicabilityList" section="anthropology">
-			<field id="nagpraApplicability" section="anthropology" seperate_ui_container="true" ui-search="repeatable">
+			<field id="nagpraApplicability" section="anthropology" seperate_ui_container="true" ui-type="enum" autocomplete="vocab-nagpraPahmaApplicabilities" ui-search="repeatable">
 			</field>
 		</repeat>
 
 		<repeat id="pahmaNagpraCodeLegacyList" section="pahma">
-			<field id="pahmaNagpraCodeLegacy" section="pahma" seperate_ui_container="true" ui-search="repeatable" ui-type="enum" autocomplete="vocab-pahmaNagpraCodeLegacies"/>
+			<field id="pahmaNagpraCodeLegacy" section="pahma" seperate_ui_container="true" ui-search="repeatable" ui-type="enum" autocomplete="vocab-pahmaNagpraCodeLegacies">
 			</field>
 		</repeat>
 		

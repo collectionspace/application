@@ -599,7 +599,7 @@
 			<option id="prodpersonrole18">translator</option>
 			<option id="prodpersonrole19">writer</option>
         </options>
-    </instance>
+    	</instance>
 	<instance id="vocab-assocpeople">
         <web-url>assocpeople</web-url>
         <title-ref>assocpeople</title-ref>
@@ -616,7 +616,7 @@
 			<option id="assocpeopletype08" from-static-id="usedButNotMadeBy">used, but not made, by</option>
 			<option id="assocpeopletype09" from-static-id="usedButNotMadeByAttributed">used, but not made, by (attributed)</option>
         </options>
-	</instance>
+		</instance>
 	<instance id="vocab-pahmaNagpraCodeLegacies">
 				<web-url>pahmaNagpraCodeLegacies</web-url>
 				<title-ref>pahmaNagpraCodeLegacies</title-ref>
@@ -638,7 +638,6 @@
 					<option id="pahmaNagpraCodeLegacies13">unknown</option>
 				</options>
 		</instance>
-	</instance>
 	<instance id="vocab-nagpraPahmaInventoryNames">
 				<web-url>nagpraPahmaInventoryNames</web-url>
 				<title-ref>nagpraPahmaInventoryNames</title-ref>
