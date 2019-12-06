@@ -41,6 +41,12 @@
 			<title-ref>objectclass</title-ref>
 			<title>Object Class</title>
 		</instance>
+		<!-- For UOC -->
+		<instance id="concept-occasion">
+			<web-url>occasion</web-url>
+			<title-ref>occasion</title-ref>
+			<title>Occasion Concepts</title>
+		</instance>
 	</instances>
 
 	<section id="conceptAuthorityInformation">
