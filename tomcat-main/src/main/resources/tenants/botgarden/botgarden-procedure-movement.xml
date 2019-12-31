@@ -15,7 +15,7 @@
 		<field id="movementReferenceNumber" mini="" />
 
 		<!-- Add mini=summary and make dynamic -->
-		<field id="reasonForMove" mini="summary" autocomplete="true" ui-type="enum" />
+		<field id="reasonForMove" mini="summary,list" autocomplete="true" ui-type="enum" />
 	</section>
 
 	<!-- Local fields -->
