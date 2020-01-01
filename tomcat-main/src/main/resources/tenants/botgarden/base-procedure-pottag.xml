@@ -13,13 +13,13 @@
 	</section>
 
 	<section id="volunteerLabels">
-		<field id="family" mini="list" autocomplete="true" />
-		<field id="commonName" />
+		<field id="family" mini="summary,list" autocomplete="true" />
+		<field id="commonName" mini="number,list" />
 		<field id="locale" />
-		<field id="taxonName" mini="number,list" autocomplete="true" />
+		<field id="taxonName" autocomplete="true" />
 		<field id="labelData" />
 		<field id="numberOfLabels" datatype="integer" />
-		<field id="printLabels" mini="summary,list" />
-	    <field id="taggedBy" autocomplete="true" />
+		<field id="printLabels" mini="list" />
+		<field id="taggedBy" autocomplete="true" />
 	</section>
 </record>
