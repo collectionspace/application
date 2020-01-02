@@ -12,19 +12,13 @@
     <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
 	<authorization-view>false</authorization-view>
             
-    <structures>
-        <structure id="screen">
-            <view>
-                <label-section id="messagekeys" show="true"></label-section>
-                <titlebar show="false"></titlebar>
-                <sidebar show="false"></sidebar>
-                <edit-section id="details" show="true"></edit-section>
-                <list-section id="list" show="true"></list-section>
-            </view>
-        </structure>
-    </structures>
+	<structures>
+		<structure id="screen">
+			
+		</structure>
+	</structures>
 	
-	<include src="domain-other-reporting.xml" strip-root="yes"/>
+	<include src="domain-other-reporting.xml" strip-root="yes" />
 	
 	<section id="coreInformation">
 		<include src="core-fields.xml" strip-root="yes" />
@@ -49,23 +43,10 @@
 		<field id="supportsGroup" datatype="boolean" />
 		<field id="filename" />
 		<field id="outputMIME" />
+		<repeat id="supportsOutputMIMEList">
+			<field id="outputMIME" />
+		</repeat>
 	</section>
-	
-    <section id="reporting">
-    	<field id="name" mini="number,search,list,relate"></field>
-    	<field id="notes" ></field>
-    	<repeat id="forDocTypes">
-    		<field id="forDocType"></field>
-    	</repeat>
-    	<field id="supportsNoContext" datatype="boolean"></field>
-    	<field id="supportsSingleDoc" datatype="boolean"></field>
-    	<field id="supportsDocList" datatype="boolean"></field>
-    	<field id="supportsGroup" datatype="boolean"></field>
-    	<field id="filename"></field>
-    	<field id="outputMIME"></field>
-	<field id="supportsParams" datatype="boolean"></field>
-    </section>
-	
 </record>
 
 
