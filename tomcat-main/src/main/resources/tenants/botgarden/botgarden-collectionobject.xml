@@ -1,13 +1,15 @@
 <record id="collection-object" is-extension="true">
 	<services-record-path id="botgarden">collectionobjects_botgarden:http://collectionspace.org/services/collectionobject/local/botgarden,collectionobjects_botgarden</services-record-path>
 
+	<section id="coreInformation">
+		<!-- Remove mini -->
+		<field id="nametitle" mini="" />
+	</section>
+
 	<section id="identificationInformation">
 		<field id="accessionDate" datatype="date" section="botgarden" />
 		<field id="deadFlag" section="botgarden" />
 		<field id="deadDate" datatype="date" section="botgarden" />
-		<field id="deadDateSearch" exists-in-services="false" section="botgarden">
-			<services-tag>deadDate</services-tag>
-		</field>
 
 		<field id="provenanceDataQuality" autocomplete="true" ui-type="enum" section="botgarden" />
 		<field id="provenanceType" autocomplete="true" ui-type="enum" section="botgarden" />

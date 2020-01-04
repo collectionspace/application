@@ -5,11 +5,8 @@
 		<!-- Remove number from mini -->
 		<field id="loanOutNumber" mini="list" />
 
-		<!-- Change summary to number in mini -->
-		<field id="borrower" mini="number,list" />
-
-		<!-- Add mini=summary -->
-		<field id="loanPurpose" mini="summary" />
+		<!-- Add mini -->
+		<field id="loanOutDate" mini="number,list" />
 
 		<!-- Local fields -->
 
