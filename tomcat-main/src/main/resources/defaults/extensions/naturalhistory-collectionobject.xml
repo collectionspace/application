@@ -4,7 +4,7 @@
 	<section id="identificationInformation">
 		<!-- Used by the Botanical Garden and Anthropology profiles -->
 		<repeat id="taxonomicIdentGroupList/taxonomicIdentGroup" section="naturalhistory_extension">
-			<field id="taxon" mini="summary,list" autocomplete="true" section="naturalhistory_extension" />
+			<field id="taxon" autocomplete="true" section="naturalhistory_extension" />
 			<repeat id="computedTaxonCommonNames" section="naturalhistory_extension">
 				<field id="computedTaxonCommonName" mini="search" section="naturalhistory_extension" />
 			</repeat>
@@ -36,7 +36,7 @@
 
 		<!-- Used by the Herbarium profile -->
 		<repeat id="determinationHistoryGroupList/determinationHistoryGroup" section="naturalhistory_extension">
-			<field id="determinationTaxon" section="naturalhistory_extension" mini="summary,list" autocomplete="true" />
+			<field id="determinationTaxon" section="naturalhistory_extension" autocomplete="true" />
 			<field id="determinationQualifier" section="naturalhistory_extension" autocomplete="true" ui-type="enum" />
 			<field id="determinationBy" section="naturalhistory_extension" autocomplete="true" />
 			<group id="determinationDateGroup" ui-type="groupfield/structureddate" section="naturalhistory_extension" />

@@ -7,6 +7,15 @@
 	</section>
 
 	<section id="identificationInformation">
+		<!-- naturalhistory fields -->
+
+		<repeat id="taxonomicIdentGroupList/taxonomicIdentGroup">
+			<!-- Add mini -->
+			<field id="taxon" mini="summary,list" />
+		</repeat>
+
+		<!-- Local fields -->
+
 		<field id="accessionDate" datatype="date" section="botgarden" />
 		<field id="deadFlag" section="botgarden" />
 		<field id="deadDate" datatype="date" section="botgarden" />
