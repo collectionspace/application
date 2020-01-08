@@ -1,7 +1,19 @@
 <record id="collection-object" is-extension="true">
 	<services-record-path id="herbarium">collectionobjects_herbarium:http://collectionspace.org/services/collectionobject/local/herbarium,collectionobjects_herbarium</services-record-path>
 
+	<section id="coreInformation">
+		<!-- Remove mini -->
+		<field id="nametitle" mini="" />
+	</section>
+
 	<section id="identificationInformation">
+		<!-- naturalhistory fields -->
+
+		<repeat id="determinationHistoryGroupList/determinationHistoryGroup">
+			<!-- Add mini -->
+			<field id="determinationTaxon" mini="summary,list" />
+		</repeat>
+
 		<!-- Local fields -->
 
 		<repeat id="localNameGroupList/localNameGroup" section="herbarium">
