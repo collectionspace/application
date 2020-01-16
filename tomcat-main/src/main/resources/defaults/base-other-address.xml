@@ -21,6 +21,7 @@
 			<field id="addressPlace1" />
 			<field id="addressPlace2" />
 			<field id="addressMunicipality" autocomplete="true" />
+			<field id="addressCounty" autocomplete="true" />
 			<field id="addressStateOrProvince" autocomplete="true" />
 			<field id="addressPostCode" />
 			<field id="addressCountry" autocomplete="true" />
