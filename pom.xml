@@ -75,7 +75,7 @@
 		<repository>
 			<id>repo1</id>
 			<name>Maven repo1</name>
-			<url>http://repo1.maven.org/maven2</url>
+			<url>https://repo1.maven.org/maven2</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
@@ -83,7 +83,7 @@
 		<repository>
 			<id>repo2</id>
 			<name>Maven repo2</name>
-			<url>http://repo2.maven.org/maven2</url>
+			<url>https://repo2.maven.org/maven2</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
@@ -110,7 +110,7 @@
 		<pluginRepository>
 			<id>repo1</id>
 			<name>Maven repo1</name>
-			<url>http://repo1.maven.org/maven2</url>
+			<url>https://repo1.maven.org/maven2</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
@@ -118,7 +118,7 @@
 		<pluginRepository>
 			<id>maven repo</id>
 			<name>maven repo</name>
-			<url>http://repo2.maven.org/maven2</url>
+			<url>https://repo2.maven.org/maven2</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
