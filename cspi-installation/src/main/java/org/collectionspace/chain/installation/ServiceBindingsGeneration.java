@@ -34,7 +34,7 @@ import org.apache.commons.io.FileUtils;
 
 public class ServiceBindingsGeneration {
 	private static final Logger log = LoggerFactory.getLogger(ServiceBindingsGeneration.class);
-	
+
 	private static final String RECORD_TYPE_VOCABULARY = "vocabulary";
 	private static final String RECORD_TYPE_AUTHORITY = "authority";
 	private static final String RECORD_TYPE_UTILITY = "utility";
@@ -43,10 +43,10 @@ public class ServiceBindingsGeneration {
 	private static final String RECORD_TYPE_RECORD = "record";
 	private static final String RECORD_TYPE_USERDATA = "userdata";
 	private static final String RECORD_TYPE_AUTHORIZATIONDATA = "authorizationdata";
-	
+
 	private static final String RECORD_ID_TERMLIST = "termlist";
 	private static final String RECORD_ID_VOCAB = "vocab";
-	
+
 	private static final String GROUP_LIST_SUFFIX = "/[0]";
 	private static final String GROUP_XPATH_SUFFIX = "/*";
 	private static final String NO_REPO_DOMAIN = "none";
@@ -69,7 +69,7 @@ public class ServiceBindingsGeneration {
 	private static final boolean NOT_NAMESPACED = false;
 
 	private AuthCache authCache = new AuthCache();
-	
+
 	protected File configFile;
 	protected Spec spec;
 	protected TenantSpec tenantSpec;
@@ -81,18 +81,18 @@ public class ServiceBindingsGeneration {
 	/**
 	 * not sure how configurable these need to be - they can be made more flexible
 	 */
-	protected Namespace nsxsi = new Namespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");  
+	protected Namespace nsxsi = new Namespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
 	protected Namespace nstenant = new Namespace("tenant", "http://collectionspace.org/services/config/tenant"); // http://collectionspace.org/services/config/tenant
-	protected Namespace nsservices = new Namespace("service", "http://collectionspace.org/services/config/service"); 
-	protected Namespace nstypes = new Namespace("types", "http://collectionspace.org/services/config/types"); 
-	
+	protected Namespace nsservices = new Namespace("service", "http://collectionspace.org/services/config/service");
+	protected Namespace nstypes = new Namespace("types", "http://collectionspace.org/services/config/types");
+
 	protected String schemaloc = "http://collectionspace.org/services/config/tenant " +
 	"http://collectionspace.org/services/config/tenant.xsd";
 
 	private ServiceBindingsGeneration() {
 		// Intentionally left blank?
 	}
-	
+
 	public ServiceBindingsGeneration(File configFile, Spec spec,TenantSpec td, Boolean isdefault, File infoOutputDir) throws IOException {
 		this.configFile = configFile;
 		this.spec = spec;
@@ -102,11 +102,11 @@ public class ServiceBindingsGeneration {
 		this.tempDirectory = FileTools.createTmpDir("cspace-bindings-");
 		this.infoOutputDirectory = infoOutputDir;
 	}
-	
+
 	public File getTempDirectory() {
 		return this.tempDirectory;
-	}	
-	
+	}
+
 	public File getOutputDirectory() {
 		return this.infoOutputDirectory;
 	}
@@ -120,7 +120,7 @@ public class ServiceBindingsGeneration {
 	//
 	private String getServiceBindingType(Record record) {
 		String result = RECORD_TYPE_PROCEDURE;
-		
+
 		if (record.isType(RECORD_TYPE_RECORD) == true) {
 			if (record.isType(RECORD_TYPE_PROCEDURE) == false) {
 				result = RECORD_TYPE_OBJECT;
@@ -128,20 +128,20 @@ public class ServiceBindingsGeneration {
 				if (record.isInRecordList() == true) {	// termlist is in the "record list"
 					result = RECORD_TYPE_UTILITY;
 				} else {
-					result = RECORD_TYPE_VOCABULARY;	// termlistitem is *not* in the "record list"			
+					result = RECORD_TYPE_VOCABULARY;	// termlistitem is *not* in the "record list"
 				}
 			} else {
-				log.debug(String.format("Config Generation: '%s' - Record '%s' is neither an object nor a vocabulary.  Please verify it is a procedure.", 
+				log.debug(String.format("Config Generation: '%s' - Record '%s' is neither an object nor a vocabulary.  Please verify it is a procedure.",
 						getConfigFile().getName(), record.getRecordName()));
 			}
 		} else {
 			log.warn(String.format("Config Generation: '%s' - Record '%s' is not of type 'record'.  We're going to assume it is a 'procedure' but please verify by hand.",
 					getConfigFile().getName(), record.getRecordName()));
 		}
-		
+
 		return result;
 	}
-	
+
 	private boolean shouldGenerateServiceBinding(Record record) {
 		boolean result = false;
 
@@ -152,7 +152,7 @@ public class ServiceBindingsGeneration {
 
 		return result;
 	}
-	
+
 	/**
 	 * if this.defaultonly - true then return
 	 * service-bindings-common.xml - a shared prototype of core and common
@@ -160,15 +160,15 @@ public class ServiceBindingsGeneration {
 	 * the services, and the system, core, and common parts of each service. It
 	 * includes the most common definitions of the field types, to make it easy
 	 * to define a new tenant.
-	 * 
+	 *
 	 * else
 	 * return domain specific file
-	 * 
+	 *
 	 * @return
 	 */
 	private String doServiceBindingsCommon(String serviceBindingVersion) {
 		Document doc = DocumentFactory.getInstance().createDocument();
-		
+
 		Element root = doc.addElement(new QName("TenantBindingConfig", this.nstenant));
 		root.addAttribute("xsi:schemaLocation", this.schemaloc);
 		root.add(this.nsxsi);
@@ -191,10 +191,10 @@ public class ServiceBindingsGeneration {
 		    rele.addAttribute("repositoryName", this.tenantSpec.getRepositoryName());
                 }
 		rele.addAttribute("repositoryClient", this.tenantSpec.getRepositoryClient());
-		
+
 		// Set remote clients
 		makeRemoteClients(ele);
-		
+
 		// Set the bindings for email notifications
 		makeEmailBindings(ele);
 
@@ -206,9 +206,9 @@ public class ServiceBindingsGeneration {
 			String tenantName = this.tenantSpec.getTenant();
 			String tenantId = this.tenantSpec.getTenantId();
 			String recordName = r.getRecordName();
-			
+
 			if (log.isDebugEnabled()) {
-				log.debug(String.format("Config Generation: '%s' - Processing potential service bindings for record type '%s'", 
+				log.debug(String.format("Config Generation: '%s' - Processing potential service bindings for record type '%s'",
 						getConfigFile().getName(), recordName));
 			}
 
@@ -222,6 +222,7 @@ public class ServiceBindingsGeneration {
 					serviceBindingsElement.addAttribute("name", r.getServicesTenantPl());
 					serviceBindingsElement.addAttribute("type", rtype);
 					serviceBindingsElement.addAttribute("version", serviceBindingVersion);
+					serviceBindingsElement.addAttribute("elasticsearchIndexed", Boolean.toString(r.isElasticsearchIndexed()));
 					if (r.isType(RECORD_TYPE_VOCABULARY) == true) {
 						serviceBindingsElement.addAttribute(Record.REQUIRES_UNIQUE_SHORTID, Boolean.TRUE.toString()); // Vocabularies need unique short IDs
 						serviceBindingsElement.addAttribute(Record.SUPPORTS_REPLICATING, Boolean.toString(r.supportsReplicating()));  //  they also need to support replication
@@ -265,7 +266,7 @@ public class ServiceBindingsGeneration {
 						getConfigFile().getName(), recordName));
 			}
 		}
-		
+
 		//
 		// Print out a reverse-lookup JSON rep of the terms
 		//
@@ -281,10 +282,10 @@ public class ServiceBindingsGeneration {
 			e.printStackTrace();
 		}
 		log.info(String.format("Reverse terms lookup JSON payload written here: '%s'.", authCacheFileName));
-		
-		return doc.asXML(); 
+
+		return doc.asXML();
 	}
-	
+
 	//
 	// For debugging purposes, this method writes a service bindings element to disk.
 	//
@@ -318,46 +319,46 @@ public class ServiceBindingsGeneration {
 
 	private void makeRemoteClients(Element tenantBindingElement) {
 		RemoteClient[] remoteClientList = tenantSpec.getRemoteClients();
-		
+
 		if (remoteClientList != null && remoteClientList.length > 0) {
 			Element remoteClientsElement = tenantBindingElement.addElement(new QName("remoteClientConfigurations", nstenant));
 			for (TenantSpec.RemoteClient remoteClient : remoteClientList) {
-				Element remoteClientElement = remoteClientsElement.addElement(new QName("remoteClientConfig", nstenant));			
+				Element remoteClientElement = remoteClientsElement.addElement(new QName("remoteClientConfig", nstenant));
 				Element ele;
-				
+
 				ele = remoteClientElement.addElement(new QName("name", nstenant));
 				ele.addText(remoteClient.getName());
-				
+
 				ele = remoteClientElement.addElement(new QName("url", nstenant));
 				ele.addText(remoteClient.getUrl());
-				
+
 				ele = remoteClientElement.addElement(new QName("user", nstenant));
 				ele.addText(remoteClient.getUser());
-				
+
 				ele = remoteClientElement.addElement(new QName("password", nstenant));
 				ele.addText(remoteClient.getPassword());
-				
+
 				// Optional
 				if (remoteClient.getTenantId() != null) {
 					ele = remoteClientElement.addElement(new QName("tenantId", nstenant));
 					ele.addText(remoteClient.getTenantId());
 				}
-				
+
 				// Optional
 				if (remoteClient.getTenantName() != null) {
 					ele = remoteClientElement.addElement(new QName("tenantName", nstenant));
 					ele.addText(remoteClient.getTenantName());
 				}
-				
+
 				ele = remoteClientElement.addElement(new QName("ssl", nstenant));
 				ele.addText(remoteClient.getSSL());
-				
+
 				ele = remoteClientElement.addElement(new QName("auth", nstenant));
 				ele.addText(remoteClient.getAuth());
 			}
 		}
 	}
-	
+
 	/*
 	 * Builds something like the following XML:
 	 *   <tenant:emailConfig>
@@ -382,19 +383,19 @@ public class ServiceBindingsGeneration {
 	 */
 	private void makeEmailBindings(Element tenantBindingElement) {
 		EmailData emailData = spec.getEmailData();
-		
+
 		if (emailData != null) {
 			Element emailConfigElement = tenantBindingElement.addElement(new QName("emailConfig", nstenant));
 			if (emailData.getBaseURL() != null) {
 				Element ele = emailConfigElement.addElement(new QName("baseurl", nstenant));
 				ele.addText(emailData.getBaseURL());
 			}
-			
+
 			if (emailData.getFromAddress() != null) {
 				Element ele = emailConfigElement.addElement(new QName("from", nstenant));
 				ele.addText(emailData.getFromAddress());
 			}
-			
+
 			//
 			// Build <tenant:smtpConfig>
 			//
@@ -403,17 +404,17 @@ public class ServiceBindingsGeneration {
 				Element ele = smtpConfigElement.addElement(new QName("host", nstenant));
 				ele.addText(emailData.getSMTPHost());
 			}
-			
+
 			if (emailData.getSMTPPort() != null) {
 				Element ele = smtpConfigElement.addElement(new QName("port", nstenant));
 				ele.addText(emailData.getSMTPPort());
 			}
-			
+
 			if (emailData.doSMTPDebug() != null) {
 				Element ele = smtpConfigElement.addElement(new QName("debug", nstenant));
 				ele.addText(emailData.doSMTPDebug().toString());
 			}
-			
+
 			//
 			// Build <tenant:smtpAuth enabled="false">
 			//
@@ -421,17 +422,17 @@ public class ServiceBindingsGeneration {
 			if (emailData.doSMTPAuth() != null) {
 				smtpAuthElement.addAttribute("enabled", emailData.doSMTPAuth().toString());
 			}
-			
+
 			if (emailData.getSMTPAuthUsername() != null) {
 				Element ele = smtpAuthElement.addElement(new QName("username", nstenant));
 				ele.addText(emailData.getSMTPAuthUsername());
 			}
-			
+
 			if (emailData.getSMTPAuthPassword() != null) {
 				Element ele = smtpAuthElement.addElement(new QName("password", nstenant));
 				ele.addText(emailData.getSMTPAuthPassword());
 			}
-			
+
 			//
 			// Build <tenant:passwordResetConfig>
 			//
@@ -448,12 +449,12 @@ public class ServiceBindingsGeneration {
 				Integer secondsValid = emailData.getTokenExpirationDays() * 60 * 60 * 24; // Convert days into seconds
 				ele.addText(emailData.getTokenExpirationSeconds().toString());
 			}
-			
+
 			if (emailData.getLoginUrl() != null) {
 				Element ele = passwordResetElement.addElement(new QName("loginpage", nstenant));
 				ele.addText(emailData.getLoginUrl());
 			}
-			
+
 			if (emailData.getPasswordResetSubject() != null) {
 				Element ele = passwordResetElement.addElement(new QName("subject", nstenant));
 				ele.addText(emailData.getPasswordResetSubject());
@@ -464,8 +465,8 @@ public class ServiceBindingsGeneration {
 				ele.addText(emailData.getPasswordResetMessage());
 			}
 		}
-	}	
-	
+	}
+
 	/**
 	 * Add in date formats and languages if required
 	 * @param ele
@@ -504,9 +505,9 @@ public class ServiceBindingsGeneration {
 			}
 		}
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param r
 	 * @param cele
 	 * @param id
@@ -528,14 +529,14 @@ public class ServiceBindingsGeneration {
 		pele.addAttribute("label", label);
 		pele.addAttribute("updated", "");
 		pele.addAttribute("order", order);
-		
+
 		Element conle = pele.addElement(new QName("content",thisns));
 		conle.addAttribute("contentType", "application/xml"); //FIXME: This shouldn't be hard coded
-		
+
 		Element xconle = conle.addElement(new QName("xmlContent",thisns));
 		xconle.addAttribute("namespaceURI", namespaceURI);
 		xconle.addAttribute("schemaLocation", schemaLocation);
-		
+
 		if (addAuths) {
 			Element authRefsElement = pele.addElement(new QName("properties", thisns));
 			boolean createdAuthRefs = doAuthRefsAndTermRefs(authRefsElement, this.nstypes, r, section);
@@ -544,9 +545,9 @@ public class ServiceBindingsGeneration {
 			}
 		}
 	}
-	
+
 	private String getServiceTableName(FieldSet fieldSet, Record record, Boolean isAuthority) {
-		String result = record.getServicesSchemaName(fieldSet.getSection());		
+		String result = record.getServicesSchemaName(fieldSet.getSection());
 		if (isAuthority == true) {
 			result = record.getAuthoritySchemaName();
 		}
@@ -559,25 +560,25 @@ public class ServiceBindingsGeneration {
 			Repeat fieldParent = (Repeat)parent;
 			result = fieldParent.getServicesTag().toLowerCase();
 		} else {
-			
+
 		}
-		
+
 		return result;
 	}
-	
+
 	/*
 	 * Attempt to create an entry in the service bindings for this field to be indexed.  Returns true if created and false if not.
 	 */
 	private boolean createInitFieldEntry(Element paramsElement, Namespace namespace, Record record, FieldSet f, Boolean isAuthority) {
 		boolean result = false;
-		
+
 		if (f instanceof Field) {
 			Field fd = (Field)f;
 			String fieldName = fd.getServicesTag().toLowerCase();
 			if (fd.shouldIndex() == true) {
 				Element fieldElement = paramsElement.addElement(new QName("field", namespace));
-				
-				Element tableElement = fieldElement.addElement(new QName("table", namespace));				
+
+				Element tableElement = fieldElement.addElement(new QName("table", namespace));
 				String tableName = fd.getServiceTableName(isAuthority); //getServiceTableName(fd, record, isAuthority);
 				tableElement.addText(tableName);
 
@@ -589,20 +590,20 @@ public class ServiceBindingsGeneration {
 			log.trace(String.format("Config Generation: '%s' - Ignoring FieldSet instance '%s:%s'",
 					getConfigFile().getName(), Arrays.toString(f.getIDPath()), f.getID()));
 		}
-		
+
 		return result;
 	}
-	
+
 	/*
 	 * Returns true if we end up creating service binding entries for field initialization.
 	 */
 	private boolean createInitFieldList(Element paramsElement, Namespace namespace, Record record, Boolean isAuthority) {
 		boolean result = false;
-		
+
 		// Loop through each field to see if we need to create a service binding entry
 		for (FieldSet f: record.getAllFieldFullList("")) {
 			boolean createdEntry = false;
-			
+
 			if (f.isASelfRenderer() == true) {
 				//
 				// Self rendered fields are essentially sub-records
@@ -621,7 +622,7 @@ public class ServiceBindingsGeneration {
 				result = true;
 			}
 		}
-			
+
 		return result;
 	}
 
@@ -644,19 +645,19 @@ public class ServiceBindingsGeneration {
 			r = spec.getRecord(BASE_AUTHORITY_RECORD);
 			r.setLastAuthorityProxy(record); // Since all the authorities share the same "baseAuthority" record, we need to set the actual authority record; e.g., Person, Organization, etc...
 		}
-		
+
 		Element dhele = el.addElement(new QName("initHandler", thisns));
 		Element cele = dhele.addElement(new QName("classname", thisns));
 		cele.addText(this.tenantSpec.getIndexHandler());
 		Element paramsElement = dhele.addElement(new QName("params", thisns));
-		
+
 		boolean createdIndexedFields = createInitFieldList(paramsElement, thisns, r, isAuthority);
 		if (createdIndexedFields == false) {
 			// Since there were no fields to index, we don't need this empty <initHandler> element
 			el.remove(dhele);
 		}
 	}
-	
+
 	/*
 	 * Creates the <> element in the Service binding. Is used to generate the 'refName' in service payloads
 	 * For example,
@@ -669,19 +670,19 @@ public class ServiceBindingsGeneration {
 		for (FieldSet fieldSet : record.getAllFieldFullList()) {
 			if (fieldSet.isServicesRefnameDisplayName() == true) {
 				Element doRefnameDisplayNameEle = ele.addElement(new QName("RefnameDisplayNameField", thisns));
-				
+
 				Element elrf = doRefnameDisplayNameEle.addElement(new QName("element", thisns));
 				elrf.addText(fieldSet.getServicesTag());
-				
+
 				Element xlrf = doRefnameDisplayNameEle.addElement(new QName("xpath", thisns));
 				String fieldNamePath = this.getFullyQualifiedFieldPath(fieldSet);
 				xlrf.addText(fieldNamePath);
-				
+
 				break; // Allow only a single <RefnameDisplayNameField> element
 			}
 		}
 	}
-	
+
 	/**
      * <service:DocHandlerParams>
      *
@@ -690,18 +691,18 @@ public class ServiceBindingsGeneration {
      * @param thisns
      * @param isAuthority
      */
-    
+
 	private void doDocHandlerParams(Record r, Element el, Namespace nsservices2, Boolean isAuthority) {
 		//<service:DocHandlerParams>
 		Element dhele = el.addElement(new QName("DocHandlerParams", nsservices2));
 		Element pele = dhele.addElement(new QName("params", nsservices2));
-				
+
 		if (r.hasHierarchyUsed(DEFAULT_HIERARCHY_TYPE) == true && isAuthority == false) {
 			//<service:SupportsHierarchy>true</service:SupportsHierarchy>
 			Element sh_rele = pele.addElement(new QName("SupportsHierarchy", nsservices2));
 			sh_rele.addText("true");
 		}
-		
+
 		if (r.supportsVersioning() == true) {
 			//<service:SupportsVersioning>true</service:SupportsVersioning>
 			Element sh_rele = pele.addElement(new QName("SupportsVersioning", nsservices2));
@@ -709,7 +710,7 @@ public class ServiceBindingsGeneration {
 		}
 
 		doRefnameDisplayNameField(r, pele, nsservices2);
-		
+
 		Element lrele = pele.addElement(new QName("ListResultsFields", nsservices2));
 		doLists(r, lrele, nsservices2, isAuthority);
 	}
@@ -730,23 +731,23 @@ public class ServiceBindingsGeneration {
 			}
 		}
 	}
-	
+
 	/*
 	 * Have we already processed this Service part?
 	 */
 	private boolean inProcessedPartsList(ArrayList<String> processedPartsList, String partName) {
 		boolean result = false;
-		
+
 		for (String processedPart : processedPartsList) {
 			if (processedPart.equalsIgnoreCase(partName) == true) {
 				result = true;
 				break;
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * domain specific tenant binding
 	 */
@@ -765,7 +766,7 @@ public class ServiceBindingsGeneration {
 			}
 		}
 	}
-	
+
 	/**
 	 * return domain or core specific information
 	 * @param r
@@ -794,7 +795,7 @@ public class ServiceBindingsGeneration {
 
 		// Common, core, etc
 		ArrayList<String> processedParts = makeUpperParts(r, thisns, cele, label, labelsg, isAuthority);
-		
+
 		// Local and domain extensions
 		makeLowerParts(r, processedParts, thisns, cele, label, labelsg, isAuthority);
 	}
@@ -811,7 +812,7 @@ public class ServiceBindingsGeneration {
 	private ArrayList<String> makeUpperParts(Record r, Namespace thisns, Element cele,
 			String label, String labelsg, Boolean isAuthority) {
 		ArrayList<String> processedParts = new ArrayList<String>();
-		
+
 		Integer num = 0;
 		//<service:part id="0" control_group="Managed" versionable="true" auditable="false" label="intakes-system" updated="" order="0">
 		String schemaLocationSystem = Record.COLLECTIONSPACE_SCHEMA_LOCATION_SYSTEM;
@@ -823,7 +824,7 @@ public class ServiceBindingsGeneration {
 		// <service:part id="1" control_group="Managed" versionable="true" auditable="false" label="intakes_common" updated="" order="1">
 		if (r.hasServicesRecordPath(Record.COLLECTIONSPACE_COMMON_PART_NAME)) {
 			String namespaceURI = r.getServicesSchemaNameSpaceURI(Record.COLLECTIONSPACE_COMMON_PART_NAME);
-			String schemaLocationCommon = namespaceURI + " " + r.getServicesSchemaBaseLocation() + "/" + (isAuthority ? r.getRecordName() : labelsg) + "/" + label + "_common.xsd";			
+			String schemaLocationCommon = namespaceURI + " " + r.getServicesSchemaBaseLocation() + "/" + (isAuthority ? r.getRecordName() : labelsg) + "/" + label + "_common.xsd";
 			if (r.isType("authorizationdata")) {
 				schemaLocationCommon = namespaceURI + " "+ r.getServicesSchemaBaseLocation()  + "/" + label + ".xsd";
 			}
@@ -846,21 +847,22 @@ public class ServiceBindingsGeneration {
 			processedParts.add(Record.COLLECTIONSPACE_CORE_PART_NAME);
 			num++;
 		}
-	
+
 		return processedParts;
 	}
-	
+
 	/**
 	 * Since the Application layer declares a single config record for both the Vocabulary/Authority and their corresponding items,
 	 * we need to create the two corresponding service bindings from the one Application record.
 	 */
-	private void addAuthorities(Record r, Element el, String serviceBindingVersion) {		
+	private void addAuthorities(Record r, Element el, String serviceBindingVersion) {
 		// Add the bindings for the Authority/Vocabulary item.
 		Element bindingsForAuthorityItemx = el.addElement(new QName("serviceBindings", nstenant));
 		bindingsForAuthorityItemx.addAttribute("name", r.getServicesTenantPl());
 		bindingsForAuthorityItemx.addAttribute("id", r.getServicesTenantPl());
 		bindingsForAuthorityItemx.addAttribute("type", RECORD_TYPE_AUTHORITY);
 		bindingsForAuthorityItemx.addAttribute("version", serviceBindingVersion);
+		bindingsForAuthorityItemx.addAttribute("elasticsearchIndexed", Boolean.toString(r.isElasticsearchIndexed()));
 		bindingsForAuthorityItemx.addAttribute(Record.SUPPORTS_REPLICATING, Boolean.toString(r.supportsReplicating()));
 		bindingsForAuthorityItemx.addAttribute(Record.REQUIRES_UNIQUE_SHORTID, Boolean.TRUE.toString());
 
@@ -885,9 +887,9 @@ public class ServiceBindingsGeneration {
 		addServiceBinding(r, bindingsForAuthority, nsservices, true, serviceBindingVersion);
 		if (log.isDebugEnabled() == true) {
 			this.debugWriteToFile(r, bindingsForAuthority, true);
-		}		
+		}
 	}
-	
+
 	/**
 	 * Add Authorities into the mix
 	 * seems to be pretty standard...
@@ -902,57 +904,57 @@ public class ServiceBindingsGeneration {
 		cele.addAttribute("version", "0.1");
 		addServiceBinding(r, cele, nsservices, false, serviceBindingVersion);
 	}
-	
+
 	private void addServiceBinding(Record r, Element el, Namespace nameSpace, Boolean isAuthority, String serviceBindingVersion) {
 		try {
 			String repositoryDomain = r.getServicesRepositoryDomain();
 			if (repositoryDomain == null) {
 				repositoryDomain = this.tenantSpec.getRepositoryDomain(); // Assume the default tenant repo if the service hasn't specified one
 			}
-			
+
 			if (repositoryDomain.equalsIgnoreCase(NO_REPO_DOMAIN) == false) {  // Note that NO_REPO_DOMAIN is different than "null" or not specified.
 				//<service:repositoryDomain>default-domain</service:repositoryDomain>
-				Element repository = el.addElement(new QName("repositoryDomain", nameSpace));		
+				Element repository = el.addElement(new QName("repositoryDomain", nameSpace));
 				repository.addText(this.tenantSpec.getRepositoryDomain());
 			}
-			
+
 			//<service:documentHandler>
 			String docHandlerName = r.getServicesDocHandler(isAuthority);
 			Element docHandlerElement = el.addElement(new QName("documentHandler", nameSpace));
 			docHandlerElement.addText(docHandlerName);
-			
+
 			//<service:DocHandlerParams> include fields to show in list results
 			doDocHandlerParams(r, el, this.nsservices, isAuthority);
-			
+
 			//<service:AuthorityInstanceList>
 			if (isAuthority == true || r.isType(RECORD_TYPE_VOCABULARY) == true) {
 				doAuthorityInstanceList(r, el, this.nsservices);
 			}
-	
+
 			//<service:validatorHandler>
 			String validatorHandlerName = r.getServicesValidatorHandler(isAuthority);
 			Element validatorHandlerElement = el.addElement(new QName("validatorHandler", nameSpace));
 			validatorHandlerElement.addText(validatorHandlerName);
-			
+
 			//<service:clientHandler>
 			String clientHandlerName = r.getServicesClientHandler(isAuthority);
 			Element clientHandlerElement = el.addElement(new QName("clientHandler", nameSpace));
-			clientHandlerElement.addText(clientHandlerName);		
-			
+			clientHandlerElement.addText(clientHandlerName);
+
 			//<service:initHandler> which fields need to be modified in the nuxeo db
 			doInitHandler(r, el, this.nsservices, isAuthority);
-	
+
 			//<service:properties>
-			Element servicePropertiesElement = el.addElement(new QName("properties", nameSpace));		
+			Element servicePropertiesElement = el.addElement(new QName("properties", nameSpace));
 			if (doServiceProperties(r, servicePropertiesElement, this.nstypes, isAuthority) == false) {
 				el.remove(servicePropertiesElement);
 			}
-			
+
 			//<service:object>
 			doServiceObject(r, el, this.nsservices, isAuthority, serviceBindingVersion);
-			
+
 			if (log.isTraceEnabled()) {
-				String msg = String.format("Config Generation: '%s' - Created service bindings for record type '%s'.", 
+				String msg = String.format("Config Generation: '%s' - Created service bindings for record type '%s'.",
 						this.getConfigFile().getName(), r.getRecordName());
 				log.trace(msg);
 			}
@@ -960,21 +962,21 @@ public class ServiceBindingsGeneration {
 			throw rte;
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error(String.format("Config Generation: '%s' - Could not create service bindings for record '%s'.", 
+			log.error(String.format("Config Generation: '%s' - Could not create service bindings for record '%s'.",
 					getConfigFile().getName(), r.getRecordName()));
 		}
 	}
-	
+
 	/*
 	 * Repeatable scalars (multivalued scalars)...
 	 */
 	private boolean isScalarRepeat(FieldSet fieldSet) {
 		boolean result = false;
-		
+
 		FieldParent parent = fieldSet.getParent();
 		if (parent instanceof Repeat) {
 			Repeat repeat = (Repeat)parent;
-			
+
 			if (repeat.isTrueRepeatField() == true) {
 				String[] parts = repeat.getfullID().split("/");
 				if (parts.length == 1) {
@@ -985,14 +987,14 @@ public class ServiceBindingsGeneration {
 
 		return result;
 	}
-	
+
 	/*
 	 * Returns the fully qualified path of a field name
 	 */
 	private String getFullyQualifiedFieldPath(FieldSet in) {
-		String tail = null;		
+		String tail = null;
 		String name = in.getServicesTag(); // Start by assuming it's just a plain scalar field, so we would just return the name
-		
+
 		//
 		// Debug info
 		//
@@ -1000,7 +1002,7 @@ public class ServiceBindingsGeneration {
 		boolean isPartOfGroup = in.getParent() instanceof Group;
 		boolean isGroup = in instanceof Group;
 		boolean isGroupField = in.isAGroupField();
-		
+
 		//
 		// If it's a repeatable field
 		//
@@ -1012,7 +1014,7 @@ public class ServiceBindingsGeneration {
 				if (isScalarRepeat(fst) == true) {
 					tail = ""; // Scalar-repeats (aka, multi-valued fields) look like 'responsibleDepartments/[0]' and *not* 'responsibleDepartments/[0]/responsibleDepartment'
 				}
-				
+
 				fst = (FieldSet) fst.getParent();
 				if (fst instanceof Repeat) {
 					Repeat rt = (Repeat) fst;
@@ -1029,21 +1031,21 @@ public class ServiceBindingsGeneration {
 						name += gp.getServicesTag();
 					}
 				}
-				
+
 				name += GROUP_LIST_SUFFIX + tail;
 			}
-			
+
 			if (name.contains(GROUP_LIST_SUFFIX) && name.endsWith("/")) {
 				name += in.getServicesTag();
 			}
 		}
-				
+
 		return name;
 	}
 
 	/*
 	 * Added an element like the following to the passed in "props" element.
-	 * 
+	 *
 	 * <types:item xmlns:types="http://collectionspace.org/services/config/types">
 	 *		<types:key>authRef</types:key>
 	 *     	<types:value>borrower</types:value>
@@ -1052,21 +1054,21 @@ public class ServiceBindingsGeneration {
 	private void addServiceProperty(Element props, FieldSet fieldSet, String keyName, Namespace types, boolean isAuthority) {
 		//<item>
 		Element itemElement = props.addElement(new QName("item", types));
-		
+
 		//<key>
 		Element keyElement = itemElement.addElement(new QName("key", types));
-		keyElement.addText(keyName);		
-		
+		keyElement.addText(keyName);
+
 		//<value>
 		Element valueElement = itemElement.addElement(new QName("value", types));
 		String fieldPath = this.getFullyQualifiedFieldPath(fieldSet);
-		
+
 		Record record = fieldSet.getRecord();
 		if (fieldSet.shouldSchemaQualify() == true) {
 			String schemaName = record.getServicesSchemaName(fieldSet.getSection());
 			fieldPath = schemaName + ":" + fieldPath;
 		}
-		valueElement.addText(fieldPath);	
+		valueElement.addText(fieldPath);
 	}
 
 	private boolean doServiceProperties(Record record, Element props, Namespace types, boolean isAuthority) {
@@ -1079,8 +1081,8 @@ public class ServiceBindingsGeneration {
 		if (isAuthority == true) {
 			Spec spec = r.getSpec();
 			r = spec.getRecord(BASE_AUTHORITY_RECORD);
-		}		
-		
+		}
+
 		FieldSet objNameProp = r.getMiniSummary();
 		if (objNameProp != null) {
 			String serviceFieldAlias = objNameProp.getServiceFieldAlias();
@@ -1096,10 +1098,10 @@ public class ServiceBindingsGeneration {
 			this.addServiceProperty(props, objNumberProp, OBJECT_NUMBER_PROPERTY, types, isAuthority);
 			result = true;
 		}
-				
+
 		return result;
 	}
-			
+
 	//defines fields to show in list results
 	private void doLists(Record record, Element el, Namespace thisns, boolean isAuthority) {
 		Record r = record;
@@ -1114,7 +1116,7 @@ public class ServiceBindingsGeneration {
 
 		FieldSet[] allMiniSummaryList = r.getAllMiniSummaryList();
 		if (allMiniSummaryList == null) {
-			log.error(String.format("Config Generation: '%s' - allMiniSummaryList for record '%s' is null.", 
+			log.error(String.format("Config Generation: '%s' - allMiniSummaryList for record '%s' is null.",
 					getConfigFile().getName(), r.getRecordName()));
 		}
 		String section;
@@ -1156,14 +1158,14 @@ public class ServiceBindingsGeneration {
 			}
 		}
 	}
-	
+
 	class AuthCache {
 		JSONObject authCache = new JSONObject();
-			
+
 		JSONObject getAuthorities(String type) {
 			return authCache.getJSONObject(type);
 		}
-			
+
 		public void addAuthorityInstance(String authType, String shortId, JSONObject termList) {
 			JSONObject auth = null;
 			try {
@@ -1174,14 +1176,14 @@ public class ServiceBindingsGeneration {
 			}
 			auth.put(shortId, termList);
 		}
-			
+
 		public String toString(int indent) {
 			return authCache.toString(indent);
 		}
 	}
-		
+
 	private void doAuthorityInstanceList(Record r, Element el, Namespace nsservices2) {
-		
+
 		Instance[] allInstances = r.getAllInstances();
 		if (r.getID().equalsIgnoreCase(RECORD_ID_TERMLIST) == true) {
 			//
@@ -1193,7 +1195,7 @@ public class ServiceBindingsGeneration {
 			//debug only
 			log.info("Not a vocab instance.");
 		}
-		
+
 		if (allInstances.length > 0) {
 			Element authorityInstanceList = el.addElement(new QName("AuthorityInstanceList", nsservices2));
 			for (Instance instance : allInstances) {
@@ -1203,17 +1205,17 @@ public class ServiceBindingsGeneration {
 		}
 
 	}
-	
+
 	private void doAuthorityInstance(Instance instance, Record r, Element el, Namespace nsservices2) {
 		Element webUrl = el.addElement(new QName("web-url", nsservices2));
 		webUrl.addText(instance.getWebURL());
-		
+
 		Element titleRef = el.addElement(new QName("title-ref", nsservices2));
 		titleRef.addText(instance.getTitleRef());
-		
+
 		Element title = el.addElement(new QName("title", nsservices2));
 		title.addText(instance.getTitle());
-		
+
 		Option[] allOptions = instance.getAllOptions();
 		if (allOptions.length > 0) {
 			Element termList = el.addElement(new QName("termList", nsservices2));
@@ -1227,7 +1229,7 @@ public class ServiceBindingsGeneration {
 		}
 
 	}
-	
+
 	private void doTerm(Option option, Record r, Element el, Namespace nsservices2) {
 		Element term = el.addElement(new QName("term", nsservices2));
 		term.addAttribute("id", option.getID());
@@ -1241,7 +1243,7 @@ public class ServiceBindingsGeneration {
 	//
 	private String getXpathStructuredPart(Repeat repeat) {
 		String result = null;
-		
+
 		String servicesTag = repeat.getServicesTag();
 		String[] parts = repeat.getfullID().split("/");
 		if (parts.length > 1) { // If we have more than one part, we have a repeating structure.
@@ -1260,13 +1262,13 @@ public class ServiceBindingsGeneration {
 						getConfigFile().getName(), servicesTag, parentRecordName, repeat.getfullID()));
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	private boolean isAuthOrTermRef(FieldSet fieldSet) {
 		boolean result = false;
-		
+
 		if (fieldSet.hasAutocompleteInstance() || fieldSet.isAuthRefInServices()) {
                     // CSPACE-6187: Require that any field for which an authRef
                     // or termRef declaration is generated actually exists in
@@ -1276,10 +1278,10 @@ public class ServiceBindingsGeneration {
 			result = true;
                     }
 		}
-		
+
 		return result;
 	}
-	
+
 	/*
 	 * If we have authRef's or termRef's, then we create an entry in the bindings xml and return 'true'; otherwise, we return 'false'
 	 */
@@ -1287,15 +1289,15 @@ public class ServiceBindingsGeneration {
 		boolean result = false;
 		String fieldName = in.getID(); // for debugging - remove after
         String sec = in.getSection(); // for debugging - remove after
-		
+
                 // Ignore passed-in section, in order to create authRefs and termRefs for every section
 		if (isAuthOrTermRef(in) && in.getSection().equals(section)) {
-			result = true; // Let the caller know we created a referenced term 
+			result = true; // Let the caller know we created a referenced term
 			Boolean isEnum = false;
 			if (in instanceof Field) {
 				isEnum = (((Field) in).getUIType()).equals("enum");
 			}
-			
+
 			Element tele = auth.addElement(new QName("item", types));
 			Element tele2 = tele.addElement(new QName("key", types));
 			Element tele3 = tele.addElement(new QName("value", types));
@@ -1306,14 +1308,14 @@ public class ServiceBindingsGeneration {
 			tele2.addText(refType);
 			String name = "";
 			FieldSet fs = (FieldSet) in;
-						
+
 			while (fs.getParent().isTrueRepeatField() == true) {
 				String xpathStructuredPart = fs.getServicesTag();
 				if (fs.getParent() instanceof Repeat) {
 					xpathStructuredPart = getXpathStructuredPart((Repeat)fs.getParent());
 				}
 				fs = (FieldSet) fs.getParent();
-				
+
 				String separator = "|"; // Repeatable scalars are separated by the '|' character; otherwise, we use the '/' for xpath expressions
 				if (xpathStructuredPart.endsWith("*")) {
 					separator = "/";
@@ -1323,14 +1325,14 @@ public class ServiceBindingsGeneration {
 			name += in.getServicesTag();
 			tele3.addText(name);
 		}
-		
+
 		return result;
 	}
-	
+
 	protected File getConfigFile() {
 		return this.configFile;
 	}
-	
+
 	/*
 	 * Creates a set of Service binding authRefs and termRefs similar in form to these examples:
 	 *  <types:item>
@@ -1341,12 +1343,12 @@ public class ServiceBindingsGeneration {
 	 *      <types:key>termRef</types:key>
 	 *      <types:value>termLanguage</types:value>
 	 *  </types:item>
-	 *  
+	 *
 	 *  If we don't create any entries then we'll return 'false' to the caller;
 	 */
 	private boolean doAuthRefsAndTermRefs(Element auth, Namespace types, Record r, String section) {
 		boolean result = false;
-		
+
 		for (FieldSet in : r.getAllFieldFullList("")) {
 			String fieldName = in.getID() + ":" + in.getLabel(); // for debugging only
 
@@ -1356,7 +1358,7 @@ public class ServiceBindingsGeneration {
 					Spec recordSpec = in.getRecord().getSpec();
 					Record subRecord = recordSpec.getRecord(fieldSetServicesType); // find a record that corresponds to the fieldset's service type
 					String subSection = "common"; // the fields in an included subrecord should always be in the "common" section
-					
+
 					//
 					// Iterate through each field of the subrecord
 					//
@@ -1372,7 +1374,7 @@ public class ServiceBindingsGeneration {
 				}
 			}
 		}
-		
+
 		return result;
 	}
 }

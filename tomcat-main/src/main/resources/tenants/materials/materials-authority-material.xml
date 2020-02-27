@@ -1,4 +1,6 @@
 <record id="material" type="authority">
+	<elasticsearchIndexed>true</elasticsearchIndexed>
+
 	<instances id="material">
 		<instance id="material-material">
 			<web-url>material</web-url>

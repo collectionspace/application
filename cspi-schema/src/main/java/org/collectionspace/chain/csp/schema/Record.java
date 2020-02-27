@@ -1,5 +1,5 @@
 /* Copyright 2010-2012 University of Cambridge
- * Licensed under the Educational Community License (ECL), Version 2.0. You may not use this file except in 
+ * Licensed under the Educational Community License (ECL), Version 2.0. You may not use this file except in
  * compliance with this License.
  *
  * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
@@ -24,10 +24,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
+ *
  * @author caret
- * 
- * 
+ *
+ *
  */
 public class Record implements FieldParent {
 	private static final Logger log = LoggerFactory.getLogger(Record.class);
@@ -38,6 +38,7 @@ public class Record implements FieldParent {
 	private static final String TYPE_AUTHORITY = "Authority";
 	private static final String TYPE_AUTHORITY_LOWERCASE = TYPE_AUTHORITY.toLowerCase();
 
+	public static final String ELASTICSEARCH_INDEXED = "elasticsearchIndexed";
 	public static final String SUPPORTS_LOCKING = "supportslocking";
 	public static final String SUPPORTS_REPLICATING = "supportsReplicating";
 	public static final String REMOTECLIENT_CONFIG_NAME = "remoteClientConfigName";
@@ -45,12 +46,12 @@ public class Record implements FieldParent {
 	public static final String SUPPORTS_VERSIONING = "supportsversioning";
 	public static final String RANGE_START_SUFFIX = "Start";
 	public static final String RANGE_END_SUFFIX = "End";
-	
+
 	public static final String COLLECTIONSPACE_CORE_PART_NAME = "collectionspace_core";
 	public static final String COLLECTIONSPACE_COMMON_PART_NAME = "common";
 	public static final String COLLECTIONSPACE_SYSTEM_PART_NAME = "system";
 	public static final String COLLECTIONSPACE_SCHEMA_LOCATION_SYSTEM = "http://collectionspace.org/services/config/system http://collectionspace.org/services/config/system/system-response.xsd";
-	public static final String COLLECTIONSPACE_NAMESPACE_URI_SYSTEM = "http://collectionspace.org/services/config/system";	
+	public static final String COLLECTIONSPACE_NAMESPACE_URI_SYSTEM = "http://collectionspace.org/services/config/system";
 
 	protected SchemaUtils utils = new SchemaUtils();
 
@@ -61,7 +62,7 @@ public class Record implements FieldParent {
 	private Map<String, FieldSet> subrecords = new HashMap<String, FieldSet>();
 	private Map<String, Map<String, FieldSet>> subrecordsperm = new HashMap<String, Map<String, FieldSet>>();
 
-	//operation - GET POST PUT SEARCH - as some fields are not available for all operations	
+	//operation - GET POST PUT SEARCH - as some fields are not available for all operations
 	//genpermfields becomes (servicefieldsbyoperation) - topfieldsbyoperation
 	private Map<String, Map<String, FieldSet>> topfieldsbyoperation = new HashMap<String, Map<String, FieldSet>>();
 	//allgenpermfields becomes allfieldsbyoperation includes fields that don't existing the service layer
@@ -100,7 +101,7 @@ public class Record implements FieldParent {
 
 	// Map field id to id of the field to be used for sorting
 	private Map<String, String> sortKeys = new HashMap<String, String>();
-	
+
 	/* Service stuff */
 	private Map<String, String> services_record_paths = new HashMap<String, String>();
 	private Map<String, String> services_instances_paths = new HashMap<String, String>();
@@ -109,11 +110,11 @@ public class Record implements FieldParent {
 	public String getConfigFileName() {
 		return this.configFileSrcName;
 	}
-	
+
 	public void setConfigFileName(String fileName) {
 		this.configFileSrcName = fileName;
 	}
-	
+
 	public Record getLastAuthorityProxy() {
 		return this.lastAuthoriyProxy;
 	}
@@ -207,7 +208,7 @@ public class Record implements FieldParent {
 		// path that the service layer uses to access this record
 		utils.initStrings(section, "services-url", utils.getString("@id"));
 
-		// authorization 
+		// authorization
 		utils.initStrings(section, "authorization-includes", utils.getString("services-url"));
 
 		utils.initBoolean(section, "authorization-view", true);
@@ -238,6 +239,7 @@ public class Record implements FieldParent {
 		utils.initStrings(section, "primaryfield", "");
 		utils.initBoolean(section, "hasdeletemethod", false);
 		utils.initBoolean(section, "hassoftdelete", false);
+		utils.initBoolean(section, ELASTICSEARCH_INDEXED, false);
 		utils.initBoolean(section, SUPPORTS_LOCKING, false);
 		utils.initBoolean(section, SUPPORTS_REPLICATING, false);
 		utils.initStrings(section, REMOTECLIENT_CONFIG_NAME, "");
@@ -294,7 +296,7 @@ public class Record implements FieldParent {
 	 * mark up the different types of repeats repeator are adv search only
 	 * repeats repeatored are adv search and edit/view repeats repeatable are
 	 * just edit/view repeats
-	 * 
+	 *
 	 * @param f
 	 */
 	public void addSearchField(FieldSet f) {
@@ -328,7 +330,7 @@ public class Record implements FieldParent {
 				fed.setSearchType("range");
 				fed.setType(searchf.getUIType());
 				fst.setType(searchf.getUIType());
-				
+
 				if (searchf.getUIType().equals("computed")) {
 					Field field = (Field) searchf;
 					// Copy the necessary attributes into the start and end fields
@@ -337,14 +339,14 @@ public class Record implements FieldParent {
 					fst.setLabel(field.getLabel());
 					fst.setReadOnly(field.isReadOnly());
 					fst.setUIArgs(suffixUIArgs(field.getUISearchArgs().equals("") ? field.getUIArgs() : field.getUISearchArgs(), RANGE_START_SUFFIX));
-					
+
 					fed.setUIFunc(field.getUIFunc());
 					fed.setDataType(field.getDataType());
 					fed.setLabel(field.getLabel());
 					fed.setReadOnly(field.isReadOnly());
 					fed.setUIArgs(suffixUIArgs(field.getUISearchArgs().equals("") ? field.getUIArgs() : field.getUISearchArgs(), RANGE_END_SUFFIX));
 				}
-				
+
 				searchFieldFullList.put(fst.getID(), fst);
 				searchFieldFullList.put(fed.getID(), fed);
 			} else {
@@ -360,10 +362,10 @@ public class Record implements FieldParent {
 			String element = elements[i];
 			elements[i] = element + suffix;
 		}
-		
+
 		return StringUtils.join(elements, ",");
 	}
-	
+
 	public void addNestedFieldList(String r) {
 		nestedFieldList.put(r, r);
 	}
@@ -425,7 +427,7 @@ public class Record implements FieldParent {
 	public FieldSet[] getAllFieldFullList() {
 		return fieldFullList.values().toArray(new FieldSet[0]);
 	}
-	
+
 	public FieldSet[] getAllFieldFullList(String operation) {
 		if (allfieldsbyoperation.containsKey(operation)) {
 			return allfieldsbyoperation.get(operation).values().toArray(new FieldSet[0]);
@@ -544,7 +546,7 @@ public class Record implements FieldParent {
 	public String toString() {
 		return getID();
 	}
-	
+
 	@Override
 	public String getID() {
 		return utils.getString("@id");
@@ -755,10 +757,14 @@ public class Record implements FieldParent {
 		return utils.getBoolean("hassoftdelete");
 	}
 
+	public boolean isElasticsearchIndexed() {
+		return utils.getBoolean(ELASTICSEARCH_INDEXED);
+	}
+
 	public boolean supportsLocking() {
 		return utils.getBoolean(SUPPORTS_LOCKING);
 	}
-	
+
 	public boolean supportsReplicating() {
 		return utils.getBoolean(SUPPORTS_REPLICATING);
 	}
@@ -827,7 +833,7 @@ public class Record implements FieldParent {
 		}
 		//
 		// Handle special case for Authorities
-		// 
+		//
 		if (isAuthority == true) {
 			result = this.getServicesTenantAuthSg();
 		}
@@ -878,13 +884,13 @@ public class Record implements FieldParent {
 	 */
 	private static String getURLTail(String url) {
 		String result = null;
-		
+
 		Scanner scanner = null;
 		try {
 			scanner = new Scanner(url).useDelimiter("\\/+");
 		    while (scanner.hasNext() == true) {
 		    	result = scanner.next();
-		    }	 
+		    }
 		} catch (Exception e) {
 			// Ignore the exception or logger.trace(e);
 		} finally {
@@ -893,13 +899,13 @@ public class Record implements FieldParent {
 
 		return result;
 	}
-	
+
 	/*
 	 * Gets the Service's document model handler by using standard naming conventions.
 	 */
 	public String getServicesDocHandler(Boolean isAuthority) {
 		String result = utils.getString("services-dochandler");
-		
+
 		if (result == null) {
 			result = "org.collectionspace.services." + getURLTail(getServicesSchemaNameSpaceURI(COLLECTIONSPACE_COMMON_PART_NAME)) + ".nuxeo."
 					+ utils.getString("services-tenant-singular") + "DocumentModelHandler";
@@ -915,7 +921,7 @@ public class Record implements FieldParent {
 	/*
 	 * Gets the Service's document model validation handler by using standard naming conventions.
 	 * For example, org.collectionspace.services.collectionobject.nuxeo.CollectionObjectValidatorHandler
-	 */	
+	 */
 	public String getServicesValidatorHandler(Boolean isAuthority) {
 		String result = utils.getString("services-validator");
 
@@ -923,14 +929,14 @@ public class Record implements FieldParent {
 			result = "org.collectionspace.services." + getURLTail(getServicesSchemaNameSpaceURI(COLLECTIONSPACE_COMMON_PART_NAME)) + ".nuxeo."
 					+ utils.getString("services-tenant-singular") + "ValidatorHandler";
 		}
-		
+
 		if (isAuthority == true) {
 			result = getAuthorityForm(result);
 		}
 
 		return result;
 	}
-	
+
 	//
 	// For example, org.collectionspace.services.client.CollectionObjectClient
 	//
@@ -941,14 +947,14 @@ public class Record implements FieldParent {
 			result = "org.collectionspace.services.client." + utils.getString("services-tenant-singular")
 					+ "Client";
 		}
-		
+
 		if (isAuthority == true) {
 			result = getAuthorityForm(result);
 		}
 
 		return result;
 	}
-	
+
 
 	public String getServicesRepositoryDomain() {
 		return utils.getString("services-repo-domain");
@@ -1176,9 +1182,9 @@ public class Record implements FieldParent {
 	}
 
 	public Boolean isAuthorizationType(String name) {
-		// This is too simplistic. We need to either match, 
+		// This is too simplistic. We need to either match,
 		// or allow a set of tokens in a path to match, but
-		// the contains model is broken. 
+		// the contains model is broken.
 		String authType = getAuthorizationType();
 		if (StringUtils.isEmpty(authType))
 			return false;
@@ -1403,8 +1409,8 @@ public class Record implements FieldParent {
 			n.config_finish(spec);
 		for (FieldSet fs : fieldTopLevel.values())
 			fs.config_finish(spec);
-		// Handle nested self-renderers, to harvest things from nested like displayName, 
-		// mini lists, etc. 
+		// Handle nested self-renderers, to harvest things from nested like displayName,
+		// mini lists, etc.
 		findDisplayNameField();
 		findMiniNumber();
 		findMiniSummary();
@@ -1418,11 +1424,11 @@ public class Record implements FieldParent {
 	public boolean isExpander() {
 		return false;
 	}
-	
+
 	public void setSortKey(String fieldId, String sortFieldId) {
 		sortKeys.put(fieldId, sortFieldId);
 	}
-	
+
 	public String getSortKey(String fieldId) {
 		return sortKeys.get(fieldId);
 	}

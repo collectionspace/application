@@ -7,6 +7,7 @@
 	<web-url>cataloging</web-url>
 	<tab-url>cataloging-tab</tab-url>
 	<number-selector>.csc-entry-number</number-selector>
+	<elasticsearchIndexed>true</elasticsearchIndexed>
 
 	<list-key>cataloging</list-key>
 
