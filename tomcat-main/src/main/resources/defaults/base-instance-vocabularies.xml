@@ -56,6 +56,27 @@
 			<option id="researcher">researcher</option>
 		</options>
 	</instance>
+	<instance id="vocab-uocuserroles">
+		<web-url>uocuserroles</web-url>
+		<title-ref>uocuserroles</title-ref>
+		<title>Use of Collections Role of User</title>
+		<options>
+			<option id="undergraduate">Undergraduate student</option>
+			<option id="graduate">Graduate student</option>
+			<option id="faculty">Faculty</option>
+			<option id="other">Other</option>
+		</options>
+	</instance>
+	<instance vocab="vocab-uocauthorizationstatuses">
+		<web-url>uocauthorizationstatuses</web-url>
+		<title-ref>uocauthorizationstatuses</title-ref>
+		<title>Use of Collections Authorization Statuses</title>
+		<options>
+			<option id="approved">Approved</option>
+			<option id="denied">Denied</option>
+			<option id="pending">Pending</option>
+		</options>
+	</instance>
 	<instance id="vocab-publishto">
 		<web-url>publishto</web-url>
 		<title-ref>publishto</title-ref>
@@ -1202,4 +1223,59 @@
 			<option id="inactive">inactive</option>
 		</options>
 	</instance>
+	<instance id="vocab-uoccollectiontypes">
+		<web-url>uoccollectiontypes</web-url>
+		<title-ref>uoccollectiontypes</title-ref>
+		<title>Use of Collections Type</title>
+		<options>
+			<option id="uocOsteology">osteology</option>
+			<option id="uocDocumentation">documentation</option>
+			<option id="uocArcheology">archeology</option>
+		</options>
+	</instance>
+	<instance id="vocab-uocstaffroles">
+		<web-url>uocstaffroles</web-url>
+		<title-ref>uocstaffroles</title-ref>
+		<title>Use of Collections Staff Role</title>
+		<options>
+			<option id="greeter">greeter</option>
+			<option id="objecthandler">object handler</option>
+			<option id="presenter">presenter</option>
+		</options>
+	</instance>
+	<instance id="vocab-uocmaterialtypes">
+		<web-url>uocmaterialtypes</web-url>
+		<title-ref>uocmaterialtypes</title-ref>
+		<title>Use of Collections Material Types</title>
+		<options>
+			<option id="root">root</option>
+			<option id="bulb">bulb</option>
+			<option id="cones">cones</option>
+			<option id="cutting">cutting</option>
+			<option id="flower">flower</option>
+			<option id="fruit">fruit</option>
+			<option id="leaf">leaf</option>
+			<option id="livingplant">living plant</option>
+			<option id="pollen">pollen</option>
+			<option id="roots">roots</option>
+			<option id="seed">seed</option>
+			<option id="spores">spores</option>
+			<option id="wood">wood</option>
+		</options>
+	</instance>	
+	<instance id="vocab-uocprojectid">
+		<web-url>uocprojectid</web-url>
+		<title-ref>uocprojectid</title-ref>
+		<title>Use of Collections Project Identification Number</title>
+		<options>
+		</options>
+	</instance>	
+	<instance id="vocab-uocsubcollections">
+		<web-url>uocsubcollections</web-url>
+		<title-ref>uocsubcollections</title-ref>
+		<title>uocsubcollections</title>
+		<options>
+			<option id="uocSubcollection00">unknown</option>
+		</options>
+	</instance>	
 </instances>
