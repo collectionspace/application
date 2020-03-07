@@ -20,9 +20,16 @@
 			<field id="entryMethod" autocomplete="true" ui-type="enum" />
 		</repeat>
 		<field id="returnDate" datatype="date" />
-		<field id="currentOwner" mini="summary,list" autocomplete="true" />
-		<field id="depositor" autocomplete="true" />
-		<field id="depositorsRequirements" />
+
+		<repeat id="currentOwners">
+			<field id="currentOwner" mini="summary,list" autocomplete="true" />
+		</repeat>
+
+		<repeat id="depositorGroupList/depositorGroup">
+			<field id="depositor" autocomplete="true" />
+			<field id="depositorsRequirements" />
+		</repeat>
+
 		<repeat id="approvalGroupList/approvalGroup">
 			<field id="approvalGroup" autocomplete="true" ui-type="enum" />
 			<field id="approvalIndividual" autocomplete="true" />
