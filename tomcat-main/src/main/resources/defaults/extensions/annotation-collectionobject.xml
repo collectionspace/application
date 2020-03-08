@@ -7,7 +7,7 @@
 		<repeat id="annotationGroupList/annotationGroup" section="annotation">
 			<field id="annotationType" autocomplete="true" ui-type="enum" section="annotation" />
 			<field id="annotationNote" section="annotation" />
-			<field id="annotationDate" section="annotation" />
+			<field id="annotationDate" datatype="date" section="annotation" />
 			<field id="annotationAuthor" autocomplete="true" section="annotation" />
 		</repeat>
 	</section>

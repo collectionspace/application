@@ -6,8 +6,8 @@
 		<repeat id="accessionUseGroupList/accessionUseGroup" section="accessionuse">
 			<field id="accessionUseType" autocomplete="true" ui-type="enum" section="accessionuse" />
 			<field id="accessionUsedIn" autocomplete="true" section="accessionuse" />
-			<field id="accessionUseRequestDate" section="accessionuse" />
-			<field id="accessionUseFilledDate" section="accessionuse" />
+			<field id="accessionUseRequestDate" datatype="date" section="accessionuse" />
+			<field id="accessionUseFilledDate" datatype="date" section="accessionuse" />
 			<field id="accessionUserMaterialType" autocomplete="true" ui-type="enum" section="accessionuse" />
 			<field id="accessionUseNotes" section="accessionuse" />
 		</repeat>
