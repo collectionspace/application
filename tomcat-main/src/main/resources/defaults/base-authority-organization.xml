@@ -61,8 +61,12 @@
 		<repeat id="historyNotes">
 			<field id="historyNote" />
 		</repeat>
-		<repeat id="contactNames">
+		<repeat id="contactGroupList/contactGroup">
 			<field id="contactName" autocomplete="true" />
+			<field id="contactRole" autocomplete="true" ui-type="enum" />
+			<field id="contactDateGroup" ui-type="groupfield/structureddate" />
+			<field id="contactEndDateGroup" ui-type="groupfield/structureddate" />
+			<field id="contactStatus" autocomplete="true" ui-type="enum" />
 		</repeat>
 	</section>
 
