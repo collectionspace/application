@@ -59,12 +59,12 @@
 	<instance id="vocab-uocuserroles">
 		<web-url>uocuserroles</web-url>
 		<title-ref>uocuserroles</title-ref>
-		<title>Use of Collections Role of User</title>
+		<title>Use of Collections User Roles</title>
 		<options>
-			<option id="undergraduate">Undergraduate student</option>
-			<option id="graduate">Graduate student</option>
-			<option id="faculty">Faculty</option>
-			<option id="other">Other</option>
+			<option id="undergraduate">undergraduate student</option>
+			<option id="graduate">graduate student</option>
+			<option id="faculty">faculty</option>
+			<option id="other">other</option>
 		</options>
 	</instance>
 	<instance vocab="vocab-uocauthorizationstatuses">
@@ -1226,17 +1226,17 @@
 	<instance id="vocab-uoccollectiontypes">
 		<web-url>uoccollectiontypes</web-url>
 		<title-ref>uoccollectiontypes</title-ref>
-		<title>Use of Collections Type</title>
+		<title>Use of Collections Types</title>
 		<options>
-			<option id="uocOsteology">osteology</option>
-			<option id="uocDocumentation">documentation</option>
-			<option id="uocArcheology">archeology</option>
+			<option id="uocosteology">osteology</option>
+			<option id="uocdocumentation">documentation</option>
+			<option id="uocarcheology">archeology</option>
 		</options>
 	</instance>
 	<instance id="vocab-uocstaffroles">
 		<web-url>uocstaffroles</web-url>
 		<title-ref>uocstaffroles</title-ref>
-		<title>Use of Collections Staff Role</title>
+		<title>Use of Collections Staff Roles</title>
 		<options>
 			<option id="greeter">greeter</option>
 			<option id="objecthandler">object handler</option>
@@ -1266,16 +1266,18 @@
 	<instance id="vocab-uocprojectid">
 		<web-url>uocprojectid</web-url>
 		<title-ref>uocprojectid</title-ref>
-		<title>Use of Collections Project Identification Number</title>
+		<title>Use of Collections Project Identification Numbers</title>
 		<options>
 		</options>
 	</instance>	
 	<instance id="vocab-uocsubcollections">
 		<web-url>uocsubcollections</web-url>
 		<title-ref>uocsubcollections</title-ref>
-		<title>uocsubcollections</title>
+		<title>Use of Collections Sub-Collections</title>
 		<options>
-			<option id="uocSubcollection00">unknown</option>
+			<option id="uocsubcollection00">the Americas</option>
+			<option id="uocsubcollection01">Europe</option>
+			<option id="uocsubcollection02">Asia</option>
 		</options>
 	</instance>	
 </instances>
