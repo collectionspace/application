@@ -14,10 +14,6 @@
 			<field id="graveAssocCode" section="nagpra" autocomplete="true" ui-type="enum" />
 		</repeat>
 
-		<repeat id="nagpraCulturalDeterminations" section="nagpra">
-			<field id="nagpraCulturalDetermination" section="nagpra" />
-		</repeat>
-
 		<repeat id="repatriationNotes" section="nagpra">
 			<field id="repatriationNote" section="nagpra" />
 		</repeat>
@@ -25,5 +21,12 @@
 		<field id="nagpraReportFiled" section="nagpra" datatype="boolean" />
 		<field id="nagpraReportFiledBy" section="nagpra" autocomplete="true" />
 		<field id="nagpraReportFiledDate" section="nagpra" ui-type="groupfield/structureddate" />
+
+		<repeat id="nagpraDetermGroupList/nagpraDetermGroup" section="nagpra">
+			<field id="nagpraDetermCulture" section="nagpra" autocomplete="true" />
+			<field id="nagpraDetermType" section="nagpra" autocomplete="true" ui-type="enum" />
+			<field id="nagpraDetermBy" section="nagpra" autocomplete="true" />
+			<field id="nagpraDetermNote" section="nagpra" />
+		</repeat>
 	</section>
 </record>

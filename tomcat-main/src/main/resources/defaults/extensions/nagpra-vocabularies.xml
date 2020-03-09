@@ -64,4 +64,13 @@
 			<option id="unknown">unknown</option>
 		</options>
 	</instance>
+	<instance id="vocab-nagpradetermtype">
+		<web-url>nagpradetermtype</web-url>
+		<title-ref>nagpradetermtype</title-ref>
+		<title>NAGPRA Determination Types</title>
+		<options>
+			<option id="tribal">tribal</option>
+			<option id="museum">museum</option>
+		</options>
+	</instance>
 </instances>
