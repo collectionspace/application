@@ -60,6 +60,27 @@
 			<option id="summerschoolstudent">summer school student</option>
 		</options>
 	</instance>
+	<instance id="vocab-uocuserroles">
+		<web-url>uocuserroles</web-url>
+		<title-ref>uocuserroles</title-ref>
+		<title>Use of Collections User Roles</title>
+		<options>
+			<option id="undergraduate">undergraduate student</option>
+			<option id="graduate">graduate student</option>
+			<option id="faculty">faculty</option>
+			<option id="other">other</option>
+		</options>
+	</instance>
+	<instance vocab="vocab-uocauthorizationstatuses">
+		<web-url>uocauthorizationstatuses</web-url>
+		<title-ref>uocauthorizationstatuses</title-ref>
+		<title>Use of Collections Authorization Statuses</title>
+		<options>
+			<option id="approved">approved</option>
+			<option id="denied">denied</option>
+			<option id="pending">pending</option>
+		</options>
+	</instance>
 	<instance id="vocab-publishto">
 		<web-url>publishto</web-url>
 		<title-ref>publishto</title-ref>
@@ -1187,6 +1208,82 @@
 			<option id="repatriation">repatriation</option>
 			<option id="return_to_donor">return to donor</option>
 			<option id="transfer">transfer</option>
+		</options>
+	</instance>
+	<instance id="vocab-contactrole">
+		<web-url>contactrole</web-url>
+		<title-ref>contactrole</title-ref>
+		<title>Contact Person Roles</title>
+		<options>
+			<option id="curator">curator</option>
+			<option id="director">director</option>
+			<option id="registrar">registrar</option>
+		</options>
+	</instance>
+	<instance id="vocab-contactstatus">
+		<web-url>contactstatus</web-url>
+		<title-ref>contactstatus</title-ref>
+		<title>Contact Person Statuses</title>
+		<options>
+			<option id="active">active</option>
+			<option id="inactive">inactive</option>
+		</options>
+	</instance>
+	<instance id="vocab-uoccollectiontypes">
+		<web-url>uoccollectiontypes</web-url>
+		<title-ref>uoccollectiontypes</title-ref>
+		<title>Use of Collections Types</title>
+		<options>
+			<option id="uocosteology">osteology</option>
+			<option id="uocdocumentation">documentation</option>
+			<option id="uocarcheology">archeology</option>
+		</options>
+	</instance>
+	<instance id="vocab-uocstaffroles">
+		<web-url>uocstaffroles</web-url>
+		<title-ref>uocstaffroles</title-ref>
+		<title>Use of Collections Staff Roles</title>
+		<options>
+			<option id="greeter">greeter</option>
+			<option id="objecthandler">object handler</option>
+			<option id="presenter">presenter</option>
+		</options>
+	</instance>
+	<instance id="vocab-uocmaterialtypes">
+		<web-url>uocmaterialtypes</web-url>
+		<title-ref>uocmaterialtypes</title-ref>
+		<title>Use of Collections Material Types</title>
+		<options>
+			<option id="root">root</option>
+			<option id="bulb">bulb</option>
+			<option id="cones">cones</option>
+			<option id="cutting">cutting</option>
+			<option id="flower">flower</option>
+			<option id="fruit">fruit</option>
+			<option id="leaf">leaf</option>
+			<option id="livingplant">living plant</option>
+			<option id="pollen">pollen</option>
+			<option id="roots">roots</option>
+			<option id="seed">seed</option>
+			<option id="spores">spores</option>
+			<option id="wood">wood</option>
+		</options>
+	</instance>
+	<instance id="vocab-uocprojectid">
+		<web-url>uocprojectid</web-url>
+		<title-ref>uocprojectid</title-ref>
+		<title>Use of Collections Project Identification Numbers</title>
+		<options>
+		</options>
+	</instance>
+	<instance id="vocab-uocsubcollections">
+		<web-url>uocsubcollections</web-url>
+		<title-ref>uocsubcollections</title-ref>
+		<title>Use of Collections Subcollections</title>
+		<options>
+			<option id="uocsubcollection00">The Americas</option>
+			<option id="uocsubcollection01">Europe</option>
+			<option id="uocsubcollection02">Asia</option>
 		</options>
 	</instance>
 </instances>
