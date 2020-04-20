@@ -43,5 +43,8 @@
 		<field id="supportsGroup" datatype="boolean" />
 		<field id="filename" />
 		<field id="outputMIME" />
+		<repeat id="supportsOutputMIMEList">
+			<field id="outputMIME" />
+		</repeat>
 	</section>
 </record>
