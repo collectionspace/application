@@ -84,6 +84,7 @@
 		<options>
 			<option id="all">All</option>
 			<option id="none">None</option>
+			<option id="cspacepub">CollectionSpace Public Browser</option>
 			<option id="cultureobject">Culture Object</option>
 			<option id="dpla">DPLA</option>
 			<option id="omeka">Omeka</option>
