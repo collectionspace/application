@@ -1,0 +1,46 @@
+<record id="organization" is-extension="true">
+	<services-record-path id="cinefiles">organizations_cinefiles:http://collectionspace.org/services/organization/local/cinefiles,organizations_cinefiles</services-record-path>
+
+	<instances id="organization">
+		<!-- Replace instances -->
+		<instance id="organization-organization">
+			<web-url>organization</web-url>
+			<title-ref>organization</title-ref>
+			<title>Corporate Names</title>
+			<nptAllowed>false</nptAllowed>
+		</instance>
+		<instance id="organization-committee">
+			<web-url>committee</web-url>
+			<title-ref>committee</title-ref>
+			<title>Committees</title>
+			<nptAllowed>false</nptAllowed>
+		</instance>
+	</instances>
+	
+	<section id="organizationNameAuthorityInformation">
+		<!-- Tie to country vocabulary -->
+		<field id="foundingPlace" autocomplete="vocab-country" ui-type="enum"/>
+
+		<!-- Local fields -->
+		
+		<field id="foundingState" section="cinefiles" ui-search="repeatable"/>
+		<field id="foundingCity" section="cinefiles" ui-search="repeatable"/>
+
+		<repeat id="memberGroupList/memberGroup" section="cinefiles">
+			<field id="member" section="cinefiles" autocomplete="person-person"/>
+			<field id="memberNote" section="cinefiles"/>
+			<field id="memberAuthority" section="cinefiles" autocomplete="citation-citation"/>
+		</repeat>
+		
+		<field id="accessCode" section="cinefiles" ui-search="repeatable">
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="PFA Staff Only">PFA Staff Only</option>
+				<option id="In House Only">In House Only</option>
+				<option id="Campus (UCB)">Campus (UCB)</option>
+				<option id="Education (*.edu)">Education (*.edu)</option>
+				<option id="World">World</option>
+			</options>
+		</field>
+	</section>
+</record>

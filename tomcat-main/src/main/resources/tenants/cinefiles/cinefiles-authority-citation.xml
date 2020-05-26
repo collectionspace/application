@@ -1,0 +1,18 @@
+<record id="citation">
+	<instances id="citation">
+		<!-- Replace instances -->
+		<instance id="citation-citation">
+			<web-url>citation</web-url>
+			<title-ref>citation</title-ref>
+			<title>Citations</title>
+			<nptAllowed>false</nptAllowed>
+		</instance>
+	</instances>
+	
+	<section id="citationNameAuthorityInformation">
+		<repeat id="citationPublicationInfoGroupList/citationPublicationInfoGroup">
+			<!-- Remove place-tgn_place from autocomplete -->
+			<field id="publicationPlace" autocomplete="place-place"/>
+		</repeat>
+	</section>
+</record>

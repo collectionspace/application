@@ -1,0 +1,66 @@
+<cspace-config tenantname="cinefiles">
+	<tenantid>50</tenantid>
+	<version>11</version>
+	<include src="settings.xml,cinefiles-settings.xml,host-settings.xml" required="false" merge="xmlmerge-settings.properties" strip-root="yes"/>
+
+	<spec>
+		<include src="base-relations.xml"/>
+		<include src="base-schemas.xml"/>
+
+		<records>
+			<enum-blank>Please select a value</enum-blank>
+
+			<include src="base-collectionobject.xml,cinefiles-collectionobject.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority.xml"/>
+
+			<include src="base-procedure-blobs.xml,cinefiles-procedure-blobs.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-conditioncheck.xml"/>
+			<include src="base-procedure-groups.xml,cinefiles-procedure-groups.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-media.xml,cinefiles-procedure-media.xml,extensions/piction-procedure-media.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-valuationcontrol.xml"/>
+			<include src="base-procedure-uoc.xml"/>
+
+			<include src="base-authority-contact.xml,cinefiles-authority-contact.xml" merge="xmlmerge.properties"/>
+
+			<!-- IMPORTANT: *-termList.xml files MUST precede their equivalent files. -->
+			<include src="base-authority-location-termList.xml,cinefiles-authority-location-termList.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-location.xml,cinefiles-authority-location.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-organization-termList.xml,cinefiles-authority-organization-termList.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-organization.xml,cinefiles-authority-organization.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-person-termList.xml,cinefiles-authority-person-termList.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-person.xml,cinefiles-authority-person.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-citation-termList.xml,cinefiles-authority-citation-termList.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-citation.xml,cinefiles-authority-citation.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-place-termList.xml,cinefiles-authority-place-termList.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-place.xml,cinefiles-authority-place.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-concept-termList.xml,cinefiles-authority-concept-termList.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-concept.xml,cinefiles-authority-concept.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-work-termList.xml,cinefiles-authority-work-termList.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-work.xml,cinefiles-authority-work.xml" merge="xmlmerge.properties"/>
+
+			<include src="base-vocabularies.xml"/>
+
+			<include src="base-authz-accountrole.xml"/>
+			<include src="base-authz-permission.xml"/>
+			<include src="base-authz-permrole.xml"/>
+			<include src="base-authz-role.xml"/>
+			<include src="base-authz-userperm.xml"/>
+			<include src="base-authz-userrole.xml"/>
+			<include src="base-authz-users.xml"/>
+
+			<include src="base-other-dimension.xml"/>
+			<include src="base-other-address.xml"/>
+			<include src="base-other-hierarchy.xml"/>
+			<include src="base-other-idgenerator.xml,cinefiles-other-idgenerator.xml" merge="xmlmerge.properties"/>
+			<include src="base-other-structureddate.xml"/>
+			<include src="base-other-termlist.xml"/>
+			<include src="base-other-termlistitem.xml"/>
+			<include src="base-other-reporting.xml"/>
+			<include src="base-other-reportingoutput.xml"/>
+			<include src="base-other-batch.xml"/>
+			<include src="base-other-batchoutput.xml"/>
+			<include src="base-other-invocationresults.xml"/>
+			<include src="base-other-searchall.xml"/>
+		</records>
+	</spec>
+</cspace-config>

@@ -1,0 +1,349 @@
+<instances>
+	<instance id="vocab-country">
+		<web-url>country</web-url>
+		<title-ref>country</title-ref>
+		<title>Country</title>
+		<options>
+			<option id="af">Afghanistan</option>
+			<option id="aa">Albania</option>
+			<option id="ae">Algeria</option>
+			<option id="as">American Samoa</option>
+			<option id="an">Andorra</option>
+			<option id="ao">Angola</option>
+			<option id="am">Anguilla</option>
+			<option id="ay">Antarctica</option>
+			<option id="aq">Antigua and Barbuda</option>
+			<option id="ag">Argentina</option>
+			<option id="ai">Armenia (Republic)</option>
+			<option id="aw">Aruba</option>
+			<option id="at">Australia</option>
+			<option id="au">Austria</option>
+			<option id="aj">Azerbaijan</option>
+			<option id="bf">Bahamas</option>
+			<option id="ba">Bahrain</option>
+			<option id="bg">Bangladesh</option>
+			<option id="bb">Barbados</option>
+			<option id="be">Belgium</option>
+			<option id="bh">Belize</option>
+			<option id="dm">Benin</option>
+			<option id="bm">Bermuda Islands</option>
+			<option id="bt">Bhutan</option>
+			<option id="bo">Bolivia</option>
+			<option id="bn">Bosnia and Hercegovina</option>
+			<option id="bs">Botswana</option>
+			<option id="bv">Bouvet Island</option>
+			<option id="bl">Brazil</option>
+			<option id="bi">British Indian Ocean Territory</option>
+			<option id="vb">British Virgin Islands</option>
+			<option id="bx">Brunei</option>
+			<option id="bu">Bulgaria</option>
+			<option id="uv">Burkina Faso</option>
+			<option id="br">Burma</option>
+			<option id="bd">Burundi</option>
+			<option id="bw">Byelarus</option>
+			<option id="cb">Cambodia</option>
+			<option id="cm">Cameroon</option>
+			<option id="xxc">Canada</option>
+			<option id="cv">Cape Verde</option>
+			<option id="cj">Cayman Islands</option>
+			<option id="cx">Central African Republic</option>
+			<option id="cd">Chad</option>
+			<option id="cl">Chile</option>
+			<option id="ch">China (Republic : 1949- )</option>
+			<option id="xa">Christmas Islands</option>
+			<option id="xb">Cocos (Keeling) Islands</option>
+			<option id="ck">Colombia</option>
+			<option id="cq">Comoros</option>
+			<option id="cf">Congo (Brazzaville)</option>
+			<option id="cw">Cook Islands</option>
+			<option id="cr">Costa Rica</option>
+			<option id="iv">Cote d'Ivoire</option>
+			<option id="ci">Croatia</option>
+			<option id="cu">Cuba</option>
+			<option id="cy">Cyprus</option>
+			<option id="xr">Czech Republic</option>
+			<option id="cz">Czechoslovakia</option>
+			<option id="kh">Democratic Kampuchea</option>
+			<option id="yd">Democratic Yemen</option>
+			<option id="dk">Denmark</option>
+			<option id="ft">Djibouti</option>
+			<option id="dq">Dominica</option>
+			<option id="dr">Dominican Republic</option>
+			<option id="tp">East Timor</option>
+			<option id="ec">Ecuador</option>
+			<option id="ua">Egypt</option>
+			<option id="es">El Salvador</option>
+			<option id="enk">England</option>
+			<option id="eg">Equatorial Guinea</option>
+			<option id="ea">Eritrea</option>
+			<option id="er">Estonia</option>
+			<option id="et">Ethiopia</option>
+			<option id="fk">Falkland Islands</option>
+			<option id="fa">Faroe Islands</option>
+			<option id="fj">Fiji</option>
+			<option id="fi">Finland</option>
+			<option id="fr">France</option>
+			<option id="fg">French Guiana</option>
+			<option id="fp">French Polynesia</option>
+			<option id="tf">French Southern Territories</option>
+			<option id="go">Gabon</option>
+			<option id="gm">Gambia</option>
+			<option id="gz">Gaza Strip</option>
+			<option id="gs">Georgia (Republic)</option>
+			<option id="gw">Germany</option>
+			<option id="gh">Ghana</option>
+			<option id="gi">Gibraltar</option>
+			<option id="xxk">Great Britain</option>
+			<option id="gr">Greece</option>
+			<option id="gl">Greenland</option>
+			<option id="gd">Grenada</option>
+			<option id="gp">Guadeloupe</option>
+			<option id="gu">Guam</option>
+			<option id="gt">Guatemala</option>
+			<option id="gv">Guinea</option>
+			<option id="pg">Guinea-Bissau</option>
+			<option id="gy">Guyana</option>
+			<option id="ht">Haiti</option>
+			<option id="hm">Heard and McDonald Islands</option>
+			<option id="ho">Honduras</option>
+			<option id="hk">Hong Kong</option>
+			<option id="hu">Hungary</option>
+			<option id="ic">Iceland</option>
+			<option id="ii">India</option>
+			<option id="io">Indonesia</option>
+			<option id="ir">Iran</option>
+			<option id="iq">Iraq</option>
+			<option id="iy">Iraq-Saudi Arabia Neutral Zone</option>
+			<option id="IL">Ireland</option>
+			<option id="is">Israel</option>
+			<option id="it">Italy</option>
+			<option id="jm">Jamaica</option>
+			<option id="ja">Japan</option>
+			<option id="ji">Johnston Atoll</option>
+			<option id="jo">Jordon</option>
+			<option id="kz">Kazakhstan</option>
+			<option id="ke">Kenya</option>
+			<option id="gb">Kiribati</option>
+			<option id="kn">Korea (North)</option>
+			<option id="ko">Korea (South)</option>
+			<option id="ku">Kuwait</option>
+			<option id="kg">Kyrgyzstan</option>
+			<option id="ls">Laos</option>
+			<option id="lv">Latvia</option>
+			<option id="le">Lebanon</option>
+			<option id="lo">Lesotho</option>
+			<option id="lb">Liberia</option>
+			<option id="ly">Libya</option>
+			<option id="lh">Liechtenstein</option>
+			<option id="li">Lithuania</option>
+			<option id="lu">Luxembourg</option>
+			<option id="mh">Macao</option>
+			<option id="xn">Macedonia (Republic)</option>
+			<option id="mg">Madagascar</option>
+			<option id="mw">Malawi</option>
+			<option id="my">Malaysia</option>
+			<option id="xc">Maldives</option>
+			<option id="ml">Mali</option>
+			<option id="mm">Malta</option>
+			<option id="xe">Marshall Islands</option>
+			<option id="mq">Martinique</option>
+			<option id="mu">Mauritania</option>
+			<option id="mf">Mauritius</option>
+			<option id="ot">Mayotte</option>
+			<option id="mx">Mexico</option>
+			<option id="fm">Micronesia (Federated States)</option>
+			<option id="xf">Midway Islands</option>
+			<option id="mv">Moldova</option>
+			<option id="mc">Monaco</option>
+			<option id="mp">Mongolia</option>
+			<option id="mj">Montserrat</option>
+			<option id="mr">Morocco</option>
+			<option id="mz">Mozambique</option>
+			<option id="sx">Namibia</option>
+			<option id="nu">Nauru</option>
+			<option id="np">Nepal</option>
+			<option id="ne">Netherlands</option>
+			<option id="na">Netherlands Antilles</option>
+			<option id="nl">New Caledonia</option>
+			<option id="nz">New Zealand</option>
+			<option id="nq">Nicaragua</option>
+			<option id="ng">Niger</option>
+			<option id="nr">Nigeria</option>
+			<option id="xh">Niue</option>
+			<option id="nx">Norfolk Island</option>
+			<option id="nei">Northern Ireland</option>
+			<option id="nw">Northern Mariana Islands</option>
+			<option id="no">Norway</option>
+			<option id="mk">Oman</option>
+			<option id="pk">Pakistan</option>
+			<option id="pw">Palau</option>
+			<option id="ps">Palestine</option>
+			<option id="pn">Panama</option>
+			<option id="pp">Papua New Guinea</option>
+			<option id="pf">Paracel Islands</option>
+			<option id="py">Paraguay</option>
+			<option id="pe">Peru</option>
+			<option id="ph">Philippines</option>
+			<option id="pc">Pitcairn Island</option>
+			<option id="pl">Poland</option>
+			<option id="po">Portugal</option>
+			<option id="pr">Puerto Rico</option>
+			<option id="qa">Qatar</option>
+			<option id="re">Reunion</option>
+			<option id="rm">Romania</option>
+			<option id="ru">Russia (Federation)</option>
+			<option id="rw">Rwanda</option>
+			<option id="xj">Saint Helena</option>
+			<option id="xk">Saint Lucia</option>
+			<option id="xm">Saint Vincent and the Grenadines</option>
+			<option id="sm">San Marino</option>
+			<option id="sf">Sao Tome and Principe</option>
+			<option id="su">Saudi Arabia</option>
+			<option id="stk">Scotland</option>
+			<option id="sg">Senegal</option>
+			<option id="se">Seychelles</option>
+			<option id="sl">Sierra Leone</option>
+			<option id="si">Singapore</option>
+			<option id="xo">Slovakia</option>
+			<option id="xv">Slovenia</option>
+			<option id="bp">Solomon Islands</option>
+			<option id="so">Somalia</option>
+			<option id="sa">South Africa</option>
+			<option id="xxr">Soviet Union</option>
+			<option id="sp">Spain</option>
+			<option id="sh">Spanish North Africa</option>
+			<option id="xp">Spratly Island</option>
+			<option id="ce">Sri Lanka</option>
+			<option id="xd">St. Kitts-Nevis</option>
+			<option id="xl">St. Pierre and Miquelon</option>
+			<option id="sj">Sudan</option>
+			<option id="sr">Surinam</option>
+			<option id="sji">Svalbard and Jan Mayen Islands</option>
+			<option id="sq">Swaziland</option>
+			<option id="sw">Sweden</option>
+			<option id="sz">Switzerland</option>
+			<option id="sy">Syria</option>
+			<option id="tw">Taiwan, Province of China</option>
+			<option id="ta">Tajikistan</option>
+			<option id="tz">Tanzania</option>
+			<option id="th">Thailand</option>
+			<option id="tg">Togo</option>
+			<option id="tl">Tokelau Islands</option>
+			<option id="to">Tonga</option>
+			<option id="tr">Trinidad and Tobago</option>
+			<option id="ti">Tunisia</option>
+			<option id="tu">Turkey</option>
+			<option id="tk">Turkmenistan</option>
+			<option id="tc">Turks and Caicos Islands</option>
+			<option id="tv">Tuvalu</option>
+			<option id="ug">Uganda</option>
+			<option id="un">Ukraine</option>
+			<option id="ts">United Arab Emirates</option>
+			<option id="uik">United Kingdom Misc. Islands</option>
+			<option id="xxu">United States</option>
+			<option id="uc">United States Misc. Caribbean Islands</option>
+			<option id="up">United States Misc. Pacific Islands</option>
+			<option id="uy">Uruguay</option>
+			<option id="uz">Uzbekistan</option>
+			<option id="nn">Vanuatu</option>
+			<option id="vc">Vatican City</option>
+			<option id="ve">Venezuela</option>
+			<option id="vm">Vietnam</option>
+			<option id="vi">Virgin Islands of the United States</option>
+			<option id="wk">Wake Island</option>
+			<option id="wlk">Wales</option>
+			<option id="wf">Wallis and Futuna</option>
+			<option id="wj">West Bank of the Jordan River</option>
+			<option id="ss">Western Sahara</option>
+			<option id="ws">Western Samoa</option>
+			<option id="ye">Yemen</option>
+			<option id="yu">Yugoslavia</option>
+			<option id="cg">Zaire</option>
+			<option id="za">Zambia</option>
+			<option id="rh">Zimbabwe</option>
+		</options>
+	</instance>
+	
+	<instance id="vocab-department">
+		<web-url>department</web-url>
+		<title-ref>department</title-ref>
+		<title>Department</title>
+		<options>
+			<option id="pfalibrary">PFA Library</option>
+		</options>
+	</instance>
+	
+	<instance id="vocab-collection">
+		<web-url>collection</web-url>
+		<title-ref>collection</title-ref>
+		<title>Collection</title>
+		<options>
+			<option id="cinefiles">CineFiles</option>
+			<option id="pfastills">PFA Stills</option>
+		</options>
+	</instance>
+	
+	<instance id="vocab-productionpersonrole">
+		<web-url>productionpersonrole</web-url>
+		<title-ref>productionpersonrole</title-ref>
+		<title>Production Person Role</title>
+		<options>
+			<option id="author">Author</option>
+		</options>
+	</instance>
+	
+	<instance id="vocab-doctype">
+		<web-url>doctype</web-url>
+		<title-ref>doctype</title-ref>
+		<title>Document Type</title>
+		<options>
+			<option id="2" desc="Generally longer and more &quot;scholarly&quot; than a review, dealing with broader topics rather than limited to discussion and evaluation of one film, or discussing one film in detail from a theoretical or historical perspective.">article</option>
+			<option id="3" desc="List of books and articles on a film, person or topic, separate from an article or other type of document.">bibliography</option>
+			<option id="4" desc="Passage (usually photocopied) from a book.">book excerpt</option>
+			<option id="5" desc="Documents pertaining specifically to films in PFA's collection.">collection documents</option>
+			<option id="6" desc="Clippings from distribution catalogs; also flyers and other materials generated by distributors.">distributor materials</option>
+			<option id="8" desc="Single sheet used for promotional purposes.  See also Distributor materials.">flyer</option>
+			<option id="9" desc="Translations or transcriptions of intertitles from silent films.">intertitles</option>
+			<option id="10" desc="Document consisting mainly of an interview with a film personality.  If the document includes only a few quotes from an interview but is mainly text written by the author, use &quot;article.&quot;">interview</option>
+			<option id="11" desc="Article on a person published on the event of their death.">obituary</option>
+			<option id="12" desc="Package of materials intended for use by press in reviewing a film.  Usually contains extended credits and synopsis; may also contain press clips, if produced by a distribution company.">press kit</option>
+			<option id="13" desc="Announcement to press of an event, release of a film, etc.">press release</option>
+			<option id="15" desc="Note from a film festival or exhibition program, either published in advance of the event or distributed at the screening.  For standalone books or booklets devoted to a single film, series or event, use &quot;program.&quot;">program note</option>
+			<option id="16" desc="Proposal for a film project or event submitted to a funding agency or other organization.">project proposal</option>
+			<option id="17" desc="Transcript of a radio or TV broadcast.">broadcast transcript</option>
+			<option id="18" desc="Critical article, usually from a newspaper, magazine or trade journal, usually evaluating a single film.  For items which are broader in scope, use &quot;article.&quot;">review</option>
+			<option id="19" desc="Explanation of the technical requirements for the screening of a film.">screening requirements</option>
+			<option id="20" desc="Document describing a sequence from a film shot by shot.">shot analysis</option>
+			<option id="21" desc="Still photographs, including magazine reproductions of photos unaccompanied by any text other than a caption.">still</option>
+			<option id="22" desc="Guide to a film published for use in education.">study guide</option>
+			<option id="23" desc="Plot summary which is not part of a program note, distributor item or other doc. type.">synopsis</option>
+			<option id="24" desc="Letters, memos, faxes.">correspondence</option>
+			<option id="26" desc="Pamphlet, usually in large format, intended for theater owners.  Generally contains suggestions for exploitation of the film, reproductions of available posters, etc.  Somtimes called Showman's manual, Campaign book, or Press book.">exhibitor manual</option>
+			<option id="27" desc="Booklet distributed or sold to accompany a film screening or series.  See also brochure (smaller, folded document usually promoting a series).">program</option>
+			<option id="30" desc="List of films by a person or on a particular topic, separate from a press kit or other document type.">filmography</option>
+			<option id="31" desc="Transcription of subtitles from a foreign-language film.">subtitles</option>
+			<option id="32" desc="List of credits separate from a program note, press kit, or other document type.">credits</option>
+			<option id="34" desc="Musical score for a film.">score</option>
+			<option id="35" desc="Handwritten or typed version of a document which may or may not have been published later.">manuscript</option>
+			<option id="36" desc="Use for ads published in newspapers or magazines">advertisement</option>
+			<option id="37" desc="Small book or pamphlet on a single person, film or theme.">booklet</option>
+			<option id="39">poster</option>
+			<option id="40">poetry</option>
+			<option id="41">budget</option>
+			<option id="42">caricature</option>
+			<option id="43" desc="use only when no other term applies.">other</option>
+			<option id="44">screenplay</option>
+			<option id="45" desc="Folded, self-contained documents, usually describing and promoting a film program or series.  See also program (which is used for larger booklets relating to films or series).">brochure</option>
+			<option id="46" desc="Review of a book.  Also add the subject of the book as a subject of the document.">book review</option>
+			<option id="47">treatment</option>
+			<option id="48">speech script</option>
+			<option id="49">postcard</option>
+			<option id="50">monograph</option>
+			<option id="51" desc="Catalog from gallery or museum show (usually pertaining to shows by videomakers, installation artists, photographers, experimental filmmakers)">exhibition catalog</option>
+			<option id="52">biography</option>
+			<option id="53">essay</option>
+			<option id="54">lobby card</option>
+			<option id="55">production notes</option>
+		</options>
+	</instance>
+</instances>

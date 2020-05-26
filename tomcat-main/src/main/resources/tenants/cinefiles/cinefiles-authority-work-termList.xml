@@ -1,0 +1,68 @@
+<record id="preferredWork">
+	<section id="termInformation">
+		<repeat id="workTermGroupList/workTermGroup">
+			<!-- Make computed and ui-readonly, add sortKey, remove ui-search, and remove summary from mini -->
+			<field id="termDisplayName" mini="number,search,list,relate" ui-search="" sortKey="termName" ui-type="computed" ui-func="cinefiles.computeWorkDisplayName" ui-args="termQualifier,termName" ui-readonly="true"/>
+
+			<!-- Configure an app-layer-only field to be used in advanced search for termDisplayName, which isn't computed and read-only -->
+			<field id="termDisplayNameSearch" ui-search="repeatable" exists-in-services="false">
+				<selector>workAuthority-termDisplayNameSearch</selector>
+				<services-tag>termDisplayName</services-tag>
+			</field>
+			
+			<field id="termQualifier">
+				<!-- Add options -->
+				<options>
+					<option id="" default="yes">&#160;</option> <!-- Use a non-breaking space as the option text, since options that are empty or contain only whitespace cause UI layer exceptions. -->
+					<option id="A">A</option>
+					<option id="Al">Al</option>
+					<option id="An">An</option>
+					<option id="As">As</option>
+					<option id="Az">Az</option>
+					<option id="Das">Das</option>
+					<option id="De">De</option>
+					<option id="Den">Den</option>
+					<option id="Der">Der</option>
+					<option id="Det">Det</option>
+					<option id="Die">Die</option>
+					<option id="Een">Een</option>
+					<option id="Egy">Egy</option>
+					<option id="Ein">Ein</option>
+					<option id="Eine">Eine</option>
+					<option id="El">El</option>
+					<option id="El-">El-</option>
+					<option id="En">En</option>
+					<option id="Et">Et</option>
+					<option id="Ett">Ett</option>
+					<option id="Gli">Gli</option>
+					<option id="Het">Het</option>
+					<option id="I">I</option>
+					<option id="Il">Il</option>
+					<option id="L'">L'</option>
+					<option id="La">La</option>
+					<option id="Las">Las</option>
+					<option id="Le">Le</option>
+					<option id="Les">Les</option>
+					<option id="Lo">Lo</option>
+					<option id="Los">Los</option>
+					<option id="O">O</option>
+					<option id="Os">Os</option>
+					<option id="Ta">Ta</option>
+					<option id="The">The</option>
+					<option id="To">To</option>
+					<option id="Um">Um</option>
+					<option id="Uma">Uma</option>
+					<option id="Un">Un</option>
+					<option id="Un'">Un'</option>
+					<option id="Una">Una</option>
+					<option id="Une">Une</option>
+					<option id="Uno">Uno</option>
+					<option id="Yr">Yr</option>
+				</options>
+			</field>
+			
+			<!-- Remove citation-worldcat from autocomplete -->
+			<field id="termSource" autocomplete="citation-citation"/>
+		</repeat>
+	</section>
+</record>

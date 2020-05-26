@@ -1,0 +1,20 @@
+<record id="media" is-extension="true">
+	<services-record-path id="cinefiles">media_cinefiles:http://collectionspace.org/services/media/local/cinefiles,media_cinefiles</services-record-path>
+	
+	<section id="mediaInformation">
+		<!-- Change to be computed and read-only, and remove ui-search -->
+		<field id="title" ui-type="computed" ui-func="cinefiles.computeMediaTitle" ui-args="blobs" ui-readonly="true" ui-search=""/>
+
+		<!-- Configure an app-layer only field for title advanced search -->
+		<field id="titleSearch" ui-search="repeatable" exists-in-services="false">
+			<services-tag>title</services-tag>
+		</field>
+		
+		<!-- Remove mini -->
+		<field id="identificationNumber" mini=""/>
+        
+		<!-- Local fields -->
+
+		<field id="page" section="cinefiles" datatype="integer" ui-type="validated" mini="number,search,list,relate" ui-search="range"/>
+	</section>
+</record>

@@ -1,0 +1,8 @@
+<record id="preferredPlace">
+	<section id="termInformation">
+		<repeat id="placeTermGroupList/placeTermGroup">
+			<!-- Remove citation-worldcat from autocomplete -->
+			<field id="termSource" autocomplete="citation-citation"/>
+		</repeat>
+	</section>
+</record>

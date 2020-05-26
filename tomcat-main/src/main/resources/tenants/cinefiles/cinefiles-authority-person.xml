@@ -1,0 +1,34 @@
+<record id="person" is-extension="true">
+	<services-record-path id="cinefiles">persons_cinefiles:http://collectionspace.org/services/person/local/cinefiles,persons_cinefiles</services-record-path>
+
+	<instances id="person">
+		<!-- Replace instances -->
+		<instance id="person-person">
+			<web-url>person</web-url>
+			<title-ref>person</title-ref>
+			<title>Persons</title>
+			<nptAllowed>false</nptAllowed>
+		</instance>
+	</instances>
+
+	<section id="personNameAuthorityInformation">
+		<!-- Tie to country vocabulary, and add ui-search -->
+		<field id="birthPlace" autocomplete="vocab-country" ui-type="enum" ui-search="repeatable"/>
+
+		<!-- Local fields -->
+		
+		<field id="birthState" section="cinefiles" ui-search="repeatable"/>
+		<field id="birthCity" section="cinefiles" ui-search="repeatable"/>
+
+		<field id="accessCode" section="cinefiles" ui-search="repeatable">
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="PFA Staff Only">PFA Staff Only</option>
+				<option id="In House Only">In House Only</option>
+				<option id="Campus (UCB)">Campus (UCB)</option>
+				<option id="Education (*.edu)">Education (*.edu)</option>
+				<option id="World">World</option>
+			</options>
+		</field>
+	</section>
+</record>

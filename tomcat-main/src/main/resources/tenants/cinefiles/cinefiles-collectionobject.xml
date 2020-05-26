@@ -1,0 +1,278 @@
+<record id="collection-object" is-extension="true">
+	<services-record-path id="cinefiles">collectionobjects_cinefiles:http://collectionspace.org/services/collectionobject/local/cinefiles,collectionobjects_cinefiles</services-record-path>
+
+	<section id="coreInformation">
+		<!-- Remove mini -->
+		<field id="nametitle" mini=""/>
+	</section>
+	
+	<section id="identificationInformation">
+		<field id="objectNumber">
+			<!-- Replace number patterns -->
+			<options>
+				<option id="document" sample="100">CineFiles Document Number</option>
+				<option id="stills" sample="PS100">PFA Stills Number</option>
+			</options>
+		</field>
+
+		<repeat id="responsibleDepartments">
+			<!-- Change to dynamic term list -->
+			<field id="responsibleDepartment" autocomplete="vocab-department" ui-type="enum">
+				<!-- Remove options -->
+				<options/>
+				<!-- Add default -->
+				<enum>
+					<default>urn:cspace:cinefiles.cspace.berkeley.edu:vocabularies:name(department):item:name(pfalibrary)'PFA Library'</default>
+				</enum>
+		  </field>
+		</repeat>
+		
+		<!-- Change to dynamic term list -->
+		<field id="collection" autocomplete="vocab-collection" ui-type="enum">
+			<!-- Remove options -->
+			<options/>
+			<!-- Add default -->
+			<enum>
+				<default>urn:cspace:cinefiles.cspace.berkeley.edu:vocabularies:name(collection):item:name(cinefiles)'CineFiles'</default>
+			</enum>
+		</field>
+	
+		<field id="recordStatus">
+			<!-- Change options -->
+			<options>
+				<option id="temporary">Temporary</option>
+				<option id="new" default="yes">New</option>
+				<option id="in-process">In process</option>
+				<option id="approved">Approved</option>
+				<option id="review-media">Review media</option>
+			</options>
+		</field>
+		
+		<!-- Local fields -->
+		
+		<field id="pageInfo" section="cinefiles"/>
+
+		<field id="hasCastCr" section="cinefiles" datatype="boolean"/>
+		<field id="hasCastCrSearch" section="cinefiles" datatype="boolean" ui-search="single" exists-in-services="false">
+			<services-tag>hasCastCr</services-tag>
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			</options>
+		</field>
+
+		<field id="hasTechCr" section="cinefiles" datatype="boolean"/>
+		<field id="hasTechCrSearch" section="cinefiles" datatype="boolean" ui-search="single" exists-in-services="false">
+			<services-tag>hasTechCr</services-tag>
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			</options>
+		</field>
+
+		<field id="hasBoxInfo" section="cinefiles" datatype="boolean"/>
+		<field id="hasBoxInfoSearch" section="cinefiles" datatype="boolean" ui-search="single" exists-in-services="false">
+			<services-tag>hasBoxInfo</services-tag>
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			</options>
+		</field>
+
+		<field id="hasFilmog" section="cinefiles" datatype="boolean"/>
+		<field id="hasFilmogSearch" section="cinefiles" datatype="boolean" ui-search="single" exists-in-services="false">
+			<services-tag>hasFilmog</services-tag>
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			</options>
+		</field>
+
+		<field id="hasDistCo" section="cinefiles" datatype="boolean"/>
+		<field id="hasDistCoSearch" section="cinefiles" datatype="boolean" ui-search="single" exists-in-services="false">
+			<services-tag>hasDistCo</services-tag>
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			</options>
+		</field>
+
+		<field id="hasProdCo" section="cinefiles" datatype="boolean"/>
+		<field id="hasProdCoSearch" section="cinefiles" datatype="boolean" ui-search="single" exists-in-services="false">
+			<services-tag>hasProdCo</services-tag>
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			</options>
+		</field>
+
+		<field id="hasCostInfo" section="cinefiles" datatype="boolean"/>
+		<field id="hasCostInfoSearch" section="cinefiles" datatype="boolean" ui-search="single" exists-in-services="false">
+			<services-tag>hasCostInfo</services-tag>
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			</options>
+		</field>
+
+		<field id="hasIllust" section="cinefiles" datatype="boolean"/>
+		<field id="hasIllustSearch" section="cinefiles" datatype="boolean" ui-search="single" exists-in-services="false">
+			<services-tag>hasIllust</services-tag>
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			</options>
+		</field>
+
+		<field id="hasBiblio" section="cinefiles" datatype="boolean"/>
+		<field id="hasBiblioSearch" section="cinefiles" datatype="boolean" ui-search="single" exists-in-services="false">
+			<services-tag>hasBiblio</services-tag>
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			</options>
+		</field>
+		
+		<field id="docType" section="cinefiles" autocomplete="vocab-doctype" ui-type="enum" ui-search="repeatable">
+			<enum>
+				<default>urn:cspace:cinefiles.cspace.berkeley.edu:vocabularies:name(doctype):item:name(2)'article'</default>
+			</enum>
+		</field>
+		
+		<repeat id="docSubjects" section="cinefiles">
+			<field id="docSubject" section="cinefiles" autocomplete="concept-concept" ui-search="repeatable"/>
+		</repeat>
+		
+		<repeat id="nameSubjects" section="cinefiles">
+			<field id="nameSubject" section="cinefiles" autocomplete="person-person,organization-organization,organization-committee" ui-search="repeatable"/>
+		</repeat>
+		
+		<repeat id="filmSubjects" section="cinefiles">
+			<field id="filmSubject" section="cinefiles" autocomplete="work-work" ui-search="repeatable"/>
+		</repeat>
+		
+		<repeat id="docLanguages" section="cinefiles">
+			<field id="docLanguage" section="cinefiles" autocomplete="vocab-languages" ui-type="enum" ui-search="repeatable"/>
+		</repeat>
+		
+		<field id="source" section="cinefiles" autocomplete="organization-organization" ui-search="repeatable"/>
+		
+		<field id="docTitleArticle" section="cinefiles">
+			<options>
+				<option id="" default="yes">&#160;</option> <!-- Use a non-breaking space as the option text, since options that are empty or contain only whitespace cause UI layer exceptions. -->
+				<option id="A">A</option>
+				<option id="Al">Al</option>
+				<option id="An">An</option>
+				<option id="As">As</option>
+				<option id="Az">Az</option>
+				<option id="Das">Das</option>
+				<option id="De">De</option>
+				<option id="Den">Den</option>
+				<option id="Der">Der</option>
+				<option id="Det">Det</option>
+				<option id="Die">Die</option>
+				<option id="Een">Een</option>
+				<option id="Egy">Egy</option>
+				<option id="Ein">Ein</option>
+				<option id="Eine">Eine</option>
+				<option id="El">El</option>
+				<option id="El-">El-</option>
+				<option id="En">En</option>
+				<option id="Et">Et</option>
+				<option id="Ett">Ett</option>
+				<option id="Gli">Gli</option>
+				<option id="Het">Het</option>
+				<option id="I">I</option>
+				<option id="Il">Il</option>
+				<option id="L'">L'</option>
+				<option id="La">La</option>
+				<option id="Las">Las</option>
+				<option id="Le">Le</option>
+				<option id="Les">Les</option>
+				<option id="Lo">Lo</option>
+				<option id="Los">Los</option>
+				<option id="O">O</option>
+				<option id="Os">Os</option>
+				<option id="Ta">Ta</option>
+				<option id="The">The</option>
+				<option id="To">To</option>
+				<option id="Um">Um</option>
+				<option id="Uma">Uma</option>
+				<option id="Un">Un</option>
+				<option id="Un'">Un'</option>
+				<option id="Una">Una</option>
+				<option id="Une">Une</option>
+				<option id="Uno">Uno</option>
+				<option id="Yr">Yr</option>
+			</options>
+		</field>
+		<field id="docTitle" section="cinefiles"/>
+		<field id="docDisplayName" section="cinefiles" mini="summary,search,list,relate" sortKey="docTitle" ui-type="computed" ui-func="cinefiles.computeDocDisplayName" ui-args="docTitleArticle,docTitle" ui-readonly="true"/>
+		
+		<!-- Configure an app-layer-only field to be used in advanced search for docDisplayName, which isn't computed and read-only -->
+		<field id="docDisplayNameSearch" section="cinefiles" ui-search="repeatable" exists-in-services="false">
+			<services-tag>docDisplayName</services-tag>
+		</field>
+		
+		<field id="accessCode" section="cinefiles" ui-search="repeatable">
+			<options>
+				<option id="" default="yes">None</option>
+				<option id="PFA Staff Only">PFA Staff Only</option>
+				<option id="In House Only">In House Only</option>
+				<option id="Campus (UCB)">Campus (UCB)</option>
+				<option id="Education (*.edu)">Education (*.edu)</option>
+				<option id="World">World</option>
+			</options>
+		</field>
+	</section>
+
+	<section id="descriptionInformation">
+		<section id="contentInformation">
+			<repeat id="contentConcepts">
+				<!-- Remove concept-material_ca from autocomplete, and add concept-genre -->
+				<field id="contentConcept" autocomplete="concept-concept,concept-genre"/>
+			</repeat>
+			<repeat id="contentPersons">
+				<!-- Remove person-ulan_pa from autocomplete -->
+				<field id="contentPerson" autocomplete="person-person"/>
+			</repeat>
+			<repeat id="contentOrganizations">
+				<!-- Remove organization-ulan_oa from autocomplete, and add organization-committee -->
+				<field id="contentOrganization" autocomplete="organization-organization,organization-committee"/>
+			</repeat>
+		</section>
+	</section>
+	
+	<section id="objectProductionInformation">
+		<repeat id="objectProductionPersonGroupList/objectProductionPersonGroup">
+			<!-- Change to a dynamic term list -->
+			<field id="objectProductionPersonRole" autocomplete="vocab-productionpersonrole" ui-type="enum">
+				<!-- Add default -->
+				<enum>
+					<default>urn:cspace:cinefiles.cspace.berkeley.edu:vocabularies:name(productionpersonrole):item:name(author)'Author'</default>
+				</enum>
+			</field>
+		</repeat>
+	</section>
+	
+	<section id="referenceInformation">
+		<repeat id="referenceGroupList/referenceGroup">
+			<!-- Change autocomplete to organization-organization instead of citation vocabs -->
+			<field id="reference" autocomplete="organization-organization"/>
+		</repeat>
+	</section>
+
+	<section id="objectCollectionInformation">
+		<!-- Remove place-tgn_place from autocomplete -->
+		<field id="fieldCollectionPlace" autocomplete="place-place"/>
+	</section>
+</record>

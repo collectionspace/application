@@ -1,0 +1,8 @@
+<record id="blobs">
+	<section id="blobInformation">
+		<!-- Add imgOrigJpeg -->
+		<field id="imgOrigJpeg" attributes="GET" exists-in-services="false" services-derived="true">
+			<use-csid>ims;download/;/OriginalJpeg</use-csid>
+		</field>
+	</section>
+</record>

@@ -1,0 +1,66 @@
+<record id="work" is-extension="true">
+	<services-record-path id="cinefiles">works_cinefiles:http://collectionspace.org/services/work/local/cinefiles,works_cinefiles</services-record-path>
+	
+	<instances id="work">
+		<!-- Replace instances -->
+		<instance id="work-work">
+			<web-url>work</web-url>
+			<title-ref>work</title-ref>
+			<title>Moving Images</title>
+			<nptAllowed>false</nptAllowed>
+		</instance>
+	</instances>
+
+	<section id="workAuthorityInformation">
+		<field id="workType">
+			<!-- Add default -->
+			<enum>
+				<default>urn:cspace:cinefiles.cspace.berkeley.edu:vocabularies:name(worktype):item:name(film)'Film'</default>
+			</enum>
+		</field>
+		
+		<repeat id="creatorGroupList/creatorGroup">
+			<!-- Add organization-committee to autocomplete, and add mini -->
+			<field id="creator" mini="summary,search,list,relate" autocomplete="person-person,organization-organization,organization-committee"/>
+			<field id="creatorType">
+				<!-- Add default -->
+				<enum>
+					<default>urn:cspace:cinefiles.cspace.berkeley.edu:vocabularies:name(workcreatortype):item:name(director)'Director'</default>
+				</enum>
+			</field>
+		</repeat>
+
+		<repeat id="publisherGroupList/publisherGroup">
+			<!-- Add organization-committee to autocomplete -->
+			<field id="publisher" ui-search="repeatable" autocomplete="person-person,organization-organization,organization-committee"/>
+			<field id="publisherType">
+				<!-- Add default -->
+				<enum>
+					<default>urn:cspace:cinefiles.cspace.berkeley.edu:vocabularies:name(workpublishertype):item:name(productioncompany)'Production Company'</default>
+				</enum>
+			</field>
+		</repeat>
+		
+		<!-- Local fields -->
+		
+		<repeat id="countries" section="cinefiles">
+			<field id="country" section="cinefiles" autocomplete="vocab-country" ui-type="enum" ui-search="repeatable"/>
+		</repeat>
+		
+		<repeat id="languages" section="cinefiles">
+			<field id="language" section="cinefiles" autocomplete="vocab-languages" ui-type="enum" ui-search="repeatable"/>
+		</repeat>
+		
+		<repeat id="genres" section="cinefiles">
+			<field id="genre" section="cinefiles" autocomplete="concept-genre" ui-search="repeatable"/>
+		</repeat>
+		
+		<repeat id="subjects" section="cinefiles">
+			<field id="subject" section="cinefiles" autocomplete="concept-concept" ui-search="repeatable"/>
+		</repeat>
+		
+		<repeat id="themes" section="cinefiles">
+			<field id="theme" section="cinefiles" autocomplete="concept-theme" ui-search="repeatable"/>
+		</repeat>
+	</section>
+</record>

@@ -1,0 +1,28 @@
+<record id="concept">
+	<instances id="genre">
+		<!-- Replace instances -->
+		<instance id="concept-concept">
+			<web-url>concept</web-url>
+			<title-ref>concept</title-ref>
+			<title>Subjects</title>
+			<nptAllowed>false</nptAllowed>
+		</instance>
+		<instance id="concept-genre">
+			<web-url>genre</web-url>
+			<title-ref>genre</title-ref>
+			<title>Genres</title>
+			<nptAllowed>false</nptAllowed>
+		</instance>
+		<instance id="concept-theme">
+			<web-url>theme</web-url>
+			<title-ref>theme</title-ref>
+			<title>Themes</title>
+			<nptAllowed>false</nptAllowed>
+		</instance>
+		<instance id="concept-occasion">
+			<web-url>occasion</web-url>
+			<title-ref>occasion</title-ref>
+			<title>Occasion Concepts</title>
+		</instance>
+	</instances>
+</record>
