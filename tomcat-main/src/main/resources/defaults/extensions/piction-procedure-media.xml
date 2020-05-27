@@ -1,0 +1,37 @@
+<record id="media" is-extension="true" generate-services-schema="true">
+	
+	<services-record-path id="piction">
+		media_piction:http://collectionspace.org/services/media/domain/piction,media_piction
+	</services-record-path>
+	
+	<section id="mediaInformation">
+		<!-- Change to be computed and read-only, and remove ui-search -->
+		<field id="title" ui-type="computed" ui-func="piction.computeMediaTitle" ui-args="blobs" ui-readonly="true" ui-search=""/>
+
+		<!-- Configure an app-layer only field for title advanced search -->
+		<field id="titleSearch" ui-search="repeatable" exists-in-services="false">
+			<services-tag>title</services-tag>
+		</field>
+
+		<!-- Remove mini -->
+		<field id="identificationNumber" mini=""/>
+
+		<!-- Local fields -->
+
+		<field id="primaryDisplay" section="piction" datatype="boolean" mini="search,list,relate"/>
+		<field id="imageNumber" section="piction" datatype="integer" ui-type="validated" mini="number,search,list,relate" ui-search="range"/>
+		<field id="computedOrderNumber" section="piction" mini="search,list,relate" ui-type="computed" ui-func="piction.computeMediaOrderNumber" ui-args="primaryDisplay,imageNumber" ui-readonly="true"/>
+		<!-- Piction ID of the image. Should be present on all media records sourced from Piction. -->
+		<field id="pictionId" section="piction" datatype="integer" ui-readonly="true"/>
+		<!-- SHA-1 hash of the image pushed from Piction. Should be present on all media records sourced from Piction. -->
+		<field id="pictionImageHash" section="piction" ui-readonly="true"/>
+		<field id="websiteDisplayLevel" section="piction">
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="No public display">No public display</option>
+				<option id="Display thumbnail only">Display thumbnail only</option>
+				<option id="Display larger size">Display larger size</option>
+			</options>
+		</field>
+	</section>
+</record>
