@@ -1,0 +1,44 @@
+<record id="movement" is-extension="true">
+	<services-record-path id="botgarden">movements_botgarden:http://collectionspace.org/services/movement/local/botgarden,movements_botgarden</services-record-path>
+
+	<section id="locationMovementInformation">
+		<!-- Change mini summary to number, and remove organization from autocomplete -->
+		<field id="currentLocation" mini="number,search,list,relate" autocomplete="location-location"/>
+
+		<!-- Local fields -->
+
+		<field id="previousLocation" ui-type="valueDeURNed" services-readonly="true" authref-in-services="true" section="botgarden"/>
+	</section>
+
+	<section id="movementControlInformation">
+		<!--  Remove ui-search and mini -->
+		<field id="movementReferenceNumber" ui-search="" mini=""/>
+
+		<!-- Add mini and change options -->
+		<field id="reasonForMove" mini="summary,search,list,relate" ui-type="enum" autocomplete="vocab-actionCode">
+		<!--Converted to Dynamic-->
+		</field>
+	</section>
+
+	<!-- Local fields -->
+
+	<section id="labelInformation">
+		<field id="labelRequested" ui-search="repeatable" section="botgarden">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="No" default="yes">No</option>
+				<option id="Yes">Yes</option>
+			</options>
+		</field>
+
+		<field id="labelSize" section="botgarden" ui-type="enum" autocomplete="vocab-LabelSize">
+		<!--Convered to Dynamic-->
+		</field>
+
+		<field id="labelStandType" section="botgarden" ui-type="enum" autocomplete="vocab-standType">
+		<!--Converted to Dynamic-->
+		</field>
+
+		<field id="labelCount" ui-type="validated" datatype="integer" section="botgarden"/>
+	</section>
+</record>

@@ -1,0 +1,12 @@
+<record id="propagation">
+    <section id="propagationInformation">
+        <!-- <field id="propType" autocomplete="vocab-propagationType" ui-type="enum"/> -->
+        <repeat id="scarStratGroupList/scarStratGroup">
+			<!-- <field id="scarStrat" autocomplete="vocab-scarStrat" ui-type="enum"/> -->
+			<!--Converted to dynamic-->
+		</repeat>
+        <!--Converted to Dynamic-->
+		<!-- <field id="cuttingType" autocomplete="vocab-cutType" ui-type="enum"/> -->
+        <!--Converted to dynamic-->
+    </section>
+</record>

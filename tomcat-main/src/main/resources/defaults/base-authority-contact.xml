@@ -44,6 +44,7 @@
 			<field id="addressPlace1" />
 			<field id="addressPlace2" />
 			<field id="addressMunicipality" />
+			<field id="addressCounty"></field>
 			<field id="addressStateOrProvince" />
 			<field id="addressPostCode" />
 			<field id="addressCountry">

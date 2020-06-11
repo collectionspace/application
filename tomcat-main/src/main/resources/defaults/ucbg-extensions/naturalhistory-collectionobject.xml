@@ -1,0 +1,321 @@
+<record id="collection-object" is-extension="true">
+	<services-record-path id="naturalhistory">collectionobjects_naturalhistory:http://collectionspace.org/services/collectionobject/domain/naturalhistory,collectionobjects_naturalhistory</services-record-path>
+
+	<section id="identificationInformation">
+		<field id="basicStorageLocation" section="naturalhistory" autocomplete="taxon-taxon"/>
+		<repeat id="taxonomicIdentGroupList/taxonomicIdentGroup" section="naturalhistory">
+			<field id="taxon" in-title="yes" ui-search="repeatable" mini="summary,search,list,relate" section="naturalhistory" autocomplete="taxon-taxon">
+				<selector>taxonomic-identification-taxon</selector>
+				<title-selector>titleBar-taxonomic-identification-taxon</title-selector>
+			</field>
+			<field id="qualifier" section="naturalhistory" seperate_ui_container="true">
+				<selector>taxonomic-identification-qualifier</selector>
+				<options>
+					<option id="">Please select a value</option>
+					<option id="unknown">unknown</option>
+					<option id="aff.">aff.</option>
+					<option id="auct.">auct.</option>
+					<option id="cf.">cf.</option>
+					<option id="cv.">cv.</option>
+					<option id="complex">complex</option>
+					<option id="fide">fide</option>
+					<option id="forsan">forsan</option>
+					<option id="group">group</option>
+					<option id="hybrid (X)">hybrid (X)</option>
+					<option id="indet.">indet.</option>
+					<option id="ined.">ined.</option>
+					<option id="intermediate">intermediate</option>
+					<option id="sensu">sensu</option>
+					<option id="sensu lato">sensu lato</option>
+					<option id="sensu stricto">sensu stricto</option>
+					<option id="unnamed infrageneric hybrid/intermediate">unnamed infrageneric hybrid/intermediate</option>
+					<option id="unnamed infrageneric hybrid/intermediate - parents unknown">unnamed infrageneric hybrid/intermediate - parents unknown</option>
+					<option id="unnamed intergeneric hybrid/intermediate">unnamed intergeneric hybrid/intermediate</option>
+					<option id="unnamed intergeneric hybrid/intermediate - parents unknown">unnamed intergeneric hybrid/intermediate - parents unknown</option>
+					<option id="unnamed infraspecific hybrid/intermediate">unnamed infraspecific hybrid/intermediate</option>
+					<option id="unnamed infraspecific hybrid/intermediate - parents unknown">unnamed infraspecific hybrid/intermediate - parents unknown</option>
+					<option id="vide">vide</option>
+					<option id="?">?</option>
+                                        <option id="!">!</option>
+				</options>
+			</field>
+			<field id="identBy" section="naturalhistory" autocomplete="person-person,organization-organization">
+				<selector>taxonomic-identification-ident-by</selector>
+			</field>
+			<group id="identDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate" section="naturalhistory">
+				<!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
+				<field id="dateDisplayDate" section="naturalhistory"/>
+				<field id="dateAssociation" section="naturalhistory"/>
+				<field id="dateEarliestSingleYear" section="naturalhistory"/>
+				<field id="dateEarliestSingleMonth" section="naturalhistory"/>
+				<field id="dateEarliestSingleDay" section="naturalhistory"/>
+				<field id="dateEarliestSingleEra" section="naturalhistory"/>
+				<field id="dateEarliestSingleCertainty" section="naturalhistory"/>
+				<field id="dateEarliestSingleQualifier" section="naturalhistory"/>
+				<field id="dateEarliestSingleQualifierValue" section="naturalhistory"/>
+				<field id="dateEarliestSingleQualifierUnit" section="naturalhistory"/>
+				<field id="dateLatestYear" section="naturalhistory"/>
+				<field id="dateLatestMonth" section="naturalhistory"/>
+				<field id="dateLatestDay" section="naturalhistory"/>
+				<field id="dateLatestEra" section="naturalhistory"/>
+				<field id="dateLatestCertainty" section="naturalhistory"/>
+				<field id="dateLatestQualifier" section="naturalhistory"/>
+				<field id="dateLatestQualifierValue" section="naturalhistory"/>
+				<field id="dateLatestQualifierUnit" section="naturalhistory"/>
+				<field id="datePeriod" section="naturalhistory"/>
+				<field id="dateNote" section="naturalhistory"/>
+				<field id="dateEarliestScalarValue" section="naturalhistory"/>
+				<field id="dateLatestScalarValue" section="naturalhistory"/>
+				<field id="scalarValuesComputed" section="naturalhistory"/>
+			</group>
+			<!-- <field id="identDate" section="naturalhistory" ui-type="date" datatype="date">
+				<selector>taxonomic-identification-ident-date</selector>
+			</field> -->
+			<field id="institution" section="naturalhistory" autocomplete="organization-organization">
+				<selector>taxonomic-identification-institution</selector>
+			</field>
+			<field id="identKind" section="naturalhistory" seperate_ui_container="true">
+				<selector>taxonomic-identification-ident-kind</selector>
+				<options>
+					<option id="">Please select a value</option>
+					<option id="original label determination">original label determination</option>
+					<option id="fide">fide</option>
+					<option id="nomenclatural change">nomenclatural change</option>
+					<option id="taxonomic change">taxonomic change</option>
+					<option id="annotation as filed">annotation as filed</option>
+					<option id="previously filed as">previously filed as</option>                                        
+					<option id="identification or reidentification">identification or reidentification</option>
+					<option id="variant name">variant name</option>
+					<option id="stet">stet</option>
+				</options>
+			</field>
+			<field id="reference" section="naturalhistory">
+				<selector>taxonomic-identification-reference</selector>
+			</field>
+			<field id="refPage" section="naturalhistory">
+				<selector>taxonomic-identification-reference-page</selector>
+			</field>
+			<field id="notes" section="naturalhistory">
+				<selector>taxonomic-identification-notes</selector>
+			</field>
+			<repeat id="taxonomicIdentHybridParentGroupList/taxonomicIdentHybridParentGroup" section="naturalhistory">
+			    <field id="taxonomicIdentHybridParent" section="naturalhistory" autocomplete="taxon-taxon"/>
+				<field id="taxonomicIdentHybridParentQualifier" section="naturalhistory">
+					<options>
+						<option id="">Please select a value</option>
+						<option id="male">male</option>
+						<option id="female">female</option>
+					</options>
+				</field>
+			</repeat>
+			<field id="taxonomicIdentHybridName" mini="search,list,relate" section="naturalhistory"/>
+			<field id="affinityTaxon" section="naturalhistory" autocomplete="taxon-taxon"/>
+			<field id="hybridFlag" section="naturalhistory" datatype="boolean"/>
+		</repeat>
+
+		<repeat id="localNameGroupList/localNameGroup" section="naturalhistory">
+			<field id="localName" section="naturalhistory"/>
+			<field id="localNameLanguage" section="naturalhistory" autocomplete="vocab-languages" ui-type="enum">
+				<enum>
+					<default>eng</default>
+					<blank-value>Please select a value</blank-value>
+				</enum>
+			</field>
+		</repeat>
+		
+		<repeat id="hybridParentGroupList/hybridParentGroup" section="naturalhistory">
+			<field id="hybridParent" section="naturalhistory" autocomplete="taxon-taxon"/>
+			<field id="hybridParentQualifier" section="naturalhistory" seperate_ui_container="true">
+				<options>
+					<option id="">Please select a value</option>
+					<option id="unknown">unknown</option>
+					<option id="cf.">cf.</option>
+					<option id="fide">fide</option>
+					<option id="forsan">forsan</option>
+					<option id="group">group</option>
+					<option id="hybrid (X)">hybrid (X)</option>
+					<option id="sensu">sensu</option>
+					<option id="sensu lato">sensu lato</option>
+					<option id="sensu stricto">sensu stricto</option>
+					<option id="series">series</option>
+					<option id="vide">vide</option>
+					<option id="intermediate">intermediate</option>
+					<option id="?">?</option>
+				</options>
+			</field>
+		</repeat>
+		<field id="hybridName" section="naturalhistory"/>
+		
+		<field id="labelHeader" section="naturalhistory"/>
+		<field id="labelFooter" section="naturalhistory"/>
+		<field id="objectCountNumber" ui-type="validated" datatype="integer" section="naturalhistory"/>
+
+		<repeat id="typeSpecimenGroupList/typeSpecimenGroup" section="naturalhistory">
+			<field id="typeSpecimenKind" ui-search="repeatable" section="naturalhistory" mini="search,list" seperate_ui_container="true">
+				<selector>object-identification-object-typeSpecimenKind</selector>
+				<options>
+					<option id="">Please select a value</option>
+					<option id="Unspecified type">Unspecified type</option>
+					<option id="Allotype">Allotype</option>
+					<option id="Cotype">Cotype</option>
+					<option id="Epitype">Epitype</option>
+					<option id="Fragment">Fragment</option>
+					<option id="Holosyntype">Holosyntype</option>
+					<option id="Holotype">Holotype</option>
+					<option id="Isocotype">Isocotype</option>
+					<option id="Isolectoparatype">Isolectoparatype</option>
+					<option id="Isolectotype">Isolectotype</option>
+					<option id="Isoneotype">Isoneotype</option>
+					<option id="Isoparatype">Isoparatype</option>
+					<option id="Isosyntype">Isosyntype</option>
+					<option id="Isotype">Isotype</option>
+					<option id="Lectoparatype">Lectoparatype</option>
+					<option id="Lectotype">Lectotype</option>
+					<option id="Neotype">Neotype</option>
+					<option id="Non-type">Non-type</option>
+					<option id="Non-visum Isotype">Non-visum Isotype</option>
+					<option id="Paralectotype">Paralectotype</option>
+					<option id="Paratype">Paratype</option>
+					<option id="Pictotype">Pictotype</option>
+					<option id="Possible Type">Possible Type</option>
+					<option id="Standard">Standard</option>
+					<option id="Syntype">Syntype</option>
+					<option id="Topotype">Topotype</option>
+					<option id="Type">Type</option>
+					<option id="Visum Isotype">Visum Isotype</option>
+				</options>
+			</field>
+			<field id="typeSpecimenAssertionBy" section="naturalhistory" autocomplete="organization-organization">
+				<selector>object-identification-object-typeSpecimenAssertionBy</selector>
+			</field>
+			<field id="typeSpecimenReference" section="naturalhistory">
+				<selector>object-identification-object-typeSpecimenReference</selector>
+			</field>
+			<field id="typeSpecimenRefPage" section="naturalhistory">
+				<selector>object-identification-object-typeSpecimenRefPage</selector>
+			</field>
+			<field id="typeSpecimenBasionym" section="naturalhistory" autocomplete="taxon-taxon">
+				<selector>object-identification-object-typeSpecimenBasionym</selector>
+			</field>
+			<field id="typeSpecimenNotes" section="naturalhistory">
+				<selector>object-identification-object-typeSpecimenNotes</selector>
+			</field>
+		</repeat>
+		<field id="donor" section="naturalhistory" autocomplete="organization-organization"/>
+		<field id="donorDate" section="naturalhistory" ui-type="groupfield/structureddate" primarykey="donorDate.dateDisplayDate" ui-func="cspace.structuredDate">
+			<services-tag>donorDateGroup</services-tag>
+		</field>
+		<field id="donorNote" section="naturalhistory"/>
+		
+		<field id="accessionDate" ui-type="date" datatype="date" section="naturalhistory"/>
+		<field id="requestedBy" autocomplete="person-person" section="naturalhistory"/>
+		<field id="source" section="naturalhistory"/>
+	</section>
+
+	<section id="descriptionInformation">
+		<field id="cultivated" section="naturalhistory" ui-search="single">
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			</options>
+		</field>
+		<repeat id="annotationGroupList/annotationGroup" section="naturalhistory">
+			<field id="annotationType" section="naturalhistory">
+				<selector>collection-object-annotationType</selector>
+				<options>
+					<option id="">Please select a value</option>
+					<option id="additional taxa">additional taxa</option>
+					<option id="deaccession">deaccession</option>
+					<option id="holotype location">holotype location</option>
+					<option id="image made">image made</option>
+					<option id="nomenclature">nomenclature</option>
+					<option id="number collision">number collision</option>
+					<option id="population biology">population biology</option>
+					<option id="type">type</option>
+					<option id="Vegetation Type Map Project">Vegetation Type Map Project</option>
+				</options>
+			</field>
+			<field id="annotationNote" section="naturalhistory">
+				<selector>collection-object-annotationNote</selector>
+			</field>
+			<field id="annotationDate" section="naturalhistory" ui-type="date">
+				<!-- FIXME: This field is defined as a string in the database. At some point we should add datatype="date" here, and convert that column to a date. -->
+				<selector>collection-object-annotationDate</selector>
+			</field>
+			<field id="annotationAuthor" section="naturalhistory" autocomplete="person-person">
+				<selector>collection-object-annotationAuthor</selector>
+			</field>
+		</repeat>
+		
+		<field id="rare" section="naturalhistory" ui-search="single">
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			</options>
+		</field>
+
+		<field id="provenanceType" section="naturalhistory">
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="wild source">wild source</option>
+				<option id="cultivated from wild source">cultivated from wild source</option>
+				<option id="not wild source">not wild source</option>
+				<option id="unknown">unknown</option>
+			</options>
+		</field>
+		<field id="distribution" datatype="boolean" section="naturalhistory"/>
+		<field id="securityRisk" section="naturalhistory"/>
+	</section>
+
+	<section id="objectCollectionInformation">
+		<field id="fieldCollectionNumberAssignor" section="naturalhistory" autocomplete="organization-organization"/>
+		<repeat id="associatedTaxaGroupList/associatedTaxaGroup" section="naturalhistory">
+			<field id="associatedTaxon" section="naturalhistory" autocomplete="taxon-taxon">
+				<selector>collection-object-associatedTaxaTaxon</selector>
+			</field>
+			<field id="commonName" section="naturalhistory">
+				<selector>collection-object-associatedTaxaCommonName</selector>
+			</field>
+			<field id="interaction" section="naturalhistory">
+				<selector>collection-object-associatedTaxaInteraction</selector>
+				<options>
+					<option id="">Please select a value</option>
+					<option id="lives/grows with">lives/grows with</option>
+					<option id="lives on">lives on</option>
+					<option id="living under">living under</option>
+					<option id="is physically supported by">is physically supported by</option>
+					<option id="is epiphytic on">is epiphytic on</option>
+					<option id="is endophytic in">is endophytic in</option>
+				</options>
+			</field>
+		</repeat>
+	</section>
+
+	<section id="localityInformation">
+		<field id="locality" ui-type="groupfield/locality/selfrenderer" ui-func="cspace.locality" section="naturalhistory"></field>
+		<field id="vegetationType" autocomplete="vocab-collectionobjectvegetationtype" ui-type="enum" section="naturalhistory"/>
+	</section>
+	
+	<section id="accessionUseInformation">
+		<repeat id="accessionUseGroupList/accessionUseGroup" section="naturalhistory">
+			<field id="useType" section="naturalhistory">
+				<options>
+					<option id="" default="yes">Please select a value</option>
+					<option id="class">Class</option>
+					<option id="research">Research</option>
+					<option id="other">Other</option>
+				</options>
+			</field>
+			<field id="usedIn" section="naturalhistory"/>
+			<field id="materialType" autocomplete="vocab-collectionobjectmaterialtype" ui-type="enum" section="naturalhistory"/>
+			<field id="requestDate" ui-type="date" datatype="date" section="naturalhistory"/>
+			<field id="filledDate" ui-type="date" datatype="date" section="naturalhistory"/>
+			<field id="useNotes" section="naturalhistory"/>
+		</repeat>
+	</section>
+	
+	<!-- These are only used to create labels for the groupings. -->
+	<section id="donorGroup"/>
+</record>
