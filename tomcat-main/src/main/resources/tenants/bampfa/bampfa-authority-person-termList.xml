@@ -1,0 +1,38 @@
+<record id="preferredPA">
+	<section id="termInformation">
+		<repeat id="personTermGroupList/personTermGroup">
+			<!-- Remove ui-search, and make computed  -->
+			<field id="termDisplayName" ui-search="" ui-type="computed" ui-func="bampfa.computeFullNameLFM" ui-args="foreName,middleName,surName,nameAdditions,fields.nationalities" ui-readonly="false"/>
+
+			<!-- Configure an app-layer-only field to be used in advanced search for termDisplayName, which isn't computed -->
+			<field id="termDisplayNameSearch" ui-search="repeatable" exists-in-services="false" services-readonly="true">
+				<selector>personAuthority-termDisplayNameSearch</selector>
+				<services-tag>termDisplayName</services-tag>
+			</field>
+
+			<!-- Make computed -->
+			<field id="termName" ui-type="computed" ui-func="bampfa.computeFullNameFML" ui-args="title,foreName,middleName,surName,nameAdditions,fields.nationalities" ui-readonly="false"/>
+
+			<field id="title">
+				<!-- Change options -->
+				<options>
+					<option id="" default="yes">Please select a value</option>
+					<option id="Mr.">Mr.</option>
+					<option id="Mrs.">Mrs.</option>
+					<option id="Ms.">Ms.</option>
+					<option id="Miss">Miss</option>
+					<option id="Dr.">Dr.</option>
+					<option id="Professor">Professor</option>
+					<option id="Captain">Captain</option>
+					<option id="Sir">Sir</option>
+					<option id="Dame">Dame</option>
+					<option id="Baron">Baron</option>
+					<option id="Baroness">Baroness</option>
+					<option id="Lord">Lord</option>
+					<option id="Lady">Lady</option>
+					<option id="Rev.">Rev.</option>
+				</options>
+			</field>
+		</repeat>
+	</section>
+</record>

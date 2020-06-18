@@ -1,0 +1,31 @@
+<record id="person" is-extension="true">
+	<services-record-path id="bampfa">persons_bampfa:http://collectionspace.org/services/person/local/bampfa,persons_bampfa</services-record-path>
+	
+	<section id="personNameAuthorityInformation">
+		
+		<!-- Local fields -->
+		
+		<field id="datesActive" section="bampfa"/>
+		<field id="birthCity" section="bampfa"/>
+		
+		<field id="otherRegionalInfo" section="bampfa"/>
+		<field id="dynastyPeriod" section="bampfa"/>
+	</section>
+	
+	<section id="copyrightInformation">	
+		<field id="copyrightCredit" section="bampfa"/>
+		<field id="copyrightHolder" section="bampfa"/>
+		<field id="copyrightNote" section="bampfa"/>
+		<field id="permissionToReproduce" section="bampfa">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="Unknown" default="yes">Unknown</option>
+				<option id="Yes">Yes</option>
+				<option id="No">No</option>
+				<option id="Restricted">Restricted</option>
+				<option id="Public Domain">Public Domain</option>
+				<option id="Pending">Pending</option>
+			</options>
+		</field>
+	</section>
+</record>

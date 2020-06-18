@@ -1,0 +1,65 @@
+<record id="acquisition" is-extension="true">
+	<services-record-path id="bampfa">acquisitions_bampfa:http://collectionspace.org/services/acquisition/local/bampfa,acquisitions_bampfa</services-record-path>
+
+	<section id="acquisitionInformation">
+		<!-- Add autocomplete and ui-type -->
+		<field id="acquisitionMethod" autocomplete="vocab-acquisitionmethod" ui-type="enum">
+			<!-- Remove options -->
+			<options/>
+		</field>
+		
+		<repeat id="acquisitionSources">
+			<!-- Remove autocomplete -->
+			<field id="acquisitionSource" autocomplete=""/>
+		</repeat>
+		
+		<!-- Local fields -->
+		
+		<field id="legalStatus" section="bampfa" autocomplete="vocab-legalstatus" ui-type="enum"/>
+		<field id="legalStatusDateGroup" section="bampfa" ui-type="groupfield/structureddate" ui-func="cspace.structuredDate" primarykey="legalStatusDateGroup.dateDisplayDate"/>
+		
+		<repeat id="bampfaAcquisitionReasonList" section="bampfa">
+			<field id="bampfaAcquisitionReason" section="bampfa" autocomplete="vocab-acquisitionreason" ui-type="enum"/>
+		</repeat>
+		
+		<field id="appraisalInfo" section="bampfa"/>
+		
+		<repeat id="currentValueGroupList/currentValueGroup" section="bampfa">
+			<field id="currentValue" section="bampfa" ui-type="validated" datatype="float"/>
+			<field id="currentValueSource" section="bampfa"/>
+			<group id="currentValueDateGroup" section="bampfa" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
+				<!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
+				<field id="dateDisplayDate" section="bampfa"/>
+				<field id="dateAssociation" section="bampfa"/>
+				<field id="dateEarliestSingleYear" section="bampfa"/>
+				<field id="dateEarliestSingleMonth" section="bampfa"/>
+				<field id="dateEarliestSingleDay" section="bampfa"/>
+				<field id="dateEarliestSingleEra" section="bampfa"/>
+				<field id="dateEarliestSingleCertainty" section="bampfa"/>
+				<field id="dateEarliestSingleQualifier" section="bampfa"/>
+				<field id="dateEarliestSingleQualifierValue" section="bampfa"/>
+				<field id="dateEarliestSingleQualifierUnit" section="bampfa"/>
+				<field id="dateLatestYear" section="bampfa"/>
+				<field id="dateLatestMonth" section="bampfa"/>
+				<field id="dateLatestDay" section="bampfa"/>
+				<field id="dateLatestEra" section="bampfa"/>
+				<field id="dateLatestCertainty" section="bampfa"/>
+				<field id="dateLatestQualifier" section="bampfa"/>
+				<field id="dateLatestQualifierValue" section="bampfa"/>
+				<field id="dateLatestQualifierUnit" section="bampfa"/>
+				<field id="datePeriod" section="bampfa"/>
+				<field id="dateNote" section="bampfa"/>
+				<field id="dateEarliestScalarValue" section="bampfa"/>
+				<field id="dateLatestScalarValue" section="bampfa"/>
+				<field id="scalarValuesComputed" section="bampfa"/>
+			</group>
+		</repeat>
+
+		<field id="initialValue" section="bampfa" ui-type="validated" datatype="float"/>
+		<field id="initialValueSource" section="bampfa"/>
+		<field id="initialValueDateGroup" section="bampfa" ui-type="groupfield/structureddate" primarykey="initialValueDateGroup.dateDisplayDate" ui-func="cspace.structuredDate"/>
+	</section>
+	
+	<!-- Use this to generate a message key for the initial value group. -->
+	<section id="initialValueGroup"/>
+</record>

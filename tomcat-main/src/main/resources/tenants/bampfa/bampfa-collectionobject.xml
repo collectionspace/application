@@ -1,0 +1,358 @@
+<record id="collection-object" is-extension="true">
+	<services-record-path id="bampfa">collectionobjects_bampfa:http://collectionspace.org/services/collectionobject/local/bampfa,collectionobjects_bampfa</services-record-path>
+
+	<section id="coreInformation">
+		<!-- Remove mini -->
+		<field id="nametitle" mini=""/>
+	</section>
+
+	<section id="identificationInformation">
+		<!-- Add sortKey, remove number from mini, remove ui-search, remove chooser, remove seperate_ui_container, and make computed -->
+		<field id="objectNumber" mini="search,list,relate" sortKey="sortableObjectNumber" ui-search="" chooser="" seperate_ui_container="" ui-type="computed" ui-func="bampfa.computeAccessionNumber" ui-args="accNumberPrefix,accNumberPart1,accNumberPart2,accNumberPart3,accNumberPart4,accNumberPart5" ui-readonly="true">
+			<!-- Remove options -->
+			<options/>
+		</field>
+
+		<repeat id="otherNumberList/otherNumber">
+			<!-- Add ui-search -->
+			<field id="numberValue" ui-search="repeatable"/>
+			<!-- Change options -->
+			<field id="numberType">
+				<options>
+					<option id="">Please select a value</option>
+					<option id="Appraisal">Appraisal</option>
+					<option id="Artist">Artist</option>
+					<option id="Auction House">Auction House</option>
+					<option id="Donor">Donor</option>
+					<option id="Gallery">Gallery</option>
+					<option id="lender">Lender</option>
+					<option id="obsolete">Obsolete</option>
+					<option id="previous">Previous</option>
+					<option id="serial">Serial</option>
+					<option id="UC Collection">UC Collection</option>
+					<option id="UCB Inventory">UCB Inventory</option>
+					<option id="unknown">Unknown</option>
+				</options>
+			</field>
+		</repeat>
+
+		<!-- This is an app-layer-only field, used in advanced search to enter "regular" object numbers, which will be computed into sortableObjectNumber for range search. -->
+		<field id="objectNumberRangeSearch" ui-search="range" exists-in-services="false" query-behavior="ignore"/>
+		
+		<!-- Configure an app-layer-only field to be used in advanced search for objectNumber, which isn't computed and read-only -->
+		<field id="objectNumberSearch" ui-search="repeatable" exists-in-services="false">
+			<selector>object-identification-object-number-search</selector>
+			<services-tag>objectNumber</services-tag>
+		</field>
+
+		<repeat id="titleGroupList/titleGroup">
+			<!-- Remove ui-search, in-title, and mini -->
+			<field id="title" ui-search="" in-title="" mini=""/>
+		</repeat>
+		
+		<!-- Local fields -->
+		
+		<repeat id="nationalities" section="bampfa">
+			<field id="nationality" section="bampfa" ui-search="repeatable"  /> <!-- //autocomplete="vocab-collection" ui-type="enum"/> -->
+		</repeat>
+		
+		<!-- A computed sortable object number, used for range search on objectNumber -->
+		<field id="sortableObjectNumber" section="bampfa" ui-search="range" ui-type="computed" ui-args="objectNumber" ui-search-args="objectNumberRangeSearch" ui-func="bampfa.computeSortableObjectNumber" ui-readonly="true"/>
+
+		<!-- A computed effective object number, used in the title bar and list results. This is the objectNumber if it exists. Otherwise, it falls back to the primary otherNumber. -->
+		<field id="effectiveObjectNumber" section="bampfa" sortKey="sortableEffectiveObjectNumber" mini="number,search,list,relate" ui-type="computed" ui-args="objectNumber,otherNumber" ui-func="bampfa.computeEffectiveObjectNumber" ui-readonly="true"/>
+
+		<!-- A computed sortable effective object number, used for sorting effectiveObjectNumber -->
+		<field id="sortableEffectiveObjectNumber" section="bampfa" ui-type="computed" ui-args="effectiveObjectNumber" ui-func="bampfa.computeSortableObjectNumber" ui-readonly="true"/>
+
+		<field id="computedCrate" section="bampfa" ui-type="valueDeURNed" services-readonly="true" authref-in-services="true"/>
+
+		<!-- 
+			Create app-layer-only fields for use on advanced search to search on computedCurrentLocation
+			and computedCrate. These fields need to be created because computedCurrentLocation and
+			computedCrate have the ui-type="valueDeURNed" decorator applied, which is the behavior desired
+			in the record editor, but not on the advanced search form. On the advanced search form, we also
+			want the fields to autocomplete.
+			
+			The exists-in-services="false" attribute prevents a field from being saved in the record editor,
+			but still allows it to be used as a search filter. (Adding query-behavior="ignore" would prevent
+			it from being used as a search filter.)
+		-->
+		
+		<field id="computedCurrentLocationSearch" ui-search="repeatable" autocomplete="location-location,location-offsite_sla,organization-organization" exists-in-services="false">
+			<services-tag>computedCurrentLocation</services-tag>
+		</field>
+		
+		<field id="computedCrateSearch" section="bampfa" ui-search="repeatable" autocomplete="location-crate" exists-in-services="false">
+			<services-tag>computedCrate</services-tag>
+		</field>
+		
+		<repeat id="bampfaTitleGroupList/bampfaTitleGroup" section="bampfa">
+			<field id="bampfaFormattedTitle" section="bampfa" ui-type="richtext"/>
+			<field id="bampfaTitle" section="bampfa" mini="summary,search,list,relate" ui-type="computed" ui-func="bampfa.convertHtmlToPlainText" ui-args="bampfaFormattedTitle" ui-readonly="true"/>
+			
+			<!-- Create an app-layer only field for searching on bampfaTitle, which is not computed. -->
+			<!-- Usually exists-in-services="false" is enough to keep the app layer from saving this field (which would override bampfaTitle with an empty value),
+			     but for some reason, we also need services-readonly="true". It might have to do with being in a repeating group in an extension? -->
+			<field id="bampfaTitleSearch" section="bampfa" ui-search="repeatable" exists-in-services="false" services-readonly="true">
+				<services-tag>bampfaTitle</services-tag>
+			</field>
+		</repeat>
+		
+		<field id="itemClass" section="bampfa" ui-search="repeatable" autocomplete="vocab-itemclass" ui-type="enum"/>
+		
+		<repeat id="bampfaCollectionList" section="bampfa">
+			<field id="bampfaCollection" section="bampfa" ui-search="repeatable" autocomplete="vocab-collection" ui-type="enum"/>
+		</repeat>
+		
+		<field id="numberOfScans" section="bampfa" ui-type="validated" datatype="integer"/>
+		
+		<field id="artistDisplayOverride" section="bampfa"/>
+	</section>
+	
+	<section id="descriptionInformation">
+		<repeat id="styles">
+			<!-- Tie to the periodorstyle vocabulary -->
+			<field id="style" autocomplete="vocab-periodorstyle" ui-type="enum"/>
+		</repeat>
+		
+		<!-- Add ui-search -->
+		<field id="physicalDescription" ui-search="repeatable"/>
+		
+		<!-- Local fields -->
+		
+		<field id="bwOrColor" section="bampfa" ui-search="repeatable">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="Black &amp; white">Black &amp; white</option>
+				<option id="Color">Color</option>
+			</options>
+		</field>
+		
+		<field id="soundOrSilent" section="bampfa" ui-search="repeatable">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="Sound">Sound</option>
+				<option id="Silent">Silent</option>
+			</options>		
+		</field>
+		
+		<field id="stateGeneration" section="bampfa" ui-search="repeatable"/>
+	</section>
+	
+	<section id="objectProductionInformation">
+		<repeat id="objectProductionPeopleGroupList/objectProductionPeopleGroup">
+			<!-- Add autocomplete -->
+			<field id="objectProductionPeople" autocomplete="organization-organization,organization-collective"/>
+			<!-- Add autocomplete and ui-type -->
+			<field id="objectProductionPeopleRole" autocomplete="vocab-productionpeoplerole" ui-type="enum"/>
+		</repeat>
+
+		<repeat id="objectProductionPersonGroupList/objectProductionPersonGroup">
+			<!-- Remove ui-search -->
+			<field id="objectProductionPerson" ui-search="" />
+		</repeat>
+		
+		<!-- Local fields -->
+		<field id="computedArtistName" section="bampfa" mini="search,list"/>
+		
+		<repeat id="bampfaObjectProductionPersonGroupList/bampfaObjectProductionPersonGroup" section="bampfa" >
+			<field id="bampfaObjectProductionPerson" section="bampfa" mini="search,list" ui-search="repeatable" autocomplete="person-person"/>
+			<field id="bampfaObjectProductionPersonRole" section="bampfa" autocomplete="vocab-productionpersonrole" ui-type="enum"/>
+			<field id="bampfaObjectProductionPersonQualifier" section="bampfa" autocomplete="vocab-productionpersonqualifier" ui-type="enum"/>
+		</repeat>
+
+		<field id="objectProductionDateCirca" section="bampfa" datatype="boolean"/>
+		<field id="objectProductionDateCentury" section="bampfa"/>
+		<field id="objectProductionDateEra" section="bampfa" autocomplete="vocab-dateera" ui-type="enum"/>
+		<field id="objectProductionDynasty" section="bampfa"/>
+	</section>
+	
+	<section id="accNumberInformation">
+		<field id="accNumberPrefix" section="bampfa"/>
+		<field id="accNumberPart1" section="bampfa" ui-type="validated" datatype="integer"/>
+		<field id="accNumberPart2" section="bampfa" ui-type="validated" datatype="integer"/>
+		<field id="accNumberPart3" section="bampfa" ui-type="validated" datatype="integer"/>
+		<field id="accNumberPart4" section="bampfa" ui-type="validated" datatype="integer"/>
+		<field id="accNumberPart5" section="bampfa"/>
+	</section>
+	
+	<section id="catalogerInformation">
+		<repeat id="catalogerGroupList/catalogerGroup" section="bampfa">
+			<field id="catalogerName" section="bampfa"/>
+			<field id="catalogDate" section="bampfa" ui-type="date" datatype="date"/>
+			<field id="catalogNote" section="bampfa"/>
+		</repeat>
+	</section>
+	
+	<section id="conditionCheckInformation">
+		<repeat id="bampfaConditionCheckGroupList/bampfaConditionCheckGroup" section="bampfa">
+			<field id="conditionNote" section="bampfa"/>
+			<field id="conservationNote" section="bampfa"/>
+			<field id="conditionCheckDate" section="bampfa" ui-type="date" datatype="date"/>
+			<field id="conditionCheckBy" section="bampfa"/>
+		</repeat>
+	</section>
+	
+	<section id="copyrightInformation">
+		<field id="copyrightCredit" section="bampfa"/>
+		<field id="copyrightHolder" section="bampfa"/>
+		<field id="copyrightNote" section="bampfa"/>
+		<field id="photoCredit" section="bampfa"/>
+		<field id="permissionToReproduce" section="bampfa" ui-search="repeatable">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="Unknown" default="yes">Unknown</option>
+				<option id="Yes">Yes</option>
+				<option id="No">No</option>
+				<option id="Restricted">Restricted</option>
+				<option id="Public Domain">Public Domain</option>
+				<option id="Pending">Pending</option>
+			</options>
+		</field>
+	</section>
+	
+	<section id="acquisitionInformation">
+		<field id="accessionDateGroup" section="bampfa" ui-type="groupfield/structureddate" ui-func="cspace.structuredDate" primarykey="accessionDateGroup.dateDisplayDate"/>		
+
+		<field id="legalStatus" section="bampfa" ui-search="repeatable" autocomplete="vocab-legalstatus" ui-type="enum"/>
+		<field id="legalStatusDateGroup" section="bampfa" ui-type="groupfield/structureddate" ui-func="cspace.structuredDate" primarykey="legalStatusDateGroup.dateDisplayDate"/>
+		
+		<repeat id="acquisitionDateGroupList/acquisitionDateGroup" section="bampfa">
+			<group id="acquisitionDateGroup" section="bampfa" ui-type="groupfield/structureddate" ui-search="range" primarykey="dateDisplayDate" ui-func="cspace.structuredDate" xxx-services-no-repeat="true">
+				<!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
+				<field id="dateDisplayDate" section="bampfa"/>
+				<field id="dateAssociation" section="bampfa"/>
+				<field id="dateEarliestSingleYear" section="bampfa"/>
+				<field id="dateEarliestSingleMonth" section="bampfa"/>
+				<field id="dateEarliestSingleDay" section="bampfa"/>
+				<field id="dateEarliestSingleEra" section="bampfa"/>
+				<field id="dateEarliestSingleCertainty" section="bampfa"/>
+				<field id="dateEarliestSingleQualifier" section="bampfa"/>
+				<field id="dateEarliestSingleQualifierValue" section="bampfa"/>
+				<field id="dateEarliestSingleQualifierUnit" section="bampfa"/>
+				<field id="dateLatestYear" section="bampfa"/>
+				<field id="dateLatestMonth" section="bampfa"/>
+				<field id="dateLatestDay" section="bampfa"/>
+				<field id="dateLatestEra" section="bampfa"/>
+				<field id="dateLatestCertainty" section="bampfa"/>
+				<field id="dateLatestQualifier" section="bampfa"/>
+				<field id="dateLatestQualifierValue" section="bampfa"/>
+				<field id="dateLatestQualifierUnit" section="bampfa"/>
+				<field id="datePeriod" section="bampfa"/>
+				<field id="dateNote" section="bampfa"/>
+				<field id="dateEarliestScalarValue" section="bampfa"/>
+				<field id="dateLatestScalarValue" section="bampfa"/>
+				<field id="scalarValuesComputed" section="bampfa"/>
+			</group>
+		</repeat>
+		
+		<field id="acquisitionMethod" section="bampfa" ui-search="repeatable" seperate_ui_container="true" autocomplete="vocab-acquisitionmethod" ui-type="enum"/>
+
+		<repeat id="acquisitionSources" section="bampfa">
+			<field id="acquisitionSource" section="bampfa" ui-search="repeatable"/>
+		</repeat>
+
+		<field id="creditLine" section="bampfa" ui-search="repeatable"/>
+
+		<repeat id="bampfaAcquisitionReasonList" section="bampfa">
+			<field id="bampfaAcquisitionReason" section="bampfa" ui-search="repeatable" autocomplete="vocab-acquisitionreason" ui-type="enum"/>
+		</repeat>
+		
+		<field id="acquisitionProvisos" section="bampfa"/>
+		
+		<field id="appraisalInfo" section="bampfa"/>
+
+		<field id="acquisitionNote" section="bampfa"/>
+		
+		<field id="provenance" section="bampfa"/>
+
+		<repeat id="currentValueGroupList/currentValueGroup" section="bampfa">
+			<field id="currentValue" section="bampfa" ui-type="validated" datatype="float"/>
+			<field id="currentValueSource" section="bampfa"/>
+			<group id="currentValueDateGroup" section="bampfa" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
+				<!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
+				<field id="dateDisplayDate" section="bampfa"/>
+				<field id="dateAssociation" section="bampfa"/>
+				<field id="dateEarliestSingleYear" section="bampfa"/>
+				<field id="dateEarliestSingleMonth" section="bampfa"/>
+				<field id="dateEarliestSingleDay" section="bampfa"/>
+				<field id="dateEarliestSingleEra" section="bampfa"/>
+				<field id="dateEarliestSingleCertainty" section="bampfa"/>
+				<field id="dateEarliestSingleQualifier" section="bampfa"/>
+				<field id="dateEarliestSingleQualifierValue" section="bampfa"/>
+				<field id="dateEarliestSingleQualifierUnit" section="bampfa"/>
+				<field id="dateLatestYear" section="bampfa"/>
+				<field id="dateLatestMonth" section="bampfa"/>
+				<field id="dateLatestDay" section="bampfa"/>
+				<field id="dateLatestEra" section="bampfa"/>
+				<field id="dateLatestCertainty" section="bampfa"/>
+				<field id="dateLatestQualifier" section="bampfa"/>
+				<field id="dateLatestQualifierValue" section="bampfa"/>
+				<field id="dateLatestQualifierUnit" section="bampfa"/>
+				<field id="datePeriod" section="bampfa"/>
+				<field id="dateNote" section="bampfa"/>
+				<field id="dateEarliestScalarValue" section="bampfa"/>
+				<field id="dateLatestScalarValue" section="bampfa"/>
+				<field id="scalarValuesComputed" section="bampfa"/>
+			</group>
+		</repeat>
+
+		<field id="initialValue" section="bampfa" ui-type="validated" datatype="float"/>
+		<field id="initialValueSource" section="bampfa"/>
+		<field id="initialValueDateGroup" section="bampfa" ui-type="groupfield/structureddate" primarykey="initialValueDateGroup.dateDisplayDate" ui-func="cspace.structuredDate"/>
+	</section>
+	
+	<section id="classificationInformation">
+		<repeat id="subjectThemes" section="bampfa">
+			<field id="subjectTheme" section="bampfa" ui-search="repeatable" autocomplete="vocab-subjectsandthemes" ui-type="enum"/>
+		</repeat>
+		<field id="seriesTitle" section="bampfa" ui-search="repeatable"/>
+		<field id="partOf" section="bampfa" ui-search="repeatable"/>
+	</section>
+	
+	<section id="collectionTextInformation">
+		<repeat id="collectionTextGroupList/collectionTextGroup" section="bampfa">
+			<field id="collectionTextType" section="bampfa"/>
+			<field id="collectionTextDoNotPublish" section="bampfa" datatype="boolean"/>
+			<field id="collectionText" section="bampfa"/>
+			<field id="collectionTextAuthor" section="bampfa"/>
+			<group id="collectionTextDateGroup" section="bampfa" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
+				<!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
+				<field id="dateDisplayDate" section="bampfa"/>
+				<field id="dateAssociation" section="bampfa"/>
+				<field id="dateEarliestSingleYear" section="bampfa"/>
+				<field id="dateEarliestSingleMonth" section="bampfa"/>
+				<field id="dateEarliestSingleDay" section="bampfa"/>
+				<field id="dateEarliestSingleEra" section="bampfa"/>
+				<field id="dateEarliestSingleCertainty" section="bampfa"/>
+				<field id="dateEarliestSingleQualifier" section="bampfa"/>
+				<field id="dateEarliestSingleQualifierValue" section="bampfa"/>
+				<field id="dateEarliestSingleQualifierUnit" section="bampfa"/>
+				<field id="dateLatestYear" section="bampfa"/>
+				<field id="dateLatestMonth" section="bampfa"/>
+				<field id="dateLatestDay" section="bampfa"/>
+				<field id="dateLatestEra" section="bampfa"/>
+				<field id="dateLatestCertainty" section="bampfa"/>
+				<field id="dateLatestQualifier" section="bampfa"/>
+				<field id="dateLatestQualifierValue" section="bampfa"/>
+				<field id="dateLatestQualifierUnit" section="bampfa"/>
+				<field id="datePeriod" section="bampfa"/>
+				<field id="dateNote" section="bampfa"/>
+				<field id="dateEarliestScalarValue" section="bampfa"/>
+				<field id="dateLatestScalarValue" section="bampfa"/>
+				<field id="scalarValuesComputed" section="bampfa"/>
+			</group>
+			<field id="collectionTextNote" section="bampfa"/>
+		</repeat>
+	</section>
+
+	<!-- Use this to generate a message key for the initial value group. -->
+	<section id="initialValueGroup"/>
+	
+	<!-- The other number group doesn't get a message key generated, for some reason. Use this to generate one. -->
+	<section id="otherNumberGroup"/>
+	
+	<!-- Used to group some fields in the UI. -->
+	<section id="noteInformation"/>
+</record>

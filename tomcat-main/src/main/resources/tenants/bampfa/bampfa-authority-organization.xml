@@ -1,0 +1,20 @@
+<record id="organization">
+	<instances id="organization">
+		<instance id="organization-organization">
+			<web-url>organization</web-url>
+			<title-ref>organization</title-ref>
+			<title>Local Organizations</title>
+		</instance>
+		<instance id="organization-ulan_oa">
+			<web-url>ulan_oa</web-url>
+			<title-ref>ulan_oa</title-ref>
+			<title>ULAN Organizations</title>
+		</instance>
+		<!-- Add collective vocabulary -->
+		<instance id="organization-collective">
+			<web-url>collective</web-url>
+			<title-ref>collective</title-ref>
+			<title>Artists Collectives</title>
+		</instance>	
+	</instances>
+</record>

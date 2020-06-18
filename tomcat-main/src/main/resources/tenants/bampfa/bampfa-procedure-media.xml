@@ -1,0 +1,34 @@
+<record id="media" is-extension="true">
+	<services-record-path id="bampfa">media_bampfa:http://collectionspace.org/services/media/local/bampfa,media_bampfa</services-record-path>
+	
+	<section id="mediaInformation">
+		<!-- Change to be computed and read-only, and remove ui-search -->
+		<field id="title" ui-type="computed" ui-func="bampfa.computeMediaTitle" ui-args="blobs" ui-readonly="true" ui-search=""/>
+
+		<!-- Configure an app-layer only field for title advanced search -->
+		<field id="titleSearch" ui-search="repeatable" exists-in-services="false">
+			<services-tag>title</services-tag>
+		</field>
+
+		<!-- Remove mini -->
+		<field id="identificationNumber" mini=""/>
+
+		<!-- Local fields -->
+
+		<field id="primaryDisplay" section="bampfa" datatype="boolean" mini="search,list,relate"/>
+		<field id="imageNumber" section="bampfa" datatype="integer" ui-type="validated" mini="number,search,list,relate" ui-search="range"/>
+		<field id="computedOrderNumber" section="bampfa" mini="search,list,relate" ui-type="computed" ui-func="bampfa.computeMediaOrderNumber" ui-args="primaryDisplay,imageNumber" ui-readonly="true"/>
+		<!-- Piction ID of the image. Should be present on all media records sourced from Piction. -->
+		<field id="pictionId" section="bampfa" datatype="integer" ui-readonly="true"/>
+		<!-- SHA-1 hash of the image pushed from Piction. Should be present on all media records sourced from Piction. -->
+		<field id="pictionImageHash" section="bampfa" ui-readonly="true"/>
+		<field id="websiteDisplayLevel" section="bampfa">
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="No public display">No public display</option>
+				<option id="Display thumbnail only">Display thumbnail only</option>
+				<option id="Display larger size">Display larger size</option>
+			</options>
+		</field>
+	</section>
+</record>
