@@ -1,0 +1,72 @@
+<record id="dimension">
+	<section id="dimensionInformation">
+		<repeat id="measuredPartGroupList/measuredPartGroup">
+			<field id="measuredPart">
+				<!-- Delete the options -->
+				<!-- TODO: Figure out how to delete the options tag here, so this works. Currently deleting it in the base file. -->
+			</field>
+			<repeat id="dimensionSubGroupList/dimensionSubGroup">
+				<field id="dimension">
+					<!-- Change options -->
+					<options>
+						<option id="">(none selected)</option>
+						<option id="angle">angle</option>
+						<option id="area">area</option>
+						<option id="circumference">circumference</option>
+						<option id="depth">depth/thickness</option>
+						<option id="diameter">diameter</option>
+						<option id="duration">duration</option>
+						<option id="filesize">file size</option>
+						<option id="height">height</option>
+						<option id="length">length</option>
+						<option id="linear">&quot;linear&quot; (coin diameter)</option>
+						<option id="memorysize">memory size</option>
+						<option id="recording speed">recording speed</option>
+						<option id="runningTime">running time</option>
+						<option id="thickness">thickness</option>
+						<option id="volume">volume</option>
+						<option id="weight">weight</option>
+						<option id="width">width/breadth</option>
+					</options>
+				</field>
+				<field id="measurementUnit">
+					<!-- Change options -->
+					<options>
+						<option id="">(none selected)</option>
+						<option id="bytes">B (bytes)</option>
+						<option id="caratsMass">CD (carats [mass])</option>
+						<option id="caratsPurity">ct (carats [purity])</option>
+						<option id="centimeters">cm (centimeters)</option>
+						<option id="squareCentimeters">cm&#xB2; (square centimeters)</option>
+						<option id="cubicCentimeters">cm&#xB3; (cubic centimeters)</option>
+						<option id="degrees">&#xB0; (degrees)</option>
+						<option id="feet">ft (feet)</option>
+						<option id="squareFeet">ft&#xB2; (square feet)</option>
+						<option id="cubicFeet">ft&#xB3; (cubic feet)</option>
+						<option id="grams">g (grams)</option>
+						<option id="inches">in (inches)</option>
+						<option id="squareInches">in&#xB2; (square inches)</option>
+						<option id="cubicInches">in&#xB3; (cubic inches)</option>
+						<option id="kilograms">kg (kilograms)</option>
+						<option id="liters">l (liters)</option>
+						<option id="pounds">lb (pounds)</option>
+						<option id="millimeters">mm (millimeters)</option>
+						<option id="meters">m (meters)</option>
+						<option id="minutes">mins (minutes)</option>
+						<option id="ounces">oz (ounces)</option>
+						<option id="pints">pt (pints)</option>
+						<option id="pixels">px (pixels)</option>
+						<option id="recording speed">&quot;recording speed&quot; (either ips, rpm, or Kroeber notes page number)</option>
+						<option id="rotationsPerMinute">rpm (rotations/minute)</option>
+						<option id="seconds">s (seconds)</option>
+						<option id="yards">yds (yards)</option>
+					</options>
+				</field>
+				<field id="measurementMethod">
+					<!-- Delete the options -->
+					<!-- TODO: Figure out how to delete the options tag here, so this works. Currently deleting it in the base file. -->
+				</field>
+			</repeat>
+		</repeat>
+	</section>
+</record>

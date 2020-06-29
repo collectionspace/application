@@ -1,0 +1,12 @@
+<record id="person" is-extension="true">
+	<services-record-path id="anthropology">persons_anthropology:http://collectionspace.org/services/person/domain/anthropology,persons_anthropology</services-record-path>
+
+	<section id="personNameAuthorityInformation">
+		<repeat id="altNameNotes" section="anthropology">
+			<selector>personAuthority-altNameNote</selector>
+			<field id="altNameNote" section="anthropology" ui-search="repeatable">
+				<selector>personAuthority-altNameNote</selector>
+			</field>
+		</repeat>
+	</section>
+</record>

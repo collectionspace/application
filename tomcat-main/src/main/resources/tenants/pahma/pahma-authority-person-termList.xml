@@ -1,0 +1,78 @@
+<record id="preferredPA">
+	<section id="termInformation">
+		<repeat id="personTermGroupList/personTermGroup">
+			<field id="termStatus">
+				<!-- Change options -->
+				<options>
+					<option id="provisional" default="yes">provisional</option>
+					<option id="underReview">under review</option>
+					<option id="possibleDuplicate">possible duplicate</option>
+					<option id="duplicateRemove">duplicate entry&#x2014;remove</option>
+					<option id="accepted">accepted</option>
+					<option id="rejected">rejected</option>
+				</options>
+			</field>
+			<!-- Remove citation-worldcat from autocomplete -->
+			<field id="termSource" autocomplete="citation-citation"/>
+			<field id="title">
+				<!-- Change options -->
+				<options>
+					<option id="" default="yes">(none selected)</option>
+					<option id="Acting Chairperson">Acting Chairperson</option>
+					<option id="Admiral">Admiral</option>
+					<option id="Baron">Baron</option>
+					<option id="Brigadier General">Brigadier General</option>
+					<option id="Brother">Brother</option>
+					<option id="Canon">Canon</option>
+					<option id="Captain">Captain</option>
+					<option id="Chaiperson">Chaiperson</option>
+					<option id="Chairman">Chairman</option>
+					<option id="Chairperson">Chairperson</option>
+					<option id="Chancellor">Chancellor</option>
+					<option id="Chief">Chief</option>
+					<option id="Colonel">Colonel</option>
+					<option id="Commodore">Commodore</option>
+					<option id="Corporal">Corporal</option>
+					<option id="Count">Count</option>
+					<option id="Czar">Czar</option>
+					<option id="Dean">Dean</option>
+					<option id="Dr.">Dr.</option>
+					<option id="Father">Father</option>
+					<option id="General">General</option>
+					<option id="Governor">Governor</option>
+					<option id="Great-grandmother">Great-grandmother</option>
+					<option id="Hon.">Hon.</option>
+					<option id="Judge">Judge</option>
+					<option id="Khan">Khan</option>
+					<option id="King">King</option>
+					<option id="Lady">Lady</option>
+					<option id="Lieutenant">Lieutenant</option>
+					<option id="Lieutenant Colonel">Lieutenant Colonel</option>
+					<option id="Lieutenant Commander">Lieutenant Commander</option>
+					<option id="Major">Major</option>
+					<option id="Mayor">Mayor</option>
+					<option id="Miss">Miss</option>
+					<option id="Mlle.">Mlle.</option>
+					<option id="Monsieur">Monsieur</option>
+					<option id="Mr.">Mr.</option>
+					<option id="Mr. and Mrs.">Mr. and Mrs.</option>
+					<option id="Mrs.">Mrs.</option>
+					<option id="Ms.">Ms.</option>
+					<option id="Pastor">Pastor</option>
+					<option id="Pfc.">Pfc.</option>
+					<option id="President">President</option>
+					<option id="Prince">Prince</option>
+					<option id="Prof.">Prof.</option>
+					<option id="Ranger">Ranger</option>
+					<option id="Reverend">Reverend</option>
+					<option id="Senor">Se&#xF1;or</option>
+					<option id="Sheriff">Sheriff</option>
+					<option id="Sir">Sir</option>
+					<option id="Sister">Sister</option>
+					<option id="Technical Sergeant">Technical Sergeant</option>
+					<option id="Vice Chancellor">Vice Chancellor</option>
+				</options>
+			</field>
+		</repeat>
+	</section>
+</record>

@@ -1,0 +1,95 @@
+<record id="acquisition" is-extension="true">
+	<services-record-path id="pahma">acquisitions_pahma:http://collectionspace.org/services/acquisition/local/pahma,acquisitions_pahma</services-record-path>
+
+	<section id="acquisitionInformation">
+		<field id="acquisitionReferenceNumber">
+			<!-- Change options -->
+			<options>
+				<option id="pahma-accession" sample="ACC 2012.1.1">Accession</option>
+			</options>
+		</field>
+		<field id="acquisitionMethod" autocomplete="vocab-accaquisitionmethod" ui-type="enum">
+			<!-- Change options -->
+			<!--<options>
+				<option id="gift" default="yes">gift</option>
+				<option id="bequest">bequest</option>
+				<option id="exchange">exchange</option>
+				<option id="purchase">purchase</option>
+				<option id="transfer">transfer</option>
+				<option id="foundInCollections">found in collections</option>
+				<option id="unknown">unknown</option>
+			</options>-->
+		</field>
+		<repeat id="acquisitionSources">
+			<!-- Add concept-concept to autocomplete -->
+			<!-- Unset mini attribute -->
+			<field id="acquisitionSource" autocomplete="person-person,organization-organization,concept-concept" mini="" />
+		</repeat>
+		<repeat id="owners">
+			<!-- Add ui-search, and add concept-concept to autocomplete -->
+			<field id="owner" ui-search="repeatable" autocomplete="person-person,organization-organization,concept-concept"/>
+		</repeat>
+		<field id="groupPurchasePriceCurrency">
+			<enum>
+				<!-- Change default and blank-value -->
+				<default>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(currency):item:name(usd)'US Dollar ($)'</default>
+				<blank-value>(none selected)</blank-value>
+			</enum>
+		</field>
+		<field id="objectOfferPriceCurrency">
+			<enum>
+				<!-- Change default and blank-value -->
+				<default>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(currency):item:name(usd)'US Dollar ($)'</default>
+				<blank-value>(none selected)</blank-value>
+			</enum>
+		</field>
+		<field id="objectPurchaseOfferPriceCurrency">
+			<!-- I don't know why this field appears twice in the base file, but we have to make it appear twice here -->
+			<!-- as well, so the xmlmerge doesn't get confused. -->
+			<enum>
+				<!-- Change default and blank-value -->
+				<default>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(currency):item:name(usd)'US Dollar ($)'</default>
+				<blank-value>(none selected)</blank-value>
+			</enum>
+		</field>
+		<field id="objectPurchasePriceCurrency">
+			<enum>
+				<!-- Change default and blank-value -->
+				<default>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(currency):item:name(usd)'US Dollar ($)'</default>
+				<blank-value>(none selected)</blank-value>
+			</enum>
+		</field>
+		<field id="objectPurchaseOfferPriceCurrency">
+			<!-- I don't know why this field appears twice in the base file, but we have to make it appear twice here -->
+			<!-- as well, so the xmlmerge doesn't get confused. -->
+			<enum>
+				<!-- Change default and blank-value -->
+				<default>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(currency):item:name(usd)'US Dollar ($)'</default>
+				<blank-value>(none selected)</blank-value>
+			</enum>
+		</field>			
+		<field id="originalObjectPurchasePriceCurrency">
+			<enum>
+				<!-- Change default and blank-value -->
+				<default>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(currency):item:name(usd)'US Dollar ($)'</default>
+				<blank-value>(none selected)</blank-value>
+			</enum>
+		</field>
+		<repeat id="acquisitionFundingList/acquisitionFunding">
+			<field id="acquisitionFundingCurrency">
+				<enum>
+					<!-- Change default and blank-value -->
+					<default>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(currency):item:name(usd)'US Dollar ($)'</default>
+					<blank-value>(none selected)</blank-value>
+				</enum>
+			</field>
+		</repeat>
+		
+		<!-- Local fields -->
+		
+		<repeat id="acquisitionDonorGroupList/acquisitionDonorGroup" section="pahma">
+			<field id="donor" section="pahma" ui-search="repeatable" autocomplete="person-person,organization-organization" mini="summary,search,list,relate"/>
+			<field id="donorAnon" section="pahma" ui-search="repeatable" datatype="boolean"/>
+		</repeat>
+	</section>
+</record>

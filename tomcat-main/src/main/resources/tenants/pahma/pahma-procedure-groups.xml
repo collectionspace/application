@@ -1,0 +1,10 @@
+<record id="group">
+	<section id="groupInformation">
+		<!-- This field repurposed to be "Purpose" -->
+		<!-- Add autocomplete and enum -->
+		<field id="responsibleDepartment" autocomplete="vocab-grouppurpose" ui-type="enum">
+			<!-- Remove options -->
+			<options/>
+		</field>
+	</section>
+</record>

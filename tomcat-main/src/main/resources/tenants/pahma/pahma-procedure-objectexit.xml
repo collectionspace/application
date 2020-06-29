@@ -1,0 +1,30 @@
+<record id="objectexit">
+	<section id="objectexitInformation">
+		<field id="exitNumber">
+			<!-- Change options -->
+			<options>
+				<option id="pahma-objectexit" sample="EX 2012.1.1">Object Exit</option>
+			</options>
+		</field>
+		
+		<!-- Remove ui-search, mini, and in-title, since newOwner is replacing this field -->
+		<field id="currentOwner" ui-search="" mini="" in-title=""/>
+		
+		<repeat id="exitMethods">
+			<field id="exitMethod" autocomplete="vocab-objexitmethod" ui-type="enum">
+				<!-- Change options -->
+				<!-- Converted to dynamic-->
+			</field>
+		</repeat>
+		
+		<field id="exitReason" autocomplete="vocab-objexitreason" ui-type="enum">
+			<!-- Change options -->
+			<!-- Converted to dynamic  -->
+		</field>
+		
+		<repeat id="newOwnerList" section="anthropology">
+			<!-- Add mini and in-title -->
+			<field id="newOwner" mini="summary,list" in-title="yes"/>
+		</repeat>
+	</section>
+</record>

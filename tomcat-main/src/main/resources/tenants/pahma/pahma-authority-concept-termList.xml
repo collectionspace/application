@@ -1,0 +1,16 @@
+<record id="preferredCA">
+	<section id="termInformation">
+		<repeat id="conceptTermGroupList/conceptTermGroup">
+			<field id="termType">
+				<!-- Change options -->
+				<options>
+					<option id="">Please select a value</option>
+					<option id="descriptor">descriptor</option>
+					<option id="alternativeterm">alternative term</option>
+				</options>
+			</field>
+			<!-- Remove citation-worldcat from autocomplete -->
+			<field id="termSource" autocomplete="citation-citation"/>
+		</repeat>
+	</section>
+</record>

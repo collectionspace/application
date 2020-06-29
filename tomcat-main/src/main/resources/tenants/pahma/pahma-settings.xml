@@ -1,0 +1,64 @@
+<!--
+	This file contains modifications to settings.xml for this tenant. Changes to settings
+	for a specific host on which this tenant is installed (e.g. dev vs. production) should
+	be made in host-settings.xml.
+-->
+
+<settings>
+	<admin>
+		<username>admin@pahma.cspace.berkeley.edu</username>
+		<tenant>15</tenant>
+		<tenantname>pahma</tenantname>
+	</admin>
+	<email>
+		<baseurl>http://pahma-dev.cspace.berkeley.edu</baseurl>
+		<from>admin@pahma.cspace.berkeley.edu</from>
+	</email>
+	<persistence>
+		<service>
+			<tenant>
+				<id>15</id>
+				<name>pahma.cspace.berkeley.edu</name>
+				<version>0.1</version>
+				<display-name>CollectionSpace PAHMA Tenant</display-name>
+				<create-disabled>false</create-disabled>
+			</tenant>
+			<repository>
+				<domain>pahma_domain</domain>
+				<name>pahma_domain</name>
+				<client>nuxeo-java</client>
+				<dateformats>
+					<pattern>MM/dd/yyyy</pattern>
+					<pattern>MMM dd, yyyy</pattern>
+					<pattern>dd.MM.yyyy</pattern>
+				</dateformats>
+				<languages>
+					<language>en</language>
+				</languages>
+				<indexHandler>org.collectionspace.services.common.init.AddIndices</indexHandler>
+			</repository>
+			<ims-url>/collectionspace/tenant/pahma/</ims-url>
+	   </service>
+	</persistence>
+	<ui>
+		<web>
+			<login-dest>/collectionspace/ui/pahma/html/advancedsearch.html</login-dest>
+			<login-failed-dest>/collectionspace/ui/pahma/html/index.html</login-failed-dest>
+			<front-page>/collectionspace/ui/pahma/html/index.html</front-page>
+			<mappings>
+				<map id="record">
+					<file>/pahma/html/record.html</file>
+				</map>
+				<map id="authority">
+					<file>/pahma/html/record.html</file>
+					<configure>
+						<meta id="recordType">{instance/web-url}</meta>
+					</configure>
+				</map>
+				<map id="procedure">
+					<file>/pahma/html/record.html</file>
+				</map>
+			</mappings>
+		</web>
+	</ui>
+</settings>

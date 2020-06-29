@@ -1,0 +1,89 @@
+<record id="loanout" is-extension="true">
+	<services-record-path id="naturalhistory">loansout_naturalhistory:http://collectionspace.org/services/loanout/domain/naturalhistory,loansout_naturalhistory</services-record-path>
+
+	<section id="loanoutInformation">
+		<field id="collection" section="naturalhistory">
+			<options>
+				<option id="">Please select a value</option>
+			</options>
+		</field>
+		<field id="majorGroup" section="naturalhistory">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="Spermatophytes">Spermatophytes</option>
+				<option id="Pteridophytes">Pteridophytes</option>
+				<option id="Algae">Algae</option>
+				<option id="Bryophytes">Bryophytes</option>
+				<option id="Fungi">Fungi</option>
+				<option id="Lichen">Lichen</option>
+				<option id="n/a">n/a</option>
+				<option id="misc">misc</option>
+			</options>
+		</field>
+		<repeat id="geographyList" section="naturalhistory">
+			<field id="geography" section="naturalhistory"/>
+		</repeat>
+		<repeat id="taxonomyList" section="naturalhistory">
+			<field id="taxonomy" section="naturalhistory" autocomplete="taxon-taxon"/>
+		</repeat>
+		<repeat id="objKindList" section="naturalhistory">
+			<field id="objKind" section="naturalhistory">
+				<options>
+					<option id="">Please select a value</option>
+					<option id="Sheet">Sheet</option>
+					<option id="Jar">Jar</option>
+				</options>
+			</field>
+		</repeat>
+		<field id="shipDate" section="naturalhistory" ui-type="date" datatype="date"/>
+		<field id="transportMethod" section="naturalhistory">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="surface">surface</option>
+				<option id="hand-carried">hand-carried</option>
+				<option id="air">air</option>
+			</options>
+		</field>
+		<field id="numPackages" section="naturalhistory" ui-type="validated" datatype="integer"/>
+		<field id="acknowledgeDate" section="naturalhistory" ui-type="date" datatype="date"/>
+		<field id="numLent" section="naturalhistory" ui-type="validated" datatype="integer"/>
+		<field id="numReturned" section="naturalhistory" ui-type="validated" datatype="integer"/>
+		<field id="balance" section="naturalhistory" ui-type="validated" datatype="integer"/>
+		<field id="discrepancy" section="naturalhistory" ui-type="validated" datatype="integer"/>
+	</section>
+
+	<section id="objectInformation">
+		<field id="loanoutItems" section="naturalhistory"/>
+
+		<repeat id="objectGroupList/objectGroup" section="naturalhistory">
+			<field id="objectNumbers" section="naturalhistory"/>
+			<field id="objectQuantity" section="naturalhistory" ui-type="validated" datatype="integer"/>
+			<field id="objectConditions" section="naturalhistory"/>
+			<field id="objectNotes" section="naturalhistory"/>
+		</repeat>
+	</section>
+
+	<section id="returnInformation">
+		<repeat id="returnGroupList/returnGroup" section="naturalhistory">
+			<field id="returnObjectNumbers" section="naturalhistory"/>
+			<field id="returnQuantity" section="naturalhistory" ui-type="validated" datatype="integer"/>
+			<field id="returnDate" section="naturalhistory" ui-type="date" datatype="date"/>
+			<field id="returnNotes" section="naturalhistory"/>
+			<field id="returnDetermination" section="naturalhistory" autocomplete="taxon-taxon"/>
+		</repeat>
+	</section>
+
+	<section id="transferInformation">
+		<repeat id="transferGroupList/transferGroup" section="naturalhistory">
+			<field id="transferDate" section="naturalhistory" ui-type="date" datatype="date"/>
+			<field id="transferOrg" section="naturalhistory" autocomplete="organization-organization"/>
+			<field id="transferPerson" section="naturalhistory" autocomplete="person-person"/>
+			<field id="transferDirector" section="naturalhistory" autocomplete="person-person"/>
+			<field id="transferQuantity" section="naturalhistory" ui-type="validated" datatype="integer"/>
+			<field id="transferNotes" section="naturalhistory"/>
+		</repeat>
+	</section>
+
+	<!-- This is just here so a message key will be generated. -->
+	<section id="manualCounts"/>
+</record>

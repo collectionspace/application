@@ -1,0 +1,41 @@
+<record id="loanout" is-extension="true">
+	<services-record-path id="pahma">loansout_pahma:http://collectionspace.org/services/loanout/local/pahma,loansout_pahma</services-record-path>
+
+	<section id="loanoutInformation">
+		<field id="loanOutNumber">
+			<!-- Change options -->
+			<options>
+				<option id="pahma-loanout" sample="LO 2012.1.1">Loan Out</option>
+			</options>
+		</field>
+		<!-- Change to be authority-controlled -->
+		<field id="loanPurpose" autocomplete="vocab-loanpurpose" ui-type="enum">
+			<enum>
+				<blank-value>(none selected)</blank-value>
+			</enum>
+			<options/>
+		</field>
+		<repeat id="loanStatusGroupList/loanStatusGroup">
+			<field id="loanStatus">
+				<enum>
+					<!-- Change blank-value -->
+					<blank-value>(none selected)</blank-value>
+				</enum>
+			</field>
+		</repeat>
+		
+		<!-- Local fields -->
+
+		<!-- FIXME: Add 'ui-search="range"' or equivalent to this field when range search on structured date -->
+		<!-- start and end scalar values is working -->
+		<field id="loanOutDateGroup" section="pahma" ui-type="groupfield/structureddate" 
+			primarykey="loanOutDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
+		</field>
+
+		<!-- FIXME: Add 'ui-search="range"' or equivalent to this field when range search on structured date -->
+		<!-- start and end scalar values is working -->
+		<field id="loanReturnDateGroup" section="pahma" ui-type="groupfield/structureddate" 
+			primarykey="loanReturnDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
+		</field>
+	</section>
+</record>

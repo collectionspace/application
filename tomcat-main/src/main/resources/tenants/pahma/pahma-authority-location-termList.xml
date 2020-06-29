@@ -1,0 +1,16 @@
+<record id="preferredSLA">
+	<section id="termInformation">
+		<repeat id="locTermGroupList/locTermGroup">
+			<field id="termStatus">
+				<!-- Change options -->
+				<options>
+					<option id="" default="yes">(none selected)</option>
+					<option id="accepted">active</option>
+					<option id="rejected">inactive</option>
+				</options>
+			</field>
+			<!-- Remove citation-worldcat from autocomplete -->
+			<field id="termSource" autocomplete="citation-citation"/>
+		</repeat>
+	</section>
+</record>

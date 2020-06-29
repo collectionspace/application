@@ -1,0 +1,358 @@
+<record id="claim" is-extension="true">
+	<services-record-path id="anthropology">claims_anthropology:http://collectionspace.org/services/claim/domain/anthropology,claims_anthropology</services-record-path>
+
+	<section id="claimInformation">
+		<!--<field id="claimName" section="anthropology" in-title="yes"></field>-->
+		<field id="claimName" ui-search="repeatable" section="anthropology" in-title="yes" mini="summary,search,list,relate"></field>
+
+		<repeat id="claimTypeList" section="anthropology" services-type-anonymous="false">
+			<field id="claimType" ui-search="repeatable" section="anthropology" seperate_ui_container="true">
+				<options>
+					<option id="" default="yes">(none selected)</option>
+					<option id="affiliatedHsr">affiliated human skeletal remains (HSR)</option>
+					<option id="unaffiliatedCuiHsr">unaffiliated human skeletal remains (HSR) (=CUI)</option>
+					<option id="afo">associated funerary object (AFO)</option>
+					<option id="ufo">unassociated funerary object (UFO)</option>
+					<option id="sacredObject">sacred object</option>
+					<option id="objectOfCulturalPatrimony">object of cultural patrimony</option>
+					<option id="nonNagpra">not subject to NAGPRA</option>
+					<option id="needsFurtherResearch">needs further research</option>
+					<option id="unknown">unknown</option>
+				</options>
+			</field>
+		</repeat>
+
+		<repeat id="claimAltNameGroupList/claimAltNameGroup" section="anthropology">
+			<field id="claimAltName" section="anthropology"></field>
+			<field id="claimAltNote" section="anthropology"></field>
+		</repeat>
+
+		<repeat id="claimNoteList" section="anthropology" services-type-anonymous="false">
+			<field id="claimNote" section="anthropology"></field>
+		</repeat>
+	</section>
+
+	<section id="claimAssociationInformation">
+		<repeat id="claimInventoryInvolvedGroupList/claimInventoryInvolvedGroup" section="anthropology">
+			<field id="inventoryInvolvedName" section="anthropology">
+				<options>
+					<option id="" default="yes">(none selected)</option>
+					<option id="notOnAnInventory">not on an inventory</option>
+					<option id="akAlaska">AK-Alaska</option>
+					<option id="akAlaskaNative">AK-Alaska Native</option>
+					<option id="akChugach">AK-Chugach</option>
+					<option id="azApacheCounty">AZ-Apache Co.</option>
+					<option id="azCochiti">AZ-Cochiti</option>
+					<option id="azCoconinoCounty">AZ-Coconino Co.</option>
+					<option id="azHopi">AZ-Hopi</option>
+					<option id="azNavajo">AZ-Navajo</option>
+					<option id="azNavajoCounty1">AZ-Navajo Co. 1</option>
+					<option id="azNavajoCounty2">AZ-Navajo Co. 2</option>
+					<option id="azPimaQuechan">AZ-Pima, Quechan</option>
+					<option id="azWestArizona">AZ-West Arizona</option>
+					<option id="caUsa1">CA/USA 1</option>
+					<option id="caUsa2">CA/USA 2</option>
+					<option id="caUsa3">CA/USA 3</option>
+					<option id="caAlamedaCounty1">CA-Alameda Co. 1</option>
+					<option id="caAlamedaCounty2">CA-Alameda Co. 2</option>
+					<option id="caAlamedaCounty3">CA-Alameda Co. 3</option>
+					<option id="caAlamedaCounty4">CA-Alameda Co. 4</option>
+					<option id="caAla309">CA-Ala-309</option>
+					<option id="caAmadorCounty">CA-Amador Co.</option>
+					<option id="caButteCounty">CA-Butte Co.</option>
+					<option id="caCahuilla2">CA-Cahuilla 2</option>
+					<option id="caCahuillaCupenoDiegueno">CA-Cahuilla, Cupeño, Diegueño</option>
+					<option id="caCalaverasCounty">CA-Calaveras Co.</option>
+					<option id="caChumash">CA-Chumash</option>
+					<option id="caChumash2">CA-Chumash 2</option>
+					<option id="caColusaCounty1">CA-Colusa Co. 1</option>
+					<option id="caColusaCounty2">CA-Colusa Co. 2</option>
+					<option id="caContraCostaCounty1">CA-Contra Costa Co. 1</option>
+					<option id="caContraCostaCounty2">CA-Contra Costa Co. 2</option>
+					<option id="caContraCostaCounty3">CA-Contra Costa Co. 3</option>
+					<option id="caContraCostaCounty4">CA-Contra Costa Co. 4</option>
+					<option id="caContraCostaCounty5">CA-Contra Costa Co. 5</option>
+					<option id="caContraCostaCounty6">CA-Contra Costa Co. 6</option>
+					<option id="caCco138">CA-CCo-138</option>
+					<option id="caCco141">CA-CCo-141 (Historic)</option>
+					<option id="caCupeno">CA-Cupeño</option>
+					<option id="caDelNorteCounty">CA-Del Norte Co.</option>
+					<option id="caElDoradoCounty">CA-El Dorado Co.</option>
+					<option id="caFoothillYokutsMonache1">CA-Foothill Yokuts/Monache 1</option>
+					<option id="caFoothillYokutsMonache2">CA-Foothill Yokuts/Monache 2</option>
+					<option id="caFresnoCounty1">CA-Fresno Co. 1</option>
+					<option id="caFresnoCounty2">CA-Fresno Co. 2</option>
+					<option id="caFresnoCounty3">CA-Fresno Co. 3</option>
+					<option id="caGlennCounty">CA-Glenn Co.</option>
+					<option id="caHumboldtCounty1">CA-Humboldt Co. 1</option>
+					<option id="caHumboldtCounty2">CA-Humboldt Co. 2</option>
+					<option id="caHumboldtCounty3">CA-Humboldt Co. 3</option>
+					<option id="caInyoCounty1">CA-Inyo Co. 1</option>
+					<option id="caInyoCounty2">CA-Inyo Co. 2</option>
+					<option id="caKarok">CA-Karok</option>
+					<option id="caKer-74">CA-Ker-74 (Historic)</option>
+					<option id="caKernCounty1">CA-Kern Co. 1</option>
+					<option id="caKernCounty2">CA-Kern Co. 2</option>
+					<option id="caKernCounty3">CA-Kern Co. 3</option>
+					<option id="caKingsCounty">CA-Kings Co.</option>
+					<option id="caKonkow">CA-Konkow</option>
+					<option id="caLakeCounty">CA-Lake Co.</option>
+					<option id="caLassenCounty1">CA-Lassen Co. 1</option>
+					<option id="caLassenCounty2">CA-Lassen Co. 2</option>
+					<option id="caLassenCounty3">CA-Lassen Co. 3</option>
+					<option id="caLosAngelesCounty1">CA-Los Angeles Co. 1</option>
+					<option id="caLosAngelesCounty2">CA-Los Angeles Co. 2</option>
+					<option id="caMaderaCounty1">CA-Madera Co. 1</option>
+					<option id="caMaderaCounty2">CA-Madera Co. 2</option>
+					<option id="caMarinCounty1">CA-Marin Co. 1</option>
+					<option id="caMarinCounty2">CA-Marin Co. 2</option>
+					<option id="caMariposaCounty">CA-Mariposa Co.</option>
+					<option id="caMendocino">CA-Mendocino</option>
+					<option id="caMercedCounty">CA-Merced Co.</option>
+					<option id="caModocCounty1">CA-Modoc Co. 1</option>
+					<option id="caModocCounty2">CA-Modoc Co. 2</option>
+					<option id="caMonoCounty">CA-Mono Co.</option>
+					<option id="caMontereyCountyOh1">CA-Monterey Co. (OH1)</option>
+					<option id="caMontereyCountyOh2">CA-Monterey Co. (OH2)</option>
+					<option id="caMontereyCounty1">CA-Monterey Co. 1</option>
+					<option id="caMontereyCounty2">CA-Monterey Co. 2</option>
+					<option id="caMontereyCounty3">CA-Monterey Co. 3</option>
+					<option id="caNapaCounty1">CA-Napa Co. 1</option>
+					<option id="caNapaCounty2">CA-Napa Co. 2</option>
+					<option id="caNapaCounty3">CA-Napa Co. 3</option>
+					<option id="caOrangeCounty">CA-Orange Co.</option>
+					<option id="caPatwin1">CA-Patwin 1 (Historic)</option>
+					<option id="caPatwin2">CA-Patwin 2</option>
+					<option id="caPitRiver">CA-Pit River</option>
+					<option id="caPlacerCounty">CA-Placer Co.</option>
+					<option id="caPlumasCounty">CA-Plumas Co.</option>
+					<option id="caPomo1">CA-Pomo 1</option>
+					<option id="caPomo2">CA-Pomo 2</option>
+					<option id="caPomo3">CA-Pomo 3</option>
+					<option id="caSac160">CA-Sac-160 (Historic)</option>
+					<option id="caSacramentoCounty1">CA-Sacramento Co. 1</option>
+					<option id="caSacramentoCounty2">CA-Sacramento Co. 2</option>
+					<option id="caSacramentoCounty3">CA-Sacramento Co. 3</option>
+					<option id="caSacramentoCounty4">CA-Sacramento Co. 4</option>
+					<option id="caSac16revised">CA-Sac-16 (revised to affiliated)</option>
+					<option id="caSanBenitoCounty">CA-San Benito Co.</option>
+					<option id="caSanClementeIsland">CA-San Clemente Island</option>
+					<option id="caSanDiego">CA-San Diego</option>
+					<option id="caSanFranciscoOh1">CA-San Francisco (OH1)</option>
+					<option id="caSanFranciscoOh2">CA-San Francisco (OH2)</option>
+					<option id="caSanFranciscoCounty1">CA-San Francisco Co. 1</option>
+					<option id="caSanJoaquinCounty1">CA-San Joaquin Co. 1</option>
+					<option id="caSanJoaquinCounty2">CA-San Joaquin Co. 2</option>
+					<option id="caSanJoaquinCounty5">CA-San Joaquin Co. 5</option>
+					<option id="caSanLuisObispoCounty1">CA-San Luis Obispo Co. 1</option>
+					<option id="caSanLuisObispoCounty2">CA-San Luis Obispo Co. 2</option>
+					<option id="caSanMateoCo">CA-San Mateo Co. (OH1)</option>
+					<option id="caSanMateoCounty1">CA-San Mateo Co. 1</option>
+					<option id="caSanNicolasIsland">CA-San Nicolas Island</option>
+					<option id="caSanPasqual">CA-San Pasqual</option>
+					<option id="caSantaCatalinaIsland1">CA-Santa Catalina Island 1</option>
+					<option id="caSantaCatalinaIsland2">CA-Santa Catalina Island 2</option>
+					<option id="caSantaClaraCountyOh1">CA-Santa Clara Co. (OH1)</option>
+					<option id="caSantaClaraCountyOh2">CA-Santa Clara Co. (OH2)</option>
+					<option id="caSantaClaraCounty1">CA-Santa Clara Co. 1</option>
+					<option id="caSantaClaraCounty2">CA-Santa Clara Co. 2</option>
+					<option id="caSantaCruzCountyOh1">CA-Santa Cruz Co. (OH1)</option>
+					<option id="caSantaCruzCounty1">CA-Santa Cruz Co. 1</option>
+					<option id="caSantaCruzCounty2">CA-Santa Cruz Co. 2</option>
+					<option id="caShastaCounty1">CA-Shasta Co. 1</option>
+					<option id="caShastaCounty2">CA-Shasta Co. 2</option>
+					<option id="caShastaCounty3">CA-Shasta Co. 3</option>
+					<option id="caSierraMiwok">CA-Sierra Miwok</option>
+					<option id="caSis262">CA-Sis-262 (Historic)</option>
+					<option id="caSiskiyouCounty1">CA-Siskiyou Co. 1</option>
+					<option id="caSiskiyouCounty2">CA-Siskiyou Co. 2</option>
+					<option id="caSolanoCounty1">CA-Solano Co. 1</option>
+					<option id="caSolanoCounty2">CA-Solano Co. 2</option>
+					<option id="caSolanoCounty3">CA-Solano Co. 3</option>
+					<option id="caSonomaCounty">CA-Sonoma Co.</option>
+					<option id="caSouthernValleyYokuts">CA-Southern Valley Yokuts</option>
+					<option id="caStanislausCounty1">CA-Stanislaus Co. 1</option>
+					<option id="caStanislausCounty2">CA-Stanislaus Co. 2</option>
+					<option id="caSutterCounty1">CA-Sutter Co. 1</option>
+					<option id="caSutterCounty2">CA-Sutter Co. 2</option>
+					<option id="caTehamaCounty1">CA-Tehama Co. 1</option>
+					<option id="caTehamaCounty2">CA-Tehama Co. 2</option>
+					<option id="caTeh58">CA-Teh-58 (Historic)</option>
+					<option id="caTrinityCounty1">CA-Trinity Co. 1</option>
+					<option id="caTrinityCounty2">CA-Trinity Co. 2</option>
+					<option id="caTulareCounty1">CA-Tulare Co. 1</option>
+					<option id="caTulareCounty2">CA-Tulare Co. 2</option>
+					<option id="caTulareCounty3">CA-Tulare Co. 3</option>
+					<option id="caTulareCounty4">CA-Tulare Co. 4</option>
+					<option id="caTulareCounty5">CA-Tulare Co. 5</option>
+					<option id="caWesternShoshone">CA-Western Shoshone</option>
+					<option id="caWintun">CA-Wintun</option>
+					<option id="caWiyot">CA-Wiyot</option>
+					<option id="caYana">CA-Yana</option>
+					<option id="caYol13">CA-Yol-13 (Historic)</option>
+					<option id="caYoloCounty1">CA-Yolo Co. 1</option>
+					<option id="caYoloCounty2">CA-Yolo Co. 2</option>
+					<option id="caYoloCounty3">CA-Yolo Co. 3</option>
+					<option id="caYubaCounty">CA-Yuba Co.</option>
+					<option id="caYub5">CA-Yub-5 (Historic)</option>
+					<option id="caYuki">CA-Yuki</option>
+					<option id="caYurok">CA-Yurok</option>
+					<option id="coMontezumaCounty">CO-Montezuma Co.</option>
+					<option id="idLemhiCounty">ID-Lemhi Co.</option>
+					<option id="ilMadisonCounty">IL-Madison Co.</option>
+					<option id="inIndiana">IN-Indiana</option>
+					<option id="lamarHistoric">Lamar (Historic)</option>
+					<option id="miMichigan">MI-Michigan</option>
+					<option id="ndMandan">ND-Mandan</option>
+					<option id="njNewJersey">NJ-New Jersey</option>
+					<option id="nmMckinleyCounty">NM-McKinley Co.</option>
+					<option id="nvChurchillCounty">NV-Churchill Co.</option>
+					<option id="nvClarkCounty1">NV-Clark Co. 1</option>
+					<option id="nvClarkCounty2">NV-Clark Co. 2</option>
+					<option id="nvHumboldtCounty">NV-Humboldt Co.</option>
+					<option id="nvNevada">NV-Nevada</option>
+					<option id="nvNorthernPaiute">NV-Northern Paiute</option>
+					<option id="nvPershingCounty">NV-Pershing Co.</option>
+					<option id="nvSouthernPaiute">NV-Southern Paiute</option>
+					<option id="nvWashoe">NV-Washoe</option>
+					<option id="nvWashoeCounty1">NV-Washoe Co. 1</option>
+					<option id="nvWashoeCounty2">NV-Washoe Co. 2</option>
+					<option id="nyNewYork">NY-New York</option>
+					<option id="orCalapooya">OR-Calapooya</option>
+					<option id="orChetco">OR-Chetco</option>
+					<option id="orJacksonCounty">OR-Jackson Co.</option>
+					<option id="orKlamath">OR-Klamath</option>
+					<option id="orKlamathCounty">OR-Klamath Co.</option>
+					<option id="orMorrowCounty">OR-Morrow Co.</option>
+					<option id="orWascoCounty">OR-Wasco Co.</option>
+					<option id="sdBrownCounty">SD-Brown Co.</option>
+					<option id="tnMontgomeryCounty">TN-Montgomery Co.</option>
+					<option id="utBoxElderCounty">UT-Box Elder Co.</option>
+					<option id="utSanJuanCounty1">UT-San Juan Co. 1</option>
+					<option id="utSanJuanCounty2">UT-San Juan Co. 2</option>
+					<option id="waAsotinCounty">WA-Asotin Co.</option>
+					<option id="waClallam">WA-Clallam</option>
+					<option id="waCowlitzCounty">WA-Cowlitz Co.</option>
+					<option id="waKing">WA-King</option>
+					<option id="waKlickitatCounty">WA-Klickitat Co.</option>
+					<option id="waKl24245kl242">WA-KL-242 (45KL242) (Historic)</option>
+					<option id="waMillersIsland">WA-Millers Island (Historic)</option>
+					<option id="waYakima">WA-Yakima</option>
+					<option id="nonNagpra1">non-NAGPRA 1</option>
+					<option id="nonNagpra2">non-NAGPRA 2</option>
+					<option id="nonNagpra3">non-NAGPRA 3</option>
+					<option id="nonNagpra4">non-NAGPRA 4</option>
+					<option id="nonNagpra5">non-NAGPRA 5</option>
+					<option id="nonNagpra6">non-NAGPRA 6</option>
+					<option id="nonNagpra7">non-NAGPRA 7</option>
+					<option id="nonNagpra8">non-NAGPRA 8</option>
+					<option id="nonNagpra9">non-NAGPRA 9</option>
+					<option id="nonNagpra10">non-NAGPRA 10</option>
+					<option id="nonNagpra11">non-NAGPRA 11</option>
+					<option id="unknown">unknown</option>
+				</options>
+			</field>
+			<field id="inventoryInvolvedNote" section="anthropology"></field>
+		</repeat>
+
+		<repeat id="claimSiteInvolvedGroupList/claimSiteInvolvedGroup" section="anthropology">
+			<field id="claimSiteInvolvedName" section="anthropology" autocomplete="place-place"></field>
+			<field id="claimSiteInvolvedNote" section="anthropology"></field>
+		</repeat>
+
+		<repeat id="claimGroupInvolvedGroupList/claimGroupInvolvedGroup" section="anthropology">
+			<field id="groupInvolvedName" section="anthropology" autocomplete="concept-concept"></field>
+			<field id="groupInvolvedNote" section="anthropology"></field>
+		</repeat>
+	</section>
+
+	<section id="claimProcessingInformation">
+		<repeat id="dateOfInitialResponseGroupList/dateOfInitialResponseGroup" section="anthropology">
+			<field id="initialResponseDate" section="anthropology" ui-type="date" datatype="date"></field>
+			<field id="initialResponseNote" section="anthropology"></field>
+		</repeat>
+
+		<repeat id="sentToLocalCommitteeGroupList/sentToLocalCommitteeGroup" section="anthropology">
+			<field id="sentToLocalCommitteeDate" section="anthropology" ui-type="date" datatype="date"></field>
+			<field id="sentToLocalCommitteeNote" section="anthropology"></field>
+		</repeat>
+
+		<repeat id="sentToOversightCommitteeGroupList/sentToOversightCommitteeGroup" section="anthropology">
+			<field id="sentToOversightCommitteeDate" section="anthropology" ui-type="date" datatype="date"></field>
+			<field id="sentToOversightCommitteeNote" section="anthropology"></field>
+		</repeat>
+
+		<repeat id="sentToNationalNagpraGroupList/sentToNationalNagpraGroup" section="anthropology">
+			<field id="sentToNationalNagpraDate" section="anthropology" ui-type="date" datatype="date"></field>
+			<field id="sentToNationalNagpraNote" section="anthropology"></field>
+		</repeat>
+
+		<repeat id="dateOfNationalNagpraApprovalGroupList/dateOfNationalNagpraApprovalGroup" section="anthropology">
+			<field id="dateOfNationalNagpraApprovalDate" section="anthropology" ui-type="date" datatype="date"></field>
+			<field id="dateOfNationalNagpraApprovalNote" section="anthropology"></field>
+		</repeat>
+
+		<repeat id="dateOfThirtyDayNoticeGroupList/dateOfThirtyDayNoticeGroup" section="anthropology">
+			<field id="dateOfThirtyDayNoticeDate" section="anthropology" ui-type="date" datatype="date"></field>
+			<field id="dateOfThirtyDayNoticeType" section="anthropology" seperate_ui_container="true">
+				<options>
+					<option id="begin">period begins</option>
+					<option id="end">period ends</option>
+				</options>
+			</field>
+			<field id="dateOfThirtyDayNoticeNote" section="anthropology"></field>
+		</repeat>
+
+		<repeat id="anthroTransferGroupList/anthroTransferGroup" section="anthropology">
+			<field id="transferDate" section="anthropology" ui-type="date" datatype="date"></field>
+			<field id="transferNote" section="anthropology"></field>
+		</repeat>
+
+		<repeat id="recommendationOfLocalCommitteeGroupList/recommendationOfLocalCommitteeGroup" section="anthropology">
+			<field id="recommendationOfLocalCommitteeDate" section="anthropology" ui-type="date" datatype="date"></field>
+			<field id="recommendationOfLocalCommitteeNote" section="anthropology"></field>
+		</repeat>
+
+		<repeat id="recommendationOfOversightCommitteeGroupList/recommendationOfOversightCommitteeGroup" section="anthropology">
+			<field id="recommendationOfOversightCommitteeDate" section="anthropology" ui-type="date" datatype="date"></field>
+			<field id="recommendationOfOversightCommitteeNote" section="anthropology"></field>
+		</repeat>
+
+		<repeat id="responseFromNationalNagpraGroupList/responseFromNationalNagpraGroup" section="anthropology">
+			<field id="responseFromNationalNagpraDate" section="anthropology" ui-type="date" datatype="date"></field>
+			<field id="responseFromNationalNagpraNote" section="anthropology"></field>
+		</repeat>
+
+		<repeat id="claimPeriodInvolvedGroupList/claimPeriodInvolvedGroup" section="anthropology">
+			<group id="claimPeriodInvolvedDateGroup" section="anthropology" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
+				<!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
+				<field id="dateDisplayDate" section="anthropology"/>
+				<field id="dateAssociation" section="anthropology"/>
+				<field id="dateEarliestSingleYear" section="anthropology"/>
+				<field id="dateEarliestSingleMonth" section="anthropology"/>
+				<field id="dateEarliestSingleDay" section="anthropology"/>
+				<field id="dateEarliestSingleEra" section="anthropology"/>
+				<field id="dateEarliestSingleCertainty" section="anthropology"/>
+				<field id="dateEarliestSingleQualifier" section="anthropology"/>
+				<field id="dateEarliestSingleQualifierValue" section="anthropology"/>
+				<field id="dateEarliestSingleQualifierUnit" section="anthropology"/>
+				<field id="dateLatestYear" section="anthropology"/>
+				<field id="dateLatestMonth" section="anthropology"/>
+				<field id="dateLatestDay" section="anthropology"/>
+				<field id="dateLatestEra" section="anthropology"/>
+				<field id="dateLatestCertainty" section="anthropology"/>
+				<field id="dateLatestQualifier" section="anthropology"/>
+				<field id="dateLatestQualifierValue" section="anthropology"/>
+				<field id="dateLatestQualifierUnit" section="anthropology"/>
+				<field id="datePeriod" section="anthropology"/>
+				<field id="dateNote" section="anthropology"/>
+				<field id="dateEarliestScalarValue" section="anthropology"/>
+				<field id="dateLatestScalarValue" section="anthropology"/>
+				<field id="scalarValuesComputed" section="anthropology"/>
+			</group>
+			<field id="claimPeriodInvolvedNote" section="anthropology"/>
+		</repeat>
+		<!-- ADD CHECKLIST PAIRS -->
+		<!-- ADD CULTURAL CARE NOTES -->
+	</section>
+</record>

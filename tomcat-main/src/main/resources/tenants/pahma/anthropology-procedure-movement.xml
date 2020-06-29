@@ -1,0 +1,16 @@
+<record id="movement" is-extension="true">
+	<services-record-path id="anthropology">movements_anthropology:http://collectionspace.org/services/movement/domain/anthropology,movements_anthropology</services-record-path>
+	
+	<section id="movementControlInformation">
+		<repeat id="locationHandlers" section="anthropology">
+			<selector>movement-locationHandler</selector>
+			<field id="locationHandler" ui-search="repeatable" autocomplete="person-person" section="anthropology">
+				<selector>movement-locationHandler</selector>
+			</field>
+		</repeat>
+		
+		<!-- Adding mini="search,list" because the UpdateObjectAndCrateLocationBatchJob needs crate to be a services list result field. -->
+		<field id="crate" ui-search="repeatable" section="anthropology" mini="search,list" autocomplete="location-crate"/>
+		<field id="computedSummary" section="anthropology" mini="number,search,list,relate" ui-type="computed" ui-func="pahma.computeMovementSummary" ui-args="locationDate,reasonForMove" ui-readonly="true"/>
+	</section>
+</record>

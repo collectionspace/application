@@ -1,0 +1,30 @@
+<record id="hierarchy">
+	<section id="hierarchyInformation">
+		<field id="broaderContextType">
+			<options>
+				<!-- Change options -->
+				<option id="component">Main record</option>
+				<option id="set">Set</option>
+				<option id="derivative">Work (derivative)</option>
+				<option id="separable-part">Work (separable part)</option>
+				<option id="non-separable-part">Work (non-separable part)</option>
+				<option id="recto">Work (recto)</option>
+				<option id="verso">Work (verso)</option>
+			</options>
+		</field>
+		<repeat id="narrowerContexts">
+			<field id="narrowerContextType">
+				<!-- Change options -->
+				<options>
+					<option id="component">Component</option>
+					<option id="set">Item in a set</option>
+					<option id="derivative">Derivative</option>
+					<option id="separable-part">Separable part</option>
+					<option id="non-separable-part">Non-separable part</option>
+					<option id="recto">Recto</option>
+					<option id="verso">Verso</option>
+				</options>
+			</field>
+		</repeat>
+	</section>
+</record>

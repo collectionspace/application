@@ -1,0 +1,878 @@
+<instances>
+	<instance id="vocab-loanpurpose">
+		<web-url>loanpurpose</web-url>
+		<title-ref>loanpurpose</title-ref>
+		<title>Loan Purpose</title>
+		<options>
+			<option id="appraisal">Appraisal</option>
+			<option id="ceremonial_use">Ceremonial use</option>
+			<option id="conservation">Conservation</option>
+			<option id="conservation_fumigation">Conservation: fumigation</option>
+			<option id="exhibit_class_exhibit">Exhibit: class exhibit</option>
+			<option id="exhibit_off_campus">Exhibit: off-campus</option>
+			<option id="exhibit_on_campus">Exhibit: on-campus</option>
+			<option id="exhibit_traveling_exhibit">Exhibit: traveling exhibit</option>
+			<option id="exhibit_unclassified">Exhibit: unclassified</option>
+			<option id="photography_digitization">Photography: digitization</option>
+			<option id="photography_general">Photography: general</option>
+			<option id="photography_radiography">Photography: radiography</option>
+			<option id="photography_video">Photography: video</option>
+			<option id="research_destructive_analysis">Research: destructive analysis</option>
+			<option id="research_dissertation">Research: dissertation</option>
+			<option id="research_general">Research: general</option>
+			<option id="research_identification">Research: identification</option>
+			<option id="research_undergrad_teaching">Research: undergrad. teaching</option>
+			<option id="teaching_non_uc_non_csu">Teaching: non-UC, non-CSU</option>
+			<option id="teaching_other_uc_or_csu">Teaching: other UC or CSU</option>
+			<option id="teaching_teaching_exhibit">Teaching: teaching exhibit</option>
+			<option id="teaching_ucb_campus">Teaching: UCB campus</option>
+			<option id="teaching_unspecified">Teaching: unspecified</option>
+		</options>
+	</instance>
+	<instance id="vocab-PlaceType">
+		<web-url>PlaceType</web-url>
+		<title-ref>PlaceType</title-ref>
+		<title>PlaceType</title>
+		<options>
+			<option id="pt14">bedrock mortar site</option>
+			<option id="pt13">cave</option>
+			<option id="pt1">cemetery/graveyard</option>
+			<option id="pt18">ceramic scatter</option>
+			<option id="pt6">ceremonial site</option>
+			<option id="pt20">cliff dwelling</option>
+			<option id="pt11">fort</option>
+			<option id="pt17">historic ranch</option>
+			<option id="pt7">historic village</option>
+			<option id="pt3">house/habitation</option>
+			<option id="pt16">lithic scatter</option>
+			<option id="pt8">mission</option>
+			<option id="pt9">mound</option>
+			<option id="pt21">pit house</option>
+			<option id="pt12">pueblo</option>
+			<option id="pt5">rock art</option>
+			<option id="pt15">seasonal camp</option>
+			<option id="pt10">shellmound</option>
+			<option id="pt4">surface scatter</option>
+			<option id="pt19">type site</option>
+		</options>
+	</instance>
+	<instance id="vocab-grouppurpose">
+		<web-url>GroupPurpose</web-url>
+		<title-ref>GroupPurpose</title-ref>
+		<title>GroupPurpose</title>
+		<options>
+			<option id="classes">Classes</option>
+			<option id="collectionsManagement">Collections Management</option>
+			<option id="conservation">Conservation</option>
+			<option id="education">Education</option>
+			<option id="exhibits">Exhibits</option>
+			<option id="loans">Loans</option>
+			<option id="nagpra">NAGPRA</option>
+			<option id="objectMovement">Object Movement</option>
+			<option id="photography">Photography</option>
+			<option id="publicPrograms">Public Programs</option>
+			<option id="registration">Registration</option>
+			<option id="research">Research</option>
+			<option id="tours">Tours</option>
+		</options>
+	</instance>
+	<instance id="vocab-exhibitionstatus">
+		<web-url>exhibitionstatus</web-url>
+		<title-ref>exhibitionstatus</title-ref>
+		<title>exhibitionstatus</title>
+		<options>
+			<option id="themeselected">Theme selected</option>
+			<option id="preliminaryobjectlistcreated">Preliminary object list created</option>
+			<option id="sectionsdetermined">Sections determined</option>
+			<option id="finalobjectlistdetermined">Final object list determined</option>
+			<option id="labelswritten">Labels written</option>
+		</options>
+	</instance>
+	<instance id="vocab-temperaturelevel">
+		<web-url>temperaturelevel</web-url>
+		<title-ref>temperaturelevel</title-ref>
+		<title>temperaturelevel</title>
+		<options>
+			<option id="normal">Normal 65-68F</option>
+			<option id="cool">Cool 55-65F</option>
+			<option id="cold">Cold 33-54F</option>
+			<option id="freezer">Freezer 0-32F</option>
+		</options>
+	</instance>
+	<instance id="vocab-humiditylevel">
+		<web-url>humiditylevel</web-url>
+		<title-ref>humiditylevel</title-ref>
+		<title>humiditylevel</title>
+		<options>
+			<option id="50">50% RH +/- 5%</option>
+			<option id="45">45% RH +/- 5%</option>
+			<option id="35">35% RH +/- 5%</option>
+		</options>
+	</instance>
+	<instance id="vocab-lightlevel">
+		<web-url>lightlevel</web-url>
+		<title-ref>lightlevel</title-ref>
+		<title>lightlevel</title>
+		<options>
+			<option id="50">50 lux max. with &lt;/= 75 uW/lumen UV content</option>
+			<option id="100">100 lux max. with &lt;/= 75 uW/lumen UV content</option>
+			<option id="150">150 lux max. with &lt;/= 75 uW/lumen UV content</option>
+			<option id="200">200 lux max. with &lt;/= 75 uW/lumen UV content</option>
+			<option id="300">300 lux max. with &lt;/= 75 uW/lumen UV content</option>
+		</options>
+	</instance>
+	<instance id="vocab-placeassociation">
+		<web-url>placeassociation</web-url>
+		<title-ref>placeassociation</title-ref>
+		<title>placeassociation</title>
+		<options>
+			<option id="excavation">excavation</option>
+			<option id="salvage">salvage</option>
+			<option id="survey">survey</option>
+		</options>
+	</instance>
+	<instance id="vocab-inscriptionposition">
+		<web-url>inscriptionposition</web-url>
+		<title-ref>inscriptionposition</title-ref>
+		<title>inscriptionposition</title>
+		<options>
+			<option id="inscrpos01">In exergue of coin</option>
+			<option id="inscrpos02">On obverse of coin</option>
+			<option id="inscrpos03">On obverse of coin, before</option>
+			<option id="inscrpos04">On obverse of coin, behind</option>
+			<option id="inscrpos05">On reverse of coin</option>
+			<option id="inscrpos06">On reverse of coin, above</option>
+			<option id="inscrpos07">On reverse of coin, before</option>
+			<option id="inscrpos08">On reverse of coin, behind</option>
+			<option id="inscrpos09">On reverse of coin, below</option>
+			<option id="inscrpos10">On reverse of coin, beneath</option>
+			<option id="inscrpos11">verso</option>
+		</options>
+	</instance>
+	<instance id="vocab-contentposition">
+		<web-url>contentposition</web-url>
+		<title-ref>contentposition</title-ref>
+		<title>contentposition</title>
+		<options>
+			<option id="contpos01">back</option>
+			<option id="contpos02">base</option>
+			<option id="contpos03">bottom</option>
+			<option id="contpos04">front</option>
+			<option id="contpos05">inside</option>
+			<option id="contpos06">left</option>
+			<option id="contpos07">obverse</option>
+			<option id="contpos08">outside</option>
+			<option id="contpos09">recto</option>
+			<option id="contpos10">reverse</option>
+			<option id="contpos11">right</option>
+			<option id="contpos12">rim</option>
+			<option id="contpos13">top</option>
+			<option id="contpos14">verso</option>
+		</options>
+	</instance>
+	<instance id="vocab-inscriptionmethod">
+		<web-url>inscriptionmethod</web-url>
+		<title-ref>inscriptionmethod</title-ref>
+		<title>inscriptionmethod</title>
+		<options>
+			<option id="inscmethod01">abrasion</option>
+			<option id="inscmethod02">appliqué</option>
+			<option id="inscmethod03">brushing</option>
+			<option id="inscmethod04">carving</option>
+			<option id="inscmethod05">chiseling</option>
+			<option id="inscmethod06">combing</option>
+			<option id="inscmethod07">drilling</option>
+			<option id="inscmethod08">embossing</option>
+			<option id="inscmethod09">engraving</option>
+			<option id="inscmethod10">etching</option>
+			<option id="inscmethod11" from-static-id="Hammered dies">hammered dies</option>
+			<option id="inscmethod12">incision</option>
+			<option id="inscmethod13">painting</option>
+			<option id="inscmethod14" from-static-id="penAndInk">pen and ink</option>
+			<option id="inscmethod15">printing</option>
+			<option id="inscmethod16">punching</option>
+			<option id="inscmethod17">pyrography</option>
+		</options>
+	</instance>
+	<instance id="vocab-taxonrank">
+        <web-url>taxonrank</web-url>
+        <title-ref>taxonrank</title-ref>
+        <title>taxonrank</title>
+        <options>
+			<option id="taxonrank01">domain</option>
+			<option id="taxonrank02">kingdom</option>
+			<option id="taxonrank03">subkingdom</option>
+			<option id="taxonrank04">infrakingdom</option>
+			<option id="taxonrank05">superphylum</option>
+			<option id="taxonrank06">phylum</option>
+			<option id="taxonrank07">subphylum</option>
+			<option id="taxonrank08">infraphylum</option>
+			<option id="taxonrank09">division</option>
+			<option id="taxonrank10">subdivision</option>
+			<option id="taxonrank11">infradivision</option>
+			<option id="taxonrank12">superclass</option>
+			<option id="taxonrank13">class</option>
+			<option id="taxonrank14">subclass</option>
+			<option id="taxonrank15">infraclass</option>
+			<option id="taxonrank16">superorder</option>
+			<option id="taxonrank17">order</option>
+			<option id="taxonrank18">suborder</option>
+			<option id="taxonrank19">infraorder</option>
+			<option id="taxonrank20">section</option>
+			<option id="taxonrank21">subsection</option>
+			<option id="taxonrank22">superfamily</option>
+			<option id="taxonrank23">family</option>
+			<option id="taxonrank24">subfamily</option>
+			<option id="taxonrank25">tribe</option>
+			<option id="taxonrank26">subtribe</option>
+			<option id="taxonrank27">genus</option>
+			<option id="taxonrank28">species</option>
+			<option id="taxonrank29">subspecies</option>
+        </options>
+    </instance>
+	<instance id="vocab-reasonformove">
+        <web-url>reasonformove</web-url>
+        <title-ref>reasonformove</title-ref>
+        <title>reasonformove</title>
+    	<options>
+			<option id="movereason01">Inventory</option>
+			<option id="movereason02" from-static-id="GeneralCollManagement">General Collections Management</option>
+			<option id="movereason03">Research</option>
+			<option id="movereason04">NAGPRA</option>
+			<option id="movereason05" from-static-id="pershelflabel">per shelf label</option>
+			<option id="movereason06" from-static-id="NewHomeLocation">New Home Location</option>
+			<option id="movereason07">Loan</option>
+			<option id="movereason08">Exhibit</option>
+			<option id="movereason09" from-static-id="ClassUse">Class Use</option>
+			<option id="movereason10" from-static-id="PhotoRequest">Photo Request</option>
+			<option id="movereason11">Tour</option>
+			<option id="movereason12">Conservation</option>
+			<option id="movereason13" from-static-id="CulturalHeritage">cultural heritage</option>
+			<option id="movereason14">Object relocation</option>
+			<option id="movereason15">spot inventory</option>
+			<option id="movereason16">2012 HGB surge pre-move inventory</option>
+			<option id="movereason17">2014 Marchant inventory and move</option>
+			<option id="movereason18" from-static-id="AsianTextileGrant">Asian Textile Grant</option>
+			<option id="movereason19" from-static-id="BasketryRehousingProj">Basketry Rehousing Proj</option>
+			<option id="movereason20" from-static-id="BORProj">BOR Proj</option>
+			<option id="movereason21" from-static-id="BuildingMaintenance">Building Maintenance: Seismic</option>
+			<option id="movereason22" from-static-id="CaliforniaArchaeologyProj">California Archaeology Proj</option>
+			<option id="movereason23" from-static-id="CatNumIssueInvestigation">Cat. No. Issue Investigation</option>
+			<option id="movereason24" from-static-id="DuctCleaningProj">Duct Cleaning Proj</option>
+			<option id="movereason25" from-static-id="FederalCurationAct">Federal Curation Act</option>
+			<option id="movereason26" from-static-id="FireAlarmProj">Fire Alarm Proj</option>
+			<option id="movereason27" from-static-id="FirstTimeStorage">First Time Storage</option>
+			<option id="movereason28" from-static-id="FoundinColl">Found in Collections</option>
+			<option id="movereason29" from-static-id="HearstGymBasementMoveKroeber20">Hearst Gym Basement move to Kroeber 20A</option>
+			<option id="movereason30">HGB Surge</option>
+			<option id="movereason31" from-static-id="Kro20MezzLWeaponProj2011">Kro20Mezz LWeapon Proj 2011</option>
+			<option id="movereason32" from-static-id="Kroeber20AMoveRegatta">Kroeber 20A move to Regatta</option>
+			<option id="movereason33" from-static-id="MarchantFlood2007">Marchant Flood 12/2007</option>
+			<option id="movereason34" from-static-id="NAAGVisit">Native Am Adv Grp Visit</option>
+			<option id="movereason35" from-static-id="NEHEgyptianCollectionGrant">NEH Egyptian Collection Grant</option>
+			<option id="movereason36" from-static-id="Regattamovein">Regatta move-in</option>
+			<option id="movereason37" from-static-id="Regattapremoveinventory">Regatta pre-move inventory</option>
+			<option id="movereason38" from-static-id="Regattapremoveobjectprep">Regatta pre-move object prep.</option>
+			<option id="movereason39" from-static-id="Regattapremovestaging">Regatta pre-move staging</option>
+			<option id="movereason40" from-static-id="SATgrant">SAT grant</option>
+			<option id="movereason41" from-static-id="TemporaryStorage">Temporary Storage</option>
+			<option id="movereason42" from-static-id="TextileRehousingProj">Textile Rehousing Proj</option>
+			<option id="movereason43" from-static-id="YorubaMLNGrant">Yoruba MLN Grant</option>
+			<option id="movereason44">(not entered)</option>
+		</options>
+	</instance>
+	<instance id="vocab-movementmethod">
+	    <web-url>movementmethod</web-url>
+        <title-ref>movementmethod</title-ref>
+        <title>movementmethod</title>
+		<options>
+				<option id="movemethod01" from-static-id="rubbermaid">by cart (rubbermaid)</option>
+				<option id="movemethod02" from-static-id="handcarried">by hand</option>
+				<option id="movemethod03" from-static-id="bathtubcart">by "bathtub" cart</option>
+				<option id="movemethod04" from-static-id="hydrauliclift">by hydraulic lift</option>
+				<option id="movemethod05" from-static-id="palletjack">by pallet jack</option>
+				<option id="movemethod06" from-static-id="forklift">by forklift</option>
+				<option id="movemethod07" from-static-id="vantruck">by van/truck</option>
+				<option id="movemethod08" from-static-id="crane">By crane</option>
+				<option id="movemethod09" from-static-id="other">Other (specify in notes)</option>
+		</options>
+	</instance>
+	<instance id="vocab-annotationtype">
+		<web-url>annotationtype</web-url>
+		<title-ref>annotationtype</title-ref>
+		<title>annotationtype</title>
+		<options>
+			<option id="annottype01">ACC file code</option>
+			<option id="annottype02">Accession note</option>
+			<option id="annottype03">AxesOrient/clock: reverse</option>
+			<option id="annottype04">Card information</option>
+			<option id="annottype05">Cataloging notes</option>
+			<option id="annottype06">CD id</option>
+			<option id="annottype07">Collection type</option>
+			<option id="annottype08">Component prep comments</option>
+			<option id="annottype09">Condition notes</option>
+			<option id="annottype10">Conservation notes</option>
+			<option id="annottype11">Control possible</option>
+			<option id="annottype12">Cultural modification note</option>
+			<option id="annottype13">Curatorial remarks</option>
+			<option id="annottype14">Data entry notes</option>
+			<option id="annottype15">Data error</option>
+			<option id="annottype16">Deaccession notes</option>
+			<option id="annottype17">Denomination</option>
+			<option id="annottype18">Destructive sampling notes</option>
+			<option id="annottype19">Inventory remarks</option>
+			<option id="annottype20">Loan notes</option>
+			<option id="annottype21">Minting</option>
+			<option id="annottype22">NAGPRA archaeological evidence</option>
+			<option id="annottype23">NAGPRA background statement</option>
+			<option id="annottype24">NAGPRA bioevaluation data</option>
+			<option id="annottype25">NAGPRA inventory collection history</option>
+			<option id="annottype26">NAGPRA inventory consultation</option>
+			<option id="annottype27">NAGPRA location comment</option>
+			<option id="annottype28">NAGPRA research comments</option>
+			<option id="annottype29">NAGPRA updated curation summary</option>
+			<option id="annottype30">NSF grant osteology data</option>
+			<option id="annottype31">NSF recataloging data</option>
+			<option id="annottype32">Object count note</option>
+			<option id="annottype33">Obverse type</option>
+			<option id="annottype34">Original ledger comments</option>
+			<option id="annottype35">Pathology notes</option>
+			<option id="annottype36">Phase completed</option>
+			<option id="annottype37">Photo roll</option>
+			<option id="annottype38">Registration remark</option>
+			<option id="annottype39">Researcher comments</option>
+			<option id="annottype40">Reverse type</option>
+			<option id="annottype41">Special collection</option>
+			<option id="annottype42">Storage location notes</option>
+			<option id="annottype43">Supplemental information</option>
+			<option id="annottype44">TMS curatorial remarks</option>
+			<option id="annottype45">TMS edition field</option>
+			<option id="annottype46">Verbatim ledger</option>
+		</options>
+	</instance>
+	<instance id="vocab-depictedscripttype">
+	    <web-url>depictedscripttype</web-url>
+        <title-ref>depictedscripttype</title-ref>
+        <title>depictedscripttype</title>
+		<options>
+			<option id="depictedtype01" from-static-id="beneventanScript">Beneventan script</option>
+			<option id="depictedtype02" from-static-id="blackletter">blackletter</option>
+			<option id="depictedtype03" from-static-id="carolingianMiniscule">Carolingian miniscule</option>
+			<option id="depictedtype04" from-static-id="chanceryHand">chancery hand</option>
+			<option id="depictedtype05" from-static-id="courtHand">court hand</option>
+			<option id="depictedtype06" from-static-id="germanicMiniscule">Germanic miniscule</option>
+			<option id="depictedtype07" from-static-id="gothicScript">Gothic script</option>
+			<option id="depictedtype08" from-static-id="unspecifiedHandwriting">handwriting (unspecified)</option>
+			<option id="depictedtype09" from-static-id="humanistMiniscule">humanist miniscule</option>
+			<option id="depictedtype10" from-static-id="insularScript">insular script</option>
+			<option id="depictedtype11" from-static-id="libraryHand">library hand</option>
+			<option id="depictedtype12" from-static-id="merovingianScript">Merovingian script</option>
+			<option id="depictedtype13" from-static-id="palmerMethod">Palmer method</option>
+			<option id="depictedtype14" from-static-id="romanCursive">Roman cursive</option>
+			<option id="depictedtype15" from-static-id="roundHand">round hand</option>
+			<option id="depictedtype16" from-static-id="uncialScript">uncial script</option>
+			<option id="depictedtype17" from-static-id="secretaryHand">secretary hand</option>
+			<option id="depictedtype18" from-static-id="rusticCapitals">rustic capitals</option>
+			<option id="depictedtype19" from-static-id="spencerianMethod">Spencerian method</option>
+			<option id="depictedtype20" from-static-id="squareCapitals">square capitals</option>
+			<option id="depictedtype21" from-static-id="visigothicScript">Visigothic script</option>
+		</options>
+	</instance>
+	<instance id="vocab-inscriptiontype">
+	    <web-url>inscriptiontype</web-url>
+        <title-ref>inscriptiontype</title-ref>
+        <title>inscriptiontype</title>
+		<options>
+			<option id="inscrconttype01">abecedarium</option>
+			<option id="inscrconttype02">brand</option>
+			<option id="inscrconttype03">coin inscription</option>
+			<option id="inscrconttype04">decoration</option>
+			<option id="inscrconttype05">epitaph</option>
+			<option id="inscrconttype06" from-static-id="estateStamp">estate stamp</option>
+			<option id="inscrconttype07" from-static-id="exLibris">ex libris</option>
+			<option id="inscrconttype08">graffiti</option>
+			<option id="inscrconttype09">inlaid</option>
+			<option id="inscrconttype10">label</option>
+			<option id="inscrconttype11" from-static-id="makersMark">maker's mark</option>
+			<option id="inscrconttype12" from-static-id="mementoMori">memento mori</option>
+			<option id="inscrconttype13" from-static-id="monumentalInscription">monumental inscription</option>
+			<option id="inscrconttype14">ostracon</option>
+			<option id="inscrconttype15">tattoo</option>
+		</options>
+	</instance>
+	<instance id="vocab-assocorgtype">
+	    <web-url>assocorgtype</web-url>
+        <title-ref>assocorgtype</title-ref>
+        <title>assocorgtype</title>
+		<options>
+			<option id="assocorgtype01">donor</option>
+			<option id="assocorgtype02">endorser</option>
+			<option id="assocorgtype03">landowner</option>
+			<option id="assocorgtype04">seller</option>
+			<option id="assocorgtype05">sponsor</option>
+			<option id="assocorgtype06">user</option>
+		</options>
+	</instance>
+	<instance id="vocab-assocpersontype">
+	    <web-url>assocpersontype</web-url>
+        <title-ref>assocpersontype</title-ref>
+        <title>assocpersontype</title>
+		<options>
+			<option id="assocpersontype01">dealer</option>
+			<option id="assocpersontype02">donor</option>
+			<option id="assocpersontype03">in memoriam</option>
+			<option id="assocpersontype04">in-urned</option>
+			<option id="assocpersontype05">informant</option>
+			<option id="assocpersontype06">inspector</option>
+			<option id="assocpersontype07">patron</option>
+			<option id="assocpersontype08">photograph requestor</option>
+			<option id="assocpersontype09">seller</option>
+			<option id="assocpersontype10">transferree</option>
+			<option id="assocpersontype11">transferrer</option>
+		</options>
+	</instance>
+	<instance id="vocab-assocplacetype">
+	    <web-url>assocplacetype</web-url>
+        <title-ref>assocplacetype</title-ref>
+        <title>assocplacetype</title>
+		<options>
+			<option id="assocplacetype01" from-static-id="auctioned">auctioned in/at</option>
+			<option id="assocplacetype02" from-static-id="excavated">excavated at</option>
+			<option id="assocplacetype03" from-static-id="found">found at</option>
+			<option id="assocplacetype04" from-static-id="nativeTo">native to</option>
+			<option id="assocplacetype05" from-static-id="purchased">purchased in/at</option>
+			<option id="assocplacetype06" from-static-id="recovered">recovered from</option>
+			<option id="assocplacetype07" from-static-id="quarried">quarried from</option>
+			<option id="assocplacetype08" from-static-id="used">used in/at</option>
+		</options>
+	</instance>
+	<instance id="vocab-objexitmethod">
+	    <web-url>objexitmethod</web-url>
+        <title-ref>objexitmethod</title-ref>
+        <title>objexitmethod</title>
+		<options>
+			<option id="objexitmethod01">courier</option>
+			<option id="objexitmethod02" from-static-id="inperson">in person</option>
+			<option id="objexitmethod03">post</option>
+		</options>
+	</instance>
+	<instance id="vocab-objexitreason">
+	    <web-url>objexitreason</web-url>
+        <title-ref>objexitreason</title-ref>
+        <title>objexitreason</title>
+		<options>
+			<option id="exitreason01" from-static-id="auctioned-or-sold">auctioned or sold</option>
+			<option id="exitreason02" from-static-id="destructive-testing">destructive testing</option>
+			<option id="exitreason03">destroyed</option>
+			<option id="exitreason04">discarded</option>
+			<option id="exitreason05">exchanged</option>
+			<option id="exitreason06">lost</option>
+			<option id="exitreason07" from-static-id="recalled-by-federal-agency">recalled by federal agency</option>
+			<option id="exitreason08">recataloged</option>
+			<option id="exitreason09">repatriated</option>
+			<option id="exitreason10" from-static-id="returned-to-original-owner">returned to original owner</option>
+			<option id="exitreason11" from-static-id="returnofloan">return of loan</option>
+			<option id="exitreason12">sold</option>
+			<option id="exitreason13">stolen</option>
+			<option id="exitreason14">transferred</option>
+			<option id="exitreason15">unknown</option>
+		</options>
+	</instance>
+	<instance id="vocab-objentryreason">
+	    <web-url>objentryreason</web-url>
+        <title-ref>objentryreason</title-ref>
+        <title>objentryreason</title>
+		<options>
+			<option id="objentryreason01">enquiry</option>
+			<option id="objentryreason02">consideration</option>
+			<option id="objentryreason03">commission</option>
+			<option id="objentryreason04">loan</option>
+		</options>
+	</instance>
+	<instance id="vocab-accaquisitionmethod">
+		<web-url>accaquisitionmethod</web-url>
+		<title-ref>accaquisitionmethod</title-ref>
+		<title>accaquisitionmethod</title>
+		<options>
+			<option id="aqcmethod01" default="yes">gift</option>
+			<option id="aqcmethod02">bequest</option>
+			<option id="aqcmethod03">exchange</option>
+			<option id="aqcmethod04">purchase</option>
+			<option id="aqcmethod05">transfer</option>
+			<option id="aqcmethod06" from-static-id="foundInCollections">found in collections</option>
+			<option id="aqcmethod07">unknown</option>
+			<option id="acqmethod08">loan</option>
+		</options>
+	</instance>
+    <instance id="vocab-pahmaaltnumber">
+        <web-url>pahmaaltnumber</web-url>
+        <title-ref>pahmaaltnumber</title-ref>
+        <title>pahmaaltnumber</title>
+        <options>
+			<option id="altnum00">additional number</option>
+			<option id="altnum01" from-static-id="attributed pahma number">attributed PAHMA number</option>
+			<option id="altnum02">burial number</option>
+			<option id="altnum03">moac subobjid</option>
+			<option id="altnum04">museum number (recataloged to)</option>
+			<option id="altnum05">previous number</option>
+			<option id="altnum06" from-static-id="previous number (albert bender’s number)">previous number (Albert Bender’s number)</option>
+			<option id="altnum07" from-static-id="previous number (bascom’s number)">previous number (Bascom’s number)</option>
+			<option id="altnum08">previous number (collector's original number)</option>
+			<option id="altnum09" from-static-id="previous number (design dept.)">previous number (Design Dept.)</option>
+			<option id="altnum10">previous number (Lila M. O'Neale)</option>
+			<option id="altnum11" from-static-id="previous number (mvc number, mossman-vitale collection)">previous number (MVC number, Mossman-Vitale collection)</option>
+			<option id="altnum12" from-static-id="previous number (ucas: university of california archaeological survey)">previous number (UCAS: University of California Archaeological Survey)</option>
+			<option id="altnum13">song number</option>
+			<option id="altnum14">tag</option>
+			<option id="altnum15">temporary number</option>
+			<option id="altnum16">(null)</option>
+			<option id="altnum17">associated catalog number</option>
+			<option id="altnum18">field number</option>
+			<option id="altnum19">original number</option>
+			<option id="altnum20">previous museum number (recataloged from)</option>
+			<option id="altnum21" from-static-id="previous number (anson blake’s number)">previous number (Anson Blake’s number)</option>
+			<option id="altnum22">previous number (donor's original number)</option>
+			<option id="altnum23" from-static-id="previous number (uc paleontology department)">previous number (UC Paleontology Department)</option>
+			<option id="altnum24">tb (temporary basket) number</option>
+        </options>
+    </instance>
+    <instance id="vocab-objecttype">
+        <web-url>objecttype</web-url>
+        <title-ref>objecttype</title-ref>
+        <title>objecttype</title>
+        <options>
+			<option id="objtype00">(not specified)</option>
+			<option id="objtype01">none (Registration)</option>
+			<option id="objtype02">archaeology</option>
+			<option id="objtype03">ethnography</option>
+			<option id="objtype04">documentation</option>
+			<option id="objtype05">sample</option>
+			<option id="objtype06">indeterminate</option>
+			<option id="objtype07">unknown</option>
+        </options>
+    </instance>
+	<instance id="vocab-productionplacerole">
+        <web-url>productionplacerole</web-url>
+        <title-ref>productionplacerole</title-ref>
+        <title>productionplacerole</title>
+        <options>
+			<option id="prodplacerole01" from-static-id="assembledAt">assembled at/in</option>
+			<option id="prodplacerole02" from-static-id="built">built at/in</option>
+			<option id="prodplacerole03" from-static-id="manufactured">manufactured at/in</option>
+			<option id="prodplacerole04" from-static-id="materialsFrom">material originated from</option>
+			<option id="prodplacerole05" from-static-id="minted">minted at/in</option>
+			<option id="prodplacerole06" from-static-id="printed">printed at/in</option>
+        </options>
+    </instance>
+	<instance id="vocab-prodcultgrouprole">
+        <web-url>prodcultgrouprole</web-url>
+        <title-ref>prodcultgrouprole</title-ref>
+        <title>prodcultgrouprole</title>
+        <options>
+			<option id="prodgrouprole01" from-static-id="designedAfter">designed after</option>
+			<option id="prodgrouprole02" from-static-id="traditionalMakers">traditional makers</option>
+        </options>
+    </instance>
+	<instance id="vocab-prodpersonrole">
+        <web-url>prodpersonrole</web-url>
+        <title-ref>prodpersonrole</title-ref>
+        <title>prodpersonrole</title>
+        <options>
+			<option id="prodpersonrole00">accompanist</option>
+			<option id="prodpersonrole01">artist</option>
+			<option id="prodpersonrole02">blesser</option>
+			<option id="prodpersonrole03">carver</option>
+			<option id="prodpersonrole04">demonstrator</option>
+			<option id="prodpersonrole05">designer</option>
+			<option id="prodpersonrole06">documenter</option>
+			<option id="prodpersonrole07">illustrator</option>
+			<option id="prodpersonrole08">maker</option>
+			<option id="prodpersonrole09" from-static-id="materialSupplier">material supplier</option>
+			<option id="prodpersonrole10">narrator</option>
+			<option id="prodpersonrole11">painter</option>
+			<option id="prodpersonrole12">performer</option>
+			<option id="prodpersonrole13">photographer</option>
+			<option id="prodpersonrole14">recorder</option>
+			<option id="prodpersonrole15">ruler</option> <!-- For coins: who decreed that the coins would be minted? -->
+			<option id="prodpersonrole16">scribe</option>
+			<option id="prodpersonrole17">singer</option>
+			<option id="prodpersonrole18">translator</option>
+			<option id="prodpersonrole19">writer</option>
+        </options>
+    	</instance>
+	<instance id="vocab-assocpeople">
+        <web-url>assocpeople</web-url>
+        <title-ref>assocpeople</title-ref>
+        <title>assocpeople</title>
+        <options>
+			<option id="assocpeopletype00" from-static-id="gatheredCollectedBy">gathered/collected by</option>
+			<option id="assocpeopletype01" from-static-id="inspiredBy">inspired by</option>
+			<option id="assocpeopletype02" from-static-id="nagpraCulturalAffiliation">NAGPRA cultural affiliation</option>
+			<option id="assocpeopletype03" from-static-id="traditionalMakers">traditional makers</option>
+			<option id="assocpeopletype04" from-static-id="inTheStyleOf">in the style of</option>
+			<option id="assocpeopletype05" from-static-id="attributedMakers">made by (attributed)</option>
+			<option id="assocpeopletype06">made by</option>
+			<option id="assocpeopletype07" from-static-id="traditionallyMadeBy">traditionally made by</option>
+			<option id="assocpeopletype08" from-static-id="usedButNotMadeBy">used, but not made, by</option>
+			<option id="assocpeopletype09" from-static-id="usedButNotMadeByAttributed">used, but not made, by (attributed)</option>
+        </options>
+		</instance>
+	<instance id="vocab-pahmaNagpraCodeLegacies">
+				<web-url>pahmaNagpraCodeLegacies</web-url>
+				<title-ref>pahmaNagpraCodeLegacies</title-ref>
+				<title>pahmaNagpraCodeLegacies</title>
+				<options>
+					<option id="pahmaNagpraCodeLegacies01" from-static-id="noCode" default="yes">no code assigned</option>
+					<option id="pahmaNagpraCodeLegacies02" from-static-id="associatedFuneraryObject">&#160;&#160;1: associated funerary object (AFO)</option>
+					<option id="pahmaNagpraCodeLegacies03" from-static-id="unassociatedFuneraryObjectWithDesignatedBurial">&#160;&#160;2: unassociated funerary object (UFO) with designated burial</option> 
+					<option id="pahmaNagpraCodeLegacies04" from-static-id="unassociatedFuneraryObjectWithUndesignatedBurial">&#160;&#160;3: unassociated funerary object (UFO) with undesignated burial</option>
+					<option id="pahmaNagpraCodeLegacies05" from-static-id="unassociatedFuneraryObjectWithCemetery">&#160;&#160;4: unassociated funerary object (UFO)/cemetery</option>
+					<option id="pahmaNagpraCodeLegacies06" from-static-id="lacksClearFuneraryStatusNearCemetery">&#160;&#160;5: lacks clear funerary status/near cemetery</option>
+					<option id="pahmaNagpraCodeLegacies07" from-static-id="needsFurtherResearch">&#160;&#160;6: needs further research</option>
+					<option id="pahmaNagpraCodeLegacies08" from-static-id="codedInError">&#160;&#160;7: coded in error</option>
+					<option id="pahmaNagpraCodeLegacies0" from-static-id="needsCheckOfObject">&#160;&#160;8: needs check of object</option>
+					<option id="pahmaNagpraCodeLegacies09" from-static-id="wasRecataloged">&#160;&#160;9: was recataloged</option>
+					<option id="pahmaNagpraCodeLegacies10" from-static-id="notReportable">&#160;10: not reportable</option>
+					<option id="pahmaNagpraCodeLegacies11" from-static-id="unknownMeaning777">777: __________</option>
+					<option id="pahmaNagpraCodeLegacies12" from-static-id="needsRecatalog">999: needs recatalog</option>
+					<option id="pahmaNagpraCodeLegacies13">unknown</option>
+				</options>
+		</instance>
+	<instance id="vocab-nagpraPahmaInventoryNames">
+				<web-url>nagpraPahmaInventoryNames</web-url>
+				<title-ref>nagpraPahmaInventoryNames</title-ref>
+				<title>nagpraPahmaInventoryNames</title>
+			<options>
+				<option id="nagpraPahmaInventoryNames00" from-static-id="notOnAnInventory" default="yes">not on an inventory</option>
+				<option id="nagpraPahmaInventoryNames01" from-static-id="akAlaska">AK-Alaska</option>
+				<option id="nagpraPahmaInventoryNames02" from-static-id="akAlaskaNative">AK-Alaska Native</option>
+				<option id="nagpraPahmaInventoryNames03" from-static-id="akChugach">AK-Chugach</option>
+				<option id="nagpraPahmaInventoryNames04" from-static-id="azApacheCounty">AZ-Apache Co.</option>
+				<option id="nagpraPahmaInventoryNames05" from-static-id="azCochiti">AZ-Cochiti</option>
+				<option id="nagpraPahmaInventoryNames06" from-static-id="azCoconinoCounty">AZ-Coconino Co.</option>
+				<option id="nagpraPahmaInventoryNames07" from-static-id="azHopi">AZ-Hopi</option>
+				<option id="nagpraPahmaInventoryNames08" from-static-id="azNavajo">AZ-Navajo</option>
+				<option id="nagpraPahmaInventoryNames09" from-static-id="azNavajoCounty1">AZ-Navajo Co. 1</option>
+				<option id="nagpraPahmaInventoryNames10" from-static-id="azNavajoCounty2">AZ-Navajo Co. 2</option>
+				<option id="nagpraPahmaInventoryNames11" from-static-id="azPimaQuechan">AZ-Pima, Quechan</option>
+				<option id="nagpraPahmaInventoryNames12" from-static-id="azWestArizona">AZ-West Arizona</option>
+				<option id="nagpraPahmaInventoryNames13" from-static-id="caUsa1">CA/USA 1</option>
+				<option id="nagpraPahmaInventoryNames14" from-static-id="caUsa2">CA/USA 2</option>
+				<option id="nagpraPahmaInventoryNames15" from-static-id="caUsa3">CA/USA 3</option>
+				<option id="nagpraPahmaInventoryNames16" from-static-id="caAlamedaCounty1">CA-Alameda Co. 1</option>
+				<option id="nagpraPahmaInventoryNames17" from-static-id="caAlamedaCounty2">CA-Alameda Co. 2</option>
+				<option id="nagpraPahmaInventoryNames18" from-static-id="caAlamedaCounty3">CA-Alameda Co. 3</option>
+				<option id="nagpraPahmaInventoryNames19" from-static-id="caAlamedaCounty4">CA-Alameda Co. 4</option>
+				<option id="nagpraPahmaInventoryNames20" from-static-id="caAla309">CA-Ala-309</option>
+				<option id="nagpraPahmaInventoryNames21" from-static-id="caAmadorCounty">CA-Amador Co.</option>
+				<option id="nagpraPahmaInventoryNames22" from-static-id="caButteCounty">CA-Butte Co.</option>
+				<option id="nagpraPahmaInventoryNames23" from-static-id="caCahuilla2">CA-Cahuilla 2</option>
+				<option id="nagpraPahmaInventoryNames24" from-static-id="caCahuillaCupenoDiegueno">CA-Cahuilla, Cupeño, Diegueño</option>
+				<option id="nagpraPahmaInventoryNames25" from-static-id="caCalaverasCounty">CA-Calaveras Co.</option>
+				<option id="nagpraPahmaInventoryNames26" from-static-id="caChumash">CA-Chumash</option>
+				<option id="nagpraPahmaInventoryNames27" from-static-id="caChumash2">CA-Chumash 2</option>
+				<option id="nagpraPahmaInventoryNames28" from-static-id="caColusaCounty1">CA-Colusa Co. 1</option>
+				<option id="nagpraPahmaInventoryNames29" from-static-id="caColusaCounty2">CA-Colusa Co. 2</option>
+				<option id="nagpraPahmaInventoryNames30" from-static-id="caContraCostaCounty1">CA-Contra Costa Co. 1</option>
+				<option id="nagpraPahmaInventoryNames31" from-static-id="caContraCostaCounty2">CA-Contra Costa Co. 2</option>
+				<option id="nagpraPahmaInventoryNames32" from-static-id="caContraCostaCounty3">CA-Contra Costa Co. 3</option>
+				<option id="nagpraPahmaInventoryNames33" from-static-id="caContraCostaCounty4">CA-Contra Costa Co. 4</option>
+				<option id="nagpraPahmaInventoryNames34" from-static-id="caContraCostaCounty5">CA-Contra Costa Co. 5</option>
+				<option id="nagpraPahmaInventoryNames35" from-static-id="caContraCostaCounty6">CA-Contra Costa Co. 6</option>
+				<option id="nagpraPahmaInventoryNames36" from-static-id="caCco138">CA-CCo-138</option>
+				<option id="nagpraPahmaInventoryNames37" from-static-id="caCco141">CA-CCo-141 (Historic)</option>
+				<option id="nagpraPahmaInventoryNames38" from-static-id="caCupeno">CA-Cupeño</option>
+				<option id="nagpraPahmaInventoryNames39" from-static-id="caDelNorteCounty">CA-Del Norte Co.</option>
+				<option id="nagpraPahmaInventoryNames40" from-static-id="caElDoradoCounty">CA-El Dorado Co.</option>
+				<option id="nagpraPahmaInventoryNames41" from-static-id="caFoothillYokutsMonache1">CA-Foothill Yokuts/Monache 1</option>
+				<option id="nagpraPahmaInventoryNames42" from-static-id="caFoothillYokutsMonache2">CA-Foothill Yokuts/Monache 2</option>
+				<option id="nagpraPahmaInventoryNames43" from-static-id="caFresnoCounty1">CA-Fresno Co. 1</option>
+				<option id="nagpraPahmaInventoryNames44" from-static-id="caFresnoCounty2">CA-Fresno Co. 2</option>
+				<option id="nagpraPahmaInventoryNames45" from-static-id="caFresnoCounty3">CA-Fresno Co. 3</option>
+				<option id="nagpraPahmaInventoryNames46" from-static-id="caGlennCounty">CA-Glenn Co.</option>
+				<option id="nagpraPahmaInventoryNames47" from-static-id="caHumboldtCounty1">CA-Humboldt Co. 1</option>
+				<option id="nagpraPahmaInventoryNames48" from-static-id="caHumboldtCounty2">CA-Humboldt Co. 2</option>
+				<option id="nagpraPahmaInventoryNames49" from-static-id="caHumboldtCounty3">CA-Humboldt Co. 3</option>
+				<option id="nagpraPahmaInventoryNames50" from-static-id="caInyoCounty1">CA-Inyo Co. 1</option>
+				<option id="nagpraPahmaInventoryNames51" from-static-id="caInyoCounty2">CA-Inyo Co. 2</option>
+				<option id="nagpraPahmaInventoryNames52" from-static-id="caKarok">CA-Karok</option>
+				<option id="nagpraPahmaInventoryNames53" from-static-id="caKer-74">CA-Ker-74 (Historic)</option>
+				<option id="nagpraPahmaInventoryNames54" from-static-id="caKernCounty1">CA-Kern Co. 1</option>
+				<option id="nagpraPahmaInventoryNames55" from-static-id="caKernCounty2">CA-Kern Co. 2</option>
+				<option id="nagpraPahmaInventoryNames56" from-static-id="caKernCounty3">CA-Kern Co. 3</option>
+				<option id="nagpraPahmaInventoryNames57" from-static-id="caKingsCounty">CA-Kings Co.</option>
+				<option id="nagpraPahmaInventoryNames58" from-static-id="caKonkow">CA-Konkow</option>
+				<option id="nagpraPahmaInventoryNames59" from-static-id="caLakeCounty">CA-Lake Co.</option>
+				<option id="nagpraPahmaInventoryNames60" from-static-id="caLassenCounty1">CA-Lassen Co. 1</option>
+				<option id="nagpraPahmaInventoryNames61" from-static-id="caLassenCounty2">CA-Lassen Co. 2</option>
+				<option id="nagpraPahmaInventoryNames62" from-static-id="caLassenCounty3">CA-Lassen Co. 3</option>
+				<option id="nagpraPahmaInventoryNames63" from-static-id="caLosAngelesCounty1">CA-Los Angeles Co. 1</option>
+				<option id="nagpraPahmaInventoryNames64" from-static-id="caLosAngelesCounty2">CA-Los Angeles Co. 2</option>
+				<option id="nagpraPahmaInventoryNames65" from-static-id="caMaderaCounty1">CA-Madera Co. 1</option>
+				<option id="nagpraPahmaInventoryNames66" from-static-id="caMaderaCounty2">CA-Madera Co. 2</option>
+				<option id="nagpraPahmaInventoryNames67" from-static-id="caMarinCounty1">CA-Marin Co. 1</option>
+				<option id="nagpraPahmaInventoryNames68" from-static-id="caMarinCounty2">CA-Marin Co. 2</option>
+				<option id="nagpraPahmaInventoryNames69" from-static-id="caMariposaCounty">CA-Mariposa Co.</option>
+				<option id="nagpraPahmaInventoryNames70" from-static-id="caMendocino">CA-Mendocino</option>
+				<option id="nagpraPahmaInventoryNames71" from-static-id="caMercedCounty">CA-Merced Co.</option>
+				<option id="nagpraPahmaInventoryNames72" from-static-id="caModocCounty1">CA-Modoc Co. 1</option>
+				<option id="nagpraPahmaInventoryNames73" from-static-id="caModocCounty2">CA-Modoc Co. 2</option>
+				<option id="nagpraPahmaInventoryNames74" from-static-id="caMonoCounty">CA-Mono Co.</option>
+				<option id="nagpraPahmaInventoryNames75" from-static-id="caMontereyCountyOh1">CA-Monterey Co. (OH1)</option>
+				<option id="nagpraPahmaInventoryNames76" from-static-id="caMontereyCountyOh2">CA-Monterey Co. (OH2)</option>
+				<option id="nagpraPahmaInventoryNames77" from-static-id="caMontereyCounty1">CA-Monterey Co. 1</option>
+				<option id="nagpraPahmaInventoryNames78" from-static-id="caMontereyCounty2">CA-Monterey Co. 2</option>
+				<option id="nagpraPahmaInventoryNames79" from-static-id="caMontereyCounty3">CA-Monterey Co. 3</option>
+				<option id="nagpraPahmaInventoryNames80" from-static-id="caNapaCounty1">CA-Napa Co. 1</option>
+				<option id="nagpraPahmaInventoryNames81" from-static-id="caNapaCounty2">CA-Napa Co. 2</option>
+				<option id="nagpraPahmaInventoryNames82" from-static-id="caNapaCounty3">CA-Napa Co. 3</option>
+				<option id="nagpraPahmaInventoryNames83" from-static-id="caOrangeCounty">CA-Orange Co.</option>
+				<option id="nagpraPahmaInventoryNames84" from-static-id="caPatwin1">CA-Patwin 1 (Historic)</option>
+				<option id="nagpraPahmaInventoryNames85" from-static-id="caPatwin2">CA-Patwin 2</option>
+				<option id="nagpraPahmaInventoryNames86" from-static-id="caPitRiver">CA-Pit River</option>
+				<option id="nagpraPahmaInventoryNames87" from-static-id="caPlacerCounty">CA-Placer Co.</option>
+				<option id="nagpraPahmaInventoryNames88" from-static-id="caPlumasCounty">CA-Plumas Co.</option>
+				<option id="nagpraPahmaInventoryNames89" from-static-id="caPomo1">CA-Pomo 1</option>
+				<option id="nagpraPahmaInventoryNames90" from-static-id="caPomo2">CA-Pomo 2</option>
+				<option id="nagpraPahmaInventoryNames91" from-static-id="caPomo3">CA-Pomo 3</option>
+				<option id="nagpraPahmaInventoryNames92" from-static-id="caSac160">CA-Sac-160 (Historic)</option>
+				<option id="nagpraPahmaInventoryNames93" from-static-id="caSacramentoCounty1">CA-Sacramento Co. 1</option>
+				<option id="nagpraPahmaInventoryNames94" from-static-id="caSacramentoCounty2">CA-Sacramento Co. 2</option>
+				<option id="nagpraPahmaInventoryNames95" from-static-id="caSacramentoCounty3">CA-Sacramento Co. 3</option>
+				<option id="nagpraPahmaInventoryNames96" from-static-id="caSacramentoCounty4">CA-Sacramento Co. 4</option>
+				<option id="nagpraPahmaInventoryNames97" from-static-id="caSac16revised">CA-Sac-16 (revised to affiliated)</option>
+				<option id="nagpraPahmaInventoryNames98" from-static-id="caSanBenitoCounty">CA-San Benito Co.</option>
+				<option id="nagpraPahmaInventoryNames99" from-static-id="caSanClementeIsland">CA-San Clemente Island</option>
+				<option id="nagpraPahmaInventoryNames100" from-static-id="caSanDiego">CA-San Diego</option>
+				<option id="nagpraPahmaInventoryNames101" from-static-id="caSanFranciscoOh1">CA-San Francisco (OH1)</option>
+				<option id="nagpraPahmaInventoryNames102" from-static-id="caSanFranciscoOh2">CA-San Francisco (OH2)</option>
+				<option id="nagpraPahmaInventoryNames103" from-static-id="caSanFranciscoCounty1">CA-San Francisco Co. 1</option>
+				<option id="nagpraPahmaInventoryNames104" from-static-id="caSanJoaquinCounty1">CA-San Joaquin Co. 1</option>
+				<option id="nagpraPahmaInventoryNames105" from-static-id="caSanJoaquinCounty2">CA-San Joaquin Co. 2</option>
+				<option id="nagpraPahmaInventoryNames106" from-static-id="caSanJoaquinCounty5">CA-San Joaquin Co. 5</option>
+				<option id="nagpraPahmaInventoryNames107" from-static-id="caSanLuisObispoCounty1">CA-San Luis Obispo Co. 1</option>
+				<option id="nagpraPahmaInventoryNames108" from-static-id="caSanLuisObispoCounty2">CA-San Luis Obispo Co. 2</option>
+				<option id="nagpraPahmaInventoryNames109" from-static-id="caSanMateoCo">CA-San Mateo Co. (OH1)</option>
+				<option id="nagpraPahmaInventoryNames110" from-static-id="caSanMateoCounty1">CA-San Mateo Co. 1</option>
+				<option id="nagpraPahmaInventoryNames111" from-static-id="caSanNicolasIsland">CA-San Nicolas Island</option>
+				<option id="nagpraPahmaInventoryNames112" from-static-id="caSanPasqual">CA-San Pasqual</option>
+				<option id="nagpraPahmaInventoryNames113" from-static-id="caSantaCatalinaIsland1">CA-Santa Catalina Island 1</option>
+				<option id="nagpraPahmaInventoryNames114" from-static-id="caSantaCatalinaIsland2">CA-Santa Catalina Island 2</option>
+				<option id="nagpraPahmaInventoryNames115" from-static-id="caSantaClaraCountyOh1">CA-Santa Clara Co. (OH1)</option>
+				<option id="nagpraPahmaInventoryNames116" from-static-id="caSantaClaraCountyOh2">CA-Santa Clara Co. (OH2)</option>
+				<option id="nagpraPahmaInventoryNames117" from-static-id="caSantaClaraCounty1">CA-Santa Clara Co. 1</option>
+				<option id="nagpraPahmaInventoryNames118" from-static-id="caSantaClaraCounty2">CA-Santa Clara Co. 2</option>
+				<option id="nagpraPahmaInventoryNames119" from-static-id="caSantaCruzCountyOh1">CA-Santa Cruz Co. (OH1)</option>
+				<option id="nagpraPahmaInventoryNames120" from-static-id="caSantaCruzCounty1">CA-Santa Cruz Co. 1</option>
+				<option id="nagpraPahmaInventoryNames121" from-static-id="caSantaCruzCounty2">CA-Santa Cruz Co. 2</option>
+				<option id="nagpraPahmaInventoryNames122" from-static-id="caShastaCounty1">CA-Shasta Co. 1</option>
+				<option id="nagpraPahmaInventoryNames123" from-static-id="caShastaCounty2">CA-Shasta Co. 2</option>
+				<option id="nagpraPahmaInventoryNames124" from-static-id="caShastaCounty3">CA-Shasta Co. 3</option>
+				<option id="nagpraPahmaInventoryNames125" from-static-id="caSierraMiwok">CA-Sierra Miwok</option>
+				<option id="nagpraPahmaInventoryNames126" from-static-id="caSis262">CA-Sis-262 (Historic)</option>
+				<option id="nagpraPahmaInventoryNames127" from-static-id="caSiskiyouCounty1">CA-Siskiyou Co. 1</option>
+				<option id="nagpraPahmaInventoryNames128" from-static-id="caSiskiyouCounty2">CA-Siskiyou Co. 2</option>
+				<option id="nagpraPahmaInventoryNames129" from-static-id="caSolanoCounty1">CA-Solano Co. 1</option>
+				<option id="nagpraPahmaInventoryNames130" from-static-id="caSolanoCounty2">CA-Solano Co. 2</option>
+				<option id="nagpraPahmaInventoryNames131" from-static-id="caSolanoCounty3">CA-Solano Co. 3</option>
+				<option id="nagpraPahmaInventoryNames132" from-static-id="caSonomaCounty">CA-Sonoma Co.</option>
+				<option id="nagpraPahmaInventoryNames133" from-static-id="caSouthernValleyYokuts">CA-Southern Valley Yokuts</option>
+				<option id="nagpraPahmaInventoryNames134" from-static-id="caStanislausCounty1">CA-Stanislaus Co. 1</option>
+				<option id="nagpraPahmaInventoryNames135" from-static-id="caStanislausCounty2">CA-Stanislaus Co. 2</option>
+				<option id="nagpraPahmaInventoryNames136" from-static-id="caSutterCounty1">CA-Sutter Co. 1</option>
+				<option id="nagpraPahmaInventoryNames137" from-static-id="caSutterCounty2">CA-Sutter Co. 2</option>
+				<option id="nagpraPahmaInventoryNames138" from-static-id="caTehamaCounty1">CA-Tehama Co. 1</option>
+				<option id="nagpraPahmaInventoryNames139" from-static-id="caTehamaCounty2">CA-Tehama Co. 2</option>
+				<option id="nagpraPahmaInventoryNames140" from-static-id="caTeh58">CA-Teh-58 (Historic)</option>
+				<option id="nagpraPahmaInventoryNames141" from-static-id="caTrinityCounty1">CA-Trinity Co. 1</option>
+				<option id="nagpraPahmaInventoryNames142" from-static-id="caTrinityCounty2">CA-Trinity Co. 2</option>
+				<option id="nagpraPahmaInventoryNames143" from-static-id="caTulareCounty1">CA-Tulare Co. 1</option>
+				<option id="nagpraPahmaInventoryNames144" from-static-id="caTulareCounty2">CA-Tulare Co. 2</option>
+				<option id="nagpraPahmaInventoryNames145" from-static-id="caTulareCounty3">CA-Tulare Co. 3</option>
+				<option id="nagpraPahmaInventoryNames146" from-static-id="caTulareCounty4">CA-Tulare Co. 4</option>
+				<option id="nagpraPahmaInventoryNames147" from-static-id="caTulareCounty5">CA-Tulare Co. 5</option>
+				<option id="nagpraPahmaInventoryNames148" from-static-id="caWesternShoshone">CA-Western Shoshone</option>
+				<option id="nagpraPahmaInventoryNames149" from-static-id="caWintun">CA-Wintun</option>
+				<option id="nagpraPahmaInventoryNames150" from-static-id="caWiyot">CA-Wiyot</option>
+				<option id="nagpraPahmaInventoryNames151" from-static-id="caYana">CA-Yana</option>
+				<option id="nagpraPahmaInventoryNames152" from-static-id="caYol13">CA-Yol-13 (Historic)</option>
+				<option id="nagpraPahmaInventoryNames153" from-static-id="caYoloCounty1">CA-Yolo Co. 1</option>
+				<option id="nagpraPahmaInventoryNames154" from-static-id="caYoloCounty2">CA-Yolo Co. 2</option>
+				<option id="nagpraPahmaInventoryNames155" from-static-id="caYoloCounty3">CA-Yolo Co. 3</option>
+				<option id="nagpraPahmaInventoryNames156" from-static-id="caYubaCounty">CA-Yuba Co.</option>
+				<option id="nagpraPahmaInventoryNames157" from-static-id="caYub5">CA-Yub-5 (Historic)</option>
+				<option id="nagpraPahmaInventoryNames158" from-static-id="caYuki">CA-Yuki</option>
+				<option id="nagpraPahmaInventoryNames159" from-static-id="caYurok">CA-Yurok</option>
+				<option id="nagpraPahmaInventoryNames160" from-static-id="coMontezumaCounty">CO-Montezuma Co.</option>
+				<option id="nagpraPahmaInventoryNames161" from-static-id="idLemhiCounty">ID-Lemhi Co.</option>
+				<option id="nagpraPahmaInventoryNames162" from-static-id="ilMadisonCounty">IL-Madison Co.</option>
+				<option id="nagpraPahmaInventoryNames163" from-static-id="inIndiana">IN-Indiana</option>
+				<option id="nagpraPahmaInventoryNames164" from-static-id="lamarHistoric">Lamar (Historic)</option>
+				<option id="nagpraPahmaInventoryNames165" from-static-id="miMichigan">MI-Michigan</option>
+				<option id="nagpraPahmaInventoryNames166" from-static-id="ndMandan">ND-Mandan</option>
+				<option id="nagpraPahmaInventoryNames167" from-static-id="njNewJersey">NJ-New Jersey</option>
+				<option id="nagpraPahmaInventoryNames168" from-static-id="nmMckinleyCounty">NM-McKinley Co.</option>
+				<option id="nagpraPahmaInventoryNames169" from-static-id="nvChurchillCounty">NV-Churchill Co.</option>
+				<option id="nagpraPahmaInventoryNames170" from-static-id="nvClarkCounty1">NV-Clark Co. 1</option>
+				<option id="nagpraPahmaInventoryNames171" from-static-id="nvClarkCounty2">NV-Clark Co. 2</option>
+				<option id="nagpraPahmaInventoryNames172" from-static-id="nvHumboldtCounty">NV-Humboldt Co.</option>
+				<option id="nagpraPahmaInventoryNames173" from-static-id="nvNevada">NV-Nevada</option>
+				<option id="nagpraPahmaInventoryNames174" from-static-id="nvNorthernPaiute">NV-Northern Paiute</option>
+				<option id="nagpraPahmaInventoryNames175" from-static-id="nvPershingCounty">NV-Pershing Co.</option>
+				<option id="nagpraPahmaInventoryNames176" from-static-id="nvSouthernPaiute">NV-Southern Paiute</option>
+				<option id="nagpraPahmaInventoryNames177" from-static-id="nvWashoe">NV-Washoe</option>
+				<option id="nagpraPahmaInventoryNames178" from-static-id="nvWashoeCounty1">NV-Washoe Co. 1</option>
+				<option id="nagpraPahmaInventoryNames179" from-static-id="nvWashoeCounty2">NV-Washoe Co. 2</option>
+				<option id="nagpraPahmaInventoryNames180" from-static-id="nyNewYork">NY-New York</option>
+				<option id="nagpraPahmaInventoryNames181" from-static-id="orCalapooya">OR-Calapooya</option>
+				<option id="nagpraPahmaInventoryNames182" from-static-id="orChetco">OR-Chetco</option>
+				<option id="nagpraPahmaInventoryNames183" from-static-id="orJacksonCounty">OR-Jackson Co.</option>
+				<option id="nagpraPahmaInventoryNames184" from-static-id="orKlamath">OR-Klamath</option>
+				<option id="nagpraPahmaInventoryNames185" from-static-id="orKlamathCounty">OR-Klamath Co.</option>
+				<option id="nagpraPahmaInventoryNames186" from-static-id="orMorrowCounty">OR-Morrow Co.</option>
+				<option id="nagpraPahmaInventoryNames187" from-static-id="orWascoCounty">OR-Wasco Co.</option>
+				<option id="nagpraPahmaInventoryNames188" from-static-id="sdBrownCounty">SD-Brown Co.</option>
+				<option id="nagpraPahmaInventoryNames189" from-static-id="tnMontgomeryCounty">TN-Montgomery Co.</option>
+				<option id="nagpraPahmaInventoryNames190" from-static-id="utBoxElderCounty">UT-Box Elder Co.</option>
+				<option id="nagpraPahmaInventoryNames191" from-static-id="utSanJuanCounty1">UT-San Juan Co. 1</option>
+				<option id="nagpraPahmaInventoryNames192" from-static-id="utSanJuanCounty2">UT-San Juan Co. 2</option>
+				<option id="nagpraPahmaInventoryNames193" from-static-id="waAsotinCounty">WA-Asotin Co.</option>
+				<option id="nagpraPahmaInventoryNames194" from-static-id="waClallam">WA-Clallam</option>
+				<option id="nagpraPahmaInventoryNames195" from-static-id="waCowlitzCounty">WA-Cowlitz Co.</option>
+				<option id="nagpraPahmaInventoryNames196" from-static-id="waKing">WA-King</option>
+				<option id="nagpraPahmaInventoryNames197" from-static-id="waKlickitatCounty">WA-Klickitat Co.</option>
+				<option id="nagpraPahmaInventoryNames198" from-static-id="waKl24245kl242">WA-KL-242 (45KL242) (Historic)</option>
+				<option id="nagpraPahmaInventoryNames199" from-static-id="waMillersIsland">WA-Millers Island (Historic)</option>
+				<option id="nagpraPahmaInventoryNames200" from-static-id="waYakima">WA-Yakima</option>
+				<option id="nagpraPahmaInventoryNames201" from-static-id="nonNagpra1">non-NAGPRA 1</option>
+				<option id="nagpraPahmaInventoryNames202" from-static-id="nonNagpra2">non-NAGPRA 2</option>
+				<option id="nagpraPahmaInventoryNames203" from-static-id="nonNagpra3">non-NAGPRA 3</option>
+				<option id="nagpraPahmaInventoryNames204" from-static-id="nonNagpra4">non-NAGPRA 4</option>
+				<option id="nagpraPahmaInventoryNames205" from-static-id="nonNagpra5">non-NAGPRA 5</option>
+				<option id="nagpraPahmaInventoryNames206" from-static-id="nonNagpra6">non-NAGPRA 6</option>
+				<option id="nagpraPahmaInventoryNames207" from-static-id="nonNagpra7">non-NAGPRA 7</option>
+				<option id="nagpraPahmaInventoryNames208" from-static-id="nonNagpra8">non-NAGPRA 8</option>
+				<option id="nagpraPahmaInventoryNames209" from-static-id="nonNagpra9">non-NAGPRA 9</option>
+				<option id="nagpraPahmaInventoryNames210" from-static-id="nonNagpra10">non-NAGPRA 10</option>
+				<option id="nagpraPahmaInventoryNames211" from-static-id="nonNagpra11">non-NAGPRA 11</option>
+				<option id="nagpraPahmaInventoryNames212">unknown</option>
+			</options>
+		</instance>
+	<instance id="vocab-nagpraPahmaApplicabilities">
+			<web-url>nagpraPahmaApplicabilities</web-url>
+			<title-ref>nagpraPahmaApplicabilities</title-ref>
+			<title>nagpraPahmaApplicabilities</title>
+			<options>
+				<option id="nagpraPahmaApplicabilities00" from-static-id="nonNagpra" default="yes">not subject to NAGPRA</option>
+				<option id="nagpraPahmaApplicabilities01" from-static-id="affiliatedHsr">affiliated human skeletal remains (HSR)</option>
+				<option id="nagpraPahmaApplicabilities02" from-static-id="unaffiliatedCuiHsr">unaffiliated human skeletal remains (HSR) (=CUI)</option>
+				<option id="nagpraPahmaApplicabilities03" from-static-id="afo">associated funerary object (AFO)</option>
+				<option id="nagpraPahmaApplicabilities04" from-static-id="ufo">unassociated funerary object (UFO)</option>
+				<option id="nagpraPahmaApplicabilities05" from-static-id="sacredObject">sacred object</option>
+				<option id="nagpraPahmaApplicabilities06" from-static-id="objectOfCulturalPatrimony">object of cultural patrimony</option>
+				<option id="nagpraPahmaApplicabilities07" from-static-id="subjectToNAGPRA">subject to NAGPRA (unspec.)</option>
+				<option id="nagpraPahmaApplicabilities08" from-static-id="needsFurtherResearch">needs further research</option>
+				<option id="nagpraPahmaApplicabilities09">unknown</option>
+			</options>
+		</instance>
+</instances>

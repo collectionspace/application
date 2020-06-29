@@ -1,0 +1,31 @@
+<record id="person">
+	<instances id="person">
+		<instance id="person-person">
+			<web-url>person</web-url>
+			<title-ref>person</title-ref>
+			<!-- Change title -->
+			<title>PAHMA Person Authority</title>
+		</instance>
+	</instances>
+
+	<section id="personNameAuthorityInformation">
+		<!-- Add autocomplete -->
+		<field id="birthPlace" autocomplete="place-place"/>
+		<!-- Add autocomplete -->
+		<field id="deathPlace" autocomplete="place-place"/>
+		<repeat id="groups">
+			<!-- Add autocomplete -->
+			<field id="group" autocomplete="concept-concept"/>
+		</repeat>
+		<field id="gender">
+			<!-- Change options -->
+			<options>
+				<option id="" default="yes">(none selected)</option>
+				<option id="male">male</option>
+				<option id="female">female</option>
+				<option id="transgender">transgender</option>
+				<option id="unknown">unknown</option>
+			</options>
+		</field>
+	</section>
+</record>

@@ -1,0 +1,28 @@
+<record id="organization" is-extension="true">
+	<services-record-path id="anthropology">organizations_anthropology:http://collectionspace.org/services/organization/domain/anthropology,organizations_anthropology</services-record-path>
+
+	<section id="organizationNameAuthorityInformation">
+		<field id="orgType" section="anthropology">
+			<selector>organizationAuthority-orgType</selector>
+			<options>
+				<option id="" default="yes">(none selected)</option>
+				<option id="Business">Business</option>
+				<option id="Estate">Estate</option>
+				<option id="Expedition">Expedition</option>
+				<option id="Family">Family</option>
+				<option id="Foundation">Foundation</option>
+				<option id="Government Agency">Government Agency</option>
+				<option id="Institution (unspecified)">Institution (unspecified)</option>
+				<option id="Museum or Gallery">Museum or Gallery</option>
+				<option id="Tribe: Federally recognized">Tribe: Federally recognized</option>
+				<option id="Tribe: Non-Federally recognized">Tribe: Non-Federally recognized</option>
+				<option id="Tribe: unspecified">Tribe: unspecified</option>
+				<option id="University Class">University Class</option>
+				<option id="University or Univ. Department">University or Univ. Department</option>
+			</options>
+		</field>
+		<field id="orgNote" section="anthropology">
+			<selector>organizationAuthority-orgNote</selector>
+		</field>
+	</section>
+</record>

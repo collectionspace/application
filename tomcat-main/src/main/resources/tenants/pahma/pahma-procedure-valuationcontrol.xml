@@ -1,0 +1,18 @@
+<record id="valuationcontrol">
+    <section id="objectValuationInformation">
+        <field id="valueType">
+            <!-- Change options -->
+            <options>
+                <option id="">Please select a value</option>
+                <option id="Appraised value">Appraised value</option>
+                <option id="Auction price">Auction price</option>
+                <option id="Customs value">Customs value</option>
+                <option id="Donor's stated value">Donor's stated value</option>
+                <option id="Fair market value">Fair market value</option>
+                <option id="Historic value">Historic value</option>
+                <option id="Insured value">Insured value</option>
+                <option id="Purchase price">Purchase price</option>
+            </options>
+        </field>
+    </section>
+</record>

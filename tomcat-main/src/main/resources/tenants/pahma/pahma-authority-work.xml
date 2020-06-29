@@ -1,0 +1,9 @@
+<record id="work">
+	<instances id="work">
+		<instance id="work-work">
+			<web-url>work</web-url>
+			<title-ref>work</title-ref>
+			<title>Local Works</title>
+		</instance>
+	</instances>
+</record>

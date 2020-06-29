@@ -1,0 +1,7 @@
+<record id="acquisition" is-extension="true">
+	<services-record-path id="anthropology">acquisitions_anthropology:http://collectionspace.org/services/acquisition/domain/anthropology,acquisitions_anthropology</services-record-path>
+
+	<section id="acquisitionInformation">
+		<field id="acquisitionDescription" section="anthropology"/>
+	</section>
+</record>

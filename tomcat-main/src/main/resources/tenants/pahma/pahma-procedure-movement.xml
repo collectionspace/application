@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<record id="movement">
+	<section id="locationMovementInformation">
+		<!-- Remove location-offsite_sla from autocomplete -->
+		<field id="currentLocation" autocomplete="location-location,organization-organization"/>
+	</section>
+	
+	<section id="movementControlInformation">
+        <!-- <field id="movementReferenceNumber" mini="search,list,relate,terms" ui-type="computed" ui-args="currentLocation" ui-func="pahma.computeReferenceNumber" ui-readonly="true"/> -->
+	    
+		<field id="reasonForMove" autocomplete="vocab-reasonformove" ui-type="enum">
+			<!-- Converted to dynamic -->
+		</field>
+		<repeat id="movementMethods">
+			<field id="movementMethod" autocomplete="vocab-movementmethod" ui-type="enum">
+			<!--Converted to dynamic -->
+			</field>
+		</repeat>
+	</section>
+</record>

@@ -1,0 +1,47 @@
+<record id="place" is-extension="true">
+	<services-record-path id="pahma">places_pahma:http://collectionspace.org/services/place/local/pahma,places_pahma</services-record-path>
+	
+	<instances id="place">
+		<instance id="place-place">
+			<web-url>place</web-url>
+			<title-ref>place</title-ref>
+			<!-- Change title -->
+			<title>PAHMA Place Authority</title>
+		</instance>
+	</instances>
+
+	<section id="placeAuthorityInformation">
+		<!-- Change to use a dynamic term list -->
+		<field id="placeType" autocomplete="vocab-PlaceType" ui-type="enum">
+			<options/>
+		</field>
+		
+		<!-- Anthropology domain modifications -->
+		
+		<repeat id="placeReferenceGroupList/placeReferenceGroup">
+			<!-- Remove citation-worldcat from autocomplete -->
+			<field id="placeReference" autocomplete="citation-citation"/>
+		</repeat>
+		
+		<repeat id="placeAssocGroupList/placeAssocGroup">
+			<!-- Remove person-ulan_pa and organization-ulan_oa from autocomplete -->
+			<field id="placeAssocName" autocomplete="person-person,organization-organization"/>
+		</repeat>
+	</section>
+	
+	<section id="localityInformation">
+		<!-- Add autocomplete -->
+		<field id="vCoordSource" autocomplete="citation-citation"/>
+		
+		<!-- Local fields -->
+		
+		<field id="verbatimQuarterSection" section="pahma"/>
+	</section>
+	
+	<section id="geoReferenceInformation">
+		<repeat id="placeGeoRefGroupList/placeGeoRefGroup">
+			<!-- Add autocomplete -->
+			<field id="geoRefSource" autocomplete="citation-citation"/>
+		</repeat>
+	</section>
+</record>

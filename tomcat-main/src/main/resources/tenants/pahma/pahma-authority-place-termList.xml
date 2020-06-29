@@ -1,0 +1,25 @@
+<record id="preferredPlace">
+	<section id="termInformation">
+		<repeat id="placeTermGroupList/placeTermGroup">
+			<field id="termType">
+				<!-- Change options -->
+				<options>
+					<option id="">Please select a value</option>
+					<option id="descriptor">descriptor</option>
+					<option id="alternativeterm">alternative term</option>
+				</options>
+			</field>
+			<!-- Remove citation-worldcat from autocomplete -->
+			<field id="termSource" autocomplete="citation-citation"/>
+			
+			<!-- Create an app-layer only autocomplete field for entering termDisplayNameSearch -->
+			<field id="termDisplayNameSearchEntry" ui-search="repeatable" autocomplete="place-place" exists-in-services="false" services-readonly="true" query-behavior="ignore"/>
+
+			<!-- Create an app-layer only computed field that takes the display name part of the refname entered -->
+			<!-- in termDisplayNameSearchEntry, and uses it to search termDisplayName -->
+			<field id="termDisplayNameSearch" ui-search="repeatable" exists-in-services="false" ui-type="computed" ui-args="termDisplayNameSearchEntry" ui-search-args="termDisplayNameSearchEntry" ui-func="cspace.util.urnToString" ui-readonly="true" services-readonly="true">
+				<services-tag>termDisplayName</services-tag>
+			</field>
+		</repeat>
+	</section>
+</record>

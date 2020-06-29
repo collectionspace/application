@@ -1,0 +1,67 @@
+<record id="media" is-extension="true">
+	<services-record-path id="pahma">media_pahma:http://collectionspace.org/services/media/local/pahma,media_pahma</services-record-path>
+
+	<section id="mediaInformation">
+		<field id="title">
+			<!-- Add options (just to get a default value) -->
+			<options>
+				<option id="Media record" default="yes">Media record</option>
+			</options>
+		</field>
+
+		<repeat id="languages">
+			<field id="language">
+				<enum>
+					<!-- Change default and blank-value -->
+					<default>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(languages):item:name(eng)'English'</default>
+					<blank-value>(none selected)</blank-value>
+				</enum>
+			</field>
+		</repeat>
+
+		<!-- Remove chooser -->
+		<field id="identificationNumber" chooser="">
+			<!-- Remove options -->
+			<options/>
+		</field>
+		
+		<repeat id="types">
+			<field id="type">
+				<!-- Change options -->
+				<options>
+					<option id="" default="yes">(none selected)</option>
+					<option id="document">document</option>
+					<option id="image">image</option>
+					<option id="slide">slide</option>
+					<option id="audio">audio</option>
+					<option id="video">video</option>
+				</options>
+			</field>
+		</repeat>
+		
+		<!-- Add autocomplete-->
+		<field id="coverage" autocomplete="place-place"/>
+
+		<repeat id="subjects">
+			<!-- Add autocomplete -->
+			<field id="subject" autocomplete="place-place,concept-concept,concept-archculture,person-person,organization-organization,taxon-taxon,concept-activity,concept-material_ca"/>
+		</repeat>
+		
+		<!-- Local fields -->
+		
+		<field id="approvedForWeb" section="pahma" datatype="boolean">
+			<default>true</default>
+		</field>
+		<field id="primaryDisplay" section="pahma" mini="search,list,relate" datatype="boolean"/>
+		
+		<field id="documentationImage" section="pahma" datatype="boolean"/>
+		<field id="documentationImageSearch" section="pahma" datatype="boolean" ui-search="repeatable" exists-in-services="false">
+			 <services-tag>documentationImage</services-tag>
+			 <options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="true">Yes</option>
+				<option id="false">No</option>
+			 </options>
+		</field>
+	</section>
+</record>

@@ -1,0 +1,40 @@
+<record id="taxon">
+	<instances id="taxon">
+		<instance id="taxon-taxon">
+			<web-url>taxon</web-url>
+			<title-ref>taxon</title-ref>
+			<!-- Change title -->
+			<title>PAHMA Taxon Authority</title>
+		</instance>
+	</instances>
+
+	<section id="taxonNameAuthorityInformation">
+		<field id="taxonRank" autocomplete="vocab-taxonrank" ui-type="enum">
+			<!-- Converted to dynamic -->
+
+		</field>
+		<field id="taxonCurrency">
+			<!-- Change options -->
+			<options>
+				<option id="" default="yes">(none selected)</option>
+				<option id="current">current</option>
+				<option id="obsolete">obsolete</option>
+				<option id="archaic">archaic</option>
+			</options>
+		</field>
+		<repeat id="taxonAuthorGroupList/taxonAuthorGroup">
+			<field id="taxonAuthorType">
+				<!-- Change options -->
+				<options>
+					<option id="" default="yes">(none selected)</option>
+					<option id="ascribed">ascribed</option>
+					<option id="parenthetical">parenthetical</option>
+				</options>
+			</field>
+		</repeat>
+		<repeat id="taxonCitationList">
+			<!-- Remove citation-worldcat from autocomplete -->
+			<field id="taxonCitation" autocomplete="citation-citation"/>
+		</repeat>
+	</section>
+</record>

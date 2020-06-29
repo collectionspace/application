@@ -1,0 +1,58 @@
+<record id="claim" is-extension="true">
+	<services-record-path id="pahma">claims_pahma:http://collectionspace.org/services/claim/local/pahma,claims_pahma</services-record-path>
+
+	<section id="claimInformation"> 
+		<field id="claimNumber">
+			<!-- Change options -->
+			<options>
+				<option id="pahma-claim" sample="CL 2012.1.1">Claim</option>
+			</options>
+		</field>
+	</section>
+	
+	<section id="claimProcessingInformation">
+		<field id="dispositionPossibilitiesDiscussed" section="pahma" datatype="boolean"/>
+		<field id="dispositionPossibilitiesDiscussedNote" section="pahma"/>
+
+		<field id="surroundingTribesContacted" section="pahma" datatype="boolean"/>
+		<field id="surroundingTribesContactedNote" section="pahma"/>
+
+		<field id="workingTeamNotified" section="pahma" datatype="boolean"/>
+		<field id="workingTeamNotifiedNote" section="pahma"/>
+
+		<field id="siteFileResearchCompleted" section="pahma" datatype="boolean"/>
+		<field id="siteFileResearchCompletedNote" section="pahma"/>
+
+		<field id="accessionFileResearchCompleted" section="pahma" datatype="boolean"/>
+		<field id="accessionFileResearchCompletedNote" section="pahma"/>
+
+		<field id="objectsLocatedAndCounted" section="pahma" datatype="boolean"/>
+		<field id="objectsLocatedAndCountedNote" section="pahma"/>
+
+		<field id="objectsConsolidated" section="pahma" datatype="boolean"/>
+		<field id="objectsConsolidatedNote" section="pahma"/>
+
+		<field id="objectsPhotographed" section="pahma" datatype="boolean"/>
+		<field id="objectsPhotographedNote" section="pahma"/>
+
+		<field id="registrationDocumentsDrafted" section="pahma" datatype="boolean"/>
+		<field id="registrationDocumentsDraftedNote" section="pahma"/>
+
+		<field id="tribeContactedForPackingPreferences" section="pahma" datatype="boolean"/>
+		<field id="tribeContactedForPackingPreferencesNote" section="pahma"/>
+
+		<field id="dateArrangedForTransfer" section="pahma" datatype="boolean"/>
+		<field id="dateArrangedForTransferNote" section="pahma"/>
+
+		<field id="objectsMarkedAsDeaccessioned" section="pahma" datatype="boolean"/>
+		<field id="objectsMarkedAsDeaccessionedNote" section="pahma"/>
+
+		<field id="documentsArchived" section="pahma" datatype="boolean"/>
+		<field id="documentsArchivedNote" section="pahma"/>
+	</section>
+	
+	<!-- These are just here to generate message keys for the table/column headers. -->
+	<section id="claimTaskInformation"/>
+	<section id="claimTaskHeader"/>
+	<section id="claimTaskNotesHeader"/>
+</record>

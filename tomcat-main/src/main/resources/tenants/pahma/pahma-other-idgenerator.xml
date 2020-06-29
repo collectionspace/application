@@ -1,0 +1,26 @@
+<record id="id">
+	<section id="idGeneratorInformation">
+		<!-- New id generators -->
+		<field id="pahma-loanin">
+			<selector>cc9d02af-d2e6-47a9-896c-111e83b2c48b</selector>
+		</field>
+		<field id="pahma-loanout">
+			<selector>a6cc9a5f-de4e-424a-8b73-11878a51392c</selector>
+		</field>
+		<field id="pahma-accession">
+			<selector>eca96f5d-498b-476a-bd4e-ff115c4d2a15</selector>
+		</field>
+		<field id="pahma-objectexit">
+			<selector>a9ba78e7-bf92-4282-bfae-b2ee10c912c4</selector>
+		</field>
+		<field id="pahma-intake">
+			<selector>83eda2f2-5f29-4d4a-8217-dc1d9f5ce0eb</selector>
+		</field>
+		<field id="pahma-cataloging">
+			<selector>20912112-c22f-4b35-829e-ba33a32980aa</selector>
+		</field>
+		<field id="pahma-claim">
+			<selector>c8ca295e-30ce-4903-b8d0-ed0154dee229</selector>
+		</field>
+	</section>
+</record>

@@ -1,0 +1,79 @@
+<cspace-config tenantname="pahma">
+	<tenantid>15</tenantid>
+	<version>11</version>
+	<include src="settings.xml,pahma-settings.xml,host-settings.xml" required="false" merge="xmlmerge-settings.properties" strip-root="yes"/>
+
+	<spec>
+		<include src="base-relations.xml"/>
+		<include src="base-schemas.xml"/>
+
+		<records>
+			<enum-blank>(none selected)</enum-blank>
+
+			<include src="base-other-locality.xml" />
+			<include src="base-collectionobject.xml,anthropology-collectionobject.xml,naturalhistory-collectionobject.xml,pahma-collectionobject.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority.xml"/>
+
+			<include src="base-procedure-acquisition.xml,anthropology-procedure-acquisition.xml,pahma-procedure-acquisition.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-blobs.xml"/>
+			<include src="base-procedure-claim.xml,anthropology-procedure-claim.xml,pahma-procedure-claim.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-conditioncheck.xml,anthropology-procedure-conditioncheck.xml,pahma-procedure-conditioncheck.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-osteology.xml,extensions/anthropology-procedure-osteology.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-exhibition.xml" />
+			<include src="base-procedure-groups.xml,pahma-procedure-groups.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-intake.xml,pahma-procedure-intake.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-loanin.xml,pahma-procedure-loanin.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-loanout.xml,pahma-procedure-loanout.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-media.xml,pahma-procedure-media.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-valuationcontrol.xml,pahma-procedure-valuationcontrol.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-movement.xml,anthropology-procedure-movement.xml,pahma-procedure-movement.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-objectexit.xml,anthropology-procedure-objectexit.xml,pahma-procedure-objectexit.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-conservation.xml"/>
+			<include src="base-procedure-uoc.xml"/>
+
+			<include src="base-authority-contact.xml,anthropology-authority-contact.xml,pahma-authority-contact.xml" merge="xmlmerge.properties"/>
+
+			<!-- IMPORTANT: *-termList.xml files MUST precede their equivalent files. -->
+			<include src="base-authority-location-termList.xml,pahma-authority-location-termList.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-location.xml,anthropology-authority-location.xml,pahma-authority-location.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-organization-termList.xml,pahma-authority-organization-termList.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-organization.xml,anthropology-authority-organization.xml,pahma-authority-organization.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-person-termList.xml,pahma-authority-person-termList.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-person.xml,anthropology-authority-person.xml,pahma-authority-person.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-citation-termList.xml,pahma-authority-citation-termList.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-citation.xml,pahma-authority-citation.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-place-termList.xml,pahma-authority-place-termList.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-place.xml,anthropology-authority-place.xml,pahma-authority-place.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-taxon-termList.xml,pahma-authority-taxon-termList.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-taxon.xml,pahma-authority-taxon.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-concept-termList.xml,pahma-authority-concept-termList.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-concept.xml,pahma-authority-concept.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-work-termList.xml,pahma-authority-work-termList.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-work.xml,pahma-authority-work.xml" merge="xmlmerge.properties"/>
+
+			<include src="base-vocabularies.xml,pahma-vocabularies.xml" merge="xmlmerge.properties"/>
+
+			<include src="base-authz-accountrole.xml"/>
+			<include src="base-authz-permission.xml"/>
+			<include src="base-authz-permrole.xml"/>
+			<include src="base-authz-role.xml"/>
+			<include src="base-authz-userperm.xml"/>
+			<include src="base-authz-userrole.xml"/>
+			<include src="base-authz-users.xml"/>
+
+			<include src="base-other-dimension.xml,pahma-other-dimension.xml" merge="xmlmerge.properties"/>
+			<include src="base-other-address.xml"/>
+			<include src="base-other-hierarchy.xml,pahma-other-hierarchy.xml" merge="xmlmerge.properties"/>
+			<include src="base-other-idgenerator.xml,pahma-other-idgenerator.xml" merge="xmlmerge.properties"/>
+			<include src="base-other-structureddate.xml"/>
+			<include src="base-other-termlist.xml"/>
+			<include src="base-other-termlistitem.xml"/>
+			<include src="base-other-reporting.xml"/>
+			<include src="base-other-reportingoutput.xml"/>
+			<include src="base-other-batch.xml"/>
+			<include src="base-other-batchoutput.xml"/>
+			<include src="base-other-invocationresults.xml"/>
+			<include src="base-other-searchall.xml"/>
+		</records>
+	</spec>
+</cspace-config>

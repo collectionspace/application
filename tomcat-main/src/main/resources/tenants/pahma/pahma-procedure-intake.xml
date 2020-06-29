@@ -1,0 +1,68 @@
+<record id="intake" is-extension="true">
+	<services-record-path id="pahma">intakes_pahma:http://collectionspace.org/services/intake/local/pahma,intakes_pahma</services-record-path>
+
+	<section id="objectEntryInformation">
+		<field id="entryNumber">
+			<!-- Change options -->
+			<options>
+				<option id="pahma-intake" sample="IN 2012.1.1">Entry</option>
+			</options>
+		</field>
+		<field id="entryReason" autocomplete="vocab-objentryreason" ui-type="enum">
+			<!-- Change options -->
+			<!-- Converted to dynamic -->
+		</field>
+		<repeat id="entryMethods">
+			<field id="entryMethod">
+				<enum>
+					<!-- Change blank-value -->
+					<blank-value>(none selected)</blank-value>
+				</enum>
+			</field>
+		</repeat>
+        
+        <field id="expectedReturnDate" section="pahma" ui-search="range" ui-type="date" datatype="date">
+            <container-selector>intake-expectedReturnDate-container</container-selector>
+        </field>
+	</section>
+	<section id="objectCollectionInformation">
+		<repeat id="fieldCollectionMethods">
+			<field id="fieldCollectionMethod">
+				<enum>
+					<!-- Change blank-value -->
+					<blank-value>(none selected)</blank-value>
+				</enum>
+			</field>
+		</repeat>
+		<!-- Add autocomplete -->
+		<field id="fieldCollectionPlace" autocomplete="place-place"/>
+	</section>
+	<section id="locationInformation">
+		<repeat id="currentLocationGroupList/currentLocationGroup">
+			<field id="currentLocationFitness">
+				<enum>
+					<!-- Change blank-value -->
+					<blank-value>(none selected)</blank-value>
+				</enum>
+			</field>
+		</repeat>
+	</section>
+	<section id="conditionInformation">
+		<repeat id="conditionCheckMethods">
+			<field id="conditionCheckMethod">
+				<enum>
+					<!-- Change blank-value -->
+					<blank-value>(none selected)</blank-value>
+				</enum>
+			</field>
+		</repeat>
+		<repeat id="conditionCheckReasons">
+			<field id="conditionCheckReason">
+				<enum>
+					<!-- Change blank-value -->
+					<blank-value>(none selected)</blank-value>
+				</enum>
+			</field>
+		</repeat>
+	</section>
+</record>

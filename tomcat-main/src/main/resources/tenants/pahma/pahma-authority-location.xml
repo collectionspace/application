@@ -1,0 +1,16 @@
+<record id="location">
+	<instances id="location">
+		<!-- Remove location-offsite_sla -->
+		<instance id="location-location">
+			<web-url>location</web-url>
+			<title-ref>location</title-ref>
+			<!-- Change title -->
+			<title>PAHMA Storage Locations</title>
+		</instance>
+		<instance id="location-crate">
+			<web-url>crate</web-url>
+			<title-ref>crate</title-ref>
+			<title>Crates</title>
+		</instance>
+	</instances>
+</record>

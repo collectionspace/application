@@ -1,0 +1,115 @@
+<record id="place" is-extension="true">
+	<services-record-path id="anthropology">places_anthropology:http://collectionspace.org/services/place/domain/anthropology,places_anthropology</services-record-path>
+
+	<section id="placeAuthorityInformation">
+		<repeat id="placeNoteGroupList/placeNoteGroup" section="anthropology">
+			<field id="placeNoteText" ui-search="repeatable" section="anthropology"/> <!-- This can't be called placeNote, because there's a field in the common schema called placeNote. -->
+			<field id="placeNoteAuthor" autocomplete="person-person" section="anthropology"/>
+			<field id="placeNoteDate" ui-type="date" datatype="date" section="anthropology"/>
+		</repeat>
+
+		<repeat id="placeReferenceGroupList/placeReferenceGroup" section="anthropology">
+			<field id="placeReference" autocomplete="citation-citation,citation-worldcat" section="anthropology"/>
+			<field id="placeReferenceNote" section="anthropology"/>
+		</repeat>
+		
+		<repeat id="anthropologyPlaceTypes" section="anthropology">
+			<field id="anthropologyPlaceType" ui-search="repeatable" autocomplete="vocab-PlaceType" ui-type="enum" section="anthropology"/>
+		</repeat>
+
+		<repeat id="placeAssocGroupList/placeAssocGroup" section="anthropology">
+			<field id="placeAssocName" autocomplete="person-person,person-ulan_pa,organization-organization,organization-ulan_oa" section="anthropology"/>
+			<field id="placeAssociation" autocomplete="vocab-placeassociation" ui-type="enum" section="anthropology"/>
+			<group id="placeAssocDateGroup" section="anthropology" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
+				<!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
+				<field id="dateDisplayDate" section="anthropology"/>
+				<field id="dateAssociation" section="anthropology"/>
+				<field id="dateEarliestSingleYear" section="anthropology"/>
+				<field id="dateEarliestSingleMonth" section="anthropology"/>
+				<field id="dateEarliestSingleDay" section="anthropology"/>
+				<field id="dateEarliestSingleEra" section="anthropology"/>
+				<field id="dateEarliestSingleCertainty" section="anthropology"/>
+				<field id="dateEarliestSingleQualifier" section="anthropology"/>
+				<field id="dateEarliestSingleQualifierValue" section="anthropology"/>
+				<field id="dateEarliestSingleQualifierUnit" section="anthropology"/>
+				<field id="dateLatestYear" section="anthropology"/>
+				<field id="dateLatestMonth" section="anthropology"/>
+				<field id="dateLatestDay" section="anthropology"/>
+				<field id="dateLatestEra" section="anthropology"/>
+				<field id="dateLatestCertainty" section="anthropology"/>
+				<field id="dateLatestQualifier" section="anthropology"/>
+				<field id="dateLatestQualifierValue" section="anthropology"/>
+				<field id="dateLatestQualifierUnit" section="anthropology"/>
+				<field id="datePeriod" section="anthropology"/>
+				<field id="dateNote" section="anthropology"/>
+				<field id="dateEarliestScalarValue" section="anthropology"/>
+				<field id="dateLatestScalarValue" section="anthropology"/>
+				<field id="scalarValuesComputed" section="anthropology"/>
+			</group>
+			<field id="placeAssocNote" section="anthropology"/>
+		</repeat>
+		
+		<repeat id="anthropologyPlaceOwnerGroupList/anthropologyPlaceOwnerGroup" section="anthropology">
+			<field id="anthropologyPlaceOwner" autocomplete="person-person,organization-organization" ui-search="repeatable" section="anthropology"/>
+			<group id="anthropologyPlaceOwnershipStartDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate" section="anthropology">
+				<!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
+				<field id="dateDisplayDate" section="anthropology"/>
+				<field id="dateAssociation" section="anthropology"/>
+				<field id="dateEarliestSingleYear" section="anthropology"/>
+				<field id="dateEarliestSingleMonth" section="anthropology"/>
+				<field id="dateEarliestSingleDay" section="anthropology"/>
+				<field id="dateEarliestSingleEra" section="anthropology"/>
+				<field id="dateEarliestSingleCertainty" section="anthropology"/>
+				<field id="dateEarliestSingleQualifier" section="anthropology"/>
+				<field id="dateEarliestSingleQualifierValue" section="anthropology"/>
+				<field id="dateEarliestSingleQualifierUnit" section="anthropology"/>
+				<field id="dateLatestYear" section="anthropology"/>
+				<field id="dateLatestMonth" section="anthropology"/>
+				<field id="dateLatestDay" section="anthropology"/>
+				<field id="dateLatestEra" section="anthropology"/>
+				<field id="dateLatestCertainty" section="anthropology"/>
+				<field id="dateLatestQualifier" section="anthropology"/>
+				<field id="dateLatestQualifierValue" section="anthropology"/>
+				<field id="dateLatestQualifierUnit" section="anthropology"/>
+				<field id="datePeriod" section="anthropology"/>
+				<field id="dateNote" section="anthropology"/>
+				<field id="dateEarliestScalarValue" section="anthropology"/>
+				<field id="dateLatestScalarValue" section="anthropology"/>
+				<field id="scalarValuesComputed" section="anthropology"/>
+			</group>
+			<group id="anthropologyPlaceOwnershipEndDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate" section="anthropology">
+				<!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
+				<field id="dateDisplayDate" section="anthropology"/>
+				<field id="dateAssociation" section="anthropology"/>
+				<field id="dateEarliestSingleYear" section="anthropology"/>
+				<field id="dateEarliestSingleMonth" section="anthropology"/>
+				<field id="dateEarliestSingleDay" section="anthropology"/>
+				<field id="dateEarliestSingleEra" section="anthropology"/>
+				<field id="dateEarliestSingleCertainty" section="anthropology"/>
+				<field id="dateEarliestSingleQualifier" section="anthropology"/>
+				<field id="dateEarliestSingleQualifierValue" section="anthropology"/>
+				<field id="dateEarliestSingleQualifierUnit" section="anthropology"/>
+				<field id="dateLatestYear" section="anthropology"/>
+				<field id="dateLatestMonth" section="anthropology"/>
+				<field id="dateLatestDay" section="anthropology"/>
+				<field id="dateLatestEra" section="anthropology"/>
+				<field id="dateLatestCertainty" section="anthropology"/>
+				<field id="dateLatestQualifier" section="anthropology"/>
+				<field id="dateLatestQualifierValue" section="anthropology"/>
+				<field id="dateLatestQualifierUnit" section="anthropology"/>
+				<field id="datePeriod" section="anthropology"/>
+				<field id="dateNote" section="anthropology"/>
+				<field id="dateEarliestScalarValue" section="anthropology"/>
+				<field id="dateLatestScalarValue" section="anthropology"/>
+				<field id="scalarValuesComputed" section="anthropology"/>
+			</group>
+			<field id="anthropologyPlaceOwnershipNote" section="anthropology"/>
+		</repeat>
+	</section>
+	
+	<section id="localityInformation">
+		<field id="township" section="anthropology"/>
+		<field id="range" section="anthropology"/>
+		<field id="section" section="anthropology"/>
+	</section>
+</record>
