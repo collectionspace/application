@@ -1,0 +1,12 @@
+<record id="preferredOA">
+	<section id="termInformation">
+		<repeat id="orgTermGroupList/orgTermGroup">
+			<!-- Add ui-search -->
+			<field id="termName" ui-search="repeatable">
+				<selector>orgAuthority-termName</selector>
+			</field>
+			<!-- Remove autocomplete -->
+			<field id="termSource" autocomplete=""/>
+		</repeat>
+	</section>
+</record>

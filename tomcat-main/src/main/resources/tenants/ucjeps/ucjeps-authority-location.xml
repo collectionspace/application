@@ -1,0 +1,10 @@
+<record id="location">
+	<terms-used>false</terms-used>
+	<instances id="location">
+		<instance id="location-location">
+			<web-url>location</web-url>
+			<title-ref>location</title-ref>
+			<title>Local Storage Locations</title>
+		</instance>
+	</instances>
+</record>

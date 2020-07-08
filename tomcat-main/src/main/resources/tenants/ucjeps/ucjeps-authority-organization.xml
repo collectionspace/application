@@ -1,0 +1,41 @@
+<record id="organization">
+	<instances id="organization">
+		<instance id="organization-organization">
+			<web-url>organization</web-url>
+			<title-ref>organization</title-ref>
+			<title>Collector Authority</title>
+		</instance>
+		<instance id="organization-institution">
+			<web-url>institution</web-url>
+			<title-ref>institution</title-ref>
+			<title>Institution Authority</title>
+		</instance>
+		<instance id="organization-nomenclature">
+			<web-url>nomenclature</web-url>
+			<title-ref>nomenclature</title-ref>
+			<title>Nomenclature Organization Authority</title>
+		</instance>
+		<instance id="organization-typeassertion">
+			<web-url>typeassertion</web-url>
+			<title-ref>typeassertion</title-ref>
+			<title>Type Assertion Organization Authority</title>
+		</instance>
+		<instance id="organization-determination">
+			<web-url>determination</web-url>
+			<title-ref>determination</title-ref>
+			<title>Determination Organization Authority</title>
+		</instance>
+	</instances>	
+		
+	<section id="organizationNameAuthorityInformation">
+		<repeat id="associatedPersonGroupList/associatedPersonGroup">
+			<field id="associatedPersonRole">
+				<!-- Define options -->
+				<options>
+					<option id="">Please select a value</option>
+					<option id="Collection Number Assignor" default="yes">Collection Number Assignor</option>
+				</options>
+			</field>
+		</repeat>
+	</section>
+</record>

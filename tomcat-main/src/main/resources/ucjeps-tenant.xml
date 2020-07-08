@@ -1,0 +1,74 @@
+<cspace-config tenantname="ucjeps">
+	<tenantid>20</tenantid>
+	<version>11</version>
+	<include src="settings.xml,ucjeps-settings.xml,host-settings.xml" required="false" merge="xmlmerge-settings.properties" strip-root="yes"/>
+
+	<spec>
+		<include src="base-relations.xml"/>
+		<include src="base-schemas.xml"/>
+
+		<records>
+			<enum-blank>Please select a value</enum-blank>
+
+			<include src="base-collectionobject.xml,naturalhistory-collectionobject.xml,ucjeps-collectionobject.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority.xml"/>
+
+			<!-- <include src="base-procedure-acquisition.xml"/> -->
+			<include src="base-procedure-blobs.xml,ucjeps-procedure-blobs.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-conditioncheck.xml"/>
+			<include src="base-procedure-groups.xml"/>
+			<include src="base-procedure-intake.xml,ucjeps-procedure-intake.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-loanin.xml,naturalhistory-procedure-loanin.xml,ucjeps-procedure-loanin.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-loanout.xml,naturalhistory-procedure-loanout.xml,ucjeps-procedure-loanout.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-media.xml,ucjeps-procedure-media.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-valuationcontrol.xml"/>
+			<include src="base-procedure-movement.xml,ucjeps-procedure-movement.xml" merge="xmlmerge.properties"/>
+			<!-- <include src="base-procedure-objectexit.xml"/> -->
+			<include src="base-procedure-uoc.xml"/>
+
+			<include src="base-authority-contact.xml"/>
+
+			<include src="base-authority-location-termList.xml,ucjeps-authority-location-termList.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-location.xml,ucjeps-authority-location.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-organization-termList.xml,ucjeps-authority-organization-termList.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-organization.xml,naturalhistory-authority-organization.xml,ucjeps-authority-organization.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-person-termList.xml,ucjeps-authority-person-termList.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-person.xml,ucjeps-authority-person.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-citation-termList.xml,ucjeps-authority-citation-termList.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-citation.xml,ucjeps-authority-citation.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-place-termList.xml,ucjeps-authority-place-termList.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-place.xml,ucjeps-authority-place.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-taxon-termList.xml,ucjeps-authority-taxon-termList.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-taxon.xml,naturalhistory-authority-taxon.xml,ucjeps-authority-taxon.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-concept-termList.xml,ucjeps-authority-concept-termList.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-concept.xml,ucjeps-authority-concept.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-work-termList.xml,ucjeps-authority-work-termList.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-work.xml"/>
+
+			<include src="base-vocabularies.xml"/>
+
+			<include src="base-authz-accountrole.xml"/>
+			<include src="base-authz-permission.xml"/>
+			<include src="base-authz-permrole.xml"/>
+			<include src="base-authz-role.xml"/>
+			<include src="base-authz-userperm.xml"/>
+			<include src="base-authz-userrole.xml"/>
+			<include src="base-authz-users.xml"/>
+
+			<include src="base-other-dimension.xml,ucjeps-other-dimension.xml" merge="xmlmerge.properties"/>
+			<include src="base-other-locality.xml,ucjeps-other-locality.xml" merge="xmlmerge.properties"/>
+			<include src="base-other-address.xml"/>
+			<include src="base-other-hierarchy.xml"/>
+			<include src="base-other-idgenerator.xml,ucjeps-other-idgenerator.xml" merge="xmlmerge.properties"/>
+			<include src="base-other-structureddate.xml"/>
+			<include src="base-other-termlist.xml"/>
+			<include src="base-other-termlistitem.xml"/>
+			<include src="base-other-reporting.xml"/>
+			<include src="base-other-reportingoutput.xml"/>
+			<include src="base-other-batch.xml"/>
+			<include src="base-other-batchoutput.xml"/>
+			<include src="base-other-invocationresults.xml"/>
+			<include src="base-other-searchall.xml"/>
+		</records>
+	</spec>
+</cspace-config>

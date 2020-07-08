@@ -1,0 +1,64 @@
+<!--
+	This file contains modifications to settings.xml for this tenant. Changes to settings
+	for a specific host on which this tenant is installed (e.g. dev vs. production) should
+	be made in host-settings.xml.
+-->
+
+<settings>
+	<admin>
+		<username>admin@ucjeps.cspace.berkeley.edu</username>
+		<tenant>20</tenant>
+		<tenantname>ucjeps</tenantname>
+	</admin>
+	<email>
+		<baseurl>http://ucjeps-dev.cspace.berkeley.edu</baseurl>
+		<from>admin@ucjeps.cspace.berkeley.edu</from>
+	</email>
+	<persistence>
+		<service>
+			<tenant>
+				<id>20</id>
+				<name>ucjeps.cspace.berkeley.edu</name>
+				<version>0.1</version>
+				<display-name>CollectionSpace UCJEPS Tenant</display-name>
+				<create-disabled>false</create-disabled>
+			</tenant>
+			<repository>
+				<domain>ucjeps_domain</domain>
+				<name>ucjeps_domain</name>
+				<client>nuxeo-java</client>
+				<dateformats>
+					<pattern>MM/dd/yyyy</pattern>
+					<pattern>MMM dd, yyyy</pattern>
+					<pattern>dd.MM.yyyy</pattern>
+				</dateformats>
+				<languages>
+					<language>en</language>
+				</languages>
+				<indexHandler>org.collectionspace.services.common.init.AddIndices</indexHandler>
+			</repository>
+			<ims-url>/collectionspace/tenant/ucjeps/</ims-url>
+		</service>
+	</persistence>
+	<ui>
+		<web>
+			<login-dest>/collectionspace/ui/ucjeps/html/createnew.html</login-dest>
+			<login-failed-dest>/collectionspace/ui/ucjeps/html/index.html</login-failed-dest>
+			<front-page>/collectionspace/ui/ucjeps/html/index.html</front-page>
+			<mappings>
+				<map id="record">
+					<file>/ucjeps/html/record.html</file>
+				</map>
+				<map id="authority">
+					<file>/ucjeps/html/record.html</file>
+					<configure>
+						<meta id="recordType">{instance/web-url}</meta>
+					</configure>
+				</map>
+				<map id="procedure">
+					<file>/ucjeps/html/record.html</file>
+				</map>
+			</mappings>
+		</web>
+	</ui>
+</settings>

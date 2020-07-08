@@ -1,0 +1,67 @@
+<record id="taxon" is-extension="true">
+	<services-record-path id="ucjeps">taxon_ucjeps:http://collectionspace.org/services/taxon/local/ucjeps,taxon_ucjeps</services-record-path>
+	
+	<instances id="taxon">
+		<instance id="taxon-taxon">
+			<web-url>taxon</web-url>
+			<title-ref>taxon</title-ref>
+			<title>Default Scientific Taxonomy Authority</title>
+		</instance>
+		<instance id="taxon-common">
+			<web-url>common</web-url>
+			<title-ref>common</title-ref>
+			<title>Common Taxonomy Authority</title>
+		</instance>
+		<instance id="taxon-unverified">
+			<web-url>unverified</web-url>
+			<title-ref>unverified</title-ref>
+			<title>Unverified Taxonomy Authority</title>
+		</instance>
+	</instances>
+	
+	<section id="taxonNameAuthorityInformation">
+		<!-- Add mini, and change options -->
+		<field id="taxonRank" mini="summary" autocomplete="vocab-taxonrank" ui-type="enum">
+		<!-- Converted to dynamic -->
+		</field>
+		<repeat id="taxonAuthorGroupList/taxonAuthorGroup">
+			<!-- Change autocomplete to organization-nomenclature -->
+			<field id="taxonAuthor" autocomplete="organization-nomenclature"></field>
+			<field id="taxonAuthorType">
+				<options>
+					<option id="" default="yes">Please select a value</option>
+					<option id="author">author</option>
+					<option id="ascribed author">ascribed author</option>
+					<option id="parenthetical author">parenthetical author</option>
+					<option id="parenthetical ascribed author">parenthetical ascribed author</option>
+				</options>
+			</field>
+		</repeat>
+		<repeat id="taxonCitationList">
+			<!-- Remove autocomplete -->
+			<field id="taxonCitation" autocomplete=""/>
+		</repeat>
+		<repeat id="commonNameGroupList/commonNameGroup">
+			<!-- Change autocomplete to taxon-common -->
+			<field id="commonName" autocomplete="taxon-common"/>
+			<!-- Remove autocomplete -->
+			<field id="commonNameSource" autocomplete=""/>
+		</repeat>
+		
+		<!-- Local fields -->
+		
+		<field id="taxonMajorGroup" section="ucjeps">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="Spermatophytes">Spermatophytes</option>
+				<option id="Pteridophytes">Pteridophytes</option>
+				<option id="Algae">Algae</option>
+				<option id="Bryophytes">Bryophytes</option>
+				<option id="Fungi">Fungi</option>
+				<option id="Lichen">Lichen</option>
+				<option id="n/a">n/a</option>
+				<option id="misc">misc</option>
+			</options>
+		</field>
+	</section>
+</record>

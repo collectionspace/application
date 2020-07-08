@@ -1,0 +1,22 @@
+<record id="preferredTA">
+	<section id="termInformation">
+		<repeat id="taxonTermGroupList/taxonTermGroup">
+			<!-- Remove autocomplete -->
+			<field id="termSource" autocomplete="vocab-taxontermsource" ui-type="enum">
+				<!-- Converted to Dyanmic -->
+			</field>
+			<field id="taxonomicStatus">
+				<options>
+					<!-- Change options -->
+					<option id="" default="yes">Please select a value</option>
+					<option id="valid">valid</option>
+					<option id="invalid">invalid</option>
+					<option id="misapplied">misapplied</option>
+					<option id="accepted">accepted</option>
+					<option id="synonym">synonym</option>
+					<option id="illegitimate">illegitimate</option>
+				</options>
+			</field>
+		</repeat>
+	</section>
+</record>

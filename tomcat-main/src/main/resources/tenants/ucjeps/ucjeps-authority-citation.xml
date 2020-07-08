@@ -1,0 +1,20 @@
+<record id="citation" type="authority">
+	<section id="citationNameAuthorityInformation">
+		<repeat id="citationPublicationInfoGroupList/citationPublicationInfoGroup">
+			<!-- Replace organization-organization with organization-institution --> 
+			<field id="publisher" autocomplete="organization-institution"/>
+			<!-- Remove place-tgn_place from autocomplete -->
+			<field id="publicationPlace" autocomplete="place-place"/>
+		</repeat>
+
+		<repeat id="citationAgentInfoGroupList/citationAgentInfoGroup">		
+			<!-- Remove person-ulan_pa from autocomplete, and replace organization-organization with organization-institution -->
+			<field id="agent" autocomplete="person-person,organization-institution"/>
+		</repeat>
+		
+		<repeat id="citationRelatedTermsGroupList/citationRelatedTermsGroup">
+			<!-- Remove autocomplete -->		  
+			<field id="relatedTerm" autocomplete=""/>
+		</repeat>
+	</section>
+</record>

@@ -1,0 +1,98 @@
+<record id="media" is-extension="true">
+	<services-record-path id="ucjeps">media_ucjeps:http://collectionspace.org/services/media/local/ucjeps,media_ucjeps</services-record-path>
+	
+	<section id="mediaInformation">
+		<!-- Remove mini values -->
+		<field id="title" mini=""/>
+
+		<!-- Add organization-institution to autocomplete -->
+		<field id="contributor" autocomplete="person-person,organization-organization,organization-institution"/>
+		<field id="creator" autocomplete="person-person,organization-organization,organization-institution"/>
+		<field id="publisher" autocomplete="person-person,organization-organization,organization-institution"/>
+		
+		<repeat id="types">
+			<field id="type">
+				<!-- Replace options-->
+				<options>
+					<option id="" default="yes">Please select a value</option>
+					<option id="dataset">Dataset</option>
+					<option id="Digital Image">Digital Image</option>
+					<option id="document">Document</option>
+					<option id="Illustration">Illustration</option>
+					<option id="moving_image">Moving Image</option>
+					<option id="Scanned Photograph">Scanned Photograph</option>
+					<option id="still_image">Still Image</option>
+					<option id="Slide (Photograph)">Slide (Photograph)</option>
+					<option id="sound">Sound</option>
+				</options>
+			</field>
+		</repeat>
+		
+		<!-- Add organization-institution to autocomplete -->
+		<field id="rightsHolder" autocomplete="person-person,organization-organization,organization-institution"/>
+		
+		<!-- Local fields -->
+		
+		<field id="handwritten" section="ucjeps" ui-search="single">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="Unknown">Unknown</option>
+				<option id="yes">Yes</option>
+				<option id="no">No</option>
+			</options>
+		</field>
+		<field id="postToPublic" section="ucjeps" ui-search="single">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="no">No</option>
+				<option id="yes" default="yes">Yes</option>
+			</options>
+		</field>
+		<field id="scientificTaxonomy" in-title="yes" mini="summary,search,list,relate" section="ucjeps" autocomplete="taxon-taxon" ui-search="repeatable">
+			<title-selector>titleBar-media-scientificTaxonomy</title-selector>
+		</field>
+		
+		<repeat id="mediaOtherNumberList/mediaOtherNumber" section="ucjeps">
+			<field id="numberValue" section="ucjeps"/>
+			<field id="numberType" seperate_ui_container="true" section="ucjeps" autocomplete="vocab-numbertype" ui-type="enum">
+        	<!-- Converted to dynamic -->
+			</field>
+		</repeat>
+		
+		<field id="majorCategory" autocomplete="vocab-majorcategories" ui-type="enum" section="ucjeps"/>
+
+		<repeat id="morphologyCategories" section="ucjeps">
+			<field id="morphologyCategory"  autocomplete="vocab-morphologycategories" ui-type="enum" section="ucjeps"/>
+		</repeat>
+		
+		<repeat id="persons" section="ucjeps">
+			<field id="person" autocomplete="person-person" section="ucjeps"/>
+		</repeat>
+		
+		<repeat id="places" section="ucjeps">
+			<field id="place" autocomplete="place-place" section="ucjeps"/>
+		</repeat>
+		
+		<field id="collector" autocomplete="organization-organization" section="ucjeps"/>
+		
+		<repeat id="mediaTaxaGroupList/mediaTaxaGroup" section="ucjeps">
+			<field id="associatedTaxon" autocomplete="taxon-taxon" section="ucjeps"/>
+			<field id="commonName" section="ucjeps"/>
+			<field id="interaction" section="ucjeps">
+				<options>
+					<option id="">Please select a value</option>
+					<option id="lives/grows with">lives/grows with</option>
+					<option id="lives on">lives on</option>
+					<option id="living under">living under</option>
+					<option id="is physically supported by">is physically supported by</option>
+					<option id="is epiphytic on">is epiphytic on</option>
+					<option id="is endophytic in">is endophytic in</option>
+				</options>
+			</field>
+		</repeat>
+	</section>
+	
+ 	<section id="localityInformation">
+		<field id="locality" ui-type="groupfield/locality/selfrenderer" ui-func="cspace.locality" section="ucjeps"></field>
+	</section>
+</record>

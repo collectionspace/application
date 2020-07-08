@@ -1,0 +1,24 @@
+<record id="loanin">
+	<section id="loaninInformation">
+		<!-- Remove ui-search, in-title, and mini -->
+		<field id="loanInNumber" ui-search="" in-title="" mini=""/>
+
+		<repeat id="lenderGroupList/lenderGroup">
+			<!-- Add organization-institution to autocomplete -->
+			<field id="lender" autocomplete="person-person,organization-organization,organization-institution"/>
+		</repeat>
+
+		<!-- Add ui-search and mini -->
+		<field id="lenderLoanNumber" section="naturalhistory" ui-search="repeatable" mini="number,search,list,relate"/>
+ 		
+		<!-- Change autocomplete to organization-institution -->
+		<field id="transferInOrg" section="naturalhistory" autocomplete="organization-institution"/>
+	</section>
+	
+	<section id="transferOutInformation">
+		<repeat id="transferOutGroupList/transferOutGroup">
+			<!-- Change autocomplete to organization-institution -->
+			<field id="transferOutOrg" section="naturalhistory" autocomplete="organization-institution"/>
+		</repeat>
+	</section>
+</record>

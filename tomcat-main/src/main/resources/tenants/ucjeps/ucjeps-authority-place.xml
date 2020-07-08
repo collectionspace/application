@@ -1,0 +1,24 @@
+<record id="place">
+	<instances id="place">
+		<instance id="place-place">
+			<web-url>place</web-url>
+			<title-ref>place</title-ref>
+			<title>Default Places</title>
+		</instance>
+	</instances>
+	
+	<section id="placeAuthorityInformation">
+		<repeat id ="placeOwnerGroupList/placeOwnerGroup">
+			<!-- Add organization-institution to autocomplete -->
+			<field id="owner" autocomplete="person-person,organization-organization,organization-institution"/>
+		</repeat>
+	</section>
+
+	<section id="geoReferenceInformation">
+		<repeat id="placeGeoRefGroupList/placeGeoRefGroup">
+			<field id="geoRefSource" autocomplete="vocab-georefsource" ui-type="enum">
+			<!-- Converted to dynamic -->
+			</field>
+		</repeat>
+	</section>
+</record>

@@ -1,0 +1,11 @@
+<record id="organization" is-extension="true">
+	<services-record-path id="naturalhistory">organizations_naturalhistory:http://collectionspace.org/services/organization/domain/naturalhistory,organizations_naturalhistory</services-record-path>
+
+	<section id="organizationNameAuthorityInformation">
+		<field id="termSource" section="naturalhistory"/>
+		<repeat id="associatedPersonGroupList/associatedPersonGroup" section="naturalhistory">
+			<field id="associatedPerson" section="naturalhistory" autocomplete="person-person"/>
+			<field id="associatedPersonRole" section="naturalhistory"/>
+		</repeat>
+	</section>
+</record>

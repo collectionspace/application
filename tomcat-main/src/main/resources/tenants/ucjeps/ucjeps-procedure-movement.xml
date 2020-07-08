@@ -1,0 +1,6 @@
+<record id="movement">
+	<section id="locationMovementInformation">
+		<!-- Change organization-organization to organization-institution in autocomplete -->
+		<field id="currentLocation" autocomplete="location-location,organization-institution"/>
+	</section>
+</record>

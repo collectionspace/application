@@ -1,0 +1,59 @@
+<record id="loanout">
+	<section id="loanoutInformation">
+		<field id="loanOutNumber">
+			<!-- Change options -->
+			<options>
+				<option id="uc-loanout" sample="UC1000">UC Loan Out</option>
+				<option id="jeps-loanout" sample="JEPS1000">Jepson Loan Out</option>
+				<option id="loanout" sample="LO2012.1">Loan Out</option>
+			</options>
+		</field>
+		
+		<!-- Add organization-institution to autocomplete -->
+		<field id="borrower" autocomplete="person-person,organization-organization,organization-institution"/>
+        <field id="borrowersContact" ui-search="repeatable"/>
+
+		<field id="collection">
+			<!-- Customize the option list -->
+			<options>
+				<option id="">Please select a value</option>
+				<option id="UC">UC</option>
+				<option id="JEPS">JEPS</option>
+			</options>
+		</field>
+
+		<repeat id="taxonomyList">
+			<!-- Add taxon-unverified to autocomplete -->
+			<field id="taxonomy" autocomplete="taxon-taxon,taxon-unverified"/>
+		</repeat>
+		
+		<repeat id="objKindList">
+			<field id="objKind">
+				<!-- Customize the option list -->
+				<options>
+					<option id="">Please select a value</option>
+					<option id="Unknown">Unknown</option>
+					<option id="Sheet">Sheet</option>
+					<option id="Specimens">Specimens</option>
+					<option id="Box">Box</option>
+					<option id="Bag">Bag</option>
+					<option id="Sealed Bag">Sealed Bag</option>
+					<option id="Jar">Jar</option>
+					<option id="Packet">Packet</option>
+					<option id="Slide">Slide</option>
+					<option id="Unmounted">Unmounted</option>
+					<option id="Photograph">Photograph</option>
+					<option id="Photocopy">Photocopy</option>
+					<option id="Illustration">Illustration</option>
+				</options>
+			</field>
+		</repeat>
+	</section>
+
+	<section id="transferInformation">
+		<repeat id="transferGroupList/transferGroup">
+			<!-- Change autocomplete to organization-institution -->
+			<field id="transferOrg" autocomplete="organization-institution"/>
+		</repeat>
+	</section>
+</record>

@@ -1,0 +1,60 @@
+<record id="taxon" is-extension="true">
+	<services-record-path id="naturalhistory">taxon_naturalhistory:http://collectionspace.org/services/taxon/domain/naturalhistory,taxon_naturalhistory</services-record-path>
+
+	<section id="taxonNameAuthorityInformation">
+		<field id="taxonBasionym" section="naturalhistory" autocomplete="taxon-taxon"/>
+		<field id="accessRestrictions" section="naturalhistory">
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="Unrestricted">Unrestricted</option>
+				<option id="Restricted">Restricted</option>
+				<option id="Dead">Dead</option>
+			</options>
+		</field>
+		<field id="family" section="naturalhistory" autocomplete="taxon-taxon"/>
+		
+		<repeat id="plantAttributesGroupList/plantAttributesGroup" section="naturalhistory">
+			<field id="attributeDate" section="naturalhistory" ui-type="date" datatype="date"/>
+			<field id="recordedBy" section="naturalhistory" autocomplete="person-person"/>
+			<field id="height" section="naturalhistory"/>
+			<field id="width" section="naturalhistory"/>
+			<field id="diameterBreastHeight" section="naturalhistory"/>
+			<field id="habitat" section="naturalhistory" autocomplete="vocab-taxonomyAuthorityHabitat" ui-type="enum"/>
+			<field id="climateRating" section="naturalhistory" autocomplete="vocab-taxonomyAuthorityClimateRating" ui-type="enum"/>
+			<field id="conservationCategory" section="naturalhistory"/>
+			<field id="conservationOrganization" section="naturalhistory" autocomplete="organization-organization"/>
+			<field id="frostSensitive" section="naturalhistory" datatype="boolean"/>
+			<field id="medicinalUse" section="naturalhistory" datatype="boolean"/>
+			<field id="economicUse" section="naturalhistory" datatype="boolean"/>
+		</repeat>
+		
+		<repeat id="naturalHistoryCommonNameGroupList/naturalHistoryCommonNameGroup" section="naturalhistory">
+			<field id="naturalHistoryCommonName" section="naturalhistory" autocomplete="taxon-taxon"/>
+			<field id="naturalHistoryCommonNameLanguage" section="naturalhistory" autocomplete="vocab-languages" ui-type="enum"/>
+			<field id="naturalHistoryCommonNameSource" section="naturalhistory"/>
+			<field id="naturalHistoryCommonNameSourceDetail" section="naturalhistory"/>
+			<field id="naturalHistoryCommonNameType" section="naturalhistory">
+				<options>
+					<option id="" default="yes">Please select a value</option>
+					<option id="preferred">Preferred</option>
+					<option id="secondary">Secondary</option>
+					<option id="rejected">Rejected</option>
+				</options>
+			</field>
+		</repeat>
+
+		<repeat id="relatedTermGroupList/relatedTermGroup" section="naturalhistory">
+			<field id="relatedTerm" section="naturalhistory" autocomplete="taxon-taxon"/>
+			<field id="relatedTermType" section="naturalhistory">
+				<options>
+					<option id="">Please select a value</option>
+					<option id="Synonym">Synonym</option>
+					<option id="Female Hybrid Parent">Female Hybrid Parent</option>
+					<option id="Male Hybrid Parent">Male Hybrid Parent</option>
+				</options>
+			</field>
+			<field id="relatedTermSource" section="naturalhistory"/>
+			<field id="relatedTermSourceDetail" section="naturalhistory"/>
+		</repeat>
+	</section>
+</record>

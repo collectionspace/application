@@ -1,0 +1,21 @@
+<record id="locality">
+    <section id="localityInformation">
+		<repeat id="localityGroupList/localityGroup">
+			<field id="fieldLocCounty" autocomplete="vocab-fieldloccounty" ui-type="enum">
+				<!-- Converted to dynamic -->
+			</field>
+			<field id="fieldLocState" autocomplete="vocab-fieldlocstate" ui-type="enum">
+				<!-- Converted to dynamic -->
+			</field>
+			<field id="fieldLocCountry" autocomplete="vocab-fieldloccountry" ui-type="enum">
+				<!-- Converted to dynamic -->
+			</field>
+			<!-- Configure decimalLatitude and decimalLongitude to be computed -->
+			<field id="decimalLatitude" ui-type="computed" ui-func="cspace.georef.dms2decimal" ui-args="vLatitude" ui-readonly="true"/>
+			<field id="decimalLongitude" ui-type="computed" ui-func="cspace.georef.dms2decimal" ui-args="vLongitude" ui-readonly="true"/>
+			<field id="geoRefSource" autocomplete="vocab-georefsource" ui-type="enum">
+				<!-- Converted to dynamic -->
+			</field>
+		</repeat>
+    </section>
+</record>

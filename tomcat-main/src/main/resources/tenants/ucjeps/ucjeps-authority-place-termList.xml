@@ -1,0 +1,17 @@
+<record id="preferredPlace">
+	<section id="termInformation">
+		<repeat id="placeTermGroupList/placeTermGroup">
+			<!-- Remove autocomplete -->
+			<field id="termSource" autocomplete=""/>
+			<field id="historicalStatus">
+				<!-- Change options -->
+				<options>
+					<option id="current" default="yes">Current</option>
+					<option id="historical">Historical</option>
+					<option id="both">Both</option>
+					<option id="unknown">Unknown</option>
+				</options>
+			</field>
+		</repeat>
+	</section>
+</record>
