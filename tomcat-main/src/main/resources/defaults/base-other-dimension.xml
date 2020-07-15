@@ -7,7 +7,10 @@
 				<field id="measuredBy" autocomplete="true" />
 				<field id="dimension" />
 				<field id="measurementUnit" />
-				<field id="value" datatype="float" />
+				<!-- BAMPFA-208: Hacking the common schema, since cspace doesn't handle extensions on the dimension record properly. -->
+				<!-- Change value to a string. -->
+				<!-- <field id="value" datatype="float" /> -->
+				<field id="value"></field>
 				<field id="measurementMethod" />
 				<field id="valueDate" datatype="date" />
 				<field id="valueQualifier" />
