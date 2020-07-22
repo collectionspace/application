@@ -59,7 +59,7 @@
 			</tenant>
 			<repository>
 				<domain>core-domain</domain>
-				<name></name>
+				<name>core_domain</name>
 				<client>nuxeo-java</client>
 				<dateformats>
 					<pattern>MM/dd/yyyy</pattern>
