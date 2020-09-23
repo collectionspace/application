@@ -298,6 +298,8 @@
 		<field id="vegetationType" autocomplete="vocab-collectionobjectvegetationtype" ui-type="enum" section="naturalhistory"/>
 	</section>
 	
+	<!-- Moved during v6.0 upgrade.  See extensions/accessionuse-collectionobject.xml -->
+	<!--
 	<section id="accessionUseInformation">
 		<repeat id="accessionUseGroupList/accessionUseGroup" section="naturalhistory">
 			<field id="useType" section="naturalhistory">
@@ -315,6 +317,7 @@
 			<field id="useNotes" section="naturalhistory"/>
 		</repeat>
 	</section>
+	-->
 	
 	<!-- These are only used to create labels for the groupings. -->
 	<section id="donorGroup"/>
