@@ -219,35 +219,7 @@
 				<option id="true">Yes</option>
 				<option id="false">No</option>
 			</options>
-		</field>
-		<repeat id="annotationGroupList/annotationGroup" section="naturalhistory">
-			<field id="annotationType" section="naturalhistory">
-				<selector>collection-object-annotationType</selector>
-				<options>
-					<option id="">Please select a value</option>
-					<option id="additional taxa">additional taxa</option>
-					<option id="deaccession">deaccession</option>
-					<option id="holotype location">holotype location</option>
-					<option id="image made">image made</option>
-					<option id="nomenclature">nomenclature</option>
-					<option id="number collision">number collision</option>
-					<option id="population biology">population biology</option>
-					<option id="type">type</option>
-					<option id="Vegetation Type Map Project">Vegetation Type Map Project</option>
-				</options>
-			</field>
-			<field id="annotationNote" section="naturalhistory">
-				<selector>collection-object-annotationNote</selector>
-			</field>
-			<field id="annotationDate" section="naturalhistory" ui-type="date">
-				<!-- FIXME: This field is defined as a string in the database. At some point we should add datatype="date" here, and convert that column to a date. -->
-				<selector>collection-object-annotationDate</selector>
-			</field>
-			<field id="annotationAuthor" section="naturalhistory" autocomplete="person-person">
-				<selector>collection-object-annotationAuthor</selector>
-			</field>
-		</repeat>
-		
+		</field>		
 		<field id="rare" section="naturalhistory" ui-search="single">
 			<options>
 				<option id="" default="yes">Please select a value</option>

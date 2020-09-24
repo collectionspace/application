@@ -10,7 +10,7 @@
 		<records>
 			<enum-blank>Please select a value</enum-blank>
 
-			<include src="base-collectionobject.xml,extensions/accessionuse-collectionobject.xml,ucbg-extensions/naturalhistory-collectionobject.xml,botgarden-collectionobject.xml" merge="xmlmerge.properties"/>
+			<include src="base-collectionobject.xml,extensions/accessionuse-collectionobject.xml,extensions/annotation-collectionobject.xml,ucbg-extensions/naturalhistory-collectionobject.xml,botgarden-collectionobject.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority.xml"/>
 
 			<!-- <include src="base-procedure-acquisition.xml"/> -->
