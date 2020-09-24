@@ -320,12 +320,4 @@
 		<!-- Change autocomplete -->
 		<field id="fieldCollectionNumberAssignor" autocomplete="person-person,organization-collector"/>
 	</section>
-
-	<section id="accessionUseInformation">
-		<repeat id="accessionUseGroupList/accessionUseGroup">
-			<!-- Add autocomplete -->
-			<field id="useType" ui-type="enum" autocomplete="vocab-AcessUseType"/>
-			<field id="usedIn" autocomplete="concept-class_ca,concept-research_ca" ui-search="repeatable"/>
-		</repeat>
-	</section>
 </record>
