@@ -1,5 +1,6 @@
 <record id="id">
 	<section>
+		<field id="pottag" />
 		<field id="uc-accession" />
 		<field id="jeps-accession" />
 		<field id="prop-number" />
