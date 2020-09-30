@@ -23,3 +23,5 @@ war-entry/tmp/
 .vscode
 .factorypath
 .flattened-pom.xml
+logged_schemas
+tomcat-main/logs
