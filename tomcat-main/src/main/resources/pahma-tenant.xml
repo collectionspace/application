@@ -11,7 +11,7 @@
 			<enum-blank>(none selected)</enum-blank>
 
 			<include src="base-other-locality.xml" />
-			<include src="base-collectionobject.xml,anthropology-collectionobject.xml,naturalhistory-collectionobject.xml,pahma-collectionobject.xml" merge="xmlmerge.properties"/>
+			<include src="base-collectionobject.xml,extensions/annotation-collectionobject.xml,anthropology-collectionobject.xml,naturalhistory-collectionobject.xml,pahma-collectionobject.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority.xml"/>
 
 			<include src="base-procedure-acquisition.xml,anthropology-procedure-acquisition.xml,pahma-procedure-acquisition.xml" merge="xmlmerge.properties"/>
