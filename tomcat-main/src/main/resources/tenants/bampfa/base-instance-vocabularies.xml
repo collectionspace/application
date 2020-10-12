@@ -1286,4 +1286,14 @@
         <options>
         </options>
 	</instance>
+    <instance id="vocab-uocsubcollections">
+		<web-url>uocsubcollections</web-url>
+		<title-ref>uocsubcollections</title-ref>
+		<title>Use of Collections Subcollections</title>
+		<options>
+			<option id="uocsubcollection00">The Americas</option>
+			<option id="uocsubcollection01">Europe</option>
+			<option id="uocsubcollection02">Asia</option>
+		</options>
+	</instance>
 </instances>
