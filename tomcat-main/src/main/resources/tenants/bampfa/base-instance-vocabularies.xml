@@ -1218,6 +1218,25 @@
             <option id="transfer">transfer</option>
         </options>
     </instance>
+    <instance id="vocab-contactstatus">
+		<web-url>contactstatus</web-url>
+		<title-ref>contactstatus</title-ref>
+		<title>Contact Person Statuses</title>
+		<options>
+			<option id="active">active</option>
+			<option id="inactive">inactive</option>
+		</options>
+	</instance>
+	<instance id="vocab-contactrole">
+		<web-url>contactrole</web-url>
+		<title-ref>contactrole</title-ref>
+		<title>Contact Person Roles</title>
+		<options>
+			<option id="curator">curator</option>
+			<option id="director">director</option>
+			<option id="registrar">registrar</option>
+		</options>
+	</instance>      
     <instance id="vocab-uoccollectiontypes">
         <web-url>uoccollectiontypes</web-url>
         <title-ref>uoccollectiontypes</title-ref>
