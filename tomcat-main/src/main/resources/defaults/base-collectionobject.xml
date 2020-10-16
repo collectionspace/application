@@ -38,7 +38,11 @@
 			<field id="responsibleDepartment" mini="list" />
 		</repeat>
 		<field id="collection" />
-		<field id="namedCollection" autocomplete="true" />
+
+		<repeat id="namedCollections">
+			<field id="namedCollection" autocomplete="true" />
+		</repeat>
+
 		<field id="recordStatus" />
 		<repeat id="briefDescriptions">
 			<field id="briefDescription" datatype="largetext" />
