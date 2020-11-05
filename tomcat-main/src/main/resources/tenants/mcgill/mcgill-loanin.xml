@@ -1,0 +1,12 @@
+<record id="loanin" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
+                <section id="loaninInformation">
+                    <field id="loanInNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate" seperate_ui_container="true">
+                        <title-selector>titleBar-loanInNumber</title-selector>
+                        <selector>loanIn-loanInNumber</selector>
+                        <container-selector>loanIn-loanInNumber-patternChooserContainer</container-selector>
+                        <options>
+                            <option id="loanin" sample="LI2018-001">Loan In</option>
+                        </options>
+                    </field>
+                </section>
+            </record>

@@ -1,0 +1,28 @@
+<record id="intake" is-extension="true">
+	<services-record-path id="lhmc">intakes_lhmc:http://collectionspace.org/services/intake/domain/lhmc,intakes_lhmc</services-record-path>
+
+	<section id="objectEntryInformation">
+		<field id="receivedBy" autocomplete="true" section="lhmc" />
+		<field id="intakeStatus" autocomplete="true" ui-type="enum" section="lhmc" />
+	</section>
+
+	<section id="insuranceInformation">
+		<field id="insuredBy" section="lhmc" />
+		<repeat id="premiumGroupList/premiumGroup" section="lhmc">
+			<field id="premiumCurrency" autocomplete="true" ui-type="enum" section="lhmc" />
+			<field id="premiumValue" datatype="float" section="lhmc" />
+		</repeat>
+		<repeat id="insuredValueGroupList/insuredValueGroup" section="lhmc">
+			<field id="insuredValueCurrency" autocomplete="true" ui-type="enum" section="lhmc" />
+			<field id="insuredValue" datatype="float" section="lhmc" />
+		</repeat>
+	</section>
+
+	<section id="locationInformation">
+		<field id="inventoriedBy" autocomplete="true" section="lhmc" />
+	</section>
+
+	<section id="conditionInformation">
+		<field id="intakeCondition" autocomplete="true" ui-type="enum" section="lhmc" />
+	</section>
+</record>

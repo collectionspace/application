@@ -1,0 +1,65 @@
+<record id="collection-object" is-extension="true">
+	<services-record-path id="ohc">collectionobjects_ohc:http://collectionspace.org/services/collectionobject/domain/ohc,collectionobjects_ohc</services-record-path>
+
+	<section id="identificationInformation">
+		<!-- Change from free text to controlled term -->
+		<repeat id="objectNameList/objectNameGroup">
+			<field id="objectName" autocomplete="concept-concept" />
+		</repeat>
+
+		<!-- In the Natural History extension, this field was a "summary" field (aka, object name in generic search results).  For OHC, we want to use the default objectName field as the summary. -->
+		<repeat id="taxonomicIdentGroupList/taxonomicIdentGroup">
+			<field id="taxon" mini="search,list" />
+		</repeat>
+
+		<!-- In the Natural History extension, this field was a "summary" field (aka, object name in generic search results).  For OHC, we want to use the default objectName field as the summary. -->
+		<repeat id="determinationHistoryGroupList/determinationHistoryGroup" section="naturalhistory_extension">
+			<field id="determinationTaxon" mini="search,list"/>
+		</repeat>
+
+		<!-- New fields -->
+
+		<field id="descriptionLevel" autocomplete="vocab-descriptionlevel" ui-type="enum" section="ohc" />
+
+		<repeat id="categoryGroupList/categoryGroup" section="ohc">
+			<field id="category" mini="search" autocomplete="concept-nomenclature" section="ohc" />
+			<field id="subCategory" mini="search" autocomplete="concept-nomenclature" section="ohc" />
+		</repeat>
+
+		<field id="namedCollection" autocomplete="work-work" section="ohc" />
+
+		<section id="objectCollectionInformation">
+			<repeat id="oaiSiteGroupList/oaiSiteGroup" section="ohc">
+				<field id="oaiCollectionPlace" autocomplete="place-place,place-place_shared,place-tgn_place" section ="ohc"/>
+				<field id="oaiLocVerbatim" section="ohc"/>
+			</repeat>
+		</section>
+  </section>
+
+	<section id="descriptionInformation">
+		<repeat id="materialGroupList/materialGroup">
+			<field id="material" autocomplete="concept-material_ca" />
+		</repeat>
+
+		<!-- Add new apparelSize field -->
+		<repeat id="apparelSizes" section="ohc">
+			<field id="apparelSize" autocomplete="vocab-apparelsizes" ui-type="enum" section="ohc" />
+		</repeat>
+
+		<field id="majorTaxon" autocomplete="vocab-majortaxon" ui-type="enum" section="ohc" />
+	</section>
+
+	<section id="objectProductionInformation">
+		<repeat id="namedTimePeriods" section="ohc">
+			<field id="namedTimePeriod" autocomplete="vocab-namedtimeperiods" ui-type="enum" section="ohc" />
+		</repeat>
+	</section>
+
+	<section id="objectHistoryAssociationInformation">
+		<section id="associationInformation">
+			<repeat id="assocPeopleGroupList/assocPeopleGroup">
+				<field id="assocPeople" autocomplete="true" />
+			</repeat>
+		</section>
+	</section>
+</record>

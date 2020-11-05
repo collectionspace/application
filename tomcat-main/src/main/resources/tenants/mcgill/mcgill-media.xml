@@ -1,0 +1,9 @@
+            <record id="media" in-findedit="yes" type="procedure,record" cms-type="default" generate-services-schema="true">
+                <section id="mediaInformation">
+                    <field id="identificationNumber" ui-search="repeatable" chooser="yes" in-title="yes" mini="number,search,list,relate" seperate_ui_container="true">
+                        <options>
+                            <option id="media" sample="MR2018-001">Media Resource</option>
+                        </options>
+                    </field>
+                </section>
+            </record>

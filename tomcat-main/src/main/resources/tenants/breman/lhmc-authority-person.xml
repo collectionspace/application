@@ -1,0 +1,18 @@
+<record id="person" is-extension="true">
+	<services-record-path id="lhmc">persons_lhmc:http://collectionspace.org/services/person/domain/lhmc,persons_lhmc</services-record-path>
+
+	<section id="personNameAuthorityInformation">
+		<field id="birthPlace" autocomplete="true" />
+		<field id="deathPlace" autocomplete="true" />
+
+		<field id="relatedPerson" autocomplete="true" section="lhmc" />
+		<field id="relationshipType" autocomplete="true" ui-type="enum" section="lhmc" />
+		<field id="relationshipNote" section="lhmc" />
+		<field id="placeOrResidence" autocomplete="true" section="lhmc" />
+		<field id="placeNote" section="lhmc" />
+		<repeat id="publicationsPersonGroupList/publicationsPersonGroup" section="lhmc">
+			<field id="publicationsPerson" autocomplete="true" section="lhmc" />
+			<field id="publicationsPersonNote" section="lhmc" />
+		</repeat>
+	</section>
+</record>

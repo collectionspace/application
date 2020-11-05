@@ -1,0 +1,10 @@
+<record id="conservation" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
+    <section id="objectTreatmentInformation">
+        <field id="conservationNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate" seperate_ui_container="true">
+            <container-selector>conservation-conservationNumber-patternChooserContainer</container-selector>
+            <options>
+              <option id="conservation" sample="CT2018-001">Conservation Treatment Reference Number</option>
+            </options>
+        </field>
+    </section>
+</record>

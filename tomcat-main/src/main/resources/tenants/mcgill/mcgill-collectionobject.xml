@@ -1,0 +1,14 @@
+<record id="collection-object" in-findedit="yes" cms-type="default" generate-services-schema="true">
+  <section id="identificationInformation">
+    <field id="objectNumber" ui-search="repeatable" chooser="yes" in-title="yes" in-tab="yes"
+      display-name="yes" mini="number,search,list,relate" seperate_ui_container="true" services-refnameDisplayName="true">
+      <selector>object-identification-object-number</selector>
+      <title-selector>titleBar-object-identification-object-number</title-selector>
+      <options>
+        <option id="intake" sample="PG2018-001">Intake</option>
+        <option id="accession" sample="AC2018-001">Accession</option>
+        <option id="loanin" sample="LI2018-001">Loans In</option>
+      </options>
+    </field>
+  </section>
+</record>

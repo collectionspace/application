@@ -1,0 +1,102 @@
+<root>
+	<include src="base-procedure-osteology-vocabularies.xml" strip-root="yes" />
+	<include src="extensions/annotation-vocabularies.xml" strip-root="yes" />
+	<include src="extensions/anthropology-vocabularies.xml" strip-root="yes" />
+	<include src="extensions/culturalcare-vocabularies.xml" strip-root="yes" />
+	<include src="extensions/locality-vocabularies.xml" strip-root="yes" />
+	<include src="extensions/nagpra-vocabularies.xml" strip-root="yes" />
+	<include src="extensions/naturalhistory-vocabularies.xml" strip-root="yes" />
+
+	<instance id="vocab-prodtechniquetype">
+		<web-url>prodtechniquetype</web-url>
+		<title-ref>prodtechniquetype</title-ref>
+		<title>Production Technique Types</title>
+		<options>
+			<option id="automated">automated</option>
+			<option id="handCrafted">hand-crafted</option>
+		</options>
+	</instance>
+
+	<instance id="vocab-prodplacerole">
+		<web-url>prodplacerole</web-url>
+		<title-ref>prodplacerole</title-ref>
+		<title>Production Place Roles</title>
+		<options>
+			<option id="assembledAt">assembled at/in</option>
+			<option id="built">built at/in</option>
+			<option id="manufactured">manufactured at/in</option>
+			<option id="materialsFrom">material originated from</option>
+			<option id="minted">minted at/in</option>
+			<option id="printed">printed at/in</option>
+		</options>
+	</instance>
+
+	<instance id="vocab-prodpeoplerole">
+		<web-url>prodpeoplerole</web-url>
+		<title-ref>prodpeoplerole</title-ref>
+		<title>Production Cultural Group Roles</title>
+		<options>
+			<option id="designedAfter">designed after</option>
+			<option id="traditionalMakers">traditional makers</option>
+		</options>
+	</instance>
+
+	<instance id="vocab-prodpersonrole">
+		<web-url>prodpersonrole</web-url>
+		<title-ref>prodpersonrole</title-ref>
+		<title>Production Person Roles</title>
+		<options>
+			<option id="artist">artist</option>
+			<option id="author">author</option>
+			<option id="creator">creator</option>
+			<option id="designer">designer</option>
+			<option id="maker">maker</option>
+			<option id="photographer">photographer</option>
+		</options>
+	</instance>
+
+	<instance id="vocab-prodorgrole">
+		<web-url>prodorgrole</web-url>
+		<title-ref>prodorgrole</title-ref>
+		<title>Production Organization Roles</title>
+		<options>
+			<option id="author">author</option>
+			<option id="creator">creator</option>
+			<option id="maker">maker</option>
+			<option id="publisher">publisher</option>
+		</options>
+	</instance>
+
+	<instance id="vocab-bodyside">
+		<web-url>bodyside</web-url>
+		<title-ref>bodyside</title-ref>
+		<title>Body Sides</title>
+		<options>
+			<option id="right">right</option>
+			<option id="left">left</option>
+			<option id="both">both</option>
+			<option id="midline">midline</option>
+			<option id="unsideable">unsideable</option>
+		</options>
+	</instance>
+
+	<instance id="vocab-agerange">
+		<web-url>agerange</web-url>
+		<title-ref>agerange</title-ref>
+		<title>Age Ranges</title>
+		<options>
+			<option id="infant_0_25">infant 0-25%</option>
+			<option id="infant_26_75">infant 26-75%</option>
+			<option id="infant_76_100">infant 76-100%</option>
+			<option id="juvenile_0_25">juvenile 0-25%</option>
+			<option id="juvenile_26_75">juvenile 26-75%</option>
+			<option id="juvenile_76_100">juvenile 76-100%</option>
+			<option id="adolescent_0_25">adolescent 0-25%</option>
+			<option id="adolescent_26_75">adolescent 26-75%</option>
+			<option id="adolescent_76_100">adolescent 76-100%</option>
+			<option id="adult_0_25">adult 0-25%</option>
+			<option id="adult_26_75">adult 26-75%</option>
+			<option id="adult_76_100">adult 76-100%</option>
+		</options>
+	</instance>
+</root>

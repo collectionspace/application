@@ -1,0 +1,18 @@
+<record id="media" is-extension="true">
+	<services-record-path id="materials">media_materials:http://collectionspace.org/services/media/local/materials,media_materials</services-record-path>
+
+	<section id="mediaInformation">
+		<!-- Add autocomplete -->
+		<field id="coverage" autocomplete="true" />
+
+		<!-- Local fields -->
+
+		<repeat id="materialsPublishToList" services-type-anonymous="false" section="materials">
+			<services-tag>publishToList</services-tag>
+
+			<field id="materialsPublishTo" autocomplete="true" ui-type="enum" section="materials">
+				<services-tag>publishTo</services-tag>
+			</field>
+		</repeat>
+	</section>
+</record>

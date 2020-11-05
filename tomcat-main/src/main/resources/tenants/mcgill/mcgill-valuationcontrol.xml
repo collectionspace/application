@@ -1,0 +1,12 @@
+<record id="valuationcontrol" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
+    <section id="objectValuationInformation">
+        <field id="valuationcontrolRefNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate" seperate_ui_container="true">
+            <title-selector>titleBar-valuationcontrolRefNumber</title-selector>
+            <selector>valuationcontrol-valuationcontrolRefNumber</selector>
+            <container-selector>valuationcontrol-valuationcontrolRefNumber-patternChooserContainer</container-selector>
+            <options>
+                <option id="valuationcontrol" sample="VC2018-001">Valuation Control</option>
+            </options>
+        </field>
+    </section>
+</record>

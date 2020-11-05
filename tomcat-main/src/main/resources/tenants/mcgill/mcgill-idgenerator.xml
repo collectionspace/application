@@ -1,0 +1,61 @@
+            <record id="id" type="id">
+                <services-tenant-plural>id</services-tenant-plural>
+                <services-tenant-singular>id</services-tenant-singular>
+                <authorization-view>false</authorization-view>
+                <section id="idGeneratorInformation">
+                    <field id="exhibition">
+                      <selector>2F879011-5BD9-4F37-8C12-2374879CE27A</selector>
+                    </field>
+                    <field id="accession">
+                        <selector>59A24057-E4BD-4603-B8F9-872425993B1A</selector>
+                    </field>
+                    <field id="archive">
+                      <selector>38864050-2084-4E52-8680-30957D8F616C</selector>
+                    </field>
+                    <field id="evaluation">
+                      <selector>FBF0A2F9-8D78-4517-A46E-FD7B3144435F</selector>
+                    </field>
+                    <field id="intake">
+                      <selector>E6E32055-8B60-4260-B14A-C85A75E99398</selector>
+                    </field>
+                    <field id="inventory">
+                      <selector>B1738A68-5E81-489C-88B8-C881639B0D81</selector>
+                    </field>
+                    <field id="library">
+                      <selector>F68B532F-BAB6-46DD-AC8A-A8A06B429D11</selector>
+                    </field>
+                    <field id="loanin">
+                      <selector>4BE80706-1F59-4207-94FE-C03D85CAFE36</selector>
+                    </field>
+                    <field id="loanout">
+                      <selector>3CC8D453-BF94-4186-B3B8-46D278BF772D</selector>
+                    </field>
+                     <field id="conditioncheck">
+                       <selector>8B108D9C-B9E7-4351-88E3-D7992C256486</selector>
+                    </field>
+                    <field id="conservation">
+                      <selector>F0FC1BC5-1540-4443-B566-C948DBDEE220</selector>
+                    </field>
+                    <!-- 'location' below pertains to 'generic locations' stored -->
+                    <!-- in Location/Movement/Inventory records, rather than to -->
+                    <!-- Storage Location authority term records -->
+                    <field id="location">
+                      <selector>EB7EF0DF-C613-4B48-8613-31A0EB781D42</selector>
+                    </field>
+                    <field id="study">
+                      <selector>20A93B68-B74E-4B04-BD9B-E5F60AEC569E</selector>
+                    </field>
+                    <field id="movement">
+                      <selector>0FADADCD-3511-4CDE-82FA-7B403399BEC9</selector>
+                    </field>
+                    <field id="objectexit">
+                      <selector>B90738C1-4158-4272-BF0F-9534699B681E</selector>
+                    </field>
+                    <field id="valuationcontrol">
+                      <selector>DF21501B-49AA-4E6E-9FEB-C14CA2767AD8</selector>
+                    </field>
+                    <field id="media">
+                      <selector>9E583070-A46C-4AF9-A36F-422F31D7E7D4</selector>
+                    </field>
+                </section>
+            </record>

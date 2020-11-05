@@ -1,0 +1,152 @@
+<record id="collection-object" is-extension="true">
+	<services-record-path id="anthro">collectionobjects_anthro:http://collectionspace.org/services/collectionobject/domain/anthro,collectionobjects_anthro</services-record-path>
+
+	<section id="identificationInformation">
+		<repeat id="objectNameList/objectNameGroup">
+			<!-- Add mini -->
+			<field id="objectName" mini="list" />
+		</repeat>
+
+		<!-- Local fields -->
+
+		<repeat id="ethnoFileCodes" section="anthro">
+			<field id="ethnoFileCode" section="anthro" autocomplete="true" />
+		</repeat>
+	</section>
+
+	<section id="descriptionInformation">
+		<!-- Local fields -->
+		<repeat id="commingledRemainsGroupList/commingledRemainsGroup" section="anthro">
+			<field id="minIndividuals" section="anthro" datatype="integer" />
+			<field id="bone" section="anthro" />
+			<field id="side" section="anthro" autocomplete="true" ui-type="enum" />
+			<field id="count" section="anthro" datatype="integer" />
+			<field id="sex" section="anthro" />
+			<field id="ageRange" section="anthro" autocomplete="true" ui-type="enum" />
+			<field id="dentition" section="anthro" datatype="boolean" />
+
+			<repeat id="mortuaryTreatmentGroupList/mortuaryTreatmentGroup" section="anthro">
+				<field id="mortuaryTreatment" section="anthro" autocomplete="true" ui-type="enum" />
+				<field id="mortuaryTreatmentNote" section="anthro" />
+			</repeat>
+
+			<field id="behrensmeyerSingleLower" section="anthro" autocomplete="true" ui-type="enum"/>
+			<field id="behrensmeyerUpper" section="anthro" autocomplete="true" ui-type="enum"/>
+
+			<field id="commingledRemainsNote" section="anthro" />
+		</repeat>
+	</section>
+
+	<section id="objectProductionInformation">
+		<repeat id="techniqueGroupList/techniqueGroup">
+			<!-- Add autocomplete and ui-type -->
+			<field id="techniqueType" autocomplete="true" ui-type="enum" />
+		</repeat>
+
+		<repeat id="objectProductionPlaceGroupList/objectProductionPlaceGroup">
+			<!-- Add autocomplete -->
+			<field id="objectProductionPlace" autocomplete="true" />
+			<!-- Add autocomplete and ui-type -->
+			<field id="objectProductionPlaceRole" autocomplete="true" ui-type="enum" />
+		</repeat>
+
+		<repeat id="objectProductionPeopleGroupList/objectProductionPeopleGroup">
+			<!-- Add autocomplete -->
+			<field id="objectProductionPeople" autocomplete="true" />
+			<!-- Add autocomplete and ui-type -->
+			<field id="objectProductionPeopleRole" autocomplete="true" ui-type="enum" />
+		</repeat>
+
+		<repeat id="objectProductionPersonGroupList/objectProductionPersonGroup">
+			<!-- Add autocomplete and ui-type -->
+			<field id="objectProductionPersonRole" autocomplete="true" ui-type="enum" />
+		</repeat>
+
+		<repeat id="objectProductionOrganizationGroupList/objectProductionOrganizationGroup">
+			<!-- Add autocomplete and ui-type -->
+			<field id="objectProductionOrganizationRole" autocomplete="true" ui-type="enum" />
+		</repeat>
+	</section>
+
+	<section id="objectHistoryAssociationInformation">
+		<repeat id="anthroOwnershipGroupList/anthroOwnershipGroup" section="anthro">
+			<field id="anthroOwner" section="anthro" autocomplete="true" />
+			<field id="anthroOwnershipAccess" section="anthro" />
+
+			<group id="anthroOwnershipDateGroup" section="anthro" ui-type="groupfield/structureddate" />
+
+			<field id="anthroOwnershipCategory" section="anthro" />
+			<field id="anthroOwnershipPlace" section="anthro" autocomplete="true" />
+			<field id="anthroOwnershipMethod" section="anthro" />
+			<field id="anthroOwnershipPriceCurrency" section="anthro" autocomplete="true" ui-type="enum" />
+			<field id="anthroOwnershipPriceAmount"  datatype="float" section="anthro" />
+			<field id="anthroOwnershipNote" section="anthro" />
+		</repeat>
+	</section>
+
+	<section id="objectCollectionInformation">
+		<field id="fieldLocVerbatim" section="anthro" />
+	</section>
+
+	<section id="localityInformation">
+		<!-- I should be able to just to the following line: -->
+		<!-- <group id="locality" ui-type="groupfield/locality/selfrenderer"  section="anthro" /> -->
+		<!-- But this results in the error:
+			[exec] 2018-05-06 20:33:13,539 ERROR: Error encountered generating service bindings for '/media/sf_Source/CollectionSpace/application/tomcat-main/src/main/resources/anthro-tenant.xml' tenant configuration.
+			[exec] java.lang.Exception: The schema 'collectionobjects_naturalhistory_extension.xsd' of record 'collection-object' was already defined differently in the record 'collection-object' of the tenant 'botgarden-tenant.xml'.
+		-->
+		<!-- Possibly similar to CSPACE-5085? I have no choice but to redefine all the locality fields here, instead of reusing the locality group. -->
+
+		<repeat id="localityGroupList/localityGroup" section="anthro" >
+			<field id="fieldLocVerbatim" section="anthro" />
+			<field id="taxonomicRange" section="anthro" />
+			<field id="fieldLocPlace" autocomplete="true" section="anthro" />
+			<field id="fieldLocCounty" section="anthro" />
+			<field id="fieldLocState" section="anthro" />
+			<field id="fieldLocCountry" section="anthro" />
+			<field id="fieldLocHigherGeography" section="anthro" />
+			<field id="vCoordinates" section="anthro" />
+			<field id="vOtherCoords" section="anthro" />
+			<field id="vLatitude" section="anthro" />
+			<field id="vLongitude" section="anthro" />
+			<field id="vCoordSys" autocomplete="true" ui-type="enum" section="anthro" />
+			<field id="vSpatialReferenceSystem" section="anthro" />
+			<field id="decimalLatitude"  datatype="float" section="anthro" />
+			<field id="decimalLongitude"  datatype="float" section="anthro" />
+			<field id="geodeticDatum" section="anthro" />
+			<field id="coordUncertainty"  datatype="float" section="anthro" />
+			<field id="coordUncertaintyUnit" section="anthro" />
+			<field id="vDepth" section="anthro" />
+			<field id="minDepth"  datatype="float" section="anthro" />
+			<field id="maxDepth"  datatype="float" section="anthro" />
+			<field id="depthUnit" section="anthro" />
+			<field id="vElevation" section="anthro" />
+			<field id="minElevation"  datatype="float" section="anthro" />
+			<field id="maxElevation"  datatype="float" section="anthro" />
+			<field id="elevationUnit" section="anthro" />
+			<field id="vDistanceAboveSurface" section="anthro" />
+			<field id="minDistanceAboveSurface"  datatype="float" section="anthro" />
+			<field id="maxDistanceAboveSurface"  datatype="float" section="anthro" />
+			<field id="distanceAboveSurfaceUnit" section="anthro" />
+			<field id="localityNote" section="anthro" />
+			<field id="localitySource" section="anthro" />
+			<field id="localitySourceDetail" section="anthro" />
+
+			<field id="pointRadiusSpatialFit" section="anthro" />
+			<field id="footprintWKT" section="anthro" />
+			<field id="footprintSRS" section="anthro" />
+			<field id="footprintSpatialFit" section="anthro" />
+			<field id="coordPrecision" section="anthro" />
+			<field id="geoRefencedBy" section="anthro" />
+			<group id="geoRefDateGroup" section="anthro" ui-type="groupfield/structureddate" />
+			<field id="geoRefProtocol" section="anthro" />
+			<field id="geoRefSource" section="anthro" />
+			<field id="geoRefVerificationStatus" section="anthro" />
+			<field id="geoRefRemarks" section="anthro" />
+			<field id="geoRefPlaceName" section="anthro" />
+
+			<field id="collectionLocationVerbatim" section="anthro" />
+			<field id="collectionPlace" autocomplete="true" section="anthro" />
+		</repeat>
+	</section>
+</record>
