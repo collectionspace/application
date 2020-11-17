@@ -18,9 +18,13 @@
 			<field id="repatriationNote" section="nagpra" />
 		</repeat>
 
-		<field id="nagpraReportFiled" section="nagpra" datatype="boolean" />
-		<field id="nagpraReportFiledBy" section="nagpra" autocomplete="true" />
-		<field id="nagpraReportFiledDate" section="nagpra" ui-type="groupfield/structureddate" />
+		<repeat id="nagpraReportFiledGroupList/nagpraReportFiledGroup" section="nagpra">
+			<field id="nagpraReportFiled" section="nagpra" datatype="boolean" />
+			<field id="nagpraReportFiledWith" section="nagpra" autocomplete="true" />
+			<field id="nagpraReportFiledBy" section="nagpra" autocomplete="true" />
+			<field id="nagpraReportFiledDate" section="nagpra" ui-type="groupfield/structureddate" />
+			<field id="nagpraReportFiledNote" section="nagpra" />
+		</repeat>
 
 		<repeat id="nagpraDetermGroupList/nagpraDetermGroup" section="nagpra">
 			<field id="nagpraDetermCulture" section="nagpra" autocomplete="true" />

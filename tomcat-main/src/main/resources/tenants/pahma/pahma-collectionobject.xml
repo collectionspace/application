@@ -1212,6 +1212,7 @@
 		</repeat>
 	</section>
 	
+	<!--  CC-1480 - Replaced with LYRASIS' NAGPRA extension
 	<section id="repatriationNagpraComplianceInformation">
 		<repeat id="nagpraInventoryNameList" section="anthropology">
 			<field id="nagpraInventoryName" section="anthropology" seperate_ui_container="true" ui-search="repeatable" ui-type="enum" autocomplete="vocab-nagpraPahmaInventoryNames">
@@ -1227,6 +1228,7 @@
 			<field id="pahmaNagpraCodeLegacy" section="pahma" seperate_ui_container="true" ui-search="repeatable" ui-type="enum" autocomplete="vocab-pahmaNagpraCodeLegacies">
 			</field>
 		</repeat>
-		
 	</section>
+	-->
+	
 </record>

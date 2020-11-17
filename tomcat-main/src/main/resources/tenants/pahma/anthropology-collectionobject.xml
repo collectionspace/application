@@ -14,9 +14,9 @@
 			</repeat>
 		</section>
 	</section>
-	
+
+	<!-- CC-1480 - Replaced with LYRASIS' NAGPRA extension
 	<section id="repatriationNagpraComplianceInformation">
-		<!-- THIS ALL NEEDS TO BE RETHOUGHT IN LIGHT OF THE NEW NAGPRACLAIM SERVICE -->
 		<repeat id="nagpraInventoryNameList" section="anthropology">
 			<field id="nagpraInventoryName" section="anthropology" seperate_ui_container="true" ui-search="repeatable">
 				<selector>collection-object-nagpraInventoryName</selector>
@@ -263,6 +263,7 @@
 			<field id="repatriationNote" section="anthropology" />
 		</repeat>
 	</section>
+	-->
 	
 	<section id="culturalCareInformation">
 		<repeat id="culturalCareNoteList" section="anthropology">
