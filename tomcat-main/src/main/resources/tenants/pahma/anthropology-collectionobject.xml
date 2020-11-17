@@ -254,17 +254,19 @@
 				</options>
 			</field>
 		</repeat>
-		<repeat id="nagpraCulturalDeterminationList" section="anthropology">
-			<field id="nagpraCulturalDetermination" section="anthropology">
-				<selector>collection-object-nagpraCulturalDetermination</selector>
-			</field>
-		</repeat>
 		<repeat id="repatriationNoteList" section="anthropology">
 			<field id="repatriationNote" section="anthropology" />
 		</repeat>
 	</section>
 	-->
-	
+	<section id="repatriationNagpraComplianceInformation">
+		<repeat id="nagpraCulturalDeterminationList" section="anthropology">
+			<field id="nagpraCulturalDetermination" section="anthropology">
+				<selector>collection-object-nagpraCulturalDetermination</selector>
+			</field>
+		</repeat>
+	</section>
+
 	<section id="culturalCareInformation">
 		<repeat id="culturalCareNoteList" section="anthropology">
 			<field id="culturalCareNote" section="anthropology">
