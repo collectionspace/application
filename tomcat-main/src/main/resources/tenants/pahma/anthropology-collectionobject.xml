@@ -258,7 +258,7 @@
 			<field id="repatriationNote" section="anthropology" />
 		</repeat>
 	</section>
-	-->
+
 	<section id="repatriationNagpraComplianceInformation">
 		<repeat id="nagpraCulturalDeterminationList" section="anthropology">
 			<field id="nagpraCulturalDetermination" section="anthropology">
@@ -266,6 +266,7 @@
 			</field>
 		</repeat>
 	</section>
+	-->
 
 	<section id="culturalCareInformation">
 		<repeat id="culturalCareNoteList" section="anthropology">

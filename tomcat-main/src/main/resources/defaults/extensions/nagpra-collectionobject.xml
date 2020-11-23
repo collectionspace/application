@@ -17,6 +17,10 @@
 		<repeat id="repatriationNotes" section="nagpra">
 			<field id="repatriationNote" section="nagpra" />
 		</repeat>
+		
+		<repeat id="nagpraCulturalDeterminations" section="nagpra">
+			<field id="nagpraCulturalDetermination" section="nagpra" />
+		</repeat>
 
 		<repeat id="nagpraReportFiledGroupList/nagpraReportFiledGroup" section="nagpra">
 			<field id="nagpraReportFiled" section="nagpra" datatype="boolean" />

@@ -1,6 +1,16 @@
 <!-- TODO: Figure out how to use xmlmerge on this file -->
 <instances>
 	<include src="domain-instance-vocabularies.xml" strip-root="yes"/>
+	<instance id="nagpradetermtype">
+		<web-url>nagpradetermtype</web-url>
+		<title-ref>nagpradetermtype</title-ref>
+		<title>NAGPRA determination type</title>
+		<options>
+			<option id="unknown1">unknown1</option>
+			<option id="unknown2">unknown2</option>
+			<option id="unknown3">unknown3</option>
+		</options>
+	</instance>
 	<instance id="vocab-inventorystatus">
 			<web-url>inventorystatus</web-url>
 			<title-ref>inventorystatus</title-ref>
