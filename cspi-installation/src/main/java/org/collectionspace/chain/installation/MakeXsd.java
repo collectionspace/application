@@ -78,6 +78,7 @@ public class MakeXsd {
 		Record record = spec.getRecord(fieldSetServicesType); // find a record that corresponds to the fieldset's service type		
 		
 		if (record == null) {
+			fieldSetServicesType = fieldSet.getServicesGroupType(false);
 			record = spec.getRecord(fieldSetServicesType); // try again, this time try a group type
 		}
 		
