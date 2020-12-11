@@ -1,0 +1,8 @@
+<record id="collection-object">
+	<section id="identificationInformation">
+		<repeat id="namedCollections">
+			<!-- Add mini -->
+			<field id="namedCollection" mini="list" />
+		</repeat>
+	</section>
+</record>
