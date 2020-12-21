@@ -50,6 +50,10 @@
 				<option id="full">full/curatorial</option>
 			</options>
 		</field>
+		<!-- New field for PAHMA -->
+		<repeat id="abbreviatedDescriptions" section="pahma">
+			<field id="abbreviatedDescription" section="pahma" datatype="largetext" />
+		</repeat>
 		<repeat id="titleGroupList/titleGroup">
 			<!-- Add mini values -->
 			<field id="title" mini="search,list,relate"/>
