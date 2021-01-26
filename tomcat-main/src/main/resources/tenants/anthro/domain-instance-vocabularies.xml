@@ -1,6 +1,5 @@
 <root>
 	<include src="base-procedure-osteology-vocabularies.xml" strip-root="yes" />
-	<include src="extensions/annotation-vocabularies.xml" strip-root="yes" />
 	<include src="extensions/anthropology-vocabularies.xml" strip-root="yes" />
 	<include src="extensions/culturalcare-vocabularies.xml" strip-root="yes" />
 	<include src="extensions/locality-vocabularies.xml" strip-root="yes" />

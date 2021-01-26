@@ -12,7 +12,7 @@
 			<enum-blank>Please select a value</enum-blank>
 		    <include src="base-collectionobject.xml,extensions/naturalhistory-collectionobject.xml,
 		        extensions/accessionattributes-collectionobject.xml,extensions/accessionuse-collectionobject.xml,
-		        extensions/annotation-collectionobject.xml,botgarden-collectionobject.xml" merge="xmlmerge.properties" />
+		        botgarden-collectionobject.xml" merge="xmlmerge.properties" />
 
 			<include src="base-procedure-blobs.xml" />
 			<include src="base-procedure-conditioncheck.xml" />

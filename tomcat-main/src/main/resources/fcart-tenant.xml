@@ -11,7 +11,7 @@
 		<records>
 			<enum-blank>Please select a value</enum-blank>
 
-			<include src="base-collectionobject.xml,extensions/annotation-collectionobject.xml,extensions/variablemedia-collectionobject.xml,extensions/fineart-collectionobject.xml,extensions/fcart-profile-collectionobject.xml"
+			<include src="base-collectionobject.xml,extensions/variablemedia-collectionobject.xml,extensions/fineart-collectionobject.xml,extensions/fcart-profile-collectionobject.xml"
                      merge="xmlmerge.properties" />
 			<include src="base-authority.xml" />
 

@@ -194,6 +194,12 @@
 				<field id="inscriptionDescriptionInterpretation" />
 			</repeat>
 		</section>
+		<repeat id="annotationGroupList/annotationGroup">
+			<field id="annotationType" autocomplete="true" ui-type="enum" />
+			<field id="annotationNote" />
+			<field id="annotationDate" datatype="date" />
+			<field id="annotationAuthor" autocomplete="true" />
+		</repeat>
 	</section>
 	<section id="objectProductionInformation">
 		<repeat id="objectProductionDateGroupList/objectProductionDateGroup">
