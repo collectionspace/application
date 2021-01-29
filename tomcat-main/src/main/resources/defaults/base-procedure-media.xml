@@ -55,6 +55,7 @@
 		</repeat>
 		<field id="rightsHolder" autocomplete="true" />
 		<field id="description" />
+		<field id="altText" />
 	</section>
 
 	<!-- not used in ui yet -->
