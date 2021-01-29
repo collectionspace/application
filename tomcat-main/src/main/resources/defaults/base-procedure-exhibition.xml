@@ -91,5 +91,9 @@
 				<field id="exhibitionObjectNote" />
 			</repeat>
 		</section>
+
+		<repeat id="publishToList" services-type-anonymous="false">
+			<field id="publishTo" autocomplete="true" ui-type="enum"/>
+		</repeat>
 	</section>
 </record>
