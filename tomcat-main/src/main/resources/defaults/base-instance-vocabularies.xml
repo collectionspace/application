@@ -1281,4 +1281,38 @@
 			<option id="uocsubcollection02">Asia</option>
 		</options>
 	</instance>
+    <instance id="vocab-transportcosttype">
+        <web-url>transportcosttype</web-url>
+        <title-ref>transportcosttype</title-ref>
+        <title>Transport Cost Type</title>
+        <options>
+            <option id="incoming">Incoming</option>
+            <option id="outgoing">Outgoing</option>
+            <option id="return">Return</option>
+        </options>
+    </instance>
+    <instance id="vocab-transportresponsibleparty">
+        <web-url>transportresponsibleparty</web-url>
+        <title-ref>transportresponsibleparty</title-ref>
+        <title>Transport Cost Responsbile Party</title>
+        <options>
+            <option id="borrower">Borrower</option>
+            <option id="lender">Lender</option>
+            <option id="thirdparty">Third Party</option>
+        </options>
+    </instance>
+    <instance id="vocab-transportadditionalcosttype">
+        <web-url>transportadditionalcosttype</web-url>
+        <title-ref>transportadditionalcosttype</title-ref>
+        <title>Transport Additional Cost Type</title>
+        <options>
+            <option id="crating">Crating</option>
+            <option id="localmovement">Local Movement</option>
+            <option id="recipientcustoms">Recipient Customs</option>
+            <option id="recipientshipping">Recipient Shipping</option>
+            <option id="sendercustoms">Sender Customs</option>
+            <option id="sendershipping">Sender Shipping</option>
+            <option id="storage">Storage</option>
+        </options>
+    </instance>
 </instances>
