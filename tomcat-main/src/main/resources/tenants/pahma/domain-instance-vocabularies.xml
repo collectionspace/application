@@ -875,4 +875,44 @@
 				<option id="nagpraPahmaApplicabilities09">unknown</option>
 			</options>
 		</instance>
+		<instance>
+			<web-url>pahmaObjectStatuses<web-url>
+			<title-ref>pahmaObjectStatuses</title-ref>
+			<title>Pahma Object Statuses</title>
+					<option id="pahmaObjectStatuses00">(unknown)</option>
+					<option id="pahmaObjectStatuses01">accession status unclear</option>
+					<option id="pahmaObjectStatuses02">accessioned</option>
+					<option id="pahmaObjectStatuses03">culturally affiliated</option>
+					<option id="pahmaObjectStatuses04">culturally unaffiliated</option>
+					<option id="pahmaObjectStatuses05">deaccessioned</option>
+					<option id="pahmaObjectStatuses06">destroyed</option>
+					<option id="pahmaObjectStatuses07">destructive analysis</option>
+					<option id="pahmaObjectStatuses08">discarded</option>
+					<option id="pahmaObjectStatuses09">exchanged</option>
+					<option id="pahmaObjectStatuses33">held in trust</option>
+					<option id="pahmaObjectStatuses10">intended for repatriation</option>
+					<option id="pahmaObjectStatuses11">intended for transfer</option>
+					<option id="pahmaObjectStatuses12">irregular Museum number</option>
+					<option id="pahmaObjectStatuses13">missing</option>
+					<option id="pahmaObjectStatuses14">missing in inventory</option>
+					<option id="pahmaObjectStatuses15">not cataloged</option>
+					<option id="pahmaObjectStatuses16">not located</option>
+					<option id="pahmaObjectStatuses17">not received</option>
+					<option id="pahmaObjectStatuses18">number not used</option>
+					<option id="pahmaObjectStatuses19">object mount</option>
+					<option id="pahmaObjectStatuses20">on loan (=borrowed)</option>
+					<option id="pahmaObjectStatuses21">partially deaccessioned</option>
+					<option id="pahmaObjectStatuses22">partially exchanged</option>
+					<option id="pahmaObjectStatuses23">partially recataloged</option>
+					<option id="pahmaObjectStatuses24">pending repatriation</option>
+					<option id="pahmaObjectStatuses25">recataloged</option>
+					<option id="pahmaObjectStatuses26">red-lined</option>
+					<option id="pahmaObjectStatuses27">repatriated</option>
+					<option id="pahmaObjectStatuses28">returned loan object</option>
+					<option id="pahmaObjectStatuses29">sold</option>
+					<option id="pahmaObjectStatuses30">stolen</option>
+					<option id="pahmaObjectStatuses31">transferred</option>
+					<option id="pahmaObjectStatuses32" from-static-id="ondeposit">on deposit</option>
+				</options>
+		</instance>
 </instances>

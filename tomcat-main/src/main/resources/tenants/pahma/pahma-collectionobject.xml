@@ -330,43 +330,8 @@
 		</repeat>
 
 		<repeat id="pahmaObjectStatusList" section="pahma">
-			<field id="pahmaObjectStatus" section="pahma" ui-search="repeatable">
-				<options>
-					<option id="" default="yes">(none selected)</option>
-					<option id="(unknown)">(unknown)</option>
-					<option id="accession status unclear">accession status unclear</option>
-					<option id="accessioned">accessioned</option>
-					<option id="culturally affiliated">culturally affiliated</option>
-					<option id="culturally unaffiliated">culturally unaffiliated</option>
-					<option id="deaccessioned">deaccessioned</option>
-					<option id="destroyed">destroyed</option>
-					<option id="destructive analysis">destructive analysis</option>
-					<option id="discarded">discarded</option>
-					<option id="exchanged">exchanged</option>
-					<option id="intended for repatriation">intended for repatriation</option>
-					<option id="intended for transfer">intended for transfer</option>
-					<option id="irregular Museum number">irregular Museum number</option>
-					<option id="missing">missing</option>
-					<option id="missing in inventory">missing in inventory</option>
-					<option id="not cataloged">not cataloged</option>
-					<option id="not located">not located</option>
-					<option id="not received">not received</option>
-					<option id="number not used">number not used</option>
-					<option id="object mount">object mount</option>
-					<option id="on loan (=borrowed)">on loan (=borrowed)</option>
-					<option id="partially deaccessioned">partially deaccessioned</option>
-					<option id="partially exchanged">partially exchanged</option>
-					<option id="partially recataloged">partially recataloged</option>
-					<option id="pending repatriation">pending repatriation</option>
-					<option id="recataloged">recataloged</option>
-					<option id="red-lined">red-lined</option>
-					<option id="repatriated">repatriated</option>
-					<option id="returned loan object">returned loan object</option>
-					<option id="sold">sold</option>
-					<option id="stolen">stolen</option>
-					<option id="transferred">transferred</option>
-					<option id="ondeposit">on deposit</option>
-				</options>
+			<field id="pahmaObjectStatus" section="pahma" autocomplete="vocab-pahmaObjectStatuses" ui-search="repeatable" ui-type="enum">
+				<!-- Converted to dynamic -->
 			</field>
 		</repeat>
 
