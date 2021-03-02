@@ -876,7 +876,7 @@
 			</options>
 		</instance>
 		<instance>
-			<web-url>pahmaObjectStatuses<web-url>
+			<web-url>pahmaObjectStatuses</web-url>
 			<title-ref>pahmaObjectStatuses</title-ref>
 			<title>Pahma Object Statuses</title>
 					<option id="pahmaObjectStatuses00">(unknown)</option>
