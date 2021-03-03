@@ -875,10 +875,11 @@
 				<option id="nagpraPahmaApplicabilities09">unknown</option>
 			</options>
 		</instance>
-		<instance>
+		<instance id="vocab-pahmaObjectStatuses">
 			<web-url>pahmaObjectStatuses</web-url>
 			<title-ref>pahmaObjectStatuses</title-ref>
 			<title>Pahma Object Statuses</title>
+				<options>
 					<option id="pahmaObjectStatuses00">(unknown)</option>
 					<option id="pahmaObjectStatuses01">accession status unclear</option>
 					<option id="pahmaObjectStatuses02">accessioned</option>
