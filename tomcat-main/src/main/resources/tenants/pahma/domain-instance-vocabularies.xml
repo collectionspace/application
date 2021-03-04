@@ -901,7 +901,7 @@
 					<option id="pahmaObjectStatuses17">not received</option>
 					<option id="pahmaObjectStatuses18">number not used</option>
 					<option id="pahmaObjectStatuses19">object mount</option>
-					<option id="pahmaObjectStatuses20">on loan (=borrowed)</option>
+					<option id="pahmaObjectStatuses20" from-static-id="on loan (=borrowed)">in loan (=borrowed)</option>
 					<option id="pahmaObjectStatuses21">partially deaccessioned</option>
 					<option id="pahmaObjectStatuses22">partially exchanged</option>
 					<option id="pahmaObjectStatuses23">partially recataloged</option>
