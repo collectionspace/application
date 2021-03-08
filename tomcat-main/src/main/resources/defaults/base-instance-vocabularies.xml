@@ -1286,9 +1286,9 @@
         <title-ref>transportcosttype</title-ref>
         <title>Transport Cost Type</title>
         <options>
-            <option id="incoming">Incoming</option>
-            <option id="outgoing">Outgoing</option>
-            <option id="return">Return</option>
+            <option id="incoming">incoming</option>
+            <option id="outgoing">outgoing</option>
+            <option id="return">return</option>
         </options>
     </instance>
     <instance id="vocab-transportresponsibleparty">
@@ -1296,9 +1296,9 @@
         <title-ref>transportresponsibleparty</title-ref>
         <title>Transport Cost Responsbile Party</title>
         <options>
-            <option id="borrower">Borrower</option>
-            <option id="lender">Lender</option>
-            <option id="thirdparty">Third Party</option>
+            <option id="borrower">borrower</option>
+            <option id="lender">lender</option>
+            <option id="thirdparty">third party</option>
         </options>
     </instance>
     <instance id="vocab-transportadditionalcosttype">
@@ -1306,13 +1306,13 @@
         <title-ref>transportadditionalcosttype</title-ref>
         <title>Transport Additional Cost Type</title>
         <options>
-            <option id="crating">Crating</option>
-            <option id="localmovement">Local Movement</option>
-            <option id="recipientcustoms">Recipient Customs</option>
-            <option id="recipientshipping">Recipient Shipping</option>
-            <option id="sendercustoms">Sender Customs</option>
-            <option id="sendershipping">Sender Shipping</option>
-            <option id="storage">Storage</option>
+            <option id="crating">crating</option>
+            <option id="localmovement">local movement</option>
+            <option id="recipientcustoms">recipient customs</option>
+            <option id="recipientshipping">recipient shipping</option>
+            <option id="sendercustoms">sender customs</option>
+            <option id="sendershipping">sender shipping</option>
+            <option id="storage">storage</option>
         </options>
     </instance>
 </instances>
