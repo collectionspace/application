@@ -26,8 +26,6 @@
 			<field id="subCategory" mini="search" autocomplete="concept-nomenclature" section="ohc" />
 		</repeat>
 
-		<field id="namedCollection" autocomplete="work-work" section="ohc" />
-
 		<section id="objectCollectionInformation">
 			<repeat id="oaiSiteGroupList/oaiSiteGroup" section="ohc">
 				<field id="oaiCollectionPlace" autocomplete="place-place,place-place_shared,place-tgn_place" section ="ohc"/>
