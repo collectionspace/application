@@ -15,7 +15,7 @@
     <section id="transportInformation">
         <field id="transportReferenceNumber" mini="number,list" />
 
-        <field id="transporter" autocomplete="true" />
+        <field id="transporter" autocomplete="true" mini="summary,list" />
         <field id="transporterContact" autocomplete="true" />
         <field id="transporterContactNumber" datatype="float" />
 
@@ -32,7 +32,7 @@
         <field id="transportArrivalTime" />
 
         <field id="numberOfCrates" datatype="float" />
-        <field id="transportMethod" ui-type="enum" />
+        <field id="transportMethod" ui-type="enum" autocomplete="true" />
 
         <repeat id="courierGroupList/courierGroup">
             <field id="courier" autocomplete="true" />
@@ -48,33 +48,33 @@
     </section>
 
     <section id="transportCosts">
-        <field id="transportCostType" ui-type="enum" />
+        <field id="transportCostType" ui-type="enum" autocomplete="true" />
 
-        <field id="finalShippingCostCurrency" ui-type="enum" />
+        <field id="finalShippingCostCurrency" ui-type="enum" autocomplete="true" />
         <field id="finalShippingCostValue" datatype="float" />
 
-        <field id="transportCostResponsibleParty" ui-type="enum" />
-        <field id="insuranceCostResponsibleParty" ui-type="enum" />
+        <field id="transportCostResponsibleParty" ui-type="enum" autocomplete="true" />
+        <field id="insuranceCostResponsibleParty" ui-type="enum" autocomplete="true" />
 
         <repeat id="additionalCostsGroupList/additionalCostsGroup">
-            <field id="additionalCostsType" ui-type="enum" />
-            <field id="additionalCostsCurrency" ui-type="enum" />
+            <field id="additionalCostsType" ui-type="enum" autocomplete="true" />
+            <field id="additionalCostsCurrency" ui-type="enum" autocomplete="true" />
             <field id="additionalCostsValue" datatype="float" />
         </repeat>
 
         <field id="customsBroker" autocomplete="true" />
         <field id="customsBrokerContact" autocomplete="true" />
 
-        <field id="customsDeclaredValueCurrency" ui-type="enum" />
+        <field id="customsDeclaredValueCurrency" ui-type="enum" autocomplete="true" />
         <field id="customsDeclaredValueAmount" datatype="float" />
 
-        <field id="customsFeeCurrency" ui-type="enum" />
+        <field id="customsFeeCurrency" ui-type="enum" autocomplete="true" />
         <field id="customsFeeValue" datatype="float" />
         <field id="customsFeeNote" />
 
         <repeat id="shippingQuotesList/shippingQuotes">
             <field id="shippingQuoteProvider" autocomplete="true" />
-            <field id="shippingQuoteCurrency" ui-type="enum" />
+            <field id="shippingQuoteCurrency" ui-type="enum" autocomplete="true" />
             <field id="shippingQuoteValue" datatype="float" />
             <field id="shippingQuoteDate" datatype="date" />
         </repeat>
