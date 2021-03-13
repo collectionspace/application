@@ -1,0 +1,83 @@
+<record id="transport" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true" >
+    <services-url>transports</services-url>
+    <services-tenant-plural>Transports</services-tenant-plural>
+    <services-tenant-singular>Transport</services-tenant-singular>
+    <services-list-path>abstract-common-list/list-item</services-list-path>
+    <services-record-path>transports_common:http://collectionspace.org/services/transport,transports_common</services-record-path>
+    <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+
+    <include src="domain-procedure-transport.xml" strip-root="yes" />
+
+    <section id="coreInformation">
+        <include src="core-fields.xml" strip-root="yes" />
+    </section>
+
+    <section id="transportInformation">
+        <field id="transportReferenceNumber" mini="number,list" />
+
+        <field id="transporter" autocomplete="true" mini="summary,list" />
+        <field id="transporterContact" autocomplete="true" />
+        <field id="transporterContactNumber" datatype="float" />
+
+        <field id="departurePoint" autocomplete="true" />
+        <field id="destination" autocomplete="true" />
+
+        <field id="transportAuthorizer" autocomplete="true" />
+        <field id="transportAuthorizationDate" datatype="date" />
+
+        <field id="transportDepartureDate" datatype="date" />
+        <field id="transportDepartureTime" />
+
+        <field id="transportArrivalDate" datatype="date" />
+        <field id="transportArrivalTime" />
+
+        <field id="numberOfCrates" datatype="float" />
+        <field id="transportMethod" ui-type="enum" autocomplete="true" />
+
+        <repeat id="courierGroupList/courierGroup">
+            <field id="courier" autocomplete="true" />
+            <field id="courierContactNumber" />
+        </repeat>
+
+        <repeat id="transportTrackingNumberGroupList/transportTrackingNumberGroup">
+            <field id="transportTrackingNumber" />
+            <field id="transportTrackingNumberNote" />
+        </repeat>
+
+        <field id="transportRemarks" />
+    </section>
+
+    <section id="transportCosts">
+        <field id="transportCostType" ui-type="enum" autocomplete="true" />
+
+        <field id="finalShippingCostCurrency" ui-type="enum" autocomplete="true" />
+        <field id="finalShippingCostValue" datatype="float" />
+
+        <field id="transportCostResponsibleParty" ui-type="enum" autocomplete="true" />
+        <field id="insuranceCostResponsibleParty" ui-type="enum" autocomplete="true" />
+
+        <repeat id="additionalCostsGroupList/additionalCostsGroup">
+            <field id="additionalCostsType" ui-type="enum" autocomplete="true" />
+            <field id="additionalCostsCurrency" ui-type="enum" autocomplete="true" />
+            <field id="additionalCostsValue" datatype="float" />
+        </repeat>
+
+        <field id="customsBroker" autocomplete="true" />
+        <field id="customsBrokerContact" autocomplete="true" />
+
+        <field id="customsDeclaredValueCurrency" ui-type="enum" autocomplete="true" />
+        <field id="customsDeclaredValueAmount" datatype="float" />
+
+        <field id="customsFeeCurrency" ui-type="enum" autocomplete="true" />
+        <field id="customsFeeValue" datatype="float" />
+        <field id="customsFeeNote" />
+
+        <repeat id="shippingQuotesList/shippingQuotes">
+            <field id="shippingQuoteProvider" autocomplete="true" />
+            <field id="shippingQuoteCurrency" ui-type="enum" autocomplete="true" />
+            <field id="shippingQuoteValue" datatype="float" />
+            <field id="shippingQuoteDate" datatype="date" />
+        </repeat>
+    </section>
+
+</record>
