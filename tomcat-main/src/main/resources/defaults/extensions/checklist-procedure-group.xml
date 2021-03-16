@@ -1,0 +1,19 @@
+<record id="group" is-extension="true">
+    <services-record-path id="checklist">groups_checklist:http://collectionspace.org/services/group/domain/checklist,groups_checklist</services-record-path>
+
+    <section id="checklistInformation">
+        <repeat id="checklistGroupList/checklistGroup" section="checklist">
+            <field id="checklistType" section="checklist" autocomplete="true" ui-type="enum" />
+            <field id="checklistOpenDate" section="checklist" datatype="date" />
+            <field id="checklistCloseDate" section="checklist" datatype="date" />
+            <field id="checklistNote" section="checklist" />
+
+            <repeat id="checklistItemGroupList/checklistItemGroup" section="checklist">
+                <field id="checklistItem" section="checklist" />
+                <field id="checklistAssignee" section="checklist" autocomplete="true" />
+                <field id="checklistStatus" section="checklist" autocomplete="true" ui-type="enum" />
+                <field id="checklistStatusDate" section="checklist" datatype="date" />
+            </repeat>
+        </repeat>
+    </section>
+</record>

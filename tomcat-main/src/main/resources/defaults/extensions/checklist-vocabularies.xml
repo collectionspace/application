@@ -1,0 +1,23 @@
+<instances>
+	<instance id="vocab-checklisttype">
+		<web-url>checklisttype</web-url>
+		<title-ref>checklisttype</title-ref>
+		<title>Checklist Type</title>
+		<options>
+			<option id="acquisitionacknowledgement">acquisition acknowledgement</option>
+			<option id="intakeassessment">intake assessment</option>
+			<option id="exhibitiontextdevelopment">exhibition text development</option>
+		</options>
+	</instance>
+	<instance id="vocab-checkliststatus">
+		<web-url>checkliststatus</web-url>
+		<title-ref>checkliststatus</title-ref>
+		<title>Checklist Status</title>
+		<options>
+			<option id="assigned">assigned</option>
+			<option id="inprogress">in progress</option>
+			<option id="complete">complete</option>
+			<option id="approved">approved</option>
+		</options>
+	</instance>
+</instances>
