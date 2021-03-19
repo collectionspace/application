@@ -14,6 +14,16 @@
 		<baseurl>http://pahma-dev.cspace.berkeley.edu</baseurl>
 		<from>admin@pahma.cspace.berkeley.edu</from>
         <to></to>
+		<smtp>
+    		<host>${CSPACE_SMTP_EMAIL_HOST_OPT}</host>
+    		<port>${CSPACE_SMTP_EMAIL_PORT_OPT}</port>
+    		<debug>${CSPACE_CORE_EMAIL_AUTH_DEBUG_OPT}</debug>
+    		<auth enabled="${CSPACE_CORE_EMAIL_AUTH_SMPT_OPT}">
+        		<!-- set to true if wish to use auth -->
+        		<username>${CSPACE_CORE_EMAIL_AUTH_USERNAME_OPT}</username>
+        		<password>${CSPACE_CORE_EMAIL_AUTH_PASSWORD_OPT}</password>
+    		</auth>
+		</smtp>
         <passwordreset>
             <token>
                 <!-- <daysvalid>1</daysvalid> --> <!-- As of v5.0, this field is no longer used. -->
