@@ -17,7 +17,7 @@
 
         <field id="transporter" autocomplete="true" mini="summary,list" />
         <field id="transporterContact" autocomplete="true" />
-        <field id="transporterContactNumber" datatype="float" />
+        <field id="transporterContactNumber" />
 
         <field id="departurePoint" autocomplete="true" />
         <field id="destination" autocomplete="true" />
@@ -31,7 +31,7 @@
         <field id="transportArrivalDate" datatype="date" />
         <field id="transportArrivalTime" />
 
-        <field id="numberOfCrates" datatype="float" />
+        <field id="numberOfCrates" datatype="integer" />
         <field id="transportMethod" ui-type="enum" autocomplete="true" />
 
         <repeat id="courierGroupList/courierGroup">
