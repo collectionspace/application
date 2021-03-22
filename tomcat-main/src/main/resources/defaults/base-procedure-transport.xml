@@ -72,7 +72,7 @@
         <field id="customsFeeValue" datatype="float" />
         <field id="customsFeeNote" />
 
-        <repeat id="shippingQuotesList/shippingQuotes">
+        <repeat id="shippingQuoteGroupList/shippingQuoteGroup">
             <field id="shippingQuoteProvider" autocomplete="true" />
             <field id="shippingQuoteCurrency" ui-type="enum" autocomplete="true" />
             <field id="shippingQuoteValue" datatype="float" />
