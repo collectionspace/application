@@ -11,17 +11,17 @@
 		<tenantname>pahma</tenantname>
 	</admin>
 	<email>
-		<baseurl>http://pahma-dev.cspace.berkeley.edu</baseurl>
-		<from>admin@pahma.cspace.berkeley.edu</from>
+		<baseurl>deprecated</baseurl> <!-- computed at runtime -->
+		<from>${CSPACE_SMTP_EMAIL_FROM_OPT}</from>
         <to></to>
 		<smtp>
     		<host>${CSPACE_SMTP_EMAIL_HOST_OPT}</host>
     		<port>${CSPACE_SMTP_EMAIL_PORT_OPT}</port>
-    		<debug>${CSPACE_CORE_EMAIL_AUTH_DEBUG_OPT}</debug>
-    		<auth enabled="${CSPACE_CORE_EMAIL_AUTH_SMPT_OPT}">
+			<debug>${CSPACE_SMTP_EMAIL_AUTH_DEBUG_OPT}</debug>
+			<auth enabled="${CSPACE_SMTP_EMAIL_AUTH_OPT}">
         		<!-- set to true if wish to use auth -->
-        		<username>${CSPACE_CORE_EMAIL_AUTH_USERNAME_OPT}</username>
-        		<password>${CSPACE_CORE_EMAIL_AUTH_PASSWORD_OPT}</password>
+				<username>${CSPACE_SMTP_EMAIL_AUTH_USERNAME_OPT}</username>
+				<password>${CSPACE_SMTP_EMAIL_AUTH_PASSWORD_OPT}</password>
     		</auth>
 		</smtp>
         <passwordreset>
