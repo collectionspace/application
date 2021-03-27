@@ -1,0 +1,21 @@
+<record id="hit" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
+	<services-url>hits</services-url>
+	<services-tenant-singular>Hit</services-tenant-singular>
+	<services-tenant-plural>Hits</services-tenant-plural>
+	<web-url>hit</web-url>
+	<tab-url>hit-tab</tab-url>
+
+	<services-list-path>abstract-common-list/list-item</services-list-path>
+	<services-record-path>hits_common:http://collectionspace.org/services/hit,hits_common</services-record-path>
+	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+
+	<include src="domain-procedure-hit.xml" strip-root="yes" />
+
+	<section id="coreInformation">
+		<include src="core-fields.xml" strip-root="yes" />
+	</section>
+
+	<section id="hitInformation">
+		<field id="hitNumber" mini="number,list" />
+	</section>
+</record>

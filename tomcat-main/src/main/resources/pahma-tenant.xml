@@ -27,6 +27,7 @@
 			<include src="base-procedure-exhibition.xml" />
 			<include src="base-procedure-groups.xml,pahma-procedure-groups.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-intake.xml,pahma-procedure-intake.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-hit.xml" />
 			<include src="base-procedure-loanin.xml,pahma-procedure-loanin.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-loanout.xml,pahma-procedure-loanout.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-media.xml,pahma-procedure-media.xml" merge="xmlmerge.properties"/>
