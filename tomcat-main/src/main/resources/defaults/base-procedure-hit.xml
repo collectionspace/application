@@ -17,5 +17,14 @@
 
 	<section id="hitInformation">
 		<field id="hitNumber" mini="number,list" />
+		<field id="entryDate" datatype="date" />
+		
+		<repeat id="hitDepositorGroupList/hitDepositorGroup">
+			<field id="depositor" autocomplete="true" />
+			<field id="depositorContact" autocomplete="true" />
+			<field id="depositorContactType" autocomplete="true" ui-type="enum" />
+			<field id="depositorNote" />
+		</repeat>
+		
 	</section>
 </record>

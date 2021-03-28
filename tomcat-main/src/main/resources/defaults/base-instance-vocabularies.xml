@@ -1281,4 +1281,15 @@
 			<option id="uocsubcollection02">Asia</option>
 		</options>
 	</instance>
+		<instance id="vocab-depositorcontacttypes">
+		<web-url>depositorcontacttypes</web-url>
+		<title-ref>depositorcontacttypes</title-ref>
+		<title>Depositor Contact Types</title>
+		<options>
+			<option id="dangerous">Dangerous</option>
+			<option id="suitable">Suitable</option>
+			<option id="reasonable">Reasonable</option>
+			<option id="unsuitable">Unsuitable</option>
+		</options>
+	</instance>
 </instances>
