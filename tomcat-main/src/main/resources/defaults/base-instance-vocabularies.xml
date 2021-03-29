@@ -1281,7 +1281,7 @@
 			<option id="uocsubcollection02">Asia</option>
 		</options>
 	</instance>
-		<instance id="vocab-depositorcontacttypes">
+	<instance id="vocab-depositorcontacttypes">
 		<web-url>depositorcontacttypes</web-url>
 		<title-ref>depositorcontacttypes</title-ref>
 		<title>Depositor Contact Types</title>
@@ -1292,4 +1292,27 @@
 			<option id="unsuitable">Unsuitable</option>
 		</options>
 	</instance>
+	<instance id="vocab-internalapprovaltypes">
+		<web-url>internalapprovaltypes</web-url>
+		<title-ref>internalapprovaltypes</title-ref>
+		<title>Internal Approval Types</title>
+		<options>
+			<option id="internalapprovaltypes1">Internal Approval Type 1</option>
+			<option id="internalapprovaltypes2">Internal Approval Type 2</option>
+			<option id="internalapprovaltypes3">Internal Approval Type 3</option>
+			<option id="internalapprovaltypes4">Internal Approval Type 4</option>
+		</options>
+	</instance>
+		<instance id="vocab-externalapprovaltypes">
+		<web-url>externalapprovaltypes</web-url>
+		<title-ref>externalapprovaltypes</title-ref>
+		<title>External Approval Types</title>
+		<options>
+			<option id="externalapprovaltypes1">External Approval Type 1</option>
+			<option id="externalapprovaltypes2">External Approval Type 2</option>
+			<option id="externalapprovaltypes3">External Approval Type 3</option>
+			<option id="externalapprovaltypes4">External Approval Type 4</option>
+		</options>
+	</instance>
+	
 </instances>

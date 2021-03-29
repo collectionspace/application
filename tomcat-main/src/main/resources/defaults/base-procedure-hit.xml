@@ -18,13 +18,56 @@
 	<section id="hitInformation">
 		<field id="hitNumber" mini="number,list" />
 		<field id="entryDate" datatype="date" />
-		
+
 		<repeat id="hitDepositorGroupList/hitDepositorGroup">
 			<field id="depositor" autocomplete="true" />
 			<field id="depositorContact" autocomplete="true" />
 			<field id="depositorContactType" autocomplete="true" ui-type="enum" />
 			<field id="depositorNote" />
 		</repeat>
-		
+
+		<repeat id="entryMethods">
+			<field id="entryMethod" autocomplete="true" ui-type="enum" />
+		</repeat>
+
+		<field id="agreementRenewalDate" datatype="date" />
+		<field id="entryReason" autocomplete="true" ui-type="enum" />
+		<field id="returnDate" datatype="date" />
+		<field id="entryNote" />
+
+		<repeat id="internalApprovalGroupList/internalApprovalGroup">
+			<field id="internalApprovalGroup" autocomplete="true" />
+			<field id="internalApprovalIndividual" autocomplete="true" />
+			<field id="internalApprovalStatus" autocomplete="true" ui-type="enum" />
+			<field id="internalApprovalDate" datatype="date" />
+			<field id="internalApprovalNote" />
+		</repeat>
+
+		<repeat id="externalApprovalGroupList/externalApprovalGroup">
+			<field id="externalApprovalGroup" autocomplete="true" />
+			<field id="externalApprovalIndividual" autocomplete="true" />
+			<field id="externalApprovalStatus" autocomplete="true" ui-type="enum" />
+			<field id="externalApprovalDate" datatype="date" />
+			<field id="externalApprovalNote" />
+		</repeat>
+	</section>
+	
+	<section id="fieldCollectionInformation">
+		<field id="fieldCollectionDate" datatype="date" />
+		<repeat id="fieldCollectionMethods">
+			<field id="fieldCollectionMethod" autocomplete="true" ui-type="enum" />
+		</repeat>
+		<field id="fieldCollectionNote" />
+		<field id="fieldCollectionNumber" />
+		<field id="fieldCollectionPlace" />
+		<repeat id="fieldCollectionSources">
+			<field id="fieldCollectionSource" autocomplete="true" />
+		</repeat>
+		<repeat id="fieldCollectors">
+			<field id="fieldCollector" autocomplete="true" />
+		</repeat>
+		<repeat id="fieldCollectionEventNames">
+			<field id="fieldCollectionEventName" />
+		</repeat>
 	</section>
 </record>
