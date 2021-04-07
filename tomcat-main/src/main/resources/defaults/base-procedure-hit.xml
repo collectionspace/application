@@ -51,7 +51,7 @@
 			<field id="externalApprovalNote" />
 		</repeat>
 	</section>
-	
+
 	<section id="fieldCollectionInformation">
 		<field id="fieldCollectionDate" datatype="date" />
 		<repeat id="fieldCollectionMethods">
@@ -70,4 +70,27 @@
 			<field id="fieldCollectionEventName" />
 		</repeat>
 	</section>
+
+	<section id="cultureCareAndHandling">
+		<field id="handlingPreferences" />
+		<repeat id="handlingLimitationsGroupList/handlingLimitationsGroup">
+			<field id="handlingLimitationsType" autocomplete="true" ui-type="enum" />
+            <field id="handlingLimitationsLevel" autocomplete="true" ui-type="enum" />
+            <field id="handlingLimitationsDetail" />
+            <field id="handlingLimitationsRequestor" autocomplete="true" />
+            <field id="handlingLimitationsOnBehalfOf" autocomplete="true" />
+            <field id="handlingLimitationsDate" datatype="date" />            
+		</repeat>
+	</section>
+
+	<section id="correspondence">
+		<repeat id="correspondenceGroupList/correspondenceGroup">
+			<field id="correspondenceDate" datatype="date" />
+			<field id="correspondenceSender" autocomplete="true" />
+			<field id="correspondenceRecipient" autocomplete="true" />
+			<field id="correspondenceSummary" />
+			<field id="correspondenceReference" ui-type="enum" />
+		</repeat>
+	</section>
+ 
 </record>
