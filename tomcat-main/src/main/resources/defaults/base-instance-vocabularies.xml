@@ -1336,16 +1336,5 @@
 			<option id="handlinglimitationslevels4">Handling Limitation Level 4</option>
 		</options>
 	</instance>
-	<instance id="vocab-correspondencereferencetypes">
-		<web-url>correspondencereferencetypes</web-url>
-		<title-ref>correspondencereferencetypes</title-ref>
-		<title>Correspondence Reference Types</title>
-		<options>
-			<option id="correspondencereferencetypes1">Correspondence Reference 1</option>
-			<option id="correspondencereferencetypes2">Correspondence Reference 2</option>
-			<option id="correspondencereferencetypes3">Correspondence Reference 3</option>
-			<option id="correspondencereferencetypes4">Correspondence Reference 4</option>
-		</options>
-	</instance>
 	
 </instances>
