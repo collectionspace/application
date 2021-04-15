@@ -1292,26 +1292,28 @@
 			<option id="unsuitable">Unsuitable</option>
 		</options>
 	</instance>
-	<instance id="vocab-internalapprovaltypes">
-		<web-url>internalapprovaltypes</web-url>
-		<title-ref>internalapprovaltypes</title-ref>
-		<title>Internal Approval Types</title>
+	<instance id="vocab-hitapprovalgroups">
+		<web-url>hitapprovalgroups</web-url>
+		<title-ref>hitapprovalgroups</title-ref>
+		<title>Internal Approval Groups</title>
 		<options>
-			<option id="internalapprovaltypes1">Internal Approval Type 1</option>
-			<option id="internalapprovaltypes2">Internal Approval Type 2</option>
-			<option id="internalapprovaltypes3">Internal Approval Type 3</option>
-			<option id="internalapprovaltypes4">Internal Approval Type 4</option>
+			<option id="intboardoftrustees">board of trustees</option>
+			<option id="intcollectioncommittee">collection committee</option>
+			<option id="intexecutivecommittee">executive committee</option>
 		</options>
 	</instance>
-	<instance id="vocab-externalapprovaltypes">
-		<web-url>externalapprovaltypes</web-url>
-		<title-ref>externalapprovaltypes</title-ref>
-		<title>External Approval Types</title>
+	<instance id="vocab-hitapprovaltypes">
+		<web-url>hitapprovaltypes</web-url>
+		<title-ref>hitapprovaltypes</title-ref>
+		<title>Internal Approval Types</title>
 		<options>
-			<option id="externalapprovaltypes1">External Approval Type 1</option>
-			<option id="externalapprovaltypes2">External Approval Type 2</option>
-			<option id="externalapprovaltypes3">External Approval Type 3</option>
-			<option id="externalapprovaltypes4">External Approval Type 4</option>
+			<option id="hit_agreed">agreed</option>
+			<option id="hit_authorized">authorized</option>
+			<option id="hit_refused">refused</option>
+			<option id="hit_renewed">renewed</option>
+			<option id="hit_requested">requested</option>
+			<option id="hit_returned">returned</option>
+			<option id="hit_sent">sent</option>
 		</options>
 	</instance>
 	<instance id="vocab-handlinglimitationstypes">
@@ -1319,10 +1321,17 @@
 		<title-ref>handlinglimitationstypes</title-ref>
 		<title>Handling Limitation Types</title>
 		<options>
-			<option id="handlinglimitationstypes1">Handling Limitation Type 1</option>
-			<option id="handlinglimitationstypes2">Handling Limitation Type 2</option>
-			<option id="handlinglimitationstypes3">Handling Limitation Type 3</option>
-			<option id="handlinglimitationstypes4">Handling Limitation Type 4</option>
+			<option id="hl_conditionreporting">condition reporting</option>
+			<option id="hl_displayvisual">display/visual</option>
+			<option id="hl_handlinggender">handling:gender</option>
+			<option id="hl_handlingother">handling:other</option>
+			<option id="hl_lending">lending</option>
+			<option id="hl_publication">publication</option>
+			<option id="hl_photography">photography</option>
+			<option id="hl_researchaccess">research/access</option>
+			<option id="hl_storage">storage</option>
+			<option id="hl_treatment">treatment</option>
+			<option id="hl_unknown">unknown</option>
 		</options>
 	</instance>
 	<instance id="vocab-handlinglimitationslevels">
@@ -1330,10 +1339,10 @@
 		<title-ref>handlinglimitationslevels</title-ref>
 		<title>Handling Limitation Levels</title>
 		<options>
-			<option id="handlinglimitationslevels1">Handling Limitation Level 1</option>
-			<option id="handlinglimitationslevels2">Handling Limitation Level 2</option>
-			<option id="handlinglimitationslevels3">Handling Limitation Level 3</option>
-			<option id="handlinglimitationslevels4">Handling Limitation Level 4</option>
+			<option id="hl_preference">preference</option>
+			<option id="hl_recommendation">recommendation</option>
+			<option id="hl_restriction">restriction</option>
+			<option id="hl_unknown">unknown</option>
 		</options>
 	</instance>
 	
