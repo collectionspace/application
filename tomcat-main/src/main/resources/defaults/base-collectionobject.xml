@@ -3,6 +3,7 @@
 	<services-tenant-singular>CollectionObject</services-tenant-singular>
 	<services-list-path>abstract-common-list/list-item</services-list-path>
 	<services-record-path id="common">collectionobjects_common:http://collectionspace.org/services/collectionobject,collectionobjects_common</services-record-path>
+	<services-record-path id="annotation">collectionobjects_annotation:http://collectionspace.org/services/collectionobject/domain/annotation,collectionobjects_annotation</services-record-path>
 	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
 	<web-url>cataloging</web-url>
 	<tab-url>cataloging-tab</tab-url>
@@ -194,11 +195,11 @@
 				<field id="inscriptionDescriptionInterpretation" />
 			</repeat>
 		</section>
-		<repeat id="annotationGroupList/annotationGroup">
-			<field id="annotationType" autocomplete="true" ui-type="enum" />
-			<field id="annotationNote" />
-			<field id="annotationDate" datatype="date" />
-			<field id="annotationAuthor" autocomplete="true" />
+		<repeat id="annotationGroupList/annotationGroup" section="annotation">
+			<field id="annotationType" autocomplete="true" ui-type="enum" section="annotation" />
+			<field id="annotationNote" section="annotation" />
+			<field id="annotationDate" datatype="date" section="annotation" />
+			<field id="annotationAuthor" autocomplete="true" section="annotation" />
 		</repeat>
 	</section>
 	<section id="objectProductionInformation">
