@@ -65,6 +65,7 @@
 			<repeat id="fieldCollectionPlaces" >
 				<field id="fieldCollectionPlace" autocomplete="true" />
 			</repeat>
+			<field id="fieldCollectionPlaceVerbatim" />
 			<repeat id="fieldCollectionSources">
 				<field id="fieldCollectionSource" autocomplete="true" />
 			</repeat>
