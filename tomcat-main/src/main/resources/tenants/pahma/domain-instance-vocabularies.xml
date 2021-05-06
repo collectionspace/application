@@ -918,5 +918,45 @@
 						<option id="pahmaObjectStatuses32" from-static-id="ondeposit">on deposit</option>
 					</options>
 			</instance>
+			<instance id="vocab-pahmahitintapprovaltypes">
+				<web-url>pahmahitintapprovaltypes</web-url>
+				<title-ref>pahmahitintapprovaltypes</title-ref>
+				<title>Pahma Held In Trust Internal Approval Statuses</title>
+					<options>
+						<option id="pahmahitintapprovaltypes01">authorized</option>
+						<option id="pahmahitintapprovaltypes02">approved</option>
+						<option id="pahmahitintapprovaltypes03">cancelled</option>
+						<option id="pahmahitintapprovaltypes04">completed</option>
+						<option id="pahmahitintapprovaltypes05">objects returned</option>
+						<option id="pahmahitintapprovaltypes06">pending</option>
+						<option id="pahmahitintapprovaltypes07">received</option>
+						<option id="pahmahitintapprovaltypes08">refused</option>
+						<option id="pahmahitintapprovaltypes09">renewed</option>
+						<option id="pahmahitintapprovaltypes10">requested</option>
+						<option id="pahmahitintapprovaltypes11">rescheduled</option>
+						<option id="pahmahitintapprovaltypes12">sent</option>
+						<option id="pahmahitintapprovaltypes13">under review</option>
+					</options>
+			</instance>
+			<instance id="vocab-pahmahitextapprovaltypes">
+				<web-url>pahmahitextapprovaltypes</web-url>
+				<title-ref>pahmahitextapprovaltypes</title-ref>
+				<title>Pahma Held In Trust External Approval Statuses</title>
+					<options>
+						<option id="pahmahitextapprovaltypes01">authorized</option>
+						<option id="pahmahitextapprovaltypes02">approved</option>
+						<option id="pahmahitextapprovaltypes03">cancelled</option>
+						<option id="pahmahitextapprovaltypes04">completed</option>
+						<option id="pahmahitextapprovaltypes05">objects returned</option>
+						<option id="pahmahitextapprovaltypes06">pending</option>
+						<option id="pahmahitextapprovaltypes07">received</option>
+						<option id="pahmahitextapprovaltypes08">refused</option>
+						<option id="pahmahitextapprovaltypes09">renewed</option>
+						<option id="pahmahitextapprovaltypes10">requested</option>
+						<option id="pahmahitextapprovaltypes11">rescheduled</option>
+						<option id="pahmahitextapprovaltypes12">sent</option>
+						<option id="pahmahitextapprovaltypes13">under review</option>
+					</options>
+			</instance>
 	</instances>
 </root>
