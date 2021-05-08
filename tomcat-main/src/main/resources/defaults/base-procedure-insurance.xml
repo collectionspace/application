@@ -1,0 +1,41 @@
+<record id="insurance" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true" >
+    <services-url>insurances</services-url>
+    <services-tenant-plural>Insurances</services-tenant-plural>
+    <services-tenant-singular>Insurance</services-tenant-singular>
+    <services-list-path>abstract-common-list/list-item</services-list-path>
+    <services-record-path>insurances_common:http://collectionspace.org/services/insurance,insurances_common</services-record-path>
+    <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+
+    <include src="domain-procedure-insurance.xml" strip-root="yes" />
+
+    <section id="coreInformation">
+        <include src="core-fields.xml" strip-root="yes" />
+    </section>
+
+    <section id="insuranceInformation">
+        <field id="insuranceIndemnityReferenceNumber" mini="number,list"  />
+        <field id="insuranceIndemnityType" autocomplete="true" ui-type="enum" />
+        <field id="insurerIndemnifier" autocomplete="true" mini="summary,list" />
+        <field id="insuranceIndemnityPolicyNumber" />
+        <field id="insuranceIndemnityCurrency" autocomplete="true" ui-type="enum" />
+        <field id="insuranceIndemnityValue" datatype="float" />
+        <field id="minimumLiabilityCurrency" autocomplete="true" ui-type="enum" />
+        <field id="minimumLiabilityValue" datatype="float" />
+        <field id="insuranceIndemnityAuthorizer" autocomplete="true" />
+        <field id="insuranceIndemnityAuthorizationDate" datatype="date" />
+
+        <repeat id="insuranceIndemnityStatusGroupList/insuranceIndemnityStatusGroup">
+            <field id="insuranceIndemnityStatus" autocomplete="true" ui-type="enum" />
+            <field id="insuranceIndemnityStatusDate" datatype="date" />
+            <field id="insuranceIndemnityStatusNote" />
+        </repeat>
+        <field id="insuranceIndemnityNote" />
+
+        <repeat id="quoteProviderGroupList/quoteProviderGroup">
+            <field id="insuranceIndemnityQuoteProvider" autocomplete="true" />
+            <field id="insuranceIndemnityQuoteCurrency" autocomplete="true" ui-type="enum" />
+            <field id="insuranceIndemnityQuoteValue" datatype="float" />
+            <field id="insuranceIndemnityQuoteDate" datatype="date" />
+        </repeat>
+    </section>
+</record>

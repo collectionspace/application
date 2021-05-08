@@ -1331,4 +1331,26 @@
 			<option id="vegetation_type_map_project">Vegetation Type Map Project</option>
 		</options>
 	</instance>
+	<instance id="vocab-insurancetype">
+		<web-url>insurancetype</web-url>
+		<title-ref>insurancetype</title-ref>
+		<title>Insurance/Indemnity Type</title>
+		<options>
+			<option id="insurance">insurance</option>
+			<option id="indemnity">indemnity</option>
+			<option id="insuranceandindemnity">insurance and indemnity</option>
+		</options>
+	</instance>
+	<instance id="vocab-insurancestatus">
+		<web-url>insurancestatus</web-url>
+		<title-ref>insurancestatus</title-ref>
+		<title>Insurance/Indemnity Status</title>
+		<options>
+			<option id="request">request</option>
+			<option id="confirmation">confirmation</option>
+			<option id="begin">begin</option>
+			<option id="end">end</option>
+			<option id="renewal">renewal</option>
+		</options>
+	</instance>
 </instances>
