@@ -1302,38 +1302,6 @@
 			<option id="intexecutivecommittee">executive committee</option>
 		</options>
 	</instance>
-	<instance id="vocab-hitapprovaltypes">
-		<web-url>hitapprovaltypes</web-url>
-		<title-ref>hitapprovaltypes</title-ref>
-		<title>Internal Approval Types</title>
-		<options>
-			<option id="hit_agreed">agreed</option>
-			<option id="hit_authorized">authorized</option>
-			<option id="hit_refused">refused</option>
-			<option id="hit_renewed">renewed</option>
-			<option id="hit_requested">requested</option>
-			<option id="hit_returned">returned</option>
-			<option id="hit_sent">sent</option>
-		</options>
-	</instance>
-	<instance id="vocab-handlinglimitationstypes">
-		<web-url>handlinglimitationstypes</web-url>
-		<title-ref>handlinglimitationstypes</title-ref>
-		<title>Handling Limitation Types</title>
-		<options>
-			<option id="hl_conditionreporting">condition reporting</option>
-			<option id="hl_displayvisual">display/visual</option>
-			<option id="hl_handlinggender">handling:gender</option>
-			<option id="hl_handlingother">handling:other</option>
-			<option id="hl_lending">lending</option>
-			<option id="hl_publication">publication</option>
-			<option id="hl_photography">photography</option>
-			<option id="hl_researchaccess">research/access</option>
-			<option id="hl_storage">storage</option>
-			<option id="hl_treatment">treatment</option>
-			<option id="hl_unknown">unknown</option>
-		</options>
-	</instance>
 	<instance id="vocab-handlinglimitationslevels">
 		<web-url>handlinglimitationslevels</web-url>
 		<title-ref>handlinglimitationslevels</title-ref>
@@ -1345,5 +1313,4 @@
 			<option id="hl_unknown">unknown</option>
 		</options>
 	</instance>
-	
 </instances>

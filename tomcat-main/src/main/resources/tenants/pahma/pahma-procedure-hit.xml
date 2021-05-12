@@ -1,0 +1,19 @@
+<record id="hit" is-extension="true">
+	<services-record-path id="pahma">hits_pahma:http://collectionspace.org/services/hit/local/pahma,hits_pahma</services-record-path>
+        
+	<section id="hitInformation">
+    <repeat id="pahmaAgreementRenewalDates" section="pahma">
+			  <field id="pahmaAgreementRenewalDate" ui-search="repeatable" />
+		</repeat>
+
+    <repeat id="pahmaHitAgreementGroupList/pahmaHitAgreementGroup" section="pahma">
+      <field id="pahmaAgreementStatus" section="pahma" ui-search="repeatable" autocomplete="true" ui-type="enum" />
+      <field id="pahmaAgreementStatusDate" section="pahma" ui-search="repeatable" datatype="date" />
+      <field id="pahmaAgreementStatusNote" section="pahma" ui-search="repeatable" />
+    </repeat>
+  </section>
+</record>
+
+
+
+
