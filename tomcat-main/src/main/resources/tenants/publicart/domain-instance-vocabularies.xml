@@ -1,5 +1,6 @@
 <root>
 	<include src="extensions/commission-vocabularies.xml" strip-root="yes" />
+	<include src="extensions/checklist-vocabularies.xml" strip-root="yes" />
 	<instance id="vocab-placetypes">
 		<web-url>placetypes</web-url>
 		<title-ref>placetypes</title-ref>
