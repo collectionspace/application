@@ -1313,4 +1313,18 @@
 			<option id="hl_unknown">unknown</option>
 		</options>
 	</instance>
+	<instance id="vocab-agreementstatuses">
+		<web-url>agreementstatuses</web-url>
+		<title-ref>agreementstatuses</title-ref>
+		<title>Held In Trust Agreement Statuses</title>
+		<options>
+			<option id="agreement_agreed">agreed</option>
+			<option id="agreement_authorized">authorized</option>
+			<option id="agreement_cancelled">cancelled</option>
+			<option id="agreement_objreturned">objects returned</option>
+			<option id="agreement_refused">refused</option>
+			<option id="agreement_renewed">renewed</option>
+			<option id="agreement_requested">requested</option>
+		</options>
+	</instance>
 </instances>
