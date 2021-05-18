@@ -958,19 +958,5 @@
 			<option id="pahmahitextapprovaltypes13">under review</option>
 		</options>
 	</instance>
-	<instance id="vocab-pahmaagreementstatuses">
-		<web-url>pahmaagreementstatuses</web-url>
-		<title-ref>pahmaagreementstatuses</title-ref>
-		<title>Pahma Held In Trust Agreement Statuses</title>
-		<options>
-			<option id="pahmaagreementstatuses01">agreed</option>
-			<option id="pahmaagreementstatuses02">authorized</option>
-			<option id="pahmaagreementstatuses03">cancelled</option>
-			<option id="pahmaagreementstatuses04">objects returned</option>
-			<option id="pahmaagreementstatuses05">refused</option>
-			<option id="pahmaagreementstatuses06">renewed</option>
-			<option id="pahmaagreementstatuses07">requested</option>
-		</options>
-	</instance>
 </instances>
 
