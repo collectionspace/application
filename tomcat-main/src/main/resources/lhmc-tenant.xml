@@ -1,7 +1,7 @@
 <cspace-config tenantname="lhmc">
 	<tenantid>501</tenantid>
 	<version>11</version>
-    <include src="settings.xml,local-lhmc-settings.xml" required="false" merge="xmlmerge-settings.properties" strip-root="yes" />
+	<include src="settings.xml,local-lhmc-settings.xml" required="false" merge="xmlmerge-settings.properties" strip-root="yes" />
 
 	<spec>
 		<include src="base-relations.xml" />
@@ -26,6 +26,7 @@
 			<include src="base-procedure-movement.xml,lhmc-procedure-movement.xml" merge="xmlmerge.properties" />
 			<include src="base-procedure-objectexit.xml" />
 			<include src="base-procedure-conservation.xml" />
+			<include src="base-procedure-uoc.xml" />
 
 			<include src="base-authority-contact.xml" />
 			<!-- IMPORTANT: *-termList.xml files MUST precede their equivalent files. -->
@@ -66,10 +67,10 @@
 			<include src="base-other-termlistitem.xml" />
 			<include src="base-other-reporting.xml" />
 			<include src="base-other-reportingoutput.xml" />
-		    <include src="base-other-batch.xml" />
-		    <include src="base-other-batchoutput.xml" />
-		    <include src="base-other-invocationresults.xml" />
-		    <include src="base-other-searchall.xml" />
+			<include src="base-other-batch.xml" />
+			<include src="base-other-batchoutput.xml" />
+			<include src="base-other-invocationresults.xml" />
+			<include src="base-other-searchall.xml" />
 		</records>
 	</spec>
 </cspace-config>
