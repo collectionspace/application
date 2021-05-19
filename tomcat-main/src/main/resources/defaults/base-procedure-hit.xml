@@ -63,39 +63,6 @@
 
 	<section id="fieldCollectionInformation">
 		<repeat id="fieldCollectionGroupList/fieldCollectionGroup">
-
-			<repeat id="fieldCollectionDateGroupList/fieldCollectionDateGroup">
-				<group id="fieldCollectionDate" xxx-services-no-repeat="true"
-					ui-type="groupfield/structureddate" primarykey="dateDisplayDate"
-					ui-func="cspace.structuredDate">
-
-					<!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
-					<field id="dateDisplayDate"/>
-					<field id="dateAssociation"/>
-					<field id="dateEarliestSingleYear"/>
-					<field id="dateEarliestSingleMonth"/>
-					<field id="dateEarliestSingleDay"/>
-					<field id="dateEarliestSingleEra"/>
-					<field id="dateEarliestSingleCertainty"/>
-					<field id="dateEarliestSingleQualifier"/>
-					<field id="dateEarliestSingleQualifierValue"/>
-					<field id="dateEarliestSingleQualifierUnit"/>
-					<field id="dateLatestYear"/>
-					<field id="dateLatestMonth"/>
-					<field id="dateLatestDay"/>
-					<field id="dateLatestEra"/>
-					<field id="dateLatestCertainty"/>
-					<field id="dateLatestQualifier"/>
-					<field id="dateLatestQualifierValue"/>
-					<field id="dateLatestQualifierUnit"/>
-					<field id="datePeriod"/>
-					<field id="dateNote"/>
-					<field id="dateEarliestScalarValue"/>
-					<field id="dateLatestScalarValue"/>
-					<field id="scalarValuesComputed"/>
-				</group>
-			</repeat>
-		
 			<repeat id="fieldCollectionDates" >
 					<field id="fieldCollectionDate" datatype="date" />
 			</repeat>
