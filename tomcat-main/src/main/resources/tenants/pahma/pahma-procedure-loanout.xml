@@ -26,7 +26,7 @@
 		</repeat>
 		
 		<!-- Local fields -->
-		<field id="loanApprovedForPublic" section="pahma" datatype="boolean">
+		<field id="loanNotApprovedForPublic" section="pahma" datatype="boolean"></field>
 
 		<!-- FIXME: Add 'ui-search="range"' or equivalent to this field when range search on structured date -->
 		<!-- start and end scalar values is working -->
