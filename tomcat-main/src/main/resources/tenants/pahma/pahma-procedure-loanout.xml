@@ -8,6 +8,7 @@
 				<option id="pahma-loanout" sample="LO 2012.1.1">Loan Out</option>
 			</options>
 		</field>
+		
 		<!-- Change to be authority-controlled -->
 		<field id="loanPurpose" autocomplete="vocab-loanpurpose" ui-type="enum">
 			<enum>
@@ -25,6 +26,7 @@
 		</repeat>
 		
 		<!-- Local fields -->
+		<field id="loanApprovedForPublic" section="pahma" datatype="boolean">
 
 		<!-- FIXME: Add 'ui-search="range"' or equivalent to this field when range search on structured date -->
 		<!-- start and end scalar values is working -->
