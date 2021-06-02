@@ -45,7 +45,7 @@
 		<field id="entryNote" />
 
 		<repeat id="internalApprovalGroupList/internalApprovalGroup">
-			<field id="internalApprovalGroup" autocomplete="true" />
+			<field id="internalApprovalGroupName" autocomplete="true" />
 			<field id="internalApprovalIndividual" autocomplete="true" />
 			<field id="internalApprovalStatus" autocomplete="true" ui-type="enum" />
 			<field id="internalApprovalDate" datatype="date" />
@@ -53,37 +53,11 @@
 		</repeat>
 
 		<repeat id="externalApprovalGroupList/externalApprovalGroup">
-			<field id="externalApprovalGroup" autocomplete="true" />
+			<field id="externalApprovalGroupName" autocomplete="true" />
 			<field id="externalApprovalIndividual" autocomplete="true" />
 			<field id="externalApprovalStatus" autocomplete="true" ui-type="enum" />
 			<field id="externalApprovalDate" datatype="date" />
 			<field id="externalApprovalNote" />
-		</repeat>
-	</section>
-
-	<section id="fieldCollectionInformation">
-		<repeat id="fieldCollectionGroupList/fieldCollectionGroup">
-			<repeat id="fieldCollectionDates" >
-					<field id="fieldCollectionDate" datatype="date" />
-			</repeat>
-			<repeat id="fieldCollectionMethods">
-				<field id="fieldCollectionMethod" autocomplete="true" ui-type="enum" />
-			</repeat>
-			<field id="fieldCollectionNote" />
-			<field id="fieldCollectionNumber" />
-			<repeat id="fieldCollectionPlaces" >
-				<field id="fieldCollectionPlace" autocomplete="true" />
-			</repeat>
-			<field id="fieldCollectionPlaceVerbatim" />
-			<repeat id="fieldCollectionSources">
-				<field id="fieldCollectionSource" autocomplete="true" />
-			</repeat>
-			<repeat id="fieldCollectors">
-				<field id="fieldCollector" autocomplete="true" />
-			</repeat>
-			<repeat id="fieldCollectionEventNames">
-				<field id="fieldCollectionEventName" />
-			</repeat>
 		</repeat>
 	</section>
 
