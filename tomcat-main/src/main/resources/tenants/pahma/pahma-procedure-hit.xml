@@ -2,7 +2,7 @@
 	<services-record-path id="pahma">hits_pahma:http://collectionspace.org/services/hit/local/pahma,hits_pahma</services-record-path>
 
 	<section id="hitInformation">
-		<field id="angreementDate" section="pahma" datatype="date">
+		<field id="agreementDate" section="pahma" datatype="date">
 		</field>
 	</section>
 </record>
