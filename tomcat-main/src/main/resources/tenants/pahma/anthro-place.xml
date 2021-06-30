@@ -1,0 +1,24 @@
+<record id="place" is-extension="true">
+	<services-record-path id="anthro">places_anthro:http://collectionspace.org/services/place/domain/anthro,places_anthro</services-record-path>
+
+	<section id="assertions">
+    <repeat id="assertionGroupList/assertionGroup" section="anthro" >
+      <field id="assertionName" section="anthro" autocomplete="vocab-pahmaObjectStatuses" ui-type="enum"/>
+      <field id="assertionDescription" section="anthro" />
+
+      <repeat id="assertionSourceGroupList/assertionSourceGroup" section="anthro">
+        <field id="assertionSourceBy" section="anthro" />
+        <field id="assertionSourceDate" section="anthro" />
+        <field id="assertionSourceNote" ection="anthro" />
+      </repeat>
+
+      <field id="assertionRelatedRecords" section="anthro" />
+
+      <repeat id="assertionReferenceGroupList/assertionReferenceGroup" section="anthro">
+        <field id="assertionReference" section="anthro" />
+        <field id="assertionReferenceNote" section="anthro" />
+      </repeat>
+    </repeat>
+	</section>
+</record>
+
