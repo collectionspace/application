@@ -99,4 +99,23 @@
 			<option id="adult_76_100">adult 76-100%</option>
 		</options>
 	</instance>
+	
+	<instance id="vocab-anthroassertionnames">
+		<web-url>anthroassertionnames</web-url>
+		<title-ref>anthroassertionnames</title-ref>
+		<title>Assertion Names</title>
+		<options>
+			<option id="anthroassertionnames01">Geographic/territorial evidence</option>
+			<option id="anthroassertionnames02">Kinship evidence</option>
+			<option id="anthroassertionnames03">Biological evidence</option>
+			<option id="anthroassertionnames04">Archaeological evidence</option>
+			<option id="anthroassertionnames05">Anthropological evidence</option>
+			<option id="anthroassertionnames06">Linguistic evidence</option>
+			<option id="anthroassertionnames07">Folklore evidence</option>
+			<option id="anthroassertionnames08">Oral tradition</option>
+			<option id="anthroassertionnames09">Historical evidence</option>
+			<option id="anthroassertionnames10">Other relevant information or expert opinion</option>
+			<option id="anthroassertionnames11">Consultation summary</option>
+		</options>
+	</instance>
 </root>
