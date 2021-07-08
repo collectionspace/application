@@ -20,5 +20,39 @@
       </repeat>
     </repeat>
 	</section>
+
+  <section id="background">
+    <repeat id="basicInfoList" section="anthro">
+      <field id="basicInfo" section="anthro" />
+    </repeat>
+
+    <repeat id="nagpraHistoryList" section="anthro">
+      <field id="nagpraHistory" section="anthro" />
+    </repeat>
+
+    <repeat id="backgroundSummaryList" section="anthro">
+      <field id="backgroundSummary" section="anthro" />
+    </repeat>
+
+    <repeat id="landOwnershipInfoList" section="anthro">
+      <field id="landOwnershipInfo" section="anthro" />
+    </repeat>
+  </section>
+
+  <section id="consultedDocs">
+    <repeat id="museumRecordsList" section="anthro">
+      <field id="museumRecords" section="anthro" />
+    </repeat>
+
+    <repeat id="manuscriptGroupList/manuscriptGroup" section="anthro">
+      <field id="manuscriptReferences" />
+      <field id="manuscriptNote" />
+    </repeat>
+
+    <repeat id="reportRefGroupList/reportRefGroup" section="anthro">
+      <field id="reportReferences" />
+      <field id="reportNote" />
+    </repeat>
+  </section>
 </record>
 
