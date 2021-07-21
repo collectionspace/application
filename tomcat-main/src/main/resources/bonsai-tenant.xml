@@ -20,14 +20,17 @@
       <include src="base-procedure-conditioncheck.xml" />
       <include src="base-procedure-exhibition.xml" />
       <include src="base-procedure-groups.xml" />
+      <include src="base-procedure-insurance.xml" />
       <include src="base-procedure-intake.xml" />
       <include src="base-procedure-loanin.xml" />
       <include src="base-procedure-loanout.xml" />
       <include src="base-procedure-media.xml" />
+      <include src="base-procedure-transport.xml" />
       <include src="base-procedure-valuationcontrol.xml" />
       <include src="base-procedure-movement.xml" />
       <include src="base-procedure-objectexit.xml,bonsai-objectexit.xml" merge="xmlmerge.properties"/>
       <include src="base-procedure-conservation.xml,bonsai-conservation.xml,extensions/livingplant-procedure-conservation.xml" merge="xmlmerge.properties" />
+      <include src="base-procedure-uoc.xml" />
 
       <include src="base-authority-contact.xml" />
       <!-- IMPORTANT: *-termList.xml files MUST precede their equivalent files. -->
