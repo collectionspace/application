@@ -89,6 +89,11 @@
 			<field id="featuredApplicationNote" />
 		</repeat>
 
+		<repeat id="featuredCollectionGroupList/featuredCollectionGroup">
+			<field id="featuredCollection" autocomplete="true" />
+			<field id="featuredCollectionNote" />
+		</repeat>
+
 		<repeat id="materialCitationGroupList/materialCitationGroup">
 			<field id="materialCitationSource" autocomplete="true" />
 			<field id="materialCitationSourceDetail" />
