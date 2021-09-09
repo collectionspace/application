@@ -7,15 +7,15 @@
       <field id="assertionDescription" section="anthro" />
 
       <repeat id="assertionSourceGroupList/assertionSourceGroup" section="anthro">
-        <field id="assertionSourceBy" section="anthro" />
+        <field id="assertionSourceBy" autocomplete="true" section="anthro" />
         <field id="assertionSourceDate" section="anthro" />
-        <field id="assertionSourceNote" ection="anthro" />
+        <field id="assertionSourceNote" section="anthro" />
       </repeat>
 
       <field id="assertionRelatedRecords" section="anthro" />
 
       <repeat id="assertionReferenceGroupList/assertionReferenceGroup" section="anthro">
-        <field id="assertionReference" section="anthro" />
+        <field id="assertionReference" autocomplete="true" section="anthro" />
         <field id="assertionReferenceNote" section="anthro" />
       </repeat>
     </repeat>
@@ -45,13 +45,13 @@
     </repeat>
 
     <repeat id="manuscriptGroupList/manuscriptGroup" section="anthro">
-      <field id="manuscriptReferences" />
-      <field id="manuscriptNote" />
+      <field id="manuscriptReferences" autocomplete="true" section="anthro" />
+      <field id="manuscriptNote" section="anthro" />
     </repeat>
 
     <repeat id="reportRefGroupList/reportRefGroup" section="anthro">
-      <field id="reportReferences" />
-      <field id="reportNote" />
+      <field id="reportReferences" autocomplete="true" section="anthro" />
+      <field id="reportNote" section="anthro" />
     </repeat>
   </section>
 </record>
