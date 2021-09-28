@@ -20,7 +20,7 @@
 		<field id="entryDate" datatype="date" />
 
 		<repeat id="hitDepositorGroupList/hitDepositorGroup">
-			<field id="depositor" autocomplete="true" />
+			<field id="depositor" mini="summary,list" autocomplete="true" />
 			<field id="depositorContact" autocomplete="true" />
 			<field id="depositorContactType" autocomplete="true" ui-type="enum" />
 			<field id="depositorNote" />
