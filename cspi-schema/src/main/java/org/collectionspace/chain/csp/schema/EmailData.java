@@ -1,5 +1,5 @@
 /* Copyright 2010 University of Cambridge
- * Licensed under the Educational Community License (ECL), Version 2.0. You may not use this file except in 
+ * Licensed under the Educational Community License (ECL), Version 2.0. You may not use this file except in
  * compliance with this License.
  *
  * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
@@ -11,19 +11,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * 
+ *
  * @author caret
  * all email specific data from the cspace-config.xml file that is parsed when the server starts up
  * will hold static data e.g. content of emails, from addresses
- * 
+ *
  */
 public class EmailData {
 
 	String baseurl,fromaddress,toaddress,loginurl ;
-	String smtphost,smtpport,smtppass,smtpuser;
+	String smtphost,smtpport,smtppass,smtpuser,smtpsslprotocols;
 	Boolean smtpdebug,smtpauth;
 	String pswdmsg, pswdsubj, tokenExpirationDays, tokenExpirationSeconds;
-	
+
 /* 	<email>
 		<baseurl>hendecasyllabic.local:8180</baseurl>
 		<from>csm22@caret.cam.ac.uk</from>
@@ -42,10 +42,10 @@ public class EmailData {
 			<subject>CollectionSpace Password reset request</subject>
 			<message>A password reset has been requested from this email. If you wish to reset your password please click on this link {{link}}.</message>
 		</passwordreset>
-	</email> 
+	</email>
 
 */
-	
+
 	public EmailData(Spec spec, ReadOnlySection section) {
 		baseurl=(String)section.getValue("/baseurl");
 		fromaddress=(String)section.getValue("/from");
@@ -54,6 +54,7 @@ public class EmailData {
 		smtpport = (String)section.getValue("/smtp/port");
 		smtpdebug = Util.getBooleanOrDefault(section,"/smtp/debug",false);
 		smtpauth = Util.getBooleanOrDefault(section,"/smtp/auth/@enabled",false);
+		smtpsslprotocols = Util.getStringOrDefault(section,"/smtp/auth/@protocols", "TLSv1.2");
 		smtppass = (String)section.getValue("/smtp/auth/password");
 		smtpuser = (String)section.getValue("/smtp/auth/username");
 		pswdmsg = (String)section.getValue("/passwordreset/message");
@@ -62,7 +63,7 @@ public class EmailData {
 		tokenExpirationDays = Util.getStringOrDefault(section, "/passwordreset/token/daysvalid", "7");
 		tokenExpirationSeconds = Util.getStringOrDefault(section, "/passwordreset/token/tokenExpirationSeconds", "301");
 	}
-	
+
 
 	public String getLoginUrl() {return loginurl; }
 	public String getBaseURL() { return baseurl; }
@@ -77,11 +78,12 @@ public class EmailData {
 	public String getPasswordResetSubject() { return pswdsubj; }
 	public Integer getTokenExpirationDays() { return Integer.parseInt(tokenExpirationDays); }
 	public Integer getTokenExpirationSeconds() { return Integer.parseInt(tokenExpirationSeconds); }
-	
+
 	public Boolean doSMTPAuth() { return smtpauth; }
 	public String getSMTPAuthPassword() { if(smtpauth){ return smtppass;} else {return null;} }
 	public String getSMTPAuthUsername() { if(smtpauth){ return smtpuser;} else {return null;} }
-	
+	public String getSMTPSSLProtocols() { if(smtpauth){ return smtpsslprotocols;} else {return null;} }
+
 	public EmailData getEmailData() { return this; }
 
 	void dumpJson(JSONObject out) throws JSONException {
