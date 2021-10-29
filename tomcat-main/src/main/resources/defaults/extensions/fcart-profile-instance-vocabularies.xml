@@ -324,7 +324,6 @@
 			<option id="publisher">Publisher</option>
 		</options>
 	</instance>
-
 	<instance id="vocab-citationtermtype">
 		<web-url>citationtermtype</web-url>
 		<title-ref>citationtermtype</title-ref>
@@ -734,6 +733,62 @@
 			<option id="uocsubcollection00">The Americas</option>
 			<option id="uocsubcollection01">Europe</option>
 			<option id="uocsubcollection02">Asia</option>
+		</options>
+	</instance>
+	<instance id="vocab-transportcosttype">
+		<web-url>transportcosttype</web-url>
+		<title-ref>transportcosttype</title-ref>
+		<title>Transport Cost Type</title>
+		<options>
+			<option id="incoming">incoming</option>
+			<option id="outgoing">outgoing</option>
+			<option id="return">return</option>
+		</options>
+	</instance>
+	<instance id="vocab-transportresponsibleparty">
+		<web-url>transportresponsibleparty</web-url>
+		<title-ref>transportresponsibleparty</title-ref>
+		<title>Transport Cost Responsbile Party</title>
+		<options>
+			<option id="borrower">borrower</option>
+			<option id="lender">lender</option>
+			<option id="thirdparty">third party</option>
+		</options>
+	</instance>
+	<instance id="vocab-transportadditionalcosttype">
+		<web-url>transportadditionalcosttype</web-url>
+		<title-ref>transportadditionalcosttype</title-ref>
+		<title>Transport Additional Cost Type</title>
+		<options>
+			<option id="crating">crating</option>
+			<option id="localmovement">local movement</option>
+			<option id="recipientcustoms">recipient customs</option>
+			<option id="recipientshipping">recipient shipping</option>
+			<option id="sendercustoms">sender customs</option>
+			<option id="sendershipping">sender shipping</option>
+			<option id="storage">storage</option>
+		</options>
+	</instance>
+	<instance id="vocab-insurancetype">
+		<web-url>insurancetype</web-url>
+		<title-ref>insurancetype</title-ref>
+		<title>Insurance/Indemnity Type</title>
+		<options>
+			<option id="insurance">insurance</option>
+			<option id="indemnity">indemnity</option>
+			<option id="insuranceandindemnity">insurance and indemnity</option>
+		</options>
+	</instance>
+	<instance id="vocab-insurancestatus">
+		<web-url>insurancestatus</web-url>
+		<title-ref>insurancestatus</title-ref>
+		<title>Insurance/Indemnity Status</title>
+		<options>
+			<option id="request">request</option>
+			<option id="confirmation">confirmation</option>
+			<option id="begin">begin</option>
+			<option id="end">end</option>
+			<option id="renewal">renewal</option>
 		</options>
 	</instance>
 </instances>
