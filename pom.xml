@@ -9,7 +9,7 @@
 	<name>Root</name>
 
 	<properties>
-		<revision>6.1.2</revision>
+		<revision>6.1.3</revision>
 		<cspace.services.version>${revision}</cspace.services.version>
 		<temp.war.location>${basedir}/tmp</temp.war.location>
 		<cspace.tool.csmake>csmake</cspace.tool.csmake>
