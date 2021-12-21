@@ -87,6 +87,7 @@
                 <field id="valueQualifier"></field>
                 <field id="dimensionNote"></field>
             </repeat>
+            <field id="measuredPartNote" />
         </repeat>
     </section>
 </record>

@@ -67,6 +67,7 @@
 					<!-- TODO: Figure out how to delete the options tag here, so this works. Currently deleting it in the base file. -->
 				</field>
 			</repeat>
+			<field id="measuredPartNote"></field>
 		</repeat>
 	</section>
 </record>
