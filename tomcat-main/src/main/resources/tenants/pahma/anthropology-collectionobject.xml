@@ -5,6 +5,12 @@
 		<field id="homeLocation" autocomplete="location-location" section="anthropology" ui-search="repeatable"/>
 		<field id="homeCrate" autocomplete="location-crate" section="anthropology" ui-search="repeatable"/>
 		<field id="computedCrate" ui-type="valueDeURNed" services-readonly="true" authref-in-services="true" section="anthropology"/>
+
+		<repeat id="archeologicalProvenienceList" section="anthropology">
+			<field id="archeologicalProvenience" section="anthropology">
+			</field>
+		</repeat>
+
 	</section>
 
 	<section id="descriptionInformation">
