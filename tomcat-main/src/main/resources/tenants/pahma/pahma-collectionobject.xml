@@ -254,48 +254,8 @@
 			</options>
 		</field>
 
-		<field id="pahmaTmsLegacyDepartment" section="pahma" ui-search="repeatable">
-			<options>
-				<option id="" default="yes">(none selected)</option>
-				<option id="Audio recordings">Audio recordings</option>
-				<option id="Casts and molds">Casts and molds</option>
-				<option id="Cat.  1: California (archaeology and ethnology)">Cat.  1: California (archaeology and ethnology)</option>
-				<option id="Cat.  2 - North America (except Mexico and Central America)">Cat.  2 - North America (except Mexico and Central America)</option>
-				<option id="Cat.  3 - Mexico, Central America, and Caribbean Area">Cat.	 3 - Mexico, Central America, and Caribbean Area</option>
-				<option id="Cat.  4 - South America (Uhle Collection)">Cat.	 4 - South America (Uhle Collection)</option>
-				<option id="Cat.  5 - Africa (except the Hearst Reisner Egyptian Collection)">Cat.	5 - Africa (except the Hearst Reisner Egyptian Collection)</option>
-				<option id="Cat.  6 - Ancient Egypt (the Hearst Reisner Egyptian Collection)">Cat.	6 - Ancient Egypt (the Hearst Reisner Egyptian Collection)</option>
-				<option id="Cat.  7 - Europe (incl. Russia west of Urals, north of Caucasus)">Cat.	7 - Europe (incl. Russia west of Urals, north of Caucasus)</option>
-				<option id="Cat.  8 - Classical Mediterranean regions">Cat.	 8 - Classical Mediterranean regions</option>
-				<option id="Cat.  9 - Asia (incl. Russia east of Urals)">Cat.  9 - Asia (incl. Russia east of Urals)</option>
-				<option id="Cat. 10 - Philippine Islands">Cat. 10 - Philippine Islands</option>
-				<option id="Cat. 11 - Oceania (incl. Australia)">Cat. 11 - Oceania (incl. Australia)</option>
-				<option id="Cat. 13 - Photographic prints (without negatives)">Cat. 13 - Photographic prints (without negatives)</option>
-				<option id="Cat. 15 - Photographic negatives">Cat. 15 - Photographic negatives</option>
-				<option id="Cat. 16 - South America (except Uhle Collection)">Cat. 16 - South America (except Uhle Collection)</option>
-				<option id="Cat. 17 - Drawings and Paintings">Cat. 17 - Drawings and Paintings</option>
-				<option id="Cat. 18 - Malaysia (incl. Indonesia, excl. Philippine Islands)">Cat. 18 - Malaysia (incl. Indonesia, excl. Philippine Islands)</option>
-				<option id="Cat. 22 - Rubbings of Greek &amp; Latin Inscriptions">Cat. 22 - Rubbings of Greek &amp; Latin Inscriptions</option>
-				<option id="Cat. 23 - No provenience (most of catalog deleted)">Cat. 23 - No provenience (most of catalog deleted)</option>
-				<option id="Cat. 25 - Kodachrome color transparencies">Cat. 25 - Kodachrome color transparencies</option>
-				<option id="Cat. 26 - Motion picture film">Cat. 26 - Motion picture film</option>
-				<option id="Cat. 28 - unknown (retired catalog)">Cat. 28 - unknown (retired catalog)</option>
-				<option id="Cat. B - Barr collection">Cat. B - Barr collection</option>
-				<option id="Cat. Bascom">Cat. Bascom</option>
-				<option id="Cat. E">Cat. E</option>
-				<option id="Cat. K - Kelly collection">Cat. K - Kelly collection</option>
-				<option id="Cat. L - Lillard Collection">Cat. L - Lillard Collection</option>
-				<option id="Cat. NO">Cat. NO</option>
-				<option id="Cat. TB">Cat. TB</option>
-				<option id="Faunal Remains">Faunal Remains</option>
-				<option id="Human Remains">Human Remains</option>
-				<option id="Loans In">Loans In</option>
-				<option id="Maps">Maps</option>
-				<option id="Mixed faunal and human remains">Mixed faunal and human remains</option>
-				<option id="Mounts">Mounts</option>
-				<option id="NAGPRA-associated Funerary Objects">NAGPRA-associated Funerary Objects</option>
-				<option id="Registration">Registration</option>
-			</options>
+		<field id="pahmaTmsLegacyDepartment" section="pahma" autocomplete="vocab-pahmaTMSLegacyDepartments" ui-search="repeatable" ui-type="enum">
+		<!-- Converted to dynamic -->
 		</field>
 
 		<repeat id="pahmaCollectionList" section="pahma">
