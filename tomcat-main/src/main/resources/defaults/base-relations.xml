@@ -38,8 +38,8 @@
 		<displayName>has broader term</displayName>
 		<directional>true</directional>
 		<type>hierarchical</type>
-		<sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media,exhibitions,conditionchecks,conservation,valuationcontrols,claims</sourceTypes>
-		<destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media,exhibitions,conditionchecks,conservation,valuationcontrols,claims</destinationTypes>
+		<sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media,exhibitions,conditionchecks,conservation,valuationcontrols,claims,hits</sourceTypes>
+		<destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media,exhibitions,conditionchecks,conservation,valuationcontrols,claims,hits</destinationTypes>
 	</relation>
 	<relation id="affects">
 		<displayName>affects</displayName>
@@ -49,7 +49,7 @@
 		as the types against which it checks, while the hierarchy code
 		uses the record id. Ugh.
 		-->
-		<sourceTypes>collectionobjects,intakes,acquisitions,groups,loansin,loansout,movements,objectexit,media,exhibitions,conditionchecks,conservation,valuationcontrols,claims</sourceTypes>
-		<destinationTypes>collectionobjects,intakes,acquisitions,groups,loansin,loansout,movements,objectexit,media,exhibitions,conditionchecks,conservation,valuationcontrols,claims</destinationTypes>
+		<sourceTypes>collectionobjects,intakes,acquisitions,groups,loansin,loansout,movements,objectexit,media,exhibitions,conditionchecks,conservation,valuationcontrols,claims,hits</sourceTypes>
+		<destinationTypes>collectionobjects,intakes,acquisitions,groups,loansin,loansout,movements,objectexit,media,exhibitions,conditionchecks,conservation,valuationcontrols,claims,hits</destinationTypes>
 	</relation>
 </relationships>
