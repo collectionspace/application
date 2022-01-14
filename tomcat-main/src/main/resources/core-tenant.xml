@@ -15,7 +15,6 @@
 			<include src="base-authority.xml" />
 
 			<include src="base-procedure-acquisition.xml" />
-			<include src="base-procedure-audit.xml" />
 			<include src="base-procedure-blobs.xml" />
 			<include src="base-procedure-conditioncheck.xml" />
 			<include src="base-procedure-osteology.xml"/>
