@@ -983,15 +983,15 @@
 		<options>
 			<option id="pahmaTMSLegacyDepartment01">Audio recordings</option>
 			<option id="pahmaTMSLegacyDepartment02">Casts and molds</option>
-			<option id="pahmaTMSLegacyDepartment03">Cat.  1: California (archaeology and ethnology)</option>
-			<option id="pahmaTMSLegacyDepartment04">Cat.  2 - North America (except Mexico and Central America)</option>
-			<option id="pahmaTMSLegacyDepartment05" from-static-id="Cat.  3 - Mexico, Central America, and Caribbean Area">Cat.	 3 - Mexico, Central America, and Caribbean Area</option>
-			<option id="pahmaTMSLegacyDepartment06" from-static-id="Cat.  4 - South America (Uhle Collection)">Cat.	 4 - South America (Uhle Collection)</option>
-			<option id="pahmaTMSLegacyDepartment07" from-static-id="Cat.  5 - Africa (except the Hearst Reisner Egyptian Collection)">Cat.	5 - Africa (except the Hearst Reisner Egyptian Collection)</option>
-			<option id="pahmaTMSLegacyDepartment08" from-static-id="Cat.  6 - Ancient Egypt (the Hearst Reisner Egyptian Collection)">Cat.	6 - Ancient Egypt (the Hearst Reisner Egyptian Collection)</option>
-			<option id="pahmaTMSLegacyDepartment09" from-static-id="Cat.  7 - Europe (incl. Russia west of Urals, north of Caucasus)">Cat.	7 - Europe (incl. Russia west of Urals, north of Caucasus)</option>
-			<option id="pahmaTMSLegacyDepartment12" from-static-id="Cat.  8 - Classical Mediterranean regions">Cat.	 8 - Classical Mediterranean regions</option>
-			<option id="pahmaTMSLegacyDepartment13">Cat.  9 - Asia (incl. Russia east of Urals)</option>
+			<option id="pahmaTMSLegacyDepartment03">Cat. 1 - California (archaeology and ethnology)</option>
+			<option id="pahmaTMSLegacyDepartment04">Cat. 2 - North America (except Mexico and Central America)</option>
+			<option id="pahmaTMSLegacyDepartment05" from-static-id="Cat.  3 - Mexico, Central America, and Caribbean Area">Cat. 3 - Mexico, Central America, and Caribbean Area</option>
+			<option id="pahmaTMSLegacyDepartment06" from-static-id="Cat.  4 - South America (Uhle Collection)">Cat. 4 - South America (Uhle Collection)</option>
+			<option id="pahmaTMSLegacyDepartment07" from-static-id="Cat.  5 - Africa (except the Hearst Reisner Egyptian Collection)">Cat. 5 - Africa (except the Hearst Reisner Egyptian Collection)</option>
+			<option id="pahmaTMSLegacyDepartment08" from-static-id="Cat.  6 - Ancient Egypt (the Hearst Reisner Egyptian Collection)">Cat. 6 - Ancient Egypt (the Hearst Reisner Egyptian Collection)</option>
+			<option id="pahmaTMSLegacyDepartment09" from-static-id="Cat.  7 - Europe (incl. Russia west of Urals, north of Caucasus)">Cat. 7 - Europe (incl. Russia west of Urals, north of Caucasus)</option>
+			<option id="pahmaTMSLegacyDepartment12" from-static-id="Cat.  8 - Classical Mediterranean regions">Cat. 8 - Classical Mediterranean regions</option>
+			<option id="pahmaTMSLegacyDepartment13">Cat. 9 - Asia (incl. Russia east of Urals)</option>
 			<option id="pahmaTMSLegacyDepartment14">Cat. 10 - Philippine Islands</option>
 			<option id="pahmaTMSLegacyDepartment15">Cat. 11 - Oceania (incl. Australia)</option>
 			<option id="pahmaTMSLegacyDepartment16">Cat. 13 - Photographic prints (without negatives)</option>
