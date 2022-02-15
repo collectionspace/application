@@ -981,44 +981,32 @@
 		<title-ref>pahmaTmsLegacyDepartments</title-ref>
 		<title>Legacy Departments</title>
 		<options>
-			<option id="pahmaTMSLegacyDepartment01">Audio recordings</option>
-			<option id="pahmaTMSLegacyDepartment02">Casts and molds</option>
-			<option id="pahmaTMSLegacyDepartment03">Cat. 1 - California (archaeology and ethnology)</option>
-			<option id="pahmaTMSLegacyDepartment04">Cat. 2 - North America (except Mexico and Central America)</option>
-			<option id="pahmaTMSLegacyDepartment05" from-static-id="Cat.  3 - Mexico, Central America, and Caribbean Area">Cat. 3 - Mexico, Central America, and Caribbean Area</option>
-			<option id="pahmaTMSLegacyDepartment06" from-static-id="Cat.  4 - South America (Uhle Collection)">Cat. 4 - South America (Uhle Collection)</option>
-			<option id="pahmaTMSLegacyDepartment07" from-static-id="Cat.  5 - Africa (except the Hearst Reisner Egyptian Collection)">Cat. 5 - Africa (except the Hearst Reisner Egyptian Collection)</option>
-			<option id="pahmaTMSLegacyDepartment08" from-static-id="Cat.  6 - Ancient Egypt (the Hearst Reisner Egyptian Collection)">Cat. 6 - Ancient Egypt (the Hearst Reisner Egyptian Collection)</option>
-			<option id="pahmaTMSLegacyDepartment09" from-static-id="Cat.  7 - Europe (incl. Russia west of Urals, north of Caucasus)">Cat. 7 - Europe (incl. Russia west of Urals, north of Caucasus)</option>
-			<option id="pahmaTMSLegacyDepartment12" from-static-id="Cat.  8 - Classical Mediterranean regions">Cat. 8 - Classical Mediterranean regions</option>
-			<option id="pahmaTMSLegacyDepartment13">Cat. 9 - Asia (incl. Russia east of Urals)</option>
-			<option id="pahmaTMSLegacyDepartment14">Cat. 10 - Philippine Islands</option>
-			<option id="pahmaTMSLegacyDepartment15">Cat. 11 - Oceania (incl. Australia)</option>
-			<option id="pahmaTMSLegacyDepartment16">Cat. 13 - Photographic prints (without negatives)</option>
-			<option id="pahmaTMSLegacyDepartment17">Cat. 15 - Photographic negatives</option>
-			<option id="pahmaTMSLegacyDepartment18">Cat. 16 - South America (except Uhle Collection)</option>
-			<option id="pahmaTMSLegacyDepartment19">Cat. 17 - Drawings and Paintings</option>
-			<option id="pahmaTMSLegacyDepartment20">Cat. 18 - Malaysia (incl. Indonesia, excl. Philippine Islands)</option>
-			<option id="pahmaTMSLegacyDepartment21">Cat. 22 - Rubbings of Greek &amp; Latin Inscriptions</option>
-			<option id="pahmaTMSLegacyDepartment22">Cat. 23 - No provenience (most of catalog deleted)</option>
-			<option id="pahmaTMSLegacyDepartment23">Cat. 25 - Kodachrome color transparencies</option>
-			<option id="pahmaTMSLegacyDepartment24">Cat. 26 - Motion picture film</option>
-			<option id="pahmaTMSLegacyDepartment25">Cat. 28 - unknown (retired catalog)</option>
-			<option id="pahmaTMSLegacyDepartment26">Cat. B - Barr collection</option>
-			<option id="pahmaTMSLegacyDepartment27">Cat. Bascom</option>
-			<option id="pahmaTMSLegacyDepartment28">Cat. E</option>
-			<option id="pahmaTMSLegacyDepartment29">Cat. K - Kelly collection</option>
-			<option id="pahmaTMSLegacyDepartment30">Cat. L - Lillard Collection</option>
-			<option id="pahmaTMSLegacyDepartment31">Cat. NO</option>
-			<option id="pahmaTMSLegacyDepartment32">Cat. TB</option>
-			<option id="pahmaTMSLegacyDepartment33">Faunal Remains</option>
-			<option id="pahmaTMSLegacyDepartment34">Human Remains</option>
-			<option id="pahmaTMSLegacyDepartment35">Loans In</option>
-			<option id="pahmaTMSLegacyDepartment36">Maps</option>
-			<option id="pahmaTMSLegacyDepartment37">Mixed faunal and human remains</option>
-			<option id="pahmaTMSLegacyDepartment38">Mounts</option>
-			<option id="pahmaTMSLegacyDepartment39">NAGPRA-associated Funerary Objects</option>
-			<option id="pahmaTMSLegacyDepartment40">Registration</option>
+			<option id="pahmaTMSLegacyDepartment01">Native California (archaeology and ethnology)</option>
+			<option id="pahmaTMSLegacyDepartment03">Native US and Canada (except California)</option>
+			<option id="pahmaTMSLegacyDepartment04">Casts and molds</option>
+			<option id="pahmaTMSLegacyDepartment05">Mexico, Central America, and Caribbean area</option>
+			<option id="pahmaTMSLegacyDepartment06">South America (except Ancient Peru)</option>
+			<option id="pahmaTMSLegacyDepartment07">Ancient Peru</option>
+			<option id="pahmaTMSLegacyDepartment08">Africa (except Ancient Egypt)</option>
+			<option id="pahmaTMSLegacyDepartment09">Ancient Egypt</option>
+			<option id="pahmaTMSLegacyDepartment10">Europe and western Russia (except Classical Mediterranean)</option>
+			<option id="pahmaTMSLegacyDepartment11">Classical Mediterranean</option>
+			<option id="pahmaTMSLegacyDepartment12">Asia (except western Russia)</option>
+			<option id="pahmaTMSLegacyDepartment13">Oceania</option>
+			<option id="pahmaTMSLegacyDepartment14">Audio recordings</option>
+			<option id="pahmaTMSLegacyDepartment15">Casts and molds</option>
+			<option id="pahmaTMSLegacyDepartment16">Drawings and paintings</option>
+			<option id="pahmaTMSLegacyDepartment17">Maps</option>
+			<option id="pahmaTMSLegacyDepartment18">Still and motion photography</option>
+			<option id="pahmaTMSLegacyDepartment20">Human remains</option>
+			<option id="pahmaTMSLegacyDepartment21">Faunal remains</option>
+			<option id="pahmaTMSLegacyDepartment22">Mixed faunal and human remains</option>
+			<option id="pahmaTMSLegacyDepartment23">Associated funerary objects</option>
+			<option id="pahmaTMSLegacyDepartment24">Unassociated funerary objects</option>
+			<option id="pahmaTMSLegacyDepartment50">Registration</option>
+			<option id="pahmaTMSLegacyDepartment55">Loans In</option>
+			<option id="pahmaTMSLegacyDepartment90">Retired catalogs</option>
+			<option id="pahmaTMSLegacyDepartment95">(not assigned)</option>
 		</options>
 	</instance>
 </instances>
