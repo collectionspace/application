@@ -82,6 +82,32 @@
 			<field id="objectNameNote" />
 			<field id="objectName" mini="list" />
 		</repeat>
+		<repeat id="objectSignificanceGroupList/objectSignificanceGroup">
+			<field id="assignedSignificance" autocomplete="true" ui-type="enum"/>
+			<field id="significanceAssignedBy" autocomplete="true" ui-type="enum"/>
+			<field id="significanceAssignedDate" datatype="date"/>
+			<field id="significanceAssignedContact" autocomplete="true"/>
+		</repeat>
+		<field id="objectSuppliedBy" autocomplete="true"/>
+		<field id="objectComponentStatus" autocomplete="true" ui-type="enum"/>
+
+		<repeat id="objectCredentialGroupList/objectCredentialGroup">
+			<field id="credentialType" autocomplete="true" ui-type="enum" />
+			<field id="credentialRequiredForUse" autocomplete="true" ui-type="enum" />
+			<field id="credentialLocation" autocomplete="true" />
+		</repeat>
+
+		<repeat id="objectDistributedLedgerGroupList/objectDistributedLedgerGroup">
+			<field id="distributedStorageLedger" autocomplete="true" ui-type="enum" />
+			<field id="storageLedgerParentIdentifier" />
+			<field id="storageLedgerObjectIdentifier" />
+		</repeat>
+
+		<repeat id="objectLedgerGroupList/objectLedgerGroup" >
+			<field id="objectLedger" autocomplete="true" ui-type="enum" />
+			<field id="objectLedgerContactAddress" />
+			<field id="objectLedgerTokenID" />
+		</repeat>
 	</section>
 
 	<section id="descriptionInformation">

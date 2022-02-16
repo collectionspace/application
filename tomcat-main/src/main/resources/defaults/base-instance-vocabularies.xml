@@ -26,6 +26,8 @@
 			<option id="partiallydeaccessioned">partially deaccessioned</option>
 			<option id="partiallyexchanged">partially exchanged</option>
 			<option id="partiallyrecataloged">partially recataloged</option>
+			<option id="preacquisition">pre acquisition</option>
+			<option id="retired">retired</option>
 			<option id="returnedloanobject">returned loan object</option>
 			<option id="sold">sold</option>
 			<option id="stolen">stolen</option>
@@ -1351,6 +1353,87 @@
 			<option id="begin">begin</option>
 			<option id="end">end</option>
 			<option id="renewal">renewal</option>
+		</options>
+	</instance>
+	<instance id="vocab-assignedsignificance">
+		<web-url>assignedsignificance</web-url>
+		<title-ref>assignedsignificance</title-ref>
+		<title>Assigned Significance</title>
+		<options>
+			<option id="essential">essential</option>
+			<option id="dedicated">dedicated</option>
+			<option id="historical">historical</option>
+			<option id="nondedicated">non-dedicated</option>
+			<option id="iterative">iterative</option>
+			<option id="dependency">dependency</option>
+			<option id="retired">retired</option>
+		</options>
+	</instance>
+	<instance id="vocab-significanceassignedby">
+		<web-url>significanceassignedby</web-url>
+		<title-ref>significanceassignedby</title-ref>
+		<title>Significance Assigned By</title>
+		<options>
+			<option id="creator">creator</option>
+			<option id="museum">museum</option>
+		</options>
+	</instance>
+	<instance id="vocab-componentstatus">
+		<web-url>componentstatus</web-url>
+		<title-ref>componentstatus</title-ref>
+		<title>Component Status</title>
+		<options>
+			<option id="archival">archival</option>
+			<option id="exhibition">exhibition</option>
+			<option id="artistsuppliedarchival">artist supplied archival</option>
+			<option id="verifiedproof">verified proof</option>
+			<option id="researchcopy">research copy</option>
+			<option id="documentationcopy">documentationch copy</option>
+			<option id="duplicatingcopy">duplicating copy</option>
+			<option id="referencecopy">reference copy</option>
+			<option id="mezzaninefile">mezzanine file</option>
+			<option id="unique">unique</option>
+		</options>
+	</instance>
+	<instance id="vocab-credentialtype">
+		<web-url>credentialtype</web-url>
+		<title-ref>credentialtype</title-ref>
+		<title>Credential Type</title>
+		<options>
+			<option id="username">username</option>
+			<option id="password">password</option>
+			<option id="licensekey">license key</option>
+			<option id="accesscode">accesscode</option>
+		</options>
+	</instance>
+	<instance id="vocab-credentialrequiredforuse">
+		<web-url>credentialrequiredforuse</web-url>
+		<title-ref>credentialrequiredforuse</title-ref>
+		<title>Credential Required For Use</title>
+		<options>
+			<option id="yes">yes</option>
+			<option id="no">no</option>
+		</options>
+	</instance>
+	<instance id="vocab-distributedledgertype">
+		<web-url>distributedledgertype</web-url>
+		<title-ref>distributedledgertype</title-ref>
+		<title>Distributed Ledger Type</title>
+		<options>
+			<option id="ipfs">ipfs</option>
+			<option id="arweave">arweave</option>
+		</options>
+	</instance>
+	<instance id="vocab-ledgertype">
+		<web-url>ledgertype</web-url>
+		<title-ref>ledgertype</title-ref>
+		<title>Ledger Type</title>
+		<options>
+			<option id="ethereum">ethereum</option>
+			<option id="algorand">algorand</option>
+			<option id="polygon">polygon</option>
+			<option id="bitcoinlightning">bitcoin-lightning</option>
+			<option id="tezos">tezos</option>
 		</options>
 	</instance>
 </instances>
