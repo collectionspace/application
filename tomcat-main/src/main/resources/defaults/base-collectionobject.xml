@@ -227,6 +227,8 @@
 			<field id="annotationDate" datatype="date" section="annotation" />
 			<field id="annotationAuthor" autocomplete="true" section="annotation" />
 		</repeat>
+
+		<field id="intendedBehavior" />
 	</section>
 	<section id="objectProductionInformation">
 		<repeat id="objectProductionDateGroupList/objectProductionDateGroup">
