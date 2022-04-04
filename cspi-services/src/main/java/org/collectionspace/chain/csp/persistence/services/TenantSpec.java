@@ -40,6 +40,7 @@ public class TenantSpec {
 	private String tenantId;
 	private String tenant, tenantDisplay, tenantVersion;
 	private boolean createDisabled;
+	private boolean auditRequired;
 	private String storageName;
 	private String repositoryName;
 	private String repositoryClient;
@@ -139,6 +140,7 @@ public class TenantSpec {
 		tenant = Util.getStringOrDefault(section,"/tenant/name","collectionspace.org");
 		tenantDisplay = Util.getStringOrDefault(section,"/tenant/display-name","Unnamed Tenant - Fixe Me");
 		createDisabled = Util.getBooleanOrDefault(section, "/tenant/create-disabled", true);
+		auditRequired = Util.getBooleanOrDefault(section, "/tenant/audit-required", false);
 		
 		tenantVersion = Util.getStringOrDefault(section,"/tenant/version","1.0");
 		storageName = Util.getStringOrDefault(section,"/repository/domain", repositoryDomain);
@@ -242,6 +244,10 @@ public class TenantSpec {
 		return createDisabled;
 	}
 	
+	public boolean getAuditRequired() {
+		return auditRequired;
+	}
+
 	public TenantSpec getTenantData() {
 		return this;
 	}

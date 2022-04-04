@@ -8,12 +8,7 @@ tomcat-main/plugins/
 *.eclipse.m2e.core.prefs
 tomcat-main/nb-configuration.xml
 tomcat-main/nbactions-debug.xml
-cspi-schema/diff.patch
-cspi-schema/dumpTree-1331765768078
-cspi-schema/dumpTree-1331765768078.xml
 cspi-schema/dumpedTrees/
-tomcat-main/src/main/resources/tenants/core/cow.xml
-.gitignore
 *.bak
 target/
 .DS_Store

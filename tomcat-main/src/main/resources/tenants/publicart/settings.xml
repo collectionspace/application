@@ -57,6 +57,7 @@
                 <version>0.1</version>
                 <display-name>CollectionSpace Public Art Tenant</display-name>
 				<create-disabled>${CSPACE_PUBLICART_CREATE_DISABLED_OPT}</create-disabled>
+				<audit-required>false</audit-required>
             </tenant>
             <repository>
                 <domain>publicart</domain>
