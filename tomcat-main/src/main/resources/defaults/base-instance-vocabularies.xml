@@ -1533,4 +1533,114 @@
 			<option id="placeholder">placeholder</option>
 		</options>
 	</instance>
+  <instance id="vocab-formattypenames">
+    <web-url>formattypenames</web-url>
+    <title-ref>formattypenames</title-ref>
+    <title>Format Types</title>
+    <options>
+      <option id="audio">audio</option>
+      <option id="video">video</option>
+    </options>
+  </instance>
+  <instance id="vocab-formats">
+    <web-url>formats</web-url>
+    <title-ref>formats</title-ref>
+    <title>Formats</title>
+    <options>
+      <option id="analog">analog</option>
+      <option id="digital">digital</option>
+    </options>
+  </instance>
+  <instance id="vocab-filecodecs">
+    <web-url>filecodecs</web-url>
+    <title-ref>filecodecs</title-ref>
+    <title>File Codecs</title>
+    <options>
+      <option id="h264">h.264</option>
+      <option id="h265">h.265</option>
+      <option id="prores422">prores 422</option>
+      <option id="jpeg2000">jpeg 2000</option>
+      <option id="heacc">he aac</option>
+    </options>
+  </instance>
+  <instance id="vocab-compressionstandards">
+    <web-url>compressionstandards</web-url>
+    <title-ref>compressionstandards</title-ref>
+    <title>Compression Standards</title>
+    <options>
+      <option id="placeholder">placeholder</option>
+    </options>
+  </instance>
+  <instance id="vocab-filecontainers">
+    <web-url>filecontainers</web-url>
+    <title-ref>filecontainers</title-ref>
+    <title>File Containers</title>
+    <options>
+      <option id="mp4">mp4</option>
+      <option id="mov">mov</option>
+      <option id="wav">wav</option>
+      <option id="flac">flac</option>
+    </options>
+  </instance>
+  <instance id="vocab-audiotypes">
+    <web-url>audiotypes</web-url>
+    <title-ref>audiotypes</title-ref>
+    <title>Audio Types</title>
+    <options>
+      <option id="mono">mono</option>
+      <option id="stereo">stereo</option>
+      <option id="doublemono">doublemono</option>
+      <option id="3channelmono">3channelmono</option>
+      <option id="quadraphonic">quadraphonic</option>
+      <option id="nosound">nosound</option>
+      <option id="muted">muted</option>
+    </options>
+  </instance>
+  <instance id="vocab-audiopreferences">
+    <web-url>audiopreferences</web-url>
+    <title-ref>audiopreferences</title-ref>
+    <title>Audio Preferences</title>
+    <options>
+      <option id="headphones">headphones</option>
+      <option id="speakers">speakers</option>
+    </options>
+  </instance>
+  <instance id="vocab-aspectratios">
+    <web-url>aspectratios</web-url>
+    <title-ref>aspectratios</title-ref>
+    <title>Aspect Ratios</title>
+    <options>
+      <option id="1by1">1:1</option>
+      <option id="4by3">4:3</option>
+      <option id="16by9">16:9</option>
+    </options>
+  </instance>
+  <instance id="vocab-aspectratiotypes">
+    <web-url>aspectratiotypes</web-url>
+    <title-ref>aspectratiotypes</title-ref>
+    <title>Aspect Ratio Types</title>
+    <options>
+      <option id="image">image</option>
+      <option id="display">display</option>
+    </options>
+  </instance>
+  <instance id="vocab-colorspaces">
+    <web-url>colorspaces</web-url>
+    <title-ref>colorspaces</title-ref>
+    <title>Color Spaces</title>
+    <options>
+      <option id="cmyk">cmyk</option>
+      <option id="munsell">munsell</option>
+      <option id="pantone">pantone</option>
+      <option id="rgb">rgb</option>
+    </options>
+  </instance>
+  <instance id="vocab-colortypes">
+    <web-url>colortypes</web-url>
+    <title-ref>colortypes</title-ref>
+    <title>Color Types</title>
+    <options>
+      <option id="placeholder">placeholder</option>
+    </options>
+  </instance>
 </instances>

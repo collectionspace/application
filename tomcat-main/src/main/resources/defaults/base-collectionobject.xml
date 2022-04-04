@@ -441,4 +441,28 @@
 			<field id="fieldColEventName" />
 		</repeat>
 	</section>
+
+	<section id="technicalSpecs">
+		<repeat id="avFormatGroupList/avFormatGroup">
+			<field id="formatType" autocomplete="true" ui-type="enum" />
+			<field id="format" autocomplete="true" ui-type="enum" />
+		</repeat>
+		<field id="numberOfChannels" datatype="integer" />
+		<repeat id="fileCodecGroupList/fileCodecGroup">
+			<field id="fileCodec" autocomplete="true" ui-type="enum" />
+			<field id="compressionStandard" autocomplete="true" ui-type="enum" />
+			<field id="fileContainer" autocomplete="true" ui-type="enum" />
+		</repeat>
+		<field id="audioType" autocomplete="true" ui-type="enum" />
+		<field id="audioPreferences" autocomplete="true" ui-type="enum" />
+		<repeat id="aspectRatioGroupList/aspectRatioGroup">
+			<field id="aspectRatio" autocomplete="true" ui-type="enum" />
+			<field id="aspectRatioType" autocomplete="true" ui-type="enum" />
+		</repeat>
+		<repeat id="colorSpaceGroupList/colorSpaceGroup">
+			<field id="colorSpace" autocomplete="true" ui-type="enum" />
+			<field id="colorType" autocomplete="true" ui-type="enum" />
+		</repeat>
+		<field id="avSpecificationNote" />
+	</section>
 </record>
