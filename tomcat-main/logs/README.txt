@@ -1,0 +1,1 @@
+Log files created during the schema and service bindings creation.  Use these logs to trouble-shoot schema changes and configuration changes.
