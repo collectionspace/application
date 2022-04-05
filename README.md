@@ -4,11 +4,12 @@ CollectionSpace is licensed for use pursuant to the Educational Community Licens
 
 For more information about CollectionSpace see http://www.collectionspace.org/about/faq.
 
+```
 Audit Service
 -----------------------------------------------------------------------------------------------------------------------------------------------
 To require the Audit service for a specific tenant, set the 'audit-required' element of the tenant's 'settings.xml' file to 'true'.
 
-Tenant's 'settings.xml" bindings file:
+Tenant's 'settings.xml' bindings file:
 <settings>
 	<persistence>
 		<service>
@@ -21,3 +22,4 @@ Tenant's 'settings.xml" bindings file:
 	</persistence>
 </settings>
 -----------------------------------------------------------------------------------------------------------------------------------------------
+```
