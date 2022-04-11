@@ -288,12 +288,18 @@
 		<title>Work Type</title>
 		<options>
 			<option id="built">Built</option>
+			<option id="course">Course</option>
+			<option id="dance">Dance</option>
+			<option id="exhibitioninstallation">Exhibition/Installation</option>
+			<option id="featuredapplication">Featured Application</option>
+			<option id="featuredcollection">Featured Collection</option>
 			<option id="movable">Movable</option>
 			<option id="movingimage">Moving Image</option>
-			<option id="dance">Dance</option>
-			<option id="theater">Theater</option>
-			<option id="performance">Performance</option>
 			<option id="music">Music</option>
+			<option id="namedcollection">Named Collection</option>
+			<option id="performance">Performance</option>
+			<option id="researchproject">Research Project</option>
+			<option id="theater">Theater</option>
 		</options>
 	</instance>
 	<instance id="vocab-workcreatortype">
@@ -301,13 +307,18 @@
 		<title-ref>workcreatortype</title-ref>
 		<title>Work Creator Type</title>
 		<options>
+			<option id="academicdepartment">Academic Department</option>
 			<option id="architect">Architect</option>
 			<option id="artist">Artist</option>
 			<option id="choreographer">Choreographer</option>
 			<option id="composer">Composer</option>
 			<option id="director">Director</option>
+			<option id="faculty">Faculty</option>
 			<option id="painter">Painter</option>
+			<option id="researcher">Researcher</option>
 			<option id="sculptor">Sculptor</option>
+			<option id="staff">Staff</option>
+			<option id="student">Student</option>
 			<option id="writer">Writer</option>
 		</options>
 	</instance>
