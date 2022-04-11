@@ -124,7 +124,7 @@
 	<instance id="vocab-lostatus">
 		<web-url>loanoutstatus</web-url>
 		<title-ref>loanoutstatus</title-ref>
-		<title>loanedObjectStatus</title>
+		<title>Loaned Object Status</title>
 		<options>
 			<option>Requested</option>
 			<option>Authorized</option>
@@ -271,7 +271,7 @@
 	<instance id="vocab-persontermtype">
 		<web-url>persontermtype</web-url>
 		<title-ref>persontermtype</title-ref>
-		<title>personTermType</title>
+		<title>Person Term Type</title>
 		<options>
 			<option id="artist">Artist</option>
 			<option id="donor">Donor</option>
@@ -619,7 +619,7 @@
 	<instance id="vocab-materialuse">
 		<web-url>materialuse</web-url>
 		<title-ref>materialuse</title-ref>
-		<title>materialuse</title>
+		<title>Material Use</title>
 		<options>
 			<option id="cladding">cladding</option>
 			<option id="decking">decking</option>
@@ -646,7 +646,7 @@
 	<instance id="vocab-materialproductionrole">
 		<web-url>materialproductionrole</web-url>
 		<title-ref>materialproductionrole</title-ref>
-		<title>materialproductionrole</title>
+		<title>Material Production Role</title>
 		<options>
 			<option id="distributor">distributor</option>
 			<option id="manufacturer">manufacturer</option>
@@ -656,7 +656,7 @@
 	<instance id="vocab-materialresource">
 		<web-url>materialresource</web-url>
 		<title-ref>materialresource</title-ref>
-		<title>materialresource</title>
+		<title>Material Resource</title>
 		<options>
 			<option id="csi">CSI</option>
 			<option id="granta">Granta</option>
@@ -665,7 +665,7 @@
 	<instance id="vocab-materialform">
 		<web-url>materialform</web-url>
 		<title-ref>materialform</title-ref>
-		<title>materialform</title>
+		<title>Material Form</title>
 		<options>
 			<option id="aggregate">aggregate</option>
 			<option id="angle">angle</option>
@@ -705,7 +705,7 @@
 	<instance id="vocab-materialformtype">
 		<web-url>materialformtype</web-url>
 		<title-ref>materialformtype</title-ref>
-		<title>materialformtype</title>
+		<title>Material Form Type</title>
 		<options>
 			<option id="film">film</option>
 			<option id="sheet">sheet</option>
@@ -791,7 +791,7 @@
 	<instance id="vocab-electricalproperties">
 		<web-url>electricalproperties</web-url>
 		<title-ref>electricalproperties</title-ref>
-		<title>electricalproperties</title>
+		<title>Electrical Properties</title>
 		<options>
 			<option id="anti_static">anti-static</option>
 			<option id="electrical_resistivity_conductor">electrical resistivity - conductor</option>
@@ -980,7 +980,7 @@
 	<instance id="vocab-castingprocesses">
 		<web-url>castingprocesses</web-url>
 		<title-ref>castingprocesses</title-ref>
-		<title>castingprocesses</title>
+		<title>Casting Processes</title>
 		<options>
 			<option id="die_casting">die casting</option>
 			<option id="floating">floating</option>

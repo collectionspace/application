@@ -935,7 +935,7 @@
 	<instance id="vocab-mechanicalpropertyunits">
 		<web-url>mechanicalpropertyunits</web-url>
 		<title-ref>mechanicalpropertyunits</title-ref>
-		<title>Mechanical Propertyunits</title>
+		<title>Mechanical Property Units</title>
 		<options>
 			<option id="kg_per_m3">kg/m³</option>
 			<option id="MPa">MPa</option>

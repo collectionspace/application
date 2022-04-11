@@ -20,7 +20,7 @@
 	<instance id="vocab-pestordiseaseobserved">
 		<web-url>pestordiseaseobserved</web-url>
 		<title-ref>pestordiseaseobserved</title-ref>
-		<title>Pest or disease observed</title>
+		<title>Pest or Disease Observed</title>
 		<options>
 			<option id="mites">Mites</option>
 			<option id="aphids">Aphids</option>
