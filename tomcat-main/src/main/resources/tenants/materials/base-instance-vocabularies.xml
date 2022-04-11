@@ -54,7 +54,7 @@
 			<option id="faculty">faculty</option>
 			<option id="student">student</option>
 			<option id="independentscholar">independent scholar</option>
-			<option id="psuedouser">psuedo-user</option>
+			<option id="psuedouser">pseudo-user</option>
 			<option id="researchassistant">research assistant</option>
 			<option id="staff">staff</option>
 			<option id="summerschoolstudent">summer school student</option>
