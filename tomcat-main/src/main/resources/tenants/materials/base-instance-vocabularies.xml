@@ -1,4 +1,5 @@
 <!-- Change options of organizationtype, uocmethods, uocusertypes, publishto. -->
+<!-- 2022-04-11 Change options for workcreatortype and worktype (DRYD-1049) -->
 <instances>
 	<include src="domain-instance-vocabularies.xml" strip-root="yes" />
 	<instance id="vocab-inventorystatus">
