@@ -1436,4 +1436,101 @@
 			<option id="tezos">tezos</option>
 		</options>
 	</instance>
+	<instance id="vocab-programminglanguages">
+		<web-url>programminglanguages</web-url>
+		<title-ref>programminglanguages</title-ref>
+		<title>Programming Languages</title>
+		<options>
+			<option id="cpp">C++</option>
+			<option id="csharp">C#</option>
+			<option id="java">Java</option>
+			<option id="javascript">Javascript</option>
+			<option id="python">Python</option>
+			<option id="ruby">Ruby</option>
+		</options>
+	</instance>
+	<instance id="vocab-compilers">
+		<web-url>compilers</web-url>
+		<title-ref>compilers</title-ref>
+		<title>Compilers</title>
+		<options>
+			<option id="borlandturboc">Borland Turbo C</option>
+			<option id="gnuccompiler">GNU C Compiler</option>
+			<option id="psyco">Psyco</option>
+		</options>
+	</instance>
+	<instance id="vocab-utilizedsoftware">
+		<web-url>utilizedsoftware</web-url>
+		<title-ref>utilizedsoftware</title-ref>
+		<title>Utilized Software</title>
+		<options>
+			<option id="adobephotoshop">Adobe Photoshop</option>
+			<option id="blender">Blender</option>
+			<option id="finalcutpro">Final Cut Pro</option>
+		</options>
+	</instance>
+	<instance id="vocab-operatingsystems">
+		<web-url>operatingsystems</web-url>
+		<title-ref>operatingsystems</title-ref>
+		<title>Operating Systems</title>
+		<options>
+			<option id="Mac">Mac</option>
+			<option id="Linux">Linux</option>
+			<option id="Windows">Windows</option>
+		</options>
+	</instance>
+	<instance id="vocab-webbrowsers">
+		<web-url>webbrowsers</web-url>
+		<title-ref>webbrowsers</title-ref>
+		<title>Web Browsers</title>
+		<options>
+			<option id="Chrome">Chrome</option>
+			<option id="Edge">Edge</option>
+			<option id="Explorer">Explorer</option>
+			<option id="Firefox">Firefox</option>
+			<option id="Opera">Opera</option>
+			<option id="Safari">Safari</option>
+		</options>
+	</instance>
+	<instance id="vocab-required">
+		<web-url>required</web-url>
+		<title-ref>required</title-ref>
+		<title>Required Options</title>
+		<options>
+			<option id="yes">yes</option>
+			<option id="no">no</option>
+		</options>
+	</instance>
+	<instance id="vocab-softwarelibraries">
+		<web-url>softwarelibraries</web-url>
+		<title-ref>softwarelibraries</title-ref>
+		<title>Software Libraries</title>
+		<options>
+			<option id="placeholder">placeholder</option>
+		</options>
+	</instance>
+	<instance id="vocab-connectiontype">
+		<web-url>connectiontype</web-url>
+		<title-ref>connectiontype</title-ref>
+		<title>Connection Type</title>
+		<options>
+			<option id="placeholder">placeholder</option>
+		</options>
+	</instance>
+	<instance id="vocab-domaintype">
+		<web-url>domaintype</web-url>
+		<title-ref>domaintype</title-ref>
+		<title>Domain Type</title>
+		<options>
+			<option id="placeholder">placeholder</option>
+		</options>
+	</instance>
+	<instance id="vocab-requiredapplication">
+		<web-url>requiredapplication</web-url>
+		<title-ref>requiredapplication</title-ref>
+		<title>Required Application</title>
+		<options>
+			<option id="placeholder">placeholder</option>
+		</options>
+	</instance>
 </instances>
