@@ -1388,7 +1388,7 @@
 			<option id="artistsuppliedarchival">artist supplied archival</option>
 			<option id="verifiedproof">verified proof</option>
 			<option id="researchcopy">research copy</option>
-			<option id="documentationcopy">documentationch copy</option>
+			<option id="documentationcopy">documentation copy</option>
 			<option id="duplicatingcopy">duplicating copy</option>
 			<option id="referencecopy">reference copy</option>
 			<option id="mezzaninefile">mezzanine file</option>
@@ -1403,7 +1403,7 @@
 			<option id="username">username</option>
 			<option id="password">password</option>
 			<option id="licensekey">license key</option>
-			<option id="accesscode">accesscode</option>
+			<option id="accesscode">access code</option>
 		</options>
 	</instance>
 	<instance id="vocab-credentialrequiredforuse">
@@ -1589,10 +1589,10 @@
     <options>
       <option id="mono">mono</option>
       <option id="stereo">stereo</option>
-      <option id="doublemono">doublemono</option>
-      <option id="3channelmono">3channelmono</option>
-      <option id="quadraphonic">quadraphonic</option>
-      <option id="nosound">nosound</option>
+      <option id="doublemono">double mono</option>
+      <option id="3channelmono">3 channel mono</option>
+      <option id="quadrophonic">quadrophonic</option>
+      <option id="nosound">no sound</option>
       <option id="muted">muted</option>
     </options>
   </instance>
