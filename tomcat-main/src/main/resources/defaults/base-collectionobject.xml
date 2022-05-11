@@ -142,22 +142,22 @@
 		<field id="objectSuppliedBy" autocomplete="true"/>
 		<field id="objectComponentStatus" autocomplete="true" ui-type="enum"/>
 
-		<repeat id="objectCredentialGroupList/objectCredentialGroup">
+		<repeat id="credentialGroupList/credentialGroup">
 			<field id="credentialType" autocomplete="true" ui-type="enum" />
 			<field id="credentialRequiredForUse" autocomplete="true" ui-type="enum" />
 			<field id="credentialLocation" autocomplete="true" />
 		</repeat>
 
-		<repeat id="objectDistributedLedgerGroupList/objectDistributedLedgerGroup">
+		<repeat id="distributedLedgerGroupList/distributedLedgerGroup">
 			<field id="distributedStorageLedger" autocomplete="true" ui-type="enum" />
-			<field id="storageLedgerParentIdentifier" />
-			<field id="storageLedgerObjectIdentifier" />
+			<field id="distributedLedgerParentIdentifier" />
+			<field id="distributedLedgerObjectIdentifier" />
 		</repeat>
 
-		<repeat id="objectLedgerGroupList/objectLedgerGroup" >
-			<field id="objectLedger" autocomplete="true" ui-type="enum" />
-			<field id="objectLedgerContactAddress" />
-			<field id="objectLedgerTokenID" />
+		<repeat id="ledgerGroupList/ledgerGroup" >
+			<field id="ledger" autocomplete="true" ui-type="enum" />
+			<field id="ledgerContactAddress" />
+			<field id="ledgerTokenID" />
 		</repeat>
 	</section>
 
