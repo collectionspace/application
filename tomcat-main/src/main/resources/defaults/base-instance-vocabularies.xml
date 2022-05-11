@@ -1406,15 +1406,6 @@
 			<option id="accesscode">access code</option>
 		</options>
 	</instance>
-	<instance id="vocab-credentialrequiredforuse">
-		<web-url>credentialrequiredforuse</web-url>
-		<title-ref>credentialrequiredforuse</title-ref>
-		<title>Credential Required For Use</title>
-		<options>
-			<option id="yes">yes</option>
-			<option id="no">no</option>
-		</options>
-	</instance>
 	<instance id="vocab-distributedledgertype">
 		<web-url>distributedledgertype</web-url>
 		<title-ref>distributedledgertype</title-ref>
@@ -1490,15 +1481,6 @@
 			<option id="Firefox">Firefox</option>
 			<option id="Opera">Opera</option>
 			<option id="Safari">Safari</option>
-		</options>
-	</instance>
-	<instance id="vocab-required">
-		<web-url>required</web-url>
-		<title-ref>required</title-ref>
-		<title>Required Options</title>
-		<options>
-			<option id="yes">yes</option>
-			<option id="no">no</option>
 		</options>
 	</instance>
 	<instance id="vocab-softwarelibraries">
