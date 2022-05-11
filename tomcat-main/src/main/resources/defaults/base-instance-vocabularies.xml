@@ -1487,6 +1487,25 @@
 		<web-url>softwarelibraries</web-url>
 		<title-ref>softwarelibraries</title-ref>
 		<title>Software Libraries</title>
+	<instance id="vocab-iterationrole">
+		<web-url>iterationrole</web-url>
+		<title-ref>iterationrole</title-ref>
+		<title>Iteration Creator/Supervisor Role</title>
+		<options>
+			<option id="arthandler">art handler</option>
+			<option id="artist">artist</option>
+			<option id="artistassistant">artist assistant</option>
+			<option id="conservator">conservator</option>
+			<option id="curator">curator</option>
+			<option id="exhibitiondesigner">exhibition designer</option>
+			<option id="mediatechnician">media technician</option>
+			<option id="registrar">registrar</option>
+		</options>
+	</instance>
+	<instance id="vocab-installerrole">
+		<web-url>installerrole</web-url>
+		<title-ref>installerrole</title-ref>
+		<title>Installer Role</title>
 		<options>
 			<option id="placeholder">placeholder</option>
 		</options>
@@ -1495,6 +1514,10 @@
 		<web-url>connectiontype</web-url>
 		<title-ref>connectiontype</title-ref>
 		<title>Connection Type</title>
+	<instance id="vocab-artistpresence">
+		<web-url>artistpresence</web-url>
+		<title-ref>artistpresence</title-ref>
+		<title>Artist Presence</title>
 		<options>
 			<option id="placeholder">placeholder</option>
 		</options>
@@ -1625,4 +1648,57 @@
       <option id="placeholder">placeholder</option>
     </options>
   </instance>
+	<instance id="vocab-iterationspacetype">
+		<web-url>iterationspacetype</web-url>
+		<title-ref>iterationspacetype</title-ref>
+		<title>Iteration Space Type</title>
+		<options>
+			<option id="ceilingheight">ceiling height</option>
+			<option id="flooring">flooring</option>
+			<option id="lightlevel">light level</option>
+			<option id="projectiondistance">projection distance</option>
+			<option id="roomdimensions">room dimensions</option>
+			<option id="screens">screens</option>
+			<option id="soundlevel">sound level</option>
+			<option id="wallsurface">wall surface</option>
+		</options>
+	</instance>
+	<instance id="vocab-techsetuptype">
+		<web-url>techsetuptype</web-url>
+		<title-ref>techsetuptype</title-ref>
+		<title>Technical Setup Type</title>
+		<options>
+			<option id="amperage">amperage</option>
+			<option id="cabling">cabling</option>
+			<option id="conditionedpower">conditioned power</option>
+			<option id="controlled">controlled</option>
+			<option id="looped">looped</option>
+			<option id="synched">synched</option>
+			<option id="timed">timed</option>
+		</options>
+	</instance>
+	<instance id="vocab-maintenancetype">
+		<web-url>maintenancetype</web-url>
+		<title-ref>maintenancetype</title-ref>
+		<title>Maintenance Type</title>
+		<options>
+			<option id="buildingmaintenance">building maintenance</option>
+			<option id="exhibitcleaning">exhibit cleaning</option>
+			<option id="exhibitinspection">exhibit inspection</option>
+			<option id="exhibitwalkthrough">exhibit walkthrough</option>
+			<option id="technologymaintenance">technology maintenance</option>
+		</options>
+	</instance>
+	<instance id="vocab-securityrequirements">
+		<web-url>securityrequirements</web-url>
+		<title-ref>securityrequirements</title-ref>
+		<title>Security Requirements</title>
+		<options>
+			<option id="guard">guard</option>
+			<option id="legal">legal</option>
+			<option id="security">security</option>
+			<option id="signage">signage</option>
+			<option id="visitors">visitors</option>
+		</options>
+	</instance>
 </instances>
