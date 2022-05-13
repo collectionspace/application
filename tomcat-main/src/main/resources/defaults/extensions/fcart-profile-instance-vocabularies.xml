@@ -26,6 +26,8 @@
 			<option id="partiallydeaccessioned">partially deaccessioned</option>
 			<option id="partiallyexchanged">partially exchanged</option>
 			<option id="partiallyrecataloged">partially recataloged</option>
+			<option id="preacquisition">pre acquisition</option>
+			<option id="retired">retired</option>
 			<option id="returnedloanobject">returned loan object</option>
 			<option id="sold">sold</option>
 			<option id="stolen">stolen</option>
@@ -791,4 +793,274 @@
 			<option id="renewal">renewal</option>
 		</options>
 	</instance>
+	<instance id="vocab-assignedsignificance">
+		<web-url>assignedsignificance</web-url>
+		<title-ref>assignedsignificance</title-ref>
+		<title>Assigned Significance</title>
+		<options>
+			<option id="essential">essential</option>
+			<option id="dedicated">dedicated</option>
+			<option id="historical">historical</option>
+			<option id="nondedicated">non-dedicated</option>
+			<option id="iterative">iterative</option>
+			<option id="dependency">dependency</option>
+			<option id="retired">retired</option>
+		</options>
+	</instance>
+	<instance id="vocab-significanceassignedby">
+		<web-url>significanceassignedby</web-url>
+		<title-ref>significanceassignedby</title-ref>
+		<title>Significance Assigned By</title>
+		<options>
+			<option id="creator">creator</option>
+			<option id="museum">museum</option>
+		</options>
+	</instance>
+	<instance id="vocab-componentstatus">
+		<web-url>componentstatus</web-url>
+		<title-ref>componentstatus</title-ref>
+		<title>Component Status</title>
+		<options>
+			<option id="archival">archival</option>
+			<option id="exhibition">exhibition</option>
+			<option id="artistsuppliedarchival">artist supplied archival</option>
+			<option id="verifiedproof">verified proof</option>
+			<option id="researchcopy">research copy</option>
+			<option id="documentationcopy">documentation copy</option>
+			<option id="duplicatingcopy">duplicating copy</option>
+			<option id="referencecopy">reference copy</option>
+			<option id="mezzaninefile">mezzanine file</option>
+			<option id="unique">unique</option>
+		</options>
+	</instance>
+	<instance id="vocab-credentialtype">
+		<web-url>credentialtype</web-url>
+		<title-ref>credentialtype</title-ref>
+		<title>Credential Type</title>
+		<options>
+			<option id="username">username</option>
+			<option id="password">password</option>
+			<option id="licensekey">license key</option>
+			<option id="accesscode">access code</option>
+		</options>
+	</instance>
+	<instance id="vocab-distributedledgertype">
+		<web-url>distributedledgertype</web-url>
+		<title-ref>distributedledgertype</title-ref>
+		<title>Distributed Ledger Type</title>
+		<options>
+			<option id="ipfs">ipfs</option>
+			<option id="arweave">arweave</option>
+		</options>
+	</instance>
+	<instance id="vocab-ledgertype">
+		<web-url>ledgertype</web-url>
+		<title-ref>ledgertype</title-ref>
+		<title>Ledger Type</title>
+		<options>
+			<option id="ethereum">ethereum</option>
+			<option id="algorand">algorand</option>
+			<option id="polygon">polygon</option>
+			<option id="bitcoinlightning">bitcoin-lightning</option>
+			<option id="tezos">tezos</option>
+		</options>
+	</instance>
+	<instance id="vocab-programminglanguages">
+		<web-url>programminglanguages</web-url>
+		<title-ref>programminglanguages</title-ref>
+		<title>Programming Languages</title>
+		<options>
+			<option id="cpp">C++</option>
+			<option id="csharp">C#</option>
+			<option id="java">Java</option>
+			<option id="javascript">Javascript</option>
+			<option id="python">Python</option>
+			<option id="ruby">Ruby</option>
+		</options>
+	</instance>
+	<instance id="vocab-compilers">
+		<web-url>compilers</web-url>
+		<title-ref>compilers</title-ref>
+		<title>Compilers</title>
+		<options>
+			<option id="borlandturboc">Borland Turbo C</option>
+			<option id="gnuccompiler">GNU C Compiler</option>
+			<option id="psyco">Psyco</option>
+		</options>
+	</instance>
+	<instance id="vocab-utilizedsoftware">
+		<web-url>utilizedsoftware</web-url>
+		<title-ref>utilizedsoftware</title-ref>
+		<title>Utilized Software</title>
+		<options>
+			<option id="adobephotoshop">Adobe Photoshop</option>
+			<option id="blender">Blender</option>
+			<option id="finalcutpro">Final Cut Pro</option>
+		</options>
+	</instance>
+	<instance id="vocab-operatingsystems">
+		<web-url>operatingsystems</web-url>
+		<title-ref>operatingsystems</title-ref>
+		<title>Operating Systems</title>
+		<options>
+			<option id="Mac">Mac</option>
+			<option id="Linux">Linux</option>
+			<option id="Windows">Windows</option>
+		</options>
+	</instance>
+	<instance id="vocab-webbrowsers">
+		<web-url>webbrowsers</web-url>
+		<title-ref>webbrowsers</title-ref>
+		<title>Web Browsers</title>
+		<options>
+			<option id="Chrome">Chrome</option>
+			<option id="Edge">Edge</option>
+			<option id="Explorer">Explorer</option>
+			<option id="Firefox">Firefox</option>
+			<option id="Opera">Opera</option>
+			<option id="Safari">Safari</option>
+		</options>
+	</instance>
+	<instance id="vocab-softwarelibraries">
+		<web-url>softwarelibraries</web-url>
+		<title-ref>softwarelibraries</title-ref>
+		<title>Software Libraries</title>
+		<options>
+			<option id="placeholder">placeholder</option>
+		</options>
+	</instance>
+	<instance id="vocab-connectiontype">
+		<web-url>connectiontype</web-url>
+		<title-ref>connectiontype</title-ref>
+		<title>Connection Type</title>
+		<options>
+			<option id="placeholder">placeholder</option>
+		</options>
+	</instance>
+	<instance id="vocab-domaintype">
+		<web-url>domaintype</web-url>
+		<title-ref>domaintype</title-ref>
+		<title>Domain Type</title>
+		<options>
+			<option id="placeholder">placeholder</option>
+		</options>
+	</instance>
+	<instance id="vocab-requiredapplication">
+		<web-url>requiredapplication</web-url>
+		<title-ref>requiredapplication</title-ref>
+		<title>Required Application</title>
+		<options>
+			<option id="placeholder">placeholder</option>
+		</options>
+	</instance>
+  <instance id="vocab-formattypenames">
+    <web-url>formattypenames</web-url>
+    <title-ref>formattypenames</title-ref>
+    <title>Format Types</title>
+    <options>
+      <option id="audio">audio</option>
+      <option id="video">video</option>
+    </options>
+  </instance>
+  <instance id="vocab-formats">
+    <web-url>formats</web-url>
+    <title-ref>formats</title-ref>
+    <title>Formats</title>
+    <options>
+      <option id="analog">analog</option>
+      <option id="digital">digital</option>
+    </options>
+  </instance>
+  <instance id="vocab-filecodecs">
+    <web-url>filecodecs</web-url>
+    <title-ref>filecodecs</title-ref>
+    <title>File Codecs</title>
+    <options>
+      <option id="h264">h.264</option>
+      <option id="h265">h.265</option>
+      <option id="prores422">prores 422</option>
+      <option id="jpeg2000">jpeg 2000</option>
+      <option id="heacc">he aac</option>
+    </options>
+  </instance>
+  <instance id="vocab-compressionstandards">
+    <web-url>compressionstandards</web-url>
+    <title-ref>compressionstandards</title-ref>
+    <title>Compression Standards</title>
+    <options>
+      <option id="placeholder">placeholder</option>
+    </options>
+  </instance>
+  <instance id="vocab-filecontainers">
+    <web-url>filecontainers</web-url>
+    <title-ref>filecontainers</title-ref>
+    <title>File Containers</title>
+    <options>
+      <option id="mp4">mp4</option>
+      <option id="mov">mov</option>
+      <option id="wav">wav</option>
+      <option id="flac">flac</option>
+    </options>
+  </instance>
+  <instance id="vocab-audiotypes">
+    <web-url>audiotypes</web-url>
+    <title-ref>audiotypes</title-ref>
+    <title>Audio Types</title>
+    <options>
+      <option id="mono">mono</option>
+      <option id="stereo">stereo</option>
+      <option id="doublemono">double mono</option>
+      <option id="3channelmono">3 channel mono</option>
+      <option id="quadrophonic">quadrophonic</option>
+      <option id="nosound">no sound</option>
+      <option id="muted">muted</option>
+    </options>
+  </instance>
+  <instance id="vocab-audiopreferences">
+    <web-url>audiopreferences</web-url>
+    <title-ref>audiopreferences</title-ref>
+    <title>Audio Preferences</title>
+    <options>
+      <option id="headphones">headphones</option>
+      <option id="speakers">speakers</option>
+    </options>
+  </instance>
+  <instance id="vocab-aspectratios">
+    <web-url>aspectratios</web-url>
+    <title-ref>aspectratios</title-ref>
+    <title>Aspect Ratios</title>
+    <options>
+      <option id="1by1">1:1</option>
+      <option id="4by3">4:3</option>
+      <option id="16by9">16:9</option>
+    </options>
+  </instance>
+  <instance id="vocab-aspectratiotypes">
+    <web-url>aspectratiotypes</web-url>
+    <title-ref>aspectratiotypes</title-ref>
+    <title>Aspect Ratio Types</title>
+    <options>
+      <option id="image">image</option>
+      <option id="display">display</option>
+    </options>
+  </instance>
+  <instance id="vocab-colorspaces">
+    <web-url>colorspaces</web-url>
+    <title-ref>colorspaces</title-ref>
+    <title>Color Spaces</title>
+    <options>
+      <option id="cmyk">cmyk</option>
+      <option id="munsell">munsell</option>
+      <option id="pantone">pantone</option>
+      <option id="rgb">rgb</option>
+    </options>
+  </instance>
+  <instance id="vocab-colortypes">
+    <web-url>colortypes</web-url>
+    <title-ref>colortypes</title-ref>
+    <title>Color Types</title>
+    <options>
+      <option id="placeholder">placeholder</option>
+    </options>
+  </instance>
 </instances>

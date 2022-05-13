@@ -28,6 +28,57 @@
 		<field id="nametitle" mini="summary,list" exists-in-services="false" service-field-alias="objectName" />
 	</section>
 
+	<section id="softwareTechSpecs">
+	  <repeat id="programmingLanguageGroupList/programmingLanguageGroup">
+			<field id="programmingLanguage" autocomplete="true" ui-type="enum" />
+			<field id="programmingLanguageVersion" autocomplete="true" ui-type="enum" />
+		</repeat>
+
+		<repeat id="libraries">
+			<field id="library" autocomplete="true" ui-type="enum" />
+		</repeat>
+
+		<repeat id="compilers">
+			<field id="compiler" autocomplete="true" ui-type="enum" />
+		</repeat>
+
+		<repeat id="intendedOperatingSystemGroupList/intendedOperatingSystemGroup">
+			<field id="intendedOperatingSystem" autocomplete="true" ui-type="enum" />
+			<field id="intendedOperatingSystemVersion" />
+		</repeat>
+
+		<repeat id="utilizedSoftwareGroupList/utilizedSoftwareGroup">
+			<field id="software" autocomplete="true" ui-type="enum" />
+			<field id="softwareVersion" />
+		</repeat>
+
+		<repeat id="intendedBrowserGroupList/intendedBrowserGroup">
+			<field id="intendedBrowser" autocomplete="true" ui-type="enum" />
+			<field id="intendedBrowserVersion" />
+		</repeat>
+
+		<repeat id="networkConnectionGroupList/networkConnectionGroup">
+			<field id="networkConnectionRequired" autocomplete="true" ui-type="enum" />
+			<field id="networkConnectionType" autocomplete="true" ui-type="enum" />
+		</repeat>
+
+		<repeat id="domainGroupList/domainGroup">
+			<field id="domainName" />
+			<field id="domainHost" autocomplete="true" ui-type="enum" />
+			<field id="domainType" autocomplete="true" ui-type="enum" />
+			<field id="domainVersion" autocomplete="true" ui-type="enum" />
+			<field id="domainOwner" autocomplete="true" ui-type="enum" />
+		</repeat>
+
+		<repeat id="applicationInteractionGroupList/applicationInteractionGroup">
+			<field id="applicationInteractionRequired" autocomplete="true" ui-type="enum" />
+			<field id="applicationRequired" autocomplete="true" ui-type="enum" />
+			<field id="applicationRequiredFor" />
+		</repeat>
+
+		<field id="apiUrl" />
+	</section>
+
 	<section id="identificationInformation">
 		<field id="objectNumber" mini="number,list" services-refnameDisplayName="true" />
 		<field id="numberOfObjects" datatype="integer" />
@@ -81,6 +132,32 @@
 			<field id="objectNameLanguage" autocomplete="true" ui-type="enum" />
 			<field id="objectNameNote" />
 			<field id="objectName" mini="list" />
+		</repeat>
+		<repeat id="objectSignificanceGroupList/objectSignificanceGroup">
+			<field id="assignedSignificance" autocomplete="true" ui-type="enum"/>
+			<field id="significanceAssignedBy" autocomplete="true" ui-type="enum"/>
+			<field id="significanceAssignedDate" datatype="date"/>
+			<field id="significanceAssignedContact" autocomplete="true"/>
+		</repeat>
+		<field id="objectSuppliedBy" autocomplete="true"/>
+		<field id="objectComponentStatus" autocomplete="true" ui-type="enum"/>
+
+		<repeat id="credentialGroupList/credentialGroup">
+			<field id="credentialType" autocomplete="true" ui-type="enum" />
+			<field id="credentialRequiredForUse" autocomplete="true" ui-type="enum" />
+			<field id="credentialLocation" autocomplete="true" />
+		</repeat>
+
+		<repeat id="distributedLedgerGroupList/distributedLedgerGroup">
+			<field id="distributedStorageLedger" autocomplete="true" ui-type="enum" />
+			<field id="distributedLedgerParentIdentifier" />
+			<field id="distributedLedgerObjectIdentifier" />
+		</repeat>
+
+		<repeat id="ledgerGroupList/ledgerGroup" >
+			<field id="ledger" autocomplete="true" ui-type="enum" />
+			<field id="ledgerContactAddress" />
+			<field id="ledgerTokenID" />
 		</repeat>
 	</section>
 
@@ -201,6 +278,8 @@
 			<field id="annotationDate" datatype="date" section="annotation" />
 			<field id="annotationAuthor" autocomplete="true" section="annotation" />
 		</repeat>
+
+		<field id="intendedBehavior" />
 	</section>
 	<section id="objectProductionInformation">
 		<repeat id="objectProductionDateGroupList/objectProductionDateGroup">
@@ -361,5 +440,29 @@
 		<repeat id="fieldColEventNames">
 			<field id="fieldColEventName" />
 		</repeat>
+	</section>
+
+	<section id="technicalSpecs">
+		<repeat id="avFormatGroupList/avFormatGroup">
+			<field id="formatType" autocomplete="true" ui-type="enum" />
+			<field id="format" autocomplete="true" ui-type="enum" />
+		</repeat>
+		<field id="numberOfChannels" datatype="integer" />
+		<repeat id="fileCodecGroupList/fileCodecGroup">
+			<field id="fileCodec" autocomplete="true" ui-type="enum" />
+			<field id="compressionStandard" autocomplete="true" ui-type="enum" />
+			<field id="fileContainer" autocomplete="true" ui-type="enum" />
+		</repeat>
+		<field id="audioType" autocomplete="true" ui-type="enum" />
+		<field id="audioPreferences" autocomplete="true" ui-type="enum" />
+		<repeat id="aspectRatioGroupList/aspectRatioGroup">
+			<field id="aspectRatio" autocomplete="true" ui-type="enum" />
+			<field id="aspectRatioType" autocomplete="true" ui-type="enum" />
+		</repeat>
+		<repeat id="colorSpaceGroupList/colorSpaceGroup">
+			<field id="colorSpace" autocomplete="true" ui-type="enum" />
+			<field id="colorType" autocomplete="true" ui-type="enum" />
+		</repeat>
+		<field id="avSpecificationNote" />
 	</section>
 </record>
