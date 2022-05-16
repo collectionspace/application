@@ -1164,4 +1164,13 @@
 			<option id="visitors">visitors</option>
 		</options>
 	</instance>
+	<instance id="vocab-checksumtypes">
+		<web-url>checksumtypes</web-url>
+		<title-ref>checksumtypes</title-ref>
+		<title>Checksum Types</title>
+		<options>
+			<option id="SHA_256">SHA-256</option>
+			<option id="MD5">MD5</option>
+		</options>
+	</instance>
 </instances>

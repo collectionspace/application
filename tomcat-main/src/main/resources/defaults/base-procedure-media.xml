@@ -56,6 +56,12 @@
 		<field id="rightsHolder" autocomplete="true" />
 		<field id="description" />
 		<field id="altText" />
+
+		<repeat id="checksumGroupList/checksumGroup">
+			<field id="checksumValue" />
+			<field id="checksumType" autocomplete="true" ui-type="enum" />
+			<field id="checksumDate" datatype="date" />
+		</repeat>
 	</section>
 
 	<!-- not used in ui yet -->
