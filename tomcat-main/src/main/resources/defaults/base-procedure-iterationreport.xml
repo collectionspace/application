@@ -1,0 +1,100 @@
+<record id="iterationreport" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true" >
+  <services-url>iterationreports</services-url>
+  <services-tenant-plural>Iterationreports</services-tenant-plural>
+  <services-tenant-singular>Iterationreport</services-tenant-singular>
+  <services-list-path>abstract-common-list/list-item</services-list-path>
+  <services-record-path>iterationreports_common:http://collectionspace.org/services/iterationreport,iterationreports_common</services-record-path>
+  <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+
+  <include src="domain-procedure-iterationreport.xml" strip-root="yes" />
+
+  <section id="coreInformation">
+    <include src="core-fields.xml" strip-root="yes" />
+  </section>
+
+  <section id="iterationInformation">
+    <field id="iterationIdentificationNumber" mini="number,list" />
+
+    <repeat id="iterationCreatorGroupList/iterationCreatorGroup">
+      <field id="iterationCreator" autocomplete="true" />
+      <field id="iterationCreatorRole" autocomplete="true" ui-type="enum" />
+    </repeat>
+
+    <repeat id="installerGroupList/installerGroup">
+      <field id="installer" autocomplete="true" />
+      <field id="installerRole" autocomplete="true" ui-type="enum" />
+      <field id="installerExtent" />
+    </repeat>
+
+    <repeat id="presenceGroupList/presenceGroup">
+      <field id="installDeinstall" autocomplete="true" ui-type="enum" />
+      <field id="artistPresent" autocomplete="true" ui-type="enum" />
+      <field id="presentExtent" />
+    </repeat>
+
+    <section id="iterationEvaluation">
+      <repeat id="evaluationGroupList/evaluationGroup">
+        <field id="iterationSuccessful" autocomplete="true" ui-type="enum" />
+        <field id="iterationEvaluator" autocomplete="true" />
+      </repeat>
+      <field id="iterationViewed" autocomplete="true" ui-type="enum" />
+      <field id="iterationApproved" autocomplete="true" ui-type="enum" />
+      <field id="iterationEvaluationNotes" />
+    </section>
+  </section>
+
+  <section id="iterationSpace">
+    <repeat id="spaceGroupList/spaceGroup">
+      <field id="descriptionType" autocomplete="true" ui-type="enum" />
+      <field id="approvalEntity" autocomplete="true" />
+      <field id="approvalDate" datatype="date" />
+      <field id="spaceDescription" />
+    </repeat>
+  </section>
+
+  <section id="iterationDetails">
+    <repeat id="exhibitionGroupList/exhibitionGroup">
+      <field id="exhibitionCopyIdentificationNumber" />
+      <field id="exhibitionApprovalEntity" autocomplete="true" />
+      <field id="exhibitionApprovalDate" datatype="date" />
+    </repeat>
+
+    <repeat id="installedEquipmentGroupList/installedEquipmentGroup">
+      <field id="installedEquipmentDescription" />
+      <field id="installedEquipmentApprovalEntity" autocomplete="true" />
+      <field id="installedEquipmentApprovalDate" datatype="date" />
+    </repeat>
+
+    <repeat id="technicalSetupGroupList/technicalSetupGroup">
+      <field id="technicalSetupType" autocomplete="true" ui-type="enum" />
+      <field id="technicalSetupApprovalEntity" autocomplete="true" />
+      <field id="technicalSetupApprovalDate" datatype="date" />
+      <field id="technicalSetupDescription" />
+    </repeat>
+
+    <repeat id="iterationSpecificGroupList/iterationSpecificGroup">
+      <field id="modificationDescription" />
+      <field id="modificationApprovalEntity" autocomplete="true" />
+      <field id="modificationApprovalDate" datatype="date" />
+    </repeat>
+
+    <repeat id="installationGroupList/installationGroup">
+      <field id="installationDescription" />
+      <field id="installationApprovalEntity" autocomplete="true" />
+      <field id="installationApprovalDate" datatype="date" />
+    </repeat>
+
+    <repeat id="maintenanceGroupList/maintenanceGroup">
+      <field id="maintenanceType" autocomplete="true" ui-type="enum" />
+      <field id="maintenanceContact" autocomplete="true" />
+      <field id="maintenanceDate" datatype="date" />
+      <field id="maintenanceExtent" />
+    </repeat>
+
+    <repeat id="securityGroupList/securityGroup">
+      <field id="securityRequirements" autocomplete="true" ui-type="enum" />
+      <field id="securityApprovalEntity" autocomplete="true" />
+      <field id="securityApprovalDate" datatype="date" />
+    </repeat>
+  </section>
+</record>
