@@ -14,7 +14,7 @@
 		<temp.war.location>${basedir}/tmp</temp.war.location>
 		<cspace.tool.csmake>csmake</cspace.tool.csmake>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jetty.version>6.1.22</jetty.version>
+		<jetty.version>6.1.23</jetty.version>
 	</properties>
 
 	<distributionManagement>
