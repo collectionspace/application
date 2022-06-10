@@ -1522,6 +1522,7 @@
 		<options>
 			<option id="audio">audio</option>
 			<option id="video">video</option>
+			<option id="still">still</option>
 		</options>
 	</instance>
 	<instance id="vocab-formats">
@@ -1707,6 +1708,77 @@
 			<option id="security">security</option>
 			<option id="signage">signage</option>
 			<option id="visitors">visitors</option>
+		</options>
+	</instance>
+	<instance id="vocab-softwareattributes">
+		<web-url>softwareattributes</web-url>
+		<title-ref>softwareattributes</title-ref>
+		<title>Software/Web Attributes</title>
+		<options>
+			<option id="file_size">file size</option>
+			<option id="polygons">polygons</option>
+		</options>
+	</instance>
+	<instance id="vocab-softwareattributeunits">
+		<web-url>softwareattributeunits</web-url>
+		<title-ref>softwareattributeunits</title-ref>
+		<title>Software/Web Attribute Units</title>
+		<options>
+			<option id="byte">byte</option>
+			<option id="KB">KB</option>
+			<option id="MB">MB</option>
+			<option id="GB">GB</option>
+			<option id="TB">TB</option>
+			<option id="PB">PB</option>
+			<option id="polygon">polygon</option>
+		</options>
+	</instance>
+	<instance id="vocab-avattributes">
+		<web-url>avattributes</web-url>
+		<title-ref>avattributes</title-ref>
+		<title>Audio/Video Technical Attributes</title>
+		<options>
+			<option id="bit_depth">bit depth</option>
+			<option id="bit_rate">bit rate</option>
+			<option id="file_size">file size</option>
+			<option id="intended_frame_rate">intended frame rate</option>
+			<option id="processor_speed">processor speed</option>
+			<option id="sampling_rate">sampling rate</option>
+		</options>
+	</instance>
+	<instance id="vocab-avattributeunits">
+		<web-url>avattributeunits</web-url>
+		<title-ref>avattributeunits</title-ref>
+		<title>Audio/Video Attribute Units</title>
+		<options>
+			<option id="bits">bits</option>
+			<option id="bytes">bytes</option>
+			<option id="fps">fps</option>
+			<option id="GB">GB</option>
+			<option id="Gbps">Gbps/s</option>
+			<option id="GHz">GHz</option>
+			<option id="KB">KB</option>
+			<option id="Kbps">Kbps/s</option>
+			<option id="KHz">KHz</option>
+			<option id="MB">MB</option>
+			<option id="Mbps">Mbps/s</option>
+			<option id="MHz">MHz</option>
+			<option id="TB">TB</option>
+			<option id="PB">PB</option>
+		</options>
+	</instance>
+	<instance id="vocab-chromasubsampling">
+		<web-url>chromasubsampling</web-url>
+		<title-ref>chromasubsampling</title-ref>
+		<title>Chroma Subsampling</title>
+		<options>
+			<option id="4_4_4">4:4:4</option>
+			<option id="4_2_2">4:2:2</option>
+			<option id="4_2_1">4:2:1</option>
+			<option id="4_1_1">4:1:1</option>
+			<option id="4_2_0">4:2:0</option>
+			<option id="4_1_0">4:1:0</option>
+			<option id="3_1_1">3:1:1</option>
 		</options>
 	</instance>
 </instances>
