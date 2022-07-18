@@ -76,7 +76,16 @@
 			<field id="applicationRequiredFor" />
 		</repeat>
 
-		<field id="apiUrl" />
+		<repeat id="apiUrls">
+			<field id="apiUrl" />
+		</repeat>
+
+		<repeat id="softwareTechnicalAttributeGroupList/softwareTechnicalAttributeGroup">
+			<field id="softwareTechnicalAttribute" autocomplete="true" ui-type="enum" />
+			<field id="softwareTechnicalAttributeLowValue" />
+			<field id="softwareTechnicalAttributeHighValue" />
+			<field id="softwareTechnicalAttributeUnit" autocomplete="true" ui-type="enum" />
+		</repeat>
 	</section>
 
 	<section id="identificationInformation">
@@ -145,7 +154,7 @@
 		<repeat id="credentialGroupList/credentialGroup">
 			<field id="credentialType" autocomplete="true" ui-type="enum" />
 			<field id="credentialRequiredForUse" autocomplete="true" ui-type="enum" />
-			<field id="credentialLocation" autocomplete="true" />
+			<field id="credentialLocation" />
 		</repeat>
 
 		<repeat id="distributedLedgerGroupList/distributedLedgerGroup">
@@ -156,7 +165,7 @@
 
 		<repeat id="ledgerGroupList/ledgerGroup" >
 			<field id="ledger" autocomplete="true" ui-type="enum" />
-			<field id="ledgerContactAddress" />
+			<field id="ledgerContractAddress" />
 			<field id="ledgerTokenID" />
 		</repeat>
 	</section>
@@ -442,12 +451,16 @@
 		</repeat>
 	</section>
 
-	<section id="technicalSpecs">
+	<section id="avTechnicalSpecs">
 		<repeat id="avFormatGroupList/avFormatGroup">
 			<field id="formatType" autocomplete="true" ui-type="enum" />
 			<field id="format" autocomplete="true" ui-type="enum" />
 		</repeat>
-		<field id="numberOfChannels" datatype="integer" />
+		<repeat id="avChannelGroupList/avChannelGroup">
+			<field id="numberOfChannels" datatype="integer" />
+			<field id="channelType" autocomplete="true" ui-type="enum" />
+		</repeat>
+		<field id="channelLayout" />
 		<repeat id="fileCodecGroupList/fileCodecGroup">
 			<field id="fileCodec" autocomplete="true" ui-type="enum" />
 			<field id="compressionStandard" autocomplete="true" ui-type="enum" />
@@ -455,6 +468,7 @@
 		</repeat>
 		<field id="audioType" autocomplete="true" ui-type="enum" />
 		<field id="audioPreferences" autocomplete="true" ui-type="enum" />
+		<field id="chromaSubsampling" autocomplete="true" ui-type="enum" />
 		<repeat id="aspectRatioGroupList/aspectRatioGroup">
 			<field id="aspectRatio" autocomplete="true" ui-type="enum" />
 			<field id="aspectRatioType" autocomplete="true" ui-type="enum" />
@@ -462,6 +476,12 @@
 		<repeat id="colorSpaceGroupList/colorSpaceGroup">
 			<field id="colorSpace" autocomplete="true" ui-type="enum" />
 			<field id="colorType" autocomplete="true" ui-type="enum" />
+		</repeat>
+		<repeat id="avTechnicalAttributeGroupList/avTechnicalAttributeGroup">
+			<field id="avTechnicalAttribute" autocomplete="true" ui-type="enum" />
+			<field id="avTechnicalAttributeLowValue" />
+			<field id="avTechnicalAttributeHighValue" />
+			<field id="avTechnicalAttributeUnit" autocomplete="true" ui-type="enum" />
 		</repeat>
 		<field id="avSpecificationNote" />
 	</section>
