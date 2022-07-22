@@ -73,4 +73,22 @@
 			<option id="museum">museum</option>
 		</options>
 	</instance>
+	<instance id="vocab-nagpraassertionnames">
+		<web-url>nagpraassertionnames</web-url>
+		<title-ref>nagpraassertionnames</title-ref>
+		<title>Assertion Names</title>
+		<options>
+			<option id="nagpraassertionnames01">Geographic/territorial evidence</option>
+			<option id="nagpraassertionnames02">Kinship evidence</option>
+			<option id="nagpraassertionnames03">Biological evidence</option>
+			<option id="nagpraassertionnames04">Archaeological evidence</option>
+			<option id="nagpraassertionnames05">Anthropological evidence</option>
+			<option id="nagpraassertionnames06">Linguistic evidence</option>
+			<option id="nagpraassertionnames07">Folklore evidence</option>
+			<option id="nagpraassertionnames08">Oral tradition</option>
+			<option id="nagpraassertionnames09">Historical evidence</option>
+			<option id="nagpraassertionnames10">Other relevant information or expert opinion</option>
+			<option id="nagpraassertionnames11">Consultation summary</option>
+		</options>
+	</instance>
 </instances>

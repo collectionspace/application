@@ -44,7 +44,7 @@
 			<include src="base-authority-citation-termList.xml" />
 			<include src="base-authority-citation.xml" />
 			<include src="base-authority-place-termList.xml" />
-			<include src="base-authority-place.xml" />
+			<include src="base-authority-place.xml,extensions/nagpra-authority-place.xml" merge="xmlmerge.properties" />
 
 			<include src="base-authority-taxon-termList.xml" />
 			<include src="base-authority-taxon.xml" />
