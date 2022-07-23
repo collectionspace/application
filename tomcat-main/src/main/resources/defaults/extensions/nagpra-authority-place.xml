@@ -1,0 +1,57 @@
+<record id="place" is-extension="true">
+  <services-record-path id="nagpra">places_nagpra:http://collectionspace.org/services/place/domain/nagpra,places_nagpra</services-record-path>
+
+  <section id="assertions">
+    <repeat id="assertionGroupList/assertionGroup" section="nagpra" >
+      <field id="assertionName" section="nagpra" autocomplete="true" ui-type="enum"/>
+      <field id="assertionDescription" section="nagpra" />
+
+      <repeat id="assertionSourceGroupList/assertionSourceGroup" section="nagpra">
+        <field id="assertionSourceBy" autocomplete="true" section="nagpra" />
+        <field id="assertionSourceDate" datatype="date" section="nagpra" />
+        <field id="assertionSourceNote" section="nagpra" />
+      </repeat>
+
+      <field id="assertionRelatedRecords" section="nagpra" />
+
+      <repeat id="assertionReferenceGroupList/assertionReferenceGroup" section="nagpra">
+        <field id="assertionReference" autocomplete="true" section="nagpra" />
+        <field id="assertionReferenceNote" section="nagpra" />
+      </repeat>
+    </repeat>
+  </section>
+
+  <section id="background">
+    <repeat id="basicInfoList" section="nagpra">
+      <field id="basicInfo" section="nagpra" />
+    </repeat>
+
+    <repeat id="nagpraHistoryList" section="nagpra">
+      <field id="nagpraHistory" section="nagpra" />
+    </repeat>
+
+    <repeat id="backgroundSummaryList" section="nagpra">
+      <field id="backgroundSummary" section="nagpra" />
+    </repeat>
+
+    <repeat id="landOwnershipInfoList" section="nagpra">
+      <field id="landOwnershipInfo" section="nagpra" />
+    </repeat>
+  </section>
+
+  <section id="consultedDocs">
+    <repeat id="museumRecordsList" section="nagpra">
+      <field id="museumRecords" section="nagpra" />
+    </repeat>
+
+    <repeat id="manuscriptGroupList/manuscriptGroup" section="nagpra">
+      <field id="manuscriptReferences" autocomplete="true" section="nagpra" />
+      <field id="manuscriptNote" section="nagpra" />
+    </repeat>
+
+    <repeat id="reportRefGroupList/reportRefGroup" section="nagpra">
+      <field id="reportReferences" autocomplete="true" section="nagpra" />
+      <field id="reportNote" section="nagpra" />
+    </repeat>
+  </section>
+</record>
