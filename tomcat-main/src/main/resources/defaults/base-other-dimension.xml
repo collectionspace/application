@@ -13,7 +13,6 @@
 				<field id="valueQualifier" />
 				<field id="dimensionNote" />
 			</repeat>
-			<field id="measuredPartNote" />
 		</repeat>
 	</section>
 </record>
