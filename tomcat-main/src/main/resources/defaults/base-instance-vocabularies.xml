@@ -1654,7 +1654,8 @@
 		<title-ref>artistpresence</title-ref>
 		<title>Artist Presence</title>
 		<options>
-			<option id="placeholder">placeholder</option>
+			<option id="present">present</option>
+			<option id="represented">represented</option>
 		</options>
 	</instance>
 	<instance id="vocab-iterationspacetype">

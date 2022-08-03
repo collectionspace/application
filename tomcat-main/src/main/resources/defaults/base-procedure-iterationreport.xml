@@ -15,8 +15,14 @@
   <section id="iterationInformation">
     <field id="iterationIdentificationNumber" mini="number,list" />
 
+    <repeat id="iterationActionGroupList/iterationActionGroup">
+      <field id="action" autocomplete="true" ui-type="enum" />
+      <field id="actionStartDate" datatype="date" />
+      <field id="actionEndDate" datatype="date" />
+    </repeat>
+
     <repeat id="iterationCreatorGroupList/iterationCreatorGroup">
-      <field id="iterationCreator" autocomplete="true" />
+      <field id="iterationCreator" autocomplete="true" mini="summary,list" services-schema-qualify="true" />
       <field id="iterationCreatorRole" autocomplete="true" ui-type="enum" />
     </repeat>
 
@@ -28,6 +34,7 @@
 
     <repeat id="presenceGroupList/presenceGroup">
       <field id="installDeinstall" autocomplete="true" ui-type="enum" />
+      <field id="artistOrRepresentative" autocomplete="true" />
       <field id="artistPresent" autocomplete="true" ui-type="enum" />
       <field id="presentExtent" />
     </repeat>
