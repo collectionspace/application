@@ -491,4 +491,37 @@
 		</repeat>
 		<field id="avSpecificationNote" />
 	</section>
+
+	<section id="rightsInformation">
+		<repeat id="rightsGroupList/rightsGroup">
+			<field id="rightType" autocomplete="true" ui-type="enum" />
+			<repeat id="rightHolderGroupList/rightHolderGroup">
+				<field id="rightHolder" autocomplete="true" />
+				<field id="rightHolderContact" autocomplete="true" />
+			</repeat>
+			<field id="rightBeginDate" datatype="date" />
+			<field id="rightEndDate" datatype="date" />
+			<field id="rightJurisdiction" autocomplete="true" ui-type="enum" />
+			<field id="standardizedRightStatement" autocomplete="true" ui-type="enum" />
+			<field id="rightStatement" />
+			<field id="rightNote" />
+		</repeat>
+	</section>
+	<section id="rightsInInformation">
+		<repeat id="rightsInGroupList/rightsInGroup">
+			<repeat id="rightInTypes">
+				<field id="rightInType" autocomplete="true" ui-type="enum" />
+			</repeat>
+			<field id="rightInBeginDate" datatype="date" />
+			<field id="rightInEndDate" datatype="date" />
+			<field id="agreementSent" datatype="date" />
+			<field id="agreementReceived" datatype="date" />
+			<field id="agreementSigned" datatype="date" />
+			<repeat id="rightInRestrictions">
+				<field id="rightInRestriction" autocomplete="true" ui-type="enum" />
+			</repeat>
+			<field id="rightReproductionStatement" />
+			<field id="rightInNote" />
+		</repeat>
+	</section>
 </record>

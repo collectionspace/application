@@ -1875,4 +1875,54 @@
 			<option id="placeholder_b">placeholder_b</option>
 		</options>
 	</instance>
+	<instance id="vocab-rightstype">
+		<web-url>rightstype</web-url>
+		<title-ref>rightstype</title-ref>
+		<title>Rights Type</title>
+		<options>
+			<option id="copyright">copyright</option>
+			<option id="data_protection_right">data protection right</option>
+			<option id="patent">patent</option>
+			<option id="publication_rights">publication rights</option>
+			<option id="trademark">trademark</option>
+		</options>
+	</instance>
+	<instance id="vocab-standardizedrightstatement">
+		<web-url>standardizedrightstatement</web-url>
+		<title-ref>standardizedrightstatement</title-ref>
+		<title>Standardized Right Statement</title>
+		<options>
+			<option id="in_copyright">in copyright</option>
+			<option id="in_copyright_eu_orphan">in copyright - EU orphan work</option>
+			<option id="in_copyright_educational">in copyright - education use permitted</option>
+			<option id="in_copyright_noncommercial">in copyright - non-commercial use permitted</option>
+			<option id="in_copyright_unlocatable">in copyright - rights holders unlocatable or unidentifiable</option>
+			<option id="nocopyright_contractual">no copyright - contractual restrictions</option>
+			<option id="nocopyright_noncommercial">no copyright - non-commerical use only</option>
+			<option id="nocopyright_other">no copyright - other known legal restrictions</option>
+			<option id="nocopyright_us">no copyright - united states</option>
+			<option id="copyright_not_evaluated">copyright not evaluated</option>
+			<option id="copyright_undetermined">copyright undetermined</option>
+			<option id="no_known_copyright">no known copyright</option>
+		</options>
+	</instance>
+	<instance id="vocab-rightsin">
+		<web-url>rightsin</web-url>
+		<title-ref>rightsin</title-ref>
+		<title>Rights In Type</title>
+		<options>
+			<option id="copyright">copyright</option>
+			<option id="publication_right">publication right</option>
+		</options>
+	</instance>
+	<instance id="vocab-rightsinrestriction">
+		<web-url>rightsinrestriction</web-url>
+		<title-ref>rightsinrestriction</title-ref>
+		<title>Rights In Restriction</title>
+		<options>
+			<option id="donor_credit">Donors must be credited</option>
+			<option id="permission_for_reproduction">Permission required for reproduction</option>
+			<option id="photocopying_not_allowed">Photocopying not allowed</option>
+		</options>
+	</instance>
 </instances>
