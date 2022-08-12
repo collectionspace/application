@@ -22,7 +22,7 @@
     </repeat>
 
     <repeat id="iterationCreatorGroupList/iterationCreatorGroup">
-      <field id="iterationCreator" autocomplete="true" mini="summary,list" services-schema-qualify="true" />
+      <field id="iterationCreator" autocomplete="true" mini="summary,list" />
       <field id="iterationCreatorRole" autocomplete="true" ui-type="enum" />
     </repeat>
 
