@@ -18,6 +18,6 @@
 	<instance id="vocab-publishto">
 		<web-url>publishto</web-url>
 		<title-ref>publishto</title-ref>
-		<title>Publishing destination</title>
+		<title>Publishing Destination</title>
 	</instance>
 </instances>
