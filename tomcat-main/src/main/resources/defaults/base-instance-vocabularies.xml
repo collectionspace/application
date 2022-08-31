@@ -1427,17 +1427,21 @@
 			<option id="tezos">tezos</option>
 		</options>
 	</instance>
-	<instance id="vocab-programminglanguages">
-		<web-url>programminglanguages</web-url>
-		<title-ref>programminglanguages</title-ref>
+	<instance id="vocab-programminglanguage">
+		<web-url>programminglanguage</web-url>
+		<title-ref>programminglanguage</title-ref>
 		<title>Programming Languages</title>
 		<options>
-			<option id="cpp">C++</option>
+			<option id="clang">C (language)</option>
+			<option id="cplusplus">C++</option>
 			<option id="csharp">C#</option>
 			<option id="java">Java</option>
 			<option id="javascript">Javascript</option>
-			<option id="python">Python</option>
-			<option id="ruby">Ruby</option>
+			<option id="php">Perl</option>
+			<option id="python">PHP</option>
+			<option id="ruby">Python</option>
+			<option id="sql">Ruby</option>
+			<option id="digibeta">SQL</option>
 		</options>
 	</instance>
 	<instance id="vocab-compilers">
