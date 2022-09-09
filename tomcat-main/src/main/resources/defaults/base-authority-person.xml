@@ -81,45 +81,45 @@
 			<repeat id="suppliedPronouns">
 				<field id="suppliedPronoun" autocomplete="true" ui-type="enum" />
 			</repeat>
-			<field id="useRestrictionPronoun" />
+			<field id="useRestrictionPronoun" autocomplete="true" ui-type="enum" />
 		</repeat>
 		<repeat id="genderGroupList/genderGroup">
 			<field id="declinedToAnswerGender" datatype="boolean" />
 			<repeat id="suppliedGenders">
 				<field id="suppliedGender" autocomplete="true" ui-type="enum" />
 			</repeat>
-			<field id="useRestrictionGender" />
+			<field id="useRestrictionGender" autocomplete="true" ui-type="enum" />
 		</repeat>
 		<repeat id="raceGroupList/raceGroup">
 			<field id="declinedToAnswerRace" datatype="boolean" />
 			<repeat id="suppliedRaces">
 				<field id="suppliedRace" autocomplete="true" ui-type="enum" />
 			</repeat>
-			<field id="useRestrictionRace" />
+			<field id="useRestrictionRace" autocomplete="true" ui-type="enum" />
 		</repeat>
 		<repeat id="ethnicityGroupList/ethnicityGroup">
 			<field id="declinedToAnswerEthnicity" datatype="boolean" />
 			<repeat id="suppliedEthnicities">
 				<field id="suppliedEthnicity" autocomplete="true" ui-type="enum" />
 			</repeat>
-			<field id="useRestrictionEthnicity" />
+			<field id="useRestrictionEthnicity" autocomplete="true" ui-type="enum" />
 		</repeat>
 		<repeat id="sexualityGroupList/sexualityGroup">
 			<field id="declinedToAnswerSexuality" datatype="boolean" />
 			<repeat id="suppliedSexualities">
 				<field id="suppliedSexuality" autocomplete="true" ui-type="enum" />
 			</repeat>
-			<field id="useRestrictionSexuality" />
+			<field id="useRestrictionSexuality" autocomplete="true" ui-type="enum" />
 		</repeat>
 		<repeat id="birthPlaceGroupList/birthPlaceGroup">
 			<field id="declinedToAnswerBirthPlace" datatype="boolean" />
 			<field id="suppliedBirthPlace" autocomplete="true" />
-			<field id="useRestrictionBirthPlace" />
+			<field id="useRestrictionBirthPlace" autocomplete="true" ui-type="enum" />
 		</repeat>
 		<repeat id="birthDateGroupList/birthDateGroup">
 			<field id="declinedToAnswerBirthDate" datatype="boolean" />
 			<field id="suppliedBirthDate" ui-type="groupfield/structureddate" />
-			<field id="useRestrictionBirthDate" />
+			<field id="useRestrictionBirthDate" autocomplete="true" ui-type="enum" />
 		</repeat>
 		<repeat id="otherGroupList/otherGroup">
 			<field id="informationAuthor" autocomplete="true" />

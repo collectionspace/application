@@ -1848,6 +1848,10 @@
 		<web-url>suppliedethnicity</web-url>
 		<title-ref>suppliedethnicity</title-ref>
 		<title>Supplied Ethnicity</title>
+		<options>
+			<option id="placeholder_a">placeholder_a</option>
+			<option id="placeholder_b">placeholder_b</option>
+		</options>
 	</instance>
 	<instance id="vocab-suppliedsexuality">
 		<web-url>suppliedsexuality</web-url>
@@ -1860,6 +1864,15 @@
 			<option id="heterosexual">heterosexual</option>
 			<option id="lesbian">lesbian</option>
 			<option id="pansexual">pansexual</option>
+		</options>
+	</instance>
+	<instance id="vocab-userestriction">
+		<web-url>userestriction</web-url>
+		<title-ref>userestriction</title-ref>
+		<title>Use Restriction</title>
+		<options>
+			<option id="placeholder_a">placeholder_a</option>
+			<option id="placeholder_b">placeholder_b</option>
 		</options>
 	</instance>
 </instances>
