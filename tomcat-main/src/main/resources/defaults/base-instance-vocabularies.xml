@@ -1492,7 +1492,8 @@
 		<title-ref>softwarelibraries</title-ref>
 		<title>Software Libraries</title>
 		<options>
-			<option id="placeholder">placeholder</option>
+			<option id="placeholder_a">placeholder_a</option>
+			<option id="placeholder_b">placeholder_b</option>
 		</options>
 	</instance>
 	<instance id="vocab-connectiontype">
@@ -1500,7 +1501,8 @@
 		<title-ref>connectiontype</title-ref>
 		<title>Connection Type</title>
 		<options>
-			<option id="placeholder">placeholder</option>
+			<option id="placeholder_a">placeholder_a</option>
+			<option id="placeholder_b">placeholder_b</option>
 		</options>
 	</instance>
 	<instance id="vocab-domaintype">
@@ -1508,7 +1510,8 @@
 		<title-ref>domaintype</title-ref>
 		<title>Domain Type</title>
 		<options>
-			<option id="placeholder">placeholder</option>
+			<option id="placeholder_a">placeholder_a</option>
+			<option id="placeholder_b">placeholder_b</option>
 		</options>
 	</instance>
 	<instance id="vocab-requiredapplication">
@@ -1516,7 +1519,8 @@
 		<title-ref>requiredapplication</title-ref>
 		<title>Required Application</title>
 		<options>
-			<option id="placeholder">placeholder</option>
+			<option id="placeholder_a">placeholder_a</option>
+			<option id="placeholder_b">placeholder_b</option>
 		</options>
 	</instance>
 	<instance id="vocab-formattypenames">
@@ -1555,7 +1559,8 @@
 		<title-ref>compressionstandards</title-ref>
 		<title>Compression Standards</title>
 		<options>
-			<option id="placeholder">placeholder</option>
+			<option id="placeholder_a">placeholder_a</option>
+			<option id="placeholder_b">placeholder_b</option>
 		</options>
 	</instance>
 	<instance id="vocab-filecontainers">
@@ -1627,7 +1632,8 @@
 		<title-ref>colortypes</title-ref>
 		<title>Color Types</title>
 		<options>
-			<option id="placeholder">placeholder</option>
+			<option id="placeholder_a">placeholder_a</option>
+			<option id="placeholder_b">placeholder_b</option>
 		</options>
 	</instance>
 	<instance id="vocab-iterationrole">
@@ -1650,7 +1656,8 @@
 		<title-ref>installerrole</title-ref>
 		<title>Installer Role</title>
 		<options>
-			<option id="placeholder">placeholder</option>
+			<option id="placeholder_a">placeholder_a</option>
+			<option id="placeholder_b">placeholder_b</option>
 		</options>
 	</instance>
 	<instance id="vocab-artistpresence">
