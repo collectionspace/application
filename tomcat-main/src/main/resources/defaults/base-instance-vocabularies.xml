@@ -1791,4 +1791,88 @@
 			<option id="MD5">MD5</option>
 		</options>
 	</instance>
+	<instance id="vocab-suppliedgender">
+		<web-url>suppliedgender</web-url>
+		<title-ref>suppliedgender</title-ref>
+		<title>Supplied Gender</title>
+		<options>
+			<option id="agender">agender</option>
+			<option id="bigender">bigender</option>
+			<option id="dyadic">dyadic</option>
+			<option id="female">female</option>
+			<option id="feminine">feminine</option>
+			<option id="gender_fluid">gender-fluid</option>
+			<option id="gender_neutral">gender-neutral</option>
+			<option id="gender_non_binary">gender-non-binary</option>
+			<option id="genderqueer">genderqueer</option>
+			<option id="intersex">intersex</option>
+			<option id="male">male</option>
+			<option id="masculine">masculine</option>
+			<option id="pansexual">pansexual</option>
+			<option id="polygender">polygender</option>
+			<option id="questioning">questioning</option>
+			<option id="transgender">transgender</option>
+			<option id="transsexual">transsexual</option>
+			<option id="two_spirit">two-spirit</option>
+		</options>
+	</instance>
+	<instance id="vocab-suppliedpronoun">
+		<web-url>suppliedpronoun</web-url>
+		<title-ref>suppliedpronoun</title-ref>
+		<title>Supplied Pronoun</title>
+		<options>
+			<option id="he">he</option>
+			<option id="him">him</option>
+			<option id="she">she</option>
+			<option id="her">her</option>
+			<option id="they">they</option>
+			<option id="them">them</option>
+		</options>
+	</instance>
+	<instance id="vocab-suppliedrace">
+		<web-url>suppliedrace</web-url>
+		<title-ref>suppliedrace</title-ref>
+		<title>Supplied Race</title>
+		<options>
+			<option id="american_indian">american indian</option>
+			<option id="alaska_native">alaska native</option>
+			<option id="asian">asian</option>
+			<option id="black">black</option>
+			<option id="african_american">african american</option>
+			<option id="native_hawaiian">native hawaiian</option>
+			<option id="pacific_islander">pacific islander</option>
+			<option id="white">white</option>
+		</options>
+	</instance>
+	<instance id="vocab-suppliedethnicity">
+		<web-url>suppliedethnicity</web-url>
+		<title-ref>suppliedethnicity</title-ref>
+		<title>Supplied Ethnicity</title>
+		<options>
+			<option id="placeholder_a">placeholder_a</option>
+			<option id="placeholder_b">placeholder_b</option>
+		</options>
+	</instance>
+	<instance id="vocab-suppliedsexuality">
+		<web-url>suppliedsexuality</web-url>
+		<title-ref>suppliedsexuality</title-ref>
+		<title>Supplied Sexuality</title>
+		<options>
+			<option id="asexual">asexual</option>
+			<option id="bisexual">bisexual</option>
+			<option id="gay">gay</option>
+			<option id="heterosexual">heterosexual</option>
+			<option id="lesbian">lesbian</option>
+			<option id="pansexual">pansexual</option>
+		</options>
+	</instance>
+	<instance id="vocab-userestriction">
+		<web-url>userestriction</web-url>
+		<title-ref>userestriction</title-ref>
+		<title>Use Restriction</title>
+		<options>
+			<option id="placeholder_a">placeholder_a</option>
+			<option id="placeholder_b">placeholder_b</option>
+		</options>
+	</instance>
 </instances>
