@@ -501,7 +501,7 @@
 			</repeat>
 			<field id="rightBeginDate" datatype="date" />
 			<field id="rightEndDate" datatype="date" />
-			<field id="rightJurisdiction" autocomplete="true" ui-type="enum" />
+			<field id="rightJurisdiction" />
 			<field id="standardizedRightStatement" autocomplete="true" ui-type="enum" />
 			<field id="rightStatement" />
 			<field id="rightNote" />
