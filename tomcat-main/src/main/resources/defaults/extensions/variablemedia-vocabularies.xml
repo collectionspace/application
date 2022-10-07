@@ -88,23 +88,6 @@
 			<option id="wav">WAV</option>
 		</options>
 	</instance>
-	<instance id="vocab-programminglanguage">
-		<web-url>programminglanguage</web-url>
-		<title-ref>programminglanguage</title-ref>
-		<title>Programming languages</title>
-		<options>
-			<option id="clang">C (language)</option>
-			<option id="cplusplus">C++</option>
-			<option id="csharp">C#</option>
-			<option id="java">Java</option>
-			<option id="javascript">Javascript</option>
-			<option id="php">Perl</option>
-			<option id="python">PHP</option>
-			<option id="ruby">Python</option>
-			<option id="sql">Ruby</option>
-			<option id="digibeta">SQL</option>
-		</options>
-	</instance>
 	<instance id="vocab-authoringenvironment">
 		<web-url>authoringenvironment</web-url>
 		<title-ref>authoringenvironment</title-ref>
