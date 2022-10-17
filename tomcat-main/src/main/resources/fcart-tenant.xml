@@ -23,6 +23,7 @@
 			<include src="base-procedure-groups.xml" />
 			<include src="base-procedure-insurance.xml" />
 			<include src="base-procedure-intake.xml" />
+			<include src="base-procedure-iterationreport.xml" />
 			<include src="base-procedure-loanin.xml" />
 			<include src="base-procedure-loanout.xml" />
 			<include src="base-procedure-media.xml,extensions/fcart-profile-procedure-media.xml"
