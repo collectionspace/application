@@ -1090,8 +1090,9 @@
 		<title-ref>colortypes</title-ref>
 		<title>Color Types</title>
 		<options>
-			<option id="placeholder_a">placeholder_a</option>
-			<option id="placeholder_b">placeholder_b</option>
+			<option id="srgb">sRGB</option>
+			<option id="adobergb">Adobe RGB</option>
+			<option id="yuv">YUV</option>
 		</options>
 	</instance>
 	<instance id="vocab-iterationrole">
