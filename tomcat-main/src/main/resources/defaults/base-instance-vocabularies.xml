@@ -1559,8 +1559,12 @@
 		<title-ref>compressionstandards</title-ref>
 		<title>Compression Standards</title>
 		<options>
-			<option id="placeholder_a">placeholder_a</option>
-			<option id="placeholder_b">placeholder_b</option>
+			<option id="h264">h.264</option>
+			<option id="h265">h.265</option>
+			<option id="aac">AAC</option>
+			<option id="aaclc">AAC-LC</option>
+			<option id="aacssr">AAC-SSR</option>
+			<option id="pcm">PCM</option>
 		</options>
 	</instance>
 	<instance id="vocab-filecontainers">
