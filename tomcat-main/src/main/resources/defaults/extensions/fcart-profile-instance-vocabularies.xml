@@ -947,8 +947,12 @@
 		<title-ref>softwarelibraries</title-ref>
 		<title>Software Libraries</title>
 		<options>
-			<option id="placeholder_a">placeholder_a</option>
-			<option id="placeholder_b">placeholder_b</option>
+			<option id="react">react</option>
+			<option id="threejs">three.js</option>
+			<option id="p5js">p5.js</option>
+			<option id="tensorflow">tensorflow</option>
+			<option id="processing">processing</option>
+			<option id="custom">custom (see notes)</option>
 		</options>
 	</instance>
 	<instance id="vocab-connectiontype">
