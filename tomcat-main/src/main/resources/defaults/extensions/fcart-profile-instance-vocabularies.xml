@@ -960,8 +960,9 @@
 		<title-ref>connectiontype</title-ref>
 		<title>Connection Type</title>
 		<options>
-			<option id="placeholder_a">placeholder_a</option>
-			<option id="placeholder_b">placeholder_b</option>
+			<option id="ethernet">ethernet cable</option>
+			<option id="wifi">wifi</option>
+			<option id="ftp">ftp server</option>
 		</options>
 	</instance>
 	<instance id="vocab-domaintype">
