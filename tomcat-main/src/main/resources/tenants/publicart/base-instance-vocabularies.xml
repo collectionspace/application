@@ -314,7 +314,6 @@
 			<option id="publisher">Publisher</option>
 		</options>
 	</instance>
-
 	<instance id="vocab-citationtermtype">
 		<web-url>citationtermtype</web-url>
 		<title-ref>citationtermtype</title-ref>
@@ -1792,6 +1791,7 @@
 			<option id="MD5">MD5</option>
 		</options>
 	</instance>
+	-->
 	<instance id="vocab-suppliedgender">
 		<web-url>suppliedgender</web-url>
 		<title-ref>suppliedgender</title-ref>
@@ -1875,7 +1875,7 @@
 			<option id="placeholder_a">placeholder_a</option>
 			<option id="placeholder_b">placeholder_b</option>
 		</options>
-	</instance> -->
+	</instance>
 	<instance id="vocab-rightstype">
 		<web-url>rightstype</web-url>
 		<title-ref>rightstype</title-ref>
