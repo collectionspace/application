@@ -1782,6 +1782,7 @@
 			<option id="3_1_1">3:1:1</option>
 		</options>
 	</instance>
+	-->
 	<instance id="vocab-checksumtypes">
 		<web-url>checksumtypes</web-url>
 		<title-ref>checksumtypes</title-ref>
@@ -1791,7 +1792,6 @@
 			<option id="MD5">MD5</option>
 		</options>
 	</instance>
-	-->
 	<instance id="vocab-suppliedgender">
 		<web-url>suppliedgender</web-url>
 		<title-ref>suppliedgender</title-ref>
