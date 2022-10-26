@@ -30,16 +30,16 @@
 
 	<section id="softwareTechSpecs">
 	  <repeat id="programmingLanguageGroupList/programmingLanguageGroup">
-			<field id="programmingLanguage" autocomplete="true" ui-type="enum" />
+			<field id="programmingLanguageName" autocomplete="true" ui-type="enum" />
 			<field id="programmingLanguageVersion" autocomplete="true" ui-type="enum" />
 		</repeat>
 
-		<repeat id="libraries">
-			<field id="library" autocomplete="true" ui-type="enum" />
+		<repeat id="softwareLibraries">
+			<field id="softwareLibrary" autocomplete="true" ui-type="enum" />
 		</repeat>
 
-		<repeat id="compilers">
-			<field id="compiler" autocomplete="true" ui-type="enum" />
+		<repeat id="codeCompilers">
+			<field id="codeCompiler" autocomplete="true" ui-type="enum" />
 		</repeat>
 
 		<repeat id="intendedOperatingSystemGroupList/intendedOperatingSystemGroup">
