@@ -970,8 +970,8 @@
 		<title-ref>domaintype</title-ref>
 		<title>Domain Type</title>
 		<options>
-			<option id="placeholder_a">placeholder_a</option>
-			<option id="placeholder_b">placeholder_b</option>
+			<option id="dns">dns</option>
+			<option id="ipns">ipns</option>
 		</options>
 	</instance>
 	<instance id="vocab-requiredapplication">
