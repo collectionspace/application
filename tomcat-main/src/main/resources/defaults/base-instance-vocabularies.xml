@@ -1524,8 +1524,12 @@
 		<title-ref>requiredapplication</title-ref>
 		<title>Required Application</title>
 		<options>
-			<option id="placeholder_a">placeholder_a</option>
-			<option id="placeholder_b">placeholder_b</option>
+			<option id="googlemaps">Google Maps</option>
+			<option id="instagram">Instagram</option>
+			<option id="metamask">Meta Mask</option>
+			<option id="roku">Roku</option>
+			<option id="stocks">Stocks</option>
+			<option id="twitter">Twitter</option>
 		</options>
 	</instance>
 	<instance id="vocab-formattypenames">
