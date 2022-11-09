@@ -1670,8 +1670,14 @@
 		<title-ref>installerrole</title-ref>
 		<title>Installer Role</title>
 		<options>
-			<option id="placeholder_a">placeholder_a</option>
-			<option id="placeholder_b">placeholder_b</option>
+			<option id="arthandler">art handler</option>
+			<option id="artist">artist</option>
+			<option id="artistassistant">artist assistant</option>
+			<option id="conservator">conservator</option>
+			<option id="curator">curator</option>
+			<option id="exhibitiondesigner">exhibition designer</option>
+			<option id="mediatechnician">media technician</option>
+			<option id="registrar">registrar</option>
 		</options>
 	</instance>
 	<instance id="vocab-artistpresence">
