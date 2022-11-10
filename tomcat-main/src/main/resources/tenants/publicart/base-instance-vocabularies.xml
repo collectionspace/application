@@ -1850,8 +1850,12 @@
 		<title-ref>suppliedethnicity</title-ref>
 		<title>Supplied Ethnicity</title>
 		<options>
-			<option id="placeholder_a">placeholder_a</option>
-			<option id="placeholder_b">placeholder_b</option>
+			<option id="americanindian">american indian or alaska native</option>
+			<option id="asian">asian</option>
+			<option id="blackamerican">black or african american</option>
+			<option id="hispanic">hispanic or latino</option>
+			<option id="hawaiianpacificisle">native hawaiian or other pacific islander</option>
+			<option id="white">white</option>
 		</options>
 	</instance>
 	<instance id="vocab-suppliedsexuality">
