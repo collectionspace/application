@@ -1902,8 +1902,8 @@
 		<title-ref>userestriction</title-ref>
 		<title>Use Restriction</title>
 		<options>
-			<option id="placeholder_a">placeholder_a</option>
-			<option id="placeholder_b">placeholder_b</option>
+			<option id="restricted">restricted</option>
+			<option id="notrestricted">not restricted</option>
 		</options>
 	</instance>
 	<instance id="vocab-rightstype">
