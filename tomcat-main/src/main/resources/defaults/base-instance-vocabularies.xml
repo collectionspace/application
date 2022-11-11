@@ -1492,8 +1492,12 @@
 		<title-ref>softwarelibraries</title-ref>
 		<title>Software Libraries</title>
 		<options>
-			<option id="placeholder_a">placeholder_a</option>
-			<option id="placeholder_b">placeholder_b</option>
+			<option id="react">react</option>
+			<option id="threejs">three.js</option>
+			<option id="p5js">p5.js</option>
+			<option id="tensorflow">tensorflow</option>
+			<option id="processing">processing</option>
+			<option id="custom">custom (see notes)</option>
 		</options>
 	</instance>
 	<instance id="vocab-connectiontype">
@@ -1501,8 +1505,9 @@
 		<title-ref>connectiontype</title-ref>
 		<title>Connection Type</title>
 		<options>
-			<option id="placeholder_a">placeholder_a</option>
-			<option id="placeholder_b">placeholder_b</option>
+			<option id="ethernet">ethernet cable</option>
+			<option id="wifi">wifi</option>
+			<option id="ftp">ftp server</option>
 		</options>
 	</instance>
 	<instance id="vocab-domaintype">
@@ -1510,8 +1515,8 @@
 		<title-ref>domaintype</title-ref>
 		<title>Domain Type</title>
 		<options>
-			<option id="placeholder_a">placeholder_a</option>
-			<option id="placeholder_b">placeholder_b</option>
+			<option id="dns">dns</option>
+			<option id="ipns">ipns</option>
 		</options>
 	</instance>
 	<instance id="vocab-requiredapplication">
@@ -1519,8 +1524,12 @@
 		<title-ref>requiredapplication</title-ref>
 		<title>Required Application</title>
 		<options>
-			<option id="placeholder_a">placeholder_a</option>
-			<option id="placeholder_b">placeholder_b</option>
+			<option id="googlemaps">Google Maps</option>
+			<option id="instagram">Instagram</option>
+			<option id="metamask">Meta Mask</option>
+			<option id="roku">Roku</option>
+			<option id="stocks">Stocks</option>
+			<option id="twitter">Twitter</option>
 		</options>
 	</instance>
 	<instance id="vocab-formattypenames">
@@ -1559,8 +1568,12 @@
 		<title-ref>compressionstandards</title-ref>
 		<title>Compression Standards</title>
 		<options>
-			<option id="placeholder_a">placeholder_a</option>
-			<option id="placeholder_b">placeholder_b</option>
+			<option id="h264">h.264</option>
+			<option id="h265">h.265</option>
+			<option id="aac">AAC</option>
+			<option id="aaclc">AAC-LC</option>
+			<option id="aacssr">AAC-SSR</option>
+			<option id="pcm">PCM</option>
 		</options>
 	</instance>
 	<instance id="vocab-filecontainers">
@@ -1632,8 +1645,9 @@
 		<title-ref>colortypes</title-ref>
 		<title>Color Types</title>
 		<options>
-			<option id="placeholder_a">placeholder_a</option>
-			<option id="placeholder_b">placeholder_b</option>
+			<option id="srgb">sRGB</option>
+			<option id="adobergb">Adobe RGB</option>
+			<option id="yuv">YUV</option>
 		</options>
 	</instance>
 	<instance id="vocab-iterationrole">
@@ -1656,8 +1670,14 @@
 		<title-ref>installerrole</title-ref>
 		<title>Installer Role</title>
 		<options>
-			<option id="placeholder_a">placeholder_a</option>
-			<option id="placeholder_b">placeholder_b</option>
+			<option id="arthandler">art handler</option>
+			<option id="artist">artist</option>
+			<option id="artistassistant">artist assistant</option>
+			<option id="conservator">conservator</option>
+			<option id="curator">curator</option>
+			<option id="exhibitiondesigner">exhibition designer</option>
+			<option id="mediatechnician">media technician</option>
+			<option id="registrar">registrar</option>
 		</options>
 	</instance>
 	<instance id="vocab-artistpresence">
@@ -1860,8 +1880,12 @@
 		<title-ref>suppliedethnicity</title-ref>
 		<title>Supplied Ethnicity</title>
 		<options>
-			<option id="placeholder_a">placeholder_a</option>
-			<option id="placeholder_b">placeholder_b</option>
+			<option id="americanindian">american indian or alaska native</option>
+			<option id="asian">asian</option>
+			<option id="blackamerican">black or african american</option>
+			<option id="hispanic">hispanic or latino</option>
+			<option id="hawaiianpacificisle">native hawaiian or other pacific islander</option>
+			<option id="white">white</option>
 		</options>
 	</instance>
 	<instance id="vocab-suppliedsexuality">
@@ -1882,8 +1906,8 @@
 		<title-ref>userestriction</title-ref>
 		<title>Use Restriction</title>
 		<options>
-			<option id="placeholder_a">placeholder_a</option>
-			<option id="placeholder_b">placeholder_b</option>
+			<option id="restricted">restricted</option>
+			<option id="notrestricted">not restricted</option>
 		</options>
 	</instance>
 	<instance id="vocab-rightstype">
