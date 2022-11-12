@@ -149,7 +149,7 @@
 			<field id="significanceAssignedContact" autocomplete="true"/>
 		</repeat>
 		<field id="objectSuppliedBy" autocomplete="true"/>
-		<field id="objectComponentStatus" autocomplete="true" ui-type="enum"/>
+		<field id="variableMediaComponentStatus" autocomplete="true" ui-type="enum"/>
 
 		<repeat id="credentialGroupList/credentialGroup">
 			<field id="credentialType" autocomplete="true" ui-type="enum" />

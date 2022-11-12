@@ -833,10 +833,10 @@
 			<option id="museum">museum</option>
 		</options>
 	</instance>
-	<instance id="vocab-componentstatus">
-		<web-url>componentstatus</web-url>
-		<title-ref>componentstatus</title-ref>
-		<title>Component Status</title>
+	<instance id="vocab-vmcomponentstatus">
+		<web-url>vmcomponentstatus</web-url>
+		<title-ref>vmcomponentstatus</title-ref>
+		<title>Variable Media Component Status</title>
 		<options>
 			<option id="archival">archival</option>
 			<option id="exhibition">exhibition</option>
