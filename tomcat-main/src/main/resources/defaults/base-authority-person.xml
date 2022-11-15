@@ -116,9 +116,9 @@
 			<field id="suppliedBirthPlace" autocomplete="true" />
 			<field id="useRestrictionBirthPlace" autocomplete="true" ui-type="enum" />
 		</repeat>
-		<repeat id="birthDateGroupList/birthDateGroup">
+		<repeat id="suppliedBirthDateGroupList/suppliedBirthDateGroup">
 			<field id="declinedToAnswerBirthDate" datatype="boolean" />
-			<field id="suppliedBirthDate" ui-type="groupfield/structureddate" />
+			<field id="suppliedStructuredBirthDateGroup" ui-type="groupfield/structureddate" />
 			<field id="useRestrictionBirthDate" autocomplete="true" ui-type="enum" />
 		</repeat>
 		<repeat id="otherGroupList/otherGroup">
