@@ -31,7 +31,7 @@
 	<section id="softwareTechSpecs">
 	  <repeat id="programmingLanguageGroupList/programmingLanguageGroup">
 			<field id="programmingLanguageName" autocomplete="true" ui-type="enum" />
-			<field id="programmingLanguageVersion" autocomplete="true" ui-type="enum" />
+			<field id="programmingLanguageVersion" />
 		</repeat>
 
 		<repeat id="softwareLibraries">
@@ -58,20 +58,20 @@
 		</repeat>
 
 		<repeat id="networkConnectionGroupList/networkConnectionGroup">
-			<field id="networkConnectionRequired" autocomplete="true" ui-type="enum" />
+			<field id="networkConnectionRequired" />
 			<field id="networkConnectionType" autocomplete="true" ui-type="enum" />
 		</repeat>
 
 		<repeat id="domainGroupList/domainGroup">
 			<field id="domainName" />
-			<field id="domainHost" autocomplete="true" ui-type="enum" />
+			<field id="domainHost" autocomplete="true" />
 			<field id="domainType" autocomplete="true" ui-type="enum" />
-			<field id="domainVersion" autocomplete="true" ui-type="enum" />
+			<field id="domainVersion" />
 			<field id="domainOwner" autocomplete="true" ui-type="enum" />
 		</repeat>
 
 		<repeat id="applicationInteractionGroupList/applicationInteractionGroup">
-			<field id="applicationInteractionRequired" autocomplete="true" ui-type="enum" />
+			<field id="applicationInteractionRequired" />
 			<field id="applicationRequired" autocomplete="true" ui-type="enum" />
 			<field id="applicationRequiredFor" />
 		</repeat>
@@ -153,7 +153,7 @@
 
 		<repeat id="credentialGroupList/credentialGroup">
 			<field id="credentialType" autocomplete="true" ui-type="enum" />
-			<field id="credentialRequiredForUse" autocomplete="true" ui-type="enum" />
+			<field id="credentialRequiredForUse" />
 			<field id="credentialLocation" />
 		</repeat>
 
