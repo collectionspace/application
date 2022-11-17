@@ -16,7 +16,7 @@
     <field id="iterationIdentificationNumber" mini="number,list" />
 
     <repeat id="iterationActionGroupList/iterationActionGroup">
-      <field id="action" autocomplete="true" ui-type="enum" />
+      <field id="action" />
       <field id="actionStartDate" datatype="date" />
       <field id="actionEndDate" datatype="date" />
     </repeat>
@@ -33,7 +33,7 @@
     </repeat>
 
     <repeat id="presenceGroupList/presenceGroup">
-      <field id="installDeinstall" autocomplete="true" ui-type="enum" />
+      <field id="installDeinstall" />
       <field id="artistOrRepresentative" autocomplete="true" />
       <field id="artistPresent" autocomplete="true" ui-type="enum" />
       <field id="presentExtent" />
@@ -41,11 +41,11 @@
 
     <section id="iterationEvaluation">
       <repeat id="evaluationGroupList/evaluationGroup">
-        <field id="iterationSuccessful" autocomplete="true" ui-type="enum" />
+        <field id="iterationSuccessful" />
         <field id="iterationEvaluator" autocomplete="true" />
       </repeat>
-      <field id="iterationViewed" autocomplete="true" ui-type="enum" />
-      <field id="iterationApproved" autocomplete="true" ui-type="enum" />
+      <field id="iterationViewed" />
+      <field id="iterationApproved" />
       <field id="iterationEvaluationNotes" />
     </section>
   </section>
