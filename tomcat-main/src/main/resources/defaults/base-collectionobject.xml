@@ -67,7 +67,7 @@
 			<field id="domainHost" autocomplete="true" />
 			<field id="domainType" autocomplete="true" ui-type="enum" />
 			<field id="domainVersion" />
-			<field id="domainOwner" autocomplete="true" ui-type="enum" />
+			<field id="domainOwner" autocomplete="true" />
 		</repeat>
 
 		<repeat id="applicationInteractionGroupList/applicationInteractionGroup">
