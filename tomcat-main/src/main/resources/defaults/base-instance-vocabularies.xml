@@ -1519,10 +1519,10 @@
 			<option id="ipns">ipns</option>
 		</options>
 	</instance>
-	<instance id="vocab-requiredapplication">
-		<web-url>requiredapplication</web-url>
-		<title-ref>requiredapplication</title-ref>
-		<title>Required Application</title>
+	<instance id="vocab-interactingapplication">
+		<web-url>interactingapplication</web-url>
+		<title-ref>interactingapplication</title-ref>
+		<title>Interacting Application</title>
 		<options>
 			<option id="googlemaps">Google Maps</option>
 			<option id="instagram">Instagram</option>
