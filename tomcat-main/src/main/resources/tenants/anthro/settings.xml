@@ -57,6 +57,7 @@
 				<version>0.1</version>
 				<display-name>CollectionSpace Anthropology Tenant</display-name>
 				<create-disabled>${CSPACE_ANTHRO_CREATE_DISABLED_OPT}</create-disabled>
+				<audit-required>false</audit-required>
 			</tenant>
 			<repository>
 				<domain>anthro</domain>

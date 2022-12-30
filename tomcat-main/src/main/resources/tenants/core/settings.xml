@@ -56,10 +56,11 @@
 				<version>0.1</version>
 				<display-name>CollectionSpace Core Tenant</display-name>
 				<create-disabled>${CSPACE_CORE_CREATE_DISABLED_OPT}</create-disabled>
+				<audit-required>false</audit-required>
 			</tenant>
 			<repository>
 				<domain>core-domain</domain>
-				<name></name>
+				<name>core_domain</name>
 				<client>nuxeo-java</client>
 				<dateformats>
 					<pattern>MM/dd/yyyy</pattern>

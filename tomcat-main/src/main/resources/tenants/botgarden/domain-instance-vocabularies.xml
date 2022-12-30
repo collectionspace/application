@@ -2,6 +2,7 @@
 <root>
 	<include src="extensions/livingplant-vocabularies.xml" strip-root="yes" />
 	<include src="extensions/locality-vocabularies.xml" strip-root="yes" />
+	<include src="extensions/annotation-vocabularies.xml" strip-root="yes" />
 	<include src="extensions/naturalhistory-vocabularies.xml" strip-root="yes" />
 
 	<instance id="vocab-phaseFormType">

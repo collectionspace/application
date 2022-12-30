@@ -57,6 +57,7 @@
                 <version>0.1</version>
                 <display-name>CollectionSpace Materials Tenant</display-name>
 				<create-disabled>${CSPACE_MATERIALS_CREATE_DISABLED_OPT}</create-disabled>
+				<audit-required>false</audit-required>
             </tenant>
             <repository>
                 <domain>materials</domain>
