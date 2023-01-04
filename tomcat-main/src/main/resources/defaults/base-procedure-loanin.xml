@@ -37,5 +37,6 @@
 			<field id="loanStatusDate" datatype="date" />
 			<field id="loanStatusNote" />
 		</repeat>
+		<field id="creditLine" />
 	</section>
 </record>
