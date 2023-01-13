@@ -35,5 +35,6 @@
 		<field id="loanOutDate" datatype="date" />
 		<field id="loanReturnDate" datatype="date" />
 		<field id="loanRenewalApplicationDate" datatype="date" />
+		<field id="creditLine" />
 	</section>
 </record>
