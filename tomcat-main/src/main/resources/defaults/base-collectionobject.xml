@@ -141,6 +141,7 @@
 			<field id="objectNameLanguage" autocomplete="true" ui-type="enum" />
 			<field id="objectNameNote" />
 			<field id="objectName" mini="list" />
+			<field id="objectNameControlled" autocomplete="true" />
 		</repeat>
 		<repeat id="objectSignificanceGroupList/objectSignificanceGroup">
 			<field id="assignedSignificance" autocomplete="true" ui-type="enum"/>
