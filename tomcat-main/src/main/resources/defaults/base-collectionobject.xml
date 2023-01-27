@@ -202,6 +202,7 @@
 			<field id="materialComponentNote" />
 			<field id="materialName" />
 			<field id="materialSource" />
+			<field id="materialControlled" autocomplete="true" />
 		</repeat>
 		<field id="physicalDescription" />
 		<repeat id="objectComponentGroupList/objectComponentGroup">
