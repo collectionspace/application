@@ -1,0 +1,62 @@
+<record id="chronology" type="authority" cms-type="default" generate-services-schema="true" >
+	<terms-used>true</terms-used>
+	<web-url>chronology</web-url>
+
+  <services-tenant-auth-plural>Chronologyauthorities</services-tenant-auth-plural>
+  <services-tenant-auth-singular>Chronologyauthority</services-tenant-auth-singular>
+  <services-tenant-singular>Chronology</services-tenant-singular>
+  <services-tenant-plural>Chronologies</services-tenant-plural>
+
+	<services-instances-path>chronologyauthorities_common:http://collectionspace.org/services/chronology,abstract-common-list/list-item</services-instances-path>
+	<services-single-instance-path>chronologyauthorities_common:http://collectionspace.org/services/chronology,chronologyauthorities_common</services-single-instance-path>
+  <services-list-path>http://collectionspace.org/services/chronology,abstract-common-list/list-item</services-list-path>
+
+  <services-record-path>chronologies_common:http://collectionspace.org/services/chronology,chronologies_common</services-record-path>
+  <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+
+  <services-url>chronologyauthorities</services-url>
+  <authority-vocab-type>ChronologyAuthority</authority-vocab-type>
+
+  <include src="domain-authority-chronology.xml" strip-root="yes" />
+
+  <instances id="chronology">
+    <instance id="chronology-era">
+      <web-url>era</web-url>
+      <title-ref>era</title-ref>
+      <title>Era Chronology</title>
+    </instance>
+    <instance id="chronology-event">
+      <web-url>event</web-url>
+      <title-ref>event</title-ref>
+      <title>Event Chronology</title>
+    </instance>
+    <instance id="chronology-fieldcollection">
+      <web-url>fieldcollection</web-url>
+      <title-ref>fieldcollection</title-ref>
+      <title>Field Collection Chronology</title>
+    </instance>
+  </instances>
+
+  <section id="coreInformation">
+    <include src="core-fields.xml" strip-root="yes" />
+  </section>
+
+  <section id="chronologyInformation">
+		<field id="preferredChronology" ui-type="groupfield/preferredChronology/selfrenderer" />
+  </section>
+
+	<!-- not used in UI except in autocompletes -->
+	<section id="otherInformation">
+		<field id="inAuthority" services-should-index="true" />
+		<field id="deprecatedRefName">
+			<services-tag>refName</services-tag>
+		</field>
+		<field id="shortIdentifier" mini="list" services-should-index="true" />
+		<field id="csid" exists-in-services="false" mini="list" />
+		<!-- SAS related fields -->
+		<field id="rev" mini="list" datatype="integer" />
+		<field id="sas" mini="list" datatype="boolean" />
+		<field id="proposed" mini="list" datatype="boolean" />
+		<field id="deprecated" mini="list" datatype="boolean" />
+	</section>
+</record>
