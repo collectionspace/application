@@ -1,0 +1,155 @@
+<record id="chronology" type="authority" cms-type="default" generate-services-schema="true">
+  <terms-used>true</terms-used>
+  <web-url>chronology</web-url>
+
+  <services-tenant-auth-plural>Chronologyauthorities</services-tenant-auth-plural>
+  <services-tenant-auth-singular>Chronologyauthority</services-tenant-auth-singular>
+  <services-tenant-singular>Chronology</services-tenant-singular>
+  <services-tenant-plural>Chronologies</services-tenant-plural>
+
+  <services-instances-path>chronologyauthorities_common:http://collectionspace.org/services/chronology,abstract-common-list/list-item</services-instances-path>
+  <services-single-instance-path>chronologyauthorities_common:http://collectionspace.org/services/chronology,chronologyauthorities_common</services-single-instance-path>
+  <services-list-path>http://collectionspace.org/services/chronology,abstract-common-list/list-item</services-list-path>
+
+  <services-record-path>chronologies_common:http://collectionspace.org/services/chronology,chronologies_common</services-record-path>
+  <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+
+  <services-url>chronologyauthorities</services-url>
+  <authority-vocab-type>ChronologyAuthority</authority-vocab-type>
+
+  <structures>
+    <structure id="screen">
+      <view>
+        <hierarchy-section show="true" />
+      </view>
+    </structure>
+  </structures>
+
+  <include src="domain-authority-chronology.xml" strip-root="yes" />
+
+  <instances id="chronology">
+    <instance id="chronology-era">
+      <web-url>era</web-url>
+      <title-ref>era</title-ref>
+      <title>Era Chronologies</title>
+    </instance>
+    <instance id="chronology-event">
+      <web-url>event</web-url>
+      <title-ref>event</title-ref>
+      <title>Event Chronologies</title>
+    </instance>
+    <instance id="chronology-field_collection">
+      <web-url>field_collection</web-url>
+      <title-ref>field_collection</title-ref>
+      <title>Field Collection Chronologies</title>
+    </instance>
+  </instances>
+
+  <section id="coreInformation">
+    <include src="core-fields.xml" strip-root="yes" />
+  </section>
+
+  <section id="chronologyInformation">
+    <field id="preferredChronology" ui-type="groupfield/preferredChronology/selfrenderer" />
+
+    <field id="chronologyDateStructuredDateGroup" ui-type="groupfield/structureddate" />
+    <repeat id="chronologyPlaces">
+      <field id="chronologyPlace" autocomplete="true" />
+    </repeat>
+    <field id="chronologyType" autocomplete="true" ui-type="enum" />
+    <field id="chronologyNote" />
+    <field id="chronologyDescription" />
+
+    <repeat id="identifierGroupList/identifierGroup">
+      <field id="identifierValue" />
+      <field id="identifierCitation" autocomplete="true" ui-type="enum" />
+      <field id="identifierDate" />
+    </repeat>
+
+    <repeat id="otherDateGroupList/otherDateGroup">
+      <field id="otherDateStructuredDateGroup" ui-type="groupfield/structureddate" />
+      <repeat id="otherDatePlaces">
+        <field id="otherDatePlace" autocomplete="true" />
+      </repeat>
+      <repeat id="otherDateCitations">
+        <field id="otherDateCitation" autocomplete="true" />
+      </repeat>
+      <field id="otherDateNote" />
+    </repeat>
+
+    <repeat id="personGroupList/personGroup">
+      <field id="person" autocomplete="true" />
+      <field id="personType" autocomplete="true" ui-type="enum" />
+      <field id="personStructuredDateGroup" ui-type="groupfield/structureddate" />
+      <repeat id="personCitations">
+        <field id="personCitation" autocomplete="true" />
+      </repeat>
+      <field id="personNote" />
+    </repeat>
+
+    <repeat id="peopleGroupList/peopleGroup">
+      <field id="people" autocomplete="true" />
+      <field id="peopleType" autocomplete="true" ui-type="enum" />
+      <field id="peopleStructuredDateGroup" ui-type="groupfield/structureddate" />
+      <repeat id="peopleCitations">
+        <field id="peopleCitation" autocomplete="true" />
+      </repeat>
+      <field id="peopleNote" />
+    </repeat>
+
+    <repeat id="organizationGroupList/organizationGroup">
+      <field id="organization" autocomplete="true" />
+      <field id="organizationType" autocomplete="true" ui-type="enum" />
+      <field id="organizationStructuredDateGroup" ui-type="groupfield/structureddate" />
+      <repeat id="organizationCitations">
+        <field id="organizationCitation" autocomplete="true" />
+      </repeat>
+      <field id="organizationNote" />
+    </repeat>
+
+    <repeat id="conceptGroupList/conceptGroup">
+      <field id="concept" autocomplete="true" />
+      <field id="conceptType" autocomplete="true" ui-type="enum" />
+      <field id="conceptStructuredDateGroup" ui-type="groupfield/structureddate" />
+      <repeat id="conceptCitations">
+        <field id="conceptCitation" autocomplete="true" />
+      </repeat>
+      <field id="conceptNote" />
+    </repeat>
+
+    <repeat id="placeGroupList/placeGroup">
+      <field id="place" autocomplete="true" />
+      <field id="placeType" autocomplete="true" ui-type="enum" />
+      <field id="placeStructuredDateGroup" ui-type="groupfield/structureddate" />
+      <repeat id="placeCitations">
+        <field id="placeCitation" autocomplete="true" />
+      </repeat>
+      <field id="placeNote" />
+    </repeat>
+
+    <repeat id="relatedPeriodGroupList/relatedPeriodGroup">
+      <field id="relatedPeriod" autocomplete="true" />
+      <field id="relatedPeriodType" autocomplete="true" ui-type="enum" />
+      <field id="relatedPeriodStructuredDateGroup" ui-type="groupfield/structureddate" />
+      <repeat id="relatedPeriodCitations">
+        <field id="relatedPeriodCitation" autocomplete="true" />
+      </repeat>
+      <field id="relatedPeriodNote" />
+    </repeat>
+  </section>
+
+  <!-- not used in UI except in autocompletes -->
+  <section id="otherInformation">
+    <field id="inAuthority" services-should-index="true" />
+    <field id="deprecatedRefName">
+      <services-tag>refName</services-tag>
+    </field>
+    <field id="shortIdentifier" mini="list" services-should-index="true" />
+    <field id="csid" exists-in-services="false" mini="list" />
+    <!-- SAS related fields -->
+    <field id="rev" mini="list" datatype="integer" />
+    <field id="sas" mini="list" datatype="boolean" />
+    <field id="proposed" mini="list" datatype="boolean" />
+    <field id="deprecated" mini="list" datatype="boolean" />
+  </section>
+</record>

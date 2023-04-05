@@ -1,0 +1,22 @@
+<record id="preferredChronology" in-recordlist="no" separate-record="false">
+  <section id="termInformation">
+    <repeat id="chronologyTermGroupList/chronologyTermGroup">
+      <!-- Fields common across all authority items -->
+      <field id="termDisplayName" mini="summary,number,list" services-should-index="true" />
+      <field id="termName" />
+      <field id="termType" autocomplete="true" ui-type="enum" />
+      <field id="termFlag" autocomplete="true" ui-type="enum" />
+      <field id="termStatus" mini="list" />
+      <field id="termQualifier" />
+      <field id="termLanguage" autocomplete="true" ui-type="enum" />
+      <field id="termPrefForLang" datatype="boolean" />
+      <field id="termSource" autocomplete="true" />
+      <field id="termSourceDetail" />
+      <field id="termSourceID" />
+      <field id="termSourceNote" />
+      <field id="termFormattedDisplayName" />
+      <!-- Fields specific to chronology terms -->
+      <field id="historicalStatus" />
+    </repeat>
+  </section>
+</record>
