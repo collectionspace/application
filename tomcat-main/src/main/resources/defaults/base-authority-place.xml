@@ -40,6 +40,11 @@
 			<title-ref>tgn_place</title-ref>
 			<title>Thesaurus of Geographic Names</title>
 		</instance>
+		<instance id="place-archaeological">
+			<web-url>archaeological</web-url>
+			<title-ref>archaeological</title-ref>
+			<title>Archaeological Site</title>
+		</instance>
 	</instances>
 
 	<section id="coreInformation">
