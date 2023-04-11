@@ -18,6 +18,10 @@
 			<field id="repatriationNote" section="nagpra" />
 		</repeat>
 
+		<repeat id="nagpraNotes" section="nagpra">
+			<field id="nagpraNote" section="nagpra" />
+		</repeat>
+
 		<repeat id="nagpraCulturalDeterminations" section="nagpra">
 			<field id="nagpraCulturalDetermination" section="nagpra" />
 		</repeat>
