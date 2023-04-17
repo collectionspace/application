@@ -303,6 +303,10 @@
 			<group id="objectProductionDate" ui-type="groupfield/structureddate" />
 		</repeat>
 
+		<repeat id="objectProductionEras">
+			<field id="objectProductionEra" autocomplete="true" />
+		</repeat>
+
 		<repeat id="techniqueGroupList/techniqueGroup">
 			<field id="technique" />
 			<field id="techniqueType" />
@@ -393,6 +397,10 @@
 			</repeat>
 			<field id="assocEventName" />
 			<field id="assocEventNameType" />
+
+			<field id="assocControlledEventName" />
+			<field id="assocControlledEventNameType" />
+
 			<repeat id="assocEventOrganizations">
 				<field id="assocEventOrganization" autocomplete="true" />
 			</repeat>
