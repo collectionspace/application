@@ -398,8 +398,8 @@
 			<field id="assocEventName" />
 			<field id="assocEventNameType" />
 
-			<field id="assocControlledEventName" />
-			<field id="assocControlledEventNameType" />
+			<field id="assocEvent" />
+			<field id="assocEventType" />
 
 			<repeat id="assocEventOrganizations">
 				<field id="assocEventOrganization" autocomplete="true" />
