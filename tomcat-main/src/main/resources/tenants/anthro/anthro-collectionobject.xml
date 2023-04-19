@@ -86,8 +86,8 @@
 
 	<section id="objectCollectionInformation">
 		<field id="fieldLocVerbatim" section="anthro" />
-		<repeat id="fieldCollectionControlledEvents" section="anthro">
-			<field id="fieldCollectionControlledEvent" autocomplete="true" section="anthro" />
+		<repeat id="fieldCollectionEvents" section="anthro">
+			<field id="fieldCollectionEvent" autocomplete="true" section="anthro" />
 		</repeat>
 	</section>
 
