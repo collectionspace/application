@@ -38,7 +38,7 @@
 			<artifactId>org.collectionspace.services.common-api</artifactId>
 			<version>${cspace.services.version}</version>
 		</dependency>
-		
+
 		<dependency>
 		    <groupId>org.collectionspace.services</groupId>
 		    <artifactId>org.collectionspace.services.structureddate.structureddate</artifactId>
@@ -69,8 +69,8 @@
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
 		</dependency>
 
 		<dependency>

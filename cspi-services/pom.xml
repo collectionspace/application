@@ -46,13 +46,13 @@
 			<version>${project.version}</version>
 			<type>jar</type>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>cspi-webui</artifactId>
 			<version>${project.version}</version>
 			<type>jar</type>
-		</dependency>		
+		</dependency>
 
 		<dependency>
 			<groupId>org.collectionspace</groupId>
@@ -125,8 +125,8 @@
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
 		</dependency>
 
 		<dependency>
@@ -155,7 +155,7 @@
 		<finalName>cspi-services</finalName>
 		<filters>
             <filter>../build.properties</filter>
-        </filters>		
+        </filters>
 		<plugins>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
