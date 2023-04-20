@@ -387,7 +387,12 @@ public class Record implements FieldParent {
 		addSearchField(f);
 
 		if (parentType.equals("Record")) { //toplevel field
-			fieldTopLevel.put(f.getID(), f);
+			// DRYD-989: Index fields by schema:fieldname, so that identically named fields in different
+			// schema don't clobber each other. Technically this should be done in all the maps of
+			// fields in this class, but fieldTopLevel is the only one that is in use anymore, by the XSD
+			// generation process, since the app layer no longer does anything else. All the other dead
+			// code and unused maps should be removed at some point.
+			fieldTopLevel.put(f.getSection() + ":" + f.getID(), f);
 			if (f.isInServices() || f.isServicesDerived()) {
 				serviceFieldTopLevel.put(f.getID(), f);
 				//list fields by the operations they support
