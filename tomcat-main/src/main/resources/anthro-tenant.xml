@@ -53,6 +53,8 @@
 			<include src="base-authority-concept.xml,anthro-authority-concept.xml" merge="xmlmerge.properties" />
 			<include src="base-authority-work-termList.xml" />
 			<include src="base-authority-work.xml" />
+			<include src="base-authority-chronology-termList.xml" />
+			<include src="base-authority-chronology.xml" />
 
 			<include src="base-vocabularies.xml" />
 
