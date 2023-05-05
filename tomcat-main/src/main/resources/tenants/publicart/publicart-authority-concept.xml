@@ -1,9 +1,14 @@
 <record id="concept">
 	<!--
-	Replace instances (delete concept, activity, materialclassification, materialformtype; add
+	Replace instances (delete activity, materialclassification, materialformtype; add
 	worktype)
 	-->
 	<instances id="concept">
+		<instance id="concept-concept">
+			<web-url>concept</web-url>
+			<title-ref>concept</title-ref>
+			<title>Associated Concepts</title>
+		</instance>
 		<instance id="concept-material_ca">
 			<web-url>material_ca</web-url>
 			<title-ref>material_ca</title-ref>
