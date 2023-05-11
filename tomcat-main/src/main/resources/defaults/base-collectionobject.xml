@@ -446,6 +446,9 @@
 		</repeat>
 	</section>
 	<section id="objectCollectionInformation">
+		<repeat id="fieldCollectionSites">
+			<field id="fieldCollectionSite" autocomplete="true" />
+		</repeat>
 		<field id="fieldCollectionDate" ui-type="groupfield/structureddate">
 			<services-tag>fieldCollectionDateGroup</services-tag>
 		</field>
