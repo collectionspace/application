@@ -1347,4 +1347,113 @@
 			<option id="MD5">MD5</option>
 		</options>
 	</instance>
+	<!--
+	<instance id="vocab-chronologytermtype">
+		<web-url>chronologytermtype</web-url>
+		<title-ref>chronologytermtype</title-ref>
+		<title>Chronology Term Type</title>
+		<options>
+			<option id="descriptor">descriptor</option>
+			<option id="alterate_descriptor">alternate descriptor</option>
+			<option id="used_for_term">used for term</option>
+		</options>
+	</instance>
+	<instance id="vocab-chronologytermflag">
+		<web-url>chronologytermflag</web-url>
+		<title-ref>chronologytermflag</title-ref>
+		<title>Chronology Term Flag</title>
+		<options>
+			<option id="abbreviation">abbreviation</option>
+			<option id="common_term">common term</option>
+			<option id="full_term">full term</option>
+			<option id="jargon_slang">jargon/slang</option>
+		</options>
+	</instance>
+	<instance id="vocab-chronologytermstatus">
+		<web-url>chronologytermstatus</web-url>
+		<title-ref>chronologytermstatus</title-ref>
+		<title>Chronology Term Status</title>
+		<options>
+			<option id="provisional">provisional</option>
+			<option id="under_review">under review</option>
+			<option id="accepted">accepted</option>
+			<option id="rejected">rejected</option>
+		</options>
+	</instance>
+	<instance id="vocab-chronologyhistoricalstatus">
+		<web-url>chronologyhistoricalstatus</web-url>
+		<title-ref>chronologyhistoricalstatus</title-ref>
+		<title>Chronology Historical Status</title>
+		<options>
+			<option id="current">current</option>
+			<option id="historical">historical</option>
+			<option id="both">both</option>
+		</options>
+	</instance>
+	<instance id="vocab-chronologytypes">
+		<web-url>chronologytypes</web-url>
+		<title-ref>chronologytypes</title-ref>
+		<title>Chronology Authority Types</title>
+		<options>
+			<option id="era">era</option>
+			<option id="historic">historic event</option>
+			<option id="field_collection">field collection event</option>
+		</options>
+	</instance>
+	<instance id="vocab-chronologypersonrelations">
+		<web-url>chronologypersonrelations</web-url>
+		<title-ref>chronologypersonrelations</title-ref>
+		<title>Chronology Person Relations</title>
+		<options>
+			<option id="leader">leader</option>
+			<option id="participant">participant</option>
+			<option id="researcher">researcher</option>
+		</options>
+	</instance>
+	<instance id="vocab-chronologypeoplerelations">
+		<web-url>chronologypeoplerelations</web-url>
+		<title-ref>chronologypeoplerelations</title-ref>
+		<title>Chronology People Relations</title>
+		<options>
+			<option id="cultural_affiliation_museum">cultural affiliation by museum</option>
+			<option id="cultural_affiliation_tribe">cultural affiliation by tribe</option>
+		</options>
+	</instance>
+	<instance id="vocab-chronologyorganizationrelations">
+		<web-url>chronologyorganizationrelations</web-url>
+		<title-ref>chronologyorganizationrelations</title-ref>
+		<title>Chronology Organization Relations</title>
+		<options>
+			<option id="participant">participant</option>
+			<option id="researcher">researcher</option>
+			<option id="sponsor">sponsor</option>
+		</options>
+	</instance>
+	<instance id="vocab-chronologyconceptrelations">
+		<web-url>chronologyconceptrelations</web-url>
+		<title-ref>chronologyconceptrelations</title-ref>
+		<title>Chronology Concept Relations</title>
+		<options>
+			<option id="descriptor">descriptor</option>
+		</options>
+	</instance>
+	<instance id="vocab-chronologyplacerelations">
+		<web-url>chronologyplacerelations</web-url>
+		<title-ref>chronologyplacerelations</title-ref>
+		<title>Chronology Place Relations</title>
+		<options>
+			<option id="current_place">current place</option>
+			<option id="historic_place">historic place</option>
+		</options>
+	</instance>
+	<instance id="vocab-chronologyrelations">
+		<web-url>chronologyrelations</web-url>
+		<title-ref>chronologyrelations</title-ref>
+		<title>Chronology Relations</title>
+		<options>
+			<option id="alternate">alternate description</option>
+			<option id="overlapping">overlapping term</option>
+		</options>
+	</instance>
+	-->
 </instances>
