@@ -2005,7 +2005,7 @@
 	<instance id="vocab-chronologytypes">
 		<web-url>chronologytypes</web-url>
 		<title-ref>chronologytypes</title-ref>
-		<title>Chronology Types</title>
+		<title>Chronology Authority Types</title>
 		<options>
 			<option id="era">era</option>
 			<option id="historic">historic event</option>
