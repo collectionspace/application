@@ -2067,4 +2067,23 @@
 			<option id="overlapping">overlapping term</option>
 		</options>
 	</instance>
+	<instance id="vocab-apparelsizes">
+		<web-url>apparelsizes</web-url>
+		<title-ref>apparelsizes</title-ref>
+		<title>Apparel sizes</title>
+		<options>
+			<option id="infantfemale">infant female</option>
+			<option id="infantmale">infant male</option>
+			<option id="infantunisex">infant unisex</option>
+			<option id="childfemale">child female</option>
+			<option id="childmale">child male</option>
+			<option id="childunisex">child unisex</option>
+			<option id="teenagerfemale">teenager female</option>
+			<option id="teenagermale">teenager male</option>
+			<option id="teenagerunisex">teenager unisex</option>
+			<option id="adultfemale">adult female</option>
+			<option id="adultmale">adult male</option>
+			<option id="adultunisex">adult unisex</option>
+		</options>
+	</instance>
 </instances>
