@@ -175,6 +175,8 @@
 			<field id="checksumType" autocomplete="true" ui-type="enum" />
 			<field id="checksumDate" datatype="date" />
 		</repeat>
+
+		<field id="descriptionLevel" autocomplete="true" ui-type="enum" />
 	</section>
 
 	<section id="descriptionInformation">

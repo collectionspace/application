@@ -2086,4 +2086,15 @@
 			<option id="adultunisex">adult unisex</option>
 		</options>
 	</instance>
+	<instance id="vocab-descriptionlevel">
+		<web-url>descriptionlevel</web-url>
+		<title-ref>descriptionlevel</title-ref>
+		<title>Description level</title>
+		<options>
+			<option id="item">item</option>
+			<option id="group_of_items">group of items</option>
+			<option id="collection">collection</option>
+			<option id="supporting_collection">supporting collection</option>
+		</options>
+	</instance>
 </instances>
