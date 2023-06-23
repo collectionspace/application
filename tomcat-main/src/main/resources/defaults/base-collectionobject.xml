@@ -404,7 +404,6 @@
 			<field id="assocEventNameType" />
 
 			<field id="assocEvent" autocomplete="true" />
-			<field id="assocEventType" />
 
 			<repeat id="assocEventOrganizations">
 				<field id="assocEventOrganization" autocomplete="true" />
