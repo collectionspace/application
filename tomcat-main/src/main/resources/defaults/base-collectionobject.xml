@@ -259,6 +259,9 @@
 				<field id="contentEventName" />
 				<field id="contentEventNameType" />
 			</repeat>
+			<repeat id="contentEvents">
+				<field id="contentEvent" autocomplete="true" />
+			</repeat>
 			<repeat id="contentOtherGroupList/contentOtherGroup">
 				<field id="contentOther" />
 				<field id="contentOtherType" />
