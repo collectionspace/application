@@ -5,6 +5,7 @@
 		<repeat id="objectNameList/objectNameGroup">
 			<!-- Add mini -->
 			<field id="objectName" mini="list" />
+			<field id="objectNameControlled" mini="list" autocomplete="true" />
 		</repeat>
 
 		<!-- Local fields -->
