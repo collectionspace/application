@@ -25,6 +25,11 @@
 			<title-ref>ethculture</title-ref>
 			<title>Ethnographic Cultures</title>
 		</instance>
+		<instance id="concept-nomenclature">
+			<web-url>nomenclature</web-url>
+			<title-ref>nomenclature</title-ref>
+			<title>Nomenclature</title>
+		</instance>
 	</instances>
 
 	<section id="conceptAuthorityInformation">
