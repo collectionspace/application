@@ -52,9 +52,9 @@
   <section id="chronologyInformation">
     <field id="preferredChronology" ui-type="groupfield/preferredChronology/selfrenderer" />
 
-    <field id="chronologyDateStructuredDateGroup" ui-type="groupfield/structureddate" />
-    <repeat id="chronologyPlaces">
-      <field id="chronologyPlace" autocomplete="true" />
+    <field id="primaryDateRangeStructuredDateGroup" ui-type="groupfield/structureddate" />
+    <repeat id="spatialCoverages">
+      <field id="spatialCoverage" autocomplete="true" />
     </repeat>
     <field id="chronologyType" autocomplete="true" ui-type="enum" />
     <field id="chronologyNote" />
@@ -66,15 +66,15 @@
       <field id="identifierDate" />
     </repeat>
 
-    <repeat id="otherDateGroupList/otherDateGroup">
-      <field id="otherDateStructuredDateGroup" ui-type="groupfield/structureddate" />
-      <repeat id="otherDatePlaces">
-        <field id="otherDatePlace" autocomplete="true" />
+    <repeat id="altDateGroupList/altDateGroup">
+      <field id="altDateRangeStructuredDateGroup" ui-type="groupfield/structureddate" />
+      <repeat id="altDateSpatialCoverages">
+        <field id="altDateSpatialCoverage" autocomplete="true" />
       </repeat>
-      <repeat id="otherDateCitations">
-        <field id="otherDateCitation" autocomplete="true" />
+      <repeat id="altDateCitations">
+        <field id="altDateCitation" autocomplete="true" />
       </repeat>
-      <field id="otherDateNote" />
+      <field id="altDateNote" />
     </repeat>
 
     <repeat id="personGroupList/personGroup">
