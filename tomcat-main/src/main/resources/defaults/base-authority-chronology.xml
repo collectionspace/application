@@ -76,66 +76,6 @@
       </repeat>
       <field id="altDateNote" />
     </repeat>
-
-    <repeat id="personGroupList/personGroup">
-      <field id="person" autocomplete="true" />
-      <field id="personType" autocomplete="true" ui-type="enum" />
-      <field id="personStructuredDateGroup" ui-type="groupfield/structureddate" />
-      <repeat id="personCitations">
-        <field id="personCitation" autocomplete="true" />
-      </repeat>
-      <field id="personNote" />
-    </repeat>
-
-    <repeat id="peopleGroupList/peopleGroup">
-      <field id="people" autocomplete="true" />
-      <field id="peopleType" autocomplete="true" ui-type="enum" />
-      <field id="peopleStructuredDateGroup" ui-type="groupfield/structureddate" />
-      <repeat id="peopleCitations">
-        <field id="peopleCitation" autocomplete="true" />
-      </repeat>
-      <field id="peopleNote" />
-    </repeat>
-
-    <repeat id="organizationGroupList/organizationGroup">
-      <field id="organization" autocomplete="true" />
-      <field id="organizationType" autocomplete="true" ui-type="enum" />
-      <field id="organizationStructuredDateGroup" ui-type="groupfield/structureddate" />
-      <repeat id="organizationCitations">
-        <field id="organizationCitation" autocomplete="true" />
-      </repeat>
-      <field id="organizationNote" />
-    </repeat>
-
-    <repeat id="conceptGroupList/conceptGroup">
-      <field id="concept" autocomplete="true" />
-      <field id="conceptType" autocomplete="true" ui-type="enum" />
-      <field id="conceptStructuredDateGroup" ui-type="groupfield/structureddate" />
-      <repeat id="conceptCitations">
-        <field id="conceptCitation" autocomplete="true" />
-      </repeat>
-      <field id="conceptNote" />
-    </repeat>
-
-    <repeat id="placeGroupList/placeGroup">
-      <field id="place" autocomplete="true" />
-      <field id="placeType" autocomplete="true" ui-type="enum" />
-      <field id="placeStructuredDateGroup" ui-type="groupfield/structureddate" />
-      <repeat id="placeCitations">
-        <field id="placeCitation" autocomplete="true" />
-      </repeat>
-      <field id="placeNote" />
-    </repeat>
-
-    <repeat id="relatedPeriodGroupList/relatedPeriodGroup">
-      <field id="relatedPeriod" autocomplete="true" />
-      <field id="relatedPeriodType" autocomplete="true" ui-type="enum" />
-      <field id="relatedPeriodStructuredDateGroup" ui-type="groupfield/structureddate" />
-      <repeat id="relatedPeriodCitations">
-        <field id="relatedPeriodCitation" autocomplete="true" />
-      </repeat>
-      <field id="relatedPeriodNote" />
-    </repeat>
   </section>
 
   <!-- not used in UI except in autocompletes -->
