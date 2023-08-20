@@ -23,7 +23,7 @@
 			<!-- <include src="base-procedure-loanin.xml" /> -->
 			<include src="base-procedure-loanout.xml" />
 			<include src="base-procedure-media.xml,materials-procedure-media.xml" merge="xmlmerge.properties" />
-			<!-- <include src="base-procedure-valuationcontrol.xml" /> -->
+			<include src="base-procedure-valuationcontrol.xml" />
 			<include src="base-procedure-movement.xml" />
 			<include src="base-procedure-objectexit.xml" />
 			<include src="base-procedure-uoc.xml" />
