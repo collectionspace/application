@@ -23,7 +23,6 @@
         <ui-props-cache-timeout>2592000</ui-props-cache-timeout>
     </admin>
     <email>
-        <baseurl>http://qa.collectionspace.org:@JEE_PORT@</baseurl>
         <from>admin@botgarden.collectionspace.org</from>
         <to></to>
         <passwordreset>
@@ -75,33 +74,6 @@
         </service>
     </persistence>
     <ui>
-        <web>
-            <login-dest>/collectionspace/ui/botgarden/html/createnew.html</login-dest>
-            <login-failed-dest>/collectionspace/ui/botgarden/html/index.html</login-failed-dest>
-            <front-page>/collectionspace/ui/botgarden/html/index.html</front-page>
-            <find-page>myCollectionSpace</find-page>
-            <tmp-schema-path />
-            <mappings>
-                <map id="record">
-                    <recordtype>record</recordtype>
-                    <file>/botgarden/html/record.html</file>
-                </map>
-                <map id="authority">
-                    <recordtype>authority</recordtype>
-                    <file>/botgarden/html/record.html</file>
-                    <configure>
-                        <meta id="recordType">{instance/web-url}</meta>
-                    </configure>
-                </map>
-                <map id="procedure">
-                    <url></url>
-                    <recordtype>procedure</recordtype>
-                    <file>/botgarden/html/record.html</file>
-                    <configure>
-                        <meta id="title">Botanical Garden CollectionSpace - {record/web-url}</meta>
-                    </configure>
-                </map>
-            </mappings>
-        </web>
+        <baseurl>${CSPACE_BOTGARDEN_UI_BASE_URL_OPT}</baseurl>
     </ui>
 </settings>
