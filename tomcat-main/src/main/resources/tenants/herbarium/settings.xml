@@ -23,7 +23,6 @@
         <ui-props-cache-timeout>2592000</ui-props-cache-timeout>
     </admin>
     <email>
-        <baseurl>http://qa.collectionspace.org:@JEE_PORT@</baseurl>
         <from>admin@herbarium.collectionspace.org</from>
         <to></to>
         <!-- if specified then all emails will send to this address - used for debugging -->
@@ -76,33 +75,6 @@
         </service>
     </persistence>
     <ui>
-        <web>
-            <login-dest>/collectionspace/ui/herbarium/html/findedit.html</login-dest>
-            <login-failed-dest>/collectionspace/ui/herbarium/html/index.html</login-failed-dest>
-            <front-page>/collectionspace/ui/herbarium/html/index.html</front-page>
-            <find-page>myCollectionSpace</find-page>
-            <tmp-schema-path />
-            <mappings>
-                <map id="record">
-                    <recordtype>record</recordtype>
-                    <file>/herbarium/html/record.html</file>
-                </map>
-                <map id="authority">
-                    <recordtype>authority</recordtype>
-                    <file>/herbarium/html/record.html</file>
-                    <configure>
-                        <meta id="recordType">{instance/web-url}</meta>
-                    </configure>
-                </map>
-                <map id="procedure">
-                    <url></url>
-                    <recordtype>procedure</recordtype>
-                    <file>/herbarium/html/record.html</file>
-                    <configure>
-                        <meta id="title">Herbarium CollectionSpace - {record/web-url}</meta>
-                    </configure>
-                </map>
-            </mappings>
-        </web>
+        <baseurl>${CSPACE_HERBARIUM_UI_BASE_URL_OPT}</baseurl>
     </ui>
 </settings>
