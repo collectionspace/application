@@ -446,7 +446,7 @@ public class Spec implements CSP, Configurable {
 	}
 
 	public EmailData getEmailData() { return ed.getEmailData(); }
-	public UiData getUiData() { return uiData.getUiData(); }
+	public UiData getUiData() { return uiData != null ? uiData.getUiData() : null; }
 	public AdminData getAdminData() { return adminData.getAdminData(); }
 
 	public Boolean hasRelationship(String id){ if(relationships.containsKey(id)){return true;} else return false;}
