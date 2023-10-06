@@ -480,7 +480,7 @@ public class ServiceBindingsGeneration {
 			Element ele = uiConfigElement.addElement(new QName("baseUrl", nstenant));
 			String baseUrl = uiData.getBaseURL();
 
-			if (baseUrl == null) {
+			if (baseUrl == null || baseUrl.startsWith("${")) {
 				baseUrl = "/../cspace/" + this.spec.getAdminData().getTenantName() + "/";
 			}
 
