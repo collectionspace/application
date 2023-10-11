@@ -474,18 +474,16 @@ public class ServiceBindingsGeneration {
 
 	private void makeUiBindings(Element tenantBindingElement) {
 		UiData uiData = spec.getUiData();
+		String baseUrl = (uiData != null) ? uiData.getBaseURL() : null;
 
-		if (uiData != null) {
-			Element uiConfigElement = tenantBindingElement.addElement(new QName("uiConfig", nstenant));
-			Element ele = uiConfigElement.addElement(new QName("baseUrl", nstenant));
-			String baseUrl = uiData.getBaseURL();
-
-			if (baseUrl == null || baseUrl.startsWith("${")) {
-				baseUrl = "/../cspace/" + this.spec.getAdminData().getTenantName() + "/";
-			}
-
-			ele.addText(baseUrl);
+		if (baseUrl == null || baseUrl.startsWith("${")) {
+			baseUrl = "/../cspace/" + this.spec.getAdminData().getTenantName() + "/";
 		}
+
+		Element uiConfigElement = tenantBindingElement.addElement(new QName("uiConfig", nstenant));
+		Element ele = uiConfigElement.addElement(new QName("baseUrl", nstenant));
+
+		ele.addText(baseUrl);
 	}
 
 	/**
