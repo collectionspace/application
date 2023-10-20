@@ -1983,61 +1983,6 @@
 			<option id="field_collection">field collection event</option>
 		</options>
 	</instance>
-	<instance id="vocab-chronologypersonrelations">
-		<web-url>chronologypersonrelations</web-url>
-		<title-ref>chronologypersonrelations</title-ref>
-		<title>Chronology Person Relations</title>
-		<options>
-			<option id="leader">leader</option>
-			<option id="participant">participant</option>
-			<option id="researcher">researcher</option>
-		</options>
-	</instance>
-	<instance id="vocab-chronologypeoplerelations">
-		<web-url>chronologypeoplerelations</web-url>
-		<title-ref>chronologypeoplerelations</title-ref>
-		<title>Chronology People Relations</title>
-		<options>
-			<option id="cultural_affiliation_museum">cultural affiliation by museum</option>
-			<option id="cultural_affiliation_tribe">cultural affiliation by tribe</option>
-		</options>
-	</instance>
-	<instance id="vocab-chronologyorganizationrelations">
-		<web-url>chronologyorganizationrelations</web-url>
-		<title-ref>chronologyorganizationrelations</title-ref>
-		<title>Chronology Organization Relations</title>
-		<options>
-			<option id="participant">participant</option>
-			<option id="researcher">researcher</option>
-			<option id="sponsor">sponsor</option>
-		</options>
-	</instance>
-	<instance id="vocab-chronologyconceptrelations">
-		<web-url>chronologyconceptrelations</web-url>
-		<title-ref>chronologyconceptrelations</title-ref>
-		<title>Chronology Concept Relations</title>
-		<options>
-			<option id="descriptor">descriptor</option>
-		</options>
-	</instance>
-	<instance id="vocab-chronologyplacerelations">
-		<web-url>chronologyplacerelations</web-url>
-		<title-ref>chronologyplacerelations</title-ref>
-		<title>Chronology Place Relations</title>
-		<options>
-			<option id="current_place">current place</option>
-			<option id="historic_place">historic place</option>
-		</options>
-	</instance>
-	<instance id="vocab-chronologyrelations">
-		<web-url>chronologyrelations</web-url>
-		<title-ref>chronologyrelations</title-ref>
-		<title>Chronology Relations</title>
-		<options>
-			<option id="alternate">alternate description</option>
-			<option id="overlapping">overlapping term</option>
-		</options>
-	</instance>
 	<instance id="vocab-apparelsizes">
 		<web-url>apparelsizes</web-url>
 		<title-ref>apparelsizes</title-ref>
