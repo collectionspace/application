@@ -24,7 +24,6 @@
         <ui-props-cache-timeout>2592000</ui-props-cache-timeout>
     </admin>
     <email>
-        <baseurl>http://qa.collectionspace.org:@JEE_PORT@</baseurl>
         <from>admin@core.collectionspace.org</from>
         <to></to>
         <!-- if specified then all emails will send to this address - used for debugging -->
@@ -54,31 +53,4 @@
 			<ims-url>/collectionspace/tenant/core/</ims-url> <!-- XXX should be in separate IMS section -->
         </service>
     </persistence>
-    <ui>
-        <web>
-            <login-dest>/collectionspace/ui/core/html/findedit.html</login-dest>
-            <login-failed-dest>/collectionspace/ui/core/html/index.html</login-failed-dest>
-            <front-page>/collectionspace/ui/core/html/index.html</front-page>
-            <find-page>myCollectionSpace</find-page>
-            <tmp-schema-path />
-			<mappings>
-				<map id="record">
-					<recordtype>record</recordtype>
-					<file>/core/record.html</file>
-				</map>
-				<map id="authority">
-					<recordtype>authority</recordtype>
-					<file>/core/record.html</file>
-				</map>
-				<map id="procedure">
-					<url></url>
-					<recordtype>procedure</recordtype>
-					<file>/core/record.html</file>
-					<configure>
-						<meta id="title">CollectionSpace - {record/web-url}</meta>
-					</configure>
-				</map>
-			</mappings>
-        </web>
-    </ui>
 </settings>

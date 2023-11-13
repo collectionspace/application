@@ -23,7 +23,6 @@
         <ui-props-cache-timeout>2592000</ui-props-cache-timeout>
     </admin>
     <email>
-        <baseurl>http://qa.collectionspace.org:@JEE_PORT@</baseurl>
         <from>admin@testsci.collectionspace.org</from>
         <to></to>
         <!-- if specified then all emails will send to this address - used for debugging -->
@@ -76,33 +75,6 @@
         </service>
     </persistence>
     <ui>
-        <web>
-            <login-dest>/collectionspace/ui/testsci/html/findedit.html</login-dest>
-            <login-failed-dest>/collectionspace/ui/testsci/html/index.html</login-failed-dest>
-            <front-page>/collectionspace/ui/testsci/html/index.html</front-page>
-            <find-page>myCollectionSpace</find-page>
-            <tmp-schema-path />
-			<mappings>
-				<map>
-					<recordtype>record</recordtype>
-					<file>/testsci/html/record.html</file>
-				</map>
-				<map>
-					<recordtype>authority</recordtype>
-					<file>/testsci/html/record.html</file>
-					<configure>
-						<meta id="recordType">{instance/web-url}</meta>
-					</configure>
-				</map>
-				<map>
-					<url></url>
-					<recordtype>procedure</recordtype>
-					<file>/testsci/html/record.html</file>
-					<configure>
-						<meta id="title">testsci CollectionSpace - {record/web-url}</meta>
-					</configure>
-				</map>
-			</mappings>
-        </web>
+      <baseurl>${CSPACE_TESTSCI_UI_BASE_URL_OPT}</baseurl>
     </ui>
-</settings>
+  </settings>

@@ -1,5 +1,5 @@
 /* Copyright 2010 University of Cambridge
- * Licensed under the Educational Community License (ECL), Version 2.0. You may not use this file except in 
+ * Licensed under the Educational Community License (ECL), Version 2.0. You may not use this file except in
  * compliance with this License.
  *
  * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
@@ -33,8 +33,8 @@ import org.slf4j.LoggerFactory;
 /**
  * @author caret
  * Handles the rules for parsing the default.xml / cspace-config.xml file
- * 
- * 
+ *
+ *
  */
 public class Spec implements CSP, Configurable {
 	private static final Logger log=LoggerFactory.getLogger(Spec.class);
@@ -49,7 +49,7 @@ public class Spec implements CSP, Configurable {
 	private Map<String,Relationship> relationshipsPredicate=new HashMap<String,Relationship>();
 	private Map<String,String> inverserelationships = new HashMap<String,String>();
 	private Map<String,Schemas> schemas=new HashMap<String,Schemas>();
-	
+
 	private Map<String,Record> records_by_web_url=new HashMap<String,Record>();
 	private Map<String,Record> records_by_services_url=new HashMap<String,Record>();
 	private Map<String,Record> records_by_services_docType=new HashMap<String,Record>();
@@ -61,18 +61,19 @@ public class Spec implements CSP, Configurable {
 	private String tenantname;
 	private EmailData ed;
 	private AdminData adminData;
-	
+	private UiData uiData;
+
 	@Override
 	public String getName() { return "schema"; }
-	
+
 	public String getVersion() {
 		return version;
 	}
-	
+
 	public String getTenantID() {
 		return tenantid;
 	}
-	
+
 	public String getTenantName() {
 		return tenantname;
 	}
@@ -84,7 +85,7 @@ public class Spec implements CSP, Configurable {
 
 	@Override
 	public void configure(RuleSet rules) {
-		
+
 		/* MAIN/tenantid -> string */
 		rules.addRule(SECTIONED,new String[]{"tenantid"},SECTION_PREFIX+"tenantid",null,new RuleTarget(){
 			@Override
@@ -94,7 +95,7 @@ public class Spec implements CSP, Configurable {
 				return this;
 			}
 		});
-		
+
 		/* MAIN/version -> string */
 		rules.addRule(SECTIONED,new String[]{"version"},SECTION_PREFIX+"version",null,new RuleTarget(){
 			@Override
@@ -102,7 +103,7 @@ public class Spec implements CSP, Configurable {
 				version=(String)section.getValue("");
 				return this;
 			}
-		});		
+		});
 
 		/* MAIN/email -> EmailData */
 		rules.addRule(SECTIONED,new String[]{"email"},SECTION_PREFIX+"email",null,new RuleTarget(){
@@ -112,6 +113,15 @@ public class Spec implements CSP, Configurable {
 				return this;
 			}
 		});
+
+		rules.addRule(SECTIONED,new String[]{"ui"},SECTION_PREFIX+"ui",null,new RuleTarget(){
+			@Override
+			public Object populate(Object parent, ReadOnlySection section) {
+				uiData = new UiData(Spec.this,section);
+				return this;
+			}
+		});
+
 		/* MAIN/admin -> AdminData */
 		rules.addRule(SECTIONED,new String[]{"admin"},SECTION_PREFIX+"admin",null,new RuleTarget(){
 			@Override
@@ -120,7 +130,7 @@ public class Spec implements CSP, Configurable {
 				return this;
 			}
 		});
-		
+
 		/* MAIN/spec -> SPEC */
 		rules.addRule(SECTIONED,new String[]{"spec"},SECTION_PREFIX+"spec",null,new RuleTarget(){
 			@Override
@@ -158,7 +168,7 @@ public class Spec implements CSP, Configurable {
 				return r;
 			}
 		});
-		
+
 
 		/* SPEC/records -> RECORDS */
 		rules.addRule(SECTION_PREFIX+"spec",new String[]{"records"},SECTION_PREFIX+"records",null,new RuleTarget(){
@@ -174,7 +184,7 @@ public class Spec implements CSP, Configurable {
 
 				return recordsdata;
 			}
-		});			
+		});
 		/* RECORDS/record -> RECORD(@id) */
 		rules.addRule(SECTION_PREFIX+"records",new String[]{"record"},SECTION_PREFIX+"record",null,new RuleTarget(){
 			@Override
@@ -195,7 +205,7 @@ public class Spec implements CSP, Configurable {
 				String id=(String)section.getValue("/@id");
 				Record r=(Record)parent;
 				r.addUISection("base",id);
-				
+
 				return r;
 			}
 		});
@@ -207,11 +217,11 @@ public class Spec implements CSP, Configurable {
 				String id=(String)section.getValue("/@id");
 				Record r=(Record)parent;
 				r.addUISection("base",id);
-				
+
 				return r;
 			}
 		});
-		
+
 		/* RECORD/services-instances-path -> RECORDPATH */
 		rules.addRule(SECTION_PREFIX+"record",new String[]{"services-single-instance-path"},SECTION_PREFIX+"instance-path",null,new RuleTarget(){
 			@Override
@@ -223,7 +233,7 @@ public class Spec implements CSP, Configurable {
 				r.setServicesInstancePath(id,(String)section.getValue(""));
 				return r;
 			}
-		});		
+		});
 		/* RECORD/services-record-path -> RECORDPATH */
 		rules.addRule(SECTION_PREFIX+"record",new String[]{"services-record-path"},SECTION_PREFIX+"record-path",null,new RuleTarget(){
 			@Override
@@ -235,7 +245,7 @@ public class Spec implements CSP, Configurable {
 				r.setServicesRecordPath(id,(String)section.getValue(""));
 				return r;
 			}
-		});		
+		});
 		/* RECORD/instances/instance -> INSTANCE */
 		rules.addRule(SECTION_PREFIX+"record",new String[]{"instances","instance"},SECTION_PREFIX+"instance",null,new RuleTarget(){
 			@Override
@@ -244,7 +254,7 @@ public class Spec implements CSP, Configurable {
 				((Record)parent).addInstance(n);
 				return n;
 			}
-		});			
+		});
 		/* FIELD/options/option -> OPTION */
 		rules.addRule(SECTION_PREFIX+"instance",new String[]{"options","option"},SECTION_PREFIX+"option",null,new RuleTarget(){
 			@Override
@@ -264,15 +274,15 @@ public class Spec implements CSP, Configurable {
 			public Object populate(Object parent, ReadOnlySection section) {
 				Field f=new Field((Record)parent,section);
 				((Record)parent).addField(f);
-				
+
 				String is_chooser=(String)section.getValue("/@chooser");
 				if(is_chooser!=null && ("1".equals(is_chooser) || "yes".equals(is_chooser.toLowerCase())))
 					f.setType("chooser");
 				return f;
 			}
-		});	
-		
-		
+		});
+
+
 		/* RECORD/structures/structure -> STRUCTURE */
 		rules.addRule(SECTION_PREFIX+"record",new String[]{"structures","structure"},SECTION_PREFIX+"structure",null,new RuleTarget(){
 			@Override
@@ -281,7 +291,7 @@ public class Spec implements CSP, Configurable {
 				((Record)parent).addStructure(s);
 				return s;
 			}
-		});	
+		});
 
 
 		/* STRUCTURE/repeat -> REPEAT */
@@ -292,7 +302,7 @@ public class Spec implements CSP, Configurable {
 				((Structure)parent).addSideBar(r);
 				return r;
 			}
-		});		
+		});
 		//
 		/* FIELD/options/option -> OPTION */
 		rules.addRule(SECTION_PREFIX+"structure",new String[]{"view","hierarchy-section", "options", "option"},SECTION_PREFIX+"option",null,new RuleTarget(){
@@ -403,7 +413,7 @@ public class Spec implements CSP, Configurable {
 				return r;
 			}
 		});
-		
+
 
 		/* FIELD/options/option -> OPTION */
 		rules.addRule(SECTION_PREFIX+"field",new String[]{"options","option"},SECTION_PREFIX+"option",null,new RuleTarget(){
@@ -432,10 +442,11 @@ public class Spec implements CSP, Configurable {
 				return f;
 			}
 		});
-		
+
 	}
 
 	public EmailData getEmailData() { return ed.getEmailData(); }
+	public UiData getUiData() { return uiData != null ? uiData.getUiData() : null; }
 	public AdminData getAdminData() { return adminData.getAdminData(); }
 
 	public Boolean hasRelationship(String id){ if(relationships.containsKey(id)){return true;} else return false;}
@@ -449,11 +460,11 @@ public class Spec implements CSP, Configurable {
 	public Boolean hasSchema(String id){ if(schemas.containsKey(id)){return true;} else return false;}
 	public Schemas getSchema(String id) { return schemas.get(id); }
 	public Schemas[] getAllSchemas(){ return schemas.values().toArray(new Schemas[0]); }
-	
+
 	public Boolean hasRecord(String id){ if(records.containsKey(id)){return true;} else return false;}
 	public Boolean hasRecordByServicesUrl(String url) { return records_by_services_url.containsKey(url); }
 	public Boolean hasRecordByServicesDocType(String docType) { return records_by_services_docType.containsKey(docType); }
-	
+
 	public Boolean hasRecordByWebUrl(String url){ return records_by_web_url.containsKey(url);}
 	public Record getRecord(String id) { return records.get(id); }
 	public Record getRecordByWebUrl(String url) { return records_by_web_url.get(url); }
@@ -483,7 +494,7 @@ public class Spec implements CSP, Configurable {
 				}
 			}
 		}
-		//order: 
+		//order:
 		/*
 		 * Cataloging
 		 * Procedures in alpha order
@@ -495,14 +506,14 @@ public class Spec implements CSP, Configurable {
 		Collections.sort(vrecrds);
 		Collections.sort(arecrds);
 		Collections.sort(adrecrds);
-		
+
 		crecrds.addAll(precrds);
 		crecrds.addAll(vrecrds);
 		crecrds.addAll(adrecrds);
 		crecrds.addAll(arecrds);
 		return crecrds.toArray(new String[0]);
 	}
-	
+
 	public void addTermlist(String instanceid, Field fs){
 		if(termlist.containsKey(instanceid)){
 			Set<Field> temp = termlist.get(instanceid);
@@ -524,7 +535,7 @@ public class Spec implements CSP, Configurable {
 	public Field[] getTermlist(String id) { return termlist.get(id).toArray(new Field[0]);}
 	public Instance getInstance(String id) { return instances.get(id); }
 	public Structure getStructure(String id) { return structure.get(id); }
-	
+
 	@Override
 	public void config_finish() throws CSPDependencyException {
 		if(!required_version.equals(version))
@@ -533,20 +544,20 @@ public class Spec implements CSP, Configurable {
 			r.config_finish(this);
 		}
 	}
-	
+
 	@Override
 	public void complete_init(CSPManager cspManager, boolean forXsdGeneration) throws CSPDependencyException {
 		// Intentionally blank
 	}
-	
+
 	public Map<String,String> ui_url_to_id(){
 		Map<String,String> url_to_type=new HashMap<String,String>();
 		for(Record r : getAllRecords()) {
 			url_to_type.put(r.getWebURL(),r.getID());
 		}
-		return url_to_type;		
+		return url_to_type;
 	}
-	
+
 	public String dump() {
 		StringBuffer out=new StringBuffer();
 		String[] allStrings = null;
@@ -596,7 +607,7 @@ public class Spec implements CSP, Configurable {
 		}
 		return out.toString();
 	}
-	
+
 
 	public JSONObject dumpJson() throws JSONException {
 
@@ -651,7 +662,7 @@ public class Spec implements CSP, Configurable {
 		out.put("allrecords", RecordTable);
 		//	r.dumpJson(out);
 		return out;
-	
+
 	}
-	
+
 }

@@ -18,6 +18,7 @@ import org.collectionspace.chain.csp.schema.Option;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.csp.schema.UiData;
 import org.collectionspace.services.common.api.FileTools;
 import org.collectionspace.services.common.api.Tools;
 import org.dom4j.Attribute;
@@ -178,6 +179,7 @@ public class ServiceBindingsGeneration {
 		if (!this.defaultonly) {
 			ele.addAttribute("id", this.tenantSpec.getTenantId());
 			ele.addAttribute("name", this.tenantSpec.getTenant());
+			ele.addAttribute("shortName", this.spec.getAdminData().getTenantName());
 			ele.addAttribute("displayName", this.tenantSpec.getTenantDisplay());
 			ele.addAttribute("createDisabled", Boolean.toString(this.tenantSpec.getCreateDisabled()));
 		}
@@ -197,6 +199,8 @@ public class ServiceBindingsGeneration {
 
 		// Set the bindings for email notifications
 		makeEmailBindings(ele);
+
+		makeUiBindings(ele);
 
 		// add in <tenant:properties> if required
 		makeProperties(ele);
@@ -466,6 +470,20 @@ public class ServiceBindingsGeneration {
 				ele.addText(emailData.getPasswordResetMessage());
 			}
 		}
+	}
+
+	private void makeUiBindings(Element tenantBindingElement) {
+		UiData uiData = spec.getUiData();
+		String baseUrl = (uiData != null) ? uiData.getBaseURL() : null;
+
+		if (baseUrl == null || baseUrl.startsWith("${")) {
+			baseUrl = "/../cspace/" + this.spec.getAdminData().getTenantName() + "/";
+		}
+
+		Element uiConfigElement = tenantBindingElement.addElement(new QName("uiConfig", nstenant));
+		Element ele = uiConfigElement.addElement(new QName("baseUrl", nstenant));
+
+		ele.addText(baseUrl);
 	}
 
 	/**
