@@ -2063,9 +2063,9 @@
 			<option id="intexecutivecommittee">executive committee</option>
 		</options>
 	</instance>
-	<instance id="vocab-handlinglimitationslevels">
-		<web-url>handlinglimitationslevels</web-url>
-		<title-ref>handlinglimitationslevels</title-ref>
+	<instance id="vocab-handlinglimitationlevels">
+		<web-url>handlinglimitationlevels</web-url>
+		<title-ref>handlinglimitationlevels</title-ref>
 		<title>Handling Limitation Levels</title>
 		<options>
 			<option id="hl_preference">preference</option>
@@ -2102,15 +2102,15 @@
 			<option id="hit_sent">sent</option>
 		</options>
 	</instance>
-	<instance id="vocab-handlinglimitationstypes">
-		<web-url>handlinglimitationstypes</web-url>
-		<title-ref>handlinglimitationstypes</title-ref>
+	<instance id="vocab-handlinglimitationtypes">
+		<web-url>handlinglimitationtypes</web-url>
+		<title-ref>handlinglimitationtypes</title-ref>
 		<title>Handling Limitation Types</title>
 		<options>
 			<option id="hl_conditionreporting">condition reporting</option>
 			<option id="hl_displayvisual">display/visual</option>
-			<option id="hl_handlinggender">handling:gender</option>
-			<option id="hl_handlingother">handling:other</option>
+			<option id="hl_handlinggender">handling: gender</option>
+			<option id="hl_handlingother">handling: other</option>
 			<option id="hl_lending">lending</option>
 			<option id="hl_publication">publication</option>
 			<option id="hl_photography">photography</option>
