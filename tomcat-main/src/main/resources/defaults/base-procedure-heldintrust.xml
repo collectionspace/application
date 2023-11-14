@@ -43,7 +43,7 @@
     <field id="entryNote" />
 
     <repeat id="internalApprovalGroupList/internalApprovalGroup">
-      <field id="internalApprovalGroupName" autocomplete="true" />
+      <field id="internalApprovalGroupName" autocomplete="true" ui-type="enum" />
       <field id="internalApprovalIndividual" autocomplete="true" />
       <field id="internalApprovalStatus" autocomplete="true" ui-type="enum" />
       <field id="internalApprovalDate" datatype="date" />
@@ -51,7 +51,7 @@
     </repeat>
 
     <repeat id="externalApprovalGroupList/externalApprovalGroup">
-      <field id="externalApprovalGroupName" autocomplete="true" />
+      <field id="externalApprovalGroupName" autocomplete="true" ui-type="enum" />
       <field id="externalApprovalIndividual" autocomplete="true" />
       <field id="externalApprovalStatus" autocomplete="true" ui-type="enum" />
       <field id="externalApprovalDate" datatype="date" />
