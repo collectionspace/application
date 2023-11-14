@@ -77,7 +77,7 @@
       <field id="correspondenceSender" autocomplete="true" />
       <field id="correspondenceRecipient" autocomplete="true" />
       <field id="correspondenceSummary" />
-      <field id="correspondenceReference" ui-type="enum" />
+      <field id="correspondenceReference" />
     </repeat>
   </section>
 
