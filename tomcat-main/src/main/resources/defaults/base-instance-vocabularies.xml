@@ -2120,4 +2120,15 @@
 			<option id="hl_unknown">unknown</option>
 		</options>
 	</instance>
+	<instance id="vocab-heldintrustentryreasons">
+		<web-url>heldintrustentryreasons</web-url>
+		<title-ref>heldintrustentryreasons</title-ref>
+		<title>Held-in-Trust Entry Reasons</title>
+		<options>
+			<option id="enquiry">enquiry</option>
+			<option id="consideration">consideration</option>
+			<option id="commission">commission</option>
+			<option id="loan">loan</option>
+		</options>
+	</instance>
 </instances>
