@@ -25,9 +25,9 @@
     </repeat>
 
     <repeat id="agreementGroupList/agreementGroup">
-      <field id="agreementStatus" ui-search="repeatable" autocomplete="true" ui-type="enum" />
-      <field id="agreementStatusDate" ui-search="repeatable" datatype="date" />
-      <field id="agreementStatusNote" ui-search="repeatable" />
+      <field id="agreementStatus" autocomplete="true" ui-type="enum" />
+      <field id="agreementStatusDate" datatype="date" />
+      <field id="agreementStatusNote" />
     </repeat>
 
     <repeat id="entryMethods">
@@ -35,7 +35,7 @@
     </repeat>
 
     <repeat id="agreementRenewalDates">
-      <field id="agreementRenewalDate" datatype="date" ui-search="repeatable" />
+      <field id="agreementRenewalDate" datatype="date" />
     </repeat>
 
     <field id="entryReason" autocomplete="true" ui-type="enum" />
