@@ -2056,7 +2056,7 @@
 	<instance id="vocab-hitapprovalgroups">
 		<web-url>hitapprovalgroups</web-url>
 		<title-ref>hitapprovalgroups</title-ref>
-		<title>Internal Approval Groups</title>
+		<title>Held-in-Trust Internal Approval Groups</title>
 		<options>
 			<option id="intboardoftrustees">board of trustees</option>
 			<option id="intcollectioncommittee">collection committee</option>
@@ -2066,7 +2066,7 @@
 	<instance id="vocab-handlinglimitationlevels">
 		<web-url>handlinglimitationlevels</web-url>
 		<title-ref>handlinglimitationlevels</title-ref>
-		<title>Handling Limitation Levels</title>
+		<title>Held-in-Trust Handling Limitation Levels</title>
 		<options>
 			<option id="hl_preference">preference</option>
 			<option id="hl_recommendation">recommendation</option>
@@ -2077,7 +2077,7 @@
 	<instance id="vocab-agreementstatuses">
 		<web-url>agreementstatuses</web-url>
 		<title-ref>agreementstatuses</title-ref>
-		<title>Held In Trust Agreement Statuses</title>
+		<title>Held-in-Trust Agreement Statuses</title>
 		<options>
 			<option id="agreement_agreed">agreed</option>
 			<option id="agreement_authorized">authorized</option>
@@ -2091,7 +2091,7 @@
 	<instance id="vocab-hitapprovaltypes">
 		<web-url>hitapprovaltypes</web-url>
 		<title-ref>hitapprovaltypes</title-ref>
-		<title>Internal Approval Types</title>
+		<title>Held-in-Trust Internal Approval Types</title>
 		<options>
 			<option id="hit_agreed">agreed</option>
 			<option id="hit_authorized">authorized</option>
