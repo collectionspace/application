@@ -2047,10 +2047,10 @@
 		<title-ref>depositorcontacttypes</title-ref>
 		<title>Depositor Contact Types</title>
 		<options>
-			<option id="dangerous">Dangerous</option>
-			<option id="suitable">Suitable</option>
-			<option id="reasonable">Reasonable</option>
-			<option id="unsuitable">Unsuitable</option>
+			<option id="dangerous">dangerous</option>
+			<option id="suitable">suitable</option>
+			<option id="reasonable">reasonable</option>
+			<option id="unsuitable">unsuitable</option>
 		</options>
 	</instance>
 	<instance id="vocab-hitapprovalgroups">
