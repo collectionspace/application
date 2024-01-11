@@ -13,7 +13,7 @@
 	</section>
 
 	<section id="potTagInformation">
-		<field id="potTagNumber" mini="number,list" />
+		<field id="potTagNumber" mini="list" />
 	</section>
 
 	<section id="volunteerLabels">
