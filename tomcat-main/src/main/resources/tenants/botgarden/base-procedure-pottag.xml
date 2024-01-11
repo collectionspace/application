@@ -13,12 +13,12 @@
 	</section>
 
 	<section id="potTagInformation">
-		<field id="potTagNumber" mini="number,list" />
+		<field id="potTagNumber" mini="list" />
 	</section>
 
 	<section id="volunteerLabels">
 		<field id="family" mini="summary,list" autocomplete="true" />
-		<field id="commonName" mini="list" />
+		<field id="commonName" mini="number,list" />
 		<field id="locale" />
 		<field id="taxonName" autocomplete="true" />
 		<field id="labelData" />

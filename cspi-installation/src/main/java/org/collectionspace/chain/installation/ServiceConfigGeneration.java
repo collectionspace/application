@@ -1,9 +1,11 @@
 package org.collectionspace.chain.installation;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.PrintStream;
 import java.net.URL;
 import java.util.HashMap;
@@ -94,6 +96,7 @@ public class ServiceConfigGeneration {
 	private static final String MANIFEST_FILE = "MANIFEST.MF";
 	private static final String OSGI_INF_DIR = "OSGI-INF";
 	private static final String SCHEMAS_DIR = "schemas";
+	private static final String LOGGED_SCHEMAS = "logged_schemas";
 	private static final String JAR_EXT = ".jar";	
 
 	private static final String TENANT_QUALIFIER = "Tenant";
@@ -691,6 +694,26 @@ public class ServiceConfigGeneration {
 					this.getConfigFile().getName(), schemaName);
 			log.error(errMsg);
 			throw new Exception(errMsg);
+		}
+
+		if (log.isDebugEnabled()) {
+			File loggedSchemasDir = new File(System.getProperty("user.dir"), LOGGED_SCHEMAS);
+			if (!loggedSchemasDir.exists()) {
+				loggedSchemasDir.mkdir();
+			}
+
+			String tenantConfigFileName = getConfigFile().getName();
+			String tenantDirName = tenantConfigFileName.substring(0, tenantConfigFileName.lastIndexOf('.'));
+			File tenantDir = new File(loggedSchemasDir, tenantDirName);
+			if (!tenantDir.exists()) {
+				tenantDir.mkdir();
+			}
+
+			String filePath = tenantDir + File.separator + schemaName;
+			try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+				writer.write(contentString);
+			}
+			log.debug("Logged schema {}", filePath);
 		}
 	}
 	
