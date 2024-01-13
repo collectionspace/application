@@ -73,6 +73,10 @@
     </repeat>
   </section>
 
+  <section id="associationInformation">
+    <include src="base-other-associatedauthority.xml" strip-root="true" />
+  </section>
+
   <!-- not used in UI except in autocompletes -->
   <section id="otherInformation">
     <field id="inAuthority" services-should-index="true" />

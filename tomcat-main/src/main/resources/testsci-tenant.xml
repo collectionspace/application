@@ -90,6 +90,7 @@
 		    <include src="base-other-batchoutput.xml" />
 		    <include src="base-other-invocationresults.xml" />
 		    <include src="base-other-searchall.xml" />
+			<include src="base-other-associatedauthority.xml" />
 		</records>
 	</spec>
 </cspace-config>
