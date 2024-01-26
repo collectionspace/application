@@ -91,6 +91,13 @@
 	<section id="identificationInformation">
 		<field id="objectNumber" mini="number,list" services-refnameDisplayName="true" />
 		<field id="numberOfObjects" datatype="integer" />
+		<repeat id="objectCountGroupList/objectCountGroup">
+			<field id="objectCount" datatype="integer" />
+			<field id="objectCountType" autocomplete="true" ui-type="enum" />
+			<field id="objectCountCountedBy" autocomplete="true" />
+			<field id="objectCountDate" datatype="date" />
+			<field id="objectCountNote" />
+		</repeat>
 		<repeat id="otherNumberList/otherNumber">
 			<field id="numberValue" />
 			<field id="numberType" />
