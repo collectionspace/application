@@ -68,6 +68,7 @@
 			<field id="contactEndDateGroup" ui-type="groupfield/structureddate" />
 			<field id="contactStatus" autocomplete="true" ui-type="enum" />
 		</repeat>
+		<field id="nameNote" />
 	</section>
 
 	<section id="contactInformation">
