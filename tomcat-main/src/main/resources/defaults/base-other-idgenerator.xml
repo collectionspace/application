@@ -8,7 +8,6 @@
 		<field id="archive" />
 		<field id="evaluation" />
 		<field id="intake" />
-		<field id="hit" />
 		<field id="uoc" />
 		<field id="inventory" />
 		<field id="library" />
