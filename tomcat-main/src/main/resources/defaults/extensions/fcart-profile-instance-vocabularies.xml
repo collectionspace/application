@@ -1478,4 +1478,15 @@
 			<option id="supporting_collection">supporting collection</option>
 		</options>
 	</instance>
+	<instance id="vocab-objectcounttypes">
+		<web-url>objectcounttypes</web-url>
+		<title-ref>objectcounttypes</title-ref>
+		<title>Object Count Types</title>
+		<options>
+			<option id="collection_count">collection count</option>
+			<option id="inventory_count">inventory count</option>
+			<option id="associated_funerary_objects">associated funerary objects</option>
+			<option id="miniumum_num_of_individuals">minimum number of individuals</option>
+		</options>
+	</instance>
 </instances>
