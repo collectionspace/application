@@ -1,63 +1,63 @@
 <record id="associatedauthority" in-recordlist="no" separate-record="false" services-type="associatedAuthorities">
   <section id="associationInformation">
     <repeat id="assocPersonAuthGroupList/assocPersonAuthGroup">
-      <field id="person" autocomplete="true" />
-      <field id="personType" autocomplete="true" ui-type="enum" />
-      <field id="personStructuredDateGroup" ui-type="groupfield/structureddate" />
-      <repeat id="personCitations">
-        <field id="personCitation" autocomplete="true" />
+      <field id="assocPerson" autocomplete="true" />
+      <field id="assocPersonType" autocomplete="true" ui-type="enum" />
+      <field id="assocPersonStructuredDateGroup" ui-type="groupfield/structureddate" />
+      <repeat id="assocPersonCitations">
+        <field id="assocPersonCitation" autocomplete="true" />
       </repeat>
-      <field id="personNote" />
+      <field id="assocPersonNote" />
     </repeat>
 
     <repeat id="assocPeopleAuthGroupList/assocPeopleAuthGroup">
-      <field id="people" autocomplete="true" />
-      <field id="peopleType" autocomplete="true" ui-type="enum" />
-      <field id="peopleStructuredDateGroup" ui-type="groupfield/structureddate" />
-      <repeat id="peopleCitations">
-        <field id="peopleCitation" autocomplete="true" />
+      <field id="assocPeople" autocomplete="true" />
+      <field id="assocPeopleType" autocomplete="true" ui-type="enum" />
+      <field id="assocPeopleStructuredDateGroup" ui-type="groupfield/structureddate" />
+      <repeat id="assocPeopleCitations">
+        <field id="assocPeopleCitation" autocomplete="true" />
       </repeat>
-      <field id="peopleNote" />
+      <field id="assocPeopleNote" />
     </repeat>
 
     <repeat id="assocOrganizationAuthGroupList/assocOrganizationAuthGroup">
-      <field id="organization" autocomplete="true" />
-      <field id="organizationType" autocomplete="true" ui-type="enum" />
-      <field id="organizationStructuredDateGroup" ui-type="groupfield/structureddate" />
-      <repeat id="organizationCitations">
-        <field id="organizationCitation" autocomplete="true" />
+      <field id="assocOrganization" autocomplete="true" />
+      <field id="assocOrganizationType" autocomplete="true" ui-type="enum" />
+      <field id="assocOrganizationStructuredDateGroup" ui-type="groupfield/structureddate" />
+      <repeat id="assocOrganizationCitations">
+        <field id="assocOrganizationCitation" autocomplete="true" />
       </repeat>
-      <field id="organizationNote" />
+      <field id="assocOrganizationNote" />
     </repeat>
 
     <repeat id="assocConceptAuthGroupList/assocConceptAuthGroup">
-      <field id="concept" autocomplete="true" />
-      <field id="conceptType" autocomplete="true" ui-type="enum" />
-      <field id="conceptStructuredDateGroup" ui-type="groupfield/structureddate" />
-      <repeat id="conceptCitations">
-        <field id="conceptCitation" autocomplete="true" />
+      <field id="assocConcept" autocomplete="true" />
+      <field id="assocConceptType" autocomplete="true" ui-type="enum" />
+      <field id="assocConceptStructuredDateGroup" ui-type="groupfield/structureddate" />
+      <repeat id="assocConceptCitations">
+        <field id="assocConceptCitation" autocomplete="true" />
       </repeat>
-      <field id="conceptNote" />
+      <field id="assocConceptNote" />
     </repeat>
 
     <repeat id="assocPlaceAuthGroupList/assocPlaceAuthGroup">
-      <field id="place" autocomplete="true" />
-      <field id="placeType" autocomplete="true" ui-type="enum" />
-      <field id="placeStructuredDateGroup" ui-type="groupfield/structureddate" />
-      <repeat id="placeCitations">
-        <field id="placeCitation" autocomplete="true" />
+      <field id="assocPlace" autocomplete="true" />
+      <field id="assocPlaceType" autocomplete="true" ui-type="enum" />
+      <field id="assocPlaceStructuredDateGroup" ui-type="groupfield/structureddate" />
+      <repeat id="assocPlaceCitations">
+        <field id="assocPlaceCitation" autocomplete="true" />
       </repeat>
-      <field id="placeNote" />
+      <field id="assocPlaceNote" />
     </repeat>
 
     <repeat id="assocChronologyAuthGroupList/assocChronologyAuthGroup">
-      <field id="chronology" autocomplete="true" />
-      <field id="chronologyType" autocomplete="true" ui-type="enum" />
-      <field id="chronologyStructuredDateGroup" ui-type="groupfield/structureddate" />
-      <repeat id="chronologyCitations">
-        <field id="chronologyCitation" autocomplete="true" />
+      <field id="assocChronology" autocomplete="true" />
+      <field id="assocChronologyType" autocomplete="true" ui-type="enum" />
+      <field id="assocChronologyStructuredDateGroup" ui-type="groupfield/structureddate" />
+      <repeat id="assocChronologyCitations">
+        <field id="assocChronologyCitation" autocomplete="true" />
       </repeat>
-      <field id="chronologyNote" />
+      <field id="assocChronologyNote" />
     </repeat>
   </section>
 </record>
