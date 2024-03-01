@@ -474,7 +474,9 @@
 		<field id="fieldCollectionFeature" />
 		<field id="fieldCollectionNote" />
 		<field id="fieldCollectionNumber" />
-		<field id="fieldCollectionPlace" autocomplete="true" />
+		<repeat id="fieldCollectionPlaces">
+			<field id="fieldCollectionPlace" autocomplete="true" />
+		</repeat>
 		<repeat id="fieldCollectionSources">
 			<field id="fieldCollectionSource" autocomplete="true" />
 		</repeat>
