@@ -32,6 +32,12 @@
 			<title-ref>materialformtype</title-ref>
 			<title>Material Form Types</title>
 		</instance>
+		<!-- For the UOC Occasion field -->
+		<instance id="concept-occasion">
+			<web-url>occasion</web-url>
+			<title-ref>occasion</title-ref>
+			<title>Occasion Concepts</title>
+		</instance>
 		<!-- For herbarium profile -->
 		<instance id="concept-labeltext">
 			<web-url>labeltext</web-url>

@@ -61,7 +61,7 @@
 			<title-ref>materialformtype</title-ref>
 			<title>Material Form Types</title>
 		</instance>
-		<!-- For the UOC Occassion field -->
+		<!-- For the UOC Occasion field -->
 		<instance id="concept-occasion">
 			<web-url>occasion</web-url>
 			<title-ref>occasion</title-ref>
