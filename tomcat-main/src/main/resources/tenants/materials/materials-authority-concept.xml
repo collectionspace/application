@@ -12,5 +12,11 @@
 			<title>Shared Material Classifications</title>
 			<nptAllowed>false</nptAllowed>
 		</instance>
+		<!-- For the UOC Occasion field -->
+		<instance id="concept-occasion">
+			<web-url>occasion</web-url>
+			<title-ref>occasion</title-ref>
+			<title>Occasion Concepts</title>
+		</instance>
 	</instances>
 </record>
