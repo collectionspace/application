@@ -1489,4 +1489,25 @@
 			<option id="miniumum_num_of_individuals">minimum number of individuals</option>
 		</options>
 	</instance>
+	<instance id="vocab-assocauthorityrelationtype">
+		<web-url>assocauthorityrelationtype</web-url>
+		<title-ref>assocauthorityrelationtype</title-ref>
+		<title>Associated Authority Relation Types</title>
+		<options>
+			<option id="affiliated">affiliated</option>
+			<option id="affiliated_to">affiliated to</option>
+			<option id="collector">collector</option>
+			<option id="collected_by">collected by</option>
+			<option id="family_member">family member</option>
+			<option id="leader">leader</option>
+			<option id="leader_of">leader of</option>
+			<option id="owner">owner</option>
+			<option id="owned_by">owned by</option>
+			<option id="replica">replica</option>
+			<option id="replica_of">replica of</option>
+			<option id="resident">resident</option>
+			<option id="place_of_residence">place of residence</option>
+			<option id="situated_in">situated in</option>
+		</options>
+	</instance>
 </instances>
