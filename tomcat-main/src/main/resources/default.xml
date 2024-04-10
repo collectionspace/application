@@ -2,7 +2,7 @@
 
   <version>11</version>
     <include src="settings.xml,local-settings.xml" required="false" merge="xmlmerge.properties"
-		strip-root="yes" />
+    strip-root="yes" />
 
   <spec>
     <include src="base-relations.xml" />
@@ -32,6 +32,7 @@
       <include src="base-procedure-conservation.xml" />
       <include src="base-procedure-uoc.xml" />
       <include src="base-procedure-transport.xml" />
+      <include src="base-procedure-nagpraclaim.xml" />
 
       <include src="base-authority-contact.xml" />
       <!-- IMPORTANT: *-termList.xml files MUST precede their equivalent files. -->

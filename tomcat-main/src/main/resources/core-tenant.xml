@@ -33,9 +33,10 @@
 			<include src="base-procedure-conservation.xml" />
 			<include src="base-procedure-uoc.xml" />
 			<include src="base-procedure-transport.xml" />
+			<include src="base-procedure-nagpraclaim.xml" />
 
 			<include src="base-authority-contact.xml" />
-                        <!-- IMPORTANT: *-termList.xml files MUST precede their equivalent files. -->
+			<!-- IMPORTANT: *-termList.xml files MUST precede their equivalent files. -->
 			<include src="base-authority-location-termList.xml" />
 			<include src="base-authority-location.xml" />
 			<include src="base-authority-organization-termList.xml" />
@@ -49,7 +50,7 @@
 
 			<!-- Commented out to disable Taxon for the 'core' tenant per CSPACE-4466 -->
 			<!-- include src="base-authority-taxon-termList.xml"/ -->
-            <!-- include src="base-authority-taxon.xml"/ -->
+			<!-- include src="base-authority-taxon.xml"/ -->
 
 			<include src="base-authority-chronology-termList.xml" />
 			<include src="base-authority-chronology.xml" />
