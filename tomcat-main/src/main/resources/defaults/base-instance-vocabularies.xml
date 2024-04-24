@@ -2112,4 +2112,27 @@
 			<option id="unknown">unknown</option>
 		</options>
 	</instance>
+	<instance id="vocab-nagprastatus">
+		<web-url>nagprastatus</web-url>
+		<title-ref>nagprastatus</title-ref>
+		<title>NAGPRA Status</title>
+		<options>
+			<option id="under_review">under review</option>
+			<option id="under_consultation">under consultation</option>
+			<option id="fulfilled">fulfilled</option>
+			<option id="partially_fulfilled">partially fulfilled</option>
+			<option id="under_arbitration">under arbitration</option>
+			<option id="denied">denied</option>
+			<option id="withdrawn">withdrawn</option>
+		</options>
+	</instance>
+	<instance id="vocab-nagpradocumentationstatus">
+		<web-url>nagpradocumentationstatus</web-url>
+		<title-ref>nagpradocumentationstatus</title-ref>
+		<title>NAGPRA Documentation Status</title>
+		<options>
+			<option id="report_submitted">report submitted</option>
+			<option id="30_day_notice">30 day notice</option>
+		</options>
+	</instance>
 </instances>
