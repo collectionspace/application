@@ -2074,17 +2074,20 @@
 			<option id="situated_in">situated in</option>
 		</options>
 	</instance>
-	<instance id="vocab-dutyofcarerole">
-		<web-url>dutyofcarerole</web-url>
-		<title-ref>dutyofcarerole</title-ref>
-		<title>Duty of Care - Involved Role</title>
+	<instance id="vocab-nagprainvolvedrole">
+		<web-url>nagprainvolvedrole</web-url>
+		<title-ref>nagprainvolvedrole</title-ref>
+		<title>NAGPRA Involved Role</title>
 		<options>
+			<option id="tribal">tribal</option>
+			<option id="museum">museum</option>
+			<option id="consulation_representatives">consultation representatives</option>
 		</options>
 	</instance>
-	<instance id="vocab-dutyofcaretype">
-		<web-url>dutyofcaretype</web-url>
-		<title-ref>dutyofcaretype</title-ref>
-		<title>Duty of Care - Type</title>
+	<instance id="vocab-nagpratype">
+		<web-url>nagpratype</web-url>
+		<title-ref>nagpratype</title-ref>
+		<title>NAGPRA Type</title>
 		<options>
 			<option id="condition_reporting">condition reporting</option>
 			<option id="handling">handling</option>
@@ -2097,10 +2100,10 @@
 			<option id="treatment">treatment</option>
 		</options>
 	</instance>
-	<instance id="vocab-dutyofcarelevel">
-		<web-url>dutyofcarelevel</web-url>
-		<title-ref>dutyofcarelevel</title-ref>
-		<title>Duty of Care - Level</title>
+	<instance id="vocab-nagpralevel">
+		<web-url>nagpralevel</web-url>
+		<title-ref>nagpralevel</title-ref>
+		<title>NAGPRA Level</title>
 		<options>
 			<option id="preference">preference</option>
 			<option id="recommendation">recommendation</option>
