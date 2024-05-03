@@ -15,9 +15,9 @@
   <section id="dutyOfCareInformation">
     <field id="dutyOfCareNumber" mini="number,list" />
     <field id="originationDate" datatype="date" />
-    <field id="dutyOfCareTitle" mini="summary,list" />
-    <repeat id="dutyOfCareNotes">
-      <field id="dutyOfCareNote" />
+    <field id="title" mini="summary,list" />
+    <repeat id="notes">
+      <field id="note" />
     </repeat>
 
     <repeat id="partiesInvolvedGroupList/partiesInvolvedGroup">
@@ -26,7 +26,7 @@
       <field id="involvedRole" />
     </repeat>
 
-    <repeat id="dutyOfCareDetailsGroupList/dutyOfCareDetailsGroup">
+    <repeat id="detailGroupList/detailGroup">
       <field id="detailType" />
       <field id="detailLevel" />
       <field id="detailDeterminedBy" />
