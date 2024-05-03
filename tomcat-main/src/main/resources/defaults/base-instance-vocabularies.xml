@@ -2079,9 +2079,10 @@
 		<title-ref>nagprainvolvedrole</title-ref>
 		<title>NAGPRA Involved Role</title>
 		<options>
-			<option id="tribal">tribal</option>
-			<option id="museum">museum</option>
-			<option id="consulation_representatives">consultation representatives</option>
+			<option id="tribal_rep">tribal representative</option>
+			<option id="museum_rep">museum representative</option>
+			<option id="consultant">consultant</option>
+			<option id="lineal_descendant">lineal descendant</option>
 		</options>
 	</instance>
 	<instance id="vocab-nagpratype">
