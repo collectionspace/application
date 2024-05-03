@@ -21,16 +21,16 @@
     </repeat>
 
     <repeat id="partiesInvolvedGroupList/partiesInvolvedGroup">
-      <field id="involvedParty" />
-      <field id="involvedOnBehalfOf" />
-      <field id="involvedRole" />
+      <field id="involvedParty" autocomplete="true" />
+      <field id="involvedOnBehalfOf" autocomplete="true" />
+      <field id="involvedRole" autocomplete="true" ui-type="enum" />
     </repeat>
 
     <repeat id="detailGroupList/detailGroup">
-      <field id="detailType" />
-      <field id="detailLevel" />
-      <field id="detailDeterminedBy" />
-      <field id="detailDeterminationDate" />
+      <field id="detailType" autocomplete="true" ui-type="enum" />
+      <field id="detailLevel" autocomplete="true" ui-type="enum" />
+      <field id="detailDeterminedBy" autocomplete="true" />
+      <field id="detailDeterminationDate" datatype="date" />
       <field id="detailNote" />
     </repeat>
   </section>
