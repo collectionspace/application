@@ -2074,4 +2074,42 @@
 			<option id="situated_in">situated in</option>
 		</options>
 	</instance>
+	<instance id="vocab-nagprainvolvedrole">
+		<web-url>nagprainvolvedrole</web-url>
+		<title-ref>nagprainvolvedrole</title-ref>
+		<title>NAGPRA Involved Role</title>
+		<options>
+			<option id="tribal_rep">tribal representative</option>
+			<option id="museum_rep">museum representative</option>
+			<option id="consultant">consultant</option>
+			<option id="lineal_descendant">lineal descendant</option>
+		</options>
+	</instance>
+	<instance id="vocab-nagpratype">
+		<web-url>nagpratype</web-url>
+		<title-ref>nagpratype</title-ref>
+		<title>NAGPRA Type</title>
+		<options>
+			<option id="condition_reporting">condition reporting</option>
+			<option id="handling">handling</option>
+			<option id="exhibition">exhibition</option>
+			<option id="lending">lending</option>
+			<option id="publication">publication</option>
+			<option id="photography">photography</option>
+			<option id="research">research</option>
+			<option id="storage">storage</option>
+			<option id="treatment">treatment</option>
+		</options>
+	</instance>
+	<instance id="vocab-nagpralevel">
+		<web-url>nagpralevel</web-url>
+		<title-ref>nagpralevel</title-ref>
+		<title>NAGPRA Level</title>
+		<options>
+			<option id="preference">preference</option>
+			<option id="recommendation">recommendation</option>
+			<option id="restriction">restriction</option>
+			<option id="unknown">unknown</option>
+		</options>
+	</instance>
 </instances>
