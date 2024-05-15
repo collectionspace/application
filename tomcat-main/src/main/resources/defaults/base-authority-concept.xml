@@ -67,6 +67,12 @@
 			<title-ref>occasion</title-ref>
 			<title>Occasion Concepts</title>
 		</instance>
+		<!-- NAGPRA Culture fields -->
+		<instance id="concept-ethculture">
+			<web-url>ethculture</web-url>
+			<title-ref>ethculture</title-ref>
+			<title>Ethnographic Cultures</title>
+		</instance>
 	</instances>
 
 	<section id="coreInformation">
