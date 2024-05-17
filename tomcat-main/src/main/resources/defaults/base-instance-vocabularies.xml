@@ -2135,4 +2135,36 @@
 			<option id="30_day_notice">30 day notice</option>
 		</options>
 	</instance>
+	<instance id="vocab-nagpranoticetype">
+		<web-url>nagpranoticetype</web-url>
+		<title-ref>nagpranoticetype</title-ref>
+		<title>NAGPRA Notice Types</title>
+		<options>
+			<option id="ancestors">ancestors</option>
+			<option id="associated_funeary">associated funeary remains</option>
+		</options>
+	</instance>
+	<instance id="vocab-nagpranotice">
+		<web-url>nagpranotice</web-url>
+		<title-ref>nagpranotice</title-ref>
+		<title>NAGPRA Notice</title>
+		<options>
+			<option id="opt_in">opt in</option>
+			<option id="opt_out">opt out</option>
+			<option id="pending">pending</option>
+		</options>
+	</instance>
+	<instance id="vocab-nagprainvstate">
+		<web-url>nagprainvstate</web-url>
+		<title-ref>nagprainvstate</title-ref>
+		<title>NAGPRA Inventory State</title>
+		<options>
+			<option id="in_development">in development</option>
+			<option id="under_construction">under construction</option>
+			<option id="submitted">submitted</option>
+			<option id="preliminary">preliminary</option>
+			<option id="claimed">claimed</option>
+			<option id="partially_claimed">partially claimed</option>
+		</options>
+	</instance>
 </instances>
