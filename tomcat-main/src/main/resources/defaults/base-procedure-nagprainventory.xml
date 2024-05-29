@@ -36,7 +36,9 @@
     <repeat id="culturalAffiliationGroupList/culturalAffiliationGroup">
       <field id="tribeOrNation" autocomplete="true" />
       <field id="includeInNotice" autocomplete="true" ui-type="enum" />
-      <field id="determinedBy" autocomplete="true" />
+      <repeat id="determinedByList">
+        <field id="determinedBy" autocomplete="true" />
+      </repeat>
       <field id="determinationDate" datatype="date" />
       <field id="basisOfDetermination" />
       <field id="determinationNote" />
