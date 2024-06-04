@@ -2141,7 +2141,7 @@
 		<title>NAGPRA Notice Types</title>
 		<options>
 			<option id="ancestors">ancestors</option>
-			<option id="associated_funeary">associated funeary remains</option>
+			<option id="associated_funerary">associated funerary remains</option>
 		</options>
 	</instance>
 	<instance id="vocab-nagpranotice">
