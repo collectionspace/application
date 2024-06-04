@@ -30,7 +30,7 @@
     <repeat id="partiesInvolvedGroupList/partiesInvolvedGroup">
       <field id="involvedParty" autocomplete="true" />
       <field id="involvedOnBehalfOf" autocomplete="true" />
-      <field id="involvedRole" />
+      <field id="involvedRole" autocomplete="true" ui-type="enum" />
     </repeat>
 
     <repeat id="culturalAffiliationGroupList/culturalAffiliationGroup">
