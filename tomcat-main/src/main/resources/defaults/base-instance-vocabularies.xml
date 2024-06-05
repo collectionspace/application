@@ -2167,4 +2167,14 @@
 			<option id="partially_claimed">partially claimed</option>
 		</options>
 	</instance>
+	<instance id="vocab-summarydocumentationtype">
+		<web-url>summarydocumentationtype</web-url>
+		<title-ref>summarydocumentationtype</title-ref>
+		<title>NAGPRA Summary Documentation Type</title>
+		<options>
+			<option id="unassociated_funerary_obj">unassociated funerary object</option>
+			<option id="sacred_object">sacred object</option>
+			<option id="cultural_patrimony">object of cultural patrimony</option>
+		</options>
+	</instance>
 </instances>
