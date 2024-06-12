@@ -2177,4 +2177,37 @@
 			<option id="cultural_patrimony">object of cultural patrimony</option>
 		</options>
 	</instance>
+	<instance id="vocab-heldintrusttype">
+		<web-url>heldintrusttype</web-url>
+		<title-ref>heldintrusttype</title-ref>
+		<title>HeldInTrust Type</title>
+		<options>
+		</options>
+	</instance>
+	<instance id="vocab-heldintruststatus">
+		<web-url>heldintruststatus</web-url>
+		<title-ref>heldintruststatus</title-ref>
+		<title>HeldInTrust Status</title>
+		<options>
+			<option id="agreed">agreed</option>
+			<option id="authorized">authorized</option>
+			<option id="cancelled">cancelled</option>
+			<option id="refused">refused</option>
+			<option id="renewed">renewed</option>
+			<option id="requested">requested</option>
+			<option id="returned">returned</option>
+			<option id="sent">sent</option>
+		</options>
+	</instance>
+	<instance id="vocab-correspondencetype">
+		<web-url>correspondencetype</web-url>
+		<title-ref>correspondencetype</title-ref>
+		<title>Correspondence Type</title>
+		<options>
+			<option id="in_person">in person</option>
+			<option id="phone_discussion">phone discussion</option>
+			<option id="voicemail">voicemail</option>
+			<option id="email">email</option>
+		</options>
+	</instance>
 </instances>
