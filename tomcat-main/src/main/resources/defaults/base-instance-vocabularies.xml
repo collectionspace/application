@@ -2182,6 +2182,9 @@
 		<title-ref>heldintrusttype</title-ref>
 		<title>HeldInTrust Type</title>
 		<options>
+			<option id="mou">MOU</option>
+			<option id="repatriation_agreement">repatriation agreement</option>
+			<option id="temporary">temporary</option>
 		</options>
 	</instance>
 	<instance id="vocab-heldintruststatus">
