@@ -36,6 +36,7 @@
 			<include src="base-procedure-nagpraclaim.xml" />
 			<include src="base-procedure-nagprainventory.xml" />
 			<include src="base-procedure-summarydocumentation.xml" />
+			<include src="base-procedure-heldintrust.xml" />
 
 			<include src="base-authority-contact.xml" />
 			<!-- IMPORTANT: *-termList.xml files MUST precede their equivalent files. -->
