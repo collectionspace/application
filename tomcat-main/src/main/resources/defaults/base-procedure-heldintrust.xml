@@ -46,4 +46,18 @@
     </repeat>
   </section>
 
+  <section id="culturalCareInformation">
+    <repeat id="culturalCareNotes">
+      <field id="culturalCareNote" />
+    </repeat>
+    <repeat id="accessLimitationsGroupList/accessLimitationsGroup">
+      <field id="limitationType" autocomplete="true" ui-type="enum" />
+      <field id="limitationLevel" autocomplete="true" ui-type="enum" />
+      <field id="limitationDetails" />
+      <field id="requester" autocomplete="true" />
+      <field id="requestOnBehalfOf" autocomplete="true" />
+      <field id="requestDate" datatype="date" />
+    </repeat>
+  </section>
+
 </record>
