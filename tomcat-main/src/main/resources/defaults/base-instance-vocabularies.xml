@@ -2240,4 +2240,36 @@
 			<option id="unknown">unknown</option>
 		</options>
 	</instance>
+	<instance id="vocab-consultationreason">
+		<web-url>consultationreason</web-url>
+		<title-ref>consultationreason</title-ref>
+		<title>Consultation Reason</title>
+		<options>
+			<option id="inventory">inventory</option>
+			<option id="summary">summary</option>
+			<option id="nagpra_determination">NAGPRA determination</option>
+			<option id="duty_of_care">duty of care</option>
+		</options>
+	</instance>
+	<instance id="vocab-consultationtype">
+		<web-url>consultationtype</web-url>
+		<title-ref>consultationtype</title-ref>
+		<title>Consultation Type</title>
+		<options>
+			<option id="email">email</option>
+			<option id="in_person">in person</option>
+			<option id="mail">mail</option>
+			<option id="virutal_meeting">virutal meeting</option>
+		</options>
+	</instance>
+	<instance id="vocab-consultationstatus">
+		<web-url>consultationstatus</web-url>
+		<title-ref>consultationstatus</title-ref>
+		<title>Consultation Status</title>
+		<options>
+			<option id="verified">verified</option>
+			<option id="not_verified">not verified</option>
+			<option id="in_progress">in progress</option>
+		</options>
+	</instance>
 </instances>
