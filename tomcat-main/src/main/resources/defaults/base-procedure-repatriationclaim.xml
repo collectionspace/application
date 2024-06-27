@@ -1,18 +1,18 @@
-<record id="nagpraclaim" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true" >
-  <services-url>nagpraclaims</services-url>
-  <services-tenant-plural>NagpraClaims</services-tenant-plural>
-  <services-tenant-singular>NagpraClaim</services-tenant-singular>
+<record id="repatriationclaim" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true" >
+  <services-url>repatriationclaims</services-url>
+  <services-tenant-plural>RepatriationClaims</services-tenant-plural>
+  <services-tenant-singular>RepatriationClaim</services-tenant-singular>
   <services-list-path>abstract-common-list/list-item</services-list-path>
-  <services-record-path>nagpraclaims_common:http://collectionspace.org/services/nagpraclaim,nagpraclaims_common</services-record-path>
+  <services-record-path>repatriationclaims_common:http://collectionspace.org/services/repatriationclaim,repatriationclaims_common</services-record-path>
   <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
 
-  <include src="domain-procedure-nagpraclaim.xml" strip-root="yes" />
+  <include src="domain-procedure-repatriationclaim.xml" strip-root="yes" />
 
   <section id="coreInformation">
     <include src="core-fields.xml" strip-root="yes" />
   </section>
 
-  <section id="nagpraclaimInformation">
+  <section id="claimInformation">
     <field id="claimNumber" mini="number,list" />
     <field id="title" mini="summary,list" />
     <field id="claimDate" datatype="date" />
@@ -37,7 +37,7 @@
     </repeat>
   </section>
 
-  <section id="nagpraClaimContext">
+  <section id="claimContextInformation">
     <repeat id="geographicPlaceGroupList/geographicPlaceGroup">
       <field id="geographicPlace" autocomplete="true" />
       <field id="geographicPlaceNote" />
@@ -56,7 +56,7 @@
     </repeat>
   </section>
 
-  <section id="nagpraClaimStatus">
+  <section id="claimStatusInformation">
     <repeat id="nagpraStatusGroupList/nagpraStatusGroup">
       <field id="statusGroup" />
       <field id="statusIndividual" autocomplete="true" />
