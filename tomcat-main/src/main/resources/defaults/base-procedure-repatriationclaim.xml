@@ -58,7 +58,7 @@
 
   <section id="claimStatusInformation">
     <repeat id="statusGroupList/statusGroup">
-      <field id="statusApprovalGroup" autocomplete="true" ui-type="enum" />
+      <field id="statusGroupType" autocomplete="true" ui-type="enum" />
       <field id="statusIndividual" autocomplete="true" />
       <field id="status" autocomplete="true" ui-type="enum" />
       <field id="statusDate" datatype="date" />
@@ -66,7 +66,7 @@
     </repeat>
 
     <repeat id="documentationGroupList/documentationGroup">
-      <field id="documentationApprovalGroup" autocomplete="true" ui-type="enum" />
+      <field id="documentationGroupType" autocomplete="true" ui-type="enum" />
       <field id="documentationIndividual" autocomplete="true" />
       <field id="documentationStatus" autocomplete="true" ui-type="enum" />
       <field id="documentationDate" datatype="date" />
