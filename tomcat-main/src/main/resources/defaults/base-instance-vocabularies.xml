@@ -2259,7 +2259,7 @@
 			<option id="email">email</option>
 			<option id="in_person">in person</option>
 			<option id="mail">mail</option>
-			<option id="virutal_meeting">virutal meeting</option>
+			<option id="virtual_meeting">virtual meeting</option>
 		</options>
 	</instance>
 	<instance id="vocab-consultationstatus">
