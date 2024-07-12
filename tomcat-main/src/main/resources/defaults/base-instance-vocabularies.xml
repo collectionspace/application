@@ -2272,4 +2272,16 @@
 			<option id="in_progress">in progress</option>
 		</options>
 	</instance>
+	<instance id="vocab-claimtype">
+		<web-url>claimtype</web-url>
+		<title-ref>claimtype</title-ref>
+		<title>Claim Type</title>
+		<options>
+			<option id="nagpra_human_remains">NAGPRA: Human Remains</option>
+			<option id="nagpra_funerary_objs">NAGPRA: Associated Funerary Objects</option>
+			<option id="nagpra_cultural_patrimony">NAGPRA: Objects of Cultural Patrimony</option>
+			<option id="nagpra_sacred_objs">NAGPRA: Sacred Objects</option>
+			<option id="non_nagpra">Non-NAGPRA</option>
+		</options>
+	</instance>
 </instances>
