@@ -1,0 +1,87 @@
+<record id="restrictedmedia" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
+	<services-url>restrictedmedia</services-url>
+	<services-tenant-plural>RestrictedMedia</services-tenant-plural>
+	<services-tenant-singular>RestrictedMedia</services-tenant-singular>
+	<services-list-path>abstract-common-list/list-item</services-list-path>
+	<services-record-path>restrictedmedia_common:http://collectionspace.org/services/restrictedmedia,restrictedmedia_common</services-record-path>
+	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+
+	<include src="domain-procedure-restrictedmedia.xml" strip-root="yes" />
+
+	<section id="coreInformation">
+		<include src="core-fields.xml" strip-root="yes" />
+	</section>
+
+	<section id="restrictedMediaInformation">
+		<field id="filename" />
+		<field id="location" />
+		<field id="format" />
+		<field id="dateCreated" />
+		<field id="dateModified" />
+		<field id="externalMediaUrl" exists-in-services="false" />
+
+		<field id="dimension" ui-type="groupfield/dimension/selfrenderer" />
+		<!-- Need to qualify the field name for the Services since 'title' is ambiguous. -->
+		<field id="title" mini="summary,list" services-schema-qualify="true" />
+		<field id="contributor" autocomplete="true" />
+		<field id="creator" autocomplete="true" />
+		<repeat id="languages">
+			<services-tag>languageList</services-tag>
+			<field id="language" autocomplete="true" ui-type="enum" />
+		</repeat>
+		<field id="publisher" autocomplete="true" />
+		<repeat id="relations">
+			<services-tag>relationList</services-tag>
+			<field id="relation" />
+		</repeat>
+		<field id="copyrightStatement" />
+		<field id="identificationNumber" mini="number,list" />
+		<repeat id="types">
+			<services-tag>typeList</services-tag>
+			<field id="type" />
+		</repeat>
+		<field id="coverage" />
+		<repeat id="dateGroupList/dateGroup">
+			<group id="date" ui-type="groupfield/structureddate" services-group-type="dateGroup">
+			</group>
+		</repeat>
+		<field id="source" />
+		<field id="externalUrl" />
+		<repeat id="subjects">
+			<services-tag>subjectList</services-tag>
+			<field id="subject" />
+		</repeat>
+		<field id="rightsHolder" autocomplete="true" />
+		<field id="description" />
+		<field id="altText" />
+
+		<repeat id="checksumGroupList/checksumGroup">
+			<field id="checksumValue" />
+			<field id="checksumType" autocomplete="true" ui-type="enum" />
+			<field id="checksumDate" datatype="date" />
+		</repeat>
+	</section>
+
+	<!-- not used in ui yet -->
+	<section id="otherInformation">
+		<repeat id="publishToList" services-type-anonymous="false">
+			<field id="publishTo" autocomplete="true" ui-type="enum" />
+		</repeat>
+
+		<field id="mediaUri">
+			<services-tag>uri</services-tag>
+		</field>
+		<field id="sourceUrl" />
+		<field id="blobCsid" mini="list" />
+		<field id="imgThumb" mini="list" exists-in-services="false">
+			<use-csid id="blobCsid">ims;download/;/Thumbnail</use-csid>
+		</field>
+		<field id="imgOrig" mini="list" exists-in-services="false">
+			<use-csid id="blobCsid">ims;download/;/Original</use-csid>
+		</field>
+		<group id="blobs" exists-in-services="false" ui-type="uploader" showgrouped="false"
+			userecord="blobs" serviceurl="blobs" onlyifexists="blobCsid" ui-spec-prefix="blobs"
+			with-csid="blobCsid" />
+	</section>
+
+</record>
