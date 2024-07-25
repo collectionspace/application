@@ -2135,8 +2135,10 @@
 		<title-ref>nagpradocumentationstatus</title-ref>
 		<title>NAGPRA Documentation Status</title>
 		<options>
-			<option id="report_submitted">report submitted</option>
-			<option id="30_day_notice">30 day notice</option>
+			<option id="published">published</option>
+			<option id="republished">republished</option>
+			<option id="counter_claim_field">counter claim field</option>
+			<option id="pending_consultation">pending consultation</option>
 		</options>
 	</instance>
 	<instance id="vocab-nagpranoticetype">
