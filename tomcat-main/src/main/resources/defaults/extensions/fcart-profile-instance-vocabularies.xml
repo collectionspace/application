@@ -644,7 +644,11 @@
 		<options>
 			<option id="approved">approved</option>
 			<option id="not_approved">not approved</option>
-			<option id="not_required">not required</option>
+			<option id="consulted">consulted</option>
+			<option id="deed_returned">deed returned</option>
+			<option id="deed_sent">deed sent</option>
+			<option id="tabled">tabled</option>
+			<option id="under_arbitration">under arbitration</option>
 		</options>
 	</instance>
 	<instance id="vocab-disposalmethod">
