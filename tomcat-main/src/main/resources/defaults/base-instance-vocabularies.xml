@@ -2141,6 +2141,16 @@
 			<option id="pending_consultation">pending consultation</option>
 		</options>
 	</instance>
+	<instance id="vocab-documentationgroup">
+		<web-url>documentationgroup</web-url>
+		<title-ref>documentationgroup</title-ref>
+		<title>Documentation Group</title>
+		<options>
+			<option id="NAGPRA_committee">NAGPRA committee</option>
+			<option id="tribal_advisory_board">tribal advisory board</option>
+			<option id="executive_committee">executive committee </option>
+		</options>
+	</instance>
 	<instance id="vocab-nagpranoticetype">
 		<web-url>nagpranoticetype</web-url>
 		<title-ref>nagpranoticetype</title-ref>
