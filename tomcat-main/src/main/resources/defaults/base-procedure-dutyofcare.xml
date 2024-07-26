@@ -15,7 +15,7 @@
   <section id="dutyOfCareInformation">
     <field id="dutyOfCareNumber" mini="number,list" />
     <field id="originationDate" datatype="date" />
-    <field id="title" mini="summary,list" />
+    <field id="dutyOfCareTitle" mini="summary,list" />
     <repeat id="notes">
       <field id="note" />
     </repeat>
