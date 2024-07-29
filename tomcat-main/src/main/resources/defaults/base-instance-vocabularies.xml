@@ -2291,13 +2291,14 @@
 	<instance id="vocab-claimtype">
 		<web-url>claimtype</web-url>
 		<title-ref>claimtype</title-ref>
-		<title>Claim Type</title>
+		<title>Claim Types</title>
 		<options>
-			<option id="nagpra_human_remains">NAGPRA: Human Remains</option>
-			<option id="nagpra_funerary_objs">NAGPRA: Associated Funerary Objects</option>
-			<option id="nagpra_cultural_patrimony">NAGPRA: Objects of Cultural Patrimony</option>
-			<option id="nagpra_sacred_objs">NAGPRA: Sacred Objects</option>
-			<option id="non_nagpra">Non-NAGPRA</option>
+			<option id="human_remains">human remains</option>
+			<option id="associated_funerary_obj">associated funerary object (AFO)</option>
+			<option id="unassociated_funerary_obj">unassociated funerary object (UFO)</option>
+			<option id="obj_cultural_patrimony">object of cultural patrimony</option>
+			<option id="sacred_object">sacred object</option>
+			<option id="unrelated_to_nagpra">unrelated to NAGPRA</option>
 		</options>
 	</instance>
 </instances>
