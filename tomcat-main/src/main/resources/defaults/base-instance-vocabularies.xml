@@ -2327,4 +2327,17 @@
 			<option id="undetermined">undetermined/requires additional research</option>
 		</options>
 	</instance>
+	<instance id="vocab-nagprainv">
+		<web-url>nagprainv</web-url>
+		<title-ref>nagprainv</title-ref>
+		<title>NAGPRA Inventories</title>
+		<options>
+			<option id="inv_in_progress">inventory, in progress</option>
+			<option id="inv_complete">inventory, complete</option>
+			<option id="inv_not_started">inventory, not started</option>
+			<option id="sum_in_progress">summary, in progress</option>
+			<option id="sum_complete">summary, complete</option>
+			<option id="sum_not_started">summary, not started</option>
+		</options>
+	</instance>
 </instances>
