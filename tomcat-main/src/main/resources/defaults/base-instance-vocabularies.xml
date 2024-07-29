@@ -2315,4 +2315,16 @@
 			<option id="undetermined">undetermined/requires additional consultation</option>
 		</options>
 	</instance>
+	<instance id="vocab-gravecodes">
+		<web-url>gravecode</web-url>
+		<title-ref>gravecode</title-ref>
+		<title>Grave Associated Codes</title>
+		<options>
+			<option id="associated_funerary_obj">associated funerary object (AFO)</option>
+			<option id="ufo_with_burial">unassociated funerary object (UFO) with burial</option>
+			<option id="ufo_or_cemetery">unassociated funerary object (UFO)/cemetery</option>
+			<option id="lacks_status">lacks clear funerary status/near cemetery</option>
+			<option id="undetermined">undetermined/requires additional research</option>
+		</options>
+	</instance>
 </instances>
