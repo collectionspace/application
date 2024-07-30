@@ -2288,48 +2288,48 @@
 			<option id="in_progress">in progress</option>
 		</options>
 	</instance>
-	<instance id="vocab-claimtype">
-		<web-url>claimtype</web-url>
-		<title-ref>claimtype</title-ref>
-		<title>Claim Types</title>
+	<instance id="vocab-nagpraclaimtype">
+		<web-url>nagpraclaimtype</web-url>
+		<title-ref>nagpraclaimtype</title-ref>
+		<title>NAGPRA Claim Types</title>
 		<options>
 			<option id="human_remains">human remains</option>
-			<option id="associated_funerary_obj">associated funerary object (AFO)</option>
-			<option id="unassociated_funerary_obj">unassociated funerary object (UFO)</option>
-			<option id="obj_cultural_patrimony">object of cultural patrimony</option>
-			<option id="sacred_object">sacred object</option>
+			<option id="afo">associated funerary object (AFO)</option>
+			<option id="ufo">unassociated funerary object (UFO)</option>
+			<option id="objectOfCulturalPatrimony">object of cultural patrimony</option>
+			<option id="sacredObject">sacred object</option>
 			<option id="unrelated_to_nagpra">unrelated to NAGPRA</option>
 		</options>
 	</instance>
-	<instance id="vocab-nagpracat">
-		<web-url>nagpracat</web-url>
-		<title-ref>nagpracat</title-ref>
+	<instance id="vocab-nagpracategory">
+		<web-url>nagpracategory</web-url>
+		<title-ref>nagpracategory</title-ref>
 		<title>NAGPRA Categories</title>
 		<options>
-			<option id="associated_funerary_obj">associated funerary object (AFO)</option>
+			<option id="afo">associated funerary object (AFO)</option>
 			<option id="human_remains">human remains</option>
-			<option id="obj_cultural_patrimony">object of cultural patrimony</option>
-			<option id="sacred_object">sacred object</option>
-			<option id="unassociated_funerary_obj">unassociated funerary object (UFO)</option>
-			<option id="subject_to_nagpra">subject to NAGPRA, unspecified</option>
+			<option id="objectOfCulturalPatrimony">object of cultural patrimony</option>
+			<option id="sacredObject">sacred object</option>
+			<option id="ufo">unassociated funerary object (UFO)</option>
+			<option id="subjectToNAGPRA">subject to NAGPRA, unspecified</option>
 			<option id="undetermined">undetermined/requires additional consultation</option>
 		</options>
 	</instance>
-	<instance id="vocab-gravecodes">
-		<web-url>gravecode</web-url>
-		<title-ref>gravecode</title-ref>
-		<title>Grave Associated Codes</title>
+	<instance id="vocab-graveassoccode">
+		<web-url>graveassoccode</web-url>
+		<title-ref>graveassoccode</title-ref>
+		<title>Grave Association Codes</title>
 		<options>
-			<option id="associated_funerary_obj">associated funerary object (AFO)</option>
-			<option id="ufo_with_burial">unassociated funerary object (UFO) with burial</option>
-			<option id="ufo_or_cemetery">unassociated funerary object (UFO)/cemetery</option>
-			<option id="lacks_status">lacks clear funerary status/near cemetery</option>
+			<option id="associatedFuneraryObject">associated funerary object (AFO)</option>
+			<option id="unassociatedFuneraryObjectWithDesignatedBurial">unassociated funerary object (UFO) with burial</option>
+			<option id="unassociatedFuneraryObjectWithCemetery">unassociated funerary object (UFO)/cemetery</option>
+			<option id="lacksClearFuneraryStatusNearCemetery">lacks clear funerary status/near cemetery</option>
 			<option id="undetermined">undetermined/requires additional research</option>
 		</options>
 	</instance>
-	<instance id="vocab-nagprainv">
-		<web-url>nagprainv</web-url>
-		<title-ref>nagprainv</title-ref>
+	<instance id="vocab-nagprainventory">
+		<web-url>nagprainventory</web-url>
+		<title-ref>nagprainventory</title-ref>
 		<title>NAGPRA Inventories</title>
 		<options>
 			<option id="inv_in_progress">inventory, in progress</option>
@@ -2340,10 +2340,10 @@
 			<option id="sum_not_started">summary, not started</option>
 		</options>
 	</instance>
-	<instance id="vocab-culturaldeterminationtype">
-		<web-url>culturaldeterminationtype</web-url>
-		<title-ref>culturaldeterminationtype</title-ref>
-		<title>Cultural Determination Types</title>
+	<instance id="vocab-nagpradetermtype">
+		<web-url>nagpradetermtype</web-url>
+		<title-ref>nagpradetermtype</title-ref>
+		<title>NAGPRA Determination Types</title>
 		<options>
 			<option id="museum">museum</option>
 			<option id="tribal">tribal</option>
