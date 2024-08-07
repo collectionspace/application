@@ -1189,7 +1189,11 @@
 		<options>
 			<option id="approved">approved</option>
 			<option id="not_approved">not approved</option>
-			<option id="not_required">not required</option>
+			<option id="consulted">consulted</option>
+			<option id="deed_returned">deed returned</option>
+			<option id="deed_sent">deed sent</option>
+			<option id="tabled">tabled</option>
+			<option id="under_arbitration">under arbitration</option>
 		</options>
 	</instance>
 	<instance id="vocab-disposalmethod">
@@ -2131,8 +2135,20 @@
 		<title-ref>nagpradocumentationstatus</title-ref>
 		<title>NAGPRA Documentation Status</title>
 		<options>
-			<option id="report_submitted">report submitted</option>
-			<option id="30_day_notice">30 day notice</option>
+			<option id="published">published</option>
+			<option id="republished">republished</option>
+			<option id="counter_claim_field">counter claim field</option>
+			<option id="pending_consultation">pending consultation</option>
+		</options>
+	</instance>
+	<instance id="vocab-documentationgroup">
+		<web-url>documentationgroup</web-url>
+		<title-ref>documentationgroup</title-ref>
+		<title>Documentation Group</title>
+		<options>
+			<option id="NAGPRA_committee">NAGPRA committee</option>
+			<option id="tribal_advisory_board">tribal advisory board</option>
+			<option id="executive_committee">executive committee </option>
 		</options>
 	</instance>
 	<instance id="vocab-nagpranoticetype">
@@ -2272,16 +2288,65 @@
 			<option id="in_progress">in progress</option>
 		</options>
 	</instance>
-	<instance id="vocab-claimtype">
-		<web-url>claimtype</web-url>
-		<title-ref>claimtype</title-ref>
-		<title>Claim Type</title>
+	<instance id="vocab-nagpraclaimtype">
+		<web-url>nagpraclaimtype</web-url>
+		<title-ref>nagpraclaimtype</title-ref>
+		<title>NAGPRA Claim Types</title>
 		<options>
-			<option id="nagpra_human_remains">NAGPRA: Human Remains</option>
-			<option id="nagpra_funerary_objs">NAGPRA: Associated Funerary Objects</option>
-			<option id="nagpra_cultural_patrimony">NAGPRA: Objects of Cultural Patrimony</option>
-			<option id="nagpra_sacred_objs">NAGPRA: Sacred Objects</option>
-			<option id="non_nagpra">Non-NAGPRA</option>
+			<option id="human_remains">human remains</option>
+			<option id="afo">associated funerary object (AFO)</option>
+			<option id="ufo">unassociated funerary object (UFO)</option>
+			<option id="objectOfCulturalPatrimony">object of cultural patrimony</option>
+			<option id="sacredObject">sacred object</option>
+			<option id="unrelated_to_nagpra">unrelated to NAGPRA</option>
+		</options>
+	</instance>
+	<instance id="vocab-nagpracategory">
+		<web-url>nagpracategory</web-url>
+		<title-ref>nagpracategory</title-ref>
+		<title>NAGPRA Categories</title>
+		<options>
+			<option id="afo">associated funerary object (AFO)</option>
+			<option id="human_remains">human remains</option>
+			<option id="objectOfCulturalPatrimony">object of cultural patrimony</option>
+			<option id="sacredObject">sacred object</option>
+			<option id="ufo">unassociated funerary object (UFO)</option>
+			<option id="subjectToNAGPRA">subject to NAGPRA, unspecified</option>
+			<option id="undetermined">undetermined/requires additional consultation</option>
+		</options>
+	</instance>
+	<instance id="vocab-graveassoccode">
+		<web-url>graveassoccode</web-url>
+		<title-ref>graveassoccode</title-ref>
+		<title>Grave Association Codes</title>
+		<options>
+			<option id="associatedFuneraryObject">associated funerary object (AFO)</option>
+			<option id="unassociatedFuneraryObjectWithDesignatedBurial">unassociated funerary object (UFO) with burial</option>
+			<option id="unassociatedFuneraryObjectWithCemetery">unassociated funerary object (UFO)/cemetery</option>
+			<option id="lacksClearFuneraryStatusNearCemetery">lacks clear funerary status/near cemetery</option>
+			<option id="undetermined">undetermined/requires additional research</option>
+		</options>
+	</instance>
+	<instance id="vocab-nagprainventory">
+		<web-url>nagprainventory</web-url>
+		<title-ref>nagprainventory</title-ref>
+		<title>NAGPRA Inventories</title>
+		<options>
+			<option id="inv_in_progress">inventory, in progress</option>
+			<option id="inv_complete">inventory, complete</option>
+			<option id="inv_not_started">inventory, not started</option>
+			<option id="sum_in_progress">summary, in progress</option>
+			<option id="sum_complete">summary, complete</option>
+			<option id="sum_not_started">summary, not started</option>
+		</options>
+	</instance>
+	<instance id="vocab-nagpradetermtype">
+		<web-url>nagpradetermtype</web-url>
+		<title-ref>nagpradetermtype</title-ref>
+		<title>NAGPRA Determination Types</title>
+		<options>
+			<option id="museum">museum</option>
+			<option id="tribal">tribal</option>
 		</options>
 	</instance>
 </instances>
