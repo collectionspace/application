@@ -460,6 +460,11 @@
 			<field id="reference" autocomplete="true" />
 			<field id="referenceNote" />
 		</repeat>
+
+		<repeat id="publishedRelatedLinkGroupList/publishedRelatedLinkGroup">
+			<field id="relatedLink" />
+			<field id="descriptiveTitle" />
+		</repeat>
 	</section>
 	<section id="objectCollectionInformation">
 		<repeat id="fieldCollectionSites">
