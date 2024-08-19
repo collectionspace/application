@@ -2375,4 +2375,14 @@
 			<option id="return_to_donor">return to donor</option>
 		</options>
 	</instance>
+	<instance id="vocab-exitreason">
+		<web-url>exitreason</web-url>
+		<title-ref>exitreason</title-ref>
+		<title>Exit Reason</title>
+		<options>
+			<option id="deaccession">deaccession</option>
+			<option id="return_intake">return of intake</option>
+			<option id="return_loan">return of loan</option>
+		</options>
+	</instance>
 </instances>
