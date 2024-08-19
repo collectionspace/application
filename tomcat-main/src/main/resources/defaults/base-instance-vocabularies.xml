@@ -2349,4 +2349,16 @@
 			<option id="tribal">tribal</option>
 		</options>
 	</instance>
+	<instance id="vocab-deaccessionreason">
+		<web-url>deaccessionreason</web-url>
+		<title-ref>deaccessionreason</title-ref>
+		<title>Deaccession Reason</title>
+		<options>
+			<option id="condition">condition</option>
+			<option id="missing">missing</option>
+			<option id="repatriation">repatriation</option>
+			<option id="stolen">stolen</option>
+			<option id="no_longer_fits_policy">no longer fits collection policy</option>
+		</options>
+	</instance>
 </instances>
