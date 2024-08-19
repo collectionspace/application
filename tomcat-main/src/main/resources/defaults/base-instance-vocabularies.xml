@@ -2361,4 +2361,18 @@
 			<option id="no_longer_fits_policy">no longer fits collection policy</option>
 		</options>
 	</instance>
+	<instance id="vocab-exitmethod">
+		<web-url>exitmethod</web-url>
+		<title-ref>exitmethod</title-ref>
+		<title>Exit Method</title>
+		<options>
+			<option id="auction">auction</option>
+			<option id="disposal">disposal</option>
+			<option id="donation">donation</option>
+			<option id="exchange">exchange</option>
+			<option id="repatriation">repatriation</option>
+			<option id="private_sale">private sale</option>
+			<option id="return_to_donor">return to donor</option>
+		</options>
+	</instance>
 </instances>
