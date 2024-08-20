@@ -45,7 +45,7 @@
     </repeat>
 
     <repeat id="inventoryStatusGroupList/inventoryStatusGroup">
-      <field id="inventoryGroup" />
+      <field id="inventoryGroup" autocomplete="true" ui-type="enum" />
       <field id="inventoryIndividual" autocomplete="true" />
       <field id="inventoryStatus" autocomplete="true" ui-type="enum" />
       <field id="inventoryDate" datatype="date" />
