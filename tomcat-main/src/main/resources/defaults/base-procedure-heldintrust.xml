@@ -30,7 +30,7 @@
     </repeat>
 
     <repeat id="agreementApprovalGroupList/agreementApprovalGroup">
-      <field id="agreementGroup" />
+      <field id="agreementGroup" autocomplete="true" ui-type="enum" />
       <field id="agreementIndividual" autocomplete="true" />
       <field id="agreementStatus" autocomplete="true" ui-type="enum" />
       <field id="agreementDate" datatype="date" />
