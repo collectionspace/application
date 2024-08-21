@@ -49,7 +49,7 @@
     </repeat>
 
     <repeat id="statusGroupList/statusGroup">
-      <field id="statusGroupType" />
+      <field id="statusGroupType" autocomplete="true" ui-type="enum" />
       <field id="statusIndividual" autocomplete="true" />
       <field id="status" autocomplete="true" ui-type="enum" />
       <field id="statusDate" datatype="date" />
