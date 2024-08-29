@@ -94,6 +94,7 @@
 		<repeat id="objectCountGroupList/objectCountGroup">
 			<field id="objectCount" datatype="integer" />
 			<field id="objectCountType" autocomplete="true" ui-type="enum" />
+			<field id="objectCountUnit" autocomplete="true" ui-type="enum" />
 			<field id="objectCountCountedBy" autocomplete="true" />
 			<field id="objectCountDate" datatype="date" />
 			<field id="objectCountNote" />
