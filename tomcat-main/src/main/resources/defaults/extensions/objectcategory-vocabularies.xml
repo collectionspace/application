@@ -1,0 +1,26 @@
+<instances>
+  <instance id="vocab-objectcategory">
+    <web-url>objectcategory</web-url>
+    <title-ref>objectcategory</title-ref>
+    <title>Object Category</title>
+    <options>
+      <option id="debitage">debitage</option>
+      <option id="ethnographic">ethnographic</option>
+      <option id="historics">historics</option>
+      <option id="human_remains">human remains</option>
+      <option id="modified_faunal_remains">modified faunal remains</option>
+      <option id="modified_floral_remains">modified floral remains</option>
+      <option id="modified_human_remains">modified human remains</option>
+      <option id="modified_mineral">modified mineral</option>
+      <option id="modified_shell">modified shell</option>
+      <option id="modified_stone">modified stone</option>
+      <option id="soil">soil</option>
+      <option id="unidentified">unidentified</option>
+      <option id="unmodified_faunal_remains">unmodified faunal remains</option>
+      <option id="unmodified_floral_remains">unmodified floral remains</option>
+      <option id="unmodified_mineral">unmodified mineral</option>
+      <option id="unmodified_shell">unmodified shell</option>
+      <option id="unmodified_stone">unmodified stone</option>
+    </options>
+  </instance>
+</instances>
