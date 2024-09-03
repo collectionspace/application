@@ -37,8 +37,7 @@
       <field id="involvedRole" autocomplete="true" ui-type="enum" />
     </repeat>
 
-    <!-- Shared with nagpra inventory; rename to affiliationGroupList? -->
-    <repeat id="culturalAffiliationGroupList/culturalAffiliationGroup">
+    <repeat id="affiliationGroupList/affiliationGroup">
       <field id="tribeOrNation" autocomplete="true" />
       <field id="includeInNotice" autocomplete="true" ui-type="enum" />
       <repeat id="determinedByList">
@@ -50,7 +49,7 @@
     </repeat>
 
     <repeat id="statusGroupList/statusGroup">
-      <field id="statusGroupType" />
+      <field id="statusGroupType" autocomplete="true" ui-type="enum" />
       <field id="statusIndividual" autocomplete="true" />
       <field id="status" autocomplete="true" ui-type="enum" />
       <field id="statusDate" datatype="date" />
