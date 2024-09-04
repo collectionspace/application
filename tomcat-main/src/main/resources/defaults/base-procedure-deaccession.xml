@@ -13,6 +13,29 @@
   </section>
 
   <section id="deaccessionInformation">
+    <field id="deaccessionNumber" mini="number,list" />
+    <repeat id="deaccessionReasons">
+      <field id="deaccessionReason" autocomplete="true" ui-type="enum" />
+    </repeat>
+    <field id="deaccessionDate" datatype="date" />
+    <field id="deaccessionRationale" />
+    <field id="deaccessionNote" />
+
+    <repeat id="deaccessionApprovalGroupList/deaccessionApprovalGroup">
+      <field id="deaccessionApprovalGroup" autocomplete="true" ui-type="enum" />
+      <field id="deaccessionApprovalIndividual" autocomplete="true" mini="summary,list" />
+      <field id="deaccessionApprovalStatus" autocomplete="true" ui-type="enum" />
+      <field id="deaccessionApprovalDate" datatype="date" />
+      <field id="deaccessionApprovalNote" />
+    </repeat>
+
+    <field id="exitDate" datatype="date" />
+    <repeat id="exitRecipients">
+      <field id="exitRecipient" autocomplete="true" />
+    </repeat>
+    <repeat id="exitMethods">
+      <field id="exitMethod" autocomplete="true" ui-type="enum" />
+    </repeat>
   </section>
 
 </record>
