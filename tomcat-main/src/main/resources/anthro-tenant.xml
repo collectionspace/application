@@ -11,7 +11,7 @@
 		<records>
 			<enum-blank>Please select a value</enum-blank>
 
-			<include src="base-collectionobject.xml,extensions/culturalcare-collectionobject.xml,extensions/nagpra-collectionobject.xml,extensions/naturalhistory-collectionobject.xml,anthro-collectionobject.xml" merge="xmlmerge.properties" />
+			<include src="base-collectionobject.xml,extensions/culturalcare-collectionobject.xml,extensions/nagpra-collectionobject.xml,extensions/naturalhistory-collectionobject.xml,extensions/objectcategory-collectionobject.xml,anthro-collectionobject.xml" merge="xmlmerge.properties" />
 			<include src="base-authority.xml" />
 
 			<include src="base-procedure-acquisition.xml" />
