@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.collectionspace.chain.csp.persistence.services.TenantSpec;
 import org.collectionspace.chain.csp.persistence.services.TenantSpec.RemoteClient;
 import org.collectionspace.chain.csp.schema.EmailData;
@@ -235,6 +237,7 @@ public class ServiceBindingsGeneration {
 							serviceBindingsElement.addAttribute(Record.REMOTECLIENT_CONFIG_NAME, remoteClientConfigName);
 						}
 					}
+
 					addServiceBinding(r, serviceBindingsElement, nsservices, false, serviceBindingVersion);
 				} else if (r.isType(RECORD_TYPE_AUTHORITY)) {
 					// e.g., <tenant:serviceBindings id="Persons" name="Persons" type="authority" version="0.1">
@@ -976,6 +979,15 @@ public class ServiceBindingsGeneration {
 
 			//<service:object>
 			doServiceObject(r, el, this.nsservices, isAuthority, serviceBindingVersion);
+
+			Set<String> tags = r.getTags();
+			if (tags != null && !tags.isEmpty()) {
+				log.debug("{} tags => {}", r.getRecordName(), tags);
+				Element tagElement = el.addElement(new QName("tags", nameSpace));
+				for (String tag : tags) {
+					tagElement.addElement(new QName("tag", nameSpace)).addText(tag);
+				}
+			}
 
 			if (log.isTraceEnabled()) {
 				String msg = String.format("Config Generation: '%s' - Created service bindings for record type '%s'.",
