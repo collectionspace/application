@@ -1998,5 +1998,16 @@
 			<option id="situated_in">situated in</option>
 		</options>
 	</instance>
+	<instance id="vocab-objectcountunit">
+		<web-url>objectcountunit</web-url>
+		<title-ref>objectcountunit</title-ref>
+		<title>Object Count Unit</title>
+		<options>
+			<option id="lot">lot</option>
+			<option id="object">object</option>
+			<option id="pair">pair</option>
+			<option id="set">set</option>
+		</options>
+	</instance>
 	-->
 </instances>
