@@ -1,4 +1,4 @@
-<record id="dutyofcare" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true" >
+<record id="dutyofcare" in-findedit="yes" type="record,procedure" tag="nagpra" cms-type="default" generate-services-schema="true" >
   <services-url>dutiesofcare</services-url>
   <services-tenant-plural>Dutiesofcare</services-tenant-plural>
   <services-tenant-singular>Dutyofcare</services-tenant-singular>
