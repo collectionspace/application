@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
 
-import org.apache.commons.lang3.StringUtils;
 import org.collectionspace.chain.csp.persistence.services.TenantSpec;
 import org.collectionspace.chain.csp.persistence.services.TenantSpec.RemoteClient;
 import org.collectionspace.chain.csp.schema.EmailData;
