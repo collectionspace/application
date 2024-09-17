@@ -5,6 +5,7 @@
 	<include src="extensions/locality-vocabularies.xml" strip-root="yes" />
 	<include src="extensions/nagpra-vocabularies.xml" strip-root="yes" />
 	<include src="extensions/naturalhistory-vocabularies.xml" strip-root="yes" />
+	<include src="extensions/objectcategory-vocabularies.xml" strip-root="yes" />
 
 	<instance id="vocab-prodtechniquetype">
 		<web-url>prodtechniquetype</web-url>

@@ -1,0 +1,11 @@
+<record id="collection-object" is-extension="true">
+	<services-record-path id="objectcategory_extension">collectionobjects_objectcategory_extension:http://collectionspace.org/services/collectionobject/domain/objectcategory_extension,collectionobjects_objectcategory_extension</services-record-path>
+	<section id="identificationInformation">
+    <repeat id="objectCategoryGroupList/objectCategoryGroup" section="objectcategory_extension">
+      <field id="category" autocomplete="true" ui-type="enum" section="objectcategory_extension" />
+      <field id="categoryCount" datatype="integer" section="objectcategory_extension" />
+      <field id="categoryCountUnit" autocomplete="true" ui-type="enum" section="objectcategory_extension" />
+      <field id="categoryNote" section="objectcategory_extension" />
+    </repeat>
+	</section>
+</record>
