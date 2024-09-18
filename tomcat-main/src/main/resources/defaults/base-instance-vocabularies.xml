@@ -2312,11 +2312,12 @@
 		<title-ref>deaccessionreason</title-ref>
 		<title>Deaccession Reason</title>
 		<options>
-			<option id="condition">condition</option>
-			<option id="missing">missing</option>
-			<option id="repatriation">repatriation</option>
-			<option id="stolen">stolen</option>
-			<option id="no_longer_fits_policy">no longer fits collection policy</option>
+			<option id="no_longer_useful">no longer useful to the organization purpose</option>
+			<option id="does_not_fit">does not fit collecting policy</option>
+			<option id="deteriorated">has deteriorated beyond usefulness</option>
+			<option id="no_longer_preserved">can no longer be preserved</option>
+			<option id="has_better_example">is represented by a better example</option>
+			<option id="nagpra_repatriation">NAGPRA repatriation</option>
 		</options>
 	</instance>
 	<instance id="vocab-exitmethod">

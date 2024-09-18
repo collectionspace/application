@@ -1,0 +1,41 @@
+<record id="deaccession" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true" >
+  <services-url>deaccessions</services-url>
+  <services-tenant-plural>Deaccessions</services-tenant-plural>
+  <services-tenant-singular>Deaccession</services-tenant-singular>
+  <services-list-path>abstract-common-list/list-item</services-list-path>
+  <services-record-path>deaccessions_common:http://collectionspace.org/services/deaccession,deaccessions_common</services-record-path>
+  <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+
+  <include src="domain-procedure-deaccession.xml" strip-root="yes" />
+
+  <section id="coreInformation">
+    <include src="core-fields.xml" strip-root="yes" />
+  </section>
+
+  <section id="deaccessionInformation">
+    <field id="deaccessionNumber" mini="number,list" />
+    <repeat id="deaccessionReasons">
+      <field id="deaccessionReason" autocomplete="true" ui-type="enum" />
+    </repeat>
+    <field id="deaccessionDate" datatype="date" />
+    <field id="deaccessionRationale" />
+    <field id="deaccessionNote" />
+
+    <repeat id="deaccessionApprovalGroupList/deaccessionApprovalGroup">
+      <field id="deaccessionApprovalGroup" autocomplete="true" ui-type="enum" />
+      <field id="deaccessionApprovalIndividual" autocomplete="true" mini="summary,list" />
+      <field id="deaccessionApprovalStatus" autocomplete="true" ui-type="enum" />
+      <field id="deaccessionApprovalDate" datatype="date" />
+      <field id="deaccessionApprovalNote" />
+    </repeat>
+
+    <field id="exitDate" datatype="date" />
+    <repeat id="exitRecipients">
+      <field id="exitRecipient" autocomplete="true" />
+    </repeat>
+    <repeat id="exitMethods">
+      <field id="exitMethod" autocomplete="true" ui-type="enum" />
+    </repeat>
+  </section>
+
+</record>
