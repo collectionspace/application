@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
 
 import org.collectionspace.chain.csp.persistence.services.TenantSpec;
 import org.collectionspace.chain.csp.persistence.services.TenantSpec.RemoteClient;
@@ -21,7 +22,6 @@ import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.schema.UiData;
 import org.collectionspace.services.common.api.FileTools;
 import org.collectionspace.services.common.api.Tools;
-import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.DocumentFactory;
 import org.dom4j.Element;
@@ -189,9 +189,9 @@ public class ServiceBindingsGeneration {
 		Element rele = ele.addElement(new QName("repositoryDomain", nstenant));
 		rele.addAttribute("name", this.tenantSpec.getRepositoryDomain());
 		rele.addAttribute("storageName", this.tenantSpec.getStorageName());
-                if (Tools.notEmpty(this.tenantSpec.getRepositoryName())) {
-		    rele.addAttribute("repositoryName", this.tenantSpec.getRepositoryName());
-                }
+		if (Tools.notEmpty(this.tenantSpec.getRepositoryName())) {
+			rele.addAttribute("repositoryName", this.tenantSpec.getRepositoryName());
+		}
 		rele.addAttribute("repositoryClient", this.tenantSpec.getRepositoryClient());
 
 		// Set remote clients
@@ -216,9 +216,9 @@ public class ServiceBindingsGeneration {
 						getConfigFile().getName(), recordName));
 			}
 
-			if (shouldGenerateServiceBinding(r) == true) {
+			if (shouldGenerateServiceBinding(r)) {
 				Element serviceBindingsElement = null;
-				if (r.isType(RECORD_TYPE_RECORD) == true) { // Records can be of several types -i.e., can be both a "record" type and a "vocabulary" type
+				if (r.isType(RECORD_TYPE_RECORD)) { // Records can be of several types -i.e., can be both a "record" type and a "vocabulary" type
 					String rtype = getServiceBindingType(r);
 					// e.g., <tenant:serviceBindings name="CollectionObjects" type="object" version="0.1">
 					serviceBindingsElement = ele.addElement(new QName("serviceBindings", nstenant));
@@ -227,14 +227,15 @@ public class ServiceBindingsGeneration {
 					serviceBindingsElement.addAttribute("type", rtype);
 					serviceBindingsElement.addAttribute("version", serviceBindingVersion);
 					serviceBindingsElement.addAttribute("elasticsearchIndexed", Boolean.toString(r.isElasticsearchIndexed()));
-					if (r.isType(RECORD_TYPE_VOCABULARY) == true) {
+					if (r.isType(RECORD_TYPE_VOCABULARY)) {
 						serviceBindingsElement.addAttribute(Record.REQUIRES_UNIQUE_SHORTID, Boolean.TRUE.toString()); // Vocabularies need unique short IDs
 						serviceBindingsElement.addAttribute(Record.SUPPORTS_REPLICATING, Boolean.toString(r.supportsReplicating()));  //  they also need to support replication
 						String remoteClientConfigName = r.getRemoteClientConfigName();
-						if (remoteClientConfigName != null && remoteClientConfigName.isEmpty() == false) {
+						if (remoteClientConfigName != null && !remoteClientConfigName.isEmpty()) {
 							serviceBindingsElement.addAttribute(Record.REMOTECLIENT_CONFIG_NAME, remoteClientConfigName);
 						}
 					}
+
 					addServiceBinding(r, serviceBindingsElement, nsservices, false, serviceBindingVersion);
 				} else if (r.isType(RECORD_TYPE_AUTHORITY)) {
 					// e.g., <tenant:serviceBindings id="Persons" name="Persons" type="authority" version="0.1">
@@ -259,7 +260,7 @@ public class ServiceBindingsGeneration {
 				//
 				// Debug-log the generated Service bindings for this App layer record
 				//
-				if (log.isDebugEnabled() == true) {
+				if (log.isDebugEnabled()) {
 					Element bindingsForRecord = serviceBindingsElement;
 					if (bindingsForRecord != null && !r.isType(RECORD_TYPE_AUTHORITY)) {
 						this.debugWriteToFile(r, bindingsForRecord, false);
@@ -976,6 +977,15 @@ public class ServiceBindingsGeneration {
 
 			//<service:object>
 			doServiceObject(r, el, this.nsservices, isAuthority, serviceBindingVersion);
+
+			Set<String> tags = r.getTags();
+			if (tags != null && !tags.isEmpty()) {
+				log.debug("{} tags => {}", r.getRecordName(), tags);
+				Element tagElement = el.addElement(new QName("tags", nameSpace));
+				for (String tag : tags) {
+					tagElement.addElement(new QName("tag", nameSpace)).addText(tag);
+				}
+			}
 
 			if (log.isTraceEnabled()) {
 				String msg = String.format("Config Generation: '%s' - Created service bindings for record type '%s'.",

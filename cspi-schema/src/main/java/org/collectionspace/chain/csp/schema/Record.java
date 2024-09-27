@@ -145,6 +145,7 @@ public class Record implements FieldParent {
 		// record,authority,compute-displayname can have multiple types using
 		// commas
 		utils.initSet(section, "@type", new String[] { "record" });
+		utils.initSet(section, "@tag", new String[] {});
 		//
 		// Service specific config for Nuxeo ECM platform - things added to the "doctype" definitions
 		//
@@ -600,6 +601,10 @@ public class Record implements FieldParent {
 
 	public Set<String> getServicesPrefetchFields() {
 		return utils.getSet("@services-prefetch-fields");
+	}
+
+	public Set<String> getTags() {
+		return utils.getSet("@tag");
 	}
 
 	public Spec getSpec() {

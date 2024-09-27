@@ -1,4 +1,4 @@
-<record id="summarydocumentation" in-findedit="yes" type="record,procedure" cms-type="default"
+<record id="summarydocumentation" in-findedit="yes" type="record,procedure" tag="nagpra" cms-type="default"
   generate-services-schema="true">
   <services-url>summarydocumentations</services-url>
   <services-tenant-plural>SummaryDocumentations</services-tenant-plural>
