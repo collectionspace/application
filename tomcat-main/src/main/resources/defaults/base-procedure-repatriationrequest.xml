@@ -1,12 +1,12 @@
-<record id="repatriationclaim" in-findedit="yes" type="record,procedure" tag="nagpra" cms-type="default" generate-services-schema="true" >
-  <services-url>repatriationclaims</services-url>
-  <services-tenant-plural>RepatriationClaims</services-tenant-plural>
-  <services-tenant-singular>RepatriationClaim</services-tenant-singular>
+<record id="repatriationrequest" in-findedit="yes" type="record,procedure" tag="nagpra" cms-type="default" generate-services-schema="true" >
+  <services-url>repatriationrequests</services-url>
+  <services-tenant-plural>RepatriationRequests</services-tenant-plural>
+  <services-tenant-singular>RepatriationRequest</services-tenant-singular>
   <services-list-path>abstract-common-list/list-item</services-list-path>
-  <services-record-path>repatriationclaims_common:http://collectionspace.org/services/repatriationclaim,repatriationclaims_common</services-record-path>
+  <services-record-path>repatriationrequests_common:http://collectionspace.org/services/repatriationrequest,repatriationrequests_common</services-record-path>
   <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
 
-  <include src="domain-procedure-repatriationclaim.xml" strip-root="yes" />
+  <include src="domain-procedure-repatriationrequest.xml" strip-root="yes" />
 
   <section id="coreInformation">
     <include src="core-fields.xml" strip-root="yes" />
@@ -37,7 +37,7 @@
     </repeat>
   </section>
 
-  <section id="claimContextInformation">
+  <section id="repatriationContextInformation">
     <repeat id="geographicPlaceGroupList/geographicPlaceGroup">
       <field id="geographicPlace" autocomplete="true" />
       <field id="geographicPlaceNote" />
@@ -56,7 +56,7 @@
     </repeat>
   </section>
 
-  <section id="claimStatusInformation">
+  <section id="repatriationStatusInformation">
     <repeat id="statusGroupList/statusGroup">
       <field id="statusGroupType" autocomplete="true" ui-type="enum" />
       <field id="statusIndividual" autocomplete="true" />
