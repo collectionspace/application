@@ -12,10 +12,10 @@
     <include src="core-fields.xml" strip-root="yes" />
   </section>
 
-  <section id="claimInformation">
-    <field id="claimNumber" mini="number,list" />
+  <section id="repatriationRequestInformation">
+    <field id="requestNumber" mini="number,list" />
     <field id="title" mini="summary,list" />
-    <field id="claimDate" datatype="date" />
+    <field id="requestDate" datatype="date" />
     <repeat id="alternativeIdentifierGroupList/alternativeIdentifierGroup">
       <field id="alternativeIdentifier" />
       <field id="alternativeIdentifierNote" />
