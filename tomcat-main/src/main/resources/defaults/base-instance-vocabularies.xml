@@ -2246,10 +2246,10 @@
 			<option id="in_progress">in progress</option>
 		</options>
 	</instance>
-	<instance id="vocab-nagpraclaimtype">
-		<web-url>nagpraclaimtype</web-url>
-		<title-ref>nagpraclaimtype</title-ref>
-		<title>NAGPRA Claim Types</title>
+	<instance id="vocab-repatriationrequesttype">
+		<web-url>repatriationrequesttype</web-url>
+		<title-ref>repatriationrequesttype</title-ref>
+		<title>Repatriation Request Types</title>
 		<options>
 			<option id="human_remains">human remains</option>
 			<option id="afo">associated funerary object (AFO)</option>
