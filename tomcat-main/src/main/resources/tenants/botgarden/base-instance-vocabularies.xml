@@ -2009,5 +2009,42 @@
 			<option id="set">set</option>
 		</options>
 	</instance>
+	<instance id="vocab-deaccessionreason">
+		<web-url>deaccessionreason</web-url>
+		<title-ref>deaccessionreason</title-ref>
+		<title>Deaccession Reason</title>
+		<options>
+			<option id="no_longer_useful">no longer useful to the organization purpose</option>
+			<option id="does_not_fit">does not fit collecting policy</option>
+			<option id="deteriorated">has deteriorated beyond usefulness</option>
+			<option id="no_longer_preserved">can no longer be preserved</option>
+			<option id="has_better_example">is represented by a better example</option>
+			<option id="nagpra_repatriation">NAGPRA repatriation</option>
+		</options>
+	</instance>
+	<instance id="vocab-objexitmethod">
+		<web-url>objexitmethod</web-url>
+		<title-ref>objexitmethod</title-ref>
+		<title>Object Exit Methods</title>
+		<options>
+			<option id="auction">auction</option>
+			<option id="donation">donation</option>
+			<option id="repatriation">repatriation</option>
+			<option id="sale">sale</option>
+			<option id="shred">shred</option>
+			<option id="trash_disposal">trash disposal</option>
+		</options>
+	</instance>
+	<instance id="vocab-exitreason">
+		<web-url>objexitreason</web-url>
+		<title-ref>objexitreason</title-ref>
+		<title>Object Exit Reasons</title>
+		<options>
+			<option id="deaccession">deaccession</option>
+			<option id="disposal">disposal</option>
+			<option id="repatriation">repatriation</option>
+			<option id="return_loan">return of loan</option>
+		</options>
+	</instance>
 	-->
 </instances>
