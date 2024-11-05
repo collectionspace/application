@@ -33,7 +33,7 @@
 			<include src="base-procedure-conservation.xml" />
 			<include src="base-procedure-uoc.xml" />
 			<include src="base-procedure-dutyofcare.xml" />
-			<include src="base-procedure-repatriationclaim.xml" />
+			<include src="base-procedure-repatriationrequest.xml" />
 			<include src="base-procedure-nagprainventory.xml" />
 			<include src="base-procedure-summarydocumentation.xml" />
 			<include src="base-procedure-heldintrust.xml" />
