@@ -1,0 +1,54 @@
+<record id="exit" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true" >
+  <services-url>exits</services-url>
+  <services-tenant-plural>Exits</services-tenant-plural>
+  <services-tenant-singular>Exit</services-tenant-singular>
+  <services-list-path>abstract-common-list/list-item</services-list-path>
+  <services-record-path>exits_common:http://collectionspace.org/services/exit,exits_common</services-record-path>
+  <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+
+  <include src="domain-procedure-exit.xml" strip-root="yes" />
+
+  <section id="coreInformation">
+    <include src="core-fields.xml" strip-root="yes" />
+  </section>
+
+  <section id="exitInformation">
+    <field id="exitNumber" mini="number,list" />
+    <field id="exitCountNote" />
+    <field id="exitDate" datatype="date" />
+    <field id="reason" autocomplete="true" ui-type="enum" />
+
+    <repeat id="owners">
+      <field id="owner" autocomplete="true" mini="summary,list" />
+    </repeat>
+
+    <repeat id="exitAgentGroupList/exitAgentGroup">
+      <field id="agent" autocomplete="true" />
+      <field id="role" autocomplete="true" ui-type="enum" />
+    </repeat>
+
+    <repeat id="methods">
+      <field id="method" autocomplete="true" ui-type="enum" />
+    </repeat>
+
+    <repeat id="approvalStatusGroupList/approvalStatusGroup">
+      <field id="group" autocomplete="true" ui-type="enum" />
+      <field id="individual" autocomplete="true" />
+      <field id="status" autocomplete="true" ui-type="enum" />
+      <field id="date" datatype="date" />
+      <repeat id="approvalStatusNotes">
+        <field id="approvalStatusNote" />
+      </repeat>
+    </repeat>
+  </section>
+
+  <section id="saleInformation">
+    <field id="saleCurrency" autocomplete="true" ui-type="enum" />
+    <field id="saleValue" datatype="integer" />
+    <field id="saleDate" ui-type="groupfield/structureddate" />
+    <field id="saleNumber" />
+    <field id="saleLot" />
+    <field id="saleNote" />
+  </section>
+
+</record>
