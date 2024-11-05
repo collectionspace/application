@@ -2025,8 +2025,6 @@
 		<options>
 			<option id="collection_count">collection count</option>
 			<option id="inventory_count">inventory count</option>
-			<option id="associated_funerary_objects">associated funerary objects</option>
-			<option id="miniumum_num_of_individuals">minimum number of individuals</option>
 		</options>
 	</instance>
 	<!--
