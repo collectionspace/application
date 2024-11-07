@@ -34,6 +34,7 @@
 			<include src="base-procedure-transport.xml" />
 			<include src="base-procedure-conservation.xml" />
 			<include src="base-procedure-uoc.xml" />
+			<include src="base-procedure-exit.xml" />
 
 			<include src="base-authority-contact.xml" />
                         <!-- IMPORTANT: *-termList.xml files MUST precede their equivalent files. -->
