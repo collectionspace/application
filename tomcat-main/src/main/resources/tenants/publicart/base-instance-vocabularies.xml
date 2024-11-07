@@ -2063,4 +2063,30 @@
 			<option id="set">set</option>
 		</options>
 	</instance>
+	<!--
+	<instance id="vocab-objexitmethod">
+		<web-url>objexitmethod</web-url>
+		<title-ref>objexitmethod</title-ref>
+		<title>Object Exit Method</title>
+		<options>
+			<option id="auction">auction</option>
+			<option id="donation">donation</option>
+			<option id="repatriation">repatriation</option>
+			<option id="sale">sale</option>
+			<option id="shred">shred</option>
+			<option id="trash_disposal">trash disposal</option>
+		</options>
+	</instance>
+	<instance id="vocab-exitreason">
+		<web-url>objexitreason</web-url>
+		<title-ref>objexitreason</title-ref>
+		<title>Object Exit Reason</title>
+		<options>
+			<option id="deaccession">deaccession</option>
+			<option id="disposal">disposal</option>
+			<option id="repatriation">repatriation</option>
+			<option id="return_loan">return of loan</option>
+		</options>
+	</instance>
+	-->
 </instances>
