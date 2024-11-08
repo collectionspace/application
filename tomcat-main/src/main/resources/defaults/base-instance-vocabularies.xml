@@ -2217,6 +2217,7 @@
 		<title-ref>consultationreason</title-ref>
 		<title>Consultation Reason</title>
 		<options>
+			<option id="claim">claim</option>
 			<option id="inventory">inventory</option>
 			<option id="summary">summary</option>
 			<option id="nagpra_determination">NAGPRA determination</option>
