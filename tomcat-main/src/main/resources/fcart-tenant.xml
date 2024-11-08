@@ -11,8 +11,8 @@
 		<records>
 			<enum-blank>Please select a value</enum-blank>
 
-			<include src="base-collectionobject.xml,extensions/variablemedia-collectionobject.xml,extensions/fineart-collectionobject.xml,extensions/fcart-profile-collectionobject.xml"
-                     merge="xmlmerge.properties" />
+			<include src="base-collectionobject.xml,extensions/variablemedia-collectionobject.xml,extensions/fineart-collectionobject.xml,extensions/fcart-profile-collectionobject.xml,
+										extensions/objectproduction-collectionobject.xml" merge="xmlmerge.properties" />
 			<include src="base-authority.xml" />
 
 			<include src="base-procedure-acquisition.xml" />
