@@ -1,5 +1,11 @@
-<!-- vocabulary overrides for the anthropology profile -->
 <instances>
+	<!--
+	The instances tag is set to be replaced by xmlmerge so reimport the base + domain vocabularies.
+	Otherwise they would need to be added manually.
+	-->
+	<include src="domain-instance-vocabularies.xml" strip-root="yes" />
+	<include src="base-instance-vocabularies.xml" strip-root="yes" />
+	<!-- vocabulary overrides for the anthropology profile -->
 	<instance id="vocab-objectcounttypes">
 		<web-url>objectcounttypes</web-url>
 		<title-ref>objectcounttypes</title-ref>
