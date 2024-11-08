@@ -17,6 +17,7 @@
 			<option id="objects_of_cultural_patrimony">objects of cultural patrimony</option>
 			<option id="sacred_objects">sacred objects</option>
 			<option id="unassociated_funerary_objects">unassociated funerary objects</option>
+			<option id="ethnographic_objects">ethnographic objects</option>
 		</options>
 	</instance>
 </instances>
