@@ -2121,7 +2121,7 @@
 		<options>
 			<option id="published">published</option>
 			<option id="republished">republished</option>
-			<option id="counter_claim_field">counter claim field</option>
+			<option id="counter_claim_filed">counter claim filed</option>
 			<option id="pending_consultation">pending consultation</option>
 		</options>
 	</instance>
