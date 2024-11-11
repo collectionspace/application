@@ -1,0 +1,23 @@
+<instances>
+	<!--
+	The instances tag is set to be replaced by xmlmerge so reimport the base + domain vocabularies.
+	Otherwise they would need to be added manually.
+	-->
+	<include src="domain-instance-vocabularies.xml" strip-root="yes" />
+	<include src="base-instance-vocabularies.xml" strip-root="yes" />
+	<!-- vocabulary overrides for the anthropology profile -->
+	<instance id="vocab-objectcounttypes">
+		<web-url>objectcounttypes</web-url>
+		<title-ref>objectcounttypes</title-ref>
+		<title>Object Count Types</title>
+		<options>
+			<option id="collection_count">collection count</option>
+			<option id="associated_funerary_objects">associated funerary objects</option>
+			<option id="minimum_number_of_individuals">minimum number of individuals</option>
+			<option id="objects_of_cultural_patrimony">objects of cultural patrimony</option>
+			<option id="sacred_objects">sacred objects</option>
+			<option id="unassociated_funerary_objects">unassociated funerary objects</option>
+			<option id="ethnographic_objects">ethnographic objects</option>
+		</options>
+	</instance>
+</instances>

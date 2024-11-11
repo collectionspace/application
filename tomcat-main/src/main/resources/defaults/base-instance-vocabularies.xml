@@ -2053,8 +2053,6 @@
 		<options>
 			<option id="collection_count">collection count</option>
 			<option id="inventory_count">inventory count</option>
-			<option id="associated_funerary_objects">associated funerary objects</option>
-			<option id="miniumum_num_of_individuals">minimum number of individuals</option>
 		</options>
 	</instance>
 	<instance id="vocab-assocauthorityrelationtype">
@@ -2123,7 +2121,7 @@
 		<options>
 			<option id="published">published</option>
 			<option id="republished">republished</option>
-			<option id="counter_claim_field">counter claim field</option>
+			<option id="counter_claim_filed">counter claim filed</option>
 			<option id="pending_consultation">pending consultation</option>
 		</options>
 	</instance>
@@ -2219,6 +2217,7 @@
 		<title-ref>consultationreason</title-ref>
 		<title>Consultation Reason</title>
 		<options>
+			<option id="claim">claim</option>
 			<option id="inventory">inventory</option>
 			<option id="summary">summary</option>
 			<option id="nagpra_determination">NAGPRA determination</option>
