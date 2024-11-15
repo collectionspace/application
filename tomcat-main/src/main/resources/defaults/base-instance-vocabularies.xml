@@ -2367,4 +2367,18 @@
 			<option id="set">set</option>
 		</options>
 	</instance>
+	<instance id="vocab-objexitagentrole">
+		<web-url>objexitagentrole</web-url>
+		<title-ref>objexitagentrole</title-ref>
+		<title>Object Exit Agent Roles</title>
+		<options>
+			<option id="purchaser">purchaser</option>
+			<option id="auction_house">auction house</option>
+			<option id="museum_coordinator">museum coordinator</option>
+			<option id="original_donor">original donor</option>
+			<option id="sale_broker">sale broker</option>
+			<option id="shredding_company">shredding company</option>
+			<option id="tribal_representative">tribal representative</option>
+		</options>
+	</instance>
 </instances>

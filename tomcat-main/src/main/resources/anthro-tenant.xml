@@ -39,6 +39,7 @@
 			<include src="base-procedure-summarydocumentation.xml" />
 			<include src="base-procedure-heldintrust.xml" />
 			<include src="base-procedure-consultation.xml" />
+			<include src="base-procedure-exit.xml" />
 
 			<include src="base-authority-contact.xml" />
 			<!-- IMPORTANT: *-termList.xml files MUST precede their equivalent files. -->
