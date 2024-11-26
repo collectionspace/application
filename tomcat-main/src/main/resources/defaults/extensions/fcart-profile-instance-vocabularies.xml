@@ -647,6 +647,7 @@
 			<option id="consulted">consulted</option>
 			<option id="deed_returned">deed returned</option>
 			<option id="deed_sent">deed sent</option>
+			<option id="partially_approved">partially approved</option>
 			<option id="tabled">tabled</option>
 			<option id="under_arbitration">under arbitration</option>
 		</options>
