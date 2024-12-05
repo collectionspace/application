@@ -1,4 +1,4 @@
-<record id="claim" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
+<record id="claim" in-findedit="yes" type="record,procedure" tag="legacy" cms-type="default" generate-services-schema="true">
 	<services-url>claims</services-url>
 	<services-tenant-singular>Claim</services-tenant-singular>
 	<services-tenant-plural>Claims</services-tenant-plural>
