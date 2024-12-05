@@ -32,12 +32,13 @@
       <include src="base-procedure-conservation.xml" />
       <include src="base-procedure-uoc.xml" />
       <include src="base-procedure-transport.xml" />
-      <include src="base-procedure-repatriationclaim.xml" />
+      <include src="base-procedure-repatriationrequest.xml" />
       <include src="base-procedure-nagprainventory.xml" />
       <include src="base-procedure-summarydocumentation.xml" />
       <include src="base-procedure-heldintrust.xml" />
       <include src="base-procedure-consultation.xml" />
       <include src="base-procedure-deaccession.xml" />
+      <include src="base-procedure-exit.xml" />
       <include src="base-procedure-restrictedmedia.xml" />
 
       <include src="base-authority-contact.xml" />

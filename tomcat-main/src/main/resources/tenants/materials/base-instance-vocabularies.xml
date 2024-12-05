@@ -1209,6 +1209,7 @@
 			<option id="consulted">consulted</option>
 			<option id="deed_returned">deed returned</option>
 			<option id="deed_sent">deed sent</option>
+			<option id="partially_approved">partially approved</option>
 			<option id="tabled">tabled</option>
 			<option id="under_arbitration">under arbitration</option>
 		</options>
@@ -1442,8 +1443,6 @@
 		<options>
 			<option id="collection_count">collection count</option>
 			<option id="inventory_count">inventory count</option>
-			<option id="associated_funerary_objects">associated funerary objects</option>
-			<option id="miniumum_num_of_individuals">minimum number of individuals</option>
 		</options>
 	</instance>
 	<!--
@@ -1478,6 +1477,44 @@
 			<option id="object">object</option>
 			<option id="pair">pair</option>
 			<option id="set">set</option>
+		</options>
+	</instance>
+	<instance id="vocab-objexitmethod">
+		<web-url>objexitmethod</web-url>
+		<title-ref>objexitmethod</title-ref>
+		<title>Object Exit Method</title>
+		<options>
+			<option id="auction">auction</option>
+			<option id="donation">donation</option>
+			<option id="repatriation">repatriation</option>
+			<option id="sale">sale</option>
+			<option id="shred">shred</option>
+			<option id="trash_disposal">trash disposal</option>
+		</options>
+	</instance>
+	<instance id="vocab-exitreason">
+		<web-url>objexitreason</web-url>
+		<title-ref>objexitreason</title-ref>
+		<title>Object Exit Reason</title>
+		<options>
+			<option id="deaccession">deaccession</option>
+			<option id="disposal">disposal</option>
+			<option id="repatriation">repatriation</option>
+			<option id="return_loan">return of loan</option>
+		</options>
+	</instance>
+	<instance id="vocab-objexitagentrole">
+		<web-url>objexitagentrole</web-url>
+		<title-ref>objexitagentrole</title-ref>
+		<title>Object Exit Agent Roles</title>
+		<options>
+			<option id="purchaser">purchaser</option>
+			<option id="auction_house">auction house</option>
+			<option id="museum_coordinator">museum coordinator</option>
+			<option id="original_donor">original donor</option>
+			<option id="sale_broker">sale broker</option>
+			<option id="shredding_company">shredding company</option>
+			<option id="tribal_representative">tribal representative</option>
 		</options>
 	</instance>
 </instances>

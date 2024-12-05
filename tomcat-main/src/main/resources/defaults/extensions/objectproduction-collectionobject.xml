@@ -1,0 +1,8 @@
+<record id="collection-object" is-extension="true">
+  <services-record-path id="objectprod_extension">collectionobjects_objectprod_extension:http://collectionspace.org/services/collectionobject/domain/objectprod_extension,collectionobjects_objectprod_extension</services-record-path>
+  <section id="objectProductionInformation" section="objectprod_extension">
+    <repeat id="objectProductionPlacesVerbatim" section="objectprod_extension">
+      <field id="objectProductionPlaceVerbatim" section="objectprod_extension" />
+    </repeat>
+  </section>
+</record>
