@@ -1,4 +1,4 @@
-<record id="objectexit" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
+<record id="objectexit" in-findedit="yes" type="record,procedure" tag="legacy" cms-type="default" generate-services-schema="true">
 	<!-- Added this tag because services path is currently singular for Object Exit. -->
 	<services-url>objectexit</services-url>
 	<services-tenant-plural>ObjectExit</services-tenant-plural>
