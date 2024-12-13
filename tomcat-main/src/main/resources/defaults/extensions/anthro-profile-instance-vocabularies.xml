@@ -18,6 +18,7 @@
 			<option id="sacred_objects">sacred objects</option>
 			<option id="unassociated_funerary_objects">unassociated funerary objects</option>
 			<option id="ethnographic_objects">ethnographic objects</option>
+			<option id="lineal_descendant">lineal descendant</option>
 		</options>
 	</instance>
 </instances>
