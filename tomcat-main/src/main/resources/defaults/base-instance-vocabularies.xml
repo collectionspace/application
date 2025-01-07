@@ -2291,7 +2291,7 @@
 		<title>Grave Association Codes</title>
 		<options>
 			<option id="associatedFuneraryObject">associated funerary object (AFO)</option>
-			<option id="unassociatedFuneraryObjectWithDesignatedBurial">unassociated funerary object (UFO) with burial</option>
+			<option id="unassociatedFuneraryObjectWithIdentifiedBurial">unassociated funerary object (UFO) with identified burial</option>
 			<option id="unassociatedFuneraryObjectWithCemetery">unassociated funerary object (UFO)/cemetery</option>
 			<option id="lacksClearFuneraryStatusNearCemetery">lacks clear funerary status/near cemetery</option>
 			<option id="undetermined">undetermined/requires additional research</option>
