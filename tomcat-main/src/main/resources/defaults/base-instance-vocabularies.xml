@@ -2315,8 +2315,8 @@
 		<title-ref>nagpradetermtype</title-ref>
 		<title>NAGPRA Determination Types</title>
 		<options>
-			<option id="museum">museum</option>
-			<option id="tribal">tribal</option>
+			<option id="determined_by_museum">determined by museum</option>
+			<option id="determined_by_consultation">determined by consultation</option>
 		</options>
 	</instance>
 	<instance id="vocab-deaccessionreason">
