@@ -1,4 +1,4 @@
-<record id="osteology" in-findedit="yes" type="record,procedure" tag="legacy" cms-type="default" generate-services-schema="true">
+<record id="osteology" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
     <services-url>osteology</services-url>
     <services-tenant-plural>Osteology</services-tenant-plural>
     <services-tenant-singular>Osteology</services-tenant-singular>
