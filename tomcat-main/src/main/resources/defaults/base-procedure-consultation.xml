@@ -15,7 +15,7 @@
   <section id="consultationInformation">
     <field id="consultationNumber" mini="number,list" />
     <field id="consultationDate" datatype="date" />
-    <field id="reason" autocomplete="true" />
+    <field id="reason" autocomplete="true" ui-type="enum" />
     <repeat id="notes">
       <field id="note" />
     </repeat>
