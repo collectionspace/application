@@ -1,4 +1,4 @@
-<record id="objectexit">
+<record id="objectexit" tag="">
 	<section id="objectexitInformation">
 		<!-- Remove summary from mini -->
 		<field id="currentOwner" mini="" />
