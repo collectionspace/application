@@ -26,6 +26,8 @@
 			<include src="base-procedure-movement.xml" />
 			<include src="base-procedure-objectexit.xml" />
 			<include src="base-procedure-conservation.xml,publicart-procedure-conservation.xml" merge="xmlmerge.properties" />
+			<include src="base-procedure-exit.xml" />
+			<include src="base-procedure-deaccession.xml" />
 
 			<include src="base-authority-contact.xml" />
 			<include src="base-authority-location-termList.xml" />
@@ -64,10 +66,10 @@
 			<include src="base-other-termlistitem.xml" />
 			<include src="base-other-reporting.xml" />
 			<include src="base-other-reportingoutput.xml" />
-		    <include src="base-other-batch.xml" />
-		    <include src="base-other-batchoutput.xml" />
-		    <include src="base-other-invocationresults.xml" />
-		    <include src="base-other-searchall.xml" />
+			<include src="base-other-batch.xml" />
+			<include src="base-other-batchoutput.xml" />
+			<include src="base-other-invocationresults.xml" />
+			<include src="base-other-searchall.xml" />
 			<include src="base-other-associatedauthority.xml" />
 		</records>
 	</spec>
