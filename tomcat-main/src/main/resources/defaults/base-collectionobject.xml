@@ -346,6 +346,9 @@
 			<field id="objectProductionOrganization" autocomplete="true" />
 			<field id="objectProductionOrganizationRole" />
 		</repeat>
+		<repeat id="objectProductionAgents">
+			<field id="objectProductionAgent" />
+		</repeat>
 		<field id="objectProductionNote" />
 	</section>
 	<section id="objectHistoryAssociationInformation">
