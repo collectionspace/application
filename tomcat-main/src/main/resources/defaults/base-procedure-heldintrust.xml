@@ -44,6 +44,8 @@
       <field id="correspondenceDate" datatype="date" />
       <field id="correspondenceSummary" />
     </repeat>
+
+    <field id="note" />
   </section>
 
   <section id="culturalCareInformation">

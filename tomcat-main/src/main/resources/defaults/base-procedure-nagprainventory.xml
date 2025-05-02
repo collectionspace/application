@@ -51,6 +51,8 @@
       <field id="inventoryDate" datatype="date" />
       <field id="inventoryNote" />
     </repeat>
+
+    <field id="note" />
   </section>
 
   <section id="inventoryContextInformation">

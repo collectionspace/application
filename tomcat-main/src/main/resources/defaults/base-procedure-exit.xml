@@ -40,6 +40,8 @@
         <field id="approvalStatusNote" />
       </repeat>
     </repeat>
+
+    <field id="note" />
   </section>
 
   <section id="saleInformation">

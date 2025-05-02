@@ -55,6 +55,8 @@
       <field id="statusDate" datatype="date" />
       <field id="statusNote" />
     </repeat>
+
+    <field id="note" />
   </section>
 
   <section id="summaryDocumentationContext">
