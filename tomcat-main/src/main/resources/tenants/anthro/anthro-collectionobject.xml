@@ -73,7 +73,6 @@
 	<section id="objectHistoryAssociationInformation">
 		<repeat id="anthroOwnershipGroupList/anthroOwnershipGroup" section="anthro">
 			<field id="anthroOwner" section="anthro" autocomplete="true" />
-			<field id="anthroOwnershipAccess" section="anthro" />
 
 			<group id="anthroOwnershipDateGroup" section="anthro" ui-type="groupfield/structureddate" />
 
