@@ -1,0 +1,35 @@
+<record id="collection-object" is-extension="true">
+	<services-record-path id="bonsai">collectionobjects_bonsai:http://collectionspace.org/services/collectionobject/local/bonsai,collectionobjects_bonsai</services-record-path>
+
+	<section id="identificationInformation">
+		<field id="taxon" autocomplete="true" section="bonsai" />
+		<field id="commonName" section="bonsai" />
+		<field id="japaneseName" section="bonsai" />
+		<field id="nativeSpecies" datatype="boolean" section="bonsai" />
+		<field id="sponsor" section="bonsai" />
+		<field id="sponsorStartDate" datatype="date" section="bonsai" />
+		<field id="sponsorEndDate" datatype="date" section="bonsai" />
+		<repeat id="assignedVolunteers" section="bonsai">
+			<field id="assignedVolunteer" autocomplete="true" section="bonsai" />
+		</repeat>
+	</section>
+
+	<section id="descriptionInformation">
+		<field id="potStyle" autocomplete="true" ui-type="enum" section="bonsai" />
+		<field id="treeType" autocomplete="true" ui-type="enum" section="bonsai" />
+
+		<section id="contentInformation">
+			<repeat id="contentPlaces">
+				<!-- Add autocomplete -->
+				<field id="contentPlace" autocomplete="true" />
+			</repeat>
+		</section>
+	</section>
+
+	<section id="objectProductionInformation">
+		<repeat id="objectProductionPlaceGroupList/objectProductionPlaceGroup">
+			<!-- Add autocomplete -->
+			<field id="objectProductionPlace" autocomplete="true" />
+		</repeat>
+	</section>
+</record>

@@ -1,0 +1,12 @@
+<record id="exhibition" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
+    <section id="exhibitionInformation">
+        <field id="exhibitionNumber" ui-search="repeatable" in-title="yes" mini="number,search,list,relate"
+               chooser="yes" seperate_ui_container="true">
+            <container-selector>exhibition-number-patternChooserContainer</container-selector>
+            <options>
+                <option id="exhibition" sample="EXH2015-001">Exhibition</option>
+            </options>
+
+        </field>
+     </section>
+</record>

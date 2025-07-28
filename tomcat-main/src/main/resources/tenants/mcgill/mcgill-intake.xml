@@ -1,0 +1,13 @@
+<record id="intake" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
+                <section id="objectEntryInformation">
+                    <field id="entryNumber" chooser="yes" in-title="yes" ui-search="repeatable" mini="number,search,list,relate" seperate_ui_container="true">
+                        <selector>intake-entry-number</selector>
+                        <title-selector>titleBar-intake-entry-number</title-selector>
+                        <options>
+                            <option id="intake" sample="PG2018-001">Intake</option>
+                            <option id="study" sample="ST2018-001">Study</option>
+                            <option id="evaluation" sample="EV2018-001">Evaluation</option>
+                        </options>
+                    </field>
+                </section>
+            </record>

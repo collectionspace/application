@@ -1,0 +1,12 @@
+<record id="loanin" is-extension="true">
+	<services-record-path id="lhmc">loansin_lhmc:http://collectionspace.org/services/loanin/domain/lhmc,loansin_lhmc</services-record-path>
+
+	<section id="loaninInformation">
+		<repeat id="loaninStatusLHMCGroupList/loaninStatusLHMCGroup" section="lhmc">
+			<field id="loaninStatusLHMC" autocomplete="true" ui-type="enum" section="lhmc" />
+			<field id="loaninStatusDateLHMC" datatype="date" section="lhmc" />
+			<field id="loaninStatusNoteLHMC" section="lhmc" />
+			<field id="loaninStatusAuthorizerLHMC" autocomplete="true" section="lhmc" />
+		</repeat>
+	</section>
+</record>

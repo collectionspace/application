@@ -1,0 +1,32 @@
+<record id="collection-object" is-extension="true">
+	<services-record-path id="lhmc">collectionobjects_lhmc:http://collectionspace.org/services/collectionobject/domain/lhmc,collectionobjects_lhmc</services-record-path>
+
+	<section id="identificationInformation">
+		<repeat id="otherNumberList/otherNumber">
+			<field id="numberType" autocomplete="true" ui-type="enum" />
+		</repeat>
+	</section>
+
+	<section id="descriptionInformation">
+		<section id="contentInformation">
+			<repeat id="contentPlaces">
+				<field id="contentPlace" autocomplete="true" />
+			</repeat>
+		</section>
+	</section>
+
+	<section id="objectProductionInformation">
+		<repeat id="objectProductionPlaceGroupList/objectProductionPlaceGroup">
+			<field id="objectProductionPlace" autocomplete="true" />
+		</repeat>
+	</section>
+
+	<section id="objectHistoryAssociationInformation">
+		<field id="ownershipPlace" autocomplete="true" />
+		<section id="associationInformation">
+			<repeat id="assocPlaceGroupList/assocPlaceGroup">
+				<field id="assocPlace" autocomplete="true" />
+			</repeat>
+		</section>
+	</section>
+</record>

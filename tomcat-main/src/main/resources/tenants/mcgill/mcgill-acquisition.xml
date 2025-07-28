@@ -1,0 +1,14 @@
+            <record id="acquisition" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
+                <section id="acquisitionInformation">
+                    <field id="acquisitionReferenceNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate" seperate_ui_container="true">
+                        <selector>acquisition-numberPatternChooser-reference-number</selector>
+                        <title-selector>titleBar-acquisition-reference-number</title-selector>
+                        <container-selector>acquisition-reference-number-patternChooserContainer</container-selector>
+                        <options>
+                            <option id="accession" sample="AC2018-001">Accession</option>
+                            <option id="archive" sample="AR2018-001">Archives</option>
+                            <option id="library" sample="LIB2018-001">Library</option>
+                        </options>
+                    </field>
+                </section>
+            </record>

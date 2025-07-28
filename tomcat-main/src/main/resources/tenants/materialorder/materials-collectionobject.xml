@@ -1,0 +1,44 @@
+<record id="collection-object" is-extension="true">
+	<services-record-path id="materials">collectionobjects_materials:http://collectionspace.org/services/collectionobject/local/materials,collectionobjects_materials</services-record-path>
+
+	<section id="identificationInformation">
+		<!-- Local fields -->
+
+		<repeat id="materialHandlingGroupList/materialHandlingGroup" section="materials">
+			<field id="handling" section="materials" autocomplete="true" ui-type="enum" />
+			<field id="handlingNote" section="materials" />
+		</repeat>
+
+		<repeat id="materialContainerGroupList/materialContainerGroup" section="materials">
+			<field id="container" section="materials" autocomplete="true" ui-type="enum" />
+			<field id="containerNote" section="materials" />
+		</repeat>
+
+		<repeat id="materialConditionGroupList/materialConditionGroup" section="materials">
+			<field id="condition" section="materials" autocomplete="true" ui-type="enum" />
+			<field id="conditionNote" section="materials" />
+		</repeat>
+	</section>
+
+	<section id="descriptionInformation">
+		<repeat id="materialGroupList/materialGroup">
+			<!-- Add autocomplete and mini -->
+			<field id="material" autocomplete="true" mini="summary,list" />
+		</repeat>
+
+		<!-- Local fields -->
+
+		<repeat id="materialPhysicalDescriptions" section="materials">
+			<field id="materialPhysicalDescription" section="materials" />
+		</repeat>
+
+		<repeat id="materialGenericColors" section="materials">
+			<field id="materialGenericColor" section="materials" autocomplete="true" ui-type="enum" />
+		</repeat>
+
+		<repeat id="materialFinishGroupList/materialFinishGroup" section="materials">
+			<field id="finish" section="materials" autocomplete="true" ui-type="enum" />
+			<field id="finishNote" section="materials" />
+		</repeat>
+	</section>
+</record>

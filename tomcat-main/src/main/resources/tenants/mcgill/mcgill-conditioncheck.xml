@@ -1,0 +1,45 @@
+<record id="conditioncheck" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
+    <section id="objectConditionInformation">
+      <repeat id="conditionCheckGroupList/conditionCheckGroup">
+            <field id="condition" ui-search="repeatable" seperate_ui_container="true" mini="summary,search,list,relate">
+                <selector>conditioncheck-condition</selector>
+                <options>
+                    <option id="" default="yes">Please select a value</option>
+                    <option id="needsnowork">Needs no work</option>
+                    <option id="exhibitableneedswork">Exhibitable / needs work</option>
+                    <option id="notexhibitablestable">Not exhibitable / stable</option>
+                    <option id="injeopardy">In jeopardy</option>
+                    <option id="framed">Framed</option>
+                    <option id="unframed">Unframed</option>
+                    <option id="framedneedsreframing">Framed / needs reframing</option>
+                    <option id="framedneedsunframing">Framed / needs unframing</option>
+                    <option id="unframedneedsframing">Unframed / needs framing</option>
+                </options>
+            </field>
+        </repeat>
+    </section>
+    <section id="conditionCheckInformation">
+        <field id="conditionCheckRefNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate" seperate_ui_container="true">
+            <selector>conditioncheck-numberPatternChooser-reference-number</selector>
+            <title-selector>titleBar-conditioncheck-reference-number</title-selector>
+            <container-selector>conditioncheck-reference-number-patternChooserContainer</container-selector>
+            <options>
+                <option id="conditioncheck" sample="CC2012-001">Condition Check</option>
+            </options>
+        </field>
+        <field id="conditionCheckReason">
+            <selector>conditioncheck-conditionCheckReason</selector>
+            <options>
+                <option id="" default="yes">Please select a value</option>
+                <option id="50">50</option>
+                <option id="survey">Survey</option>
+                <option id="campusloaninstallation">Campus loan installation</option>
+                <option id="campusloanreturn">Campus loan return</option>
+                <option id="conservation">Conservation</option>
+                <option id="damagedintransit">Damaged in transit</option>
+                <option id="loanin">Loan in</option>
+                <option id="newacquisition">New acquisition</option>
+            </options>
+        </field>
+    </section>
+</record>

@@ -1,0 +1,20 @@
+<record id="conditioncheck" is-extension="true">
+	<services-record-path id="lhmc">conditionchecks_lhmc:http://collectionspace.org/services/conditioncheck/domain/lhmc,conditionchecks_lhmc</services-record-path>
+
+	<section id="objectConditionInformation">
+		<repeat id="conditionCheckGroupList/conditionCheckGroup">
+			<!-- removing "mini" attribute values from default condition field
+			and in its place using the new conditionLHMC field -->
+			<field id="condition" mini="" />
+		</repeat>
+		<repeat id="conditionCheckLHMCGroupList/conditionCheckLHMCGroup" section="lhmc">
+			<field id="conditionLHMC" autocomplete="true" ui-type="enum" mini="summary,list" section="lhmc" />
+			<field id="conditionFacetLHMC" autocomplete="true" ui-type="enum" section="lhmc" />
+			<field id="conditionDateLHMC" datatype="date" section="lhmc" />
+			<field id="conditionNoteLHMC" section="lhmc" />
+		</repeat>
+		<field id="maintenanceDate" datatype="date" section="lhmc" />
+		<field id="maintenanceCycle" autocomplete="true" ui-type="enum" section="lhmc" />
+		<field id="maintenanceNote" section="lhmc" />
+	</section>
+</record>

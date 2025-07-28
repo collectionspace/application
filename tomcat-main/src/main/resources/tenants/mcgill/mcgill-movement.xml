@@ -1,0 +1,40 @@
+            <record id="movement" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
+                <section id="movementControlInformation">
+                    <!--  Movement Information Group -->
+                    <field id="movementReferenceNumber" ui-search="repeatable" chooser="yes" in-title="no" mini="number,search,list,relate" seperate_ui_container="true">
+                        <options>
+                            <option id="inventory" sample="INV2018-001">Inventory</option>
+                            <option id="location" sample="LOC2018-001">Location</option>
+                            <option id="movement" sample="MV2018-001">Movement</option>
+                        </options>
+                    </field>
+                    <field id="reasonForMove" ui-search="repeatable">
+                        <options>
+                            <option id="" default="yes">Please select a value</option>
+                            <option id="campusloaninstallation">Campus Loan Installation</option>
+                            <option id="campusloanreturn">Campus Loan Return</option>
+                            <option id="conservation">Conservation</option>
+                            <option id="construction">Construction</option>
+                            <option id="exhibition">Exhibition</option>
+                            <option id="inventory">Inventory</option>
+                            <option id="loan">Loan</option>
+                            <option id="newstoragelocation">New Storage Location</option>
+                            <option id="photography">Photography</option>
+                            <option id="research">Research</option>
+                            <option id="temporary">Temporary Move</option>
+                        </options>
+                    </field>
+                    <repeat id="movementMethods">
+                        <field id="movementMethod" ui-search="repeatable">
+                            <selector>movement-movementMethods</selector>
+                            <options>
+                                <option id="" default="yes">Please select a value</option>
+                                <option id="forklift">Forklift</option>
+                                <option id="handcarried">Handcarried</option>
+                                <option id="trolley">Trolley</option>
+                                <option id="transportvehicle">Transport Vehicle</option>
+                            </options>
+                        </field>
+                    </repeat>
+                </section>
+            </record>

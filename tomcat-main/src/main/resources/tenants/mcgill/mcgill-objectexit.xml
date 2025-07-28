@@ -1,0 +1,10 @@
+            <record id="objectexit" in-findedit="yes" type="record,procedure" cms-type="default" generate-services-schema="true">
+                <section id="objectexitInformation">
+                    <field id="exitNumber" ui-search="repeatable" chooser="yes" in-title="yes" mini="number,search,list,relate" 
+                    	seperate_ui_container="true" services-setter="setExitNumber">
+                        <options>
+                            <option id="objectexit" sample="EX2018-001">Object Exit</option>
+                        </options>
+                    </field>
+                </section>
+            </record>
