@@ -52,7 +52,7 @@
       <url>http://localhost:@JEE_PORT@/cspace-services</url>
       <tenant>
         <id>100053</id>
-        <name>csulb.collectionspace.org</name>
+        <name>anthro</name>
         <domain>csulb</domain>
         <version>0.1</version>
         <display-name>Collectionspace CSULB Tenant</display-name>
