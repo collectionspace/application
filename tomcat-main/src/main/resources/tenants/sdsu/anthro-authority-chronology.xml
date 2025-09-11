@@ -1,0 +1,19 @@
+<record id="chronology" type="authority">
+  <instances id="chronology">
+    <instance id="chronology-era">
+      <web-url>era</web-url>
+      <title-ref>era</title-ref>
+      <title>Era Chronologies</title>
+    </instance>
+    <instance id="chronology-event">
+      <web-url>event</web-url>
+      <title-ref>event</title-ref>
+      <title>Event Chronologies</title>
+    </instance>
+    <instance id="chronology-field_collection">
+      <web-url>field_collection</web-url>
+      <title-ref>field_collection</title-ref>
+      <title>Field Collection Chronologies</title>
+    </instance>
+  </instances>
+</record>
