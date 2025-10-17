@@ -3,13 +3,13 @@
 		<instance id="place-place">
 			<web-url>place</web-url>
 			<title-ref>place</title-ref>
-			<title>Local Places</title>
+			<title>Local</title>
 			<nptAllowed>false</nptAllowed>
 		</instance>
 		<instance id="place-place_shared">
 			<web-url>place_shared</web-url>
 			<title-ref>place_shared</title-ref>
-			<title>Shared Places</title>
+			<title>Shared</title>
 			<nptAllowed>false</nptAllowed>
 		</instance>
 	</instances>
