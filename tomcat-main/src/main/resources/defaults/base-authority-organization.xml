@@ -31,12 +31,12 @@
 		<instance id="organization-organization">
 			<web-url>organization</web-url>
 			<title-ref>organization</title-ref>
-			<title>Local Organizations</title>
+			<title>Local</title>
 		</instance>
 		<instance id="organization-ulan_oa">
 			<web-url>ulan_oa</web-url>
 			<title-ref>ulan_oa</title-ref>
-			<title>ULAN Organizations</title>
+			<title>ULAN</title>
 		</instance>
 	</instances>
 

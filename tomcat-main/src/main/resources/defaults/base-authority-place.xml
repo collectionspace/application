@@ -15,6 +15,7 @@
 	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
 	<services-url>placeauthorities</services-url>
 	<authority-vocab-type>PlaceAuthority</authority-vocab-type>
+	<authority-label>Place</authority-label>
 
 	<supportsReplicating>true</supportsReplicating>
 	<remoteClientConfigName>default</remoteClientConfigName>
@@ -33,17 +34,17 @@
 		<instance id="place-place">
 			<web-url>place</web-url>
 			<title-ref>place</title-ref>
-			<title>Local Places</title>
+			<title>Local</title>
 		</instance>
 		<instance id="place-tgn_place">
 			<web-url>tgn_place</web-url>
 			<title-ref>tgn_place</title-ref>
-			<title>Thesaurus of Geographic Names</title>
+			<title>TGN</title>
 		</instance>
 		<instance id="place-archaeological">
 			<web-url>archaeological</web-url>
 			<title-ref>archaeological</title-ref>
-			<title>Archaeological Site</title>
+			<title>Archaeological</title>
 		</instance>
 	</instances>
 

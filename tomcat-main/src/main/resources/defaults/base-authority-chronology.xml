@@ -31,12 +31,12 @@
     <instance id="chronology-era">
       <web-url>era</web-url>
       <title-ref>era</title-ref>
-      <title>Era Chronologies</title>
+      <title>Era</title>
     </instance>
     <instance id="chronology-event">
       <web-url>event</web-url>
       <title-ref>event</title-ref>
-      <title>Event Chronologies</title>
+      <title>Event</title>
     </instance>
   </instances>
 

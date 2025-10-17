@@ -33,17 +33,17 @@
 		<instance id="concept-concept">
 			<web-url>concept</web-url>
 			<title-ref>concept</title-ref>
-			<title>Associated Concepts</title>
+			<title>Associated</title>
 		</instance>
 		<instance id="concept-material_ca">
 			<web-url>material_ca</web-url>
 			<title-ref>material_ca</title-ref>
-			<title>Material Concepts</title>
+			<title>Material</title>
 		</instance>
 		<instance id="concept-activity">
 			<web-url>activity</web-url>
 			<title-ref>activity</title-ref>
-			<title>Activity Concepts</title>
+			<title>Activity</title>
 		</instance>
 		<instance id="concept-nomenclature">
 			<web-url>nomenclature</web-url>
@@ -65,13 +65,13 @@
 		<instance id="concept-occasion">
 			<web-url>occasion</web-url>
 			<title-ref>occasion</title-ref>
-			<title>Occasion Concepts</title>
+			<title>Occasion</title>
 		</instance>
 		<!-- NAGPRA Culture fields -->
 		<instance id="concept-ethculture">
 			<web-url>ethculture</web-url>
 			<title-ref>ethculture</title-ref>
-			<title>Ethnographic Cultures</title>
+			<title>Cultural Group</title>
 		</instance>
 		<instance id="concept-archculture">
 			<web-url>archculture</web-url>
