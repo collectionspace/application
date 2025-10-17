@@ -7,12 +7,12 @@
 		<instance id="concept-concept">
 			<web-url>concept</web-url>
 			<title-ref>concept</title-ref>
-			<title>Associated Concepts</title>
+			<title>Associated</title>
 		</instance>
 		<instance id="concept-material_ca">
 			<web-url>material_ca</web-url>
 			<title-ref>material_ca</title-ref>
-			<title>Material Concepts</title>
+			<title>Material</title>
 			<options>
 				<option id="abrasive">abrasive</option>
 				<option id="acetate_film">acetate film</option>
@@ -232,7 +232,7 @@
 		<instance id="concept-worktype">
 			<web-url>worktype</web-url>
 			<title-ref>worktype</title-ref>
-			<title>Work Types</title>
+			<title>Work Type</title>
 			<options>
 				<option id="acrylicpaintings">acrylic paintings</option>
 				<option id="architecturaldrawings_visualworks">architectural drawings (visual works)</option>
