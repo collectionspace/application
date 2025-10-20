@@ -4,7 +4,7 @@
 
 	<services-tenant-auth-singular>Locationauthority</services-tenant-auth-singular>
 	<services-tenant-auth-plural>Locationauthorities</services-tenant-auth-plural>
-  <services-tenant-auth-display-name>Storage Location</services-tenant-auth-display-name>
+	<services-tenant-auth-display-name>Storage Location</services-tenant-auth-display-name>
 	<services-tenant-singular>Location</services-tenant-singular>
 	<services-tenant-doctype>Locationitem</services-tenant-doctype>
 
