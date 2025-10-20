@@ -24,7 +24,7 @@
 		<instance id="concept-materialclassification">
 			<web-url>materialclassification</web-url>
 			<title-ref>materialclassification</title-ref>
-			<title>Material</title>
+			<title>Material Classification</title>
 		</instance>
 		<instance id="concept-materialformtype">
 			<web-url>materialformtype</web-url>
