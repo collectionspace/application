@@ -15,7 +15,6 @@
 	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
 	<services-url>placeauthorities</services-url>
 	<authority-vocab-type>PlaceAuthority</authority-vocab-type>
-	<authority-label>Place</authority-label>
 
 	<supportsReplicating>true</supportsReplicating>
 	<remoteClientConfigName>default</remoteClientConfigName>
