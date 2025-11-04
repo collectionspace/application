@@ -4,6 +4,7 @@
 
 	<services-tenant-auth-singular>Personauthority</services-tenant-auth-singular>
 	<services-tenant-auth-plural>Personauthorities</services-tenant-auth-plural>
+	<services-tenant-auth-display-name>Person</services-tenant-auth-display-name>
 	<services-tenant-singular>Person</services-tenant-singular>
 
 	<services-instances-path>personauthorities_common:http://collectionspace.org/services/person,abstract-common-list/list-item</services-instances-path>
@@ -32,12 +33,12 @@
 		<instance id="person-person">
 			<web-url>person</web-url>
 			<title-ref>person</title-ref>
-			<title>Local Persons</title>
+			<title>Local</title>
 		</instance>
 		<instance id="person-ulan_pa">
 			<web-url>ulan_pa</web-url>
 			<title-ref>ulan_pa</title-ref>
-			<title>ULAN Persons</title>
+			<title>ULAN</title>
 		</instance>
 	</instances>
 

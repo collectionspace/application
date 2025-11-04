@@ -3,13 +3,13 @@
 		<instance id="citation-citation">
 			<web-url>citation</web-url>
 			<title-ref>citation</title-ref>
-			<title>Local Citations</title>
+			<title>Local</title>
 			<nptAllowed>false</nptAllowed>
 		</instance>
 		<instance id="citation-citation_shared">
 			<web-url>citation_shared</web-url>
 			<title-ref>citation_shared</title-ref>
-			<title>Shared Citations</title>
+			<title>Shared</title>
 			<nptAllowed>false</nptAllowed>
 		</instance>
 	</instances>
