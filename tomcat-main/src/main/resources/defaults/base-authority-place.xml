@@ -4,6 +4,7 @@
 
 	<services-tenant-auth-singular>Placeauthority</services-tenant-auth-singular>
 	<services-tenant-auth-plural>Placeauthorities</services-tenant-auth-plural>
+	<services-tenant-auth-display-name>Place</services-tenant-auth-display-name>
 	<services-tenant-singular>Place</services-tenant-singular>
 	<services-tenant-doctype>Placeitem</services-tenant-doctype>
 

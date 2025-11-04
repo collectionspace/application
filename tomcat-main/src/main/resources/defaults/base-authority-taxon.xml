@@ -4,6 +4,7 @@
 
 	<services-tenant-auth-singular>Taxonomyauthority</services-tenant-auth-singular>
 	<services-tenant-auth-plural>Taxonomyauthority</services-tenant-auth-plural>
+	<services-tenant-auth-display-name>Taxon</services-tenant-auth-display-name>
 	<services-tenant-singular>Taxon</services-tenant-singular>
 	<services-tenant-plural>Taxon</services-tenant-plural>
 

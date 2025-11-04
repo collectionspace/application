@@ -4,6 +4,7 @@
 
 	<services-tenant-auth-singular>Materialauthority</services-tenant-auth-singular>
 	<services-tenant-auth-plural>Materialauthorities</services-tenant-auth-plural>
+	<services-tenant-auth-display-name>Material</services-tenant-auth-display-name>
 	<services-tenant-singular>Material</services-tenant-singular>
 	<services-tenant-doctype>Materialitem</services-tenant-doctype>
 

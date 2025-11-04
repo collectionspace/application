@@ -4,6 +4,7 @@
 
 	<services-tenant-auth-singular>Conceptauthority</services-tenant-auth-singular>
 	<services-tenant-auth-plural>Conceptauthorities</services-tenant-auth-plural>
+	<services-tenant-auth-display-name>Concept</services-tenant-auth-display-name>
 	<services-tenant-singular>Concept</services-tenant-singular>
 	<services-tenant-doctype>Conceptitem</services-tenant-doctype>
 

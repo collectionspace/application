@@ -7,6 +7,7 @@
 
 	<services-tenant-auth-singular>Workauthority</services-tenant-auth-singular>
 	<services-tenant-auth-plural>Workauthorities</services-tenant-auth-plural>
+	<services-tenant-auth-display-name>Work</services-tenant-auth-display-name>
 	<services-tenant-singular>Work</services-tenant-singular>
 	<services-tenant-doctype>Workitem</services-tenant-doctype>
 

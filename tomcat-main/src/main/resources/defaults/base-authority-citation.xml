@@ -5,6 +5,7 @@
 
 	<services-tenant-auth-singular>Citationauthority</services-tenant-auth-singular>
 	<services-tenant-auth-plural>Citationauthorities</services-tenant-auth-plural>
+	<services-tenant-auth-display-name>Citation</services-tenant-auth-display-name>
 	<services-tenant-singular>Citation</services-tenant-singular>
 
 	<services-instances-path>citationauthorities_common:http://collectionspace.org/services/citation,abstract-common-list/list-item</services-instances-path>

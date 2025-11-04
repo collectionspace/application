@@ -4,6 +4,7 @@
 
 	<services-tenant-auth-plural>Orgauthorities</services-tenant-auth-plural>
 	<services-tenant-auth-singular>Orgauthority</services-tenant-auth-singular>
+	<services-tenant-auth-display-name>Organization</services-tenant-auth-display-name>
 	<services-tenant-singular>Organization</services-tenant-singular>
 
 	<services-instances-path>orgauthorities_common:http://collectionspace.org/services/organization,abstract-common-list/list-item</services-instances-path>

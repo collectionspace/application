@@ -4,6 +4,7 @@
 
   <services-tenant-auth-plural>Chronologyauthorities</services-tenant-auth-plural>
   <services-tenant-auth-singular>Chronologyauthority</services-tenant-auth-singular>
+	<services-tenant-auth-display-name>Chronology</services-tenant-auth-display-name>
   <services-tenant-singular>Chronology</services-tenant-singular>
   <services-tenant-plural>Chronologies</services-tenant-plural>
 
