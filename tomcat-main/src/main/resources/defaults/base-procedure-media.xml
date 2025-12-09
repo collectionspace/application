@@ -55,7 +55,7 @@
 		</repeat>
 		<field id="rightsHolder" autocomplete="true" />
 		<field id="description" />
-		<field id="altText" />
+		<field id="altText" mini="list" />
 
 		<repeat id="checksumGroupList/checksumGroup">
 			<field id="checksumValue" />
