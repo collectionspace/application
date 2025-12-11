@@ -1,5 +1,13 @@
 # CollectionSpace Application Changelog
 
+## 8.3.0
+
+## Procedures
+
+### Media
+
+* Add `mini="list"` to alt text
+
 ## 8.2.0
 
 ## Procedures
