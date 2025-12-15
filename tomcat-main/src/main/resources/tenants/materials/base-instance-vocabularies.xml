@@ -526,6 +526,8 @@
 			<option id="repository">repository</option>
 			<option id="studio">studio</option>
 			<option id="workshop">workshop</option>
+			<option id="federallyrecognizedtribe">federally-recognized tribe</option>
+			<option id="nonfederallyrecognizedtribe">non-federally-recognized tribe</option>
 		</options>
 	</instance>
 	<instance id="vocab-taxontype">
