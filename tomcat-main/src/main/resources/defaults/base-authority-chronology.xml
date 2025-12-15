@@ -58,7 +58,7 @@
 
     <repeat id="identifierGroupList/identifierGroup">
       <field id="identifierValue" />
-      <field id="identifierCitation" autocomplete="true" ui-type="enum" />
+      <field id="identifierCitation" autocomplete="true" />
       <field id="identifierDate" />
     </repeat>
 
