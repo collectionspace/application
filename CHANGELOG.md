@@ -2,11 +2,25 @@
 
 ## 8.3.0
 
-## Procedures
+### Procedures
 
-### Media
+#### Media
 
 * Add `mini="list"` to alt text
+
+### Term Lists
+
+#### Annotation Type
+
+**All Profiles**
+
+* Update default terms to catalog note, legacy data note, and staff note
+
+#### Organization Types
+
+**Core, Bonsai, BotGarden, FCART, Herbarium, LHMC, Materials**
+
+* Add federally-recognized tribe and non-federally-recognized tribe to default terms
 
 ## 8.2.0
 
