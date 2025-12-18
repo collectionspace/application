@@ -2,6 +2,12 @@
 
 ## 8.3.0
 
+### Authorities
+
+#### Chronology
+
+* Remove `ui-type="enum"` from identifierCitation
+
 ### Procedures
 
 #### Media
