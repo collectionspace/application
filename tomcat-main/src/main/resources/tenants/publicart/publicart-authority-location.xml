@@ -5,12 +5,12 @@
 		<instance id="location-location">
 			<web-url>location</web-url>
 			<title-ref>location</title-ref>
-			<title>Local Storage Locations</title>
+			<title>Local</title>
 		</instance>
 		<instance id="location-offsite_sla">
 			<web-url>offsite_sla</web-url>
 			<title-ref>offsite_sla</title-ref>
-			<title>Offsite Storage Locations</title>
+			<title>Offsite</title>
 		</instance>
 	</instances>
 

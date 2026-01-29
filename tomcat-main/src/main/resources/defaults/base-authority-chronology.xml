@@ -4,6 +4,7 @@
 
   <services-tenant-auth-plural>Chronologyauthorities</services-tenant-auth-plural>
   <services-tenant-auth-singular>Chronologyauthority</services-tenant-auth-singular>
+	<services-tenant-auth-display-name>Chronology</services-tenant-auth-display-name>
   <services-tenant-singular>Chronology</services-tenant-singular>
   <services-tenant-plural>Chronologies</services-tenant-plural>
 
@@ -31,12 +32,12 @@
     <instance id="chronology-era">
       <web-url>era</web-url>
       <title-ref>era</title-ref>
-      <title>Era Chronologies</title>
+      <title>Era</title>
     </instance>
     <instance id="chronology-event">
       <web-url>event</web-url>
       <title-ref>event</title-ref>
-      <title>Event Chronologies</title>
+      <title>Event</title>
     </instance>
   </instances>
 
@@ -57,7 +58,7 @@
 
     <repeat id="identifierGroupList/identifierGroup">
       <field id="identifierValue" />
-      <field id="identifierCitation" autocomplete="true" ui-type="enum" />
+      <field id="identifierCitation" autocomplete="true" />
       <field id="identifierDate" />
     </repeat>
 

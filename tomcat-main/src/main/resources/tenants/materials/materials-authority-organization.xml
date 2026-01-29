@@ -3,13 +3,13 @@
 		<instance id="organization-organization">
 			<web-url>organization</web-url>
 			<title-ref>organization</title-ref>
-			<title>Local Organizations</title>
+			<title>Local</title>
 			<nptAllowed>false</nptAllowed>
 		</instance>
 		<instance id="organization-organization_shared">
 			<web-url>organization_shared</web-url>
 			<title-ref>organization_shared</title-ref>
-			<title>Shared Organizations</title>
+			<title>Shared</title>
 			<nptAllowed>false</nptAllowed>
 		</instance>
 	</instances>

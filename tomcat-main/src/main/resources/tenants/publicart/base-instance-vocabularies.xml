@@ -1327,15 +1327,9 @@
 		<title-ref>annotationtype</title-ref>
 		<title>Annotation Type</title>
 		<options>
-			<option id="additional_taxa">additional taxa</option>
-			<option id="deaccession">deaccession</option>
-			<option id="holotype_location">holotype location</option>
-			<option id="image_made">image made</option>
-			<option id="nomenclature">nomenclature</option>
-			<option id="number_collision">number collision</option>
-			<option id="population_biology">population biology</option>
-			<option id="type">type</option>
-			<option id="vegetation_type_map_project">Vegetation Type Map Project</option>
+			<option id="catalognote">catalog note</option>
+			<option id="legacydatanote">legacy data note</option>
+			<option id="staffnote">staff note</option>
 		</options>
 	</instance>
 	<instance id="vocab-insurancetype">

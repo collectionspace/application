@@ -5,6 +5,7 @@
 
 	<services-tenant-auth-singular>Citationauthority</services-tenant-auth-singular>
 	<services-tenant-auth-plural>Citationauthorities</services-tenant-auth-plural>
+	<services-tenant-auth-display-name>Citation</services-tenant-auth-display-name>
 	<services-tenant-singular>Citation</services-tenant-singular>
 
 	<services-instances-path>citationauthorities_common:http://collectionspace.org/services/citation,abstract-common-list/list-item</services-instances-path>
@@ -30,12 +31,12 @@
 		<instance id="citation-citation">
 			<web-url>citation</web-url>
 			<title-ref>citation</title-ref>
-			<title>Local Citations</title>
+			<title>Local</title>
 		</instance>
 		<instance id="citation-worldcat">
 			<web-url>worldcat</web-url>
 			<title-ref>worldcat</title-ref>
-			<title>WorldCat Citations</title>
+			<title>WorldCat</title>
 		</instance>
 	</instances>
 

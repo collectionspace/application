@@ -4,6 +4,7 @@
 
 	<services-tenant-auth-singular>Taxonomyauthority</services-tenant-auth-singular>
 	<services-tenant-auth-plural>Taxonomyauthority</services-tenant-auth-plural>
+	<services-tenant-auth-display-name>Taxon</services-tenant-auth-display-name>
 	<services-tenant-singular>Taxon</services-tenant-singular>
 	<services-tenant-plural>Taxon</services-tenant-plural>
 
@@ -31,12 +32,12 @@
 		<instance id="taxon-taxon">
 			<web-url>taxon</web-url>
 			<title-ref>taxon</title-ref>
-			<title>Local Taxa</title>
+			<title>Local</title>
 		</instance>
 		<instance id="taxon-common_ta">
 			<web-url>common_ta</web-url>
 			<title-ref>common_ta</title-ref>
-			<title>Common Taxa</title>
+			<title>Common</title>
 		</instance>
 	</instances>
 

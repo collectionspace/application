@@ -716,7 +716,6 @@ public class ServiceBindingsGeneration {
      * @param thisns
      * @param isAuthority
      */
-
 	private void doDocHandlerParams(Record r, Element el, Namespace nsservices2, Boolean isAuthority) {
 		//<service:DocHandlerParams>
 		Element dhele = el.addElement(new QName("DocHandlerParams", nsservices2));
@@ -902,6 +901,7 @@ public class ServiceBindingsGeneration {
 		bindingsForAuthority.addAttribute("id", r.getServicesTenantAuthPl());
 		bindingsForAuthority.addAttribute("type", RECORD_TYPE_UTILITY);
 		bindingsForAuthority.addAttribute("version", serviceBindingVersion);
+		bindingsForAuthority.addAttribute("displayName", r.getServicesTenantAuthDisplayName());
 		bindingsForAuthority.addAttribute(Record.SUPPORTS_REPLICATING, Boolean.toString(r.supportsReplicating()));
 		bindingsForAuthority.addAttribute(Record.REQUIRES_UNIQUE_SHORTID, Boolean.TRUE.toString());
 		String remoteClientConfigName = r.getRemoteClientConfigName();
@@ -952,7 +952,7 @@ public class ServiceBindingsGeneration {
 			doDocHandlerParams(r, el, this.nsservices, isAuthority);
 
 			//<service:AuthorityInstanceList>
-			if (isAuthority == true || r.isType(RECORD_TYPE_VOCABULARY) == true) {
+			if (isAuthority || r.isType(RECORD_TYPE_VOCABULARY)) {
 				doAuthorityInstanceList(r, el, this.nsservices);
 			}
 

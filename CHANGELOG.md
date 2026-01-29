@@ -1,5 +1,42 @@
 # CollectionSpace Application Changelog
 
+## 8.3.0
+
+### Authorities
+
+#### Chronology
+
+* Remove `ui-type="enum"` from identifierCitation
+
+### Procedures
+
+#### CollectionObject
+
+* **Anthro** Add material/technique description free text field
+
+#### Media
+
+* Add `mini="list"` to alt text
+
+### Term Lists
+
+#### Annotation Type
+
+**All Profiles**
+
+* Update default terms to catalog note, legacy data note, and staff note
+
+#### Organization Types
+
+**Core, Bonsai, BotGarden, FCART, Herbarium, LHMC, Materials**
+
+* Add federally-recognized tribe and non-federally-recognized tribe to default terms
+
+### Misc
+
+* Added SMTP environment variables
+* Added displayName to tenant binding output for authority records
+
 ## 8.2.0
 
 ## Procedures

@@ -37,6 +37,7 @@
 
 			<field id="commingledRemainsNote" section="anthro" />
 		</repeat>
+		<field id="materialTechniqueDescription" section="anthro" />
 	</section>
 
 	<section id="objectProductionInformation">

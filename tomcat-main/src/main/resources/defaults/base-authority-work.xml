@@ -7,6 +7,7 @@
 
 	<services-tenant-auth-singular>Workauthority</services-tenant-auth-singular>
 	<services-tenant-auth-plural>Workauthorities</services-tenant-auth-plural>
+	<services-tenant-auth-display-name>Work</services-tenant-auth-display-name>
 	<services-tenant-singular>Work</services-tenant-singular>
 	<services-tenant-doctype>Workitem</services-tenant-doctype>
 
@@ -33,12 +34,12 @@
 		<instance id="work-work" create-unreferenced="true">
 			<web-url>work</web-url>
 			<title-ref>work</title-ref>
-			<title>Local Works</title>
+			<title>Local</title>
 		</instance>
 		<instance id="work-cona_work" create-unreferenced="true">
 			<web-url>cona_work</web-url>
 			<title-ref>cona_work</title-ref>
-			<title>CONA Works</title>
+			<title>CONA</title>
 		</instance>
 	</instances>
 
