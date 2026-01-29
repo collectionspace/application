@@ -10,6 +10,10 @@
 
 ### Procedures
 
+#### CollectionObject
+
+* **Anthro** Add material/technique description free text field
+
 #### Media
 
 * Add `mini="list"` to alt text
@@ -27,6 +31,11 @@
 **Core, Bonsai, BotGarden, FCART, Herbarium, LHMC, Materials**
 
 * Add federally-recognized tribe and non-federally-recognized tribe to default terms
+
+### Misc
+
+* Added SMTP environment variables
+* Added displayName to tenant binding output for authority records
 
 ## 8.2.0
 
