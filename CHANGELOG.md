@@ -13,6 +13,7 @@
 #### CollectionObject
 
 * **Anthro** Add material/technique description free text field
+* Add repeating autocomplete field `controlledContentPlaces/controlledContentPlace`
 
 #### Media
 
