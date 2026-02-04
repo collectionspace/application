@@ -254,6 +254,9 @@
 			<repeat id="contentPersons">
 				<field id="contentPerson" autocomplete="true" />
 			</repeat>
+			<repeat id="controlledContentPlaces">
+				<field id="controlledContentPlace" autocomplete="true" />
+			</repeat>
 			<repeat id="contentPlaces">
 				<field id="contentPlace" />
 			</repeat>
