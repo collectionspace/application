@@ -10,12 +10,16 @@
 
 ### Procedures
 
-#### CollectionObject
+#### Acquisition
+
+* Add free text field `acquisitionDescription`
+
+### CollectionObject
 
 * **Anthro** Add material/technique description free text field
 * Add repeating autocomplete field `controlledContentPlaces/controlledContentPlace`
 
-#### Media
+### Media
 
 * Add `mini="list"` to alt text
 
@@ -40,7 +44,7 @@
 
 ## 8.2.0
 
-## Procedures
+### Procedures
 
 ### CollectionObject
 
@@ -62,12 +66,12 @@
 
 * Add field `note`
 
-## Profiles
+### Profiles
 
-### Anthro
+#### Anthro
 
 * Remove `anthroOwnershipAccess` from `CollectionObject`
 
-### FCART
+#### FCART
 
 * Add `deaccessionreason` term list to fcart profile instance vocabularies
