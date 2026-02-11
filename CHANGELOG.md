@@ -13,6 +13,11 @@
 #### Acquisition
 
 * Add free text field `acquisitionDescription`
+* Add parties involved group `partiesInvovledGroupList/partiesInvolvedGroup`
+
+#### Deaccession
+
+* Add parties involved group `partiesInvovledGroupList/partiesInvolvedGroup`
 
 ### CollectionObject
 
