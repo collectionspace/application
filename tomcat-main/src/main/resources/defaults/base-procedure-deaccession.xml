@@ -36,6 +36,12 @@
     <repeat id="exitMethods">
       <field id="exitMethod" autocomplete="true" ui-type="enum" />
     </repeat>
+
+    <repeat id="partiesInvolvedGroupList/partiesInvolvedGroup">
+      <field id="involvedParty" autocomplete="true" />
+      <field id="involvedOnBehalfOf" autocomplete="true" />
+      <field id="involvedRole" autocomplete="true" ui-type="enum" />
+    </repeat>
   </section>
 
 </record>
