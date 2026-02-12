@@ -15,6 +15,10 @@
 * Add free text field `acquisitionDescription`
 * Add parties involved group `partiesInvovledGroupList/partiesInvolvedGroup`
 
+#### Consultation
+
+* Add repeatable field `consultationOutcomes/consultationOutcome`
+
 #### Deaccession
 
 * Add parties involved group `partiesInvovledGroupList/partiesInvolvedGroup`

@@ -35,6 +35,10 @@
       <field id="consultDate" datatype="date" />
       <field id="consultNote" />
     </repeat>
+
+    <repeat id="consultationOutcomes">
+      <field id="consultationOutcome" />
+    </repeat>
   </section>
 
 </record>
