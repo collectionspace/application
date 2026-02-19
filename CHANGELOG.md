@@ -40,9 +40,15 @@
 
 * Update default terms to catalog note, legacy data note, and staff note
 
+#### Inventory Status
+
+**Core, Anthro, Bonsai, BotGarden, FCART, Herbarium, LHMC, Materials**
+
+* Update default terms to deaccessions, in storage, missing, off site, on loan, and on display
+
 #### Organization Types
 
-**Core, Bonsai, BotGarden, FCART, Herbarium, LHMC, Materials**
+**Core, Anthro, Bonsai, BotGarden, FCART, Herbarium, LHMC, Materials**
 
 * Add federally-recognized tribe and non-federally-recognized tribe to default terms
 
