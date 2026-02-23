@@ -46,6 +46,12 @@
 
 * Update default terms to deaccessions, in storage, missing, off site, on loan, and on display
 
+#### NAGPRA Involved Role
+
+**FCART**
+
+* Added existing default terms to profile
+
 #### Organization Types
 
 **Core, Anthro, Bonsai, BotGarden, FCART, Herbarium, LHMC, Materials**
