@@ -1492,4 +1492,15 @@
 			<option id="tribal_representative">tribal representative</option>
 		</options>
 	</instance>
+	<instance id="vocab-nagprainvolvedrole">
+		<web-url>nagprainvolvedrole</web-url>
+		<title-ref>nagprainvolvedrole</title-ref>
+		<title>NAGPRA Involved Role</title>
+		<options>
+			<option id="tribal_rep">tribal representative</option>
+			<option id="museum_rep">museum representative</option>
+			<option id="consultant">consultant</option>
+			<option id="lineal_descendant">lineal descendant</option>
+		</options>
+	</instance>
 </instances>
