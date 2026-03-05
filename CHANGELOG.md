@@ -48,7 +48,7 @@
 
 #### NAGPRA Involved Role
 
-**FCART**
+**FCART, Materials, PublicArt**
 
 * Added existing default terms to profile
 
