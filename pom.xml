@@ -46,7 +46,6 @@
 		<module>cspi-installation</module>
 
 		<module>tomcat-main</module>
-		<module>war-entry</module>
 	</modules>
 
 	<repositories>
