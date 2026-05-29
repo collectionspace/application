@@ -93,7 +93,6 @@ public class UserDetailsReset implements WebMethod {
 	    else{
 	    	recipients[0] = ed.getToAddress();
 	    }
-	    Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
 	    boolean debug = false;
        
 	    Properties props = new Properties();
