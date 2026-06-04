@@ -11,6 +11,7 @@
 	<properties>
 		<revision>9.0.0-SNAPSHOT</revision>
 		<cspace.services.version>${revision}</cspace.services.version>
+		<java.version>17</java.version>
 		<temp.war.location>${basedir}/tmp</temp.war.location>
 		<cspace.tool.csmake>csmake</cspace.tool.csmake>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -45,7 +46,6 @@
 		<module>cspi-installation</module>
 
 		<module>tomcat-main</module>
-		<module>war-entry</module>
 	</modules>
 
 	<repositories>
@@ -230,19 +230,9 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.1</version>
+					<version>3.15.0</version>
 					<configuration>
-						<source>1.7</source>
-						<target>1.7</target>
-						<optimize>true</optimize>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.mortbay.jetty</groupId>
-					<artifactId>maven-jetty-plugin</artifactId>
-					<version>6.1.26</version>
-					<configuration>
-						<contextPath>chain</contextPath>
+						<release>${java.version}</release>
 					</configuration>
 				</plugin>
 			</plugins>
