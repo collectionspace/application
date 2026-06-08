@@ -121,9 +121,9 @@
 			<field id="comment" datatype="largetext" />
 		</repeat>
 		<field id="computedCurrentLocation" authref-in-services="true" />
-		<repeat id="homeStorageLocationGroupList/homeStorageLocationGroup">
-			<field id="homeStorageLocation" autocomplete="true" mini="list" />
-			<field id="homeStorageLocationNote" />
+		<repeat id="homeLocationGroupList/homeLocationGroup">
+			<field id="homeLocation" autocomplete="true" mini="list" />
+			<field id="homeLocationNote" />
 		</repeat>
 
 		<repeat id="publishToList" services-type-anonymous="false">
