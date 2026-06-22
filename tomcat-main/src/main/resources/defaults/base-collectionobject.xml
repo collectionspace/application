@@ -122,7 +122,7 @@
 		</repeat>
 		<field id="computedCurrentLocation" authref-in-services="true" />
 		<repeat id="homeLocationGroupList/homeLocationGroup">
-			<field id="homeLocation" autocomplete="true" mini="list" />
+			<field id="homeLocation" autocomplete="true" />
 			<field id="homeLocationNote" />
 		</repeat>
 
