@@ -1,5 +1,11 @@
 # CollectionSpace Application Changelog
 
+## 9.0.0
+
+### CollectionObject
+
+* Add home location group `homeLocationGroupList/homeLocationGroup`
+
 ## 8.3.0
 
 ### Authorities

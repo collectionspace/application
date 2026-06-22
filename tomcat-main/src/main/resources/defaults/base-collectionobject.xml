@@ -121,6 +121,10 @@
 			<field id="comment" datatype="largetext" />
 		</repeat>
 		<field id="computedCurrentLocation" authref-in-services="true" />
+		<repeat id="homeLocationGroupList/homeLocationGroup">
+			<field id="homeLocation" autocomplete="true" />
+			<field id="homeLocationNote" />
+		</repeat>
 
 		<repeat id="publishToList" services-type-anonymous="false">
 			<field id="publishTo" autocomplete="true" ui-type="enum" />
