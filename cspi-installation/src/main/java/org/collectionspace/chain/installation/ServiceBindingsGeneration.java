@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
 
+import org.apache.commons.io.FileUtils;
 import org.collectionspace.chain.csp.persistence.services.TenantSpec;
 import org.collectionspace.chain.csp.persistence.services.TenantSpec.RemoteClient;
 import org.collectionspace.chain.csp.schema.EmailData;
@@ -16,6 +17,7 @@ import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Option;
+import org.collectionspace.chain.csp.schema.PasswordComplexityData;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.chain.csp.schema.Spec;
@@ -31,7 +33,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.commons.io.FileUtils;
 
 public class ServiceBindingsGeneration {
 	private static final Logger log = LoggerFactory.getLogger(ServiceBindingsGeneration.class);
@@ -199,6 +200,8 @@ public class ServiceBindingsGeneration {
 
 		// Set the bindings for email notifications
 		makeEmailBindings(ele);
+
+		makePasswordComplexityBindings(ele);
 
 		makeUiBindings(ele);
 
@@ -452,7 +455,6 @@ public class ServiceBindingsGeneration {
 				// into seconds; otherwise, ignore the 'daysvalid' field and use the configured 'tokenExpirationSeconds' value.
 				//
 				Element ele = passwordResetElement.addElement(new QName("tokenExpirationSeconds", nstenant));
-				Integer secondsValid = emailData.getTokenExpirationDays() * 60 * 60 * 24; // Convert days into seconds
 				ele.addText(emailData.getTokenExpirationSeconds().toString());
 			}
 
@@ -469,6 +471,86 @@ public class ServiceBindingsGeneration {
 			if (emailData.getPasswordResetMessage() != null) {
 				Element ele = passwordResetElement.addElement(new QName("message", nstenant));
 				ele.addText(emailData.getPasswordResetMessage());
+			}
+		}
+	}
+
+	private void makePasswordComplexityBindings(Element tenantBindings) {
+		PasswordComplexityData passwordComplexityData = spec.getPasswordComplexityData();
+		if (passwordComplexityData != null && passwordComplexityData.isEnabled()) {
+			final var root = tenantBindings.addElement(new QName("passwordComplexity", nstenant));
+
+			// passwordComplexity/allowWhitespace
+			root.addElement(new QName("allowWhitespace"))
+				.addText(String.valueOf(passwordComplexityData.isAllowWhitespace()));
+
+			// passwordComplexity/minLength
+			passwordComplexityData.getMinLength().ifPresent(minLength ->
+				root.addElement(new QName("minLength", nstenant))
+					.addText(String.valueOf(minLength))
+			);
+
+			// passwordComplexity/characterRules/{minLowerCase,minUpperCase,minDigits,minSpecial}
+			Element characterRuleParent;
+			final var minLowerCase = passwordComplexityData.getMinLowerCase();
+			final var minUpperCase = passwordComplexityData.getMinUpperCase();
+			final var minDigits = passwordComplexityData.getMinDigits();
+			final var minSpecial = passwordComplexityData.getMinSpecial();
+			final var hasCharacterRules = minLowerCase.isPresent() ||
+										  minUpperCase.isPresent() ||
+										  minDigits.isPresent() ||
+										  minSpecial.isPresent();
+			if (hasCharacterRules) {
+				characterRuleParent = root.addElement(new QName("characterRules", nstenant));
+				passwordComplexityData.getMinLowerCase().ifPresent(minimum -> {
+					characterRuleParent.addElement(new QName("minLowerCase", nstenant))
+									   .addText(String.valueOf(minimum));
+				});
+				passwordComplexityData.getMinUpperCase().ifPresent(minimum -> {
+					characterRuleParent.addElement(new QName("minUpperCase", nstenant))
+									   .addText(String.valueOf(minimum));
+				});
+				passwordComplexityData.getMinDigits().ifPresent(minimum -> {
+					characterRuleParent.addElement(new QName("minDigits", nstenant))
+									   .addText(String.valueOf(minimum));
+				});
+				passwordComplexityData.getMinSpecial().ifPresent(minimum -> {
+					characterRuleParent.addElement(new QName("minSpecial", nstenant))
+									   .addText(String.valueOf(minimum));
+				});
+			}
+
+			// passwordComplexity/characterClassRules
+			final var minClassesRequired = passwordComplexityData.getMinCharacterClasses();
+			final var classesRequired = passwordComplexityData.getCharacterClasses();
+			minClassesRequired.ifPresent(classesRequiredInt -> {
+				if (classesRequiredInt <= classesRequired.size()) {
+					final var ccElement = root.addElement(new QName("characterClassRules"));
+					ccElement.addElement(new QName("minClassesRequired", nstenant))
+							 .addText(String.valueOf(classesRequiredInt));
+					ccElement.addElement(new QName("classesRequired", nstenant))
+							 .addText(String.join(",", classesRequired));
+				} else {
+					log.error("Invalid character class rule found: require {} of {}",
+							  classesRequiredInt, classesRequired);
+				}
+			});
+
+			// passwordComplexity/illegalSequences/illegalSequence
+			final var illegalSequences = passwordComplexityData.getIllegalSequences();
+			if (!illegalSequences.isEmpty()) {
+				final var isRoot = root.addElement(new QName("illegalSequences", nstenant));
+				illegalSequences.forEach(illegalSequence -> {
+					if (illegalSequence.getCharacterClass() != null && !illegalSequence.getCharacterClass().isEmpty()) {
+						final var sequenceElement = isRoot.addElement(new QName("illegalSequence", nstenant));
+						sequenceElement.addElement(new QName("characterClass", nstenant))
+									   .addText(illegalSequence.getCharacterClass());
+						sequenceElement.addElement(new QName("length", nstenant))
+									   .addText(String.valueOf(illegalSequence.getLength()));
+					} else {
+						log.error("Null or empty character class found for sequence; validate settings.xml");
+					}
+				});
 			}
 		}
 	}
