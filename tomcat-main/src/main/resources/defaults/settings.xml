@@ -46,6 +46,7 @@
         </passwordreset>
     </email>
     <password-complexity>
+        <enabled>true</enabled>
         <min-length>6</min-length>
         <character-rules>
             <min-lower-case>1</min-lower-case>
@@ -53,6 +54,10 @@
             <min-digit>1</min-digit>
             <min-special>1</min-special>
         </character-rules>
+        <character-class-rules>
+          <min-required>4</min-required>
+          <character-classes>lowercase,uppercase,digit,special</character-classes>
+        </character-class-rules>
         <illegal-sequences>
             <illegal-sequence>
                 <character-class>alphabetical</character-class>
