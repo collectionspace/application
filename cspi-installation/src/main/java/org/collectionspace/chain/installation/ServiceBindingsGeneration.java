@@ -481,7 +481,7 @@ public class ServiceBindingsGeneration {
 			final var root = tenantBindings.addElement(new QName("passwordComplexity", nstenant));
 
 			// passwordComplexity/allowWhitespace
-			root.addElement(new QName("allowWhitespace"))
+			root.addElement(new QName("allowWhitespace", nstenant))
 				.addText(String.valueOf(passwordComplexityData.isAllowWhitespace()));
 
 			// passwordComplexity/minLength
@@ -525,7 +525,7 @@ public class ServiceBindingsGeneration {
 			final var classesRequired = passwordComplexityData.getCharacterClasses();
 			minClassesRequired.ifPresent(classesRequiredInt -> {
 				if (classesRequiredInt <= classesRequired.size()) {
-					final var ccElement = root.addElement(new QName("characterClassRules"));
+					final var ccElement = root.addElement(new QName("characterClassRules", nstenant));
 					ccElement.addElement(new QName("minClassesRequired", nstenant))
 							 .addText(String.valueOf(classesRequiredInt));
 					ccElement.addElement(new QName("classesRequired", nstenant))
