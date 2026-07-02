@@ -478,11 +478,11 @@ public class ServiceBindingsGeneration {
 	private void makePasswordComplexityBindings(Element tenantBindings) {
 		PasswordComplexityData passwordComplexityData = spec.getPasswordComplexityData();
 		if (passwordComplexityData != null && passwordComplexityData.isEnabled()) {
-			final var root = tenantBindings.addElement(new QName("passwordComplexity", nstenant));
+			final var root = tenantBindings.addElement(new QName("passwordRequirementConfig", nstenant));
 
-			// passwordComplexity/allowWhitespace
-			root.addElement(new QName("allowWhitespace", nstenant))
-				.addText(String.valueOf(passwordComplexityData.isAllowWhitespace()));
+			// passwordComplexity/enabled
+			root.addElement(new QName("enabled", nstenant))
+				.addText(String.valueOf(passwordComplexityData.isEnabled()));
 
 			// passwordComplexity/minLength
 			passwordComplexityData.getMinLength().ifPresent(minLength ->
@@ -490,68 +490,21 @@ public class ServiceBindingsGeneration {
 					.addText(String.valueOf(minLength))
 			);
 
-			// passwordComplexity/characterRules/{minLowerCase,minUpperCase,minDigits,minSpecial}
-			Element characterRuleParent;
-			final var minLowerCase = passwordComplexityData.getMinLowerCase();
-			final var minUpperCase = passwordComplexityData.getMinUpperCase();
-			final var minDigits = passwordComplexityData.getMinDigits();
-			final var minSpecial = passwordComplexityData.getMinSpecial();
-			final var hasCharacterRules = minLowerCase.isPresent() ||
-										  minUpperCase.isPresent() ||
-										  minDigits.isPresent() ||
-										  minSpecial.isPresent();
-			if (hasCharacterRules) {
-				characterRuleParent = root.addElement(new QName("characterRules", nstenant));
-				passwordComplexityData.getMinLowerCase().ifPresent(minimum -> {
-					characterRuleParent.addElement(new QName("minLowerCase", nstenant))
-									   .addText(String.valueOf(minimum));
-				});
-				passwordComplexityData.getMinUpperCase().ifPresent(minimum -> {
-					characterRuleParent.addElement(new QName("minUpperCase", nstenant))
-									   .addText(String.valueOf(minimum));
-				});
-				passwordComplexityData.getMinDigits().ifPresent(minimum -> {
-					characterRuleParent.addElement(new QName("minDigits", nstenant))
-									   .addText(String.valueOf(minimum));
-				});
-				passwordComplexityData.getMinSpecial().ifPresent(minimum -> {
-					characterRuleParent.addElement(new QName("minSpecial", nstenant))
-									   .addText(String.valueOf(minimum));
-				});
-			}
+			// passwordComplexity/requireLowerCase
+			root.addElement(new QName("requireLowerCase", nstenant))
+				.addText(String.valueOf(passwordComplexityData.requireLowerCase()));
 
-			// passwordComplexity/characterClassRules
-			final var minClassesRequired = passwordComplexityData.getMinCharacterClasses();
-			final var classesRequired = passwordComplexityData.getCharacterClasses();
-			minClassesRequired.ifPresent(classesRequiredInt -> {
-				if (classesRequiredInt <= classesRequired.size()) {
-					final var ccElement = root.addElement(new QName("characterClassRules", nstenant));
-					ccElement.addElement(new QName("minClassesRequired", nstenant))
-							 .addText(String.valueOf(classesRequiredInt));
-					ccElement.addElement(new QName("classesRequired", nstenant))
-							 .addText(String.join(",", classesRequired));
-				} else {
-					log.error("Invalid character class rule found: require {} of {}",
-							  classesRequiredInt, classesRequired);
-				}
-			});
+			// passwordComplexity/requireUpperCase
+			root.addElement(new QName("requireUpperCase", nstenant))
+				.addText(String.valueOf(passwordComplexityData.requireUpperCase()));
 
-			// passwordComplexity/illegalSequences/illegalSequence
-			final var illegalSequences = passwordComplexityData.getIllegalSequences();
-			if (!illegalSequences.isEmpty()) {
-				final var isRoot = root.addElement(new QName("illegalSequences", nstenant));
-				illegalSequences.forEach(illegalSequence -> {
-					if (illegalSequence.getCharacterClass() != null && !illegalSequence.getCharacterClass().isEmpty()) {
-						final var sequenceElement = isRoot.addElement(new QName("illegalSequence", nstenant));
-						sequenceElement.addElement(new QName("characterClass", nstenant))
-									   .addText(illegalSequence.getCharacterClass());
-						sequenceElement.addElement(new QName("length", nstenant))
-									   .addText(String.valueOf(illegalSequence.getLength()));
-					} else {
-						log.error("Null or empty character class found for sequence; validate settings.xml");
-					}
-				});
-			}
+			// passwordComplexity/requireDigit
+			root.addElement(new QName("requireDigit", nstenant))
+				.addText(String.valueOf(passwordComplexityData.requireDigit()));
+
+			// passwordComplexity/requireLowerCase
+			root.addElement(new QName("requireSpecial", nstenant))
+				.addText(String.valueOf(passwordComplexityData.requireSpecial()));
 		}
 	}
 

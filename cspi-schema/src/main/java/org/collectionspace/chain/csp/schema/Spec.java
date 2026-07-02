@@ -124,19 +124,6 @@ public class Spec implements CSP, Configurable {
 						  }
 					  });
 
-		rules.addRule(SECTION_PREFIX + "password-complexity",
-					  new String[] {"illegal-sequences", "illegal-sequence"},
-					  SECTION_PREFIX + "illegal-sequence",
-					  null,
-					  new RuleTarget() {
-						  @Override
-						  public Object populate(Object parent, ReadOnlySection section) {
-							  final var sequence = new PasswordComplexityData.IllegalSequence(section);
-							  passwordComplexityData.addIllegalSequence(sequence);
-							  return this;
-						  }
-					  });
-
 
 		rules.addRule(SECTIONED,new String[]{"ui"},SECTION_PREFIX+"ui",null,new RuleTarget(){
 			@Override

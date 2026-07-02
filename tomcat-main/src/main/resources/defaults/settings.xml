@@ -48,31 +48,10 @@
     <password-complexity>
         <enabled>true</enabled>
         <min-length>6</min-length>
-        <character-rules>
-            <min-lower-case>1</min-lower-case>
-            <min-upper-case>1</min-upper-case>
-            <min-digit>1</min-digit>
-            <min-special>1</min-special>
-        </character-rules>
-        <character-class-rules>
-          <min-required>4</min-required>
-          <character-classes>lowercase,uppercase,digit,special</character-classes>
-        </character-class-rules>
-        <illegal-sequences>
-            <illegal-sequence>
-                <character-class>alphabetical</character-class>
-                <length>5</length>
-            </illegal-sequence>
-            <illegal-sequence>
-                <character-class>numeric</character-class>
-                <length>5</length>
-            </illegal-sequence>
-            <illegal-sequence>
-                <character-class>qwerty</character-class>
-                <length>5</length>
-            </illegal-sequence>
-        </illegal-sequences>
-        <allow-whitespace>false</allow-whitespace>
+        <require-lower-case>true</require-lower-case>
+        <require-upper-case>true</require-upper-case>
+        <require-digit>true</require-digit>
+        <require-special>true</require-special>
     </password-complexity>
     <persistence>
         <service>
