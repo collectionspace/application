@@ -61,7 +61,7 @@
 		<repository>
 			<id>cspace-libs-release-local</id>
 			<name>cspace-libs-release-local</name>
-			<url>https://cspace-program-production-cdn-cspace-maven.s3-us-west-2.amazonaws.com/libs-release-local</url>
+			<url>https://cspace-maven.collectionspace.org/libs-release-local</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
