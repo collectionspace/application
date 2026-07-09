@@ -69,7 +69,7 @@
 		<repository>
 			<id>cspace-libs-snapshot-local</id>
 			<name>cspace-libs-snapshot-local</name>
-			<url>https://cspace-program-production-cdn-cspace-maven.s3-us-west-2.amazonaws.com/libs-snapshot-local</url>
+			<url>https://cspace-maven.collectionspace.org/libs-snapshot-local</url>
 			<releases>
 				<enabled>false</enabled>
 			</releases>
@@ -92,7 +92,7 @@
 		<pluginRepository>
 			<id>cspace-plugins-release-local</id>
 			<name>cspace-plugins-release-local</name>
-			<url>https://cspace-program-production-cdn-cspace-maven.s3-us-west-2.amazonaws.com/plugins-release-local</url>
+			<url>https://cspace-maven.collectionspace.org/plugins-release-local</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
