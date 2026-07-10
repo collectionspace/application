@@ -46,7 +46,7 @@
         </passwordreset>
     </email>
     <password-complexity>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
         <min-length>6</min-length>
         <require-lower-case>true</require-lower-case>
         <require-upper-case>true</require-upper-case>

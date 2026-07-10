@@ -1,8 +1,5 @@
 package org.collectionspace.chain.csp.schema;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 import org.collectionspace.chain.csp.config.ReadOnlySection;

@@ -502,7 +502,7 @@ public class ServiceBindingsGeneration {
 			root.addElement(new QName("requireDigit", nstenant))
 				.addText(String.valueOf(passwordComplexityData.requireDigit()));
 
-			// passwordComplexity/requireLowerCase
+			// passwordComplexity/requireSpecial
 			root.addElement(new QName("requireSpecial", nstenant))
 				.addText(String.valueOf(passwordComplexityData.requireSpecial()));
 		}
