@@ -6,6 +6,10 @@
 
 * Add home location group `homeLocationGroupList/homeLocationGroup`
 
+### Media
+
+* Add repeatable field `priorityImageList/priorityImage`
+
 ## 8.3.0
 
 ### Authorities

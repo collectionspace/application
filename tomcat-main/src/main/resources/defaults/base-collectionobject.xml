@@ -134,6 +134,10 @@
 			<field id="inventoryStatus" autocomplete="true" ui-type="enum" />
 		</repeat>
 
+		<repeat id="priorityImageList" services-type-anonymous="false">
+			<field id="priorityImage" />
+		</repeat>
+
 		<repeat id="titleGroupList/titleGroup">
 			<field id="title" mini="list" />
 			<field id="titleLanguage" autocomplete="true" ui-type="enum" />
