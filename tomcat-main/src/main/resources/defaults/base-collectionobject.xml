@@ -134,8 +134,8 @@
 			<field id="inventoryStatus" autocomplete="true" ui-type="enum" />
 		</repeat>
 
-		<repeat id="priorityImageList" services-type-anonymous="false">
-			<field id="priorityImage" />
+		<repeat id="mediaPriorityList" services-type-anonymous="false">
+			<field id="mediaPriority" />
 		</repeat>
 
 		<repeat id="titleGroupList/titleGroup">

@@ -8,7 +8,7 @@
 
 ### Media
 
-* Add repeatable field `priorityImageList/priorityImage`
+* Add repeatable field `mediaPriorityList/mediaPriority`
 
 ## 8.3.0
 
