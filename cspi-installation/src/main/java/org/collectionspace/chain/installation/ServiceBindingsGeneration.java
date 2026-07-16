@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
 
+import org.apache.commons.io.FileUtils;
 import org.collectionspace.chain.csp.persistence.services.TenantSpec;
 import org.collectionspace.chain.csp.persistence.services.TenantSpec.RemoteClient;
 import org.collectionspace.chain.csp.schema.EmailData;
@@ -16,6 +17,7 @@ import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Option;
+import org.collectionspace.chain.csp.schema.PasswordComplexityData;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.chain.csp.schema.Spec;
@@ -31,7 +33,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.commons.io.FileUtils;
 
 public class ServiceBindingsGeneration {
 	private static final Logger log = LoggerFactory.getLogger(ServiceBindingsGeneration.class);
@@ -199,6 +200,8 @@ public class ServiceBindingsGeneration {
 
 		// Set the bindings for email notifications
 		makeEmailBindings(ele);
+
+		makePasswordComplexityBindings(ele);
 
 		makeUiBindings(ele);
 
@@ -452,7 +455,6 @@ public class ServiceBindingsGeneration {
 				// into seconds; otherwise, ignore the 'daysvalid' field and use the configured 'tokenExpirationSeconds' value.
 				//
 				Element ele = passwordResetElement.addElement(new QName("tokenExpirationSeconds", nstenant));
-				Integer secondsValid = emailData.getTokenExpirationDays() * 60 * 60 * 24; // Convert days into seconds
 				ele.addText(emailData.getTokenExpirationSeconds().toString());
 			}
 
@@ -470,6 +472,39 @@ public class ServiceBindingsGeneration {
 				Element ele = passwordResetElement.addElement(new QName("message", nstenant));
 				ele.addText(emailData.getPasswordResetMessage());
 			}
+		}
+	}
+
+	private void makePasswordComplexityBindings(Element tenantBindings) {
+		PasswordComplexityData passwordComplexityData = spec.getPasswordComplexityData();
+		if (passwordComplexityData != null && passwordComplexityData.isEnabled()) {
+			final var root = tenantBindings.addElement(new QName("passwordRequirementConfig", nstenant));
+
+			// passwordComplexity/enabled
+			root.addElement(new QName("enabled", nstenant))
+				.addText(String.valueOf(passwordComplexityData.isEnabled()));
+
+			// passwordComplexity/minLength
+			passwordComplexityData.getMinLength().ifPresent(minLength ->
+				root.addElement(new QName("minLength", nstenant))
+					.addText(String.valueOf(minLength))
+			);
+
+			// passwordComplexity/requireLowerCase
+			root.addElement(new QName("requireLowerCase", nstenant))
+				.addText(String.valueOf(passwordComplexityData.requireLowerCase()));
+
+			// passwordComplexity/requireUpperCase
+			root.addElement(new QName("requireUpperCase", nstenant))
+				.addText(String.valueOf(passwordComplexityData.requireUpperCase()));
+
+			// passwordComplexity/requireDigit
+			root.addElement(new QName("requireDigit", nstenant))
+				.addText(String.valueOf(passwordComplexityData.requireDigit()));
+
+			// passwordComplexity/requireSpecial
+			root.addElement(new QName("requireSpecial", nstenant))
+				.addText(String.valueOf(passwordComplexityData.requireSpecial()));
 		}
 	}
 

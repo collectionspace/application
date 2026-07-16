@@ -283,33 +283,6 @@
 			        </execution>
 			    </executions>
 			</plugin>
-			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.8</version>
-				<executions>
-					<execution>
-						<id>check-environment-vars</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<tasks>
-								<!-- <fail unless="${env.JEE_PORT}"
-									message="Required environment variable JEE_PORT has not been set.  Use 8180 as a default value." /> -->
-								<property environment="env"></property>
-								<fail message="Failed to set JEE_PORT environment variable.  Set it using 8180 as a default value.">
-									<condition>
-										<not>
-											<isset property="env.JEE_PORT"></isset>
-										</not>
-									</condition>
-								</fail>
-							</tasks>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

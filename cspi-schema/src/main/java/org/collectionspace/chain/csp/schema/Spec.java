@@ -62,6 +62,7 @@ public class Spec implements CSP, Configurable {
 	private EmailData ed;
 	private AdminData adminData;
 	private UiData uiData;
+	private PasswordComplexityData passwordComplexityData;
 
 	@Override
 	public String getName() { return "schema"; }
@@ -113,6 +114,16 @@ public class Spec implements CSP, Configurable {
 				return this;
 			}
 		});
+
+		rules.addRule(SECTIONED, new String[] {"password-complexity"}, SECTION_PREFIX + "password-complexity", null,
+					  new RuleTarget() {
+						  @Override
+						  public Object populate(Object parent, ReadOnlySection section) {
+							  passwordComplexityData = new PasswordComplexityData(section);
+							  return this;
+						  }
+					  });
+
 
 		rules.addRule(SECTIONED,new String[]{"ui"},SECTION_PREFIX+"ui",null,new RuleTarget(){
 			@Override
@@ -443,6 +454,10 @@ public class Spec implements CSP, Configurable {
 			}
 		});
 
+	}
+
+	public PasswordComplexityData getPasswordComplexityData() {
+		return passwordComplexityData;
 	}
 
 	public EmailData getEmailData() { return ed.getEmailData(); }
