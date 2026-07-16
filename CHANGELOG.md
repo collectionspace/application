@@ -2,6 +2,14 @@
 
 ## 9.0.0
 
+### Build
+
+* Update to JDK 21
+
+### Settings
+
+* Add password complexity requirements to tenant settings.xml
+
 ### CollectionObject
 
 * Add home location group `homeLocationGroupList/homeLocationGroup`
