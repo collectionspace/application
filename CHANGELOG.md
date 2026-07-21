@@ -10,6 +10,10 @@
 
 * Add password complexity requirements to tenant settings.xml
 
+### Acquisition
+
+* Add alternative identifier group `alternativeIdentifierGroupList/alternativeIdentifierGroup`
+
 ### CollectionObject
 
 * Add home location group `homeLocationGroupList/homeLocationGroup`
