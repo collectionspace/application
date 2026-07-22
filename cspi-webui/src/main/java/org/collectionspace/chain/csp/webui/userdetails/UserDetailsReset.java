@@ -8,7 +8,6 @@ package org.collectionspace.chain.csp.webui.userdetails;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.Security;
 import java.util.Date;
 import java.util.Properties;
 
