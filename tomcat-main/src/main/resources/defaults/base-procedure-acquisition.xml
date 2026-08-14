@@ -14,6 +14,10 @@
 
 	<section id="acquisitionInformation">
 		<field id="acquisitionReferenceNumber" mini="number,list" />
+		<repeat id="alternativeIdentifierGroupList/alternativeIdentifierGroup">
+			<field id="alternativeIdentifier" />
+			<field id="alternativeIdentifierNote" />
+		</repeat>
 		<field id="accessionDateGroup" ui-type="groupfield/structureddate">
 		</field>
 		<field id="acquisitionAuthorizer" autocomplete="true" />

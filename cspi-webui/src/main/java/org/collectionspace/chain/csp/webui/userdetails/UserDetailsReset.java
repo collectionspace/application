@@ -8,7 +8,6 @@ package org.collectionspace.chain.csp.webui.userdetails;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.Security;
 import java.util.Date;
 import java.util.Properties;
 
@@ -93,7 +92,6 @@ public class UserDetailsReset implements WebMethod {
 	    else{
 	    	recipients[0] = ed.getToAddress();
 	    }
-	    Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
 	    boolean debug = false;
        
 	    Properties props = new Properties();

@@ -1,5 +1,27 @@
 # CollectionSpace Application Changelog
 
+## 9.0.0
+
+### Build
+
+* Update to JDK 21
+
+### Settings
+
+* Add password complexity requirements to tenant settings.xml
+
+### Acquisition
+
+* Add alternative identifier group `alternativeIdentifierGroupList/alternativeIdentifierGroup`
+
+### CollectionObject
+
+* Add home location group `homeLocationGroupList/homeLocationGroup`
+
+### Media
+
+* Add repeatable field `mediaPriorityList/mediaPriority`
+
 ## 8.3.0
 
 ### Authorities

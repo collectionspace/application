@@ -9,6 +9,7 @@ tomcat-main/plugins/
 tomcat-main/nb-configuration.xml
 tomcat-main/nbactions-debug.xml
 cspi-schema/dumpedTrees/
+cspi-schema/logs/
 *.bak
 target/
 .DS_Store

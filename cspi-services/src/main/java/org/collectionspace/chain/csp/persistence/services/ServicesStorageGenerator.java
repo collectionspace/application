@@ -155,7 +155,7 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 				String tenantId = (String)milestone.getValue("/tenantId");
 				String tenantName = (String)milestone.getValue("/tenantName");
 
-				RemoteClient remoteClient = tenantSpec.new RemoteClient(name, url, username, password, ssl, auth, tenantId, tenantName);
+				RemoteClient remoteClient = new TenantSpec.RemoteClient(name, url, username, password, ssl, auth, tenantId, tenantName);
 				tenantSpec.addRemoteClient(remoteClient);
 
 				return this;

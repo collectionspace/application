@@ -51,7 +51,7 @@ public class TenantSpec {
 	private Set<String> defaultlanguages = new LinkedHashSet<String>();
 	private Set<String> defaultdateformats = new LinkedHashSet<String>();
 	
-	public class RemoteClient {
+	public static class RemoteClient {
 		private String name;
 		private String url;
 		private String user;
